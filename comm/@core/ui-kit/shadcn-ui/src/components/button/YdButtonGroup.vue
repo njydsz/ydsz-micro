@@ -26,7 +26,7 @@ withDefaults(
   <div
     :class="
       cn(
-        'YDSZ-button-group rounded-md',
+        'yd-button-group rounded-md',
         `size-${size}`,
         gap ? 'with-gap' : 'no-gap',
         $attrs.class as string,
@@ -39,7 +39,7 @@ withDefaults(
 </template>
 
 <style lang="scss" scoped>
-.YDSZ-button-group {
+.yd-button-group {
   display: inline-flex;
 
   &.size-large :deep(button) {

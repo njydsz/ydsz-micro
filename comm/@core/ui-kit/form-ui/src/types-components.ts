@@ -18,7 +18,7 @@ import type { FormContext, GenericObject } from 'vee-validate';
 
 import type { ClassType, MaybeComputedRef } from '@ydsz-core/typings';
 
-import type { YDSZButtonProps } from '@ydsz-core/shadcn-ui';
+import type { YdButtonProps } from '@ydsz-core/shadcn-ui';
 
 import type {
   ArrayToStringFields,
@@ -123,12 +123,12 @@ import type { Component } from 'vue';
  * 表单操作按钮（提交 / 重置）的配置。
  *
  * @remarks
- * 继承 {@link YDSZButtonProps}，故按钮的尺寸、类型、loading 等原生能力均可直接透传；
+ * 继承 {@link YdButtonProps}，故按钮的尺寸、类型、loading 等原生能力均可直接透传；
  * 索引签名的存在意味着**多余的属性不会被类型系统拦截**，会原样透传到按钮组件，
  * 拼错 prop 名时不会有编译错误，只表现为配置不生效。
  * 使用 unknown 作为索引签名类型以支持任意透传属性。
  */
-export interface ActionButtonOptions extends YDSZButtonProps {
+export interface ActionButtonOptions extends YdButtonProps {
   [key: string]: unknown;
   /**
    * 按钮文案。支持传 ref 或 getter，以便在切换语言时自动更新；

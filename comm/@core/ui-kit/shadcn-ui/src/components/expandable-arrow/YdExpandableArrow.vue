@@ -24,7 +24,7 @@ const collapsed = defineModel({ default: false });
 
 <template>
   <div
-    :class="cn('YDSZ-link inline-flex cursor-pointer items-center', props.class)"
+    :class="cn('yd-link inline-flex cursor-pointer items-center', props.class)"
     role="button"
     tabindex="0"
     :aria-expanded="!collapsed"

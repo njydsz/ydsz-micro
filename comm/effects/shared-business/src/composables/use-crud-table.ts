@@ -1,7 +1,7 @@
 /**
  * use-crud-table 组合式函数 — 通用 CRUD 列表页 Hook
  *
- * @path comm\effects\shared-business\src\composables\use-crud-table.ts
+ * @path comm/effects/shared-business/src/composables/use-crud-table.ts
  * @author ydsz-team
  * @since 1.1.0
  *
@@ -9,11 +9,13 @@
  * 整合服务端分页 + 删除确认 + 刷新 + 新增/编辑弹窗控制，
  * 对标 Vben Admin useTable 的能力子集，让标准 CRUD 页面少于 200 行。
  * v4.0.1: 内置 i18n 支持，消除硬编码中文。
+ *
+ * 使用 @ydsz/notification 的 ElMessage / ElMessageBox EP 兼容层，零 element-plus 依赖。
  */
 import { computed, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
-import { ElMessage, ElMessageBox } from 'element-plus';
+import { ElMessage, ElMessageBox } from '@ydsz/notification';
 
 import {
   useServerPagination,
@@ -118,34 +120,33 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
   const selectedRows = ref<T[]>([]);
 
   /** 打开新增弹窗 */
-  function openCreate() {
+  function openCreate(): void {
     editingRow.value = null;
     dialogVisible.value = true;
   }
 
   /** 打开编辑弹窗 */
-  function openEdit(row: T) {
+  function openEdit(row: T): void {
     editingRow.value = row;
     dialogVisible.value = true;
   }
 
   /** 关闭弹窗 */
-  function closeDialog() {
+  function closeDialog(): void {
     dialogVisible.value = false;
     editingRow.value = null;
   }
 
   /** 保存成功回调（关闭弹窗并刷新） */
-  async function onSaved() {
+  async function onSaved(): Promise<void> {
     closeDialog();
     await fetchData();
   }
 
   /** 删除（带确认） */
-  async function handleDelete(row: T) {
+  async function handleDelete(row: T): Promise<void> {
     if (!deleteFetcher) return;
-    const msg =
-      deleteMessage?.(row) ?? t('crud.confirmDeleteDefault');
+    const msg = deleteMessage?.(row) ?? t('crud.confirmDeleteDefault');
     try {
       await ElMessageBox.confirm(msg, t('crud.deleteConfirmTitle'), {
         type: 'warning',
@@ -172,7 +173,7 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
   }
 
   /** 批量删除 */
-  async function handleBatchDelete() {
+  async function handleBatchDelete(): Promise<void> {
     if (!deleteFetcher || selectedRows.value.length === 0) return;
     try {
       await ElMessageBox.confirm(

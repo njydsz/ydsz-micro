@@ -107,7 +107,7 @@ function handleScroll(event: Event) {
   <ScrollArea
     :class="[cn(props.class), computedShadowClasses]"
     :on-scroll="handleScroll"
-    class="YDSZ-scrollbar relative"
+    class="yd-scrollbar relative"
     role="region"
     aria-label="可滚动区域"
   >
@@ -137,7 +137,7 @@ function handleScroll(event: Event) {
 </template>
 
 <style scoped>
-.YDSZ-scrollbar {
+.yd-scrollbar {
   &:not(.both-shadow).left-shadow {
     mask-image: linear-gradient(90deg, transparent, #000 16px);
   }

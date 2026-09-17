@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YDSZButtonProps } from './button';
+import type { YdButtonProps } from './button';
 
 import { computed } from 'vue';
 
@@ -20,7 +20,7 @@ import { Primitive } from 'radix-vue';
 
 import { buttonVariants } from '../../ui';
 
-type Props = YDSZButtonProps;
+type Props = YdButtonProps;
 
 const props = withDefaults(defineProps<Props>(), {
   as: 'button',

@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import type { AuthPageLayoutType } from '@ydsz/types';
 
-import type { YDSZDropdownMenuItem } from '@ydsz-core/shadcn-ui';
+import type { YdDropdownMenuItem } from '@ydsz-core/shadcn-ui';
 
 import { computed } from 'vue';
 
@@ -26,7 +26,7 @@ defineOptions({
   name: 'AuthenticationLayoutToggle',
 });
 
-const menus = computed((): YDSZDropdownMenuItem[] => [
+const menus = computed((): YdDropdownMenuItem[] => [
   {
     icon: PanelLeft,
     label: $t('authentication.layout.alignLeft'),

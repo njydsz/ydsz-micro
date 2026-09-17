@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import type {
   DropdownMenuProps,
-  YDSZDropdownMenuItem as IDropdownMenuItem,
+  YdDropdownMenuItem as IDropdownMenuItem,
 } from './interface';
 
 import {

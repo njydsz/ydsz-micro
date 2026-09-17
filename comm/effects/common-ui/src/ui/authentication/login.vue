@@ -133,7 +133,7 @@ defineExpose({
 
       <span
         v-if="showForgetPassword"
-        class="YDSZ-link text-sm font-normal"
+        class="yd-link text-sm font-normal"
         @click="handleGo(forgetPasswordPath)"
       >
         {{ $t('authentication.forgetPassword') }}
@@ -182,7 +182,7 @@ defineExpose({
       <div v-if="showRegister" class="mt-3 text-center text-sm">
         {{ $t('authentication.accountTip') }}
         <span
-          class="YDSZ-link text-sm font-normal"
+          class="yd-link text-sm font-normal"
           @click="handleGo(registerPath)"
         >
           {{ $t('authentication.createAccount') }}

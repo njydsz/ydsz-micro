@@ -27,12 +27,12 @@ const style = computed(() => {
 });
 </script>
 <template>
-  <div :style="style" class="YDSZ-spine-text !bg-clip-text text-transparent">
+  <div :style="style" class="yd-spine-text !bg-clip-text text-transparent">
     <slot></slot>
   </div>
 </template>
 <style>
-.YDSZ-spine-text {
+.yd-spine-text {
   background-color: #000;
   background-image: radial-gradient(circle at center, rgb(255 255 255 / 80%), #f000);
   background-position: -200% 50%;
@@ -42,7 +42,7 @@ const style = computed(() => {
   /* animation: shine 3s linear infinite; */
 }
 
-.dark .YDSZ-spine-text {
+.dark .yd-spine-text {
   background-color: #f4f4f4;
   background-image: radial-gradient(circle at center, rgb(24 24 26 / 80%), transparent);
   background-position: -200% 50%;

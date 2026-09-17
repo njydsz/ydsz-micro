@@ -73,7 +73,7 @@ const formSchema = computed((): YDSZFormSchema[] => {
             h(
               'a',
               {
-                class: 'YDSZ-link ml-1 ',
+                class: 'yd-link ml-1 ',
                 href: '',
               },
               `${$t('authentication.privacyPolicy')} & ${$t('authentication.terms')}`,

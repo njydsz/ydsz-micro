@@ -17,6 +17,7 @@ export { default as YdEmptyState } from './empty-state.vue';
 export { default as ErrorBoundary } from './error-boundary.vue';
 export { default as ErrorFeedback } from './error-feedback.vue';
 export { default as ErrorState } from './error-state.vue';
+export * from './form-controls';
 export * from './icon-picker';
 export * from './json-viewer';
 export * from './loading';

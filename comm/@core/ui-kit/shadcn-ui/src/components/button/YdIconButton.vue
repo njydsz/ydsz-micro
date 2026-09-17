@@ -10,7 +10,7 @@
 -->
 <script setup lang="ts">
 import type { ButtonVariants } from '../../ui';
-import type { YDSZButtonProps } from './button';
+import type { YdButtonProps } from './button';
 
 import { computed, useSlots } from 'vue';
 
@@ -19,7 +19,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { YdTooltip } from '../tooltip';
 import YdButton from './button.vue';
 
-interface Props extends YDSZButtonProps {
+interface Props extends YdButtonProps {
   class?: any;
   disabled?: boolean;
   onClick?: () => void;
