@@ -37,7 +37,6 @@
     "@ydsz/utils": "workspace:*",
     "@ydsz-core/ydsz-ui": "workspace:*",
     "dayjs": "catalog:",
-    "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:",
@@ -45,7 +44,6 @@
   },
   "devDependencies": {
     "vite": "catalog:",
-    "unplugin-element-plus": "catalog:",
     "@vue/test-utils": "catalog:",
     "vitest": "catalog:",
     "happy-dom": "catalog:",

@@ -8,6 +8,7 @@
  * @author ydsz-team
  * @since 26.09.17
  */
+import { ref } from 'vue';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useColumnDrag } from './use-column-drag';
@@ -20,7 +21,6 @@ describe('useColumnDrag', () => {
   ];
 
   beforeEach(() => {
-    // Mock document.querySelectorAll for getColumnIndexAt
     vi.spyOn(document, 'querySelectorAll').mockReturnValue([] as unknown as NodeListOf<Element>);
     vi.spyOn(document, 'addEventListener').mockImplementation(() => {});
     vi.spyOn(document, 'removeEventListener').mockImplementation(() => {});
@@ -39,19 +39,18 @@ describe('useColumnDrag', () => {
     expect(dragState.value.toIndex).toBe(-1);
   });
 
-  it('指针按下时应记录起始索引', () => {
+  it('指针按下时应注册事件监听器', () => {
     const onReorder = vi.fn();
     const { onPointerDown } = useColumnDrag(columns, onReorder);
 
     const event = {
-      pointerId: 1,
       clientX: 10,
       clientY: 20,
+      pointerId: 1,
     } as PointerEvent;
 
     onPointerDown(event, 1);
 
-    // addEventListener 应被调用以注册 pointermove/pointerup
     expect(document.addEventListener).toHaveBeenCalledWith('pointermove', expect.any(Function));
     expect(document.addEventListener).toHaveBeenCalledWith('pointerup', expect.any(Function));
   });
@@ -63,41 +62,26 @@ describe('useColumnDrag', () => {
     });
 
     const event = {
-      pointerId: 1,
       clientX: 10,
       clientY: 20,
+      pointerId: 1,
     } as PointerEvent;
 
     onPointerDown(event, 1);
 
-    // canDrag 为 false 时不注册事件
     expect(document.addEventListener).not.toHaveBeenCalled();
   });
 
-  it('拖动超过阈值后应设置 isDragging', () => {
-    const onReorder = vi.fn();
-    const { dragState, onPointerDown } = useColumnDrag(columns, onReorder, {
-      threshold: 4,
-    });
-
-    // Mock getBoundingClientRect for target index detection
-    const mockTh1 = { getBoundingClientRect: () => ({ left: 0, right: 100 }) } as unknown as HTMLElement;
-    const mockTh2 = { getBoundingClientRect: () => ({ left: 100, right: 200 }) } as unknown as HTMLElement;
-    vi.spyOn(document, 'querySelectorAll').mockReturnValue([mockTh1, mockTh2] as unknown as NodeListOf<Element>);
-
-    onPointerDown({ pointerId: 1, clientX: 10, clientY: 20 } as PointerEvent, 0);
-
-    // 模拟大幅移动（超过阈值）
-    // 注意：handlePointerMove 绑定到 document，这里直接调用内部逻辑较难
-    // 简化验证：threshold 以内的移动不触发状态变化
-    expect(dragState.value.isDragging).toBe(false);
-  });
-
-  it('columns 为 ref 时能正确读取', () => {
-    const { ref } = require('vue');
+  it('columns 为 ref 时应能正确读取初始状态', () => {
     const colRef = ref(columns);
     const onReorder = vi.fn();
     const { dragState } = useColumnDrag(colRef, onReorder);
+    expect(dragState.value.isDragging).toBe(false);
+  });
+
+  it('columns 为 getter 函数时应能正确读取', () => {
+    const onReorder = vi.fn();
+    const { dragState } = useColumnDrag(() => columns, onReorder);
     expect(dragState.value.isDragging).toBe(false);
   });
 });

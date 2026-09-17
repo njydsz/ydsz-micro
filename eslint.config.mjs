@@ -29,6 +29,8 @@ config.unshift({
     // 不再通过主仓 ESLint 项目 lint（避免 chrome.* no-undef 误报与 any 禁令冲突）。
     'chrome/**/*.ts',
     'chrome/dist/**',
+    // Mock Service Worker（npm msw 库产物，不可转 TS）
+    '**/public/mockServiceWorker.js',
   ],
 });
 

@@ -34,3 +34,12 @@ export type { ColumnDragState, UseColumnDragOptions } from './use-column-drag';
 
 export { useTableColumnStorage } from './use-table-column-storage';
 export type { StoredColumnConfig } from './use-table-column-storage';
+
+export { useTreeVirtual } from './use-tree-virtual';
+export type {
+  FlatTreeNode,
+  LazyLoadContext,
+  UseTreeVirtualOptions,
+  TreeVirtualHandle,
+  VirtualTreeNode,
+} from './use-tree-virtual';

@@ -37,8 +37,6 @@
     "@ydsz/utils": "workspace:*",
     "axios": "catalog:",
     "dayjs": "catalog:",
-    "@element-plus/icons-vue": "catalog:",
-    "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:",
@@ -47,8 +45,7 @@
   "devDependencies": {
     "vite": "catalog:",
     "@faker-js/faker": "catalog:",
-    "msw": "catalog:",
-    "unplugin-element-plus": "catalog:"
+    "msw": "catalog:"
   },
   "license": "MIT",
   "msw": {

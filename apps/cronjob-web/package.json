@@ -16,7 +16,6 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "catalog:",
     "@vueuse/core": "catalog:",
     "@ydsz/access": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
@@ -39,15 +38,13 @@
     "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "dayjs": "catalog:",
-    "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:",
     "vue-router": "catalog:"
   },
   "devDependencies": {
-    "vite": "catalog:",
-    "unplugin-element-plus": "catalog:"
+    "vite": "catalog:"
   },
   "license": "MIT"
 }

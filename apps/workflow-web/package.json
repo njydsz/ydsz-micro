@@ -38,15 +38,13 @@
     "@ydsz-core/ydsz-ui": "workspace:*",
     "dayjs": "catalog:",
     "echarts": "catalog:",
-    "element-plus": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:",
     "vue-router": "catalog:"
   },
   "devDependencies": {
-    "vite": "catalog:",
-    "unplugin-element-plus": "catalog:"
+    "vite": "catalog:"
   },
   "license": "MIT"
 }
