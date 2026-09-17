@@ -70,7 +70,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleRevoke(row) }, () => '撤销'),
+          h(Button, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleRevoke(row) }, () => '撤销'),
         ]),
       },
     },
@@ -145,7 +145,7 @@ async function handleRevoke(row: ApiKeyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="API Key 管理">
-      <template #toolbar-tools><ElButton type="primary" @click="handleAdd">新增</ElButton></template>
+      <template #toolbar-tools><Button variant="default" @click="handleAdd">新增</Button></template>
     </Grid>
     <ApiKeyFormModal @success="gridApi.query()" />
   </Page>

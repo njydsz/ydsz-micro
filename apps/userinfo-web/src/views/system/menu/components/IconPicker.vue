@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElDialog, ElInput, ElScrollbar } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/shadcn-ui';
 import { computed, ref } from 'vue';
 
 defineOptions({ name: 'IconPicker' });
@@ -743,56 +743,52 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <ElDialog
-    v-model="visible"
-    title="选择图标"
-    width="700px"
-    :close-on-click-modal="true"
-    @close="close"
-  >
-    <div class="icon-picker">
-      <!-- 搜索框 -->
-      <div class="mb-4">
-        <ElInput
-          v-model="searchKeyword"
-          placeholder="搜索图标名称..."
-          clearable
-          prefix-icon="lucide:search"
-        />
-      </div>
+  <Dialog v-model:open="visible">
+    <DialogContent class="max-w-[700px]">
+      <DialogHeader>
+        <DialogTitle>选择图标</DialogTitle>
+      </DialogHeader>
+      <div class="icon-picker">
+        <!-- 搜索框 -->
+        <div class="mb-4">
+          <Input
+            v-model="searchKeyword"
+            placeholder="搜索图标名称..."
+          />
+        </div>
 
-      <!-- 图标网格 -->
-      <ElScrollbar max-height="400px">
-        <div class="grid grid-cols-8 gap-2 p-1">
-          <div
-            v-for="icon in filteredIcons"
-            :key="icon.name"
-            class="icon-item flex cursor-pointer flex-col items-center justify-center rounded border p-2 hover:border-blue-500 hover:bg-blue-50"
-            :class="{ 'border-blue-500 bg-blue-50': selectedIcon === icon.name }"
-            :title="icon.label"
-            @click="selectIcon(icon)"
-          >
-            <span class="text-lg">{{ icon.name }}</span>
-            <span class="mt-1 truncate text-xs text-gray-500">{{ icon.label }}</span>
+        <!-- 图标网格 -->
+        <div class="max-h-[400px] overflow-y-auto">
+          <div class="grid grid-cols-8 gap-2 p-1">
+            <div
+              v-for="icon in filteredIcons"
+              :key="icon.name"
+              class="icon-item flex cursor-pointer flex-col items-center justify-center rounded border border-border-subtle p-2 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
+              :class="{ 'border-blue-500 bg-blue-50 dark:bg-blue-950': selectedIcon === icon.name }"
+              :title="icon.label"
+              @click="selectIcon(icon)"
+            >
+              <span class="text-lg">{{ icon.name }}</span>
+              <span class="mt-1 truncate text-xs text-muted-foreground">{{ icon.label }}</span>
+            </div>
+          </div>
+          <div v-if="filteredIcons.length === 0" class="py-8 text-center text-muted-foreground">
+            未找到匹配的图标
           </div>
         </div>
-        <div v-if="filteredIcons.length === 0" class="py-8 text-center text-gray-400">
-          未找到匹配的图标
-        </div>
-      </ElScrollbar>
+      </div>
 
-      <!-- 底部操作 -->
-      <div class="mt-4 flex justify-between border-t pt-3">
-        <span class="text-sm text-gray-500">
+      <DialogFooter class="gap-2 sm:justify-between">
+        <span class="text-sm text-muted-foreground">
           共 {{ filteredIcons.length }} 个图标
         </span>
         <div class="flex gap-2">
-          <ElButton size="small" @click="clearSelection">清除选择</ElButton>
-          <ElButton size="small" @click="close">取消</ElButton>
+          <Button size="sm" variant="ghost" @click="clearSelection">清除选择</Button>
+          <Button size="sm" variant="outline" @click="close">取消</Button>
         </div>
-      </div>
-    </div>
-  </ElDialog>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style scoped>

@@ -129,9 +129,9 @@ onMounted(loadHealth);
         <template #header>
           <div class="flex items-center justify-between">
             <span class="text-sm font-medium text-gray-700">{{ card.name }}</span>
-            <ElTag :type="statusTagType(card.isOk)" size="small" effect="plain">
+            <Badge :variant="statusTagType(card.isOk) === 'success' ? 'default' : 'destructive'" size="sm">
               {{ card.status }}
-            </ElTag>
+            </Badge>
           </div>
         </template>
         <ElDescriptions v-if="Object.keys(card.details).length" :column="1" size="small">

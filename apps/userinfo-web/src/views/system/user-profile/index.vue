@@ -20,7 +20,8 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElCol, ElForm, ElFormItem, ElImage, ElInput, ElRow, ElSwitch, ElTabPane, ElTabs, ElUpload, type FormInstance, type UploadRequestOptions } from 'element-plus';
+import { Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
+import { ElForm, ElFormItem, ElInput, ElSwitch, type FormInstance, type UploadRequestOptions } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import {
@@ -268,12 +269,18 @@ loadMfaStatus();
 
 <template>
   <Page auto-content-height>
-    <ElCard shadow="never" class="mx-4 my-3">
-      <ElTabs v-model="activeTab">
+    <Card shadow="never" class="mx-4 my-3">
+      <CardContent class="pt-6">
+      <Tabs v-model="activeTab">
         <!-- 基本信息 -->
-        <ElTabPane label="基本信息" name="profile">
-          <ElRow :gutter="32">
-            <ElCol :xs="24" :md="16">
+        <TabsList class="grid w-full grid-cols-3">
+          <TabsTrigger value="profile">基本信息</TabsTrigger>
+          <TabsTrigger value="password">修改密码</TabsTrigger>
+          <TabsTrigger value="mfa">MFA设置</TabsTrigger>
+        </TabsList>
+        <TabsContent value="profile">
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
+            <div class="md:col-span-4">
               <ElForm
                 ref="profileFormRef"
                 :model="profileForm"
@@ -298,7 +305,7 @@ loadMfaStatus();
                 </ElFormItem>
               </ElForm>
             </ElCol>
-            <ElCol :xs="24" :md="8" class="flex flex-col items-center gap-3">
+            <div class="md:col-span-1 flex flex-col items-center gap-3">
               <ElImage
                 v-if="avatarUrl"
                 :src="avatarUrl"
@@ -306,7 +313,7 @@ loadMfaStatus();
                 :preview-src-list="[avatarUrl]"
                 fit="cover"
               />
-              <div v-else class="flex h-24 w-24 items-center justify-center rounded-full border-2 border-dashed bg-gray-50 text-gray-400">
+              <div v-else class="flex h-24 w-24 items-center justify-center rounded-full border-2 border-dashed bg-muted text-muted-foreground">
                 <span class="text-xs">无头像</span>
               </div>
               <ElUpload
@@ -314,17 +321,17 @@ loadMfaStatus();
                 accept="image/png,image/jpeg,image/jpg,image/gif"
                 :http-request="handleAvatarUpload"
               >
-                <ElButton size="small" type="primary">上传头像</ElButton>
+                <Button size="sm" variant="default">上传头像</Button>
               </ElUpload>
-              <span class="text-xs text-gray-400">支持 PNG/JPG/GIF，建议 200x200</span>
-            </ElCol>
-          </ElRow>
-        </ElTabPane>
+              <span class="text-xs text-muted-foreground">支持 PNG/JPG/GIF，建议 200x200</span>
+            </div>
+          </div>
+        </TabsContent>
 
         <!-- 修改密码 -->
-        <ElTabPane label="修改密码" name="password">
-          <ElRow :gutter="32">
-            <ElCol :xs="24" :md="16">
+        <TabsContent value="password">
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
+            <div class="md:col-span-4">
               <ElForm
                 ref="passwordFormRef"
                 :model="passwordForm"
@@ -345,14 +352,14 @@ loadMfaStatus();
                   <ElButton type="primary" :loading="isPasswordLoading" @click="handleChangePassword">修改密码</ElButton>
                 </ElFormItem>
               </ElForm>
-            </ElCol>
-          </ElRow>
-        </ElTabPane>
+            </div>
+          </div>
+        </TabsContent>
 
         <!-- MFA设置 -->
-        <ElTabPane label="MFA设置" name="mfa">
-          <ElRow :gutter="32">
-            <ElCol :xs="24" :md="16">
+        <TabsContent value="mfa">
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
+            <div class="md:col-span-4">
               <div class="mb-4">
                 <span class="mr-2 text-sm text-gray-600">MFA状态：</span>
                 <ElSwitch
@@ -369,7 +376,10 @@ loadMfaStatus();
                   <p class="mb-4 text-sm text-gray-500">
                     双因素认证（MFA）为您的账号增加额外的安全保障。启用后，登录时需输入Authenticator应用生成的6位动态码。
                   </p>
-                  <ElButton type="primary" :loading="isMfaLoading" @click="handleSetupMfa">启用MFA</ElButton>
+                  <Button variant="default" :disabled="isMfaLoading" @click="handleSetupMfa">
+                    <Loader2 v-if="isMfaLoading" class="mr-2 h-4 w-4 animate-spin" />
+                    启用MFA
+                  </Button>
                 </template>
 
                 <!-- MFA 设置引导 -->
@@ -405,8 +415,8 @@ loadMfaStatus();
                       />
                     </ElFormItem>
                     <ElFormItem>
-                      <ElButton type="primary" @click="handleActivateMfa">验证并激活</ElButton>
-                      <ElButton @click="handleCancelMfaSetup">取消</ElButton>
+                      <Button variant="default" @click="handleActivateMfa">验证并激活</Button>
+                      <Button variant="ghost" @click="handleCancelMfaSetup">取消</Button>
                     </ElFormItem>
                   </ElForm>
                 </template>
@@ -415,13 +425,14 @@ loadMfaStatus();
               <!-- 已开启 MFA -->
               <div v-else>
                 <p class="mb-4 text-sm text-gray-500">MFA双因素认证已开启。如不再需要，可点击下方按钮禁用（需二次确认）。</p>
-                <ElButton type="danger" @click="handleDisableMfa">禁用MFA</ElButton>
+                <Button variant="destructive" @click="handleDisableMfa">禁用MFA</Button>
               </div>
-            </ElCol>
-          </ElRow>
-        </ElTabPane>
-      </ElTabs>
-    </ElCard>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+      </CardContent>
+    </Card>
   </Page>
 </template>
 

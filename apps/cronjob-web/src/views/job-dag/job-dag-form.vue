@@ -16,7 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElSelect, ElOption } from 'element-plus';
+import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElInputNumber 暂无 shadcn 对应;保留 element-plus SKIP
+import { ElForm, ElFormItem, ElInputNumber, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -153,15 +155,15 @@ async function handleValidateDag() {
   <Modal :title="title" width="640px">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem label="DAG标识" prop="dagKey">
-        <ElInput v-model="formData.dagKey" placeholder="请输入DAG标识" />
+        <Input v-model="formData.dagKey" placeholder="请输入DAG标识" />
       </ElFormItem>
       <ElFormItem :label="t('business.dagName')" prop="dagName">
-        <ElInput v-model="formData.dagName" placeholder="请输入DAG名称" />
+        <Input v-model="formData.dagName" placeholder="请输入DAG名称" />
       </ElFormItem>
       <ElFormItem label="DSL定义" prop="dagDefinition">
         <div class="flex w-full gap-2">
-          <ElInput v-model="formData.dagDefinition" type="textarea" :rows="6" placeholder="请输入DAG DSL定义" />
-          <ElButton class="shrink-0" @click="handleValidateDag">校验</ElButton>
+          <Textarea v-model="formData.dagDefinition" :rows="6" placeholder="请输入DAG DSL定义" />
+          <Button class="shrink-0" variant="outline" @click="handleValidateDag">校验</Button>
         </div>
       </ElFormItem>
       <ElFormItem label="触发类型" prop="triggerType">
@@ -171,7 +173,7 @@ async function handleValidateDag() {
         </ElSelect>
       </ElFormItem>
       <ElFormItem v-if="formData.triggerType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
-        <ElInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
+        <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
       </ElFormItem>
       <ElFormItem label="最大并发数" prop="maxConcurrentInstances">
         <ElInputNumber v-model="formData.maxConcurrentInstances" :min="1" :max="100" />
@@ -184,7 +186,7 @@ async function handleValidateDag() {
         </ElSelect>
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+        <Textarea v-model="formData.description" :rows="2" placeholder="请输入描述" />
       </ElFormItem>
     </ElForm>
   </Modal>

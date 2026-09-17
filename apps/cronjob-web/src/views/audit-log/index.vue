@@ -220,14 +220,18 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
     <Grid table-title="审计日志" />
 
     <!-- 详情抽屉 -->
-    <ElDrawer v-model="isDetailVisible" title="审计日志详情" size="600px">
-      <template v-if="detailRecord">
+    <Sheet v-model:open="isDetailVisible">
+      <SheetContent side="right" class="w-[600px]">
+        <SheetHeader>
+          <SheetTitle>审计日志详情</SheetTitle>
+        </SheetHeader>
+        <template v-if="detailRecord">
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="模块">
-            <ElTag size="small" type="info">{{ translateAuditType(detailRecord.auditType) }}</ElTag>
+            <Badge size="sm" variant="secondary">{{ translateAuditType(detailRecord.auditType) }}</Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="操作行为">
-            <ElTag size="small">{{ translateAction(detailRecord.action) }}</ElTag>
+            <Badge size="sm">{{ translateAction(detailRecord.action) }}</Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="操作内容" :span="2">
             {{ detailRecord.content ?? '-' }}
@@ -242,6 +246,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <ElDescriptionsItem label="TraceId">{{ detailRecord.traceId ?? '-' }}</ElDescriptionsItem>
         </ElDescriptions>
       </template>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

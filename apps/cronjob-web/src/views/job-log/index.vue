@@ -195,9 +195,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
         <ElDescriptions :column="2" border size="small" class="mb-3">
           <ElDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
-            <ElTag :type="detailLog.status === 'SUCCESS' ? 'success' : 'danger'">{{
+            <Badge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
               detailLog.status ?? '-'
-            }}</ElTag>
+            }}</Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="开始时间">{{ detailLog.startTime ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</ElDescriptionsItem>
@@ -231,8 +231,8 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
         <div class="mb-1 flex items-center gap-2 text-xs text-gray-500">
           <span>实时日志</span>
-          <ElTag v-if="sseConnected" type="success" size="small">已连接</ElTag>
-          <ElTag v-else size="small">已结束</ElTag>
+          <Badge v-if="sseConnected" variant="default" size="sm">已连接</Badge>
+          <Badge v-else variant="secondary" size="sm">已结束</Badge>
         </div>
         <div
           ref="logBodyRef"

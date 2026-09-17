@@ -18,7 +18,10 @@
  * @since 1.0.0
  */
 import type { FormInstance } from 'element-plus';
-import { ElAlert, ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
+import { cn } from '@ydsz-core/shared/utils';
+import { ElAlert, ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createKey } from '#/api/apiKey';
 
@@ -96,39 +99,43 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <ElDialog v-model="visible" title="创建 API Key" width="500px" :close-on-click-modal="false" @close="close">
-    <ElAlert
-      v-if="createdApiKey"
-      type="warning"
-      :closable="false"
-      show-icon
-      class="mb-4"
-      title="请立即保存以下明文 API Key，关闭此弹窗后将无法再次获取！"
-    />
-    <div v-if="createdApiKey" class="mb-4 p-3 bg-gray-100 rounded font-mono text-sm break-all">
-      {{ createdApiKey }}
-    </div>
+  <Dialog v-model:open="visible">
+    <DialogContent :class="cn('max-w-[500px]')">
+      <DialogHeader>
+        <DialogTitle>创建 API Key</DialogTitle>
+      </DialogHeader>
+      <DialogDescription v-if="createdApiKey">
+        <strong class="text-yellow-600 dark:text-yellow-400">请立即保存以下明文 API Key，关闭此弹窗后将无法再次获取！</strong>
+      </DialogDescription>
 
-    <ElForm v-show="!createdApiKey" ref="formRef" :model="form" label-width="100px">
-      <ElFormItem label="Key 名称" prop="keyName" required>
-        <ElInput v-model="form.keyName" placeholder="如 jenkins-deploy" maxlength="64" show-word-limit />
-      </ElFormItem>
-      <ElFormItem label="授权范围" prop="scopes">
-        <ElInput v-model="form.scopes" placeholder="逗号分隔，如 read,write" />
-      </ElFormItem>
-      <ElFormItem label="过期天数" prop="expireDays">
-        <ElInputNumber v-model="form.expireDays" :min="1" :max="3650" placeholder="留空永不过期" class="w-full" />
-      </ElFormItem>
-      <ElFormItem label="限流(次/分)" prop="rateLimit">
-        <ElInputNumber v-model="form.rateLimit" :min="1" :max="10000" placeholder="留空使用默认" class="w-full" />
-      </ElFormItem>
-    </ElForm>
+      <div v-if="createdApiKey" class="mb-4 p-3 bg-muted rounded font-mono text-sm break-all">
+        {{ createdApiKey }}
+      </div>
 
-    <template #footer>
-      <ElButton @click="close">{{ createdApiKey ? '关闭' : '取消' }}</ElButton>
-      <ElButton v-if="!createdApiKey" type="primary" :loading="loading" @click="handleSubmit">创建</ElButton>
-    </template>
-  </ElDialog>
+      <ElForm v-show="!createdApiKey" ref="formRef" :model="form" label-width="100px">
+        <ElFormItem label="Key 名称" prop="keyName" required>
+          <ElInput v-model="form.keyName" placeholder="如 jenkins-deploy" maxlength="64" show-word-limit />
+        </ElFormItem>
+        <ElFormItem label="授权范围" prop="scopes">
+          <ElInput v-model="form.scopes" placeholder="逗号分隔，如 read,write" />
+        </ElFormItem>
+        <ElFormItem label="过期天数" prop="expireDays">
+          <ElInputNumber v-model="form.expireDays" :min="1" :max="3650" placeholder="留空永不过期" class="w-full" />
+        </ElFormItem>
+        <ElFormItem label="限流(次/分)" prop="rateLimit">
+          <ElInputNumber v-model="form.rateLimit" :min="1" :max="10000" placeholder="留空使用默认" class="w-full" />
+        </ElFormItem>
+      </ElForm>
+
+      <DialogFooter class="gap-2">
+        <Button variant="outline" @click="close">{{ createdApiKey ? '关闭' : '取消' }}</Button>
+        <Button v-if="!createdApiKey" :disabled="loading" @click="handleSubmit">
+          <Loader2 v-if="loading" class="mr-2 h-4 w-4 animate-spin" />
+          创建
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style lang="scss" scoped>

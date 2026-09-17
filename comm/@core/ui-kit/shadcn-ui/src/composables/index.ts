@@ -11,3 +11,20 @@ export {
   useRenderPerformance,
 } from './use-render-performance';
 export type { UseRenderPerformanceOptions } from './use-render-performance';
+
+export {
+  useIdleHydrate,
+  useSimpleIdleHydrate,
+} from './use-idle-hydrate';
+export type {
+  IdleHydrateHandle,
+  UseIdleHydrateOptions,
+} from './use-idle-hydrate';
+
+export { useChunkUpload, DEFAULT_CHUNK_SIZE } from './use-chunk-upload';
+export type {
+  ChunkUploadHandle,
+  ChunkUploadOptions,
+  ChunkInfo,
+  ChunkHttpRequestOptions,
+} from './use-chunk-upload';

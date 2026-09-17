@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
@@ -276,15 +276,15 @@ onMounted(() => {
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="分片名称">{{ detailRecord.taskName ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="类型">
-            <ElTag size="small" :type="isRoot(detailRecord) ? 'primary' : 'info'">
+            <Badge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
               {{ isRoot(detailRecord) ? '根任务' : '子任务' }}
-            </ElTag>
+            </Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="状态">
-            <ElTag size="small" :type="taskStatusTagType(detailRecord)">
+            <Badge size="sm" :variant="taskStatusTagType(detailRecord)">
               {{ translateTaskStatus(detailRecord.taskStatus) }}
-            </ElTag>
+            </Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="执行节点">{{ detailRecord.execNodeId ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="重试次数">{{ detailRecord.retryCount ?? 0 }}</ElDescriptionsItem>

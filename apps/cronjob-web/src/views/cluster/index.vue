@@ -77,7 +77,7 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
       slots: {
         default: ({ row }) => {
           const job = row as JobRow;
-          return h(ElTag, { type: isPaused(job) ? 'info' : 'success' }, () =>
+          return h(Badge, { variant: isPaused(job) ? 'secondary' : 'default' }, () =>
             isPaused(job) ? '已暂停' : '运行中',
           );
         },

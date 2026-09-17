@@ -17,7 +17,9 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { ElButton, ElCard, ElCol, ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElRow, ElSelect, ElSwitch, type FormInstance } from 'element-plus';
+import { Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
+import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, type FormInstance } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { get, reset, save } from '#/api/userPreference';
@@ -159,16 +161,18 @@ loadPreferences();
 
 <template>
   <Page auto-content-height>
-    <ElCard shadow="never" class="mx-4 my-3">
-      <template #header>
-        <div class="flex items-center justify-between">
-          <span class="text-base font-medium">偏好设置</span>
-          <div class="flex gap-2">
-            <ElButton @click="handleReset">重置默认</ElButton>
-            <ElButton type="primary" :loading="isLoading" @click="handleSave">保存设置</ElButton>
-          </div>
+    <Card shadow="never" class="mx-4 my-3">
+      <CardHeader class="flex flex-row items-center justify-between">
+        <CardTitle class="text-base">偏好设置</CardTitle>
+        <div class="flex gap-2">
+          <Button variant="ghost" @click="handleReset">重置默认</Button>
+          <Button variant="default" :disabled="isLoading" @click="handleSave">
+            <Loader2 v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
+            保存设置
+          </Button>
         </div>
-      </template>
+      </CardHeader>
+      <CardContent>
 
       <ElForm
         ref="formRef"
@@ -177,13 +181,13 @@ loadPreferences();
         label-width="120px"
         label-position="right"
       >
-        <ElRow :gutter="24">
-          <ElCol :xs="24" :md="12">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div>
             <ElFormItem label="默认首页" prop="defaultIndex">
               <ElInput v-model="formData.defaultIndex" placeholder="如 /dashboard" maxlength="128" />
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="语言设置" prop="language">
               <ElSelect v-model="formData.language" placeholder="选择语言" class="w-full">
                 <ElOption
@@ -194,8 +198,8 @@ loadPreferences();
                 />
               </ElSelect>
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="主题模式" prop="theme">
               <ElRadioGroup v-model="formData.theme">
                 <ElRadio v-for="opt in THEME_OPTIONS" :key="opt.value" :value="opt.value">
@@ -203,13 +207,13 @@ loadPreferences();
                 </ElRadio>
               </ElRadioGroup>
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="主题色" prop="themeColor">
               <ElInput v-model="formData.themeColor" placeholder="如 #1890ff" maxlength="16" />
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="菜单布局" prop="menuLayout">
               <ElSelect v-model="formData.menuLayout" placeholder="选择布局" class="w-full">
                 <ElOption
@@ -220,8 +224,8 @@ loadPreferences();
                 />
               </ElSelect>
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="手风琴菜单" prop="accordionMenu">
               <ElSwitch
                 v-model="formData.accordionMenu"
@@ -229,8 +233,8 @@ loadPreferences();
                 inactive-text="关闭"
               />
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="表格密度" prop="tableSize">
               <ElSelect v-model="formData.tableSize" placeholder="选择密度" class="w-full">
                 <ElOption
@@ -241,8 +245,8 @@ loadPreferences();
                 />
               </ElSelect>
             </ElFormItem>
-          </ElCol>
-          <ElCol :xs="24" :md="12">
+          </div>
+          <div>
             <ElFormItem label="字体大小" prop="fontSize">
               <ElSelect v-model="formData.fontSize" placeholder="选择字体大小" class="w-full">
                 <ElOption
@@ -253,10 +257,11 @@ loadPreferences();
                 />
               </ElSelect>
             </ElFormItem>
-          </ElCol>
-        </ElRow>
+          </div>
+        </div>
       </ElForm>
-    </ElCard>
+      </CardContent>
+    </Card>
   </Page>
 </template>
 

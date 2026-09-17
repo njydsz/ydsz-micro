@@ -169,7 +169,7 @@ const gridOptions: VxeTableGridOptions<FireTimeRow> = {
             : isTodayUpcoming(item.fireTime)
               ? 'warning'
               : 'info';
-          return h(ElTag, { size: 'small', type: itemType }, () => item.label);
+          return h(Badge, { size: 'sm', variant: itemType === 'info' ? 'secondary' : itemType }, () => item.label);
         },
       },
     },

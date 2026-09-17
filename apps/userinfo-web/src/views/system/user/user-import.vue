@@ -15,7 +15,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { ElProgress, ElUpload } from 'element-plus';
+import { Button, Upload } from '@ydsz-core/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
+import { ElProgress } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -106,13 +108,29 @@ function handleClose(): void {
   resetState();
   modalApi.close();
 }
+
+/** 触发导入（供 footer 按钮调用） */
+async function handleImport(): Promise<void> {
+  if (!selectedFile.value) {
+    showToast.warning('请选择要导入的文件');
+    return;
+  }
+  modalApi.lock();
+  try {
+    await performImport(selectedFile.value);
+  } catch (error) {
+    logger.warn('导入执行失败: {}', error);
+  } finally {
+    modalApi.unlock();
+  }
+}
 </script>
 
 <template>
   <Modal :title="t('user.importUser')">
     <div class="space-y-4">
       <!-- 上传区域 -->
-      <ElUpload
+      <Upload
         :auto-upload="false"
         :show-file-list="true"
         :limit="1"
@@ -122,10 +140,10 @@ function handleClose(): void {
         drag
       >
         <div class="py-6">
-          <p class="text-sm text-gray-500">{{ t('user.importDragText') }}</p>
-          <p class="mt-1 text-xs text-gray-400">{{ t('user.importFormatText') }}</p>
+          <p class="text-sm text-muted-foreground">{{ t('user.importDragText') }}</p>
+          <p class="mt-1 text-xs text-muted-foreground">{{ t('user.importFormatText') }}</p>
         </div>
-      </ElUpload>
+      </Upload>
 
       <!-- 导入进度 -->
       <div v-if="importing">
@@ -162,8 +180,11 @@ function handleClose(): void {
       </div>
     </div>
     <template #footer>
-      <ElButton @click="handleClose">{{ t('page.close') }}</ElButton>
-      <ElButton type="primary" :loading="importing" :disabled="!selectedFile">{{ t('user.importUser') }}</ElButton>
+      <Button variant="outline" @click="handleClose">{{ t('page.close') }}</Button>
+      <Button :disabled="!selectedFile || importing" @click="handleImport">
+        <Loader2 v-if="importing" class="mr-2 h-4 w-4 animate-spin" />
+        {{ t('user.importUser') }}
+      </Button>
     </template>
   </Modal>
 </template>

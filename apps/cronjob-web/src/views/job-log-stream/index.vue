@@ -16,8 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTimeline/ElTimelineItem/ElEmpty/ElForm/ElFormItem/ElInput/ElSpace/ElTag/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElCard, ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
@@ -173,11 +172,10 @@ function statusText(status: ConnectStatus): string {
         <!-- LogId 输入 -->
         <ElForm inline @submit.prevent="handleConnect">
           <ElFormItem label="Log ID">
-            <ElInput
+            <Input
               v-model="logId"
               placeholder="请输入任务执行日志 ID"
-              style="width: 320px"
-              clearable
+              class="w-80"
               @keyup.enter="handleConnect"
             />
           </ElFormItem>

@@ -298,9 +298,9 @@ onMounted(() => {
           <ElDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="版本号">v{{ detailRecord.version ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="变更类型">
-            <ElTag :type="changeTypeTagType(detailRecord)" size="small">
+            <Badge :variant="changeTypeTagType(detailRecord)" size="sm">
               {{ translateChangeType(detailRecord.changeType) }}
-            </ElTag>
+            </Badge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="变更说明" :span="2">
             {{ detailRecord.changeRemark ?? '-' }}
@@ -348,7 +348,7 @@ onMounted(() => {
           </ElSelect>
         </ElFormItem>
         <ElFormItem>
-          <ElButton type="primary" @click="handleCompare">开始对比</ElButton>
+          <Button @click="handleCompare">开始对比</Button>
         </ElFormItem>
       </ElForm>
       <div v-if="compareResult.length > 0" class="space-y-2">

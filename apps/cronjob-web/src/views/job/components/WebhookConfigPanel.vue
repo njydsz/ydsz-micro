@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem/ElRadioGroup/ElRadio/ElSwitch/ElTable/ElTableColumn/ElDialog 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
@@ -226,50 +226,55 @@ onMounted(loadList);
     </ElTable>
 
     <!-- 编辑弹窗 -->
-    <ElDialog v-model="dialogVisible" :title="editingId ? '编辑订阅' : '新增订阅'" width="560px">
-      <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="100px">
-        <ElFormItem label="订阅名称" prop="name">
-          <ElInput v-model="formData.name" placeholder="请输入订阅名称" />
-        </ElFormItem>
-        <ElFormItem label="事件类型" prop="eventType">
-          <ElSelect v-model="formData.eventType" placeholder="请选择事件类型">
-            <ElOption
-              v-for="item in eventTypeOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+    <Dialog v-model:open="dialogVisible">
+      <DialogContent class="sm:max-w-[560px]">
+        <DialogHeader>
+          <DialogTitle>{{ editingId ? '编辑订阅' : '新增订阅' }}</DialogTitle>
+        </DialogHeader>
+        <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="100px">
+          <ElFormItem label="订阅名称" prop="name">
+            <Input v-model="formData.name" placeholder="请输入订阅名称" />
+          </ElFormItem>
+          <ElFormItem label="事件类型" prop="eventType">
+            <ElSelect v-model="formData.eventType" placeholder="请选择事件类型">
+              <ElOption
+                v-for="item in eventTypeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </ElSelect>
+          </ElFormItem>
+          <ElFormItem label="回调 URL" prop="callbackUrl">
+            <Input v-model="formData.callbackUrl" placeholder="https://example.com/webhook" />
+          </ElFormItem>
+          <ElFormItem label="请求方法" prop="httpMethod">
+            <ElRadioGroup v-model="formData.httpMethod">
+              <ElRadio value="POST">POST</ElRadio>
+              <ElRadio value="PUT">PUT</ElRadio>
+            </ElRadioGroup>
+          </ElFormItem>
+          <ElFormItem label="请求头">
+            <Textarea v-model="formData.headers" placeholder="JSON 格式，可选" :rows="2" />
+          </ElFormItem>
+          <ElFormItem label="签名密钥">
+            <Input v-model="formData.secret" placeholder="用于签名验证，可选" type="password" />
+          </ElFormItem>
+          <ElFormItem label="状态" prop="webhookStatus">
+            <ElSwitch
+              v-model="formData.webhookStatus"
+              active-value="ACTIVE"
+              inactive-value="INACTIVE"
+              active-text="启用"
+              inactive-text="禁用"
             />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="回调 URL" prop="callbackUrl">
-          <ElInput v-model="formData.callbackUrl" placeholder="https://example.com/webhook" />
-        </ElFormItem>
-        <ElFormItem label="请求方法" prop="httpMethod">
-          <ElRadioGroup v-model="formData.httpMethod">
-            <ElRadio value="POST">POST</ElRadio>
-            <ElRadio value="PUT">PUT</ElRadio>
-          </ElRadioGroup>
-        </ElFormItem>
-        <ElFormItem label="请求头">
-          <ElInput v-model="formData.headers" placeholder="JSON 格式，可选" type="textarea" :rows="2" />
-        </ElFormItem>
-        <ElFormItem label="签名密钥">
-          <ElInput v-model="formData.secret" placeholder="用于签名验证，可选" show-password />
-        </ElFormItem>
-        <ElFormItem label="状态" prop="webhookStatus">
-          <ElSwitch
-            v-model="formData.webhookStatus"
-            active-value="ACTIVE"
-            inactive-value="INACTIVE"
-            active-text="启用"
-            inactive-text="禁用"
-          />
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <ElButton @click="dialogVisible = false">取消</ElButton>
-        <ElButton type="primary" @click="handleSubmit">确定</ElButton>
-      </template>
-    </ElDialog>
+          </ElFormItem>
+        </ElForm>
+        <DialogFooter>
+          <Button variant="outline" @click="dialogVisible = false">取消</Button>
+          <Button @click="handleSubmit">确定</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </div>
 </template>
