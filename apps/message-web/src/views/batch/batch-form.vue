@@ -17,11 +17,11 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-// SKIP: batch-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElRadio/ElRadioGroup 不在映射表，表单体系需整体重写
-import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { Button, Input, RadioGroup, RadioGroupItem, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { submitBatch } from '#/api/batch';
 import type { BatchSendRequestDTO, MsgBatchVO } from '#/api/models';
 
@@ -115,33 +115,31 @@ const [Modal, modalApi] = useYDSZModal({
       label-position="right"
     >
       <ElFormItem label="批次名称" prop="batchName">
-        <ElInput v-model="formData.batchName" placeholder="请输入批次名称" />
+        <Input v-model="formData.batchName" placeholder="请输入批次名称" />
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
-        <ElInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+        <Input v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
       <ElFormItem :label="t('templateCode')" prop="templateCode">
-        <ElInput v-model="formData.templateCode" :placeholder="t('templateCode')" />
+        <Input v-model="formData.templateCode" :placeholder="t('templateCode')" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <ElInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="接收者列表" prop="receiverListText">
-        <ElInput
+        <Textarea
           v-model="formData.receiverListText"
-          type="textarea"
-          :rows="4"
           placeholder="每行一个接收者，支持逗号/分号/换行分隔"
         />
       </ElFormItem>
       <ElFormItem label="是否异步" prop="async">
-        <ElRadioGroup v-model="formData.async">
-          <ElRadio :value="true">异步</ElRadio>
-          <ElRadio :value="false">同步</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.async">
+          <RadioGroupItem :value="true">异步</RadioGroupItem>
+          <RadioGroupItem :value="false">同步</RadioGroupItem>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem label="发送人" prop="senderId">
-        <ElInput v-model="formData.senderId" placeholder="请输入发送人（可为空）" />
+        <Input v-model="formData.senderId" placeholder="请输入发送人（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

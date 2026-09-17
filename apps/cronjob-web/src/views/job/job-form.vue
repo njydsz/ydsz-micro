@@ -16,9 +16,10 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElInputNumber/ElCollapse/ElCollapseItem/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElCollapse, ElCollapseItem, ElForm, ElFormItem, ElInputNumber, ElOption, ElSelect } from 'element-plus';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -273,12 +274,15 @@ async function handleValidateCron() {
         <Input v-model="formData.handler" placeholder="请输入执行器 Handler" />
       </ElFormItem>
       <ElFormItem label="调度类型" prop="scheduleType">
-        <ElSelect v-model="formData.scheduleType" placeholder="请选择调度类型" class="w-full">
-          <ElOption label="Cron" value="CRON" />
-          <ElOption label="固定速率" value="FIXED_RATE" />
-          <ElOption label="固定延迟" value="FIXED_DELAY" />
-          <ElOption label="仅手动触发" value="API" />
-        </ElSelect>
+        <Select v-model="formData.scheduleType">
+          <SelectTrigger placeholder="请选择调度类型" class="w-full" />
+          <SelectContent>
+            <SelectItem value="CRON">Cron</SelectItem>
+            <SelectItem value="FIXED_RATE">固定速率</SelectItem>
+            <SelectItem value="FIXED_DELAY">固定延迟</SelectItem>
+            <SelectItem value="API">仅手动触发</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <div class="flex w-full gap-2">
@@ -287,8 +291,9 @@ async function handleValidateCron() {
         </div>
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'FIXED_RATE'" label="固定速率间隔(ms)">
-        <ElInputNumber
+        <Input
           v-model="formData.fixedRateMs"
+          type="number"
           :min="1"
           :step="1000"
           class="w-full"
@@ -296,8 +301,9 @@ async function handleValidateCron() {
         />
       </ElFormItem>
       <ElFormItem v-if="formData.scheduleType === 'FIXED_DELAY'" label="固定延迟间隔(ms)">
-        <ElInputNumber
+        <Input
           v-model="formData.fixedDelayMs"
+          type="number"
           :min="1"
           :step="1000"
           class="w-full"

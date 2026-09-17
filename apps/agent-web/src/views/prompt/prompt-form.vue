@@ -18,6 +18,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElOption/ElSelect/ElSwitch/ElTag 表单套件+Switch+变量提取,保留 element-plus SKIP
 import { ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTag } from 'element-plus';
+import { Button } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, watch } from 'vue';
 
@@ -186,8 +187,8 @@ watch(
     </ElForm>
 
     <template #footer>
-      <ElButton @click="modalApi.close()">取消</ElButton>
-      <ElButton type="primary" @click="handleSubmit">保存</ElButton>
+      <Button variant="outline" @click="modalApi.close()">取消</Button>
+      <Button @click="handleSubmit">保存</Button>
     </template>
   </Modal>
 </template>

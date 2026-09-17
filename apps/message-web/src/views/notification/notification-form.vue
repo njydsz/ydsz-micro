@@ -20,10 +20,10 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-// SKIP: notification-form.vue 批量跳过迁移 — ElForm/ElFormItem 不在映射表，表单体系需整体重写
-import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { send } from '#/api/notification';
 
 const emit = defineEmits<{ success: [] }>();
@@ -126,44 +126,52 @@ const [Modal, modalApi] = useYDSZModal({
       label-position="right"
     >
       <ElFormItem label="接收者" prop="receiverListText">
-        <ElInput
+        <Textarea
           v-model="formData.receiverListText"
-          type="textarea"
-          :rows="3"
           placeholder="每行一个接收者ID，支持逗号/分号/换行分隔"
         />
       </ElFormItem>
       <ElFormItem label="标题" prop="title">
-        <ElInput v-model="formData.title" placeholder="请输入标题" />
+        <Input v-model="formData.title" placeholder="请输入标题" />
       </ElFormItem>
       <ElFormItem label="内容" prop="content">
-        <ElInput v-model="formData.content" type="textarea" :rows="3" placeholder="请输入内容" />
+        <Textarea v-model="formData.content" placeholder="请输入内容" />
       </ElFormItem>
       <ElFormItem label="级别" prop="level">
-        <ElSelect v-model="formData.level" placeholder="请选择级别">
-          <ElOption label="提示" value="INFO" />
-          <ElOption label="警告" value="WARN" />
-          <ElOption label="错误" value="ERROR" />
-        </ElSelect>
+        <Select v-model="formData.level">
+          <SelectTrigger>
+            <SelectValue placeholder="请选择级别" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="INFO">提示</SelectItem>
+            <SelectItem value="WARN">警告</SelectItem>
+            <SelectItem value="ERROR">错误</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem label="分类" prop="category">
-        <ElInput v-model="formData.category" placeholder="请输入分类（可为空）" />
+        <Input v-model="formData.category" placeholder="请输入分类（可为空）" />
       </ElFormItem>
       <ElFormItem label="优先级" prop="priority">
-        <ElSelect v-model="formData.priority" placeholder="请选择优先级（可为空）" clearable>
-          <ElOption label="高" value="HIGH" />
-          <ElOption label="中" value="MEDIUM" />
-          <ElOption label="低" value="LOW" />
-        </ElSelect>
+        <Select v-model="formData.priority">
+          <SelectTrigger>
+            <SelectValue placeholder="请选择优先级（可为空）" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="HIGH">高</SelectItem>
+            <SelectItem value="MEDIUM">中</SelectItem>
+            <SelectItem value="LOW">低</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <ElInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="跳转链接" prop="actionUrl">
-        <ElInput v-model="formData.actionUrl" placeholder="请输入跳转链接（可为空）" />
+        <Input v-model="formData.actionUrl" placeholder="请输入跳转链接（可为空）" />
       </ElFormItem>
       <ElFormItem label="跳转文案" prop="actionText">
-        <ElInput v-model="formData.actionText" placeholder="请输入跳转文案（可为空）" />
+        <Input v-model="formData.actionText" placeholder="请输入跳转文案（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

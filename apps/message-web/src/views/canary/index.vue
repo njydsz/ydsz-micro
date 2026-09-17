@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 灰度实验管理页面
  *
  * <p>消息通道灰度发布实验管理，支持创建实验、编辑、查看分桶分配、停止实验等操作。
@@ -18,14 +18,12 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-
 import { createLogger } from '@ydsz-core/shared/utils';
-// SKIP: canary/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElForm/ElFormItem/ElInputNumber 等未映射组件，
-// 且表单弹窗和表格操作逻辑与 EP 深度耦合，需整体重写而非简单替换。
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
+import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { ElForm, ElFormItem, ElInputNumber, ElTable, ElTableColumn } from 'element-plus';
 
 defineOptions({ name: 'CanaryManagement' });
 
@@ -68,6 +66,15 @@ function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'inf
   if (upper === 'STOPPED' || upper === 'TERMINATED') return 'danger';
   if (upper === 'DRAFT') return 'warning';
   return 'info';
+}
+
+/** 实验状态标签 Badge variant */
+function getStatusVariant(status?: string): 'default' | 'destructive' | 'outline' | 'secondary' {
+  const type = getStatusType(status);
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
 }
 
 /** 实验状态标签文本 */
@@ -212,143 +219,152 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="canary-container p-4">
       <!-- 顶部快速创建 -->
-      <ElCard class="mb-4" shadow="never">
-        <div class="flex items-center justify-between">
+      <Card class="mb-4">
+        <CardContent class="flex items-center justify-between pt-6">
           <h3 class="text-base font-medium">灰度实验管理</h3>
-          <ElButton type="primary" @click="quickCreateVisible = true">
+          <Button @click="quickCreateVisible = true">
             创建实验
-          </ElButton>
-        </div>
-      </ElCard>
+          </Button>
+        </CardContent>
+      </Card>
 
       <!-- 实验列表 -->
-      <ElCard shadow="never">
-        <ElTable v-loading="loading" :data="experimentList" stripe border style="width: 100%">
-          <ElTableColumn type="index" label="序号" width="60" align="center" />
-          <ElTableColumn prop="name" label="实验名称" min-width="160" />
-          <ElTableColumn prop="channel" label="通道" width="120">
-            <template #default="{ row }">
-              <ElTag size="small">{{ row.channel }}</ElTag>
-            </template>
-          </ElTableColumn>
-          <ElTableColumn label="状态" width="100" align="center">
-            <template #default="{ row }">
-              <ElTag :type="getStatusType(row.status)" size="small">
-                {{ getStatusLabel(row.status) }}
-              </ElTag>
-            </template>
-          </ElTableColumn>
-          <ElTableColumn label="灰度流量" width="120" align="center">
-            <template #default="{ row }">
-              <span class="font-mono text-blue-600">{{ row.trafficPercentage }}%</span>
-            </template>
-          </ElTableColumn>
-          <ElTableColumn prop="createdAt" label="创建时间" width="180" />
-          <ElTableColumn label="操作" width="260" fixed="right" align="center">
-            <template #default="{ row }">
-              <ElButton size="small" link type="primary" @click="handleEdit(row)">
-                编辑
-              </ElButton>
-              <ElButton size="small" link type="primary" @click="handleViewBucket(row)">
-                查看分配
-              </ElButton>
-              <ElButton
-                size="small"
-                link
-                type="danger"
-                :disabled="row.status === 'STOPPED'"
-                @click="handleStopExperiment(row)"
-              >
-                停止
-              </ElButton>
-            </template>
-          </ElTableColumn>
-        </ElTable>
+      <Card>
+        <CardContent class="pt-6">
+          <ElTable v-loading="loading" :data="experimentList" stripe border style="width: 100%">
+            <ElTableColumn type="index" label="序号" width="60" align="center" />
+            <ElTableColumn prop="name" label="实验名称" min-width="160" />
+            <ElTableColumn prop="channel" label="通道" width="120">
+              <template #default="{ row }">
+                <Badge variant="secondary">{{ row.channel }}</Badge>
+              </template>
+            </ElTableColumn>
+            <ElTableColumn label="状态" width="100" align="center">
+              <template #default="{ row }">
+                <Badge :variant="getStatusVariant(row.status)">
+                  {{ getStatusLabel(row.status) }}
+                </Badge>
+              </template>
+            </ElTableColumn>
+            <ElTableColumn label="灰度流量" width="120" align="center">
+              <template #default="{ row }">
+                <span class="font-mono text-blue-600">{{ row.trafficPercentage }}%</span>
+              </template>
+            </ElTableColumn>
+            <ElTableColumn prop="createdAt" label="创建时间" width="180" />
+            <ElTableColumn label="操作" width="260" fixed="right" align="center">
+              <template #default="{ row }">
+                <Button size="sm" variant="link" @click="handleEdit(row)">
+                  编辑
+                </Button>
+                <Button size="sm" variant="link" @click="handleViewBucket(row)">
+                  查看分配
+                </Button>
+                <Button
+                  size="sm"
+                  variant="link"
+                  class="text-destructive"
+                  :disabled="row.status === 'STOPPED'"
+                  @click="handleStopExperiment(row)"
+                >
+                  停止
+                </Button>
+              </template>
+            </ElTableColumn>
+          </ElTable>
 
-        <!-- 空状态提示 -->
-        <div
-          v-if="experimentList.length === 0 && !loading"
-          class="py-12 text-center text-gray-400"
-        >
-          暂无灰度实验，点击右上角「创建实验」按钮开始
-        </div>
-      </ElCard>
+          <!-- 空状态提示 -->
+          <div
+            v-if="experimentList.length === 0 && !loading"
+            class="py-12 text-center text-muted-foreground"
+          >
+            暂无灰度实验，点击右上角「创建实验」按钮开始
+          </div>
+        </CardContent>
+      </Card>
 
       <!-- 快速创建弹窗 -->
-      <ElDialog
-        v-model="quickCreateVisible"
-        title="创建灰度实验"
-        width="520px"
-        :close-on-click-modal="false"
-      >
-        <ElForm :model="quickForm" label-width="100px">
-          <ElFormItem label="实验名称" required>
-            <ElInput
-              v-model="quickForm.experimentName"
-              placeholder="请输入实验名称"
-              clearable
-            />
-          </ElFormItem>
-          <ElFormItem label="模板编码">
-            <ElInput
-              v-model="quickForm.templateCode"
-              placeholder="关联模板编码（可选）"
-              clearable
-            />
-          </ElFormItem>
-          <ElFormItem label="通道" required>
-            <ElSelect v-model="quickForm.channel" placeholder="请选择通道" class="w-full">
-              <ElOption label="邮件" value="EMAIL" />
-              <ElOption label="短信" value="SMS" />
-              <ElOption label="站内信" value="INBOX" />
-              <ElOption label="Webhook" value="WEBHOOK" />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem label="灰度比例">
-            <ElInputNumber
-              v-model="quickForm.canaryPercent"
-              :min="1"
-              :max="100"
-              :step="5"
-              class="w-full"
-            />
-            <span class="ml-2 text-gray-400">%</span>
-          </ElFormItem>
-          <ElFormItem label="目标指标">
-            <ElInput
-              v-model="quickForm.metricsGoal"
-              placeholder="灰度实验目标指标（可选）"
-              type="textarea"
-              :rows="2"
-              clearable
-            />
-          </ElFormItem>
-        </ElForm>
-        <template #footer>
-          <ElButton @click="quickCreateVisible = false">取消</ElButton>
-          <ElButton type="primary" @click="handleQuickCreate">确认创建</ElButton>
-        </template>
-      </ElDialog>
+      <Dialog v-model:open="quickCreateVisible">
+        <DialogContent class="max-w-[520px]">
+          <DialogHeader>
+            <DialogTitle>创建灰度实验</DialogTitle>
+          </DialogHeader>
+          <ElForm :model="quickForm" label-width="100px">
+            <ElFormItem label="实验名称" required>
+              <Input
+                v-model="quickForm.experimentName"
+                placeholder="请输入实验名称"
+              />
+            </ElFormItem>
+            <ElFormItem label="模板编码">
+              <Input
+                v-model="quickForm.templateCode"
+                placeholder="关联模板编码（可选）"
+              />
+            </ElFormItem>
+            <ElFormItem label="通道" required>
+              <Select v-model="quickForm.channel">
+                <SelectTrigger class="w-full">
+                  <SelectValue placeholder="请选择通道" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="EMAIL">邮件</SelectItem>
+                  <SelectItem value="SMS">短信</SelectItem>
+                  <SelectItem value="INBOX">站内信</SelectItem>
+                  <SelectItem value="WEBHOOK">Webhook</SelectItem>
+                </SelectContent>
+              </Select>
+            </ElFormItem>
+            <ElFormItem label="灰度比例">
+              <div class="flex items-center">
+                <ElInputNumber
+                  v-model="quickForm.canaryPercent"
+                  :min="1"
+                  :max="100"
+                  :step="5"
+                  class="w-full"
+                />
+                <span class="ml-2 text-muted-foreground">%</span>
+              </div>
+            </ElFormItem>
+            <ElFormItem label="目标指标">
+              <Textarea
+                v-model="quickForm.metricsGoal"
+                placeholder="灰度实验目标指标（可选）"
+              />
+            </ElFormItem>
+          </ElForm>
+          <DialogFooter>
+            <Button variant="outline" @click="quickCreateVisible = false">取消</Button>
+            <Button @click="handleQuickCreate">确认创建</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <!-- 分桶分配查询弹窗 -->
-      <ElDialog v-model="bucketVisible" title="灰度分桶分配查询" width="520px">
-        <ElForm :model="bucketForm" label-width="100px">
-          <ElFormItem label="实验ID">
-            <ElInput v-model="bucketForm.experimentId" placeholder="实验ID" clearable />
-          </ElFormItem>
-          <ElFormItem label="请求键">
-            <ElInput v-model="bucketForm.requestKey" placeholder="请求键（用户ID等）" clearable />
-          </ElFormItem>
-        </ElForm>
-        <div v-if="bucketResult" class="mt-4 rounded bg-gray-50 p-3">
-          <span class="text-sm text-gray-500">分配结果：</span>
-          <span class="ml-2 font-mono font-bold text-blue-600">{{ bucketResult }}</span>
-        </div>
-        <template #footer>
-          <ElButton @click="bucketVisible = false">关闭</ElButton>
-          <ElButton type="primary" @click="handleAssignBucket">查询</ElButton>
-        </template>
-      </ElDialog>
+      <Dialog v-model:open="bucketVisible">
+        <DialogContent class="max-w-[520px]">
+          <DialogHeader>
+            <DialogTitle>灰度分桶分配查询</DialogTitle>
+          </DialogHeader>
+          <ElForm :model="bucketForm" label-width="100px">
+            <ElFormItem label="实验ID">
+              <Input v-model="bucketForm.experimentId" placeholder="实验ID" />
+            </ElFormItem>
+            <ElFormItem label="请求键">
+              <Input v-model="bucketForm.requestKey" placeholder="请求键（用户ID等）" />
+            </ElFormItem>
+          </ElForm>
+          <div v-if="bucketResult" class="mt-4 rounded bg-muted p-3">
+            <span class="text-sm text-muted-foreground">分配结果：</span>
+            <span class="ml-2 font-mono font-bold text-blue-600">{{ bucketResult }}</span>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" @click="bucketVisible = false">关闭</Button>
+            <Button @click="handleAssignBucket">查询</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   </Page>
 </template>

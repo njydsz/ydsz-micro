@@ -16,9 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElInputNumber/ElRadio/ElRadioGroup 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
+import { Input, RadioGroup, RadioGroupItem } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -162,10 +162,10 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
         <Input v-model="formData.alertLevel" placeholder="请输入告警级别" />
       </ElFormItem>
       <ElFormItem label="阈值" prop="threshold">
-        <ElInputNumber v-model="formData.threshold" :min="0" :precision="2" />
+        <Input v-model="formData.threshold" type="number" :min="0" step="0.01" />
       </ElFormItem>
       <ElFormItem label="时间窗口(分)" prop="timeWindowMinutes">
-        <ElInputNumber v-model="formData.timeWindowMinutes" :min="1" />
+        <Input v-model="formData.timeWindowMinutes" type="number" :min="1" />
       </ElFormItem>
       <ElFormItem label="通知通道" prop="channels">
         <Input v-model="formData.channels" placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk" />
@@ -174,13 +174,21 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
         <Input v-model="formData.receivers" placeholder="请输入接收人，多个用逗号分隔" />
       </ElFormItem>
       <ElFormItem label="冷却时长(分)" prop="cooldownMinutes">
-        <ElInputNumber v-model="formData.cooldownMinutes" :min="0" />
+        <Input v-model="formData.cooldownMinutes" type="number" :min="0" />
       </ElFormItem>
       <ElFormItem :label="t('common.status')">
-        <ElRadioGroup v-model="formData.enabled">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">停用</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.enabled">
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="enabled-1" value="1" />
+              <label for="enabled-1" class="cursor-pointer text-sm">启用</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <RadioGroupItem id="enabled-0" value="0" />
+              <label for="enabled-0" class="cursor-pointer text-sm">停用</label>
+            </div>
+          </div>
+        </RadioGroup>
       </ElFormItem>
     </ElForm>
   </Modal>

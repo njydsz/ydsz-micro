@@ -19,8 +19,9 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-// TODO: ElForm/ElFormItem/ElOption/ElSelect/ElCard/ElDialog/ElEmpty 表单套件+多弹窗,整体保留 element-plus SKIP
-import { ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
+// TODO: 表单套件+弹窗,保留 element-plus 中未迁移部分
+import { ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -100,7 +101,7 @@ const gridColumns: VxeTableGridOptions<TeamRun>['columns'] = [
     width: 100,
     slots: {
       default: ({ row }) =>
-        h(ElTag, { type: getStatusTagType(row.status ?? '') }, () => row.status ?? '-'),
+        h(Badge, { variant: getStatusTagType(row.status ?? '') as 'default' | 'destructive' | 'outline' | 'secondary' }, () => row.status ?? '-'),
     },
   },
   {
@@ -120,13 +121,13 @@ const gridColumns: VxeTableGridOptions<TeamRun>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(ElButton, { size: 'small', link: true, type: 'success', onClick: () => handleAddMember(row) }, () => '加成员'),
-          h(ElButton, {
-            size: 'small', link: true, type: 'warning',
+          h(Button, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(Button, { size: 'sm', variant: 'link', className: 'text-green-600', onClick: () => handleAddMember(row) }, () => '加成员'),
+          h(Button, {
+            size: 'sm', variant: 'link', className: 'text-yellow-600',
             onClick: () => handleStart(row),
           }, () => '启动'),
-          h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleCancel(row) }, () => '取消'),
+          h(Button, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleCancel(row) }, () => '取消'),
         ]),
     },
   },

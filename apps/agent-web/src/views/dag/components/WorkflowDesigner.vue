@@ -15,8 +15,10 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-// TODO: ElDialog/ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSlider/ElTabPane/ElTabs/ElTooltip/ElButton 可视化编辑器,保留 element-plus SKIP
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSlider, ElTabPane, ElTabs, ElTooltip } from 'element-plus';
+// TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSlider 可视化编辑器表单部分,保留 element-plus SKIP
+import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSlider } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Tabs, TabsContent, TabsList, TabsTrigger, Tooltip, TooltipContent, TooltipTrigger } from '@ydsz-core/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
 
 /** 工作流节点 */
@@ -325,201 +327,219 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <ElDialog
-    v-model="visible"
-    title="Agent 可视化工作流编排"
-    width="1200px"
-    :close-on-click-modal="false"
-    :show-close="true"
-    @close="close"
-  >
-    <div v-loading="loading" class="designer-container">
-      <ElTabs v-model="activeTab">
-        <!-- 设计器标签页 -->
-        <ElTabPane label="设计器" name="designer">
-          <!-- 工具栏 -->
-          <div class="toolbar">
-            <div class="toolbar-left">
-              <ElButton size="small" type="primary" @click="handleSave" :loading="saving">保存</ElButton>
-              <ElButton size="small" @click="handleExportDsl">导出DSL</ElButton>
-            </div>
-            <div class="toolbar-center">
-              <span class="text-xs text-gray-500">添加节点：</span>
-              <ElButton
-                v-for="opt in nodeTypeOptions"
-                :key="opt.value"
-                size="small"
-                :style="{ borderColor: opt.color, color: opt.color }"
-                @click="addNode(opt.value)"
-              >
-                {{ opt.icon }} {{ opt.label }}
-              </ElButton>
-            </div>
-            <div class="toolbar-right">
-              <ElSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
-            </div>
-          </div>
+  <Dialog v-model:open="visible">
+    <DialogContent class="sm:max-w-[1200px]">
+      <DialogHeader>
+        <DialogTitle>Agent 可视化工作流编排</DialogTitle>
+      </DialogHeader>
 
-          <!-- 主体区域 -->
-          <div class="designer-body">
-            <!-- 画布区域 -->
-            <div
-              ref="canvasRef"
-              class="canvas"
-              :style="canvasStyle"
-              @mousemove="handleCanvasMouseMove"
-              @mouseup="handleCanvasMouseUp"
-              @mouseleave="handleCanvasMouseUp"
-            >
-              <!-- 连线 SVG -->
-              <svg class="edges-layer">
-                <path
-                  v-for="edge in edges"
-                  :key="edge.id"
-                  :d="getEdgePath(edge)"
-                  stroke="#909399"
-                  stroke-width="2"
-                  fill="none"
-                  marker-end="url(#arrowhead)"
-                  class="edge-path"
-                  @click="deleteEdge(edge)"
-                />
-                <defs>
-                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#909399" />
-                  </marker>
-                </defs>
-              </svg>
+      <div v-loading="loading" class="designer-container">
+        <Tabs v-model="activeTab">
+          <TabsList>
+            <TabsTrigger value="designer">设计器</TabsTrigger>
+            <TabsTrigger value="dsl">DSL 预览</TabsTrigger>
+          </TabsList>
 
-              <!-- 节点 -->
+          <!-- 设计器标签页 -->
+          <TabsContent value="designer">
+            <!-- 工具栏 -->
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <Button size="sm" :disabled="saving" @click="handleSave">
+                  <Loader2 v-if="saving" class="mr-1 h-3 w-3 animate-spin" />
+                  保存
+                </Button>
+                <Button size="sm" variant="outline" @click="handleExportDsl">导出DSL</Button>
+              </div>
+              <div class="toolbar-center">
+                <span class="text-xs text-muted-foreground">添加节点：</span>
+                <Button
+                  v-for="opt in nodeTypeOptions"
+                  :key="opt.value"
+                  size="sm"
+                  variant="outline"
+                  :style="{ borderColor: opt.color, color: opt.color }"
+                  @click="addNode(opt.value)"
+                >
+                  {{ opt.icon }} {{ opt.label }}
+                </Button>
+              </div>
+              <div class="toolbar-right">
+                <ElSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
+              </div>
+            </div>
+
+            <!-- 主体区域 -->
+            <div class="designer-body">
+              <!-- 画布区域 -->
               <div
-                v-for="node in nodes"
-                :key="node.id"
-                class="workflow-node"
-                :class="{
-                  'selected': selectedNode?.id === node.id,
-                  'connecting-target': isConnecting && connectStart !== node.id,
-                }"
-                :style="{
-                  left: `${node.x}px`,
-                  top: `${node.y}px`,
-                  width: `${node.width}px`,
-                  height: `${node.height}px`,
-                  borderColor: getNodeConfig(node.type).color,
-                }"
-                @mousedown="handleNodeMouseDown($event, node)"
-                @click.stop="finishConnect(node.id)"
+                ref="canvasRef"
+                class="canvas"
+                :style="canvasStyle"
+                @mousemove="handleCanvasMouseMove"
+                @mouseup="handleCanvasMouseUp"
+                @mouseleave="handleCanvasMouseUp"
               >
-                <div class="node-header" :style="{ backgroundColor: getNodeConfig(node.type).color }">
-                  <span class="node-icon">{{ getNodeConfig(node.type).icon }}</span>
-                  <span class="node-label">{{ node.label }}</span>
+                <!-- 连线 SVG -->
+                <svg class="edges-layer">
+                  <path
+                    v-for="edge in edges"
+                    :key="edge.id"
+                    :d="getEdgePath(edge)"
+                    stroke="hsl(var(--muted-foreground))"
+                    stroke-width="2"
+                    fill="none"
+                    marker-end="url(#arrowhead)"
+                    class="edge-path"
+                    @click="deleteEdge(edge)"
+                  />
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="hsl(var(--muted-foreground))" />
+                    </marker>
+                  </defs>
+                </svg>
+
+                <!-- 节点 -->
+                <div
+                  v-for="node in nodes"
+                  :key="node.id"
+                  class="workflow-node"
+                  :class="{
+                    'selected': selectedNode?.id === node.id,
+                    'connecting-target': isConnecting && connectStart !== node.id,
+                  }"
+                  :style="{
+                    left: `${node.x}px`,
+                    top: `${node.y}px`,
+                    width: `${node.width}px`,
+                    height: `${node.height}px`,
+                    borderColor: getNodeConfig(node.type).color,
+                  }"
+                  @mousedown="handleNodeMouseDown($event, node)"
+                  @click.stop="finishConnect(node.id)"
+                >
+                  <div class="node-header" :style="{ backgroundColor: getNodeConfig(node.type).color }">
+                    <span class="node-icon">{{ getNodeConfig(node.type).icon }}</span>
+                    <span class="node-label">{{ node.label }}</span>
+                  </div>
+                  <div class="node-body">
+                    <span class="text-xs text-muted-foreground">{{ node.type }}</span>
+                  </div>
+                  <!-- 节点操作按钮 -->
+                  <div class="node-actions">
+                    <Tooltip>
+                      <TooltipTrigger as-child>
+                        <Button size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
+                          <span class="text-xs">→</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>连线</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger as-child>
+                        <Button size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
+                          <span class="text-xs">×</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>删除</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
                 </div>
-                <div class="node-body">
-                  <span class="text-xs text-gray-600">{{ node.type }}</span>
-                </div>
-                <!-- 节点操作按钮 -->
-                <div class="node-actions">
-                  <ElTooltip content="连线" placement="top">
-                    <ElButton size="small" circle @click.stop="startConnect(node.id)">
-                      <span class="text-xs">→</span>
-                    </ElButton>
-                  </ElTooltip>
-                  <ElTooltip content="删除" placement="top">
-                    <ElButton size="small" circle type="danger" @click.stop="deleteNode(node.id)">
-                      <span class="text-xs">×</span>
-                    </ElButton>
-                  </ElTooltip>
+
+                <!-- 空状态 -->
+                <div v-if="nodes.length === 0" class="empty-state">
+                  <p class="text-muted-foreground">从工具栏点击添加节点开始编排工作流</p>
                 </div>
               </div>
 
-              <!-- 空状态 -->
-              <div v-if="nodes.length === 0" class="empty-state">
-                <p class="text-gray-400">从工具栏点击添加节点开始编排工作流</p>
-              </div>
-            </div>
-
-            <!-- 属性面板 -->
-            <div class="property-panel">
-              <div class="panel-header">节点属性</div>
-              <div v-if="selectedNode" class="panel-content">
-                <ElForm label-width="60px" size="small">
-                  <ElFormItem label="名称">
-                    <ElInput v-model="selectedNode.label" placeholder="节点名称" />
-                  </ElFormItem>
-                  <ElFormItem label="类型">
-                    <ElSelect v-model="selectedNode.type" placeholder="节点类型" @change="selectedNode.label = getNodeConfig(selectedNode.type).label">
-                      <ElOption
-                        v-for="opt in nodeTypeOptions"
-                        :key="opt.value"
-                        :label="opt.label"
-                        :value="opt.value"
-                      />
-                    </ElSelect>
-                  </ElFormItem>
-                  <!-- LLM 节点配置 -->
-                  <template v-if="selectedNode.type === 'LLM'">
-                    <ElFormItem label="模型">
-                      <ElSelect v-model="selectedNode.config.model" placeholder="选择模型">
-                        <ElOption label="GPT-4" value="gpt-4" />
-                        <ElOption label="GPT-3.5" value="gpt-3.5-turbo" />
-                        <ElOption label="Claude" value="claude-3" />
-                        <ElOption label="Gemini" value="gemini-pro" />
+              <!-- 属性面板 -->
+              <div class="property-panel">
+                <div class="panel-header">节点属性</div>
+                <div v-if="selectedNode" class="panel-content">
+                  <ElForm label-width="60px" size="small">
+                    <ElFormItem label="名称">
+                      <ElInput v-model="selectedNode.label" placeholder="节点名称" />
+                    </ElFormItem>
+                    <ElFormItem label="类型">
+                      <ElSelect v-model="selectedNode.type" placeholder="节点类型" @change="selectedNode.label = getNodeConfig(selectedNode.type).label">
+                        <ElOption
+                          v-for="opt in nodeTypeOptions"
+                          :key="opt.value"
+                          :label="opt.label"
+                          :value="opt.value"
+                        />
                       </ElSelect>
                     </ElFormItem>
-                    <ElFormItem label="提示词">
-                      <ElInput v-model="selectedNode.config.prompt" type="textarea" :rows="3" placeholder="输入提示词" />
+                    <!-- LLM 节点配置 -->
+                    <template v-if="selectedNode.type === 'LLM'">
+                      <ElFormItem label="模型">
+                        <ElSelect v-model="selectedNode.config.model" placeholder="选择模型">
+                          <ElOption label="GPT-4" value="gpt-4" />
+                          <ElOption label="GPT-3.5" value="gpt-3.5-turbo" />
+                          <ElOption label="Claude" value="claude-3" />
+                          <ElOption label="Gemini" value="gemini-pro" />
+                        </ElSelect>
+                      </ElFormItem>
+                      <ElFormItem label="提示词">
+                        <ElInput v-model="selectedNode.config.prompt" type="textarea" :rows="3" placeholder="输入提示词" />
+                      </ElFormItem>
+                      <ElFormItem label="温度">
+                        <ElInputNumber v-model="selectedNode.config.temperature" :min="0" :max="2" :step="0.1" />
+                      </ElFormItem>
+                    </template>
+                    <!-- 工具节点配置 -->
+                    <template v-if="selectedNode.type === 'TOOL'">
+                      <ElFormItem label="工具">
+                        <ElInput v-model="selectedNode.config.tool" placeholder="工具名称" />
+                      </ElFormItem>
+                      <ElFormItem label="参数">
+                        <ElInput v-model="selectedNode.config.params" type="textarea" :rows="2" placeholder="JSON格式参数" />
+                      </ElFormItem>
+                    </template>
+                    <!-- 条件节点配置 -->
+                    <template v-if="selectedNode.type === 'CONDITION'">
+                      <ElFormItem label="条件">
+                        <ElInput v-model="selectedNode.config.condition" type="textarea" :rows="2" placeholder="输入条件表达式" />
+                      </ElFormItem>
+                    </template>
+                    <ElFormItem label="X坐标">
+                      <ElInputNumber v-model="selectedNode.x" :step="10" />
                     </ElFormItem>
-                    <ElFormItem label="温度">
-                      <ElInputNumber v-model="selectedNode.config.temperature" :min="0" :max="2" :step="0.1" />
+                    <ElFormItem label="Y坐标">
+                      <ElInputNumber v-model="selectedNode.y" :step="10" />
                     </ElFormItem>
-                  </template>
-                  <!-- 工具节点配置 -->
-                  <template v-if="selectedNode.type === 'TOOL'">
-                    <ElFormItem label="工具">
-                      <ElInput v-model="selectedNode.config.tool" placeholder="工具名称" />
-                    </ElFormItem>
-                    <ElFormItem label="参数">
-                      <ElInput v-model="selectedNode.config.params" type="textarea" :rows="2" placeholder="JSON格式参数" />
-                    </ElFormItem>
-                  </template>
-                  <!-- 条件节点配置 -->
-                  <template v-if="selectedNode.type === 'CONDITION'">
-                    <ElFormItem label="条件">
-                      <ElInput v-model="selectedNode.config.condition" type="textarea" :rows="2" placeholder="输入条件表达式" />
-                    </ElFormItem>
-                  </template>
-                  <ElFormItem label="X坐标">
-                    <ElInputNumber v-model="selectedNode.x" :step="10" />
-                  </ElFormItem>
-                  <ElFormItem label="Y坐标">
-                    <ElInputNumber v-model="selectedNode.y" :step="10" />
-                  </ElFormItem>
-                </ElForm>
-              </div>
-              <div v-else class="panel-empty">
-                <p class="text-xs text-gray-400">请选择一个节点</p>
+                  </ElForm>
+                </div>
+                <div v-else class="panel-empty">
+                  <p class="text-xs text-muted-foreground">请选择一个节点</p>
+                </div>
               </div>
             </div>
-          </div>
-        </ElTabPane>
+          </TabsContent>
 
-        <!-- DSL 预览标签页 -->
-        <ElTabPane label="DSL 预览" name="dsl">
-          <div class="mt-3">
-            <ElForm label-width="80px" class="mb-4">
-              <ElFormItem label="工作流名称">
-                <ElInput v-model="workflowName" placeholder="请输入工作流名称" />
-              </ElFormItem>
-              <ElFormItem label="描述">
-                <ElInput v-model="workflowDescription" type="textarea" :rows="2" placeholder="请输入工作流描述" />
-              </ElFormItem>
-            </ElForm>
-            <pre class="max-h-96 overflow-auto rounded border bg-gray-50 p-4 text-xs">{{ generateDsl() }}</pre>
-          </div>
-        </ElTabPane>
-      </ElTabs>
-    </div>
-  </ElDialog>
+          <!-- DSL 预览标签页 -->
+          <TabsContent value="dsl">
+            <div class="mt-3">
+              <ElForm label-width="80px" class="mb-4">
+                <ElFormItem label="工作流名称">
+                  <ElInput v-model="workflowName" placeholder="请输入工作流名称" />
+                </ElFormItem>
+                <ElFormItem label="描述">
+                  <ElInput v-model="workflowDescription" type="textarea" :rows="2" placeholder="请输入工作流描述" />
+                </ElFormItem>
+              </ElForm>
+              <pre class="max-h-96 overflow-auto rounded border bg-muted p-4 text-xs">{{ generateDsl() }}</pre>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </DialogContent>
+  </Dialog>
 </template>
 
 <style scoped>

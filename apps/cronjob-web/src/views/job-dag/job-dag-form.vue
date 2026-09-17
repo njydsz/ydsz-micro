@@ -16,9 +16,9 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElInputNumber 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInputNumber, ElOption, ElSelect } from 'element-plus';
+import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -167,23 +167,29 @@ async function handleValidateDag() {
         </div>
       </ElFormItem>
       <ElFormItem label="触发类型" prop="triggerType">
-        <ElSelect v-model="formData.triggerType" placeholder="请选择触发类型">
-          <ElOption label="手动" value="MANUAL" />
-          <ElOption label="Cron" value="CRON" />
-        </ElSelect>
+        <Select v-model="formData.triggerType">
+          <SelectTrigger placeholder="请选择触发类型" />
+          <SelectContent>
+            <SelectItem value="MANUAL">手动</SelectItem>
+            <SelectItem value="CRON">Cron</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem v-if="formData.triggerType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
       </ElFormItem>
       <ElFormItem label="最大并发数" prop="maxConcurrentInstances">
-        <ElInputNumber v-model="formData.maxConcurrentInstances" :min="1" :max="100" />
+        <Input v-model="formData.maxConcurrentInstances" type="number" :min="1" :max="100" />
       </ElFormItem>
       <ElFormItem label="失败策略" prop="failStrategy">
-        <ElSelect v-model="formData.failStrategy" placeholder="请选择失败策略">
-          <ElOption label="快速失败" value="FAIL_FAST" />
-          <ElOption label="继续执行" value="CONTINUE" />
-          <ElOption label="补偿处理" value="COMPENSATE" />
-        </ElSelect>
+        <Select v-model="formData.failStrategy">
+          <SelectTrigger placeholder="请选择失败策略" />
+          <SelectContent>
+            <SelectItem value="FAIL_FAST">快速失败</SelectItem>
+            <SelectItem value="CONTINUE">继续执行</SelectItem>
+            <SelectItem value="COMPENSATE">补偿处理</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
         <Textarea v-model="formData.description" :rows="2" placeholder="请输入描述" />

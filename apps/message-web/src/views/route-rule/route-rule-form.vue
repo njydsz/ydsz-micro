@@ -18,10 +18,10 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-// SKIP: route-rule-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElInputNumber/ElRadio/ElRadioGroup 不在映射表
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
+import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
+import { Input, RadioGroup, RadioGroupItem, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { create, update } from '#/api/routeRule';
 import type { MsgRouteRuleVO } from '#/api/models';
 
@@ -153,34 +153,32 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
       label-position="right"
     >
       <ElFormItem label="规则名称" prop="ruleName">
-        <ElInput v-model="formData.ruleName" placeholder="请输入规则名称" />
+        <Input v-model="formData.ruleName" placeholder="请输入规则名称" />
       </ElFormItem>
       <ElFormItem label="规则编码" prop="ruleCode">
-        <ElInput
+        <Input
           v-model="formData.ruleCode"
           placeholder="请输入规则编码（可为空）"
           :disabled="isEdit"
         />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <ElInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="触发通道" prop="channel">
-        <ElInput v-model="formData.channel" placeholder="请输入触发通道（可为空）" />
+        <Input v-model="formData.channel" placeholder="请输入触发通道（可为空）" />
       </ElFormItem>
       <ElFormItem label="条件表达式" prop="conditionExpr">
-        <ElInput
+        <Textarea
           v-model="formData.conditionExpr"
-          type="textarea"
-          :rows="2"
           placeholder="请输入条件表达式"
         />
       </ElFormItem>
       <ElFormItem label="目标通道" prop="targetChannel">
-        <ElInput v-model="formData.targetChannel" placeholder="请输入目标通道" />
+        <Input v-model="formData.targetChannel" placeholder="请输入目标通道" />
       </ElFormItem>
       <ElFormItem label="兜底通道" prop="fallbackChannel">
-        <ElInput v-model="formData.fallbackChannel" placeholder="请输入兜底通道（可为空）" />
+        <Input v-model="formData.fallbackChannel" placeholder="请输入兜底通道（可为空）" />
       </ElFormItem>
       <ElFormItem label="优先级" prop="priority">
         <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
@@ -189,16 +187,14 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
         <ElInputNumber v-model="formData.sortOrder" :min="0" :max="99999" />
       </ElFormItem>
       <ElFormItem label="状态" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="ENABLED">启用</ElRadio>
-          <ElRadio value="DISABLED">禁用</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.status">
+          <RadioGroupItem value="ENABLED">启用</RadioGroupItem>
+          <RadioGroupItem value="DISABLED">禁用</RadioGroupItem>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem label="描述" prop="description">
-        <ElInput
+        <Textarea
           v-model="formData.description"
-          type="textarea"
-          :rows="2"
           placeholder="请输入描述（可为空）"
         />
       </ElFormItem>

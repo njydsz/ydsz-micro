@@ -17,9 +17,10 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Button, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElTabPane/ElTabs/ElSelect/ElOption 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
+import { Button, Select, SelectContent, SelectItem, SelectTrigger, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
 import type { GlueCodeVO } from '#/api/models';
@@ -217,14 +218,24 @@ onMounted(() => {
 
 <template>
   <Modal title="GLUE 代码编辑器" width="900px">
-    <ElTabs v-model="activeTab">
+    <Tabs v-model="activeTab">
+      <TabsList class="mt-2">
+        <TabsTrigger value="editor">代码编辑</TabsTrigger>
+        <TabsTrigger value="versions">版本管理</TabsTrigger>
+        <TabsTrigger value="test">测试执行</TabsTrigger>
+      </TabsList>
       <!-- 代码编辑 -->
-      <ElTabPane label="代码编辑" name="editor">
+      <TabsContent value="editor">
         <div class="editor-container mt-3">
           <div class="mb-3 flex items-center gap-3">
-            <ElSelect v-model="codeLanguage" placeholder="语言" class="w-32">
-              <ElOption v-for="opt in languageOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-            </ElSelect>
+            <Select v-model="codeLanguage">
+              <SelectTrigger class="w-32" placeholder="语言" />
+              <SelectContent>
+                <SelectItem v-for="opt in languageOptions" :key="opt.value" :value="opt.value">
+                  {{ opt.label }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
             <Button size="sm" variant="outline" @click="loadTemplate">加载模板</Button>
             <span v-if="currentVersion > 0" class="text-xs text-gray-500">当前版本：v{{ currentVersion }}</span>
           </div>
@@ -238,13 +249,16 @@ onMounted(() => {
           </div>
           <div class="mt-3 flex justify-end gap-2">
             <Button variant="outline" @click="modalApi.close()">取消</Button>
-            <Button :loading="saving" @click="handleSave">保存</Button>
+            <Button :disabled="saving" @click="handleSave">
+              <Loader2 v-if="saving" class="mr-2 h-4 w-4 animate-spin" />
+              保存
+            </Button>
           </div>
         </div>
-      </ElTabPane>
+      </TabsContent>
 
       <!-- 版本管理 -->
-      <ElTabPane label="版本管理" name="versions">
+      <TabsContent value="versions">
         <div class="mt-3">
           <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">暂无版本记录</div>
           <div
@@ -263,10 +277,10 @@ onMounted(() => {
             </div>
           </div>
         </div>
-      </ElTabPane>
+      </TabsContent>
 
       <!-- 测试执行 -->
-      <ElTabPane label="测试执行" name="test">
+      <TabsContent value="test">
         <div class="mt-3">
           <ElForm label-width="80px">
             <ElFormItem label="测试参数">
@@ -274,15 +288,18 @@ onMounted(() => {
             </ElFormItem>
           </ElForm>
           <div class="mb-3 flex justify-end">
-            <Button :loading="testing" @click="handleTest">执行测试</Button>
+            <Button :disabled="testing" @click="handleTest">
+              <Loader2 v-if="testing" class="mr-2 h-4 w-4 animate-spin" />
+              执行测试
+            </Button>
           </div>
           <div v-if="testResult" class="rounded border bg-gray-50 p-3">
             <p class="mb-1 text-xs font-medium text-gray-600">测试结果：</p>
             <pre class="overflow-auto whitespace-pre-wrap text-sm">{{ testResult }}</pre>
           </div>
         </div>
-      </ElTabPane>
-    </ElTabs>
+      </TabsContent>
+    </Tabs>
   </Modal>
 </template>
 

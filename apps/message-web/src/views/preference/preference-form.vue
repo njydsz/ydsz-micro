@@ -18,10 +18,10 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-// SKIP: preference-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElInputNumber/ElRadio/ElRadioGroup 不在映射表
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup, ElSelect, ElOption } from 'element-plus';
+import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 
+import { Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { upsert } from '#/api/preference';
 import type { MsgPreferenceVO } from '#/api/models';
 
@@ -146,31 +146,31 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
       label-position="right"
     >
       <ElFormItem label="用户ID" prop="userId">
-        <ElInput v-model="formData.userId" placeholder="请输入用户ID" />
+        <Input v-model="formData.userId" placeholder="请输入用户ID" />
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
-        <ElInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+        <Input v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <ElInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+        <Input v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
       </ElFormItem>
       <ElFormItem label="启用" prop="enabled">
-        <ElRadioGroup v-model="formData.enabled">
-          <ElRadio :value="1">启用</ElRadio>
-          <ElRadio :value="0">停用</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.enabled">
+          <RadioGroupItem :value="1">启用</RadioGroupItem>
+          <RadioGroupItem :value="0">停用</RadioGroupItem>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem label="免打扰" prop="dndEnabled">
-        <ElRadioGroup v-model="formData.dndEnabled">
-          <ElRadio :value="1">开启</ElRadio>
-          <ElRadio :value="0">关闭</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.dndEnabled">
+          <RadioGroupItem :value="1">开启</RadioGroupItem>
+          <RadioGroupItem :value="0">关闭</RadioGroupItem>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem label="免打扰开始" prop="dndStart">
-        <ElInput v-model="formData.dndStart" placeholder="如 22:00（可为空）" />
+        <Input v-model="formData.dndStart" placeholder="如 22:00（可为空）" />
       </ElFormItem>
       <ElFormItem label="免打扰结束" prop="dndEnd">
-        <ElInput v-model="formData.dndEnd" placeholder="如 08:00（可为空）" />
+        <Input v-model="formData.dndEnd" placeholder="如 08:00（可为空）" />
       </ElFormItem>
       <ElFormItem label="每日上限" prop="dailyLimit">
         <ElInputNumber v-model="formData.dailyLimit" :min="0" :max="99999" />
@@ -179,24 +179,25 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
         <ElInputNumber v-model="formData.hourlyLimit" :min="0" :max="9999" />
       </ElFormItem>
       <ElFormItem label="摘要订阅" prop="digestEnabled">
-        <ElRadioGroup v-model="formData.digestEnabled">
-          <ElRadio :value="1">开启</ElRadio>
-          <ElRadio :value="0">关闭</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.digestEnabled">
+          <RadioGroupItem :value="1">开启</RadioGroupItem>
+          <RadioGroupItem :value="0">关闭</RadioGroupItem>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem label="摘要频率" prop="digestFrequency">
-        <ElSelect
-          v-model="formData.digestFrequency"
-          placeholder="请选择摘要频率（可为空）"
-          clearable
-        >
-          <ElOption label="每天" value="DAILY" />
-          <ElOption label="每周" value="WEEKLY" />
-          <ElOption label="每月" value="MONTHLY" />
-        </ElSelect>
+        <Select v-model="formData.digestFrequency">
+          <SelectTrigger>
+            <SelectValue placeholder="请选择摘要频率（可为空）" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="DAILY">每天</SelectItem>
+            <SelectItem value="WEEKLY">每周</SelectItem>
+            <SelectItem value="MONTHLY">每月</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem label="语言" prop="locale">
-        <ElInput v-model="formData.locale" placeholder="请输入语言（可为空）" />
+        <Input v-model="formData.locale" placeholder="请输入语言（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>

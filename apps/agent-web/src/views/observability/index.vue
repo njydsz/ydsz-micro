@@ -17,10 +17,10 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-// TODO: ElCard/ElEmpty/ElOption/ElSelect/ElTable/ElTableColumn 表格+复杂布局+选择器,保留 element-plus SKIP
-import { ElCard, ElEmpty, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
+// TODO: ElEmpty/ElTable/ElTableColumn 表格+复杂布局+选择器,保留 element-plus SKIP
+import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 // TODO: ElAlert 无直接 shadcn 映射 SKIP
-import { Button, Badge, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/shadcn-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
 
@@ -137,195 +137,201 @@ onMounted(() => {
     <div class="space-y-4 p-4">
       <!-- 概览卡片 -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <ElCard shadow="hover">
-          <div class="flex items-center justify-between">
+        <Card class="hover:shadow-md transition-shadow">
+          <CardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-gray-500">总请求数</p>
-              <p class="mt-1 text-2xl font-bold">{{ (overviewData.totalRequests as number) ?? 0 }}</p>
+              <p class="text-sm text-muted-foreground">总请求数</p>
+              <p class="mt-1 text-2xl font-bold text-primary">{{ (overviewData.totalRequests as number) ?? 0 }}</p>
             </div>
-            <div class="rounded-full bg-blue-50 p-3">
-              <span class="text-2xl text-blue-500">📊</span>
+            <div class="rounded-full bg-primary/10 p-3">
+              <span class="text-2xl text-primary">📊</span>
             </div>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
 
-        <ElCard shadow="hover">
-          <div class="flex items-center justify-between">
+        <Card class="hover:shadow-md transition-shadow">
+          <CardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-gray-500">成功率</p>
-              <p class="mt-1 text-2xl font-bold text-green-600">
+              <p class="text-sm text-muted-foreground">成功率</p>
+              <p class="mt-1 text-2xl font-bold text-green-600 dark:text-green-400">
                 {{ ((overviewData.successRate as number) ?? 0).toFixed(1) }}%
               </p>
             </div>
-            <div class="rounded-full bg-green-50 p-3">
-              <span class="text-2xl text-green-500">✅</span>
+            <div class="rounded-full bg-green-500/10 p-3">
+              <span class="text-2xl text-green-600 dark:text-green-400">✅</span>
             </div>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
 
-        <ElCard shadow="hover">
-          <div class="flex items-center justify-between">
+        <Card class="hover:shadow-md transition-shadow">
+          <CardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-gray-500">平均延迟</p>
-              <p class="mt-1 text-2xl font-bold text-purple-600">
+              <p class="text-sm text-muted-foreground">平均延迟</p>
+              <p class="mt-1 text-2xl font-bold text-purple-600 dark:text-purple-400">
                 {{ ((overviewData.avgLatency as number) ?? 0).toFixed(0) }}ms
               </p>
             </div>
-            <div class="rounded-full bg-purple-50 p-3">
-              <span class="text-2xl text-purple-500">⚡</span>
+            <div class="rounded-full bg-purple-500/10 p-3">
+              <span class="text-2xl text-purple-600 dark:text-purple-400">⚡</span>
             </div>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
 
-        <ElCard shadow="hover">
-          <div class="flex items-center justify-between">
+        <Card class="hover:shadow-md transition-shadow">
+          <CardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-gray-500">Token 消耗</p>
-              <p class="mt-1 text-2xl font-bold text-orange-600">
+              <p class="text-sm text-muted-foreground">Token 消耗</p>
+              <p class="mt-1 text-2xl font-bold text-orange-600 dark:text-orange-400">
                 {{ ((overviewData.totalTokens as number) ?? 0).toLocaleString() }}
               </p>
             </div>
-            <div class="rounded-full bg-orange-50 p-3">
-              <span class="text-2xl text-orange-500">🪙</span>
+            <div class="rounded-full bg-orange-500/10 p-3">
+              <span class="text-2xl text-orange-600 dark:text-orange-400">🪙</span>
             </div>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
       </div>
 
       <!-- 标签页 -->
-      <ElCard>
-        <div class="mb-4 flex gap-2">
-          <Button :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
-            Trace 追踪
-          </Button>
-          <Button :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
-            模型使用
-          </Button>
-          <Button :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
-            性能监控
-          </Button>
-        </div>
-
-        <!-- Trace 追踪 -->
-        <div v-if="activeTab === 'trace'" class="space-y-4">
-          <div class="flex items-center gap-4">
-            <Input
-              v-model="traceSearchQuery"
-              placeholder="搜索 Trace ID、Agent 名称或输入内容..."
-              class="max-w-md"
-            />
-            <!-- TODO: ElSelect/ElOption SKIP -->
-            <ElSelect placeholder="状态筛选" clearable class="w-32">
-              <ElOption label="成功" value="SUCCESS" />
-              <ElOption label="失败" value="FAILED" />
-              <ElOption label="运行中" value="RUNNING" />
-            </ElSelect>
+      <Card>
+        <CardContent class="pt-6">
+          <div class="mb-4 flex gap-2">
+            <Button :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
+              Trace 追踪
+            </Button>
+            <Button :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
+              模型使用
+            </Button>
+            <Button :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
+              性能监控
+            </Button>
           </div>
 
-          <ElTable :data="traceList" border max-height="400">
-            <ElTableColumn prop="traceId" label="Trace ID" width="120" />
-            <ElTableColumn prop="agentName" label="Agent" width="120" />
-            <ElTableColumn prop="startTime" label="开始时间" width="170" />
-            <ElTableColumn prop="duration" label="耗时(ms)" width="100" />
-            <ElTableColumn prop="model" label="模型" width="100" />
-            <ElTableColumn prop="tokens" label="Token" width="80" />
-            <ElTableColumn label="状态" width="100">
-              <template #default="{ row }">
-                <Badge :variant="getStatusTagType(row.status as string)">
-                  {{ row.status }}
-                </Badge>
-              </template>
-            </ElTableColumn>
-            <ElTableColumn label="操作" width="100" fixed="right">
-              <template #default="{ row }">
-                <Button size="sm" variant="link" @click="viewTraceDetail(row)">
-                  详情
-                </Button>
-              </template>
-            </ElTableColumn>
-          </ElTable>
-        </div>
-
-        <!-- 模型使用 -->
-        <div v-if="activeTab === 'model'" class="space-y-4">
-          <ElTable :data="modelUsageData" border>
-            <ElTableColumn prop="model" label="模型" width="150" />
-            <ElTableColumn prop="requestCount" label="请求数" width="120" />
-            <ElTableColumn prop="tokenCount" label="Token 数" width="120" />
-            <ElTableColumn prop="avgLatency" label="平均延迟(ms)" width="140" />
-            <ElTableColumn prop="cost" label="费用" width="100" />
-          </ElTable>
-          <ElEmpty v-if="modelUsageData.length === 0" description="暂无模型使用数据" />
-        </div>
-
-        <!-- 性能监控 -->
-        <div v-if="activeTab === 'performance'" class="space-y-4">
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div class="rounded border p-4 text-center">
-              <p class="text-3xl font-bold text-blue-600">99.5%</p>
-              <p class="mt-1 text-sm text-gray-500">可用性</p>
+          <!-- Trace 追踪 -->
+          <div v-if="activeTab === 'trace'" class="space-y-4">
+            <div class="flex items-center gap-4">
+              <Input
+                v-model="traceSearchQuery"
+                placeholder="搜索 Trace ID、Agent 名称或输入内容..."
+                class="max-w-md"
+              />
+              <Select>
+                <SelectTrigger class="w-32">
+                  <SelectValue placeholder="状态筛选" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="SUCCESS">成功</SelectItem>
+                  <SelectItem value="FAILED">失败</SelectItem>
+                  <SelectItem value="RUNNING">运行中</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <div class="rounded border p-4 text-center">
-              <p class="text-3xl font-bold text-green-600">1.2s</p>
-              <p class="mt-1 text-sm text-gray-500">P99 延迟</p>
-            </div>
-            <div class="rounded border p-4 text-center">
-              <p class="text-3xl font-bold text-purple-600">150</p>
-              <p class="mt-1 text-sm text-gray-500">QPS</p>
+
+            <ElTable :data="traceList" border max-height="400">
+              <ElTableColumn prop="traceId" label="Trace ID" width="120" />
+              <ElTableColumn prop="agentName" label="Agent" width="120" />
+              <ElTableColumn prop="startTime" label="开始时间" width="170" />
+              <ElTableColumn prop="duration" label="耗时(ms)" width="100" />
+              <ElTableColumn prop="model" label="模型" width="100" />
+              <ElTableColumn prop="tokens" label="Token" width="80" />
+              <ElTableColumn label="状态" width="100">
+                <template #default="{ row }">
+                  <Badge :variant="getStatusTagType(row.status as string)">
+                    {{ row.status }}
+                  </Badge>
+                </template>
+              </ElTableColumn>
+              <ElTableColumn label="操作" width="100" fixed="right">
+                <template #default="{ row }">
+                  <Button size="sm" variant="link" @click="viewTraceDetail(row)">
+                    详情
+                  </Button>
+                </template>
+              </ElTableColumn>
+            </ElTable>
+          </div>
+
+          <!-- 模型使用 -->
+          <div v-if="activeTab === 'model'" class="space-y-4">
+            <ElTable :data="modelUsageData" border>
+              <ElTableColumn prop="model" label="模型" width="150" />
+              <ElTableColumn prop="requestCount" label="请求数" width="120" />
+              <ElTableColumn prop="tokenCount" label="Token 数" width="120" />
+              <ElTableColumn prop="avgLatency" label="平均延迟(ms)" width="140" />
+              <ElTableColumn prop="cost" label="费用" width="100" />
+            </ElTable>
+            <ElEmpty v-if="modelUsageData.length === 0" description="暂无模型使用数据" />
+          </div>
+
+          <!-- 性能监控 -->
+          <div v-if="activeTab === 'performance'" class="space-y-4">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div class="rounded border border-border p-4 text-center">
+                <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">99.5%</p>
+                <p class="mt-1 text-sm text-muted-foreground">可用性</p>
+              </div>
+              <div class="rounded border border-border p-4 text-center">
+                <p class="text-3xl font-bold text-green-600 dark:text-green-400">1.2s</p>
+                <p class="mt-1 text-sm text-muted-foreground">P99 延迟</p>
+              </div>
+              <div class="rounded border border-border p-4 text-center">
+                <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">150</p>
+                <p class="mt-1 text-sm text-muted-foreground">QPS</p>
+              </div>
             </div>
           </div>
-        </div>
-      </ElCard>
+        </CardContent>
+      </Card>
     </div>
 
     <!-- Trace 详情弹窗 -->
-    <ElDialog
-      :model-value="selectedTrace !== null"
-      title="Trace 详情"
-      width="700px"
-      @close="selectedTrace = null"
-    >
-      <div v-if="selectedTrace" class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <span class="text-sm text-gray-500">Trace ID：</span>
-            <span class="text-sm font-medium">{{ selectedTrace.traceId }}</span>
+    <Dialog :open="selectedTrace !== null" @update:open="selectedTrace = null">
+      <DialogContent class="sm:max-w-[700px]">
+        <DialogHeader>
+          <DialogTitle>Trace 详情</DialogTitle>
+        </DialogHeader>
+        <div v-if="selectedTrace" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <span class="text-sm text-muted-foreground">Trace ID：</span>
+              <span class="text-sm font-medium">{{ selectedTrace.traceId }}</span>
+            </div>
+            <div>
+              <span class="text-sm text-muted-foreground">Agent：</span>
+              <span class="text-sm font-medium">{{ selectedTrace.agentName }}</span>
+            </div>
+            <div>
+              <span class="text-sm text-muted-foreground">开始时间：</span>
+              <span class="text-sm font-medium">{{ selectedTrace.startTime }}</span>
+            </div>
+            <div>
+              <span class="text-sm text-muted-foreground">耗时：</span>
+              <span class="text-sm font-medium">{{ selectedTrace.duration }}ms</span>
+            </div>
+            <div>
+              <span class="text-sm text-muted-foreground">模型：</span>
+              <span class="text-sm font-medium">{{ selectedTrace.model }}</span>
+            </div>
+            <div>
+              <span class="text-sm text-muted-foreground">Token：</span>
+              <span class="text-sm font-medium">{{ selectedTrace.tokens }}</span>
+            </div>
           </div>
           <div>
-            <span class="text-sm text-gray-500">Agent：</span>
-            <span class="text-sm font-medium">{{ selectedTrace.agentName }}</span>
+            <span class="text-sm text-muted-foreground">输入：</span>
+            <div class="mt-1 rounded border border-border bg-muted p-3 text-sm">{{ selectedTrace.input }}</div>
           </div>
           <div>
-            <span class="text-sm text-gray-500">开始时间：</span>
-            <span class="text-sm font-medium">{{ selectedTrace.startTime }}</span>
-          </div>
-          <div>
-            <span class="text-sm text-gray-500">耗时：</span>
-            <span class="text-sm font-medium">{{ selectedTrace.duration }}ms</span>
-          </div>
-          <div>
-            <span class="text-sm text-gray-500">模型：</span>
-            <span class="text-sm font-medium">{{ selectedTrace.model }}</span>
-          </div>
-          <div>
-            <span class="text-sm text-gray-500">Token：</span>
-            <span class="text-sm font-medium">{{ selectedTrace.tokens }}</span>
+            <span class="text-sm text-muted-foreground">输出：</span>
+            <div class="mt-1 rounded border border-border bg-muted p-3 text-sm">
+              {{ selectedTrace.output ?? selectedTrace.error ?? '-' }}
+            </div>
           </div>
         </div>
-        <div>
-          <span class="text-sm text-gray-500">输入：</span>
-          <div class="mt-1 rounded border bg-gray-50 p-3 text-sm">{{ selectedTrace.input }}</div>
-        </div>
-        <div>
-          <span class="text-sm text-gray-500">输出：</span>
-          <div class="mt-1 rounded border bg-gray-50 p-3 text-sm">
-            {{ selectedTrace.output ?? selectedTrace.error ?? '-' }}
-          </div>
-        </div>
-      </div>
-      <template #footer>
-        <Button @click="selectedTrace = null">关闭</Button>
-      </template>
-    </ElDialog>
+        <DialogFooter>
+          <Button variant="outline" @click="selectedTrace = null">关闭</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </Page>
 </template>

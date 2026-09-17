@@ -16,9 +16,9 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElRadioGroup/ElRadio/ElSwitch/ElTable/ElTableColumn/ElDialog 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, ElTable, ElTableColumn } from 'element-plus';
+import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, Switch, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem/ElTable/ElTableColumn 表单与表格组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem, ElTable, ElTableColumn } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -236,23 +236,35 @@ onMounted(loadList);
             <Input v-model="formData.name" placeholder="请输入订阅名称" />
           </ElFormItem>
           <ElFormItem label="事件类型" prop="eventType">
-            <ElSelect v-model="formData.eventType" placeholder="请选择事件类型">
-              <ElOption
-                v-for="item in eventTypeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </ElSelect>
+            <Select v-model="formData.eventType">
+              <SelectTrigger placeholder="请选择事件类型" />
+              <SelectContent>
+                <SelectItem
+                  v-for="item in eventTypeOptions"
+                  :key="item.value"
+                  :value="item.value"
+                >
+                  {{ item.label }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </ElFormItem>
           <ElFormItem label="回调 URL" prop="callbackUrl">
             <Input v-model="formData.callbackUrl" placeholder="https://example.com/webhook" />
           </ElFormItem>
           <ElFormItem label="请求方法" prop="httpMethod">
-            <ElRadioGroup v-model="formData.httpMethod">
-              <ElRadio value="POST">POST</ElRadio>
-              <ElRadio value="PUT">PUT</ElRadio>
-            </ElRadioGroup>
+            <RadioGroup v-model="formData.httpMethod">
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <RadioGroupItem id="method-post" value="POST" />
+                  <label for="method-post" class="cursor-pointer text-sm">POST</label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <RadioGroupItem id="method-put" value="PUT" />
+                  <label for="method-put" class="cursor-pointer text-sm">PUT</label>
+                </div>
+              </div>
+            </RadioGroup>
           </ElFormItem>
           <ElFormItem label="请求头">
             <Textarea v-model="formData.headers" placeholder="JSON 格式，可选" :rows="2" />
@@ -261,12 +273,9 @@ onMounted(loadList);
             <Input v-model="formData.secret" placeholder="用于签名验证，可选" type="password" />
           </ElFormItem>
           <ElFormItem label="状态" prop="webhookStatus">
-            <ElSwitch
-              v-model="formData.webhookStatus"
-              active-value="ACTIVE"
-              inactive-value="INACTIVE"
-              active-text="启用"
-              inactive-text="禁用"
+            <Switch
+              :checked="formData.webhookStatus === 'ACTIVE'"
+              @update:checked="formData.webhookStatus = $event ? 'ACTIVE' : 'INACTIVE'"
             />
           </ElFormItem>
         </ElForm>

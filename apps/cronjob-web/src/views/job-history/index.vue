@@ -19,9 +19,9 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElTable/ElTableColumn/ElForm/ElFormItem/ElOption/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
+import { Badge, Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Sheet, SheetContent } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -289,8 +289,9 @@ onMounted(() => {
   <Page auto-content-height>
     <Grid table-title="任务历史版本" />
 
-    <!-- 详情抽屉 -->
-    <ElDrawer v-model="isDetailVisible" title="历史版本详情" size="600px">
+    <!-- 详情历史 Sheet -->
+    <Sheet v-model:open="isDetailVisible">
+      <SheetContent side="right" class="w-[600px]">
       <template v-if="detailRecord">
         <ElDescriptions :column="2" border size="small">
           <ElDescriptionsItem label="任务名称">{{ detailRecord.jobName ?? '-' }}</ElDescriptionsItem>
@@ -321,30 +322,41 @@ onMounted(() => {
           </ElDescriptionsItem>
         </ElDescriptions>
       </template>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
 
-    <!-- 版本对比弹窗 -->
-    <ElDrawer v-model="isCompareVisible" title="版本对比" size="700px">
+    <!-- 版本对比 Sheet -->
+    <Sheet v-model:open="isCompareVisible">
+      <SheetContent side="right" class="w-[700px]">
+        <div class="mb-2 text-base font-semibold">版本对比</div>
       <ElForm label-width="80px" class="mb-3">
         <ElFormItem label="版本 A">
-          <ElSelect v-model="compareV1" placeholder="选择版本" style="width: 180px">
-            <ElOption
-              v-for="opt in versionOptions"
-              :key="opt.value"
-              :label="opt.label"
-              :value="opt.value"
-            />
-          </ElSelect>
+          <Select v-model="compareV1">
+            <SelectTrigger class="w-[180px]" placeholder="选择版本" />
+            <SelectContent>
+              <SelectItem
+                v-for="opt in versionOptions"
+                :key="opt.value"
+                :value="String(opt.value)"
+              >
+                {{ opt.label }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </ElFormItem>
         <ElFormItem label="版本 B">
-          <ElSelect v-model="compareV2" placeholder="选择版本" style="width: 180px">
-            <ElOption
-              v-for="opt in versionOptions"
-              :key="opt.value"
-              :label="opt.label"
-              :value="opt.value"
-            />
-          </ElSelect>
+          <Select v-model="compareV2">
+            <SelectTrigger class="w-[180px]" placeholder="选择版本" />
+            <SelectContent>
+              <SelectItem
+                v-for="opt in versionOptions"
+                :key="opt.value"
+                :value="String(opt.value)"
+              >
+                {{ opt.label }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </ElFormItem>
         <ElFormItem>
           <Button @click="handleCompare">开始对比</Button>
@@ -359,6 +371,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-    </ElDrawer>
+      </SheetContent>
+    </Sheet>
   </Page>
 </template>

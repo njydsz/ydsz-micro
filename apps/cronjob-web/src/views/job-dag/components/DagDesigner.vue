@@ -17,9 +17,9 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem/ElSlider 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElSlider } from 'element-plus';
+import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, Slider, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
+import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -229,9 +229,14 @@ function handleNodeNameChange(name: string): void {
           <Input v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
         </ElFormItem>
         <ElFormItem label="触发类型">
-          <ElSelect v-model="formData.triggerType" placeholder="选择触发类型">
-            <ElOption v-for="opt in triggerTypeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-          </ElSelect>
+          <Select v-model="formData.triggerType">
+            <SelectTrigger placeholder="选择触发类型" />
+            <SelectContent>
+              <SelectItem v-for="opt in triggerTypeOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </ElFormItem>
       </ElForm>
 
@@ -249,7 +254,7 @@ function handleNodeNameChange(name: string): void {
         </Button>
         <div class="mx-2 h-5 w-px bg-gray-300" />
         <span class="text-sm text-gray-600">缩放：</span>
-        <ElSlider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
+        <Slider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
         <span class="text-xs text-gray-500">{{ zoomPercent }}%</span>
       </div>
 

@@ -16,13 +16,13 @@
  *
  * @author ydsz-team
  * @since 1.0.0
- */
-// SKIP: reactive/index.vue 批量跳过迁移 — 含 ElTimeline/ElTimelineItem/ElCard/ElEmpty/ElForm/ElFormItem 等未映射组件，
-// 时间线+SSE 监控逻辑与 EP 深度耦合。
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+*/
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
+import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
+
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { openSseStream } from '#/utils/sse-client';
 import { healthCheck, publishEvent, type ReactiveEventVO, type ReactiveHealthVO, type ReactiveEventLevel } from '#/api/reactive';
 
@@ -131,14 +131,14 @@ async function handlePublish() {
 /**
  * 获取连接状态主题色。
  */
-function getConnectionTheme(): 'success' | 'warning' | 'info' {
+function getConnectionVariant(): 'default' | 'outline' | 'secondary' {
   switch (connectionStatus.value) {
     case 'connected':
-      return 'success';
+      return 'default';
     case 'connecting':
-      return 'warning';
+      return 'outline';
     default:
-      return 'info';
+      return 'secondary';
   }
 }
 
@@ -161,15 +161,15 @@ function getConnectionText(): string {
  *
  * @param level - 事件级别
  */
-function getLevelType(level: string | undefined): 'success' | 'warning' | 'danger' | 'info' {
+function getLevelVariant(level: string | undefined): 'destructive' | 'outline' | 'secondary' {
   switch (level) {
     case 'ERROR':
     case 'CRITICAL':
-      return 'danger';
+      return 'destructive';
     case 'WARN':
-      return 'warning';
+      return 'outline';
     default:
-      return 'info';
+      return 'secondary';
   }
 }
 
@@ -185,120 +185,116 @@ onBeforeUnmount(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="reactive-monitor-container">
-      <el-card header="连接状态" class="mb-4">
-        <div class="flex items-center gap-4">
-          <ElTag :type="getConnectionTheme()">{{ getConnectionText() }}</ElTag>
-          <span class="text-sm">运行模式: {{ health.mode ?? '-' }}</span>
-          <span class="text-sm">缓冲区: {{ health.bufferSize ?? '-' }}</span>
-          <span class="text-sm">运行状态: {{ health.status ?? '-' }}</span>
-          <div class="flex-1" />
-          <ElButton
-            v-if="connectionStatus === 'connected'"
-            @click="disconnectSse"
-          >
-            断开
-          </ElButton>
-          <ElButton
-            v-else
-            type="primary"
-            @click="connectSse"
-          >
-            连接
-          </ElButton>
-        </div>
-      </el-card>
+    <div class="reactive-monitor-container p-4">
+      <!-- 连接状态 -->
+      <Card class="mb-4">
+        <CardHeader>
+          <CardTitle>连接状态</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="flex items-center gap-4">
+            <Badge :variant="getConnectionVariant()">{{ getConnectionText() }}</Badge>
+            <span class="text-sm">运行模式: {{ health.mode ?? '-' }}</span>
+            <span class="text-sm">缓冲区: {{ health.bufferSize ?? '-' }}</span>
+            <span class="text-sm">运行状态: {{ health.status ?? '-' }}</span>
+            <div class="flex-1" />
+            <Button
+              v-if="connectionStatus === 'connected'"
+              variant="destructive"
+              @click="disconnectSse"
+            >
+              断开
+            </Button>
+            <Button
+              v-else
+              @click="connectSse"
+            >
+              连接
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-      <el-card header="发布事件（试点测试）" class="mb-4">
-        <ElForm :model="publishForm" label-width="100px">
-          <ElFormItem label="事件类型">
-            <ElInput v-model="publishForm.eventType" placeholder="默认 notification" />
-          </ElFormItem>
-          <ElFormItem label="级别">
-            <ElSelect v-model="publishForm.level">
-              <ElOption
-                v-for="item in levelOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem label="目标用户">
-            <ElInput v-model="publishForm.targetUserId" placeholder="留空则广播给所有订阅者" />
-          </ElFormItem>
-          <ElFormItem label="标题">
-            <ElInput v-model="publishForm.title" />
-          </ElFormItem>
-          <ElFormItem label="正文">
-            <ElInput v-model="publishForm.content" type="textarea" :rows="3" />
-          </ElFormItem>
-          <ElFormItem>
-            <ElButton type="primary" @click="handlePublish">发布</ElButton>
-          </ElFormItem>
-        </ElForm>
-      </el-card>
-
-      <el-card header="最近事件（近 50 条）">
-        <ElEmpty v-if="recentEvents.length === 0" description="暂无事件" />
-        <ElTimeline v-else>
-          <ElTimelineItem
-            v-for="event in recentEvents"
-            :key="event.eventId"
-            :timestamp="event.timestamp"
-            placement="top"
-          >
-            <div class="flex items-center gap-2">
-              <ElTag :type="getLevelType(event.level)">{{ event.level ?? 'INFO' }}</ElTag>
-              <span>{{ event.title }}</span>
-              <span class="text-sm text-gray-500">{{ event.targetUserId ?? '广播' }}</span>
+      <!-- 发布事件 -->
+      <Card class="mb-4">
+        <CardHeader>
+          <CardTitle>发布事件（试点测试）</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-4">
+            <div>
+              <Label>事件类型</Label>
+              <Input v-model="publishForm.eventType" placeholder="默认 notification" class="mt-1" />
             </div>
-            <p v-if="event.content" class="text-sm text-gray-600">{{ event.content }}</p>
-          </ElTimelineItem>
-        </ElTimeline>
-      </el-card>
+            <div>
+              <Label>级别</Label>
+              <Select v-model="publishForm.level">
+                <SelectTrigger class="mt-1">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    v-for="item in levelOptions"
+                    :key="item.value"
+                    :value="item.value"
+                  >
+                    {{ item.label }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>目标用户</Label>
+              <Input v-model="publishForm.targetUserId" placeholder="留空则广播给所有订阅者" class="mt-1" />
+            </div>
+            <div>
+              <Label>标题</Label>
+              <Input v-model="publishForm.title" class="mt-1" />
+            </div>
+            <div>
+              <Label>正文</Label>
+              <Textarea v-model="publishForm.content" class="mt-1" />
+            </div>
+            <Button @click="handlePublish">发布</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <!-- 最近事件 -->
+      <Card>
+        <CardHeader>
+          <CardTitle>最近事件（近 50 条）</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ElEmpty v-if="recentEvents.length === 0" description="暂无事件" />
+          <ElTimeline v-else>
+            <ElTimelineItem
+              v-for="event in recentEvents"
+              :key="event.eventId"
+              :timestamp="event.timestamp"
+              placement="top"
+            >
+              <div class="flex items-center gap-2">
+                <Badge :variant="getLevelVariant(event.level)">{{ event.level ?? 'INFO' }}</Badge>
+                <span>{{ event.title }}</span>
+                <span class="text-sm text-gray-500">{{ event.targetUserId ?? '广播' }}</span>
+              </div>
+              <p v-if="event.content" class="text-sm text-gray-600">{{ event.content }}</p>
+            </ElTimelineItem>
+          </ElTimeline>
+        </CardContent>
+      </Card>
     </div>
   </Page>
 </template>
 
 <style lang="scss" scoped>
 .reactive-monitor-container {
-  padding: 16px;
-
   .mb-4 {
     margin-bottom: 16px;
   }
-
-  .flex {
-    display: flex;
-  }
-
-  .items-center {
-    align-items: center;
-  }
-
-  .gap-2 {
-    gap: 8px;
-  }
-
-  .gap-4 {
-    gap: 16px;
-  }
-
   .flex-1 {
     flex: 1;
-  }
-
-  .text-sm {
-    font-size: 14px;
-  }
-
-  .text-gray-500 {
-    color: #6b7280;
-  }
-
-  .text-gray-600 {
-    color: #4b5563;
   }
 }
 </style>

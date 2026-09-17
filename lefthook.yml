@@ -38,3 +38,12 @@ commit-msg:
     commitlint:
       # 对提交信息做 Conventional Commits 校验（配置见 commitlint.config.mjs）
       run: pnpm exec commitlint --edit {1}
+
+pre-push:
+  parallel: true
+  commands:
+    vitest:
+      # 云顶编码规范 §16.10 — pre-push 运行 Vitest 测试 + 覆盖率门禁（Phase 1 最低 5%，Phase 4 目标 ≥ 40%）
+      # 仅对 apps/ comm/ main/ 下变更的子项目执行对应测试
+      run: pnpm test:unit -- --run
+      # 非零退出码阻断推送（默认行为）

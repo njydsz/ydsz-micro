@@ -15,8 +15,9 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-// TODO: ElDialog/ElForm/ElFormItem/ElInput/ElDatePicker/ElRadio/ElRadioGroup/ElButton 表单套件+日期选择,保留 element-plus SKIP
-import { ElButton, ElDatePicker, ElDialog, ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+// TODO: ElForm/ElFormItem/ElInput/ElDatePicker/ElRadio/ElRadioGroup 表单套件+日期选择,保留 element-plus SKIP
+import { ElDatePicker, ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
 import { reactive, ref } from 'vue';
 
 defineOptions({ name: 'ConversationShare' });
@@ -100,48 +101,54 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <ElDialog v-model="visible" title="对话发布 / 分享" width="520px" :close-on-click-modal="false">
-    <div v-if="!shareUrl" class="space-y-4">
-      <p class="text-sm text-gray-500">将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：</p>
-      <ElForm label-width="90px">
-        <ElFormItem label="分享标题" required>
-          <ElInput v-model="shareConfig.title" placeholder="请输入分享标题" />
-        </ElFormItem>
-        <ElFormItem label="访问权限">
-          <ElRadioGroup v-model="shareConfig.permission">
-            <ElRadio value="PUBLIC">{{ permissionLabel.PUBLIC }}</ElRadio>
-            <ElRadio value="TEAM">{{ permissionLabel.TEAM }}</ElRadio>
-          </ElRadioGroup>
-        </ElFormItem>
-        <ElFormItem label="有效期至">
-          <ElDatePicker
-            v-model="shareConfig.expireAt"
-            type="datetime"
-            placeholder="选择失效时间（默认永久有效）"
-            class="w-full"
-          />
-        </ElFormItem>
-      </ElForm>
-    </div>
+  <Dialog v-model:open="visible">
+    <DialogContent class="sm:max-w-[520px]">
+      <DialogHeader>
+        <DialogTitle>对话发布 / 分享</DialogTitle>
+      </DialogHeader>
 
-    <!-- 发布成功 -->
-    <div v-else class="space-y-3 text-center">
-      <div class="rounded bg-green-50 p-4 text-sm text-green-600">
-        发布成功！链接访问权限：{{ permissionLabel[shareConfig.permission] ?? shareConfig.permission }}
+      <div v-if="!shareUrl" class="space-y-4">
+        <p class="text-sm text-muted-foreground">将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：</p>
+        <ElForm label-width="90px">
+          <ElFormItem label="分享标题" required>
+            <ElInput v-model="shareConfig.title" placeholder="请输入分享标题" />
+          </ElFormItem>
+          <ElFormItem label="访问权限">
+            <ElRadioGroup v-model="shareConfig.permission">
+              <ElRadio value="PUBLIC">{{ permissionLabel.PUBLIC }}</ElRadio>
+              <ElRadio value="TEAM">{{ permissionLabel.TEAM }}</ElRadio>
+            </ElRadioGroup>
+          </ElFormItem>
+          <ElFormItem label="有效期至">
+            <ElDatePicker
+              v-model="shareConfig.expireAt"
+              type="datetime"
+              placeholder="选择失效时间（默认永久有效）"
+              class="w-full"
+            />
+          </ElFormItem>
+        </ElForm>
       </div>
-      <ElInput v-model="shareUrl" readonly />
-      <p class="text-xs text-gray-400">标题：{{ shareConfig.title }}</p>
-    </div>
 
-    <template #footer>
-      <template v-if="!shareUrl">
-        <ElButton @click="close">取消</ElButton>
-        <ElButton type="primary" :loading="publishing" @click="handlePublish">发布</ElButton>
-      </template>
-      <template v-else>
-        <ElButton type="primary" @click="copyShareUrl">复制链接</ElButton>
-        <ElButton @click="close">完成</ElButton>
-      </template>
-    </template>
-  </ElDialog>
+      <!-- 发布成功 -->
+      <div v-else class="space-y-3 text-center">
+        <div class="rounded bg-green-50 p-4 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
+          发布成功！链接访问权限：{{ permissionLabel[shareConfig.permission] ?? shareConfig.permission }}
+        </div>
+        <ElInput v-model="shareUrl" readonly />
+        <p class="text-xs text-muted-foreground">标题：{{ shareConfig.title }}</p>
+      </div>
+
+      <DialogFooter>
+        <template v-if="!shareUrl">
+          <Button variant="outline" @click="close">取消</Button>
+          <Button :disabled="publishing" @click="handlePublish">发布</Button>
+        </template>
+        <template v-else>
+          <Button @click="copyShareUrl">复制链接</Button>
+          <Button variant="outline" @click="close">完成</Button>
+        </template>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>

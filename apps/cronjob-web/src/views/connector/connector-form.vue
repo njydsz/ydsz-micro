@@ -15,8 +15,8 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
 import { ElForm, ElFormItem } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -116,9 +116,14 @@ const title = computed(() => '连接测试');
   <Modal :title="title">
     <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <ElFormItem :label="t('business.connectorType')" prop="type">
-        <ElSelect v-model="formData.type" placeholder="请选择连接器类型" filterable allow-create>
-          <ElOption v-for="item in connectorTypes" :key="item" :label="item" :value="item" />
-        </ElSelect>
+        <Select v-model="formData.type">
+          <SelectTrigger placeholder="请选择连接器类型" />
+          <SelectContent>
+            <SelectItem v-for="item in connectorTypes" :key="item" :value="item">
+              {{ item }}
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem :label="t('business.connectorUrl')" prop="endpoint">
         <Input v-model="formData.endpoint" placeholder="请输入连接端点" />

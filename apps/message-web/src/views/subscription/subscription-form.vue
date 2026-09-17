@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 订阅表单组件
  *
  * <p>用于新增和编辑消息订阅关系。
@@ -16,18 +16,17 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
+import { ElForm, ElFormItem } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
-
-const logger = createLogger('message-subscription');
-import { Button } from '@ydsz-core/ui-kit/shadcn-ui';
-// SKIP: ElForm/ElFormItem/ElInput/ElOption/ElSelect/ElSwitch 不在 shadcn 映射表，保留 EP
-import { ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch } from 'element-plus';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { upsert } from '#/api/subscription';
 
 defineOptions({ name: 'SubscriptionForm' });
+
+const logger = createLogger('message-subscription');
 
 const { t } = useI18n();
 
@@ -134,43 +133,46 @@ async function handleSubmit(): Promise<void> {
   <Modal :title="isEditMode ? '编辑订阅' : '新增订阅'" width="500px">
     <ElForm label-width="100px" class="mt-3">
       <ElFormItem label="用户ID" required>
-        <ElInput
+        <Input
           v-model="formData.userId"
           placeholder="请输入用户ID"
           :disabled="isEditMode"
         />
       </ElFormItem>
       <ElFormItem label="主题编码" required>
-        <ElInput
+        <Input
           v-model="formData.topicCode"
           placeholder="请输入主题编码"
           :disabled="isEditMode"
         />
       </ElFormItem>
       <ElFormItem label="主题名称" required>
-        <ElInput v-model="formData.topicName" placeholder="请输入主题名称" />
+        <Input v-model="formData.topicName" placeholder="请输入主题名称" />
       </ElFormItem>
       <ElFormItem label="通知通道" required>
-        <ElSelect v-model="formData.channel" placeholder="请选择通道" class="w-full">
-          <ElOption
-            v-for="opt in channelOptions"
-            :key="opt.value"
-            :label="opt.label"
-            :value="opt.value"
-          />
-        </ElSelect>
+        <Select v-model="formData.channel">
+          <SelectTrigger>
+            <SelectValue placeholder="请选择通道" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              v-for="opt in channelOptions"
+              :key="opt.value"
+              :value="opt.value"
+            >
+              {{ opt.label }}
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem label="订阅状态">
-        <ElSwitch
-          v-model="formData.status"
-          active-value="ACTIVE"
-          inactive-value="UNSUBSCRIBED"
-          :active-text="t('common.enabled')"
-          :inactive-text="t('common.disabled')"
+        <Switch
+          :checked="formData.status === 'ACTIVE'"
+          @update:checked="(val: boolean) => formData.status = val ? 'ACTIVE' : 'UNSUBSCRIBED'"
         />
       </ElFormItem>
       <ElFormItem label="备注">
-        <ElInput v-model="formData.remark" type="textarea" :rows="3" placeholder="请输入备注" />
+        <Textarea v-model="formData.remark" placeholder="请输入备注" />
       </ElFormItem>
     </ElForm>
 

@@ -15,10 +15,10 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-// TODO: FormInstance/ElDialog/ElForm/ElFormItem/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
+// TODO: FormInstance/ElForm/ElFormItem/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
 import type { FormInstance } from 'element-plus';
-import { ElDialog, ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
-import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
+import { Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea } from '@ydsz-core/shadcn-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
@@ -139,80 +139,81 @@ defineExpose({ open });
 </script>
 
 <template>
-  <ElDialog
-    v-model="isVisible"
-    :title="mode === 'view' ? '记忆详情' : '写入记忆'"
-    width="640px"
-    @close="handleClose"
-  >
-    <!-- 查看模式 -->
-    <div v-if="mode === 'view' && memoryData" class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <span class="text-sm text-gray-500">消息 ID:</span>
-          <p class="mt-1 text-sm font-medium">{{ memoryData.id ?? '-' }}</p>
-        </div>
-        <div>
-          <span class="text-sm text-gray-500">角色:</span>
-          <p class="mt-1 text-sm font-medium">{{ memoryData.role ?? '-' }}</p>
-        </div>
-        <div>
-          <span class="text-sm text-gray-500">对话 ID:</span>
-          <p class="mt-1 text-sm font-medium">{{ memoryData.conversationId ?? '-' }}</p>
-        </div>
-        <div>
-          <span class="text-sm text-gray-500">创建时间:</span>
-          <p class="mt-1 text-sm font-medium">{{ memoryData.createdAt ?? '-' }}</p>
-        </div>
-        <div>
-          <span class="text-sm text-gray-500">ToolCall ID:</span>
-          <p class="mt-1 text-sm font-medium">{{ memoryData.toolCallId ?? '-' }}</p>
-        </div>
-      </div>
-      <div>
-        <span class="text-sm text-gray-500">消息内容:</span>
-        <div class="mt-1 max-h-[300px] overflow-auto rounded border bg-gray-50 p-3 text-sm">
-          {{ memoryData.content ?? '-' }}
-        </div>
-      </div>
-    </div>
+  <Dialog v-model:open="isVisible">
+    <DialogContent class="sm:max-w-[640px]">
+      <DialogHeader>
+        <DialogTitle>{{ mode === 'view' ? '记忆详情' : '写入记忆' }}</DialogTitle>
+      </DialogHeader>
 
-    <!-- 写入模式 -->
-    <ElForm
-      v-else
-      ref="formRef"
-      :model="form"
-      :rules="formRules"
-      label-width="100px"
-    >
-      <ElFormItem label="对话 ID">
-        <Input v-model="conversationId" placeholder="对话 ID" :disabled="true" />
-      </ElFormItem>
-      <ElFormItem label="消息角色" prop="role">
-        <ElSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
-          <ElOption
-            v-for="item in roleOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+      <!-- 查看模式 -->
+      <div v-if="mode === 'view' && memoryData" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <span class="text-sm text-muted-foreground">消息 ID:</span>
+            <p class="mt-1 text-sm font-medium">{{ memoryData.id ?? '-' }}</p>
+          </div>
+          <div>
+            <span class="text-sm text-muted-foreground">角色:</span>
+            <p class="mt-1 text-sm font-medium">{{ memoryData.role ?? '-' }}</p>
+          </div>
+          <div>
+            <span class="text-sm text-muted-foreground">对话 ID:</span>
+            <p class="mt-1 text-sm font-medium">{{ memoryData.conversationId ?? '-' }}</p>
+          </div>
+          <div>
+            <span class="text-sm text-muted-foreground">创建时间:</span>
+            <p class="mt-1 text-sm font-medium">{{ memoryData.createdAt ?? '-' }}</p>
+          </div>
+          <div>
+            <span class="text-sm text-muted-foreground">ToolCall ID:</span>
+            <p class="mt-1 text-sm font-medium">{{ memoryData.toolCallId ?? '-' }}</p>
+          </div>
+        </div>
+        <div>
+          <span class="text-sm text-muted-foreground">消息内容:</span>
+          <div class="mt-1 max-h-[300px] overflow-auto rounded border bg-muted p-3 text-sm">
+            {{ memoryData.content ?? '-' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- 写入模式 -->
+      <ElForm
+        v-else
+        ref="formRef"
+        :model="form"
+        :rules="formRules"
+        label-width="100px"
+      >
+        <ElFormItem label="对话 ID">
+          <Input v-model="conversationId" placeholder="对话 ID" :disabled="true" />
+        </ElFormItem>
+        <ElFormItem label="消息角色" prop="role">
+          <ElSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
+            <ElOption
+              v-for="item in roleOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </ElSelect>
+        </ElFormItem>
+        <ElFormItem label="消息内容" prop="content">
+          <Textarea
+            v-model="form.content"
+            placeholder="请输入消息内容"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem label="消息内容" prop="content">
-        <Textarea
-          v-model="form.content"
-          placeholder="请输入消息内容"
-        />
-      </ElFormItem>
-      <ElFormItem label="ToolCall ID">
-        <Input v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
-      </ElFormItem>
-    </ElForm>
+        </ElFormItem>
+        <ElFormItem label="ToolCall ID">
+          <Input v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
+        </ElFormItem>
+      </ElForm>
 
-    <template #footer>
-      <Button @click="handleClose">取消</Button>
-      <Button v-if="mode === 'edit'" :loading="isSubmitting" @click="handleSubmit">保存</Button>
-      <Button v-else @click="handleClose">关闭</Button>
-    </template>
-  </ElDialog>
+      <DialogFooter>
+        <Button variant="outline" @click="handleClose">取消</Button>
+        <Button v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit">保存</Button>
+        <Button v-else variant="outline" @click="handleClose">关闭</Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 </template>

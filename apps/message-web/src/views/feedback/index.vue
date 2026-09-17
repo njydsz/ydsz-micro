@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 消息反馈管理页面
  *
  * <p>展示和管理用户对消息的反馈，包含平均评分、反馈总数、正面反馈比例等指标，
@@ -19,15 +19,13 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-
 import { createLogger } from '@ydsz-core/shared/utils';
-// SKIP: feedback/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElEmpty/ElRate 等未映射组件，
-// 且表格+表单+弹窗混合使用 EP 特性，需整体重写。
-import { ElButton, ElCard, ElDialog, ElEmpty, ElInput, ElOption, ElRate, ElSelect, ElTable, ElTableColumn, ElTag } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
-import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 import type { MsgFeedbackVO } from '#/api/models';
+import { Badge, Button, Card, CardContent, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
+import { ElEmpty, ElRate, ElTable, ElTableColumn } from 'element-plus';
+import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 
 defineOptions({ name: 'FeedbackManagement' });
 
@@ -73,11 +71,20 @@ const currentDetail = ref<MsgFeedbackVO | null>(null);
 const ratingDistribution = ref<Record<string, number>>({});
 
 /** 状态标签类型 */
-function getStatusType(status?: string): 'success' | 'warning' | 'info' {
+function getStatusType(status?: string): 'success' | 'danger' | 'warning' | 'info' {
   const upper = (status ?? '').toUpperCase();
   if (upper === 'PROCESSED') return 'success';
   if (upper === 'PENDING') return 'warning';
   return 'info';
+}
+
+/** 状态标签 Badge variant 映射 */
+function getStatusVariant(status?: string): 'default' | 'destructive' | 'outline' | 'secondary' {
+  const type = getStatusType(status);
+  if (type === 'danger') return 'destructive';
+  if (type === 'warning') return 'outline';
+  if (type === 'info') return 'secondary';
+  return 'default';
 }
 
 /** 状态标签文本 */
@@ -165,147 +172,162 @@ onMounted(() => {
     <div class="feedback-container p-4">
       <!-- 顶部指标卡片区 -->
       <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
-            <span class="text-sm text-gray-500">平均评分</span>
+        <Card>
+          <CardContent class="flex flex-col items-center pt-6">
+            <span class="text-sm text-muted-foreground">平均评分</span>
             <div class="mt-2 flex items-center gap-2">
               <ElRate :model-value="averageRating" disabled allow-half />
               <span class="text-2xl font-bold text-amber-500">{{ averageRating.toFixed(1) }}</span>
             </div>
-          </div>
-        </ElCard>
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
-            <span class="text-sm text-gray-500">反馈总数</span>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent class="flex flex-col items-center pt-6">
+            <span class="text-sm text-muted-foreground">反馈总数</span>
             <span class="mt-2 text-2xl font-bold text-blue-600">{{ totalFeedback }}</span>
-          </div>
-        </ElCard>
-        <ElCard shadow="hover">
-          <div class="flex flex-col items-center">
-            <span class="text-sm text-gray-500">正面反馈比例</span>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent class="flex flex-col items-center pt-6">
+            <span class="text-sm text-muted-foreground">正面反馈比例</span>
             <span class="mt-2 text-2xl font-bold text-green-600">{{ positiveRatio }}%</span>
-          </div>
-        </ElCard>
+          </CardContent>
+        </Card>
       </div>
 
       <!-- 查询区域 -->
-      <ElCard class="mb-4" shadow="never">
-        <div class="flex items-center gap-3">
-          <ElInput
-            v-model="searchParams.userId"
-            placeholder="用户ID"
-            class="w-44"
-            clearable
-          />
-          <ElSelect v-model="searchParams.channel" placeholder="渠道" class="w-36" clearable>
-            <ElOption label="邮件" value="EMAIL" />
-            <ElOption label="短信" value="SMS" />
-            <ElOption label="站内信" value="INBOX" />
-            <ElOption label="Webhook" value="WEBHOOK" />
-          </ElSelect>
-          <ElButton type="primary" @click="handleSearch">查询</ElButton>
-          <ElButton @click="handleReset">重置</ElButton>
-        </div>
-      </ElCard>
+      <Card class="mb-4">
+        <CardContent class="pt-6">
+          <div class="flex items-center gap-3">
+            <Input
+              v-model="searchParams.userId"
+              placeholder="用户ID"
+              class="w-44"
+            />
+            <Select v-model="searchParams.channel">
+              <SelectTrigger class="w-36">
+                <SelectValue placeholder="渠道" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="EMAIL">邮件</SelectItem>
+                <SelectItem value="SMS">短信</SelectItem>
+                <SelectItem value="INBOX">站内信</SelectItem>
+                <SelectItem value="WEBHOOK">Webhook</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button @click="handleSearch">查询</Button>
+            <Button variant="outline" @click="handleReset">重置</Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <!-- 反馈列表 -->
-      <ElCard shadow="never">
-        <ElTable v-loading="loading" :data="feedbackList" stripe border style="width: 100%">
-          <ElTableColumn type="index" label="序号" width="60" align="center" />
-          <ElTableColumn prop="userId" label="用户ID" width="140" />
-          <ElTableColumn prop="msgId" label="消息ID" width="180" />
-          <ElTableColumn label="评分" width="200" align="center">
-            <template #default="{ row }">
-              <ElRate :model-value="row.rating ?? 0" disabled allow-half />
+      <Card>
+        <CardContent class="pt-6">
+          <ElTable v-loading="loading" :data="feedbackList" stripe border style="width: 100%">
+            <ElTableColumn type="index" label="序号" width="60" align="center" />
+            <ElTableColumn prop="userId" label="用户ID" width="140" />
+            <ElTableColumn prop="msgId" label="消息ID" width="180" />
+            <ElTableColumn label="评分" width="200" align="center">
+              <template #default="{ row }">
+                <ElRate :model-value="row.rating ?? 0" disabled allow-half />
+              </template>
+            </ElTableColumn>
+            <ElTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
+            <ElTableColumn label="反馈类型" width="110" align="center">
+              <template #default="{ row }">
+                <Badge v-if="row.feedbackType" variant="secondary">{{ row.feedbackType }}</Badge>
+                <span v-else>-</span>
+              </template>
+            </ElTableColumn>
+            <ElTableColumn label="状态" width="100" align="center">
+              <template #default="{ row }">
+                <Badge :variant="getStatusVariant(row.status)">
+                  {{ getStatusLabel(row.status) }}
+                </Badge>
+              </template>
+            </ElTableColumn>
+            <ElTableColumn prop="createdAt" label="创建时间" width="170" />
+            <ElTableColumn label="操作" width="160" fixed="right" align="center">
+              <template #default="{ row }">
+                <Button size="sm" variant="link" @click="handleViewDetail(row)">
+                  查看详情
+                </Button>
+                <Button size="sm" variant="link" class="text-destructive" @click="handleHideFeedback(row)">
+                  隐藏
+                </Button>
+              </template>
+            </ElTableColumn>
+            <template #empty>
+              <ElEmpty description="暂无反馈数据" />
             </template>
-          </ElTableColumn>
-          <ElTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
-          <ElTableColumn label="反馈类型" width="110" align="center">
-            <template #default="{ row }">
-              <ElTag v-if="row.feedbackType" size="small">{{ row.feedbackType }}</ElTag>
-              <span v-else>-</span>
-            </template>
-          </ElTableColumn>
-          <ElTableColumn label="状态" width="100" align="center">
-            <template #default="{ row }">
-              <ElTag :type="getStatusType(row.status)" size="small">
-                {{ getStatusLabel(row.status) }}
-              </ElTag>
-            </template>
-          </ElTableColumn>
-          <ElTableColumn prop="createdAt" label="创建时间" width="170" />
-          <ElTableColumn label="操作" width="160" fixed="right" align="center">
-            <template #default="{ row }">
-              <ElButton size="small" link type="primary" @click="handleViewDetail(row)">
-                查看详情
-              </ElButton>
-              <ElButton size="small" link type="danger" @click="handleHideFeedback(row)">
-                隐藏
-              </ElButton>
-            </template>
-          </ElTableColumn>
-          <template #empty>
-            <ElEmpty description="暂无反馈数据" />
-          </template>
-        </ElTable>
+          </ElTable>
 
-        <!-- 分页 -->
-        <div class="mt-4 flex justify-end">
-          <ElButton
-            :disabled="pageInfo.page <= 1"
-            @click="pageInfo.page--; loadFeedback()"
-          >
-            上一页
-          </ElButton>
-          <span class="mx-4 self-center text-sm text-gray-600">
-            第 {{ pageInfo.page }} 页，共 {{ Math.ceil(pageInfo.total / pageInfo.size) || 1 }} 页
-          </span>
-          <ElButton
-            :disabled="pageInfo.page * pageInfo.size >= pageInfo.total"
-            @click="pageInfo.page++; loadFeedback()"
-          >
-            下一页
-          </ElButton>
-        </div>
-      </ElCard>
+          <!-- 分页 -->
+          <div class="mt-4 flex justify-end">
+            <Button
+              variant="outline"
+              :disabled="pageInfo.page <= 1"
+              @click="pageInfo.page--; loadFeedback()"
+            >
+              上一页
+            </Button>
+            <span class="mx-4 self-center text-sm text-muted-foreground">
+              第 {{ pageInfo.page }} 页，共 {{ Math.ceil(pageInfo.total / pageInfo.size) || 1 }} 页
+            </span>
+            <Button
+              variant="outline"
+              :disabled="pageInfo.page * pageInfo.size >= pageInfo.total"
+              @click="pageInfo.page++; loadFeedback()"
+            >
+              下一页
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <!-- 详情弹窗 -->
-      <ElDialog v-model="detailVisible" title="反馈详情" width="520px">
-        <div v-if="currentDetail" class="space-y-3">
-          <div class="flex">
-            <span class="w-24 text-gray-500">用户ID：</span>
-            <span>{{ currentDetail.userId ?? '-' }}</span>
+      <Dialog v-model:open="detailVisible">
+        <DialogContent class="max-w-[520px]">
+          <DialogHeader>
+            <DialogTitle>反馈详情</DialogTitle>
+          </DialogHeader>
+          <div v-if="currentDetail" class="space-y-3">
+            <div class="flex">
+              <span class="w-24 text-muted-foreground">用户ID：</span>
+              <span>{{ currentDetail.userId ?? '-' }}</span>
+            </div>
+            <div class="flex">
+              <span class="w-24 text-muted-foreground">消息ID：</span>
+              <span>{{ currentDetail.msgId ?? '-' }}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-24 text-muted-foreground">评分：</span>
+              <ElRate :model-value="currentDetail.rating ?? 0" disabled allow-half />
+            </div>
+            <div class="flex">
+              <span class="w-24 text-muted-foreground">反馈类型：</span>
+              <span>{{ currentDetail.feedbackType ?? '-' }}</span>
+            </div>
+            <div class="flex">
+              <span class="w-24 text-muted-foreground">状态：</span>
+              <Badge :variant="getStatusVariant(currentDetail.status)">
+                {{ getStatusLabel(currentDetail.status) }}
+              </Badge>
+            </div>
+            <div class="flex">
+              <span class="w-24 text-muted-foreground">创建时间：</span>
+              <span>{{ currentDetail.createdAt ?? '-' }}</span>
+            </div>
+            <div>
+              <span class="text-muted-foreground">反馈内容：</span>
+              <p class="mt-1 rounded bg-muted p-3 text-sm">
+                {{ currentDetail.content || '无内容' }}
+              </p>
+            </div>
           </div>
-          <div class="flex">
-            <span class="w-24 text-gray-500">消息ID：</span>
-            <span>{{ currentDetail.msgId ?? '-' }}</span>
-          </div>
-          <div class="flex items-center">
-            <span class="w-24 text-gray-500">评分：</span>
-            <ElRate :model-value="currentDetail.rating ?? 0" disabled allow-half />
-          </div>
-          <div class="flex">
-            <span class="w-24 text-gray-500">反馈类型：</span>
-            <span>{{ currentDetail.feedbackType ?? '-' }}</span>
-          </div>
-          <div class="flex">
-            <span class="w-24 text-gray-500">状态：</span>
-            <ElTag :type="getStatusType(currentDetail.status)" size="small">
-              {{ getStatusLabel(currentDetail.status) }}
-            </ElTag>
-          </div>
-          <div class="flex">
-            <span class="w-24 text-gray-500">创建时间：</span>
-            <span>{{ currentDetail.createdAt ?? '-' }}</span>
-          </div>
-          <div>
-            <span class="text-gray-500">反馈内容：</span>
-            <p class="mt-1 rounded bg-gray-50 p-3 text-sm">
-              {{ currentDetail.content || '无内容' }}
-            </p>
-          </div>
-        </div>
-      </ElDialog>
+        </DialogContent>
+      </Dialog>
     </div>
   </Page>
 </template>

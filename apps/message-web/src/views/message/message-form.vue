@@ -17,10 +17,10 @@
  * @since 1.0.0
  */
 import { useYDSZModal } from '@ydsz/common-ui';
-// SKIP: message-form.vue 批量跳过迁移 — ElForm/ElFormItem/ElRadio/ElRadioGroup 不在映射表，表单体系需整体重写
-import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import { ElForm, ElFormItem } from 'element-plus';
 import { reactive, ref } from 'vue';
 
+import { Input, RadioGroup, RadioGroupItem, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 import { send } from '#/api/message';
 
 const emit = defineEmits<{ success: [] }>();
@@ -118,43 +118,48 @@ const [Modal, modalApi] = useYDSZModal({
       label-position="right"
     >
       <ElFormItem label="发送策略" prop="strategy">
-        <ElRadioGroup v-model="formData.strategy">
-          <ElRadio value="SYNC">同步</ElRadio>
-          <ElRadio value="DIRECT">直发</ElRadio>
-          <ElRadio value="ASYNC">异步</ElRadio>
-          <ElRadio value="TRANSACTIONAL">事务</ElRadio>
-        </ElRadioGroup>
+        <RadioGroup v-model="formData.strategy">
+          <RadioGroupItem value="SYNC">同步</RadioGroupItem>
+          <RadioGroupItem value="DIRECT">直发</RadioGroupItem>
+          <RadioGroupItem value="ASYNC">异步</RadioGroupItem>
+          <RadioGroupItem value="TRANSACTIONAL">事务</RadioGroupItem>
+        </RadioGroup>
       </ElFormItem>
       <ElFormItem label="通道" prop="channel">
-        <ElInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+        <Input v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
       </ElFormItem>
       <ElFormItem label="接收者" prop="receiver">
-        <ElInput v-model="formData.receiver" placeholder="请输入接收者" />
+        <Input v-model="formData.receiver" placeholder="请输入接收者" />
       </ElFormItem>
       <ElFormItem label="业务类型" prop="bizType">
-        <ElInput v-model="formData.bizType" placeholder="请输入业务类型" />
+        <Input v-model="formData.bizType" placeholder="请输入业务类型" />
       </ElFormItem>
       <ElFormItem label="业务ID" prop="bizId">
-        <ElInput v-model="formData.bizId" placeholder="请输入业务ID" />
+        <Input v-model="formData.bizId" placeholder="请输入业务ID" />
       </ElFormItem>
       <ElFormItem label="模板编码" prop="templateCode">
-        <ElInput v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
+        <Input v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
       </ElFormItem>
       <ElFormItem label="主题" prop="subject">
-        <ElInput v-model="formData.subject" placeholder="请输入主题（可为空）" />
+        <Input v-model="formData.subject" placeholder="请输入主题（可为空）" />
       </ElFormItem>
       <ElFormItem label="内容" prop="content">
-        <ElInput v-model="formData.content" type="textarea" :rows="3" placeholder="请输入内容" />
+        <Textarea v-model="formData.content" placeholder="请输入内容" />
       </ElFormItem>
       <ElFormItem label="优先级" prop="priority">
-        <ElSelect v-model="formData.priority" placeholder="请选择优先级（可为空）" clearable>
-          <ElOption label="高" value="HIGH" />
-          <ElOption label="中" value="MEDIUM" />
-          <ElOption label="低" value="LOW" />
-        </ElSelect>
+        <Select v-model="formData.priority">
+          <SelectTrigger>
+            <SelectValue placeholder="请选择优先级（可为空）" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="HIGH">高</SelectItem>
+            <SelectItem value="MEDIUM">中</SelectItem>
+            <SelectItem value="LOW">低</SelectItem>
+          </SelectContent>
+        </Select>
       </ElFormItem>
       <ElFormItem label="消息组" prop="messageGroup">
-        <ElInput v-model="formData.messageGroup" placeholder="请输入消息组（可为空）" />
+        <Input v-model="formData.messageGroup" placeholder="请输入消息组（可为空）" />
       </ElFormItem>
     </ElForm>
   </Modal>
