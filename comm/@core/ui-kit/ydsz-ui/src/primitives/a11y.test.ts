@@ -47,8 +47,8 @@ describe('A11y 静态约定', () => {
 });
 
 describe('键盘导航基础设施', () => {
-  it('radix-vue 提供的 Primitive 应支持 asChild（键盘事件透传）', async () => {
-    const { Primitive } = await import('radix-vue');
+  it('ydsz-vue 提供的 Primitive 应支持 asChild（键盘事件透传）', async () => {
+    const { Primitive } = await import('@ydsz-core/ydsz-vue');
     expect(Primitive).toBeDefined();
   });
 

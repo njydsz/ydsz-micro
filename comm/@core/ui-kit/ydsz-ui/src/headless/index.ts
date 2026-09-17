@@ -13,7 +13,7 @@
  *  - 逻辑复杂度足够高（>300 行），单独提取利于单元测试覆盖率。
  *
  * 何时不抽：
- *  - 逻辑与样式天生绑定（如 YdDialog 的焦点陷阱动画）——此时 radix-vue 本身就是 headless 层。
+ *  - 逻辑与样式天生绑定（如 YdDialog 的焦点陷阱动画）——此时 ydsz-vue 本身就是 headless 层。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\headless\index.ts
  * @author ydsz-team
