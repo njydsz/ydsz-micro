@@ -353,7 +353,7 @@ defineExpose({ open, close });
                       <YdSelectItem label="为空" value="empty" />
                     </YdSelect>
                     <YdButton size="small" type="danger" @click="removeConditionColumn(colIndex)"
-                      >×</ElButton
+                      >×</YdButton
                     >
                   </div>
                 </div>
@@ -387,7 +387,7 @@ defineExpose({ open, close });
                       />
                     </YdSelect>
                     <YdButton size="small" type="danger" @click="removeActionColumn(colIndex)"
-                      >×</ElButton
+                      >×</YdButton
                     >
                   </div>
                 </div>

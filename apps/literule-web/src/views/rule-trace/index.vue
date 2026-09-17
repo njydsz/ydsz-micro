@@ -107,18 +107,18 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleDetail(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleDetail(row) },
               () => '详情',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleReplay(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleReplay(row) },
               () => '回放',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleImpact(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleImpact(row) },
               () => '影响分析',
             ),
           ]),

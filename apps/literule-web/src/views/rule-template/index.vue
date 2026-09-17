@@ -111,13 +111,13 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleImport(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleImport(row) },
               () => '导入',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handlePreview(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handlePreview(row) },
               () => '预览',
             ),
           ]),

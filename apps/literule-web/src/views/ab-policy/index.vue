@@ -49,8 +49,8 @@ const gridOptions: VxeTableGridOptions<RuleABPolicyVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            ElTag,
-            { type: row.isAutoRollbackEnabled ? 'success' : 'info' },
+            YdBadge,
+            { variant: row.isAutoRollbackEnabled ? 'success' : 'info' },
             () => (row.isAutoRollbackEnabled ? '启用' : '关闭'),
           ),
       },
@@ -69,23 +69,23 @@ const gridOptions: VxeTableGridOptions<RuleABPolicyVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'success', onClick: () => handleEvaluate(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleEvaluate(row) },
               () => '评估',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'warning', onClick: () => handleRollbackHistory(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleRollbackHistory(row) },
               () => '回滚历史',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
           ]),
@@ -371,7 +371,7 @@ async function handleManualRollback(): Promise<void> {
         <YdTableColumn prop="operator" label="操作人" width="100" />
         <YdTableColumn prop="notifyStatus" label="通知状态" width="100">
           <template #default="{ row }">
-            <YdBadge :type="row.notifyStatus === 'SUCCESS' ? 'success' : 'info'">
+            <YdBadge :variant="row.notifyStatus === 'SUCCESS' ? 'success' : 'info'">
               {{ row.notifyStatus ?? '-' }}
             </YdBadge>
           </template>

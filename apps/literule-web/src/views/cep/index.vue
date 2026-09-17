@@ -84,33 +84,31 @@ const gridOptions: VxeTableGridOptions<CEPPatternVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => openDetail(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => openDetail(row) },
               () => '详情',
             ),
             h(
-              ElButton,
+              YdButton,
               {
                 size: 'small',
-                link: true,
-                type: 'success',
+                variant: 'link',
                 onClick: () => handleToggle(row, true),
               },
               () => '启用',
             ),
             h(
-              ElButton,
+              YdButton,
               {
                 size: 'small',
-                link: true,
-                type: 'warning',
+                variant: 'link',
                 onClick: () => handleToggle(row, false),
               },
               () => '禁用',
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleUnregister(row) },
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleUnregister(row) },
               () => '注销',
             ),
           ]),

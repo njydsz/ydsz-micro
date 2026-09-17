@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdCard, YdEmptyState, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdCard, YdEmptyState, YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -84,7 +84,7 @@ const columns: VxeTableGridOptions<MemoryVO>['columns'] = [
     width: 100,
     slots: {
       default: ({ row }) =>
-        h(ElTag, { type: getRoleTagType(row.role ?? '') }, () => getRoleLabel(row.role ?? '')),
+        h(YdBadge, { variant: getRoleTagType(row.role ?? '') }, () => getRoleLabel(row.role ?? '')),
     },
   },
   { field: 'content', title: '消息内容', minWidth: 200, showOverflow: 'tooltip' },

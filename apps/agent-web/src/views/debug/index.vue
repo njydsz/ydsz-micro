@@ -205,7 +205,7 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
       title: '状态',
       width: 90,
       slots: {
-        default: ({ row }) => h(ElTag, { type: statusTagType(row.status ?? '') }, () => row.status ?? '-'),
+        default: ({ row }) => h(YdBadge, { variant: statusTagType(row.status ?? '') }, () => row.status ?? '-'),
       },
     },
     {
@@ -225,8 +225,8 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(ElButton, { size: 'small', link: true, type: 'warning', onClick: () => handleReplay(row) }, () => '重放'),
+          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleReplay(row) }, () => '重放'),
         ]),
       },
     },

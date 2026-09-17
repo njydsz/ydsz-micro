@@ -83,7 +83,7 @@ const activeColumns: VxeTableGridOptions<RuntimeSession>['columns'] = [
     width: 100,
     slots: {
       default: ({ row }) =>
-        h(ElTag, { type: getStatusTagType(row.status ?? '') }, () => row.status ?? '-'),
+        h(YdBadge, { variant: getStatusTagType(row.status ?? '') }, () => row.status ?? '-'),
     },
   },
   { field: 'startTime', title: '开始时间', width: 170 },
@@ -99,8 +99,8 @@ const activeColumns: VxeTableGridOptions<RuntimeSession>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(ElButton, { size: 'small', link: true, type: 'danger', onClick: () => handleForceRecycle(row) }, () => '回收'),
+          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleForceRecycle(row) }, () => '回收'),
         ]),
     },
   },
@@ -138,7 +138,7 @@ const recentColumns: VxeTableGridOptions<RuntimeSession>['columns'] = [
     width: 100,
     slots: {
       default: ({ row }) =>
-        h(ElTag, { type: getStatusTagType(row.status ?? '') }, () => row.status ?? '-'),
+        h(YdBadge, { variant: getStatusTagType(row.status ?? '') }, () => row.status ?? '-'),
     },
   },
   { field: 'startTime', title: '开始时间', width: 170 },
@@ -152,7 +152,7 @@ const recentColumns: VxeTableGridOptions<RuntimeSession>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(ElButton, { size: 'small', link: true, type: 'primary', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
         ]),
     },
   },

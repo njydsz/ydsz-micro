@@ -23,6 +23,7 @@ import { computed, provide, shallowRef, useSlots } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
+import { useColumnResize } from './useColumnResize';
 import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
 
 defineOptions({ name: 'YdTable' });
@@ -64,10 +65,13 @@ interface Props {
   viewportHeight?: number;
   /** 聚合行数据 */
   summaryData?: Record<string, unknown>;
+  /** 开启列宽拖拽调整 */
+  columnResizable?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   border: false,
+  columnResizable: false,
   itemHeight: 40,
   loading: false,
   overscan: 5,
@@ -228,6 +232,36 @@ const virtualList = useVirtualList<Record<string, unknown>>(
     getKey: (row, index) => (props.rowKey ? String(row[props.rowKey] ?? index) : String(index)),
   },
 );
+
+// ========== 列宽拖拽调整 ==========
+/**
+ * 列宽拖拽句柄。
+ *
+ * <p>仅在 columnResizable=true 时启用；通过 document 级 pointermove/pointerup 监听，
+ * 保证快速拖拽脱离表头区域后仍能继续。
+ */
+const columnResize = useColumnResize({ defaultMinWidth: 60 });
+
+/**
+ * 启动列宽拖拽 —— 绑定全局 pointermove / pointerup。
+ */
+function startColumnResize(prop: string, event: PointerEvent): void {
+  if (!props.columnResizable) return;
+  columnResize.onResizeStart(prop, event);
+  const moveHandler = (e: PointerEvent) => columnResize.onResizeMove(e);
+  const upHandler = () => {
+    columnResize.onResizeEnd();
+    document.removeEventListener('pointermove', moveHandler);
+    document.removeEventListener('pointerup', upHandler);
+  };
+  document.addEventListener('pointermove', moveHandler);
+  document.addEventListener('pointerup', upHandler, { once: true });
+}
+
+defineExpose({
+  columnWidths: columnResize.columnWidths,
+  columns: orderedColumns,
+});
 </script>
 
 <template>
@@ -287,6 +321,7 @@ const virtualList = useVirtualList<Record<string, unknown>>(
               :class="
                 cn(
                   'h-10 px-2 align-middle font-medium text-muted-foreground',
+                  columnResizable && 'relative',
                   alignClass(col.align),
                   col.fixed === 'left' && 'sticky left-0 z-10 bg-muted/50',
                   col.fixed === 'right' && 'sticky right-0 z-10 bg-muted/50',
@@ -294,7 +329,7 @@ const virtualList = useVirtualList<Record<string, unknown>>(
                 )
               "
               :style="{
-                width: col.width,
+                width: columnResizable ? columnResize.getColumnWidthStyle(col.prop ?? String(idx)) : col.width,
                 minWidth: col.minWidth,
                 maxWidth: col.maxWidth,
               }"
@@ -314,6 +349,15 @@ const virtualList = useVirtualList<Record<string, unknown>>(
                   </span>
                 </span>
               </slot>
+              <!-- 列宽拖拽手柄 -->
+              <div
+                v-if="columnResizable"
+                class="absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
+                :class="{ 'bg-primary/50': columnResize.resizingProp.value === (col.prop ?? String(idx)) }"
+                role="separator"
+                :aria-label="`调整列宽: ${col.label || col.prop || idx}`"
+                @pointerdown="startColumnResize(col.prop ?? String(idx), $event)"
+              />
             </th>
           </tr>
         </thead>
@@ -340,7 +384,7 @@ const virtualList = useVirtualList<Record<string, unknown>>(
             >
               <td
                 v-for="(col, colIdx) in orderedColumns"
-                :key="`vcell-${vItem.index}-${colIdx}`"
+                :key="`cell-${vItem.index}-${colIdx}`"
                 :class="
                   cn(
                     'px-2 py-2 align-middle',

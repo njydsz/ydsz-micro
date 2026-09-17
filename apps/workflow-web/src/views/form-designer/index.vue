@@ -250,7 +250,7 @@ async function handleSave(): Promise<void> {
             <YdButton size="small" link @click.stop="moveUp(index)">↑</YdButton>
             <YdButton size="small" link @click.stop="moveDown(index)">↓</YdButton>
             <YdButton size="small" link type="danger" @click.stop="removeField(field)"
-              >删除</ElButton
+              >删除</YdButton
             >
           </div>
         </YdCard>

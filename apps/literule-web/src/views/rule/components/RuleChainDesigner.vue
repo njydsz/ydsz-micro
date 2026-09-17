@@ -355,11 +355,11 @@ defineExpose({
       <div class="toolbar">
         <div class="toolbar-left">
           <YdButton size="small" type="primary" @click="handleSave" :loading="saving"
-            >保存</ElButton
+            >保存</YdButton
           >
           <YdButton size="small" @click="handleValidate">验证</YdButton>
           <YdButton size="small" type="success" @click="handleDryRun" :loading="dryRunning"
-            >试运行</ElButton
+            >试运行</YdButton
           >
         </div>
         <div class="toolbar-center">
