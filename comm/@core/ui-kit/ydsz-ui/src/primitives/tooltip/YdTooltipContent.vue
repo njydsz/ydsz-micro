@@ -6,13 +6,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TooltipContentEmits, TooltipContentProps } from "radix-vue";
+import type { TooltipContentEmits, TooltipContentProps } from "ydsz-vue";
 
 import { computed } from "vue";
 
 import { cn } from "@ydsz-core/shared/utils";
 
-import { TooltipContent, TooltipPortal, useForwardPropsEmits } from "radix-vue";
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from "ydsz-vue";
 
 defineOptions({
   inheritAttrs: false,

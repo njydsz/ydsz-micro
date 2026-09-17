@@ -3,7 +3,7 @@
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。
  *
- * <p>YdTooltipBase 基于 radix-vue，其 TooltipRoot 必须位于 YdTooltipProviderBase 内部
+ * <p>YdTooltipBase 基于 ydsz-vue，其 TooltipRoot 必须位于 YdTooltipProviderBase 内部
  * （依赖 injection context）。因此测试中需要用 YdTooltipProviderBase 包裹被测组件。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tooltip\YdTooltipBase.test.ts

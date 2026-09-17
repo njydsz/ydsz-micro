@@ -1,7 +1,7 @@
 <!--
  * YdAlertDialogTrigger —— 触发 AlertDialog 打开的按钮，样式透传给子元素。
  *
- * 基于 radix-vue 的 AlertDialogTrigger 封装，支持 as-child 模式，
+ * 基于 ydsz-vue 的 AlertDialogTrigger 封装，支持 as-child 模式，
  * 可将触发器样式套到 RouterLink 或第三方组件上。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialogTrigger.vue

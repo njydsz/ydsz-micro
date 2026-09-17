@@ -161,7 +161,10 @@ export function useTheme(options: {
     if (!style?.removeProperty) return;
     const cssVars: string[] = [];
     overrides.value.forEach((_val, key) => {
-      cssVars.push(`--${themeTokens[key].cssVar}`);
+      const tokenDef = themeTokens[key];
+      if (tokenDef) {
+        cssVars.push(`--${tokenDef.cssVar}`);
+      }
     });
     for (const cssVar of cssVars) {
       style.removeProperty(cssVar);

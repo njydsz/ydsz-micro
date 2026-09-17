@@ -3,9 +3,9 @@
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。
  *
- * <p>YdSelectBase 基于 radix-vue 的 SelectRoot，包装层职责为 props 转发与 v-model 绑定。
+ * <p>YdSelectBase 基于 ydsz-vue 的 SelectRoot，包装层职责为 props 转发与 v-model 绑定。
  * 其内部子组件（Content/Trigger/Item/Value）均依赖 SelectRootContext 注入，
- * 在隔离测试中无法独立挂载 —— 这些子组件由 radix-vue 官方测试覆盖。
+ * 在隔离测试中无法独立挂载 —— 这些子组件由 ydsz-vue 官方测试覆盖。
  * 本套件聚焦于验证本包装层的 props 透传与 slot 行为。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectBase.test.ts

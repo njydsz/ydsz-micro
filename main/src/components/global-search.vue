@@ -255,7 +255,7 @@ function close() {
 }
 
 .gs-item-icon {
-  color: var(--el-text-color-placeholder);
+  color: hsl(var(--txt-disabled));
 }
 
 .gs-item-body {

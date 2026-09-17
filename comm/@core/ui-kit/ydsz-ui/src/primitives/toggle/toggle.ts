@@ -44,7 +44,7 @@ export const toggleVariants = cva(
  * 由 cva 从 `toggleVariants` 自动推导，两项均有默认值 `'default'`。
  *
  * 选中态样式通过 `data-[state=on]` 属性选择器驱动，而非依赖类名切换，
- * 因此该样式**要求宿主组件正确输出 `data-state` 属性**（radix-vue 的 YdToggle 已内置）；
+ * 因此该样式**要求宿主组件正确输出 `data-state` 属性**（ydsz-vue 的 YdToggle 已内置）；
  * 若把这些 class 用在自定义元素上，需自行维护该属性，否则选中态不会有视觉变化。
  */
 export type ToggleVariants = VariantProps<typeof toggleVariants>;
