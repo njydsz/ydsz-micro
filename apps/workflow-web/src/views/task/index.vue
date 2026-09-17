@@ -18,7 +18,8 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdTabsContent, YdTabs, YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButtonBase, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
+import { ydszPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
@@ -235,30 +236,36 @@ async function handleBatchTransfer() {
   let targetUserId: string;
   let comment: string;
   try {
-    const { value: inputUserId } = await ElMessageBox.prompt(
-      $t('wf.targetUser'),
-      $t('wf.batchTransferConfirm'),
-      {
-        inputPlaceholder: $t('wf.targetUserPlaceholder'),
-        inputValidator: (value) => (value ? true : $t('wf.fillTargetUser')),
-        confirmButtonText: $t('wf.confirm'),
-        cancelButtonText: $t('wf.cancel'),
+    const inputUserId = await ydszPrompt<string>({
+      content: $t('wf.targetUser'),
+      confirmText: $t('wf.confirm'),
+      cancelText: $t('wf.cancel'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: $t('wf.targetUserPlaceholder'),
       },
-    );
-    targetUserId = inputUserId;
-    const { value: inputComment } = await ElMessageBox.prompt(
-      $t('wf.commentPlaceholder'),
-      $t('wf.batchTransferComment'),
-      {
-        inputPlaceholder: $t('wf.commentPlaceholder'),
-        inputType: 'textarea',
-        confirmButtonText: $t('wf.confirm'),
-        cancelButtonText: $t('wf.cancel'),
+      beforeClose: ({ isConfirm, value }) => {
+        if (!isConfirm) return;
+        if (!value) {
+          showToast.warning($t('wf.fillTargetUser'));
+          return false;
+        }
       },
-    );
+    });
+    targetUserId = inputUserId ?? '';
+    const inputComment = await ydszPrompt<string>({
+      content: $t('wf.commentPlaceholder'),
+      confirmText: $t('wf.confirm'),
+      cancelText: $t('wf.cancel'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: $t('wf.commentPlaceholder'),
+        type: 'textarea',
+      },
+    });
     comment = inputComment ?? '';
-  } catch (error) {
-    logger.warn('用户取消批量转交操作', error);
+  } catch {
+    logger.warn('用户取消批量转交操作');
     return; // 用户主动取消批量转交
   }
   // 步骤2：执行批量转交 API（失败提示由 errorMessageResponseInterceptor 统一处理）

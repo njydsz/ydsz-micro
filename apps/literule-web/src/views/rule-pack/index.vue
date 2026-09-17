@@ -19,7 +19,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdCol, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdCountToAnimator, YdTabsContent, YdTabs, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltip } from '@ydsz-core/ydsz-ui';
+import { ydszAlert } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -323,9 +324,12 @@ async function handleInstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
     await installPack({ packCode: row.packCode }, { version: row.packVersion });
-    ElMessageBox.alert(`规则包 ${row.packName} v${row.packVersion} 安装成功`, '安装结果', {
-      type: 'success',
-    });
+await ydszAlert({
+  content: `规则包 ${row.packName} v${row.packVersion} 安装成功`,
+  title: '安装结果',
+  icon: 'success',
+  confirmText: '确定',
+});
     await loadAll();
   } catch (error) {
     logger.warn('安装规则包失败: {}', error);
@@ -366,7 +370,12 @@ async function handleRollback(version: string): Promise<void> {
   }
   try {
     await rollbackPack({ packCode: currentPackCode.value }, { version });
-    ElMessageBox.alert(`已回滚到版本 ${version}`, '回滚成功', { type: 'success' });
+    await ydszAlert({
+  content: `已回滚到版本 ${version}`,
+  title: '回滚成功',
+  icon: 'success',
+  confirmText: '确定',
+});
     versionDialogVisible.value = false;
     await loadAll();
   } catch (error) {
@@ -415,12 +424,22 @@ function handleOpenPublishDialog(): void {
 
 async function handlePublish(): Promise<void> {
   if (!publishForm.value.packCode || !publishForm.value.packName) {
-    ElMessageBox.alert('请填写包编码和名称', '提示', { type: 'warning' });
+    await ydszAlert({
+  content: '请填写包编码和名称',
+  title: '提示',
+  icon: 'warning',
+  confirmText: '确定',
+});
     return;
   }
   try {
     await publishPack(publishForm.value);
-    ElMessageBox.alert('规则包发布成功', '发布结果', { type: 'success' });
+    await ydszAlert({
+  content: '规则包发布成功',
+  title: '发布结果',
+  icon: 'success',
+  confirmText: '确定',
+});
     publishDialogVisible.value = false;
     await loadAll();
   } catch (error) {
@@ -432,9 +451,12 @@ async function handleUpdateSingle(row: PackUpdateInfoVO): Promise<void> {
   if (!row.packCode) return;
   try {
     await installPack({ packCode: row.packCode }, { version: row.latestVersion });
-    ElMessageBox.alert(`规则包 ${row.packName} 已更新到 v${row.latestVersion}`, '更新成功', {
-      type: 'success',
-    });
+await ydszAlert({
+  content: `规则包 ${row.packName} 已更新到 v${row.latestVersion}`,
+  title: '更新成功',
+  icon: 'success',
+  confirmText: '确定',
+});
     await loadAll();
   } catch (error) {
     logger.warn('更新规则包失败: {}', error);
@@ -444,12 +466,22 @@ async function handleUpdateSingle(row: PackUpdateInfoVO): Promise<void> {
 async function handleBatchUpdate(): Promise<void> {
   const codes = updatablePacks.value.filter((p) => p.hasUpdate).map((p) => p.packCode ?? '');
   if (codes.length === 0) {
-    ElMessageBox.alert('当前没有可更新的规则包', '提示', { type: 'info' });
+    await ydszAlert({
+  content: '当前没有可更新的规则包',
+  title: '提示',
+  icon: 'info',
+  confirmText: '确定',
+});
     return;
   }
   try {
     await batchUpdatePacks(codes);
-    ElMessageBox.alert(`已成功更新 ${codes.length} 个规则包`, '批量更新成功', { type: 'success' });
+    await ydszAlert({
+  content: `已成功更新 ${codes.length} 个规则包`,
+  title: '批量更新成功',
+  icon: 'success',
+  confirmText: '确定',
+});
     await loadAll();
   } catch (error) {
     logger.warn('批量更新失败: {}', error);
@@ -474,7 +506,12 @@ function handleOpenStressDialog(): void {
 
 async function handleStressTest(): Promise<void> {
   if (!stressPackCode.value.trim()) {
-    ElMessageBox.alert('请输入需要压测的包编码', '提示', { type: 'warning' });
+    await ydszAlert({
+  content: '请输入需要压测的包编码',
+  title: '提示',
+  icon: 'warning',
+  confirmText: '确定',
+});
     return;
   }
   stressLoading.value = true;

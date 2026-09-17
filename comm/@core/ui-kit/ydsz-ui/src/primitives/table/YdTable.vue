@@ -22,6 +22,7 @@ import { computed, provide, shallowRef, useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
+import { useVirtualList } from '../../composables/use-virtual-list';
 import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
 
 defineOptions({ name: 'YdTable' });
@@ -53,13 +54,27 @@ interface Props {
   sortProp?: string;
   /** 当前排序方向 */
   sortOrder?: 'asc' | 'desc' | null;
+  /** 开启虚拟滚动（大数据量场景） */
+  virtual?: boolean;
+  /** 虚拟滚动单行高度（px），默认 40 */
+  itemHeight?: number;
+  /** 虚拟滚动缓冲区行数，默认 5 */
+  overscan?: number;
+  /** 虚拟滚动视口高度（px），默认 400（也可由 maxHeight 推导） */
+  viewportHeight?: number;
+  /** 聚合行数据 */
+  summaryData?: Record<string, unknown>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   border: false,
+  itemHeight: 40,
   loading: false,
+  overscan: 5,
   size: 'default',
   sortOrder: null,
+  viewportHeight: 400,
+  virtual: false,
   width: '100%',
 });
 
@@ -178,10 +193,49 @@ defineExpose({
   /** 当前注册的列定义（调试 / 高级用法） */
   columns: orderedColumns,
 });
+
+// ========== 虚拟滚动 ==========
+/**
+ * 虚拟滚动生效条件：virtual=true 且存在数据行。
+ *
+ * <p>仅在列驱动模式下启用；语义插槽模式下不激活。
+ */
+const isVirtualActive = computed(() => props.virtual && hasColumns.value && dataHasItems.value);
+
+/**
+ * 真实滚动视口高度：优先取 maxHeight prop，否则回退到 viewportHeight。
+ *
+ * <p>与 wrapperStyle.maxHeight 对齐——保证虚拟列表计算出的可见行数与实际可视区域匹配。
+ */
+const effectiveViewportHeight = computed(() => {
+  if (props.maxHeight != null) {
+    return typeof props.maxHeight === 'number' ? props.maxHeight : Number.parseInt(String(props.maxHeight), 10) || props.viewportHeight;
+  }
+  return props.viewportHeight;
+});
+
+/**
+ * 虚拟列表句柄：驱动可见行切片与滚动容器。
+ *
+ * <p>包裹 getter 以让 composable 响应 props.data 变更。
+ */
+const virtualList = useVirtualList<Record<string, unknown>>(
+  () => props.data ?? [],
+  {
+    itemHeight: props.itemHeight,
+    overscan: props.overscan,
+    viewportHeight: effectiveViewportHeight.value,
+    getKey: (row, index) => (props.rowKey ? String(row[props.rowKey] ?? index) : String(index)),
+  },
+);
 </script>
 
 <template>
-  <div class="relative w-full overflow-auto" :style="wrapperStyle">
+  <div
+    class="relative w-full overflow-auto"
+    :style="wrapperStyle"
+    @scroll="isVirtualActive && virtualList.onScroll($event)"
+  >
     <!-- 加载遮罩 -->
     <div
       v-if="loading"
@@ -225,7 +279,7 @@ defineExpose({
         </colgroup>
 
         <!-- 表头 -->
-        <thead class="[&_tr]:border-b">
+        <thead :class="[isVirtualActive && 'sticky top-0 z-20 bg-background]', '[&_tr]:border-b']">
           <tr class="border-b transition-colors hover:bg-muted/50">
             <th
               v-for="(col, idx) in orderedColumns"
@@ -266,66 +320,137 @@ defineExpose({
 
         <!-- 表体 -->
         <tbody class="[&_tr:last-child]:border-0">
-          <!-- 有数据行 -->
-          <tr
-            v-for="(row, rowIdx) in data"
-            v-show="dataHasItems"
-            :key="rowKey ? row[rowKey] as string : `row-${rowIdx}`"
-            :class="
-              cn(
-                'border-b transition-colors hover:bg-muted/50',
-                stripe && rowIdx % 2 === 1 && 'bg-muted/30',
-              )
-            "
-          >
-            <td
-              v-for="(col, colIdx) in orderedColumns"
-              :key="`cell-${rowIdx}-${colIdx}`"
+          <!-- 虚拟滚动模式：仅渲染可见行 + spacer -->
+          <template v-if="isVirtualActive">
+            <!-- 顶部 spacer：偏移 -->
+            <tr :style="{ height: `${virtualList.offsetY.value}px` }">
+              <td :colspan="columnCount" class="border-0 p-0" />
+            </tr>
+            <!-- 可见行 -->
+            <tr
+              v-for="vItem in virtualList.visibleItems.value"
+              :key="rowKey ? String(vItem.data[rowKey] ?? vItem.index) : `vrow-${vItem.index}`"
+              :style="{ height: `${vItem.height}px` }"
               :class="
                 cn(
-                  'px-2 py-2 align-middle',
-                  alignClass(col.align),
-                  col.fixed === 'left' && 'sticky left-0 bg-background',
-                  col.fixed === 'right' && 'sticky right-0 bg-background',
+                  'border-b transition-colors hover:bg-muted/50',
+                  stripe && vItem.index % 2 === 1 && 'bg-muted/30',
                 )
               "
             >
-              <!-- 序号列 -->
-              <template v-if="col.type === 'index'">
-                {{ rowIdx + 1 }}
-              </template>
-              <!-- 自定义插槽列 -->
-              <template v-else-if="$slots[`col-${col.prop}`]">
-                <slot
-                  :name="`col-${col.prop}`"
-                  :row="row"
-                  :index="rowIdx"
-                  :value="col.prop ? row[col.prop] : undefined"
-                />
-              </template>
-              <!-- 格式化/默认列 -->
-              <template v-else>
-                <span
-                  v-if="col.showOverflowTooltip"
-                  :title="col.formatter ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx) : col.prop ? String(row[col.prop] ?? '') : ''"
-                  class="block truncate"
-                >
-                  {{
-                    col.formatter
-                      ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)
-                      : col.prop ? (row[col.prop] ?? '') : ''
-                  }}
-                </span>
-                <template v-else>
-                  {{
-                    col.formatter
-                      ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)
-                      : col.prop ? (row[col.prop] ?? '') : ''
-                  }}
+              <td
+                v-for="(col, colIdx) in orderedColumns"
+                :key="`vcell-${vItem.index}-${colIdx}`"
+                :class="
+                  cn(
+                    'px-2 py-2 align-middle',
+                    alignClass(col.align),
+                    col.fixed === 'left' && 'sticky left-0 bg-background',
+                    col.fixed === 'right' && 'sticky right-0 bg-background',
+                  )
+                "
+              >
+                <template v-if="col.type === 'index'">
+                  {{ vItem.index + 1 }}
                 </template>
-              </template>
-            </td>
-          </tr>
+                <template v-else-if="slots[`col-${col.prop}`]">
+                  <slot
+                    :name="`col-${col.prop}`"
+                    :row="vItem.data"
+                    :index="vItem.index"
+                    :value="col.prop ? vItem.data[col.prop] : undefined"
+                  />
+                </template>
+                <template v-else>
+                  <span
+                    v-if="col.showOverflowTooltip"
+                    :title="col.formatter ? String(col.formatter(vItem.data, col, col.prop ? vItem.data[col.prop] : undefined, vItem.index)) : col.prop ? String(vItem.data[col.prop] ?? '') : ''"
+                    class="block truncate"
+                  >
+                    {{
+                      col.formatter
+                        ? col.formatter(vItem.data, col, col.prop ? vItem.data[col.prop] : undefined, vItem.index)
+                        : col.prop ? (vItem.data[col.prop] ?? '') : ''
+                    }}
+                  </span>
+                  <template v-else>
+                    {{
+                      col.formatter
+                        ? col.formatter(vItem.data, col, col.prop ? vItem.data[col.prop] : undefined, vItem.index)
+                        : col.prop ? (vItem.data[col.prop] ?? '') : ''
+                    }}
+                  </template>
+                </template>
+              </td>
+            </tr>
+            <!-- 底部 spacer：剩余高度 -->
+            <tr :style="{ height: `${virtualList.totalHeight.value - virtualList.offsetY.value - (virtualList.visibleItems.value.reduce((sum, item) => sum + item.height, 0))}px` }">
+              <td :colspan="columnCount" class="border-0 p-0" />
+            </tr>
+          </template>
+
+          <!-- 常规模式：全量渲染 -->
+          <template v-else>
+            <tr
+              v-for="(row, rowIdx) in data"
+              v-show="dataHasItems"
+              :key="rowKey ? row[rowKey] as string : `row-${rowIdx}`"
+              :class="
+                cn(
+                  'border-b transition-colors hover:bg-muted/50',
+                  stripe && rowIdx % 2 === 1 && 'bg-muted/30',
+                )
+              "
+            >
+              <td
+                v-for="(col, colIdx) in orderedColumns"
+                :key="`cell-${rowIdx}-${colIdx}`"
+                :class="
+                  cn(
+                    'px-2 py-2 align-middle',
+                    alignClass(col.align),
+                    col.fixed === 'left' && 'sticky left-0 bg-background',
+                    col.fixed === 'right' && 'sticky right-0 bg-background',
+                  )
+                "
+              >
+                <!-- 序号列 -->
+                <template v-if="col.type === 'index'">
+                  {{ rowIdx + 1 }}
+                </template>
+                <!-- 自定义插槽列 -->
+                <template v-else-if="slots[`col-${col.prop}`]">
+                  <slot
+                    :name="`col-${col.prop}`"
+                    :row="row"
+                    :index="rowIdx"
+                    :value="col.prop ? row[col.prop] : undefined"
+                  />
+                </template>
+                <!-- 格式化/默认列 -->
+                <template v-else>
+                  <span
+                    v-if="col.showOverflowTooltip"
+                    :title="col.formatter ? String(col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)) : col.prop ? String(row[col.prop] ?? '') : ''"
+                    class="block truncate"
+                  >
+                    {{
+                      col.formatter
+                        ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)
+                        : col.prop ? (row[col.prop] ?? '') : ''
+                    }}
+                  </span>
+                  <template v-else>
+                    {{
+                      col.formatter
+                        ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)
+                        : col.prop ? (row[col.prop] ?? '') : ''
+                    }}
+                  </template>
+                </template>
+              </td>
+            </tr>
+          </template>
 
           <!-- 空数据占位 -->
           <tr v-if="!dataHasItems">
@@ -338,6 +463,28 @@ defineExpose({
             </td>
           </tr>
         </tbody>
+
+        <!-- 聚合行（summary slot） -->
+        <tfoot
+          v-if="summaryData && hasColumns"
+          class="sticky bottom-0 bg-muted/50 font-medium [&>tr]:border-t"
+        >
+          <tr>
+            <td
+              v-for="(col, colIdx) in orderedColumns"
+              :key="`summary-${colIdx}`"
+              :class="cn('px-2 py-2 align-middle', alignClass(col.align))"
+            >
+              <slot
+                :name="`summary-${col.prop ?? col.label ?? colIdx}`"
+                :column="col"
+                :value="col.prop ? summaryData[col.prop] : undefined"
+              >
+                {{ col.prop ? (summaryData[col.prop] ?? '') : '' }}
+              </slot>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </template>
   </div>

@@ -20,10 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
-// SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
-import { ElMessageBox } from '@ydsz/notification/compat';
-// NOTE: ElDialog/ElDrawer 已迁移为 YdDialog/YdSheet
+import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdForm, YdFormItem, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import { ydszConfirm, ydszPrompt } from '@ydsz-core/popup-ui';
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -184,9 +182,13 @@ async function handleAudit(row: MsgTemplateVO) {
   let remark: string | undefined;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt(t('template.auditRemarkPrompt'), t('template.auditPassTitle'), {
-      type: 'warning',
-      inputPlaceholder: t('template.auditRemark'),
+    const value = await ydszPrompt<string>({
+      content: t('template.auditRemarkPrompt'),
+      icon: 'warning',
+      defaultValue: '',
+      componentProps: {
+        placeholder: t('template.auditRemark'),
+      },
     });
     remark = value ?? undefined;
   } catch {

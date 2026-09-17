@@ -21,9 +21,24 @@
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge, YdTable, YdTableColumn, YdButtonBase, YdDropdownMenuBase, YdDropdownMenuContentBase, YdDropdownMenuItemBase, YdDropdownMenuTriggerBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import {
+  YdButtonBase,
+  YdCardGrid,
+  YdDropdownMenuBase,
+  YdDropdownMenuContentBase,
+  YdDropdownMenuItemBase,
+  YdDropdownMenuTriggerBase,
+  YdEmptyState,
+  YdEntityCard,
+  YdSheet,
+  YdSheetContent,
+  YdStatusBadge,
+  YdTable,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
+import { ydszAlert, ydszPrompt } from '@ydsz-core/popup-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { ref } from 'vue';
+import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -174,17 +189,25 @@ async function handleImport(row: TemplateRow): Promise<void> {
   let flowName: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt(
-      t('wf.importFlowNamePlaceholder'),
-      t('wf.templateImport'),
-      {
-        inputPlaceholder: 'flowName',
-        inputValidator: (inputValue) => (inputValue ? true : t('wf.importValidator')),
+    const promptValue = await ydszPrompt<string>({
+      content: t('wf.importFlowNamePlaceholder'),
+      confirmText: t('wf.confirm'),
+      cancelText: t('wf.cancel'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: 'flowName',
       },
-    );
-    flowName = value;
-  } catch (error) {
-    logger.warn('用户取消模板导入操作', error);
+      beforeClose: ({ isConfirm, value }) => {
+        if (!isConfirm) return;
+        if (!value) {
+          showToast.warning(t('wf.importValidator'));
+          return false;
+        }
+      },
+    });
+    flowName = promptValue ?? '';
+  } catch {
+    logger.warn('用户取消模板导入操作');
     return; // 用户主动取消导入操作
   }
   // 步骤2：执行导入 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -205,13 +228,25 @@ async function handleClone(row: TemplateRow): Promise<void> {
   let newTemplateName: string;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt(t('wf.confirmClone'), t('wf.cloneTemplate'), {
-      inputPlaceholder: 'newTemplateName',
-      inputValidator: (inputValue) => (inputValue ? true : t('wf.cloneValidator')),
+    const promptValue = await ydszPrompt<string>({
+      content: t('wf.confirmClone'),
+      confirmText: t('wf.confirm'),
+      cancelText: t('wf.cancel'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: 'newTemplateName',
+      },
+      beforeClose: ({ isConfirm, value }) => {
+        if (!isConfirm) return;
+        if (!value) {
+          showToast.warning(t('wf.cloneValidator'));
+          return false;
+        }
+      },
     });
-    newTemplateName = value;
-  } catch (error) {
-    logger.warn('用户取消模板克隆操作', error);
+    newTemplateName = promptValue ?? '';
+  } catch {
+    logger.warn('用户取消模板克隆操作');
     return; // 用户主动取消克隆操作
   }
   // 步骤2：执行克隆 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -232,16 +267,18 @@ async function handleNewVersion(row: TemplateRow): Promise<void> {
   let versionLabel: string | undefined;
   // 步骤1：输入弹窗（用户取消直接返回）
   try {
-    const { value } = await ElMessageBox.prompt(
-      t('wf.confirmNewVersion'),
-      t('wf.newVersionTitle'),
-      {
-        inputPlaceholder: 'versionLabel',
+    const promptValue = await ydszPrompt<string>({
+      content: t('wf.confirmNewVersion'),
+      confirmText: t('wf.confirm'),
+      cancelText: t('wf.cancel'),
+      defaultValue: '',
+      componentProps: {
+        placeholder: 'versionLabel',
       },
-    );
-    versionLabel = value || undefined;
-  } catch (error) {
-    logger.warn('用户取消创建模板新版本操作', error);
+    });
+    versionLabel = promptValue || undefined;
+  } catch {
+    logger.warn('用户取消创建模板新版本操作');
     return; // 用户主动取消创建版本操作
   }
   // 步骤2：执行创建版本 API（失败提示由 errorMessageResponseInterceptor 统一处理）
@@ -292,13 +329,12 @@ async function handleVersionDetail(versionItem: TemplateRow): Promise<void> {
   }
   try {
     const detail = await getTemplateVersion({ templateCode: currentTemplateCode.value, version });
-    ElMessageBox.alert(
-      `<pre class="max-h-64 overflow-auto text-left text-xs">${JSON.stringify(detail, null, 2)}</pre>`,
-      `${t('wf.versionDetail')} ${version}`,
-      {
-        dangerouslyUseHTMLString: true,
-      },
-    );
+    await ydszAlert({
+      content: () => h('pre', { class: 'max-h-64 overflow-auto text-left text-xs' }, JSON.stringify(detail, null, 2)),
+      title: `${t('wf.versionDetail')} ${version}`,
+      icon: 'info',
+      confirmText: t('wf.confirm'),
+    });
   } catch (error) {
     logger.warn('获取模板版本详情失败，详见拦截器提示', error);
     // 用户提示由 errorMessageResponseInterceptor 统一处理
