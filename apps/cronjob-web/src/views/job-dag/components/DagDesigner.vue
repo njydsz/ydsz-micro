@@ -238,14 +238,15 @@ function handleNodeNameChange(name: string): void {
       <!-- 设计器工具 -->
       <div class="designer-toolbar mb-3 flex items-center gap-2">
         <span class="text-sm text-gray-600">添加节点：</span>
-        <ElButton
+        <Button
           v-for="opt in nodeTypeOptions"
           :key="opt.value"
-          size="small"
+          size="sm"
+          variant="outline"
           @click="handleAddNode(opt.value)"
         >
           {{ opt.label }}
-        </ElButton>
+        </Button>
         <div class="mx-2 h-5 w-px bg-gray-300" />
         <span class="text-sm text-gray-600">缩放：</span>
         <ElSlider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
@@ -266,15 +267,14 @@ function handleNodeNameChange(name: string): void {
           >
             <div class="node-header">{{ node.name }}</div>
             <div class="node-type text-xs text-gray-500">{{ node.type }}</div>
-            <ElButton
+            <Button
               class="node-delete"
-              size="small"
-              type="danger"
-              link
+              size="sm"
+              variant="link"
               @click.stop="handleDeleteNode(node.id)"
             >
               ×
-            </ElButton>
+            </Button>
           </div>
 
           <!-- 连线（简化显示） -->
@@ -304,10 +304,10 @@ function handleNodeNameChange(name: string): void {
         <h4 class="mb-2 text-sm font-medium">节点配置</h4>
         <ElForm label-width="80px">
           <ElFormItem label="节点名称">
-            <ElInput :model-value="selectedNode.name" @update:model-value="handleNodeNameChange" />
+            <Input :model-value="selectedNode.name" @update:model-value="handleNodeNameChange" />
           </ElFormItem>
           <ElFormItem label="任务ID">
-            <ElInput v-model="selectedNode.jobId" placeholder="关联任务ID" />
+            <Input v-model="selectedNode.jobId" placeholder="关联任务ID" />
           </ElFormItem>
         </ElForm>
       </div>
@@ -320,7 +320,7 @@ function handleNodeNameChange(name: string): void {
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.from)?.name }}</span>
             <span class="text-xs text-gray-400">→</span>
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.to)?.name }}</span>
-            <ElButton size="small" link type="danger" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</ElButton>
+            <Button size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</Button>
           </div>
         </div>
       </div>

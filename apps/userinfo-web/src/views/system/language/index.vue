@@ -91,13 +91,13 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleEdit(row) },
+              Button,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              ElButton,
-              { size: 'small', link: true, type: 'danger', onClick: () => handleDelete(row) },
+              Button,
+              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
           ]),
@@ -195,7 +195,7 @@ async function handleDelete(row: LanguageVO) {
   <Page auto-content-height>
     <Grid :table-title="t('language.languageManagement')">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">{{ t('language.createLanguage') }}</ElButton>
+        <Button variant="default" @click="handleAdd">{{ t('language.createLanguage') }}</Button>
       </template>
     </Grid>
     <LanguageFormModal @success="gridApi.query()" />

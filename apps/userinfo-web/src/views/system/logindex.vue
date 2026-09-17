@@ -19,10 +19,9 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElTag, ElInput, ElOption, ElSelect } from 'element-plus';
-import { Search } from '@element-plus/icons-vue';
-import { h, ref, onMounted } from 'vue';
-import { ElDatePicker } from 'element-plus';
+import { Badge, Button, DatePicker, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/shadcn-ui';
+import { h, onMounted, ref } from 'vue';
+import { Search } from 'lucide-vue-next';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import { pageLoginLog } from '#/api/loginLog';
@@ -60,7 +59,7 @@ function statusTagType(status: string): 'success' | 'danger' {
  * @returns VNode
  */
 function hElTag(text: string, type: 'success' | 'danger' | 'warning' | 'info') {
-  return h(ElTag, { type, size: 'small' }, () => text);
+  return h(Badge, { variant: type === 'success' ? 'default' : type === 'danger' ? 'destructive' : type === 'warning' ? 'outline' : 'secondary', class: type === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => text);
 }
 
 /**
@@ -176,19 +175,22 @@ onMounted(() => {
   <Page auto-content-height>
     <!-- 筛选区 -->
     <div class="mb-3 flex flex-wrap items-center gap-3 px-4 pt-3">
-      <ElInput
+      <Input
         v-model="searchKeyword"
-        :prefix-icon="Search"
         placeholder="搜索用户名/IP"
-        clearable
-        style="width: 200px"
+        class="w-[200px]"
         @change="applyFilter"
       />
-      <ElSelect v-model="statusFilter" placeholder="状态" style="width: 120px" @change="applyFilter">
-        <ElOption label="全部状态" value="all" />
-        <ElOption label="成功" value="SUCCESS" />
-        <ElOption label="失败" value="FAILED" />
-      </ElSelect>
+      <Select v-model="statusFilter" @update:model-value="applyFilter">
+        <SelectTrigger class="w-[120px]">
+          <SelectValue placeholder="状态" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">全部状态</SelectItem>
+          <SelectItem value="SUCCESS">成功</SelectItem>
+          <SelectItem value="FAILED">失败</SelectItem>
+        </SelectContent>
+      </Select>
       <ElDatePicker
         v-model="startTime"
         type="datetime"

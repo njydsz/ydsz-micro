@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Button, Card, CardContent, CardHeader, CardTitle, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem/ElTabPane/ElTabs/ElSelect/ElOption 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElForm, ElFormItem, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -225,7 +225,7 @@ onMounted(() => {
             <ElSelect v-model="codeLanguage" placeholder="语言" class="w-32">
               <ElOption v-for="opt in languageOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
             </ElSelect>
-            <ElButton size="small" @click="loadTemplate">加载模板</ElButton>
+            <Button size="sm" variant="outline" @click="loadTemplate">加载模板</Button>
             <span v-if="currentVersion > 0" class="text-xs text-gray-500">当前版本：v{{ currentVersion }}</span>
           </div>
           <div class="code-editor-wrapper">
@@ -237,8 +237,8 @@ onMounted(() => {
             />
           </div>
           <div class="mt-3 flex justify-end gap-2">
-            <ElButton @click="modalApi.close()">取消</ElButton>
-            <ElButton type="primary" :loading="saving" @click="handleSave">保存</ElButton>
+            <Button variant="outline" @click="modalApi.close()">取消</Button>
+            <Button :loading="saving" @click="handleSave">保存</Button>
           </div>
         </div>
       </ElTabPane>
@@ -258,8 +258,8 @@ onMounted(() => {
               <p v-if="version.remark" class="mt-1 text-xs text-gray-600">{{ version.remark }}</p>
             </div>
             <div class="flex gap-2">
-              <ElButton size="small" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</ElButton>
-              <ElButton size="small" type="warning" @click="handleRollback(version)">回滚</ElButton>
+              <Button size="sm" variant="outline" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</Button>
+              <Button size="sm" variant="destructive" @click="handleRollback(version)">回滚</Button>
             </div>
           </div>
         </div>
@@ -270,11 +270,11 @@ onMounted(() => {
         <div class="mt-3">
           <ElForm label-width="80px">
             <ElFormItem label="测试参数">
-              <ElInput v-model="testParams" placeholder="请输入测试参数（JSON格式，选填）" type="textarea" :rows="3" />
+              <Textarea v-model="testParams" placeholder="请输入测试参数（JSON格式，选填）" :rows="3" />
             </ElFormItem>
           </ElForm>
           <div class="mb-3 flex justify-end">
-            <ElButton type="primary" :loading="testing" @click="handleTest">执行测试</ElButton>
+            <Button :loading="testing" @click="handleTest">执行测试</Button>
           </div>
           <div v-if="testResult" class="rounded border bg-gray-50 p-3">
             <p class="mb-1 text-xs font-medium text-gray-600">测试结果：</p>

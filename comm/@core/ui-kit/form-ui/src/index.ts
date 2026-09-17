@@ -20,6 +20,7 @@ export type {
 } from './types';
 
 export * from './use-YDSZ-form';
+export * from './use-field-subscription';
 // export { default as YDSZForm } from './YDSZ-form.vue';
 export * as z from 'zod';
 
