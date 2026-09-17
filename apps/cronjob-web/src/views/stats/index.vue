@@ -17,7 +17,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDatePicker/ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElCard, ElDatePicker, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';

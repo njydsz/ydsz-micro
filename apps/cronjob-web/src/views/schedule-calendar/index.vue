@@ -19,7 +19,7 @@ import { Page } from '@ydsz/common-ui';
 import { Badge, Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElCalendar/ElDatePicker/ElRadioGroup/ElRadioButton/ElTimeline/ElTimelineItem/ElEmpty/ElTooltip/ElCard/ElTag 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElButton, ElCard, ElDatePicker, ElDrawer, ElEmpty, ElRadioGroup, ElRadioButton, ElTag, ElTimeline, ElTimelineItem, ElTooltip } from 'element-plus';
+import { ElDatePicker, ElEmpty, ElRadioGroup, ElRadioButton, ElTimeline, ElTimelineItem, ElTooltip } from 'element-plus';
 import { ref, computed, onMounted } from 'vue';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';

@@ -334,8 +334,8 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         :filter-placeholder="t('role.searchPermission')"
       />
       <template #footer>
-        <ElButton @click="permDialogVisible = false">{{ t('page.cancel') }}</ElButton>
-        <ElButton type="primary" @click="confirmPermissionAssign">{{ t('page.confirm') }}</ElButton>
+        <Button variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</Button>
+        <Button variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</Button>
       </template>
     </ElDialog>
 
@@ -353,15 +353,15 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         <ElTableColumn prop="email" :label="t('page.email')" width="180" />
         <ElTableColumn prop="status" :label="t('page.status')" width="80">
           <template #default="{ row }">
-            <ElTag :type="row.status === 1 ? 'success' : 'danger'" size="small">
+            <Badge :variant="row.status === 1 ? 'default' : 'destructive'" :class="row.status === 1 ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
               {{ row.status === 1 ? t('page.enabled') : t('page.disabled') }}
-            </ElTag>
+            </Badge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
       </ElTable>
       <template #footer>
-        <ElButton @click="userListDialogVisible = false">{{ t('page.close') }}</ElButton>
+        <Button variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</Button>
       </template>
     </ElDialog>
   </Page>

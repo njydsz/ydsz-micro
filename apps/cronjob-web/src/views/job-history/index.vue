@@ -20,9 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { Badge, Button } from '@ydsz-core/ui-kit/shadcn-ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTable/ElTableColumn/ElForm/ElFormItem/ElOption/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
+import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

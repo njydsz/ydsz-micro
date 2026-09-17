@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElProgress/ElStatistic/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElCard, ElEmpty, ElProgress, ElStatistic, ElTimeline, ElTimelineItem } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';

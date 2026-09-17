@@ -17,8 +17,8 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button } from '@ydsz-core/shadcn-ui';
-import { ElCard, ElEmpty, ElImage, ElTable, ElTableColumn } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '@ydsz-core/shadcn-ui';
+import { ElEmpty, ElImage, ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -139,10 +139,11 @@ onMounted(() => {
 <template>
   <Page v-loading="isLoading" auto-content-height>
     <!-- 已绑定列表 -->
-    <ElCard class="mb-4">
-      <template #header>
-        <span class="font-medium">已绑定社交账号</span>
-      </template>
+    <Card class="mb-4">
+      <CardHeader>
+        <CardTitle class="font-medium text-base">已绑定社交账号</CardTitle>
+      </CardHeader>
+      <CardContent>
       <ElTable :data="bindings" border>
         <ElTableColumn prop="platform" label="平台" width="140">
           <template #default="{ row }">
@@ -180,13 +181,15 @@ onMounted(() => {
         </ElTableColumn>
       </ElTable>
       <ElEmpty v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
-    </ElCard>
+      </CardContent>
+    </Card>
 
     <!-- 可绑定平台引导 -->
-    <ElCard>
-      <template #header>
-        <span class="font-medium">可绑定平台</span>
-      </template>
+    <Card>
+      <CardHeader>
+        <CardTitle class="font-medium text-base">可绑定平台</CardTitle>
+      </CardHeader>
+      <CardContent>
       <div
         v-if="unboundPlatforms.length > 0"
         class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
@@ -205,6 +208,7 @@ onMounted(() => {
         </div>
       </div>
       <ElEmpty v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />
-    </ElCard>
+      </CardContent>
+    </Card>
   </Page>
 </template>

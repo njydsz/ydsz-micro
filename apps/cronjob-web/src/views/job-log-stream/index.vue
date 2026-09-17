@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElTimeline/ElTimelineItem/ElEmpty/ElForm/ElFormItem/ElInput/ElSpace/ElTag/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElCard, ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
 import { nextTick, onBeforeUnmount, ref } from 'vue';

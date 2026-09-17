@@ -25,18 +25,12 @@ describe('FormItem', () => {
   });
 
   it('应注入 FORM_ITEM_INJECTION_KEY', () => {
-    let injectedId = '';
     mount(FormItem, {
       slots: {
         default: '<div></div>',
       },
-      global: {
-        provide: {
-          // FormItem 内部使用 provide 向下游注入 id
-        },
-      },
     });
-    // 仅验证注入 key 存在且类型为 symbol
+    // 验证注入 key 存在且类型为 symbol
     expect(typeof FORM_ITEM_INJECTION_KEY).toBe('symbol');
   });
 

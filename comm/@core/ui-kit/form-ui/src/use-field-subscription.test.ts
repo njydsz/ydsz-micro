@@ -18,7 +18,6 @@ import {
   useFieldValue,
   useDependentFieldValues,
 } from './use-field-subscription';
-import type { WatchCallback } from 'vue';
 
 /** 构建类 vee-validate 表单 mock（仅含 values） */
 function createMockForm(initial: Record<string, unknown> = {}) {

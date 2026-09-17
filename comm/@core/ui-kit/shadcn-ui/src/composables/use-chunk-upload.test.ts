@@ -8,7 +8,7 @@
  * @since 26.09.17
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
 import { useChunkUpload, DEFAULT_CHUNK_SIZE } from './use-chunk-upload';
 

@@ -18,7 +18,7 @@
 import { useYDSZModal } from '@ydsz/common-ui';
 import { Button, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem/ElInputNumber/ElCollapse/ElCollapseItem/ElSelect 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElButton, ElCollapse, ElCollapseItem, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect } from 'element-plus';
+import { ElCollapse, ElCollapseItem, ElForm, ElFormItem, ElInputNumber, ElOption, ElSelect } from 'element-plus';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

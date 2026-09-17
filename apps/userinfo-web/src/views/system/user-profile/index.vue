@@ -21,6 +21,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { Button, Card, CardContent, CardHeader, CardTitle, Tabs, TabsContent, TabsList, TabsTrigger } from '@ydsz-core/shadcn-ui';
+import { Loader2 } from 'lucide-vue-next';
 import { ElForm, ElFormItem, ElInput, ElSwitch, type FormInstance, type UploadRequestOptions } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -301,10 +302,13 @@ loadMfaStatus();
                   <ElInput v-model="profileForm.avatar" placeholder="头像地址（上传后自动填充）" />
                 </ElFormItem>
                 <ElFormItem>
-                  <ElButton type="primary" :loading="isProfileLoading" @click="handleUpdateProfile">保存修改</ElButton>
+                  <Button variant="default" :disabled="isProfileLoading" @click="handleUpdateProfile">
+                    <Loader2 v-if="isProfileLoading" class="mr-2 h-4 w-4 animate-spin" />
+                    保存修改
+                  </Button>
                 </ElFormItem>
               </ElForm>
-            </ElCol>
+            </div>
             <div class="md:col-span-1 flex flex-col items-center gap-3">
               <ElImage
                 v-if="avatarUrl"
@@ -349,7 +353,10 @@ loadMfaStatus();
                   <ElInput v-model="passwordForm.confirmPassword" type="password" placeholder="请再次输入新密码" show-password />
                 </ElFormItem>
                 <ElFormItem>
-                  <ElButton type="primary" :loading="isPasswordLoading" @click="handleChangePassword">修改密码</ElButton>
+                  <Button variant="default" :disabled="isPasswordLoading" @click="handleChangePassword">
+                    <Loader2 v-if="isPasswordLoading" class="mr-2 h-4 w-4 animate-spin" />
+                    修改密码
+                  </Button>
                 </ElFormItem>
               </ElForm>
             </div>
@@ -510,7 +517,7 @@ loadMfaStatus();
 }
 
 .bg-white {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .p-4 {

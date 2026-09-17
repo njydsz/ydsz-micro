@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYDSZModal } from '@ydsz/common-ui';
-import { Button, Card, CardContent, CardHeader, CardTitle, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Button, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem/ElTabPane/ElTabs/ElSelect/ElOption 暂无或部分无 shadcn 对应;保留 element-plus SKIP
 import { ElForm, ElFormItem, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
 import { computed, onMounted, ref, watch } from 'vue';

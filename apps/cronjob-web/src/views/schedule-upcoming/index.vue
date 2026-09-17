@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Button, Card, CardContent, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElInputNumber/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
 import { ElCard, ElEmpty, ElInputNumber, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, ref } from 'vue';

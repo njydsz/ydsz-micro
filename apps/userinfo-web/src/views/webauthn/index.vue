@@ -19,7 +19,8 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElDialog, ElEmpty, ElIcon, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@ydsz-core/shadcn-ui';
+import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElIcon, ElTimeline, ElTimelineItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -145,8 +146,8 @@ const credentialCount = computed(() => credentials.value.length);
   <Page auto-content-height>
     <div class="webauthn-management">
       <!-- 顶部概览卡片 -->
-      <ElCard shadow="never" class="mb-4">
-        <div class="flex items-center justify-between">
+      <Card shadow="never" class="mb-4">
+        <CardContent class="flex items-center justify-between pt-6">
           <div class="flex items-center gap-3">
             <ElIcon :size="24" class="text-blue-500">
               <svg
@@ -162,25 +163,26 @@ const credentialCount = computed(() => credentials.value.length);
             </ElIcon>
             <div>
               <h3 class="text-lg font-semibold">Passkey 管理</h3>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-muted-foreground">
                 管理您的生物识别登录凭证，共 {{ credentialCount }} 个凭证
               </p>
             </div>
           </div>
           <div class="flex gap-2">
-            <ElButton type="primary" @click="registerDialogVisible = true">
+            <Button variant="default" @click="registerDialogVisible = true">
               注册 Passkey
-            </ElButton>
-            <ElButton :loading="loading" @click="loadCredentials">刷新</ElButton>
+            </Button>
+            <Button variant="ghost" :disabled="loading" @click="loadCredentials">刷新</Button>
           </div>
-        </div>
-      </ElCard>
+        </CardContent>
+      </Card>
 
       <!-- 凭证列表 -->
-      <ElCard shadow="never">
-        <template #header>
-          <span class="font-medium">已注册凭证</span>
-        </template>
+      <Card shadow="never">
+        <CardHeader>
+          <CardTitle class="font-medium">已注册凭证</CardTitle>
+        </CardHeader>
+        <CardContent>
 
         <!-- 空状态 -->
         <ElEmpty
@@ -188,14 +190,9 @@ const credentialCount = computed(() => credentials.value.length);
           description="尚未注册任何 Passkey 凭证"
           :image-size="100"
         >
-          <template #description>
-            <p class="text-gray-500">
-              注册 Passkey 后可使用生物识别（指纹/面部）或安全密钥快速登录
-            </p>
-          </template>
-          <ElButton type="primary" @click="registerDialogVisible = true">
+          <Button variant="default" @click="registerDialogVisible = true">
             立即注册
-          </ElButton>
+          </Button>
         </ElEmpty>
 
         <!-- 凭证列表 -->
@@ -225,11 +222,11 @@ const credentialCount = computed(() => credentials.value.length);
                   <span class="font-medium">{{
                     cred.displayName || '未命名凭证'
                   }}</span>
-                  <ElTag size="small" type="info">{{
+                  <Badge variant="secondary" class="text-xs">{{
                     credentialTypeLabels[cred.credentialType ?? ''] ||
                     cred.credentialType ||
                     '凭证'
-                  }}</ElTag>
+                  }}</Badge>
                 </div>
                 <div class="text-xs text-gray-400 mt-1">
                   ID: {{ formatCredentialId(cred.credentialId) }}
@@ -244,96 +241,102 @@ const credentialCount = computed(() => credentials.value.length);
                 </div>
               </div>
               <div class="flex gap-1">
-                <ElButton
-                  size="small"
-                  link
-                  type="primary"
+                <Button
+                  size="sm"
+                  variant="link"
                   @click="handleViewDetail(cred)"
                 >
                   详情
-                </ElButton>
-                <ElButton
-                  size="small"
-                  link
-                  type="danger"
+                </Button>
+                <Button
+                  size="sm"
+                  variant="link"
+                  class="text-destructive"
                   @click="handleDelete(cred)"
                 >
                   删除
-                </ElButton>
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      </ElCard>
+      </CardContent>
+      </Card>
 
       <!-- 注册说明弹窗 -->
-      <ElDialog
-        v-model="registerDialogVisible"
-        title="注册 Passkey"
-        width="560px"
-      >
-        <div class="mb-4">
-          <p class="text-gray-600">
-            注册 Passkey 后，您可以使用设备的生物识别功能（如 Windows Hello、Apple
-            Touch ID/Face ID）或安全密钥（YubiKey
-            等）快速、安全地登录系统。
-          </p>
-        </div>
+      <Dialog v-model:open="registerDialogVisible">
+        <DialogContent class="max-w-[560px]">
+          <DialogHeader>
+            <DialogTitle>注册 Passkey</DialogTitle>
+          </DialogHeader>
+          <div class="mb-4">
+            <p class="text-muted-foreground">
+              注册 Passkey 后，您可以使用设备的生物识别功能（如 Windows Hello、Apple
+              Touch ID/Face ID）或安全密钥（YubiKey
+              等）快速、安全地登录系统。
+            </p>
+          </div>
 
-        <ElTimeline>
-          <ElTimelineItem
-            v-for="(step, index) in registrationSteps"
-            :key="step.title ?? index"
-            :hollow="index > 0"
-          >
-            <div class="font-medium">{{ step.title }}</div>
-            <div class="text-sm text-gray-500 mt-1">
-              {{ step.description }}
-            </div>
-          </ElTimelineItem>
-        </ElTimeline>
+          <ElTimeline>
+            <ElTimelineItem
+              v-for="(step, index) in registrationSteps"
+              :key="step.title ?? index"
+              :hollow="index > 0"
+            >
+              <div class="font-medium">{{ step.title }}</div>
+              <div class="text-sm text-muted-foreground mt-1">
+                {{ step.description }}
+              </div>
+            </ElTimelineItem>
+          </ElTimeline>
 
-        <template #footer>
-          <ElButton @click="registerDialogVisible = false">关闭</ElButton>
-          <ElButton type="primary" disabled>
-            注册 Passkey（需在支持设备上操作）
-          </ElButton>
-        </template>
-      </ElDialog>
+          <DialogFooter class="gap-2">
+            <Button variant="outline" @click="registerDialogVisible = false">关闭</Button>
+            <Button disabled>
+              注册 Passkey（需在支持设备上操作）
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <!-- 凭证详情弹窗 -->
-      <ElDialog v-model="detailDialogVisible" title="凭证详情" width="500px">
-        <ElDescriptions v-if="selectedCredential" :column="1" border>
-          <ElDescriptionsItem label="凭证 ID">
-            <span class="text-xs break-all">{{
-              selectedCredential.credentialId
-            }}</span>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="显示名称">
-            {{ selectedCredential.displayName || '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="凭证类型">
-            {{ selectedCredential.credentialType || '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="AAGUID">
-            <span class="text-xs">{{ selectedCredential.aaguid || '-' }}</span>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="签名计数">
-            {{ selectedCredential.signCount ?? 0 }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="注册时间">
-            {{ formatDateTime(selectedCredential.registeredAt) }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem label="最后使用">
-            {{ formatDateTime(selectedCredential.lastUsedAt) }}
-          </ElDescriptionsItem>
-        </ElDescriptions>
-        <template #footer>
-          <ElButton @click="detailDialogVisible = false">{{
-            t('page.close')
-          }}</ElButton>
-        </template>
-      </ElDialog>
+      <Dialog v-model:open="detailDialogVisible">
+        <DialogContent class="max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>凭证详情</DialogTitle>
+          </DialogHeader>
+          <ElDescriptions v-if="selectedCredential" :column="1" border>
+            <ElDescriptionsItem label="凭证 ID">
+              <span class="text-xs break-all">{{
+                selectedCredential.credentialId
+              }}</span>
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="显示名称">
+              {{ selectedCredential.displayName || '-' }}
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="凭证类型">
+              {{ selectedCredential.credentialType || '-' }}
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="AAGUID">
+              <span class="text-xs">{{ selectedCredential.aaguid || '-' }}</span>
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="签名计数">
+              {{ selectedCredential.signCount ?? 0 }}
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="注册时间">
+              {{ formatDateTime(selectedCredential.registeredAt) }}
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label="最后使用">
+              {{ formatDateTime(selectedCredential.lastUsedAt) }}
+            </ElDescriptionsItem>
+          </ElDescriptions>
+          <DialogFooter class="gap-2">
+            <Button variant="outline" @click="detailDialogVisible = false">{{
+              t('page.close')
+            }}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   </Page>
 </template>

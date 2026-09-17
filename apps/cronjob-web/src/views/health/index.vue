@@ -17,9 +17,9 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { Badge, Card, CardContent } from '@ydsz-core/ui-kit/shadcn-ui';
+import { Badge } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTag } from 'element-plus';
+import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getHealth } from '#/api/healthDashboard';

@@ -18,7 +18,7 @@
 */
 import { Badge, Button, Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea } from '@ydsz-core/ui-kit/shadcn-ui';
 // TODO: ElForm/ElFormItem/ElRadioGroup/ElRadio/ElSwitch/ElTable/ElTableColumn/ElDialog 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { ElForm, ElFormItem, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, ElTable, ElTableColumn } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 

@@ -10,8 +10,6 @@
 
 import { describe, it, expect } from 'vitest';
 
-import { mount } from '@vue/test-utils';
-
 import Dialog from './Dialog.vue';
 import DialogContent from './DialogContent.vue';
 import DialogTrigger from './DialogTrigger.vue';

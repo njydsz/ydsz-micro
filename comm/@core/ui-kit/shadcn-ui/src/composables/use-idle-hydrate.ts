@@ -23,7 +23,6 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
-  unref,
 } from 'vue';
 
 /** 安全获取 requestIdleCallback（运行时而非模块加载时解析，便于测试 mock） */
