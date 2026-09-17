@@ -32,7 +32,7 @@ const ENTRY_POINTS = [
 
 /** 静态资源相对路径（src → dest under dist） */
 const STATIC_FILES = [
-  ['manifest.json', 'manifest.json'],
+  ['manifest.dist.json', 'manifest.json'],
   ['popup/popup.html', 'popup/popup.html'],
   ['devtools/devtools.html', 'devtools/devtools.html'],
   ['devtools/panel.html', 'devtools/panel.html'],

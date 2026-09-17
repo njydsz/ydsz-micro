@@ -1,0 +1,104 @@
+<!--
+ * 表格列声明（语义子组件，无可见渲染）。
+ *
+ * <p>作为 YdTable 的子组件使用：通过 provide/inject 向父级注册列定义，
+ * 父级 YdTable 收集所有列后根据 data 自动渲染 thead/tbody。
+ *
+ * <p>接口对齐 ElTableColumn 常用属性，确保从 element-plus 迁移时模板
+ * 改动极小（只需标签重命名 + import 路径替换）。
+ *
+ * <p>示例：
+ * <pre>
+ *   &lt;YdTable :data="rows" border&gt;
+ *     &lt;YdTableColumn type="index" label="#" width="50" /&gt;
+ *     &lt;YdTableColumn prop="name" label="姓名" min-width="120" /&gt;
+ *     &lt;YdTableColumn prop="status" label="状态" width="100"&gt;
+ *       &lt;template #default="{ row }"&gt;
+ *         &lt;YdBadge :variant="row.status ? 'default' : 'destructive'"&gt;
+ *           {{ row.status ? '启用' : '禁用' }}
+ *         &lt;/YdBadge&gt;
+ *       &lt;/template&gt;
+ *     &lt;/YdTableColumn&gt;
+ *   &lt;/YdTable&gt;
+ * </pre>
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableColumn.vue
+ * @author ydsz-team
+ * @since 4.2.0
+ */
+import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted } from 'vue';
+
+import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
+
+import type { ColumnRegistry } from './injectionKeys';
+
+defineOptions({ name: 'YdTableColumn' });
+
+interface Props {
+  /** 列类型：index=序号列，selection=多选框，expand=展开行 */
+  type?: 'index' | 'selection' | 'expand';
+  /** 对应行数据的字段名 */
+  prop?: string;
+  /** 表头文本 */
+  label?: string;
+  /** 列宽度（CSS 值，如 '120px' 或 '10%'） */
+  width?: string | number;
+  /** 最小宽度（当列可伸缩时使用） */
+  minWidth?: string | number;
+  /** 固定列位置（left/right/true 等效 left） */
+  fixed?: 'left' | 'right' | boolean;
+  /** 单元格对齐方式，默认 'left' */
+  align?: 'left' | 'center' | 'right';
+  /** 内容超长时省略号+tooltip，默认 false */
+  showOverflowTooltip?: boolean;
+  /** 自定义格式化函数：(row, column, cellValue, index) → displayText */
+  /** true 启用数据格式化的通用处理 */
+  formatter?: (row: any, column: any, cellValue: unknown, index: number) => string;
+  /** 是否隐藏该列 */
+  isHidden?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  align: 'left',
+  showOverflowTooltip: false,
+  isHidden: false,
+});
+
+// 当没有显式 prop 时，用实例 uid 作为唯一 key
+const instance = getCurrentInstance();
+const columnId = computed(() => `${props.prop ?? ''}_${instance?.uid ?? 0}`);
+
+const registry = inject<ColumnRegistry | null>(YD_TABLE_COLUMN_REGISTRY, null);
+
+if (!registry) {
+  // 在 YdTable 外部使用时不抛错，仅静音（避免破坏其它布局场景）
+} else {
+  onMounted(() => {
+    registry.addColumn(columnId.value, {
+      type: props.type,
+      prop: props.prop,
+      label: props.label,
+      width: props.width != null ? `${props.width}` : undefined,
+      minWidth: props.minWidth != null ? `${props.minWidth}` : undefined,
+      fixed: props.fixed === true ? 'left' : props.fixed === false ? undefined : props.fixed,
+      align: props.align,
+      showOverflowTooltip: props.showOverflowTooltip,
+      formatter: props.formatter,
+      isHidden: props.isHidden,
+      // 通过实例 uid 拿到插槽渲染函数的引用
+      _uid: instance?.uid,
+    });
+  });
+
+  onBeforeUnmount(() => {
+    registry.removeColumn(columnId.value);
+  });
+}
+
+// YdTableColumn 是逻辑组件，模板中渲染空内容
+// 实际渲染由父级 YdTable 通过 data + columns 驱动
+</script>
+
+<template>
+  <!-- 无可见模板：列定义由父级 YdTable 收集后统一渲染 -->
+</template>

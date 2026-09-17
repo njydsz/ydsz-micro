@@ -10,9 +10,11 @@
  */
 import type { InjectionKey } from 'vue';
 
+import type { ColumnDef } from './ColumnDef';
+
 /** 列注册表：addColumn / removeColumn 由 YdTable provide，YdTableColumn inject */
 export interface ColumnRegistry {
-  addColumn: (id: string, column: unknown) => void;
+  addColumn: (id: string, column: ColumnDef) => void;
   removeColumn: (id: string) => void;
 }
 
