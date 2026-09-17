@@ -77,5 +77,15 @@ export type {
   UseNotificationHubReturn,
 } from './use-notification-hub';
 
+export { useGridContext, useGridItem, useGridProvider, GRID_CONTEXT_KEY } from './use-grid-layout';
+export type {
+  GridBreakpoint,
+  GridBreakpoints,
+  GridColumnConfig,
+  GridItemConfig,
+  GridContext,
+  UseGridProviderOptions,
+} from './use-grid-layout';
+
 export { useOverlayStack } from './use-overlay-stack';
 export type { OverlayStackHandle } from './use-overlay-stack';
