@@ -87,7 +87,7 @@ async function bootstrap(): Promise<void> {
     environment: 'standalone',
   });
 
-  // 安装指令（YDSZ 自研 v-loading 指令，替代 EP ElLoading.directive）
+  // 安装指令（YDSZ 自研 v-loading 指令）
   registerLoadingDirective(vueApp, {
     loading: false,
     spinning: 'spinning',

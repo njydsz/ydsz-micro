@@ -2,7 +2,7 @@
  * Excel 导入按钮 — 隐藏 file input + 解析回调
  *
  * 使用自研 YdButtonBase + lucide YdUpload 图标，零 element-plus 依赖。
- * 提示信息改用 @ydsz/notification 的 showToast，与 EP ElMessage 行为兼容。
+ * 提示信息使用 @ydsz/notification 的 showToast（全局轻提示）。
  *
  * @path comm\effects\shared-business\src\components\excel-import-button.vue
  * @author ydsz-team

@@ -144,6 +144,9 @@ catalogs:
     '@vueuse/motion':
       specifier: ^3.0.3
       version: 3.0.3
+    '@vueuse/shared':
+      specifier: ^13.4.0
+      version: 13.9.0
     archiver:
       specifier: ^7.0.1
       version: 7.0.1
@@ -1807,6 +1810,45 @@ importers:
       vee-validate:
         specifier: 'catalog:'
         version: 4.15.1(vue@3.5.40(typescript@5.9.3))
+      vue:
+        specifier: ^3.5.17
+        version: 3.5.40(typescript@5.9.3)
+
+  comm/@core/ui-kit/ydsz-vue:
+    dependencies:
+      '@floating-ui/dom':
+        specifier: ^1.6.7
+        version: 1.8.0
+      '@floating-ui/vue':
+        specifier: ^1.1.0
+        version: 1.1.11(vue@3.5.40(typescript@5.9.3))
+      '@internationalized/date':
+        specifier: ^3.5.4
+        version: 3.12.3
+      '@internationalized/number':
+        specifier: ^3.5.3
+        version: 3.6.7
+      '@tanstack/vue-virtual':
+        specifier: 'catalog:'
+        version: 3.13.35(vue@3.5.40(typescript@5.9.3))
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@vueuse/shared':
+        specifier: 'catalog:'
+        version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      aria-hidden:
+        specifier: ^1.2.4
+        version: 1.2.6
+      defu:
+        specifier: 'catalog:'
+        version: 6.1.7
+      fast-deep-equal:
+        specifier: ^3.1.3
+        version: 3.1.3
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.1.16
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)

@@ -67,6 +67,7 @@ catalog:
   "@vue/shared": ^3.5.17
   "@vueuse/core": ^13.4.0
   "@vueuse/integrations": ^13.4.0
+  "@vueuse/shared": ^13.4.0
   "@vueuse/motion": ^3.0.3
   archiver: ^7.0.1
   autoprefixer: ^10.4.21

@@ -8,6 +8,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import type { TokenName } from './theme-schema';
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { themeTokens, tokensByCategory } from './theme-schema';
 import { useTheme } from './use-theme';

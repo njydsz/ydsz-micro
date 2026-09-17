@@ -1,5 +1,5 @@
 <!--
- * 表单树选择：YdPopoverBase + YdTree 组合（ElTreeSelect 等价物）。
+ * 表单树选择：YdPopoverBase + YdTree 组合。
  *
  * YdTree 不假定数据结构（labelField/valueField/childrenField 可配），
  * 本组件在其上补齐「触发器 + 弹层 + 选中回显」的表单形态；

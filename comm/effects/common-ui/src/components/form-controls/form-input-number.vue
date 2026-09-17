@@ -1,5 +1,5 @@
 <!--
- * 表单数字输入：组合 radix YdNumberField 的单组件形态（ElInputNumber 等价物）。
+ * 表单数字输入：组合 radix YdNumberField 的单组件形态。
  *
  * YdNumberField 原子件是 Root/YdInput/Increment/Decrement 四件套组合，
  * 表单注册表需要单组件形态；此处组装 Root + YdInput，min/max/step/placeholder
