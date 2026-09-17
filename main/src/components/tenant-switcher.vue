@@ -1,7 +1,8 @@
 <!--
  * TenantSwitcher — 顶栏租户切换器
  *
- * <p>基于 Element Plus ElSelect 组件实现多租户切换功能。
+ * <p>基于自研 shadcn-ui Select 原语实现多租户切换功能（EP 退场 v3 §P0-2，
+ * 原 Element Plus ElSelect/ElTooltip/ElMessage 全部替换）。
  * 仅当存在多个可访问租户（或当前用户为超级管理员）时显示切换入口。
  * 切换后更新 TenantStore、localStorage 并刷新页面以加载新租户数据。
  *
@@ -12,12 +13,22 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import { ElMessage, ElSelect, ElOption, ElTooltip } from 'element-plus';
-import { OfficeBuilding } from '@element-plus/icons-vue';
 import type { TenantInfo } from '@ydsz/shared-business';
 
 import { useTenant } from '@ydsz/shared-business';
 import { useUserStore, useTenantStore } from '@ydsz/stores';
+import { showToast } from '@ydsz/notification';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@ydsz-core/shadcn-ui';
 
 /** 引入多租户 composable（提供租户列表加载、切换等能力） */
 const {
@@ -90,16 +101,16 @@ async function handleTenantChange(tenantId: string): Promise<void> {
   }
   const target = accessibleTenants.value.find((t) => t.id === tenantId);
   if (!target) {
-    ElMessage.warning('未找到目标租户信息');
+    showToast.warning('未找到目标租户信息');
     return;
   }
   try {
     await switchTenant(target.id, target.tenantName);
   } catch {
-    ElMessage.error(`切换至「${target.tenantName}」失败，请稍后重试`);
+    showToast.error(`切换至「${target.tenantName}」失败，请稍后重试`);
     return;
   }
-  ElMessage.success(
+  showToast.success(
     `已切换至「${target.tenantName}」(${target.tenantCode})，正在刷新...`,
   );
   // 延迟刷新，让用户看到提示
@@ -129,7 +140,7 @@ onMounted(async () => {
 
   // 如果有错误，弹出提示
   if (error.value) {
-    ElMessage.error(`租户列表加载失败：${error.value}`);
+    showToast.error(`租户列表加载失败：${error.value}`);
   }
 
   initialized.value = true;
@@ -137,100 +148,134 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="tenant-switcher flex items-center">
-    <!-- 加载中状态 -->
-    <ElTooltip
-      v-if="loading"
-      content="正在加载租户列表..."
-      placement="bottom"
-      :show-after="300"
-    >
-      <span class="tenant-switcher__loading flex items-center gap-1 px-2 py-1 text-xs">
-        <ElSelect
-          loading
-          disabled
-          placeholder="加载租户..."
-          class="tenant-switcher__select--loading"
-        />
-      </span>
-    </ElTooltip>
-
-    <!-- 切换器主体 -->
-    <ElSelect
-      v-else-if="visible"
-      v-model="selectedTenantId"
-      :placeholder="displayName"
-      :disabled="loading"
-      :loading="loading"
-      class="tenant-switcher__select"
-      popper-class="tenant-switcher__popper"
-      :prefix-icon="undefined"
-      @change="handleTenantChange"
-    >
-      <!-- 顶部搜索提示 -->
-      <template #prefix>
-        <ElTooltip
-          content="切换租户"
-          placement="top"
-          :show-after="500"
-        >
-          <span class="tenant-switcher__icon flex items-center">
-            <el-icon class="text-base">
-              <OfficeBuilding />
-            </el-icon>
-          </span>
-        </ElTooltip>
-      </template>
-
-      <!-- 租户选项列表 -->
-      <ElOption
-        v-for="tenant in accessibleTenants"
-        :key="tenant.id"
-        :value="tenant.id"
-        :label="formatOptionLabel(tenant)"
-        :disabled="tenant.id === activeTenantId"
-      >
-        <span class="flex w-full items-center justify-between gap-3">
+  <TooltipProvider :delay-duration="300">
+    <div class="tenant-switcher flex items-center">
+      <!-- 加载中状态 -->
+      <Tooltip v-if="loading">
+        <TooltipTrigger as-child>
           <span
-            class="truncate"
-            :class="{ 'font-medium': tenant.id === activeTenantId }"
+            class="tenant-switcher__loading flex items-center gap-1 px-2 py-1 text-xs"
           >
-            {{ tenant.tenantName }}
+            <svg
+              class="size-4 animate-spin text-muted-foreground"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
+              />
+            </svg>
+            <span>加载租户...</span>
           </span>
-          <span
-            v-if="tenant.tenantCode"
-            class="tenant-switcher__code shrink-0 rounded px-1.5 py-0.5 text-[10px]"
-            :class="
-              tenant.id === activeTenantId
-                ? 'bg-blue-100 text-blue-600'
-                : 'bg-gray-100 text-gray-500'
-            "
-          >
-            {{ tenant.tenantCode }}
-          </span>
-        </span>
-      </ElOption>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">正在加载租户列表...</TooltipContent>
+      </Tooltip>
 
-      <!-- 无数据时的空状态 -->
-      <template #empty>
-        <span class="text-gray-400 text-sm">暂无可访问租户</span>
-      </template>
-    </ElSelect>
-
-    <!-- 错误提示（加载失败但需要展示占位） -->
-    <ElTooltip
-      v-else-if="error"
-      :content="`租户加载失败：${error}，点击重试`"
-      placement="bottom"
-    >
-      <span
-        class="tenant-switcher__error cursor-pointer px-2 py-1 text-xs text-red-500"
-        @click="loadAccessibleTenants()"
+      <!-- 切换器主体 -->
+      <Select
+        v-else-if="visible"
+        v-model="selectedTenantId"
+        :disabled="loading"
+        @update:model-value="handleTenantChange"
       >
-        {{ displayName }}
-      </span>
-    </ElTooltip>
-  </div>
+        <Tooltip>
+          <TooltipTrigger as-child>
+            <SelectTrigger
+              class="tenant-switcher__select w-[200px]"
+              aria-label="切换租户"
+            >
+              <span class="tenant-switcher__icon mr-1 flex items-center">
+                <svg
+                  class="size-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect width="16" height="16" x="4" y="4" rx="2" />
+                  <rect width="6" height="6" x="9" y="9" rx="1" />
+                  <path d="M15 2v2" />
+                  <path d="M15 20v2" />
+                  <path d="M2 15h2" />
+                  <path d="M20 15h2" />
+                  <path d="M4 15v-2" />
+                  <path d="M20 15v-2" />
+                  <path d="M9 4v2" />
+                  <path d="M15 4v2" />
+                  <path d="M9 20v-2" />
+                  <path d="M15 20v-2" />
+                </svg>
+              </span>
+              <SelectValue :placeholder="displayName" />
+            </SelectTrigger>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">切换租户</TooltipContent>
+        </Tooltip>
+
+        <!-- 租户选项列表 -->
+        <SelectContent class="tenant-switcher__popper">
+          <SelectItem
+            v-for="tenant in accessibleTenants"
+            :key="tenant.id"
+            :value="tenant.id"
+            :disabled="tenant.id === activeTenantId"
+          >
+            <span class="flex w-full items-center justify-between gap-3">
+              <span
+                class="truncate"
+                :class="{ 'font-medium': tenant.id === activeTenantId }"
+              >
+                {{ tenant.tenantName }}
+              </span>
+              <span
+                v-if="tenant.tenantCode"
+                class="tenant-switcher__code shrink-0 rounded px-1.5 py-0.5 text-[10px]"
+                :class="
+                  tenant.id === activeTenantId
+                    ? 'bg-blue-100 text-blue-600'
+                    : 'bg-gray-100 text-gray-500'
+                "
+              >
+                {{ tenant.tenantCode }}
+              </span>
+            </span>
+          </SelectItem>
+          <template v-if="accessibleTenants.length === 0">
+            <div class="px-3 py-2 text-sm text-gray-400">暂无可访问租户</div>
+          </template>
+        </SelectContent>
+      </Select>
+
+      <!-- 错误提示（加载失败但需要展示占位） -->
+      <Tooltip v-else-if="error">
+        <TooltipTrigger as-child>
+          <span
+            class="tenant-switcher__error cursor-pointer px-2 py-1 text-xs text-red-500"
+            @click="loadAccessibleTenants()"
+          >
+            {{ displayName }}
+          </span>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          {{ `租户加载失败：${error}，点击重试` }}
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  </TooltipProvider>
 </template>
 
 <style lang="scss" scoped>
@@ -241,37 +286,15 @@ onMounted(async () => {
   margin-right: 4px;
 
   &__select {
-    width: 200px;
-
-    :deep(.el-input__wrapper) {
-      background-color: transparent;
-      box-shadow: 0 0 0 1px var(--border-color, #e5e7eb) inset;
-      border-radius: 6px;
-      transition: box-shadow 0.2s ease;
-
-      &:hover {
-        box-shadow: 0 0 0 1px var(--primary-color, #409eff) inset;
-      }
-
-      &.is-focus {
-        box-shadow: 0 0 0 1px var(--primary-color, #409eff) inset !important;
-      }
-    }
-
-    :deep(.el-input__inner) {
-      font-size: 13px;
-      color: var(--text-primary, #1f2937);
-    }
-  }
-
-  &__select--loading {
-    width: 140px;
+    height: 32px;
+    background-color: transparent;
+    border-radius: 6px;
   }
 
   &__icon {
     display: flex;
     align-items: center;
-    color: var(--primary-color, #409eff);
+    color: hsl(var(--primary));
   }
 
   &__code {
@@ -281,7 +304,7 @@ onMounted(async () => {
   }
 
   &__loading {
-    color: var(--text-tertiary, #9ca3af);
+    color: hsl(var(--muted-foreground));
     font-size: 12px;
   }
 
@@ -289,26 +312,7 @@ onMounted(async () => {
     transition: color 0.2s ease;
 
     &:hover {
-      color: var(--danger-color, #ef4444);
-    }
-  }
-}
-</style>
-
-<style lang="scss">
-/* 全局 popper 样式（不使用 scoped 因为 dropdown 渲染在 body） */
-.tenant-switcher__popper {
-  .el-select-dropdown__item {
-    padding: 8px 12px;
-    line-height: 1.5;
-
-    &.is-disabled {
-      opacity: 0.6;
-    }
-
-    &.selected {
-      color: var(--primary-color, #409eff);
-      font-weight: 500;
+      color: hsl(var(--destructive));
     }
   }
 }
