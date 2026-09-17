@@ -16,9 +16,9 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { Badge, Button, Input } from '@ydsz-core/ui-kit/shadcn-ui';
-// TODO: ElTimeline/ElTimelineItem/ElEmpty/ElForm/ElFormItem/ElInput/ElSpace/ElTag/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElCard, ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@ydsz-core/ui-kit/shadcn-ui';
+// TODO: ElEmpty/ElForm/ElFormItem/ElSpace/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
+import { ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -142,8 +142,8 @@ function statusText(status: ConnectStatus): string {
   <Page auto-content-height>
     <div class="p-4 space-y-4">
       <!-- 连接控制面板 -->
-      <ElCard shadow="never" class="rounded-lg border border-gray-200">
-        <template #header>
+      <Card class="rounded-lg border border-gray-200">
+        <CardHeader>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <!-- 连接状态圆点 -->
@@ -167,10 +167,10 @@ function statusText(status: ConnectStatus): string {
               <Button size="sm" variant="ghost" @click="handleClear">清空</Button>
             </ElSpace>
           </div>
-        </template>
-
-        <!-- LogId 输入 -->
-        <ElForm inline @submit.prevent="handleConnect">
+        </CardHeader>
+        <CardContent>
+          <!-- LogId 输入 -->
+          <ElForm inline @submit.prevent="handleConnect">
           <ElFormItem label="Log ID">
             <Input
               v-model="logId"
@@ -182,15 +182,17 @@ function statusText(status: ConnectStatus): string {
           <ElFormItem>
             <Button size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</Button>
           </ElFormItem>
-        </ElForm>
-      </ElCard>
+          </ElForm>
+        </CardContent>
+      </Card>
 
       <!-- 日志输出区 -->
-      <ElCard shadow="never" class="rounded-lg border border-gray-200">
-        <template #header>
-          <span class="text-sm font-medium text-gray-700">日志输出</span>
-        </template>
-        <div
+      <Card class="rounded-lg border border-gray-200">
+        <CardHeader>
+          <CardTitle class="text-sm text-gray-700">日志输出</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div
           ref="logContainerRef"
           class="h-96 overflow-auto rounded border border-gray-800 bg-gray-900 p-3 font-mono text-xs leading-5 text-green-300"
         >
@@ -198,14 +200,15 @@ function statusText(status: ConnectStatus): string {
             v-if="logs"
             class="whitespace-pre-wrap break-all m-0"
           >{{ logs }}</pre>
-          <ElEmpty
-            v-else
-            description="暂无日志内容"
-            :image-size="60"
-            class="mt-20"
-          />
-        </div>
-      </ElCard>
+            <ElEmpty
+              v-else
+              description="暂无日志内容"
+              :image-size="60"
+              class="mt-20"
+            />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   </Page>
 </template>
