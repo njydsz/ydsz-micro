@@ -1,11 +1,14 @@
 /**
- * Element Plus 命令式 API 的语义兼容层 —— EP 退场专用过渡模块。
+ * @deprecated 自 v4.2.0 起标记为弃用，EP 退场专用过渡模块。
  *
  * <p>导出与 `element-plus` 同名的 `ElMessage` / `ElMessageBox` / `ElNotification` 对象，
  * 方法签名与返回值契约与 EP 对齐，底层已切换为 ydsz-ui + popup-ui 实现。
  *
- * <p>业务侧将原 `from 'element-plus'` 替换为 `from '@ydsz/notification/compat'`，
- * 逻辑代码可零改动完成迁移。待 EP 全量退出后此模块将随最后一批清理删除。
+ * <p>业务侧原 `from 'element-plus'` 已替换为 `from '@ydsz/notification/compat'`，
+ * 逻辑代码零改动完成迁移。长期目标：迁移至直接调用 showToast/ydszConfirm，
+ * 届时随最后一批清理删除。
+ *
+ * <p>禁止新增引用；现有引用请迁移至 @ydsz-core/popup-ui / @ydsz/notification（原生）。
  *
  * <p>语义对齐要点：
  * <ul>
@@ -18,6 +21,7 @@
  * @path comm/effects/notification/src/el-bridge.ts
  * @author ydsz-team
  * @since 1.0.0
+ * @deprecated 4.2.0 起弃用，EP 退场兼容层，禁止新增引用。
  */
 
 import type { Component } from 'vue';

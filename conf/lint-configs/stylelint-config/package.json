@@ -12,7 +12,7 @@
     "src/"
   ],
   "scripts": {
-    "build": "node --experimental-strip-types ./build.mjs",
+    "build": "node ./build.mts",
     "lint": "stylelint --check src/",
     "lint:fix": "stylelint --fix src/"
   },

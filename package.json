@@ -8,10 +8,9 @@
     "YDSZ",
     "vue",
     "vue3",
-    "element-plus",
     "micro-frontend"
   ],
-  "description": "YDSZ 前端微应用 Monorepo — 基于 micro-kernel + Vue 3 + Element Plus",
+  "description": "YDSZ 前端微应用 Monorepo — 基于 micro-kernel + Vue 3 + YDSZ Vue UI",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -27,7 +26,7 @@
     "build:nextwiki": "pnpm run build --filter=@ydsz/nextwiki-web",
     "build:literule": "pnpm run build --filter=@ydsz/literule-web",
     "build:agent": "pnpm run build --filter=@ydsz/agent-web",
-    "build:chrome": "node --experimental-strip-types ./chrome/build.mjs",
+    "build:chrome": "node ./chrome/build.mts",
     "type-check:chrome": "node --experimental-strip-types ./node_modules/typescript/bin/tsc -p chrome/tsconfig.json --noEmit",
     "changeset": "changeset",
     "changeset:publish": "changeset publish",

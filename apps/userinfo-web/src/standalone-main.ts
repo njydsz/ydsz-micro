@@ -21,7 +21,7 @@ import { createApp } from 'vue';
 import { registerAccessDirective } from '@ydsz/access';
 import { registerLoadingDirective, registerSafeHtmlDirective } from '@ydsz/common-ui';
 import '@ydsz/styles';
-import '@ydsz/styles/ele';
+
 import { setupMonitor } from '@ydsz/monitor';
 import { initPreferences } from '@ydsz/preferences';
 import { initStores } from '@ydsz/stores';

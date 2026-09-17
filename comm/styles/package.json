@@ -15,9 +15,6 @@
       "types": "./src/index.ts",
       "default": "./src/index.ts"
     },
-    "./ele": {
-      "default": "./src/ele/index.css"
-    },
     "./global": {
       "default": "./src/global/index.scss"
     }

@@ -75,7 +75,7 @@ function processAll() {
   let changedCount = 0;
 
   for (const file of pkgFiles) {
-    const relative = file.replace(ROOT, '.');
+    const relative = file.replace(ROOT, '.').replace(/\\/g, '/');
     const pkg = JSON.parse(readFileSync(file, 'utf8'));
 
     if (relative === './package.json') {

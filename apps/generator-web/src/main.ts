@@ -11,7 +11,7 @@
 import { createSubApp } from '@ydsz/shared-auth';
 
 import '@ydsz/styles';
-import '@ydsz/styles/ele';
+
 
 import { initComponentAdapter } from './adapter/component';
 import { initGeneratorFormAdapter } from './adapter/form';

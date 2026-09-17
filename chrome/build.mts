@@ -14,7 +14,7 @@ import { cp, rm, mkdir, readFile, writeFile, access } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { transpileModule, ScriptTarget, ModuleKind, JsxEmit } from 'typescript';
+import { transpileModule, ScriptTarget, ModuleKind } from 'typescript';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = __dirname;
