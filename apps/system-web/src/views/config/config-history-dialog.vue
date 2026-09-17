@@ -15,7 +15,8 @@
  * @since 1.0.0
  */
 // TODO: [ydsz-ui migration pending] 本文件含 ElTable（SKIP）、ElDrawer、ElEmpty、ElTooltip 等部分未映射组件，整体迁移需人工评估复杂度高
-import { ElButton, ElDialog, ElDrawer, ElEmpty, ElTable, ElTableColumn, ElTag, ElTooltip } from 'element-plus';
+import { YdButton, YdDialog, YdDrawer, YdEmptyState, YdTable, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -170,7 +171,7 @@ defineExpose({
 </script>
 
 <template>
-  <ElDrawer
+  <YdDrawer
     v-model="drawerVisible"
     size="65%"
     :title="t('configVersion.historyTitle', [configKey])"
@@ -189,15 +190,15 @@ defineExpose({
       <ElTableColumn type="selection" width="40" />
       <ElTableColumn prop="version" :label="t('configVersion.version')" width="180">
         <template #default="{ row }">
-          <ElTag v-if="row.version" size="small" type="primary">{{ row.version }}</ElTag>
+          <YdBadge v-if="row.version" size="small" type="primary">{{ row.version }}</YdBadge>
           <span v-else>-</span>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="changeLog" :label="t('configVersion.changeLog')" min-width="200">
         <template #default="{ row }">
-          <ElTooltip :content="row.changeLog" :disabled="!row.changeLog">
+          <YdTooltip :content="row.changeLog" :disabled="!row.changeLog">
             <span class="truncate">{{ row.changeLog || '-' }}</span>
-          </ElTooltip>
+          </YdTooltip>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="effectiveDate" :label="t('configVersion.effectiveDate')" width="180">
@@ -207,35 +208,35 @@ defineExpose({
       </ElTableColumn>
       <ElTableColumn :label="t('action')" width="200" fixed="right">
         <template #default="{ row }">
-          <ElButton text type="primary" @click="showSnapshot(row)">
+          <YdButton text type="primary" @click="showSnapshot(row)">
             {{ t('configVersion.viewSnapshot') }}
-          </ElButton>
-          <ElButton text type="warning" @click="confirmRollback(row)">
+          </YdButton>
+          <YdButton text type="warning" @click="confirmRollback(row)">
             {{ t('configVersion.rollback') }}
-          </ElButton>
+          </YdButton>
         </template>
       </ElTableColumn>
 
       <!-- 空数据 -->
       <template #empty>
-        <ElEmpty :description="t('common.noData')" />
+        <YdEmptyState :description="t('common.noData')" />
       </template>
     </ElTable>
 
     <!-- 底部工具栏 -->
     <template #footer>
-      <ElButton @click="close">{{ t('common.close') }}</ElButton>
-      <ElButton
+      <YdButton @click="close">{{ t('common.close') }}</YdButton>
+      <YdButton
         type="primary"
         :disabled="selected.length !== 2"
         @click="showDiff"
       >
         {{ t('configVersion.compareVersions') }}
-      </ElButton>
+      </YdButton>
     </template>
 
     <!-- 快照 JSON 查看对话框 -->
-    <ElDialog
+    <YdDialog
       v-model="snapshotDialogVisible"
       width="70%"
       :title="t('configVersion.snapshotDetail', [currentSnapshotVersion])"
@@ -243,9 +244,9 @@ defineExpose({
     >
       <pre class="json-viewer">{{ currentSnapshotJson }}</pre>
       <template #footer>
-        <ElButton @click="snapshotDialogVisible = false">{{ t('common.close') }}</ElButton>
+        <YdButton @click="snapshotDialogVisible = false">{{ t('common.close') }}</YdButton>
       </template>
-    </ElDialog>
+    </YdDialog>
 
     <!-- JSON diff 对比对话框 -->
     <JsonDiffDialog
@@ -256,7 +257,7 @@ defineExpose({
       :snapshot-a="diffSnapshotA"
       :snapshot-b="diffSnapshotB"
     />
-  </ElDrawer>
+  </YdDrawer>
 </template>
 
 <style scoped>

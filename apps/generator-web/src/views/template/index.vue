@@ -19,8 +19,7 @@
 import { onMounted, ref } from 'vue';
 
 import { YdButtonBase, YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty 暂无 ydsz-ui 等效组件，保留 element-plus 导入
-import { ElEmpty } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
 
 import {
   activateGroup,
@@ -285,7 +284,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <ElEmpty v-else description="该分组暂无模板" />
+        <YdEmptyState v-else description="该分组暂无模板" />
       </div>
     </div>
   </div>

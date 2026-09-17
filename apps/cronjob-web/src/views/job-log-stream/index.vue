@@ -18,7 +18,7 @@
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElEmpty/ElForm/ElFormItem/ElSpace/ElText 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElForm, ElFormItem, ElSpace, ElText } from 'element-plus';
+import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -157,32 +157,32 @@ function statusText(status: ConnectStatus): string {
               >
                 {{ statusText(connectStatus) }}
               </YdBadge>
-              <ElText v-if="logId && connectStatus === 'connected'" size="small" type="info">
+              <YdText v-if="logId && connectStatus === 'connected'" size="small" type="info">
                 Log #{{ logId }}
-              </ElText>
+              </YdText>
             </div>
-            <ElSpace>
+            <YdSpace>
               <YdButtonBase size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</YdButtonBase>
               <YdButtonBase size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</YdButtonBase>
               <YdButtonBase size="sm" variant="ghost" @click="handleClear">清空</YdButtonBase>
-            </ElSpace>
+            </YdSpace>
           </div>
         </YdCardHeader>
         <YdCardContent>
           <!-- LogId 输入 -->
-          <ElForm inline @submit.prevent="handleConnect">
-          <ElFormItem label="Log ID">
+          <YdForm inline @submit.prevent="handleConnect">
+          <YdFormItem label="Log ID">
             <YdInput
               v-model="logId"
               placeholder="请输入任务执行日志 ID"
               class="w-80"
               @keyup.enter="handleConnect"
             />
-          </ElFormItem>
-          <ElFormItem>
+          </YdFormItem>
+          <YdFormItem>
             <YdButtonBase size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</YdButtonBase>
-          </ElFormItem>
-          </ElForm>
+          </YdFormItem>
+          </YdForm>
         </YdCardContent>
       </YdCard>
 
@@ -200,7 +200,7 @@ function statusText(status: ConnectStatus): string {
             v-if="logs"
             class="whitespace-pre-wrap break-all m-0"
           >{{ logs }}</pre>
-            <ElEmpty
+            <YdEmptyState
               v-else
               description="暂无日志内容"
               :image-size="60"

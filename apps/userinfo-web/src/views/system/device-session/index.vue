@@ -18,7 +18,8 @@
 */
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -176,7 +177,7 @@ onMounted(() => {
           </template>
         </ElTableColumn>
       </ElTable>
-      <ElEmpty v-if="devices.length === 0" description="暂无设备记录" :image-size="60" />
+      <YdEmptyState v-if="devices.length === 0" description="暂无设备记录" :image-size="60" />
     </YdCard>
   </Page>
 </template>

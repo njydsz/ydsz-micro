@@ -21,7 +21,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -162,29 +162,29 @@ async function handleExport() {
       <YdBadge v-for="item in connectorTypes" :key="item" variant="secondary">{{ item }}</YdBadge>
       <YdBadge v-if="connectorTypes.length === 0" variant="secondary">{{ t('common.noData') }}</YdBadge>
     </div>
-    <ElForm inline class="rounded border border-gray-200 p-2">
-      <ElFormItem label="类型">
+    <YdForm inline class="rounded border border-gray-200 p-2">
+      <YdFormItem label="类型">
         <YdInput v-model="config.type" class="w-32" placeholder="连接器类型" />
-      </ElFormItem>
-      <ElFormItem label="端点">
+      </YdFormItem>
+      <YdFormItem label="端点">
         <YdInput v-model="config.endpoint" class="w-56" placeholder="连接端点" />
-      </ElFormItem>
-      <ElFormItem label="认证方式">
+      </YdFormItem>
+      <YdFormItem label="认证方式">
         <YdInput v-model="config.authType" class="w-28" placeholder="authType" />
-      </ElFormItem>
-      <ElFormItem label="用户名">
+      </YdFormItem>
+      <YdFormItem label="用户名">
         <YdInput v-model="config.username" class="w-32" placeholder="用户名" />
-      </ElFormItem>
-      <ElFormItem label="密码">
+      </YdFormItem>
+      <YdFormItem label="密码">
         <YdInput v-model="config.password" class="w-32" type="password" placeholder="密码" />
-      </ElFormItem>
-      <ElFormItem label="AccessKey">
+      </YdFormItem>
+      <YdFormItem label="AccessKey">
         <YdInput v-model="config.accessKey" class="w-36" placeholder="AccessKey" />
-      </ElFormItem>
-      <ElFormItem label="SecretKey">
+      </YdFormItem>
+      <YdFormItem label="SecretKey">
         <YdInput v-model="config.secretKey" class="w-36" type="password" placeholder="SecretKey" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
     <TaskGrid class="mt-4" table-title="远程任务">
       <template #toolbar-tools>
         <YdButtonBase @click="handleTest">测试连接</YdButtonBase>

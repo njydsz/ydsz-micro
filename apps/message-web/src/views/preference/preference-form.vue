@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
@@ -138,53 +138,53 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
 </script>
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="用户ID" prop="userId">
+      <YdFormItem label="用户ID" prop="userId">
         <YdInput v-model="formData.userId" placeholder="请输入用户ID" />
-      </ElFormItem>
-      <ElFormItem label="通道" prop="channel">
+      </YdFormItem>
+      <YdFormItem label="通道" prop="channel">
         <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
-      </ElFormItem>
-      <ElFormItem label="业务类型" prop="bizType">
+      </YdFormItem>
+      <YdFormItem label="业务类型" prop="bizType">
         <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="启用" prop="enabled">
+      </YdFormItem>
+      <YdFormItem label="启用" prop="enabled">
         <YdRadioGroup v-model="formData.enabled">
           <YdRadioGroupItem :value="1">启用</YdRadioGroupItem>
           <YdRadioGroupItem :value="0">停用</YdRadioGroupItem>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="免打扰" prop="dndEnabled">
+      </YdFormItem>
+      <YdFormItem label="免打扰" prop="dndEnabled">
         <YdRadioGroup v-model="formData.dndEnabled">
           <YdRadioGroupItem :value="1">开启</YdRadioGroupItem>
           <YdRadioGroupItem :value="0">关闭</YdRadioGroupItem>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="免打扰开始" prop="dndStart">
+      </YdFormItem>
+      <YdFormItem label="免打扰开始" prop="dndStart">
         <YdInput v-model="formData.dndStart" placeholder="如 22:00（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="免打扰结束" prop="dndEnd">
+      </YdFormItem>
+      <YdFormItem label="免打扰结束" prop="dndEnd">
         <YdInput v-model="formData.dndEnd" placeholder="如 08:00（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="每日上限" prop="dailyLimit">
-        <ElInputNumber v-model="formData.dailyLimit" :min="0" :max="99999" />
-      </ElFormItem>
-      <ElFormItem label="每小时上限" prop="hourlyLimit">
-        <ElInputNumber v-model="formData.hourlyLimit" :min="0" :max="9999" />
-      </ElFormItem>
-      <ElFormItem label="摘要订阅" prop="digestEnabled">
+      </YdFormItem>
+      <YdFormItem label="每日上限" prop="dailyLimit">
+        <YdNumberFieldInput v-model="formData.dailyLimit" :min="0" :max="99999" />
+      </YdFormItem>
+      <YdFormItem label="每小时上限" prop="hourlyLimit">
+        <YdNumberFieldInput v-model="formData.hourlyLimit" :min="0" :max="9999" />
+      </YdFormItem>
+      <YdFormItem label="摘要订阅" prop="digestEnabled">
         <YdRadioGroup v-model="formData.digestEnabled">
           <YdRadioGroupItem :value="1">开启</YdRadioGroupItem>
           <YdRadioGroupItem :value="0">关闭</YdRadioGroupItem>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="摘要频率" prop="digestFrequency">
+      </YdFormItem>
+      <YdFormItem label="摘要频率" prop="digestFrequency">
         <YdSelectBase v-model="formData.digestFrequency">
           <YdSelectTriggerBase>
             <YdSelectValueBase placeholder="请选择摘要频率（可为空）" />
@@ -195,10 +195,10 @@ const title = computed(() => (isEdit.value ? '编辑消息偏好' : '新增消�
             <YdSelectItemBase value="MONTHLY">每月</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem label="语言" prop="locale">
+      </YdFormItem>
+      <YdFormItem label="语言" prop="locale">
         <YdInput v-model="formData.locale" placeholder="请输入语言（可为空）" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

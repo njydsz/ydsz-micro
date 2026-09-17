@@ -15,7 +15,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] ElDatePicker/ElForm/ElFormItem 暂无 shadcn 替代，待 UI Kit 日期选择器/表单方案统一后迁移
-import { ElDatePicker, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { YdDatePicker, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { save, update } from '#/api/tenant';
 import type { TenantDTO, TenantVO } from '#/api/models';
@@ -118,37 +118,37 @@ const isEdit = computed(() => !!formData.id);
 
 <template>
   <Modal :title="isEdit ? '编辑租户' : '新增租户'">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="租户编码" prop="tenantCode">
-        <ElInput v-model="formData.tenantCode" placeholder="请输入租户编码" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="租户名称" prop="tenantName">
-        <ElInput v-model="formData.tenantName" placeholder="请输入租户名称" />
-      </ElFormItem>
-      <ElFormItem label="联系人" prop="contactName">
-        <ElInput v-model="formData.contactName" placeholder="请输入联系人" />
-      </ElFormItem>
-      <ElFormItem label="联系电话" prop="contactPhone">
-        <ElInput v-model="formData.contactPhone" placeholder="请输入联系电话" />
-      </ElFormItem>
-      <ElFormItem label="联系邮箱" prop="contactEmail">
-        <ElInput v-model="formData.contactEmail" placeholder="请输入联系邮箱" />
-      </ElFormItem>
-      <ElFormItem label="套餐ID" prop="planId">
-        <ElInput v-model="formData.planId" placeholder="请输入套餐ID" />
-      </ElFormItem>
-      <ElFormItem label="过期时间" prop="expireAt">
-        <ElDatePicker v-model="formData.expireAt" type="datetime" placeholder="选择过期时间" class="w-full" />
-      </ElFormItem>
-      <ElFormItem label="数据源" prop="datasourceKey">
-        <ElInput v-model="formData.datasourceKey" placeholder="请输入数据源标识" />
-      </ElFormItem>
-      <ElFormItem label="状态" prop="status">
-        <ElSelect v-model="formData.status" placeholder="请选择状态">
-          <ElOption label="启用" value="ACTIVE" />
-          <ElOption label="禁用" value="INACTIVE" />
-        </ElSelect>
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="租户编码" prop="tenantCode">
+        <YdInput v-model="formData.tenantCode" placeholder="请输入租户编码" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem label="租户名称" prop="tenantName">
+        <YdInput v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </YdFormItem>
+      <YdFormItem label="联系人" prop="contactName">
+        <YdInput v-model="formData.contactName" placeholder="请输入联系人" />
+      </YdFormItem>
+      <YdFormItem label="联系电话" prop="contactPhone">
+        <YdInput v-model="formData.contactPhone" placeholder="请输入联系电话" />
+      </YdFormItem>
+      <YdFormItem label="联系邮箱" prop="contactEmail">
+        <YdInput v-model="formData.contactEmail" placeholder="请输入联系邮箱" />
+      </YdFormItem>
+      <YdFormItem label="套餐ID" prop="planId">
+        <YdInput v-model="formData.planId" placeholder="请输入套餐ID" />
+      </YdFormItem>
+      <YdFormItem label="过期时间" prop="expireAt">
+        <YdDatePicker v-model="formData.expireAt" type="datetime" placeholder="选择过期时间" class="w-full" />
+      </YdFormItem>
+      <YdFormItem label="数据源" prop="datasourceKey">
+        <YdInput v-model="formData.datasourceKey" placeholder="请输入数据源标识" />
+      </YdFormItem>
+      <YdFormItem label="状态" prop="status">
+        <YdSelect v-model="formData.status" placeholder="请选择状态">
+          <YdSelectItem label="启用" value="ACTIVE" />
+          <YdSelectItem label="禁用" value="INACTIVE" />
+        </YdSelect>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

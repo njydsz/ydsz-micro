@@ -17,7 +17,7 @@
 */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElOption/ElSelect/ElSwitch/ElTag 表单套件+YdSwitch+变量提取,保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTag } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, watch } from 'vue';
@@ -139,36 +139,36 @@ watch(
 
 <template>
   <Modal :title="isEditMode ? '编辑 Prompt 模板' : '新增 Prompt 模板'" width="700px">
-    <ElForm label-width="100px" class="mt-3">
+    <YdForm label-width="100px" class="mt-3">
       <div class="grid grid-cols-2 gap-x-4">
-        <ElFormItem label="模板编码" required>
-          <ElInput v-model="formData.templateCode" placeholder="唯一标识" :disabled="isEditMode" />
-        </ElFormItem>
-        <ElFormItem label="模板名称" required>
-          <ElInput v-model="formData.templateName" placeholder="请输入名称" />
-        </ElFormItem>
-        <ElFormItem label="分类">
-          <ElSelect v-model="formData.category" placeholder="请选择分类" class="w-full">
-            <ElOption
+        <YdFormItem label="模板编码" required>
+          <YdInput v-model="formData.templateCode" placeholder="唯一标识" :disabled="isEditMode" />
+        </YdFormItem>
+        <YdFormItem label="模板名称" required>
+          <YdInput v-model="formData.templateName" placeholder="请输入名称" />
+        </YdFormItem>
+        <YdFormItem label="分类">
+          <YdSelect v-model="formData.category" placeholder="请选择分类" class="w-full">
+            <YdSelectItem
               v-for="opt in categoryOptions"
               :key="opt.value"
               :label="opt.label"
               :value="opt.value"
             />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="启用">
-          <ElSwitch v-model="formData.enabled" />
-        </ElFormItem>
+          </YdSelect>
+        </YdFormItem>
+        <YdFormItem label="启用">
+          <YdSwitch v-model="formData.enabled" />
+        </YdFormItem>
       </div>
 
-      <ElFormItem label="模板描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入模板描述" />
-      </ElFormItem>
+      <YdFormItem label="模板描述">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入模板描述" />
+      </YdFormItem>
 
-      <ElFormItem label="模板内容" required>
+      <YdFormItem label="模板内容" required>
         <div class="w-full">
-          <ElInput
+          <YdInput
             v-model="formData.content"
             type="textarea"
             :rows="10"
@@ -176,15 +176,15 @@ watch(
           />
           <p class="mt-1 text-xs text-gray-400">支持 {'{{'}variable{'}}'} 变量语法</p>
         </div>
-      </ElFormItem>
+      </YdFormItem>
 
-      <ElFormItem label="识别变量">
+      <YdFormItem label="识别变量">
         <div class="flex flex-wrap gap-2">
-          <ElTag v-for="v in extractedVariables" :key="v" type="info">{{ v }}</ElTag>
+          <YdBadge v-for="v in extractedVariables" :key="v" type="info">{{ v }}</YdBadge>
           <span v-if="extractedVariables.length === 0" class="text-xs text-gray-400">暂未识别到变量</span>
         </div>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
 
     <template #footer>
       <YdButtonBase variant="outline" @click="modalApi.close()">取消</YdButtonBase>

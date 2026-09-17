@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 // TODO: ElForm/ElFormItem/ElInput/ElDatePicker/ElRadio/ElRadioGroup 表单套件+日期选择,保留 element-plus SKIP
-import { ElDatePicker, ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
@@ -109,25 +109,25 @@ defineExpose({ open, close });
 
       <div v-if="!shareUrl" class="space-y-4">
         <p class="text-sm text-muted-foreground">将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：</p>
-        <ElForm label-width="90px">
-          <ElFormItem label="分享标题" required>
-            <ElInput v-model="shareConfig.title" placeholder="请输入分享标题" />
-          </ElFormItem>
-          <ElFormItem label="访问权限">
-            <ElRadioGroup v-model="shareConfig.permission">
-              <ElRadio value="PUBLIC">{{ permissionLabel.PUBLIC }}</ElRadio>
-              <ElRadio value="TEAM">{{ permissionLabel.TEAM }}</ElRadio>
-            </ElRadioGroup>
-          </ElFormItem>
-          <ElFormItem label="有效期至">
-            <ElDatePicker
+        <YdForm label-width="90px">
+          <YdFormItem label="分享标题" required>
+            <YdInput v-model="shareConfig.title" placeholder="请输入分享标题" />
+          </YdFormItem>
+          <YdFormItem label="访问权限">
+            <YdRadioGroup v-model="shareConfig.permission">
+              <YdRadioGroupItem value="PUBLIC">{{ permissionLabel.PUBLIC }}</YdRadioGroupItem>
+              <YdRadioGroupItem value="TEAM">{{ permissionLabel.TEAM }}</YdRadioGroupItem>
+            </YdRadioGroup>
+          </YdFormItem>
+          <YdFormItem label="有效期至">
+            <YdDatePicker
               v-model="shareConfig.expireAt"
               type="datetime"
               placeholder="选择失效时间（默认永久有效）"
               class="w-full"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
       </div>
 
       <!-- 发布成功 -->
@@ -135,7 +135,7 @@ defineExpose({ open, close });
         <div class="rounded bg-green-50 p-4 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
           发布成功！链接访问权限：{{ permissionLabel[shareConfig.permission] ?? shareConfig.permission }}
         </div>
-        <ElInput v-model="shareUrl" readonly />
+        <YdInput v-model="shareUrl" readonly />
         <p class="text-xs text-muted-foreground">标题：{{ shareConfig.title }}</p>
       </div>
 

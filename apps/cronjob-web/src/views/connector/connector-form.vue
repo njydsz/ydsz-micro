@@ -17,7 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -114,8 +114,8 @@ const title = computed(() => '连接测试');
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem :label="t('business.connectorType')" prop="type">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem :label="t('business.connectorType')" prop="type">
         <YdSelectBase v-model="formData.type">
           <YdSelectTriggerBase placeholder="请选择连接器类型" />
           <YdSelectContentBase>
@@ -124,25 +124,25 @@ const title = computed(() => '连接测试');
             </YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem :label="t('business.connectorUrl')" prop="endpoint">
+      </YdFormItem>
+      <YdFormItem :label="t('business.connectorUrl')" prop="endpoint">
         <YdInput v-model="formData.endpoint" placeholder="请输入连接端点" />
-      </ElFormItem>
-      <ElFormItem label="认证方式" prop="authType">
+      </YdFormItem>
+      <YdFormItem label="认证方式" prop="authType">
         <YdInput v-model="formData.authType" placeholder="如 basic / ak-sk" />
-      </ElFormItem>
-      <ElFormItem label="用户名" prop="username">
+      </YdFormItem>
+      <YdFormItem label="用户名" prop="username">
         <YdInput v-model="formData.username" placeholder="请输入用户名" />
-      </ElFormItem>
-      <ElFormItem label="密码" prop="password">
+      </YdFormItem>
+      <YdFormItem label="密码" prop="password">
         <YdInput v-model="formData.password" type="password" placeholder="请输入密码" />
-      </ElFormItem>
-      <ElFormItem label="AccessKey" prop="accessKey">
+      </YdFormItem>
+      <YdFormItem label="AccessKey" prop="accessKey">
         <YdInput v-model="formData.accessKey" placeholder="请输入AccessKey" />
-      </ElFormItem>
-      <ElFormItem label="SecretKey" prop="secretKey">
+      </YdFormItem>
+      <YdFormItem label="SecretKey" prop="secretKey">
         <YdInput v-model="formData.secretKey" type="password" placeholder="请输入SecretKey" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

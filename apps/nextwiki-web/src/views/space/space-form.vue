@@ -16,7 +16,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-space');
 const { t } = useI18n';
 import { computed, onMounted, reactive, ref } from 'vue';
@@ -126,44 +126,44 @@ const [Modal, modalApi] = useYdModal({
 
 <template>
   <Modal title="新建空间">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
       <!-- 创建方式切换 -->
-      <ElFormItem label="创建方式">
-        <ElRadioGroup v-model="formData.useTemplateFlag">
-          <ElRadioButton :value="false">空白空间</ElRadioButton>
-          <ElRadioButton :value="true">从模板创建</ElRadioButton>
-        </ElRadioGroup>
-      </ElFormItem>
+      <YdFormItem label="创建方式">
+        <YdRadioGroup v-model="formData.useTemplateFlag">
+          <YdRadioGroupItem :value="false">空白空间</YdRadioGroupItem>
+          <YdRadioGroupItem :value="true">从模板创建</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
 
       <!-- 模板选择 -->
-      <ElFormItem v-if="formData.useTemplateFlag" label="选择模板" prop="selectedTemplateId">
-        <ElSelect
+      <YdFormItem v-if="formData.useTemplateFlag" label="选择模板" prop="selectedTemplateId">
+        <YdSelect
           v-model="formData.selectedTemplateId"
           :loading="templateLoading"
           placeholder="请选择空间模板"
           class="w-full"
         >
-          <ElOption
+          <YdSelectItem
             v-for="item in templateList"
             :key="item.id"
             :label="item.name ?? '未命名模板'"
             :value="item.id ?? ''"
           />
-        </ElSelect>
-      </ElFormItem>
+        </YdSelect>
+      </YdFormItem>
 
-      <ElFormItem v-if="!formData.useTemplateFlag" label="空间名称" prop="name">
-        <ElInput v-model="formData.name" placeholder="请输入空间名称" />
-      </ElFormItem>
-      <ElFormItem label="空间描述" prop="description">
-        <ElInput v-model="formData.description" placeholder="请输入空间描述（选填）" type="textarea" :rows="3" />
-      </ElFormItem>
-      <ElFormItem label="可见性" prop="visibility">
-        <ElSelect v-model="formData.visibility" placeholder="请选择可见性">
-          <ElOption label="私有" value="PRIVATE" />
-          <ElOption label="公开" value="PUBLIC" />
-        </ElSelect>
-      </ElFormItem>
-    </ElForm>
+      <YdFormItem v-if="!formData.useTemplateFlag" label="空间名称" prop="name">
+        <YdInput v-model="formData.name" placeholder="请输入空间名称" />
+      </YdFormItem>
+      <YdFormItem label="空间描述" prop="description">
+        <YdInput v-model="formData.description" placeholder="请输入空间描述（选填）" type="textarea" :rows="3" />
+      </YdFormItem>
+      <YdFormItem label="可见性" prop="visibility">
+        <YdSelect v-model="formData.visibility" placeholder="请选择可见性">
+          <YdSelectItem label="私有" value="PRIVATE" />
+          <YdSelectItem label="公开" value="PUBLIC" />
+        </YdSelect>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ElTree } from 'element-plus';
+import { YdTree } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -179,7 +179,7 @@ async function handleDelete(row: CompanyVO) {
           <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>
           <YdButtonBase variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</YdButtonBase>
         </div>
-        <ElTree
+        <YdTree
           :data="companyTree"
           :props="{ label: 'companyName', children: 'children' }"
           node-key="id"

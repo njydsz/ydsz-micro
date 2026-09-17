@@ -20,7 +20,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 // SKIP: ElStep/ElSteps 不在 shadcn 映射表，保留 EP
-import { ElStep, ElSteps } from 'element-plus';
+import { YdStep, YdSteps } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 const logger = createLogger('message-trace');
@@ -167,13 +167,13 @@ function getStepConfig(step: string): { label: string; type: string; description
       <!-- 轨迹展示 -->
       <div v-if="traceSteps.length > 0" class="rounded border bg-white p-6">
         <h3 class="mb-4 text-base font-medium">消息轨迹（共 {{ traceSteps.length }} 个节点）</h3>
-        <ElSteps
+        <YdSteps
           :active="currentStepIndex + 1"
           direction="vertical"
           :space="80"
           finish-status="success"
         >
-          <ElStep
+          <YdStep
             v-for="(step, index) in traceSteps"
             :key="step.id ?? step.name ?? step"
             :title="getStepConfig(step).label"
@@ -188,8 +188,8 @@ function getStepConfig(step: string): { label: string; type: string; description
               <YdBadge v-else-if="getStepConfig(step).type === 'warning'" variant="outline" class="h-5 w-5 rounded-full p-0">!</YdBadge>
               <YdBadge v-else variant="secondary" class="h-5 w-5 rounded-full p-0">{{ index + 1 }}</YdBadge>
             </template>
-          </ElStep>
-        </ElSteps>
+          </YdStep>
+        </YdSteps>
       </div>
 
       <!-- 空状态 -->

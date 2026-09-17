@@ -97,44 +97,44 @@ const title = computed(() => (isEdit.value ? t('editRuleTitle') : t('createRuleT
 </script>
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('ruleCodeColumn')" prop="code">
-        <ElInput v-model="formData.code" :placeholder="t('ruleCodePlaceholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('ruleNameColumn')" prop="name">
-        <ElInput v-model="formData.name" :placeholder="t('ruleNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('categoryColumn')" prop="category">
-        <ElInput v-model="formData.category" :placeholder="t('categoryPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('priorityColumn')">
-        <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem :label="t('conditionExpression')">
-        <ElInput
+      <YdFormItem :label="t('ruleCodeColumn')" prop="code">
+        <YdInput v-model="formData.code" :placeholder="t('ruleCodePlaceholder')" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem :label="t('ruleNameColumn')" prop="name">
+        <YdInput v-model="formData.name" :placeholder="t('ruleNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('categoryColumn')" prop="category">
+        <YdInput v-model="formData.category" :placeholder="t('categoryPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('priorityColumn')">
+        <YdNumberFieldInput v-model="formData.priority" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem :label="t('conditionExpression')">
+        <YdInput
           v-model="formData.conditionExpression"
           type="textarea"
           :rows="3"
           :placeholder="t('conditionExpressionPlaceholder')"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('descriptionColumn')">
-        <ElInput
+      </YdFormItem>
+      <YdFormItem :label="t('descriptionColumn')">
+        <YdInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
           :placeholder="t('descriptionPlaceholder')"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('enabledColumn')">
-        <ElSwitch v-model="formData.isEnabled" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('enabledColumn')">
+        <YdSwitch v-model="formData.isEnabled" />
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

@@ -20,7 +20,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: ElCard/ElEmpty/ElTag YdCard+空状态+标签 整体布局复杂,保留 element-plus SKIP
-import { ElCard, ElEmpty } from 'element-plus';
+import { YdCard, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -243,7 +243,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
   <Page auto-content-height>
     <div class="space-y-4 p-4">
       <!-- 搜索区域 -->
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <div class="flex items-center gap-4">
           <span class="whitespace-nowrap text-sm font-medium">对话 ID：</span>
           <YdInput
@@ -256,11 +256,11 @@ async function handleDelete(row: MemoryVO): Promise<void> {
           <YdButtonBase variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清除全部</YdButtonBase>
           <YdButtonBase variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">整合记忆</YdButtonBase>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 统计卡片 -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">消息总数</p>
@@ -270,9 +270,9 @@ async function handleDelete(row: MemoryVO): Promise<void> {
               <span class="text-2xl text-blue-500">💬</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">当前对话 ID</p>
@@ -282,9 +282,9 @@ async function handleDelete(row: MemoryVO): Promise<void> {
               <span class="text-2xl text-green-500">🔗</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">已加载</p>
@@ -294,18 +294,18 @@ async function handleDelete(row: MemoryVO): Promise<void> {
               <span class="text-2xl text-purple-500">💾</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
       </div>
 
       <!-- 数据表格 -->
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <Grid v-if="queryConversationId.trim()" table-title="对话记忆列表">
           <template #toolbar-tools>
             <YdButtonBase @click="handleSearch">刷新</YdButtonBase>
           </template>
         </Grid>
-        <ElEmpty v-else description="请输入对话 ID 后点击查询" />
-      </ElCard>
+        <YdEmptyState v-else description="请输入对话 ID 后点击查询" />
+      </YdCard>
     </div>
   </Page>
 </template>

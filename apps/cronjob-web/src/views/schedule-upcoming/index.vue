@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { getUpcomingFireTimes } from '#/api/scheduleCalendar';
@@ -272,8 +272,8 @@ onMounted(() => {
         </YdCardHeader>
         <YdCardContent>
           <div v-if="timelineItems.length > 0" class="max-h-96 overflow-auto">
-          <ElTimeline>
-            <ElTimelineItem
+          <YdTimeline>
+            <YdTimelineItem
               v-for="item in timelineItems.slice(0, 10)"
               :key="item.index"
               :timestamp="formatFireTime(item.time)"
@@ -284,10 +284,10 @@ onMounted(() => {
                 <YdBadge size="sm" :variant="item.tagType === 'info' ? 'secondary' : item.tagType">{{ item.label }}</YdBadge>
                 <span v-if="item.countdown" class="text-xs text-gray-500">{{ item.countdown }}</span>
               </div>
-            </ElTimelineItem>
-          </ElTimeline>
+            </YdTimelineItem>
+          </YdTimeline>
         </div>
-          <ElEmpty v-else description="暂无触发时间数据" :image-size="60" />
+          <YdEmptyState v-else description="暂无触发时间数据" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>

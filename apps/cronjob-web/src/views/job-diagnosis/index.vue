@@ -11,7 +11,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElProgress/ElStatistic/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElProgress, ElStatistic, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdEmptyState, YdProgress, YdCountToAnimator, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -153,7 +153,7 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           <YdCardTitle>健康评分</YdCardTitle>
         </YdCardHeader>
         <YdCardContent class="flex flex-col items-center justify-center">
-          <ElProgress
+          <YdProgress
             type="dashboard"
             :percentage="scorePercentage"
             :color="scoreColor"
@@ -171,7 +171,7 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
         </YdCardHeader>
         <YdCardContent>
           <div class="flex flex-col gap-3">
-          <ElStatistic title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
+          <YdCountToAnimator title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
             <template #suffix>
               <span
                 class="ml-1 inline-block rounded px-1.5 py-0.5 text-xs text-white"
@@ -185,11 +185,11 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
                 {{ diagnosisResult.lastExecStatus ?? '-' }}
               </span>
             </template>
-          </ElStatistic>
-          <ElStatistic title="执行时间" :value="diagnosisResult.lastExecTime ?? '-'" />
-          <ElStatistic title="耗时" :value="`${diagnosisResult.lastDurationMs ?? 0} ms`" />
-          <ElStatistic title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
-            <ElStatistic title="成功率" :value="diagnosisResult.successRate ?? '-'" />
+          </YdCountToAnimator>
+          <YdCountToAnimator title="执行时间" :value="diagnosisResult.lastExecTime ?? '-'" />
+          <YdCountToAnimator title="耗时" :value="`${diagnosisResult.lastDurationMs ?? 0} ms`" />
+          <YdCountToAnimator title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
+            <YdCountToAnimator title="成功率" :value="diagnosisResult.successRate ?? '-'" />
           </div>
         </YdCardContent>
       </YdCard>
@@ -212,12 +212,12 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
           <div class="text-xs font-medium text-blue-500">建议操作</div>
           <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.suggestion }}</div>
         </div>
-          <ElEmpty v-else description="暂无建议" :image-size="60" />
+          <YdEmptyState v-else description="暂无建议" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>
 
-    <ElEmpty v-else description="请输入 jobKey 后点击诊断" :image-size="100" class="mt-12" />
+    <YdEmptyState v-else description="请输入 jobKey 后点击诊断" :image-size="100" class="mt-12" />
 
     <!-- 历史诊断 -->
     <YdCard v-if="historyRecords.length" class="mt-3">
@@ -225,8 +225,8 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
         <YdCardTitle>诊断历史</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-        <ElTimeline>
-        <ElTimelineItem
+        <YdTimeline>
+        <YdTimelineItem
           v-for="record in historyRecords"
           :key="record.id"
           :timestamp="record.time"
@@ -240,8 +240,8 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
             </span>
             <span>{{ record.status }}</span>
           </div>
-        </ElTimelineItem>
-        </ElTimeline>
+        </YdTimelineItem>
+        </YdTimeline>
       </YdCardContent>
     </YdCard>
   </Page>

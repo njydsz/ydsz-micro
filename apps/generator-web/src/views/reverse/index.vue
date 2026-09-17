@@ -36,8 +36,7 @@ import {
   YdSelectValueBase,
 } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElEmpty 暂无 ydsz-ui 等效组件，保留 element-plus 导入
-import { ElEmpty, ElForm, ElFormItem } from 'element-plus';
+import { YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';
 import type { GenTemplateGroup } from '#/api/models';
@@ -157,8 +156,8 @@ async function handleAnalyze() {
         <YdCardTitle>反向生成配置</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-        <ElForm label-width="120px">
-          <ElFormItem label="分析模式">
+        <YdForm label-width="120px">
+          <YdFormItem label="分析模式">
             <YdRadioGroup v-model="mode">
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
@@ -171,23 +170,23 @@ async function handleAnalyze() {
                 </div>
               </div>
             </YdRadioGroup>
-          </ElFormItem>
+          </YdFormItem>
 
-          <ElFormItem v-if="mode === 'single'" label="源文件路径">
+          <YdFormItem v-if="mode === 'single'" label="源文件路径">
             <YdInput
               v-model="reverseForm.sourceFilePath"
               placeholder="Java 源文件绝对路径，如 D:/src/User.java"
             />
-          </ElFormItem>
+          </YdFormItem>
 
-          <ElFormItem v-else label="源目录路径">
+          <YdFormItem v-else label="源目录路径">
             <YdInput
               v-model="reverseForm.sourceDirPath"
               placeholder="待分析目录绝对路径，如 D:/src/entity"
             />
-          </ElFormItem>
+          </YdFormItem>
 
-          <ElFormItem label="模板分组">
+          <YdFormItem label="模板分组">
             <YdSelectBase v-model="selectedGroupId">
               <YdSelectTriggerBase>
                 <YdSelectValueBase placeholder="选择模板分组" />
@@ -202,24 +201,24 @@ async function handleAnalyze() {
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-          </ElFormItem>
+          </YdFormItem>
 
-          <ElFormItem label="输出目录">
+          <YdFormItem label="输出目录">
             <YdInput
               v-model="reverseForm.outputDir"
               placeholder="分析结果输出目录绝对路径"
             />
-          </ElFormItem>
+          </YdFormItem>
 
-          <ElFormItem>
+          <YdFormItem>
             <YdButtonBase
               :loading="isAnalyzing"
               @click="handleAnalyze"
             >
               开始分析
             </YdButtonBase>
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
       </YdCardContent>
     </YdCard>
 
@@ -261,7 +260,7 @@ async function handleAnalyze() {
         </div>
 
         <!-- 空状态 -->
-        <ElEmpty
+        <YdEmptyState
           v-if="
             !isAnalyzing
             && ((mode === 'single' && !resultContent)

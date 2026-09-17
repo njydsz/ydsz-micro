@@ -17,7 +17,8 @@
  */
 import { Page } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElTabPane/ElTabs 标签页+描述,保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElTabPane, ElTabs } from 'element-plus';
+import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { execute, getCheckpoint, validate } from '#/api/dag';
@@ -101,9 +102,9 @@ async function handleQueryCheckpoint() {
 </script>
 <template>
   <Page>
-    <ElTabs v-model="activeTab">
+    <YdTabs v-model="activeTab">
       <!-- DSL 编排标签页 -->
-      <ElTabPane label="DSL 编排" name="dsl">
+      <YdTabsContent label="DSL 编排" name="dsl">
         <div class="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
           <div class="rounded-md border p-3">
             <div class="mb-2 flex items-center justify-between">
@@ -160,16 +161,16 @@ async function handleQueryCheckpoint() {
             </ElDescriptionsItem>
           </ElDescriptions>
         </div>
-      </ElTabPane>
+      </YdTabsContent>
 
       <!-- 可视化编排标签页 -->
-      <ElTabPane label="可视化编排" name="visual">
+      <YdTabsContent label="可视化编排" name="visual">
         <div class="p-4">
           <YdButtonBase @click="openWorkflowDesigner">打开可视化工作流设计器</YdButtonBase>
           <p class="mt-2 text-sm text-gray-500">使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。</p>
         </div>
-      </ElTabPane>
-    </ElTabs>
+      </YdTabsContent>
+    </YdTabs>
 
     <WorkflowDesigner ref="workflowDesignerRef" />
   </Page>

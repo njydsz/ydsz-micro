@@ -23,7 +23,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 // TODO: ElTabs/ElTabPane 暂无 shadcn 映射，待 shadcn YdTabs 组件就绪后同步迁移
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElTabPane, ElTabs } from 'element-plus';
+import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -285,11 +285,11 @@ function handleTabChange(_tab: TabValue) {
 <template>
   <Page :auto-content-height="false" :content-full-height="true">
     <div class="config-approval-page">
-      <ElTabs v-model="activeTab" @tab-change="handleTabChange">
-        <ElTabPane :label="t('configApproval.tabPending')" name="pending" />
-        <ElTabPane :label="t('configApproval.tabSubmitted')" name="submitted" />
-        <ElTabPane :label="t('configApproval.tabAll')" name="all" />
-      </ElTabs>
+      <YdTabs v-model="activeTab" @tab-change="handleTabChange">
+        <YdTabsContent :label="t('configApproval.tabPending')" name="pending" />
+        <YdTabsContent :label="t('configApproval.tabSubmitted')" name="submitted" />
+        <YdTabsContent :label="t('configApproval.tabAll')" name="all" />
+      </YdTabs>
       <Grid :table-title="t('configApproval.title')" />
       <!-- TODO 提示：当前使用 Mock 数据 -->
       <div v-if="activeTab !== 'all'" style="margin-top: 8px; color: #909399; font-size: 12px">

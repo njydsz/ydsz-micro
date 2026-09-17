@@ -20,7 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 Descriptions/YdInput/Timeline/YdCard 等复杂组件，需人工评估）
-import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElDialog, ElInput, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdButton, YdCard, YdDialog, YdInput, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -276,34 +277,34 @@ onMounted(() => {
 <template>
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <!-- 搜索区 -->
         <div class="flex items-center gap-3 mb-4">
-          <ElInput
+          <YdInput
             v-model="searchTraceId"
             placeholder="按 Trace ID 搜索"
             clearable
             style="width: 220px"
             @keyup.enter="handleSearch"
           />
-          <ElInput
+          <YdInput
             v-model="searchRuleCode"
             placeholder="按规则编码搜索"
             clearable
             style="width: 220px"
             @keyup.enter="handleSearch"
           />
-          <ElButton type="primary" @click="handleSearch">搜索</ElButton>
-          <ElButton @click="loadRecent">查看全部</ElButton>
-          <ElButton type="success" @click="handleBatchReplay">批量回放 ({{ selectedTraceIds.size }})</ElButton>
+          <YdButton type="primary" @click="handleSearch">搜索</YdButton>
+          <YdButton @click="loadRecent">查看全部</YdButton>
+          <YdButton type="success" @click="handleBatchReplay">批量回放 ({{ selectedTraceIds.size }})</YdButton>
         </div>
 
         <!-- 追踪列表 -->
         <TraceGrid @checkbox-change="handleSelectionChange" @checkbox-all="handleSelectionChange" />
-      </ElCard>
+      </YdCard>
 
       <!-- 详情弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="detailDialogVisible"
         :title="`执行链路详情 - ${currentTraceId}`"
         width="780px"
@@ -312,8 +313,8 @@ onMounted(() => {
           <ElDescriptionsItem label="Trace ID">{{ currentTraceId }}</ElDescriptionsItem>
           <ElDescriptionsItem label="规则编码">{{ currentRuleCode }}</ElDescriptionsItem>
         </ElDescriptions>
-        <ElTimeline>
-          <ElTimelineItem
+        <YdTimeline>
+          <YdTimelineItem
             v-for="(item, idx) in detailList"
             :key="item.createdAt ?? idx"
             :timestamp="item.createdAt"
@@ -324,12 +325,12 @@ onMounted(() => {
               <ElDescriptionsItem label="规则编码">{{ item.ruleCode }}</ElDescriptionsItem>
               <ElDescriptionsItem label="规则名称">{{ item.ruleName }}</ElDescriptionsItem>
               <ElDescriptionsItem label="命中">
-                <ElTag :type="item.triggered ? 'success' : 'info'">
+                <YdBadge :type="item.triggered ? 'success' : 'info'">
                   {{ item.triggered ? '命中' : '未命中' }}
-                </ElTag>
+                </YdBadge>
               </ElDescriptionsItem>
               <ElDescriptionsItem label="严重度">
-                <ElTag :type="severityTagType(item.severity)">{{ item.severity ?? '-' }}</ElTag>
+                <YdBadge :type="severityTagType(item.severity)">{{ item.severity ?? '-' }}</YdBadge>
               </ElDescriptionsItem>
               <ElDescriptionsItem label="耗时">{{ item.elapsedMs }} ms</ElDescriptionsItem>
               <ElDescriptionsItem label="场景">{{ item.scenario ?? '-' }}</ElDescriptionsItem>
@@ -340,12 +341,12 @@ onMounted(() => {
                 <span class="text-red-500">{{ item.errorMessage }}</span>
               </ElDescriptionsItem>
             </ElDescriptions>
-          </ElTimelineItem>
-        </ElTimeline>
-      </ElDialog>
+          </YdTimelineItem>
+        </YdTimeline>
+      </YdDialog>
 
       <!-- 回放结果弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="replayDialogVisible"
         :title="`回放结果 - ${currentTraceId}`"
         width="560px"
@@ -360,10 +361,10 @@ onMounted(() => {
           </ElDescriptionsItem>
         </ElDescriptions>
         <div v-else class="text-center text-gray-400">暂无回放数据</div>
-      </ElDialog>
+      </YdDialog>
 
       <!-- 影响分析弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="impactDialogVisible"
         :title="`影响分析预览 - ${currentRuleCode}`"
         width="560px"
@@ -378,7 +379,7 @@ onMounted(() => {
           </ElDescriptionsItem>
         </ElDescriptions>
         <div v-else class="text-center text-gray-400">暂无影响分析数据</div>
-      </ElDialog>
+      </YdDialog>
     </div>
   </Page>
 </template>

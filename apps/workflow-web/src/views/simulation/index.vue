@@ -18,7 +18,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（仿真页面包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElEmpty/ElStep/ElSteps 等复杂组合）
-import { ElButton, ElCard, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElStep, ElSteps, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdStep, YdSteps, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { runSimulation } from '#/api/flowSimulation';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -124,99 +124,99 @@ function handleReset(): void {
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
       <h1 class="text-xl font-bold text-gray-800">流程仿真</h1>
       <div class="flex items-center gap-3">
-        <ElButton @click="handleReset">重置</ElButton>
-        <ElButton type="primary" :loading="running" @click="handleRunSimulation">运行仿真</ElButton>
+        <YdButton @click="handleReset">重置</YdButton>
+        <YdButton type="primary" :loading="running" @click="handleRunSimulation">运行仿真</YdButton>
       </div>
     </div>
 
     <!-- 概览卡片（有结果时展示） -->
     <div v-if="simulationResult" class="mb-4 grid grid-cols-4 gap-4 px-4">
-      <ElCard shadow="hover">
+      <YdCard shadow="hover">
         <div class="text-center">
           <div class="text-sm text-gray-500">仿真状态</div>
-          <ElTag :type="statusTagType" class="mt-1 text-base">
+          <YdBadge :type="statusTagType" class="mt-1 text-base">
             {{ (simulationResult.status as string) ?? 'UNKNOWN' }}
-          </ElTag>
+          </YdBadge>
         </div>
-      </ElCard>
-      <ElCard shadow="hover">
+      </YdCard>
+      <YdCard shadow="hover">
         <div class="text-center">
           <div class="text-sm text-gray-500">预计总耗时</div>
           <div class="mt-1 text-2xl font-bold text-blue-600">{{ estimatedTotalDuration }}</div>
         </div>
-      </ElCard>
-      <ElCard shadow="hover">
+      </YdCard>
+      <YdCard shadow="hover">
         <div class="text-center">
           <div class="text-sm text-gray-500">预计节点数</div>
           <div class="mt-1 text-2xl font-bold text-green-600">{{ predictedNodes.length }}</div>
         </div>
-      </ElCard>
-      <ElCard shadow="hover">
+      </YdCard>
+      <YdCard shadow="hover">
         <div class="text-center">
           <div class="text-sm text-gray-500">流程编码</div>
           <div class="mt-1 text-base font-medium text-gray-700">
             {{ (simulationResult.flowCode as string) ?? selectedFlowCode }}
           </div>
         </div>
-      </ElCard>
+      </YdCard>
     </div>
 
     <!-- 主内容区：Tab 切换 -->
     <div class="px-4 pb-4">
-      <ElTabs v-model="activeTab" type="border-card">
+      <YdTabs v-model="activeTab" type="border-card">
         <!-- 参数配置 Tab -->
-        <ElTabPane label="参数配置" name="config">
-          <ElCard shadow="never">
-            <ElForm label-width="120px" label-position="left">
-              <ElFormItem label="流程定义">
-                <ElSelect
+        <YdTabsContent label="参数配置" name="config">
+          <YdCard shadow="never">
+            <YdForm label-width="120px" label-position="left">
+              <YdFormItem label="流程定义">
+                <YdSelect
                   v-model="selectedFlowCode"
                   placeholder="请选择流程定义"
                   filterable
                   clearable
                   class="w-full"
                 >
-                  <ElOption
+                  <YdSelectItem
                     v-for="opt in flowDefinitionOptions"
                     :key="opt.value"
                     :label="opt.label"
                     :value="opt.value"
                   />
-                </ElSelect>
-              </ElFormItem>
-              <ElFormItem label="仿真参数">
-                <ElInput
+                </YdSelect>
+              </YdFormItem>
+              <YdFormItem label="仿真参数">
+                <YdInput
                   v-model="paramJson"
                   type="textarea"
                   :rows="12"
                   placeholder='请输入 JSON 格式的仿真参数，如 { "amount": 5000, "department": "技术部" }'
                 />
-              </ElFormItem>
-              <ElFormItem>
-                <ElButton type="primary" :loading="running" @click="handleRunSimulation">
+              </YdFormItem>
+              <YdFormItem>
+                <YdButton type="primary" :loading="running" @click="handleRunSimulation">
                   运行仿真
-                </ElButton>
-                <ElButton @click="handleReset">重置</ElButton>
-              </ElFormItem>
-            </ElForm>
-          </ElCard>
-        </ElTabPane>
+                </YdButton>
+                <YdButton @click="handleReset">重置</YdButton>
+              </YdFormItem>
+            </YdForm>
+          </YdCard>
+        </YdTabsContent>
 
         <!-- 仿真结果 Tab -->
-        <ElTabPane label="仿真结果" name="result">
+        <YdTabsContent label="仿真结果" name="result">
           <div v-if="simulationResult">
             <!-- 预测执行路径（步骤条） -->
-            <ElCard shadow="never" class="mb-4">
+            <YdCard shadow="never" class="mb-4">
               <template #header>
                 <span class="font-semibold text-gray-700">预测执行路径</span>
               </template>
-              <ElSteps
+              <YdSteps
                 :active="predictedNodes.length"
                 finish-status="success"
                 align-center
                 class="mt-4"
               >
-                <ElStep
+                <YdStep
                   v-for="(node, index) in predictedNodes"
                   :key="(node.nodeName as string) ?? (node.nodeCode as string) ?? `node-${index}`"
                   :title="(node.nodeName as string) ?? (node.nodeCode as string) ?? `节点 ${index + 1}`"
@@ -230,19 +230,19 @@ function handleReset(): void {
                       </div>
                       <div>审批人: {{ (node.assigneeName as string) ?? (node.assignee as string) ?? '--' }}</div>
                       <div v-if="node.condition">
-                        条件: <ElTag size="small" type="warning">{{ node.condition as string }}</ElTag>
+                        条件: <YdBadge size="small" type="warning">{{ node.condition as string }}</YdBadge>
                       </div>
                       <div v-if="node.branch">
-                        分支: <ElTag size="small" type="info">{{ node.branch as string }}</ElTag>
+                        分支: <YdBadge size="small" type="info">{{ node.branch as string }}</YdBadge>
                       </div>
                     </div>
                   </template>
-                </ElStep>
-              </ElSteps>
-            </ElCard>
+                </YdStep>
+              </YdSteps>
+            </YdCard>
 
             <!-- 节点明细表格 -->
-            <ElCard shadow="never">
+            <YdCard shadow="never">
               <template #header>
                 <span class="font-semibold text-gray-700">节点执行明细</span>
               </template>
@@ -280,25 +280,25 @@ function handleReset(): void {
                     </td>
                     <td class="px-4 py-2">
                       <div v-if="node.condition" class="mb-1">
-                        <ElTag size="small" type="warning">{{ node.condition as string }}</ElTag>
+                        <YdBadge size="small" type="warning">{{ node.condition as string }}</YdBadge>
                       </div>
                       <div v-if="node.branch">
-                        <ElTag size="small" type="info">{{ node.branch as string }}</ElTag>
+                        <YdBadge size="small" type="info">{{ node.branch as string }}</YdBadge>
                       </div>
                       <span v-if="!node.condition && !node.branch" class="text-gray-400">--</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
-            </ElCard>
+            </YdCard>
           </div>
 
           <!-- 无结果时展示空状态 -->
-          <ElCard v-else shadow="never">
-            <ElEmpty description="请先在「参数配置」Tab 中配置参数并运行仿真" />
-          </ElCard>
-        </ElTabPane>
-      </ElTabs>
+          <YdCard v-else shadow="never">
+            <YdEmptyState description="请先在「参数配置」Tab 中配置参数并运行仿真" />
+          </YdCard>
+        </YdTabsContent>
+      </YdTabs>
     </div>
   </Page>
 </template>

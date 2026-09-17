@@ -32,7 +32,7 @@ import {
   YdSwitch,
 } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import type { GenDatasource } from '#/api/models';
 
@@ -114,27 +114,27 @@ onMounted(() => {});
       <YdDialogHeader>
         <YdDialogTitle>{{ dialogTitle }}</YdDialogTitle>
       </YdDialogHeader>
-      <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
-        <ElFormItem label="名称" prop="name">
+      <YdForm ref="formRef" :model="form" :rules="rules" label-width="100px">
+        <YdFormItem label="名称" prop="name">
           <YdInput v-model="form.name" placeholder="如 ydsz-cloud-dev" />
-        </ElFormItem>
-        <ElFormItem label="JDBC URL" prop="jdbcUrl">
+        </YdFormItem>
+        <YdFormItem label="JDBC URL" prop="jdbcUrl">
           <YdInput
             v-model="form.jdbcUrl"
             placeholder="jdbc:mysql://localhost:3306/ydsz_cloud"
           />
-        </ElFormItem>
-        <ElFormItem label="用户名" prop="username">
+        </YdFormItem>
+        <YdFormItem label="用户名" prop="username">
           <YdInput v-model="form.username" placeholder="数据库用户名" />
-        </ElFormItem>
-        <ElFormItem label="密码" prop="password">
+        </YdFormItem>
+        <YdFormItem label="密码" prop="password">
           <YdInput
             v-model="form.password"
             type="password"
             placeholder="数据库密码"
           />
-        </ElFormItem>
-        <ElFormItem label="方言">
+        </YdFormItem>
+        <YdFormItem label="方言">
           <YdSelectBase v-model="form.dialect">
             <YdSelectTriggerBase>
               <YdSelectValueBase placeholder="请选择数据库方言" />
@@ -149,14 +149,14 @@ onMounted(() => {});
               </YdSelectItemBase>
             </YdSelectContentBase>
           </YdSelectBase>
-        </ElFormItem>
-        <ElFormItem label="默认数据源">
+        </YdFormItem>
+        <YdFormItem label="默认数据源">
           <YdSwitch :checked="form.defaultFlag" @update:checked="form.defaultFlag = $event" />
-        </ElFormItem>
-        <ElFormItem label="描述">
+        </YdFormItem>
+        <YdFormItem label="描述">
           <YdInput v-model="form.description" placeholder="可选描述信息" />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
       <YdDialogFooter>
         <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
         <YdButtonBase @click="handleSubmit">确定</YdButtonBase>

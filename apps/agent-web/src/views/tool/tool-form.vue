@@ -17,7 +17,7 @@
 */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSwitch 表单套件,保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
@@ -152,84 +152,84 @@ watch(
       </YdTabsList>
       <!-- 基本信息 -->
       <YdTabsContent value="basic">
-        <ElForm ref="formRef" label-width="100px" class="mt-3">
-          <ElFormItem label="工具编码" required>
-            <ElInput
+        <YdForm ref="formRef" label-width="100px" class="mt-3">
+          <YdFormItem label="工具编码" required>
+            <YdInput
               v-model="formData.toolCode"
               placeholder="请输入工具编码（唯一标识）"
               :disabled="isEditMode"
             />
-          </ElFormItem>
-          <ElFormItem label="工具名称" required>
-            <ElInput v-model="formData.toolName" placeholder="请输入工具名称" />
-          </ElFormItem>
-          <ElFormItem label="工具类型" required>
-            <ElSelect v-model="formData.toolType" placeholder="请选择工具类型" class="w-full">
-              <ElOption
+          </YdFormItem>
+          <YdFormItem label="工具名称" required>
+            <YdInput v-model="formData.toolName" placeholder="请输入工具名称" />
+          </YdFormItem>
+          <YdFormItem label="工具类型" required>
+            <YdSelect v-model="formData.toolType" placeholder="请选择工具类型" class="w-full">
+              <YdSelectItem
                 v-for="opt in toolTypeOptions"
                 :key="opt.value"
                 :label="opt.label"
                 :value="opt.value"
               />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem label="描述">
-            <ElInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入工具描述" />
-          </ElFormItem>
-          <ElFormItem label="端点地址" required>
-            <ElInput v-model="formData.endpoint" placeholder="请输入端点地址（URL 或连接字符串）" />
-          </ElFormItem>
-          <ElFormItem v-if="formData.toolType === 'HTTP'" label="请求方法">
-            <ElSelect v-model="formData.method" placeholder="请选择" class="w-full">
-              <ElOption
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem label="描述">
+            <YdInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入工具描述" />
+          </YdFormItem>
+          <YdFormItem label="端点地址" required>
+            <YdInput v-model="formData.endpoint" placeholder="请输入端点地址（URL 或连接字符串）" />
+          </YdFormItem>
+          <YdFormItem v-if="formData.toolType === 'HTTP'" label="请求方法">
+            <YdSelect v-model="formData.method" placeholder="请选择" class="w-full">
+              <YdSelectItem
                 v-for="opt in httpMethodOptions"
                 :key="opt.value"
                 :label="opt.label"
                 :value="opt.value"
               />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem label="超时时间">
-            <ElInputNumber v-model="formData.timeout" :min="1000" :max="120000" :step="1000" class="w-full" />
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem label="超时时间">
+            <YdNumberFieldInput v-model="formData.timeout" :min="1000" :max="120000" :step="1000" class="w-full" />
             <span class="ml-2 text-xs text-gray-500">毫秒</span>
-          </ElFormItem>
-          <ElFormItem label="重试次数">
-            <ElInputNumber v-model="formData.retryCount" :min="0" :max="5" class="w-full" />
-          </ElFormItem>
-          <ElFormItem label="启用">
-            <ElSwitch v-model="formData.enabled" />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
+          </YdFormItem>
+          <YdFormItem label="重试次数">
+            <YdNumberFieldInput v-model="formData.retryCount" :min="0" :max="5" class="w-full" />
+          </YdFormItem>
+          <YdFormItem label="启用">
+            <YdSwitch v-model="formData.enabled" />
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
 
       <!-- 参数配置 -->
       <YdTabsContent value="params">
-        <ElForm label-width="100px" class="mt-3">
-          <ElFormItem label="输入 Schema">
-            <ElInput
+        <YdForm label-width="100px" class="mt-3">
+          <YdFormItem label="输入 Schema">
+            <YdInput
               v-model="formData.inputSchema"
               type="textarea"
               :rows="10"
               placeholder="请输入 JSON Schema 定义输入参数"
             />
-          </ElFormItem>
-          <ElFormItem label="输出 Schema">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem label="输出 Schema">
+            <YdInput
               v-model="formData.outputSchema"
               type="textarea"
               :rows="10"
               placeholder="请输入 JSON Schema 定义输出参数"
             />
-          </ElFormItem>
-          <ElFormItem v-if="formData.toolType === 'HTTP'" label="请求头">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem v-if="formData.toolType === 'HTTP'" label="请求头">
+            <YdInput
               v-model="formData.headers"
               type="textarea"
               :rows="5"
               placeholder="请输入请求头（JSON 格式）"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
       </YdTabsContent>
     </YdTabs>
 

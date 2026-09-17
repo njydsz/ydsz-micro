@@ -18,7 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -146,11 +146,11 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
-      <ElFormItem :label="t('business.webhookName')" prop="name">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
+      <YdFormItem :label="t('business.webhookName')" prop="name">
         <YdInput v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('business.webhookEventType')" prop="eventType">
+      </YdFormItem>
+      <YdFormItem :label="t('business.webhookEventType')" prop="eventType">
         <YdSelectBase v-model="formData.eventType">
           <YdSelectTriggerBase :placeholder="t('business.webhookEventTypePlaceholder')" />
           <YdSelectContentBase>
@@ -159,17 +159,17 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
             </YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem :label="t('business.webhookJobKey')" prop="jobKey">
+      </YdFormItem>
+      <YdFormItem :label="t('business.webhookJobKey')" prop="jobKey">
         <YdInput v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('business.webhookJobGroup')" prop="jobGroup">
+      </YdFormItem>
+      <YdFormItem :label="t('business.webhookJobGroup')" prop="jobGroup">
         <YdInput v-model="formData.jobGroup" :placeholder="t('business.webhookJobGroupPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('business.webhookCallbackUrl')" prop="callbackUrl">
+      </YdFormItem>
+      <YdFormItem :label="t('business.webhookCallbackUrl')" prop="callbackUrl">
         <YdInput v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem label="HTTP Method" prop="httpMethod">
+      </YdFormItem>
+      <YdFormItem label="HTTP Method" prop="httpMethod">
         <YdRadioGroup v-model="formData.httpMethod">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
@@ -182,14 +182,14 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
             </div>
           </div>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem :label="t('business.webhookHeaders')" prop="headers">
+      </YdFormItem>
+      <YdFormItem :label="t('business.webhookHeaders')" prop="headers">
         <YdTextarea v-model="formData.headers" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('business.webhookSecret')" prop="secret">
+      </YdFormItem>
+      <YdFormItem :label="t('business.webhookSecret')" prop="secret">
         <YdInput v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" type="password" />
-      </ElFormItem>
-      <ElFormItem :label="t('common.status')">
+      </YdFormItem>
+      <YdFormItem :label="t('common.status')">
         <YdRadioGroup v-model="formData.webhookStatus">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">
@@ -202,7 +202,7 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
             </div>
           </div>
         </YdRadioGroup>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

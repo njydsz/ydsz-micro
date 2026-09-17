@@ -18,7 +18,8 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElForm, ElFormItem, ElInput, ElTable, ElTableColumn } from 'element-plus';
+import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
@@ -198,17 +199,17 @@ onMounted(() => {
         <YdDialogHeader>
           <YdDialogTitle>{{ editingId ? '编辑模板' : '新建模板' }}</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="80px">
-          <ElFormItem label="名称" prop="name">
-            <ElInput v-model="formData.name" placeholder="请输入模板名称" />
-          </ElFormItem>
-          <ElFormItem label="描述" prop="description">
-            <ElInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入描述" />
-          </ElFormItem>
-          <ElFormItem label="分类" prop="category">
-            <ElInput v-model="formData.category" placeholder="如：项目管理、技术文档" />
-          </ElFormItem>
-        </ElForm>
+        <YdForm ref="formRef" :model="formData" :rules="formRules" label-width="80px">
+          <YdFormItem label="名称" prop="name">
+            <YdInput v-model="formData.name" placeholder="请输入模板名称" />
+          </YdFormItem>
+          <YdFormItem label="描述" prop="description">
+            <YdInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入描述" />
+          </YdFormItem>
+          <YdFormItem label="分类" prop="category">
+            <YdInput v-model="formData.category" placeholder="如：项目管理、技术文档" />
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="dialogVisible = false">取消</YdButtonBase>
           <YdButtonBase :disabled="formLoading" @click="handleSubmit">确定</YdButtonBase>

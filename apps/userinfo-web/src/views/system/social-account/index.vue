@@ -18,7 +18,8 @@
 */
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
-import { ElEmpty, ElImage, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -154,7 +155,7 @@ onMounted(() => {
         </ElTableColumn>
         <ElTableColumn label="头像" width="80">
           <template #default="{ row }">
-            <ElImage
+            <YdImage
               v-if="row.avatarUrl"
               :src="row.avatarUrl"
               :preview-src-list="[row.avatarUrl]"
@@ -180,7 +181,7 @@ onMounted(() => {
           </template>
         </ElTableColumn>
       </ElTable>
-      <ElEmpty v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
+      <YdEmptyState v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
       </YdCardContent>
     </YdCard>
 
@@ -207,7 +208,7 @@ onMounted(() => {
           </YdButtonBase>
         </div>
       </div>
-      <ElEmpty v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />
+      <YdEmptyState v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />
       </YdCardContent>
     </YdCard>
   </Page>

@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -107,40 +107,40 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal title="提交批量发送">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="批次名称" prop="batchName">
+      <YdFormItem label="批次名称" prop="batchName">
         <YdInput v-model="formData.batchName" placeholder="请输入批次名称" />
-      </ElFormItem>
-      <ElFormItem label="通道" prop="channel">
+      </YdFormItem>
+      <YdFormItem label="通道" prop="channel">
         <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
-      </ElFormItem>
-      <ElFormItem :label="t('templateCode')" prop="templateCode">
+      </YdFormItem>
+      <YdFormItem :label="t('templateCode')" prop="templateCode">
         <YdInput v-model="formData.templateCode" :placeholder="t('templateCode')" />
-      </ElFormItem>
-      <ElFormItem label="业务类型" prop="bizType">
+      </YdFormItem>
+      <YdFormItem label="业务类型" prop="bizType">
         <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="接收者列表" prop="receiverListText">
+      </YdFormItem>
+      <YdFormItem label="接收者列表" prop="receiverListText">
         <YdTextarea
           v-model="formData.receiverListText"
           placeholder="每行一个接收者，支持逗号/分号/换行分隔"
         />
-      </ElFormItem>
-      <ElFormItem label="是否异步" prop="async">
+      </YdFormItem>
+      <YdFormItem label="是否异步" prop="async">
         <YdRadioGroup v-model="formData.async">
           <YdRadioGroupItem :value="true">异步</YdRadioGroupItem>
           <YdRadioGroupItem :value="false">同步</YdRadioGroupItem>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="发送人" prop="senderId">
+      </YdFormItem>
+      <YdFormItem label="发送人" prop="senderId">
         <YdInput v-model="formData.senderId" placeholder="请输入发送人（可为空）" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

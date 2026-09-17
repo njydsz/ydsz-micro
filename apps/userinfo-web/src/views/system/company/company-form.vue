@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup, ElTreeSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, ElTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -134,14 +134,14 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.company
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('company.parentCompany')">
+      <YdFormItem :label="t('company.parentCompany')">
         <ElTreeSelect
           v-model="formData.parentId"
           :data="treeData"
@@ -152,28 +152,28 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.company
           :placeholder="t('company.parentCompanyPlaceholder')"
           class="w-full"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('page.companyName')" prop="companyName">
-        <ElInput v-model="formData.companyName" :placeholder="t('company.companyNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.companyCode')" prop="companyCode">
-        <ElInput v-model="formData.companyCode" :placeholder="t('company.companyCodePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('company.contactPerson')">
-        <ElInput v-model="formData.contactPerson" :placeholder="t('company.contactPersonPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('company.contactPhone')">
-        <ElInput v-model="formData.contactPhone" :placeholder="t('company.contactPhonePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('company.address')">
-        <ElInput v-model="formData.address" type="textarea" :rows="2" :placeholder="t('company.addressPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.status')">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('page.companyName')" prop="companyName">
+        <YdInput v-model="formData.companyName" :placeholder="t('company.companyNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.companyCode')" prop="companyCode">
+        <YdInput v-model="formData.companyCode" :placeholder="t('company.companyCodePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('company.contactPerson')">
+        <YdInput v-model="formData.contactPerson" :placeholder="t('company.contactPersonPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('company.contactPhone')">
+        <YdInput v-model="formData.contactPhone" :placeholder="t('company.contactPhonePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('company.address')">
+        <YdInput v-model="formData.address" type="textarea" :rows="2" :placeholder="t('company.addressPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.status')">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('page.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('page.disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

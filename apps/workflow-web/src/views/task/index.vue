@@ -19,7 +19,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
-import { ElTabPane, ElTabs } from 'element-plus';
+import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -308,10 +308,10 @@ async function handleBatchUrge() {
 </script>
 <template>
   <Page auto-content-height>
-    <ElTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
-      <ElTabPane :label="$t('wf.myTodo')" name="todo" />
-      <ElTabPane :label="$t('wf.myDone')" name="done" />
-    </ElTabs>
+    <YdTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
+      <YdTabsContent :label="$t('wf.myTodo')" name="todo" />
+      <YdTabsContent :label="$t('wf.myDone')" name="done" />
+    </YdTabs>
     <Grid :table-title="$t('wf.todoTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">

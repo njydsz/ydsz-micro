@@ -26,7 +26,7 @@ import {
   YdInput,
 } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'TemplateGroupForm' });
 
@@ -68,17 +68,17 @@ async function handleSubmit() {
       <YdDialogHeader>
         <YdDialogTitle>新建模板分组</YdDialogTitle>
       </YdDialogHeader>
-      <ElForm ref="formRef" :model="form" :rules="rules" label-width="100px">
-        <ElFormItem label="分组名称" prop="name">
+      <YdForm ref="formRef" :model="form" :rules="rules" label-width="100px">
+        <YdFormItem label="分组名称" prop="name">
           <YdInput v-model="form.name" placeholder="如 mybatis-plus、mongodb" />
-        </ElFormItem>
-        <ElFormItem label="描述">
+        </YdFormItem>
+        <YdFormItem label="描述">
           <YdInput v-model="form.description" placeholder="分组用途说明" />
-        </ElFormItem>
-        <ElFormItem label="排序">
+        </YdFormItem>
+        <YdFormItem label="排序">
           <YdInput v-model="form.sortOrder" type="number" :min="0" />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
       <YdDialogFooter>
         <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
         <YdButtonBase @click="handleSubmit">确定</YdButtonBase>

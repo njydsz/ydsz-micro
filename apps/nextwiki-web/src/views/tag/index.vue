@@ -17,7 +17,8 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
+import { YdDialog } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -124,15 +125,15 @@ async function loadRecommendedTags() {
       </template>
     </Grid>
     <TagFormModal @success="gridApi.query()" />
-    <ElDialog v-model="bindVisible" title="绑定标签到文件" width="440px">
+    <YdDialog v-model="bindVisible" title="绑定标签到文件" width="440px">
       <YdInput v-model="bindForm.fileNodeId" placeholder="请输入文件节点ID" class="mb-2" />
       <YdInput v-model="bindForm.tagId" placeholder="请输入标签ID" />
       <template #footer>
         <YdButtonBase variant="outline" @click="bindVisible = false">取消</YdButtonBase>
         <YdButtonBase @click="confirmBind">确定</YdButtonBase>
       </template>
-    </ElDialog>
-    <ElDialog v-model="fileTagsVisible" title="文件标签查询 / 推荐" width="600px">
+    </YdDialog>
+    <YdDialog v-model="fileTagsVisible" title="文件标签查询 / 推荐" width="600px">
       <div class="mb-2 flex items-center gap-2">
         <YdInput v-model="fileTagsNodeId" placeholder="请输入文件节点ID" clearable @keyup.enter="loadFileTags" />
         <YdButtonBase @click="loadFileTags">查询</YdButtonBase>
@@ -150,6 +151,6 @@ async function loadRecommendedTags() {
           <YdBadge v-for="tag in recommendTagList" :key="tag.id">{{ tag.name }}</YdBadge>
         </div>
       </template>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

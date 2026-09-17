@@ -9,6 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import './components.css';
 import './default.css';
 import './dark.css';
 

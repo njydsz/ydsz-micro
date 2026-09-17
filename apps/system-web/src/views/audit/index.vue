@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] 文件含 ElDatePicker（不在映射范围）、ElSelect/ElOption（YdSelectBase 单独迁移）、ElTag 等；整体迁移需人工评估
-import { ElButton, ElDatePicker, ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
+import { YdButton, YdDatePicker, YdInput, YdSelectItem, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -142,29 +142,29 @@ function handleReset(): void {
   <Page auto-content-height>
     <!-- 搜索头部 -->
     <div class="mb-4 flex flex-wrap items-center gap-3 px-4 pt-3">
-      <ElDatePicker
+      <YdDatePicker
         v-model="searchForm.startTime"
         type="datetime"
         :placeholder="t('audit.placeholder.startTime')"
         class="w-48"
       />
-      <ElDatePicker
+      <YdDatePicker
         v-model="searchForm.endTime"
         type="datetime"
         :placeholder="t('audit.placeholder.endTime')"
         class="w-48"
       />
-      <ElInput v-model="searchForm.operatorId" :placeholder="t('audit.placeholder.operatorId')" clearable class="w-40" />
-      <ElSelect v-model="searchForm.action" :placeholder="t('audit.placeholder.actionType')" clearable class="w-32">
-        <ElOption v-for="opt in actionOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-      </ElSelect>
-      <ElButton type="primary" @click="handleSearch">{{ t('common.buttons.search') }}</ElButton>
-      <ElButton @click="handleReset">{{ t('common.buttons.reset') }}</ElButton>
+      <YdInput v-model="searchForm.operatorId" :placeholder="t('audit.placeholder.operatorId')" clearable class="w-40" />
+      <YdSelect v-model="searchForm.action" :placeholder="t('audit.placeholder.actionType')" clearable class="w-32">
+        <YdSelectItem v-for="opt in actionOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+      </YdSelect>
+      <YdButton type="primary" @click="handleSearch">{{ t('common.buttons.search') }}</YdButton>
+      <YdButton @click="handleReset">{{ t('common.buttons.reset') }}</YdButton>
     </div>
 
     <Grid :table-title="t('audit.title')">
       <template #toolbar-tools>
-        <ElButton @click="gridApi.query()">{{ t('common.buttons.refresh') }}</ElButton>
+        <YdButton @click="gridApi.query()">{{ t('common.buttons.refresh') }}</YdButton>
       </template>
     </Grid>
   </Page>

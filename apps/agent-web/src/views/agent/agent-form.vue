@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber 表单套件复杂+校验逻辑,保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInput, ElInputNumber } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, update } from '#/api/agentDefinition';
 import type { AgentDefinitionDTO, AgentDefinitionVO } from '#/api/models';
@@ -86,34 +86,34 @@ const title = computed(() => (isEdit.value ? '编辑Agent定义' : '新增Agent�
 </script>
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="Agent编码" prop="agentCode">
-        <ElInput v-model="formData.agentCode" placeholder="请输入Agent编码" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="Agent名称" prop="agentName">
-        <ElInput v-model="formData.agentName" placeholder="请输入Agent名称" />
-      </ElFormItem>
-      <ElFormItem label="Agent类型">
-        <ElInput v-model="formData.agentType" placeholder="请输入Agent类型" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
-      </ElFormItem>
-      <ElFormItem label="系统提示词">
-        <ElInput v-model="formData.systemPrompt" type="textarea" :rows="2" placeholder="请输入系统提示词" />
-      </ElFormItem>
-      <ElFormItem label="模型配置">
-        <ElInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
-      </ElFormItem>
-      <ElFormItem label="工具列表">
-        <ElInput v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
-      </ElFormItem>
-      <ElFormItem label="温度">
-        <ElInputNumber v-model="formData.temperature" :min="0" :max="2" :step="0.1" />
-      </ElFormItem>
-      <ElFormItem label="MaxTokens">
-        <ElInputNumber v-model="formData.maxTokens" :min="0" :max="100000" :step="100" />
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="Agent编码" prop="agentCode">
+        <YdInput v-model="formData.agentCode" placeholder="请输入Agent编码" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem label="Agent名称" prop="agentName">
+        <YdInput v-model="formData.agentName" placeholder="请输入Agent名称" />
+      </YdFormItem>
+      <YdFormItem label="Agent类型">
+        <YdInput v-model="formData.agentType" placeholder="请输入Agent类型" />
+      </YdFormItem>
+      <YdFormItem label="描述">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      </YdFormItem>
+      <YdFormItem label="系统提示词">
+        <YdInput v-model="formData.systemPrompt" type="textarea" :rows="2" placeholder="请输入系统提示词" />
+      </YdFormItem>
+      <YdFormItem label="模型配置">
+        <YdInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
+      </YdFormItem>
+      <YdFormItem label="工具列表">
+        <YdInput v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
+      </YdFormItem>
+      <YdFormItem label="温度">
+        <YdNumberFieldInput v-model="formData.temperature" :min="0" :max="2" :step="0.1" />
+      </YdFormItem>
+      <YdFormItem label="MaxTokens">
+        <YdNumberFieldInput v-model="formData.maxTokens" :min="0" :max="100000" :step="100" />
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

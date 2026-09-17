@@ -17,7 +17,8 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElForm/ElFormItem/ElInput 表单套件复杂,保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElForm, ElFormItem, ElInput } from 'element-plus';
+import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
@@ -102,11 +103,11 @@ async function handleSubmit(action: 'approve' | 'reject') {
         <pre class="whitespace-pre-wrap break-all text-sm">{{ displayValue(value) }}</pre>
       </ElDescriptionsItem>
     </ElDescriptions>
-    <ElForm label-width="100px" label-position="right">
-      <ElFormItem label="审批意见">
-        <ElInput v-model="comment" type="textarea" :rows="3" placeholder="请输入审批意见（可选）" />
-      </ElFormItem>
-    </ElForm>
+    <YdForm label-width="100px" label-position="right">
+      <YdFormItem label="审批意见">
+        <YdInput v-model="comment" type="textarea" :rows="3" placeholder="请输入审批意见（可选）" />
+      </YdFormItem>
+    </YdForm>
     <div class="mt-2 flex justify-end gap-2">
       <YdButtonBase variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">驳回</YdButtonBase>
       <YdButtonBase :disabled="submitting" @click="handleSubmit('approve')">通过</YdButtonBase>

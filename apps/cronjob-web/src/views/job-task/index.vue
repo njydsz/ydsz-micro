@@ -21,7 +21,8 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
+import { YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -234,38 +235,38 @@ onMounted(() => {
   <Page auto-content-height>
     <!-- 进度概览卡片 -->
     <div class="mb-3 grid grid-cols-2 gap-3 md:grid-cols-4">
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <div class="text-xs text-gray-500">总分片数</div>
         <div class="text-xl font-semibold text-blue-500">
           {{ Object.keys(progressData).length || 0 }}
         </div>
-      </ElCard>
-      <ElCard shadow="never">
+      </YdCard>
+      <YdCard shadow="never">
         <div class="text-xs text-gray-500">成功</div>
         <div class="text-xl font-semibold text-green-500">{{ successCount }}</div>
-      </ElCard>
-      <ElCard shadow="never">
+      </YdCard>
+      <YdCard shadow="never">
         <div class="text-xs text-gray-500">失败</div>
         <div class="text-xl font-semibold text-red-500">{{ failCount }}</div>
-      </ElCard>
-      <ElCard shadow="never">
+      </YdCard>
+      <YdCard shadow="never">
         <div class="text-xs text-gray-500">执行中</div>
         <div class="text-xl font-semibold text-orange-500">{{ runningCount }}</div>
-      </ElCard>
+      </YdCard>
     </div>
 
     <!-- 总体进度 -->
-    <ElCard v-if="Object.keys(progressData).length > 0" shadow="never" class="mb-3">
+    <YdCard v-if="Object.keys(progressData).length > 0" shadow="never" class="mb-3">
       <template #header>
         <span class="font-medium">分片执行进度</span>
       </template>
-      <ElProgress
+      <YdProgress
         :percentage="progressPercent"
         :stroke-width="16"
         :text-inside="true"
         :status="progressPercent === 100 ? 'success' : ''"
       />
-    </ElCard>
+    </YdCard>
 
     <Grid table-title="任务分片管理" />
 

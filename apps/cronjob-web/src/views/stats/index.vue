@@ -19,7 +19,8 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDatePicker, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: ElEmpty/ElTable/ElTableColumn 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { daily, summary } from '#/api/jobStats';
@@ -175,7 +176,7 @@ onMounted(handleQuery);
             >
           </div>
         </div>
-          <ElEmpty v-else description="暂无日报数据" :image-size="60" />
+          <YdEmptyState v-else description="暂无日报数据" :image-size="60" />
         </YdCardContent>
       </YdCard>
 
@@ -195,7 +196,7 @@ onMounted(handleQuery);
           <ElTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
           <ElTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
         </ElTable>
-          <ElEmpty v-else description="暂无日报明细" :image-size="60" />
+          <YdEmptyState v-else description="暂无日报明细" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>

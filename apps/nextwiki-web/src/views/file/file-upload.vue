@@ -17,7 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElProgress, ElUpload } from 'element-plus';
+import { YdForm, YdFormItem, YdProgress, YdUpload } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
@@ -207,15 +207,15 @@ async function handleCancel(): Promise<void> {
 
 <template>
   <Modal title="上传文件">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="父目录ID" prop="parentId">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="父目录ID" prop="parentId">
         <YdInput v-model="formData.parentId" placeholder="请输入父目录ID（留空表示根目录）" />
-      </ElFormItem>
-      <ElFormItem label="版本备注" prop="versionRemark">
+      </YdFormItem>
+      <YdFormItem label="版本备注" prop="versionRemark">
         <YdInput v-model="formData.versionRemark" placeholder="请输入版本备注（选填）" />
-      </ElFormItem>
-      <ElFormItem label="选择文件">
-        <ElUpload
+      </YdFormItem>
+      <YdFormItem label="选择文件">
+        <YdUpload
           :auto-upload="false"
           :show-file-list="true"
           :limit="1"
@@ -229,23 +229,23 @@ async function handleCancel(): Promise<void> {
               文件大小 ≥ 100MB 时自动使用分片上传（支持断点续传）
             </p>
           </div>
-        </ElUpload>
-      </ElFormItem>
-      <ElFormItem v-if="selectedFile" label="文件信息">
+        </YdUpload>
+      </YdFormItem>
+      <YdFormItem v-if="selectedFile" label="文件信息">
         <div class="text-sm text-gray-600">
           <p>名称：{{ selectedFile.name }}</p>
           <p>大小：{{ (selectedFile.size / (1024 * 1024)).toFixed(2) }} MB</p>
           <p>类型：{{ selectedFile.type || '未知' }}</p>
           <p v-if="useChunkUpload" class="text-orange-500">将使用分片上传</p>
         </div>
-      </ElFormItem>
-      <ElFormItem v-if="uploadStatus === 'uploading'" label="上传进度">
+      </YdFormItem>
+      <YdFormItem v-if="uploadStatus === 'uploading'" label="上传进度">
         <div>
-          <ElProgress :percentage="uploadProgress" :status="uploadProgress === 100 ? 'success' : ''" />
+          <YdProgress :percentage="uploadProgress" :status="uploadProgress === 100 ? 'success' : ''" />
           <p v-if="uploadSpeed" class="mt-1 text-xs text-gray-500">{{ uploadSpeed }}</p>
         </div>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
     <template #footer>
       <YdButtonBase variant="outline" @click="handleCancel">取消</YdButtonBase>
       <YdButtonBase :disabled="uploadStatus === 'uploading'">上传</YdButtonBase>

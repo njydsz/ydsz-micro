@@ -22,7 +22,7 @@
 import { Page } from '@ydsz/common-ui';
 import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { ElForm, ElFormItem, ElInput, ElSwitch, type FormInstance, type UploadRequestOptions } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdSwitch, type FormInstance, type UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import {
@@ -282,35 +282,35 @@ loadMfaStatus();
         <YdTabsContent value="profile">
           <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
             <div class="md:col-span-4">
-              <ElForm
+              <YdForm
                 ref="profileFormRef"
                 :model="profileForm"
                 :rules="profileRules"
                 label-width="100px"
                 label-position="right"
               >
-                <ElFormItem label="真实姓名" prop="realName">
-                  <ElInput v-model="profileForm.realName" placeholder="请输入真实姓名" maxlength="32" show-word-limit />
-                </ElFormItem>
-                <ElFormItem label="手机号码" prop="phone">
-                  <ElInput v-model="profileForm.phone" placeholder="请输入手机号码" maxlength="20" />
-                </ElFormItem>
-                <ElFormItem label="邮箱地址" prop="email">
-                  <ElInput v-model="profileForm.email" placeholder="请输入邮箱地址" maxlength="64" />
-                </ElFormItem>
-                <ElFormItem label="头像URL" prop="avatar">
-                  <ElInput v-model="profileForm.avatar" placeholder="头像地址（上传后自动填充）" />
-                </ElFormItem>
-                <ElFormItem>
+                <YdFormItem label="真实姓名" prop="realName">
+                  <YdInput v-model="profileForm.realName" placeholder="请输入真实姓名" maxlength="32" show-word-limit />
+                </YdFormItem>
+                <YdFormItem label="手机号码" prop="phone">
+                  <YdInput v-model="profileForm.phone" placeholder="请输入手机号码" maxlength="20" />
+                </YdFormItem>
+                <YdFormItem label="邮箱地址" prop="email">
+                  <YdInput v-model="profileForm.email" placeholder="请输入邮箱地址" maxlength="64" />
+                </YdFormItem>
+                <YdFormItem label="头像URL" prop="avatar">
+                  <YdInput v-model="profileForm.avatar" placeholder="头像地址（上传后自动填充）" />
+                </YdFormItem>
+                <YdFormItem>
                   <YdButtonBase variant="default" :disabled="isProfileLoading" @click="handleUpdateProfile">
                     <Loader2 v-if="isProfileLoading" class="mr-2 h-4 w-4 animate-spin" />
                     保存修改
                   </YdButtonBase>
-                </ElFormItem>
-              </ElForm>
+                </YdFormItem>
+              </YdForm>
             </div>
             <div class="md:col-span-1 flex flex-col items-center gap-3">
-              <ElImage
+              <YdImage
                 v-if="avatarUrl"
                 :src="avatarUrl"
                 class="h-24 w-24 rounded-full border object-cover"
@@ -320,13 +320,13 @@ loadMfaStatus();
               <div v-else class="flex h-24 w-24 items-center justify-center rounded-full border-2 border-dashed bg-muted text-muted-foreground">
                 <span class="text-xs">无头像</span>
               </div>
-              <ElUpload
+              <YdUpload
                 :show-file-list="false"
                 accept="image/png,image/jpeg,image/jpg,image/gif"
                 :http-request="handleAvatarUpload"
               >
                 <YdButtonBase size="sm" variant="default">上传头像</YdButtonBase>
-              </ElUpload>
+              </YdUpload>
               <span class="text-xs text-muted-foreground">支持 PNG/JPG/GIF，建议 200x200</span>
             </div>
           </div>
@@ -336,29 +336,29 @@ loadMfaStatus();
         <YdTabsContent value="password">
           <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
             <div class="md:col-span-4">
-              <ElForm
+              <YdForm
                 ref="passwordFormRef"
                 :model="passwordForm"
                 :rules="passwordRules"
                 label-width="100px"
                 label-position="right"
               >
-                <ElFormItem label="原密码" prop="oldPassword">
-                  <ElInput v-model="passwordForm.oldPassword" type="password" placeholder="请输入原密码" show-password />
-                </ElFormItem>
-                <ElFormItem label="新密码" prop="newPassword">
-                  <ElInput v-model="passwordForm.newPassword" type="password" placeholder="请输入新密码" show-password />
-                </ElFormItem>
-                <ElFormItem label="确认密码" prop="confirmPassword">
-                  <ElInput v-model="passwordForm.confirmPassword" type="password" placeholder="请再次输入新密码" show-password />
-                </ElFormItem>
-                <ElFormItem>
+                <YdFormItem label="原密码" prop="oldPassword">
+                  <YdInput v-model="passwordForm.oldPassword" type="password" placeholder="请输入原密码" show-password />
+                </YdFormItem>
+                <YdFormItem label="新密码" prop="newPassword">
+                  <YdInput v-model="passwordForm.newPassword" type="password" placeholder="请输入新密码" show-password />
+                </YdFormItem>
+                <YdFormItem label="确认密码" prop="confirmPassword">
+                  <YdInput v-model="passwordForm.confirmPassword" type="password" placeholder="请再次输入新密码" show-password />
+                </YdFormItem>
+                <YdFormItem>
                   <YdButtonBase variant="default" :disabled="isPasswordLoading" @click="handleChangePassword">
                     <Loader2 v-if="isPasswordLoading" class="mr-2 h-4 w-4 animate-spin" />
                     修改密码
                   </YdButtonBase>
-                </ElFormItem>
-              </ElForm>
+                </YdFormItem>
+              </YdForm>
             </div>
           </div>
         </YdTabsContent>
@@ -369,7 +369,7 @@ loadMfaStatus();
             <div class="md:col-span-4">
               <div class="mb-4">
                 <span class="mr-2 text-sm text-gray-600">MFA状态：</span>
-                <ElSwitch
+                <YdSwitch
                   :model-value="isMfaEnabled"
                   disabled
                   active-text="已开启"
@@ -407,25 +407,25 @@ loadMfaStatus();
                     </div>
                   </div>
 
-                  <ElForm
+                  <YdForm
                     ref="mfaActivateFormRef"
                     class="mt-4"
                     label-width="100px"
                     label-position="right"
                   >
-                    <ElFormItem label="动态码" prop="code">
-                      <ElInput
+                    <YdFormItem label="动态码" prop="code">
+                      <YdInput
                         v-model="activateCode"
                         placeholder="输入Authenticator中的6位动态码"
                         maxlength="6"
                         class="max-w-64"
                       />
-                    </ElFormItem>
-                    <ElFormItem>
+                    </YdFormItem>
+                    <YdFormItem>
                       <YdButtonBase variant="default" @click="handleActivateMfa">验证并激活</YdButtonBase>
                       <YdButtonBase variant="ghost" @click="handleCancelMfaSetup">取消</YdButtonBase>
-                    </ElFormItem>
-                  </ElForm>
+                    </YdFormItem>
+                  </YdForm>
                 </template>
               </div>
 

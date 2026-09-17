@@ -19,7 +19,8 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty/ElProgress 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElProgress } from 'element-plus';
+import { YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getQueueStatus } from '#/api/jobQueue';
@@ -115,7 +116,7 @@ onMounted(loadQueue);
       </div>
         <div class="mt-4">
           <div class="mb-1 text-sm text-gray-600">队列使用率</div>
-          <ElProgress :percentage="usagePercent" :stroke-width="14" />
+          <YdProgress :percentage="usagePercent" :stroke-width="14" />
         </div>
       </YdCardContent>
     </YdCard>
@@ -132,12 +133,12 @@ onMounted(loadQueue);
               {{ String(val) }}
             </ElDescriptionsItem>
           </ElDescriptions>
-          <ElEmpty v-else description="暂无数据" :image-size="60" />
+          <YdEmptyState v-else description="暂无数据" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>
 
-    <ElEmpty
+    <YdEmptyState
       v-if="!isLoading && Object.keys(queueData).length === 0"
       description="暂无队列数据"
       :image-size="80"

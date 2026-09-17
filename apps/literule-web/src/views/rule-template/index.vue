@@ -20,7 +20,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 Descriptions/YdInput/YdTabs/Empty/Tree/YdCard/Row/Col 等复杂组件，需人工评估）
-import { ElButton, ElCard, ElCol, ElDescriptions, ElDescriptionsItem, ElDialog, ElEmpty, ElInput, ElRow, ElTabPane, ElTabs, ElTag, ElTree } from 'element-plus';
+import { YdButton, YdCard, YdCol, YdDialog, YdEmptyState, YdInput, YdRow, YdTabsContent, YdTabs, YdBadge, YdTree } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -225,59 +226,59 @@ onMounted(() => {
 <template>
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
-      <ElRow :gutter="12">
+      <YdRow :gutter="12">
         <!-- 左侧类目树 -->
-        <ElCol :span="5">
-          <ElCard shadow="never" class="mb-3">
+        <YdCol :span="5">
+          <YdCard shadow="never" class="mb-3">
             <!-- 顶部搜索 -->
-            <ElInput
+            <YdInput
               v-model="keyword"
               placeholder="搜索模板编码/名称"
               clearable
               class="mb-3"
               @keyup.enter="handleSearch"
             />
-            <ElButton type="primary" size="small" class="mb-3" @click="handleSearch">搜索</ElButton>
-          </ElCard>
+            <YdButton type="primary" size="small" class="mb-3" @click="handleSearch">搜索</YdButton>
+          </YdCard>
 
           <!-- 浏览模式 Tab -->
-          <ElCard shadow="never" header="浏览方式" body-class="!p-0">
-            <ElTabs v-model="activeBrowseMode" @tab-change="handleBrowseModeChange">
-              <ElTabPane label="按分类" name="category">
-                <ElTree
+          <YdCard shadow="never" header="浏览方式" body-class="!p-0">
+            <YdTabs v-model="activeBrowseMode" @tab-change="handleBrowseModeChange">
+              <YdTabsContent label="按分类" name="category">
+                <YdTree
                   :data="categoryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))"
                   node-key="value"
                   :default-expanded-keys="['all']"
                   @node-click="handleCategoryClick"
                   class="p-2"
                 />
-              </ElTabPane>
-              <ElTabPane label="按行业" name="industry">
-                <ElTree
+              </YdTabsContent>
+              <YdTabsContent label="按行业" name="industry">
+                <YdTree
                   :data="industryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))"
                   node-key="value"
                   :default-expanded-keys="['all']"
                   @node-click="handleIndustryClick"
                   class="p-2"
                 />
-              </ElTabPane>
-            </ElTabs>
-          </ElCard>
-        </ElCol>
+              </YdTabsContent>
+            </YdTabs>
+          </YdCard>
+        </YdCol>
 
         <!-- 右侧模板列表 -->
-        <ElCol :span="19">
-          <ElCard shadow="never">
+        <YdCol :span="19">
+          <YdCard shadow="never">
             <div class="mb-2">
-              <ElButton @click="loadTemplates">刷新</ElButton>
+              <YdButton @click="loadTemplates">刷新</YdButton>
             </div>
             <TemplateGrid />
-          </ElCard>
-        </ElCol>
-      </ElRow>
+          </YdCard>
+        </YdCol>
+      </YdRow>
 
       <!-- 预览弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="previewDialogVisible"
         :title="`模板预览 - ${currentTemplate?.templateName ?? ''}`"
         width="640px"
@@ -286,10 +287,10 @@ onMounted(() => {
           <ElDescriptionsItem label="模板编码">{{ currentTemplate.templateCode }}</ElDescriptionsItem>
           <ElDescriptionsItem label="模板名称">{{ currentTemplate.templateName }}</ElDescriptionsItem>
           <ElDescriptionsItem label="分类">
-            <ElTag type="primary">{{ currentTemplate.category ?? '-' }}</ElTag>
+            <YdBadge type="primary">{{ currentTemplate.category ?? '-' }}</YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="行业">
-            <ElTag type="success">{{ currentTemplate.industry ?? '-' }}</ElTag>
+            <YdBadge type="success">{{ currentTemplate.industry ?? '-' }}</YdBadge>
           </ElDescriptionsItem>
           <ElDescriptionsItem label="描述" :span="2">
             {{ currentTemplate.description ?? '-' }}
@@ -306,11 +307,11 @@ onMounted(() => {
           <ElDescriptionsItem label="标签">{{ currentTemplate.tags ?? '-' }}</ElDescriptionsItem>
           <ElDescriptionsItem label="创建人">{{ currentTemplate.createdBy ?? '-' }}</ElDescriptionsItem>
         </ElDescriptions>
-        <ElEmpty v-else description="暂无模板数据" />
-      </ElDialog>
+        <YdEmptyState v-else description="暂无模板数据" />
+      </YdDialog>
 
       <!-- 导入结果弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="importResultDialogVisible"
         title="导入结果"
         width="520px"
@@ -323,7 +324,7 @@ onMounted(() => {
           <ElDescriptionsItem label="描述" :span="2">{{ importResult.description ?? '-' }}</ElDescriptionsItem>
         </ElDescriptions>
         <div v-else class="text-center text-gray-400">暂无导入数据</div>
-      </ElDialog>
+      </YdDialog>
     </div>
   </Page>
 </template>

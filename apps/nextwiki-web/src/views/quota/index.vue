@@ -17,7 +17,8 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElDescriptions, ElDescriptionsItem, ElProgress } from 'element-plus';
+import { YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
@@ -72,9 +73,9 @@ function handleAdjust() { quotaFormApi.open(); }
     </div>
     <div class="mb-4">
       <div class="mb-1 text-sm text-gray-600">容量使用（{{ quotaInfo.quotaUsed ?? 0 }} / {{ quotaInfo.quotaLimit ?? 0 }} 字节）</div>
-      <ElProgress :percentage="quotaPercent" :stroke-width="14" />
+      <YdProgress :percentage="quotaPercent" :stroke-width="14" />
       <div class="mt-2 mb-1 text-sm text-gray-600">文件数使用（{{ quotaInfo.fileCountUsed ?? 0 }} / {{ quotaInfo.fileCountLimit ?? 0 }}）</div>
-      <ElProgress :percentage="fileCountPercent" :stroke-width="14" status="success" />
+      <YdProgress :percentage="fileCountPercent" :stroke-width="14" status="success" />
     </div>
     <ElDescriptions :column="2" border>
       <ElDescriptionsItem label="存储范围类型">{{ quotaInfo.scopeType ?? '--' }}</ElDescriptionsItem>

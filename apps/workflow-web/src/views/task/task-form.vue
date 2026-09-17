@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（任务处理弹窗包含 ElForm/ElFormItem/ElRadio/ElRadioGroup 等复杂表单组合）
-import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import {
   countersignAfter,
@@ -189,26 +189,26 @@ const title = computed(() => {
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="$t('wf.handleAction')">
-        <ElRadioGroup v-model="formData.action">
-          <ElRadio value="pass">{{ $t('wf.approve') }}</ElRadio>
-          <ElRadio value="reject">{{ $t('wf.reject') }}</ElRadio>
-          <ElRadio value="transfer">{{ $t('wf.transfer') }}</ElRadio>
-          <ElRadio value="delegate">{{ $t('wf.delegate') }}</ElRadio>
-          <ElRadio value="countersignBefore">{{ $t('wf.countersignBefore') }}</ElRadio>
-          <ElRadio value="countersignAfter">{{ $t('wf.countersignAfter') }}</ElRadio>
-          <ElRadio value="countersignParallel">{{ $t('wf.countersignParallel') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.quickComment')">
-        <ElSelect
+      <YdFormItem :label="$t('wf.handleAction')">
+        <YdRadioGroup v-model="formData.action">
+          <YdRadioGroupItem value="pass">{{ $t('wf.approve') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="reject">{{ $t('wf.reject') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="transfer">{{ $t('wf.transfer') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="delegate">{{ $t('wf.delegate') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="countersignBefore">{{ $t('wf.countersignBefore') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="countersignAfter">{{ $t('wf.countersignAfter') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="countersignParallel">{{ $t('wf.countersignParallel') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.quickComment')">
+        <YdSelect
           v-model="selectedQuickCommentId"
           :placeholder="$t('wf.selectQuickCommentPlaceholder')"
           :loading="quickCommentLoading"
@@ -216,29 +216,29 @@ const title = computed(() => {
           style="width: 100%"
           @change="handleQuickCommentSelect"
         >
-          <ElOption
+          <YdSelectItem
             v-for="item in quickComments"
             :key="item.id"
             :label="item.content"
             :value="item.id"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.comment')">
-        <ElInput
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.comment')">
+        <YdInput
           v-model="formData.comment"
           type="textarea"
           :rows="3"
           :placeholder="$t('wf.commentPlaceholder')"
         />
-      </ElFormItem>
-      <ElFormItem
+      </YdFormItem>
+      <YdFormItem
         v-if="formData.action === 'transfer' || formData.action === 'delegate'"
         :label="$t('wf.targetUser')"
         prop="targetUserId"
       >
         <FlowUserSelector v-model="formData.targetUserId" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

@@ -20,7 +20,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
 import type { GlueCodeVO } from '#/api/models';
@@ -282,11 +282,11 @@ onMounted(() => {
       <!-- 测试执行 -->
       <YdTabsContent value="test">
         <div class="mt-3">
-          <ElForm label-width="80px">
-            <ElFormItem label="测试参数">
+          <YdForm label-width="80px">
+            <YdFormItem label="测试参数">
               <YdTextarea v-model="testParams" placeholder="请输入测试参数（JSON格式，选填）" :rows="3" />
-            </ElFormItem>
-          </ElForm>
+            </YdFormItem>
+          </YdForm>
           <div class="mb-3 flex justify-end">
             <YdButtonBase :disabled="testing" @click="handleTest">
               <Loader2 v-if="testing" class="mr-2 h-4 w-4 animate-spin" />

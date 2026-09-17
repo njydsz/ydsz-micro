@@ -55,7 +55,8 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -260,7 +261,7 @@ onMounted(() => {
         <ElTableColumn prop="operator" label="操作人" width="120" />
         <ElTableColumn prop="errorMessage" label="错误信息" minWidth="150" show-overflow-tooltip />
       </ElTable>
-      <ElEmpty v-if="syncLogs.length === 0" description="暂无同步日志" :image-size="60" />
+      <YdEmptyState v-if="syncLogs.length === 0" description="暂无同步日志" :image-size="60" />
       </YdCardContent>
     </YdCard>
   </Page>

@@ -25,10 +25,9 @@ import {
   YdDialogHeader,
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
-// TODO: ElEmpty 暂无 ydsz-ui 等效组件，保留 element-plus 导入
 // TODO: ElIcon 为图标容器，暂无对应 ydsz-ui 组件，保留 element-plus 导入
-import { ElEmpty, ElIcon } from 'element-plus';
-import { Warning } from '@element-plus/icons-vue';
+import { YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
+import { Warning } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 
 import type { CodePreviewVO } from '#/api/models';
 
@@ -100,9 +99,9 @@ watch(
           @click="handleFileSelect(idx)"
         >
           <div class="flex items-center gap-1">
-            <ElIcon v-if="item.conflict" color="#e6a23c">
+            <YdIcon v-if="item.conflict" color="#e6a23c">
               <Warning />
-            </ElIcon>
+            </YdIcon>
             <span class="truncate">{{ item.fileName }}</span>
           </div>
           <div class="text-xs text-gray-400 truncate">{{ item.filePath }}</div>
@@ -117,7 +116,7 @@ watch(
         <pre class="bg-gray-50 p-4 rounded text-xs overflow-auto" style="max-height: 60vh"><code>{{ currentContent }}</code></pre>
       </div>
     </div>
-      <ElEmpty v-else description="暂无预览数据" />
+      <YdEmptyState v-else description="暂无预览数据" />
     </YdDialogContent>
   </YdDialog>
 </template>

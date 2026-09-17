@@ -22,7 +22,7 @@
 import { Page } from '@ydsz/common-ui';
 
 // TODO: ElCollapse/ElCollapseItem/ElTooltip 暂无 shadcn 对应 SKIP
-import { ElCollapse, ElCollapseItem, ElTooltip } from 'element-plus';
+import { YdAccordion, YdAccordionItem, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
@@ -185,14 +185,14 @@ onBeforeUnmount(() => {
         <YdButtonBase @click="loadHistory">加载历史</YdButtonBase>
         <YdButtonBase :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</YdButtonBase>
         <YdButtonBase variant="destructive" @click="handleClearHistory">清空会话</YdButtonBase>
-        <ElTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
+        <YdTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
           <span
             class="text-xs"
             :class="streamState === 'live' ? 'text-green-600' : streamState === 'connecting' ? 'text-amber-600' : 'text-gray-400'"
           >
             {{ streamStateText[streamState] }}
           </span>
-        </ElTooltip>
+        </YdTooltip>
       </div>
       <!-- 消息区 -->
       <div ref="scrollEl" class="flex-1 overflow-y-auto rounded border border-gray-200 p-3">
@@ -218,11 +218,11 @@ onBeforeUnmount(() => {
       <ConversationShare ref="conversationShareRef" />
       <!-- 输入区 -->
       <div class="mt-3">
-        <ElCollapse class="mb-2">
-          <ElCollapseItem title="高级参数（System Prompt）" name="advanced">
+        <YdAccordion class="mb-2">
+          <YdAccordionItem title="高级参数（System Prompt）" name="advanced">
             <YdTextarea v-model="systemPrompt" placeholder="可选：自定义系统提示词" />
-          </ElCollapseItem>
-        </ElCollapse>
+          </YdAccordionItem>
+        </YdAccordion>
         <div class="flex items-start gap-2">
           <YdTextarea
             v-model="inputText"

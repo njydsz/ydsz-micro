@@ -24,7 +24,8 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -239,7 +240,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           class="h-80 overflow-auto rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
         >
           <pre v-if="logText" class="whitespace-pre-wrap break-all">{{ logText }}</pre>
-          <ElEmpty v-else description="暂无日志内容" :image-size="60" />
+          <YdEmptyState v-else description="暂无日志内容" :image-size="60" />
         </div>
       </template>
       </YdSheetContent>

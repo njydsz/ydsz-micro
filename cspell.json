@@ -315,6 +315,10 @@
     "conv",
     "actioncol",
     "daterange",
-    "BACKOFFS"
+    "BACKOFFS",
+    "defu",
+    "Defu",
+    "noopener",
+    "noreferrer"
   ]
 }

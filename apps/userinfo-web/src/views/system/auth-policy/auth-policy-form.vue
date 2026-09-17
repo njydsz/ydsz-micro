@@ -19,7 +19,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElSelect, ElSwitch } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import type { AuthPolicyDTO, AuthPolicyVO } from '#/api/models';
 
@@ -186,66 +186,66 @@ function handleProviderChange(values: string[]): void {
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="120px"
       label-position="right"
     >
-      <ElFormItem label="租户ID" prop="tenantId">
-        <ElInput
+      <YdFormItem label="租户ID" prop="tenantId">
+        <YdInput
           v-model="formData.tenantId"
           placeholder="为空表示全局默认策略"
           :disabled="isEdit"
           maxlength="64"
           show-word-limit
         />
-      </ElFormItem>
-      <ElFormItem label="策略名称" prop="name">
-        <ElInput v-model="formData.name" placeholder="如：默认密码策略" maxlength="64" show-word-limit />
-      </ElFormItem>
-      <ElFormItem label="密码最小长度" prop="passwordMinLength">
-        <ElInputNumber v-model="formData.passwordMinLength" :min="6" :max="64" class="w-full" />
-      </ElFormItem>
-      <ElFormItem label="需大写字母">
-        <ElSwitch v-model="formData.isPasswordRequireUppercase" />
-      </ElFormItem>
-      <ElFormItem label="需数字">
-        <ElSwitch v-model="formData.isPasswordRequireDigit" />
-      </ElFormItem>
-      <ElFormItem label="MFA认证">
-        <ElSwitch v-model="formData.isMfaEnabled" />
-      </ElFormItem>
-      <ElFormItem label="图形验证码">
-        <ElSwitch v-model="formData.isCaptchaEnabled" />
-      </ElFormItem>
-      <ElFormItem label="身份提供者">
-        <ElSelect
+      </YdFormItem>
+      <YdFormItem label="策略名称" prop="name">
+        <YdInput v-model="formData.name" placeholder="如：默认密码策略" maxlength="64" show-word-limit />
+      </YdFormItem>
+      <YdFormItem label="密码最小长度" prop="passwordMinLength">
+        <YdNumberFieldInput v-model="formData.passwordMinLength" :min="6" :max="64" class="w-full" />
+      </YdFormItem>
+      <YdFormItem label="需大写字母">
+        <YdSwitch v-model="formData.isPasswordRequireUppercase" />
+      </YdFormItem>
+      <YdFormItem label="需数字">
+        <YdSwitch v-model="formData.isPasswordRequireDigit" />
+      </YdFormItem>
+      <YdFormItem label="MFA认证">
+        <YdSwitch v-model="formData.isMfaEnabled" />
+      </YdFormItem>
+      <YdFormItem label="图形验证码">
+        <YdSwitch v-model="formData.isCaptchaEnabled" />
+      </YdFormItem>
+      <YdFormItem label="身份提供者">
+        <YdSelect
           :model-value="selectedProviders"
           multiple
           placeholder="选择允许的身份提供者"
           class="w-full"
           @update:model-value="handleProviderChange"
         >
-          <ElOption
+          <YdSelectItem
             v-for="opt in IDENTITY_PROVIDER_OPTIONS"
             :key="opt.value"
             :label="opt.label"
             :value="opt.value"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem label="最大会话数" prop="maxSessionsPerUser">
-        <ElInputNumber v-model="formData.maxSessionsPerUser" :min="1" :max="20" class="w-full" />
-      </ElFormItem>
-      <ElFormItem label="会话超时(秒)" prop="sessionTimeoutSeconds">
-        <ElInputNumber v-model="formData.sessionTimeoutSeconds" :min="60" :max="86400" class="w-full" />
-      </ElFormItem>
-      <ElFormItem label="备注" prop="remark">
-        <ElInput v-model="formData.remark" type="textarea" :rows="3" placeholder="备注说明" maxlength="255" show-word-limit />
-      </ElFormItem>
-    </ElForm>
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem label="最大会话数" prop="maxSessionsPerUser">
+        <YdNumberFieldInput v-model="formData.maxSessionsPerUser" :min="1" :max="20" class="w-full" />
+      </YdFormItem>
+      <YdFormItem label="会话超时(秒)" prop="sessionTimeoutSeconds">
+        <YdNumberFieldInput v-model="formData.sessionTimeoutSeconds" :min="60" :max="86400" class="w-full" />
+      </YdFormItem>
+      <YdFormItem label="备注" prop="remark">
+        <YdInput v-model="formData.remark" type="textarea" :rows="3" placeholder="备注说明" maxlength="255" show-word-limit />
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>
 

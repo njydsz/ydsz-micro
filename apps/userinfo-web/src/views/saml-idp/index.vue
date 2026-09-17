@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -322,49 +322,49 @@ async function handleDelete(row: SamlIdpConfigVO) {
 
     <!-- 创建/编辑弹窗 -->
     <Modal :title="modalTitle">
-      <ElForm
+      <YdForm
         ref="formRef"
         :model="formData"
         :rules="rules"
         label-width="130px"
         label-position="right"
       >
-        <ElFormItem label="Entity ID" prop="entityId">
-          <ElInput v-model="formData.entityId" placeholder="如 https://idp.example.com/entity" :disabled="isEdit" />
-        </ElFormItem>
-        <ElFormItem label="IdP 名称" prop="name">
-          <ElInput v-model="formData.name" placeholder="如 企业微信 SAML" />
-        </ElFormItem>
-        <ElFormItem label="SSO 端点" prop="ssoUrl">
-          <ElInput v-model="formData.ssoUrl" placeholder="如 https://idp.example.com/sso" />
-        </ElFormItem>
-        <ElFormItem label="公钥证书">
-          <ElInput
+        <YdFormItem label="Entity ID" prop="entityId">
+          <YdInput v-model="formData.entityId" placeholder="如 https://idp.example.com/entity" :disabled="isEdit" />
+        </YdFormItem>
+        <YdFormItem label="IdP 名称" prop="name">
+          <YdInput v-model="formData.name" placeholder="如 企业微信 SAML" />
+        </YdFormItem>
+        <YdFormItem label="SSO 端点" prop="ssoUrl">
+          <YdInput v-model="formData.ssoUrl" placeholder="如 https://idp.example.com/sso" />
+        </YdFormItem>
+        <YdFormItem label="公钥证书">
+          <YdInput
             v-model="formData.certificate"
             type="textarea"
             :rows="4"
             placeholder="-----BEGIN CERTIFICATE-----&#10;..."
           />
-        </ElFormItem>
-        <ElFormItem label="邮箱属性名">
-          <ElInput v-model="formData.emailAttribute" placeholder="默认 email" />
-        </ElFormItem>
-        <ElFormItem label="显示名属性">
-          <ElInput v-model="formData.displayNameAttribute" placeholder="默认 displayName" />
-        </ElFormItem>
-        <ElFormItem label="状态">
-          <ElRadioGroup v-model="formData.status">
-            <ElRadioButton value="ENABLED">已启用</ElRadioButton>
-            <ElRadioButton value="DISABLED">已停用</ElRadioButton>
-          </ElRadioGroup>
-        </ElFormItem>
-        <ElFormItem label="排序">
-          <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-        </ElFormItem>
-        <ElFormItem label="备注">
-          <ElInput v-model="formData.remark" type="textarea" :rows="2" placeholder="备注说明" />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+        <YdFormItem label="邮箱属性名">
+          <YdInput v-model="formData.emailAttribute" placeholder="默认 email" />
+        </YdFormItem>
+        <YdFormItem label="显示名属性">
+          <YdInput v-model="formData.displayNameAttribute" placeholder="默认 displayName" />
+        </YdFormItem>
+        <YdFormItem label="状态">
+          <YdRadioGroup v-model="formData.status">
+            <YdRadioGroupItem value="ENABLED">已启用</YdRadioGroupItem>
+            <YdRadioGroupItem value="DISABLED">已停用</YdRadioGroupItem>
+          </YdRadioGroup>
+        </YdFormItem>
+        <YdFormItem label="排序">
+          <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        </YdFormItem>
+        <YdFormItem label="备注">
+          <YdInput v-model="formData.remark" type="textarea" :rows="2" placeholder="备注说明" />
+        </YdFormItem>
+      </YdForm>
     </Modal>
   </Page>
 </template>

@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadioButton, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -367,61 +367,61 @@ async function handleDelete(row: OAuth2Application) {
 
     <!-- 创建/编辑弹窗 -->
     <Modal :title="modalTitle">
-      <ElForm
+      <YdForm
         ref="formRef"
         :model="formData"
         :rules="rules"
         label-width="110px"
         label-position="right"
       >
-        <ElFormItem label="Client ID" prop="clientId">
-          <ElInput v-model="formData.clientId" placeholder="唯一标识，如 my-app-client" :disabled="isEdit" />
-        </ElFormItem>
-        <ElFormItem label="应用名称" prop="clientName">
-          <ElInput v-model="formData.clientName" placeholder="请输入应用名称" />
-        </ElFormItem>
-        <ElFormItem label="客户端类型">
-          <ElRadioGroup v-model="formData.clientType">
-            <ElRadioButton value="CONFIDENTIAL">机密</ElRadioButton>
-            <ElRadioButton value="PUBLIC">公开</ElRadioButton>
-          </ElRadioGroup>
-        </ElFormItem>
-        <ElFormItem label="回调地址" prop="redirectUrisText">
-          <ElInput
+        <YdFormItem label="Client ID" prop="clientId">
+          <YdInput v-model="formData.clientId" placeholder="唯一标识，如 my-app-client" :disabled="isEdit" />
+        </YdFormItem>
+        <YdFormItem label="应用名称" prop="clientName">
+          <YdInput v-model="formData.clientName" placeholder="请输入应用名称" />
+        </YdFormItem>
+        <YdFormItem label="客户端类型">
+          <YdRadioGroup v-model="formData.clientType">
+            <YdRadioGroupItem value="CONFIDENTIAL">机密</YdRadioGroupItem>
+            <YdRadioGroupItem value="PUBLIC">公开</YdRadioGroupItem>
+          </YdRadioGroup>
+        </YdFormItem>
+        <YdFormItem label="回调地址" prop="redirectUrisText">
+          <YdInput
             v-model="formData.redirectUrisText"
             type="textarea"
             :rows="3"
             placeholder="每行一个地址，如 https://example.com/callback"
           />
-        </ElFormItem>
-        <ElFormItem label="授权范围">
-          <ElInput
+        </YdFormItem>
+        <YdFormItem label="授权范围">
+          <YdInput
             v-model="formData.allowedScopesText"
             type="textarea"
             :rows="2"
             placeholder="每行一个 scope，如 read:profile"
           />
-        </ElFormItem>
-        <ElFormItem label="允许受众">
-          <ElInput
+        </YdFormItem>
+        <YdFormItem label="允许受众">
+          <YdInput
             v-model="formData.allowedAudiencesText"
             type="textarea"
             :rows="2"
             placeholder="每行一个 audience，如 https://api.example.com"
           />
-        </ElFormItem>
-        <ElFormItem label="排序">
-          <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-        </ElFormItem>
-        <ElFormItem label="描述">
-          <ElInput
+        </YdFormItem>
+        <YdFormItem label="排序">
+          <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        </YdFormItem>
+        <YdFormItem label="描述">
+          <YdInput
             v-model="formData.description"
             type="textarea"
             :rows="2"
             placeholder="应用描述"
           />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
     </Modal>
   </Page>
 </template>

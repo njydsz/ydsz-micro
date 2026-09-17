@@ -17,7 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-comment');
 const { t } = useI18n();
@@ -88,15 +88,15 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal title="新增评论">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="文件节点ID" prop="fileNodeId">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="文件节点ID" prop="fileNodeId">
         <YdInput v-model="formData.fileNodeId" placeholder="请输入文件节点ID" />
-      </ElFormItem>
-      <ElFormItem label="评论内容" prop="content">
+      </YdFormItem>
+      <YdFormItem label="评论内容" prop="content">
         <YdInput v-model="formData.content" placeholder="请输入评论内容" />
-      </ElFormItem>
-      <ElFormItem label="提及用户" prop="mentionIds">
-        <ElSelect
+      </YdFormItem>
+      <YdFormItem label="提及用户" prop="mentionIds">
+        <YdSelect
           v-model="formData.mentionIds"
           multiple
           filterable
@@ -107,14 +107,14 @@ const [Modal, modalApi] = useYdModal({
           placeholder="输入关键字搜索用户，选中即为 @提及（可为空）"
           class="w-full"
         >
-          <ElOption
+          <YdSelectItem
             v-for="user in mentionOptions"
             :key="user.id ?? user.title ?? ''"
             :label="formatUserLabel(user)"
             :value="user.id ?? ''"
           />
-        </ElSelect>
-      </ElFormItem>
-    </ElForm>
+        </YdSelect>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

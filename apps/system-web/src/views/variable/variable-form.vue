@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
-import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { save, update } from '#/api/variable';
@@ -104,25 +104,25 @@ const title = computed(() => (isEdit.value ? '编辑系统变量' : '新增系�
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="变量键" prop="variableKey">
-        <ElInput v-model="formData.variableKey" placeholder="请输入变量键" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="值类型" prop="valueType">
-        <ElInput v-model="formData.valueType" placeholder="请输入值类型（String/Number/Boolean）" />
-      </ElFormItem>
-      <ElFormItem label="变量值" prop="variableValue">
-        <ElInput v-model="formData.variableValue" type="textarea" :rows="2" placeholder="请输入变量值" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
-      </ElFormItem>
-      <ElFormItem label="状态" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="变量键" prop="variableKey">
+        <YdInput v-model="formData.variableKey" placeholder="请输入变量键" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem label="值类型" prop="valueType">
+        <YdInput v-model="formData.valueType" placeholder="请输入值类型（String/Number/Boolean）" />
+      </YdFormItem>
+      <YdFormItem label="变量值" prop="variableValue">
+        <YdInput v-model="formData.variableValue" type="textarea" :rows="2" placeholder="请输入变量值" />
+      </YdFormItem>
+      <YdFormItem label="描述">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      </YdFormItem>
+      <YdFormItem label="状态" prop="status">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

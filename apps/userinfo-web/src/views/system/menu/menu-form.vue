@@ -18,7 +18,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { ElButton, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElSelect, ElTreeSelect } from 'element-plus';
+import { YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, ElTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -180,14 +180,14 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('menu.parentMenu')" prop="parentId">
+      <YdFormItem :label="t('menu.parentMenu')" prop="parentId">
         <ElTreeSelect
           v-model="formData.parentId"
           :data="[{ id: '', label: t('menu.topMenu'), children: treeData }]"
@@ -198,54 +198,54 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
           :placeholder="t('menu.parentMenuPlaceholder')"
           class="w-full"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('page.menuName')" prop="menuName">
-        <ElInput v-model="formData.menuName" :placeholder="t('menu.menuNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('menu.menuCode')" prop="menuCode">
-        <ElInput v-model="formData.menuCode" :placeholder="t('menu.menuCodePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.menuType')" prop="menuType">
-        <ElSelect v-model="formData.menuType" :placeholder="t('menu.menuTypePlaceholder')" class="w-full">
-          <ElOption
+      </YdFormItem>
+      <YdFormItem :label="t('page.menuName')" prop="menuName">
+        <YdInput v-model="formData.menuName" :placeholder="t('menu.menuNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('menu.menuCode')" prop="menuCode">
+        <YdInput v-model="formData.menuCode" :placeholder="t('menu.menuCodePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.menuType')" prop="menuType">
+        <YdSelect v-model="formData.menuType" :placeholder="t('menu.menuTypePlaceholder')" class="w-full">
+          <YdSelectItem
             v-for="opt in MENU_TYPE_OPTIONS"
             :key="opt.value"
             :label="opt.label"
             :value="opt.value"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('page.menuPath')">
-        <ElInput v-model="formData.path" :placeholder="t('menu.pathPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.component')">
-        <ElInput v-model="formData.component" :placeholder="t('menu.componentPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.icon')">
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="t('page.menuPath')">
+        <YdInput v-model="formData.path" :placeholder="t('menu.pathPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.component')">
+        <YdInput v-model="formData.component" :placeholder="t('menu.componentPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.icon')">
         <div class="flex w-full gap-2">
-          <ElInput v-model="formData.icon" :placeholder="t('menu.iconPlaceholder')" readonly @click="openIconPicker" />
-          <ElButton @click="openIconPicker">{{ t('menu.selectIcon') }}</ElButton>
+          <YdInput v-model="formData.icon" :placeholder="t('menu.iconPlaceholder')" readonly @click="openIconPicker" />
+          <YdButton @click="openIconPicker">{{ t('menu.selectIcon') }}</YdButton>
         </div>
-      </ElFormItem>
-      <ElFormItem :label="t('page.permission')">
-        <ElInput v-model="formData.permissionCode" :placeholder="t('menu.permissionPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.sortOrder')">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem :label="t('menu.visible')">
-        <ElRadioGroup v-model="formData.visible">
-          <ElRadio :value="1">{{ t('menu.show') }}</ElRadio>
-          <ElRadio :value="0">{{ t('menu.hide') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-      <ElFormItem :label="t('page.status')">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('page.permission')">
+        <YdInput v-model="formData.permissionCode" :placeholder="t('menu.permissionPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.sortOrder')">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem :label="t('menu.visible')">
+        <YdRadioGroup v-model="formData.visible">
+          <YdRadioGroupItem :value="1">{{ t('menu.show') }}</YdRadioGroupItem>
+          <YdRadioGroupItem :value="0">{{ t('menu.hide') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+      <YdFormItem :label="t('page.status')">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('page.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('page.disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
     <YdIconPicker ref="iconPickerRef" @select="handleIconSelect" />
   </Modal>
 </template>

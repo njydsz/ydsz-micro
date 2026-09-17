@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElTabs / ElTabPane / ElUpload 尚未迁移到 ydsz-ui
-import { ElTabPane, ElTabs, ElUpload } from 'element-plus';
+import { YdTabsContent, YdTabs, YdUpload } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -337,9 +337,9 @@ async function executeZipImport(): Promise<void> {
         </YdDialogHeader>
         <div class="py-4">
           <!-- TODO: ElTabs / ElTabPane 尚未迁移到 ydsz-ui -->
-          <ElTabs v-model="batchImportType">
-            <ElTabPane label="多文件上传" name="files">
-              <ElUpload
+          <YdTabs v-model="batchImportType">
+            <YdTabsContent label="多文件上传" name="files">
+              <YdUpload
                 :auto-upload="false"
                 :file-list="batchFileList as any"
                 :on-change="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
@@ -350,10 +350,10 @@ async function executeZipImport(): Promise<void> {
                 <div class="py-8 text-center text-sm text-gray-500">
                   点击或拖拽多个文件到此处
                 </div>
-              </ElUpload>
-            </ElTabPane>
-            <ElTabPane label="ZIP 导入" name="zip">
-              <ElUpload
+              </YdUpload>
+            </YdTabsContent>
+            <YdTabsContent label="ZIP 导入" name="zip">
+              <YdUpload
                 :auto-upload="false"
                 :limit="1"
                 :on-change="(file: any) => { zipFile.value = file.raw || null; }"
@@ -364,9 +364,9 @@ async function executeZipImport(): Promise<void> {
                 <div class="py-8 text-center text-sm text-gray-500">
                   点击或拖拽 ZIP 压缩包到此处
                 </div>
-              </ElUpload>
-            </ElTabPane>
-          </ElTabs>
+              </YdUpload>
+            </YdTabsContent>
+          </YdTabs>
         </div>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="batchImportVisible = false">取消</YdButtonBase>

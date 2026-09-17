@@ -17,7 +17,8 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElInput, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdCard, YdEmptyState, YdInput, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref } from 'vue';
 
@@ -103,7 +104,7 @@ onMounted(() => {
       <!-- 左侧：服务状态 + 摘要生成 -->
       <div class="space-y-3 lg:col-span-1">
         <!-- AI 服务状态 -->
-        <ElCard shadow="never">
+        <YdCard shadow="never">
           <template #header>
             <div class="flex items-center justify-between">
               <span class="font-medium">AI 服务状态</span>
@@ -121,22 +122,22 @@ onMounted(() => {
               {{ String(val) }}
             </ElDescriptionsItem>
           </ElDescriptions>
-          <ElEmpty v-else description="暂无状态数据" :image-size="60" />
-        </ElCard>
+          <YdEmptyState v-else description="暂无状态数据" :image-size="60" />
+        </YdCard>
 
         <!-- 摘要生成 -->
-        <ElCard shadow="never">
+        <YdCard shadow="never">
           <template #header>
             <span class="font-medium">生成智能摘要</span>
           </template>
-          <ElInput
+          <YdInput
             v-model="summaryInput"
             type="textarea"
             :rows="6"
             placeholder="输入文档内容..."
           />
           <div class="mt-2">
-            <ElInput
+            <YdInput
               v-model="summaryType"
               placeholder="摘要类型（可选，如：brief/detail/technical）"
               clearable
@@ -151,13 +152,13 @@ onMounted(() => {
               {{ isGenerating ? '生成中...' : '生成摘要' }}
             </button>
           </div>
-        </ElCard>
+        </YdCard>
       </div>
 
       <!-- 右侧：最新摘要 + 历史 -->
       <div class="space-y-3 lg:col-span-2">
         <!-- 最新摘要结果 -->
-        <ElCard shadow="never">
+        <YdCard shadow="never">
           <template #header>
             <span class="font-medium">最新摘要</span>
           </template>
@@ -165,7 +166,7 @@ onMounted(() => {
             <ElDescriptions :column="2" border size="small" class="mb-3">
               <ElDescriptionsItem label="文件节点ID">{{ latestSummary.fileNodeId ?? '-' }}</ElDescriptionsItem>
               <ElDescriptionsItem label="摘要类型">
-                <ElTag v-if="latestSummary.summaryType" size="small">{{ latestSummary.summaryType }}</ElTag>
+                <YdBadge v-if="latestSummary.summaryType" size="small">{{ latestSummary.summaryType }}</YdBadge>
                 <span v-else>-</span>
               </ElDescriptionsItem>
               <ElDescriptionsItem label="字数">{{ latestSummary.wordCount ?? '-' }}</ElDescriptionsItem>
@@ -175,16 +176,16 @@ onMounted(() => {
               <p class="whitespace-pre-wrap text-sm leading-relaxed">{{ latestSummary.summary ?? '-' }}</p>
             </div>
           </div>
-          <ElEmpty v-else description="尚未生成摘要" :image-size="80" />
-        </ElCard>
+          <YdEmptyState v-else description="尚未生成摘要" :image-size="80" />
+        </YdCard>
 
         <!-- 摘要历史 -->
-        <ElCard shadow="never">
+        <YdCard shadow="never">
           <template #header>
             <span class="font-medium">历史记录</span>
           </template>
-          <ElTimeline v-if="summaryHistory.length">
-            <ElTimelineItem
+          <YdTimeline v-if="summaryHistory.length">
+            <YdTimelineItem
               v-for="(item, idx) in summaryHistory"
               :key="idx"
               :timestamp="item.generatedAt ?? ''"
@@ -194,10 +195,10 @@ onMounted(() => {
                 {{ item.summaryType ?? '摘要' }} · {{ item.wordCount ?? 0 }} 字
               </div>
               <p class="mt-1 whitespace-pre-wrap text-sm">{{ (item.summary ?? '').slice(0, 200) }}{{ (item.summary ?? '').length > 200 ? '...' : '' }}</p>
-            </ElTimelineItem>
-          </ElTimeline>
-          <ElEmpty v-else description="暂无历史记录" :image-size="60" />
-        </ElCard>
+            </YdTimelineItem>
+          </YdTimeline>
+          <YdEmptyState v-else description="暂无历史记录" :image-size="60" />
+        </YdCard>
       </div>
     </div>
   </Page>

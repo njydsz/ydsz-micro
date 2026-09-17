@@ -18,7 +18,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDatePicker, YdRadioGroup, YdRadioGroupItem, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 // TODO: ElCalendar/ElTimeline/ElTimelineItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { ref, computed, onMounted } from 'vue';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';
@@ -179,7 +179,7 @@ onMounted(() => {
       </div>
 
       <!-- 日历网格 -->
-      <ElCalendar v-model="selectedDate" class="schedule-calendar">
+      <YdCalendar v-model="selectedDate" class="schedule-calendar">
         <template #date-cell="{ data }">
           <div class="flex h-full w-full flex-col items-center">
             <span class="font-semibold">{{ data.day.split('-')[2] }}</span>
@@ -207,7 +207,7 @@ onMounted(() => {
             </div>
           </div>
         </template>
-      </ElCalendar>
+      </YdCalendar>
 
       <!-- 选中日期的任务详情抽屉 -->
       <YdSheet v-model:open="drawerVisible">
@@ -215,8 +215,8 @@ onMounted(() => {
           <YdSheetHeader>
             <YdSheetTitle>{{ `${selectedDateDetail} 调度任务` }}</YdSheetTitle>
           </YdSheetHeader>
-          <ElTimeline v-if="selectedDateTasks.length > 0">
-            <ElTimelineItem
+          <YdTimeline v-if="selectedDateTasks.length > 0">
+            <YdTimelineItem
               v-for="task in selectedDateTasks"
               :key="(task.jobKey ?? '') + (task.fireTime ?? '')"
               :timestamp="formatTime(task.fireTime)"
@@ -233,9 +233,9 @@ onMounted(() => {
                   <p><b>分组：</b>{{ task.group || '默认' }}</p>
                 </YdCardContent>
               </YdCard>
-            </ElTimelineItem>
-          </ElTimeline>
-          <ElEmpty v-else description="当日无调度任务" />
+            </YdTimelineItem>
+          </YdTimeline>
+          <YdEmptyState v-else description="当日无调度任务" />
         </YdSheetContent>
       </YdSheet>
     </div>

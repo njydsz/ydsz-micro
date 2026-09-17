@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -329,8 +329,8 @@ onMounted(() => {
     <YdSheet v-model:open="isCompareVisible">
       <YdSheetContent side="right" class="w-[700px]">
         <div class="mb-2 text-base font-semibold">版本对比</div>
-      <ElForm label-width="80px" class="mb-3">
-        <ElFormItem label="版本 A">
+      <YdForm label-width="80px" class="mb-3">
+        <YdFormItem label="版本 A">
           <YdSelectBase v-model="compareV1">
             <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
             <YdSelectContentBase>
@@ -343,8 +343,8 @@ onMounted(() => {
               </YdSelectItemBase>
             </YdSelectContentBase>
           </YdSelectBase>
-        </ElFormItem>
-        <ElFormItem label="版本 B">
+        </YdFormItem>
+        <YdFormItem label="版本 B">
           <YdSelectBase v-model="compareV2">
             <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
             <YdSelectContentBase>
@@ -357,11 +357,11 @@ onMounted(() => {
               </YdSelectItemBase>
             </YdSelectContentBase>
           </YdSelectBase>
-        </ElFormItem>
-        <ElFormItem>
+        </YdFormItem>
+        <YdFormItem>
           <YdButtonBase @click="handleCompare">开始对比</YdButtonBase>
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
       <div v-if="compareResult.length > 0" class="space-y-2">
         <div v-for="(diff, idx) in compareResult" :key="idx" class="rounded border border-gray-200 p-3">
           <div v-for="(val, field) in diff" :key="field" class="grid grid-cols-3 gap-2 text-sm">

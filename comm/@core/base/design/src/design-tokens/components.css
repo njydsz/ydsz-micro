@@ -1,0 +1,102 @@
+/* ============================================================
+   * 组件级 Design Token（新增 P0/P1/P2 组件语义变量）
+   *
+   * 仅补充尚未被全局 token 覆盖的组件专属语义。
+   * 已有的中性色（--neutral-*）、品牌色（--brand-*）、语义色
+   * （--success-* / --warning-* / --destructive-*）不再重复声明。
+   * ============================================================ */
+
+:root {
+  /* ----------------------------------------------------------
+   * Progress 进度条
+   * ---------------------------------------------------------- */
+  --progress-track: var(--neutral-200);
+  --progress-indeterminate-track: var(--neutral-200);
+
+  /* ----------------------------------------------------------
+   * Slider 滑块
+   * ---------------------------------------------------------- */
+  --slider-track: var(--neutral-200);
+  --slider-range: var(--brand-500);
+  --slider-thumb-ring: var(--brand-300);
+
+  /* ----------------------------------------------------------
+   * Tag / Badge 扩展色阶（除 default/primary/destructive 外）
+   * ---------------------------------------------------------- */
+  --tag-success-bg: var(--success-50);
+  --tag-success-fg: var(--success-500);
+  --tag-warning-bg: var(--warning-50);
+  --tag-warning-fg: var(--warning-500);
+  --tag-info-bg: var(--brand-50);
+  --tag-info-fg: var(--brand-500);
+
+  /* ----------------------------------------------------------
+   * Steps 步骤条
+   * ---------------------------------------------------------- */
+  --step-wait-bg: var(--neutral-300);
+  --step-wait-fg: var(--neutral-500);
+  --step-process-bg: var(--brand-500);
+  --step-process-fg: var(--neutral-50);
+  --step-finish-bg: var(--success-500);
+  --step-finish-fg: var(--neutral-50);
+  --step-error-bg: var(--destructive-500);
+  --step-error-fg: var(--neutral-50);
+
+  /* ----------------------------------------------------------
+   * Timeline 时间轴
+   * ---------------------------------------------------------- */
+  --timeline-line: var(--neutral-200);
+  --timeline-dot-default: var(--neutral-400);
+  --timeline-dot-active: var(--brand-500);
+
+  /* ----------------------------------------------------------
+   * Skeleton 骨架屏
+   * ---------------------------------------------------------- */
+  --skeleton-bg: var(--neutral-200);
+  --skeleton-highlight: var(--neutral-100);
+
+  /* ----------------------------------------------------------
+   * Rate 评分
+   * ---------------------------------------------------------- */
+  --rate-empty: var(--neutral-300);
+  --rate-filled: 48 96% 53%;
+  --rate-hover: 48 96% 65%;
+
+  /* ----------------------------------------------------------
+   * Watermark 水印
+   * ---------------------------------------------------------- */
+  --watermark-color: var(--neutral-300);
+
+  /* ----------------------------------------------------------
+   * Tour 引导
+   * ---------------------------------------------------------- */
+  --tour-mask: 240 10% 4% / 0.4;
+  --tour-highlight-ring: var(--brand-400);
+
+  /* ----------------------------------------------------------
+   * FloatButton 悬浮按钮
+   * ---------------------------------------------------------- */
+  --float-btn-shadow:
+    0 6px 16px 0 hsl(var(--neutral-950) / 8%), 0 3px 6px -4px hsl(var(--neutral-950) / 12%),
+    0 9px 28px 8px hsl(var(--neutral-950) / 5%);
+}
+
+/* ============================================================
+ * 暗色模式扩展
+ * ============================================================ */
+.dark,
+.dark[data-theme='custom'],
+.dark[data-theme='default'] {
+  --progress-track: var(--neutral-700);
+  --progress-indeterminate-track: var(--neutral-700);
+  --slider-track: var(--neutral-700);
+  --slider-range: var(--brand-400);
+  --slider-thumb-ring: var(--brand-600);
+  --step-wait-bg: var(--neutral-600);
+  --step-wait-fg: var(--neutral-400);
+  --skeleton-bg: var(--neutral-700);
+  --skeleton-highlight: var(--neutral-600);
+  --rate-empty: var(--neutral-600);
+  --watermark-color: var(--neutral-700);
+  --tour-mask: 240 4% 16% / 0.6;
+}

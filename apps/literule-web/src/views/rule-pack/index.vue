@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdTabs/Rate/YdTooltipBase/YdCard/Row/Col/Statistic 等复杂组件，需人工评估）
-import { ElButton, ElCard, ElCol, ElDialog, ElForm, ElFormItem, ElInput, ElRate, ElRow, ElStatistic, ElTabPane, ElTabs, ElTag, ElTooltip } from 'element-plus';
+import { YdButton, YdCard, YdCol, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdCountToAnimator, YdTabsContent, YdTabs, YdBadge, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -579,169 +579,169 @@ onMounted(() => {
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
       <!-- 顶部指标卡 -->
-      <ElRow :gutter="12" class="mb-4">
-        <ElCol :span="8">
-          <ElCard shadow="never">
-            <ElStatistic title="已发布包数" :value="statPublished" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="8">
-          <ElCard shadow="never">
-            <ElStatistic title="已安装包数" :value="statInstalled" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="8">
-          <ElCard shadow="never">
-            <ElStatistic title="可更新数" :value="statUpdatable" />
-          </ElCard>
-        </ElCol>
-      </ElRow>
+      <YdRow :gutter="12" class="mb-4">
+        <YdCol :span="8">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="已发布包数" :value="statPublished" />
+          </YdCard>
+        </YdCol>
+        <YdCol :span="8">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="已安装包数" :value="statInstalled" />
+          </YdCard>
+        </YdCol>
+        <YdCol :span="8">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="可更新数" :value="statUpdatable" />
+          </YdCard>
+        </YdCol>
+      </YdRow>
 
       <!-- Tab 区域 -->
-      <ElCard shadow="never">
-        <ElTabs v-model="activeTab" @tab-change="handleTabChange">
+      <YdCard shadow="never">
+        <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 包市场 -->
-          <ElTabPane label="包市场" name="market">
+          <YdTabsContent label="包市场" name="market">
             <div class="flex items-center gap-2 mb-3">
-              <ElInput
+              <YdInput
                 v-model="keyword"
                 placeholder="搜索编码/名称/描述"
                 clearable
                 style="width: 280px"
                 @keyup.enter="handleSearch"
               />
-              <ElButton type="primary" @click="handleSearch">搜索</ElButton>
-              <ElButton type="success" @click="handleOpenPublishDialog">发布规则包</ElButton>
-              <ElButton type="warning" @click="handleOpenStressDialog">压力测试</ElButton>
-              <ElButton @click="loadMarket">刷新</ElButton>
+              <YdButton type="primary" @click="handleSearch">搜索</YdButton>
+              <YdButton type="success" @click="handleOpenPublishDialog">发布规则包</YdButton>
+              <YdButton type="warning" @click="handleOpenStressDialog">压力测试</YdButton>
+              <YdButton @click="loadMarket">刷新</YdButton>
             </div>
             <MarketGrid />
-          </ElTabPane>
+          </YdTabsContent>
 
           <!-- 已安装 -->
-          <ElTabPane label="已安装" name="installed">
+          <YdTabsContent label="已安装" name="installed">
             <div class="mb-2">
-              <ElButton @click="loadInstalled">刷新</ElButton>
+              <YdButton @click="loadInstalled">刷新</YdButton>
             </div>
             <InstalledGrid />
-          </ElTabPane>
+          </YdTabsContent>
 
           <!-- 可更新 -->
-          <ElTabPane label="可更新" name="updatable">
+          <YdTabsContent label="可更新" name="updatable">
             <div class="mb-2 flex gap-2">
-              <ElButton @click="loadUpdatable">刷新</ElButton>
-              <ElButton type="success" @click="handleBatchUpdate">一键更新全部</ElButton>
+              <YdButton @click="loadUpdatable">刷新</YdButton>
+              <YdButton type="success" @click="handleBatchUpdate">一键更新全部</YdButton>
             </div>
             <UpdatableGrid />
-          </ElTabPane>
-        </ElTabs>
-      </ElCard>
+          </YdTabsContent>
+        </YdTabs>
+      </YdCard>
 
       <!-- 版本历史弹窗 -->
-      <ElDialog v-model="versionDialogVisible" :title="`版本历史 - ${currentPackCode}`" width="600px">
+      <YdDialog v-model="versionDialogVisible" :title="`版本历史 - ${currentPackCode}`" width="600px">
         <VersionGrid />
-      </ElDialog>
+      </YdDialog>
 
       <!-- 版本对比弹窗 -->
-      <ElDialog v-model="diffDialogVisible" :title="`版本对比 - ${currentPackCode}`" width="700px">
+      <YdDialog v-model="diffDialogVisible" :title="`版本对比 - ${currentPackCode}`" width="700px">
         <div v-if="diffData" class="space-y-3">
-          <ElRow :gutter="12">
-            <ElCol :span="12">
+          <YdRow :gutter="12">
+            <YdCol :span="12">
               <span class="text-sm text-gray-500">源版本:</span>
-              <ElTag>{{ diffData.fromVersion }}</ElTag>
-            </ElCol>
-            <ElCol :span="12">
+              <YdBadge>{{ diffData.fromVersion }}</YdBadge>
+            </YdCol>
+            <YdCol :span="12">
               <span class="text-sm text-gray-500">目标版本:</span>
-              <ElTag>{{ diffData.toVersion }}</ElTag>
-            </ElCol>
-          </ElRow>
+              <YdBadge>{{ diffData.toVersion }}</YdBadge>
+            </YdCol>
+          </YdRow>
           <div>
             <p class="text-sm font-medium mb-1">
               <span class="text-green-600">新增规则</span> ({{ diffData.added?.length ?? 0 }})
             </p>
-            <ElTag v-for="code in diffData.added" :key="code" type="success" class="mr-1 mb-1">
+            <YdBadge v-for="code in diffData.added" :key="code" type="success" class="mr-1 mb-1">
               {{ code }}
-            </ElTag>
+            </YdBadge>
             <span v-if="!diffData.added?.length" class="text-xs text-gray-400">无</span>
           </div>
           <div>
             <p class="text-sm font-medium mb-1">
               <span class="text-red-600">移除规则</span> ({{ diffData.removed?.length ?? 0 }})
             </p>
-            <ElTag v-for="code in diffData.removed" :key="code" type="danger" class="mr-1 mb-1">
+            <YdBadge v-for="code in diffData.removed" :key="code" type="danger" class="mr-1 mb-1">
               {{ code }}
-            </ElTag>
+            </YdBadge>
             <span v-if="!diffData.removed?.length" class="text-xs text-gray-400">无</span>
           </div>
           <div>
             <p class="text-sm font-medium mb-1">
               <span class="text-orange-600">变更规则</span> ({{ diffData.changed?.length ?? 0 }})
             </p>
-            <ElTag v-for="code in diffData.changed" :key="code" type="warning" class="mr-1 mb-1">
+            <YdBadge v-for="code in diffData.changed" :key="code" type="warning" class="mr-1 mb-1">
               {{ code }}
-            </ElTag>
+            </YdBadge>
             <span v-if="!diffData.changed?.length" class="text-xs text-gray-400">无</span>
           </div>
         </div>
-      </ElDialog>
+      </YdDialog>
 
       <!-- 发布规则包弹窗 -->
-      <ElDialog v-model="publishDialogVisible" title="发布规则包" width="500px">
-        <ElForm :model="publishForm" label-width="80px">
-          <ElFormItem label="包编码" required>
-            <ElInput v-model="publishForm.packCode" placeholder="如 finance-credit-score" />
-          </ElFormItem>
-          <ElFormItem label="包名称" required>
-            <ElInput v-model="publishForm.packName" placeholder="如 金融信用评分包" />
-          </ElFormItem>
-          <ElFormItem label="版本号">
-            <ElInput v-model="publishForm.packVersion" />
-          </ElFormItem>
-          <ElFormItem label="行业">
-            <ElInput v-model="publishForm.industry" placeholder="如 finance/ecommerce" />
-          </ElFormItem>
-          <ElFormItem label="标签">
-            <ElInput v-model="publishForm.tags" placeholder="逗号分隔" />
-          </ElFormItem>
-          <ElFormItem label="作者">
-            <ElInput v-model="publishForm.author" placeholder="作者工号或姓名" />
-          </ElFormItem>
-          <ElFormItem label="描述">
-            <ElInput v-model="publishForm.description" type="textarea" :rows="3" />
-          </ElFormItem>
-        </ElForm>
+      <YdDialog v-model="publishDialogVisible" title="发布规则包" width="500px">
+        <YdForm :model="publishForm" label-width="80px">
+          <YdFormItem label="包编码" required>
+            <YdInput v-model="publishForm.packCode" placeholder="如 finance-credit-score" />
+          </YdFormItem>
+          <YdFormItem label="包名称" required>
+            <YdInput v-model="publishForm.packName" placeholder="如 金融信用评分包" />
+          </YdFormItem>
+          <YdFormItem label="版本号">
+            <YdInput v-model="publishForm.packVersion" />
+          </YdFormItem>
+          <YdFormItem label="行业">
+            <YdInput v-model="publishForm.industry" placeholder="如 finance/ecommerce" />
+          </YdFormItem>
+          <YdFormItem label="标签">
+            <YdInput v-model="publishForm.tags" placeholder="逗号分隔" />
+          </YdFormItem>
+          <YdFormItem label="作者">
+            <YdInput v-model="publishForm.author" placeholder="作者工号或姓名" />
+          </YdFormItem>
+          <YdFormItem label="描述">
+            <YdInput v-model="publishForm.description" type="textarea" :rows="3" />
+          </YdFormItem>
+        </YdForm>
         <template #footer>
-          <ElButton @click="publishDialogVisible = false">取消</ElButton>
-          <ElButton type="primary" @click="handlePublish">确认发布</ElButton>
+          <YdButton @click="publishDialogVisible = false">取消</YdButton>
+          <YdButton type="primary" @click="handlePublish">确认发布</YdButton>
         </template>
-      </ElDialog>
+      </YdDialog>
 
       <!-- 压力测试弹窗 -->
-      <ElDialog v-model="stressDialogVisible" title="规则包压力测试" width="520px">
-        <ElForm label-width="100px" label-position="right">
-          <ElFormItem label="包编码" required>
-            <ElInput v-model="stressPackCode" placeholder="请输入需要压测的包编码" />
-          </ElFormItem>
-          <ElFormItem label="并发数">
-            <ElInputNumber v-model="stressConcurrency" :min="1" :max="1000" class="!w-full" />
-          </ElFormItem>
-          <ElFormItem label="持续时长(秒)">
-            <ElInputNumber v-model="stressDuration" :min="1" :max="600" class="!w-full" />
-          </ElFormItem>
-        </ElForm>
+      <YdDialog v-model="stressDialogVisible" title="规则包压力测试" width="520px">
+        <YdForm label-width="100px" label-position="right">
+          <YdFormItem label="包编码" required>
+            <YdInput v-model="stressPackCode" placeholder="请输入需要压测的包编码" />
+          </YdFormItem>
+          <YdFormItem label="并发数">
+            <YdNumberFieldInput v-model="stressConcurrency" :min="1" :max="1000" class="!w-full" />
+          </YdFormItem>
+          <YdFormItem label="持续时长(秒)">
+            <YdNumberFieldInput v-model="stressDuration" :min="1" :max="600" class="!w-full" />
+          </YdFormItem>
+        </YdForm>
         <pre
           v-if="stressResultText"
           class="mt-3 max-h-60 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
           >{{ stressResultText }}</pre
         >
         <template #footer>
-          <ElButton @click="stressDialogVisible = false">关闭</ElButton>
-          <ElButton type="primary" :loading="stressLoading" @click="handleStressTest">开始压测</ElButton>
+          <YdButton @click="stressDialogVisible = false">关闭</YdButton>
+          <YdButton type="primary" :loading="stressLoading" @click="handleStressTest">开始压测</YdButton>
         </template>
-      </ElDialog>
+      </YdDialog>
 
       <!-- 质量评分弹窗 -->
-      <ElDialog v-model="scoreDialogVisible" :title="`质量评分 - ${scorePackName}`" width="520px">
+      <YdDialog v-model="scoreDialogVisible" :title="`质量评分 - ${scorePackName}`" width="520px">
         <div v-loading="scoreLoading">
           <div v-if="scoreData" class="space-y-3">
             <div
@@ -755,7 +755,7 @@ onMounted(() => {
           </div>
           <div v-else class="py-8 text-center text-sm text-gray-400">暂无评分数据</div>
         </div>
-      </ElDialog>
+      </YdDialog>
     </div>
   </Page>
 </template>

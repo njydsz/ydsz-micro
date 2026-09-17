@@ -10,7 +10,7 @@ import { onMounted, reactive, ref, watch } from 'vue';
 
 // TODO: [ydsz-ui migration pending] 本文件含 ElForm、ElDivider 及 el-radio-group/el-select 等暂未提供 shadcn 映射的组件，后续 shadcn 补充后再迁移
 import { createLogger } from '@ydsz-core/shared/utils';
-import { ElButton, ElCard, ElDivider, ElForm } from 'element-plus';
+import { YdButton, YdCard, YdSeparator, YdForm } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 
 import { getUserPreferenceApi, saveUserPreferenceApi } from '#/api/core/preference';
@@ -353,9 +353,9 @@ onMounted(() => {
 
 <template>
   <div class="preference-page">
-    <ElForm label-position="top" class="preference-form">
+    <YdForm label-position="top" class="preference-form">
       <!-- 主题设置卡片 -->
-      <ElCard shadow="never" class="preference-card">
+      <YdCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
             <span class="card-title">{{ t('preferences.theme') }}</span>
@@ -377,7 +377,7 @@ onMounted(() => {
           </el-radio-group>
         </div>
 
-        <ElDivider />
+        <YdSeparator />
 
         <!-- 主题色 -->
         <div class="form-row">
@@ -411,10 +411,10 @@ onMounted(() => {
             </div>
           </div>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 布局设置卡片 -->
-      <ElCard shadow="never" class="preference-card">
+      <YdCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
             <span class="card-title">{{ t('preferences.layout') }}</span>
@@ -436,7 +436,7 @@ onMounted(() => {
           </el-radio-group>
         </div>
 
-        <ElDivider />
+        <YdSeparator />
 
         <!-- 手风琴菜单 -->
         <div class="form-row">
@@ -447,10 +447,10 @@ onMounted(() => {
             :inactive-text="t('preferences.off')"
           />
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 表格设置卡片 -->
-      <ElCard shadow="never" class="preference-card">
+      <YdCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
             <span class="card-title">{{ t('preferences.table') }}</span>
@@ -471,10 +471,10 @@ onMounted(() => {
             </el-radio-button>
           </el-radio-group>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 视觉设置卡片 -->
-      <ElCard shadow="never" class="preference-card">
+      <YdCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
             <span class="card-title">{{ t('preferences.visual') }}</span>
@@ -495,10 +495,10 @@ onMounted(() => {
             </el-radio-button>
           </el-radio-group>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 通用设置卡片 -->
-      <ElCard shadow="never" class="preference-card">
+      <YdCard shadow="never" class="preference-card">
         <template #header>
           <div class="card-header">
             <span class="card-title">{{ t('preferences.general') }}</span>
@@ -519,7 +519,7 @@ onMounted(() => {
           </el-select>
         </div>
 
-        <ElDivider />
+        <YdSeparator />
 
         <!-- 语言设置 -->
         <div class="form-row">
@@ -534,21 +534,21 @@ onMounted(() => {
             </el-radio-button>
           </el-radio-group>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 底部操作栏 -->
       <div class="action-bar">
-        <ElButton :loading="loading" plain @click="handleLoadFromBackend">
+        <YdButton :loading="loading" plain @click="handleLoadFromBackend">
           {{ t('preferences.loadFromBackend') }}
-        </ElButton>
-        <ElButton plain @click="handleReset">
+        </YdButton>
+        <YdButton plain @click="handleReset">
           {{ t('preferences.reset') }}
-        </ElButton>
-        <ElButton :loading="saving" type="primary" @click="handleSave">
+        </YdButton>
+        <YdButton :loading="saving" type="primary" @click="handleSave">
           {{ t('preferences.save') }}
-        </ElButton>
+        </YdButton>
       </div>
-    </ElForm>
+    </YdForm>
   </div>
 </template>
 

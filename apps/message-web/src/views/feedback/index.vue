@@ -24,7 +24,8 @@ import { computed, onMounted, reactive, ref } from 'vue';
 
 import type { MsgFeedbackVO } from '#/api/models';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
-import { ElEmpty, ElRate, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState, YdRate } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 
 defineOptions({ name: 'FeedbackManagement' });
@@ -176,7 +177,7 @@ onMounted(() => {
           <YdCardContent class="flex flex-col items-center pt-6">
             <span class="text-sm text-muted-foreground">平均评分</span>
             <div class="mt-2 flex items-center gap-2">
-              <ElRate :model-value="averageRating" disabled allow-half />
+              <YdRate :model-value="averageRating" disabled allow-half />
               <span class="text-2xl font-bold text-amber-500">{{ averageRating.toFixed(1) }}</span>
             </div>
           </YdCardContent>
@@ -230,7 +231,7 @@ onMounted(() => {
             <ElTableColumn prop="msgId" label="消息ID" width="180" />
             <ElTableColumn label="评分" width="200" align="center">
               <template #default="{ row }">
-                <ElRate :model-value="row.rating ?? 0" disabled allow-half />
+                <YdRate :model-value="row.rating ?? 0" disabled allow-half />
               </template>
             </ElTableColumn>
             <ElTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
@@ -259,7 +260,7 @@ onMounted(() => {
               </template>
             </ElTableColumn>
             <template #empty>
-              <ElEmpty description="暂无反馈数据" />
+              <YdEmptyState description="暂无反馈数据" />
             </template>
           </ElTable>
 
@@ -303,7 +304,7 @@ onMounted(() => {
             </div>
             <div class="flex items-center">
               <span class="w-24 text-muted-foreground">评分：</span>
-              <ElRate :model-value="currentDetail.rating ?? 0" disabled allow-half />
+              <YdRate :model-value="currentDetail.rating ?? 0" disabled allow-half />
             </div>
             <div class="flex">
               <span class="w-24 text-muted-foreground">反馈类型：</span>

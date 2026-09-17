@@ -22,7 +22,8 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty/ElDrawer 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -177,7 +178,7 @@ async function handleLogs(row: JobAlertRuleVO) {
         <ElTableColumn prop="errorMessage" label="错误信息" min-width="140" />
         <ElTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
       </ElTable>
-        <ElEmpty v-if="alertLogs.length === 0" :description="t('common.noData')" />
+        <YdEmptyState v-if="alertLogs.length === 0" :description="t('common.noData')" />
       </YdSheetContent>
     </YdSheet>
   </Page>

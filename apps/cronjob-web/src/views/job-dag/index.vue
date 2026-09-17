@@ -23,7 +23,8 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -258,7 +259,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
             </template>
           </ElTableColumn>
         </ElTable>
-        <ElEmpty v-if="versions.length === 0" :description="t('common.noData')" />
+        <YdEmptyState v-if="versions.length === 0" :description="t('common.noData')" />
       </YdSheetContent>
     </YdSheet>
   </Page>

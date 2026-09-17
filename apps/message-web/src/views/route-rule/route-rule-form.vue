@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
@@ -145,59 +145,59 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
 </script>
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="规则名称" prop="ruleName">
+      <YdFormItem label="规则名称" prop="ruleName">
         <YdInput v-model="formData.ruleName" placeholder="请输入规则名称" />
-      </ElFormItem>
-      <ElFormItem label="规则编码" prop="ruleCode">
+      </YdFormItem>
+      <YdFormItem label="规则编码" prop="ruleCode">
         <YdInput
           v-model="formData.ruleCode"
           placeholder="请输入规则编码（可为空）"
           :disabled="isEdit"
         />
-      </ElFormItem>
-      <ElFormItem label="业务类型" prop="bizType">
+      </YdFormItem>
+      <YdFormItem label="业务类型" prop="bizType">
         <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="触发通道" prop="channel">
+      </YdFormItem>
+      <YdFormItem label="触发通道" prop="channel">
         <YdInput v-model="formData.channel" placeholder="请输入触发通道（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="条件表达式" prop="conditionExpr">
+      </YdFormItem>
+      <YdFormItem label="条件表达式" prop="conditionExpr">
         <YdTextarea
           v-model="formData.conditionExpr"
           placeholder="请输入条件表达式"
         />
-      </ElFormItem>
-      <ElFormItem label="目标通道" prop="targetChannel">
+      </YdFormItem>
+      <YdFormItem label="目标通道" prop="targetChannel">
         <YdInput v-model="formData.targetChannel" placeholder="请输入目标通道" />
-      </ElFormItem>
-      <ElFormItem label="兜底通道" prop="fallbackChannel">
+      </YdFormItem>
+      <YdFormItem label="兜底通道" prop="fallbackChannel">
         <YdInput v-model="formData.fallbackChannel" placeholder="请输入兜底通道（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="优先级" prop="priority">
-        <ElInputNumber v-model="formData.priority" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem label="排序" prop="sortOrder">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="99999" />
-      </ElFormItem>
-      <ElFormItem label="状态" prop="status">
+      </YdFormItem>
+      <YdFormItem label="优先级" prop="priority">
+        <YdNumberFieldInput v-model="formData.priority" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem label="排序" prop="sortOrder">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="99999" />
+      </YdFormItem>
+      <YdFormItem label="状态" prop="status">
         <YdRadioGroup v-model="formData.status">
           <YdRadioGroupItem value="ENABLED">启用</YdRadioGroupItem>
           <YdRadioGroupItem value="DISABLED">禁用</YdRadioGroupItem>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="描述" prop="description">
+      </YdFormItem>
+      <YdFormItem label="描述" prop="description">
         <YdTextarea
           v-model="formData.description"
           placeholder="请输入描述（可为空）"
         />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup/ElInputNumber 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -128,40 +128,40 @@ const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem :label="t('configKey')" prop="configKey">
-        <ElInput v-model="formData.configKey" :placeholder="t('configKeyPlaceholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('configGroup')" prop="configGroup">
-        <ElInput v-model="formData.configGroup" :placeholder="t('configGroupPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('variable.valueType')" prop="valueType">
-        <ElInput v-model="formData.valueType" :placeholder="t('valueTypePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('configValue')" prop="configValue">
-        <ElInput v-model="formData.configValue" type="textarea" :rows="2" :placeholder="t('configValuePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('defaultValue')" prop="defaultValue">
-        <ElInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('defaultValuePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('sortOrder')" prop="sortOrder">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem :label="t('isPublic')" prop="isPublic">
-        <ElRadioGroup v-model="formData.isPublic">
-          <ElRadio :value="1">{{ t('isPublic') }}</ElRadio>
-          <ElRadio :value="0">{{ t('isPrivate') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-      <ElFormItem :label="t('description')">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('status')" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem :label="t('configKey')" prop="configKey">
+        <YdInput v-model="formData.configKey" :placeholder="t('configKeyPlaceholder')" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem :label="t('configGroup')" prop="configGroup">
+        <YdInput v-model="formData.configGroup" :placeholder="t('configGroupPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('variable.valueType')" prop="valueType">
+        <YdInput v-model="formData.valueType" :placeholder="t('valueTypePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('configValue')" prop="configValue">
+        <YdInput v-model="formData.configValue" type="textarea" :rows="2" :placeholder="t('configValuePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('defaultValue')" prop="defaultValue">
+        <YdInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('defaultValuePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('sortOrder')" prop="sortOrder">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem :label="t('isPublic')" prop="isPublic">
+        <YdRadioGroup v-model="formData.isPublic">
+          <YdRadioGroupItem :value="1">{{ t('isPublic') }}</YdRadioGroupItem>
+          <YdRadioGroupItem :value="0">{{ t('isPrivate') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+      <YdFormItem :label="t('description')">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('status')" prop="status">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

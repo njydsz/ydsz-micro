@@ -8,7 +8,7 @@
 import { globalShareState } from '@ydsz/common-ui';
 
 // TODO: ElNotification 为程序式调用 API，暂无对应 ydsz-ui 组件，保留 element-plus 导入
-import { ElNotification } from 'element-plus';
+import { ElNotification } from '@ydsz/notification/compat';
 
 import type { ComponentType } from './component-type';
 

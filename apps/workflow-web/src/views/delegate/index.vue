@@ -18,13 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: ElDatePicker / ElForm / ElFormItem / ElTabs / ElTabPane 暂不迁移，保留 element-plus 导入
-import {
-  ElDatePicker,
-  ElForm,
-  ElFormItem,
-  ElTabPane,
-  ElTabs,
-} from 'element-plus';
+import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import {
   YdBadge,
   YdButtonBase,
@@ -265,37 +259,37 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
 </script>
 <template>
   <Page auto-content-height>
-    <ElTabs class="px-4 pt-2">
-      <ElTabPane :label="t('delegate.myAuths')" name="mine">
+    <YdTabs class="px-4 pt-2">
+      <YdTabsContent :label="t('delegate.myAuths')" name="mine">
         <MyGrid :table-title="t('delegate.myAuths')">
           <template #toolbar-tools>
             <YdButtonBase @click="handleAdd">{{ t('delegate.add') }}</YdButtonBase>
           </template>
         </MyGrid>
-      </ElTabPane>
-      <ElTabPane :label="t('delegate.asDelegate')" name="as-delegate">
+      </YdTabsContent>
+      <YdTabsContent :label="t('delegate.asDelegate')" name="as-delegate">
         <AsDelegateGrid :table-title="t('delegate.asDelegate')" />
-      </ElTabPane>
-    </ElTabs>
+      </YdTabsContent>
+    </YdTabs>
     <YdDialog :open="createVisible" @update:open="createVisible = $event">
       <YdDialogContent class="!max-w-[520px]">
         <YdDialogHeader>
           <YdDialogTitle>{{ t('delegate.add.title') }}</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm
+        <YdForm
           ref="createFormRef"
           :model="createForm"
           :rules="createRules"
           label-width="110px"
           label-position="right"
         >
-        <ElFormItem :label="t('delegate.targetUserId.label')" prop="delegateUserId">
+        <YdFormItem :label="t('delegate.targetUserId.label')" prop="delegateUserId">
           <YdInput v-model="createForm.delegateUserId" :placeholder="t('delegate.targetUserId.placeholder')" />
-        </ElFormItem>
-        <ElFormItem :label="t('delegate.targetUserName.label')" prop="delegateUserName">
+        </YdFormItem>
+        <YdFormItem :label="t('delegate.targetUserName.label')" prop="delegateUserName">
           <YdInput v-model="createForm.delegateUserName" :placeholder="t('delegate.targetUserName.placeholder')" />
-        </ElFormItem>
-        <ElFormItem :label="t('delegate.scopeType.label')">
+        </YdFormItem>
+        <YdFormItem :label="t('delegate.scopeType.label')">
           <YdSelectBase v-model="createForm.scopeType">
             <YdSelectTriggerBase>
               <YdSelectValueBase :placeholder="t('delegate.scopeType.placeholder')" />
@@ -306,38 +300,38 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
               <YdSelectItemBase value="NODE">{{ t('delegate.scopeType.node') }}</YdSelectItemBase>
             </YdSelectContentBase>
           </YdSelectBase>
-        </ElFormItem>
-        <ElFormItem :label="t('wf.flowCode')">
+        </YdFormItem>
+        <YdFormItem :label="t('wf.flowCode')">
           <YdInput
             v-model="createForm.flowCode"
             :placeholder="t('delegate.flowCode.placeholder')"
           />
-        </ElFormItem>
-        <ElFormItem :label="t('delegate.startTime.label')">
-          <ElDatePicker
+        </YdFormItem>
+        <YdFormItem :label="t('delegate.startTime.label')">
+          <YdDatePicker
             v-model="createForm.startTime"
             type="date"
             value-format="YYYY-MM-DD"
             :placeholder="t('delegate.startTime.placeholder')"
             style="width: 100%"
           />
-        </ElFormItem>
-        <ElFormItem :label="t('delegate.endTime.label')">
-          <ElDatePicker
+        </YdFormItem>
+        <YdFormItem :label="t('delegate.endTime.label')">
+          <YdDatePicker
             v-model="createForm.endTime"
             type="date"
             value-format="YYYY-MM-DD"
             :placeholder="t('delegate.endTime.placeholder')"
             style="width: 100%"
           />
-        </ElFormItem>
-        <ElFormItem :label="t('delegate.reason.label')">
+        </YdFormItem>
+        <YdFormItem :label="t('delegate.reason.label')">
           <YdTextarea
             v-model="createForm.reason"
             :placeholder="t('delegate.reason.placeholder')"
           />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="secondary" @click="createVisible = false">{{ t('common.cancel') }}</YdButtonBase>
           <YdButtonBase :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</YdButtonBase>

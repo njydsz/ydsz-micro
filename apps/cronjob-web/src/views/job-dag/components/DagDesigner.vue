@@ -19,7 +19,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 表单组件保留 element-plus（有专门迁移批次）
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -215,20 +215,20 @@ function handleNodeNameChange(name: string): void {
 <template>
   <Modal title="DAG 编排设计器" width="1000px">
     <div class="dag-designer">
-      <ElForm :model="formData" label-width="100px" class="dag-form">
-        <ElFormItem label="DAG名称" required>
+      <YdForm :model="formData" label-width="100px" class="dag-form">
+        <YdFormItem label="DAG名称" required>
           <YdInput v-model="formData.dagName" placeholder="请输入DAG名称" />
-        </ElFormItem>
-        <ElFormItem label="DAG标识" required>
+        </YdFormItem>
+        <YdFormItem label="DAG标识" required>
           <YdInput v-model="formData.dagKey" placeholder="请输入DAG标识（唯一）" />
-        </ElFormItem>
-        <ElFormItem label="描述">
+        </YdFormItem>
+        <YdFormItem label="描述">
           <YdTextarea v-model="formData.description" placeholder="请输入描述" :rows="2" />
-        </ElFormItem>
-        <ElFormItem label="Cron表达式">
+        </YdFormItem>
+        <YdFormItem label="Cron表达式">
           <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
-        </ElFormItem>
-        <ElFormItem label="触发类型">
+        </YdFormItem>
+        <YdFormItem label="触发类型">
           <YdSelectBase v-model="formData.triggerType">
             <YdSelectTriggerBase placeholder="选择触发类型" />
             <YdSelectContentBase>
@@ -237,8 +237,8 @@ function handleNodeNameChange(name: string): void {
               </YdSelectItemBase>
             </YdSelectContentBase>
           </YdSelectBase>
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
 
       <!-- 设计器工具 -->
       <div class="designer-toolbar mb-3 flex items-center gap-2">
@@ -307,14 +307,14 @@ function handleNodeNameChange(name: string): void {
       <!-- 节点配置面板 -->
       <div v-if="selectedNode" class="node-config mt-3 rounded border bg-white p-3">
         <h4 class="mb-2 text-sm font-medium">节点配置</h4>
-        <ElForm label-width="80px">
-          <ElFormItem label="节点名称">
+        <YdForm label-width="80px">
+          <YdFormItem label="节点名称">
             <YdInput :model-value="selectedNode.name" @update:model-value="handleNodeNameChange" />
-          </ElFormItem>
-          <ElFormItem label="任务ID">
+          </YdFormItem>
+          <YdFormItem label="任务ID">
             <YdInput v-model="selectedNode.jobId" placeholder="关联任务ID" />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
       </div>
 
       <!-- 依赖关系列表 -->

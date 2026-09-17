@@ -37,7 +37,8 @@ export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverv
 */
 import { Page } from '@ydsz/common-ui';
 import { YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn } from 'element-plus';
+import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -92,7 +93,7 @@ onMounted(() => {
   <Page v-loading="isLoading" auto-content-height>
     <!-- 指标概览卡片 -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <ElCard shadow="hover">
+      <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
             <p class="text-sm text-gray-500">总登录次数</p>
@@ -104,9 +105,9 @@ onMounted(() => {
             <span class="text-2xl text-blue-500">🔑</span>
           </div>
         </div>
-      </ElCard>
+      </YdCard>
 
-      <ElCard shadow="hover">
+      <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
             <p class="text-sm text-gray-500">今日登录</p>
@@ -118,9 +119,9 @@ onMounted(() => {
             <span class="text-2xl text-green-500">📊</span>
           </div>
         </div>
-      </ElCard>
+      </YdCard>
 
-      <ElCard shadow="hover">
+      <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
             <p class="text-sm text-gray-500">活跃会话</p>
@@ -132,9 +133,9 @@ onMounted(() => {
             <span class="text-2xl text-purple-500">💻</span>
           </div>
         </div>
-      </ElCard>
+      </YdCard>
 
-      <ElCard shadow="hover">
+      <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
             <p class="text-sm text-gray-500">活跃用户</p>
@@ -146,18 +147,18 @@ onMounted(() => {
             <span class="text-2xl text-cyan-500">👥</span>
           </div>
         </div>
-      </ElCard>
+      </YdCard>
     </div>
 
     <!-- 登录成功率 + 接入应用 -->
     <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
       <!-- 今日登录成功率 -->
-      <ElCard>
+      <YdCard>
         <template #header>
           <span class="font-medium">今日登录成功率</span>
         </template>
         <div class="flex flex-col items-center gap-4 py-4">
-          <ElProgress
+          <YdProgress
             type="dashboard"
             :percentage="successRatePercent"
             :stroke-width="12"
@@ -172,10 +173,10 @@ onMounted(() => {
             </p>
           </div>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 接入应用统计 -->
-      <ElCard>
+      <YdCard>
         <template #header>
           <span class="font-medium">接入应用</span>
         </template>
@@ -200,17 +201,17 @@ onMounted(() => {
             {{ appName }}
           </YdBadge>
         </div>
-        <ElEmpty
+        <YdEmptyState
           v-else
           :description="'暂无应用数据'"
           :image-size="40"
         />
-      </ElCard>
+      </YdCard>
     </div>
 
     <!-- 登录趋势 -->
     <div class="mt-4">
-      <ElCard>
+      <YdCard>
         <template #header>
           <span class="font-medium">登录趋势</span>
         </template>
@@ -232,8 +233,8 @@ onMounted(() => {
             </template>
           </ElTableColumn>
         </ElTable>
-        <ElEmpty v-else description="暂无登录趋势数据" :image-size="60" />
-      </ElCard>
+        <YdEmptyState v-else description="暂无登录趋势数据" :image-size="60" />
+      </YdCard>
     </div>
   </Page>
 </template>

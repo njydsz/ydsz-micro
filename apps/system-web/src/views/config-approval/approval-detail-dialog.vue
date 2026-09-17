@@ -24,7 +24,8 @@ import { useI18n } from 'vue-i18n';
 
 import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDivider/ElForm/ElTimeline 暂无 shadcn 映射，保留 element-plus
-import { ElDescriptions, ElDescriptionsItem, ElDivider, ElForm, ElFormItem, ElInput, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -279,7 +280,7 @@ defineExpose({ close, open });
         </ElDescriptionsItem>
       </ElDescriptions>
 
-      <ElDivider />
+      <YdSeparator />
 
       <!-- 变更前后值 Diff -->
       <div class="diff-section">
@@ -296,13 +297,13 @@ defineExpose({ close, open });
         </div>
       </div>
 
-      <ElDivider />
+      <YdSeparator />
 
       <!-- 审批时间线 -->
       <div>
         <h4>{{ t('configApproval.approvalTimeline') }}</h4>
-        <ElTimeline>
-          <ElTimelineItem
+        <YdTimeline>
+          <YdTimelineItem
             v-for="(item, idx) in timeline"
             :key="item.actionTime ?? idx"
             :timestamp="item.actionTime"
@@ -311,25 +312,25 @@ defineExpose({ close, open });
           >
             <div><strong>{{ item.action }}</strong> — {{ item.approverName }}</div>
             <div v-if="item.comment" class="timeline-comment">{{ item.comment }}</div>
-          </ElTimelineItem>
-        </ElTimeline>
+          </YdTimelineItem>
+        </YdTimeline>
       </div>
 
-      <ElDivider v-if="canOperate" />
+      <YdSeparator v-if="canOperate" />
 
       <!-- 拒绝原因表单（pending + 当前审批人） -->
       <div v-if="canOperate" class="reject-form">
         <h4>{{ t('configApproval.rejectTitle') }}</h4>
-        <ElForm @submit.prevent="handleReject">
-          <ElFormItem :label="t('common.rejectionReasonLabel')">
-            <ElInput
+        <YdForm @submit.prevent="handleReject">
+          <YdFormItem :label="t('common.rejectionReasonLabel')">
+            <YdInput
               v-model="rejectionReason"
               type="textarea"
               :rows="3"
               :placeholder="t('common.placeholder', [t('common.rejectionReasonLabel')])"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
       </div>
     </div>
 

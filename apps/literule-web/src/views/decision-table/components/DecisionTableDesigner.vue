@@ -18,7 +18,8 @@
  * @since 1.0.0
  */
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/YdTable 等复杂组件，需人工评估）
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, nextTick, ref, watch } from 'vue';
 import type { DecisionTableVO } from '#/api/models';
 import {
@@ -271,7 +272,7 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <ElDialog
+  <YdDialog
     v-model="visible"
     :title="isEditMode ? '编辑决策表' : '新增决策表'"
     width="1200px"
@@ -281,50 +282,50 @@ defineExpose({ open, close });
   >
     <div v-loading="loading" class="designer-container">
       <!-- 基本信息 -->
-      <ElForm label-width="100px" class="mb-4">
+      <YdForm label-width="100px" class="mb-4">
         <div class="grid grid-cols-2 gap-4">
-          <ElFormItem label="决策表编码" required>
-            <ElInput
+          <YdFormItem label="决策表编码" required>
+            <YdInput
               v-model="tableInfo.tableCode"
               placeholder="请输入编码"
               :disabled="isEditMode"
             />
-          </ElFormItem>
-          <ElFormItem label="决策表名称" required>
-            <ElInput v-model="tableInfo.tableName" placeholder="请输入名称" />
-          </ElFormItem>
-          <ElFormItem label="分类">
-            <ElInput v-model="tableInfo.category" placeholder="请输入分类" />
-          </ElFormItem>
-          <ElFormItem label="命中策略">
-            <ElSelect v-model="tableInfo.hitPolicy" placeholder="请选择命中策略">
-              <ElOption
+          </YdFormItem>
+          <YdFormItem label="决策表名称" required>
+            <YdInput v-model="tableInfo.tableName" placeholder="请输入名称" />
+          </YdFormItem>
+          <YdFormItem label="分类">
+            <YdInput v-model="tableInfo.category" placeholder="请输入分类" />
+          </YdFormItem>
+          <YdFormItem label="命中策略">
+            <YdSelect v-model="tableInfo.hitPolicy" placeholder="请选择命中策略">
+              <YdSelectItem
                 v-for="opt in hitPolicyOptions"
                 :key="opt.value"
                 :label="opt.label"
                 :value="opt.value"
               />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem label="描述" class="col-span-2">
-            <ElInput
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem label="描述" class="col-span-2">
+            <YdInput
               v-model="tableInfo.description"
               type="textarea"
               :rows="2"
               placeholder="请输入描述"
             />
-          </ElFormItem>
+          </YdFormItem>
         </div>
-      </ElForm>
+      </YdForm>
 
       <!-- 决策表编辑区 -->
       <div class="table-editor">
         <div class="mb-3 flex items-center justify-between">
           <span class="text-sm font-medium">决策表规则</span>
           <div class="flex gap-2">
-            <ElButton size="small" @click="addConditionColumn">添加条件列</ElButton>
-            <ElButton size="small" @click="addActionColumn">添加动作列</ElButton>
-            <ElButton size="small" type="success" @click="addRuleRow">添加规则行</ElButton>
+            <YdButton size="small" @click="addConditionColumn">添加条件列</YdButton>
+            <YdButton size="small" @click="addActionColumn">添加动作列</YdButton>
+            <YdButton size="small" type="success" @click="addRuleRow">添加规则行</YdButton>
           </div>
         </div>
 
@@ -341,26 +342,26 @@ defineExpose({ open, close });
               <template #header>
                 <div class="flex flex-col items-center gap-1">
                   <span class="text-xs text-blue-600">条件</span>
-                  <ElInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
+                  <YdInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
                   <div class="flex gap-1">
-                    <ElSelect v-model="col.operator" size="small" class="flex-1">
-                      <ElOption label="等于" value="==" />
-                      <ElOption label="不等于" value="!=" />
-                      <ElOption label="大于" value=">" />
-                      <ElOption label="小于" value="<" />
-                      <ElOption label="大于等于" value=">=" />
-                      <ElOption label="小于等于" value="<=" />
-                      <ElOption label="包含" value="contains" />
-                      <ElOption label="为空" value="empty" />
-                    </ElSelect>
-                    <ElButton size="small" type="danger" @click="removeConditionColumn(colIndex)"
+                    <YdSelect v-model="col.operator" size="small" class="flex-1">
+                      <YdSelectItem label="等于" value="==" />
+                      <YdSelectItem label="不等于" value="!=" />
+                      <YdSelectItem label="大于" value=">" />
+                      <YdSelectItem label="小于" value="<" />
+                      <YdSelectItem label="大于等于" value=">=" />
+                      <YdSelectItem label="小于等于" value="<=" />
+                      <YdSelectItem label="包含" value="contains" />
+                      <YdSelectItem label="为空" value="empty" />
+                    </YdSelect>
+                    <YdButton size="small" type="danger" @click="removeConditionColumn(colIndex)"
                       >×</ElButton
                     >
                   </div>
                 </div>
               </template>
               <template #default="{ $index }">
-                <ElInput
+                <YdInput
                   v-model="ruleRows[$index][`cond_${col.colCode as string}`]"
                   size="small"
                   placeholder="输入条件值"
@@ -377,24 +378,24 @@ defineExpose({ open, close });
               <template #header>
                 <div class="flex flex-col items-center gap-1">
                   <span class="text-xs text-green-600">动作</span>
-                  <ElInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
+                  <YdInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
                   <div class="flex gap-1">
-                    <ElSelect v-model="col.colType" size="small" class="flex-1">
-                      <ElOption
+                    <YdSelect v-model="col.colType" size="small" class="flex-1">
+                      <YdSelectItem
                         v-for="opt in columnTypeOptions"
                         :key="opt.value"
                         :label="opt.label"
                         :value="opt.value"
                       />
-                    </ElSelect>
-                    <ElButton size="small" type="danger" @click="removeActionColumn(colIndex)"
+                    </YdSelect>
+                    <YdButton size="small" type="danger" @click="removeActionColumn(colIndex)"
                       >×</ElButton
                     >
                   </div>
                 </div>
               </template>
               <template #default="{ $index }">
-                <ElInput
+                <YdInput
                   v-model="ruleRows[$index][`act_${col.colCode as string}`]"
                   size="small"
                   placeholder="输入动作值"
@@ -405,9 +406,9 @@ defineExpose({ open, close });
             <!-- 操作列 -->
             <ElTableColumn label="操作" width="80" fixed="right">
               <template #default="{ $index }">
-                <ElButton size="small" type="danger" link @click="deleteRuleRow($index)">
+                <YdButton size="small" type="danger" link @click="deleteRuleRow($index)">
                   删除
-                </ElButton>
+                </YdButton>
               </template>
             </ElTableColumn>
           </ElTable>
@@ -416,24 +417,24 @@ defineExpose({ open, close });
 
       <!-- 底部操作 -->
       <div class="mt-4 flex justify-end gap-2 border-t pt-4">
-        <ElButton @click="handleEvaluate">评估测试</ElButton>
-        <ElButton @click="close">取消</ElButton>
-        <ElButton type="primary" :loading="saving" @click="handleSave">保存</ElButton>
+        <YdButton @click="handleEvaluate">评估测试</YdButton>
+        <YdButton @click="close">取消</YdButton>
+        <YdButton type="primary" :loading="saving" @click="handleSave">保存</YdButton>
       </div>
     </div>
 
     <!-- 评估测试弹窗 -->
-    <ElDialog v-model="evaluateDialogVisible" title="评估测试" width="600px">
-      <ElForm label-width="80px">
-        <ElFormItem label="输入参数">
-          <ElInput
+    <YdDialog v-model="evaluateDialogVisible" title="评估测试" width="600px">
+      <YdForm label-width="80px">
+        <YdFormItem label="输入参数">
+          <YdInput
             v-model="evaluateParams"
             type="textarea"
             :rows="4"
             placeholder='请输入JSON格式参数，如：{"age": 18, "level": "VIP"}'
           />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
       <div v-loading="evaluating" class="mt-4">
         <p class="mb-2 text-sm font-medium">评估结果：</p>
         <div v-if="evaluateResults.length === 0" class="py-4 text-center text-gray-400">
@@ -454,10 +455,10 @@ defineExpose({ open, close });
         </div>
       </div>
       <template #footer>
-        <ElButton @click="evaluateDialogVisible = false">关闭</ElButton>
+        <YdButton @click="evaluateDialogVisible = false">关闭</YdButton>
       </template>
-    </ElDialog>
-  </ElDialog>
+    </YdDialog>
+  </YdDialog>
 </template>
 
 <style scoped>

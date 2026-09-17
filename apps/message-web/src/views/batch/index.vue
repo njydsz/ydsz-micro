@@ -26,12 +26,8 @@ import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-cor
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 // SKIP: ElDrawer/ElDescriptions/ElDescriptionsItem/ElProgress 不在 shadcn 映射表，保留 EP
-import {
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDrawer,
-  ElProgress,
-} from 'element-plus';
+import { YdDrawer, YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { h, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -418,7 +414,7 @@ onBeforeUnmount(() => {
     </div>
 
     <BatchFormModal @success="handleBatchCreated" />
-    <ElDrawer v-model="progressVisible" title="批次进度" :size="440" v-loading="progressLoading">
+    <YdDrawer v-model="progressVisible" title="批次进度" :size="440" v-loading="progressLoading">
       <template #header>
         <div class="flex w-full items-center justify-between pe-2">
           <span>{{ t('page.batchSend') }}</span>
@@ -439,7 +435,7 @@ onBeforeUnmount(() => {
         <ElDescriptionsItem :label="t('templateCode')">{{ progressData.templateCode ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem :label="t('common.status')">{{ progressData.status ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem label="进度">
-          <ElProgress
+          <YdProgress
             :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"
             :status="Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status) ? 'success' : undefined"
             :stroke-width="12"
@@ -455,6 +451,6 @@ onBeforeUnmount(() => {
         <ElDescriptionsItem label="开始时间">{{ progressData.startedAt ?? '-' }}</ElDescriptionsItem>
         <ElDescriptionsItem label="完成时间">{{ progressData.completedAt ?? '-' }}</ElDescriptionsItem>
       </ElDescriptions>
-    </ElDrawer>
+    </YdDrawer>
   </Page>
 </template>

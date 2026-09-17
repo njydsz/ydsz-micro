@@ -18,7 +18,8 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getOverview } from '#/api/dashboard';
@@ -161,7 +162,7 @@ onMounted(loadData);
           />
           <ElTableColumn prop="startTime" label="时间" width="170" />
           </ElTable>
-          <ElEmpty v-else description="暂无失败记录" :image-size="60" />
+          <YdEmptyState v-else description="暂无失败记录" :image-size="60" />
         </YdCardContent>
       </YdCard>
 

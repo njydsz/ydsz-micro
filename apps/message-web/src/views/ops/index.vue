@@ -23,7 +23,7 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP（ElCard 已迁移完成，无需保留）
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 
 import {
@@ -262,14 +262,14 @@ onMounted(() => {
             <YdDialogTitle>清理单条模板缓存</YdDialogTitle>
             <YdDialogDescription>输入模板编码清理对应的缓存条目</YdDialogDescription>
           </YdDialogHeader>
-          <ElForm :model="evictForm" label-width="100px">
-            <ElFormItem label="模板编码" required>
+          <YdForm :model="evictForm" label-width="100px">
+            <YdFormItem label="模板编码" required>
               <YdInput
                 v-model="evictForm.template"
                 placeholder="请输入要清理的模板编码"
               />
-            </ElFormItem>
-          </ElForm>
+            </YdFormItem>
+          </YdForm>
           <YdDialogFooter>
             <YdButtonBase variant="outline" @click="evictDialogVisible = false">取消</YdButtonBase>
             <YdButtonBase @click="handleEvictCache">确认清理</YdButtonBase>

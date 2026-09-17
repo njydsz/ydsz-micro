@@ -21,7 +21,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（表达式编辑器包含 ElTabs/ElTabPane/ElForm/ElFormItem 等复杂组合）
-import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElTabPane, ElTabs } from 'element-plus';
+import { YdButton, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import {
   buildExpression,
@@ -406,26 +406,26 @@ watch(
 
 <template>
   <Modal :title="$t('wf.exprEditor')" width="750px">
-    <ElTabs v-model="activeTab">
+    <YdTabs v-model="activeTab">
       <!-- 可视化构建 -->
-      <ElTabPane :label="$t('wf.exprVisualBuild')" name="visual">
+      <YdTabsContent :label="$t('wf.exprVisualBuild')" name="visual">
         <div class="expression-builder">
           <!-- 条件模板快捷选择 -->
           <div v-if="templateOptions.length > 0" class="mb-3">
             <p class="mb-1 text-xs font-medium text-gray-600">{{ $t('wf.exprTemplates') }}：</p>
-            <ElSelect
+            <YdSelect
               :placeholder="$t('wf.exprSelectTemplate')"
               clearable
               style="width: 100%"
               @change="handleApplyTemplate"
             >
-              <ElOption
+              <YdSelectItem
                 v-for="tmpl in templateOptions"
                 :key="tmpl.value"
                 :label="tmpl.label"
                 :value="tmpl.value"
               />
-            </ElSelect>
+            </YdSelect>
           </div>
 
           <!-- 条件列表 -->
@@ -439,71 +439,71 @@ watch(
               <span class="field-tag">{{ condition.field }}</span>
               <span class="operator-tag">{{ condition.operator }}</span>
               <span class="value-tag">{{ condition.value }}</span>
-              <ElButton size="small" link type="danger" @click="handleRemoveCondition(index)">{{
+              <YdButton size="small" link type="danger" @click="handleRemoveCondition(index)">{{
                 $t('wf.delete')
-              }}</ElButton>
+              }}</YdButton>
             </div>
           </div>
 
           <!-- 条件输入 -->
-          <ElForm :model="builderForm" label-width="80px" class="condition-form">
-            <ElFormItem v-if="conditionList.length > 0" :label="$t('wf.exprLogic')">
-              <ElSelect v-model="builderForm.logic" :placeholder="$t('wf.exprSelectLogic')">
-                <ElOption
+          <YdForm :model="builderForm" label-width="80px" class="condition-form">
+            <YdFormItem v-if="conditionList.length > 0" :label="$t('wf.exprLogic')">
+              <YdSelect v-model="builderForm.logic" :placeholder="$t('wf.exprSelectLogic')">
+                <YdSelectItem
                   v-for="opt in logicOptions"
                   :key="opt.value"
                   :label="opt.label"
                   :value="opt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
-            <ElFormItem :label="$t('wf.exprField')">
-              <ElSelect v-model="builderForm.field" :placeholder="$t('wf.exprSelectField')" filterable>
-                <ElOption
+              </YdSelect>
+            </YdFormItem>
+            <YdFormItem :label="$t('wf.exprField')">
+              <YdSelect v-model="builderForm.field" :placeholder="$t('wf.exprSelectField')" filterable>
+                <YdSelectItem
                   v-for="v in variableOptions"
                   :key="v.name"
                   :label="`${v.label} (${v.name})`"
                   :value="v.name"
                 />
-              </ElSelect>
-            </ElFormItem>
-            <ElFormItem :label="$t('wf.exprOperator')">
-              <ElSelect v-model="builderForm.operator" :placeholder="$t('wf.exprSelectOperator')">
-                <ElOption
+              </YdSelect>
+            </YdFormItem>
+            <YdFormItem :label="$t('wf.exprOperator')">
+              <YdSelect v-model="builderForm.operator" :placeholder="$t('wf.exprSelectOperator')">
+                <YdSelectItem
                   v-for="opt in operatorOptions"
                   :key="opt.value"
                   :label="opt.label"
                   :value="opt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
-            <ElFormItem v-if="valueTypeOptions.length > 0" :label="$t('wf.exprValueType')">
-              <ElSelect v-model="builderForm.valueType" :placeholder="$t('wf.exprSelectValueType')" clearable>
-                <ElOption
+              </YdSelect>
+            </YdFormItem>
+            <YdFormItem v-if="valueTypeOptions.length > 0" :label="$t('wf.exprValueType')">
+              <YdSelect v-model="builderForm.valueType" :placeholder="$t('wf.exprSelectValueType')" clearable>
+                <YdSelectItem
                   v-for="vt in valueTypeOptions"
                   :key="vt.value"
                   :label="vt.label"
                   :value="vt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
-            <ElFormItem :label="$t('wf.exprValue')">
-              <ElInput v-model="builderForm.value" :placeholder="$t('wf.exprValuePlaceholder')" />
-            </ElFormItem>
-          </ElForm>
+              </YdSelect>
+            </YdFormItem>
+            <YdFormItem :label="$t('wf.exprValue')">
+              <YdInput v-model="builderForm.value" :placeholder="$t('wf.exprValuePlaceholder')" />
+            </YdFormItem>
+          </YdForm>
           <div class="mt-2 flex flex-wrap gap-2">
-            <ElButton type="primary" size="small" @click="handleAddCondition">{{ $t('wf.exprAddCondition') }}</ElButton>
-            <ElButton size="small" @click="applyVisualResult">{{ $t('wf.exprApplyVisual') }}</ElButton>
-            <ElButton size="small" @click="handleBuildExpression">{{ $t('wf.exprBuild') }}</ElButton>
-            <ElButton size="small" @click="resetBuilder">{{ $t('wf.exprClear') }}</ElButton>
+            <YdButton type="primary" size="small" @click="handleAddCondition">{{ $t('wf.exprAddCondition') }}</YdButton>
+            <YdButton size="small" @click="applyVisualResult">{{ $t('wf.exprApplyVisual') }}</YdButton>
+            <YdButton size="small" @click="handleBuildExpression">{{ $t('wf.exprBuild') }}</YdButton>
+            <YdButton size="small" @click="resetBuilder">{{ $t('wf.exprClear') }}</YdButton>
           </div>
         </div>
-      </ElTabPane>
+      </YdTabsContent>
 
       <!-- 文本编辑 -->
-      <ElTabPane :label="$t('wf.exprTextEdit')" name="text">
+      <YdTabsContent :label="$t('wf.exprTextEdit')" name="text">
         <div class="text-editor">
-          <ElInput
+          <YdInput
             v-model="expressionText"
             type="textarea"
             :rows="8"
@@ -519,26 +519,26 @@ watch(
             </p>
           </div>
           <div class="mt-3 flex flex-wrap gap-2">
-            <ElButton size="small" @click="handleValidateExpression">{{ $t('wf.exprValidate') }}</ElButton>
-            <ElButton size="small" @click="handleParseExpression">{{ $t('wf.exprParse') }}</ElButton>
-            <ElButton size="small" @click="handlePreviewExpression">{{ $t('wf.exprPreview') }}</ElButton>
+            <YdButton size="small" @click="handleValidateExpression">{{ $t('wf.exprValidate') }}</YdButton>
+            <YdButton size="small" @click="handleParseExpression">{{ $t('wf.exprParse') }}</YdButton>
+            <YdButton size="small" @click="handlePreviewExpression">{{ $t('wf.exprPreview') }}</YdButton>
           </div>
           <div class="mt-3">
             <p class="mb-2 text-xs font-medium text-gray-600">{{ $t('wf.exprCommonFunctions') }}：</p>
             <div class="flex flex-wrap gap-2">
-              <ElButton
+              <YdButton
                 v-for="func in functionOptions"
                 :key="func.value"
                 size="small"
                 @click="expressionText += ` ${func.value}()`"
               >
                 {{ func.label }}
-              </ElButton>
+              </YdButton>
             </div>
           </div>
         </div>
-      </ElTabPane>
-    </ElTabs>
+      </YdTabsContent>
+    </YdTabs>
 
     <!-- 表达式预览 -->
     <div class="mt-4 rounded border bg-gray-50 p-3">

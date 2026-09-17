@@ -16,7 +16,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-tag');
 const { t } = useI18n();
@@ -53,13 +53,13 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal :title="t('newTag')">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="标签名称" prop="name">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="标签名称" prop="name">
         <YdInput v-model="formData.name" placeholder="请输入标签名称" />
-      </ElFormItem>
-      <ElFormItem label="标签颜色" prop="color">
+      </YdFormItem>
+      <YdFormItem label="标签颜色" prop="color">
         <YdInput v-model="formData.color" placeholder="如 #409eff（可选）" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

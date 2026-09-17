@@ -18,7 +18,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 // TODO: ElStatistic 暂不迁移，保留 element-plus 导入
-import { ElStatistic } from 'element-plus';
+import { YdCountToAnimator } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
@@ -329,17 +329,17 @@ onMounted(() => {
     <div class="mb-4 grid grid-cols-4 gap-4 px-4">
       <YdCard>
         <YdCardContent class="pt-6">
-          <ElStatistic :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
+          <YdCountToAnimator :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
         </YdCardContent>
       </YdCard>
       <YdCard>
         <YdCardContent class="pt-6">
-          <ElStatistic :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
+          <YdCountToAnimator :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
         </YdCardContent>
       </YdCard>
       <YdCard>
         <YdCardContent class="pt-6">
-          <ElStatistic :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
+          <YdCountToAnimator :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
         </YdCardContent>
       </YdCard>
       <YdCard>

@@ -23,7 +23,8 @@ import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElTable/ElTableColumn/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -315,14 +316,14 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
             </template>
           </ElTableColumn>
         </ElTable>
-        <ElEmpty v-else description="暂无节点明细" :image-size="60" class="mb-3" />
+        <YdEmptyState v-else description="暂无节点明细" :image-size="60" class="mb-3" />
 
         <div class="mb-1 text-sm font-medium">工作流拓扑（mermaid 源码）</div>
         <pre
           v-if="mermaidText"
           class="max-h-64 overflow-auto whitespace-pre-wrap break-all rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
           >{{ mermaidText }}</pre>
-        <ElEmpty v-else description="暂无拓扑数据" :image-size="60" />
+        <YdEmptyState v-else description="暂无拓扑数据" :image-size="60" />
       </template>
       </YdSheetContent>
     </YdSheet>

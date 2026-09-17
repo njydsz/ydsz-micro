@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -155,49 +155,49 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
 </script>
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('templateCode')" prop="templateCode">
+      <YdFormItem :label="t('templateCode')" prop="templateCode">
         <YdInput v-model="formData.templateCode" :placeholder="t('templateCode')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="通道" prop="channel">
+      </YdFormItem>
+      <YdFormItem label="通道" prop="channel">
         <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
-      </ElFormItem>
-      <ElFormItem :label="t('category')" prop="category">
+      </YdFormItem>
+      <YdFormItem :label="t('category')" prop="category">
         <YdInput v-model="formData.category" placeholder="请输入分类（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="场景编码" prop="sceneCode">
+      </YdFormItem>
+      <YdFormItem label="场景编码" prop="sceneCode">
         <YdInput v-model="formData.sceneCode" placeholder="请输入场景编码（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="主题" prop="subject">
+      </YdFormItem>
+      <YdFormItem label="主题" prop="subject">
         <YdInput v-model="formData.subject" placeholder="请输入主题（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="内容" prop="content">
+      </YdFormItem>
+      <YdFormItem label="内容" prop="content">
         <YdTextarea v-model="formData.content" placeholder="请输入模板内容" />
-      </ElFormItem>
-      <ElFormItem label="供应商" prop="provider">
+      </YdFormItem>
+      <YdFormItem label="供应商" prop="provider">
         <YdInput v-model="formData.provider" placeholder="请输入供应商（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="供应商键" prop="providerKey">
+      </YdFormItem>
+      <YdFormItem label="供应商键" prop="providerKey">
         <YdInput v-model="formData.providerKey" placeholder="请输入供应商模板键（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="签名" prop="signName">
+      </YdFormItem>
+      <YdFormItem label="签名" prop="signName">
         <YdInput v-model="formData.signName" placeholder="请输入签名（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="语言" prop="locale">
+      </YdFormItem>
+      <YdFormItem label="语言" prop="locale">
         <YdInput v-model="formData.locale" placeholder="请输入语言（可为空）" />
-      </ElFormItem>
-      <ElFormItem :label="t('version')" prop="version">
+      </YdFormItem>
+      <YdFormItem :label="t('version')" prop="version">
         <YdInput v-model="formData.version" placeholder="请输入版本（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="描述" prop="description">
+      </YdFormItem>
+      <YdFormItem label="描述" prop="description">
         <YdTextarea v-model="formData.description" placeholder="请输入描述（可为空）" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

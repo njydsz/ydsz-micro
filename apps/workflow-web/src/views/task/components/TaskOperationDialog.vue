@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（任务操作弹窗包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElRadioButton 等复杂组合）
-import { ElButton, ElForm, ElFormItem, ElInput, ElOption, ElRadioButton, ElRadioGroup, ElSelect, ElTabPane, ElTabs } from 'element-plus';
+import { YdButton, YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';
 import type { FlowRunTaskVO, FlowTaskOperateDTO } from '#/api/models';
@@ -184,91 +184,91 @@ function handleSubmit(): void {
 
 <template>
   <Modal :title="operationTitle" width="560px">
-    <ElTabs v-model="activeOperation" class="operation-tabs">
+    <YdTabs v-model="activeOperation" class="operation-tabs">
       <!-- 任务跳转 -->
-      <ElTabPane :label="t('task.jump.title')" name="jump">
-        <ElForm :model="jumpForm" label-width="100px" class="mt-4">
-          <ElFormItem :label="t('task.jump.mode.label')">
-            <ElRadioGroup v-model="jumpForm.mode">
-              <ElRadioButton value="designated">{{ t('task.jump.mode.designated') }}</ElRadioButton>
-              <ElRadioButton value="free">{{ t('task.jump.mode.free') }}</ElRadioButton>
-            </ElRadioGroup>
-          </ElFormItem>
-          <ElFormItem v-if="jumpForm.mode === 'designated'" :label="t('task.jump.targetNode.label')">
-            <ElSelect
+      <YdTabsContent :label="t('task.jump.title')" name="jump">
+        <YdForm :model="jumpForm" label-width="100px" class="mt-4">
+          <YdFormItem :label="t('task.jump.mode.label')">
+            <YdRadioGroup v-model="jumpForm.mode">
+              <YdRadioGroupItem value="designated">{{ t('task.jump.mode.designated') }}</YdRadioGroupItem>
+              <YdRadioGroupItem value="free">{{ t('task.jump.mode.free') }}</YdRadioGroupItem>
+            </YdRadioGroup>
+          </YdFormItem>
+          <YdFormItem v-if="jumpForm.mode === 'designated'" :label="t('task.jump.targetNode.label')">
+            <YdSelect
               v-model="jumpForm.targetNodeCode"
               :placeholder="t('task.jump.targetNode.placeholder')"
               filterable
               class="w-full"
             >
-              <ElOption
+              <YdSelectItem
                 v-for="node in jumpableNodes"
                 :key="node.nodeCode"
                 :label="node.nodeName"
                 :value="node.nodeCode"
               />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem :label="t('task.jump.reason.label')">
-            <ElInput
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem :label="t('task.jump.reason.label')">
+            <YdInput
               v-model="jumpForm.comment"
               type="textarea"
               :rows="3"
               :placeholder="t('task.jump.reason.placeholder')"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
 
       <!-- 任务沟通 -->
-      <ElTabPane :label="t('task.communicate.title')" name="communicate">
-        <ElForm :model="communicateForm" label-width="100px" class="mt-4">
-          <ElFormItem :label="t('task.communicate.content.label')">
-            <ElInput
+      <YdTabsContent :label="t('task.communicate.title')" name="communicate">
+        <YdForm :model="communicateForm" label-width="100px" class="mt-4">
+          <YdFormItem :label="t('task.communicate.content.label')">
+            <YdInput
               v-model="communicateForm.content"
               type="textarea"
               :rows="4"
               :placeholder="t('task.communicate.content.placeholder')"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('task.communicate.target.label')">
-            <ElSelect
+          </YdFormItem>
+          <YdFormItem :label="t('task.communicate.target.label')">
+            <YdSelect
               v-model="communicateForm.targetUserIds"
               multiple
               :placeholder="t('task.communicate.target.placeholder')"
               filterable
               class="w-full"
             >
-              <ElOption :label="t('task.communicate.target.initiator')" value="initiator" />
-              <ElOption :label="t('task.communicate.target.prevAssignee')" value="prevAssignee" />
-            </ElSelect>
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
+              <YdSelectItem :label="t('task.communicate.target.initiator')" value="initiator" />
+              <YdSelectItem :label="t('task.communicate.target.prevAssignee')" value="prevAssignee" />
+            </YdSelect>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
 
       <!-- 保存草稿 -->
-      <ElTabPane :label="t('task.draft.title')" name="draft">
-        <ElForm :model="draftForm" label-width="100px" class="mt-4">
-          <ElFormItem :label="t('task.draft.comment.label')">
-            <ElInput
+      <YdTabsContent :label="t('task.draft.title')" name="draft">
+        <YdForm :model="draftForm" label-width="100px" class="mt-4">
+          <YdFormItem :label="t('task.draft.comment.label')">
+            <YdInput
               v-model="draftForm.comment"
               type="textarea"
               :rows="4"
               :placeholder="t('task.draft.comment.placeholder')"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('task.draft.tips.label')">
+          </YdFormItem>
+          <YdFormItem :label="t('task.draft.tips.label')">
             <p class="text-xs text-gray-400">
               {{ t('task.draft.tips.content') }}
             </p>
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
-    </ElTabs>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
+    </YdTabs>
 
     <template #footer>
-      <ElButton @click="modalApi.close()">{{ t('common.cancel') }}</ElButton>
-      <ElButton type="primary" :loading="submitting" @click="handleSubmit">{{ t('common.confirm') }}</ElButton>
+      <YdButton @click="modalApi.close()">{{ t('common.cancel') }}</YdButton>
+      <YdButton type="primary" :loading="submitting" @click="handleSubmit">{{ t('common.confirm') }}</YdButton>
     </template>
   </Modal>
 </template>

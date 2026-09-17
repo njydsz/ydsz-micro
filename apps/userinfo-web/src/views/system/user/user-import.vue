@@ -17,7 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdButtonBase, YdUpload } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { ElProgress } from 'element-plus';
+import { YdProgress } from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -147,7 +147,7 @@ async function handleImport(): Promise<void> {
 
       <!-- 导入进度 -->
       <div v-if="importing">
-        <ElProgress :percentage="importProgress" :status="importProgress === 100 ? 'success' : ''" />
+        <YdProgress :percentage="importProgress" :status="importProgress === 100 ? 'success' : ''" />
         <p class="mt-1 text-xs text-gray-500">{{ t('user.importingText') }}</p>
       </div>
 

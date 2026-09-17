@@ -17,7 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElDatePicker, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { YdDatePicker, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { advancedSearch } from '#/api/search';
 import { listTags } from '#/api/tag';
@@ -110,38 +110,38 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal :title="t('searchAdvancedTitle')">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="120px" label-position="right">
-      <ElFormItem :label="t('searchAdvancedKeyword')" prop="rawInput">
-        <ElInput v-model="formData.rawInput" :placeholder="t('searchAdvancedKeywordPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('searchAdvancedType')" prop="scope">
-        <ElSelect v-model="formData.scope" clearable :placeholder="t('searchAdvancedTypePlaceholder')" class="w-full">
-          <ElOption v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('searchAdvancedTimeRange')" prop="startDate">
-        <ElDatePicker
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="120px" label-position="right">
+      <YdFormItem :label="t('searchAdvancedKeyword')" prop="rawInput">
+        <YdInput v-model="formData.rawInput" :placeholder="t('searchAdvancedKeywordPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('searchAdvancedType')" prop="scope">
+        <YdSelect v-model="formData.scope" clearable :placeholder="t('searchAdvancedTypePlaceholder')" class="w-full">
+          <YdSelectItem v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="t('searchAdvancedTimeRange')" prop="startDate">
+        <YdDatePicker
           v-model="formData.startDate"
           type="datetime"
           :placeholder="t('searchAdvancedStartDatePlaceholder')"
           value-format="YYYY-MM-DD HH:mm:ss"
           class="w-full"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('searchAdvancedEndDate')" prop="endDate">
-        <ElDatePicker
+      </YdFormItem>
+      <YdFormItem :label="t('searchAdvancedEndDate')" prop="endDate">
+        <YdDatePicker
           v-model="formData.endDate"
           type="datetime"
           :placeholder="t('searchAdvancedEndDatePlaceholder')"
           value-format="YYYY-MM-DD HH:mm:ss"
           class="w-full"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('searchAdvancedTags')" prop="tags">
-        <ElSelect v-model="formData.tags" multiple clearable :placeholder="t('searchAdvancedTagsPlaceholder')" class="w-full">
-          <ElOption v-for="tag in tagList" :key="tag.id" :label="tag.name" :value="tag.id" />
-        </ElSelect>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('searchAdvancedTags')" prop="tags">
+        <YdSelect v-model="formData.tags" multiple clearable :placeholder="t('searchAdvancedTagsPlaceholder')" class="w-full">
+          <YdSelectItem v-for="tag in tagList" :key="tag.id" :label="tag.name" :value="tag.id" />
+        </YdSelect>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

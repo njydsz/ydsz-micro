@@ -23,15 +23,9 @@ import type { ErrorCode } from '@YDSZ/locales/errors';
 import { ZH_CN_MESSAGES } from '@YDSZ/locales/errors/zh-CN';
 import { YdBadge, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard/ElEmpty/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdInput、Tag → shadcn
-import {
-  ElCard,
-  ElEmpty,
-  ElOption,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-} from 'element-plus';
-import { Search } from '@element-plus/icons-vue';
+import { YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
+import { Search } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -176,7 +170,7 @@ if (import.meta.env.DEV) {
 <template>
   <div class="error-code-management p-4 space-y-4">
     <!-- 顶部过滤区 -->
-    <ElCard shadow="never">
+    <YdCard shadow="never">
       <div class="flex flex-wrap items-center gap-4">
         <!-- TODO: prefix-icon 与 clearable 需手动组合 slot（shadcn YdInput 不内置） -->
         <YdInput
@@ -184,29 +178,29 @@ if (import.meta.env.DEV) {
           placeholder="搜索错误码 / 关键词"
           class="w-[260px]"
         />
-        <ElSelect v-model="moduleFilter" placeholder="选择模块" style="width: 180px">
-          <ElOption
+        <YdSelect v-model="moduleFilter" placeholder="选择模块" style="width: 180px">
+          <YdSelectItem
             v-for="opt in moduleOptions"
             :key="opt.value"
             :label="opt.label"
             :value="opt.value"
           />
-        </ElSelect>
-        <ElSelect v-model="levelFilter" placeholder="选择等级" style="width: 140px">
-          <ElOption label="全部等级" value="all" />
-          <ElOption label="INFO" value="INFO" />
-          <ElOption label="WARN" value="WARN" />
-          <ElOption label="ERROR" value="ERROR" />
-          <ElOption label="FATAL" value="FATAL" />
-        </ElSelect>
+        </YdSelect>
+        <YdSelect v-model="levelFilter" placeholder="选择等级" style="width: 140px">
+          <YdSelectItem label="全部等级" value="all" />
+          <YdSelectItem label="INFO" value="INFO" />
+          <YdSelectItem label="WARN" value="WARN" />
+          <YdSelectItem label="ERROR" value="ERROR" />
+          <YdSelectItem label="FATAL" value="FATAL" />
+        </YdSelect>
         <div class="ml-auto text-sm text-gray-400">
           共 {{ filteredErrorCodes.length }} / {{ allErrorCodes.length }} 条
         </div>
       </div>
-    </ElCard>
+    </YdCard>
 
     <!-- 错误码表格 -->
-    <ElCard shadow="never">
+    <YdCard shadow="never">
       <ElTable :data="filteredErrorCodes" stripe style="width: 100%">
         <ElTableColumn prop="code" label="错误码" width="120">
           <template #default="{ row }">
@@ -225,7 +219,7 @@ if (import.meta.env.DEV) {
         </ElTableColumn>
         <ElTableColumn prop="message" label="错误描述" min-width="300" />
       </ElTable>
-      <ElEmpty v-if="filteredErrorCodes.length === 0" description="暂无匹配的错误码" />
-    </ElCard>
+      <YdEmptyState v-if="filteredErrorCodes.length === 0" description="暂无匹配的错误码" />
+    </YdCard>
   </div>
 </template>

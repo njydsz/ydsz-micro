@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createShare } from '#/api/share';
@@ -56,19 +56,19 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal title="新建分享">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="分享标题" prop="title">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="分享标题" prop="title">
         <YdInput v-model="formData.title" placeholder="请输入分享标题（可选）" />
-      </ElFormItem>
-      <ElFormItem label="文件节点ID" prop="fileNodeId">
+      </YdFormItem>
+      <YdFormItem label="文件节点ID" prop="fileNodeId">
         <YdInput v-model="formData.fileNodeId" placeholder="请输入文件节点ID" />
-      </ElFormItem>
-      <ElFormItem label="分享类型" prop="shareType">
+      </YdFormItem>
+      <YdFormItem label="分享类型" prop="shareType">
         <YdInput v-model="formData.shareType" placeholder="如 LINK / PASSWORD" />
-      </ElFormItem>
-      <ElFormItem label="过期时间" prop="expireTime">
+      </YdFormItem>
+      <YdFormItem label="过期时间" prop="expireTime">
         <YdInput v-model="formData.expireTime" placeholder="格式 yyyy-MM-dd HH:mm:ss，留空永久有效" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

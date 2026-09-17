@@ -24,7 +24,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移暂缓（含 Drawer/Dropdown/YdTable 等复杂组件，需人工评估）
-import { ElButton, ElDrawer, ElDropdown, ElDropdownItem, ElDropdownMenu, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { YdButton, YdDrawer, YdDropdownMenu, YdDropdownMenuItem, YdDropdownMenu, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -439,7 +440,7 @@ void loadCategoryTree();
           表格
         </button>
       </div>
-      <ElButton type="primary" @click="handleAdd">新增</ElButton>
+      <YdButton type="primary" @click="handleAdd">新增</YdButton>
     </div>
 
     <!-- 表格视图 -->
@@ -516,8 +517,8 @@ void loadCategoryTree();
             </template>
 
             <template #actions>
-              <ElDropdown trigger="click" @command="(cmd: string) => handleCardAction(cmd as CardCommand, item)">
-                <ElButton
+              <YdDropdownMenu trigger="click" @command="(cmd: string) => handleCardAction(cmd as CardCommand, item)">
+                <YdButton
                   size="small"
                   link
                   type="primary"
@@ -549,30 +550,30 @@ void loadCategoryTree();
                       r="1"
                     />
                   </svg>
-                </ElButton>
+                </YdButton>
                 <template #dropdown>
-                  <ElDropdownMenu>
-                    <ElDropdownItem command="edit">
+                  <YdDropdownMenu>
+                    <YdDropdownMenuItem command="edit">
                       编辑信息
-                    </ElDropdownItem>
-                    <ElDropdownItem command="design">
+                    </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="design">
                       规则编排
-                    </ElDropdownItem>
-                    <ElDropdownItem command="toggle">
+                    </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="toggle">
                       {{ item.isEnabled ? '停用规则' : '启用规则' }}
-                    </ElDropdownItem>
-                    <ElDropdownItem command="version" divided>
+                    </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="version" divided>
                       版本历史
-                    </ElDropdownItem>
-                    <ElDropdownItem
+                    </YdDropdownMenuItem>
+                    <YdDropdownMenuItem
                       command="delete"
                       divided
                     >
                       <span class="text-destructive">删除规则</span>
-                    </ElDropdownItem>
-                  </ElDropdownMenu>
+                    </YdDropdownMenuItem>
+                  </YdDropdownMenu>
                 </template>
-              </ElDropdown>
+              </YdDropdownMenu>
             </template>
           </YdEntityCard>
         </YdCardGrid>
@@ -585,9 +586,9 @@ void loadCategoryTree();
       :rule-code="currentRule?.ruleCode"
       @success="handleRefresh()"
     />
-    <ElDrawer v-model="versionsVisible" title="版本历史" :size="540">
+    <YdDrawer v-model="versionsVisible" title="版本历史" :size="540">
       <div class="mb-2 flex justify-end">
-        <ElButton size="small" @click="loadVersions">刷新</ElButton>
+        <YdButton size="small" @click="loadVersions">刷新</YdButton>
       </div>
       <ElTable
         :data="versionRows"
@@ -621,15 +622,15 @@ void loadCategoryTree();
           fixed="right"
         >
           <template #default="{ row }">
-            <ElButton
+            <YdButton
               link
               type="primary"
               size="small"
               @click="handleRollback(row)"
-            >回滚</ElButton>
+            >回滚</YdButton>
           </template>
         </ElTableColumn>
       </ElTable>
-    </ElDrawer>
+    </YdDrawer>
   </Page>
 </template>

@@ -16,7 +16,8 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -58,7 +59,7 @@ const loading = ref(false);
         <ElTableColumn prop="loginTime" :label="t('session.loginTime')" width="170" />
         <ElTableColumn prop="expireTime" :label="t('session.expireTime')" width="170" />
       </ElTable>
-      <ElEmpty v-if="userSessions.length === 0 && !loading" :description="t('session.noUserSessions')" :image-size="60" />
+      <YdEmptyState v-if="userSessions.length === 0 && !loading" :description="t('session.noUserSessions')" :image-size="60" />
     </div>
   </Modal>
 </template>

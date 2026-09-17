@@ -16,7 +16,8 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElDialog, ElTable, ElTableColumn } from 'element-plus';
+import { YdDialog } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
@@ -176,8 +177,8 @@ onMounted(() => {
       <div class="mb-3 flex justify-between">
         <span class="text-sm text-gray-500">共 {{ versions.length }} 个版本</span>
         <div class="flex gap-2">
-          <ElButton size="small" @click="handleCompare">版本对比</ElButton>
-          <ElButton size="small" @click="loadVersions">刷新</ElButton>
+          <YdButton size="small" @click="handleCompare">版本对比</YdButton>
+          <YdButton size="small" @click="loadVersions">刷新</YdButton>
         </div>
       </div>
 
@@ -212,12 +213,12 @@ onMounted(() => {
       </ElTable>
 
       <!-- 版本对比结果 -->
-      <ElDialog v-model="comparing" title="版本对比" width="700px">
+      <YdDialog v-model="comparing" title="版本对比" width="700px">
         <pre class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs">{{ diffContent }}</pre>
         <template #footer>
           <YdButtonBase variant="outline" @click="comparing = false">关闭</YdButtonBase>
         </template>
-      </ElDialog>
+      </YdDialog>
     </div>
   </Modal>
 </template>

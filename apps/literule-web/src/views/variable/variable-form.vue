@@ -89,33 +89,33 @@ const title = computed(() => (isEdit.value ? t('editVariableTitle') : t('createV
 </script>
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('variableNameColumn')" prop="name">
-        <ElInput v-model="formData.name" :placeholder="t('variableNamePlaceholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('variableType')">
-        <ElInput v-model="formData.type" :placeholder="t('variableTypePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('categoryColumn')">
-        <ElInput v-model="formData.category" :placeholder="t('variableCategoryPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('descriptionColumn')">
-        <ElInput
+      <YdFormItem :label="t('variableNameColumn')" prop="name">
+        <YdInput v-model="formData.name" :placeholder="t('variableNamePlaceholder')" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem :label="t('variableType')">
+        <YdInput v-model="formData.type" :placeholder="t('variableTypePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('categoryColumn')">
+        <YdInput v-model="formData.category" :placeholder="t('variableCategoryPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('descriptionColumn')">
+        <YdInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
           :placeholder="t('variableDescriptionPlaceholder')"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('required')">
-        <ElSwitch v-model="formData.isRequired" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('required')">
+        <YdSwitch v-model="formData.isRequired" />
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

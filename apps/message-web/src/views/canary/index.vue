@@ -23,7 +23,8 @@ import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
-import { ElForm, ElFormItem, ElInputNumber, ElTable, ElTableColumn } from 'element-plus';
+import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 
 defineOptions({ name: 'CanaryManagement' });
 
@@ -289,20 +290,20 @@ onMounted(() => {
           <YdDialogHeader>
             <YdDialogTitle>创建灰度实验</YdDialogTitle>
           </YdDialogHeader>
-          <ElForm :model="quickForm" label-width="100px">
-            <ElFormItem label="实验名称" required>
+          <YdForm :model="quickForm" label-width="100px">
+            <YdFormItem label="实验名称" required>
               <YdInput
                 v-model="quickForm.experimentName"
                 placeholder="请输入实验名称"
               />
-            </ElFormItem>
-            <ElFormItem label="模板编码">
+            </YdFormItem>
+            <YdFormItem label="模板编码">
               <YdInput
                 v-model="quickForm.templateCode"
                 placeholder="关联模板编码（可选）"
               />
-            </ElFormItem>
-            <ElFormItem label="通道" required>
+            </YdFormItem>
+            <YdFormItem label="通道" required>
               <YdSelectBase v-model="quickForm.channel">
                 <YdSelectTriggerBase class="w-full">
                   <YdSelectValueBase placeholder="请选择通道" />
@@ -314,10 +315,10 @@ onMounted(() => {
                   <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
                 </YdSelectContentBase>
               </YdSelectBase>
-            </ElFormItem>
-            <ElFormItem label="灰度比例">
+            </YdFormItem>
+            <YdFormItem label="灰度比例">
               <div class="flex items-center">
-                <ElInputNumber
+                <YdNumberFieldInput
                   v-model="quickForm.canaryPercent"
                   :min="1"
                   :max="100"
@@ -326,14 +327,14 @@ onMounted(() => {
                 />
                 <span class="ml-2 text-muted-foreground">%</span>
               </div>
-            </ElFormItem>
-            <ElFormItem label="目标指标">
+            </YdFormItem>
+            <YdFormItem label="目标指标">
               <YdTextarea
                 v-model="quickForm.metricsGoal"
                 placeholder="灰度实验目标指标（可选）"
               />
-            </ElFormItem>
-          </ElForm>
+            </YdFormItem>
+          </YdForm>
           <YdDialogFooter>
             <YdButtonBase variant="outline" @click="quickCreateVisible = false">取消</YdButtonBase>
             <YdButtonBase @click="handleQuickCreate">确认创建</YdButtonBase>
@@ -347,14 +348,14 @@ onMounted(() => {
           <YdDialogHeader>
             <YdDialogTitle>灰度分桶分配查询</YdDialogTitle>
           </YdDialogHeader>
-          <ElForm :model="bucketForm" label-width="100px">
-            <ElFormItem label="实验ID">
+          <YdForm :model="bucketForm" label-width="100px">
+            <YdFormItem label="实验ID">
               <YdInput v-model="bucketForm.experimentId" placeholder="实验ID" />
-            </ElFormItem>
-            <ElFormItem label="请求键">
+            </YdFormItem>
+            <YdFormItem label="请求键">
               <YdInput v-model="bucketForm.requestKey" placeholder="请求键（用户ID等）" />
-            </ElFormItem>
-          </ElForm>
+            </YdFormItem>
+          </YdForm>
           <div v-if="bucketResult" class="mt-4 rounded bg-muted p-3">
             <span class="text-sm text-muted-foreground">分配结果：</span>
             <span class="ml-2 font-mono font-bold text-blue-600">{{ bucketResult }}</span>

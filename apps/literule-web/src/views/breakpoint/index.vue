@@ -227,7 +227,7 @@ async function handleSubmitCommand() {
           </ElTableColumn>
         </ElTable>
         <div class="flex items-start gap-3">
-          <ElInput
+          <YdInput
             v-model="commandText"
             type="textarea"
             :rows="4"

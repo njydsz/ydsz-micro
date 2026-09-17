@@ -18,7 +18,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { ElTransfer } from 'element-plus';
+import { YdTransfer } from '@ydsz-core/ydsz-ui';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -81,7 +81,7 @@ watch(
 <template>
   <Modal :title="t('user.assignRoles') + ' - ' + username" class="w-[600px]">
     <div class="py-4">
-      <ElTransfer
+      <YdTransfer
         v-model="selectedRoleIds"
         :data="transferData"
         :titles="[t('user.optionalRole'), t('user.assignedRole')]"

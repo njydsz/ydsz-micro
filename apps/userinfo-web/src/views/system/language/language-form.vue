@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -120,34 +120,34 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.languag
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('page.languageCode')" prop="languageCode">
-        <ElInput v-model="formData.languageCode" :placeholder="t('language.languageCodePlaceholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.languageName')" prop="languageName">
-        <ElInput v-model="formData.languageName" :placeholder="t('language.languageNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('language.defaultLanguage')">
-        <ElRadioGroup v-model="formData.isDefault">
-          <ElRadio :value="1">{{ t('language.yesDefault') }}</ElRadio>
-          <ElRadio :value="0">{{ t('language.noDefault') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-      <ElFormItem :label="t('page.sortOrder')">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.status')">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+      <YdFormItem :label="t('page.languageCode')" prop="languageCode">
+        <YdInput v-model="formData.languageCode" :placeholder="t('language.languageCodePlaceholder')" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.languageName')" prop="languageName">
+        <YdInput v-model="formData.languageName" :placeholder="t('language.languageNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('language.defaultLanguage')">
+        <YdRadioGroup v-model="formData.isDefault">
+          <YdRadioGroupItem :value="1">{{ t('language.yesDefault') }}</YdRadioGroupItem>
+          <YdRadioGroupItem :value="0">{{ t('language.noDefault') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+      <YdFormItem :label="t('page.sortOrder')">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.status')">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('page.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('page.disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

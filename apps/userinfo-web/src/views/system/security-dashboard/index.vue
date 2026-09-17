@@ -23,7 +23,8 @@
 */
 import { Page } from '@ydsz/common-ui';
 import { YdBadge } from '@ydsz-core/ydsz-ui';
-import { ElCard, ElEmpty, ElProgress, ElTable, ElTableColumn } from 'element-plus';
+import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -169,7 +170,7 @@ onMounted(() => {
     <div v-loading="loading" class="space-y-4">
       <!-- 总览卡片 -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.totalUsers') }}</p>
@@ -179,9 +180,9 @@ onMounted(() => {
               <span class="text-2xl text-blue-500">👥</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.onlineUsers') }}</p>
@@ -191,9 +192,9 @@ onMounted(() => {
               <span class="text-2xl text-green-500">🟢</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.todayLogin') }}</p>
@@ -203,9 +204,9 @@ onMounted(() => {
               <span class="text-2xl text-purple-500">📊</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.loginSuccessRate') }}</p>
@@ -217,9 +218,9 @@ onMounted(() => {
               <span class="text-2xl text-blue-500">✅</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.mfaCoverage') }}</p>
@@ -229,14 +230,14 @@ onMounted(() => {
               <span class="text-2xl text-cyan-500">🔐</span>
             </div>
           </div>
-          <ElProgress
+          <YdProgress
             :percentage="Number(((mfaCoverage.coverageRate ?? 0) * 100).toFixed(0))"
             :stroke-width="6"
             class="mt-2"
           />
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.lockedUsers') }}</p>
@@ -246,9 +247,9 @@ onMounted(() => {
               <span class="text-2xl text-orange-500">🔒</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.bannedUsers') }}</p>
@@ -258,9 +259,9 @@ onMounted(() => {
               <span class="text-2xl text-red-500">🚫</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.riskScoreAvg') }}</p>
@@ -272,13 +273,13 @@ onMounted(() => {
               <span class="text-2xl text-yellow-500">⚠️</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
       </div>
 
       <!-- 风险分布与会话信息 -->
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <!-- 风险等级分布 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.riskDistribution') }}</span>
           </template>
@@ -286,7 +287,7 @@ onMounted(() => {
             <div class="flex items-center justify-between">
               <span class="text-sm text-gray-600">{{ t('security.highRisk') }}</span>
               <div class="flex items-center gap-2">
-                <ElProgress
+                <YdProgress
                   :percentage="((riskDistribution.highRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
                   :stroke-width="10"
                   class="w-32"
@@ -298,7 +299,7 @@ onMounted(() => {
             <div class="flex items-center justify-between">
               <span class="text-sm text-gray-600">{{ t('security.mediumRisk') }}</span>
               <div class="flex items-center gap-2">
-                <ElProgress
+                <YdProgress
                   :percentage="((riskDistribution.mediumRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
                   :stroke-width="10"
                   class="w-32"
@@ -310,7 +311,7 @@ onMounted(() => {
             <div class="flex items-center justify-between">
               <span class="text-sm text-gray-600">{{ t('security.lowRisk') }}</span>
               <div class="flex items-center gap-2">
-                <ElProgress
+                <YdProgress
                   :percentage="((riskDistribution.lowRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
                   :stroke-width="10"
                   class="w-32"
@@ -320,10 +321,10 @@ onMounted(() => {
               </div>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- 会话活跃度 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.sessionActivity') }}</span>
           </template>
@@ -341,13 +342,13 @@ onMounted(() => {
               <p class="mt-1 text-xs text-gray-500">{{ t('security.avgDuration') }}</p>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
       </div>
 
       <!-- 异常会话与安全事件 -->
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <!-- 异常会话 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.anomalySessions') }}</span>
           </template>
@@ -363,11 +364,11 @@ onMounted(() => {
               </template>
             </ElTableColumn>
           </ElTable>
-          <ElEmpty v-if="anomalySessions.length === 0" :description="t('security.noAnomalySessions')" :image-size="60" />
-        </ElCard>
+          <YdEmptyState v-if="anomalySessions.length === 0" :description="t('security.noAnomalySessions')" :image-size="60" />
+        </YdCard>
 
         <!-- 最近安全事件 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.recentEvents') }}</span>
           </template>
@@ -378,12 +379,12 @@ onMounted(() => {
           <ElTableColumn prop="description" :label="t('page.description')" min-width="150" />
           <ElTableColumn prop="timestamp" :label="t('security.timestamp')" width="160" />
           </ElTable>
-          <ElEmpty v-if="recentEvents.length === 0" :description="t('security.noSecurityEvents')" :image-size="60" />
-        </ElCard>
+          <YdEmptyState v-if="recentEvents.length === 0" :description="t('security.noSecurityEvents')" :image-size="60" />
+        </YdCard>
       </div>
 
       <!-- 活跃用户排行 -->
-      <ElCard>
+      <YdCard>
         <template #header>
           <span class="font-medium">{{ t('security.activeUserRanking') }}</span>
         </template>
@@ -393,13 +394,13 @@ onMounted(() => {
         <ElTableColumn prop="loginCount" :label="t('security.loginCount')" width="120" />
         <ElTableColumn prop="lastLoginTime" :label="t('page.lastLogin')" width="180" />
         </ElTable>
-        <ElEmpty v-if="activeUserRanking.length === 0" :description="t('security.noData')" :image-size="60" />
-      </ElCard>
+        <YdEmptyState v-if="activeUserRanking.length === 0" :description="t('security.noData')" :image-size="60" />
+      </YdCard>
 
       <!-- 登录与会话趋势 -->
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <!-- 登录成功率趋势 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.loginSuccessRateTrend') }}</span>
           </template>
@@ -411,7 +412,7 @@ onMounted(() => {
             >
               <span class="w-20 text-sm text-gray-600">{{ item.date ?? '-' }}</span>
               <div class="mx-3 flex flex-1 items-center gap-2">
-                <ElProgress
+                <YdProgress
                   :percentage="Number(((item.successRate ?? 0) * 100).toFixed(0))"
                   :stroke-width="8"
                   class="flex-1"
@@ -425,12 +426,12 @@ onMounted(() => {
                 {{ formatPercent(item.successRate) }}
               </span>
             </div>
-            <ElEmpty v-if="loginSuccessRateData.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState v-if="loginSuccessRateData.length === 0" :description="t('security.noData')" :image-size="60" />
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- 会话趋势 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.sessionTrend') }}</span>
           </template>
@@ -446,15 +447,15 @@ onMounted(() => {
                 <span class="w-20 text-xs text-green-500">{{ t('security.activeSessions') }}: {{ item.activeSessions ?? 0 }}</span>
               </div>
             </div>
-            <ElEmpty v-if="sessionTrendData.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState v-if="sessionTrendData.length === 0" :description="t('security.noData')" :image-size="60" />
           </div>
-        </ElCard>
+        </YdCard>
       </div>
 
       <!-- 设备分布与登录失败分布 -->
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <!-- 设备分布 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.deviceDistribution') }}</span>
           </template>
@@ -466,7 +467,7 @@ onMounted(() => {
             >
               <span class="w-20 text-sm text-gray-600">{{ item.deviceType ?? '-' }}</span>
               <div class="mx-3 flex flex-1 items-center gap-2">
-                <ElProgress
+                <YdProgress
                   :percentage="Number(((item.percentage ?? 0) * 100).toFixed(0))"
                   :stroke-width="10"
                   class="flex-1"
@@ -476,12 +477,12 @@ onMounted(() => {
                 {{ item.count ?? 0 }} ({{ formatPercent(item.percentage) }})
               </span>
             </div>
-            <ElEmpty v-if="deviceDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState v-if="deviceDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- 登录失败分布 -->
-        <ElCard>
+        <YdCard>
           <template #header>
             <span class="font-medium">{{ t('security.loginFailDistribution') }}</span>
           </template>
@@ -493,7 +494,7 @@ onMounted(() => {
             >
               <span class="max-w-32 truncate text-sm text-gray-600">{{ item.reason ?? '-' }}</span>
               <div class="mx-3 flex flex-1 items-center gap-2">
-                <ElProgress
+                <YdProgress
                   :percentage="Number(((item.percentage ?? 0) * 100).toFixed(0))"
                   :stroke-width="10"
                   class="flex-1"
@@ -504,9 +505,9 @@ onMounted(() => {
                 {{ item.count ?? 0 }} ({{ formatPercent(item.percentage) }})
               </span>
             </div>
-            <ElEmpty v-if="loginFailDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState v-if="loginFailDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
           </div>
-        </ElCard>
+        </YdCard>
       </div>
     </div>
   </Page>

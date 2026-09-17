@@ -19,17 +19,8 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import {
-  ElButton,
-  ElCard,
-  ElEmpty,
-  ElProgress,
-  ElStatistic,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-// TODO: EP → ydsz-ui 迁移暂缓（含 YdCard/Empty/Progress/YdTable 等复杂组件，需人工评估）
-} from 'element-plus';
+import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge, // TODO: EP → ydsz-ui 迁移暂缓（含 YdCard/Empty/Progress/YdTable 等复杂组件，需人工评估） } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -119,44 +110,44 @@ onMounted(() => {
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
       <!-- 顶部统计区 -->
-      <ElCard shadow="never" class="mb-4">
+      <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <span class="text-base font-semibold text-gray-700">规则冲突检测</span>
-            <ElTag v-if="lastDetectTime" type="info" size="small">
+            <YdBadge v-if="lastDetectTime" type="info" size="small">
               最近检测: {{ lastDetectTime }}
-            </ElTag>
+            </YdBadge>
           </div>
-          <ElButton type="primary" @click="handleDetect">
+          <YdButton type="primary" @click="handleDetect">
             立即检测
-          </ElButton>
+          </YdButton>
         </div>
 
         <div class="grid grid-cols-3 gap-6 mb-4">
           <div class="text-center p-4 bg-gray-50 rounded-lg">
-            <ElStatistic title="冲突对数" :value="totalPairs" />
+            <YdCountToAnimator title="冲突对数" :value="totalPairs" />
           </div>
           <div class="text-center p-4 bg-red-50 rounded-lg">
-            <ElStatistic title="高严重度数" :value="highSeverityCount" value-style="color: #f56c6c" />
+            <YdCountToAnimator title="高严重度数" :value="highSeverityCount" value-style="color: #f56c6c" />
           </div>
           <div class="text-center p-4 bg-blue-50 rounded-lg">
-            <ElStatistic title="影响规则数" :value="affectedRulesCount" value-style="color: #409eff" />
+            <YdCountToAnimator title="影响规则数" :value="affectedRulesCount" value-style="color: #409eff" />
           </div>
         </div>
 
         <div class="flex items-center gap-3">
           <span class="text-sm text-gray-500 w-20">高严重度占比</span>
-          <ElProgress
+          <YdProgress
             :percentage="severityPercent"
             :stroke-width="12"
             :status="severityPercent > 50 ? 'exception' : ''"
             style="flex: 1"
           />
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 冲突列表 -->
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <ElTable v-if="conflictList.length > 0" :data="conflictList" stripe border>
           <ElTableColumn type="index" label="#" width="50" />
           <ElTableColumn label="规则 A" min-width="160">
@@ -180,19 +171,19 @@ onMounted(() => {
           </ElTableColumn>
           <ElTableColumn label="严重度" width="100" align="center">
             <template #default="{ row }">
-              <ElTag :type="severityTagType(row.severity)">
+              <YdBadge :type="severityTagType(row.severity)">
                 {{ severityLabel(row.severity) }}
-              </ElTag>
+              </YdBadge>
             </template>
           </ElTableColumn>
         </ElTable>
 
-        <ElEmpty
+        <YdEmptyState
           v-else
           description="未检测到规则冲突，规则集运行良好"
           image-size="120"
         />
-      </ElCard>
+      </YdCard>
     </div>
   </Page>
 </template>

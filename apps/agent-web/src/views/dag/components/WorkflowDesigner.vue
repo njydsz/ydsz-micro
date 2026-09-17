@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 // TODO: ElForm/ElFormItem/ElInput/ElInputNumber/ElOption/ElSelect/ElSlider 可视化编辑器表单部分,保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSlider } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
@@ -365,7 +365,7 @@ defineExpose({ open, close });
                 </YdButtonBase>
               </div>
               <div class="toolbar-right">
-                <ElSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
+                <YdSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
               </div>
             </div>
 
@@ -461,59 +461,59 @@ defineExpose({ open, close });
               <div class="property-panel">
                 <div class="panel-header">节点属性</div>
                 <div v-if="selectedNode" class="panel-content">
-                  <ElForm label-width="60px" size="small">
-                    <ElFormItem label="名称">
-                      <ElInput v-model="selectedNode.label" placeholder="节点名称" />
-                    </ElFormItem>
-                    <ElFormItem label="类型">
-                      <ElSelect v-model="selectedNode.type" placeholder="节点类型" @change="selectedNode.label = getNodeConfig(selectedNode.type).label">
-                        <ElOption
+                  <YdForm label-width="60px" size="small">
+                    <YdFormItem label="名称">
+                      <YdInput v-model="selectedNode.label" placeholder="节点名称" />
+                    </YdFormItem>
+                    <YdFormItem label="类型">
+                      <YdSelect v-model="selectedNode.type" placeholder="节点类型" @change="selectedNode.label = getNodeConfig(selectedNode.type).label">
+                        <YdSelectItem
                           v-for="opt in nodeTypeOptions"
                           :key="opt.value"
                           :label="opt.label"
                           :value="opt.value"
                         />
-                      </ElSelect>
-                    </ElFormItem>
+                      </YdSelect>
+                    </YdFormItem>
                     <!-- LLM 节点配置 -->
                     <template v-if="selectedNode.type === 'LLM'">
-                      <ElFormItem label="模型">
-                        <ElSelect v-model="selectedNode.config.model" placeholder="选择模型">
-                          <ElOption label="GPT-4" value="gpt-4" />
-                          <ElOption label="GPT-3.5" value="gpt-3.5-turbo" />
-                          <ElOption label="Claude" value="claude-3" />
-                          <ElOption label="Gemini" value="gemini-pro" />
-                        </ElSelect>
-                      </ElFormItem>
-                      <ElFormItem label="提示词">
-                        <ElInput v-model="selectedNode.config.prompt" type="textarea" :rows="3" placeholder="输入提示词" />
-                      </ElFormItem>
-                      <ElFormItem label="温度">
-                        <ElInputNumber v-model="selectedNode.config.temperature" :min="0" :max="2" :step="0.1" />
-                      </ElFormItem>
+                      <YdFormItem label="模型">
+                        <YdSelect v-model="selectedNode.config.model" placeholder="选择模型">
+                          <YdSelectItem label="GPT-4" value="gpt-4" />
+                          <YdSelectItem label="GPT-3.5" value="gpt-3.5-turbo" />
+                          <YdSelectItem label="Claude" value="claude-3" />
+                          <YdSelectItem label="Gemini" value="gemini-pro" />
+                        </YdSelect>
+                      </YdFormItem>
+                      <YdFormItem label="提示词">
+                        <YdInput v-model="selectedNode.config.prompt" type="textarea" :rows="3" placeholder="输入提示词" />
+                      </YdFormItem>
+                      <YdFormItem label="温度">
+                        <YdNumberFieldInput v-model="selectedNode.config.temperature" :min="0" :max="2" :step="0.1" />
+                      </YdFormItem>
                     </template>
                     <!-- 工具节点配置 -->
                     <template v-if="selectedNode.type === 'TOOL'">
-                      <ElFormItem label="工具">
-                        <ElInput v-model="selectedNode.config.tool" placeholder="工具名称" />
-                      </ElFormItem>
-                      <ElFormItem label="参数">
-                        <ElInput v-model="selectedNode.config.params" type="textarea" :rows="2" placeholder="JSON格式参数" />
-                      </ElFormItem>
+                      <YdFormItem label="工具">
+                        <YdInput v-model="selectedNode.config.tool" placeholder="工具名称" />
+                      </YdFormItem>
+                      <YdFormItem label="参数">
+                        <YdInput v-model="selectedNode.config.params" type="textarea" :rows="2" placeholder="JSON格式参数" />
+                      </YdFormItem>
                     </template>
                     <!-- 条件节点配置 -->
                     <template v-if="selectedNode.type === 'CONDITION'">
-                      <ElFormItem label="条件">
-                        <ElInput v-model="selectedNode.config.condition" type="textarea" :rows="2" placeholder="输入条件表达式" />
-                      </ElFormItem>
+                      <YdFormItem label="条件">
+                        <YdInput v-model="selectedNode.config.condition" type="textarea" :rows="2" placeholder="输入条件表达式" />
+                      </YdFormItem>
                     </template>
-                    <ElFormItem label="X坐标">
-                      <ElInputNumber v-model="selectedNode.x" :step="10" />
-                    </ElFormItem>
-                    <ElFormItem label="Y坐标">
-                      <ElInputNumber v-model="selectedNode.y" :step="10" />
-                    </ElFormItem>
-                  </ElForm>
+                    <YdFormItem label="X坐标">
+                      <YdNumberFieldInput v-model="selectedNode.x" :step="10" />
+                    </YdFormItem>
+                    <YdFormItem label="Y坐标">
+                      <YdNumberFieldInput v-model="selectedNode.y" :step="10" />
+                    </YdFormItem>
+                  </YdForm>
                 </div>
                 <div v-else class="panel-empty">
                   <p class="text-xs text-muted-foreground">请选择一个节点</p>
@@ -525,14 +525,14 @@ defineExpose({ open, close });
           <!-- DSL 预览标签页 -->
           <YdTabsContent value="dsl">
             <div class="mt-3">
-              <ElForm label-width="80px" class="mb-4">
-                <ElFormItem label="工作流名称">
-                  <ElInput v-model="workflowName" placeholder="请输入工作流名称" />
-                </ElFormItem>
-                <ElFormItem label="描述">
-                  <ElInput v-model="workflowDescription" type="textarea" :rows="2" placeholder="请输入工作流描述" />
-                </ElFormItem>
-              </ElForm>
+              <YdForm label-width="80px" class="mb-4">
+                <YdFormItem label="工作流名称">
+                  <YdInput v-model="workflowName" placeholder="请输入工作流名称" />
+                </YdFormItem>
+                <YdFormItem label="描述">
+                  <YdInput v-model="workflowDescription" type="textarea" :rows="2" placeholder="请输入工作流描述" />
+                </YdFormItem>
+              </YdForm>
               <pre class="max-h-96 overflow-auto rounded border bg-muted p-4 text-xs">{{ generateDsl() }}</pre>
             </div>
           </YdTabsContent>

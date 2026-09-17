@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { ElSkeleton } from 'element-plus';
+import { YdSkeleton } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
@@ -215,7 +215,7 @@ onMounted(async () => {
     <div v-if="!fileNode" class="flex h-64 items-center justify-center text-gray-400">
       请选择要预览的文件
     </div>
-    <ElSkeleton v-else-if="loading" :rows="6" animated />
+    <YdSkeleton v-else-if="loading" :rows="6" animated />
     <div v-else class="preview-container">
       <!-- 文件信息头部 -->
       <div class="mb-4 flex items-center justify-between border-b pb-3">

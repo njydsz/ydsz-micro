@@ -19,7 +19,8 @@
  */
 import { Page } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（高级审批包含 ElTabs/ElTabPane/ElDescriptions/ElForm/ElFormItem/ElStatistic/ElTable/ElEmpty/ElSpace 等复杂组合）
-import { ElButton, ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElForm, ElFormItem, ElInput, ElSpace, ElStatistic, ElTable, ElTableColumn, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSpace, YdCountToAnimator, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import {
   approvedUsers,
@@ -293,86 +294,86 @@ async function handleSendMonthly() {
 </script>
 <template>
   <Page auto-content-height>
-    <ElTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
+    <YdTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
       <!-- ==================== Tab 1: 催办中心 ==================== -->
-      <ElTabPane label="催办中心" name="urge">
+      <YdTabsContent label="催办中心" name="urge">
         <div class="p-4 space-y-4">
           <!-- 查询区域 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">催办冷却查询</span>
             </template>
-            <ElForm inline>
-              <ElFormItem label="流程实例 ID">
-                <ElInput
+            <YdForm inline>
+              <YdFormItem label="流程实例 ID">
+                <YdInput
                   v-model="urgeInstanceId"
                   placeholder="请输入流程实例 ID"
                   style="width: 280px"
                   clearable
                 />
-              </ElFormItem>
-              <ElFormItem>
-                <ElButton type="primary" @click="handleQueryUrgeCooldown">查询</ElButton>
-              </ElFormItem>
-            </ElForm>
-          </ElCard>
+              </YdFormItem>
+              <YdFormItem>
+                <YdButton type="primary" @click="handleQueryUrgeCooldown">查询</YdButton>
+              </YdFormItem>
+            </YdForm>
+          </YdCard>
 
           <!-- 催办结果 -->
-          <ElCard v-if="urgeCooldownData" shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard v-if="urgeCooldownData" shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">催办冷却状态</span>
             </template>
-            <ElSpace :size="20" alignment="flex-start">
-              <ElStatistic
+            <YdSpace :size="20" alignment="flex-start">
+              <YdCountToAnimator
                 label="剩余冷却时间（秒）"
                 :value="urgeRemainingSeconds"
                 :value-style="{ color: urgeRemainingSeconds > 0 ? '#e6a23c' : '#67c23a' }"
               />
-              <ElStatistic label="冷却状态" :value="urgeRemainingSeconds > 0 ? '冷却中' : '可催办'" />
-            </ElSpace>
+              <YdCountToAnimator label="冷却状态" :value="urgeRemainingSeconds > 0 ? '冷却中' : '可催办'" />
+            </YdSpace>
             <div v-if="approvedUserList.length > 0" class="mt-3">
               <div class="text-xs text-gray-500 mb-1">已审批用户</div>
-              <ElSpace :size="4" wrap>
-                <ElTag v-for="user in approvedUserList" :key="user" size="small" type="success">
+              <YdSpace :size="4" wrap>
+                <YdBadge v-for="user in approvedUserList" :key="user" size="small" type="success">
                   {{ user }}
-                </ElTag>
-              </ElSpace>
+                </YdBadge>
+              </YdSpace>
             </div>
-          </ElCard>
+          </YdCard>
 
-          <ElEmpty v-if="!urgeCooldownData" description="请输入流程实例 ID 后点击查询" :image-size="80" />
+          <YdEmptyState v-if="!urgeCooldownData" description="请输入流程实例 ID 后点击查询" :image-size="80" />
         </div>
-      </ElTabPane>
+      </YdTabsContent>
 
       <!-- ==================== Tab 2: 合并审批 ==================== -->
-      <ElTabPane label="合并审批" name="merge">
+      <YdTabsContent label="合并审批" name="merge">
         <div class="p-4 space-y-4">
           <!-- 手动合并 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">手动合并实例</span>
             </template>
-            <ElForm>
-              <ElFormItem label="实例 ID 列表">
-                <ElInput
+            <YdForm>
+              <YdFormItem label="实例 ID 列表">
+                <YdInput
                   v-model="mergeInstanceIds"
                   placeholder="输入多个实例 ID，逗号分隔"
                   style="width: 400px"
                   clearable
                 />
-              </ElFormItem>
-              <ElFormItem>
-                <ElButton type="primary" @click="handleMerge">执行合并</ElButton>
-              </ElFormItem>
-            </ElForm>
-          </ElCard>
+              </YdFormItem>
+              <YdFormItem>
+                <YdButton type="primary" @click="handleMerge">执行合并</YdButton>
+              </YdFormItem>
+            </YdForm>
+          </YdCard>
 
           <!-- 可合并列表 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <div class="flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-700">可合并审批列表</span>
-                <ElButton size="small" @click="loadMergeable">刷新</ElButton>
+                <YdButton size="small" @click="loadMergeable">刷新</YdButton>
               </div>
             </template>
             <ElTable :data="mergeableList" stripe border max-height="400">
@@ -382,22 +383,22 @@ async function handleSendMonthly() {
               <ElTableColumn prop="createTime" label="创建时间" width="170" />
               <ElTableColumn label="操作" width="220" fixed="right">
                 <template #default="{ row }">
-                  <ElSpace :size="4">
-                    <ElButton size="small" link type="primary" @click="handleViewMergeGroup(row)">
+                  <YdSpace :size="4">
+                    <YdButton size="small" link type="primary" @click="handleViewMergeGroup(row)">
                       详情
-                    </ElButton>
-                    <ElButton size="small" link type="success" @click="handleMergePass(row)">
+                    </YdButton>
+                    <YdButton size="small" link type="success" @click="handleMergePass(row)">
                       通过
-                    </ElButton>
-                    <ElButton size="small" link type="danger" @click="handleMergeReject(row)">
+                    </YdButton>
+                    <YdButton size="small" link type="danger" @click="handleMergeReject(row)">
                       驳回
-                    </ElButton>
-                  </ElSpace>
+                    </YdButton>
+                  </YdSpace>
                 </template>
               </ElTableColumn>
             </ElTable>
             <div class="mt-3">
-              <ElInput
+              <YdInput
                 v-model="mergeComment"
                 placeholder="审批意见（可选）"
                 type="textarea"
@@ -405,10 +406,10 @@ async function handleSendMonthly() {
                 style="max-width: 400px"
               />
             </div>
-          </ElCard>
+          </YdCard>
 
           <!-- 合并组详情 -->
-          <ElCard v-if="mergeGroupDetail" shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard v-if="mergeGroupDetail" shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">合并组详情</span>
             </template>
@@ -421,91 +422,91 @@ async function handleSendMonthly() {
                 {{ typeof value === 'object' ? JSON.stringify(value) : String(value ?? '-') }}
               </ElDescriptionsItem>
             </ElDescriptions>
-          </ElCard>
+          </YdCard>
         </div>
-      </ElTabPane>
+      </YdTabsContent>
 
       <!-- ==================== Tab 3: 离线转办 ==================== -->
-      <ElTabPane label="离线转办" name="forward">
+      <YdTabsContent label="离线转办" name="forward">
         <div class="p-4 space-y-4">
           <!-- 自动转办 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">自动转办</span>
             </template>
             <p class="text-xs text-gray-500 mb-3">
               基于预设授权规则自动将离线用户的审批任务转交给指定代理人。
             </p>
-            <ElForm>
-              <ElFormItem label="授权 ID">
-                <ElInput
+            <YdForm>
+              <YdFormItem label="授权 ID">
+                <YdInput
                   v-model="autoForwardAuthId"
                   placeholder="输入授权规则 ID"
                   style="width: 320px"
                   clearable
                 />
-              </ElFormItem>
-              <ElFormItem>
-                <ElButton type="primary" @click="handleAutoForward">触发自动转办</ElButton>
-              </ElFormItem>
-            </ElForm>
-          </ElCard>
+              </YdFormItem>
+              <YdFormItem>
+                <YdButton type="primary" @click="handleAutoForward">触发自动转办</YdButton>
+              </YdFormItem>
+            </YdForm>
+          </YdCard>
 
           <!-- 手动转办 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">手动转办</span>
             </template>
             <p class="text-xs text-gray-500 mb-3">
               手动将指定用户的审批任务全部转交给目标用户。
             </p>
-            <ElForm>
-              <ElFormItem label="源用户 ID">
-                <ElInput
+            <YdForm>
+              <YdFormItem label="源用户 ID">
+                <YdInput
                   v-model="manualForwardUserId"
                   placeholder="待转出的用户 ID"
                   style="width: 320px"
                   clearable
                 />
-              </ElFormItem>
-              <ElFormItem label="目标用户 ID">
-                <ElInput
+              </YdFormItem>
+              <YdFormItem label="目标用户 ID">
+                <YdInput
                   v-model="manualForwardDelegateId"
                   placeholder="接收转办的用户 ID"
                   style="width: 320px"
                   clearable
                 />
-              </ElFormItem>
-              <ElFormItem label="转办原因">
-                <ElInput
+              </YdFormItem>
+              <YdFormItem label="转办原因">
+                <YdInput
                   v-model="manualReason"
                   placeholder="转办原因（可选）"
                   style="width: 320px"
                   clearable
                 />
-              </ElFormItem>
-              <ElFormItem>
-                <ElButton type="primary" @click="handleManualForward">执行手动转办</ElButton>
-              </ElFormItem>
-            </ElForm>
-          </ElCard>
+              </YdFormItem>
+              <YdFormItem>
+                <YdButton type="primary" @click="handleManualForward">执行手动转办</YdButton>
+              </YdFormItem>
+            </YdForm>
+          </YdCard>
         </div>
-      </ElTabPane>
+      </YdTabsContent>
 
       <!-- ==================== Tab 4: 报告推送 ==================== -->
-      <ElTabPane label="报告推送" name="report">
+      <YdTabsContent label="报告推送" name="report">
         <div class="p-4 space-y-4">
           <!-- 周报 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <div class="flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-700">周报推送</span>
-                <ElSpace>
-                  <ElButton size="small" @click="loadWeeklyReport">刷新历史</ElButton>
-                  <ElButton type="primary" size="small" @click="handleSendWeekly">
+                <YdSpace>
+                  <YdButton size="small" @click="loadWeeklyReport">刷新历史</YdButton>
+                  <YdButton type="primary" size="small" @click="handleSendWeekly">
                     手动推送
-                  </ElButton>
-                </ElSpace>
+                  </YdButton>
+                </YdSpace>
               </div>
             </template>
             <div v-if="weeklyReportData" class="grid grid-cols-2 gap-3">
@@ -520,20 +521,20 @@ async function handleSendMonthly() {
                 </div>
               </div>
             </div>
-            <ElEmpty v-else description="暂无周报记录，点击刷新或手动推送" :image-size="60" />
-          </ElCard>
+            <YdEmptyState v-else description="暂无周报记录，点击刷新或手动推送" :image-size="60" />
+          </YdCard>
 
           <!-- 月报 -->
-          <ElCard shadow="never" class="rounded-lg border border-gray-200">
+          <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <div class="flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-700">月报推送</span>
-                <ElSpace>
-                  <ElButton size="small" @click="loadMonthlyReport">刷新历史</ElButton>
-                  <ElButton type="primary" size="small" @click="handleSendMonthly">
+                <YdSpace>
+                  <YdButton size="small" @click="loadMonthlyReport">刷新历史</YdButton>
+                  <YdButton type="primary" size="small" @click="handleSendMonthly">
                     手动推送
-                  </ElButton>
-                </ElSpace>
+                  </YdButton>
+                </YdSpace>
               </div>
             </template>
             <div v-if="monthlyReportData" class="grid grid-cols-2 gap-3">
@@ -548,10 +549,10 @@ async function handleSendMonthly() {
                 </div>
               </div>
             </div>
-            <ElEmpty v-else description="暂无月报记录，点击刷新或手动推送" :image-size="60" />
-          </ElCard>
+            <YdEmptyState v-else description="暂无月报记录，点击刷新或手动推送" :image-size="60" />
+          </YdCard>
         </div>
-      </ElTabPane>
-    </ElTabs>
+      </YdTabsContent>
+    </YdTabs>
   </Page>
 </template>

@@ -18,7 +18,8 @@ import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/mo
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/YdSwitch/InputNumber/YdTable 等复杂组件，需人工评估）
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { computed, h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { formatJsonResult } from '#/utils/format';
@@ -291,51 +292,51 @@ async function handleManualRollback(): Promise<void> {
     <div class="flex flex-col gap-3 p-4">
       <Grid table-title="AB 策略列表">
         <template #toolbar-tools>
-          <ElButton type="primary" @click="handleCreate">新增策略</ElButton>
+          <YdButton type="primary" @click="handleCreate">新增策略</YdButton>
         </template>
       </Grid>
     </div>
 
     <!-- 创建/编辑弹窗 -->
     <Modal :title="modalTitle">
-      <ElForm ref="formRef" :model="formData" label-width="110px" label-position="right">
-        <ElFormItem label="关联规则编码" required>
-          <ElInput v-model="formData.ruleCode" :disabled="isEdit" placeholder="请输入关联的规则编码" />
-        </ElFormItem>
-        <ElFormItem label="启用自动回滚">
-          <ElSwitch v-model="formData.isAutoRollbackEnabled" />
-        </ElFormItem>
-        <ElFormItem label="回滚动作">
-          <ElSelect v-model="formData.rollbackAction">
-            <ElOption label="自动回滚" value="ROLLBACK" />
-            <ElOption label="仅通知" value="NOTIFY_ONLY" />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="错误率阈值(%)">
-          <ElInputNumber v-model="formData.errorRateThreshold" :min="0" :max="100" class="!w-full" />
-        </ElFormItem>
-        <ElFormItem label="最小样本量">
-          <ElInputNumber v-model="formData.minSampleSize" :min="1" class="!w-full" />
-        </ElFormItem>
-        <ElFormItem label="评估窗口(分钟)">
-          <ElInputNumber v-model="formData.checkWindowMinutes" :min="1" class="!w-full" />
-        </ElFormItem>
-        <ElFormItem label="通知渠道">
-          <ElInput v-model="formData.notifyChannels" placeholder="如 sms,email,dingtalk" />
-        </ElFormItem>
-        <ElFormItem label="描述">
-          <ElInput
+      <YdForm ref="formRef" :model="formData" label-width="110px" label-position="right">
+        <YdFormItem label="关联规则编码" required>
+          <YdInput v-model="formData.ruleCode" :disabled="isEdit" placeholder="请输入关联的规则编码" />
+        </YdFormItem>
+        <YdFormItem label="启用自动回滚">
+          <YdSwitch v-model="formData.isAutoRollbackEnabled" />
+        </YdFormItem>
+        <YdFormItem label="回滚动作">
+          <YdSelect v-model="formData.rollbackAction">
+            <YdSelectItem label="自动回滚" value="ROLLBACK" />
+            <YdSelectItem label="仅通知" value="NOTIFY_ONLY" />
+          </YdSelect>
+        </YdFormItem>
+        <YdFormItem label="错误率阈值(%)">
+          <YdNumberFieldInput v-model="formData.errorRateThreshold" :min="0" :max="100" class="!w-full" />
+        </YdFormItem>
+        <YdFormItem label="最小样本量">
+          <YdNumberFieldInput v-model="formData.minSampleSize" :min="1" class="!w-full" />
+        </YdFormItem>
+        <YdFormItem label="评估窗口(分钟)">
+          <YdNumberFieldInput v-model="formData.checkWindowMinutes" :min="1" class="!w-full" />
+        </YdFormItem>
+        <YdFormItem label="通知渠道">
+          <YdInput v-model="formData.notifyChannels" placeholder="如 sms,email,dingtalk" />
+        </YdFormItem>
+        <YdFormItem label="描述">
+          <YdInput
             v-model="formData.description"
             type="textarea"
             :rows="2"
             placeholder="请输入策略描述"
           />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
     </Modal>
 
     <!-- 评估报表弹窗 -->
-    <ElDialog
+    <YdDialog
       v-model="evaluateVisible"
       :title="`A/B 策略评估 - ${evaluateRuleCode}`"
       width="640px"
@@ -354,10 +355,10 @@ async function handleManualRollback(): Promise<void> {
         </div>
         <div v-else class="py-8 text-center text-sm text-gray-400">暂无评估数据</div>
       </div>
-    </ElDialog>
+    </YdDialog>
 
     <!-- 回滚历史弹窗 -->
-    <ElDialog v-model="rollbackHistoryVisible" title="回滚历史" width="720px" top="8vh">
+    <YdDialog v-model="rollbackHistoryVisible" title="回滚历史" width="720px" top="8vh">
       <ElTable
         :data="rollbackHistoryList"
         border
@@ -372,17 +373,17 @@ async function handleManualRollback(): Promise<void> {
         <ElTableColumn prop="operator" label="操作人" width="100" />
         <ElTableColumn prop="notifyStatus" label="通知状态" width="100">
           <template #default="{ row }">
-            <ElTag :type="row.notifyStatus === 'SUCCESS' ? 'success' : 'info'">
+            <YdBadge :type="row.notifyStatus === 'SUCCESS' ? 'success' : 'info'">
               {{ row.notifyStatus ?? '-' }}
-            </ElTag>
+            </YdBadge>
           </template>
         </ElTableColumn>
         <ElTableColumn prop="createdAt" label="操作时间" width="170" />
       </ElTable>
       <template #footer>
-        <ElButton @click="rollbackHistoryVisible = false">关闭</ElButton>
-        <ElButton type="warning" @click="handleManualRollback">手动回滚</ElButton>
+        <YdButton @click="rollbackHistoryVisible = false">关闭</YdButton>
+        <YdButton type="warning" @click="handleManualRollback">手动回滚</YdButton>
       </template>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

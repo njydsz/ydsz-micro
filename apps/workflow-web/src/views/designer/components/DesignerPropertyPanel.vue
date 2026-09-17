@@ -17,17 +17,7 @@
  */
 import { computed, reactive, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import {
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElOption,
-  ElSelect,
-  ElSwitch,
-  ElTabs,
-  ElTabPane,
-} from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（属性面板包含 ElTabs/ElTabPane/ElForm/ElFormItem/ElSelect/ElInputNumber/ElSwitch 等复杂表单组合）
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
@@ -111,218 +101,218 @@ function handleFormChange() {
     <div v-if="!hasSelection" class="empty-tip">
       <span>{{ t('wf.designerPanel.selectNodeHint') }}</span>
     </div>
-    <ElTabs v-else class="property-tabs" type="border-card">
-      <ElTabPane :label="t('wf.basicInfo')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.nodeCode')">
-            <ElInput
+    <YdTabs v-else class="property-tabs" type="border-card">
+      <YdTabsContent :label="t('wf.basicInfo')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.nodeCode')">
+            <YdInput
               v-model="form.nodeCode"
               :placeholder="t('wf.designerPanel.nodeCodePlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.nodeName')">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.nodeName')">
+            <YdInput
               v-model="form.nodeName"
               :placeholder="t('wf.designerPanel.nodeNamePlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
-      <ElTabPane :label="t('wf.designerPanel.assignee')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.assigneeType')">
-            <ElSelect
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
+      <YdTabsContent :label="t('wf.designerPanel.assignee')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.assigneeType')">
+            <YdSelect
               v-model="form.assigneeType"
               :placeholder="t('wf.designerPanel.assigneeTypePlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption :label="t('wf.designerPanel.user')" value="USER" />
-              <ElOption :label="t('wf.designerPanel.role')" value="ROLE" />
-              <ElOption :label="t('wf.designerPanel.initiator')" value="INITIATOR" />
-              <ElOption :label="t('wf.designerPanel.initiatorLeader')" value="INITIATOR_LEADER" />
-              <ElOption :label="t('wf.designerPanel.expr')" value="EXPR" />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.assigneeValue')">
-            <ElInput
+              <YdSelectItem :label="t('wf.designerPanel.user')" value="USER" />
+              <YdSelectItem :label="t('wf.designerPanel.role')" value="ROLE" />
+              <YdSelectItem :label="t('wf.designerPanel.initiator')" value="INITIATOR" />
+              <YdSelectItem :label="t('wf.designerPanel.initiatorLeader')" value="INITIATOR_LEADER" />
+              <YdSelectItem :label="t('wf.designerPanel.expr')" value="EXPR" />
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.assigneeValue')">
+            <YdInput
               v-model="form.assigneeValue"
               :placeholder="t('wf.designerPanel.assigneeValuePlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
-      <ElTabPane :label="t('wf.formConfig')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.formConfig')">
-            <ElInput
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
+      <YdTabsContent :label="t('wf.formConfig')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.formConfig')">
+            <YdInput
               v-model="form.formConfig"
               type="textarea"
               :rows="6"
               :placeholder="t('wf.designerPanel.formConfigPlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
-      <ElTabPane :label="t('wf.slaConfig')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.slaConfig')">
-            <ElInput
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
+      <YdTabsContent :label="t('wf.slaConfig')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.slaConfig')">
+            <YdInput
               v-model="form.slaConfig"
               type="textarea"
               :rows="6"
               :placeholder="t('wf.designerPanel.slaConfigPlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
-      <ElTabPane :label="t('wf.listenerConfig')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.listener')">
-            <ElInput
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
+      <YdTabsContent :label="t('wf.listenerConfig')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.listener')">
+            <YdInput
               v-model="form.listenerConfig"
               type="textarea"
               :rows="6"
               :placeholder="t('wf.designerPanel.listenerPlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
       <!-- AI Agent 配置（仅 AI Agent 节点显示） -->
-      <ElTabPane v-if="isAiAgentNode" :label="t('wf.designerPanel.aiAgent')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.agentId')">
-            <ElInput
+      <YdTabsContent v-if="isAiAgentNode" :label="t('wf.designerPanel.aiAgent')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.agentId')">
+            <YdInput
               v-model="form.agentId"
               :placeholder="t('wf.designerPanel.agentIdPlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.promptTemplate')">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.promptTemplate')">
+            <YdInput
               v-model="form.promptTemplate"
               type="textarea"
               :rows="4"
               :placeholder="t('wf.designerPanel.promptTemplatePlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.outputSchema')">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.outputSchema')">
+            <YdInput
               v-model="form.outputSchema"
               type="textarea"
               :rows="3"
               :placeholder="t('wf.designerPanel.outputSchemaPlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.fallback')">
-            <ElSelect
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.fallback')">
+            <YdSelect
               v-model="form.fallbackStrategy"
               :placeholder="t('wf.designerPanel.fallbackPlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption :label="t('wf.designerPanel.autoPass')" value="AUTO_PASS" />
-              <ElOption :label="t('wf.designerPanel.autoReject')" value="AUTO_REJECT" />
-              <ElOption :label="t('wf.designerPanel.transferAdmin')" value="TRANSFER_ADMIN" />
-              <ElOption :label="t('wf.designerPanel.retry')" value="RETRY" />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.retryMax')">
-            <ElInputNumber v-model="form.retryMax" :min="0" :max="5" @change="handleFormChange" />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.timeoutMs')">
-            <ElInputNumber
+              <YdSelectItem :label="t('wf.designerPanel.autoPass')" value="AUTO_PASS" />
+              <YdSelectItem :label="t('wf.designerPanel.autoReject')" value="AUTO_REJECT" />
+              <YdSelectItem :label="t('wf.designerPanel.transferAdmin')" value="TRANSFER_ADMIN" />
+              <YdSelectItem :label="t('wf.designerPanel.retry')" value="RETRY" />
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.retryMax')">
+            <YdNumberFieldInput v-model="form.retryMax" :min="0" :max="5" @change="handleFormChange" />
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.timeoutMs')">
+            <YdNumberFieldInput
               v-model="form.timeoutMs"
               :min="5000"
               :max="120000"
               :step="5000"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
       <!-- 驳回策略配置（审批节点和 AI Agent 节点显示） -->
-      <ElTabPane v-if="isApproveNode" :label="t('wf.designerPanel.rejectStrategy')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.defaultStrategy')">
-            <ElSelect
+      <YdTabsContent v-if="isApproveNode" :label="t('wf.designerPanel.rejectStrategy')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.defaultStrategy')">
+            <YdSelect
               v-model="form.rejectStrategy"
               :placeholder="t('wf.designerPanel.defaultStrategyPlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption :label="t('wf.designerPanel.prevNode')" value="PREVIOUS" />
-              <ElOption :label="t('wf.designerPanel.returnInitiator')" value="INITIATOR" />
-              <ElOption :label="t('wf.designerPanel.anyNode')" value="ANY_NODE" />
-              <ElOption :label="t('wf.designerPanel.customNode')" value="CUSTOM" />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem v-if="form.rejectStrategy === 'CUSTOM'" :label="t('wf.designerPanel.customTarget')">
-            <ElInput
+              <YdSelectItem :label="t('wf.designerPanel.prevNode')" value="PREVIOUS" />
+              <YdSelectItem :label="t('wf.designerPanel.returnInitiator')" value="INITIATOR" />
+              <YdSelectItem :label="t('wf.designerPanel.anyNode')" value="ANY_NODE" />
+              <YdSelectItem :label="t('wf.designerPanel.customNode')" value="CUSTOM" />
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem v-if="form.rejectStrategy === 'CUSTOM'" :label="t('wf.designerPanel.customTarget')">
+            <YdInput
               v-model="form.customTarget"
               :placeholder="t('wf.designerPanel.customTargetPlaceholder')"
               @change="handleFormChange"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.reExecuteMode')">
-            <ElSelect
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.reExecuteMode')">
+            <YdSelect
               v-model="form.reExecuteMode"
               :placeholder="t('wf.designerPanel.reExecuteModePlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption :label="t('wf.designerPanel.continueSkipAuto')" value="CONTINUE" />
-              <ElOption :label="t('wf.designerPanel.returnRedoAll')" value="RETURN" />
-            </ElSelect>
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
+              <YdSelectItem :label="t('wf.designerPanel.continueSkipAuto')" value="CONTINUE" />
+              <YdSelectItem :label="t('wf.designerPanel.returnRedoAll')" value="RETURN" />
+            </YdSelect>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
       <!-- 催办配置（审批节点和 AI Agent 节点显示） -->
-      <ElTabPane v-if="isApproveNode" :label="t('wf.designerPanel.urge')">
-        <ElForm :model="form" label-width="80px" size="small">
-          <ElFormItem :label="t('wf.designerPanel.urgeEnabled')">
-            <ElSwitch v-model="form.urgeEnabled" @change="handleFormChange" />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.urgeChannel')">
-            <ElSelect
+      <YdTabsContent v-if="isApproveNode" :label="t('wf.designerPanel.urge')">
+        <YdForm :model="form" label-width="80px" size="small">
+          <YdFormItem :label="t('wf.designerPanel.urgeEnabled')">
+            <YdSwitch v-model="form.urgeEnabled" @change="handleFormChange" />
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.urgeChannel')">
+            <YdSelect
               v-model="form.urgeChannels"
               multiple
               :placeholder="t('wf.designerPanel.urgeChannelPlaceholder')"
               @change="handleFormChange"
             >
-              <ElOption :label="t('wf.designerPanel.inapp')" value="INAPP" />
-              <ElOption :label="t('wf.designerPanel.email')" value="EMAIL" />
-              <ElOption :label="t('wf.designerPanel.webhook')" value="WEBHOOK" />
-              <ElOption :label="t('wf.designerPanel.sms')" value="SMS" />
-              <ElOption :label="t('wf.designerPanel.wecom')" value="WECOM" />
-              <ElOption :label="t('wf.designerPanel.dingtalk')" value="DINGTALK" />
-              <ElOption :label="t('wf.designerPanel.feishu')" value="FEISHU" />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.urgeInterval')">
-            <ElInputNumber
+              <YdSelectItem :label="t('wf.designerPanel.inapp')" value="INAPP" />
+              <YdSelectItem :label="t('wf.designerPanel.email')" value="EMAIL" />
+              <YdSelectItem :label="t('wf.designerPanel.webhook')" value="WEBHOOK" />
+              <YdSelectItem :label="t('wf.designerPanel.sms')" value="SMS" />
+              <YdSelectItem :label="t('wf.designerPanel.wecom')" value="WECOM" />
+              <YdSelectItem :label="t('wf.designerPanel.dingtalk')" value="DINGTALK" />
+              <YdSelectItem :label="t('wf.designerPanel.feishu')" value="FEISHU" />
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.urgeInterval')">
+            <YdNumberFieldInput
               v-model="form.urgeIntervalMinutes"
               :min="5"
               :max="1440"
               :step="5"
               @change="handleFormChange"
             />
-          </ElFormItem>
-          <ElFormItem :label="t('wf.designerPanel.urgeMaxCount')">
-            <ElInputNumber
+          </YdFormItem>
+          <YdFormItem :label="t('wf.designerPanel.urgeMaxCount')">
+            <YdNumberFieldInput
               v-model="form.urgeMaxCount"
               :min="1"
               :max="10"
               @change="handleFormChange"
             />
-          </ElFormItem>
-        </ElForm>
-      </ElTabPane>
-    </ElTabs>
+          </YdFormItem>
+        </YdForm>
+      </YdTabsContent>
+    </YdTabs>
   </div>
 </template>
 

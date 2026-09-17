@@ -27,7 +27,7 @@ import { initPreferences } from '@ydsz/preferences';
 import { initStores } from '@ydsz/stores';
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { ElLoading } from 'element-plus';
+import { ElLoading } from '@ydsz-core/ydsz-ui';
 
 import RootApp from './app.vue';
 import { initComponentAdapter } from './adapter/component';

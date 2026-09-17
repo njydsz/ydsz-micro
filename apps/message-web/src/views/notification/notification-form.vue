@@ -20,7 +20,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
 import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
@@ -118,26 +118,26 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal title="发送通知">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="接收者" prop="receiverListText">
+      <YdFormItem label="接收者" prop="receiverListText">
         <YdTextarea
           v-model="formData.receiverListText"
           placeholder="每行一个接收者ID，支持逗号/分号/换行分隔"
         />
-      </ElFormItem>
-      <ElFormItem label="标题" prop="title">
+      </YdFormItem>
+      <YdFormItem label="标题" prop="title">
         <YdInput v-model="formData.title" placeholder="请输入标题" />
-      </ElFormItem>
-      <ElFormItem label="内容" prop="content">
+      </YdFormItem>
+      <YdFormItem label="内容" prop="content">
         <YdTextarea v-model="formData.content" placeholder="请输入内容" />
-      </ElFormItem>
-      <ElFormItem label="级别" prop="level">
+      </YdFormItem>
+      <YdFormItem label="级别" prop="level">
         <YdSelectBase v-model="formData.level">
           <YdSelectTriggerBase>
             <YdSelectValueBase placeholder="请选择级别" />
@@ -148,11 +148,11 @@ const [Modal, modalApi] = useYdModal({
             <YdSelectItemBase value="ERROR">错误</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem label="分类" prop="category">
+      </YdFormItem>
+      <YdFormItem label="分类" prop="category">
         <YdInput v-model="formData.category" placeholder="请输入分类（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="优先级" prop="priority">
+      </YdFormItem>
+      <YdFormItem label="优先级" prop="priority">
         <YdSelectBase v-model="formData.priority">
           <YdSelectTriggerBase>
             <YdSelectValueBase placeholder="请选择优先级（可为空）" />
@@ -163,16 +163,16 @@ const [Modal, modalApi] = useYdModal({
             <YdSelectItemBase value="LOW">低</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem label="业务类型" prop="bizType">
+      </YdFormItem>
+      <YdFormItem label="业务类型" prop="bizType">
         <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="跳转链接" prop="actionUrl">
+      </YdFormItem>
+      <YdFormItem label="跳转链接" prop="actionUrl">
         <YdInput v-model="formData.actionUrl" placeholder="请输入跳转链接（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="跳转文案" prop="actionText">
+      </YdFormItem>
+      <YdFormItem label="跳转文案" prop="actionText">
         <YdInput v-model="formData.actionText" placeholder="请输入跳转文案（可为空）" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

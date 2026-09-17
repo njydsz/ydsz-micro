@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdSelectBase/Slider/YdTooltipBase 等复杂组件，需人工评估）
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSlider, ElTooltip } from 'element-plus';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSlider, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
 import { type ChainEdgeDTO, type ChainNodeDTO, type RuleChainGraph } from '#/api/models';
 import { dryRunGraph, getChainGraph, saveChainGraph, validateChainGraph } from '#/api/ruleGraph';
@@ -343,7 +343,7 @@ defineExpose({
 </script>
 
 <template>
-  <ElDialog
+  <YdDialog
     v-model="visible"
     title="规则链可视化编排"
     width="1200px"
@@ -355,17 +355,17 @@ defineExpose({
       <!-- 工具栏 -->
       <div class="toolbar">
         <div class="toolbar-left">
-          <ElButton size="small" type="primary" @click="handleSave" :loading="saving"
+          <YdButton size="small" type="primary" @click="handleSave" :loading="saving"
             >保存</ElButton
           >
-          <ElButton size="small" @click="handleValidate">验证</ElButton>
-          <ElButton size="small" type="success" @click="handleDryRun" :loading="dryRunning"
+          <YdButton size="small" @click="handleValidate">验证</YdButton>
+          <YdButton size="small" type="success" @click="handleDryRun" :loading="dryRunning"
             >试运行</ElButton
           >
         </div>
         <div class="toolbar-center">
           <span class="text-xs text-gray-500">添加节点：</span>
-          <ElButton
+          <YdButton
             v-for="opt in nodeTypeOptions"
             :key="opt.value"
             size="small"
@@ -373,10 +373,10 @@ defineExpose({
             @click="addNode(opt.value)"
           >
             {{ opt.label }}
-          </ElButton>
+          </YdButton>
         </div>
         <div class="toolbar-right">
-          <ElSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
+          <YdSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
         </div>
       </div>
 
@@ -448,21 +448,21 @@ defineExpose({
             </div>
             <!-- 节点操作按钮 -->
             <div class="node-actions">
-              <ElTooltip content="连线" placement="top">
-                <ElButton size="small" circle @click.stop="startConnect(node.nodeId ?? '')">
+              <YdTooltip content="连线" placement="top">
+                <YdButton size="small" circle @click.stop="startConnect(node.nodeId ?? '')">
                   <span class="text-xs">→</span>
-                </ElButton>
-              </ElTooltip>
-              <ElTooltip content="删除" placement="top">
-                <ElButton
+                </YdButton>
+              </YdTooltip>
+              <YdTooltip content="删除" placement="top">
+                <YdButton
                   size="small"
                   circle
                   type="danger"
                   @click.stop="deleteNode(node.nodeId ?? '')"
                 >
                   <span class="text-xs">×</span>
-                </ElButton>
-              </ElTooltip>
+                </YdButton>
+              </YdTooltip>
             </div>
           </div>
 
@@ -476,30 +476,30 @@ defineExpose({
         <div class="property-panel">
           <div class="panel-header">节点属性</div>
           <div v-if="selectedNode" class="panel-content">
-            <ElForm label-width="60px" size="small">
-              <ElFormItem label="名称">
-                <ElInput v-model="selectedNode.label" placeholder="节点名称" />
-              </ElFormItem>
-              <ElFormItem label="类型">
-                <ElSelect v-model="selectedNode.nodeType" placeholder="节点类型">
-                  <ElOption
+            <YdForm label-width="60px" size="small">
+              <YdFormItem label="名称">
+                <YdInput v-model="selectedNode.label" placeholder="节点名称" />
+              </YdFormItem>
+              <YdFormItem label="类型">
+                <YdSelect v-model="selectedNode.nodeType" placeholder="节点类型">
+                  <YdSelectItem
                     v-for="opt in nodeTypeOptions"
                     :key="opt.value"
                     :label="opt.label"
                     :value="opt.value"
                   />
-                </ElSelect>
-              </ElFormItem>
-              <ElFormItem label="规则">
-                <ElInput v-model="selectedNode.ruleCode" placeholder="关联规则编码" />
-              </ElFormItem>
-              <ElFormItem label="X坐标">
-                <ElInputNumber v-model="selectedNode.x" :step="10" />
-              </ElFormItem>
-              <ElFormItem label="Y坐标">
-                <ElInputNumber v-model="selectedNode.y" :step="10" />
-              </ElFormItem>
-            </ElForm>
+                </YdSelect>
+              </YdFormItem>
+              <YdFormItem label="规则">
+                <YdInput v-model="selectedNode.ruleCode" placeholder="关联规则编码" />
+              </YdFormItem>
+              <YdFormItem label="X坐标">
+                <YdNumberFieldInput v-model="selectedNode.x" :step="10" />
+              </YdFormItem>
+              <YdFormItem label="Y坐标">
+                <YdNumberFieldInput v-model="selectedNode.y" :step="10" />
+              </YdFormItem>
+            </YdForm>
           </div>
           <div v-else class="panel-empty">
             <p class="text-xs text-gray-400">请选择一个节点</p>
@@ -509,7 +509,7 @@ defineExpose({
     </div>
 
     <!-- 试运行结果弹窗 -->
-    <ElDialog v-model="dryRunResultVisible" title="试运行结果" width="600px">
+    <YdDialog v-model="dryRunResultVisible" title="试运行结果" width="600px">
       <div v-loading="dryRunning">
         <div v-if="dryRunResults.length === 0" class="py-4 text-center text-gray-400">
           暂无试运行结果
@@ -524,8 +524,8 @@ defineExpose({
           </div>
         </div>
       </div>
-    </ElDialog>
-  </ElDialog>
+    </YdDialog>
+  </YdDialog>
 </template>
 
 <style scoped>

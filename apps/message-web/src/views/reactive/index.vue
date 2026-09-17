@@ -19,7 +19,7 @@
 */
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { ElEmpty, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdLabel, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
@@ -266,9 +266,9 @@ onBeforeUnmount(() => {
           <YdCardTitle>最近事件（近 50 条）</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <ElEmpty v-if="recentEvents.length === 0" description="暂无事件" />
-          <ElTimeline v-else>
-            <ElTimelineItem
+          <YdEmptyState v-if="recentEvents.length === 0" description="暂无事件" />
+          <YdTimeline v-else>
+            <YdTimelineItem
               v-for="event in recentEvents"
               :key="event.eventId"
               :timestamp="event.timestamp"
@@ -280,8 +280,8 @@ onBeforeUnmount(() => {
                 <span class="text-sm text-gray-500">{{ event.targetUserId ?? '广播' }}</span>
               </div>
               <p v-if="event.content" class="text-sm text-gray-600">{{ event.content }}</p>
-            </ElTimelineItem>
-          </ElTimeline>
+            </YdTimelineItem>
+          </YdTimeline>
         </YdCardContent>
       </YdCard>
     </div>

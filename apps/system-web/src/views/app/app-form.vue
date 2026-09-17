@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
-import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { save, update } from '#/api/appInfo';
@@ -117,34 +117,34 @@ const title = computed(() => (isEdit.value ? '编辑应用' : '新增应用'));
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="应用编码" prop="appCode">
-        <ElInput v-model="formData.appCode" placeholder="请输入应用编码" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="应用名称" prop="appName">
-        <ElInput v-model="formData.appName" placeholder="请输入应用名称" />
-      </ElFormItem>
-      <ElFormItem label="应用 Key" prop="appKey">
-        <ElInput v-model="formData.appKey" placeholder="请输入应用 Key" />
-      </ElFormItem>
-      <ElFormItem label="回调地址" prop="redirectUrl">
-        <ElInput v-model="formData.redirectUrl" placeholder="请输入回调地址" />
-      </ElFormItem>
-      <ElFormItem label="授权范围" prop="scopes">
-        <ElInput v-model="formData.scopes" placeholder="请输入授权范围（逗号分隔）" />
-      </ElFormItem>
-      <ElFormItem label="绑定 IP" prop="boundIps">
-        <ElInput v-model="formData.boundIps" placeholder="请输入绑定 IP（逗号分隔）" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
-      </ElFormItem>
-      <ElFormItem label="状态" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="应用编码" prop="appCode">
+        <YdInput v-model="formData.appCode" placeholder="请输入应用编码" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem label="应用名称" prop="appName">
+        <YdInput v-model="formData.appName" placeholder="请输入应用名称" />
+      </YdFormItem>
+      <YdFormItem label="应用 Key" prop="appKey">
+        <YdInput v-model="formData.appKey" placeholder="请输入应用 Key" />
+      </YdFormItem>
+      <YdFormItem label="回调地址" prop="redirectUrl">
+        <YdInput v-model="formData.redirectUrl" placeholder="请输入回调地址" />
+      </YdFormItem>
+      <YdFormItem label="授权范围" prop="scopes">
+        <YdInput v-model="formData.scopes" placeholder="请输入授权范围（逗号分隔）" />
+      </YdFormItem>
+      <YdFormItem label="绑定 IP" prop="boundIps">
+        <YdInput v-model="formData.boundIps" placeholder="请输入绑定 IP（逗号分隔）" />
+      </YdFormItem>
+      <YdFormItem label="描述">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      </YdFormItem>
+      <YdFormItem label="状态" prop="status">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

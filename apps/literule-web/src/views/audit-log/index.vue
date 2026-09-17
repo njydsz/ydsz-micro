@@ -92,10 +92,10 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 <template>
   <Page auto-content-height>
     <div class="mb-2 flex flex-wrap items-center gap-2 rounded border border-gray-200 bg-white p-3">
-      <ElInput v-model="filter.ruleCode" placeholder="规则编码" clearable class="w-40" />
-      <ElInput v-model="filter.operator" placeholder="操作人" clearable class="w-40" />
-      <ElInput v-model="filter.action" placeholder="动作" clearable class="w-40" />
-      <ElDatePicker
+      <YdInput v-model="filter.ruleCode" placeholder="规则编码" clearable class="w-40" />
+      <YdInput v-model="filter.operator" placeholder="操作人" clearable class="w-40" />
+      <YdInput v-model="filter.action" placeholder="动作" clearable class="w-40" />
+      <YdDatePicker
         v-model="filter.startTime"
         type="datetime"
         placeholder="开始时间"
@@ -103,7 +103,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
         class="w-48"
       />
       <span class="text-gray-400">-</span>
-      <ElDatePicker
+      <YdDatePicker
         v-model="filter.endTime"
         type="datetime"
         placeholder="结束时间"

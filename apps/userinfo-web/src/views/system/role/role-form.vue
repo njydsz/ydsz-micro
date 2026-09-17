@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -138,49 +138,49 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.roleBas
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('page.roleName')" prop="roleName">
-        <ElInput v-model="formData.roleName" :placeholder="t('role.roleNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.roleCode')" prop="roleCode">
-        <ElInput v-model="formData.roleCode" :placeholder="t('role.roleCodePlaceholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('role.dataScope')">
-        <ElSelect v-model="formData.dataScope" :placeholder="t('role.dataScopePlaceholder')" class="w-full">
-          <ElOption
+      <YdFormItem :label="t('page.roleName')" prop="roleName">
+        <YdInput v-model="formData.roleName" :placeholder="t('role.roleNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.roleCode')" prop="roleCode">
+        <YdInput v-model="formData.roleCode" :placeholder="t('role.roleCodePlaceholder')" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem :label="t('role.dataScope')">
+        <YdSelect v-model="formData.dataScope" :placeholder="t('role.dataScopePlaceholder')" class="w-full">
+          <YdSelectItem
             v-for="opt in DATA_SCOPE_OPTIONS"
             :key="opt.value"
             :label="opt.label"
             :value="opt.value"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('page.sortOrder')">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem label="内置角色">
-        <ElSwitch v-model="formData.builtIn" :active-value="true" :inactive-value="false" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.status')">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="t('page.sortOrder')">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem label="内置角色">
+        <YdSwitch v-model="formData.builtIn" :active-value="true" :inactive-value="false" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.status')">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('page.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('page.disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+      <YdFormItem label="描述">
+        <YdInput
           v-model="formData.description"
           type="textarea"
           :rows="3"
           placeholder="请输入描述"
         />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

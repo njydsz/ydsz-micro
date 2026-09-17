@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -131,25 +131,25 @@ async function handleSubmit(): Promise<void> {
 
 <template>
   <Modal :title="isEditMode ? '编辑订阅' : '新增订阅'" width="500px">
-    <ElForm label-width="100px" class="mt-3">
-      <ElFormItem label="用户ID" required>
+    <YdForm label-width="100px" class="mt-3">
+      <YdFormItem label="用户ID" required>
         <YdInput
           v-model="formData.userId"
           placeholder="请输入用户ID"
           :disabled="isEditMode"
         />
-      </ElFormItem>
-      <ElFormItem label="主题编码" required>
+      </YdFormItem>
+      <YdFormItem label="主题编码" required>
         <YdInput
           v-model="formData.topicCode"
           placeholder="请输入主题编码"
           :disabled="isEditMode"
         />
-      </ElFormItem>
-      <ElFormItem label="主题名称" required>
+      </YdFormItem>
+      <YdFormItem label="主题名称" required>
         <YdInput v-model="formData.topicName" placeholder="请输入主题名称" />
-      </ElFormItem>
-      <ElFormItem label="通知通道" required>
+      </YdFormItem>
+      <YdFormItem label="通知通道" required>
         <YdSelectBase v-model="formData.channel">
           <YdSelectTriggerBase>
             <YdSelectValueBase placeholder="请选择通道" />
@@ -164,17 +164,17 @@ async function handleSubmit(): Promise<void> {
             </YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem label="订阅状态">
+      </YdFormItem>
+      <YdFormItem label="订阅状态">
         <YdSwitch
           :checked="formData.status === 'ACTIVE'"
           @update:checked="(val: boolean) => formData.status = val ? 'ACTIVE' : 'UNSUBSCRIBED'"
         />
-      </ElFormItem>
-      <ElFormItem label="备注">
+      </YdFormItem>
+      <YdFormItem label="备注">
         <YdTextarea v-model="formData.remark" placeholder="请输入备注" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
 
     <template #footer>
       <YdButtonBase variant="outline" @click="modalApi.close()">{{ t('common.cancel') }}</YdButtonBase>

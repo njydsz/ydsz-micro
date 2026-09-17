@@ -25,7 +25,8 @@ import { computed, reactive, ref, watch } from 'vue';
 
 import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard/ElEmpty/ElForm/ElTable/ElOption/ElSelect 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、YdInput、Tag → shadcn
-import { ElCard, ElEmpty, ElForm, ElFormItem, ElOption, ElSelect, ElTable, ElTableColumn } from 'element-plus';
+import { YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 
 import { requestClient } from '#/api/request';
 
@@ -196,7 +197,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
 
 <template>
   <div class="dev-platform p-4 space-y-4">
-    <ElCard>
+    <YdCard>
       <template #header>
         <div class="flex items-center justify-between">
           <span class="font-medium">数据源 & 表选择</span>
@@ -206,24 +207,24 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
         </div>
       </template>
 
-      <ElForm label-width="100px">
-        <ElFormItem label="数据源">
-          <ElSelect
+      <YdForm label-width="100px">
+        <YdFormItem label="数据源">
+          <YdSelect
             v-model="selectedDatasourceId"
             placeholder="请选择数据源"
             :loading="tablesLoading"
             style="width: 100%"
           >
-            <ElOption
+            <YdSelectItem
               v-for="ds in datasources"
               :key="ds.id"
               :value="ds.id"
               :label="ds.name + (ds.isDefault ? '（默认）' : '')"
             />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="选择表">
-          <ElSelect
+          </YdSelect>
+        </YdFormItem>
+        <YdFormItem label="选择表">
+          <YdSelect
             v-model="selectedTableId"
             placeholder="请先选择数据源，再选择表"
             :disabled="!selectedDatasourceId"
@@ -231,19 +232,19 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
             @change="onTableSelect"
             style="width: 100%"
           >
-            <ElOption
+            <YdSelectItem
               v-for="tbl in tables"
               :key="tbl.id"
               :value="tbl.id"
               :label="tbl.tableName + (tbl.tableComment ? ' — ' + tbl.tableComment : '')"
             />
-          </ElSelect>
-        </ElFormItem>
-      </ElForm>
-    </ElCard>
+          </YdSelect>
+        </YdFormItem>
+      </YdForm>
+    </YdCard>
 
     <!-- 字段预览 -->
-    <ElCard v-if="columns.length > 0">
+    <YdCard v-if="columns.length > 0">
       <template #header>
         <span class="font-medium">
           字段预览 — {{ selectedTableName }} ({{ columns.length }} 列)
@@ -265,28 +266,28 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
         </ElTableColumn>
         <ElTableColumn prop="columnComment" label="注释" min-width="160" />
       </ElTable>
-    </ElCard>
+    </YdCard>
 
     <!-- 生成配置 & 操作 -->
-    <ElCard>
+    <YdCard>
       <template #header>
         <span class="font-medium">生成配置</span>
       </template>
-      <ElForm label-width="100px">
-        <ElFormItem label="输出目录">
+      <YdForm label-width="100px">
+        <YdFormItem label="输出目录">
           <YdInput v-model="configForm.outputDir" placeholder="生成代码的目标目录绝对路径" />
-        </ElFormItem>
-        <ElFormItem label="作者">
+        </YdFormItem>
+        <YdFormItem label="作者">
           <YdInput v-model="configForm.author" placeholder="Javadoc 作者" />
-        </ElFormItem>
-        <ElFormItem label="冲突策略">
-          <ElSelect v-model="configForm.conflictStrategy" style="width: 200px">
-            <ElOption value="SKIP" label="跳过已存在" />
-            <ElOption value="OVERRIDE" label="覆盖" />
-            <ElOption value="MERGE" label="合并" />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem>
+        </YdFormItem>
+        <YdFormItem label="冲突策略">
+          <YdSelect v-model="configForm.conflictStrategy" style="width: 200px">
+            <YdSelectItem value="SKIP" label="跳过已存在" />
+            <YdSelectItem value="OVERRIDE" label="覆盖" />
+            <YdSelectItem value="MERGE" label="合并" />
+          </YdSelect>
+        </YdFormItem>
+        <YdFormItem>
           <YdButtonBase
             :loading="generating"
             :disabled="!hasSelectedTable"
@@ -297,12 +298,12 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           <span v-if="!hasSelectedTable" class="ml-3 text-sm text-gray-400">
             请先选择数据源和表
           </span>
-        </ElFormItem>
-      </ElForm>
-    </ElCard>
+        </YdFormItem>
+      </YdForm>
+    </YdCard>
 
     <!-- 生成结果 -->
-    <ElCard v-if="resultFiles.length > 0">
+    <YdCard v-if="resultFiles.length > 0">
       <template #header>
         <span class="font-medium">生成结果 ({{ resultFiles.length }} 个文件)</span>
       </template>
@@ -316,10 +317,10 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           <code class="text-xs text-gray-600 break-all font-mono">{{ file }}</code>
         </div>
       </div>
-    </ElCard>
+    </YdCard>
 
     <!-- 空态提示 -->
-    <ElEmpty
+    <YdEmptyState
       v-if="!hasSelectedTable && columns.length === 0 && !generating"
       description="请选择数据源和表开始代码生成"
       :image-size="80"

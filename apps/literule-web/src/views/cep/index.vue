@@ -17,7 +17,7 @@ import type { CEPPatternVO, CEPHitVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdTabs 等复杂组件，需人工评估）
-import { ElButton, ElDialog, ElForm, ElFormItem, ElInput, ElTabPane, ElTabs } from 'element-plus';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -369,7 +369,7 @@ onMounted(() => {
       <!-- 模式列表 -->
       <Grid table-title="CEP 模式列表">
         <template #toolbar-tools>
-          <ElButton type="primary" @click="openRegister">注册模式</ElButton>
+          <YdButton type="primary" @click="openRegister">注册模式</YdButton>
         </template>
       </Grid>
 
@@ -377,10 +377,10 @@ onMounted(() => {
       <div class="grid grid-cols-1 gap-3 xl:grid-cols-2">
         <div class="rounded border border-gray-200 bg-white p-3">
           <div class="mb-2 text-sm font-medium">事件上抛</div>
-          <ElInput v-model="eventText" type="textarea" :rows="8" class="mb-2" />
+          <YdInput v-model="eventText" type="textarea" :rows="8" class="mb-2" />
           <div class="flex gap-2">
-            <ElButton type="primary" @click="handleFeedEvent">上抛单个</ElButton>
-            <ElButton type="success" @click="handleFeedEvents">批量上抛</ElButton>
+            <YdButton type="primary" @click="handleFeedEvent">上抛单个</YdButton>
+            <YdButton type="success" @click="handleFeedEvents">批量上抛</YdButton>
           </div>
           <pre
             v-if="eventResult"
@@ -391,7 +391,7 @@ onMounted(() => {
         <div class="rounded border border-gray-200 bg-white p-3">
           <div class="mb-2 flex items-center justify-between">
             <span class="text-sm font-medium">最近命中</span>
-            <ElButton size="small" @click="loadHitsAndStats">刷新</ElButton>
+            <YdButton size="small" @click="loadHitsAndStats">刷新</YdButton>
           </div>
           <ElTable :data="hits" border size="small" :empty-text="'暂无命中记录'">
             <ElTableColumn prop="ruleCode" label="规则编码" min-width="140" />
@@ -408,22 +408,22 @@ onMounted(() => {
     </div>
 
     <!-- 注册模式弹窗 -->
-    <ElDialog v-model="registerVisible" title="注册模式" width="480px">
-      <ElForm label-width="90px" label-position="right">
-        <ElFormItem label="规则编码" required>
-          <ElInput v-model="patternForm.ruleCode" placeholder="请输入规则编码" />
-        </ElFormItem>
-        <ElFormItem label="模式名称" required>
-          <ElInput v-model="patternForm.name" placeholder="请输入模式名称" />
-        </ElFormItem>
-        <ElFormItem label="事件类型">
-          <ElInput
+    <YdDialog v-model="registerVisible" title="注册模式" width="480px">
+      <YdForm label-width="90px" label-position="right">
+        <YdFormItem label="规则编码" required>
+          <YdInput v-model="patternForm.ruleCode" placeholder="请输入规则编码" />
+        </YdFormItem>
+        <YdFormItem label="模式名称" required>
+          <YdInput v-model="patternForm.name" placeholder="请输入模式名称" />
+        </YdFormItem>
+        <YdFormItem label="事件类型">
+          <YdInput
             v-model="patternForm.eventType"
             placeholder="单个事件类型（与下方多类型二选一）"
           />
-        </ElFormItem>
-        <ElFormItem label="多事件类型">
-          <ElSelect
+        </YdFormItem>
+        <YdFormItem label="多事件类型">
+          <YdSelect
             v-model="patternForm.eventTypes"
             multiple
             filterable
@@ -431,54 +431,54 @@ onMounted(() => {
             default-first-option
             placeholder="多类型 OR 匹配，可输入后回车创建"
           />
-        </ElFormItem>
-        <ElFormItem label="时间窗口">
+        </YdFormItem>
+        <YdFormItem label="时间窗口">
           <div class="flex gap-2">
-            <ElInputNumber v-model="patternForm.windowValue" :min="1" class="!w-28" />
-            <ElSelect v-model="patternForm.windowUnit" class="!w-24">
-              <ElOption label="秒" value="S" />
-              <ElOption label="分钟" value="M" />
-              <ElOption label="小时" value="H" />
-            </ElSelect>
+            <YdNumberFieldInput v-model="patternForm.windowValue" :min="1" class="!w-28" />
+            <YdSelect v-model="patternForm.windowUnit" class="!w-24">
+              <YdSelectItem label="秒" value="S" />
+              <YdSelectItem label="分钟" value="M" />
+              <YdSelectItem label="小时" value="H" />
+            </YdSelect>
           </div>
-        </ElFormItem>
-        <ElFormItem label="过滤条件">
-          <ElInput
+        </YdFormItem>
+        <YdFormItem label="过滤条件">
+          <YdInput
             v-model="patternForm.filter"
             type="textarea"
             :rows="2"
             placeholder="LiteExpr 表达式，如 $event.amount > 100"
           />
-        </ElFormItem>
-        <ElFormItem label="阈值">
-          <ElInputNumber v-model="patternForm.threshold" :min="1" />
-        </ElFormItem>
-        <ElFormItem label="描述">
-          <ElInput
+        </YdFormItem>
+        <YdFormItem label="阈值">
+          <YdNumberFieldInput v-model="patternForm.threshold" :min="1" />
+        </YdFormItem>
+        <YdFormItem label="描述">
+          <YdInput
             v-model="patternForm.description"
             type="textarea"
             :rows="2"
             placeholder="请输入描述"
           />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
       <template #footer>
-        <ElButton @click="registerVisible = false">取消</ElButton>
-        <ElButton type="primary" :loading="registering" @click="handleRegister">确定</ElButton>
+        <YdButton @click="registerVisible = false">取消</YdButton>
+        <YdButton type="primary" :loading="registering" @click="handleRegister">确定</YdButton>
       </template>
-    </ElDialog>
+    </YdDialog>
 
     <!-- 模式详情弹窗 -->
-    <ElDialog
+    <YdDialog
       v-model="detailVisible"
       :title="`模式详情 - ${currentPattern?.name ?? ''}`"
       width="780px"
       top="5vh"
     >
       <div v-loading="detailLoading">
-        <ElTabs v-model="detailActiveTab">
+        <YdTabs v-model="detailActiveTab">
           <!-- 基本信息：输入序列 / 输出条件 / 动作配置 -->
-          <ElTabPane label="模式配置" name="info">
+          <YdTabsContent label="模式配置" name="info">
             <div class="space-y-4 p-2">
               <div class="rounded border border-gray-200 bg-gray-50 p-3">
                 <div class="mb-2 text-xs font-semibold text-gray-600">输入序列</div>
@@ -502,10 +502,10 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-          </ElTabPane>
+          </YdTabsContent>
 
           <!-- 命中统计面板 -->
-          <ElTabPane label="命中统计" name="statistics">
+          <YdTabsContent label="命中统计" name="statistics">
             <div v-loading="statisticsLoading" class="p-2">
               <div v-if="statisticsData" class="grid grid-cols-3 gap-3">
                 <div
@@ -519,14 +519,14 @@ onMounted(() => {
               </div>
               <div v-else class="py-8 text-center text-sm text-gray-400">暂无统计数据</div>
             </div>
-          </ElTabPane>
+          </YdTabsContent>
 
           <!-- 命中记录（分页） -->
-          <ElTabPane label="命中记录" name="hits">
+          <YdTabsContent label="命中记录" name="hits">
             <div class="p-2">
               <div class="mb-2 flex items-center justify-between">
-                <ElButton size="small" @click="loadPatternHits">刷新</ElButton>
-                <ElPagination
+                <YdButton size="small" @click="loadPatternHits">刷新</YdButton>
+                <YdPagination
                   v-model:current-page="hitsPageNum"
                   v-model:page-size="hitsPageSize"
                   :total="hitsTotal"
@@ -555,22 +555,22 @@ onMounted(() => {
                 </ElTableColumn>
               </ElTable>
             </div>
-          </ElTabPane>
+          </YdTabsContent>
 
           <!-- 测试事件推送 -->
-          <ElTabPane label="测试事件" name="test">
+          <YdTabsContent label="测试事件" name="test">
             <div class="space-y-3 p-2">
-              <ElInput
+              <YdInput
                 v-model="testEventText"
                 type="textarea"
                 :rows="6"
                 placeholder="填写测试事件 JSON，如 {&quot;eventType&quot;:&quot;LOGIN_FAILED&quot;,&quot;userId&quot;:&quot;U001&quot;}"
               />
               <div class="flex gap-2">
-                <ElButton type="primary" :loading="testEventLoading" @click="handleTestPattern">
+                <YdButton type="primary" :loading="testEventLoading" @click="handleTestPattern">
                   推送测试
-                </ElButton>
-                <ElButton @click="detailActiveTab = 'statistics'">查看统计</ElButton>
+                </YdButton>
+                <YdButton @click="detailActiveTab = 'statistics'">查看统计</YdButton>
               </div>
               <pre
                 v-if="testEventResult"
@@ -578,9 +578,9 @@ onMounted(() => {
                 >{{ testEventResult }}</pre
               >
             </div>
-          </ElTabPane>
-        </ElTabs>
+          </YdTabsContent>
+        </YdTabs>
       </div>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

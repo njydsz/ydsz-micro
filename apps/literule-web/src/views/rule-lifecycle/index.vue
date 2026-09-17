@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 Form/YdInput/YdTabs/Timeline/YdCard/Row/Col 等复杂组件，需人工评估）
-import { ElButton, ElCard, ElCol, ElDialog, ElForm, ElFormItem, ElInput, ElRow, ElTabPane, ElTabs, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdButton, YdCard, YdCol, YdDialog, YdForm, YdFormItem, YdInput, YdRow, YdTabsContent, YdTabs, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -360,87 +360,87 @@ onMounted(() => {
 <template>
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
-      <ElCard shadow="never">
-        <ElTabs v-model="activeTab" @tab-change="handleTabChange">
+      <YdCard shadow="never">
+        <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 待我审批 -->
-          <ElTabPane label="待我审批" name="pending">
+          <YdTabsContent label="待我审批" name="pending">
             <div class="mb-2">
-              <ElButton @click="loadPending">刷新</ElButton>
+              <YdButton @click="loadPending">刷新</YdButton>
             </div>
             <PendingGrid />
-          </ElTabPane>
+          </YdTabsContent>
 
           <!-- 审批流程模板 -->
-          <ElTabPane label="审批流程模板" name="flows">
+          <YdTabsContent label="审批流程模板" name="flows">
             <div class="mb-2">
-              <ElButton @click="loadFlows">刷新</ElButton>
+              <YdButton @click="loadFlows">刷新</YdButton>
             </div>
             <FlowGrid />
-          </ElTabPane>
-        </ElTabs>
-      </ElCard>
+          </YdTabsContent>
+        </YdTabs>
+      </YdCard>
 
       <!-- 驳回弹窗 -->
-      <ElDialog v-model="rejectDialogVisible" title="驳回审批" width="480px">
-        <ElForm label-width="80px">
-          <ElFormItem label="规则编码">
-            <ElInput :model-value="currentRuleCode" disabled />
-          </ElFormItem>
-          <ElFormItem label="驳回原因" required>
-            <ElInput
+      <YdDialog v-model="rejectDialogVisible" title="驳回审批" width="480px">
+        <YdForm label-width="80px">
+          <YdFormItem label="规则编码">
+            <YdInput :model-value="currentRuleCode" disabled />
+          </YdFormItem>
+          <YdFormItem label="驳回原因" required>
+            <YdInput
               v-model="rejectReason"
               type="textarea"
               :rows="4"
               placeholder="请填写驳回原因"
             />
-          </ElFormItem>
-          <ElFormItem label="补充意见">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem label="补充意见">
+            <YdInput
               v-model="rejectComment"
               type="textarea"
               :rows="2"
               placeholder="可选补充意见（可选）"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <template #footer>
-          <ElButton @click="rejectDialogVisible = false">取消</ElButton>
-          <ElButton type="danger" @click="handleRejectSubmit">确认驳回</ElButton>
+          <YdButton @click="rejectDialogVisible = false">取消</YdButton>
+          <YdButton type="danger" @click="handleRejectSubmit">确认驳回</YdButton>
         </template>
-      </ElDialog>
+      </YdDialog>
 
       <!-- 审批状态弹窗 -->
-      <ElDialog v-model="statusDialogVisible" :title="`审批状态 - ${currentRuleCode}`" width="560px">
+      <YdDialog v-model="statusDialogVisible" :title="`审批状态 - ${currentRuleCode}`" width="560px">
         <div v-if="currentStatusRecord" class="space-y-3">
-          <ElRow :gutter="12">
-            <ElCol :span="12">
-              <ElCard shadow="never" class="text-center">
+          <YdRow :gutter="12">
+            <YdCol :span="12">
+              <YdCard shadow="never" class="text-center">
                 <p class="text-xs text-gray-500">当前层级</p>
                 <p class="text-lg font-medium">L{{ currentStatusRecord.currentLevel ?? 1 }}</p>
-              </ElCard>
-            </ElCol>
-            <ElCol :span="12">
-              <ElCard shadow="never" class="text-center">
+              </YdCard>
+            </YdCol>
+            <YdCol :span="12">
+              <YdCard shadow="never" class="text-center">
                 <p class="text-xs text-gray-500">当前状态</p>
-                <ElTag :type="statusTagType(currentStatusRecord.currentStatus)">
+                <YdBadge :type="statusTagType(currentStatusRecord.currentStatus)">
                   {{ currentStatusRecord.currentStatus ?? '-' }}
-                </ElTag>
-              </ElCard>
-            </ElCol>
-          </ElRow>
-          <ElTimeline>
-            <ElTimelineItem
+                </YdBadge>
+              </YdCard>
+            </YdCol>
+          </YdRow>
+          <YdTimeline>
+            <YdTimelineItem
               v-for="step in currentStatusRecord?.steps || []"
               :key="step.timestamp ?? step.label ?? ''"
               :timestamp="step.timestamp"
               :type="step.status === 'APPROVED' ? 'success' : (step.status === 'REJECTED' ? 'danger' : 'primary')"
             >
               {{ step.label }} - {{ step.approver ?? '待分配' }}
-            </ElTimelineItem>
-          </ElTimeline>
+            </YdTimelineItem>
+          </YdTimeline>
         </div>
         <div v-else class="text-center text-gray-400">暂无审批数据</div>
-      </ElDialog>
+      </YdDialog>
     </div>
   </Page>
 </template>

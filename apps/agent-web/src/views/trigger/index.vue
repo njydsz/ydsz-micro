@@ -21,7 +21,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElOption/ElSelect/ElSwitch 表单套件+ElEmpty SKIP,保留 element-plus
-import { ElEmpty, ElForm, ElFormItem, ElOption, ElSelect, ElSwitch } from 'element-plus';
+import { YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -292,7 +292,7 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
               <YdButtonBase @click="handleCreate">新建触发器</YdButtonBase>
             </template>
           </Grid>
-          <ElEmpty v-if="triggers.length === 0" description="暂无触发器" />
+          <YdEmptyState v-if="triggers.length === 0" description="暂无触发器" />
         </YdCardContent>
       </YdCard>
     </div>
@@ -303,44 +303,44 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
         <YdDialogHeader>
           <YdDialogTitle>{{ isEditMode ? '编辑触发器' : '新建触发器' }}</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm :model="editForm" label-width="120px">
-          <ElFormItem label="名称" required>
-            <ElInput v-model="editForm.name" placeholder="请输入触发器名称" />
-          </ElFormItem>
-          <ElFormItem label="描述">
-            <ElInput v-model="editForm.description" type="textarea" :rows="2" placeholder="请输入描述信息" />
-          </ElFormItem>
-          <ElFormItem label="触发类型" required>
-            <ElSelect v-model="editForm.triggerType" class="w-full">
-              <ElOption label="Cron 定时" value="cron" />
-              <ElOption label="Webhook" value="webhook" />
-              <ElOption label="事件驱动" value="event" />
-              <ElOption label="Agent 生命周期" value="agent_lifecycle" />
-              <ElOption label="内容匹配" value="content_match" />
-              <ElOption label="工作流完成" value="workflow_completion" />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem
+        <YdForm :model="editForm" label-width="120px">
+          <YdFormItem label="名称" required>
+            <YdInput v-model="editForm.name" placeholder="请输入触发器名称" />
+          </YdFormItem>
+          <YdFormItem label="描述">
+            <YdInput v-model="editForm.description" type="textarea" :rows="2" placeholder="请输入描述信息" />
+          </YdFormItem>
+          <YdFormItem label="触发类型" required>
+            <YdSelect v-model="editForm.triggerType" class="w-full">
+              <YdSelectItem label="Cron 定时" value="cron" />
+              <YdSelectItem label="Webhook" value="webhook" />
+              <YdSelectItem label="事件驱动" value="event" />
+              <YdSelectItem label="Agent 生命周期" value="agent_lifecycle" />
+              <YdSelectItem label="内容匹配" value="content_match" />
+              <YdSelectItem label="工作流完成" value="workflow_completion" />
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem
             v-if="editForm.triggerType === 'cron'"
             label="Cron 表达式"
             required
           >
-            <ElInput v-model="editForm.cronExpression" placeholder="例如: 0 0 * * * (每天零点)" />
-          </ElFormItem>
-          <ElFormItem label="目标 Agent">
-            <ElInput v-model="editForm.targetAgentCode" placeholder="请输入目标 Agent 编码" />
-          </ElFormItem>
-          <ElFormItem label="配置 JSON">
-            <ElInput v-model="editForm.config" type="textarea" :rows="4" placeholder='{"key": "value"}' />
-          </ElFormItem>
-          <ElFormItem label="启用状态">
-            <ElSwitch
+            <YdInput v-model="editForm.cronExpression" placeholder="例如: 0 0 * * * (每天零点)" />
+          </YdFormItem>
+          <YdFormItem label="目标 Agent">
+            <YdInput v-model="editForm.targetAgentCode" placeholder="请输入目标 Agent 编码" />
+          </YdFormItem>
+          <YdFormItem label="配置 JSON">
+            <YdInput v-model="editForm.config" type="textarea" :rows="4" placeholder='{"key": "value"}' />
+          </YdFormItem>
+          <YdFormItem label="启用状态">
+            <YdSwitch
               v-model="editForm.enabled"
               active-text="启用"
               inactive-text="停用"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="formModalVisible = false">取消</YdButtonBase>
           <YdButtonBase @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</YdButtonBase>

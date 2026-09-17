@@ -19,7 +19,7 @@
 import { Page } from '@ydsz/common-ui';
 import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
-import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElSwitch, type FormInstance } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch, type FormInstance } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { get, reset, save } from '#/api/userPreference';
@@ -174,7 +174,7 @@ loadPreferences();
       </YdCardHeader>
       <YdCardContent>
 
-      <ElForm
+      <YdForm
         ref="formRef"
         :model="formData"
         :rules="rules"
@@ -183,83 +183,83 @@ loadPreferences();
       >
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
-            <ElFormItem label="默认首页" prop="defaultIndex">
-              <ElInput v-model="formData.defaultIndex" placeholder="如 /dashboard" maxlength="128" />
-            </ElFormItem>
+            <YdFormItem label="默认首页" prop="defaultIndex">
+              <YdInput v-model="formData.defaultIndex" placeholder="如 /dashboard" maxlength="128" />
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="语言设置" prop="language">
-              <ElSelect v-model="formData.language" placeholder="选择语言" class="w-full">
-                <ElOption
+            <YdFormItem label="语言设置" prop="language">
+              <YdSelect v-model="formData.language" placeholder="选择语言" class="w-full">
+                <YdSelectItem
                   v-for="opt in LANGUAGE_OPTIONS"
                   :key="opt.value"
                   :label="opt.label"
                   :value="opt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
+              </YdSelect>
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="主题模式" prop="theme">
-              <ElRadioGroup v-model="formData.theme">
-                <ElRadio v-for="opt in THEME_OPTIONS" :key="opt.value" :value="opt.value">
+            <YdFormItem label="主题模式" prop="theme">
+              <YdRadioGroup v-model="formData.theme">
+                <YdRadioGroupItem v-for="opt in THEME_OPTIONS" :key="opt.value" :value="opt.value">
                   {{ opt.label }}
-                </ElRadio>
-              </ElRadioGroup>
-            </ElFormItem>
+                </YdRadioGroupItem>
+              </YdRadioGroup>
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="主题色" prop="themeColor">
-              <ElInput v-model="formData.themeColor" placeholder="如 #1890ff" maxlength="16" />
-            </ElFormItem>
+            <YdFormItem label="主题色" prop="themeColor">
+              <YdInput v-model="formData.themeColor" placeholder="如 #1890ff" maxlength="16" />
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="菜单布局" prop="menuLayout">
-              <ElSelect v-model="formData.menuLayout" placeholder="选择布局" class="w-full">
-                <ElOption
+            <YdFormItem label="菜单布局" prop="menuLayout">
+              <YdSelect v-model="formData.menuLayout" placeholder="选择布局" class="w-full">
+                <YdSelectItem
                   v-for="opt in MENU_LAYOUT_OPTIONS"
                   :key="opt.value"
                   :label="opt.label"
                   :value="opt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
+              </YdSelect>
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="手风琴菜单" prop="accordionMenu">
-              <ElSwitch
+            <YdFormItem label="手风琴菜单" prop="accordionMenu">
+              <YdSwitch
                 v-model="formData.accordionMenu"
                 active-text="开启"
                 inactive-text="关闭"
               />
-            </ElFormItem>
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="表格密度" prop="tableSize">
-              <ElSelect v-model="formData.tableSize" placeholder="选择密度" class="w-full">
-                <ElOption
+            <YdFormItem label="表格密度" prop="tableSize">
+              <YdSelect v-model="formData.tableSize" placeholder="选择密度" class="w-full">
+                <YdSelectItem
                   v-for="opt in TABLE_SIZE_OPTIONS"
                   :key="opt.value"
                   :label="opt.label"
                   :value="opt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
+              </YdSelect>
+            </YdFormItem>
           </div>
           <div>
-            <ElFormItem label="字体大小" prop="fontSize">
-              <ElSelect v-model="formData.fontSize" placeholder="选择字体大小" class="w-full">
-                <ElOption
+            <YdFormItem label="字体大小" prop="fontSize">
+              <YdSelect v-model="formData.fontSize" placeholder="选择字体大小" class="w-full">
+                <YdSelectItem
                   v-for="opt in FONT_SIZE_OPTIONS"
                   :key="opt.value"
                   :label="opt.label"
                   :value="opt.value"
                 />
-              </ElSelect>
-            </ElFormItem>
+              </YdSelect>
+            </YdFormItem>
           </div>
         </div>
-      </ElForm>
+      </YdForm>
       </YdCardContent>
     </YdCard>
   </Page>

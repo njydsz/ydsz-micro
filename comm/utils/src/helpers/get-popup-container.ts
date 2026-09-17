@@ -14,7 +14,7 @@
  *
  * @example
  * ```vue
- * <ElSelect :get-popup-container="getPopupContainer" />
+ * <YdSelect :get-popup-container="getPopupContainer" />
  * ```
  *
  * @path comm\utils\src\helpers\get-popup-container.ts

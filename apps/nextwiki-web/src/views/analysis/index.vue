@@ -17,7 +17,8 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { ElCard, ElDescriptions, ElDescriptionsItem, ElEmpty, ElInput, ElInputNumber, ElTable, ElTableColumn } from 'element-plus';
+import { YdCard, YdEmptyState, YdInput, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { analyze, getOverview, statsByType, topLargeFiles } from '#/api/analysis';
@@ -134,7 +135,7 @@ onMounted(loadAll);
 <template>
   <Page auto-content-height>
     <!-- 存储概览卡片 -->
-    <ElCard shadow="never" class="mb-3">
+    <YdCard shadow="never" class="mb-3">
       <template #header>
         <span class="font-medium">存储概览</span>
       </template>
@@ -144,10 +145,10 @@ onMounted(loadAll);
           <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
         </div>
       </div>
-    </ElCard>
+    </YdCard>
 
     <!-- 按类型统计 -->
-    <ElCard shadow="never" class="mb-3">
+    <YdCard shadow="never" class="mb-3">
       <template #header>
         <span class="font-medium">按类型统计</span>
       </template>
@@ -156,16 +157,16 @@ onMounted(loadAll);
         <ElTableColumn prop="count" label="数量" width="120" />
         <ElTableColumn prop="sizeLabel" label="占用空间" width="140" />
       </ElTable>
-      <ElEmpty v-else description="暂无类型统计数据" :image-size="60" />
-    </ElCard>
+      <YdEmptyState v-else description="暂无类型统计数据" :image-size="60" />
+    </YdCard>
 
     <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
       <!-- 大文件 TopN -->
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <template #header>
           <div class="flex items-center gap-3">
             <span class="font-medium">大文件 Top{{ topN }}</span>
-            <ElInputNumber
+            <YdNumberFieldInput
               v-model="topN"
               :min="1"
               :max="100"
@@ -184,16 +185,16 @@ onMounted(loadAll);
           </ElTableColumn>
           <ElTableColumn prop="suffix" label="扩展名" width="80" />
         </ElTable>
-        <ElEmpty v-else description="暂无大文件数据" :image-size="60" />
-      </ElCard>
+        <YdEmptyState v-else description="暂无大文件数据" :image-size="60" />
+      </YdCard>
 
       <!-- AI 文档摘要 -->
-      <ElCard shadow="never">
+      <YdCard shadow="never">
         <template #header>
           <span class="font-medium">AI 文档摘要</span>
         </template>
         <div class="mb-3">
-          <ElInput
+          <YdInput
             v-model="analyzeInput"
             type="textarea"
             :rows="3"
@@ -214,8 +215,8 @@ onMounted(loadAll);
             <p class="whitespace-pre-wrap text-sm">{{ (analyzeResult as Record<string, unknown>).summary ?? (analyzeResult as Record<string, unknown>).content ?? '--' }}</p>
           </ElDescriptionsItem>
         </ElDescriptions>
-        <ElEmpty v-else description="摘要尚未生成" :image-size="60" />
-      </ElCard>
+        <YdEmptyState v-else description="摘要尚未生成" :image-size="60" />
+      </YdCard>
     </div>
   </Page>
 </template>

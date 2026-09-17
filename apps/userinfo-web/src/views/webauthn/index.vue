@@ -20,7 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
-import { ElDescriptions, ElDescriptionsItem, ElEmpty, ElIcon, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdEmptyState, YdIcon, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -149,7 +150,7 @@ const credentialCount = computed(() => credentials.value.length);
       <YdCard shadow="never" class="mb-4">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div class="flex items-center gap-3">
-            <ElIcon :size="24" class="text-blue-500">
+            <YdIcon :size="24" class="text-blue-500">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -160,7 +161,7 @@ const credentialCount = computed(() => credentials.value.length);
                   d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8m0 2a6 6 0 0 1 6 6c0 1.77-.77 3.36-2 4.46V12a4 4 0 0 0-8 0v4.46A5.98 5.98 0 0 1 6 12a6 6 0 0 1 6-6m0 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0v-3a4 4 0 0 0-4-4z"
                 />
               </svg>
-            </ElIcon>
+            </YdIcon>
             <div>
               <h3 class="text-lg font-semibold">Passkey 管理</h3>
               <p class="text-sm text-muted-foreground">
@@ -185,7 +186,7 @@ const credentialCount = computed(() => credentials.value.length);
         <YdCardContent>
 
         <!-- 空状态 -->
-        <ElEmpty
+        <YdEmptyState
           v-if="!loading && credentials.length === 0"
           description="尚未注册任何 Passkey 凭证"
           :image-size="100"
@@ -193,7 +194,7 @@ const credentialCount = computed(() => credentials.value.length);
           <YdButtonBase variant="default" @click="registerDialogVisible = true">
             立即注册
           </YdButtonBase>
-        </ElEmpty>
+        </YdEmptyState>
 
         <!-- 凭证列表 -->
         <div v-else class="space-y-3">
@@ -203,7 +204,7 @@ const credentialCount = computed(() => credentials.value.length);
             class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all"
           >
             <div class="flex items-center gap-3">
-              <ElIcon :size="28" class="text-gray-400">
+              <YdIcon :size="28" class="text-gray-400">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -216,7 +217,7 @@ const credentialCount = computed(() => credentials.value.length);
                   <circle cx="12" cy="14" r="1" fill="currentColor" />
                   <circle cx="16" cy="14" r="1" fill="currentColor" />
                 </svg>
-              </ElIcon>
+              </YdIcon>
               <div>
                 <div class="flex items-center gap-2">
                   <span class="font-medium">{{
@@ -277,8 +278,8 @@ const credentialCount = computed(() => credentials.value.length);
             </p>
           </div>
 
-          <ElTimeline>
-            <ElTimelineItem
+          <YdTimeline>
+            <YdTimelineItem
               v-for="(step, index) in registrationSteps"
               :key="step.title ?? index"
               :hollow="index > 0"
@@ -287,8 +288,8 @@ const credentialCount = computed(() => credentials.value.length);
               <div class="text-sm text-muted-foreground mt-1">
                 {{ step.description }}
               </div>
-            </ElTimelineItem>
-          </ElTimeline>
+            </YdTimelineItem>
+          </YdTimeline>
 
           <YdDialogFooter class="gap-2">
             <YdButtonBase variant="outline" @click="registerDialogVisible = false">关闭</YdButtonBase>

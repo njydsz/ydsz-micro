@@ -17,7 +17,8 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElInputNumber/ElStatistic/ElTable/ElTableColumn 表单+表格+描述+数值输入+统计,保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElInputNumber, ElStatistic, ElTable, ElTableColumn } from 'element-plus';
+import { YdNumberFieldInput, YdCountToAnimator } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem, ElTableColumn } from 'element-plus';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -131,7 +132,7 @@ onMounted(() => { handleLoadStats(); });
     <div class="mb-3 flex flex-wrap gap-3">
       <div v-for="card in statCards" :key="card.key" class="w-40 rounded-md border p-3">
         <div class="mb-1 truncate text-sm text-gray-500">{{ card.label }}</div>
-        <ElStatistic :value="Number(card.value) || 0" />
+        <YdCountToAnimator :value="Number(card.value) || 0" />
       </div>
     </div>
     <ElDescriptions v-if="statsEntries.length > statCards.length" :column="2" border class="mb-3">
@@ -146,9 +147,9 @@ onMounted(() => { handleLoadStats(); });
     <div class="mb-3 flex flex-wrap items-center gap-2 rounded-md border p-3">
       <YdInput v-model="queryForm.query" placeholder="输入检索内容" class="w-72" @keyup.enter="handleSearch" />
       <span class="text-sm text-gray-500">TopK</span>
-      <ElInputNumber v-model="queryForm.topK" :min="1" :max="100" class="w-24" />
+      <YdNumberFieldInput v-model="queryForm.topK" :min="1" :max="100" class="w-24" />
       <span class="text-sm text-gray-500">最小得分</span>
-      <ElInputNumber v-model="queryForm.minScore" :min="0" :max="1" :step="0.1" class="w-24" />
+      <YdNumberFieldInput v-model="queryForm.minScore" :min="0" :max="1" :step="0.1" class="w-24" />
       <YdButtonBase :loading="searchLoading" @click="handleSearch">检索</YdButtonBase>
     </div>
     <ElTable :data="searchRows" border stripe height="360">

@@ -20,7 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（含 YdAlert/Form/YdInput/YdSelectBase/YdSwitch/YdTabs/YdTable 等复杂组件，需人工评估）
-import { ElAlert, ElButton, ElCard, ElDialog, ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect, ElSwitch, ElTable, ElTableColumn, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { YdAlertBanner, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -219,28 +220,28 @@ onMounted(() => {
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
       <!-- 搜索区 -->
-      <ElCard shadow="never" class="mb-4">
+      <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <ElInput
+            <YdInput
               v-model="searchRuleCode"
               placeholder="输入目标规则编码查询依赖关系"
               clearable
               style="width: 280px"
               @keyup.enter="handleSearch"
             />
-            <ElButton type="primary" @click="handleSearch">
+            <YdButton type="primary" @click="handleSearch">
               查询
-            </ElButton>
+            </YdButton>
           </div>
-          <ElButton type="success" @click="showAddDialog">
+          <YdButton type="success" @click="showAddDialog">
             添加依赖
-          </ElButton>
+          </YdButton>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 级联禁用提示 -->
-      <ElAlert
+      <YdAlertBanner
         v-if="cascadingPreview.length > 0"
         type="warning"
         :closable="false"
@@ -252,12 +253,12 @@ onMounted(() => {
           <strong class="text-red-500 mx-1">{{ cascadingPreview.length }}</strong>
           条关联规则的运行
         </template>
-      </ElAlert>
+      </YdAlertBanner>
 
       <!-- 依赖数据展示 -->
-      <ElCard shadow="never">
-        <ElTabs v-model="activeTab" @tab-change="handleTabChange">
-          <ElTabPane label="依赖此规则的" name="dependents">
+      <YdCard shadow="never">
+        <YdTabs v-model="activeTab" @tab-change="handleTabChange">
+          <YdTabsContent label="依赖此规则的" name="dependents">
             <ElTable
               v-if="dependentsList.length > 0"
               :data="dependentsList"
@@ -272,9 +273,9 @@ onMounted(() => {
               </ElTableColumn>
               <ElTableColumn label="依赖类型" width="120" align="center">
                 <template #default="{ row }">
-                  <ElTag :type="dependencyTypeTagType(row.dependencyType)">
+                  <YdBadge :type="dependencyTypeTagType(row.dependencyType)">
                     {{ dependencyTypeLabel(row.dependencyType) }}
-                  </ElTag>
+                  </YdBadge>
                 </template>
               </ElTableColumn>
               <ElTableColumn label="级联禁用" width="100" align="center">
@@ -291,29 +292,29 @@ onMounted(() => {
               </ElTableColumn>
               <ElTableColumn label="操作" width="180" fixed="right" align="center">
                 <template #default="{ row }">
-                  <ElButton
+                  <YdButton
                     link
                     type="danger"
                     size="small"
                     @click="handleRemoveDependency(row)"
                   >
                     移除
-                  </ElButton>
-                  <ElButton
+                  </YdButton>
+                  <YdButton
                     link
                     type="warning"
                     size="small"
                     @click="handleCascadingPreview(row)"
                   >
                     级联预览
-                  </ElButton>
+                  </YdButton>
                 </template>
               </ElTableColumn>
             </ElTable>
-            <ElEmpty v-else description="暂无依赖此规则的记录" image-size="100" />
-          </ElTabPane>
+            <YdEmptyState v-else description="暂无依赖此规则的记录" image-size="100" />
+          </YdTabsContent>
 
-          <ElTabPane label="此规则依赖的" name="dependencies">
+          <YdTabsContent label="此规则依赖的" name="dependencies">
             <ElTable
               v-if="dependenciesList.length > 0"
               :data="dependenciesList"
@@ -328,9 +329,9 @@ onMounted(() => {
               </ElTableColumn>
               <ElTableColumn label="依赖类型" width="120" align="center">
                 <template #default="{ row }">
-                  <ElTag :type="dependencyTypeTagType(row.dependencyType)">
+                  <YdBadge :type="dependencyTypeTagType(row.dependencyType)">
                     {{ dependencyTypeLabel(row.dependencyType) }}
-                  </ElTag>
+                  </YdBadge>
                 </template>
               </ElTableColumn>
               <ElTableColumn label="级联禁用" width="100" align="center">
@@ -347,78 +348,78 @@ onMounted(() => {
               </ElTableColumn>
               <ElTableColumn label="操作" width="180" fixed="right" align="center">
                 <template #default="{ row }">
-                  <ElButton
+                  <YdButton
                     link
                     type="danger"
                     size="small"
                     @click="handleRemoveDependency(row)"
                   >
                     移除
-                  </ElButton>
-                  <ElButton
+                  </YdButton>
+                  <YdButton
                     link
                     type="warning"
                     size="small"
                     @click="handleCascadingPreview(row)"
                   >
                     级联预览
-                  </ElButton>
+                  </YdButton>
                 </template>
               </ElTableColumn>
             </ElTable>
-            <ElEmpty v-else description="暂无此规则依赖的记录" image-size="100" />
-          </ElTabPane>
-        </ElTabs>
-      </ElCard>
+            <YdEmptyState v-else description="暂无此规则依赖的记录" image-size="100" />
+          </YdTabsContent>
+        </YdTabs>
+      </YdCard>
 
       <!-- 添加依赖弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="addDialogVisible"
         :title="`为规则 ${addForm.ruleCode} 添加依赖`"
         width="480px"
         destroy-on-close
       >
-        <ElForm :model="addForm" label-width="100px">
-          <ElFormItem label="被依赖规则" required>
-            <ElInput
+        <YdForm :model="addForm" label-width="100px">
+          <YdFormItem label="被依赖规则" required>
+            <YdInput
               v-model="addForm.dependsOnRuleCode"
               placeholder="请输入被依赖规则编码"
             />
-          </ElFormItem>
-          <ElFormItem label="依赖类型">
-            <ElSelect v-model="addForm.dependencyType" style="width: 100%">
-              <ElOption
+          </YdFormItem>
+          <YdFormItem label="依赖类型">
+            <YdSelect v-model="addForm.dependencyType" style="width: 100%">
+              <YdSelectItem
                 v-for="opt in dependencyTypeOptions"
                 :key="opt.value"
                 :label="opt.label"
                 :value="opt.value"
               />
-            </ElSelect>
-          </ElFormItem>
-          <ElFormItem label="级联禁用">
-            <ElSwitch
+            </YdSelect>
+          </YdFormItem>
+          <YdFormItem label="级联禁用">
+            <YdSwitch
               v-model="addForm.cascadeOnDisable"
               active-text="是"
               inactive-text="否"
             />
-          </ElFormItem>
-          <ElFormItem label="描述">
-            <ElInput
+          </YdFormItem>
+          <YdFormItem label="描述">
+            <YdInput
               v-model="addForm.description"
               type="textarea"
               :rows="2"
               placeholder="依赖关系说明（可选）"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <template #footer>
-          <ElButton @click="addDialogVisible = false">取消</ElButton>
-          <ElButton type="primary" @click="handleAddDependency">确认添加</ElButton>
+          <YdButton @click="addDialogVisible = false">取消</YdButton>
+          <YdButton type="primary" @click="handleAddDependency">确认添加</YdButton>
         </template>
-      </ElDialog>
+      </YdDialog>
 
       <!-- 级联禁用影响弹窗 -->
-      <ElDialog
+      <YdDialog
         v-model="cascadeDialogVisible"
         :title="`级联禁用影响预览 - ${cascadeTargetCode}`"
         width="480px"
@@ -429,18 +430,18 @@ onMounted(() => {
             禁用规则 <strong>{{ cascadeTargetCode }}</strong> 将级联影响以下规则：
           </p>
           <div class="flex flex-wrap gap-2">
-            <ElTag
+            <YdBadge
               v-for="(code, idx) in cascadingPreview"
               :key="code"
               type="warning"
               effect="dark"
             >
               {{ code }}
-            </ElTag>
+            </YdBadge>
           </div>
         </div>
-        <ElEmpty v-else description="无级联禁用影响" :image-size="60" />
-      </ElDialog>
+        <YdEmptyState v-else description="无级联禁用影响" :image-size="60" />
+      </YdDialog>
     </div>
   </Page>
 </template>

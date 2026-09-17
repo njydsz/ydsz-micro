@@ -18,7 +18,8 @@
 */
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem/ElTable/ElTableColumn 表单与表格组件保留 element-plus（有专门迁移批次）
-import { ElForm, ElFormItem, ElTable, ElTableColumn } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -231,11 +232,11 @@ onMounted(loadList);
         <YdDialogHeader>
           <YdDialogTitle>{{ editingId ? '编辑订阅' : '新增订阅' }}</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm ref="formRef" :model="formData" :rules="formRules" label-width="100px">
-          <ElFormItem label="订阅名称" prop="name">
+        <YdForm ref="formRef" :model="formData" :rules="formRules" label-width="100px">
+          <YdFormItem label="订阅名称" prop="name">
             <YdInput v-model="formData.name" placeholder="请输入订阅名称" />
-          </ElFormItem>
-          <ElFormItem label="事件类型" prop="eventType">
+          </YdFormItem>
+          <YdFormItem label="事件类型" prop="eventType">
             <YdSelectBase v-model="formData.eventType">
               <YdSelectTriggerBase placeholder="请选择事件类型" />
               <YdSelectContentBase>
@@ -248,11 +249,11 @@ onMounted(loadList);
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-          </ElFormItem>
-          <ElFormItem label="回调 URL" prop="callbackUrl">
+          </YdFormItem>
+          <YdFormItem label="回调 URL" prop="callbackUrl">
             <YdInput v-model="formData.callbackUrl" placeholder="https://example.com/webhook" />
-          </ElFormItem>
-          <ElFormItem label="请求方法" prop="httpMethod">
+          </YdFormItem>
+          <YdFormItem label="请求方法" prop="httpMethod">
             <YdRadioGroup v-model="formData.httpMethod">
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
@@ -265,20 +266,20 @@ onMounted(loadList);
                 </div>
               </div>
             </YdRadioGroup>
-          </ElFormItem>
-          <ElFormItem label="请求头">
+          </YdFormItem>
+          <YdFormItem label="请求头">
             <YdTextarea v-model="formData.headers" placeholder="JSON 格式，可选" :rows="2" />
-          </ElFormItem>
-          <ElFormItem label="签名密钥">
+          </YdFormItem>
+          <YdFormItem label="签名密钥">
             <YdInput v-model="formData.secret" placeholder="用于签名验证，可选" type="password" />
-          </ElFormItem>
-          <ElFormItem label="状态" prop="webhookStatus">
+          </YdFormItem>
+          <YdFormItem label="状态" prop="webhookStatus">
             <YdSwitch
               :checked="formData.webhookStatus === 'ACTIVE'"
               @update:checked="formData.webhookStatus = $event ? 'ACTIVE' : 'INACTIVE'"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="dialogVisible = false">取消</YdButtonBase>
           <YdButtonBase @click="handleSubmit">确定</YdButtonBase>

@@ -20,7 +20,8 @@ import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer 描述+抽屉+输入,保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElDrawer } from 'element-plus';
+import { YdDrawer } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
@@ -109,7 +110,7 @@ async function handleView(row: AgentDefinitionVO) {
       </ElDescriptionsItem>
     </ElDescriptions>
     <Grid table-title="Agent定义列表" />
-    <ElDrawer v-model="detailVisible" title="Agent定义详情" size="480px">
+    <YdDrawer v-model="detailVisible" title="Agent定义详情" size="480px">
       <ElDescriptions v-if="detail" :column="1" border>
         <ElDescriptionsItem label="Agent编码">{{ detail.agentCode }}</ElDescriptionsItem>
         <ElDescriptionsItem label="Agent名称">{{ detail.agentName }}</ElDescriptionsItem>
@@ -129,6 +130,6 @@ async function handleView(row: AgentDefinitionVO) {
         <ElDescriptionsItem label="更新人">{{ detail.updatedBy }}</ElDescriptionsItem>
         <ElDescriptionsItem label="更新时间">{{ detail.updatedAt }}</ElDescriptionsItem>
       </ElDescriptions>
-    </ElDrawer>
+    </YdDrawer>
   </Page>
 </template>

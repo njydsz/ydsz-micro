@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
 import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
@@ -110,43 +110,43 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal title="发送消息">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem label="发送策略" prop="strategy">
+      <YdFormItem label="发送策略" prop="strategy">
         <YdRadioGroup v-model="formData.strategy">
           <YdRadioGroupItem value="SYNC">同步</YdRadioGroupItem>
           <YdRadioGroupItem value="DIRECT">直发</YdRadioGroupItem>
           <YdRadioGroupItem value="ASYNC">异步</YdRadioGroupItem>
           <YdRadioGroupItem value="TRANSACTIONAL">事务</YdRadioGroupItem>
         </YdRadioGroup>
-      </ElFormItem>
-      <ElFormItem label="通道" prop="channel">
+      </YdFormItem>
+      <YdFormItem label="通道" prop="channel">
         <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
-      </ElFormItem>
-      <ElFormItem label="接收者" prop="receiver">
+      </YdFormItem>
+      <YdFormItem label="接收者" prop="receiver">
         <YdInput v-model="formData.receiver" placeholder="请输入接收者" />
-      </ElFormItem>
-      <ElFormItem label="业务类型" prop="bizType">
+      </YdFormItem>
+      <YdFormItem label="业务类型" prop="bizType">
         <YdInput v-model="formData.bizType" placeholder="请输入业务类型" />
-      </ElFormItem>
-      <ElFormItem label="业务ID" prop="bizId">
+      </YdFormItem>
+      <YdFormItem label="业务ID" prop="bizId">
         <YdInput v-model="formData.bizId" placeholder="请输入业务ID" />
-      </ElFormItem>
-      <ElFormItem label="模板编码" prop="templateCode">
+      </YdFormItem>
+      <YdFormItem label="模板编码" prop="templateCode">
         <YdInput v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="主题" prop="subject">
+      </YdFormItem>
+      <YdFormItem label="主题" prop="subject">
         <YdInput v-model="formData.subject" placeholder="请输入主题（可为空）" />
-      </ElFormItem>
-      <ElFormItem label="内容" prop="content">
+      </YdFormItem>
+      <YdFormItem label="内容" prop="content">
         <YdTextarea v-model="formData.content" placeholder="请输入内容" />
-      </ElFormItem>
-      <ElFormItem label="优先级" prop="priority">
+      </YdFormItem>
+      <YdFormItem label="优先级" prop="priority">
         <YdSelectBase v-model="formData.priority">
           <YdSelectTriggerBase>
             <YdSelectValueBase placeholder="请选择优先级（可为空）" />
@@ -157,10 +157,10 @@ const [Modal, modalApi] = useYdModal({
             <YdSelectItemBase value="LOW">低</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-      </ElFormItem>
-      <ElFormItem label="消息组" prop="messageGroup">
+      </YdFormItem>
+      <YdFormItem label="消息组" prop="messageGroup">
         <YdInput v-model="formData.messageGroup" placeholder="请输入消息组（可为空）" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

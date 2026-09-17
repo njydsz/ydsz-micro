@@ -21,7 +21,7 @@ import { Page } from '@ydsz/common-ui';
 import { useAccess } from '@ydsz/access';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElButton, ElEmpty, ElInput, ElOption, ElPagination, ElSelect, ElTag } from 'element-plus';
+import { YdButton, YdEmptyState, YdInput, YdSelectItem, YdPagination, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import {
   clearSearchHistory,
@@ -307,7 +307,7 @@ onMounted(async () => {
         <div class="mb-4 flex items-center justify-between">
           <h1 class="text-2xl font-bold text-gray-800">{{ t('searchTitle') }}</h1>
           <!-- 管理员工具：重建索引 -->
-          <ElButton
+          <YdButton
             v-if="canRebuildIndex"
             type="danger"
             size="small"
@@ -315,10 +315,10 @@ onMounted(async () => {
             @click="handleRebuildIndices"
           >
             {{ t('searchRebuildIndices') }}
-          </ElButton>
+          </YdButton>
         </div>
         <div class="flex gap-2">
-          <ElInput
+          <YdInput
             v-model="keyword"
             :placeholder="t('searchInputPlaceholder')"
             size="large"
@@ -326,12 +326,12 @@ onMounted(async () => {
             @keyup.enter="handleSearch"
           >
             <template #append>
-              <ElButton type="primary" :loading="loading" @click="handleSearch">{{ t('searchButton') }}</ElButton>
+              <YdButton type="primary" :loading="loading" @click="handleSearch">{{ t('searchButton') }}</YdButton>
             </template>
-          </ElInput>
-          <ElSelect v-model="searchType" :placeholder="t('searchType')" size="large" class="w-32">
-            <ElOption v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
-          </ElSelect>
+          </YdInput>
+          <YdSelect v-model="searchType" :placeholder="t('searchType')" size="large" class="w-32">
+            <YdSelectItem v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+          </YdSelect>
           <AdvancedSearchForm @success="handleAdvancedSearchSuccess" />
         </div>
 
@@ -386,14 +386,14 @@ onMounted(async () => {
                     <span>{{ item.updatedAt }}</span>
                   </div>
                 </div>
-                <ElTag v-if="item.nodeType" size="small" type="info">{{ item.nodeType }}</ElTag>
+                <YdBadge v-if="item.nodeType" size="small" type="info">{{ item.nodeType }}</YdBadge>
               </div>
             </div>
           </div>
 
           <!-- 分页 -->
           <div v-if="hasResults && (searchResult?.total ?? 0) > pageSize" class="mt-4 flex justify-center">
-            <ElPagination
+            <YdPagination
               v-model:current-page="currentPage"
               :page-size="pageSize"
               :total="searchResult?.total ?? 0"
@@ -403,7 +403,7 @@ onMounted(async () => {
           </div>
 
           <!-- 无结果 -->
-          <ElEmpty v-if="hasSearched && !hasResults" :description="t('noResults')" />
+          <YdEmptyState v-if="hasSearched && !hasResults" :description="t('noResults')" />
         </div>
 
         <!-- 侧边栏 -->
@@ -412,10 +412,10 @@ onMounted(async () => {
           <div v-if="searchHistory.length > 0" class="mb-6 rounded border bg-white p-4">
             <div class="mb-3 flex items-center justify-between">
               <h3 class="text-sm font-medium text-gray-700">{{ t('searchHistory') }}</h3>
-              <ElButton size="small" link type="primary" @click="handleClearHistory">{{ t('clearHistory') }}</ElButton>
+              <YdButton size="small" link type="primary" @click="handleClearHistory">{{ t('clearHistory') }}</YdButton>
             </div>
             <div class="flex flex-wrap gap-2">
-              <ElTag
+              <YdBadge
                 v-for="history in searchHistory"
                 :key="history"
                 class="cursor-pointer"
@@ -424,7 +424,7 @@ onMounted(async () => {
                 @click="handleHistoryClick(history)"
               >
                 {{ history }}
-              </ElTag>
+              </YdBadge>
             </div>
           </div>
 

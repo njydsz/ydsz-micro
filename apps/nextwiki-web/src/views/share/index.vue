@@ -18,7 +18,8 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { ElButton, ElDrawer, ElTable, ElTableColumn, ElTag } from 'element-plus';
+import { YdButton, YdDrawer, YdTable, YdBadge } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -164,14 +165,14 @@ async function handleRevoke(row: ShareLinkVO) {
   <Page auto-content-height>
     <Grid table-title="我的分享">
       <template #toolbar-tools>
-        <ElButton type="primary" @click="handleAdd">新建分享</ElButton>
+        <YdButton type="primary" @click="handleAdd">新建分享</YdButton>
       </template>
     </Grid>
     <ReceivedGrid table-title="收到的分享" />
     <ShareFormModal @success="gridApi.query()" />
-    <ElDrawer v-model="logsVisible" title="访问日志" :size="640">
+    <YdDrawer v-model="logsVisible" title="访问日志" :size="640">
       <div class="mb-2 flex justify-end">
-        <ElButton size="small" :loading="logsLoading" @click="loadLogs">刷新</ElButton>
+        <YdButton size="small" :loading="logsLoading" @click="loadLogs">刷新</YdButton>
       </div>
       <ElTable :data="accessLogs" border size="small">
         <ElTableColumn prop="visitorName" label="访问者" min-width="120" />
@@ -181,10 +182,10 @@ async function handleRevoke(row: ShareLinkVO) {
         <ElTableColumn prop="accessTime" label="访问时间" min-width="170" />
         <ElTableColumn prop="failReason" label="失败原因" min-width="120" />
       </ElTable>
-    </ElDrawer>
-    <ElDrawer v-model="recipientsVisible" title="接收人" :size="640">
+    </YdDrawer>
+    <YdDrawer v-model="recipientsVisible" title="接收人" :size="640">
       <div class="mb-2 flex justify-end">
-        <ElButton size="small" :loading="recipientsLoading" @click="loadRecipients">刷新</ElButton>
+        <YdButton size="small" :loading="recipientsLoading" @click="loadRecipients">刷新</YdButton>
       </div>
       <ElTable :data="recipients" border size="small">
         <ElTableColumn prop="recipientName" label="接收人" min-width="140" />
@@ -193,6 +194,6 @@ async function handleRevoke(row: ShareLinkVO) {
         <ElTableColumn prop="viewedAt" label="查看时间" min-width="170" />
         <ElTableColumn prop="createdAt" label="创建时间" min-width="170" />
       </ElTable>
-    </ElDrawer>
+    </YdDrawer>
   </Page>
 </template>

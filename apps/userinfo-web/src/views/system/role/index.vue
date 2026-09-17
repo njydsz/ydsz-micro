@@ -21,7 +21,8 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ElDialog, ElTable, ElTableColumn, ElTransfer } from 'element-plus';
+import { YdDialog, YdTable, YdTransfer } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -321,12 +322,12 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
     </Grid>
     <RoleFormModal @success="gridApi.query()" />
 
-    <ElDialog
+    <YdDialog
       v-model="permDialogVisible"
       :title="t('role.assignPermissions') + ' - ' + currentRoleName"
       width="600px"
     >
-      <ElTransfer
+      <YdTransfer
         v-model="selectedPermIds"
         :data="permTransferData"
         :titles="[t('role.optionalPermission'), t('role.assignedPermission')]"
@@ -337,10 +338,10 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         <YdButtonBase variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</YdButtonBase>
         <YdButtonBase variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</YdButtonBase>
       </template>
-    </ElDialog>
+    </YdDialog>
 
     <!-- 角色用户列表弹窗 -->
-    <ElDialog
+    <YdDialog
       v-model="userListDialogVisible"
       :title="t('role.roleUsers') + ' - ' + currentViewRoleName"
       width="800px"
@@ -363,6 +364,6 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
       <template #footer>
         <YdButtonBase variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButtonBase>
       </template>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

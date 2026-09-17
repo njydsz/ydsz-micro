@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElDrawer/ElTable 暂无或部分无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus' // FIXME-P3-EP-EXIT;
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

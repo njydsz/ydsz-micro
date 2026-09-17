@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 // TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
@@ -76,20 +76,20 @@ async function handlePublish() {
         此页面用于向订阅了特定消息的等待节点触发流程继续。
         通常由外部系统（如消息队列消费者）通过 API 调用，此处提供手动触发入口用于调试和运维。
       </p>
-      <ElForm :model="form" label-width="120px">
-        <ElFormItem label="消息名称" required>
+      <YdForm :model="form" label-width="120px">
+        <YdFormItem label="消息名称" required>
           <YdInput v-model="form.messageName" placeholder="对应流程中消息节点的订阅名称" />
-        </ElFormItem>
-        <ElFormItem label="关联键名">
+        </YdFormItem>
+        <YdFormItem label="关联键名">
           <YdInput v-model="form.correlationKey" placeholder="可选，如 orderId" />
-        </ElFormItem>
-        <ElFormItem label="关联键值">
+        </YdFormItem>
+        <YdFormItem label="关联键值">
           <YdInput v-model="form.correlationValue" placeholder="可选，如 ORD-20260908-001" />
-        </ElFormItem>
-        <ElFormItem>
+        </YdFormItem>
+        <YdFormItem>
           <YdButtonBase :loading="loading" @click="handlePublish">发布事件</YdButtonBase>
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
       </YdCardContent>
     </YdCard>
   </Page>

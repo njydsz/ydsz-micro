@@ -21,13 +21,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import { YdBadge, YdButtonBase, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent } from '@ydsz-core/ydsz-ui';
 // TODO: 复杂文件，ElCard 需要手动迁移为 shadcn YdCard 结构；ElProgress/ElEmpty/ElTable 部分未提供 shadcn 或 SKIP（YdTable）；部分迁移：YdButtonBase、Tag → shadcn
-import {
-  ElCard,
-  ElEmpty,
-  ElProgress,
-  ElTable,
-  ElTableColumn,
-} from 'element-plus';
+import { YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 
 import { requestClient } from '#/api/request';
 
@@ -182,17 +177,17 @@ const formatNumber = (value: number | undefined): string => {
   <div class="monitor-dashboard p-4 space-y-6">
     <!-- 顶部关键指标卡片 -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
-      <ElCard shadow="hover">
+      <YdCard shadow="hover">
         <div class="text-center p-2">
           <div class="text-sm text-gray-500">注册服务数</div>
           <div class="text-2xl font-bold mt-1">{{ summary.totalServices }}</div>
           <div class="text-xs text-gray-400 mt-1">Nacos 实时</div>
         </div>
-      </ElCard>
-      <ElCard shadow="hover">
+      </YdCard>
+      <YdCard shadow="hover">
         <div class="text-center p-2">
           <div class="text-sm text-gray-500">服务健康度</div>
-          <ElProgress
+          <YdProgress
             :percentage="healthRatio"
             :status="healthRatio >= 90 ? 'success' : healthRatio >= 70 ? 'warning' : 'exception'"
             class="mt-2"
@@ -201,8 +196,8 @@ const formatNumber = (value: number | undefined): string => {
             {{ summary.upServices }}/{{ summary.totalServices }} 正常
           </div>
         </div>
-      </ElCard>
-      <ElCard shadow="hover">
+      </YdCard>
+      <YdCard shadow="hover">
         <div class="text-center p-2">
           <div class="text-sm text-gray-500">Redis 命中率</div>
           <div
@@ -218,11 +213,11 @@ const formatNumber = (value: number | undefined): string => {
             {{ formatNumber(redisMetrics.keyspaceMisses) }} 未命中
           </div>
         </div>
-      </ElCard>
-      <ElCard shadow="hover">
+      </YdCard>
+      <YdCard shadow="hover">
         <div class="text-center p-2">
           <div class="text-sm text-gray-500">JVM 内存使用</div>
-          <ElProgress
+          <YdProgress
             v-if="memory"
             :percentage="Math.round(memory.usagePercent)"
             :status="memory.usagePercent >= 80 ? 'warning' : 'success'"
@@ -233,13 +228,13 @@ const formatNumber = (value: number | undefined): string => {
           </div>
           <YdBadge v-else variant="secondary" class="mt-2">-</YdBadge>
         </div>
-      </ElCard>
+      </YdCard>
     </div>
 
     <!-- 服务健康 + 运行时信息 -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <!-- 服务注册表 -->
-      <ElCard>
+      <YdCard>
         <template #header>
           <div class="flex items-center justify-between">
             <span class="font-medium">服务注册状态</span>
@@ -273,15 +268,15 @@ const formatNumber = (value: number | undefined): string => {
             </template>
           </ElTableColumn>
         </ElTable>
-        <ElEmpty
+        <YdEmptyState
           v-else-if="!loading && loadError"
           :description="'加载失败：' + loadError"
         />
-        <ElEmpty v-else-if="!loading" description="暂无注册服务数据" />
-      </ElCard>
+        <YdEmptyState v-else-if="!loading" description="暂无注册服务数据" />
+      </YdCard>
 
       <!-- JVM 运行时信息 -->
-      <ElCard>
+      <YdCard>
         <template #header>
           <span class="font-medium">运行时信息</span>
         </template>
@@ -324,7 +319,7 @@ const formatNumber = (value: number | undefined): string => {
                 <span>已用 {{ memory.usedMb }}MB / 提交 {{ memory.totalMb }}MB</span>
                 <span class="text-gray-500">最大 {{ memory.maxMb }}MB</span>
               </div>
-              <ElProgress
+              <YdProgress
                 :percentage="Math.round(memory.usagePercent)"
                 :stroke-width="10"
                 :status="memory.usagePercent >= 80 ? 'warning' : 'success'"
@@ -332,12 +327,12 @@ const formatNumber = (value: number | undefined): string => {
             </div>
           </div>
         </div>
-        <ElEmpty v-else description="运行时信息加载中..." />
-      </ElCard>
+        <YdEmptyState v-else description="运行时信息加载中..." />
+      </YdCard>
     </div>
 
     <!-- Redis 指标详情（仅当 Redis 可用时展示） -->
-    <ElCard v-if="redisMetrics?.available">
+    <YdCard v-if="redisMetrics?.available">
       <template #header>
         <span class="font-medium">Redis 缓存指标</span>
       </template>
@@ -362,7 +357,7 @@ const formatNumber = (value: number | undefined): string => {
           <div class="text-xs text-gray-400 mt-1">keyspace_misses</div>
         </div>
       </div>
-    </ElCard>
+    </YdCard>
 
     <!-- 底部：采集时间 & 操作 -->
     <div class="flex items-center justify-between text-xs text-gray-400 px-1">

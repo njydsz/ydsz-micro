@@ -17,7 +17,7 @@
 */
 // TODO: FormInstance/ElForm/ElFormItem/ElOption/ElSelect 表单套件复杂+FormInstance类型,保留 element-plus SKIP
 import type { FormInstance } from 'element-plus';
-import { ElForm, ElFormItem, ElOption, ElSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -178,36 +178,36 @@ defineExpose({ open });
       </div>
 
       <!-- 写入模式 -->
-      <ElForm
+      <YdForm
         v-else
         ref="formRef"
         :model="form"
         :rules="formRules"
         label-width="100px"
       >
-        <ElFormItem label="对话 ID">
+        <YdFormItem label="对话 ID">
           <YdInput v-model="conversationId" placeholder="对话 ID" :disabled="true" />
-        </ElFormItem>
-        <ElFormItem label="消息角色" prop="role">
-          <ElSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
-            <ElOption
+        </YdFormItem>
+        <YdFormItem label="消息角色" prop="role">
+          <YdSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
+            <YdSelectItem
               v-for="item in roleOptions"
               :key="item.value"
               :label="item.label"
               :value="item.value"
             />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="消息内容" prop="content">
+          </YdSelect>
+        </YdFormItem>
+        <YdFormItem label="消息内容" prop="content">
           <YdTextarea
             v-model="form.content"
             placeholder="请输入消息内容"
           />
-        </ElFormItem>
-        <ElFormItem label="ToolCall ID">
+        </YdFormItem>
+        <YdFormItem label="ToolCall ID">
           <YdInput v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
 
       <YdDialogFooter>
         <YdButtonBase variant="outline" @click="handleClose">取消</YdButtonBase>

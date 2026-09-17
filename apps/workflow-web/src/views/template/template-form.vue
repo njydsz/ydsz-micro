@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { importTemplate } from '#/api/flowTemplate';
@@ -75,25 +75,25 @@ const [Modal, modalApi] = useYdModal({
 
 <template>
   <Modal :title="t('template.import.title')">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('template.templateCode.label')" prop="templateCode">
+      <YdFormItem :label="t('template.templateCode.label')" prop="templateCode">
         <YdInput v-model="formData.templateCode" :placeholder="t('template.templateCode.placeholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('template.flowName.label')">
+      </YdFormItem>
+      <YdFormItem :label="t('template.flowName.label')">
         <YdInput v-model="formData.flowName" :placeholder="t('template.flowName.placeholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('common.description.label')">
+      </YdFormItem>
+      <YdFormItem :label="t('common.description.label')">
         <div class="text-xs leading-relaxed text-gray-400">
           {{ t('template.import.desc.prefix') }}
           <br />{{ t('template.import.desc.suffix') }}
         </div>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

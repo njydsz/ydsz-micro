@@ -18,7 +18,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / ElFormItem 暂不迁移，保留 element-plus 导入
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { saveDraft, startProcess } from '#/api/flowInstance';
@@ -133,32 +133,32 @@ async function handleSaveDraft(): Promise<void> {
 
 <template>
   <Modal :title="$t('wf.startFlow')">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="110px"
       label-position="right"
     >
-      <ElFormItem :label="$t('wf.flowCode')" prop="flowCode">
+      <YdFormItem :label="$t('wf.flowCode')" prop="flowCode">
         <YdInput v-model="formData.flowCode" :placeholder="$t('wf.inputFlowCode')" />
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.title')">
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.title')">
         <YdInput v-model="formData.title" :placeholder="$t('wf.titlePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.businessType')">
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.businessType')">
         <YdInput v-model="formData.businessType" :placeholder="$t('wf.businessTypePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.businessId')">
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.businessId')">
         <YdInput v-model="formData.businessId" :placeholder="$t('wf.businessIdPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.businessNo')">
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.businessNo')">
         <YdInput v-model="formData.businessNo" :placeholder="$t('wf.businessNoPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="$t('wf.initiator')">
+      </YdFormItem>
+      <YdFormItem :label="$t('wf.initiator')">
         <YdInput v-model="formData.initiatorName" :placeholder="$t('wf.initiatorPlaceholder')" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
     <!-- 草稿保存按钮（置于弹窗底部操作区左侧） -->
     <template #footer>
       <YdButtonBase :loading="savingDraft" variant="secondary" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </YdButtonBase>

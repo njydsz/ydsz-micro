@@ -19,8 +19,8 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { ElInput, ElOption, ElSelect, ElTag } from 'element-plus';
-import { Search } from '@element-plus/icons-vue';
+import { YdInput, YdSelectItem, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
+import { Search } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 import { h, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -145,7 +145,7 @@ if (import.meta.env.DEV) {
   <Page auto-content-height>
     <!-- 筛选区 -->
     <div class="mb-3 flex flex-wrap items-center gap-3 px-4 pt-3">
-      <ElInput
+      <YdInput
         v-model="searchKeyword"
         :prefix-icon="Search"
         placeholder="搜索用户名/IP/归属地"
@@ -153,11 +153,11 @@ if (import.meta.env.DEV) {
         style="width: 240px"
         @input="applyFilter"
       />
-      <ElSelect v-model="statusFilter" placeholder="状态" style="width: 120px" @change="applyFilter">
-        <ElOption label="全部状态" value="all" />
-        <ElOption label="成功" value="SUCCESS" />
-        <ElOption label="失败" value="FAILED" />
-      </ElSelect>
+      <YdSelect v-model="statusFilter" placeholder="状态" style="width: 120px" @change="applyFilter">
+        <YdSelectItem label="全部状态" value="all" />
+        <YdSelectItem label="成功" value="SUCCESS" />
+        <YdSelectItem label="失败" value="FAILED" />
+      </YdSelect>
       <div class="ml-auto text-sm text-gray-400">
         共 {{ filteredData.length }} 条记录（TODO: 后端端点上线后替换为真实分页）
       </div>

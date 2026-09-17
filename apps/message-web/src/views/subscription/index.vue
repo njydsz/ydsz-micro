@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 // SKIP: ElTabPane/ElTabs 不在 shadcn 映射表，保留 EP
-import { ElTabPane, ElTabs } from 'element-plus';
+import { YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -202,14 +202,14 @@ function handleQueryByTopic(): void {
         <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
       </template>
       <template #toolbar-tools-after>
-        <ElTabs v-model="activeTab" class="mt-2">
-          <ElTabPane label="按用户查询" name="user">
+        <YdTabs v-model="activeTab" class="mt-2">
+          <YdTabsContent label="按用户查询" name="user">
             <div class="flex gap-2 py-2">
               <YdInput v-model="currentUserId" placeholder="请输入用户ID" class="w-64" />
               <YdButtonBase @click="handleQueryByUser">{{ t('common.search') }}</YdButtonBase>
             </div>
-          </ElTabPane>
-          <ElTabPane label="按主题查询" name="topic">
+          </YdTabsContent>
+          <YdTabsContent label="按主题查询" name="topic">
             <div class="flex gap-2 py-2">
               <YdInput
                 v-model="currentTopicCode"
@@ -229,8 +229,8 @@ function handleQueryByTopic(): void {
               </YdSelectBase>
               <YdButtonBase @click="handleQueryByTopic">{{ t('common.search') }}</YdButtonBase>
             </div>
-          </ElTabPane>
-        </ElTabs>
+          </YdTabsContent>
+        </YdTabs>
       </template>
     </Grid>
     <SubscriptionFormModal @success="gridApi.query()" />

@@ -26,7 +26,7 @@ import {
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
 // TODO: ElTable/ElTableColumn 暂不迁移，保留 element-plus 导入（ydsz-ui 无内置 YdTable 组件）
-import { ElTable, ElTableColumn } from 'element-plus';
+import { ElTable, ElTableColumn } from 'element-plus' // FIXME-P3-EP-EXIT;
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';

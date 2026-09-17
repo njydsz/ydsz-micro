@@ -34,7 +34,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import type { UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import { exportTemplates, importTemplates } from '#/api/import-export';
 import { listGroups } from '#/api/template';
@@ -116,8 +116,8 @@ onMounted(() => {
         <YdCardTitle>导出模板分组为 ZIP</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-        <ElForm label-width="100px">
-          <ElFormItem label="选择分组">
+        <YdForm label-width="100px">
+          <YdFormItem label="选择分组">
             <YdSelectBase v-model="exportGroupId">
               <YdSelectTriggerBase>
                 <YdSelectValueBase placeholder="选择要导出的模板分组" />
@@ -132,16 +132,16 @@ onMounted(() => {
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-          </ElFormItem>
-          <ElFormItem>
+          </YdFormItem>
+          <YdFormItem>
             <YdButtonBase
               :loading="exporting"
               @click="handleExport"
             >
               导出 ZIP
             </YdButtonBase>
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <div class="text-xs text-gray-500 mt-2">
           导出当前分组的所有 Velocity 模板文件为 ZIP 压缩包，可作为备份或跨环境迁移。
         </div>
@@ -154,8 +154,8 @@ onMounted(() => {
         <YdCardTitle>从 ZIP 导入模板</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-        <ElForm label-width="100px">
-          <ElFormItem label="目标分组">
+        <YdForm label-width="100px">
+          <YdFormItem label="目标分组">
             <YdSelectBase v-model="importGroupId">
               <YdSelectTriggerBase>
                 <YdSelectValueBase placeholder="选择导入到的模板分组" />
@@ -170,8 +170,8 @@ onMounted(() => {
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-          </ElFormItem>
-          <ElFormItem label="覆盖模式">
+          </YdFormItem>
+          <YdFormItem label="覆盖模式">
             <div class="flex items-center gap-2">
               <YdCheckboxBase
                 :checked="overwriteOnImport"
@@ -179,8 +179,8 @@ onMounted(() => {
               />
               <label class="cursor-pointer text-sm">覆盖已有模板（不勾选则跳过同名模板）</label>
             </div>
-          </ElFormItem>
-          <ElFormItem label="ZIP 文件">
+          </YdFormItem>
+          <YdFormItem label="ZIP 文件">
             <YdUpload
               :auto-upload="true"
               :show-file-list="true"
@@ -190,8 +190,8 @@ onMounted(() => {
             >
               <YdButtonBase>选择 ZIP 文件</YdButtonBase>
             </YdUpload>
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <div class="text-xs text-gray-500 mt-2">
           从 ZIP 压缩包导入模板到指定分组。ZIP 文件应包含 Velocity 模板文件。
         </div>

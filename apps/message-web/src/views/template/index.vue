@@ -22,7 +22,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 // SKIP: ElForm/ElFormItem 不在 shadcn 映射表，保留 EP
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { ElMessageBox } from '@ydsz/notification/compat';
 // NOTE: ElDialog/ElDrawer 已迁移为 YdDialog/YdSheet
 import { h, reactive, ref } from 'vue';
@@ -379,18 +379,18 @@ async function executeTestSend(): Promise<void> {
         <YdDialogHeader>
           <YdDialogTitle>测试发送</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm :model="testSendForm" label-width="80px">
-          <ElFormItem label="接收人" required>
+        <YdForm :model="testSendForm" label-width="80px">
+          <YdFormItem label="接收人" required>
             <YdInput v-model="testSendForm.receiver" placeholder="请输入接收人邮箱/手机号" />
-          </ElFormItem>
-          <ElFormItem label="变量">
+          </YdFormItem>
+          <YdFormItem label="变量">
             <YdInput
               v-model="testSendForm.variables"
               placeholder="请输入变量JSON（选填）"
               :rows="3"
             />
-          </ElFormItem>
-        </ElForm>
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</YdButtonBase>
           <YdButtonBase @click="executeTestSend">发送</YdButtonBase>

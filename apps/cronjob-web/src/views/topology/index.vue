@@ -11,7 +11,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
 // TODO: ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElEmpty } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, ref } from 'vue';
 
@@ -224,7 +224,7 @@ onMounted(() => {
             </YdCard>
           </div>
 
-          <ElEmpty v-else description="暂无拓扑数据" :image-size="80" />
+          <YdEmptyState v-else description="暂无拓扑数据" :image-size="80" />
         </div>
       </YdTabsContent>
 
@@ -281,7 +281,7 @@ onMounted(() => {
             </div>
           </div>
 
-          <ElEmpty
+          <YdEmptyState
             v-else
             :description="dagInstanceId ? '暂无节点数据' : '请输入 dagInstanceId 后查询'"
             :image-size="80"

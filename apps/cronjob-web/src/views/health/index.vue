@@ -19,7 +19,8 @@ import { Page } from '@ydsz/common-ui';
 
 import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 // TODO: ElDescriptions/ElDescriptionsItem/ElEmpty 暂无 shadcn 对应;保留 element-plus SKIP
-import { ElDescriptions, ElDescriptionsItem, ElEmpty } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElDescriptions, ElDescriptionsItem } from 'element-plus';
 import { computed, onMounted, ref } from 'vue';
 
 import { getHealth } from '#/api/healthDashboard';
@@ -141,12 +142,12 @@ onMounted(loadHealth);
               {{ String(val) }}
             </ElDescriptionsItem>
           </ElDescriptions>
-          <ElEmpty v-else description="暂无详情" :image-size="40" />
+          <YdEmptyState v-else description="暂无详情" :image-size="40" />
         </YdCardContent>
       </YdCard>
     </div>
 
-    <ElEmpty
+    <YdEmptyState
       v-if="!isLoading && componentCards.length === 0"
       description="暂无健康数据"
       :image-size="80"

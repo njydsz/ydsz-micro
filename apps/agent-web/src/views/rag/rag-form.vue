@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm/ElFormItem/ElInput 表单套件复杂+校验逻辑,保留 element-plus SKIP
-import { ElForm, ElFormItem, ElInput } from 'element-plus';
+import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 
@@ -59,19 +59,19 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal title="导入文档">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="文档ID" prop="documentId">
-        <ElInput v-model="formData.documentId" placeholder="请输入文档ID（可选）" />
-      </ElFormItem>
-      <ElFormItem label="文档标题">
-        <ElInput v-model="formData.documentTitle" placeholder="请输入文档标题（可选）" />
-      </ElFormItem>
-      <ElFormItem label="来源">
-        <ElInput v-model="formData.source" placeholder="请输入来源（可选）" />
-      </ElFormItem>
-      <ElFormItem label="文档内容" prop="content">
-        <ElInput v-model="formData.content" type="textarea" :rows="6" placeholder="请输入文档内容" />
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="文档ID" prop="documentId">
+        <YdInput v-model="formData.documentId" placeholder="请输入文档ID（可选）" />
+      </YdFormItem>
+      <YdFormItem label="文档标题">
+        <YdInput v-model="formData.documentTitle" placeholder="请输入文档标题（可选）" />
+      </YdFormItem>
+      <YdFormItem label="来源">
+        <YdInput v-model="formData.source" placeholder="请输入来源（可选）" />
+      </YdFormItem>
+      <YdFormItem label="文档内容" prop="content">
+        <YdInput v-model="formData.content" type="textarea" :rows="6" placeholder="请输入文档内容" />
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

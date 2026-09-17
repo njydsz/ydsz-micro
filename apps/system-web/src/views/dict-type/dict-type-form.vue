@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
-import { ElForm, ElFormItem, ElInput, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { emitDictChange } from '@ydsz/shared-business';
@@ -105,22 +105,22 @@ const title = computed(() => (isEdit.value ? '编辑字典类型' : '新增字�
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="类型编码" prop="typeCode">
-        <ElInput v-model="formData.typeCode" placeholder="请输入类型编码" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="类型名称" prop="typeName">
-        <ElInput v-model="formData.typeName" placeholder="请输入类型名称" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
-      </ElFormItem>
-      <ElFormItem label="状态" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="类型编码" prop="typeCode">
+        <YdInput v-model="formData.typeCode" placeholder="请输入类型编码" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem label="类型名称" prop="typeName">
+        <YdInput v-model="formData.typeName" placeholder="请输入类型名称" />
+      </YdFormItem>
+      <YdFormItem label="描述">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      </YdFormItem>
+      <YdFormItem label="状态" prop="status">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

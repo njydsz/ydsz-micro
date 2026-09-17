@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 // TODO: ElCard/ElDialog/ElEmpty/ElStatistic/ElTimeline/ElTimelineItem/ElInput/ElOption/ElSelect/ElTag 复杂布局+时间线+指标,保留 element-plus SKIP
-import { ElButton, ElCard, ElDialog, ElEmpty, ElInput, ElOption, ElSelect, ElStatistic, ElTag, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdButton, YdCard, YdDialog, YdEmptyState, YdInput, YdSelectItem, YdSelect, YdCountToAnimator, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { computed, h, onMounted, ref } from 'vue';
 
 import { getTrace, listTraces, replayTrace } from '#/api/debug';
@@ -256,42 +256,42 @@ onMounted(() => {
     <div v-loading="loading" class="space-y-4 p-4">
       <!-- 指标卡片 -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
-        <ElCard shadow="never">
-          <ElStatistic title="Trace 总数" :value="totalTraces" />
-        </ElCard>
-        <ElCard shadow="never">
-          <ElStatistic title="成功数" :value="successCount" value-style="color: #67c23a" />
-        </ElCard>
-        <ElCard shadow="never">
-          <ElStatistic title="失败数" :value="failedCount" value-style="color: #f56c6c" />
-        </ElCard>
-        <ElCard shadow="never">
-          <ElStatistic title="成功率" :value="Number(successRate)" suffix="%" :precision="1" />
-        </ElCard>
-        <ElCard shadow="never">
-          <ElStatistic title="平均耗时" :value="Number(avgDuration)" suffix="ms" />
-        </ElCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator title="Trace 总数" :value="totalTraces" />
+        </YdCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator title="成功数" :value="successCount" value-style="color: #67c23a" />
+        </YdCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator title="失败数" :value="failedCount" value-style="color: #f56c6c" />
+        </YdCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator title="成功率" :value="Number(successRate)" suffix="%" :precision="1" />
+        </YdCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator title="平均耗时" :value="Number(avgDuration)" suffix="ms" />
+        </YdCard>
       </div>
 
       <!-- 搜索区 -->
       <div class="flex flex-wrap items-center gap-3">
-        <ElInput
+        <YdInput
           v-model="searchTraceId"
           placeholder="按 Trace ID 搜索..."
           class="w-64"
           clearable
           @keyup.enter="handleSearchById"
         />
-        <ElSelect v-model="searchStatus" placeholder="状态筛选" clearable class="w-32">
-          <ElOption label="成功" value="SUCCESS" />
-          <ElOption label="失败" value="FAILED" />
-          <ElOption label="运行中" value="RUNNING" />
-        </ElSelect>
-        <ElInput v-model="searchModelRef" placeholder="模型筛选..." class="w-40" clearable />
-        <ElButton type="primary" @click="loadTraces">查询</ElButton>
-        <ElButton type="warning" :disabled="selectedTraces.length === 0" @click="handleBatchReplay">
+        <YdSelect v-model="searchStatus" placeholder="状态筛选" clearable class="w-32">
+          <YdSelectItem label="成功" value="SUCCESS" />
+          <YdSelectItem label="失败" value="FAILED" />
+          <YdSelectItem label="运行中" value="RUNNING" />
+        </YdSelect>
+        <YdInput v-model="searchModelRef" placeholder="模型筛选..." class="w-40" clearable />
+        <YdButton type="primary" @click="loadTraces">查询</YdButton>
+        <YdButton type="warning" :disabled="selectedTraces.length === 0" @click="handleBatchReplay">
           批量重放({{ selectedTraces.length }})
-        </ElButton>
+        </YdButton>
       </div>
 
       <!-- Trace 表格 -->
@@ -299,7 +299,7 @@ onMounted(() => {
     </div>
 
     <!-- 详情弹窗 -->
-    <ElDialog v-model="detailVisible" title="Trace 详情" width="800px" top="5vh">
+    <YdDialog v-model="detailVisible" title="Trace 详情" width="800px" top="5vh">
       <div v-loading="detailLoading">
         <div v-if="detailData" class="space-y-4">
           <!-- 基本信息 -->
@@ -309,7 +309,7 @@ onMounted(() => {
             <div><span class="text-gray-500">模型:</span> {{ detailData.model }}</div>
             <div>
               <span class="text-gray-500">状态:</span>
-              <ElTag :type="statusTagType(detailData.status ?? '')">{{ detailData.status }}</ElTag>
+              <YdBadge :type="statusTagType(detailData.status ?? '')">{{ detailData.status }}</YdBadge>
             </div>
             <div><span class="text-gray-500">耗时:</span> {{ formatDuration(detailData.duration) }}</div>
             <div><span class="text-gray-500">Token:</span> {{ detailData.tokenCount }}</div>
@@ -328,8 +328,8 @@ onMounted(() => {
           <!-- 执行链路 -->
           <div v-if="detailData.steps && detailData.steps.length > 0">
             <h4 class="mb-2 text-sm font-medium">执行链路</h4>
-            <ElTimeline>
-              <ElTimelineItem
+            <YdTimeline>
+              <YdTimelineItem
                 v-for="(step, idx) in detailData.steps"
                 :key="step.stepName ?? `step-${idx}`"
                 :timestamp="step.duration ? `${step.duration}ms` : undefined"
@@ -339,12 +339,12 @@ onMounted(() => {
                   <span class="font-medium">{{ step.stepName ?? `Step ${idx + 1}` }}</span>
                   <span v-if="step.toolName" class="ml-2 text-gray-500">工具: {{ step.toolName }}</span>
                 </div>
-              </ElTimelineItem>
-            </ElTimeline>
+              </YdTimelineItem>
+            </YdTimeline>
           </div>
         </div>
-        <ElEmpty v-else description="暂无数据" />
+        <YdEmptyState v-else description="暂无数据" />
       </div>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

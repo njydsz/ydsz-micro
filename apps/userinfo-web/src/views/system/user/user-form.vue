@@ -22,7 +22,7 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { ElForm, ElFormItem, ElInput, ElOption, ElRadio, ElRadioGroup, ElSelect, ElTreeSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, ElTreeSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { create, update } from '#/api/userAccount';
@@ -171,53 +171,53 @@ const title = computed(() => (isEdit.value ? t('user.editUser') : t('user.create
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('user.username')" prop="username">
-        <ElInput
+      <YdFormItem :label="t('user.username')" prop="username">
+        <YdInput
           v-model="formData.username"
           :placeholder="t('user.usernamePlaceholder')"
           :disabled="isEdit"
         />
-      </ElFormItem>
-      <ElFormItem v-if="!isEdit" :label="t('user.password')" prop="password">
-        <ElInput
+      </YdFormItem>
+      <YdFormItem v-if="!isEdit" :label="t('user.password')" prop="password">
+        <YdInput
           v-model="formData.password"
           type="password"
           :placeholder="t('user.passwordPlaceholder')"
           show-password
         />
-      </ElFormItem>
-      <ElFormItem :label="t('user.realName')" prop="realName">
-        <ElInput v-model="formData.realName" :placeholder="t('user.realNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('user.phone')">
-        <ElInput v-model="formData.phone" :placeholder="t('user.phonePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('user.email')">
-        <ElInput v-model="formData.email" :placeholder="t('user.emailPlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('user.company')">
-        <ElSelect
+      </YdFormItem>
+      <YdFormItem :label="t('user.realName')" prop="realName">
+        <YdInput v-model="formData.realName" :placeholder="t('user.realNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('user.phone')">
+        <YdInput v-model="formData.phone" :placeholder="t('user.phonePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('user.email')">
+        <YdInput v-model="formData.email" :placeholder="t('user.emailPlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('user.company')">
+        <YdSelect
           v-model="formData.companyId"
           :placeholder="t('user.companyPlaceholder')"
           clearable
           class="w-full"
         >
-          <ElOption
+          <YdSelectItem
             v-for="item in companyList"
             :key="item.id"
             :label="item.companyName"
             :value="item.id ?? ''"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('user.dept')">
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="t('user.dept')">
         <ElTreeSelect
           v-model="formData.deptId"
           :data="deptTreeData"
@@ -228,44 +228,44 @@ const title = computed(() => (isEdit.value ? t('user.editUser') : t('user.create
           :placeholder="t('user.deptPlaceholder')"
           class="w-full"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('user.position')">
-        <ElSelect
+      </YdFormItem>
+      <YdFormItem :label="t('user.position')">
+        <YdSelect
           v-model="formData.positionCode"
           :placeholder="t('user.positionPlaceholder')"
           clearable
           class="w-full"
         >
-          <ElOption
+          <YdSelectItem
             v-for="item in postList"
             :key="item.postCode"
             :label="item.postName"
             :value="item.postCode ?? ''"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('user.role')">
-        <ElSelect
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="t('user.role')">
+        <YdSelect
           v-model="formData.roleIds"
           multiple
           :placeholder="t('user.rolePlaceholder')"
           clearable
           class="w-full"
         >
-          <ElOption
+          <YdSelectItem
             v-for="item in roleList"
             :key="item.id"
             :label="item.roleName"
             :value="item.id ?? ''"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('user.status')">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('user.enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('user.disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem :label="t('user.status')">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('user.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('user.disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

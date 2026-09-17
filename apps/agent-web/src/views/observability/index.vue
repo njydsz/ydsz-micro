@@ -18,7 +18,8 @@
 */
 import { Page } from '@ydsz/common-ui';
 // TODO: ElEmpty/ElTable/ElTableColumn 表格+复杂布局+选择器,保留 element-plus SKIP
-import { ElEmpty, ElTable, ElTableColumn } from 'element-plus';
+import { YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 // TODO: ElAlert 无直接 shadcn 映射 SKIP
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
@@ -260,7 +261,7 @@ onMounted(() => {
               <ElTableColumn prop="avgLatency" label="平均延迟(ms)" width="140" />
               <ElTableColumn prop="cost" label="费用" width="100" />
             </ElTable>
-            <ElEmpty v-if="modelUsageData.length === 0" description="暂无模型使用数据" />
+            <YdEmptyState v-if="modelUsageData.length === 0" description="暂无模型使用数据" />
           </div>
 
           <!-- 性能监控 -->

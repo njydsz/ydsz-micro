@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 // TODO: EP → ydsz-ui 迁移待后续批次（设计器工具栏包含 ElButton/ElIcon/ElSlider/ElSpace/ElTooltip 复杂交互）
-import { ElButton, ElIcon, ElSlider, ElSpace, ElTooltip } from 'element-plus';
+import { YdButton, YdIcon, YdSlider, YdSpace, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 interface Props {
@@ -94,29 +94,29 @@ function handleZoomReset(): void {
       <span class="toolbar-title">流程设计器</span>
     </div>
     <div class="toolbar-center">
-      <ElSpace :size="4">
+      <YdSpace :size="4">
         <!-- 撤销 -->
-        <ElTooltip content="撤销 Ctrl+Z" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('undo')">
-            <ElIcon><span class="icon-undo" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
+        <YdTooltip content="撤销 Ctrl+Z" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('undo')">
+            <YdIcon><span class="icon-undo" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
         <!-- 重做 -->
-        <ElTooltip content="重做 Ctrl+Y" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('redo')">
-            <ElIcon><span class="icon-redo" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
+        <YdTooltip content="重做 Ctrl+Y" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('redo')">
+            <YdIcon><span class="icon-redo" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
         <div class="toolbar-divider" />
         <!-- 缩小 -->
-        <ElTooltip content="缩小" placement="bottom">
-          <ElButton :disabled="zoomPercent <= 50 || locked || loading" @click="handleZoomOut">
-            <ElIcon><span class="icon-zoom-out" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
+        <YdTooltip content="缩小" placement="bottom">
+          <YdButton :disabled="zoomPercent <= 50 || locked || loading" @click="handleZoomOut">
+            <YdIcon><span class="icon-zoom-out" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
         <!-- 缩放滑块 -->
         <div class="zoom-slider">
-          <ElSlider
+          <YdSlider
             v-model="zoomPercent"
             :min="50"
             :max="200"
@@ -127,75 +127,75 @@ function handleZoomReset(): void {
           />
         </div>
         <!-- 放大 -->
-        <ElTooltip content="放大" placement="bottom">
-          <ElButton :disabled="zoomPercent >= 200 || locked || loading" @click="handleZoomIn">
-            <ElIcon><span class="icon-zoom-in" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
+        <YdTooltip content="放大" placement="bottom">
+          <YdButton :disabled="zoomPercent >= 200 || locked || loading" @click="handleZoomIn">
+            <YdIcon><span class="icon-zoom-in" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
         <!-- 重置缩放 -->
-        <ElTooltip content="重置缩放" placement="bottom">
-          <ElButton @click="handleZoomReset">
+        <YdTooltip content="重置缩放" placement="bottom">
+          <YdButton @click="handleZoomReset">
             {{ zoomLabel }}
-          </ElButton>
-        </ElTooltip>
+          </YdButton>
+        </YdTooltip>
         <div class="toolbar-divider" />
         <!-- 对齐操作 -->
-        <ElTooltip content="左对齐" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('alignLeft')">
-            <ElIcon><span class="icon-align-left" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="水平居中" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('alignCenter')">
-            <ElIcon><span class="icon-align-center" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="右对齐" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('alignRight')">
-            <ElIcon><span class="icon-align-right" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="上对齐" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('alignTop')">
-            <ElIcon><span class="icon-align-top" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="垂直居中" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('alignMiddle')">
-            <ElIcon><span class="icon-align-middle" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="下对齐" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('alignBottom')">
-            <ElIcon><span class="icon-align-bottom" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="水平分布" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('distributeHorizontal')">
-            <ElIcon><span class="icon-distribute-h" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-        <ElTooltip content="垂直分布" placement="bottom">
-          <ElButton :disabled="locked || loading" @click="emit('distributeVertical')">
-            <ElIcon><span class="icon-distribute-v" /></ElIcon>
-          </ElButton>
-        </ElTooltip>
-      </ElSpace>
+        <YdTooltip content="左对齐" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('alignLeft')">
+            <YdIcon><span class="icon-align-left" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="水平居中" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('alignCenter')">
+            <YdIcon><span class="icon-align-center" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="右对齐" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('alignRight')">
+            <YdIcon><span class="icon-align-right" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="上对齐" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('alignTop')">
+            <YdIcon><span class="icon-align-top" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="垂直居中" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('alignMiddle')">
+            <YdIcon><span class="icon-align-middle" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="下对齐" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('alignBottom')">
+            <YdIcon><span class="icon-align-bottom" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="水平分布" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('distributeHorizontal')">
+            <YdIcon><span class="icon-distribute-h" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+        <YdTooltip content="垂直分布" placement="bottom">
+          <YdButton :disabled="locked || loading" @click="emit('distributeVertical')">
+            <YdIcon><span class="icon-distribute-v" /></YdIcon>
+          </YdButton>
+        </YdTooltip>
+      </YdSpace>
     </div>
     <div class="toolbar-right">
-      <ElSpace>
-        <ElTooltip content="保存 Ctrl+S" placement="bottom">
-          <ElButton
+      <YdSpace>
+        <YdTooltip content="保存 Ctrl+S" placement="bottom">
+          <YdButton
             type="primary"
             :loading="saving"
             :disabled="locked || loading"
             @click="emit('save')"
           >
-            <ElIcon><span class="icon-save" /></ElIcon>
+            <YdIcon><span class="icon-save" /></YdIcon>
             保存
-          </ElButton>
-        </ElTooltip>
-      </ElSpace>
+          </YdButton>
+        </YdTooltip>
+      </YdSpace>
     </div>
   </div>
 </template>

@@ -20,7 +20,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: ElTabPane/ElTabs/ElCard/ElDialog/ElEmpty 复杂布局+标签页,保留 element-plus SKIP
-import { ElButton, ElCard, ElDialog, ElEmpty, ElTabPane, ElTabs, ElTag } from 'element-plus';
+import { YdButton, YdCard, YdDialog, YdEmptyState, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -237,7 +237,7 @@ loadOverview();
     <div class="space-y-4 p-4">
       <!-- 概览卡片 -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">活跃会话数</p>
@@ -249,9 +249,9 @@ loadOverview();
               <span class="text-2xl text-blue-500">📊</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">最大并发</p>
@@ -263,9 +263,9 @@ loadOverview();
               <span class="text-2xl text-green-500">⚡</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">平均 TTL</p>
@@ -277,9 +277,9 @@ loadOverview();
               <span class="text-2xl text-purple-500">⏱️</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
 
-        <ElCard shadow="hover">
+        <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">总创建数</p>
@@ -291,35 +291,35 @@ loadOverview();
               <span class="text-2xl text-orange-500">🔢</span>
             </div>
           </div>
-        </ElCard>
+        </YdCard>
       </div>
 
       <!-- 标签页:活跃会话 / 最近会话 -->
-      <ElCard>
-        <ElTabs v-model="activeTab" @tab-change="handleTabChange">
-          <ElTabPane label="活跃会话" name="active">
+      <YdCard>
+        <YdTabs v-model="activeTab" @tab-change="handleTabChange">
+          <YdTabsContent label="活跃会话" name="active">
             <ActiveGrid table-title="活跃会话列表">
               <template #toolbar-tools>
-                <ElButton type="primary" @click="activeGridApi.query()">刷新</ElButton>
+                <YdButton type="primary" @click="activeGridApi.query()">刷新</YdButton>
               </template>
             </ActiveGrid>
-            <ElEmpty v-if="!loading && activeSessions.length === 0" description="暂无活跃会话" />
-          </ElTabPane>
+            <YdEmptyState v-if="!loading && activeSessions.length === 0" description="暂无活跃会话" />
+          </YdTabsContent>
 
-          <ElTabPane label="最近会话" name="recent">
+          <YdTabsContent label="最近会话" name="recent">
             <RecentGrid table-title="最近会话列表">
               <template #toolbar-tools>
-                <ElButton type="primary" @click="recentGridApi.query()">刷新</ElButton>
+                <YdButton type="primary" @click="recentGridApi.query()">刷新</YdButton>
               </template>
             </RecentGrid>
-            <ElEmpty v-if="!loading && recentSessions.length === 0" description="暂无最近会话" />
-          </ElTabPane>
-        </ElTabs>
-      </ElCard>
+            <YdEmptyState v-if="!loading && recentSessions.length === 0" description="暂无最近会话" />
+          </YdTabsContent>
+        </YdTabs>
+      </YdCard>
     </div>
 
     <!-- 会话详情弹窗 -->
-    <ElDialog
+    <YdDialog
       v-model="sessionDetailVisible"
       title="会话详情"
       width="700px"
@@ -341,9 +341,9 @@ loadOverview();
           </div>
           <div>
             <span class="text-sm text-gray-500">状态:</span>
-            <ElTag :type="getStatusTagType(selectedSession.status ?? '')">
+            <YdBadge :type="getStatusTagType(selectedSession.status ?? '')">
               {{ selectedSession.status }}
-            </ElTag>
+            </YdBadge>
           </div>
           <div>
             <span class="text-sm text-gray-500">Agent 类型:</span>
@@ -401,8 +401,8 @@ loadOverview();
         </div>
       </div>
       <template #footer>
-        <ElButton @click="sessionDetailVisible = false">关闭</ElButton>
+        <YdButton @click="sessionDetailVisible = false">关闭</YdButton>
       </template>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

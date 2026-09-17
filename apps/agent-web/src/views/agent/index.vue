@@ -23,7 +23,7 @@ import { YdCardGrid, YdEmptyState, YdEntityCard } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 // TODO: ElDropdown/ElDropdownItem/ElDropdownMenu 暂无 shadcn 对应,保留 element-plus SKIP
-import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
+import { YdDropdownMenu, YdDropdownMenuItem, YdDropdownMenu } from '@ydsz-core/ydsz-ui';
 import { YdButtonBase } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/agentDefinition';
@@ -294,7 +294,7 @@ void loadAgentList();
 
           <template #actions>
             <!-- TODO: ElDropdown trigger 暂保留 element-plus,YdButtonBase 仅作视觉替换 SKIP -->
-            <ElDropdown trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
+            <YdDropdownMenu trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
               <YdButtonBase
                 size="sm"
                 variant="ghost"
@@ -328,19 +328,19 @@ void loadAgentList();
                 </svg>
               </YdButtonBase>
               <template #dropdown>
-                <ElDropdownMenu>
-                  <ElDropdownItem command="edit">
+                <YdDropdownMenu>
+                  <YdDropdownMenuItem command="edit">
                     编辑信息
-                  </ElDropdownItem>
-                  <ElDropdownItem
+                  </YdDropdownMenuItem>
+                  <YdDropdownMenuItem
                     command="delete"
                     divided
                   >
                     <span class="text-destructive">删除定义</span>
-                  </ElDropdownItem>
-                </ElDropdownMenu>
+                  </YdDropdownMenuItem>
+                </YdDropdownMenu>
               </template>
-            </ElDropdown>
+            </YdDropdownMenu>
           </template>
         </YdEntityCard>
       </YdCardGrid>

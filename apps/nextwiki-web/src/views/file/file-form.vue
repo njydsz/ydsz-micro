@@ -16,7 +16,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { ElForm, ElFormItem } from 'element-plus';
+import { YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
@@ -53,13 +53,13 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal :title="t('newFolderTitle')">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem :label="t('folderName')" prop="name">
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem :label="t('folderName')" prop="name">
         <YdInput v-model="formData.name" :placeholder="t('folderNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('parentId')" prop="parentId">
+      </YdFormItem>
+      <YdFormItem :label="t('parentId')" prop="parentId">
         <YdInput v-model="formData.parentId" :placeholder="t('parentIdPlaceholder')" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

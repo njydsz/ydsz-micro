@@ -25,7 +25,7 @@
  */
 // TODO: ElEmpty / ElSpace / ElTimeline / ElTimelineItem 待后续迁移
 // TODO: ElForm / ElFormItem 暂不迁移（表单组件单独批次）
-import { ElEmpty, ElForm, ElFormItem, ElSpace, ElTimeline, ElTimelineItem } from 'element-plus';
+import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
@@ -151,7 +151,7 @@ onMounted(() => {
       </div>
     </YdCardHeader>
     <YdCardContent>
-    <ElEmpty v-if="!loading && !availableActions.length" description="暂无待处理任务" />
+    <YdEmptyState v-if="!loading && !availableActions.length" description="暂无待处理任务" />
 
     <div v-else class="content">
       <!-- 当前任务 -->
@@ -164,9 +164,9 @@ onMounted(() => {
       </div>
 
       <!-- 操作面板 -->
-      <ElForm v-if="availableActions.length" :model="form" label-width="80px" size="small">
-        <ElFormItem label="操作">
-          <ElSpace wrap>
+      <YdForm v-if="availableActions.length" :model="form" label-width="80px" size="small">
+        <YdFormItem label="操作">
+          <YdSpace wrap>
             <div class="flex flex-wrap gap-2">
             <YdButtonBase
               v-if="availableActions.includes('pass')"
@@ -200,27 +200,27 @@ onMounted(() => {
               {{ $t('wf.delegate') }}
             </YdButtonBase>
           </div>
-        </ElFormItem>
-        <ElFormItem label="意见">
+        </YdFormItem>
+        <YdFormItem label="意见">
           <YdInput
             v-model="form.comment"
             type="textarea"
             :placeholder="$t('wf.commentPlaceholder')"
           />
-        </ElFormItem>
-        <ElFormItem>
+        </YdFormItem>
+        <YdFormItem>
           <YdButtonBase :loading="submitting" @click="handleAction"> 提交 </YdButtonBase>
           <YdButtonBase v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
             {{ $t('wf.recall') }}
           </YdButtonBase>
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+      </YdForm>
 
       <!-- 审批历史 -->
       <div v-if="history.length" class="section">
         <div class="section-title">审批历史</div>
-        <ElTimeline>
-          <ElTimelineItem
+        <YdTimeline>
+          <YdTimelineItem
             v-for="item in history"
             :key="item.id"
             :timestamp="item.createdAt"
@@ -231,8 +231,8 @@ onMounted(() => {
               <span class="history-user">{{ item.userName }}</span>
               <span v-if="item.comment" class="history-comment">{{ item.comment }}</span>
             </div>
-          </ElTimelineItem>
-        </ElTimeline>
+          </YdTimelineItem>
+        </YdTimeline>
       </div>
     </div>
     </YdCardContent>

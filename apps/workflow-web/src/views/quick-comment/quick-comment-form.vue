@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElForm / YdFormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
-import { ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 import { YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createQuickComment, updateQuickComment } from '#/api/flowComment';
@@ -108,25 +108,25 @@ const title = computed(() => (isEdit.value ? t('quickComment.edit.title') : t('q
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('quickComment.content.label')" prop="content">
+      <YdFormItem :label="t('quickComment.content.label')" prop="content">
         <YdTextarea
           v-model="formData.content"
           :placeholder="t('quickComment.content.placeholder')"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('quickComment.type.label')">
+      </YdFormItem>
+      <YdFormItem :label="t('quickComment.type.label')">
         <YdInput v-model="formData.commentType" :placeholder="t('quickComment.type.placeholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('quickComment.sort.label')">
-        <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('quickComment.sort.label')">
+        <YdNumberFieldInput v-model="formData.sortNum" :min="0" :max="999" />
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

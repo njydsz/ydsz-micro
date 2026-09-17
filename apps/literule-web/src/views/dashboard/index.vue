@@ -24,7 +24,7 @@ import { EchartsUI, useEcharts } from '@ydsz/plugins/echarts';
 import { Page } from '@ydsz/common-ui';
 
 // TODO: EP → ydsz-ui 迁移暂缓（ElCard/ElRow/ElCol/ElStatistic 等布局与统计组件，需人工评估）
-import { ElCard, ElCol, ElRow, ElStatistic } from 'element-plus';
+import { YdCard, YdCol, YdRow, YdCountToAnimator } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -292,82 +292,82 @@ onBeforeUnmount(() => {
   <Page auto-content-height>
     <div v-loading="loading" class="p-4">
       <!-- 概览指标卡 -->
-      <ElRow :gutter="12" class="mb-4">
-        <ElCol :span="4">
-          <ElCard shadow="never">
-            <ElStatistic title="规则总数" :value="num(overviewData?.totalRules)" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="4">
-          <ElCard shadow="never">
-            <ElStatistic title="已启用" :value="num(overviewData?.enabledRules)" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="4">
-          <ElCard shadow="never">
-            <ElStatistic title="今日评估" :value="num(overviewData?.todayEvaluations)" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="4">
-          <ElCard shadow="never">
-            <ElStatistic title="今日命中" :value="num(overviewData?.todayTriggered)" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="4">
-          <ElCard shadow="never">
-            <ElStatistic
+      <YdRow :gutter="12" class="mb-4">
+        <YdCol :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="规则总数" :value="num(overviewData?.totalRules)" />
+          </YdCard>
+        </YdCol>
+        <YdCol :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="已启用" :value="num(overviewData?.enabledRules)" />
+          </YdCard>
+        </YdCol>
+        <YdCol :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="今日评估" :value="num(overviewData?.todayEvaluations)" />
+          </YdCard>
+        </YdCol>
+        <YdCol :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="今日命中" :value="num(overviewData?.todayTriggered)" />
+          </YdCard>
+        </YdCol>
+        <YdCol :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator
               title="今日触发率"
               :value="num(overviewData?.todayTriggerRate)"
               :precision="1"
               suffix="%"
             />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="4">
-          <ElCard shadow="never">
-            <ElStatistic title="今日异常" :value="num(overviewData?.todayErrors)" />
-          </ElCard>
-        </ElCol>
-      </ElRow>
+          </YdCard>
+        </YdCol>
+        <YdCol :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator title="今日异常" :value="num(overviewData?.todayErrors)" />
+          </YdCard>
+        </YdCol>
+      </YdRow>
       <!-- 实时指标带 -->
-      <ElRow :gutter="12" class="mb-4">
-        <ElCol v-for="item in realtimeItems" :key="item.label" :span="4">
-          <ElCard shadow="never">
-            <ElStatistic :title="item.label" :value="item.value" :precision="item.precision" />
-          </ElCard>
-        </ElCol>
-      </ElRow>
+      <YdRow :gutter="12" class="mb-4">
+        <YdCol v-for="item in realtimeItems" :key="item.label" :span="4">
+          <YdCard shadow="never">
+            <YdCountToAnimator :title="item.label" :value="item.value" :precision="item.precision" />
+          </YdCard>
+        </YdCol>
+      </YdRow>
       <!-- 趋势 + 分布 -->
-      <ElRow :gutter="12" class="mb-4">
-        <ElCol :span="16">
-          <ElCard shadow="never" header="规则评估趋势（近24h）">
+      <YdRow :gutter="12" class="mb-4">
+        <YdCol :span="16">
+          <YdCard shadow="never" header="规则评估趋势（近24h）">
             <EchartsUI ref="trendChartRef" height="320px" />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="8">
-          <ElCard shadow="never" header="规则状态分布">
+          </YdCard>
+        </YdCol>
+        <YdCol :span="8">
+          <YdCard shadow="never" header="规则状态分布">
             <EchartsUI ref="pieChartRef" height="320px" />
-          </ElCard>
-        </ElCol>
-      </ElRow>
+          </YdCard>
+        </YdCol>
+      </YdRow>
       <!-- Top 规则 + 热点/慢规则 -->
-      <ElRow :gutter="12">
-        <ElCol :span="8">
-          <ElCard shadow="never" header="Top 规则（按命中）" class="h-full">
+      <YdRow :gutter="12">
+        <YdCol :span="8">
+          <YdCard shadow="never" header="Top 规则（按命中）" class="h-full">
             <TopGrid />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="8">
-          <ElCard shadow="never" header="热点规则" class="h-full">
+          </YdCard>
+        </YdCol>
+        <YdCol :span="8">
+          <YdCard shadow="never" header="热点规则" class="h-full">
             <HotGrid />
-          </ElCard>
-        </ElCol>
-        <ElCol :span="8">
-          <ElCard shadow="never" header="慢规则" class="h-full">
+          </YdCard>
+        </YdCol>
+        <YdCol :span="8">
+          <YdCard shadow="never" header="慢规则" class="h-full">
             <SlowGrid />
-          </ElCard>
-        </ElCol>
-      </ElRow>
+          </YdCard>
+        </YdCol>
+      </YdRow>
     </div>
   </Page>
 </template>

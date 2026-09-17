@@ -47,9 +47,8 @@ import {
   YdTabsTrigger,
 } from '@ydsz-core/ydsz-ui';
 // TODO: ElForm/ElFormItem 为复杂迁移，暂保留 element-plus 导入
-// TODO: ElEmpty/ElIcon 暂无 ydsz-ui 等效组件，保留 element-plus 导入
-import { ElEmpty, ElForm, ElFormItem, ElIcon } from 'element-plus';
-import { Clock, Document } from '@element-plus/icons-vue';
+import { YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
+import { Clock, Document } from '@element-plus/icons-vue'; // FIXME-P3-ICON-EXIT → @ydsz/icons or lucide-vue-next
 
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
 import { listDatasources } from '#/api/datasource';
@@ -328,20 +327,6 @@ function handleDiffFileSelect(fileName: string, oldCode: string, newCode: string
   diffModalVisible.value = true;
 }
 
-/** 获取状态标签类型 */
-function getStatusType(status: string): 'success' | 'warning' | 'danger' | 'info' {
-  switch (status) {
-    case 'SUCCESS':
-      return 'success';
-    case 'PARTIAL':
-      return 'warning';
-    case 'FAILED':
-      return 'danger';
-    default:
-      return 'info';
-  }
-}
-
 /** 获取状态文案 */
 function getStatusLabel(status: string): string {
   switch (status) {
@@ -390,16 +375,16 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 variant="link"
                 @click="handleOpenHistoryDrawer"
               >
-                <ElIcon class="mr-1">
+                <YdIcon class="mr-1">
                   <Clock />
-                </ElIcon>
+                </YdIcon>
                 历史记录
               </YdButtonBase>
             </div>
           </YdCardHeader>
           <YdCardContent>
-            <ElForm label-width="120px">
-              <ElFormItem label="数据源">
+            <YdForm label-width="120px">
+              <YdFormItem label="数据源">
                 <YdSelectBase v-model="selectedDatasourceId">
                   <YdSelectTriggerBase>
                     <YdSelectValueBase placeholder="选择数据源" />
@@ -414,8 +399,8 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     </YdSelectItemBase>
                   </YdSelectContentBase>
                 </YdSelectBase>
-              </ElFormItem>
-              <ElFormItem label="模板分组">
+              </YdFormItem>
+              <YdFormItem label="模板分组">
                 <YdSelectBase v-model="selectedGroupId">
                   <YdSelectTriggerBase>
                     <YdSelectValueBase placeholder="选择模板分组" />
@@ -430,8 +415,8 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     </YdSelectItemBase>
                   </YdSelectContentBase>
                 </YdSelectBase>
-              </ElFormItem>
-              <ElFormItem label="目标表名">
+              </YdFormItem>
+              <YdFormItem label="目标表名">
                 <YdSelectBase v-model="selectedTableName">
                   <YdSelectTriggerBase>
                     <YdSelectValueBase placeholder="选择或输入表名" />
@@ -446,8 +431,8 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     </YdSelectItemBase>
                   </YdSelectContentBase>
                 </YdSelectBase>
-              </ElFormItem>
-            </ElForm>
+              </YdFormItem>
+            </YdForm>
           </YdCardContent>
         </YdCard>
 
@@ -456,14 +441,14 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             <YdCardTitle>生成参数</YdCardTitle>
           </YdCardHeader>
           <YdCardContent>
-            <ElForm label-width="120px">
-              <ElFormItem label="输出目录">
+            <YdForm label-width="120px">
+              <YdFormItem label="输出目录">
                 <YdInput
                   v-model="genForm.outputDir"
                   placeholder="生成代码的目标目录绝对路径"
                 />
-              </ElFormItem>
-              <ElFormItem label="冲突策略">
+              </YdFormItem>
+              <YdFormItem label="冲突策略">
                 <YdRadioGroup v-model="genForm.conflictStrategy">
                   <div class="flex items-center gap-4">
                     <div class="flex items-center gap-2">
@@ -480,14 +465,14 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     </div>
                   </div>
                 </YdRadioGroup>
-              </ElFormItem>
-              <ElFormItem label="触发人">
+              </YdFormItem>
+              <YdFormItem label="触发人">
                 <YdInput
                   v-model="genForm.triggeredBy"
                   placeholder="可选，记录在生成历史中"
                 />
-              </ElFormItem>
-              <ElFormItem>
+              </YdFormItem>
+              <YdFormItem>
                 <div class="flex gap-2">
                   <YdButtonBase
                     variant="secondary"
@@ -516,8 +501,8 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     全量生成（全部表）
                   </YdButtonBase>
                 </div>
-              </ElFormItem>
-            </ElForm>
+              </YdFormItem>
+            </YdForm>
           </YdCardContent>
         </YdCard>
 
@@ -606,16 +591,16 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 class="flex items-center gap-2 px-2 py-2 rounded text-sm hover:bg-gray-100 cursor-pointer"
                 @click="handleDiffFileSelect(file.fileName, file.oldCode, file.newCode)"
               >
-                <ElIcon class="text-gray-400">
+                <YdIcon class="text-gray-400">
                   <Document />
-                </ElIcon>
+                </YdIcon>
                 <span class="truncate flex-1 text-xs">{{ file.fileName }}</span>
                 <span class="text-blue-500 text-xs">diff</span>
               </div>
             </div>
           </div>
 
-          <ElEmpty v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
+          <YdEmptyState v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
         </div>
       </YdSheetContent>
     </YdSheet>

@@ -22,19 +22,8 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 // SKIP: retry-preview/index.vue 批量跳过迁移 — 含 ElTable/ElTableColumn/ElTabs/ElTabPane/ElEmpty 等未映射组件，
 // 双 Tab 结构复杂，需整体重写。
-import {
-  ElButton,
-  ElCard,
-  ElDialog,
-  ElEmpty,
-  ElOption,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-} from 'element-plus';
+import { YdButton, YdCard, YdDialog, YdEmptyState, YdSelectItem, YdSelect, YdTable, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
 import { listPresets, previewAllPresets, previewRetrySchedule } from '#/api/retryPreview';
@@ -160,33 +149,33 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="retry-preview-container p-4">
       <!-- Tab 切换区 -->
-      <ElCard class="mb-4" shadow="never">
-        <ElTabs v-model="activeTab" @tab-change="handleTabChange">
-          <ElTabPane label="重试预览" name="retry-preview" />
-          <ElTabPane label="预设配置" name="presets" />
-        </ElTabs>
-      </ElCard>
+      <YdCard class="mb-4" shadow="never">
+        <YdTabs v-model="activeTab" @tab-change="handleTabChange">
+          <YdTabsContent label="重试预览" name="retry-preview" />
+          <YdTabsContent label="预设配置" name="presets" />
+        </YdTabs>
+      </YdCard>
 
       <!-- 重试预览 Tab -->
       <template v-if="activeTab === 'retry-preview'">
         <!-- 查询区域 -->
-        <ElCard class="mb-4" shadow="never">
+        <YdCard class="mb-4" shadow="never">
           <div class="flex items-center gap-3">
-            <ElSelect v-model="searchParams.preset" placeholder="选择预设" class="w-48" clearable>
-              <ElOption
+            <YdSelect v-model="searchParams.preset" placeholder="选择预设" class="w-48" clearable>
+              <YdSelectItem
                 v-for="(val, key) in allPresets"
                 :key="key"
                 :label="String(key)"
                 :value="String(key)"
               />
-            </ElSelect>
-            <ElButton type="primary" @click="handleSearch">查询</ElButton>
-            <ElButton @click="handleReset">重置</ElButton>
+            </YdSelect>
+            <YdButton type="primary" @click="handleSearch">查询</YdButton>
+            <YdButton @click="handleReset">重置</YdButton>
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- 重试计划列表 -->
-        <ElCard shadow="never">
+        <YdCard shadow="never">
           <ElTable
             v-loading="scheduleLoading"
             :data="retryScheduleList"
@@ -198,7 +187,7 @@ onMounted(() => {
             <ElTableColumn prop="key" label="消息/标识" width="200" show-overflow-tooltip />
             <ElTableColumn label="通道" width="120">
               <template #default="{ row }">
-                <ElTag v-if="row.channel" size="small">{{ row.channel }}</ElTag>
+                <YdBadge v-if="row.channel" size="small">{{ row.channel }}</YdBadge>
                 <span v-else>-</span>
               </template>
             </ElTableColumn>
@@ -215,28 +204,28 @@ onMounted(() => {
             </ElTableColumn>
             <ElTableColumn label="状态" width="100" align="center">
               <template #default="{ row }">
-                <ElTag v-if="row.status" size="small">{{ row.status }}</ElTag>
+                <YdBadge v-if="row.status" size="small">{{ row.status }}</YdBadge>
                 <span v-else>-</span>
               </template>
             </ElTableColumn>
             <ElTableColumn label="操作" width="120" fixed="right" align="center">
               <template #default="{ row }">
-                <ElButton size="small" link type="primary" @click="handleViewDetail(row)">
+                <YdButton size="small" link type="primary" @click="handleViewDetail(row)">
                   查看详情
-                </ElButton>
+                </YdButton>
               </template>
             </ElTableColumn>
             <template #empty>
-              <ElEmpty description="暂无重试计划数据" />
+              <YdEmptyState description="暂无重试计划数据" />
             </template>
           </ElTable>
-        </ElCard>
+        </YdCard>
       </template>
 
       <!-- 预设配置 Tab -->
       <template v-else>
         <!-- 预设列表 -->
-        <ElCard shadow="never">
+        <YdCard shadow="never">
           <ElTable
             v-loading="presetLoading"
             :data="presetList"
@@ -258,21 +247,21 @@ onMounted(() => {
               </template>
             </ElTableColumn>
             <template #empty>
-              <ElEmpty description="暂无预设配置数据" />
+              <YdEmptyState description="暂无预设配置数据" />
             </template>
           </ElTable>
-        </ElCard>
+        </YdCard>
       </template>
 
       <!-- 详情弹窗 -->
-      <ElDialog v-model="detailVisible" title="重试计划详情" width="560px">
+      <YdDialog v-model="detailVisible" title="重试计划详情" width="560px">
         <div v-if="currentDetail" class="space-y-3">
           <div v-for="(value, key) in currentDetail" :key="String(key)" class="flex">
             <span class="w-28 shrink-0 text-gray-500">{{ String(key) }}：</span>
             <span class="break-all font-mono text-sm">{{ value ?? '-' }}</span>
           </div>
         </div>
-      </ElDialog>
+      </YdDialog>
     </div>
   </Page>
 </template>

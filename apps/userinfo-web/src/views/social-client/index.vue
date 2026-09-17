@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadioButton, ElRadioGroup, ElSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -379,56 +379,56 @@ async function handleDelete(row: SocialClientVO) {
 
     <!-- 创建/编辑弹窗 -->
     <Modal :title="modalTitle">
-      <ElForm
+      <YdForm
         ref="formRef"
         :model="formData"
         :rules="rules"
         label-width="110px"
         label-position="right"
       >
-        <ElFormItem label="平台" prop="platform">
-          <ElSelect v-model="formData.platform" placeholder="请选择平台" :disabled="isEdit" class="w-full">
-            <ElOption
+        <YdFormItem label="平台" prop="platform">
+          <YdSelect v-model="formData.platform" placeholder="请选择平台" :disabled="isEdit" class="w-full">
+            <YdSelectItem
               v-for="opt in PLATFORM_OPTIONS"
               :key="opt.value"
               :label="opt.label"
               :value="opt.value"
             />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="平台名称" prop="platformName">
-          <ElInput v-model="formData.platformName" placeholder="如 GitHub 登录" />
-        </ElFormItem>
-        <ElFormItem label="App ID" prop="appId">
-          <ElInput v-model="formData.appId" placeholder="应用 ID / Client ID" />
-        </ElFormItem>
-        <ElFormItem label="App Secret">
-          <ElInput
+          </YdSelect>
+        </YdFormItem>
+        <YdFormItem label="平台名称" prop="platformName">
+          <YdInput v-model="formData.platformName" placeholder="如 GitHub 登录" />
+        </YdFormItem>
+        <YdFormItem label="App ID" prop="appId">
+          <YdInput v-model="formData.appId" placeholder="应用 ID / Client ID" />
+        </YdFormItem>
+        <YdFormItem label="App Secret">
+          <YdInput
             v-model="formData.appSecret"
             type="password"
             show-password
             :placeholder="isEdit ? '留空则不修改' : '请输入应用密钥'"
           />
-        </ElFormItem>
-        <ElFormItem label="授权范围" prop="scope">
-          <ElInput v-model="formData.scope" placeholder="如 user:email,openid" />
-        </ElFormItem>
-        <ElFormItem label="回调地址" prop="redirectUri">
-          <ElInput v-model="formData.redirectUri" placeholder="如 https://example.com/auth/callback" />
-        </ElFormItem>
-        <ElFormItem label="状态">
-          <ElRadioGroup v-model="formData.status">
-            <ElRadioButton value="ENABLED">已启用</ElRadioButton>
-            <ElRadioButton value="DISABLED">已停用</ElRadioButton>
-          </ElRadioGroup>
-        </ElFormItem>
-        <ElFormItem label="排序">
-          <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-        </ElFormItem>
-        <ElFormItem label="备注">
-          <ElInput v-model="formData.remark" type="textarea" :rows="2" placeholder="备注说明" />
-        </ElFormItem>
-      </ElForm>
+        </YdFormItem>
+        <YdFormItem label="授权范围" prop="scope">
+          <YdInput v-model="formData.scope" placeholder="如 user:email,openid" />
+        </YdFormItem>
+        <YdFormItem label="回调地址" prop="redirectUri">
+          <YdInput v-model="formData.redirectUri" placeholder="如 https://example.com/auth/callback" />
+        </YdFormItem>
+        <YdFormItem label="状态">
+          <YdRadioGroup v-model="formData.status">
+            <YdRadioGroupItem value="ENABLED">已启用</YdRadioGroupItem>
+            <YdRadioGroupItem value="DISABLED">已停用</YdRadioGroupItem>
+          </YdRadioGroup>
+        </YdFormItem>
+        <YdFormItem label="排序">
+          <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        </YdFormItem>
+        <YdFormItem label="备注">
+          <YdInput v-model="formData.remark" type="textarea" :rows="2" placeholder="备注说明" />
+        </YdFormItem>
+      </YdForm>
     </Modal>
   </Page>
 </template>

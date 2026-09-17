@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: ElCascader / ElForm / ElFormItem / ElInputNumber 暂不迁移，保留 element-plus 导入
-import { ElCascader, ElForm, ElFormItem, ElInputNumber } from 'element-plus';
+import { YdCascader, YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 import { YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, tree, update } from '#/api/flowCategory';
@@ -158,37 +158,37 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('category.code.label')" prop="categoryCode">
+      <YdFormItem :label="t('category.code.label')" prop="categoryCode">
         <YdInput v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('category.name.label')" prop="categoryName">
+      </YdFormItem>
+      <YdFormItem :label="t('category.name.label')" prop="categoryName">
         <YdInput v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('category.parent.label')">
-        <ElCascader
+      </YdFormItem>
+      <YdFormItem :label="t('category.parent.label')">
+        <YdCascader
           v-model="formData.parentId"
           :options="parentOptions"
           :props="{ emitPath: false, checkStrictly: true }"
           :placeholder="t('category.parent.placeholder')"
           clearable
         />
-      </ElFormItem>
-      <ElFormItem :label="t('common.sort.label')">
-        <ElInputNumber v-model="formData.sortNum" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem :label="t('category.icon.label')">
+      </YdFormItem>
+      <YdFormItem :label="t('common.sort.label')">
+        <YdNumberFieldInput v-model="formData.sortNum" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem :label="t('category.icon.label')">
         <YdInput v-model="formData.icon" :placeholder="t('category.icon.placeholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('common.remark.label')">
+      </YdFormItem>
+      <YdFormItem :label="t('common.remark.label')">
         <YdTextarea v-model="formData.remark" :placeholder="t('common.remark.placeholder')" />
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

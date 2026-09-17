@@ -16,7 +16,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 // TODO: [ydsz-ui migration pending] ElForm/ElFormItem/ElRadio/ElRadioGroup/ElInputNumber 暂无 shadcn FormField 替代方案，待 UI Kit 表单方案统一后迁移
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElOption, ElRadio, ElRadioGroup, ElSelect } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { emitDictChange } from '@ydsz/shared-business';
@@ -129,35 +129,35 @@ const title = computed(() => (isEdit.value ? '编辑字典项' : '新增字典�
 
 <template>
   <Modal :title="title">
-    <ElForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <ElFormItem label="字典类型" prop="typeCode">
-        <ElSelect v-model="formData.typeCode" placeholder="请选择字典类型" :disabled="isEdit">
-          <ElOption
+    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+      <YdFormItem label="字典类型" prop="typeCode">
+        <YdSelect v-model="formData.typeCode" placeholder="请选择字典类型" :disabled="isEdit">
+          <YdSelectItem
             v-for="item in dictTypes"
             :key="item.typeCode ?? item.id ?? ''"
             :label="item.typeName ?? item.typeCode ?? ''"
             :value="item.typeCode ?? ''"
           />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem label="字典项编码" prop="itemCode">
-        <ElInput v-model="formData.itemCode" placeholder="请输入字典项编码" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem label="字典值" prop="itemValue">
-        <ElInput v-model="formData.itemValue" placeholder="请输入字典值" />
-      </ElFormItem>
-      <ElFormItem label="排序" prop="sortOrder">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem label="描述">
-        <ElInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
-      </ElFormItem>
-      <ElFormItem label="状态" prop="status">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">启用</ElRadio>
-          <ElRadio value="0">禁用</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+        </YdSelect>
+      </YdFormItem>
+      <YdFormItem label="字典项编码" prop="itemCode">
+        <YdInput v-model="formData.itemCode" placeholder="请输入字典项编码" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem label="字典值" prop="itemValue">
+        <YdInput v-model="formData.itemValue" placeholder="请输入字典值" />
+      </YdFormItem>
+      <YdFormItem label="排序" prop="sortOrder">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem label="描述">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      </YdFormItem>
+      <YdFormItem label="状态" prop="status">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

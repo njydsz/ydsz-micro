@@ -17,7 +17,7 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { ElForm, ElFormItem, ElInput, ElInputNumber, ElRadio, ElRadioGroup } from 'element-plus';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -120,36 +120,36 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.postBas
 
 <template>
   <Modal :title="title">
-    <ElForm
+    <YdForm
       ref="formRef"
       :model="formData"
       :rules="rules"
       label-width="100px"
       label-position="right"
     >
-      <ElFormItem :label="t('page.postName')" prop="postName">
-        <ElInput v-model="formData.postName" :placeholder="t('post.postNamePlaceholder')" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.postCode')" prop="postCode">
-        <ElInput v-model="formData.postCode" :placeholder="t('post.postCodePlaceholder')" :disabled="isEdit" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.description')">
-        <ElInput
+      <YdFormItem :label="t('page.postName')" prop="postName">
+        <YdInput v-model="formData.postName" :placeholder="t('post.postNamePlaceholder')" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.postCode')" prop="postCode">
+        <YdInput v-model="formData.postCode" :placeholder="t('post.postCodePlaceholder')" :disabled="isEdit" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.description')">
+        <YdInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
           :placeholder="t('page.descriptionPlaceholder')"
         />
-      </ElFormItem>
-      <ElFormItem :label="t('page.sortOrder')">
-        <ElInputNumber v-model="formData.sortOrder" :min="0" :max="999" />
-      </ElFormItem>
-      <ElFormItem :label="t('page.status')">
-        <ElRadioGroup v-model="formData.status">
-          <ElRadio value="1">{{ t('page.enabled') }}</ElRadio>
-          <ElRadio value="0">{{ t('page.disabled') }}</ElRadio>
-        </ElRadioGroup>
-      </ElFormItem>
-    </ElForm>
+      </YdFormItem>
+      <YdFormItem :label="t('page.sortOrder')">
+        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      </YdFormItem>
+      <YdFormItem :label="t('page.status')">
+        <YdRadioGroup v-model="formData.status">
+          <YdRadioGroupItem value="1">{{ t('page.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('page.disabled') }}</YdRadioGroupItem>
+        </YdRadioGroup>
+      </YdFormItem>
+    </YdForm>
   </Modal>
 </template>

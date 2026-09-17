@@ -18,7 +18,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 // TODO: EP → ydsz-ui 迁移待后续批次（表单设计器包含 ElForm/ElFormItem/ElSwitch 等复杂组合）
-import { ElButton, ElCard, ElForm, ElFormItem, ElInput, ElSwitch, ElTag } from 'element-plus';
+import { YdButton, YdCard, YdForm, YdFormItem, YdInput, YdSwitch, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { getFormConfig, saveFormConfig } from '#/api/flowDesigner';
 
@@ -202,23 +202,23 @@ async function handleSave(): Promise<void> {
   <Page auto-content-height>
     <div v-loading="loading" class="flex h-full flex-col gap-3 p-4">
       <!-- 顶部工具栏 -->
-      <ElCard shadow="never" class="shrink-0">
+      <YdCard shadow="never" class="shrink-0">
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-sm text-gray-500">流程定义 ID：</span>
-          <ElInput v-model="definitionId" placeholder="如 def_10001" class="w-52" />
+          <YdInput v-model="definitionId" placeholder="如 def_10001" class="w-52" />
           <span class="text-sm text-gray-500">节点编码：</span>
-          <ElInput v-model="nodeCode" placeholder="如 node_approve" class="w-40" />
-          <ElButton @click="loadFormConfig">加载配置</ElButton>
+          <YdInput v-model="nodeCode" placeholder="如 node_approve" class="w-40" />
+          <YdButton @click="loadFormConfig">加载配置</YdButton>
           <div class="flex-1" />
-          <ElButton @click="schemaVisible = true">Schema 预览</ElButton>
-          <ElButton type="primary" :loading="saving" @click="handleSave">保存</ElButton>
+          <YdButton @click="schemaVisible = true">Schema 预览</YdButton>
+          <YdButton type="primary" :loading="saving" @click="handleSave">保存</YdButton>
         </div>
-      </ElCard>
+      </YdCard>
 
       <!-- 设计器主体 -->
       <div class="grid min-h-0 flex-1 grid-cols-12 gap-3">
         <!-- 组件面板 -->
-        <ElCard shadow="never" class="col-span-2 overflow-auto">
+        <YdCard shadow="never" class="col-span-2 overflow-auto">
           <p class="mb-2 text-sm font-medium">字段组件</p>
           <div
             v-for="item in FIELD_TYPES"
@@ -229,10 +229,10 @@ async function handleSave(): Promise<void> {
           >
             {{ item.icon }} {{ item.label }}
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- 画布区 -->
-        <ElCard shadow="never" class="col-span-6 overflow-auto">
+        <YdCard shadow="never" class="col-span-6 overflow-auto">
           <p class="mb-2 text-sm font-medium">表单画布（点击添加）</p>
           <div v-if="fields.length === 0" class="pt-16 text-center text-sm text-gray-300">
             从左侧点击或拖拽组件到此区域
@@ -246,61 +246,61 @@ async function handleSave(): Promise<void> {
           >
             <span class="w-20 shrink-0 text-xs text-gray-400">{{ index + 1 }}.</span>
             <span class="flex-1 truncate text-sm">{{ field.label }}</span>
-            <ElTag size="small" type="info">{{ field.type }}</ElTag>
-            <ElTag v-if="field.isRequired" size="small" type="danger">必填</ElTag>
-            <ElButton size="small" link @click.stop="moveUp(index)">↑</ElButton>
-            <ElButton size="small" link @click.stop="moveDown(index)">↓</ElButton>
-            <ElButton size="small" link type="danger" @click.stop="removeField(field)"
+            <YdBadge size="small" type="info">{{ field.type }}</YdBadge>
+            <YdBadge v-if="field.isRequired" size="small" type="danger">必填</YdBadge>
+            <YdButton size="small" link @click.stop="moveUp(index)">↑</YdButton>
+            <YdButton size="small" link @click.stop="moveDown(index)">↓</YdButton>
+            <YdButton size="small" link type="danger" @click.stop="removeField(field)"
               >删除</ElButton
             >
           </div>
-        </ElCard>
+        </YdCard>
 
         <!-- 属性面板 -->
-        <ElCard shadow="never" class="col-span-4 overflow-auto">
+        <YdCard shadow="never" class="col-span-4 overflow-auto">
           <p class="mb-2 text-sm font-medium">字段属性</p>
           <template v-if="selectedField">
-            <ElForm label-width="80px" size="small">
-              <ElFormItem label="字段标签">
-                <ElInput v-model="selectedField.label" />
-              </ElFormItem>
-              <ElFormItem label="字段Key">
-                <ElInput v-model="selectedField.key" disabled />
-              </ElFormItem>
-              <ElFormItem label="是否必填">
-                <ElSwitch v-model="selectedField.isRequired" />
-              </ElFormItem>
-              <ElFormItem label="占位提示">
-                <ElInput v-model="selectedField.placeholder" />
-              </ElFormItem>
-              <ElFormItem v-if="['input', 'textarea'].includes(selectedField.type)" label="默认值">
-                <ElInput v-model="selectedField.defaultValue" />
-              </ElFormItem>
-              <ElFormItem v-if="selectedField.type === 'select'" label="选项">
+            <YdForm label-width="80px" size="small">
+              <YdFormItem label="字段标签">
+                <YdInput v-model="selectedField.label" />
+              </YdFormItem>
+              <YdFormItem label="字段Key">
+                <YdInput v-model="selectedField.key" disabled />
+              </YdFormItem>
+              <YdFormItem label="是否必填">
+                <YdSwitch v-model="selectedField.isRequired" />
+              </YdFormItem>
+              <YdFormItem label="占位提示">
+                <YdInput v-model="selectedField.placeholder" />
+              </YdFormItem>
+              <YdFormItem v-if="['input', 'textarea'].includes(selectedField.type)" label="默认值">
+                <YdInput v-model="selectedField.defaultValue" />
+              </YdFormItem>
+              <YdFormItem v-if="selectedField.type === 'select'" label="选项">
                 <div class="w-full">
-                  <ElInput
+                  <YdInput
                     v-model="optionsText"
                     type="textarea"
                     :rows="4"
                     placeholder="每行一个选项"
                   />
                 </div>
-              </ElFormItem>
-            </ElForm>
+              </YdFormItem>
+            </YdForm>
           </template>
           <div v-else class="pt-10 text-center text-xs text-gray-400">请选择画布中的字段</div>
-        </ElCard>
+        </YdCard>
       </div>
     </div>
 
     <!-- Schema 预览弹窗 -->
-    <ElDialog v-model="schemaVisible" title="JSON Schema 预览" width="600px">
+    <YdDialog v-model="schemaVisible" title="JSON Schema 预览" width="600px">
       <pre class="max-h-96 overflow-auto rounded border bg-gray-50 p-3 text-xs">{{
         schemaText
       }}</pre>
       <template #footer>
-        <ElButton type="primary" @click="schemaVisible = false">关闭</ElButton>
+        <YdButton type="primary" @click="schemaVisible = false">关闭</YdButton>
       </template>
-    </ElDialog>
+    </YdDialog>
   </Page>
 </template>

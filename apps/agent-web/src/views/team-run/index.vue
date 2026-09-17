@@ -20,7 +20,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 // TODO: 表单套件+弹窗,保留 element-plus 中未迁移部分
-import { ElEmpty, ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus';
+import { YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -266,7 +266,7 @@ async function handleCancel(row: TeamRun): Promise<void> {
               <YdButtonBase @click="handleCreate">创建 TeamRun</YdButtonBase>
             </template>
           </Grid>
-          <ElEmpty v-if="teamRuns.length === 0" description="暂无 TeamRun 任务" />
+          <YdEmptyState v-if="teamRuns.length === 0" description="暂无 TeamRun 任务" />
         </YdCardContent>
       </YdCard>
     </div>
@@ -277,22 +277,22 @@ async function handleCancel(row: TeamRun): Promise<void> {
         <YdDialogHeader>
           <YdDialogTitle>创建 TeamRun</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm :model="createForm" label-width="100px">
-          <ElFormItem label="名称" required>
-            <ElInput v-model="createForm.title" placeholder="请输入 TeamRun 名称" />
-          </ElFormItem>
-          <ElFormItem label="描述">
-            <ElInput v-model="createForm.description" type="textarea" :rows="3" placeholder="请输入描述信息" />
-          </ElFormItem>
-          <ElFormItem label="协作模式">
-            <ElSelect v-model="createForm.pattern" class="w-full">
-              <ElOption label="顺序执行" value="SEQUENTIAL" />
-              <ElOption label="并行执行" value="PARALLEL" />
-              <ElOption label="层级执行" value="HIERARCHICAL" />
-              <ElOption label="协商模式" value="NEGOTIATION" />
-            </ElSelect>
-          </ElFormItem>
-        </ElForm>
+        <YdForm :model="createForm" label-width="100px">
+          <YdFormItem label="名称" required>
+            <YdInput v-model="createForm.title" placeholder="请输入 TeamRun 名称" />
+          </YdFormItem>
+          <YdFormItem label="描述">
+            <YdInput v-model="createForm.description" type="textarea" :rows="3" placeholder="请输入描述信息" />
+          </YdFormItem>
+          <YdFormItem label="协作模式">
+            <YdSelect v-model="createForm.pattern" class="w-full">
+              <YdSelectItem label="顺序执行" value="SEQUENTIAL" />
+              <YdSelectItem label="并行执行" value="PARALLEL" />
+              <YdSelectItem label="层级执行" value="HIERARCHICAL" />
+              <YdSelectItem label="协商模式" value="NEGOTIATION" />
+            </YdSelect>
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="createModalVisible = false">取消</YdButtonBase>
           <YdButtonBase @click="submitCreate">确认创建</YdButtonBase>
@@ -306,20 +306,20 @@ async function handleCancel(row: TeamRun): Promise<void> {
         <YdDialogHeader>
           <YdDialogTitle>添加成员</YdDialogTitle>
         </YdDialogHeader>
-        <ElForm :model="memberForm" label-width="100px">
-          <ElFormItem label="Agent 编码" required>
-            <ElInput v-model="memberForm.agentCode" placeholder="请输入 Agent 编码" />
-          </ElFormItem>
-          <ElFormItem label="角色">
-            <ElInput v-model="memberForm.role" placeholder="请输入角色名称" />
-          </ElFormItem>
-          <ElFormItem label="执行顺序">
-            <ElInput v-model.number="memberForm.executionOrder" type="number" placeholder="执行顺序" />
-          </ElFormItem>
-          <ElFormItem label="输入上下文">
-            <ElInput v-model="memberForm.inputContext" type="textarea" :rows="3" placeholder="请输入输入上下文" />
-          </ElFormItem>
-        </ElForm>
+        <YdForm :model="memberForm" label-width="100px">
+          <YdFormItem label="Agent 编码" required>
+            <YdInput v-model="memberForm.agentCode" placeholder="请输入 Agent 编码" />
+          </YdFormItem>
+          <YdFormItem label="角色">
+            <YdInput v-model="memberForm.role" placeholder="请输入角色名称" />
+          </YdFormItem>
+          <YdFormItem label="执行顺序">
+            <YdInput v-model.number="memberForm.executionOrder" type="number" placeholder="执行顺序" />
+          </YdFormItem>
+          <YdFormItem label="输入上下文">
+            <YdInput v-model="memberForm.inputContext" type="textarea" :rows="3" placeholder="请输入输入上下文" />
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
           <YdButtonBase variant="outline" @click="addMemberModalVisible = false">取消</YdButtonBase>
           <YdButtonBase @click="submitAddMember">确认添加</YdButtonBase>
@@ -432,7 +432,7 @@ async function handleCancel(row: TeamRun): Promise<void> {
                   </div>
                 </div>
               </div>
-              <ElEmpty v-else description="暂无成员" />
+              <YdEmptyState v-else description="暂无成员" />
             </YdCardContent>
           </YdCard>
         </div>
