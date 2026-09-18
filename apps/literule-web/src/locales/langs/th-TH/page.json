@@ -1,0 +1,11 @@
+{
+  "rule": "กฎ",
+  "ruleList": "รายการกฎ",
+  "dsl": "DSL",
+  "variable": "ตัวแปร",
+  "advanced": "ขั้นสูง",
+  "cep": "CEP",
+  "breakpoint": "จุดหยุด",
+  "audit": "ตรวจสอบ",
+  "auditLog": "บันทึกการตรวจสอบ"
+}

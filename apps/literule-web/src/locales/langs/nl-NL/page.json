@@ -1,0 +1,11 @@
+{
+  "rule": "Regel",
+  "ruleList": "Regellijst",
+  "dsl": "DSL",
+  "variable": "Variabele",
+  "advanced": "Geavanceerd",
+  "cep": "CEP",
+  "breakpoint": "Breekpunt",
+  "audit": "Controle",
+  "auditLog": "Controlerapport"
+}

@@ -6,7 +6,6 @@ import Submenu from './_Submenu.vue'
 
 function handleSelect(text: string) {
   // eslint-disable-next-line no-console
-  console.log({ text })
 }
 
 const open1 = ref(false)

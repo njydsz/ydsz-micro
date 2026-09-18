@@ -1,0 +1,11 @@
+{
+  "rule": "Aturan",
+  "ruleList": "Daftar Aturan",
+  "dsl": "DSL",
+  "variable": "Variabel",
+  "advanced": "Lanjutan",
+  "cep": "CEP",
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Log Audit"
+}

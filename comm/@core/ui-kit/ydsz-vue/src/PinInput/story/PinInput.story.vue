@@ -19,7 +19,6 @@ const value = ref<string[]>([])
           id="otp"
           v-model="value"
           class="flex gap-2 items-center"
-          @complete="e => console.log(e.join(''))"
         >
           <PinInputInput
             v-for="(id, index) in 5"

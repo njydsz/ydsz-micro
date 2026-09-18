@@ -1,0 +1,11 @@
+{
+  "rule": "Qoida",
+  "ruleList": "Qoidalar ro'yxati",
+  "dsl": "DSL",
+  "variable": "O'zgaruvchi",
+  "advanced": "Kengaytirilgan",
+  "cep": "CEP",
+  "breakpoint": "To'xtash nuqtasi",
+  "audit": "Audit",
+  "auditLog": "Audit jurnali"
+}

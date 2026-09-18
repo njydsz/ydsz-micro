@@ -1,0 +1,11 @@
+{
+  "rule": "Regel",
+  "ruleList": "Regelliste",
+  "dsl": "DSL",
+  "variable": "Variabel",
+  "advanced": "Avansert",
+  "cep": "CEP",
+  "breakpoint": "Bruddpunkt",
+  "audit": "Revisjon",
+  "auditLog": "Revisjonslogg"
+}

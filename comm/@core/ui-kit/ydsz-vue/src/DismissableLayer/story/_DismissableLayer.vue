@@ -39,7 +39,6 @@ function handleDismiss() {
           ev.preventDefault()
       }"
       @pointer-down-outside="(ev) => {
-        console.log(ev)
         if (preventPointerDownOutsideEvent)
           ev.preventDefault()
       }"

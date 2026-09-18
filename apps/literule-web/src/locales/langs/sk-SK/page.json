@@ -1,0 +1,11 @@
+{
+  "rule": "Pravidlo",
+  "ruleList": "Zoznam pravidiel",
+  "dsl": "DSL",
+  "variable": "Premenná",
+  "advanced": "Pokročilé",
+  "cep": "CEP",
+  "breakpoint": "Bod prerušenia",
+  "audit": "Audit",
+  "auditLog": "Auditný záznam"
+}

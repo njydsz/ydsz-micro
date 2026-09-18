@@ -1,0 +1,37 @@
+{
+  "auth": {
+    "login": "登入",
+    "register": "註冊",
+    "codeLogin": "驗證碼登入",
+    "qrcodeLogin": "掃碼登入",
+    "forgetPassword": "忘記密碼?"
+  },
+  "dashboard": {
+    "title": "YDSZ 平台",
+    "analytics": "數據分析",
+    "workspace": "工作台"
+  },
+  "microKernel": {
+    "containerLabel": "Micro-frontend subapplication container",
+    "phase": {
+      "loading": "Loading modules...",
+      "loaded": "Modules loaded",
+      "mounting": "掛載中...",
+      "mounted": "Modules loaded",
+      "unmounting": "切換中...",
+      "error": "Load failed"
+    },
+    "announcements": {
+      "loading": "loading {{appName}} subapplication",
+      "loaded": "{{appName}} 模組已載入，準備掛載",
+      "mounting": "正在掛載 {{appName}} subapplication",
+      "mounted": "{{appName}} subapplication loaded",
+      "unmounting": "離開 {{appName}}...",
+      "error": "{{appName}} 載入失敗"
+    },
+    "errorMask": {
+      "title": "Failed to load application",
+      "hint": "已降級為整頁導航，請稍後重試"
+    }
+  }
+}

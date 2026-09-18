@@ -6,9 +6,7 @@ const panelRef = ref<InstanceType<typeof SplitterPanel>>()
 
 onMounted(() => {
   // eslint-disable-next-line no-console
-  console.log(panelRef.value?.$el)
   // eslint-disable-next-line no-console
-  console.log(panelRef.value?.getSize())
 })
 </script>
 

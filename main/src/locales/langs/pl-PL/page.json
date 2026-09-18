@@ -1,0 +1,37 @@
+{
+  "auth": {
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "codeLogin": "Logowanie kodem",
+    "qrcodeLogin": "Logowanie kod QR",
+    "forgetPassword": "Zapomniałeś hasła?"
+  },
+  "dashboard": {
+    "title": "Platforma YDSZ",
+    "analytics": "Analityka",
+    "workspace": "Obszar roboczy"
+  },
+  "microKernel": {
+    "containerLabel": "Kontener podaplikacji Micro-frontend",
+    "phase": {
+      "loading": "Loading modules...",
+      "loaded": "Modules loaded",
+      "mounting": "Mounting application...",
+      "mounted": "Modules loaded",
+      "unmounting": "Switching application...",
+      "error": "Load failed"
+    },
+    "announcements": {
+      "loading": "Loading {{appName}} subapplication",
+      "loaded": "{{appName}} modules loaded, preparing to mount",
+      "mounting": "Mounting {{appName}} subapplication",
+      "mounted": "{{appName}} subapplication loaded",
+      "unmounting": "Opuszczanie {{appName}}...",
+      "error": "{{appName}} failed to load"
+    },
+    "errorMask": {
+      "title": "Failed to load application",
+      "hint": "Degraded to full-page navigation, please retry later"
+    }
+  }
+}

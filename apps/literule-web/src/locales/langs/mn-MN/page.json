@@ -1,0 +1,11 @@
+{
+  "rule": "Дүрэм",
+  "ruleList": "Дүрмийн жагсаалт",
+  "dsl": "DSL",
+  "variable": "Хувьсагч",
+  "advanced": "Дэвшилтэт",
+  "cep": "CEP",
+  "breakpoint": "Зогсоох цэг",
+  "audit": "Аудит",
+  "auditLog": "Аудит бүртгэл"
+}

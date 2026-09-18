@@ -1,0 +1,37 @@
+{
+  "auth": {
+    "login": "Увійти",
+    "register": "Реєстрація",
+    "codeLogin": "Вхід за кодом",
+    "qrcodeLogin": "Авторизація за QR-кодом",
+    "forgetPassword": "Забули пароль?"
+  },
+  "dashboard": {
+    "title": "Платформа YDSZ",
+    "analytics": "Аналітика",
+    "workspace": "Робочий простір"
+  },
+  "microKernel": {
+    "containerLabel": "Micro-frontend subapplication container",
+    "phase": {
+      "loading": "Loading modules...",
+      "loaded": "Modules loaded",
+      "mounting": "Mounting application...",
+      "mounted": "Modules loaded",
+      "unmounting": "Switching application...",
+      "error": "Load failed"
+    },
+    "announcements": {
+      "loading": "Loading {{appName}} subapplication",
+      "loaded": "{{appName}} modules loaded, preparing to mount",
+      "mounting": "Mounting {{appName}} subapplication",
+      "mounted": "{{appName}} subapplication loaded",
+      "unmounting": "Вихід з {{appName}}...",
+      "error": "{{appName}} failed to load"
+    },
+    "errorMask": {
+      "title": "Не вдалося завантажити програму",
+      "hint": "Degraded to full-page navigation, please retry later"
+    }
+  }
+}

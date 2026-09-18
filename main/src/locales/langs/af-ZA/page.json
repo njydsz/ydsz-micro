@@ -1,0 +1,37 @@
+{
+  "auth": {
+    "login": "Aanmelding",
+    "register": "Registreer",
+    "codeLogin": "Kode-aanmelding",
+    "qrcodeLogin": "QR-aanmelding",
+    "forgetPassword": "Wagwoord vergeet?"
+  },
+  "dashboard": {
+    "title": "YDSZ Platform",
+    "analytics": "Ontleding",
+    "workspace": "Werkruimte"
+  },
+  "microKernel": {
+    "containerLabel": "Micro-frontend subapplication container",
+    "phase": {
+      "loading": "Modules word gelaai...",
+      "loaded": "Modules gelaai",
+      "mounting": "Mounting application...",
+      "mounted": "Modules gelaai",
+      "unmounting": "Switching application...",
+      "error": "Laai het misluk"
+    },
+    "announcements": {
+      "loading": "Loading {{appName}} subapplication",
+      "loaded": "{{appName}} modules loaded, preparing to mount",
+      "mounting": "Mounting {{appName}} subapplication",
+      "mounted": "{{appName}} subapplication loaded",
+      "unmounting": "Switching away from {{appName}}",
+      "error": "{{appName}} subapplication failed to load"
+    },
+    "errorMask": {
+      "title": "Failed to load application",
+      "hint": "Degraded to full-page navigation, please retry later"
+    }
+  }
+}

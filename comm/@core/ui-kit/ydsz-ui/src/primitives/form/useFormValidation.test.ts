@@ -9,11 +9,19 @@
  * @since 5.6.0 (26.09.17 扩展依赖联动测试)
  */
 
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { useFormValidation, type ValidateOnMode } from './useFormValidation'
 
 describe('useFormValidation', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
   it('应返回防抖校验函数和立即校验函数', () => {
     const handle = useFormValidation()
     expect(typeof handle.debouncedValidate).toBe('function')

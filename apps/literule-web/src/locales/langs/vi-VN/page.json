@@ -1,0 +1,11 @@
+{
+  "rule": "Quy tắc",
+  "ruleList": "Danh sách quy tắc",
+  "dsl": "DSL",
+  "variable": "Biến",
+  "advanced": "Nâng cao",
+  "cep": "CEP",
+  "breakpoint": "Điểm ngắt",
+  "audit": "Kiểm toán",
+  "auditLog": "Nhật ký kiểm toán"
+}

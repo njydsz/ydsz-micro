@@ -224,17 +224,10 @@ const sizeClass: Record<string, string> = {
         <li
           v-for="opt in hourOptions"
           :key="opt.value"
-          :aria-selected="parsedTime.hour === opt.value || (use12Hours && (parsedTime.hour % 12 || 12) === opt.value)"
-          :class="
-            cn(
-              'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
-              parsedTime.hour === opt.value && 'bg-primary text-primary-foreground font-semibold',
-              opt.disabled && 'cursor-not-allowed opacity-30',
-              !opt.disabled && parsedTime.hour !== opt.value && 'hover:bg-muted',
-            )
-          "
+          :aria-selected="isHourSelected(opt.value)"
+          :class="getHourClass(opt)"
           role="option"
-          @click="!opt.disabled && handleHourChange(opt.value)"
+          @click="opt.disabled ? undefined : handleHourChange(opt.value)"
         >
           {{ opt.label }}
         </li>
@@ -246,16 +239,9 @@ const sizeClass: Record<string, string> = {
           v-for="opt in minuteOptions"
           :key="opt.value"
           :aria-selected="parsedTime.minute === opt.value"
-          :class="
-            cn(
-              'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
-              parsedTime.minute === opt.value && 'bg-primary text-primary-foreground font-semibold',
-              opt.disabled && 'cursor-not-allowed opacity-30',
-              !opt.disabled && parsedTime.minute !== opt.value && 'hover:bg-muted',
-            )
-          "
+          :class="getMinuteClass(opt)"
           role="option"
-          @click="!opt.disabled && handleMinuteChange(opt.value)"
+          @click="opt.disabled ? undefined : handleMinuteChange(opt.value)"
         >
           {{ opt.label }}
         </li>
@@ -267,16 +253,9 @@ const sizeClass: Record<string, string> = {
           v-for="opt in secondOptions"
           :key="opt.value"
           :aria-selected="parsedTime.second === opt.value"
-          :class="
-            cn(
-              'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
-              parsedTime.second === opt.value && 'bg-primary text-primary-foreground font-semibold',
-              opt.disabled && 'cursor-not-allowed opacity-30',
-              !opt.disabled && parsedTime.second !== opt.value && 'hover:bg-muted',
-            )
-          "
+          :class="getSecondClass(opt)"
           role="option"
-          @click="!opt.disabled && handleSecondChange(opt.value)"
+          @click="opt.disabled ? undefined : handleSecondChange(opt.value)"
         >
           {{ opt.label }}
         </li>
@@ -288,13 +267,7 @@ const sizeClass: Record<string, string> = {
           v-for="p in ['AM', 'PM'] as const"
           :key="p"
           :aria-selected="parsedTime.period === p"
-          :class="
-            cn(
-              'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
-              parsedTime.period === p && 'bg-primary text-primary-foreground font-semibold',
-              parsedTime.period !== p && 'hover:bg-muted',
-            )
-          "
+          :class="getPeriodClass(p)"
           role="option"
           @click="handlePeriodChange(p)"
         >

@@ -1,0 +1,11 @@
+{
+  "rule": "Sääntö",
+  "ruleList": "Sääntöluettelo",
+  "dsl": "DSL",
+  "variable": "Muuttuja",
+  "advanced": "Lisäasetukset",
+  "cep": "CEP",
+  "breakpoint": "Keskeytyskohta",
+  "audit": "Tarkastus",
+  "auditLog": "Tastausloki"
+}

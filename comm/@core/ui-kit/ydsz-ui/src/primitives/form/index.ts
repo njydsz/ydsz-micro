@@ -20,8 +20,14 @@ export { default as YdFormMessage } from './YdFormMessage.vue';
 export { default as YdForm } from './YdForm.vue';
 export { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 export { useFormField } from './useFormField';
+export { useFormValidation } from './useFormValidation';
 export {
   Field as FormField,
   FieldArray as FormFieldArray,
   Form,
 } from 'vee-validate';
+export type {
+  FormValidationHandle,
+  UseFormValidationOptions,
+  ValidateOnMode,
+} from './useFormValidation';

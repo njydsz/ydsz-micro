@@ -1,0 +1,11 @@
+{
+  "rule": "Szabály",
+  "ruleList": "Szabálylista",
+  "dsl": "DSL",
+  "variable": "Változó",
+  "advanced": "Speciális",
+  "cep": "CEP",
+  "breakpoint": "Töréspont",
+  "audit": "Ellenőrzés",
+  "auditLog": "Ellenőrzési napló"
+}

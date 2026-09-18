@@ -1,0 +1,11 @@
+{
+  "rule": "Taisyklė",
+  "ruleList": "Taisyklių sąrašas",
+  "dsl": "DSL",
+  "variable": "Kintamasis",
+  "advanced": "Išplėstinis",
+  "cep": "CEP",
+  "breakpoint": "Pertraukos taškas",
+  "audit": "Auditas",
+  "auditLog": "Audito žurnalás"
+}

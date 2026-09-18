@@ -4,7 +4,6 @@ import MenuWithAnchor from './_MenuWithAnchor.vue'
 
 function handleSelect(text: string) {
   // eslint-disable-next-line no-console
-  console.log({ text })
 }
 
 const foodGroups: Array<{

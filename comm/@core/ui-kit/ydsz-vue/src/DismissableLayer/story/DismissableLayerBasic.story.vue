@@ -8,7 +8,6 @@ const open = ref(false)
 
 function handleClick() {
   // eslint-disable-next-line no-console
-  console.log('click')
 }
 
 const state = reactive({

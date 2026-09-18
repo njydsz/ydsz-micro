@@ -1,0 +1,11 @@
+{
+  "rule": "Kural",
+  "ruleList": "Kural Listesi",
+  "dsl": "DSL",
+  "variable": "Değişken",
+  "advanced": "Gelişmiş",
+  "cep": "CEP",
+  "breakpoint": "Kesme noktası",
+  "audit": "Denetim",
+  "auditLog": "Denetim Günlüğü"
+}
