@@ -1,11 +1,11 @@
 {
-  "rule": "規則",
-  "ruleList": "規則列表",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "變量",
-  "advanced": "高級",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "斷點",
-  "audit": "審計",
-  "auditLog": "審計日誌"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

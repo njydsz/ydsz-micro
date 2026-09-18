@@ -1,0 +1,146 @@
+/* YDSZ 文档站 · 全局自定义样式 */
+
+:root {
+  --ydsz-brand: #1a6dff;
+  --ydsz-brand-light: #4d94ff;
+  --ydsz-brand-dark: #0044cc;
+  --ydsz-accent: #00c9a7;
+  --ydsz-warn: #f5a623;
+  --ydsz-danger: #e02020;
+  --ydsz-bg-card: #ffffff;
+  --ydsz-text-primary: #1a1a2e;
+  --ydsz-text-secondary: #5a5a72;
+  --ydsz-border: #e8e8ef;
+}
+
+.dark {
+  --ydsz-bg-card: #1e1e2e;
+  --ydsz-text-primary: #e8e8f0;
+  --ydsz-text-secondary: #a0a0bb;
+  --ydsz-border: #2a2a40;
+}
+
+/* VP Home Hero 覆写 */
+.VPHomeHero .name {
+  background: linear-gradient(135deg, var(--ydsz-brand) 0%, var(--ydsz-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.VPHomeHero .tagline {
+  color: var(--ydsz-text-secondary);
+}
+
+/* VP Features 卡片增强 */
+.VPFeatures {
+  padding: 0 24px;
+}
+
+.VPFeatures .VPFeature {
+  background: var(--ydsz-bg-card);
+  border: 1px solid var(--ydsz-border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.VPFeatures .VPFeature:hover {
+  border-color: var(--ydsz-brand);
+  box-shadow: 0 4px 16px rgba(26, 109, 255, 0.12);
+}
+
+/* G6 画布容器 */
+.g6-topology-container {
+  width: 100%;
+  height: 560px;
+  border: 1px solid var(--ydsz-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ydsz-bg-card);
+  margin: 16px 0;
+}
+
+/* ECharts 容器 */
+.chart-container {
+  width: 100%;
+  height: 320px;
+  margin: 12px 0;
+}
+
+/* 引擎卡片网格 */
+.engine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.engine-grid .engine-card {
+  padding: 16px;
+  background: var(--ydsz-bg-card);
+  border: 1px solid var(--ydsz-border);
+  border-radius: 10px;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.engine-grid .engine-card:hover {
+  border-color: var(--ydsz-brand);
+  transform: translateY(-2px);
+}
+
+.engine-grid .engine-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ydsz-brand);
+  margin: 0 0 4px;
+}
+
+.engine-grid .engine-card .port {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--ydsz-accent);
+  margin-bottom: 6px;
+}
+
+.engine-grid .engine-card p {
+  font-size: 13px;
+  color: var(--ydsz-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Redoc 容器 */
+.redoc-container {
+  margin: 16px 0;
+  border: 1px solid var(--ydsz-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 概述徽章 */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.badge-p0 {
+  background: #fee;
+  color: var(--ydsz-danger);
+  border: 1px solid #fcc;
+}
+
+.badge-p1 {
+  background: #fff8e8;
+  color: var(--ydsz-warn);
+  border: 1px solid #f5d99a;
+}
+
+.badge-p2 {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}

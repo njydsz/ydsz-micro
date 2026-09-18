@@ -1,11 +1,11 @@
 {
-  "rule": "Qoida",
-  "ruleList": "Qoidalar ro'yxati",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "O'zgaruvchi",
-  "advanced": "Kengaytirilgan",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "To'xtash nuqtasi",
+  "breakpoint": "Breakpoint",
   "audit": "Audit",
-  "auditLog": "Audit jurnali"
+  "auditLog": "Audit Log"
 }

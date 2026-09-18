@@ -1,11 +1,11 @@
 {
-  "rule": "กฎ",
-  "ruleList": "รายการกฎ",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "ตัวแปร",
-  "advanced": "ขั้นสูง",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "จุดหยุด",
-  "audit": "ตรวจสอบ",
-  "auditLog": "บันทึกการตรวจสอบ"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

@@ -1,11 +1,11 @@
 {
-  "rule": "القاعدة",
-  "ruleList": "قائمة القواعد",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "المتغير",
-  "advanced": "متقدم",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "نقطة التوقف",
-  "audit": "التدقيق",
-  "auditLog": "سجل التدقيق"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

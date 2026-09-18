@@ -1,11 +1,11 @@
 {
-  "rule": "Ереже",
-  "ruleList": "Ережелер тізімі",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Айнымалы",
-  "advanced": "Кеңейтілген",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Үзіліс нүктесі",
-  "audit": "Аудит",
-  "auditLog": "Аудит журналы"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

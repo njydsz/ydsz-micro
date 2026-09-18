@@ -1,11 +1,11 @@
 {
-  "rule": "Regel",
-  "ruleList": "Regellista",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Variabel",
-  "advanced": "Avancerat",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Brytpunkt",
-  "audit": "Revision",
-  "auditLog": "Revisionslogg"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

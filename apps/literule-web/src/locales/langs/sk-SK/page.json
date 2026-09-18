@@ -1,11 +1,11 @@
 {
-  "rule": "Pravidlo",
-  "ruleList": "Zoznam pravidiel",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Premenná",
-  "advanced": "Pokročilé",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Bod prerušenia",
+  "breakpoint": "Breakpoint",
   "audit": "Audit",
-  "auditLog": "Auditný záznam"
+  "auditLog": "Audit Log"
 }

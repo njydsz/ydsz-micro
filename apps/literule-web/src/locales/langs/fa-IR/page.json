@@ -1,11 +1,11 @@
 {
-  "rule": "قانون",
-  "ruleList": "لیست قوانین",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "متغیر",
-  "advanced": "پیشرفته",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "نقطه شکست",
-  "audit": "حسابرسی",
-  "auditLog": "سابقه حسابرسی"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

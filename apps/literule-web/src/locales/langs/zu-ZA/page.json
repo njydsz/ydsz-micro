@@ -1,11 +1,11 @@
 {
-  "rule": "Umthetho",
-  "ruleList": "Uhlu lwemithetho",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Okuguqukayo",
-  "advanced": "Okuhambelana nezinga eliphakeme",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Indawo yokuma",
-  "audit": "Ukucwaninga",
-  "auditLog": "Iloghu yokucwaninga"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

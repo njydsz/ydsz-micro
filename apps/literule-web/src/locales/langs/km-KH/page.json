@@ -1,11 +1,11 @@
 {
-  "rule": "ច្បាប់",
-  "ruleList": "បញ្ជីច្បាប់",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "អថេរ",
-  "advanced": "កម្រិតខ្ពស់",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "ចំណុចបំបែក",
-  "audit": "សវនកម្ម",
-  "auditLog": "កំណត់ហេតុសវនកម្ម"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

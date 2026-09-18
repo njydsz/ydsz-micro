@@ -1,11 +1,11 @@
 {
-  "rule": "ደንብ",
-  "ruleList": "የደንብ ዝርዝር",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "ተላላፊ",
-  "advanced": "የላቀ",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "ነጥብ መቋረጫ",
-  "audit": "ኦዲት",
-  "auditLog": "ኦዲት ምዝግብ"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

@@ -1,11 +1,11 @@
 {
-  "rule": "Reël",
-  "ruleList": "Reëlys",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Veranderlike",
-  "advanced": "Gevorderd",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Breekpunt",
-  "audit": "Ouditering",
-  "auditLog": "Ouditeringslogboek"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

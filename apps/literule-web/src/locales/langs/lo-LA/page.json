@@ -1,11 +1,11 @@
 {
-  "rule": "ກົດລະບຽບ",
-  "ruleList": "ລາຍການກົດລະບຽບ",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "ຕົວແປ",
-  "advanced": "ຂັ້ນສູງ",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "ຈຸດຢຸດ",
-  "audit": "ການກວດສອບ",
-  "auditLog": "ບັນທຶກການກວດສອບ"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

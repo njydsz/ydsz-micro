@@ -1,11 +1,11 @@
 {
-  "rule": "قاعدہ",
-  "ruleList": "قواعد کی فہرست",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "متغیر",
-  "advanced": "اعلیٰ درجے کا",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "وقفہ نقطہ",
-  "audit": "آڈٹ",
-  "auditLog": "آڈٹ لاگ"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

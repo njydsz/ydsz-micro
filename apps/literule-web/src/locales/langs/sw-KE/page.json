@@ -1,11 +1,11 @@
 {
-  "rule": "Kigua",
-  "ruleList": "Orodha ya vigua",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Kubadilika",
-  "advanced": "Hali ya juu",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Tua alama",
-  "audit": "Ukaguzi",
-  "auditLog": "Kumbukumbu ya ukaguzi"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

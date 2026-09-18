@@ -1,11 +1,11 @@
 {
-  "rule": "Правило",
-  "ruleList": "Список правил",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Переменная",
-  "advanced": "Расширенные",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Точка останова",
-  "audit": "Аудит",
-  "auditLog": "Журнал аудита"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

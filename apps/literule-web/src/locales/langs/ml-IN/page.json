@@ -1,11 +1,11 @@
 {
-  "rule": "നിയമം",
-  "ruleList": "നിയമ ലിസ്റ്റ്",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "വേരിയബിൾ",
-  "advanced": "വിപുലമായ",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "ബ്രേക്‌പോയിൻറ്",
-  "audit": "ഓഡിറ്റ്",
-  "auditLog": "ഓഡിറ്റ് ലോഗ്"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

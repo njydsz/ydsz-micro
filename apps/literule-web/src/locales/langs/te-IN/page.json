@@ -1,11 +1,11 @@
 {
-  "rule": "నియమం",
-  "ruleList": "నియమాల జాబితా",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "వేరియబుల్",
-  "advanced": "అధునాతన",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "బ్రేక్‌పాయింట్",
-  "audit": "ఆడిట్",
-  "auditLog": "ఆడిట్ లాగ్"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

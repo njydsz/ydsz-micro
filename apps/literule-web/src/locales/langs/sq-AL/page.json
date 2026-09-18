@@ -1,11 +1,11 @@
 {
-  "rule": "Rregull",
-  "ruleList": "Lista e rregullave",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Ndryshueshme",
-  "advanced": "E përparuar",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Përfundimi i pikës",
-  "audit": "Auditim",
-  "auditLog": "Regjistri i auditimit"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

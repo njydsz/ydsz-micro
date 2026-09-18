@@ -1,11 +1,11 @@
 {
-  "rule": "नियम",
-  "ruleList": "नियम सूची",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "वेरिएबल",
-  "advanced": "उन्नत",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "ब्रेकपॉइंट",
-  "audit": "ऑडिट",
-  "auditLog": "ऑडिट लॉग"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

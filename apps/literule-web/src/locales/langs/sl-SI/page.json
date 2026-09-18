@@ -1,11 +1,11 @@
 {
-  "rule": "Pravilo",
-  "ruleList": "Seznam pravil",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Spremenljivka",
-  "advanced": "Napredno",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Prekinitvena točka",
-  "audit": "Revizija",
-  "auditLog": "Revizijski dnevnik"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

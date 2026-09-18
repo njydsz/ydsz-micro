@@ -1,11 +1,11 @@
 {
-  "rule": "விதி",
-  "ruleList": "விதி பட்டியல்",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "மாறி",
-  "advanced": "மேம்பட்ட",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "இடைறுத்தப்புள்ளி",
-  "audit": "தணிக்கை",
-  "auditLog": "தணிக்கை பதிவு"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

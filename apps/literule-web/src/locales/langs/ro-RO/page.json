@@ -1,11 +1,11 @@
 {
-  "rule": "Regulă",
-  "ruleList": "Lista de reguli",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Variabilă",
-  "advanced": "Avansat",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Punct de întrerupere",
+  "breakpoint": "Breakpoint",
   "audit": "Audit",
-  "auditLog": "Jurnal de audit"
+  "auditLog": "Audit Log"
 }

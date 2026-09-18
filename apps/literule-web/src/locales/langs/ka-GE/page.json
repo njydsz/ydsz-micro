@@ -1,11 +1,11 @@
 {
-  "rule": "წესი",
-  "ruleList": "წესების სია",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "ცვლადი",
-  "advanced": "გაფართოებული",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "წყვეტის წერტილი",
-  "audit": "აუდიტი",
-  "auditLog": "აუდიტის ჟურნალი"
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Audit Log"
 }

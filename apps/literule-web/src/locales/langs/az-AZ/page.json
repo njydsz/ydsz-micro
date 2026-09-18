@@ -1,11 +1,11 @@
 {
-  "rule": "Qayda",
-  "ruleList": "Qaydalar siyahısı",
+  "rule": "Rule",
+  "ruleList": "Rule List",
   "dsl": "DSL",
-  "variable": "Dəyişən",
-  "advanced": "Qabaqcıl",
+  "variable": "Variable",
+  "advanced": "Advanced",
   "cep": "CEP",
-  "breakpoint": "Kərim nöqtəsi",
+  "breakpoint": "Breakpoint",
   "audit": "Audit",
-  "auditLog": "Audit jurnalı"
+  "auditLog": "Audit Log"
 }
