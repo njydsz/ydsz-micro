@@ -44,7 +44,7 @@ async function loadMessages(lang: SupportedLanguagesType) {
 /**
  * 加载 dayjs 语言包。
  *
- * <p>基于语种标识动态导入对应的 dayjs locale 模块，覆盖 63 个语种。
+ * <p>基于语种标识动态导入对应的 dayjs locale 模块，覆盖 81 个语种。
  * 未显式列出的语种回退到 en，保证日期时间格式化始终可用。
  *
  * @param lang - 当前激活语种
