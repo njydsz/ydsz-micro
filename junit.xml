@@ -1,169 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="56" failures="0" errors="0" time="0.6528403">
-    <testsuite name="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" timestamp="2026-09-17T16:24:20.238Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.4722426">
-        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应导出 getYdDefaultExtensions 且返回足够扩展" time="0.4586371">
+<testsuites name="vitest tests" tests="20" failures="3" errors="0" time="0.0118322">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" timestamp="2026-09-18T01:13:12.253Z" hostname="DESKTOP-FIC0TQ3" tests="20" failures="3" errors="0" skipped="0" time="0.0118322">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始视图数据与原始数据一致（无排序无筛选）" time="0.0019788">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; 应导出 mention 扩展工厂函数和 PluginKey" time="0.0122162">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始选中集合为空" time="0.0001348">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; createMentionExtension 应是函数且调用无抛出" time="0.0002335">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始展开集合为空" time="0.0000992">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/editor-ui/src/editor-completeness.test.ts" name="RichEditor completeness &gt; getYdDefaultExtensions 应包含文档/段落/文本等基础扩展" time="0.0002549">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 首次点击排序列 → asc" time="0.0005478">
         </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" timestamp="2026-09-17T16:24:20.242Z" hostname="DESKTOP-FIC0TQ3" tests="15" failures="0" errors="0" skipped="0" time="0.0038596">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 table.empty" time="0.0006817">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 第二次点击同列 → desc" time="0.0001231">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 table.loading" time="0.0000891">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 第三次点击同列 → 取消排序 (null)" time="0.00011">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 form.validating" time="0.0000671">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 form.submitting" time="0.0000602">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="zh-CN locale &gt; 应包含 common.confirm 和 common.cancel" time="0.0000777">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 table.empty" time="0.0000761">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 table.loading" time="0.0000487">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 form.validating" time="0.0000442">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 form.submitting" time="0.0000538">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="en-US locale &gt; 应包含 common.confirm 和 common.cancel" time="0.000068">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; 应默认使用 zh-CN" time="0.0011641">
-            <system-err>
-[Vue warn]: inject() can only be used inside setup() or functional components.
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; asc 升序排列正确" time="0.0050103">
+            <failure message="expected [ 30, 25, 35, 28 ] to deeply equal [ 25, 28, 30, 35 ]" type="AssertionError">
+AssertionError: expected [ 30, 25, 35, 28 ] to deeply equal [ 25, 28, 30, 35 ]
 
-            </system-err>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; t 函数应返回对应语种文案" time="0.0002082">
-            <system-err>
-[Vue warn]: inject() can only be used inside setup() or functional components.
+- Expected
++ Received
 
-            </system-err>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; t 函数 key 不存在时应返回 key 本身" time="0.0001316">
-            <system-err>
-[Vue warn]: inject() can only be used inside setup() or functional components.
+  [
+-   25,
+-   28,
+    30,
++   25,
+    35,
++   28,
+  ]
 
-            </system-err>
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts:90:56
+            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; 应支持自定义消息表" time="0.0001499">
-            <system-err>
-[Vue warn]: inject() can only be used inside setup() or functional components.
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; desc 降序排列正确" time="0.0007253">
+            <failure message="expected [ 30, 25, 35, 28 ] to deeply equal [ 35, 30, 28, 25 ]" type="AssertionError">
+AssertionError: expected [ 30, 25, 35, 28 ] to deeply equal [ 35, 30, 28, 25 ]
 
-            </system-err>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/locale/locale.test.ts" name="useLocale composable &gt; resolve 应覆盖 en-US 文案" time="0.000155">
-            <system-err>
-[Vue warn]: inject() can only be used inside setup() or functional components.
+- Expected
++ Received
 
-            </system-err>
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-a11y-checker.test.ts" timestamp="2026-09-17T16:24:20.246Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.1420032">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-a11y-checker.test.ts" name="useA11yChecker &gt; 应在空容器上返回 isClean=true" time="0.0511069">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-a11y-checker.test.ts" name="useA11yChecker &gt; 应在简单合规 DOM 上通过检查" time="0.0634881">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-a11y-checker.test.ts" name="useA11yChecker &gt; 应检测到缺少 alt 的图片违规" time="0.0104626">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-a11y-checker.test.ts" name="useA11yChecker &gt; isComplete 应在检查后变为 true" time="0.0160373">
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" timestamp="2026-09-17T16:24:20.247Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0049421">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应返回默认上下文" time="0.0025455">
-            <system-err>
-[Vue warn]: provide() can only be used inside setup().
+  [
+-   35,
+    30,
+-   28,
+    25,
++   35,
++   28,
+  ]
 
-            </system-err>
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts:97:56
+            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridProvider 应支持自定义间距字符串" time="0.0003734">
-            <system-err>
-[Vue warn]: provide() can only be used inside setup().
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 单值筛选：仅返回匹配行" time="0.0004831">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 多值筛选：并集匹配" time="0.0001675">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 空筛选值 = 无筛选效应" time="0.0001168">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 自定义 filterMethod：按 age ≥ 阈值筛选" time="0.0001404">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleRowSelection：单行切换选中" time="0.0001339">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleRowSelection：显式设置 isSelected = true" time="0.0000623">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleAllSelection：全选当前视图" time="0.0001006">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleAllSelection：取消全选" time="0.0000947">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 默认未展开：仅显示根节点" time="0.0000938">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 展开后：拍平子节点" time="0.0001468">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 收起后：恢复无展开状态" time="0.0001034">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 服务端模式 &gt; isRemote = true：禁用本地排序/筛选/选择变化" time="0.0004834">
+            <failure message="expected 4 to be +0 // Object.is equality" type="AssertionError">
+AssertionError: expected 4 to be +0 // Object.is equality
 
-            </system-err>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 应返回正确的 gridColumn 样式" time="0.0005063">
-            <system-err>
-[Vue warn]: provide() can only be used inside setup().
-[Vue warn]: inject() can only be used inside setup() or functional components.
+- Expected
++ Received
 
-            </system-err>
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-grid-layout.test.ts" name="useGridLayout &gt; useGridItem 支持偏移" time="0.0003843">
-            <system-err>
-[Vue warn]: provide() can only be used inside setup().
-[Vue warn]: inject() can only be used inside setup() or functional components.
+- 0
++ 4
 
-            </system-err>
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" timestamp="2026-09-17T16:24:20.248Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0081587">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 应推送通知并自增 unreadCount" time="0.0040374">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 标记已读应减少 unreadCount" time="0.0007209">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; markAllAsRead 应全部已读" time="0.0004467">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; 应正确移除通知" time="0.0004225">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; clearAll 应清空所有通知" time="0.0003556">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; maxVisible 应限制可见数量" time="0.0003312">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-notification-hub.test.ts" name="useNotificationHub &gt; updatePreferences 应更新偏好设置" time="0.0007797">
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" timestamp="2026-09-17T16:24:20.250Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.010286">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 应返回全部数据（默认状态）" time="0.002021">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 应按 age 升序排序" time="0.0063236">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 排序应循环 asc → desc → null" time="0.000242">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 应支持行选择" time="0.0001663">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 全选应添加所有 key" time="0.0001597">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/composables/use-table-data.test.ts" name="useTableData &gt; 筛选应支持 filterMethod" time="0.0005926">
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" timestamp="2026-09-17T16:24:20.251Z" hostname="DESKTOP-FIC0TQ3" tests="10" failures="0" errors="0" skipped="0" time="0.0071137">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; 应包含全部核心语义色 token" time="0.0016758">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; dark 模式下的 background 应有 darkValue" time="0.0007222">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="theme-schema &gt; tokensByCategory 应正确分组" time="0.0007563">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; set 应写入 CSS 变量到根元素" time="0.0011935">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; get 应返回已设置的值" time="0.0003126">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; 不存在的 token 不应写入并应打印警告" time="0.0004018">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; bulk 应批量写入所有 token 且仅对应次数的 DOM 操作" time="0.000282">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; toggleDark 应切换根元素的 dark class" time="0.000315">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; reset 应清除所有已覆盖的 token" time="0.0003428">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/theme/use-theme.test.ts" name="useTheme &gt; overrideCount 应返回已覆盖的数量" time="0.0002453">
-        </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" timestamp="2026-09-17T16:24:20.252Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0042344">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应返回全部节点（空关键字）" time="0.0017778">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应过滤匹配节点" time="0.000807">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应收集需要展开的祖先" time="0.0002317">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 应支持大小写不敏感" time="0.0001796">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; 同语言大小写不敏感应工作" time="0.0002289">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/tree/tree-search.test.ts" name="useTreeSearch &gt; clear 应重置搜索" time="0.000224">
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts:225:39
+            </failure>
         </testcase>
     </testsuite>
 </testsuites>
