@@ -6,3 +6,4 @@
  * @since 1.0.0
  */
 export { default as YdTextarea } from './YdTextarea.vue';
+export type { AutosizeConfig, TextareaResize } from './YdTextarea.vue';

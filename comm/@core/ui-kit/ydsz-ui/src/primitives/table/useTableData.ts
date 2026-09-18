@@ -86,8 +86,8 @@ export function useTableData<T extends Record<string, unknown>>(
     rowKey = 'id',
   } = options
 
-  /** 排序状态（本地模式） */
-  const sortState = ref<SortState>({ prop: null, order: null })
+  /** 排序状态（本地模式），受远程列 sortOrder 覆盖 */
+  const sortState = ref<SortState>(computeInitialSortState(columns()))
 
   /** 列 prop → 筛选值集合 */
   const filterValues = ref<Map<string, unknown[]>>(new Map())
@@ -98,14 +98,13 @@ export function useTableData<T extends Record<string, unknown>>(
   /** 展开行 key 集合 */
   const expandedKeys = ref<Set<string | number>>(new Set())
 
-  /** 获取当前生效的排序列定义（优先读 state，其次读 columns 中 sortOrder 非 null 的列） */
-  const activeSortColumn = computed<ColumnDef | undefined>(() => {
-    const cols = columns()
-    if (sortState.value.prop) {
-      return cols.find((col): boolean => col.prop === sortState.value.prop)
-    }
-    return cols.find((col): boolean => col.sortOrder != null)
-  })
+  /** 计算初始排序状态：优先读 columns 中的 sortOrder */
+  function computeInitialSortState(cols: ColumnDef[]): SortState {
+    const sorted = cols.find((col): boolean => col.sortOrder != null && col.sortOrder !== null)
+    if (sorted?.prop && sorted.sortOrder)
+      return { prop: sorted.prop, order: sorted.sortOrder }
+    return { prop: null, order: null }
+  }
 
   /** 应用排序 */
   function applySort(rows: T[]): T[] {
