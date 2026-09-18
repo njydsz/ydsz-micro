@@ -12,11 +12,11 @@
  * @since 26.09.17
  */
 
-import type { ComputedRef, Ref } from 'vue'
+import type { ComputedRef, InjectionKey, Ref } from 'vue';
 
-import { computed, getCurrentInstance, inject, ref } from 'vue'
+import { computed, getCurrentInstance, inject, ref } from 'vue';
 
-import type { MessageConfig, MessageHandle, MessageInstance, MessageType } from './types'
+import type { MessageConfig, MessageHandle, MessageInstance, MessageType } from './types';
 
 /** 注入 key（Symbol 避免冲突） */
 export const MESSAGE_PROVIDER_KEY = Symbol('ydsz-message-provider') as InjectionKey<MessageProviderContext>

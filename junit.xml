@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="1" failures="1" errors="0" time="0">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/Cascader.test.ts" timestamp="2026-09-18T01:46:32.810Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/Cascader.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/Cascader.test.ts" time="0">
-            <failure message="Failed to resolve import &quot;../YdCascader&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/Cascader.test.ts&quot;. Does the file exist?" type="Error">
-Error: Failed to resolve import &quot;../YdCascader&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/Cascader.test.ts&quot;. Does the file exist?
-  Plugin: vite:import-analysis
-  File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/Cascader.test.ts:14:23
-  1  |  import { mount } from &quot;@vue/test-utils&quot;;
-  2  |  import { describe, expect, it, vi } from &quot;vitest&quot;;
-  3  |  import YdCascader from &quot;../YdCascader&quot;;
-     |                          ^
-  4  |  const sampleOptions = [
-  5  |    {
- ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
- ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
- ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23
- ❯ node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40753:37
- ❯ TransformPluginContext.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40680:7
- ❯ EnvironmentPluginContainer.transform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42453:18
- ❯ loadAndTransform node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35845:27
+<testsuites name="vitest tests" tests="7" failures="2" errors="0" time="0.0155903">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" timestamp="2026-09-18T01:50:38.513Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="2" errors="0" skipped="0" time="0.0155903">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 收集所有叶节点路径" time="0.002574">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;海&quot; 匹配到海淀区下的中关村" time="0.0096164">
+            <failure message="expected [] to have a length of 1 but got +0" type="AssertionError">
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts:86:21
             </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;区&quot; 匹配多个" time="0.0003454">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索空字符串不返回结果（搜索模式内部处理）" time="0.001291">
+            <failure message="expected [ { option: { …(2) }, …(1) }, …(2) ] to have a length of +0 but got 3" type="AssertionError">
+AssertionError: expected [ { option: { …(2) }, …(1) }, …(2) ] to have a length of +0 but got 3
+
+- Expected
++ Received
+
+- 0
++ 3
+
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts:99:21
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 路径层级最大深度" time="0.0002743">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 空值 → placeholder" time="0.0001156">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 有值 → 路径拼接" time="0.0000887">
         </testcase>
     </testsuite>
 </testsuites>
