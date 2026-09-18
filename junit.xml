@@ -1,21 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="8" failures="0" errors="0" time="0.00293">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" timestamp="2026-09-18T01:51:43.772Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="0" errors="0" skipped="0" time="0.00293">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 收集所有叶节点路径" time="0.0014118">
+<testsuites name="vitest tests" tests="12" failures="3" errors="0" time="0.0078317">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" timestamp="2026-09-18T01:57:06.495Z" hostname="DESKTOP-FIC0TQ3" tests="12" failures="3" errors="0" skipped="0" time="0.0078317">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 应返回防抖校验函数和立即校验函数" time="0.0009918">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;海淀&quot; 匹配到海淀区下的叶节点中关村" time="0.0002051">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 默认校验模式应为 blur" time="0.0001615">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;中关村&quot; 精确匹配到该叶节点" time="0.0002079">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 应支持所有校验触发模式" time="0.0002533">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;区&quot; 匹配多个" time="0.0001141">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; validateField 在无 verify 函数时应视为通过（无错误）" time="0.0000939">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索空字符串返回所有叶节点（内部逻辑由调用方控制是否启用）" time="0.0000972">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 有错误时 validateField 应返回 false" time="0.0005744">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 路径层级最大深度" time="0.0000827">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 无对应错误时 validateField 应返回 true" time="0.0001589">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 空值 → placeholder" time="0.0000619">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; debouncedValidate 应延迟调用 verify 函数（fake timers）" time="0.0035258">
+            <failure message="Timers are not mocked. Try calling &quot;vi.useFakeTimers()&quot; first." type="Error">
+Error: Timers are not mocked. Try calling &quot;vi.useFakeTimers()&quot; first.
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts:67:8
+            </failure>
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 有值 → 路径拼接" time="0.0000569">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; debouncedValidate isPending 在防抖结束后恢复 false" time="0.0004404">
+            <failure message="Timers are not mocked. Try calling &quot;vi.useFakeTimers()&quot; first." type="Error">
+Error: Timers are not mocked. Try calling &quot;vi.useFakeTimers()&quot; first.
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts:78:14
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; notifyFieldChange 触发依赖字段校验" time="0.0003502">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; notifyFieldChange 对无依赖的字段不触发校验" time="0.000126">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 连续 debouncedValidate 取消防抖（只调用一次）" time="0.0002629">
+            <failure message="Timers are not mocked. Try calling &quot;vi.useFakeTimers()&quot; first." type="Error">
+Error: Timers are not mocked. Try calling &quot;vi.useFakeTimers()&quot; first.
+ ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts:113:8
+            </failure>
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/form/useFormValidation.test.ts" name="useFormValidation &gt; 应支持自定义防抖延迟" time="0.0000727">
         </testcase>
     </testsuite>
 </testsuites>

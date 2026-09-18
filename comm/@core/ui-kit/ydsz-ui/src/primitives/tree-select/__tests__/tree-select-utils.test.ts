@@ -32,30 +32,30 @@ const sampleTree: TreeSelectOption[] = [
   },
 ]
 
+/** 扁平化为带层级的列表 */
+function flatten(nodes: TreeSelectOption[], level = 0, result: Array<TreeSelectOption & { level: number }> = []): Array<TreeSelectOption & { level: number }> {
+  for (const n of nodes) {
+    result.push({ ...n, level })
+    if (n.children)
+      flatten(n.children, level + 1, result)
+  }
+  return result
+}
+
+/** 按 query 过滤（保留匹配节点的祖先） */
+function filterTree(nodes: TreeSelectOption[], query: string): TreeSelectOption[] {
+  const result: TreeSelectOption[] = []
+  for (const n of nodes) {
+    const filteredChildren = n.children ? filterTree(n.children, query) : []
+    const isMatch = n.label.toLowerCase().includes(query.toLowerCase())
+    if (isMatch || filteredChildren.length > 0) {
+      result.push({ ...n, children: filteredChildren.length > 0 ? filteredChildren : n.children })
+    }
+  }
+  return result
+}
+
 describe('TreeSelect flatten & search', () => {
-  /** 扁平化为带层级的列表 */
-  function flatten(nodes: TreeSelectOption[], level = 0, result: Array<TreeSelectOption & { level: number }> = []): Array<TreeSelectOption & { level: number }> {
-    for (const n of nodes) {
-      result.push({ ...n, level })
-      if (n.children)
-        flatten(n.children, level + 1, result)
-    }
-    return result
-  }
-
-  /** 按 query 过滤（保留匹配节点的祖先） */
-  function filterTree(nodes: TreeSelectOption[], query: string): TreeSelectOption[] {
-    const result: TreeSelectOption[] = []
-    for (const n of nodes) {
-      const filteredChildren = n.children ? filterTree(n.children, query) : []
-      const isMatch = n.label.toLowerCase().includes(query.toLowerCase())
-      if (isMatch || filteredChildren.length > 0) {
-        result.push({ ...n, children: filteredChildren.length > 0 ? filteredChildren : n.children })
-      }
-    }
-    return result
-  }
-
   it('扁平化后节点总数 = 5', () => {
     const flat = flatten(sampleTree)
     expect(flat).toHaveLength(5)
