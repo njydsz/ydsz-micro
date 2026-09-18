@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "შეტყობინებების მართვა",
+    "columns": {
+      "id": "შეტყობინების ID",
+      "channel": "არხი",
+      "recipient": "მიმღები",
+      "subject": "თემა",
+      "sendTime": "გაგზავნის დრო"
+    },
+    "confirmDelete": "დარწმუნებული ხართ, რომ გსურთ \"{id}\"-ის წაშლა?"
+  },
+  "templateName": "შაბლონის სახელი",
+  "templateContent": "შაბლონის შინაარსი",
+  "templateType": "შაბლონის ტიპი",
+  "routeName": "მარშრუტის სახელი",
+  "routePriority": "პრიორიტეტი",
+  "routeCondition": "მარშრუტის პირობა",
+  "preferenceName": "პრეფერენციის სახელი",
+  "dndEnabled": "DND",
+  "dndStart": "DND დაწყება",
+  "dndEnd": "DND დასრულება",
+  "create": "შექმნა",
+  "edit": "რედაქტირება",
+  "delete": "წაშლა",
+  "confirmDelete": "დარწმუნებული ხართ, რომ გსურთ \"{id}\"-ის წაშლა?",
+  "operationSuccess": "წარმატებული"
+}

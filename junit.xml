@@ -1,90 +1,105 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="20" failures="3" errors="0" time="0.0118322">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" timestamp="2026-09-18T01:13:12.253Z" hostname="DESKTOP-FIC0TQ3" tests="20" failures="3" errors="0" skipped="0" time="0.0118322">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始视图数据与原始数据一致（无排序无筛选）" time="0.0019788">
+<testsuites name="vitest tests" tests="47" failures="0" errors="0" time="0.0245388">
+    <testsuite name="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" timestamp="2026-09-18T01:35:12.259Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="0" errors="0" skipped="0" time="0.0068985">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; 初始状态为空" time="0.0026843">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始选中集合为空" time="0.0001348">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; debounce 时间后才触发搜索" time="0.0015363">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始展开集合为空" time="0.0000992">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; 短输入（&lt; minLength）不触发搜索" time="0.000251">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 首次点击排序列 → asc" time="0.0005478">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; 快速修改 query：防抖只触发一次（取消上一次）" time="0.0003273">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 第二次点击同列 → desc" time="0.0001231">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; reset 清空所有状态" time="0.0003854">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 第三次点击同列 → 取消排序 (null)" time="0.00011">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; search() 手动立即触发（忽略防抖）" time="0.0002162">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; asc 升序排列正确" time="0.0050103">
-            <failure message="expected [ 30, 25, 35, 28 ] to deeply equal [ 25, 28, 30, 35 ]" type="AssertionError">
-AssertionError: expected [ 30, 25, 35, 28 ] to deeply equal [ 25, 28, 30, 35 ]
-
-- Expected
-+ Received
-
-  [
--   25,
--   28,
-    30,
-+   25,
-    35,
-+   28,
-  ]
-
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts:90:56
-            </failure>
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; trim 查询：纯空格 query 视为空字符串" time="0.0003485">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; desc 降序排列正确" time="0.0007253">
-            <failure message="expected [ 30, 25, 35, 28 ] to deeply equal [ 35, 30, 28, 25 ]" type="AssertionError">
-AssertionError: expected [ 30, 25, 35, 28 ] to deeply equal [ 35, 30, 28, 25 ]
-
-- Expected
-+ Received
-
-  [
--   35,
-    30,
--   28,
-    25,
-+   35,
-+   28,
-  ]
-
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts:97:56
-            </failure>
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-debounced-search.test.ts" name="useDebouncedSearch &gt; query 变化后新搜索开始前取消旧 setTimeout" time="0.0003305">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 单值筛选：仅返回匹配行" time="0.0004831">
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" timestamp="2026-09-18T01:35:12.264Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0042978">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" name="useTenantAwareSelection &gt; 初始选择为空" time="0.0015292">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 多值筛选：并集匹配" time="0.0001675">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" name="useTenantAwareSelection &gt; setSelected 设置值" time="0.0002607">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 空筛选值 = 无筛选效应" time="0.0001168">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" name="useTenantAwareSelection &gt; clearSelection 清空" time="0.0001496">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 自定义 filterMethod：按 age ≥ 阈值筛选" time="0.0001404">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" name="useTenantAwareSelection &gt; 租户切换 → 自动清空选择" time="0.0006494">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleRowSelection：单行切换选中" time="0.0001339">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" name="useTenantAwareSelection &gt; 租户切换 → 触发 onTenantChange 回调" time="0.0007862">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleRowSelection：显式设置 isSelected = true" time="0.0000623">
+        <testcase classname="comm/@core/ui-kit/ydsz-vue/src/composables/__tests__/use-tenant-aware.test.ts" name="useTenantAwareSelection &gt; 值未变化的 watch 不触发回调" time="0.0001965">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleAllSelection：全选当前视图" time="0.0001006">
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" timestamp="2026-09-18T01:35:12.265Z" hostname="DESKTOP-FIC0TQ3" tests="13" failures="0" errors="0" skipped="0" time="0.0076096">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; message() 推送一条消息（字符串重载）" time="0.0027996">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleAllSelection：取消全选" time="0.0000947">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; message() 推送一条消息（对象重载）" time="0.0003774">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 默认未展开：仅显示根节点" time="0.0000938">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; success() 快捷方法：type = success" time="0.0002647">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 展开后：拍平子节点" time="0.0001468">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; error() 快捷方法：type = error" time="0.0002144">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 收起后：恢复无展开状态" time="0.0001034">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; warning() 快捷方法：type = warning" time="0.0002203">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 服务端模式 &gt; isRemote = true：禁用本地排序/筛选/选择变化" time="0.0004834">
-            <failure message="expected 4 to be +0 // Object.is equality" type="AssertionError">
-AssertionError: expected 4 to be +0 // Object.is equality
-
-- Expected
-+ Received
-
-- 0
-+ 4
-
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts:225:39
-            </failure>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; loading() 快捷方法：type = loading" time="0.0002108">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; duration 到期后自动移除" time="0.0006736">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; duration = 0 时不自动关闭" time="0.0002235">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; handle.close() 手动关闭" time="0.0003515">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; clear() 清空所有消息" time="0.0003345">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; 队列上限：超出时移除最早一条" time="0.0002946">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; onClose 回调在关闭时触发" time="0.0006421">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/message/__tests__/useMessage.test.ts" name="useMessage &gt; 默认 config 值：isClosable = true, duration = 3000, type = info" time="0.000182">
+        </testcase>
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" timestamp="2026-09-18T01:35:12.266Z" hostname="DESKTOP-FIC0TQ3" tests="20" failures="0" errors="0" skipped="0" time="0.0057329">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始视图数据与原始数据一致（无排序无筛选）" time="0.0018672">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始选中集合为空" time="0.0001282">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 默认状态 &gt; 初始展开集合为空" time="0.000095">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 首次点击排序列 → asc" time="0.0005041">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 第二次点击同列 → desc" time="0.0000996">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; 第三次点击同列 → 取消排序 (null)" time="0.0000985">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; asc 升序排列正确" time="0.0001519">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 排序状态机 &gt; desc 降序排列正确" time="0.0001323">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 单值筛选：仅返回匹配行" time="0.000426">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 多值筛选：并集匹配" time="0.0001739">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 空筛选值 = 无筛选效应" time="0.0001209">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 筛选状态机 &gt; 自定义 filterMethod：按 age ≥ 阈值筛选" time="0.0001432">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleRowSelection：单行切换选中" time="0.0001267">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleRowSelection：显式设置 isSelected = true" time="0.000057">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleAllSelection：全选当前视图" time="0.0000987">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 行选择状态机 &gt; toggleAllSelection：取消全选" time="0.0000893">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 默认未展开：仅显示根节点" time="0.0001174">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 展开后：拍平子节点" time="0.0001569">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 树形展开状态机 &gt; 收起后：恢复无展开状态" time="0.000099">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/table/__tests__/useTableData.test.ts" name="useTableData &gt; 服务端模式 &gt; isRemote = true：禁用本地排序/筛选/选择变化" time="0.0001391">
         </testcase>
     </testsuite>
 </testsuites>

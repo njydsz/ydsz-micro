@@ -1,0 +1,14 @@
+{
+  "message": "පණිවිඩය",
+  "messageList": "පණිවිඩ ලැයිස්තුව",
+  "batchSend": "කණ්ඩායම් යවන්න",
+  "deadLetter": "මල ලිපි",
+  "template": "අච්චුව",
+  "templateList": "අච්චු ලැයිස්තුව",
+  "notification": "දැනුම්දීම",
+  "notificationList": "දැනුම්දීම් ලැයිස්තුව",
+  "route": "මාර්ගය",
+  "routeRule": "මාර්ග රීතිය",
+  "preference": "අභිරුචිය",
+  "messagePreference": "පණිවිඩ අභිරුචිය"
+}

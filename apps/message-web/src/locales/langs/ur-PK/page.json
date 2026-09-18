@@ -1,0 +1,14 @@
+{
+  "message": "پیغام",
+  "messageList": "پیغام کی فہرست",
+  "batchSend": "بیچ بھیجیں",
+  "deadLetter": "ڈیڈ لیٹر",
+  "template": "ٹیمپلیٹ",
+  "templateList": "ٹیمپلیٹ کی فہرست",
+  "notification": "اطلاع",
+  "notificationList": "اطلاع کی فہرست",
+  "route": "راستہ",
+  "routeRule": "راسے کا قاعدہ",
+  "preference": "ترجیح",
+  "messagePreference": "پیغام کی ترجیح"
+}

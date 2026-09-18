@@ -44,6 +44,18 @@ export type {
   UseControlledStateOptions,
 } from './composables/use-controlled-state'
 
+export { useDebouncedSearch } from './composables/use-debounced-search'
+export type {
+  UseDebouncedSearchHandle,
+  UseDebouncedSearchOptions,
+} from './composables/use-debounced-search'
+
+export { useTenantAwareSelection } from './composables/use-tenant-aware'
+export type {
+  UseTenantAwareHandle,
+  UseTenantAwareOptions,
+} from './composables/use-tenant-aware'
+
 // utilities
 export { Primitive, Slot, type PrimitiveProps, type AsTag } from './Primitive'
 export { VisuallyHidden, type VisuallyHiddenProps } from './VisuallyHidden'

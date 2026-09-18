@@ -1,0 +1,14 @@
+{
+  "message": "შეტყობინება",
+  "messageList": "შეტყობინებების სია",
+  "batchSend": "სტატიკური გაგზავნა",
+  "deadLetter": "მკვდარი წერილები",
+  "template": "შაბლონი",
+  "templateList": "შაბლონების სია",
+  "notification": "შეტყობინება",
+  "notificationList": "შეტყობინებების სია",
+  "route": "მარშრუტი",
+  "routeRule": "მარშრუტის წესი",
+  "preference": "პრეფერენცია",
+  "messagePreference": "შეტყობინების პრეფერენცია"
+}

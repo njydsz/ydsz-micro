@@ -1,0 +1,11 @@
+{
+  "rule": "Regola",
+  "ruleList": "Elenco regole",
+  "dsl": "DSL",
+  "variable": "Variabile",
+  "advanced": "Avanzate",
+  "cep": "CEP",
+  "breakpoint": "Breakpoint",
+  "audit": "Audit",
+  "auditLog": "Registro audit"
+}

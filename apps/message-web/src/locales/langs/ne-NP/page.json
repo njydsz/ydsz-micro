@@ -1,0 +1,14 @@
+{
+  "message": "सन्देश",
+  "messageList": "सन्देश सूची",
+  "batchSend": "ब्याच पठाउनुहोस्",
+  "deadLetter": "डेड लेटर",
+  "template": "टेम्पलेट",
+  "templateList": "टेम्पलेट सूची",
+  "notification": "सूचना",
+  "notificationList": "सूचना सूची",
+  "route": "मार्ग",
+  "routeRule": "मार्ग नियम",
+  "preference": "अभिरुचि",
+  "messagePreference": "सन्देश अभिरुचि"
+}

@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "පණිවිඩ කළමනාකරණය",
+    "columns": {
+      "id": "පණිවිඩ ID",
+      "channel": "නාලිකාව",
+      "recipient": "ලබන්නා",
+      "subject": "විෂයය",
+      "sendTime": "යැවූ වේලාව"
+    },
+    "confirmDelete": "ඔබට \"{id}\" මැකීමට අවශ්‍ය බව විශ්වාසද?"
+  },
+  "templateName": "අච්චු නාමය",
+  "templateContent": "අච්චු අන්තර්ගතය",
+  "templateType": "අච්චු වර්ගය",
+  "routeName": "මාර්ග නාමය",
+  "routePriority": "ප්‍රමුඛතාව",
+  "routeCondition": "මාර්ග කොන්දේසි",
+  "preferenceName": "අභිරුචි නාමය",
+  "dndEnabled": "DND",
+  "dndStart": "DND ආරම්භය",
+  "dndEnd": "DND අවසානය",
+  "create": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "confirmDelete": "ඔබට \"{id}\" මැකීමට අවශ්‍ය බව විශ්වාසද?",
+  "operationSuccess": "සාර්ථකයි"
+}

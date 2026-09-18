@@ -111,12 +111,12 @@ export function useTableData<T extends Record<string, unknown>>(
     if (isRemote)
       return rows
 
-    const sortCol = activeSortColumn.value
-    if (!sortCol?.prop || !sortCol.sortOrder)
+    const { prop, order } = sortState.value
+    if (!prop || !order)
       return rows
 
-    const { prop, order } = sortCol
-    const comparator = sortCol.sorter ?? defaultComparator
+    const col = columns().find((c): boolean => c.prop === prop)
+    const comparator = col?.sorter ?? defaultComparator
 
     return [...rows].sort((a: T, b: T): number => {
       const result = comparator(a, b, prop)
@@ -221,6 +221,9 @@ export function useTableData<T extends Record<string, unknown>>(
 
   /** 全选 / 取消全选 */
   function toggleAllSelection(isSelected?: boolean): void {
+    if (isRemote)
+      return
+
     const allKeys = viewRows.value.map((row): string | number => row[rowKey] as string | number)
     const shouldSelect = isSelected ?? selectedKeys.value.size !== allKeys.length
     selectedKeys.value = shouldSelect ? new Set(allKeys) : new Set()

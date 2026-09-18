@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "Ukuphatha Imilayezo",
+    "columns": {
+      "id": "ID Yomlayezo",
+      "channel": "Isiteshi",
+      "recipient": "Ummkeli",
+      "subject": "Isihloko",
+      "sendTime": "Isikhathi sokuthumela"
+    },
+    "confirmDelete": "Uqinisekile ukuthi ufisa ukususa \"{id}\"?"
+  },
+  "templateName": "Igama le-Template",
+  "templateContent": "Okuqukethwe yi-Template",
+  "templateType": "Uhlobo lwe-Template",
+  "routeName": "Igama le-Route",
+  "routePriority": "Ukubaluleka",
+  "routeCondition": "Isimo se-Route",
+  "preferenceName": "Igama le-Preference",
+  "dndEnabled": "DND",
+  "dndStart": "Qala i-DND",
+  "dndEnd": "Qeda i-DND",
+  "create": "Engeza",
+  "edit": "Hlela",
+  "delete": "Susa",
+  "confirmDelete": "Uqinisekile ukuthi ufisa ukususa \"{id}\"?",
+  "operationSuccess": "Kuphumelele"
+}

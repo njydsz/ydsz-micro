@@ -90,6 +90,7 @@ upstream-watch 负责人（轮值）在上游 release 7 天内完成评估矩阵
 - **【infra】** ydzs-ui 60 文件 + composables 5 个工具函数全部从 `radix-vue` 切至 `@ydsz-core/ydsz-vue`
 - **【radix-vue 依赖】** workspace 内已无任何源码对其的直接引用
 - **【compile】** vue-tsc 通过（3 个预存在模板错误与本次迁移无关）
+- **【P1-V2 对齐盘点】** ydzs-vue 引用 16 个 `@vueuse/core` API（含 3 个 deprecated：createGlobalState / computedEager / watchOnce），经验证 workspace 锁定的 `@vueuse/core@13.4.0` 仍向后兼容（deprecated 但保留导出，运行时无报错）。**结论：无需 pin 兼容版本**，已在 `@vueuse/shared` catalog 补位 `^13.4.0`。长期风险：vueuse 14.x 若彻底移除这三个 API，届时 cherry-pick 替代方案
 
 ---
 

@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "پیغام مینجمنٹ",
+    "columns": {
+      "id": "پیغام ID",
+      "channel": "چینل",
+      "recipient": "وصول کنندہ",
+      "subject": "موضوع",
+      "sendTime": "بھیجنے کا وقت"
+    },
+    "confirmDelete": "کیا آپ \"{id}\" حذف کرنا چاہتے ہیں؟"
+  },
+  "templateName": "ٹیمپلیٹ نام",
+  "templateContent": "ٹیمپلیٹ مواد",
+  "templateType": "ٹیمپلیٹ کی قسم",
+  "routeName": "رٹا نام",
+  "routePriority": "ترجیح",
+  "routeCondition": "رٹا شرط",
+  "preferenceName": "ترجیح کا نام",
+  "dndEnabled": "DND",
+  "dndStart": "DND شروع",
+  "dndEnd": "DND ختم",
+  "create": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "confirmDelete": "کیا آپ \"{id}\" حذف کرنا چاہتے ہیں؟",
+  "operationSuccess": "کامیاب"
+}

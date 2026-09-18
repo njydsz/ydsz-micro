@@ -1,0 +1,14 @@
+{
+  "message": "Umlayezo",
+  "messageList": "Uhlu lwemilayezo",
+  "batchSend": "Thumela ngobuningi",
+  "deadLetter": "I-Dead Letter",
+  "template": "I-Template",
+  "templateList": "Uhlu lwama-Template",
+  "notification": "Isaziso",
+  "notificationList": "Uhlu lwezaziso",
+  "route": "i-Route",
+  "routeRule": "Umthetho we-Route",
+  "preference": "i-Preference",
+  "messagePreference": "I-Preference yomlayezo"
+}
