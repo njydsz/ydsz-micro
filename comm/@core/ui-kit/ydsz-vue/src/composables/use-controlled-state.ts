@@ -6,7 +6,7 @@
  *  1. 脏值追踪（isDirty）—— 值与外部 modelValue 不同时为脏
  *  2. 防抖提交（debounced commit）—— 高频输入场景下合并 v-model 更新
  *  3. 重置能力（reset）—— 一键回到初始 modelValue
- *  4. 提交前校验钩活（onBeforeCommit）—— 返回 false 阻断提交
+ *  4. 提交前校验钩子（onBeforeCommit）—— 返回 false 阻断提交
  *
  * 这是 ydsz-vue fork-and-own 后第一个业务特化 API，
  * 上游 reka-ui 提供通用原语，我们在此之上构建 B 端专属语义。
@@ -29,7 +29,7 @@ export interface UseControlledStateOptions<T> {
   /** 提交前的同步校验钩子，返回 false 则阻断本次提交 */
   onBeforeCommit?: (newValue: T, oldValue: T) => boolean | Promise<boolean>
   /** 脏值判定函数，默认使用严格不等（!==） */
-  isDirty?: ( newValue: T, oldValue: T) => boolean
+  isDirty?: (newValue: T, oldValue: T) => boolean
 }
 
 /** useControlledState 返回句柄 */
@@ -39,45 +39,48 @@ export interface ControlledStateHandle<T> {
   /** 当前是否为脏值 */
   isDirty: Ref<boolean>
   /**
-   * 手动提交本地值到外部（触发 update:modelValue）。
+   * 手动提交本地值到外部（触发 'update:modelValue'）。
    * 会经过 onBeforeCommit 钩子。
    */
   commit: () => Promise<boolean>
-  /** 重置到初始外部 modelValue */
+  /** 重置到最近提交的值 */
   reset: () => void
   /** 放弃本地修改，强制与外部 modelValue 同步 */
   sync: () => void
 }
 
+/** 受控状态 props 基线契约（TS 已知字段） */
+interface ControlledProps {
+  modelValue?: unknown
+  model_value?: unknown
+}
+
+/** 受控状态 emit 签名 */
+type ControlledEmit<T> = (event: 'update:modelValue', value: T) => void
+
 /**
  * 带脏值追踪 + 防抖 + 校验钩子的受控状态管理。
  *
  * @param props       组件 props（需包含 modelValue）
- * @param emits       组件 emits（需包含 update:modelValue） * @param options     防抖 / 校验 / 脏值判定配置
+ * @param emit        组件 emit 函数
+ * @param options     防抖 / 校验 / 脏值判定配置
  *
  * @example
  * ```vue
- * <script setup>
+ * <script setup lang="ts">
  * const props = defineProps<{ modelValue: string }>()
- * const emits = defineEmits<{ 'update:modelValue': [string] }>()
+ * const emit = defineEmits<{ 'update:modelValue': [string] }>()
  *
- * const { localValue, isDirty, commit, reset } = useControlledState(props, emits as any, {
+ * const { localValue, isDirty, commit, reset } = useControlledState(props, emit, {
  *   debounce: 300,
  *   onBeforeCommit: (v) => v.length > 0,
  * })
  * </script>
- *
- * <template>
- *   <input v-model="localValue" />
- *   <span v-if="isDirty">有未保存修改</span>
- *   <button @click="commit">提交</button>
- *   <button @click="reset">重置</button>
- * </template>
  * ```
  */
 export function useControlledState<T>(
-  props: Record<string, any>,
-  emit: (event: 'update:modelValue', ...args: [T]) => void,
+  props: ControlledProps,
+  emit: ControlledEmit<T>,
   options: UseControlledStateOptions<T> = {},
 ): ControlledStateHandle<T> {
   const {
@@ -89,13 +92,13 @@ export function useControlledState<T>(
   const modelValue = (props.modelValue ?? props.model_value) as T
 
   /** 内部状态：用于 UI 双向绑定 */
-  const localValue = ref(modelValue) as Ref<T>
+  const localValue = ref(structClone(modelValue)) as Ref<T>
 
   /** 脏值标记 */
-  const isDirty = ref(false)
+  const isDirtyRef = ref(false)
 
   /** 记录上次提交成功的值，作为脏值比对基准 */
-  const committedValue = ref(modelValue) as Ref<T>
+  const committedValue = ref(structClone(modelValue)) as Ref<T>
 
   /** 防抖计时器句柄 */
   let debounceTimer: ReturnType<typeof setTimeout> | null = null
@@ -109,7 +112,7 @@ export function useControlledState<T>(
 
   /**
    * 提交本地值到外部。
-   * 经过 onBeforeCommit 校验钩子，通过后才 emit update:modelValue，
+   * 经过 onBeforeCommit 校验钩子，通过后才 emit 'update:modelValue'，
    * 并更新 committedValue 基准。
    */
   async function commit(): Promise<boolean> {
@@ -122,8 +125,8 @@ export function useControlledState<T>(
         return false
     }
 
-    committedValue.value = newValue
-    isDirty.value = false
+    committedValue.value = structClone(newValue)
+    isDirtyRef.value = false
     emit('update:modelValue', structClone(newValue))
     return true
   }
@@ -131,16 +134,16 @@ export function useControlledState<T>(
   /** 重置到最近提交的值 */
   function reset(): void {
     localValue.value = structClone(committedValue.value)
-    isDirty.value = false
+    isDirtyRef.value = false
     disposeDebounce()
   }
 
   /** 强制同步：放弃本地修改，回到外部 modelValue */
   function sync(): void {
     const external = (props.modelValue ?? props.model_value) as T
-    localValue.value = external
-    committedValue.value = external
-    isDirty.value = false
+    localValue.value = structClone(external)
+    committedValue.value = structClone(external)
+    isDirtyRef.value = false
     disposeDebounce()
   }
 
@@ -153,8 +156,8 @@ export function useControlledState<T>(
   }
 
   /** localValue 变化时：更新脏值标记 + 按配置决定是否自动提交 */
-  watch(localValue, (newVal) => {
-    isDirty.value = computeDirty(newVal)
+  watch(localValue, (newVal: T) => {
+    isDirtyRef.value = computeDirty(newVal)
 
     if (debounce > 0) {
       // 防抖模式：延迟自动提交
@@ -168,7 +171,7 @@ export function useControlledState<T>(
   /** 外部 modelValue 变化时：同步内部状态（非脏） */
   watch(
     () => (props.modelValue ?? props.model_value),
-    (newExternal) => {
+    (newExternal: unknown) => {
       if (!computeDirty(localValue.value))
         sync()
     },
@@ -176,7 +179,7 @@ export function useControlledState<T>(
 
   return {
     localValue,
-    isDirty,
+    isDirty: isDirtyRef,
     commit,
     reset,
     sync,
