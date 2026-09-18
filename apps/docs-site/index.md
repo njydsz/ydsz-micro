@@ -50,17 +50,25 @@ features:
     title: UI Kit 组件库
     details: YDSZ Vue（29 无头组件）+ YDSZ UI（80+ 原子组件 + 30+ 业务组件），双层架构
     link: /ui-kit/
+  - icon: 🔧
+    title: 开发者工具
+    details: 代码生成器、契约测试、可观测性面板 — 覆盖研发生命周期全流程
+    link: /guide/deployment
 ---
 
-<script setup>
-import StatsDashboard from '../.vitepress/theme/components/StatsDashboard.vue';
-import ApiStatsPanel from '../.vitepress/theme/components/ApiStatsPanel.vue';
-</script>
+## 🎯 平台能力数据
 
-## 🎯 平台能力总览
+| 维度 | 数值 |
+|------|------|
+| 后端引擎 | 8 个独立微服务 (端口 9001-9008) |
+| 前端子应用 | 8 个业务子应用 + 1 个主应用 |
+| REST 端点 | 300+ |
+| 规范规则 | 64 条 (P0 / P1 / P2) |
+| UI 组件 | 80+ 原子 + 30+ 业务组件 |
+| DDD 公共模块 | 28 个子模块 (L1-L6) |
 
-<ApiStatsPanel />
+## 🚀 快速导航
 
-## 📏 编码规范状态
-
-<StatsDashboard />
+- 刚刚上手？前往 [快速开始](./guide/)
+- 深入了解？阅读 [架构总览](./architecture/overview)
+- 接口对接？查看 [API 参考](./api/)

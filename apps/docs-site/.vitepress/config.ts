@@ -10,7 +10,6 @@ export default defineConfig({
   description:
     '云顶智算（YDSZ）平台文档中心 — 八大引擎架构总览 · API 参考 · 编码规范 · 可视化拓扑',
   lang: 'zh-CN',
-  lastUpdated: true,
   cleanUrls: true,
   scrollOffset: 96,
   head: [
@@ -26,6 +25,13 @@ export default defineConfig({
       dangerLabel: '危险',
       infoLabel: '信息',
       detailsLabel: '详情',
+    },
+  },
+  vite: {
+    server: {
+      hmr: {
+        overlay: false,
+      },
     },
   },
   themeConfig: {
@@ -66,17 +72,6 @@ export default defineConfig({
     docFooter: {
       prev: '上一篇',
       next: '下一篇',
-    },
-    lastUpdated: {
-      text: '最后更新于',
-      formatOptions: {
-        dateStyle: 'short',
-        timeStyle: 'short',
-      },
-    },
-    editLink: {
-      pattern: 'https://github.com/ydsz-cloud/edit/main/apps/docs-site/:path',
-      text: '在 GitHub 上编辑此页面',
     },
   },
 });

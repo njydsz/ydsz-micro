@@ -1,72 +1,96 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 interface Props {
   specUrl: string;
-  theme?: 'light' | 'dark';
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  theme: 'light',
-});
+const props = defineProps<Props>();
 
 const containerRef = ref<HTMLDivElement | null>(null);
-let observer: MutationObserver | null = null;
+const isLoading = ref(true);
+const loadError = ref(false);
 
-function loadRedoc(): void {
-  if (typeof window === 'undefined' || !containerRef.value) {
-    return;
-  }
-
-  void import('redoc/bundles/redoc.standalone.js').then((Redoc) => {
-    if (containerRef.value) {
-      void Redoc.init(props.specUrl, {
-        scrollYOffset: 60,
-        theme: {
-          colors: {
-            primary: { main: '#1a6dff' },
-          },
-          typography: {
-            fontFamily: '-apple-system, "Segoe UI", Roboto, sans-serif',
-            fontSize: '14px',
-          },
-        },
-      }, containerRef.value);
-    }
+function loadScript(src: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Failed to load: ${src}`));
+    document.head.appendChild(script);
   });
 }
 
-onMounted(() => {
-  loadRedoc();
-});
-
-watch(() => props.specUrl, () => {
-  if (containerRef.value) {
-    containerRef.value.innerHTML = '';
-    loadRedoc();
+async function initRedoc(): Promise<void> {
+  if (typeof window === 'undefined') {
+    return;
   }
+
+  try {
+    isLoading.value = true;
+
+    if (!(window as unknown as Record<string, unknown>).Redoc) {
+      await loadScript('https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js');
+    }
+
+    const Redoc = (window as unknown as Record<string, { init: unknown }>).Redoc;
+    if (Redoc && typeof Redoc.init === 'function' && containerRef.value) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (Redoc as any).init(props.specUrl, {
+        scrollYOffset: 60,
+      }, containerRef.value);
+      isLoading.value = false;
+    }
+  } catch {
+    loadError.value = true;
+    isLoading.value = false;
+  }
+}
+
+onMounted(() => {
+  void initRedoc();
 });
 
 onBeforeUnmount(() => {
-  if (observer) {
-    observer.disconnect();
-    observer = null;
+  if (containerRef.value) {
+    containerRef.value.innerHTML = '';
   }
 });
 </script>
 
 <template>
-  <div class="redoc-container">
-    <div ref="containerRef" class="redoc-root" />
+  <div class="redoc-wrapper">
+    <div v-if="isLoading" class="redoc-loading">加载 API 文档中…</div>
+    <div v-if="loadError" class="redoc-error">API 文档加载失败，请检查网络连接</div>
+    <div ref="containerRef" class="redoc-container" />
   </div>
 </template>
 
 <style scoped>
-.redoc-container {
-  width: 100%;
+.redoc-wrapper {
+  margin: 16px 0;
 }
 
-.redoc-root {
-  min-height: 600px;
+.redoc-loading,
+.redoc-error {
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--ydsz-text-secondary);
+  border: 1px dashed var(--ydsz-border);
+  border-radius: 8px;
+}
+
+.redoc-error {
+  color: var(--ydsz-danger);
+  border-color: #fcc;
+  background: #fef5f5;
+}
+
+.redoc-container {
+  min-height: 400px;
+  border: 1px solid var(--ydsz-border);
+  border-radius: 8px;
+  overflow: hidden;
 }
 </style>

@@ -10,14 +10,12 @@
     "preview": "vitepress preview --port 4174"
   },
   "dependencies": {
-    "@antv/g6": "^4.8.0",
-    "echarts": "^5.6.0",
+    "@antv/g6": "^4.8.2",
     "mermaid": "^10.9.0",
-    "redoc": "^2.1.0",
-    "vue": "^3.5.17"
+    "vue": "catalog:"
   },
   "devDependencies": {
     "vite": "catalog:",
-    "vitepress": "^1.6.0"
+    "vitepress": "^1.6.4"
   }
 }
