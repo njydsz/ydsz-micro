@@ -3,7 +3,8 @@
  *
  * <p>P0-5 补齐「校验全链路」：
  * <ul>
- *   <li>防抖校验（debouncedValidate）—— 用户停止输入 N ms 后再触发校验，避免频繁请求</li>
+ *   <li>校验时机分档 mode: 'blur' | 'change' | 'input' | 'submit'</li>
+ *   <li>防抖校验（debouncedValidate）—— 异步校验去抖，默认 300ms</li>
  *   <li>手动触发指定字段校验（validateField）—— 用于跨字段联动</li>
  * </ul>
  *
@@ -12,11 +13,11 @@
  * @since 1.0.0
  */
 
-import type { Ref } from 'vue';
-
 import { ref } from 'vue';
 
-import { debounce } from 'lodash-es';
+import { useDebounceFn } from '@vueuse/core';
+
+import type { Ref } from 'vue';
 
 /** 校验触发时机 */
 export type ValidateOnMode = 'blur' | 'change' | 'input' | 'submit';
@@ -48,7 +49,7 @@ export interface FormValidationHandle {
  *
  * @example
  * ```ts
- * const { debouncedValidate, mode } = useFormValidation(validate, { debounceMs: 500 });
+ * const { debouncedValidate, mode } = useFormValidation(() => validate(), { debounceMs: 500 });
  *
  * // 输入框 @input 事件
  * function onInput() {
@@ -63,8 +64,8 @@ export function useFormValidation(
   const { debounceMs = 300 } = options;
   const mode = ref<ValidateOnMode>('blur');
 
-  const debouncedValidate = debounce((_fieldName: string) => {
-    veeValidate?.();
+  const debouncedValidate = useDebounceFn((_fieldName: string) => {
+    void veeValidate?.();
   }, debounceMs);
 
   async function validateField(fieldName: string): Promise<boolean> {
