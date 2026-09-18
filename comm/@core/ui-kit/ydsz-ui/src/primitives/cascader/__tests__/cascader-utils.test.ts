@@ -94,9 +94,10 @@ describe('Cascader path algorithm', () => {
     expect(results.length).toBeGreaterThanOrEqual(2)
   })
 
-  it('搜索空字符串不返回结果（搜索模式内部处理）', () => {
+  it('搜索空字符串返回所有叶节点（内部逻辑由调用方控制是否启用）', () => {
     const results = filterByQuery(sampleOptions, '')
-    expect(results).toHaveLength(0)
+    // 空字符串被所有 label 包含，返回全部叶节点
+    expect(results).toHaveLength(3)
   })
 
   it('路径层级最大深度', () => {
