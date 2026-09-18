@@ -19,12 +19,9 @@ export interface YdFormDesignerProps {
 </script>
 
 <script lang="ts" setup>
-import { provide } from 'vue';
-
 import type { DesignerSchema } from '../types';
 
 import { useDesignerState } from '../composables/use-designer-state';
-import { DESIGNER_CONTEXT_KEY } from './designer-context';
 import { YdDesignerCanvas } from './YdDesignerCanvas.vue';
 import { YdDesignerPalette } from './YdDesignerPalette.vue';
 import { YdDesignerPropertyPanel } from './YdDesignerPropertyPanel.vue';
@@ -42,11 +39,6 @@ const emit = defineEmits<{
 }>();
 
 const designer = useDesignerState(props.initialSchema);
-
-/** 向子组件注入设计器上下文 */
-provide(DESIGNER_CONTEXT_KEY, {
-  isReadonly: props.isReadonly,
-});
 
 /**
  * 处理 Schema 变更。
@@ -96,12 +88,15 @@ function handleSubmit(): void {
 
       <!-- 中央：画布 -->
       <YdDesignerCanvas
+        v-model:items="designer.schema.value.items"
+        v-model:selected-id="designer.selectedId.value"
         :is-readonly="isReadonly"
         @schema-change="handleSchemaChange"
       />
 
       <!-- 右侧：属性面板 -->
       <YdDesignerPropertyPanel
+        v-model:selected-item="designer.selectedItem.value"
         :is-readonly="isReadonly"
         @update-item="(id, updates) => { designer.updateItem(id, updates); handleSchemaChange(); }"
       />

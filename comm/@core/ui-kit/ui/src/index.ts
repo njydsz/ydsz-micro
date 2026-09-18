@@ -19,13 +19,19 @@
  * ```
  *
  * 子路径一览：
- *  - `@ydsz-core/ui/ydsz-ui` — 业务组件 + primitives (YdButtonSmart/YdButtonSmart/YdDialog/...)
+ *  - `@ydsz-core/ui/ydsz-ui`  — 业务组件 + primitives
  *  - `@ydsz-core/ui/form`     — 表单引擎 (YdForm, setupYdForm, ...)
  *  - `@ydsz-core/ui/popup`    — 弹窗 + 抽屉 (YdModal, YdDrawer, YdAlert)
  *  - `@ydsz-core/ui/menu`     — 菜单系统 (YdMenu, YdMenuBadge, ...)
  *  - `@ydsz-core/ui/tabs`     — 标签页 (YdTabsView)
  *  - `@ydsz-core/ui/layout`   — 布局框架 (YdAdminLayout)
  *  - `@ydsz-core/ui/editor`   — 富文本编辑器 (YdTipTapEditor)
+ *  - `@ydsz-core/ui/ai-builder`     — AI 页面骨架生成器
+ *  - `@ydsz-core/ui/form-designer`  — 可视化表单设计器
+ *  - `@ydsz-core/ui/dashboard`      — BI 看板仪表盘
+ *  - `@ydsz-core/ui/design-tokens`  — Design Token 规范
+ *  - `@ydsz-core/ui/advanced-table` — 高级表格交互
+ *  - `@ydsz-core/ui/mobile-bridge`  — 移动端响应式桥接
  *
  * @module @ydsz-core/ui
  * @author ydsz-team
@@ -60,6 +66,33 @@ export type { YdLayoutProps } from '@ydsz-core/layout-ui';
 
 // ===== 富文本编辑器 =====
 export { YdTipTapEditor, YdTipTapToolbar, getYdDefaultExtensions } from '@ydsz-core/editor-ui';
+
+// ===== AI 构建器 =====
+export { YdAiBuilder, useAiBuilder, generatePage, parseIntent } from '@ydsz-core/ai-builder';
+export type {
+  AiGenerationOptions,
+  FieldSuggestion,
+  GeneratedPage,
+  PageIntent,
+} from '@ydsz-core/ai-builder';
+
+// ===== 可视化表单设计器 =====
+export { YdFormDesigner, useDesignerState as useFormDesignerState } from '@ydsz-core/form-designer';
+export type { DesignerSchema, CanvasItem, DesignerComponentMeta } from '@ydsz-core/form-designer';
+
+// ===== BI 看板 =====
+export { YdDashboard, YdStatCard, YdChartCard, useDashboardState } from '@ydsz-core/dashboard';
+export type { DashboardConfig, DashboardCard, StatCard } from '@ydsz-core/dashboard';
+
+// ===== Design Token =====
+export { colorTokenVar, spacingVar, shadowVar, durationVar } from '@ydsz-core/design-tokens';
+
+// ===== 高级表格 =====
+export { YdInlineEditCell, useInlineEdit, useRowExpand } from '@ydsz-core/advanced-table';
+
+// ===== 移动端桥接 =====
+export { useResponsive, useTouch, Breakpoint, getBreakpointName } from '@ydsz-core/mobile-bridge';
+export type { SwipeDirection } from '@ydsz-core/mobile-bridge';
 
 // ===== 全局 CSS 令牌（可选引入）=====
 import '@ydsz-core/ydsz-ui/src/assets/index.css';
