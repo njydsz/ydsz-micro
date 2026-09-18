@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "YDSZ 引擎 API",
+    "description": "占位规范文件 — 实际规范由后端 SpringDoc 自动生成",
+    "version": "26.09.18",
+    "contact": { "name": "YDSZ Team" }
+  },
+  "servers": [{ "url": "http://localhost:9001", "description": "本地开发环境" }],
+  "paths": {}
+}

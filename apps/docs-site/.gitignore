@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+.vitepress/dist/
+.vitepress/cache/
+
+# Temp files
+*.log
+*.tmp
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local env
+.env
+.env.local

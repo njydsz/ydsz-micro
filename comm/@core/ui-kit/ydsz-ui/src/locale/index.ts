@@ -9,7 +9,6 @@
  */
 
 export { default as enUS } from './en-US';
-export { default as jaJP } from './ja-JP';
 export { default as zhCN } from './zh-CN';
 
 export { useLocale, LOCALE_LANG_KEY } from './useLocale';
