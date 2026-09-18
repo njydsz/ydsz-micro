@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Poruka",
+  "messageList": "Lista poruka",
+  "batchSend": "Skupno slanje",
+  "deadLetter": "Mrtvo pismo",
+  "template": "Predložak",
+  "templateList": "Lista predložaka",
+  "notification": "Obavijest",
+  "notificationList": "Lista obavijesti",
+  "route": "Ruta",
+  "routeRule": "Pravilo rute",
+  "preference": "Postavke",
+  "messagePreference": "Postavke poruka"
 }

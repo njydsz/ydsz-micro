@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "رسالة",
+  "messageList": "قائمة الرسائل",
+  "batchSend": "إرسال مجمّع",
+  "deadLetter": "الرسائل الميتة",
+  "template": "قالب",
+  "templateList": "قائمة القوالب",
+  "notification": "إشعار",
+  "notificationList": "قائمة الإشعارات",
+  "route": "مسار",
+  "routeRule": "قاعدة المسار",
+  "preference": "تفضيل",
+  "messagePreference": "تفضيل الرسائل"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Gestão de Mensagens",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID da Mensagem",
+      "channel": "Canal",
+      "recipient": "Destinatário",
+      "subject": "Assunto",
+      "sendTime": "Hora de Envio"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Tem a certeza de que pretende eliminar \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Nome do Modelo",
+  "templateContent": "Conteúdo do Modelo",
+  "templateType": "Tipo de Modelo",
+  "routeName": "Nome da Rota",
+  "routePriority": "Prioridade",
+  "routeCondition": "Condição da Rota",
+  "preferenceName": "Nome da Preferência",
+  "dndEnabled": "Não Perturbar",
+  "dndStart": "Não Perturar Início",
+  "dndEnd": "Não Perturbar Fim",
   "create": "Adicionar",
   "edit": "Editar",
   "delete": "Eliminar",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Tem a certeza de que pretende eliminar \"{id}\"?",
+  "operationSuccess": "Sucesso"
 }

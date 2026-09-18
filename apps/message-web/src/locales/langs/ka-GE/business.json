@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "შეტყობინებების მართვა",
+    "title": "Message Management",
     "columns": {
-      "id": "შეტყობინების ID",
-      "channel": "არხი",
-      "recipient": "მიმღები",
-      "subject": "თემა",
-      "sendTime": "გაგზავნის დრო"
+      "id": "Message ID",
+      "channel": "Channel",
+      "recipient": "Recipient",
+      "subject": "Subject",
+      "sendTime": "Sent At"
     },
-    "confirmDelete": "დარწმუნებული ხართ, რომ გსურთ \"{id}\"-ის წაშლა?"
+    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
   },
-  "templateName": "შაბლონის სახელი",
-  "templateContent": "შაბლონის შინაარსი",
-  "templateType": "შაბლონის ტიპი",
-  "routeName": "მარშრუტის სახელი",
-  "routePriority": "პრიორიტეტი",
-  "routeCondition": "მარშრუტის პირობა",
-  "preferenceName": "პრეფერენციის სახელი",
+  "templateName": "Template Name",
+  "templateContent": "Template Content",
+  "templateType": "Template Type",
+  "routeName": "Route Name",
+  "routePriority": "Priority",
+  "routeCondition": "Condition",
+  "preferenceName": "Preference Name",
   "dndEnabled": "DND",
-  "dndStart": "DND დაწყება",
-  "dndEnd": "DND დასრულება",
+  "dndStart": "DND Start",
+  "dndEnd": "DND End",
   "create": "შექმნა",
   "edit": "რედაქტირება",
   "delete": "წაშლა",
-  "confirmDelete": "დარწმუნებული ხართ, რომ გსურთ \"{id}\"-ის წაშლა?",
-  "operationSuccess": "წარმატებული"
+  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
+  "operationSuccess": "Operation Successful"
 }

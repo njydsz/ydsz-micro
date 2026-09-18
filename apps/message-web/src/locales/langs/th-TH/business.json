@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "การจัดการข้อความ",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "รหัสข้อความ",
+      "channel": "ช่อง",
+      "recipient": "ผู้รับ",
+      "subject": "หัวข้อ",
+      "sendTime": "เวลาส่ง"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "คุณแน่ใจหรือไม่ว่าต้องการลบ \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "ชื่อเทมเพลต",
+  "templateContent": "เนื้อหาเทมเพลต",
+  "templateType": "ประเภทเทมเพลต",
+  "routeName": "ชื่อเส้นทาง",
+  "routePriority": "ลำดับความสำคัญ",
+  "routeCondition": "เงื่อนไขเส้นทาง",
+  "preferenceName": "ชื่อการตั้งค่า",
+  "dndEnabled": "ห้ามรบกวน",
+  "dndStart": "ห้ามรบกวน เริ่ม",
+  "dndEnd": "ห้ามรบกวน สิ้นสุด",
   "create": "เพิ่ม",
   "edit": "แก้ไข",
   "delete": "ลบ",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "คุณแน่ใจหรือไม่ว่าต้องการลบ \"{id}\"?",
+  "operationSuccess": "สำเร็จ"
 }

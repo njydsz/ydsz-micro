@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Sõnumite haldus",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Sõnumi ID",
+      "channel": "Kanal",
+      "recipient": "Saaja",
+      "subject": "Teema",
+      "sendTime": "Saatmise aeg"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Kas olete kindel, et soovite kustutada \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Mallinimi",
+  "templateContent": "Malli sisu",
+  "templateType": "Mallitüüp",
+  "routeName": "Marsruudi nimi",
+  "routePriority": "Prioriteet",
+  "routeCondition": "Marsruudi tingimus",
+  "preferenceName": "Eelistuse nimi",
+  "dndEnabled": "Mira häiri",
+  "dndStart": "Mira häiri Algus",
+  "dndEnd": "Mira häiri Lõpp",
+  "create": "Loo",
+  "edit": "Muuda",
+  "delete": "Kustuta",
+  "confirmDelete": "Kas olete kindel, et soovite kustutada \"{id}\"?",
+  "operationSuccess": "Edukas"
 }

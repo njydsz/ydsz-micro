@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
+  "message": "Bericht",
+  "messageList": "Berichtenlijst",
+  "batchSend": "Batchverzending",
+  "deadLetter": "Dood brief",
+  "template": "Sjabloon",
+  "templateList": "Sjabloonlijst",
+  "notification": "Melding",
+  "notificationList": "Meldingenlijst",
   "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "routeRule": "Routeregel",
+  "preference": "Voorkeur",
+  "messagePreference": "Berichtvoorkeur"
 }

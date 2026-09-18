@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "संदेश",
+  "messageList": "संदेश सूची",
+  "batchSend": "बैच भेजें",
+  "deadLetter": "मृत पत्र",
+  "template": "टेम्पलेट",
+  "templateList": "टेम्पलेट सूची",
+  "notification": "अधिसूचना",
+  "notificationList": "अधिसूचना सूची",
+  "route": "रूट",
+  "routeRule": "रूट नियम",
+  "preference": "पसंद",
+  "messagePreference": "संदेश पसंद"
 }

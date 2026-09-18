@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "הודעה",
+  "messageList": "רשימת הודעות",
+  "batchSend": "שליחה קבוצתית",
+  "deadLetter": "מכתב מת",
+  "template": "תבנית",
+  "templateList": "רשימת תבניות",
+  "notification": "התראה",
+  "notificationList": "רשימת התראות",
+  "route": "נתיב",
+  "routeRule": "חוק נתיב",
+  "preference": "העדפה",
+  "messagePreference": "העדפת הודעות"
 }

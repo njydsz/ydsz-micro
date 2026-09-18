@@ -1,14 +1,14 @@
 {
-  "message": "Umlayezo",
-  "messageList": "Uhlu lwemilayezo",
-  "batchSend": "Thumela ngobuningi",
-  "deadLetter": "I-Dead Letter",
-  "template": "I-Template",
-  "templateList": "Uhlu lwama-Template",
-  "notification": "Isaziso",
-  "notificationList": "Uhlu lwezaziso",
-  "route": "i-Route",
-  "routeRule": "Umthetho we-Route",
-  "preference": "i-Preference",
-  "messagePreference": "I-Preference yomlayezo"
+  "message": "Message",
+  "messageList": "Message List",
+  "batchSend": "Batch Send",
+  "deadLetter": "Dead Letter",
+  "template": "Template",
+  "templateList": "Template List",
+  "notification": "Notification",
+  "notificationList": "Notification List",
+  "route": "Route",
+  "routeRule": "Route Rule",
+  "preference": "Preference",
+  "messagePreference": "Message Preference"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Ziņojumu pārvaldība",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Ziņojuma ID",
+      "channel": "Kanāls",
+      "recipient": "Saņēmējs",
+      "subject": "Temats",
+      "sendTime": "Sūtīšanas laiks"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Vai tiešām vēlaties dzēst \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Veidnes nosaukums",
+  "templateContent": "Veidnes saturs",
+  "templateType": "Veidnes tips",
+  "routeName": "Maršruta nosaukums",
+  "routePriority": "Prioritāte",
+  "routeCondition": "Maršruta nosacījums",
+  "preferenceName": "Iestatījumu nosaukums",
+  "dndEnabled": "Netraucēt",
+  "dndStart": "Netraucēt Sākums",
+  "dndEnd": "Netraucēt Beigas",
   "create": "新增",
   "edit": "修改",
   "delete": "删除",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Vai tiešām vēlaties dzēst \"{id}\"?",
+  "operationSuccess": "Veiksmīgi"
 }

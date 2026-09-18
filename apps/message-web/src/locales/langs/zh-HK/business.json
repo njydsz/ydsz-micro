@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "訊息管理",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "訊息 ID",
+      "channel": "頻道",
+      "recipient": "收件人",
+      "subject": "主旨",
+      "sendTime": "發送時間"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "確定刪除 \"{id}\" 嗎？"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "模板名稱",
+  "templateContent": "模板內容",
+  "templateType": "模板類型",
+  "routeName": "路由名稱",
+  "routePriority": "優先順序",
+  "routeCondition": "路由條件",
+  "preferenceName": "偏好設定名稱",
+  "dndEnabled": "勿擾模式",
+  "dndStart": "勿擾開始",
+  "dndEnd": "勿擾結束",
   "create": "新增",
   "edit": "修改",
   "delete": "刪除",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "確定刪除 \"{id}\" 嗎？",
+  "operationSuccess": "操作成功"
 }

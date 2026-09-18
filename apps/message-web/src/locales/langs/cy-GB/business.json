@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Rheolaeth Negeseuon",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID Neges",
+      "channel": "Sianel",
+      "recipient": "Derbynnydd",
+      "subject": "Pwnc",
+      "sendTime": "Afonfonwyd am"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Ydych chi'n siŵr eich bod eisiau dileu \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Enw'r Templed",
+  "templateContent": "Cynnwys y Templed",
+  "templateType": "Math o Dempled",
+  "routeName": "Enw'r Llwybr",
+  "routePriority": "Blaenoriaeth",
+  "routeCondition": "Amod Llwybr",
+  "preferenceName": "Enw'r Dewisiad",
+  "dndEnabled": "Peidiwch â Tharfu",
+  "dndStart": "Peidiwch â Tharfu Dechrau",
+  "dndEnd": "Peidiwch â Tharfu Diwedd",
   "create": "Creu",
   "edit": "Golygu",
   "delete": "Dileu",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Ydych chi'n siŵr eich bod eisiau dileu \"{id}\"?",
+  "operationSuccess": "Llwyddiant"
 }

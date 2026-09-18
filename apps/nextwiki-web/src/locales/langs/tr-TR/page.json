@@ -1,0 +1,14 @@
+{
+  "file": "Dosya Yönetimi",
+  "fileList": "Dosya Listesi",
+  "fileComment": "Dosya Yorumu",
+  "share": "Paylaşım Yönetimi",
+  "shareList": "Paylaşım Listesi",
+  "tag": "Etiket Yönetimi",
+  "tagList": "Etiket Listesi",
+  "storage": "Depolama Yönetimi",
+  "quota": "Depolama Kotası",
+  "analysis": "Depolama Analizi",
+  "aiAssist": "AI Asistanı",
+  "search": "Tam Metin Arama"
+}

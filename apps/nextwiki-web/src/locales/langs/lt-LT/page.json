@@ -1,0 +1,14 @@
+{
+  "file": "Failų Valdymas",
+  "fileList": "Failų Sąrašas",
+  "fileComment": "Failų Komentarai",
+  "share": "Bendrinimo Valdymas",
+  "shareList": "Bendrinimų Sąrašas",
+  "tag": "Žymos Valdymas",
+  "tagList": "Žymos Sąrašas",
+  "storage": "Saugyklios Valdymas",
+  "quota": "Saugyklios Kvota",
+  "analysis": "Saugyklios Analizė",
+  "aiAssist": "AI Pagalbininkas",
+  "search": "Viso Teksto Paieška"
+}

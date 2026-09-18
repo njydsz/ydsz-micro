@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "စာစီမံခန့်ခွ�မှု",
+    "title": "Message Management",
     "columns": {
-      "id": "စာ ID",
-      "channel": "ချန်နယ်",
-      "recipient": "လက်ခံသူ",
-      "subject": "ခေါင်းစဉ်",
-      "sendTime": "ပို့သည့်အချိန်"
+      "id": "Message ID",
+      "channel": "Channel",
+      "recipient": "Recipient",
+      "subject": "Subject",
+      "sendTime": "Sent At"
     },
-    "confirmDelete": "\"{id}\" ကိုဖျက်ရန် သေချာပါသလား?"
+    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
   },
-  "templateName": "တန်းပလိုက်အမည်",
-  "templateContent": "တန်းပလိုက်အကြောင်းအရာ",
-  "templateType": "တန်းပလိုက်အမျိုးအစား",
-  "routeName": "လမ်းကြောင်းအမည်",
-  "routePriority": "ဦးစားပေး",
-  "routeCondition": "လမ်းကြောင်းအခြေအနေ",
-  "preferenceName": "စိတ်ကြိုက်အမည်",
+  "templateName": "Template Name",
+  "templateContent": "Template Content",
+  "templateType": "Template Type",
+  "routeName": "Route Name",
+  "routePriority": "Priority",
+  "routeCondition": "Condition",
+  "preferenceName": "Preference Name",
   "dndEnabled": "DND",
-  "dndStart": "DND စတင်",
-  "dndEnd": "DND အဆုံး",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "\"{id}\" ကိုဖျက်ရန် သေချာပါသလား?",
-  "operationSuccess": "အောင်မြင်ပါသည်"
+  "dndStart": "DND Start",
+  "dndEnd": "DND End",
+  "create": " ဖန်တီးပါ",
+  "edit": " ပြုပြင်ပါ",
+  "delete": " ဖျက်ပါ",
+  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
+  "operationSuccess": "Operation Successful"
 }

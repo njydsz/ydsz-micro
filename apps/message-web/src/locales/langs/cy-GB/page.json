@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Neges",
+  "messageList": "Rhestr Negeseuon",
+  "batchSend": "Anfon Swp",
+  "deadLetter": "Llythyr Marw",
+  "template": "Templed",
+  "templateList": "Rhestr Templets",
+  "notification": "Hysbysiad",
+  "notificationList": "Rhestr Hysbysiadau",
+  "route": "Llwybr",
+  "routeRule": "Rheol Llwybr",
+  "preference": "Dewisiad",
+  "messagePreference": "Dewisiad Neges"
 }

@@ -1,0 +1,14 @@
+{
+  "file": "Gerenciamento de Arquivos",
+  "fileList": "Lista de Arquivos",
+  "fileComment": "Comentários",
+  "share": "Gerenciamento de Compartilhamento",
+  "shareList": "Lista de Compartilhamentos",
+  "tag": "Gerenciamento de Tags",
+  "tagList": "Lista de Tags",
+  "storage": "Gerenciamento de Armazenamento",
+  "quota": "Cota de Armazenamento",
+  "analysis": "Análise de Armazenamento",
+  "aiAssist": "Assistente IA",
+  "search": "Pesquisa de Texto Completo"
+}

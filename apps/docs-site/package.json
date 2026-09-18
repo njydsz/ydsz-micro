@@ -1,0 +1,23 @@
+{
+  "name": "@ydsz/docs-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "YDSZ 可视化文档站 — 基于 VitePress 构建的平台文档、API 参考与架构可视化中心",
+  "scripts": {
+    "dev": "vitepress dev --port 5174 --host 0.0.0.0",
+    "build": "vitepress build",
+    "preview": "vitepress preview --port 4174"
+  },
+  "dependencies": {
+    "@antv/g6": "^4.8.0",
+    "echarts": "^5.6.0",
+    "mermaid": "^10.9.0",
+    "redoc": "^2.1.0",
+    "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "vite": "catalog:",
+    "vitepress": "^1.6.0"
+  }
+}

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Mesaj Yönetimi",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Mesaj ID",
+      "channel": "Kanal",
+      "recipient": "Alıcı",
+      "subject": "Konu",
+      "sendTime": "Gönderme Zamanı"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "\"{id}\" silmek istediğinizden emin misiniz?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Şablon Adı",
+  "templateContent": "Şablon İçeriği",
+  "templateType": "Şablon Türü",
+  "routeName": "Rota Adı",
+  "routePriority": "Öncelik",
+  "routeCondition": "Rota Koşulu",
+  "preferenceName": "Tercih Adı",
+  "dndEnabled": "Rahatsız Etmeyin",
+  "dndStart": "Rahatsız Etmeyin Başlangıç",
+  "dndEnd": "Rahatsız Etmeyin Bitiş",
   "create": "Ekle",
   "edit": "Düzenle",
   "delete": "Sil",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "\"{id}\" silmek istediğinizden emin misiniz?",
+  "operationSuccess": "Başarılı"
 }

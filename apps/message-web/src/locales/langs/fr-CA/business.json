@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Gestion des messages",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID du message",
+      "channel": "Canal",
+      "recipient": "Destinataire",
+      "subject": "Objet",
+      "sendTime": "Heure d\\'envoi"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "\\u00cates-vous s\\u00fbr de vouloir supprimer \\u00ab {id} \\u00bb ?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Nom du modèle",
+  "templateContent": "Contenu du modèle",
+  "templateType": "Type de modèle",
+  "routeName": "Nom de l\\'itinéraire",
+  "routePriority": "Priorité",
+  "routeCondition": "Condition d\\'itinéraire",
+  "preferenceName": "Nom de la préférence",
+  "dndEnabled": "Ne pas déranger",
+  "dndStart": "Ne pas déranger Début",
+  "dndEnd": "Ne pas déranger Fin",
+  "create": "Ajouter",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "confirmDelete": "\\u00cates-vous s\\u00fbr de vouloir supprimer \\u00ab {id} \\u00bb ?",
+  "operationSuccess": "Opération réussie"
 }

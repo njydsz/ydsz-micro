@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Üzenetkezelés",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Üzenet azonosítója",
+      "channel": "Csatorna",
+      "recipient": "Címzett",
+      "subject": "Tárgy",
+      "sendTime": "Küldés időpontja"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Biztosan törölni szeretné: \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Sablon neve",
+  "templateContent": "Sablon tartalma",
+  "templateType": "Sablon típusa",
+  "routeName": "Útvonal neve",
+  "routePriority": "Prioritás",
+  "routeCondition": "Útvonal feltétele",
+  "preferenceName": "Beállítás neve",
+  "dndEnabled": "Ne zavarjanak",
+  "dndStart": "Ne zavarjanak Kezdet",
+  "dndEnd": "Ne zavarjanak Vége",
   "create": "Létrehozás",
   "edit": "Szerkesztés",
   "delete": "Törlés",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Biztosan törölni szeretné: \"{id}\"?",
+  "operationSuccess": "Sikeres művelet"
 }

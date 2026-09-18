@@ -1,14 +1,14 @@
 {
-  "message": "ຂໍ້ຄວາມ",
-  "messageList": "ລາຍການຂໍ້ຄວາມ",
-  "batchSend": "ສົ່ງໝົດ",
-  "deadLetter": "ຄິວຈົດຫມາຍຕາຍ",
-  "template": "ແມ່ແບບ",
-  "templateList": "ລາຍການແມ່ແບບ",
-  "notification": "ການແຈ້ງເຕືອນ",
-  "notificationList": "ລາຍການແຈ້ງເຕືອນ",
-  "route": "ເສັນທາງ",
-  "routeRule": "ກົດລະບຽບເສັນທາງ",
-  "preference": "ການຕັ້ງຄ່າ",
-  "messagePreference": "ການຕັ້ງຄ່າຂໍ້ຄວາມ"
+  "message": "Message",
+  "messageList": "Message List",
+  "batchSend": "Batch Send",
+  "deadLetter": "Dead Letter",
+  "template": "Template",
+  "templateList": "Template List",
+  "notification": "Notification",
+  "notificationList": "Notification List",
+  "route": "Route",
+  "routeRule": "Route Rule",
+  "preference": "Preference",
+  "messagePreference": "Message Preference"
 }

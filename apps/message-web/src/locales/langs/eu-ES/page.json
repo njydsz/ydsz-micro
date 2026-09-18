@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Mezua",
+  "messageList": "Mezuen zerrenda",
+  "batchSend": "Sorta-bidalketa",
+  "deadLetter": "Gutur minsua",
+  "template": "Txantiloia",
+  "templateList": "Txantiloi zerrenda",
+  "notification": "Jakinarazpena",
+  "notificationList": "Jakinarazpen zerrenda",
+  "route": "Bidea",
+  "routeRule": "Bide araua",
+  "preference": "Hobespena",
+  "messagePreference": "Mezuen hobespena"
 }

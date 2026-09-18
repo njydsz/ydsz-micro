@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Viestien hallinta",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Viestin ID",
+      "channel": "Kanava",
+      "recipient": "Vastaanottaja",
+      "subject": "Aihe",
+      "sendTime": "Lähetysaika"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Haluatko varmasti poistaa \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Mallipohjan nimi",
+  "templateContent": "Mallipohjan sisältö",
+  "templateType": "Mallin tyyppi",
+  "routeName": "Reitin nimi",
+  "routePriority": "Prioriteetti",
+  "routeCondition": "Reitin ehto",
+  "preferenceName": "Asetuksen nimi",
+  "dndEnabled": "Älä häiritse",
+  "dndStart": "Älä häirtä Alkuperä",
+  "dndEnd": "Älä häiritse Loppu",
+  "create": "Luo",
+  "edit": "Muokkaa",
+  "delete": "Poista",
+  "confirmDelete": "Haluatko varmasti poistaa \"{id}\"?",
+  "operationSuccess": "Onnistui"
 }

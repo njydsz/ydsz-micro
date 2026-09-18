@@ -172,6 +172,52 @@ function clearValue(event: MouseEvent): void {
   emit('change', '');
 }
 
+/** 判断小时是否选中（模板中提取的复杂表达式） */
+function isHourSelected(hour: number): boolean {
+  if (parsedTime.value.hour === hour) return true;
+  if (props.use12Hours) return (parsedTime.value.hour % 12 === 0 ? 12 : parsedTime.value.hour % 12) === hour;
+  return false;
+}
+
+/** 小时选项样式类（模板中提取的复杂表达式） */
+function getHourClass(opt: { disabled: boolean; value: number }): string {
+  return cn(
+    'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
+    parsedTime.value.hour === opt.value && 'bg-primary text-primary-foreground font-semibold',
+    opt.disabled && 'cursor-not-allowed opacity-30',
+    !opt.disabled && parsedTime.value.hour !== opt.value && 'hover:bg-muted',
+  );
+}
+
+/** 分钟选项样式类 */
+function getMinuteClass(opt: { disabled: boolean; value: number }): string {
+  return cn(
+    'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
+    parsedTime.value.minute === opt.value && 'bg-primary text-primary-foreground font-semibold',
+    opt.disabled && 'cursor-not-allowed opacity-30',
+    !opt.disabled && parsedTime.value.minute !== opt.value && 'hover:bg-muted',
+  );
+}
+
+/** 秒选项样式类 */
+function getSecondClass(opt: { disabled: boolean; value: number }): string {
+  return cn(
+    'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
+    parsedTime.value.second === opt.value && 'bg-primary text-primary-foreground font-semibold',
+    opt.disabled && 'cursor-not-allowed opacity-30',
+    !opt.disabled && parsedTime.value.second !== opt.value && 'hover:bg-muted',
+  );
+}
+
+/** 时段列样式类 */
+function getPeriodClass(period: string): string {
+  return cn(
+    'cursor-pointer px-3 py-1.5 text-center text-sm transition-colors',
+    parsedTime.value.period === period && 'bg-primary text-primary-foreground font-semibold',
+    parsedTime.value.period !== period && 'hover:bg-muted',
+  );
+}
+
 const sizeClass: Record<string, string> = {
   large: 'h-10 px-3',
   middle: 'h-9 px-3',

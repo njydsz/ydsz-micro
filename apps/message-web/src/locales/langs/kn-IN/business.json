@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "ಸಂದೇಶ ನಿರ್ವಹಣೆ",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ಸಂದೇಶ ID",
+      "channel": "ಚಾನೆಲ್",
+      "recipient": "ಸ್ವೀಕರಿಸುವವರು",
+      "subject": "ವಿಷಯ",
+      "sendTime": "ಕಳುಹಿಸಿದ ಸಮಯ"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "ನೀವು \"{id}\" ಅಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುತ್ತೀರಾ?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
+  "templateName": "ಟೆಂಪ್ಲೇಟ್ ಹೆಸರು",
+  "templateContent": "ಟೆಂಪ್ಲೇಟ್ ವಿಷಯ",
+  "templateType": "ಟೆಂಪ್ಲೇಟ್ ಪ್ರಕಾರ",
+  "routeName": "ರೂಟ್ ಹೆಸರು",
+  "routePriority": "ಆದ್ಯತೆ",
+  "routeCondition": "ರೂಟ್ ಕಂಡಿಷನ್",
+  "preferenceName": "ಆದ್ಯತೆ ಹೆಸರು",
   "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "dndStart": "DND ಆರಂಭ",
+  "dndEnd": "DND ಅಂತ್ಯ",
   "create": "新增",
   "edit": "修改",
   "delete": "删除",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "ನೀವು \"{id}\" ಅಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುತ್ತೀರಾ?",
+  "operationSuccess": "ಯಶಸ್ಸು"
 }

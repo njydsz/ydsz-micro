@@ -1,0 +1,14 @@
+{
+  "file": "Zarządzanie plikami",
+  "fileList": "Lista plików",
+  "fileComment": "Komentarze plików",
+  "share": "Zarządzanie udostępnieniami",
+  "shareList": "Lista udostępnień",
+  "tag": "Zarządzanie tagami",
+  "tagList": "Lista tagów",
+  "storage": "Zarządzanie przechowywaniem",
+  "quota": "Limit przechowywania",
+  "analysis": "Analiza przechowywania",
+  "aiAssist": "Asystent AI",
+  "search": "Wyszukiwanie pełnotekstowe"
+}

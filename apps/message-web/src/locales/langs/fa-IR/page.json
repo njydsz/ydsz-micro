@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "پیام",
+  "messageList": "لیست پیام‌ها",
+  "batchSend": "ارسال گروهی",
+  "deadLetter": "نامه مرده",
+  "template": "الگو",
+  "templateList": "لیست الگوها",
+  "notification": "اعلان",
+  "notificationList": "لیست اعلان‌ها",
+  "route": "مسیر",
+  "routeRule": "قاعده مسیر",
+  "preference": "ترجیح",
+  "messagePreference": "ترجیح پیام"
 }

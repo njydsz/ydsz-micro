@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Skilaboðastjórnun",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Skilaboð ID",
+      "channel": "Rás",
+      "recipient": "Mótakandi",
+      "subject": "Efni",
+      "sendTime": "Sendingartími"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Ertu viss um að þú viljir eyða \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Sniðmátsheiti",
+  "templateContent": "Sniðmátsinnihald",
+  "templateType": "Sniðmátstegund",
+  "routeName": "Leiðarheiti",
+  "routePriority": "Forgangsröðun",
+  "routeCondition": "Leiðarskilyrði",
+  "preferenceName": "Kostur heiti",
+  "dndEnabled": "Ekki trufla",
+  "dndStart": "Ekki trufla Byrjun",
+  "dndEnd": "Ekki trufla Endir",
   "create": "Búa til",
   "edit": "Breyta",
   "delete": "Eyða",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Ertu viss um að þú viljir eyða \"{id}\"?",
+  "operationSuccess": "Tókst"
 }

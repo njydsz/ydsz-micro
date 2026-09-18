@@ -24,5 +24,5 @@
   "edit": "Edit",
   "delete": "Delete",
   "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "operationSuccess": "Operation Successful"
 }

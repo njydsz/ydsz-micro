@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Xestión de Mensaxes",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID de Mensaxe",
+      "channel": "Canle",
+      "recipient": "Destinatario",
+      "subject": "Asunto",
+      "sendTime": "Hora de Envío"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Está seguro de que desexa eliminar \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Nome de Modelo",
+  "templateContent": "Contido do Modelo",
+  "templateType": "Tipo de Modelo",
+  "routeName": "Nome da Ruta",
+  "routePriority": "Prioridade",
+  "routeCondition": "Condición de Ruta",
+  "preferenceName": "Nome de Preferencia",
+  "dndEnabled": "Non Molestar",
+  "dndStart": "Non Molestar Inicio",
+  "dndEnd": "Non Molestar Fin",
+  "create": "Crear",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "confirmDelete": "Está seguro de que desexa eliminar \"{id}\"?",
+  "operationSuccess": "Operación Exitosa"
 }

@@ -1,0 +1,14 @@
+{
+  "file": "File Management",
+  "fileList": "File List",
+  "fileComment": "Comments",
+  "share": "Share Management",
+  "shareList": "Share List",
+  "tag": "Tag Management",
+  "tagList": "Tag List",
+  "storage": "Storage Management",
+  "quota": "Storage Quota",
+  "analysis": "Storage Analysis",
+  "aiAssist": "AI Assist",
+  "search": "Full Text Search"
+}

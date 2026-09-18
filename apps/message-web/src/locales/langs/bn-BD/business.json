@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "বার্তা ব্যবস্থাপনা",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "বার্তা আইডি",
+      "channel": "চ্যানেল",
+      "recipient": "প্রাপক",
+      "subject": "বিষয়",
+      "sendTime": "পাঠানোর সময়"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "আপনি কি নিশ্চিত \"{id}\" মুছে ফেলতে চান?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "টেমপ্লেটের নাম",
+  "templateContent": "টেমপ্লেট বিষয়বস্তু",
+  "templateType": "টেমপ্লেটের ধরন",
+  "routeName": "রুটের নাম",
+  "routePriority": "অগ্রাধিকার",
+  "routeCondition": "রুটের শর্ত",
+  "preferenceName": "পছন্দের নাম",
+  "dndEnabled": "বিঘ্নিত করবেন না",
+  "dndStart": "DND শুরু",
+  "dndEnd": "DND শেষ",
   "create": "তৈরি করুন",
   "edit": "সম্পাদনা",
   "delete": "মুছুন",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "আপনি কি নিশ্চিত \"{id}\" মুছে ফেলতে চান?",
+  "operationSuccess": "সফল"
 }

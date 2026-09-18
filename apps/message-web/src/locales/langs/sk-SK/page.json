@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Správa",
+  "messageList": "Zoznam Správ",
+  "batchSend": "Hromadné Odoslanie",
+  "deadLetter": "Mŕtva Pošta",
+  "template": "Šablóna",
+  "templateList": "Zoznam Šablón",
+  "notification": "Oznámenie",
+  "notificationList": "Zoznam Oznámení",
+  "route": "Trasa",
+  "routeRule": "Pravidlo Trasy",
+  "preference": "Predvoľba",
+  "messagePreference": "Predvoľba Správ"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "پیغام مینجمنٹ",
+    "title": "Message Management",
     "columns": {
-      "id": "پیغام ID",
-      "channel": "چینل",
-      "recipient": "وصول کنندہ",
-      "subject": "موضوع",
-      "sendTime": "بھیجنے کا وقت"
+      "id": "Message ID",
+      "channel": "Channel",
+      "recipient": "Recipient",
+      "subject": "Subject",
+      "sendTime": "Sent At"
     },
-    "confirmDelete": "کیا آپ \"{id}\" حذف کرنا چاہتے ہیں؟"
+    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
   },
-  "templateName": "ٹیمپلیٹ نام",
-  "templateContent": "ٹیمپلیٹ مواد",
-  "templateType": "ٹیمپلیٹ کی قسم",
-  "routeName": "رٹا نام",
-  "routePriority": "ترجیح",
-  "routeCondition": "رٹا شرط",
-  "preferenceName": "ترجیح کا نام",
+  "templateName": "Template Name",
+  "templateContent": "Template Content",
+  "templateType": "Template Type",
+  "routeName": "Route Name",
+  "routePriority": "Priority",
+  "routeCondition": "Condition",
+  "preferenceName": "Preference Name",
   "dndEnabled": "DND",
-  "dndStart": "DND شروع",
-  "dndEnd": "DND ختم",
+  "dndStart": "DND Start",
+  "dndEnd": "DND End",
   "create": "Add",
   "edit": "Edit",
   "delete": "Delete",
-  "confirmDelete": "کیا آپ \"{id}\" حذف کرنا چاہتے ہیں؟",
-  "operationSuccess": "کامیاب"
+  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
+  "operationSuccess": "Operation Successful"
 }

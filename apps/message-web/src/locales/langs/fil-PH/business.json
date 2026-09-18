@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Pamamahala ng Mensahe",
     "columns": {
-      "id": "Message ID",
+      "id": "ID ng Mensahe",
       "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "recipient": "Tatanggap",
+      "subject": "Paksa",
+      "sendTime": "Oras ng Pagpapadala"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Sigurado ka bang gusto mong tanggalin ang \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Pangalan ng Template",
+  "templateContent": "Nilalaman ng Template",
+  "templateType": "Uri ng Template",
+  "routeName": "Pangalan ng Ruta",
+  "routePriority": "Prayoridad",
+  "routeCondition": "Kundisyon ng Ruta",
+  "preferenceName": "Pangalan ng Kagustuhan",
+  "dndEnabled": "Huwag Istulog",
+  "dndStart": "Huwag Istulog Simula",
+  "dndEnd": "Huwag Issulog Wakas",
+  "create": "Lumikha",
+  "edit": "I-edit",
+  "delete": "Burahin",
+  "confirmDelete": "Sigurado ka bang gusto mong tanggalin ang \"{id}\"?",
+  "operationSuccess": "Matagumpay"
 }

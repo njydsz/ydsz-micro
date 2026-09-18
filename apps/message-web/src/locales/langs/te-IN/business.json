@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "సందేశ నిర్వహణ",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "సందేశ ID",
+      "channel": "చానల్",
+      "recipient": "గ్రహీత",
+      "subject": "విషయం",
+      "sendTime": "పంపిన సమయం"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "మీరు \"{id}\" తొలగించాలని ఖచ్చితంగా కోరుతున్నారా?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
+  "templateName": "టెంప్లేట్ పేరు",
+  "templateContent": "టెంప్లేట్ కంటెంట్",
+  "templateType": "టెంప్లేట్ రకం",
+  "routeName": "మార్గం పేరు",
+  "routePriority": "ప్రాధాన్యత",
+  "routeCondition": "మార్గ షరతు",
+  "preferenceName": "ప్రాధాన్యత పేరు",
   "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "dndStart": "DND ప్రారంభం",
+  "dndEnd": "DND ముగింపు",
   "create": "Add",
   "edit": "Edit",
   "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "మీరు \"{id}\" తొలగించాలని ఖచ్చితంగా కోరుతున్నారా?",
+  "operationSuccess": "విజయవంతం"
 }

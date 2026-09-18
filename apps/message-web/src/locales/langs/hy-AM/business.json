@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Հաղորդագրությունների կառավարում",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Հաղորդագրության ID",
+      "channel": "Աղբյուր",
+      "recipient": "Ստացող",
+      "subject": "Թեմա",
+      "sendTime": "Ուղարկման ժամ"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Վստա՞հ եք, որ ցանկանում եք ջնջել \"{id}\"-ը:"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Կաղապարի անուն",
+  "templateContent": "Կաղապարի պարունակություն",
+  "templateType": "Կաղապարի տեսակ",
+  "routeName": "Երթուղու անուն",
+  "routePriority": "Առաջնահերթություն",
+  "routeCondition": "Երթուղու պայման",
+  "preferenceName": "Նախապատվության անուն",
+  "dndEnabled": "Չխանգարել",
+  "dndStart": "Չխանգարել Սկիզբ",
+  "dndEnd": "Չխանգարել Ավարտ",
   "create": "Ստեղծել",
   "edit": "Խմբագրել",
   "delete": "Ջնջել",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Վստա՞հ եք, որ ցանկանում եք ջնջել \"{id}\"-ը:",
+  "operationSuccess": "Հաջողվեց"
 }

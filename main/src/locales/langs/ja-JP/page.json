@@ -15,9 +15,9 @@
     "containerLabel": "マイクロフロントエンドサブアプリケーションコンテナ",
     "phase": {
       "loading": "Loading modules...",
-      "loaded": " Modules loaded",
+      "loaded": "モジュールが読み込まれました",
       "mounting": "Mounting application...",
-      "mounted": " Modules loaded",
+      "mounted": "モジュールが読み込まれました",
       "unmounting": "Switching application...",
       "error": "Load failed"
     },

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Manajemen Pesan",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID Pesan",
+      "channel": "Kanal",
+      "recipient": "Penerima",
+      "subject": "Subjek",
+      "sendTime": "Waktu Kirim"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Apakah Anda yakin ingin menghapus \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Nama Templat",
+  "templateContent": "Konten Templat",
+  "templateType": "Tipe Templat",
+  "routeName": "Nama Rute",
+  "routePriority": "Prioritas",
+  "routeCondition": "Kondisi Rute",
+  "preferenceName": "Nama Preferensi",
+  "dndEnabled": "Jangan Ganggu",
+  "dndStart": "Jangan Ganggu Mulai",
+  "dndEnd": "Jangan Ganggu Selesai",
   "create": "Tambah",
   "edit": "Edit",
   "delete": "Hapus",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Apakah Anda yakin ingin menghapus \"{id}\"?",
+  "operationSuccess": "Berhasil"
 }

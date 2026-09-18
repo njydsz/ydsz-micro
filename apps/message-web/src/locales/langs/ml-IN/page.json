@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "സന്ദേശം",
+  "messageList": "സന്ദേശ ലിസ്റ്റ്",
+  "batchSend": "ബാച്ച് അയയ്ക്കുക",
+  "deadLetter": "ഡെഡ് ലെറ്റർ",
+  "template": "ടെംപ്ലേറ്റ്",
+  "templateList": "ടെംപ്ലേറ്റ് ലിസ്റ്റ്",
+  "notification": "അറിയിപ്പ്",
+  "notificationList": "അറിയിപ്പ് ലിസ്റ്റ്",
+  "route": "റൂട്ട്",
+  "routeRule": "റൂട്ട് നിയമം",
+  "preference": "മുൻഗണന",
+  "messagePreference": "സന്ദേശ മുൻഗണന"
 }

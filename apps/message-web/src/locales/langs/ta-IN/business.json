@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "செய்தி மேலாண்மை",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "செய்தி ID",
+      "channel": "சேனல்",
+      "recipient": "பெறுநர்",
+      "subject": "பொருள்",
+      "sendTime": "அனுப்பிய நேரம்"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "நீங்கள் நிச்சயமாக \"{id}\" அழிக்க விரும்புகிறீர்களா?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "வார்ப்புரு பெயர்",
+  "templateContent": "வார்ப்புரு உள்ளடக்கம்",
+  "templateType": "வார்ப்புரு வகை",
+  "routeName": "பாதை பெயர்",
+  "routePriority": "முன்னுரிமை",
+  "routeCondition": "பாதை நிபந்தனை",
+  "preferenceName": "விருப்பம் பெயர்",
+  "dndEnabled": "தொந்தரவு வேண்டாம்",
+  "dndStart": "தொந்தரவு வேண்டாம் தொடக்கம்",
+  "dndEnd": "தொந்தரவு வேண்டாம் முடிவு",
   "create": "Add",
   "edit": "Edit",
   "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "நீங்கள் நிச்சயமாக \"{id}\" அழிக்க விரும்புகிறீர்களா?",
+  "operationSuccess": "வெற்றி"
 }

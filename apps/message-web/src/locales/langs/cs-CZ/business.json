@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Správa zpráv",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID zprávy",
+      "channel": "Kanál",
+      "recipient": "Příjemce",
+      "subject": "Předmět",
+      "sendTime": "Čas odeslání"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Opravdu chcete smazat \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Název šablony",
+  "templateContent": "Obsah šablony",
+  "templateType": "Typ šablony",
+  "routeName": "Název trasy",
+  "routePriority": "Priorita",
+  "routeCondition": "Podmínka trasy",
+  "preferenceName": "Název předvolby",
+  "dndEnabled": "Nerušit",
+  "dndStart": "Nerušit Začátek",
+  "dndEnd": "Nerušit Konec",
   "create": "Přidat",
   "edit": "Upravit",
   "delete": "Smazat",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Opravdu chcete smazat \"{id}\"?",
+  "operationSuccess": "Úspěch"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Berichtenbeheer",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Bericht-ID",
+      "channel": "Kanaal",
+      "recipient": "Ontvanger",
+      "subject": "Onderwerp",
+      "sendTime": "Verzonden om"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Weet u zeker dat u \"{id}\" wilt verwijderen?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Sjabloonnaam",
+  "templateContent": "Sjablooninhoud",
+  "templateType": "Sjabloontype",
+  "routeName": "Routenaam",
+  "routePriority": "Prioriteit",
+  "routeCondition": "Routevoorwaarde",
+  "preferenceName": "Voorkeurnaam",
+  "dndEnabled": "Niet storen",
+  "dndStart": "Niet storen Begin",
+  "dndEnd": "Niet storen Einde",
   "create": "Toevoegen",
   "edit": "Bewerken",
   "delete": "Verwijderen",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Weet u zeker dat u \"{id}\" wilt verwijderen?",
+  "operationSuccess": "Geslaagd"
 }

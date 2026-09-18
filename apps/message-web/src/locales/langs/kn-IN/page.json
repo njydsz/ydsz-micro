@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "ಸಂದೇಶ",
+  "messageList": "ಸಂದೇಶ ಪಟ್ಟಿ",
+  "batchSend": "ಬ್ಯಾಚ್ ಕಳುಹಿಸಿ",
+  "deadLetter": "ಡೆಡ್ ಲೆಟರ್",
+  "template": "ಟೆಂಪ್ಲೇಟ್",
+  "templateList": "ಟೆಂಪ್ಲೇಟ್ ಪಟ್ಟಿ",
+  "notification": "ಸೂಚನೆ",
+  "notificationList": "ಸೂಚನೆ ಪಟ್ಟಿ",
+  "route": "ರೂಟ್",
+  "routeRule": "ರೂಟ್ ನಿಯಮ",
+  "preference": "ಆದ್ಯತೆ",
+  "messagePreference": "ಸಂದೇಶ ಆದ್ಯತೆ"
 }

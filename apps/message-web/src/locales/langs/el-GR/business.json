@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Διαχείριση Μηνυμάτων",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID Μηνύματος",
+      "channel": "Κανάλι",
+      "recipient": "Παραλήπτης",
+      "subject": "Θέμα",
+      "sendTime": "Ώρα Αποστολής"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Είστε σίγουροι ότι θέλετε να διαγράψετε το \"{id}\";"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Όνομα Προτύπου",
+  "templateContent": "Περιεχόμενο Προτύπου",
+  "templateType": "Τύπος Προτύπου",
+  "routeName": "Όνομα Διαδρομής",
+  "routePriority": "Προτεραιότητα",
+  "routeCondition": "Συνθήκη Διαδρομής",
+  "preferenceName": "Όνομα Προτίμησης",
+  "dndEnabled": "Μην Ενοχλείτε",
+  "dndStart": "Μην Ενοχλείτε Έναρξη",
+  "dndEnd": "Μην Ενοχλείτε Λήξη",
   "create": "Δημιουργία",
   "edit": "Επεξεργασία",
   "delete": "Διαγραφή",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Είστε σίγουροι ότι θέλετε να διαγράψετε το \"{id}\";",
+  "operationSuccess": "Επιτυχία"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Mezuen Kudeaketa",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Mezu IDa",
+      "channel": "Kanala",
+      "recipient": "Hartzailea",
+      "subject": "Gaia",
+      "sendTime": "Bidaltzeko Ordua"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "\"{id}\" ezabatu nahi duzurik ziur zaude?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Txantiloiaren izena",
+  "templateContent": "Txantiloiaren edukia",
+  "templateType": "Txantiloiaren mota",
+  "routeName": "Bidearen izena",
+  "routePriority": "Lehentasuna",
+  "routeCondition": "Bidearen baldintza",
+  "preferenceName": "Hobespenaren izena",
+  "dndEnabled": "Ez molestatu",
+  "dndStart": "Ez molestatu Hasiera",
+  "dndEnd": "Ez molestatu Amaiera",
+  "create": "Sortu",
+  "edit": "Aldatu",
+  "delete": "Ezabatu",
+  "confirmDelete": "\"{id}\" ezabatu nahi duzurik ziur zaude?",
+  "operationSuccess": "Ongi burutu da"
 }

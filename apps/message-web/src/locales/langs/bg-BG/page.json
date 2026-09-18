@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Съобщение",
+  "messageList": "Списък със съобщения",
+  "batchSend": "Групово изпращане",
+  "deadLetter": "Мъртва поща",
+  "template": "Шаблон",
+  "templateList": "Списък с шаблони",
+  "notification": "Известие",
+  "notificationList": "Списък с известия",
+  "route": "Маршрут",
+  "routeRule": "Правило за маршрут",
+  "preference": "Предпочитание",
+  "messagePreference": "Предпочитание за съобщения"
 }

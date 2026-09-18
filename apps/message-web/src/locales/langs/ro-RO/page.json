@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Mesaj",
+  "messageList": "Lista de Mesaje",
+  "batchSend": "Trimitere în Lot",
+  "deadLetter": "Scrisoare Moartă",
+  "template": "Șablon",
+  "templateList": "Lista de șabloane",
+  "notification": "Notificare",
+  "notificationList": "Lista de Notificări",
+  "route": "Rută",
+  "routeRule": "Regula Rutei",
+  "preference": "Preferință",
+  "messagePreference": "Preferința Mesajelor"
 }

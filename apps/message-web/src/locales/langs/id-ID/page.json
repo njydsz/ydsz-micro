@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Pesan",
+  "messageList": "Daftar Pesan",
+  "batchSend": "Kirim Batch",
+  "deadLetter": "Surat Mati",
+  "template": "Templat",
+  "templateList": "Daftar Templat",
+  "notification": "Notifikasi",
+  "notificationList": "Daftar Notifikasi",
+  "route": "Rute",
+  "routeRule": "Aturan Rute",
+  "preference": "Preferensi",
+  "messagePreference": "Preferensi Pesan"
 }

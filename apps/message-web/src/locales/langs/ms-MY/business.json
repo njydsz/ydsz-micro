@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Pengurusan Mesej",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID Mesej",
+      "channel": "Saluran",
+      "recipient": "Penerima",
+      "subject": "Subjek",
+      "sendTime": "Masa Hantar"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Adakah anda pasti ingin memadam \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Nama Templat",
+  "templateContent": "Kandungan Templat",
+  "templateType": "Jenis Templat",
+  "routeName": "Nama Laluan",
+  "routePriority": "Keutamaan",
+  "routeCondition": "Syarat Laluan",
+  "preferenceName": "Nama Keutamaan",
+  "dndEnabled": "Jangan Ganggu",
+  "dndStart": "Jangan Ganggu Mula",
+  "dndEnd": "Jangan Ganggu Tamat",
+  "create": "Buat",
+  "edit": "Ubah",
+  "delete": "Padam",
+  "confirmDelete": "Adakah anda pasti ingin memadam \"{id}\"?",
+  "operationSuccess": "Berjaya"
 }

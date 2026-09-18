@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "संदेश व्यवस्थापन",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "संदेश ID",
+      "channel": "चॅनल",
+      "recipient": "प्राप्तकर्ता",
+      "subject": "विषय",
+      "sendTime": "पाठवण्याची वेळ"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "आपण \"{id}\" हटवू इच्छिता याची खात्री आहे का?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "टेम्पलेट नाव",
+  "templateContent": "टेम्पलेट सामग्री",
+  "templateType": "टेम्पलेट प्रकार",
+  "routeName": "मार्ग नाव",
+  "routePriority": "प्राधान्य",
+  "routeCondition": "मार्ग अट",
+  "preferenceName": "प्राधान्य नाव",
+  "dndEnabled": "व्यत्यय ऊडऊ नका",
+  "dndStart": "व्यत्यय ऊडऊ नका सुरुवात",
+  "dndEnd": "व्यत्यय ऊडऊ नका शेवट",
+  "create": " तयार करा",
+  "edit": " सुधारित करा",
+  "delete": " हटवा",
+  "confirmDelete": "आपण \"{id}\" हटवू इच्छिता याची खात्री आहे का?",
+  "operationSuccess": "यशस्वी"
 }

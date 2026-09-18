@@ -1,0 +1,14 @@
+{
+  "file": "Filhåndtering",
+  "fileList": "Fil Liste",
+  "fileComment": "Fil Kommentarer",
+  "share": "Delingsstyring",
+  "shareList": "DelingsListe",
+  "tag": "Tagstyring",
+  "tagList": "Tag Liste",
+  "storage": "Lagerstyring",
+  "quota": "Lagerkvote",
+  "analysis": "Lagereanalyse",
+  "aiAssist": "AI-Assistent",
+  "search": "Fuld Tekst Søgning"
+}

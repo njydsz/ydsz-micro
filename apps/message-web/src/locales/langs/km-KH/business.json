@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "ការគ្រប់គ្រងសារ",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "លេខសម្គាល់សារ",
+      "channel": "ឆានែល",
+      "recipient": "អ្នកទទួល",
+      "subject": "ប្រធានបទ",
+      "sendTime": "ម៉ោងផ្ញើ"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "តើអ្នកប្រាកដជាចង់លុប \"{id}\" មែនទេ?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "ឈ្មោះគំរូ",
+  "templateContent": "ខ្លឹមសារគំរូ",
+  "templateType": "ប្រភេទគំរូ",
+  "routeName": "ឈ្មោះផ្លូវ",
+  "routePriority": "អាទិភាព",
+  "routeCondition": "លក្ខខណ្ឌផ្លូវ",
+  "preferenceName": "ឈ្មោះចំណូលចិត្ត",
+  "dndEnabled": "កុំបំពាន",
+  "dndStart": "កុំបំពាន ចាប់ផ្តើម",
+  "dndEnd": "កុំបំពាន បញ្ចប់",
   "create": "新增",
   "edit": "修改",
   "delete": "删除",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "តើអ្នទការប្រាកដជាចង់លុប \"{id}\" មែនទេ?",
+  "operationSuccess": "ជោគជ័យ"
 }

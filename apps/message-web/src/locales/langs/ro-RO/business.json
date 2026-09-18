@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Gestionarea Mesajelor",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID-ul Mesajului",
+      "channel": "Canal",
+      "recipient": "Destinatar",
+      "subject": "Subiect",
+      "sendTime": "Ora Trimiterii"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Sigur doriți să ștergeți \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Numele Șablonului",
+  "templateContent": "Conținutul Șablonului",
+  "templateType": "Tipul Șablonului",
+  "routeName": "Numele Rutei",
+  "routePriority": "Prioritate",
+  "routeCondition": "Condiția Rutei",
+  "preferenceName": "Numele Preferinței",
+  "dndEnabled": "Nu Deranjați",
+  "dndStart": "Nu Deranjați Început",
+  "dndEnd": "Nu Deranjați Sfârșit",
+  "create": "Creează",
+  "edit": "Modifică",
+  "delete": "Șterge",
+  "confirmDelete": "Sigur doriți să ștergeți \"{id}\"?",
+  "operationSuccess": "Operațiune Reușită"
 }

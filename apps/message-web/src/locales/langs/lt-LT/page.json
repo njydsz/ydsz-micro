@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Pranešimas",
+  "messageList": "Pranešimų sąrašas",
+  "batchSend": "Paketinė siuntimas",
+  "deadLetter": "Mirtas laiškas",
+  "template": "Šablonas",
+  "templateList": "Šablonų sąrašas",
+  "notification": "Pranešimas apie",
+  "notificationList": "Pranešimų sąrašas",
+  "route": "Maršrutas",
+  "routeRule": "Maršruto taisyklė",
+  "preference": "Nuostatos",
+  "messagePreference": "Pranešimų nuostatos"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Upravljanje Sporočil",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID Sporočila",
+      "channel": "Kanal",
+      "recipient": "Prejemnik",
+      "subject": "Zadeva",
+      "sendTime": "Čas Pošiljanja"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Ali ste prepričani, da želite izbrisati \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Ime Predloge",
+  "templateContent": "Vsebina Predloge",
+  "templateType": "Vrsta Predloge",
+  "routeName": "Ime Poti",
+  "routePriority": "Prioriteta",
+  "routeCondition": "Pogoj Poti",
+  "preferenceName": "Ime Nastavitve",
+  "dndEnabled": "Ne Moti",
+  "dndStart": "Ne Moti Začetek",
+  "dndEnd": "Ne Moti Konec",
   "create": "Dodaj",
   "edit": "Uredi",
   "delete": "Izbriši",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Ali ste prepričani, da želite izbrisati \"{id}\"?",
+  "operationSuccess": "Operacija Uspešna"
 }

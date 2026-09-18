@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "የመልእክት አስተዳደር",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "የመልእክት መታወቂያ",
+      "channel": "ቻናል",
+      "recipient": "ተቀባይ",
+      "subject": "ርዕስ",
+      "sendTime": "የተላከበት ጊዜ"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "እርግጠኛ ነዎት \"{id}\" ማስወገድ ይፈልጋሉ?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "የአብነት ስም",
+  "templateContent": "የአብነት ይዘት",
+  "templateType": "የአብነት አይነት",
+  "routeName": "የመንገድ ስም",
+  "routePriority": "ቅድሚያ",
+  "routeCondition": "የመንገድ ሁኔታ",
+  "preferenceName": "የምርጫ ስም",
+  "dndEnabled": "አትረታታ",
+  "dndStart": "አትረታታ ጀምር",
+  "dndEnd": "አትረታታ ጨርስ",
   "create": "ፍጠር",
   "edit": "አርትዕ",
   "delete": "ሰርዝ",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "እርግጠኛ ነዎት \"{id}\" ማስወገድ ይፈልጋሉ?",
+  "operationSuccess": "ተሳክቷል"
 }

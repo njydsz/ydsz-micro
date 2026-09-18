@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Boodskapbestuur",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Boodskap-ID",
+      "channel": "Kanaal",
+      "recipient": "Ontvanger",
+      "subject": "Onderwerp",
+      "sendTime": "Gestuur om"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Is jy seker jy wil \"{id}\" uitvee?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Sjabloonnaam",
+  "templateContent": "Sjablooninhoud",
+  "templateType": "Sjabloontipe",
+  "routeName": "Roetenaam",
+  "routePriority": "Prioriteit",
+  "routeCondition": "Roete-voorwaarde",
+  "preferenceName": "Voorkeur-naam",
+  "dndEnabled": "Moenie-Storen",
+  "dndStart": "Moenie-Storen Begin",
+  "dndEnd": "Moenie-Storen Einde",
   "create": "Skep",
   "edit": "Wysig",
   "delete": "Verwyder",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Is jy seker jy wil \"{id}\" uitvee?",
+  "operationSuccess": "Sukses"
 }

@@ -1,14 +1,14 @@
 {
-  "message": "စာ",
-  "messageList": "စာစာရင်း",
-  "batchSend": "အုပ်စုလိုက်ပို့",
-  "deadLetter": "သောစာအိတ်",
-  "template": "တန်းပလိုက်",
-  "templateList": "တန်းပလိုက်စာရင်း",
-  "notification": "အသိပေးချက်",
-  "notificationList": "အသိပေးချက်စာရင်း",
-  "route": "လမ်းကြောင်း",
-  "routeRule": "လမ်းကြောင်းစည်းမျဉ်း",
-  "preference": "စိတ်ကြိုက်",
-  "messagePreference": "စာစိတ်ကြိုက်"
+  "message": "Message",
+  "messageList": "Message List",
+  "batchSend": "Batch Send",
+  "deadLetter": "Dead Letter",
+  "template": "Template",
+  "templateList": "Template List",
+  "notification": "Notification",
+  "notificationList": "Notification List",
+  "route": "Route",
+  "routeRule": "Route Rule",
+  "preference": "Preference",
+  "messagePreference": "Message Preference"
 }

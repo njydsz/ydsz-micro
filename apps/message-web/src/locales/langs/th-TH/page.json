@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "ข้อความ",
+  "messageList": "รายการข้อความ",
+  "batchSend": "ส่งแบบกลุ่ม",
+  "deadLetter": "ดดเลตเตอร์",
+  "template": "เทมเพลต",
+  "templateList": "รายการเทมเพลต",
+  "notification": "การแจ้งเตือน",
+  "notificationList": "รายการแจ้งเตือน",
+  "route": "เส้นทาง",
+  "routeRule": "กฎเส้นทาง",
+  "preference": "การตั้งค่า",
+  "messagePreference": "การตั้งค่าข้อความ"
 }

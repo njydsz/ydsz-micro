@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Üzenet",
+  "messageList": "Üzenetek listája",
+  "batchSend": "Kötegelt küldés",
+  "deadLetter": "Halott levél",
+  "template": "Sablon",
+  "templateList": "Sablonok listája",
+  "notification": "Értesítés",
+  "notificationList": "Értesítések listája",
+  "route": "Útvonal",
+  "routeRule": "Útvonal szabálya",
+  "preference": "Beállítás",
+  "messagePreference": "Üzenetbeállítások"
 }

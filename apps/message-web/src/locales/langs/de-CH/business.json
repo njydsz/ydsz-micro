@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Nachrichteverwaltig",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Nachrichte-ID",
+      "channel": "Kanal",
+      "recipient": "Empfänger",
+      "subject": "Beträf",
+      "sendTime": "Sendezytpunkt"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Sind Sie sicher, dass Sie \"{id}\" lösche wönd?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Vorlagename",
+  "templateContent": "Vorlageinhalt",
+  "templateType": "Vorlagetyp",
+  "routeName": "Routename",
+  "routePriority": "Priorität",
+  "routeCondition": "Routbedingig",
+  "preferenceName": "Iistelligsname",
+  "dndEnabled": "Nicht störe",
+  "dndStart": "Nicht störe Afang",
+  "dndEnd": "Nicht Störe Ändi",
   "create": "Hinzufügen",
   "edit": "Bearbeiten",
   "delete": "Löschen",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Sind Sie sicher, dass Sie \"{id}\" lösche wönd?",
+  "operationSuccess": "Erfolgriich"
 }

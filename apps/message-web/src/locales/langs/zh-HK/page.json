@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "訊息",
+  "messageList": "訊息清單",
+  "batchSend": "批次發送",
+  "deadLetter": "死信",
+  "template": "模板",
+  "templateList": "模組清單",
+  "notification": "通知",
+  "notificationList": "通知清單",
+  "route": "路由",
+  "routeRule": "路由規則",
+  "preference": "偏好設定",
+  "messagePreference": "訊息偏好設定"
 }

@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "පණිවිඩ කළමනාකරණය",
+    "title": "Message Management",
     "columns": {
-      "id": "පණිවිඩ ID",
-      "channel": "නාලිකාව",
-      "recipient": "ලබන්නා",
-      "subject": "විෂයය",
-      "sendTime": "යැවූ වේලාව"
+      "id": "Message ID",
+      "channel": "Channel",
+      "recipient": "Recipient",
+      "subject": "Subject",
+      "sendTime": "Sent At"
     },
-    "confirmDelete": "ඔබට \"{id}\" මැකීමට අවශ්‍ය බව විශ්වාසද?"
+    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
   },
-  "templateName": "අච්චු නාමය",
-  "templateContent": "අච්චු අන්තර්ගතය",
-  "templateType": "අච්චු වර්ගය",
-  "routeName": "මාර්ග නාමය",
-  "routePriority": "ප්‍රමුඛතාව",
-  "routeCondition": "මාර්ග කොන්දේසි",
-  "preferenceName": "අභිරුචි නාමය",
+  "templateName": "Template Name",
+  "templateContent": "Template Content",
+  "templateType": "Template Type",
+  "routeName": "Route Name",
+  "routePriority": "Priority",
+  "routeCondition": "Condition",
+  "preferenceName": "Preference Name",
   "dndEnabled": "DND",
-  "dndStart": "DND ආරම්භය",
-  "dndEnd": "DND අවසානය",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "ඔබට \"{id}\" මැකීමට අවශ්‍ය බව විශ්වාසද?",
-  "operationSuccess": "සාර්ථකයි"
+  "dndStart": "DND Start",
+  "dndEnd": "DND End",
+  "create": " සාදන්න",
+  "edit": " සංස්කරණය කරන්න",
+  "delete": " මකන්න",
+  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
+  "operationSuccess": "Operation Successful"
 }

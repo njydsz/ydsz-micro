@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Meldingsadministrasjon",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Melding-ID",
+      "channel": "Kanal",
+      "recipient": "Mottaker",
+      "subject": "Emne",
+      "sendTime": "Sendt kl."
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Er du sikker på at du vil slette \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "Malnavn",
+  "templateContent": "Malinnhold",
+  "templateType": "Maltype",
+  "routeName": "Rutenavn",
+  "routePriority": "Prioritet",
+  "routeCondition": "Rutebetingelse",
+  "preferenceName": "Innstillingsnavn",
+  "dndEnabled": "Ikke forstyrr",
+  "dndStart": "Ikke forstyrr Start",
+  "dndEnd": "Ikke forstyrr Stopp",
+  "create": "Opprett",
+  "edit": "Endre",
+  "delete": "Slett",
+  "confirmDelete": "Er du sikker på at du vil slette \"{id}\"?",
+  "operationSuccess": "Vellykket"
 }

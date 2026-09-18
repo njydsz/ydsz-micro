@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Μήνυμα",
+  "messageList": "Λίστα Μηνυμάτων",
+  "batchSend": "Μαζική Αποστολή",
+  "deadLetter": "Νεκρό Γράμμα",
+  "template": "Πρότυπο",
+  "templateList": "Λίστα Προτύπων",
+  "notification": "Ειδοποίηση",
+  "notificationList": "Λίστα Ειδοποιήσεων",
+  "route": "Διαδρομή",
+  "routeRule": "Κανόνας Διαδρομής",
+  "preference": "Προτίμηση",
+  "messagePreference": "Προτίμηση Μηνυμάτων"
 }

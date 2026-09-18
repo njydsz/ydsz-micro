@@ -1,14 +1,14 @@
 {
-  "message": "შეტყობინება",
-  "messageList": "შეტყობინებების სია",
-  "batchSend": "სტატიკური გაგზავნა",
-  "deadLetter": "მკვდარი წერილები",
-  "template": "შაბლონი",
-  "templateList": "შაბლონების სია",
-  "notification": "შეტყობინება",
-  "notificationList": "შეტყობინებების სია",
-  "route": "მარშრუტი",
-  "routeRule": "მარშრუტის წესი",
-  "preference": "პრეფერენცია",
-  "messagePreference": "შეტყობინების პრეფერენცია"
+  "message": "Message",
+  "messageList": "Message List",
+  "batchSend": "Batch Send",
+  "deadLetter": "Dead Letter",
+  "template": "Template",
+  "templateList": "Template List",
+  "notification": "Notification",
+  "notificationList": "Notification List",
+  "route": "Route",
+  "routeRule": "Route Rule",
+  "preference": "Preference",
+  "messagePreference": "Message Preference"
 }

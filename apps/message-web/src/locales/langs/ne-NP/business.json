@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "सन्देश व्यवस्थापन",
+    "title": "Message Management",
     "columns": {
-      "id": "सन्देश ID",
-      "channel": "च्यानल",
-      "recipient": "प्रापक",
-      "subject": "विषय",
-      "sendTime": "पठाएको समय"
+      "id": "Message ID",
+      "channel": "Channel",
+      "recipient": "Recipient",
+      "subject": "Subject",
+      "sendTime": "Sent At"
     },
-    "confirmDelete": "के तपाईं \"{id}\" मेटाउन निश्चित हुनुहुन्छ?"
+    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
   },
-  "templateName": "टेम्पलेट नाम",
-  "templateContent": "टेम्पलेट सामग्री",
-  "templateType": "टेम्पलेट प्रकार",
-  "routeName": "मार्ग नाम",
-  "routePriority": "प्राथमिकता",
-  "routeCondition": "मार्ग सर्त",
-  "preferenceName": "अभिरुचि नाम",
+  "templateName": "Template Name",
+  "templateContent": "Template Content",
+  "templateType": "Template Type",
+  "routeName": "Route Name",
+  "routePriority": "Priority",
+  "routeCondition": "Condition",
+  "preferenceName": "Preference Name",
   "dndEnabled": "DND",
-  "dndStart": "DND सुरु",
-  "dndEnd": "DND अन्त्य",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "के तपाईं \"{id}\" मेटाउन निश्चित हुनुहुन्छ?",
-  "operationSuccess": "सफल भयो"
+  "dndStart": "DND Start",
+  "dndEnd": "DND End",
+  "create": " सिर्जना गर्नुहोस्",
+  "edit": " सम्पादन गर्नुहोस्",
+  "delete": " मेटाउनुहोस्",
+  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
+  "operationSuccess": "Operation Successful"
 }

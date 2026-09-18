@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Beskedsadministration",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "Besked-ID",
+      "channel": "Kanal",
+      "recipient": "Modtager",
+      "subject": "Emne",
+      "sendTime": "Sendt kl."
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Er du sikker på, at du vil slette \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Skabelonnavn",
+  "templateContent": "Skabelonindhold",
+  "templateType": "Skabelontype",
+  "routeName": "Rutenavn",
+  "routePriority": "Prioritet",
+  "routeCondition": "Rutebetingelse",
+  "preferenceName": "Præferencenavn",
+  "dndEnabled": "Forstyr ikke",
+  "dndStart": "Forstyr ikke Start",
+  "dndEnd": "Forstyr ikke Slut",
   "create": "Opret",
   "edit": "Rediger",
   "delete": "Slet",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Er du sikker på, at du vil slette \"{id}\"?",
+  "operationSuccess": "Lykkedes"
 }

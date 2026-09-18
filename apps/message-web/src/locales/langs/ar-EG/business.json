@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "إدارة الرسائل",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "معرف الرسالة",
+      "channel": "القناة",
+      "recipient": "المستلم",
+      "subject": "الموضوع",
+      "sendTime": "وقت الإرسال"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "هل أنت متأكد من حذف \"{id}\"؟"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "اسم القالب",
+  "templateContent": "محتوى القالب",
+  "templateType": "نوع القالب",
+  "routeName": "اسم المسار",
+  "routePriority": "الأولوية",
+  "routeCondition": "شرط المسار",
+  "preferenceName": "اسم التفضيل",
+  "dndEnabled": "عدم الإزعاج",
+  "dndStart": "بدء عدم الإزعاج",
+  "dndEnd": "إنهاء عدم الإزعاج",
   "create": "إضافة",
   "edit": "تعديل",
   "delete": "حذف",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "هل أنت متأكد من حذف \"{id}\"؟",
+  "operationSuccess": "تمت العملية بنجاح"
 }

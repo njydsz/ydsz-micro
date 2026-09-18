@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "መልእክት",
+  "messageList": "የመልእክት ዝርዝር",
+  "batchSend": "የቡድን መላኪያ",
+  "deadLetter": "የሞተ ደብዳቤ",
+  "template": "አብነት",
+  "templateList": "የአብነት ዝርዝር",
+  "notification": "ማሳወቂያ",
+  "notificationList": "የማሳወቂያ ዝርዝር",
+  "route": "መንገድ",
+  "routeRule": "የመንገድ ደንብ",
+  "preference": "ምርጫ",
+  "messagePreference": "የመልእክት ምርጫ"
 }

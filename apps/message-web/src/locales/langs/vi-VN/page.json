@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Tin nhắn",
+  "messageList": "Danh sách Tin nhắn",
+  "batchSend": "Gửi Hàng loạt",
+  "deadLetter": "Thư Chết",
+  "template": "Mẫu",
+  "templateList": "Danh sách Mẫu",
+  "notification": "Thông báo",
+  "notificationList": "Danh sách Thông báo",
+  "route": "Tuyến",
+  "routeRule": "Quy tắc Tuyến",
+  "preference": "Tùy chọn",
+  "messagePreference": "Tùy chọn Tin nhắn"
 }

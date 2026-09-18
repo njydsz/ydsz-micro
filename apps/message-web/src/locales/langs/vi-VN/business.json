@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Quản lý Tin nhắn",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID Tin nhắn",
+      "channel": "Kênh",
+      "recipient": "Người nhận",
+      "subject": "Chủ đề",
+      "sendTime": "Thời gian Gửi"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Bạn có chắc chắn muốn xóa \"{id}\" không?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Tên Mẫu",
+  "templateContent": "Nội dung Mẫu",
+  "templateType": "Loại Mẫu",
+  "routeName": "Tên Tuyến",
+  "routePriority": "Độ ưu tiên",
+  "routeCondition": "Điều kiện Tuyến",
+  "preferenceName": "Tên Tùy chọn",
+  "dndEnabled": "Đừng làm phiền",
+  "dndStart": "Đừng làm phiền Bắt đầu",
+  "dndEnd": "Đừng làm phiền Kết thúc",
   "create": "Thêm mới",
   "edit": "Chỉnh sửa",
   "delete": "Xóa",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Bạn có chắc chắn muốn xóa \"{id}\" không?",
+  "operationSuccess": "Thành công"
 }

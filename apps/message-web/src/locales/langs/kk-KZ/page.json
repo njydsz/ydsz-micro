@@ -1,14 +1,14 @@
 {
-  "message": "Message",
-  "messageList": "Message List",
-  "batchSend": "Batch Send",
-  "deadLetter": "Dead Letter",
-  "template": "Template",
-  "templateList": "Template List",
-  "notification": "Notification",
-  "notificationList": "Notification List",
-  "route": "Route",
-  "routeRule": "Route Rule",
-  "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "message": "Хабарлама",
+  "messageList": "Хабарлар тізімі",
+  "batchSend": "Топтап жіберу",
+  "deadLetter": "Өлі хат",
+  "template": "Үлгі",
+  "templateList": "Үлгілер тізімі",
+  "notification": "Хабарландыру",
+  "notificationList": "Хабарландыру тізімі",
+  "route": "Маршрут",
+  "routeRule": "Маршрут ережесі",
+  "preference": "Таңдау",
+  "messagePreference": "Хабарлама таңдауы"
 }

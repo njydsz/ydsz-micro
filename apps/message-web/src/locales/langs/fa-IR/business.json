@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "مدیریت پیام‌ها",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "شناسه پیام",
+      "channel": "کانال",
+      "recipient": "گیرنده",
+      "subject": "موضوع",
+      "sendTime": "زمان ارسال"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "آیا از حذف \"{id}\" اطمینان دارید؟"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
-  "create": "Add",
-  "edit": "Edit",
-  "delete": "Delete",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "templateName": "نام الگو",
+  "templateContent": "محتوای الگو",
+  "templateType": "نوع الگو",
+  "routeName": "نام مسیر",
+  "routePriority": "اولویت",
+  "routeCondition": "شرط مسیر",
+  "preferenceName": "نام ترجیح",
+  "dndEnabled": "مزاحم نشوید",
+  "dndStart": "شروع مزاحم نشوید",
+  "dndEnd": "پایان مزاحم نشوید",
+  "create": "ایجاد",
+  "edit": "ویرایش",
+  "delete": "حذف",
+  "confirmDelete": "آیا از حذف \"{id}\" اطمینان دارید؟",
+  "operationSuccess": "عملیات موفق"
 }

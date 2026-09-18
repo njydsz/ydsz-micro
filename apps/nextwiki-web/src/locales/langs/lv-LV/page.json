@@ -1,0 +1,14 @@
+{
+  "file": "Failu Pārvaldība",
+  "fileList": "Failu Saraksts",
+  "fileComment": "Failu Komentāri",
+  "share": "Koplietošanas Pārvaldība",
+  "shareList": "Koplietošanas Saraksts",
+  "tag": "Tagu Pārvaldība",
+  "tagList": "Tagu Saraksts",
+  "storage": "Glabātuvju Pārvaldība",
+  "quota": "Glabātuvju Kvota",
+  "analysis": "Glabātuvju Analīze",
+  "aiAssist": "AI Asistents",
+  "search": "Pilna Teksta Meklēšana"
+}

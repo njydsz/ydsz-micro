@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "Управление на съобщения",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "ID на съобщение",
+      "channel": "Канал",
+      "recipient": "Получател",
+      "subject": "Тема",
+      "sendTime": "Време на изпращане"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "Сигурни ли сте, че искате да изтриете \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "Име на шаблон",
+  "templateContent": "Съдържание на шаблон",
+  "templateType": "Тип на шаблон",
+  "routeName": "Име на маршрут",
+  "routePriority": "Приоритет",
+  "routeCondition": "Условие за маршрут",
+  "preferenceName": "Име на предпочитание",
+  "dndEnabled": "Не безпокойте",
+  "dndStart": "Начало на Не безпокойте",
+  "dndEnd": "Край на Не безпокойте",
   "create": "Създаване",
   "edit": "Редактиране",
   "delete": "Изтриване",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "Сигурни ли сте, че искате да изтриете \"{id}\"?",
+  "operationSuccess": "Успешно"
 }

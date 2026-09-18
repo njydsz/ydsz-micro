@@ -1,28 +1,28 @@
 {
   "message": {
-    "title": "Message Management",
+    "title": "ניהול הודעות",
     "columns": {
-      "id": "Message ID",
-      "channel": "Channel",
-      "recipient": "Recipient",
-      "subject": "Subject",
-      "sendTime": "Sent At"
+      "id": "מזהה הודעה",
+      "channel": "ערוץ",
+      "recipient": "נמען",
+      "subject": "נושא",
+      "sendTime": "שעת שליחה"
     },
-    "confirmDelete": "Are you sure you want to delete \"{id}\"?"
+    "confirmDelete": "האם אתה בטוח שברצונך למחוק \"{id}\"?"
   },
-  "templateName": "Template Name",
-  "templateContent": "Template Content",
-  "templateType": "Template Type",
-  "routeName": "Route Name",
-  "routePriority": "Priority",
-  "routeCondition": "Condition",
-  "preferenceName": "Preference Name",
-  "dndEnabled": "DND",
-  "dndStart": "DND Start",
-  "dndEnd": "DND End",
+  "templateName": "שם תבנית",
+  "templateContent": "תוכן תבנית",
+  "templateType": "סוג תבנית",
+  "routeName": "שם נתיב",
+  "routePriority": "עדיפות",
+  "routeCondition": "תנאי נתיב",
+  "preferenceName": "שם העדפה",
+  "dndEnabled": "אל תפריע",
+  "dndStart": "אל תפריע חתימה",
+  "dndEnd": "אל תפריע סיום",
   "create": "יצירה",
   "edit": "עריכה",
   "delete": "מחיקה",
-  "confirmDelete": "Are you sure you want to delete \"{id}\"?",
-  "operationSuccess": "Success"
+  "confirmDelete": "האם אתה בטוח שברצונך למחוק \"{id}\"?",
+  "operationSuccess": "הצלחה"
 }
