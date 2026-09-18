@@ -46,6 +46,10 @@ features:
     title: 智能引擎
     details: 集成 ReAct、RAG、MCP、NL2SQL、Python 沙箱能力，驱动 AI Agent 框架
     link: /engines/agent
+  - icon: 🎨
+    title: UI Kit 组件库
+    details: YDSZ Vue（29 无头组件）+ YDSZ UI（80+ 原子组件 + 30+ 业务组件），双层架构
+    link: /ui-kit/
 ---
 
 <script setup>

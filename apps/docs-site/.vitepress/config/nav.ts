@@ -41,6 +41,14 @@ function generateNav(): NavItem[] {
       activeMatch: '/standards/',
     },
     {
+      text: 'UI Kit',
+      items: [
+        { text: '总览', link: '/ui-kit/' },
+        { text: 'YDSZ Vue（无头层）', link: '/ui-kit/ydsz-vue/' },
+        { text: 'YDSZ UI（业务层）', link: '/ui-kit/ydsz-ui/' },
+      ],
+    },
+    {
       text: '关于',
       items: [
         { text: '架构设计', link: '/architecture/overview' },

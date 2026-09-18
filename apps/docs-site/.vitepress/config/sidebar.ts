@@ -90,6 +90,17 @@ function generateSidebar(): SidebarMulti {
         ],
       },
     ],
+    '/ui-kit': [
+      {
+        text: 'UI Kit',
+        collapsed: false,
+        items: [
+          { text: '总览', link: '/ui-kit/' },
+          { text: 'YDSZ Vue（无头层）', link: '/ui-kit/ydsz-vue/' },
+          { text: 'YDSZ UI（业务层）', link: '/ui-kit/ydsz-ui/' },
+        ],
+      },
+    ],
     '/standards': [
       {
         text: '编码规范',
