@@ -8,7 +8,7 @@
  * @since 5.6.0
  */
 
-import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { useMessage } from './useMessage';
 
@@ -19,7 +19,6 @@ describe('useMessage', () => {
     handler.clear();
   });
 
-describe('useMessage', () => {
   it('应返回所有消息方法', () => {
     const handler = useMessage();
     expect(typeof handler.success).toBe('function');

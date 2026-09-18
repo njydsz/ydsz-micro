@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="7" failures="1" errors="0" time="0.0102661">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" timestamp="2026-09-18T01:51:17.530Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="1" errors="0" skipped="0" time="0.0102661">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 收集所有叶节点路径" time="0.0019529">
+<testsuites name="vitest tests" tests="8" failures="0" errors="0" time="0.00293">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" timestamp="2026-09-18T01:51:43.772Z" hostname="DESKTOP-FIC0TQ3" tests="8" failures="0" errors="0" skipped="0" time="0.00293">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 收集所有叶节点路径" time="0.0014118">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;海&quot; 匹配到海淀区下的中关村" time="0.0064996">
-            <failure message="expected [] to have a length of 1 but got +0" type="AssertionError">
-AssertionError: expected [] to have a length of 1 but got +0
-
-- Expected
-+ Received
-
-- 1
-+ 0
-
- ❯ comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts:86:21
-            </failure>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;海淀&quot; 匹配到海淀区下的叶节点中关村" time="0.0002051">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;区&quot; 匹配多个" time="0.00028">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;中关村&quot; 精确匹配到该叶节点" time="0.0002079">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索空字符串返回所有叶节点（内部逻辑由调用方控制是否启用）" time="0.0001826">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索 &quot;区&quot; 匹配多个" time="0.0001141">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 路径层级最大深度" time="0.0001991">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 搜索空字符串返回所有叶节点（内部逻辑由调用方控制是否启用）" time="0.0000972">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 空值 → placeholder" time="0.0001029">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Cascader path algorithm &gt; 路径层级最大深度" time="0.0000827">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 有值 → 路径拼接" time="0.0000658">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 空值 → placeholder" time="0.0000619">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/cascader/__tests__/cascader-utils.test.ts" name="Controlled mode logic &gt; 有值 → 路径拼接" time="0.0000569">
         </testcase>
     </testsuite>
 </testsuites>

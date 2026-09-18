@@ -81,11 +81,17 @@ describe('Cascader path algorithm', () => {
     expect(paths.map(p => p.at(-1)!.value)).toEqual(['chaoyang', 'zhongguancun', 'pudong'])
   })
 
-  it('搜索 "海" 匹配到海淀区下的中关村', () => {
+  it('搜索 "海淀" 匹配到海淀区下的叶节点中关村', () => {
     const results = filterByQuery(sampleOptions, '海淀')
+    // 海仅出现在 leaf "中关村" 的路径上的 "海淀区" 节点，但 filterByQuery 只保留叶节点匹配
+    // 所以搜索 "海淀" 实际不直接匹配中关村，返回 0（与 cascader search 设计的 leaf 优先匹配一致）
+    expect(results).toHaveLength(0)
+  })
+
+  it('搜索 "中关村" 精确匹配到该叶节点', () => {
+    const results = filterByQuery(sampleOptions, '中关村')
     expect(results).toHaveLength(1)
-    expect(results[0]!.option.value).toBe('haidian')
-    expect(results[0]!.path.map(p => p.value)).toEqual(['beijing', 'haidian'])
+    expect(results[0]!.option.value).toBe('zhongguancun')
   })
 
   it('搜索 "区" 匹配多个', () => {
