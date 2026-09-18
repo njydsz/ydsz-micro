@@ -3,8 +3,18 @@
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\ColumnDef.ts
  * @author ydsz-team
- * @since 4.2.0 (26.09.17 增强：拖拽/显隐/排序/固定)
+ * @since 4.2.0 (26.09.17 增强：拖拽/显隐/排序/固定/筛选)
  */
+
+/** 筛选菜单选项 */
+export interface FilterOption {
+  /** 选项显示文本 */
+  text: string;
+  /** 选项筛选值 */
+  value: string | number | boolean;
+}
+
+/** 表格列内部定义 */
 export interface ColumnDef {
   /** 列类型：index=序号列，selection=多选框，expand=展开行 */
   type?: 'index' | 'selection' | 'expand';
@@ -25,7 +35,7 @@ export interface ColumnDef {
   /** 内容超长省略+tooltip */
   showOverflowTooltip?: boolean;
   /** 格式化函数 */
-  formatter?: (row: any, column: ColumnDef, cellValue: unknown, index: number) => string;
+  formatter?: (row: Record<string, unknown>, column: ColumnDef, cellValue: unknown, index: number) => string;
   /** 是否隐藏（可被列设置面板控制） */
   isHidden?: boolean;
   /** 是否允许用户通过列设置面板隐藏，默认 true */
@@ -36,8 +46,16 @@ export interface ColumnDef {
   isSortable?: boolean;
   /** 当前排序方向（asc / desc / null） */
   sortOrder?: 'asc' | 'desc' | null;
+  /** 排序比较函数（不传则按字典序升序） */
+  sorter?: (a: Record<string, unknown>, b: Record<string, unknown>) => number;
   /** 列拖拽顺序权重（越小越靠前，持久化恢复用） */
   sort?: number;
+  /** 表头筛选菜单选项 */
+  filters?: FilterOption[];
+  /** 筛选谓词（value 为筛选选项值，row 为行数据）；不传则按值相等判定 */
+  filterMethod?: (value: unknown, row: Record<string, unknown>) => boolean;
+  /** 当前筛选值集合（多选筛选） */
+  filterValue?: unknown[];
   /** 源 YdTableColumn 实例 uid（用于定位插槽） */
   _uid?: number;
   /** 多级表头子列（仅在 group 类型时使用） */
