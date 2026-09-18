@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * check-locales.mts — 国际化全语种 key 一致性校验（81 语种门禁）
+ * check-locales.mts — 国际化 key 一致性校验（中英双语门禁）
  *
- * <p>遍历全仓所有语言目录（comm / main / apps/*），以 zh-CN 为基线校验全部
- * 80 个非基外语种的 key 集合一致性。三层校验维度：
+ * <p>遍历全仓所有语言目录（comm / main / apps/*），以 zh-CN 为基线校验
+ * en-US 的 key 集合一致性。三层校验维度：
  * <ol>
- *   <li>目录完整性 — 各 langs 目录下应存在 81 个语种子目录</li>
+ *   <li>目录完整性 — 各 langs 目录下应存在 zh-CN / en-US 两个语种子目录</li>
  *   <li>文件完整性 — 每个语种目录内需包含与基线相同的 JSON 模块文件</li>
  *   <li>Key 一致性 — 每个 JSON 模块的叶子 key 路径集合必须与基线相同</li>
  * </ol>
@@ -32,20 +32,8 @@ const MICRO_ROOT = join(import.meta.dirname, '..');
 /** 基线语种 — 作为 key 集合的事实来源 */
 const BASELINE_LANG = 'zh-CN';
 
-/** 全量语种清单 — 与 SUPPORTED_LANGUAGES 常量及 comm/locales 目录保持同步 */
-const ALL_LANGUAGES = [
-  'af-ZA', 'am-ET', 'ar-EG', 'ar-SA', 'az-AZ', 'bg-BG', 'bn-BD', 'bs-BA',
-  'ca-ES', 'cs-CZ', 'cy-GB', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR',
-  'en-GB', 'en-US', 'es-AR', 'es-ES', 'es-MX', 'et-EE', 'eu-ES', 'fa-IR',
-  'fi-FI', 'fil-PH', 'fr-CA', 'fr-FR', 'gl-ES', 'gu-IN', 'he-IL', 'hi-IN',
-  'hr-HR', 'hu-HU', 'hy-AM', 'id-ID', 'is-IS', 'it-IT', 'ja-JP', 'ka-GE',
-  'kk-KZ', 'km-KH', 'kn-IN', 'ko-KR', 'lo-LA', 'lt-LT', 'lv-LV', 'mk-MK',
-  'ml-IN', 'mn-MN', 'mr-IN', 'ms-MY', 'my-MM', 'nb-NO', 'ne-NP', 'nl-BE',
-  'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'si-LK', 'sk-SK',
-  'sl-SI', 'sq-AL', 'sr-RS', 'sv-SE', 'sw-KE', 'ta-IN', 'te-IN', 'th-TH',
-  'tr-TR', 'uk-UA', 'ur-PK', 'uz-UZ', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW',
-  'zu-ZA',
-];
+/** 全量语种清单 — 与 SUPPORT_LANGUAGES 常量及 comm/locales 目录保持同步 */
+const ALL_LANGUAGES = ['zh-CN', 'en-US'];
 
 /** 需要校验的语种（排除基线自身） */
 const TARGET_LANGUAGES = ALL_LANGUAGES.filter((lang) => lang !== BASELINE_LANG);

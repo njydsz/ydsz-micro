@@ -16,26 +16,18 @@
 import type { ErrorCode } from './types';
 import { ZH_CN_MESSAGES, getZhCnMessage } from './zh-CN';
 import { EN_US_MESSAGES, getEnUsMessage } from './en-US';
-import { JA_JP_MESSAGES, getJaJpMessage } from './ja-JP';
-import { ZH_TW_MESSAGES, getZhTwMessage } from './zh-TW';
 import type { SupportedLanguagesType } from '../typing';
 
 // Re-export for direct use by tests or external tooling
-export { ZH_CN_MESSAGES, EN_US_MESSAGES, JA_JP_MESSAGES, ZH_TW_MESSAGES,
-  getZhCnMessage, getEnUsMessage, getJaJpMessage, getZhTwMessage };
+export { ZH_CN_MESSAGES, EN_US_MESSAGES, getZhCnMessage, getEnUsMessage };
 export type { ErrorCode } from './types';
 
 /**
  * 支持语言与错误码映射表的对应关系。
- *
- * @remarks
- * 当新增语种支持时在此处添加对应映射即可。
  */
 const LOCALE_MESSAGE_MAP: Record<SupportedLanguagesType, Readonly<Partial<Record<ErrorCode, string>>>> = {
   'zh-CN': ZH_CN_MESSAGES,
   'en-US': EN_US_MESSAGES,
-  'ja-JP': JA_JP_MESSAGES,
-  'zh-TW': ZH_TW_MESSAGES,
 };
 
 /**

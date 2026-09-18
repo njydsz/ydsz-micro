@@ -3,6 +3,7 @@ import DefaultTheme from 'vitepress/theme';
 import StatsDashboard from './components/StatsDashboard.vue';
 import ApiStatsPanel from './components/ApiStatsPanel.vue';
 import G6Topology from './components/G6Topology.vue';
+import RedocEmbed from './components/RedocEmbed.vue';
 import './custom.css';
 
 const theme: Theme = {
@@ -11,6 +12,7 @@ const theme: Theme = {
     app.component('StatsDashboard', StatsDashboard);
     app.component('ApiStatsPanel', ApiStatsPanel);
     app.component('G6Topology', G6Topology);
+    app.component('RedocEmbed', RedocEmbed);
   },
 };
 

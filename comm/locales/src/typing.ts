@@ -6,97 +6,12 @@
  * @since 1.0.0
  */
 /**
- * 支持的语种标识。
+ * 支持的语种标识（精简为中英双语）。
  *
- * <p>新增语种需同步：
- * <ol>
- *   <li>在 comm/locales/src/langs/ 下新增对应目录及 JSON 文件（common / authentication / preferences / ui）</li>
- *   <li>在 main/src/setup/app.ts 的 localeOptions 中补充 label</li>
- *   <li>在 preferences.ts 的 localeOptions 中补充 label</li>
- * </ol>
+ * <p>新增语种需同步在 comm/locales/src/langs/ 下新增对应目录及 JSON 文件，
+ * 并在 constants SUPPORT_LANGUAGES 中补充 label。
  */
-export type SupportedLanguagesType =
-  | 'af-ZA'
-  | 'am-ET'
-  | 'ar-SA'
-  | 'ar-EG'
-  | 'az-AZ'
-  | 'bg-BG'
-  | 'bn-BD'
-  | 'bs-BA'
-  | 'ca-ES'
-  | 'cs-CZ'
-  | 'cy-GB'
-  | 'da-DK'
-  | 'de-DE'
-  | 'de-AT'
-  | 'de-CH'
-  | 'el-GR'
-  | 'en-US'
-  | 'en-GB'
-  | 'es-ES'
-  | 'es-MX'
-  | 'es-AR'
-  | 'et-EE'
-  | 'eu-ES'
-  | 'fa-IR'
-  | 'fi-FI'
-  | 'fil-PH'
-  | 'fr-FR'
-  | 'fr-CA'
-  | 'gl-ES'
-  | 'gu-IN'
-  | 'he-IL'
-  | 'hi-IN'
-  | 'hr-HR'
-  | 'hu-HU'
-  | 'hy-AM'
-  | 'id-ID'
-  | 'is-IS'
-  | 'it-IT'
-  | 'ja-JP'
-  | 'ka-GE'
-  | 'kk-KZ'
-  | 'km-KH'
-  | 'kn-IN'
-  | 'ko-KR'
-  | 'lo-LA'
-  | 'lt-LT'
-  | 'lv-LV'
-  | 'mk-MK'
-  | 'ml-IN'
-  | 'mn-MN'
-  | 'mr-IN'
-  | 'ms-MY'
-  | 'my-MM'
-  | 'nb-NO'
-  | 'ne-NP'
-  | 'nl-NL'
-  | 'nl-BE'
-  | 'pl-PL'
-  | 'pt-BR'
-  | 'pt-PT'
-  | 'ro-RO'
-  | 'ru-RU'
-  | 'si-LK'
-  | 'sk-SK'
-  | 'sl-SI'
-  | 'sq-AL'
-  | 'sr-RS'
-  | 'sv-SE'
-  | 'sw-KE'
-  | 'ta-IN'
-  | 'te-IN'
-  | 'th-TH'
-  | 'tr-TR'
-  | 'uk-UA'
-  | 'ur-PK'
-  | 'uz-UZ'
-  | 'vi-VN'
-  | 'zh-CN'
-  | 'zh-TW'
-  | 'zh-HK'
-  | 'zu-ZA';
+export type SupportedLanguagesType = 'zh-CN' | 'en-US';
 
 /**
  * 语言包的动态导入函数。
