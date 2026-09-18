@@ -4,6 +4,7 @@
  * P1-2.3: 组件文档化 — YdInput 组件交互式文档
  *
  * <p>P1-6: 新增尺寸档位 Stories（xs / sm / default / lg）。
+ * <p>5.6.0: 新增 clearable / prefix / suffix / showCount / disabled / readonly Stories。
  *
  * @path comm/@core/ui-kit/ydsz-ui/src/ui/input/YdInput.stories.ts
  * @author ydsz-team
@@ -36,11 +37,32 @@ const meta: Meta<typeof YdInput> = {
       control: 'text',
       description: '绑定值',
     },
+    isClearable: {
+      control: 'boolean',
+      description: '是否显示清空按钮',
+    },
+    isShowCount: {
+      control: 'boolean',
+      description: '是否显示字符计数',
+    },
+    disabled: {
+      control: 'boolean',
+      description: '禁用状态',
+    },
+    readonly: {
+      control: 'boolean',
+      description: '只读状态',
+    },
+    maxlength: {
+      control: 'number',
+      description: '最大输入长度',
+    },
   },
   parameters: {
     docs: {
       description: {
-        component: '输入框组件用于接收用户文本输入，支持 4 档尺寸（xs/sm/default/lg）、多种类型和状态。',
+        component:
+          '输入框组件用于接收用户文本输入，支持 4 档尺寸（xs/sm/default/lg）、clearable、prefix/suffix、字符计数与状态控制。',
       },
     },
   },
@@ -203,6 +225,73 @@ export const AllSizes: Story = {
         <YdInput size="sm" placeholder="sm" style="width: 120px;" />
         <YdInput size="default" placeholder="default" style="width: 140px;" />
         <YdInput size="lg" placeholder="lg" style="width: 160px;" />
+      </div>
+    `,
+  }),
+};
+
+/** 带清空按钮 */
+export const Clearable: Story = {
+  render: (args) => ({
+    components: { YdInput },
+    setup() {
+      return { args };
+    },
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+  }),
+  args: {
+    isClearable: true,
+    placeholder: '输入后可清空...',
+    modelValue: '示例文本',
+  },
+};
+
+/** 带前置/后置内容（prefix + suffix） */
+export const PrefixSuffix: Story = {
+  render: () => ({
+    components: { YdInput },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 12px; width: 300px;">
+        <YdInput placeholder="请输入金额">
+          <template #prefix>￥</template>
+          <template #suffix>元</template>
+        </YdInput>
+        <YdInput placeholder="请输入网址">
+          <template #prefix>https://</template>
+        </YdInput>
+        <YdInput placeholder="搜索" is-clearable>
+          <template #suffix>搜索</template>
+        </YdInput>
+      </div>
+    `,
+  }),
+};
+
+/** 字符计数（maxlength + showCount） */
+export const ShowCount: Story = {
+  render: (args) => ({
+    components: { YdInput },
+    setup() {
+      return { args };
+    },
+    template: '<YdInput v-bind="args" v-model="args.modelValue" style="width: 300px;" />',
+  }),
+  args: {
+    maxlength: 20,
+    isShowCount: true,
+    placeholder: '最多输入 20 字',
+    modelValue: '已输入内容',
+  },
+};
+
+/** 禁用与只读状态 */
+export const DisabledReadonly: Story = {
+  render: () => ({
+    components: { YdInput },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 12px; width: 300px;">
+        <YdInput modelValue="禁用状态" disabled placeholder="禁用" />
+        <YdInput modelValue="只读状态" readonly placeholder="只读" />
       </div>
     `,
   }),
