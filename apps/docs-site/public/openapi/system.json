@@ -1,0 +1,42 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "YDSZ 系统引擎 API",
+    "description": "系统引擎（ydsz-system）— 平台参数管理、数据字典维护、多租户上下文分发、全局搜索聚合",
+    "version": "26.09.18",
+    "contact": { "name": "YDSZ Team" }
+  },
+  "servers": [{ "url": "http://localhost:9001", "description": "本地开发环境" }],
+  "paths": {
+    "/system/config": {
+      "get": {
+        "tags": ["系统参数"],
+        "summary": "查询系统参数列表",
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "size", "in": "query", "schema": { "type": "integer", "default": 20 } },
+          { "name": "key", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "成功" } }
+      },
+      "post": {
+        "tags": ["系统参数"],
+        "summary": "新增系统参数",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object" } } } },
+        "responses": { "200": { "description": "成功" } }
+      }
+    },
+    "/system/dict/type": {
+      "get": { "tags": ["字典类型"], "summary": "查询字典类型列表", "responses": { "200": { "description": "成功" } } }
+    },
+    "/system/dict/item": {
+      "get": { "tags": ["字典项"], "summary": "查询字典项列表", "responses": { "200": { "description": "成功" } } }
+    },
+    "/system/tenant/accessible": {
+      "get": { "tags": ["多租户"], "summary": "获取当前用户可访问的租户列表", "responses": { "200": { "description": "成功" } }
+    },
+    "/system/search": {
+      "get": { "tags": ["全局搜索"], "summary": "全局搜索聚合", "responses": { "200": { "description": "成功" } }
+    }
+  }
+}

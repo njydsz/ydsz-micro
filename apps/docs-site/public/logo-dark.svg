@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <defs>
+    <linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4d94ff"/>
+      <stop offset="100%" stop-color="#00e0b8"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="8" width="24" height="24" rx="6" fill="url(#dg)"/>
+  <text x="12" y="26" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="#fff">Y</text>
+  <text x="34" y="26" font-family="'Segoe UI',Arial,sans-serif" font-size="18" font-weight="700" fill="#e8e8f0">YDSZ</text>
+</svg>
