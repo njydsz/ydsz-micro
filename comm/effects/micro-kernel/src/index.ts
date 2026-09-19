@@ -88,8 +88,6 @@ export {
   hasCssContainment,
 } from "./css-containment";
 export type { ContainmentConfig, ContainmentLevel } from "./css-containment";
-export { createIframeSandbox } from "./iframe-sandbox";
-export type { IframeSandboxInstance } from "./iframe-sandbox";
 export { createKernel } from "./kernel";
 export {
   createCanaryManager,

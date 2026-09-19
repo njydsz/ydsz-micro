@@ -20,6 +20,7 @@
   "dependencies": {
     "@tanstack/vue-virtual": "catalog:",
     "@vueuse/core": "catalog:",
+    "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz/common-ui": "workspace:*",
@@ -28,6 +29,7 @@
     "@ydsz/plugins": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "@ydsz/types": "workspace:*",
+    "lucide-vue-next": "catalog:",
     "vue": "^3.4.0",
     "vue-i18n": "catalog:",
     "xlsx": "catalog:"

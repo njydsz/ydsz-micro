@@ -35,6 +35,7 @@
   "dependencies": {
     "@ydsz-core/shared": "workspace:*",
     "@ydsz/constants": "workspace:*",
+    "@ydsz/micro-kernel": "workspace:*",
     "@ydsz/stores": "workspace:*",
     "vue": "catalog:"
   },

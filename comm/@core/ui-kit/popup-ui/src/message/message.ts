@@ -15,6 +15,7 @@
 import type { Component } from 'vue';
 
 import { computed, h, ref, render } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 
 import YdMessageHost from './YdMessageHost.vue';
 
@@ -66,7 +67,7 @@ const TYPE_ORDER: Record<MessageType, number> = {
 let seed = 0;
 
 /** 模块级消息实例注册表：宿主席组件订阅它完成渲染 */
-export const messageList = ref<MessageItem[]>([]);
+export const messageList: Ref<MessageItem[]> = ref<MessageItem[]>([]);
 
 /** id → 自动关闭计时器句柄，用于去重复用时重置计时 */
 const autoCloseTimers = new Map<string, ReturnType<typeof setTimeout>>();
@@ -76,7 +77,7 @@ const autoCloseTimers = new Map<string, ReturnType<typeof setTimeout>>();
  *
  * 抽成 computed 而非在宿主席内排序，方便单测直接断言顺序。
  */
-export const sortedMessages = computed(() => {
+export const sortedMessages: ComputedRef<MessageItem[]> = computed(() => {
   return [...messageList.value].sort((a, b) => {
     const rankDiff = TYPE_ORDER[a.type ?? 'info'] - TYPE_ORDER[b.type ?? 'info'];
     return rankDiff !== 0 ? rankDiff : 0;

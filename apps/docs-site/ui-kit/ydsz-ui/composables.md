@@ -4,7 +4,7 @@
 
 ---
 
-## useTableData<T>
+## useTableData\<T\>
 
 表格数据分页、排序、筛选、选择、展开全功能封装。
 
@@ -80,7 +80,7 @@ interface StoredColumnConfig {
 
 ---
 
-## useColumnDrag<T>
+## useColumnDrag\<T\>
 
 表格列拖拽排序。
 
@@ -112,7 +112,7 @@ interface ColumnDragState { isDragging: boolean; fromIndex: number; toIndex: num
 
 ---
 
-## useVirtualList<T>
+## useVirtualList\<T\>
 
 虚拟滚动列表，大数据量流畅渲染。
 

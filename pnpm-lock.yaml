@@ -860,6 +860,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/popup-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
@@ -945,6 +948,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/popup-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
@@ -1221,6 +1227,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/popup-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
@@ -1312,6 +1321,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../comm/@core/ui-kit/popup-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../comm/@core/base/shared
@@ -2042,6 +2054,9 @@ importers:
       json-bigint:
         specifier: 'catalog:'
         version: 1.0.0
+      lucide-vue-next:
+        specifier: 'catalog:'
+        version: 0.507.0(vue@3.5.40(typescript@5.9.3))
       qrcode:
         specifier: 'catalog:'
         version: 1.5.4
@@ -2191,6 +2206,9 @@ importers:
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
+      '@ydsz/micro-kernel':
+        specifier: workspace:*
+        version: link:../micro-kernel
       '@ydsz/stores':
         specifier: workspace:*
         version: link:../../stores
@@ -2398,6 +2416,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/popup-ui':
+        specifier: workspace:*
+        version: link:../../@core/ui-kit/popup-ui
       '@ydsz-core/shared':
         specifier: workspace:*
         version: link:../../@core/base/shared
@@ -2422,6 +2443,9 @@ importers:
       '@ydsz/types':
         specifier: workspace:*
         version: link:../../types
+      lucide-vue-next:
+        specifier: 'catalog:'
+        version: 0.507.0(vue@3.5.40(typescript@5.9.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)

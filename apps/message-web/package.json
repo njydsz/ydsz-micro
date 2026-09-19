@@ -34,6 +34,7 @@
     "@ydsz/stores": "workspace:*",
     "@ydsz/styles": "workspace:*",
     "@ydsz/types": "workspace:*",
+    "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz/utils": "workspace:*",
     "@ydsz-core/ydsz-ui": "workspace:*",
     "dayjs": "catalog:",

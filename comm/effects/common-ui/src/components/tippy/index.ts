@@ -17,7 +17,7 @@ import { setDefaultProps, YdTippy as TippyComponent } from 'vue-tippy';
 
 import { usePreferences } from '@ydsz-core/preferences';
 
-import useTippyDirective from './directive';
+import useTippyDirective from './yd-tippy';
 
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/dist/backdrop.css';

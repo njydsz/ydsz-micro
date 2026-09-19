@@ -1,7 +1,7 @@
 # 八大引擎拓扑
 
 <script setup>
-import G6Topology from '../../.vitepress/theme/components/G6Topology.vue';
+import G6Topology from '../.vitepress/theme/components/G6Topology.vue';
 </script>
 
 ## 交互式拓扑

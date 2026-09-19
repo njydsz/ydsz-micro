@@ -128,7 +128,7 @@ async function handleSearch(): Promise<void> {
   await loadDependencyData();
 }
 
-function showAddDialog(): void {
+async function showAddDialog(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
     await YdAlert({ content: '请先搜索目标规则后再添加依赖', title: '提示', icon: 'warning', confirmText: '确定' });
     return;

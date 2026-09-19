@@ -574,7 +574,7 @@
 
 ## Tree 树形组件
 
-### TreeRoot (generic `<T, U>`)
+### TreeRoot (generic \`\<T, U\>\`)
 
 | 属性 | 类型 | 默认值 | 必填 |
 |------|------|--------|------|
@@ -591,7 +591,7 @@
 - **Emits**: `update:modelValue`, `update:expanded`
 - **Slots**: `default` `({ flattenItems, modelValue, expanded })`
 
-### TreeItem (generic `<T>`)
+### TreeItem (generic \`\<T\>\`)
 
 | 属性 | 类型 | 必填 |
 |------|------|------|

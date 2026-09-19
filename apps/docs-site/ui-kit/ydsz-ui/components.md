@@ -303,7 +303,7 @@ Logo 组件，支持主题适配、尺寸变体。
 
 内部状态管理 composables，需要在业务组件中组合使用。
 
-### useSelectHeadless<T>
+### useSelectHeadless\<T\>
 
 选择器逻辑抽象。
 
@@ -335,7 +335,7 @@ function useSelectHeadless<T>(options: UseSelectHeadlessOptions<T>): SelectHeadl
 
 ---
 
-### useTreeHeadless<T>
+### useTreeHeadless\<T\>
 
 树形组件逻辑抽象。
 
@@ -368,7 +368,7 @@ function useTreeHeadless<T>(options: UseTreeHeadlessOptions<T>): TreeHeadlessHan
 
 ---
 
-### useTreeDrag<T>
+### useTreeDrag\<T\>
 
 树形拖拽排序逻辑。
 

@@ -27,7 +27,7 @@ YDSZ 编码规范覆盖前后端全部代码产出，由 Checkstyle + ESLint + A
 
 ## 规范来源
 
-规范正文：[D:\Code\open\ydsz-cloud\docs\云顶编码规范.md](/D:/Code/open/ydsz-cloud/docs/云顶编码规范.md)
+规范正文：`D:\Code\open\ydsz-cloud\docs\云顶编码规范.md`
 
 AI 规则源：`D:\Code\open\ydsz-cloud\docs\ai-rules\shared-rules.yaml`
 
