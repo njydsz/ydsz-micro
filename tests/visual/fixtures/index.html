@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ydsz-ui 视觉回归 Fixture</title>
+    <style>
+      /* 视觉回归样式 — 复现 ydsz-ui 设计令牌（与 variables.css 对齐） */
+      :root {
+        --ydsz-color-brand-500: 222 47% 44%;
+        --ydsz-color-brand-600: 222 47% 31%;
+        --ydsz-color-primary: hsl(222 47% 44%);
+        --ydsz-color-primary-hover: hsl(222 47% 56%);
+        --ydsz-color-text: #1a1a1a;
+        --ydsz-color-text-secondary: #666;
+        --ydsz-color-bg: #fff;
+        --ydsz-color-bg-hover: #f5f5f5;
+        --ydsz-color-bg-secondary: #fafafa;
+        --ydsz-color-border: #d9d9d9;
+        --ydsz-color-border-light: #f0f0f0;
+        --ydsz-color-danger: #ff4d4f;
+        --ydsz-color-success: #52c41a;
+        --ydsz-color-warning: #faad14;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 1.5rem; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ydsz-color-text); background: var(--ydsz-color-bg); }
+      main { max-width: 960px; margin: 0 auto; }
+      section { margin-bottom: 1.5rem; border: 1px solid var(--ydsz-color-border-light); border-radius: 8px; padding: 1.25rem; }
+      h1 { font-size: 1.25rem; margin: 0 0 1rem; font-weight: 600; }
+      h2 { font-size: 1rem; margin: 0 0 0.75rem; font-weight: 600; }
+
+      /* Button */
+      .vrs-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 6px; font-size: 14px; line-height: 22px; cursor: pointer; border: 1px solid var(--ydsz-color-border); background: var(--ydsz-color-bg); transition: all 0.15s; }
+      .vrs-btn--primary { background: var(--ydsz-color-primary); color: #fff; border-color: var(--ydsz-color-primary); }
+      .vrs-btn--danger { background: var(--ydsz-color-danger); color: #fff; border-color: var(--ydsz-color-danger); }
+      .vrs-btn--ghost { background: transparent; border-color: transparent; }
+      .vrs-btn--icon { padding: 6px; min-width: 32px; justify-content: center; }
+
+      /* Input */
+      .vrs-input { padding: 6px 12px; border: 1px solid var(--ydsz-color-border); border-radius: 6px; font-size: 14px; line-height: 22px; outline: none; width: 100%; }
+      .vrs-input:focus { border-color: var(--ydsz-color-primary); }
+      .vrs-field { margin-bottom: 12px; }
+      .vrs-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+
+      /* Select */
+      .vrs-select { padding: 6px 12px; border: 1px solid var(--ydsz-color-border); border-radius: 6px; font-size: 14px; width: 100%; }
+
+      /* Table */
+      .vrs-table { width: 100%; border-collapse: collapse; }
+      .vrs-table th, .vrs-table td { padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--ydsz-color-border-light); font-size: 14px; }
+      .vrs-table th { background: var(--ydsz-color-bg-secondary); font-weight: 600; }
+
+      /* Card */
+      .vrs-card { border: 1px solid var(--ydsz-color-border-light); border-radius: 8px; padding: 16px; }
+      .vrs-card__title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+      .vrs-card__body { font-size: 13px; color: var(--ydsz-color-text-secondary); }
+
+      /* Badge */
+      .vrs-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 12px; font-size: 12px; line-height: 18px; }
+      .vrs-badge--success { background: hsl(142 71% 93%); color: hsl(142 71% 28%); }
+      .vrs-badge--warning { background: hsl(38 92% 93%); color: hsl(38 92% 32%); }
+      .vrs-badge--danger { background: hsl(0 84% 94%); color: hsl(0 84% 48%); }
+
+      /* Tag */
+      .vrs-tag { display: inline-flex; align-items: center; padding: 0 8px; border-radius: 4px; font-size: 12px; line-height: 22px; border: 1px solid var(--ydsz-color-border-light); }
+
+      /* Alert */
+      .vrs-alert { padding: 10px 16px; border-radius: 6px; font-size: 14px; border: 1px solid; }
+      .vrs-alert--info { background: hsl(222 47% 97%); border-color: hsl(222 47% 84%); color: hsl(222 47% 22%); }
+      .vrs-alert--success { background: hsl(142 71% 97%); border-color: hsl(142 71% 84%); color: hsl(142 71% 28%); }
+      .vrs-alert--warning { background: hsl(38 92% 97%); border-color: hsl(38 92% 84%); color: hsl(38 92% 32%); }
+      .vrs-alert--error { background: hsl(0 84% 97%); border-color: hsl(0 84% 86%); color: hsl(0 84% 48%); }
+
+      /* Dialog (模拟打开态) */
+      .vrs-dialog { border: 1px solid var(--ydsz-color-border); border-radius: 12px; padding: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); max-width: 400px; }
+      .vrs-dialog__title { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+      .vrs-dialog__footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+
+      [data-visual-fixture="ready"] { outline: none; }
+      .a11y-vhidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+    </style>
+  </head>
+  <body>
+    <main id="visual-fixture" data-visual-fixture="ready">
+      <h1>ydsz-ui 视觉回归 Fixture</h1>
+
+      <!-- Button 系列 -->
+      <section data-vrs-testid="vrs-button" aria-label="Button 组件">
+        <h2>Button</h2>
+        <button class="vrs-btn vrs-btn--primary" type="button">主要按钮</button>
+        <button class="vrs-btn" type="button">次要按钮</button>
+        <button class="vrs-btn vrs-btn--danger" type="button">危险</button>
+        <button class="vrs-btn vrs-btn--ghost" type="button">幽灵</button>
+        <button class="vrs-btn vrs-btn--icon" type="button" aria-label="关闭">&times;</button>
+      </section>
+
+      <!-- Input + Label -->
+      <section data-vrs-testid="vrs-input" aria-label="Input 组件">
+        <h2>Input</h2>
+        <div class="vrs-field">
+          <label class="vrs-label" for="vrs-input-username">用户名</label>
+          <input class="vrs-input" id="vrs-input-username" type="text" placeholder="请输入用户名" />
+        </div>
+        <div class="vrs-field">
+          <label class="vrs-label" for="vrs-input-disabled">禁用输入</label>
+          <input class="vrs-input" id="vrs-input-disabled" type="text" placeholder="已禁用" disabled />
+        </div>
+      </section>
+
+      <!-- Select -->
+      <section data-vrs-testid="vrs-select" aria-label="Select 组件">
+        <h2>Select</h2>
+        <div class="vrs-field">
+          <label class="vrs-label" for="vrs-select-agent">Agent 类型</label>
+          <select class="vrs-select" id="vrs-select-agent">
+            <option value="chat">对话型</option>
+            <option value="task">任务型</option>
+            <option value="tool">工具型</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Table -->
+      <section data-vrs-testid="vrs-table" aria-label="Table 组件">
+        <h2>Table</h2>
+        <table class="vrs-table" aria-label="Agent 列表">
+          <caption class="a11y-vhidden">Agent 列表（示例数据）</caption>
+          <thead>
+            <tr><th scope="col">编码</th><th scope="col">名称</th><th scope="col">类型</th><th scope="col">状态</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>agent-001</td><td>客服助手</td><td>对话型</td><td><span class="vrs-badge vrs-badge--success">已启用</span></td></tr>
+            <tr><td>agent-002</td><td>工单分配</td><td>任务型</td><td><span class="vrs-badge vrs-badge--warning">维护中</span></td></tr>
+            <tr><td>agent-003</td><td>知识检索</td><td>工具型</td><td><span class="vrs-badge vrs-badge--danger">已停用</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Card + Badge + Tag -->
+      <section data-vrs-testid="vrs-card" aria-label="Card 组件">
+        <h2>Card / Badge / Tag</h2>
+        <div class="vrs-card">
+          <div class="vrs-card__title">Agent 定义</div>
+          <div class="vrs-card__body">处理常见问答的智能体定义，支持多轮对话和上下文记忆。</div>
+        </div>
+        <div style="margin-top: 12px;">
+          <span class="vrs-badge vrs-badge--success">已启用</span>
+          <span class="vrs-badge vrs-badge--warning">维护中</span>
+          <span class="vrs-tag">AI</span>
+        </div>
+      </section>
+
+      <!-- Alert -->
+      <section data-vrs-testid="vrs-alert" aria-label="Alert 组件">
+        <h2>Alert</h2>
+        <div class="vrs-alert vrs-alert--info">信息提示：Agent 定义支持热加载。</div>
+        <div class="vrs-alert vrs-alert--success" style="margin-top:8px;">成功：Agent 定义已保存。</div>
+        <div class="vrs-alert vrs-alert--warning" style="margin-top:8px;">警告：当前版本存在已知兼容问题。</div>
+        <div class="vrs-alert vrs-alert--error" style="margin-top:8px;">错误：Agent 编码已存在。</div>
+      </section>
+
+      <!-- Dialog (模拟打开态) -->
+      <section data-vrs-testid="vrs-dialog" aria-label="Dialog 组件">
+        <h2>Dialog</h2>
+        <div class="vrs-dialog" role="dialog" aria-modal="true" aria-labelledby="vrs-dialog-title">
+          <div class="vrs-dialog__title" id="vrs-dialog-title">创建 Agent 定义</div>
+          <div class="vrs-field">
+            <label class="vrs-label" for="vrs-dialog-name">Agent 名称</label>
+            <input class="vrs-input" id="vrs-dialog-name" type="text" />
+          </div>
+          <div class="vrs-field">
+            <label class="vrs-label" for="vrs-dialog-code">Agent 编码</label>
+            <input class="vrs-input" id="vrs-dialog-code" type="text" />
+          </div>
+          <div class="vrs-dialog__footer">
+            <button class="vrs-btn" type="button">取消</button>
+            <button class="vrs-btn vrs-btn--primary" type="button">保存</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

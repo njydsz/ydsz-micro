@@ -94,7 +94,10 @@
     "test:coverage": "vitest run --config vitest.config.ts --coverage",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test --config=playwright.config.ts",
-    "test:a11y:install": "playwright install chromium"
+    "test:a11y:install": "playwright install chromium",
+    "test:visual": "playwright test --config=playwright.visual.config.ts",
+    "test:visual:update": "playwright test --config=playwright.visual.config.ts --update-snapshots",
+    "test:visual:install": "playwright install chromium"
   },
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
