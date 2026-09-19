@@ -1,0 +1,431 @@
+{
+  "primitive": {
+    "brand": {
+      "50": {
+        "$value": "#7993cf",
+        "$type": "color",
+        "$description": "brand 50"
+      },
+      "100": {
+        "$value": "#607fc6",
+        "$type": "color",
+        "$description": "brand 100"
+      },
+      "200": {
+        "$value": "#3c5ca6",
+        "$type": "color",
+        "$description": "brand 200"
+      },
+      "300": {
+        "$value": "#2a4074",
+        "$type": "color",
+        "$description": "brand 300"
+      },
+      "400": {
+        "$value": "#2a4074",
+        "$type": "color",
+        "$description": "brand 400"
+      },
+      "500": {
+        "$value": "#2a4074",
+        "$type": "color",
+        "$description": "brand 500"
+      },
+      "600": {
+        "$value": "#1b294b",
+        "$type": "color",
+        "$description": "brand 600"
+      },
+      "700": {
+        "$value": "#1b294b",
+        "$type": "color",
+        "$description": "brand 700"
+      }
+    },
+    "success": {
+      "50": {
+        "$value": "#a1efbd",
+        "$type": "color",
+        "$description": "success 50"
+      },
+      "100": {
+        "$value": "#83eaa9",
+        "$type": "color",
+        "$description": "success 100"
+      },
+      "200": {
+        "$value": "#49e081",
+        "$type": "color",
+        "$description": "success 200"
+      },
+      "300": {
+        "$value": "#21c45d",
+        "$type": "color",
+        "$description": "success 300"
+      },
+      "400": {
+        "$value": "#21c45d",
+        "$type": "color",
+        "$description": "success 400"
+      },
+      "500": {
+        "$value": "#21c45d",
+        "$type": "color",
+        "$description": "success 500"
+      },
+      "600": {
+        "$value": "#188e43",
+        "$type": "color",
+        "$description": "success 600"
+      },
+      "700": {
+        "$value": "#0f5729",
+        "$type": "color",
+        "$description": "success 700"
+      }
+    },
+    "warning": {
+      "50": {
+        "$value": "#fcdfad",
+        "$type": "color",
+        "$description": "warning 50"
+      },
+      "100": {
+        "$value": "#fad28d",
+        "$type": "color",
+        "$description": "warning 100"
+      },
+      "200": {
+        "$value": "#f8b84b",
+        "$type": "color",
+        "$description": "warning 200"
+      },
+      "300": {
+        "$value": "#f59f0a",
+        "$type": "color",
+        "$description": "warning 300"
+      },
+      "400": {
+        "$value": "#f59f0a",
+        "$type": "color",
+        "$description": "warning 400"
+      },
+      "500": {
+        "$value": "#f59f0a",
+        "$type": "color",
+        "$description": "warning 500"
+      },
+      "600": {
+        "$value": "#b87708",
+        "$type": "color",
+        "$description": "warning 600"
+      },
+      "700": {
+        "$value": "#7a4f05",
+        "$type": "color",
+        "$description": "warning 700"
+      }
+    },
+    "destructive": {
+      "50": {
+        "$value": "#fce0e0",
+        "$type": "color",
+        "$description": "destructive 50"
+      },
+      "100": {
+        "$value": "#fac0c0",
+        "$type": "color",
+        "$description": "destructive 100"
+      },
+      "200": {
+        "$value": "#f48282",
+        "$type": "color",
+        "$description": "destructive 200"
+      },
+      "300": {
+        "$value": "#ef4343",
+        "$type": "color",
+        "$description": "destructive 300"
+      },
+      "400": {
+        "$value": "#ef4343",
+        "$type": "color",
+        "$description": "destructive 400"
+      },
+      "500": {
+        "$value": "#ef4343",
+        "$type": "color",
+        "$description": "destructive 500"
+      },
+      "600": {
+        "$value": "#df1313",
+        "$type": "color",
+        "$description": "destructive 600"
+      },
+      "700": {
+        "$value": "#a40e0e",
+        "$type": "color",
+        "$description": "destructive 700"
+      }
+    },
+    "neutral": {
+      "50": {
+        "$value": "#989fb0",
+        "$type": "color",
+        "$description": "neutral 50"
+      },
+      "100": {
+        "$value": "#858da1",
+        "$type": "color",
+        "$description": "neutral 100"
+      },
+      "200": {
+        "$value": "#626b80",
+        "$type": "color",
+        "$description": "neutral 200"
+      },
+      "300": {
+        "$value": "#454b59",
+        "$type": "color",
+        "$description": "neutral 300"
+      },
+      "400": {
+        "$value": "#454b59",
+        "$type": "color",
+        "$description": "neutral 400"
+      },
+      "500": {
+        "$value": "#454b59",
+        "$type": "color",
+        "$description": "neutral 500"
+      },
+      "600": {
+        "$value": "#2c303a",
+        "$type": "color",
+        "$description": "neutral 600"
+      },
+      "700": {
+        "$value": "#2c303a",
+        "$type": "color",
+        "$description": "neutral 700"
+      }
+    }
+  },
+  "spacing": {
+    "spacing": {
+      "xxs": {
+        "$value": "0.25rem",
+        "$type": "dimension",
+        "$description": "Spacing xxs"
+      },
+      "xs": {
+        "$value": "0.5rem",
+        "$type": "dimension",
+        "$description": "Spacing xs"
+      },
+      "sm": {
+        "$value": "0.75rem",
+        "$type": "dimension",
+        "$description": "Spacing sm"
+      },
+      "md": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Spacing md"
+      },
+      "lg20": {
+        "$value": "1.25rem",
+        "$type": "dimension",
+        "$description": "Spacing lg20"
+      },
+      "lg": {
+        "$value": "1.5rem",
+        "$type": "dimension",
+        "$description": "Spacing lg"
+      },
+      "xl": {
+        "$value": "2rem",
+        "$type": "dimension",
+        "$description": "Spacing xl"
+      },
+      "2xl": {
+        "$value": "2.5rem",
+        "$type": "dimension",
+        "$description": "Spacing 2xl"
+      },
+      "3xl": {
+        "$value": "3rem",
+        "$type": "dimension",
+        "$description": "Spacing 3xl"
+      },
+      "4xl": {
+        "$value": "4rem",
+        "$type": "dimension",
+        "$description": "Spacing 4xl"
+      }
+    }
+  },
+  "border-radius": {
+    "borderRadius": {
+      "xs": {
+        "$value": "0.125rem",
+        "$type": "dimension",
+        "$description": "Border radius xs"
+      },
+      "sm": {
+        "$value": "0.25rem",
+        "$type": "dimension",
+        "$description": "Border radius sm"
+      },
+      "md": {
+        "$value": "0.375rem",
+        "$type": "dimension",
+        "$description": "Border radius md"
+      },
+      "lg": {
+        "$value": "0.5rem",
+        "$type": "dimension",
+        "$description": "Border radius lg"
+      },
+      "xl": {
+        "$value": "0.75rem",
+        "$type": "dimension",
+        "$description": "Border radius xl"
+      },
+      "2xl": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Border radius 2xl"
+      },
+      "full": {
+        "$value": "9999px",
+        "$type": "dimension",
+        "$description": "Border radius full"
+      }
+    }
+  },
+  "font-size": {
+    "fontSize": {
+      "2xs": {
+        "$value": "0.625rem",
+        "$type": "dimension",
+        "$description": "Font size 2xs"
+      },
+      "xs": {
+        "$value": "0.75rem",
+        "$type": "dimension",
+        "$description": "Font size xs"
+      },
+      "sm": {
+        "$value": "0.875rem",
+        "$type": "dimension",
+        "$description": "Font size sm"
+      },
+      "base": {
+        "$value": "1rem",
+        "$type": "dimension",
+        "$description": "Font size base"
+      },
+      "lg": {
+        "$value": "1.25rem",
+        "$type": "dimension",
+        "$description": "Font size lg"
+      },
+      "xl": {
+        "$value": "1.5rem",
+        "$type": "dimension",
+        "$description": "Font size xl"
+      },
+      "2xl": {
+        "$value": "1.875rem",
+        "$type": "dimension",
+        "$description": "Font size 2xl"
+      },
+      "3xl": {
+        "$value": "2.25rem",
+        "$type": "dimension",
+        "$description": "Font size 3xl"
+      }
+    }
+  },
+  "font-weight": {
+    "fontWeight": {
+      "normal": {
+        "$value": "400",
+        "$type": "fontWeight",
+        "$description": "Font weight normal"
+      },
+      "medium": {
+        "$value": "500",
+        "$type": "fontWeight",
+        "$description": "Font weight medium"
+      },
+      "semibold": {
+        "$value": "600",
+        "$type": "fontWeight",
+        "$description": "Font weight semibold"
+      },
+      "bold": {
+        "$value": "700",
+        "$type": "fontWeight",
+        "$description": "Font weight bold"
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "instant": {
+        "$value": "100ms",
+        "$type": "duration",
+        "$description": "Duration instant"
+      },
+      "fast": {
+        "$value": "150ms",
+        "$type": "duration",
+        "$description": "Duration fast"
+      },
+      "normal": {
+        "$value": "200ms",
+        "$type": "duration",
+        "$description": "Duration normal"
+      },
+      "slow": {
+        "$value": "300ms",
+        "$type": "duration",
+        "$description": "Duration slow"
+      },
+      "emphasis": {
+        "$value": "500ms",
+        "$type": "duration",
+        "$description": "Duration emphasis"
+      }
+    },
+    "easing": {
+      "linear": {
+        "$value": "linear",
+        "$type": "easing",
+        "$description": "Easing linear"
+      },
+      "standard": {
+        "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "$type": "easing",
+        "$description": "Easing standard"
+      },
+      "easeIn": {
+        "$value": "cubic-bezier(0.4, 0, 1, 1)",
+        "$type": "easing",
+        "$description": "Easing easeIn"
+      },
+      "easeOut": {
+        "$value": "cubic-bezier(0, 0, 0.2, 1)",
+        "$type": "easing",
+        "$description": "Easing easeOut"
+      },
+      "spring": {
+        "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "$type": "easing",
+        "$description": "Easing spring"
+      }
+    }
+  }
+}
