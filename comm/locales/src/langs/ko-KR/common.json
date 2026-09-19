@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "언어",
+    "ok": "확인",
+    "cancel": "취소",
+    "close": "닫기",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "편집",
+    "search": "검색",
+    "loading": "로딩 중...",
+    "refresh": "새로고침",
+    "itemCount": "{count, plural, =0{없음} other{# 개}}"
+  }
+}

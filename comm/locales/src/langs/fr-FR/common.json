@@ -1,0 +1,15 @@
+{
+  "common": {
+    "language": "Langue",
+    "ok": "OK",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher",
+    "loading": "Chargement...",
+    "refresh": "Actualiser",
+    "itemCount": "{count, plural, =0{Aucun élément} one{# élément} other{# éléments}}"
+  }
+}
