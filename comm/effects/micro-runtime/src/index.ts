@@ -53,3 +53,12 @@ export type { MicroAppEntry } from "./types";
 // 该工厂的微前端 lifecycle 为空壳实现，与 shared-auth 的真实工厂职责重叠，下个大版本移除）
 export { defineSubApp, isMicroFrontendEnvironment } from "./define-sub-app";
 export type { SubAppLifecycle, DefineSubAppOptions } from "./define-sub-app";
+
+// v5.0: 跨框架 React 子应用适配器 —— 通过 iframe 沙箱桥接 React 子应用
+export { createReactSubApp } from "./create-react-sub-app";
+export type {
+  ReactSubAppHandle,
+  ReactSubAppMountContext,
+  ReactSubAppMountFn,
+  ReactSubAppOptions,
+} from "./types-react-sub-app";
