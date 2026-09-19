@@ -5,4 +5,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdVResize } from './resize.vue';
+export { default as YdVResize } from './YdVResize.vue';

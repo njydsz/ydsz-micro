@@ -31,6 +31,10 @@
       "default": "./src/index.ts",
       "//default": "./dist/index.mjs"
     },
+    "./ui/*": {
+      "types": "./src/ui/*/index.ts",
+      "default": "./src/ui/*/index.ts"
+    },
     "./primitives/dialog": {
       "types": "./src/primitives/dialog/index.ts",
       "default": "./src/primitives/dialog/index.ts"
