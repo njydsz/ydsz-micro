@@ -5,10 +5,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdPointSelectionCaptcha } from './point-selection-captcha/index.vue';
-export { default as PointSelectionCaptchaCard } from './point-selection-captcha/index.vue';
+export { default as YdPointSelectionCaptcha } from './point-selection-captcha/YdPointSelectionCaptcha.vue';
+export { default as PointSelectionCaptchaCard } from './point-selection-captcha/YdPointSelectionCaptchaCard.vue';
 
 export { default as YdSliderCaptcha } from './slider-captcha/index.vue';
-export { default as SliderRotateCaptcha } from './slider-rotate-captcha/index.vue';
-export { default as SliderTranslateCaptcha } from './slider-translate-captcha/index.vue';
+export { default as SliderRotateCaptcha } from './slider-rotate-captcha/YdSliderRotateCaptcha.vue';
+export { default as SliderTranslateCaptcha } from './slider-translate-captcha/YdSliderTranslateCaptcha.vue';
 export type * from './types';
