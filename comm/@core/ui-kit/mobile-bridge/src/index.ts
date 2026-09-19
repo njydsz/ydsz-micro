@@ -9,8 +9,9 @@
  */
 
 // ===== 组合式 API =====
-export { useResponsive, useTouch } from './composables';
+export { useResponsive, useTouch, useSafeArea } from './composables';
 export type { SwipeDirection } from './composables';
+export type { UseSafeAreaOptions, SafeAreaReturn } from './composables/use-safe-area';
 
 // ===== 断点常量 =====
 export {
