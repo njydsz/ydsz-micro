@@ -51,13 +51,13 @@ const ydszRules: Linter.RulesRecord = {
 };
 
 /**
- * EP 退场门禁 — no-restricted-imports 模式集（ep-exit-refactor-plan v3 §P0-3）。
+ * EP 退场门禁 — no-restricted-imports 模式集（v5.0.0 闭环）。
  *
  * 说明：
  * - 覆盖 element-plus 主包与 @element-plus/* 子包（含 icons-vue）。
  * - 静态 import 与字符串字面量动态 import 均可拦截；模板字符串动态 import
  *   （注册表 `import(\`element-plus/es/${x}\`)`）不受本规则覆盖，由
- *   `vsh check-standard` 的 EP-EXIT 计数器兜底，两者缺一不可。
+ *   `vsh check-standard` 的 EP-EXIT 计数器兜底。
  * - 替代目标：组件 → @ydsz-core/ydsz-ui（kit）；命令式 API →
  *   @ydsz/notification（showToast / compat 桥）；表单 → @ydsz-core/form-ui；
  *   弹层 → @ydsz-core/popup-ui；图标 → lucide-vue-next。
@@ -67,11 +67,11 @@ const EP_IMPORT_PATTERNS = {
     {
       group: ['element-plus', 'element-plus/*', 'element-plus/**'],
       message:
-        'Element Plus 已退场：组件用 @ydsz-core/ydsz-ui，命令式 API 用 @ydsz/notification，表单用 form-ui，弹层用 popup-ui（见 docs/ep-exit-refactor-plan-2026-09-17-v3.md）',
+          'Element Plus 已退场：组件用 @ydsz-core/ydsz-ui，命令式 API 用 @ydsz/notification，表单用 form-ui，弹层用 popup-ui（见 docs/decisions/ep-exit-final-closure-plan-2026-09-19.md）',
     },
     {
       group: ['@element-plus/*'],
-      message: 'EP 图标已退场：请使用 lucide-vue-next（ep-exit-refactor-plan v3 §P1-4）',
+      message: 'EP 图标已退场：请使用 lucide-vue-next（v5.0.0 闭环）',
     },
   ],
 } as const;
@@ -194,16 +194,7 @@ export function defineConfig(): Linter.Config[] {
         'no-restricted-imports': ['error', EP_IMPORT_PATTERNS],
       },
     },
-    // EP 退场过渡期：未迁移 app 子包降级 warn，每 app 迁移完成后从本清单移除
-    // （ep-exit-refactor-plan v3 §P1-3：每 app 退出 EP 时删除对应行）
-    {
-      files: [
-        'apps/{agent,cronjob,generator,literule,message,nextwiki,system,userinfo,workflow}-web/**/*.{ts,mts,tsx,vue}',
-      ],
-      rules: {
-        'no-restricted-imports': ['warn', EP_IMPORT_PATTERNS],
-      },
-    },
+    // EP 退场门禁（v5.0.0）：apps/ 共享 error 级门禁，过渡期覆盖块已移除。
     // TS 规则
     tsConfig(),
     // Vue 规则
