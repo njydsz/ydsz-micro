@@ -48,6 +48,9 @@ export {
   setCurrentLocale,
   setErrorFallbackMessages,
 } from "./error-boundary";
+// v3.6: iframe 沙箱（跨框架子应用适配的基础）
+export { createIframeSandbox } from "./iframe-sandbox";
+export type { IframeSandboxInstance, IframeRpcConfig } from "./iframe-types";
 // v3.7.0: 三级降级决策 — 自动静默重试 / 占重试计数读写
 export {
   decideDegradationLevel,

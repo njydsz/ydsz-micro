@@ -54,7 +54,7 @@
 
 import type { ReactSubAppMountContext, ReactSubAppOptions, ReactSubAppHandle } from './types-react-sub-app';
 
-import { createIframeSandbox } from '@ydsz/micro-kernel/iframe-sandbox';
+import { createIframeSandbox } from '@ydsz/micro-kernel';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -97,10 +97,10 @@ export function createReactSubApp(options: ReactSubAppOptions): ReactSubAppHandl
         throw new Error(`[ReactSubApp:${name}] iframe 容器未就绪`);
       }
 
-      containerEl = sandbox.container;
+      containerEl = sandbox.container!;
 
       const mountContext: ReactSubAppMountContext = {
-        container: containerEl,
+        container: containerEl!,
         globalState: extractGlobalState(sandbox),
         callMain: (method, args) => {
           if (!sandbox) return Promise.reject(new Error('sandbox 已销毁'));
