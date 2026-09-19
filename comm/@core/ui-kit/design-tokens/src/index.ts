@@ -73,3 +73,16 @@ export type {
   TransitionPreset,
   TransitionPresetName,
 } from './tokens';
+
+// ===== Figma Sync =====
+export {
+  exportToFigma,
+  importFromFigma,
+  generateFigmaPluginConfig,
+} from './figma-sync';
+export type {
+  TokenDiff,
+  FigmaTokenFile,
+  FigmaTokenGroup,
+  FigmaTokenValue,
+} from './figma-sync';
