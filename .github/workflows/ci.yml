@@ -206,6 +206,45 @@ jobs:
         run: |
           node bash/contract-notify.mjs
 
+  # 视觉回归门禁（P0-3）：Playwright toHaveScreenshot() 像素级基线对比。
+  # 基线截图随仓库提交，CI 自动对比；差异超阈值（maxDiffPixelRatio ≤ 0.01）则失败。
+  # 基线更新需本地运行 pnpm test:visual:update 后提交。
+  visual:
+    name: 视觉回归（Playwright 基线对比）
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 安装 Playwright Chromium 浏览器
+        run: pnpm exec playwright install chromium
+
+      - name: 运行视觉回归测试（ydsz-ui 关键组件基线对比）
+        run: pnpm test:visual
+
+      # 视觉测试失败时归档差异截图供人工判断
+      - name: 归档视觉回归报告
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-test-reports-${{ github.run_number }}
+          path: |
+            test-results/visual-html/**
+            test-results/visual-junit.xml
+            tests/visual/__screenshots__/**/__diff__/**
+          retention-days: 14
+
   # 产物体积门禁（P0-3 修复）：由原 e2e-smoke job 中与测试无关的门禁提取而来，
   # 从"仅手动触发"升级为 PR 必跑，门禁强度不降反升。
   # 构建期 bundle-budget 插件与 CI 期 check-size.mjs 共享 conf/budget.config.json
