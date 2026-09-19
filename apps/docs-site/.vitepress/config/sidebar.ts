@@ -96,8 +96,25 @@ function generateSidebar(): SidebarMulti {
         collapsed: false,
         items: [
           { text: '总览', link: '/ui-kit/' },
-          { text: 'YDSZ Vue（无头层）', link: '/ui-kit/ydsz-vue/' },
-          { text: 'YDSZ UI（业务层）', link: '/ui-kit/ydsz-ui/' },
+        ],
+      },
+      {
+        text: 'YDSZ Vue（无头层）',
+        collapsed: false,
+        items: [
+          { text: '概述', link: '/ui-kit/ydsz-vue/' },
+          { text: '组件 API 参考', link: '/ui-kit/ydsz-vue/components' },
+          { text: 'Composables / 工具函数', link: '/ui-kit/ydsz-vue/utilities' },
+        ],
+      },
+      {
+        text: 'YDSZ UI（业务层）',
+        collapsed: false,
+        items: [
+          { text: '概述', link: '/ui-kit/ydsz-ui/' },
+          { text: 'Primitives 原子组件 API', link: '/ui-kit/ydsz-ui/primitives' },
+          { text: 'Composables 组合式函数', link: '/ui-kit/ydsz-ui/composables' },
+          { text: '业务组件 + Headless', link: '/ui-kit/ydsz-ui/components' },
         ],
       },
     ],
