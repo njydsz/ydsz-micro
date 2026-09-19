@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButtonBase, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButton, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
 
@@ -266,7 +266,7 @@ function getEdgePath(edge: WorkflowEdge): string {
 function generateDsl(): string {
   let dsl = `workflow "${workflowName.value || '未命名工作流'}"\n`;
   dsl += `  description: "${workflowDescription.value}"\n\n`;
-  
+
   nodes.value.forEach((node) => {
     dsl += `  node ${node.id} {\n`;
     dsl += `    type: ${node.type}\n`;
@@ -281,7 +281,7 @@ function generateDsl(): string {
     }
     dsl += `  }\n\n`;
   });
-  
+
   edges.value.forEach((edge) => {
     dsl += `  edge ${edge.source} -> ${edge.target}`;
     if (edge.condition) {
@@ -289,7 +289,7 @@ function generateDsl(): string {
     }
     dsl += `\n`;
   });
-  
+
   dsl += `end`;
   return dsl;
 }
@@ -356,15 +356,15 @@ defineExpose({ open, close });
             <!-- 工具栏 -->
             <div class="toolbar">
               <div class="toolbar-left">
-                <YdButtonBase size="sm" :disabled="saving" @click="handleSave">
+                <YdButton size="sm" :disabled="saving" @click="handleSave">
                   <Loader2 v-if="saving" class="mr-1 h-3 w-3 animate-spin" />
                   保存
-                </YdButtonBase>
-                <YdButtonBase size="sm" variant="outline" @click="handleExportDsl">导出DSL</YdButtonBase>
+                </YdButton>
+                <YdButton size="sm" variant="outline" @click="handleExportDsl">导出DSL</YdButton>
               </div>
               <div class="toolbar-center">
                 <span class="text-xs text-muted-foreground">添加节点：</span>
-                <YdButtonBase
+                <YdButton
                   v-for="opt in nodeTypeOptions"
                   :key="opt.value"
                   size="sm"
@@ -373,7 +373,7 @@ defineExpose({ open, close });
                   @click="addNode(opt.value)"
                 >
                   {{ opt.icon }} {{ opt.label }}
-                </YdButtonBase>
+                </YdButton>
               </div>
               <div class="toolbar-right">
                 <YdSlider v-model="zoom" :min="50" :max="200" :step="10" show-input class="w-32" />
@@ -441,9 +441,9 @@ defineExpose({ open, close });
                   <div class="node-actions">
                     <YdTooltipBase>
                       <YdTooltipTriggerBase as-child>
-                        <YdButtonBase size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
+                        <YdButton size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
                           <span class="text-xs">→</span>
-                        </YdButtonBase>
+                        </YdButton>
                       </YdTooltipTriggerBase>
                       <YdTooltipContentBase>
                         <p>连线</p>
@@ -451,9 +451,9 @@ defineExpose({ open, close });
                     </YdTooltipBase>
                     <YdTooltipBase>
                       <YdTooltipTriggerBase as-child>
-                        <YdButtonBase size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
+                        <YdButton size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
                           <span class="text-xs">×</span>
-                        </YdButtonBase>
+                        </YdButton>
                       </YdTooltipTriggerBase>
                       <YdTooltipContentBase>
                         <p>删除</p>

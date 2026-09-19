@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
 import { YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -81,12 +81,12 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
           if (activeTab.value !== 'todo') return h('span', { class: 'text-gray-400 text-xs' }, '-');
           return h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleProcess(row) },
               () => $t('wf.process'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleOperation(row) },
               () => '更多',
             ),
@@ -320,18 +320,18 @@ async function handleBatchUrge() {
     <Grid :table-title="$t('wf.todoTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
-          <YdButtonBase variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
+          <YdButton variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
             $t('wf.batchPass')
-          }}</YdButtonBase>
-          <YdButtonBase variant="destructive" @click="handleBatchReject">{{
+          }}</YdButton>
+          <YdButton variant="destructive" @click="handleBatchReject">{{
             $t('wf.batchReject')
-          }}</YdButtonBase>
-          <YdButtonBase variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
+          }}</YdButton>
+          <YdButton variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
             $t('wf.batchTransfer')
-          }}</YdButtonBase>
-          <YdButtonBase variant="secondary" @click="handleBatchUrge">{{
+          }}</YdButton>
+          <YdButton variant="secondary" @click="handleBatchUrge">{{
             $t('wf.batchUrge')
-          }}</YdButtonBase>
+          }}</YdButton>
         </template>
       </template>
     </Grid>

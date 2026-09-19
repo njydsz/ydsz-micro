@@ -8,7 +8,7 @@
  * 关闭方式仅限「取消按钮」，遮罩点击与 ESC 已被禁止（closeOnOverlayClick=false / closeOnEsc=false），
  * 防止用户绕过密码输入直接关闭导致 Promise 永不结算。
  *
- * 使用自研 YdDialog + InputPassword + YdAlertBanner + YdButtonBase，零 element-plus 依赖。
+ * 使用自研 YdDialog + InputPassword + YdAlertBanner + YdButton，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\secondary-auth-modal\index.vue
  * @author ydsz-team
@@ -27,7 +27,7 @@ import { useI18n } from 'vue-i18n';
 
 import {
   YdAlertBanner,
-  YdButtonBase,
+  YdButton,
   YdDialog,
   YdDialogContent,
   YdDialogFooter,
@@ -152,21 +152,21 @@ onBeforeUnmount(() => {
 
       <!-- 操作区 -->
       <YdDialogFooter class="secondary-auth-modal__footer">
-        <YdButtonBase
+        <YdButton
           :disabled="submitting"
           type="button"
           variant="outline"
           @click="handleCancel"
         >
           {{ t('secondaryAuth.cancel') }}
-        </YdButtonBase>
-        <YdButtonBase
+        </YdButton>
+        <YdButton
           :loading="props.loading || submitting"
           type="button"
           @click="handleConfirm"
         >
           {{ t('secondaryAuth.confirm') }}
-        </YdButtonBase>
+        </YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

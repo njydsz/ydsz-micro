@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdTabsContent, YdTabs, YdUpload, YdButtonBase, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import { YdTabsContent, YdTabs, YdUpload, YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -77,30 +77,30 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, {
+            h(YdButton, {
               size: 'sm', variant: 'link',
               onClick: () => handlePreview(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '预览'),
-            h(YdButtonBase, {
+            h(YdButton, {
               size: 'sm', variant: 'link',
               onClick: () => handleDownload(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '下载'),
-            h(YdButtonBase, {
+            h(YdButton, {
               size: 'sm', variant: 'link',
               onClick: () => handleOnlineEdit(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '编辑'),
-            h(YdButtonBase, {
+            h(YdButton, {
               size: 'sm', variant: 'link',
               onClick: () => handleVersionHistory(row),
               disabled: row.nodeType === 'FOLDER',
             }, () => '版本'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleRename(row) }, () => '重命名'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleMove(row) }, () => '移动'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleCopy(row) }, () => '复制'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleRename(row) }, () => '重命名'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleMove(row) }, () => '移动'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleCopy(row) }, () => '复制'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -283,9 +283,9 @@ async function executeZipImport(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="文件管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleUpload">上传文件</YdButtonBase>
-        <YdButtonBase variant="secondary" @click="handleBatchImport">批量导入</YdButtonBase>
-        <YdButtonBase @click="handleAdd">新建文件夹</YdButtonBase>
+        <YdButton @click="handleUpload">上传文件</YdButton>
+        <YdButton variant="secondary" @click="handleBatchImport">批量导入</YdButton>
+        <YdButton @click="handleAdd">新建文件夹</YdButton>
       </template>
     </Grid>
     <FileFormModal @success="gridApi.query()" />
@@ -299,8 +299,8 @@ async function executeZipImport(): Promise<void> {
           <YdInput v-model="renameForm.name" placeholder="请输入新名称" />
         </div>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="renameVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="confirmRename">确定</YdButtonBase>
+          <YdButton variant="outline" @click="renameVisible = false">取消</YdButton>
+          <YdButton @click="confirmRename">确定</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
@@ -313,8 +313,8 @@ async function executeZipImport(): Promise<void> {
           <YdInput v-model="moveForm.parentId" placeholder="请输入目标父目录ID（留空表示根目录）" />
         </div>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="moveVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="confirmMove">确定</YdButtonBase>
+          <YdButton variant="outline" @click="moveVisible = false">取消</YdButton>
+          <YdButton @click="confirmMove">确定</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
@@ -365,13 +365,13 @@ async function executeZipImport(): Promise<void> {
           </YdTabs>
         </div>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="batchImportVisible = false">取消</YdButtonBase>
-          <YdButtonBase
+          <YdButton variant="outline" @click="batchImportVisible = false">取消</YdButton>
+          <YdButton
             :loading="batchImportLoading"
             @click="batchImportType === 'files' ? executeBatchUpload() : executeZipImport()"
           >
             确定导入
-          </YdButtonBase>
+          </YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

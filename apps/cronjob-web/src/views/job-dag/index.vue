@@ -20,7 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -84,13 +84,13 @@ const gridOptions: VxeGridProps<JobDagVO> = {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () => t('common.edit')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () => t('common.edit')),
             isDagEnabled(dag)
-              ? h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) }, () => '停用')
-              : h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) }, () => '启用'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) }, () => '触发'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) }, () => '版本'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () => t('common.delete')),
+              ? h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) }, () => '停用')
+              : h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) }, () => '启用'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) }, () => '触发'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) }, () => '版本'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () => t('common.delete')),
           ]);
         },
       },
@@ -230,7 +230,7 @@ async function handleRollback(versionRow: JobDagVersionVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.dag')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
     </Grid>
     <JobDagFormModal @success="gridApi.query()" />
@@ -249,9 +249,9 @@ async function handleRollback(versionRow: JobDagVersionVO) {
           <YdTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
           <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
             <template #default="{ row }">
-              <YdButtonBase size="sm" variant="link" @click="handleRollback(row as JobDagVersionVO)">
+              <YdButton size="sm" variant="link" @click="handleRollback(row as JobDagVersionVO)">
                 回滚
-              </YdButtonBase>
+              </YdButton>
             </template>
           </YdTableColumn>
         </YdTable>

@@ -1,7 +1,7 @@
 <!--
  * 统一错误状态组件 — 展示错误信息 + 重试/返回操作
  *
- * 使用自研 YdButtonBase + lucide AlertTriangle/Info/AlertCircle，零 element-plus 依赖。
+ * 使用自研 YdButton + lucide AlertTriangle/Info/AlertCircle，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\error-state.vue
  * @author ydsz-team
@@ -11,7 +11,7 @@
 /**
  * 统一错误状态组件 — 提供错误展示 + 重试/返回操作
  *
- * 使用自研 YdButtonBase 组件；三种 type（error/warning/info）对应不同的图标与配色。
+ * 使用自研 YdButton 组件；三种 type（error/warning/info）对应不同的图标与配色。
  */
 import { computed } from 'vue';
 
@@ -19,7 +19,7 @@ import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   /** 错误标题 */
@@ -105,21 +105,21 @@ function handleBack(): void {
       {{ description }}
     </p>
     <div class="error-state__actions">
-      <YdButtonBase
+      <YdButton
         v-if="showRetry"
         size="sm"
         @click="emit('retry')"
       >
         重试
-      </YdButtonBase>
-      <YdButtonBase
+      </YdButton>
+      <YdButton
         v-if="showBack"
         size="sm"
         variant="outline"
         @click="handleBack"
       >
         返回
-      </YdButtonBase>
+      </YdButton>
     </div>
     <div
       v-if="$slots.default"

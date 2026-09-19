@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -96,12 +96,12 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleUnsubscribe(row) },
               () => t('subscription.unsubscribe'),
             ),
@@ -197,14 +197,14 @@ function handleQueryByTopic(): void {
   <Page auto-content-height>
     <Grid table-title="订阅管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
       <template #toolbar-tools-after>
         <YdTabs v-model="activeTab" class="mt-2">
           <YdTabsContent label="按用户查询" name="user">
             <div class="flex gap-2 py-2">
               <YdInput v-model="currentUserId" placeholder="请输入用户ID" class="w-64" />
-              <YdButtonBase @click="handleQueryByUser">{{ t('common.search') }}</YdButtonBase>
+              <YdButton @click="handleQueryByUser">{{ t('common.search') }}</YdButton>
             </div>
           </YdTabsContent>
           <YdTabsContent label="按主题查询" name="topic">
@@ -225,7 +225,7 @@ function handleQueryByTopic(): void {
                   <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
                 </YdSelectContentBase>
               </YdSelectBase>
-              <YdButtonBase @click="handleQueryByTopic">{{ t('common.search') }}</YdButtonBase>
+              <YdButton @click="handleQueryByTopic">{{ t('common.search') }}</YdButton>
             </div>
           </YdTabsContent>
         </YdTabs>

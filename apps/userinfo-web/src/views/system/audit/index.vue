@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -88,9 +88,9 @@ const gridOptions: VxeGridProps<AlertRow> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) }, () => '确认'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(row) }, () => '解决'),
-            h(YdButtonBase, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) }, () => '忽略'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) }, () => '确认'),
+            h(YdButton, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(row) }, () => '解决'),
+            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) }, () => '忽略'),
           ]),
       },
     },
@@ -168,7 +168,7 @@ onMounted(() => {
 
     <Grid table-title="操作审计日志">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButtonBase>
+        <YdButton variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButton>
       </template>
     </Grid>
   </Page>

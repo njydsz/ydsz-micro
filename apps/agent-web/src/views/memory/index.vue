@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdCard, YdEmptyState, YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdCard, YdEmptyState, YdButton, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -98,8 +98,8 @@ const columns: VxeTableGridOptions<MemoryVO>['columns'] = [
     slots: {
           default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
     },
   },
@@ -250,9 +250,9 @@ async function handleDelete(row: MemoryVO): Promise<void> {
             style="width: 360px"
             @keyup.enter="handleSearch"
           />
-          <YdButtonBase :loading="isLoading" @click="handleSearch">查询</YdButtonBase>
-          <YdButtonBase variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清除全部</YdButtonBase>
-          <YdButtonBase variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">整合记忆</YdButtonBase>
+          <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
+          <YdButton variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清除全部</YdButton>
+          <YdButton variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">整合记忆</YdButton>
         </div>
       </YdCard>
 
@@ -299,7 +299,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
       <YdCard shadow="never">
         <Grid v-if="queryConversationId.trim()" table-title="对话记忆列表">
           <template #toolbar-tools>
-            <YdButtonBase @click="handleSearch">刷新</YdButtonBase>
+            <YdButton @click="handleSearch">刷新</YdButton>
           </template>
         </Grid>
         <YdEmptyState v-else description="请输入对话 ID 后点击查询" />

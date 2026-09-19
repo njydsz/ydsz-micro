@@ -12,7 +12,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 
 import {
-  YdButtonBase,
+  YdButton,
 } from '../button';
 import { YdCard, YdCardContent } from '../card';
 import { useTheme } from './use-theme';
@@ -47,7 +47,7 @@ export default meta;
 /** 主题切换演示：切换 primary / dark */
 export const ThemePlayground: StoryObj = {
   render: () => ({
-    components: { YdButtonBase, YdCard, YdCardContent },
+    components: { YdButton, YdCard, YdCardContent },
     setup() {
       const theme = useTheme();
       const isDark = ref(false);
@@ -73,9 +73,9 @@ export const ThemePlayground: StoryObj = {
         <YdCard class="inline-block">
           <YdCardContent class="flex flex-col items-start gap-3 pt-6">
             <div class="flex gap-2">
-              <YdButtonBase variant="default" @click="toggleDark">{{ isDark ? 'Light' : 'Dark' }} Mode</YdButtonBase>
-              <YdButtonBase variant="outline" @click="setPrimary">Green Primary</YdButtonBase>
-              <YdButtonBase variant="ghost" @click="reset">Reset</YdButtonBase>
+              <YdButton variant="default" @click="toggleDark">{{ isDark ? 'Light' : 'Dark' }} Mode</YdButton>
+              <YdButton variant="outline" @click="setPrimary">Green Primary</YdButton>
+              <YdButton variant="ghost" @click="reset">Reset</YdButton>
             </div>
             <p class="text-sm text-muted-foreground">
               当前模式：{{ isDark ? 'dark' : 'light' }}

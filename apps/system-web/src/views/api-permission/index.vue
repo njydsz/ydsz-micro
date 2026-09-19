@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -131,7 +131,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
           if (hasAccessByCodesAll(['sys:permission:api-edit'])) {
             buttons.push(
               h(
-                YdButtonBase,
+                YdButton,
                 {
                   size: 'sm',
                   variant: isEnabled(row.status) ? 'destructive' : undefined,
@@ -145,7 +145,7 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
           if (hasAccessByCodesAll(['sys:permission:api-delete'])) {
             buttons.push(
               h(
-                YdButtonBase,
+                YdButton,
                 { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) },
                 () => t('common.delete'),
               ),
@@ -257,9 +257,9 @@ async function handleDelete(row: ApiPermissionRow) {
   <Page auto-content-height>
     <Grid :table-title="t('apiPermission.title')">
       <template #toolbar-tools>
-        <YdButtonBase v-permission="'sys:permission:api-scan'" :loading="scanning" @click="handleScan">
+        <YdButton v-permission="'sys:permission:api-scan'" :loading="scanning" @click="handleScan">
           {{ t('apiPermission.triggerScan') }}
-        </YdButtonBase>
+        </YdButton>
       </template>
     </Grid>
   </Page>

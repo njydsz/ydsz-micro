@@ -18,7 +18,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { checkFileInfo, lockFile, unlockFile } from '#/api/wopi';
 import type { FileNodeVO } from '#/api/models';
@@ -158,7 +158,7 @@ function handleIframeMessage(event: MessageEvent): void {
           <span v-if="isLocked" class="text-sm text-green-600">🔒 已锁定编辑</span>
         </div>
         <div class="flex gap-2">
-          <YdButtonBase size="sm" variant="outline" @click="handleClose">关闭</YdButtonBase>
+          <YdButton size="sm" variant="outline" @click="handleClose">关闭</YdButton>
         </div>
       </div>
 

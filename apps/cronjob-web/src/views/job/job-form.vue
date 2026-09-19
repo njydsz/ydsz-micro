@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -284,7 +284,7 @@ async function handleValidateCron() {
       <YdFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
         <div class="flex w-full gap-2">
           <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
-          <YdButtonBase variant="outline" @click="handleValidateCron">校验</YdButtonBase>
+          <YdButton variant="outline" @click="handleValidateCron">校验</YdButton>
         </div>
       </YdFormItem>
       <YdFormItem v-if="formData.scheduleType === 'FIXED_RATE'" label="固定速率间隔(ms)">

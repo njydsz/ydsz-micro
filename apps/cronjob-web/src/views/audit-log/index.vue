@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -133,7 +133,7 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
         default: ({ row }) => {
           const item = row as AuditLogVO;
           return h(
-            YdButtonBase,
+            YdButton,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
             () => '详情',
           );

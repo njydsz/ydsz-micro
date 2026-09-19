@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTree } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTree } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -90,12 +90,12 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
         default: ({ row }) => {
           return h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -176,7 +176,7 @@ async function handleDelete(row: CompanyVO) {
       <div class="w-60 shrink-0">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>
-          <YdButtonBase variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</YdButtonBase>
+          <YdButton variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</YdButton>
         </div>
         <YdTree
           :data="companyTree"
@@ -190,7 +190,7 @@ async function handleDelete(row: CompanyVO) {
       <div class="min-w-0 flex-1">
         <Grid :table-title="t('company.companyManagement')">
           <template #toolbar-tools>
-            <YdButtonBase variant="default" @click="handleAdd">{{ t('company.createCompany') }}</YdButtonBase>
+            <YdButton variant="default" @click="handleAdd">{{ t('company.createCompany') }}</YdButton>
           </template>
         </Grid>
       </div>

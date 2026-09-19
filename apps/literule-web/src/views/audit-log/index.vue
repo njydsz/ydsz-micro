@@ -17,7 +17,7 @@
 import type { AuditLogEntryVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, reactive } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { byAction, byOperator, byRuleCode, byTimeRange, recent } from '#/api/ruleAuditLog';
@@ -110,8 +110,8 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
         value-format="YYYY-MM-DD HH:mm:ss"
         class="w-48"
       />
-      <YdButtonBase @click="gridApi.query()">查询</YdButtonBase>
-      <YdButtonBase variant="secondary" @click="handleReset">重置</YdButtonBase>
+      <YdButton @click="gridApi.query()">查询</YdButton>
+      <YdButton variant="secondary" @click="handleReset">重置</YdButton>
     </div>
     <Grid table-title="审计日志" />
   </Page>

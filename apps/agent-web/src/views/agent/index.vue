@@ -19,7 +19,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButton } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -51,8 +51,8 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     {
       field: 'action', title: '操作', width: 140, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
       ]) },
     },
   ],
@@ -235,7 +235,7 @@ void loadAgentList();
           表格
         </button>
       </div>
-      <YdButtonBase @click="handleAdd">新增</YdButtonBase>
+      <YdButton @click="handleAdd">新增</YdButton>
     </div>
 
     <!-- 表格视图 -->
@@ -291,7 +291,7 @@ void loadAgentList();
 
           <template #actions>
             <YdDropdownMenu trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
-              <YdButtonBase
+              <YdButton
                 size="sm"
                 variant="ghost"
                 @click.stop
@@ -322,7 +322,7 @@ void loadAgentList();
                     r="1"
                   />
                 </svg>
-              </YdButtonBase>
+              </YdButton>
               <template #dropdown>
                 <YdDropdownMenu>
                   <YdDropdownMenuItem command="edit">

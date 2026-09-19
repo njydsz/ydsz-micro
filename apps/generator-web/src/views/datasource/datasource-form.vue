@@ -16,7 +16,7 @@
  */
 import { onMounted, reactive, ref } from 'vue';
 
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import type { GenDatasource } from '#/api/models';
 
@@ -142,8 +142,8 @@ onMounted(() => {});
         </YdFormItem>
       </YdForm>
       <YdDialogFooter>
-        <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
-        <YdButtonBase @click="handleSubmit">确定</YdButtonBase>
+        <YdButton variant="secondary" @click="handleClose">取消</YdButton>
+        <YdButton @click="handleSubmit">确定</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

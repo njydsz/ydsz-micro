@@ -20,7 +20,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdInput, YdSwitch } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -184,13 +184,13 @@ onMounted(() => {
             placeholder="请输入目标集群名称"
             class="!w-48"
           />
-          <YdButtonBase
+          <YdButton
             :loading="migrating"
             :disabled="!targetCluster"
             @click="handleMigrate"
           >
             执行迁移
-          </YdButtonBase>
+          </YdButton>
         </div>
       </template>
     </Grid>

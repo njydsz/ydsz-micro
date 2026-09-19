@@ -21,7 +21,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { pageLog } from '#/api/message';
@@ -118,7 +118,7 @@ function handleSend() {
   <Page auto-content-height>
     <Grid table-title="消息发送日志">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleSend">发送消息</YdButtonBase>
+        <YdButton @click="handleSend">发送消息</YdButton>
       </template>
     </Grid>
     <MessageFormModal @success="gridApi.query()" />

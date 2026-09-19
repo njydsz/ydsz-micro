@@ -20,7 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { shortLinkRedirect } from '#/api/readReceipt';
@@ -158,8 +158,8 @@ onMounted(() => {
                   class="flex-1"
                   @keyup.enter="handleQuery"
                 />
-                <YdButtonBase :loading="loading" type="submit">查询</YdButtonBase>
-                <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
+                <YdButton :loading="loading" type="submit">查询</YdButton>
+                <YdButton variant="outline" @click="handleReset">重置</YdButton>
               </div>
             </div>
           </form>

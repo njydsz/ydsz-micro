@@ -17,7 +17,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -116,22 +116,22 @@ const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleTest(row) },
               () => '测试',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleToggle(row) },
               () => (row.enabled ? '停用' : '启用'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -216,7 +216,7 @@ async function handleDelete(row: PromptTemplateVO): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="Prompt 模板管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新增模板</YdButtonBase>
+        <YdButton @click="handleAdd">新增模板</YdButton>
       </template>
     </Grid>
     <PromptFormModal @success="gridApi.query()" />

@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdButtonBase, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdButton, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

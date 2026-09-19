@@ -19,7 +19,7 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-import { YdBadge, YdButtonBase, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
 
 import { requestClient } from '#/api/request';
 
@@ -362,9 +362,9 @@ const formatNumber = (value: number | undefined): string => {
         最后采集时间：<span class="font-mono">{{ collectedAt }}</span>
         <span class="ml-4">每 30s 自动刷新</span>
       </div>
-      <YdButtonBase size="sm" :loading="loading" @click="loadDashboard">
+      <YdButton size="sm" :loading="loading" @click="loadDashboard">
         手动刷新
-      </YdButtonBase>
+      </YdButton>
     </div>
   </div>
 </template>

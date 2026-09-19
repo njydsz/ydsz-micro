@@ -202,7 +202,7 @@ describe('YdTooltipContentBase', () => {
       },
       attachTo: document.body,
     });
-    // 验证组件挂载时不报错；class 合并由 cn() 工具保证（与 YdButtonBase 等共享逻辑）
+    // 验证组件挂载时不报错；class 合并由 cn() 工具保证（与 YdButton 等共享逻辑）
     const contentEl = document.body.querySelector('.custom-tooltip-content');
     // Teleport 后的内容在 body 上查找
     expect(wrapper.exists()).toBe(true);

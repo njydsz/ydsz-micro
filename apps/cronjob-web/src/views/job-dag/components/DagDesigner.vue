@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -241,7 +241,7 @@ function handleNodeNameChange(name: string): void {
       <!-- 设计器工具 -->
       <div class="designer-toolbar mb-3 flex items-center gap-2">
         <span class="text-sm text-gray-600">添加节点：</span>
-        <YdButtonBase
+        <YdButton
           v-for="opt in nodeTypeOptions"
           :key="opt.value"
           size="sm"
@@ -249,7 +249,7 @@ function handleNodeNameChange(name: string): void {
           @click="handleAddNode(opt.value)"
         >
           {{ opt.label }}
-        </YdButtonBase>
+        </YdButton>
         <div class="mx-2 h-5 w-px bg-gray-300" />
         <span class="text-sm text-gray-600">缩放：</span>
         <Slider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
@@ -270,14 +270,14 @@ function handleNodeNameChange(name: string): void {
           >
             <div class="node-header">{{ node.name }}</div>
             <div class="node-type text-xs text-gray-500">{{ node.type }}</div>
-            <YdButtonBase
+            <YdButton
               class="node-delete"
               size="sm"
               variant="link"
               @click.stop="handleDeleteNode(node.id)"
             >
               ×
-            </YdButtonBase>
+            </YdButton>
           </div>
 
           <!-- 连线（简化显示） -->
@@ -323,7 +323,7 @@ function handleNodeNameChange(name: string): void {
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.from)?.name }}</span>
             <span class="text-xs text-gray-400">→</span>
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.to)?.name }}</span>
-            <YdButtonBase size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</YdButtonBase>
+            <YdButton size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</YdButton>
           </div>
         </div>
       </div>

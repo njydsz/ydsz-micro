@@ -20,7 +20,7 @@
  */
 defineOptions({ name: 'YdErrorState' });
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 withDefaults(
   defineProps<{
@@ -50,12 +50,12 @@ const emit = defineEmits<{
     </div>
     <p class="error-message">{{ message }}</p>
     <div class="error-actions">
-      <YdButtonBase v-if="showRetry" variant="default" @click="emit('retry')">
+      <YdButton v-if="showRetry" variant="default" @click="emit('retry')">
         重新加载
-      </YdButtonBase>
-      <YdButtonBase v-if="showBack" variant="secondary" @click="$router.back()">
+      </YdButton>
+      <YdButton v-if="showBack" variant="secondary" @click="$router.back()">
         返回上一页
-      </YdButtonBase>
+      </YdButton>
     </div>
   </div>
 </template>

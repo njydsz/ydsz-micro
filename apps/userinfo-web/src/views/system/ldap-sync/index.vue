@@ -53,7 +53,7 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -174,17 +174,17 @@ onMounted(() => {
         <YdCardTitle>LDAP 同步操作</YdCardTitle>
       </YdCardHeader>
       <YdCardContent class="flex items-center gap-4">
-        <YdButtonBase
+        <YdButton
           variant="default"
           :disabled="isSyncing"
           @click="handleTriggerSync"
         >
           <Loader2 v-if="isSyncing" class="mr-2 h-4 w-4 animate-spin" />
           {{ isSyncing ? '同步进行中...' : '立即触发同步' }}
-        </YdButtonBase>
-        <YdButtonBase variant="outline" @click="loadAll">
+        </YdButton>
+        <YdButton variant="outline" @click="loadAll">
           刷新状态
-        </YdButtonBase>
+        </YdButton>
         <span class="text-sm text-muted-foreground">
           上次同步时间：{{ syncStatus.lastSyncTime ?? '-' }}
         </span>

@@ -504,7 +504,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -549,7 +549,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -573,7 +573,7 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/AlertDialog/AlertDialogRoot.vue
-6  |  
+6  |
 7  |  export type AlertDialogEmits = DialogRootEmits
 8  |  export interface AlertDialogProps extends Omit&lt;DialogRootProps, &apos;modal&apos;&gt; {}
    |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -587,12 +587,12 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/AlertDialog/AlertDialogRoot.vue
-6  |  
+6  |
 7  |  export type AlertDialogEmits = DialogRootEmits
 8  |  export interface AlertDialogProps extends Omit&lt;DialogRootProps, &apos;modal&apos;&gt; {}
    |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 9  |  &lt;/script&gt;
-10 |  
+10 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/YdAlertDialog.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -635,7 +635,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -678,7 +678,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -703,7 +703,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Tabs/TabsRoot.vue
 16 |  }
-17 |  
+17 |
 18 |  export interface TabsRootProps&lt;T extends StringOrNumber = StringOrNumber&gt; extends PrimitiveProps {
    |                                                                                    ^^^^^^^^^^^^^^
 19 |    /**
@@ -717,7 +717,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Tabs/TabsRoot.vue
 16 |  }
-17 |  
+17 |
 18 |  export interface TabsRootProps&lt;T extends StringOrNumber = StringOrNumber&gt; extends PrimitiveProps {
    |                                                                                    ^^^^^^^^^^^^^^
 19 |    /**
@@ -770,7 +770,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -1190,9 +1190,9 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Popper/PopperAnchor.vue
-17 |  
+17 |
 18 |  const props = defineProps&lt;PopperAnchorProps&gt;()
-19 |  
+19 |
    |    ^
 20 |  const { forwardRef, currentElement } = useForwardExpose()
    |  ^^^^^^^^^^^^^^
@@ -1205,13 +1205,13 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Popper/PopperAnchor.vue
-17 |  
+17 |
 18 |  const props = defineProps&lt;PopperAnchorProps&gt;()
-19 |  
+19 |
    |    ^
 20 |  const { forwardRef, currentElement } = useForwardExpose()
    |  ^^^^^^^^^^^^^^
-21 |  
+21 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Popper/PopperAnchor.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -1390,7 +1390,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Separator/Separator.vue
 8  |  import BaseSeparator from &apos;@/shared/component/BaseSeparator.vue&apos;
-9  |  
+9  |
 10 |  const props = withDefaults(defineProps&lt;SeparatorProps&gt;(), {
    |                                                        ^^^^^
 11 |    orientation: &apos;horizontal&apos;,
@@ -1405,7 +1405,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Separator/Separator.vue
 8  |  import BaseSeparator from &apos;@/shared/component/BaseSeparator.vue&apos;
-9  |  
+9  |
 10 |  const props = withDefaults(defineProps&lt;SeparatorProps&gt;(), {
    |                                                        ^^^^^
 11 |    orientation: &apos;horizontal&apos;,
@@ -1728,7 +1728,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Tabs/TabsRoot.vue
 73 |    passive: (props.modelValue === undefined) as false,
    |                              ^^^^^^^^^^^^^^
 74 |  })
-75 |  
+75 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Tabs/TabsRoot.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -1754,7 +1754,7 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Toggle/Toggle.vue
-40 |  
+40 |
 41 |  defineSlots&lt;{
 42 |    default: (props: {
    |                ^^^^^^
@@ -1769,7 +1769,7 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Toggle/Toggle.vue
-40 |  
+40 |
 41 |  defineSlots&lt;{
 42 |    default: (props: {
    |                ^^^^^^
@@ -1801,7 +1801,7 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/ToggleGroup/ToggleGroupRoot.vue
-6  |  
+6  |
 7  |  export interface ToggleGroupRootProps&lt;ValidValue = string | string[], ExplicitType = SingleOrMultipleType&gt;
 8  |    extends PrimitiveProps, SingleOrMultipleProps&lt;ValidValue, ExplicitType&gt; {
    |            ^^^^^^^^^^^^^^
@@ -1815,7 +1815,7 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/ToggleGroup/ToggleGroupRoot.vue
-6  |  
+6  |
 7  |  export interface ToggleGroupRootProps&lt;ValidValue = string | string[], ExplicitType = SingleOrMultipleType&gt;
 8  |    extends PrimitiveProps, SingleOrMultipleProps&lt;ValidValue, ExplicitType&gt; {
    |            ^^^^^^^^^^^^^^
@@ -1890,7 +1890,7 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/AlertDialog/AlertDialogRoot.vue
-6  |  
+6  |
 7  |  export type AlertDialogEmits = DialogRootEmits
 8  |  export interface AlertDialogProps extends Omit&lt;DialogRootProps, &apos;modal&apos;&gt; {}
    |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1904,12 +1904,12 @@ interface Props extends /* @vue-ignore */ Base {}
 Note: both in 3.2 or with the ignore, the properties in the base type are treated as fallthrough attrs at runtime.
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/AlertDialog/AlertDialogRoot.vue
-6  |  
+6  |
 7  |  export type AlertDialogEmits = DialogRootEmits
 8  |  export interface AlertDialogProps extends Omit&lt;DialogRootProps, &apos;modal&apos;&gt; {}
    |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 9  |  &lt;/script&gt;
-10 |  
+10 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/alert-dialog/YdAlertDialog.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -1954,7 +1954,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -1999,7 +1999,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2017,16 +2017,16 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
     </testsuite>
     <testsuite name="comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts" timestamp="2026-09-19T14:25:49.723Z" hostname="DESKTOP-FIC0TQ3" tests="1" failures="1" errors="0" skipped="0" time="0">
         <testcase classname="comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts" name="comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts" time="0">
-            <failure message="Failed to resolve import &quot;./YdButtonBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts&quot;. Does the file exist?" type="Error">
-Error: Failed to resolve import &quot;./YdButtonBase.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts&quot;. Does the file exist?
+            <failure message="Failed to resolve import &quot;./YdButton.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts&quot;. Does the file exist?" type="Error">
+Error: Failed to resolve import &quot;./YdButton.vue&quot; from &quot;comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts&quot;. Does the file exist?
   Plugin: vite:import-analysis
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/button/button.test.ts:15:25
   1  |  import { describe, it, expect } from &quot;vitest&quot;;
   2  |  import { mount } from &quot;@vue/test-utils&quot;;
-  3  |  import YdButtonBase from &quot;./YdButtonBase.vue&quot;;
+  3  |  import YdButton from &quot;./YdButton.vue&quot;;
      |                            ^
   4  |  import { buttonVariants } from &quot;./button&quot;;
-  5  |  describe(&quot;YdButtonBase&quot;, () =&gt; {
+  5  |  describe(&quot;YdButton&quot;, () =&gt; {
  ❯ TransformPluginContext._formatLog node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41
  ❯ TransformPluginContext.error node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16
  ❯ normalizeUrl node_modules/.pnpm/vite@6.4.3_@types+node@22.2_6932fc5ce475adfaa112d14205359333/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23
@@ -2090,7 +2090,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/ContextMenu/ContextMenuRoot.vue
 12 |  }
-13 |  
+13 |
 14 |  export interface ContextMenuRootProps extends Omit&lt;MenuProps, &apos;open&apos;&gt; {}
    |                                                ^^^^^^^^^^^^^^^^^^^^^^^
 15 |  export type ContextMenuRootEmits = MenuEmits
@@ -2104,11 +2104,11 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/ContextMenu/ContextMenuRoot.vue
 12 |  }
-13 |  
+13 |
 14 |  export interface ContextMenuRootProps extends Omit&lt;MenuProps, &apos;open&apos;&gt; {}
    |                                                ^^^^^^^^^^^^^^^^^^^^^^^
 15 |  export type ContextMenuRootEmits = MenuEmits
-16 |  
+16 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-ui/src/primitives/context-menu/YdContextMenu.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2177,7 +2177,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2222,7 +2222,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2249,7 +2249,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/DropdownMenu/DropdownMenuRoot.vue
 5  |  import { createContext, useDirection, useForwardExpose } from &apos;@/shared&apos;
-6  |  
+6  |
 7  |  export interface DropdownMenuRootProps extends MenuProps {
    |                                                 ^^^^^^^^^
 8  |    /** The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state. */
@@ -2263,7 +2263,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/DropdownMenu/DropdownMenuRoot.vue
 5  |  import { createContext, useDirection, useForwardExpose } from &apos;@/shared&apos;
-6  |  
+6  |
 7  |  export interface DropdownMenuRootProps extends MenuProps {
    |                                                 ^^^^^^^^^
 8  |    /** The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state. */
@@ -2294,7 +2294,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Label/Label.vue
 3  |  import { useForwardExpose } from &apos;@/shared&apos;
-4  |  
+4  |
 5  |  export interface LabelProps extends PrimitiveProps {
    |                                      ^^^^^^^^^^^^^^
 6  |    /** The id of the element the label is associated with. */
@@ -2308,7 +2308,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Label/Label.vue
 3  |  import { useForwardExpose } from &apos;@/shared&apos;
-4  |  
+4  |
 5  |  export interface LabelProps extends PrimitiveProps {
    |                                      ^^^^^^^^^^^^^^
 6  |    /** The id of the element the label is associated with. */
@@ -2415,7 +2415,7 @@ SyntaxError: Attribute name cannot contain U+0022 (&quot;), U+0027 (&apos;), and
 11 |  &lt;script lang=&quot;ts&quot; setup&quot;&gt;
    |                          ^
 12 |  import { computed } from &apos;vue&apos;;
-13 |  
+13 |
             </failure>
         </testcase>
     </testsuite>
@@ -2448,7 +2448,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2503,7 +2503,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2530,7 +2530,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Tabs/TabsRoot.vue
 16 |  }
-17 |  
+17 |
 18 |  export interface TabsRootProps&lt;T extends StringOrNumber = StringOrNumber&gt; extends PrimitiveProps {
    |                                                                                    ^^^^^^^^^^^^^^
 19 |    /**
@@ -2544,7 +2544,7 @@ Note: both in 3.2 or with the ignore, the properties in the base type are treate
 
 D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Tabs/TabsRoot.vue
 16 |  }
-17 |  
+17 |
 18 |  export interface TabsRootProps&lt;T extends StringOrNumber = StringOrNumber&gt; extends PrimitiveProps {
    |                                                                                    ^^^^^^^^^^^^^^
 19 |    /**
@@ -2677,7 +2677,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionConten
 10 |  import { injectAccordionItemContext } from &apos;./AccordionItem.vue&apos;
    |                ^^^^^^^^^^^^^^^^^^^^^^^
 11 |  import { injectAccordionRootContext } from &apos;./AccordionRoot.vue&apos;
-12 |  
+12 |
   Plugin: vite:vue
   File: D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/Accordion/AccordionContent.vue
  ❯ ScriptCompileContext.error node_modules/.pnpm/@vue+compiler-sfc@3.5.40/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:20251:11
@@ -2767,7 +2767,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/shared/component/Arrow.vu
 27 |    as: &apos;svg&apos;,
 28 |  })
    |     ^
-29 |  
+29 |
    |  ^
 30 |  useForwardExpose()
    |  ^^^^^^^^^^^" type="Error">
@@ -2783,7 +2783,7 @@ D:/Code/open/ydsz-micro/comm/@core/ui-kit/ydsz-vue/src/shared/component/Arrow.vu
 27 |    as: &apos;svg&apos;,
 28 |  })
    |     ^
-29 |  
+29 |
    |  ^
 30 |  useForwardExpose()
    |  ^^^^^^^^^^^

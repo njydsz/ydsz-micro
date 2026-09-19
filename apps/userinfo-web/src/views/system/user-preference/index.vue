@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch, type FormInstance } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch, type FormInstance } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -164,11 +164,11 @@ loadPreferences();
       <YdCardHeader class="flex flex-row items-center justify-between">
         <YdCardTitle class="text-base">偏好设置</YdCardTitle>
         <div class="flex gap-2">
-          <YdButtonBase variant="ghost" @click="handleReset">重置默认</YdButtonBase>
-          <YdButtonBase variant="default" :disabled="isLoading" @click="handleSave">
+          <YdButton variant="ghost" @click="handleReset">重置默认</YdButton>
+          <YdButton variant="default" :disabled="isLoading" @click="handleSave">
             <Loader2 v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
             保存设置
-          </YdButtonBase>
+          </YdButton>
         </div>
       </YdCardHeader>
       <YdCardContent>

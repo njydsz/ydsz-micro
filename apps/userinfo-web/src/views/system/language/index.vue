@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -91,12 +91,12 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -195,7 +195,7 @@ async function handleDelete(row: LanguageVO) {
   <Page auto-content-height>
     <Grid :table-title="t('language.languageManagement')">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="handleAdd">{{ t('language.createLanguage') }}</YdButtonBase>
+        <YdButton variant="default" @click="handleAdd">{{ t('language.createLanguage') }}</YdButton>
       </template>
     </Grid>
     <LanguageFormModal @success="gridApi.query()" />

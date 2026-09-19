@@ -18,7 +18,7 @@ import { onClickOutside } from '@vueuse/core';
 
 import { useNotificationStore } from '@YDSZ/shared-business/notification';
 
-import YdNotificationPanel from './notification-panel.vue';
+import YdNotificationPanel from './YdNotificationPanel.vue';
 
 const notificationStore = useNotificationStore();
 const panelRef = ref<HTMLElement | null>(null);

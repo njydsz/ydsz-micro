@@ -22,7 +22,7 @@ import { cn, isFunction } from '@ydsz-core/shared/utils';
 import { objectOmit } from '@vueuse/core';
 
 import { YdRenderContent } from '../render-content';
-import YdButtonGroup from './button-group.vue';
+import YdButtonGroup from './YdButtonGroup.vue';
 import YdButtonSmart from './YdButtonSmart.vue';
 
 const props = withDefaults(defineProps<YdButtonGroupProps>(), {

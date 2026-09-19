@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -176,8 +176,8 @@ async function handleSubmit(): Promise<void> {
     </YdForm>
 
     <template #footer>
-      <YdButtonBase variant="outline" @click="modalApi.close()">{{ t('common.cancel') }}</YdButtonBase>
-      <YdButtonBase @click="handleSubmit">保存</YdButtonBase>
+      <YdButton variant="outline" @click="modalApi.close()">{{ t('common.cancel') }}</YdButton>
+      <YdButton @click="handleSubmit">保存</YdButton>
     </template>
   </Modal>
 </template>

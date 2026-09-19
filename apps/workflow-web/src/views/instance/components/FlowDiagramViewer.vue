@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO, FlowInstanceVO } from '#/api/models';
@@ -162,7 +162,7 @@ onMounted(() => {
       <div v-else-if="diagramSvg && diagramData" class="diagram-content" v-safe-html="diagramSvg" />
       <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
         <p>暂无流程图数据</p>
-        <YdButtonBase size="sm" variant="secondary" class="mt-2" @click="loadDiagram">重新加载</YdButtonBase>
+        <YdButton size="sm" variant="secondary" class="mt-2" @click="loadDiagram">重新加载</YdButton>
       </div>
     </div>
 

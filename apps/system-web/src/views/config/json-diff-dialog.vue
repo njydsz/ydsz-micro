@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -179,9 +179,9 @@ function handleClose() {
       <!-- 左侧面板 -->
       <div class="diff-panel left">
         <div class="diff-panel-header">
-          <YdButtonBase variant="ghost" size="sm">
+          <YdButton variant="ghost" size="sm">
             {{ t('configVersion.leftVersion', [versionA]) }}
-          </YdButtonBase>
+          </YdButton>
         </div>
         <div class="diff-panel-body">
           <div
@@ -202,9 +202,9 @@ function handleClose() {
       <!-- 右侧面板 -->
       <div class="diff-panel right">
         <div class="diff-panel-header">
-          <YdButtonBase variant="ghost" size="sm">
+          <YdButton variant="ghost" size="sm">
             {{ t('configVersion.rightVersion', [versionB]) }}
-          </YdButtonBase>
+          </YdButton>
         </div>
         <div class="diff-panel-body">
           <div
@@ -224,7 +224,7 @@ function handleClose() {
     </div>
 
       <YdDialogFooter>
-        <YdButtonBase @click="handleClose">{{ t('common.close') }}</YdButtonBase>
+        <YdButton @click="handleClose">{{ t('common.close') }}</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

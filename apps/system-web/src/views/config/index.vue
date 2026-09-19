@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -104,15 +104,15 @@ const gridOptions: VxeTableGridOptions<ConfigRow> = {
           const buttons = [];
           // 编辑按钮 — 需要 sys:config:edit 权限
           if (hasAccessByCodesAll(['sys:config:edit'])) {
-            buttons.push(h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')));
+            buttons.push(h(YdButton, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')));
           }
           // 版本历史按钮 — 需要 sys:config:edit 权限
           if (hasAccessByCodesAll(['sys:config:edit'])) {
-            buttons.push(h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')));
+            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')));
           }
           // 删除按钮 — 需要 sys:config:delete 权限
           if (hasAccessByCodesAll(['sys:config:delete'])) {
-            buttons.push(h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')));
+            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')));
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -191,7 +191,7 @@ async function handleDelete(row: ConfigRow) {
         <YdBadge v-if="dataScopeLabel" variant="destructive" style="margin-right: 8px">
           {{ dataScopeLabel }}
         </YdBadge>
-        <YdButtonBase v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</YdButtonBase>
+        <YdButton v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</YdButton>
       </template>
     </Grid>
     <ConfigFormModal @success="gridApi.query()" />

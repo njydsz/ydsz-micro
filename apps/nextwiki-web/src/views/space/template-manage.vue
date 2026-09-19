@@ -18,7 +18,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdInput, YdTable, YdTableColumn, YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdTable, YdTableColumn, YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import type { SpaceTemplateDTO } from '#/api/models';
@@ -156,7 +156,7 @@ onMounted(() => {
   <Page auto-content-height>
     <div class="mb-4 flex items-center justify-between">
       <h2 class="text-lg font-medium">空间模板管理</h2>
-      <YdButtonBase @click="handleCreate">新建模板</YdButtonBase>
+      <YdButton @click="handleCreate">新建模板</YdButton>
     </div>
 
     <YdTable :data="templateList" :loading="listLoading" border stripe>
@@ -177,8 +177,8 @@ onMounted(() => {
       </YdTableColumn>
       <YdTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
-          <YdButtonBase variant="link" size="sm" @click="handleEdit(row)">编辑</YdButtonBase>
-          <YdButtonBase
+          <YdButton variant="link" size="sm" @click="handleEdit(row)">编辑</YdButton>
+          <YdButton
             variant="link"
             size="sm"
             className="text-destructive"
@@ -186,7 +186,7 @@ onMounted(() => {
             @click="handleDelete(row)"
           >
             删除
-          </YdButtonBase>
+          </YdButton>
         </template>
       </YdTableColumn>
     </YdTable>
@@ -209,8 +209,8 @@ onMounted(() => {
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="dialogVisible = false">取消</YdButtonBase>
-          <YdButtonBase :disabled="formLoading" @click="handleSubmit">确定</YdButtonBase>
+          <YdButton variant="outline" @click="dialogVisible = false">取消</YdButton>
+          <YdButton :disabled="formLoading" @click="handleSubmit">确定</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

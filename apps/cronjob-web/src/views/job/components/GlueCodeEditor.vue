@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
@@ -234,7 +234,7 @@ onMounted(() => {
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-            <YdButtonBase size="sm" variant="outline" @click="loadTemplate">加载模板</YdButtonBase>
+            <YdButton size="sm" variant="outline" @click="loadTemplate">加载模板</YdButton>
             <span v-if="currentVersion > 0" class="text-xs text-gray-500">当前版本：v{{ currentVersion }}</span>
           </div>
           <div class="code-editor-wrapper">
@@ -246,11 +246,11 @@ onMounted(() => {
             />
           </div>
           <div class="mt-3 flex justify-end gap-2">
-            <YdButtonBase variant="outline" @click="modalApi.close()">取消</YdButtonBase>
-            <YdButtonBase :disabled="saving" @click="handleSave">
+            <YdButton variant="outline" @click="modalApi.close()">取消</YdButton>
+            <YdButton :disabled="saving" @click="handleSave">
               <Loader2 v-if="saving" class="mr-2 h-4 w-4 animate-spin" />
               保存
-            </YdButtonBase>
+            </YdButton>
           </div>
         </div>
       </YdTabsContent>
@@ -270,8 +270,8 @@ onMounted(() => {
               <p v-if="version.remark" class="mt-1 text-xs text-gray-600">{{ version.remark }}</p>
             </div>
             <div class="flex gap-2">
-              <YdButtonBase size="sm" variant="outline" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</YdButtonBase>
-              <YdButtonBase size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButtonBase>
+              <YdButton size="sm" variant="outline" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</YdButton>
+              <YdButton size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButton>
             </div>
           </div>
         </div>
@@ -286,10 +286,10 @@ onMounted(() => {
             </YdFormItem>
           </YdForm>
           <div class="mb-3 flex justify-end">
-            <YdButtonBase :disabled="testing" @click="handleTest">
+            <YdButton :disabled="testing" @click="handleTest">
               <Loader2 v-if="testing" class="mr-2 h-4 w-4 animate-spin" />
               执行测试
-            </YdButtonBase>
+            </YdButton>
           </div>
           <div v-if="testResult" class="rounded border bg-gray-50 p-3">
             <p class="mb-1 text-xs font-medium text-gray-600">测试结果：</p>

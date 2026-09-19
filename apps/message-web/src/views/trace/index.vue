@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdStep, YdSteps } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdStep, YdSteps } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -158,7 +158,7 @@ function getStepConfig(step: string): { label: string; type: string; description
             class="w-80"
             @keyup.enter="handleQuery"
           />
-          <YdButtonBase :loading="loading" @click="handleQuery">{{ t('common.search') }}</YdButtonBase>
+          <YdButton :loading="loading" @click="handleQuery">{{ t('common.search') }}</YdButton>
         </div>
       </div>
 

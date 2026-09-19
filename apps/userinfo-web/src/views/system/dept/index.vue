@@ -18,7 +18,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -104,8 +104,8 @@ async function handleDelete(row: DepartmentTreeVO) {
       <div class="mb-4 flex items-center justify-between">
         <h3 class="text-lg font-semibold">{{ t('dept.deptManagement') }}</h3>
         <div class="flex gap-2">
-          <YdButtonBase variant="ghost" @click="loadData">{{ t('page.refresh') }}</YdButtonBase>
-          <YdButtonBase variant="default" @click="handleAdd()">{{ t('dept.addTopDept') }}</YdButtonBase>
+          <YdButton variant="ghost" @click="loadData">{{ t('page.refresh') }}</YdButton>
+          <YdButton variant="default" @click="handleAdd()">{{ t('dept.addTopDept') }}</YdButton>
         </div>
       </div>
       <YdTable
@@ -129,15 +129,15 @@ async function handleDelete(row: DepartmentTreeVO) {
         </YdTableColumn>
         <YdTableColumn :label="t('page.operation')" width="240" fixed="right">
           <template #default="{ row }">
-            <YdButtonBase size="sm" variant="link" @click="handleAdd(row.id)">
+            <YdButton size="sm" variant="link" @click="handleAdd(row.id)">
               {{ t('dept.addSubDept') }}
-            </YdButtonBase>
-            <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">
+            </YdButton>
+            <YdButton size="sm" variant="link" @click="handleEdit(row)">
               {{ t('page.edit') }}
-            </YdButtonBase>
-            <YdButtonBase size="sm" variant="link" class="text-destructive" @click="handleDelete(row)">
+            </YdButton>
+            <YdButton size="sm" variant="link" class="text-destructive" @click="handleDelete(row)">
               {{ t('page.delete') }}
-            </YdButtonBase>
+            </YdButton>
           </template>
         </YdTableColumn>
       </YdTable>

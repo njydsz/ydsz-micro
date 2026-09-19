@@ -30,7 +30,7 @@
  */
 defineOptions({ name: 'PageStatus' });
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 type Status = 'idle' | 'loading' | 'empty' | 'error' | 'success';
 
@@ -89,9 +89,9 @@ const emit = defineEmits<{
         </svg>
       </div>
       <p class="status-text">{{ description }}</p>
-      <YdButtonBase v-if="actionText" variant="default" @click="emit('action')">
+      <YdButton v-if="actionText" variant="default" @click="emit('action')">
         {{ actionText }}
-      </YdButtonBase>
+      </YdButton>
     </div>
 
     <!-- error -->
@@ -104,12 +104,12 @@ const emit = defineEmits<{
       </div>
       <p class="status-text">{{ message }}</p>
       <div class="status-actions">
-        <YdButtonBase v-if="showRetry" variant="default" @click="emit('retry')">
+        <YdButton v-if="showRetry" variant="default" @click="emit('retry')">
           重新加载
-        </YdButtonBase>
-        <YdButtonBase v-if="showBack" variant="secondary" @click="$router.back()">
+        </YdButton>
+        <YdButton v-if="showBack" variant="secondary" @click="$router.back()">
           返回上一页
-        </YdButtonBase>
+        </YdButton>
       </div>
     </div>
 

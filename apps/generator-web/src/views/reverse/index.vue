@@ -20,7 +20,7 @@
  */
 import { reactive, ref } from 'vue';
 
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 import { analyzeReverse, analyzeBatchReverse } from '#/api/reverse';
 import type { GenTemplateGroup } from '#/api/models';
@@ -195,12 +195,12 @@ async function handleAnalyze() {
           </YdFormItem>
 
           <YdFormItem>
-            <YdButtonBase
+            <YdButton
               :loading="isAnalyzing"
               @click="handleAnalyze"
             >
               开始分析
-            </YdButtonBase>
+            </YdButton>
           </YdFormItem>
         </YdForm>
       </YdCardContent>

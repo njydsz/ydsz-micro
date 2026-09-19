@@ -1,7 +1,7 @@
 <!--
  * Excel 导入按钮 — 隐藏 file input + 解析回调
  *
- * 使用自研 YdButtonBase + lucide YdUpload 图标，零 element-plus 依赖。
+ * 使用自研 YdButton + lucide YdUpload 图标，零 element-plus 依赖。
  * 提示信息使用 @ydsz/notification 的 showToast（全局轻提示）。
  *
  * @path comm\effects\shared-business\src\components\excel-import-button.vue
@@ -17,7 +17,7 @@ import { ref } from 'vue';
 import { YdUpload } from 'lucide-vue-next';
 
 import { showToast } from '@ydsz/notification';
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import {
@@ -81,7 +81,7 @@ async function handleFileChange(event: Event): Promise<void> {
 </script>
 
 <template>
-  <YdButtonBase
+  <YdButton
     :disabled="loading"
     size="sm"
     variant="outline"
@@ -89,7 +89,7 @@ async function handleFileChange(event: Event): Promise<void> {
   >
     <YdUpload :size="14" class="mr-1" />
     {{ text }}
-  </YdButtonBase>
+  </YdButton>
   <input
     ref="inputRef"
     type="file"

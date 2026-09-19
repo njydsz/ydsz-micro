@@ -21,7 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 
 import {
@@ -180,13 +180,13 @@ onMounted(() => {
           <div class="mb-4 flex items-center justify-between">
             <h3 class="text-base font-medium">模板缓存统计</h3>
             <div class="flex gap-2">
-              <YdButtonBase size="sm" variant="outline" @click="loadCacheStats">刷新</YdButtonBase>
-              <YdButtonBase size="sm" @click="evictDialogVisible = true">
+              <YdButton size="sm" variant="outline" @click="loadCacheStats">刷新</YdButton>
+              <YdButton size="sm" @click="evictDialogVisible = true">
                 清理单条
-              </YdButtonBase>
-              <YdButtonBase size="sm" variant="destructive" @click="handleClearAllCache">
+              </YdButton>
+              <YdButton size="sm" variant="destructive" @click="handleClearAllCache">
                 全量清理
-              </YdButtonBase>
+              </YdButton>
             </div>
           </div>
 
@@ -218,7 +218,7 @@ onMounted(() => {
           <YdCardContent class="pt-4">
           <div class="mb-4 flex items-center justify-between">
             <h3 class="text-base font-medium">BloomFilter 统计</h3>
-            <YdButtonBase size="sm" variant="outline" @click="loadBloomStats">刷新</YdButtonBase>
+            <YdButton size="sm" variant="outline" @click="loadBloomStats">刷新</YdButton>
           </div>
 
           <div v-loading="loading" class="space-y-4">
@@ -269,8 +269,8 @@ onMounted(() => {
             </YdFormItem>
           </YdForm>
           <YdDialogFooter>
-            <YdButtonBase variant="outline" @click="evictDialogVisible = false">取消</YdButtonBase>
-            <YdButtonBase @click="handleEvictCache">确认清理</YdButtonBase>
+            <YdButton variant="outline" @click="evictDialogVisible = false">取消</YdButton>
+            <YdButton @click="handleEvictCache">确认清理</YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>

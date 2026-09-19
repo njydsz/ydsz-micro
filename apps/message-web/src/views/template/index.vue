@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdForm, YdFormItem, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdForm, YdFormItem, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -98,32 +98,32 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleVersion(row) },
               () => t('version'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handlePreview(row) },
               () => t('template.preview'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleTestSend(row) },
               () => t('template.test'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleAudit(row) },
               () => t('template.audit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
@@ -328,7 +328,7 @@ async function executeTestSend(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="模板管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
     </Grid>
     <TemplateFormModal @success="gridApi.query()" />
@@ -355,7 +355,7 @@ async function executeTestSend(): Promise<void> {
                 {{ version.changeLog }}
               </p>
             </div>
-            <YdButtonBase size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButtonBase>
+            <YdButton size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButton>
           </div>
         </div>
       </YdSheetContent>
@@ -393,8 +393,8 @@ async function executeTestSend(): Promise<void> {
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</YdButtonBase>
-          <YdButtonBase @click="executeTestSend">发送</YdButtonBase>
+          <YdButton variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</YdButton>
+          <YdButton @click="executeTestSend">发送</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

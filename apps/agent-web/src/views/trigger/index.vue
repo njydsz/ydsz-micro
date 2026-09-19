@@ -20,7 +20,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -92,13 +92,13 @@ const gridColumns: VxeTableGridOptions<AgentTrigger>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButtonBase, {
+          h(YdButton, {
             size: 'sm', variant: 'link',
             className: row.enabled ? 'text-yellow-600' : 'text-green-600',
             onClick: () => handleToggleEnabled(row),
           }, () => (row.enabled ? '禁用' : '启用')),
-          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-          h(YdButtonBase, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+          h(YdButton, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
     },
   },
@@ -276,8 +276,8 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
                 <YdSelectItemBase value="workflow_completion">工作流完成</YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-            <YdButtonBase @click="refreshList">搜索</YdButtonBase>
-            <YdButtonBase variant="outline" @click="searchForm.name = ''; searchForm.triggerType = ''">重置</YdButtonBase>
+            <YdButton @click="refreshList">搜索</YdButton>
+            <YdButton variant="outline" @click="searchForm.name = ''; searchForm.triggerType = ''">重置</YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -287,7 +287,7 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
         <YdCardContent class="pt-6">
           <Grid table-title="触发器管理">
             <template #toolbar-tools>
-              <YdButtonBase @click="handleCreate">新建触发器</YdButtonBase>
+              <YdButton @click="handleCreate">新建触发器</YdButton>
             </template>
           </Grid>
           <YdEmptyState v-if="triggers.length === 0" description="暂无触发器" />
@@ -340,8 +340,8 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="formModalVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</YdButtonBase>
+          <YdButton variant="outline" @click="formModalVisible = false">取消</YdButton>
+          <YdButton @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

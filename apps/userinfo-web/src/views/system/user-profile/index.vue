@@ -20,7 +20,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdForm, YdFormItem, YdInput, YdSwitch, type FormInstance, type UploadRequestOptions } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdForm, YdFormItem, YdInput, YdSwitch, type FormInstance, type UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -301,10 +301,10 @@ loadMfaStatus();
                   <YdInput v-model="profileForm.avatar" placeholder="头像地址（上传后自动填充）" />
                 </YdFormItem>
                 <YdFormItem>
-                  <YdButtonBase variant="default" :disabled="isProfileLoading" @click="handleUpdateProfile">
+                  <YdButton variant="default" :disabled="isProfileLoading" @click="handleUpdateProfile">
                     <Loader2 v-if="isProfileLoading" class="mr-2 h-4 w-4 animate-spin" />
                     保存修改
-                  </YdButtonBase>
+                  </YdButton>
                 </YdFormItem>
               </YdForm>
             </div>
@@ -324,7 +324,7 @@ loadMfaStatus();
                 accept="image/png,image/jpeg,image/jpg,image/gif"
                 :http-request="handleAvatarUpload"
               >
-                <YdButtonBase size="sm" variant="default">上传头像</YdButtonBase>
+                <YdButton size="sm" variant="default">上传头像</YdButton>
               </YdUpload>
               <span class="text-xs text-muted-foreground">支持 PNG/JPG/GIF，建议 200x200</span>
             </div>
@@ -352,10 +352,10 @@ loadMfaStatus();
                   <YdInput v-model="passwordForm.confirmPassword" type="password" placeholder="请再次输入新密码" show-password />
                 </YdFormItem>
                 <YdFormItem>
-                  <YdButtonBase variant="default" :disabled="isPasswordLoading" @click="handleChangePassword">
+                  <YdButton variant="default" :disabled="isPasswordLoading" @click="handleChangePassword">
                     <Loader2 v-if="isPasswordLoading" class="mr-2 h-4 w-4 animate-spin" />
                     修改密码
-                  </YdButtonBase>
+                  </YdButton>
                 </YdFormItem>
               </YdForm>
             </div>
@@ -382,10 +382,10 @@ loadMfaStatus();
                   <p class="mb-4 text-sm text-gray-500">
                     双因素认证（MFA）为您的账号增加额外的安全保障。启用后，登录时需输入Authenticator应用生成的6位动态码。
                   </p>
-                  <YdButtonBase variant="default" :disabled="isMfaLoading" @click="handleSetupMfa">
+                  <YdButton variant="default" :disabled="isMfaLoading" @click="handleSetupMfa">
                     <Loader2 v-if="isMfaLoading" class="mr-2 h-4 w-4 animate-spin" />
                     启用MFA
-                  </YdButtonBase>
+                  </YdButton>
                 </template>
 
                 <!-- MFA 设置引导 -->
@@ -421,8 +421,8 @@ loadMfaStatus();
                       />
                     </YdFormItem>
                     <YdFormItem>
-                      <YdButtonBase variant="default" @click="handleActivateMfa">验证并激活</YdButtonBase>
-                      <YdButtonBase variant="ghost" @click="handleCancelMfaSetup">取消</YdButtonBase>
+                      <YdButton variant="default" @click="handleActivateMfa">验证并激活</YdButton>
+                      <YdButton variant="ghost" @click="handleCancelMfaSetup">取消</YdButton>
                     </YdFormItem>
                   </YdForm>
                 </template>
@@ -431,7 +431,7 @@ loadMfaStatus();
               <!-- 已开启 MFA -->
               <div v-else>
                 <p class="mb-4 text-sm text-gray-500">MFA双因素认证已开启。如不再需要，可点击下方按钮禁用（需二次确认）。</p>
-                <YdButtonBase variant="destructive" @click="handleDisableMfa">禁用MFA</YdButtonBase>
+                <YdButton variant="destructive" @click="handleDisableMfa">禁用MFA</YdButton>
               </div>
             </div>
           </div>

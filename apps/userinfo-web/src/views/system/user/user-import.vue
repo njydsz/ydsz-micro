@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdUpload, YdProgress } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdUpload, YdProgress } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -179,11 +179,11 @@ async function handleImport(): Promise<void> {
       </div>
     </div>
     <template #footer>
-      <YdButtonBase variant="outline" @click="handleClose">{{ t('page.close') }}</YdButtonBase>
-      <YdButtonBase :disabled="!selectedFile || importing" @click="handleImport">
+      <YdButton variant="outline" @click="handleClose">{{ t('page.close') }}</YdButton>
+      <YdButton :disabled="!selectedFile || importing" @click="handleImport">
         <Loader2 v-if="importing" class="mr-2 h-4 w-4 animate-spin" />
         {{ t('user.importUser') }}
-      </YdButtonBase>
+      </YdButton>
     </template>
   </Modal>
 </template>

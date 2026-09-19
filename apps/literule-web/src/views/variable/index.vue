@@ -17,7 +17,7 @@
 import type { VariableDefinitionVO } from '#/api/models';
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -58,12 +58,12 @@ const gridOptions: VxeGridProps<VariableDefinitionVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -134,8 +134,8 @@ async function handleRefresh() {
   <Page auto-content-height>
     <Grid :table-title="t('variable')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
-        <YdButtonBase variant="secondary" @click="handleRefresh">刷新</YdButtonBase>
+        <YdButton @click="handleAdd">新增</YdButton>
+        <YdButton variant="secondary" @click="handleRefresh">刷新</YdButton>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdProgress, YdCountToAnimator, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdProgress, YdCountToAnimator, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -138,7 +138,7 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
             class="!w-96"
             @keyup.enter="handleDiagnose"
           />
-          <YdButtonBase :loading="loading" @click="handleDiagnose">诊断</YdButtonBase>
+          <YdButton :loading="loading" @click="handleDiagnose">诊断</YdButton>
         </div>
       </YdCardContent>
     </YdCard>

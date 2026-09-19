@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
 defineOptions({ name: 'ConversationShare' });
@@ -139,12 +139,12 @@ defineExpose({ open, close });
 
       <YdDialogFooter>
         <template v-if="!shareUrl">
-          <YdButtonBase variant="outline" @click="close">取消</YdButtonBase>
-          <YdButtonBase :disabled="publishing" @click="handlePublish">发布</YdButtonBase>
+          <YdButton variant="outline" @click="close">取消</YdButton>
+          <YdButton :disabled="publishing" @click="handlePublish">发布</YdButton>
         </template>
         <template v-else>
-          <YdButtonBase @click="copyShareUrl">复制链接</YdButtonBase>
-          <YdButtonBase variant="outline" @click="close">完成</YdButtonBase>
+          <YdButton @click="copyShareUrl">复制链接</YdButton>
+          <YdButton variant="outline" @click="close">完成</YdButton>
         </template>
       </YdDialogFooter>
     </YdDialogContent>

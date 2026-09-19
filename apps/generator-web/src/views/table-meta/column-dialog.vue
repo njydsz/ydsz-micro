@@ -18,7 +18,7 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';
@@ -96,7 +96,7 @@ onMounted(() => {
         <YdDialogTitle>列元数据 - {{ tableName }}</YdDialogTitle>
       </YdDialogHeader>
       <div class="mb-3 flex justify-end">
-        <YdButtonBase size="sm" @click="handleRefreshColumns">刷新列缓存</YdButtonBase>
+        <YdButton size="sm" @click="handleRefreshColumns">刷新列缓存</YdButton>
       </div>
       <YdTable loading="loading" :data="columns" stripe max-height="400">
         <YdTableColumn prop="columnName" label="列名" width="150" />

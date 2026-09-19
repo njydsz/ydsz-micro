@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -55,8 +55,8 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
-          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
         ]),
       },
     },

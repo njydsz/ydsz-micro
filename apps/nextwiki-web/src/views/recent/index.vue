@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -84,7 +84,7 @@ const gridOptions: VxeGridProps<UserRecentVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, {
+            h(YdButton, {
               size: 'sm',
               variant: 'link',
               onClick: () => handleRemove(row),
@@ -143,7 +143,7 @@ async function handleClearAll() {
         {{ t('recentTotalLabel') }}
         <span class="ml-1 font-semibold text-blue-600">{{ recentCount }}</span>
       </span>
-      <YdButtonBase variant="destructive" size="sm" @click="handleClearAll">{{ t('recentClearAll') }}</YdButtonBase>
+      <YdButton variant="destructive" size="sm" @click="handleClearAll">{{ t('recentClearAll') }}</YdButton>
     </div>
     <Grid table-title="最近访问" />
   </Page>

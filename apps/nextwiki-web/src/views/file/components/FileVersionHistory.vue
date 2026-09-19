@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdDialog, YdTable, YdTableColumn, YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdDialog, YdTable, YdTableColumn, YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
@@ -196,16 +196,16 @@ onMounted(() => {
         <YdTableColumn prop="remark" label="备注" min-width="120" />
         <YdTableColumn label="操作" width="200" fixed="right">
           <template #default="{ row }">
-            <YdButtonBase size="sm" variant="link" @click="handlePreview(row)">预览</YdButtonBase>
-            <YdButtonBase size="sm" variant="link" @click="handleDownloadVersion(row)">下载</YdButtonBase>
-            <YdButtonBase
+            <YdButton size="sm" variant="link" @click="handlePreview(row)">预览</YdButton>
+            <YdButton size="sm" variant="link" @click="handleDownloadVersion(row)">下载</YdButton>
+            <YdButton
               v-if="!row.isCurrent"
               size="sm"
               variant="link"
               @click="handleRollback(row)"
             >
               回滚
-            </YdButtonBase>
+            </YdButton>
           </template>
         </YdTableColumn>
       </YdTable>
@@ -214,7 +214,7 @@ onMounted(() => {
       <YdDialog v-model="comparing" title="版本对比" width="700px">
         <pre class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs">{{ diffContent }}</pre>
         <template #footer>
-          <YdButtonBase variant="outline" @click="comparing = false">关闭</YdButtonBase>
+          <YdButton variant="outline" @click="comparing = false">关闭</YdButton>
         </template>
       </YdDialog>
     </div>

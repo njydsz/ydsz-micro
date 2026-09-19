@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -77,8 +77,8 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(variable) }, () => t('common.edit')),
-            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) }, () => t('common.delete')),
+            h(YdButton, { size: 'sm', onClick: () => handleEdit(variable) }, () => t('common.edit')),
+            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) }, () => t('common.delete')),
           ]);
         },
       },
@@ -167,7 +167,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('variable.title')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
     </Grid>
     <VariableFormModal @success="gridApi.query()" />

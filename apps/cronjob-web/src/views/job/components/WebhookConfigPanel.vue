@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -194,7 +194,7 @@ onMounted(loadList);
     <!-- 操作栏 -->
     <div class="mb-3 flex items-center justify-between">
       <span class="text-sm font-medium">WebHook 事件订阅</span>
-      <YdButtonBase size="sm" @click="handleCreate">新增订阅</YdButtonBase>
+      <YdButton size="sm" @click="handleCreate">新增订阅</YdButton>
     </div>
 
     <!-- 订阅列表 -->
@@ -216,9 +216,9 @@ onMounted(loadList);
       </YdTableColumn>
       <YdTableColumn label="操作" width="160" fixed="right">
         <template #default="{ row }">
-          <YdButtonBase size="sm" variant="link" @click="handleTest(row)">测试</YdButtonBase>
-          <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">编辑</YdButtonBase>
-          <YdButtonBase size="sm" variant="link" @click="handleDelete(row)">删除</YdButtonBase>
+          <YdButton size="sm" variant="link" @click="handleTest(row)">测试</YdButton>
+          <YdButton size="sm" variant="link" @click="handleEdit(row)">编辑</YdButton>
+          <YdButton size="sm" variant="link" @click="handleDelete(row)">删除</YdButton>
         </template>
       </YdTableColumn>
     </YdTable>
@@ -278,8 +278,8 @@ onMounted(loadList);
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="dialogVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="handleSubmit">确定</YdButtonBase>
+          <YdButton variant="outline" @click="dialogVisible = false">取消</YdButton>
+          <YdButton @click="handleSubmit">确定</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

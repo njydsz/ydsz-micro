@@ -23,7 +23,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import type { MsgFeedbackVO } from '#/api/models';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTable, YdTableColumn, YdEmptyState, YdRate } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTable, YdTableColumn, YdEmptyState, YdRate } from '@ydsz-core/ydsz-ui';
 import { getAverageRating, pageFeedback } from '#/api/messageFeedback';
 
 defineOptions({ name: 'FeedbackManagement' });
@@ -214,8 +214,8 @@ onMounted(() => {
                 <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-            <YdButtonBase @click="handleSearch">查询</YdButtonBase>
-            <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
+            <YdButton @click="handleSearch">查询</YdButton>
+            <YdButton variant="outline" @click="handleReset">重置</YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -249,12 +249,12 @@ onMounted(() => {
             <YdTableColumn prop="createdAt" label="创建时间" width="170" />
             <YdTableColumn label="操作" width="160" fixed="right" align="center">
               <template #default="{ row }">
-                <YdButtonBase size="sm" variant="link" @click="handleViewDetail(row)">
+                <YdButton size="sm" variant="link" @click="handleViewDetail(row)">
                   查看详情
-                </YdButtonBase>
-                <YdButtonBase size="sm" variant="link" class="text-destructive" @click="handleHideFeedback(row)">
+                </YdButton>
+                <YdButton size="sm" variant="link" class="text-destructive" @click="handleHideFeedback(row)">
                   隐藏
-                </YdButtonBase>
+                </YdButton>
               </template>
             </YdTableColumn>
             <template #empty>
@@ -264,23 +264,23 @@ onMounted(() => {
 
           <!-- 分页 -->
           <div class="mt-4 flex justify-end">
-            <YdButtonBase
+            <YdButton
               variant="outline"
               :disabled="pageInfo.page <= 1"
               @click="pageInfo.page--; loadFeedback()"
             >
               上一页
-            </YdButtonBase>
+            </YdButton>
             <span class="mx-4 self-center text-sm text-muted-foreground">
               第 {{ pageInfo.page }} 页，共 {{ Math.ceil(pageInfo.total / pageInfo.size) || 1 }} 页
             </span>
-            <YdButtonBase
+            <YdButton
               variant="outline"
               :disabled="pageInfo.page * pageInfo.size >= pageInfo.total"
               @click="pageInfo.page++; loadFeedback()"
             >
               下一页
-            </YdButtonBase>
+            </YdButton>
           </div>
         </YdCardContent>
       </YdCard>

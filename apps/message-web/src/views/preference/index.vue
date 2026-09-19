@@ -22,7 +22,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listByUser } from '#/api/preference';
@@ -90,12 +90,12 @@ const gridOptions: VxeTableGridOptions<MsgPreferenceVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -170,7 +170,7 @@ async function handleDelete(row: MsgPreferenceVO) {
   <Page auto-content-height>
     <Grid table-title="消息偏好">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
+        <YdButton @click="handleAdd">新增</YdButton>
       </template>
     </Grid>
     <PreferenceFormModal @success="gridApi.query()" />

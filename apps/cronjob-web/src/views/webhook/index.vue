@@ -18,7 +18,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -64,10 +64,10 @@ const webhookGridOptions: VxeGridProps<JobWebhookVO> = {
         default: ({ row }) => {
           const item = row as JobWebhookVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(item) }, () => t('common.edit')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleToggle(item) }, () => (item.webhookStatus === 'ACTIVE' ? '停用' : '启用')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleTest(item) }, () => t('business.webhookTest')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(item) }, () => t('common.delete')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(item) }, () => t('common.edit')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleToggle(item) }, () => (item.webhookStatus === 'ACTIVE' ? '停用' : '启用')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTest(item) }, () => t('business.webhookTest')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(item) }, () => t('common.delete')),
           ]);
         },
       },
@@ -152,7 +152,7 @@ async function handleDelete(row: JobWebhookVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.webhook')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
     </Grid>
     <WebhookFormModal @success="gridApi.query()" />

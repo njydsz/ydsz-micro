@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButtonBase, YdCard, YdCardContent, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 
@@ -263,7 +263,7 @@ onMounted(() => {
             </YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-        <YdButtonBase :loading="loading" @click="loadAllData">刷新</YdButtonBase>
+        <YdButton :loading="loading" @click="loadAllData">刷新</YdButton>
       </div>
     </div>
 

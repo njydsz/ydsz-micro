@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -84,11 +84,11 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
           const buttons = [];
           // 编辑按钮 — 需要 sys:dict:edit 权限
           if (hasAccessByCodesAll(['sys:dict:edit'])) {
-            buttons.push(h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(dictType) }, () => t('edit')));
+            buttons.push(h(YdButton, { size: 'sm', onClick: () => handleEdit(dictType) }, () => t('edit')));
           }
           // 删除按钮 — 需要 sys:dict:delete 权限
           if (hasAccessByCodesAll(['sys:dict:delete'])) {
-            buttons.push(h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(dictType) }, () => t('delete')));
+            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(dictType) }, () => t('delete')));
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -181,7 +181,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid table-title="字典类型">
       <template #toolbar-tools>
-        <YdButtonBase v-permission="'sys:dict:add'" @click="handleAdd">{{ t('create') }}</YdButtonBase>
+        <YdButton v-permission="'sys:dict:add'" @click="handleAdd">{{ t('create') }}</YdButton>
       </template>
     </Grid>
     <DictTypeFormModal @success="gridApi.query()" />

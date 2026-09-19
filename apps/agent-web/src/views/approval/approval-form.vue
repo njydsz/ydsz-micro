@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdDescriptions, YdDescriptionsItem, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdDescriptions, YdDescriptionsItem, YdButton } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { approve, getApproval, reject } from '#/api/humanApproval';
@@ -106,8 +106,8 @@ async function handleSubmit(action: 'approve' | 'reject') {
       </YdFormItem>
     </YdForm>
     <div class="mt-2 flex justify-end gap-2">
-      <YdButtonBase variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">驳回</YdButtonBase>
-      <YdButtonBase :disabled="submitting" @click="handleSubmit('approve')">通过</YdButtonBase>
+      <YdButton variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">驳回</YdButton>
+      <YdButton :disabled="submitting" @click="handleSubmit('approve')">通过</YdButton>
     </div>
   </Modal>
 </template>

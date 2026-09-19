@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 
-import { YdDrawer, YdDescriptions, YdDescriptionsItem, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdDrawer, YdDescriptions, YdDescriptionsItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
@@ -47,7 +47,7 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     {
       field: 'action', title: '操作', width: 100, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleView(row) }, () => '查看'),
+        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleView(row) }, () => '查看'),
       ]) },
     },
   ],
@@ -92,7 +92,7 @@ async function handleView(row: AgentDefinitionVO) {
   <Page auto-content-height>
     <div class="mb-3 flex items-center gap-2">
       <YdInput v-model="queryCode" placeholder="按Agent编码查询" class="w-64" />
-      <YdButtonBase @click="handleQueryByCode">查询</YdButtonBase>
+      <YdButton @click="handleQueryByCode">查询</YdButton>
     </div>
     <YdDescriptions v-if="queryDetail" :column="3" border class="mb-3">
       <YdDescriptionsItem label="Agent编码">{{ queryDetail.agentCode }}</YdDescriptionsItem>

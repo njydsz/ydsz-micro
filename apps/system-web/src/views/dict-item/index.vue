@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -79,8 +79,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(YdButton, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
           ]),
       },
     },
@@ -175,7 +175,7 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('dictItem')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('create') }}</YdButton>
       </template>
     </Grid>
     <DictItemFormModal @success="gridApi.query()" />

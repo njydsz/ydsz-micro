@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, watch } from 'vue';
 
@@ -185,8 +185,8 @@ watch(
     </YdForm>
 
     <template #footer>
-      <YdButtonBase variant="outline" @click="modalApi.close()">取消</YdButtonBase>
-      <YdButtonBase @click="handleSubmit">保存</YdButtonBase>
+      <YdButton variant="outline" @click="modalApi.close()">取消</YdButton>
+      <YdButton @click="handleSubmit">保存</YdButton>
     </template>
   </Modal>
 </template>

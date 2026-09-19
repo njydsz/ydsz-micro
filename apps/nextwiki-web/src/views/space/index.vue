@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -91,14 +91,14 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleMembers(row) }, () => '成员'),
-            h(YdButtonBase, {
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleMembers(row) }, () => '成员'),
+            h(YdButton, {
               size: 'sm', variant: 'link',
               onClick: () => handleArchive(row),
               disabled: row.status === 'ARCHIVED',
             }, () => '归档'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -217,7 +217,7 @@ async function handleDelete(row: SpaceVO) {
   <Page auto-content-height>
     <Grid table-title="空间管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新建空间</YdButtonBase>
+        <YdButton @click="handleAdd">新建空间</YdButton>
       </template>
     </Grid>
     <SpaceFormModal @success="gridApi.query()" />
@@ -237,8 +237,8 @@ async function handleDelete(row: SpaceVO) {
           </div>
         </div>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="editVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="confirmEdit">确定</YdButtonBase>
+          <YdButton variant="outline" @click="editVisible = false">取消</YdButton>
+          <YdButton @click="confirmEdit">确定</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
@@ -247,7 +247,7 @@ async function handleDelete(row: SpaceVO) {
         <div class="mb-4 flex items-center gap-2">
           <YdInput v-model="addMemberForm.userId" placeholder="请输入用户ID" class="flex-1" />
           <YdInput v-model="addMemberForm.role" placeholder="角色" class="w-24" />
-          <YdButtonBase @click="handleAddMember">添加</YdButtonBase>
+          <YdButton @click="handleAddMember">添加</YdButton>
         </div>
         <div v-loading="membersLoading">
           <div v-if="members.length === 0" class="py-8 text-center text-gray-400">暂无成员</div>
@@ -256,7 +256,7 @@ async function handleDelete(row: SpaceVO) {
               <p class="text-sm font-medium">{{ member.userId }}</p>
               <p class="text-xs text-gray-500">角色：{{ member.role }} | 加入时间：{{ member.joinedAt }}</p>
             </div>
-            <YdButtonBase size="sm" variant="link" @click="handleRemoveMember(member)">移除</YdButtonBase>
+            <YdButton size="sm" variant="link" @click="handleRemoveMember(member)">移除</YdButton>
           </div>
         </div>
       </YdSheetContent>

@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -160,9 +160,9 @@ function statusText(status: ConnectStatus): string {
               </YdText>
             </div>
             <YdSpace>
-              <YdButtonBase size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</YdButtonBase>
-              <YdButtonBase size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</YdButtonBase>
-              <YdButtonBase size="sm" variant="ghost" @click="handleClear">清空</YdButtonBase>
+              <YdButton size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</YdButton>
+              <YdButton size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</YdButton>
+              <YdButton size="sm" variant="ghost" @click="handleClear">清空</YdButton>
             </YdSpace>
           </div>
         </YdCardHeader>
@@ -178,7 +178,7 @@ function statusText(status: ConnectStatus): string {
             />
           </YdFormItem>
           <YdFormItem>
-            <YdButtonBase size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</YdButtonBase>
+            <YdButton size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</YdButton>
           </YdFormItem>
           </YdForm>
         </YdCardContent>

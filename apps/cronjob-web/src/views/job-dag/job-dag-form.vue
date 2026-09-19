@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -161,7 +161,7 @@ async function handleValidateDag() {
       <YdFormItem label="DSL定义" prop="dagDefinition">
         <div class="flex w-full gap-2">
           <YdTextarea v-model="formData.dagDefinition" :rows="6" placeholder="请输入DAG DSL定义" />
-          <YdButtonBase class="shrink-0" variant="outline" @click="handleValidateDag">校验</YdButtonBase>
+          <YdButton class="shrink-0" variant="outline" @click="handleValidateDag">校验</YdButton>
         </div>
       </YdFormItem>
       <YdFormItem label="触发类型" prop="triggerType">

@@ -17,7 +17,7 @@ import { EmptyIcon, Grip, listIcons } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
 import {
-  YdButtonBase,
+  YdButton,
   YdInput,
   Pagination,
   YdPaginationEllipsis,
@@ -304,12 +304,12 @@ defineExpose({ toggleOpenState, open, close });
                 :value="item.value"
                 as-child
               >
-                <YdButtonBase
+                <YdButton
                   :variant="item.value === currentPage ? 'default' : 'outline'"
                   class="size-5 p-0 text-sm"
                 >
                   {{ item.value }}
-                </YdButtonBase>
+                </YdButton>
               </PaginationListItem>
               <YdPaginationEllipsis
                 v-else

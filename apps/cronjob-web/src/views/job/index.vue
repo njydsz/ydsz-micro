@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -105,43 +105,43 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
           const job = row as JobRow;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(job) },
               () => t('common.edit'),
             ),
             isPaused(job)
               ? h(
-                  YdButtonBase,
+                  YdButton,
                   { size: 'sm', variant: 'link', onClick: () => handleResume(job) },
                   () => '恢复',
                 )
               : h(
-                  YdButtonBase,
+                  YdButton,
                   { size: 'sm', variant: 'link', onClick: () => handlePause(job) },
                   () => '暂停',
                 ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleTrigger(job) },
               () => '触发',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleViewLog(job) },
               () => '日志',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleViewEvents(job) },
               () => '事件流',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleWebhookConfig(job) },
               () => 'WebHook',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(job) },
               () => t('common.delete'),
             ),
@@ -383,10 +383,10 @@ async function handleBatchDelete() {
   <Page auto-content-height>
     <Grid :table-title="t('page.task')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
-        <YdButtonBase variant="destructive" @click="handleBatchPause">批量暂停</YdButtonBase>
-        <YdButtonBase @click="handleBatchResume">批量恢复</YdButtonBase>
-        <YdButtonBase variant="destructive" @click="handleBatchDelete">批量删除</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
+        <YdButton variant="destructive" @click="handleBatchPause">批量暂停</YdButton>
+        <YdButton @click="handleBatchResume">批量恢复</YdButton>
+        <YdButton variant="destructive" @click="handleBatchDelete">批量删除</YdButton>
       </template>
     </Grid>
     <JobFormModal @success="gridApi.query()" />

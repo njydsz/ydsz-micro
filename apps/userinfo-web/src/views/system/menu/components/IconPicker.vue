@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 defineOptions({ name: 'YdIconPicker' });
@@ -783,8 +783,8 @@ defineExpose({ open, close });
           共 {{ filteredIcons.length }} 个图标
         </span>
         <div class="flex gap-2">
-          <YdButtonBase size="sm" variant="ghost" @click="clearSelection">清除选择</YdButtonBase>
-          <YdButtonBase size="sm" variant="outline" @click="close">取消</YdButtonBase>
+          <YdButton size="sm" variant="ghost" @click="clearSelection">清除选择</YdButton>
+          <YdButton size="sm" variant="outline" @click="close">取消</YdButton>
         </div>
       </YdDialogFooter>
     </YdDialogContent>

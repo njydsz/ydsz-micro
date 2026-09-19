@@ -23,7 +23,7 @@
  */
 import { computed, reactive, ref, watch } from 'vue';
 
-import { YdBadge, YdButtonBase, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 
 import { requestClient } from '#/api/request';
 
@@ -285,13 +285,13 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           </YdSelect>
         </YdFormItem>
         <YdFormItem>
-          <YdButtonBase
+          <YdButton
             :loading="generating"
             :disabled="!hasSelectedTable"
             @click="handleGenerate"
           >
             生成代码
-          </YdButtonBase>
+          </YdButton>
           <span v-if="!hasSelectedTable" class="ml-3 text-sm text-gray-400">
             请先选择数据源和表
           </span>

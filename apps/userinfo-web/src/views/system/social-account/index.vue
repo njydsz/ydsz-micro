@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -168,14 +168,14 @@ onMounted(() => {
         <YdTableColumn prop="createdAt" label="绑定时间" width="170" />
         <YdTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
-            <YdButtonBase
+            <YdButton
               size="sm"
               variant="link"
               class="text-destructive"
               @click="handleUnbind(row)"
             >
               解绑
-            </YdButtonBase>
+            </YdButton>
           </template>
         </YdTableColumn>
       </YdTable>
@@ -201,9 +201,9 @@ onMounted(() => {
           <div class="flex items-center gap-3">
             <span class="text-lg font-medium">{{ String(platform.name ?? platform.code ?? '-') }}</span>
           </div>
-          <YdButtonBase size="sm" variant="outline" disabled>
+          <YdButton size="sm" variant="outline" disabled>
             绑定
-          </YdButtonBase>
+          </YdButton>
         </div>
       </div>
       <YdEmptyState v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />

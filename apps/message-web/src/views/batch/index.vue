@@ -22,7 +22,7 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge, YdBadge, YdButtonBase, YdDrawer, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge, YdBadge, YdButton, YdDrawer, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -100,7 +100,7 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleProgress(row) }, () => '进度'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleProgress(row) }, () => '进度'),
       },
     },
   ],
@@ -342,7 +342,7 @@ onBeforeUnmount(() => {
           表格
         </button>
       </div>
-      <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+      <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
     </div>
 
     <!-- 表格视图 -->
@@ -397,13 +397,13 @@ onBeforeUnmount(() => {
           </template>
 
           <template #actions>
-            <YdButtonBase
+            <YdButton
               size="sm"
               variant="link"
               @click.stop="handleProgress(item)"
             >
               查看进度
-            </YdButtonBase>
+            </YdButton>
           </template>
         </YdEntityCard>
       </YdCardGrid>
@@ -418,9 +418,9 @@ onBeforeUnmount(() => {
             <YdBadge :variant="sseState === 'live' ? 'default' : sseState === 'error' ? 'destructive' : 'secondary'">
               {{ sseStateText[sseState] }}
             </YdBadge>
-            <YdButtonBase size="sm" variant="link" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
+            <YdButton size="sm" variant="link" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
               {{ t('common.refresh') }}
-            </YdButtonBase>
+            </YdButton>
           </span>
         </div>
       </template>

@@ -15,7 +15,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 
 import { parse, preview, validate } from '#/api/ruleDsl';
@@ -69,9 +69,9 @@ function handlePreview() {
         <DslEditor v-model="dslText" placeholder="请输入 DSL 内容…" />
       </div>
       <div class="flex gap-2">
-        <YdButtonBase :loading="running" @click="handleValidate">校验</YdButtonBase>
-        <YdButtonBase :loading="running" @click="handleParse">解析</YdButtonBase>
-        <YdButtonBase variant="destructive" :loading="running" @click="handlePreview">预览</YdButtonBase>
+        <YdButton :loading="running" @click="handleValidate">校验</YdButton>
+        <YdButton :loading="running" @click="handleParse">解析</YdButton>
+        <YdButton variant="destructive" :loading="running" @click="handlePreview">预览</YdButton>
       </div>
       <div class="flex items-center gap-2">
         <span class="text-sm text-gray-500">结果：</span>

@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -227,18 +227,18 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
           // 查看详情按钮
-          h(YdButtonBase, { size: 'sm', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
+          h(YdButton, { size: 'sm', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
           // 待我审批 Tab：通过 / 拒绝
           ...(activeTab.value === 'pending'
             ? [
-                h(YdButtonBase, { size: 'sm', onClick: () => handleApprove(row) }, () => t('common.approve')),
-                h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) }, () => t('common.reject')),
+                h(YdButton, { size: 'sm', onClick: () => handleApprove(row) }, () => t('common.approve')),
+                h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) }, () => t('common.reject')),
               ]
             : []),
           // 我已发起 Tab：撤回（仅 PENDING 状态）
           ...(activeTab.value === 'submitted' && row.status === 'PENDING'
             ? [
-                h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
+                h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
               ]
             : []),
         ]),

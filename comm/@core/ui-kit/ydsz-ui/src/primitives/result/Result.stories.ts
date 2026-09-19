@@ -7,7 +7,7 @@
  */
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import YdResult from './Result.vue';
+import YdResult from './YdResult.vue';
 
 const meta = {
   component: YdResult,

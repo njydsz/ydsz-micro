@@ -18,7 +18,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -72,8 +72,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
         default: ({ row }) => {
           const app = row as AppRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(app) }, () => '编辑'),
-            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => '删除'),
+            h(YdButton, { size: 'sm', onClick: () => handleEdit(app) }, () => '编辑'),
+            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => '删除'),
           ]);
         },
       },
@@ -139,7 +139,7 @@ async function handleDelete(row: AppRow) {
   <Page auto-content-height>
     <Grid table-title="应用注册">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
+        <YdButton @click="handleAdd">新增</YdButton>
       </template>
     </Grid>
     <AppFormModal @success="gridApi.query()" />

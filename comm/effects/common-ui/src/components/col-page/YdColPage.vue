@@ -16,7 +16,7 @@ import {
   YdResizablePanelGroup,
 } from '@ydsz-core/ydsz-ui';
 
-import Page from '../page/page.vue';
+import Page from '../page/YdPage.vue';
 
 defineOptions({
   name: 'YdColPage',

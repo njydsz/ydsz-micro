@@ -18,7 +18,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -56,8 +56,8 @@ const gridOptions: VxeGridProps<TenantVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(YdButtonBase, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(YdButton, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
+            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
           ]),
       },
     },
@@ -138,7 +138,7 @@ async function handleDelete(row: TenantVO) {
   <Page auto-content-height>
     <Grid :table-title="t('tenant')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('create') }}</YdButton>
       </template>
     </Grid>
     <TenantFormModal @success="gridApi.query()" />

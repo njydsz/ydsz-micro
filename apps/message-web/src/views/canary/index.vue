@@ -22,7 +22,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, reactive, ref } from 'vue';
 
 import { assignBucket, createExperiment } from '#/api/canary';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'CanaryManagement' });
 
@@ -221,9 +221,9 @@ onMounted(() => {
       <YdCard class="mb-4">
         <YdCardContent class="flex items-center justify-between pt-6">
           <h3 class="text-base font-medium">灰度实验管理</h3>
-          <YdButtonBase @click="quickCreateVisible = true">
+          <YdButton @click="quickCreateVisible = true">
             创建实验
-          </YdButtonBase>
+          </YdButton>
         </YdCardContent>
       </YdCard>
 
@@ -253,13 +253,13 @@ onMounted(() => {
             <YdTableColumn prop="createdAt" label="创建时间" width="180" />
             <YdTableColumn label="操作" width="260" fixed="right" align="center">
               <template #default="{ row }">
-                <YdButtonBase size="sm" variant="link" @click="handleEdit(row)">
+                <YdButton size="sm" variant="link" @click="handleEdit(row)">
                   编辑
-                </YdButtonBase>
-                <YdButtonBase size="sm" variant="link" @click="handleViewBucket(row)">
+                </YdButton>
+                <YdButton size="sm" variant="link" @click="handleViewBucket(row)">
                   查看分配
-                </YdButtonBase>
-                <YdButtonBase
+                </YdButton>
+                <YdButton
                   size="sm"
                   variant="link"
                   class="text-destructive"
@@ -267,7 +267,7 @@ onMounted(() => {
                   @click="handleStopExperiment(row)"
                 >
                   停止
-                </YdButtonBase>
+                </YdButton>
               </template>
             </YdTableColumn>
           </YdTable>
@@ -334,8 +334,8 @@ onMounted(() => {
             </YdFormItem>
           </YdForm>
           <YdDialogFooter>
-            <YdButtonBase variant="outline" @click="quickCreateVisible = false">取消</YdButtonBase>
-            <YdButtonBase @click="handleQuickCreate">确认创建</YdButtonBase>
+            <YdButton variant="outline" @click="quickCreateVisible = false">取消</YdButton>
+            <YdButton @click="handleQuickCreate">确认创建</YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>
@@ -359,8 +359,8 @@ onMounted(() => {
             <span class="ml-2 font-mono font-bold text-blue-600">{{ bucketResult }}</span>
           </div>
           <YdDialogFooter>
-            <YdButtonBase variant="outline" @click="bucketVisible = false">关闭</YdButtonBase>
-            <YdButtonBase @click="handleAssignBucket">查询</YdButtonBase>
+            <YdButton variant="outline" @click="bucketVisible = false">关闭</YdButton>
+            <YdButton @click="handleAssignBucket">查询</YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>

@@ -18,7 +18,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -69,11 +69,11 @@ const gridOptions: VxeGridProps<UserSessionVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewBanInfo(row) }, () => t('session.viewBanInfo')),
-            h(YdButtonBase, { size: 'sm', variant: 'ghost', onClick: () => handleViewUserSessions(row) }, () => t('session.viewUserSessions')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleUnbanUser(row) }, () => t('session.unbanUser')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewBanInfo(row) }, () => t('session.viewBanInfo')),
+            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleViewUserSessions(row) }, () => t('session.viewUserSessions')),
+            h(YdButton, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
+            h(YdButton, { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
+            h(YdButton, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleUnbanUser(row) }, () => t('session.unbanUser')),
           ]),
       },
     },
@@ -195,7 +195,7 @@ onMounted(() => {
 
     <Grid :table-title="t('session.onlineUserMgmt')">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</YdButtonBase>
+        <YdButton variant="default" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</YdButton>
       </template>
     </Grid>
 

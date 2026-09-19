@@ -18,7 +18,7 @@
  */
 import { ref, watch } from 'vue';
 
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 
 import type { GenTemplate } from '#/api/models';
 
@@ -71,8 +71,8 @@ function handleSave() {
         spellcheck="false"
       />
       <YdDialogFooter>
-        <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
-        <YdButtonBase @click="handleSave">保存</YdButtonBase>
+        <YdButton variant="secondary" @click="handleClose">取消</YdButton>
+        <YdButton @click="handleSave">保存</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

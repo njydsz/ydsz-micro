@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 import { saveDraft, startProcess } from '#/api/flowInstance';
 import type { FlowSaveDraftDTO, FlowStartProcessDTO } from '#/api/models';
@@ -159,7 +159,7 @@ async function handleSaveDraft(): Promise<void> {
     </YdForm>
     <!-- 草稿保存按钮（置于弹窗底部操作区左侧） -->
     <template #footer>
-      <YdButtonBase :loading="savingDraft" variant="secondary" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </YdButtonBase>
+      <YdButton :loading="savingDraft" variant="secondary" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </YdButton>
     </template>
   </Modal>
 </template>

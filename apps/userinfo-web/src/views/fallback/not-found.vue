@@ -13,7 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -24,7 +24,7 @@ const router = useRouter();
     <div class="text-center">
       <div class="mb-4 text-6xl font-bold text-gray-300">404</div>
       <div class="mb-6 text-gray-500">页面不存在</div>
-      <YdButtonBase variant="default" @click="router.back()">返回上一页</YdButtonBase>
+      <YdButton variant="default" @click="router.back()">返回上一页</YdButton>
     </div>
   </div>
 </template>

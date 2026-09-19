@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -220,17 +220,17 @@ const gridOptions: VxeTableGridOptions<JobHistoryVO> = {
           const item = row as JobHistoryVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
               () => '详情',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => openCompareDialog(item.jobId ?? '') },
               () => '对比',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link',
@@ -357,7 +357,7 @@ onMounted(() => {
           </YdSelectBase>
         </YdFormItem>
         <YdFormItem>
-          <YdButtonBase @click="handleCompare">开始对比</YdButtonBase>
+          <YdButton @click="handleCompare">开始对比</YdButton>
         </YdFormItem>
       </YdForm>
       <div v-if="compareResult.length > 0" class="space-y-2">

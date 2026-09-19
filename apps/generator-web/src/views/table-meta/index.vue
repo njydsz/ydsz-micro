@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButtonBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -115,7 +115,7 @@ const gridOptions: VxeTableGridOptions<GenTableMeta> = {
           const table = row as GenTableMeta;
           return h('div', { class: 'flex gap-1' }, [
               h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link',
@@ -124,7 +124,7 @@ const gridOptions: VxeTableGridOptions<GenTableMeta> = {
               () => '查看列',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link',
@@ -186,7 +186,7 @@ onMounted(() => {
           </YdSelectItemBase>
         </YdSelectContentBase>
       </YdSelectBase>
-      <YdButtonBase @click="handleRefreshTables">刷新表缓存</YdButtonBase>
+      <YdButton @click="handleRefreshTables">刷新表缓存</YdButton>
     </div>
     <Grid table-title="表元数据" />
     <ColumnDialog

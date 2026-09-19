@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdNumberField, YdNumberFieldInput, YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdNumberField, YdNumberFieldInput, YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -97,7 +97,7 @@ const gridOptions: VxeGridProps<UserFavoriteVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, {
+            h(YdButton, {
               size: 'sm',
               variant: 'link',
               onClick: () => handleRemove(row),

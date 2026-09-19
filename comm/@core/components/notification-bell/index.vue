@@ -10,7 +10,7 @@
  *   <li>支持「全部标记已读」和「查看更多」</li>
  * </ul>
  *
- * 使用自研 shadcn-scoped YdPopoverBase/YdScrollArea/YdButtonBase + lucide 图标，零 element-plus 依赖。
+ * 使用自研 shadcn-scoped YdPopoverBase/YdScrollArea/YdButton + lucide 图标，零 element-plus 依赖。
  *
  * @path comm\@core\components\notification-bell\index.vue
  * @author ydsz-team
@@ -26,7 +26,7 @@ import { useI18n } from 'vue-i18n';
 import { ArrowRight, Bell, CheckCheck, Settings } from 'lucide-vue-next';
 
 import {
-  YdButtonBase,
+  YdButton,
   YdPopoverBase,
   YdPopoverContentBase,
   YdPopoverTriggerBase,
@@ -205,7 +205,7 @@ onMounted(() => {
           <YdTooltipProviderBase>
             <YdTooltipBase>
               <YdTooltipTriggerBase as-child>
-                <YdButtonBase
+                <YdButton
                   :disabled="unreadCount <= 0"
                   size="sm"
                   variant="ghost"
@@ -213,7 +213,7 @@ onMounted(() => {
                   @click="handleMarkAllRead"
                 >
                   <CheckCheck :size="16" />
-                </YdButtonBase>
+                </YdButton>
               </YdTooltipTriggerBase>
               <YdTooltipContentBase side="top">
                 {{ t('notification.markAllAsRead') }}
@@ -280,7 +280,7 @@ onMounted(() => {
 
         <!-- 底部操作栏 -->
         <div class="notification-footer">
-          <YdButtonBase
+          <YdButton
             size="sm"
             variant="ghost"
             class="footer-settings"
@@ -288,15 +288,15 @@ onMounted(() => {
           >
             <Settings :size="14" class="footer-settings-icon" />
             {{ t('notification.settings') }}
-          </YdButtonBase>
-          <YdButtonBase
+          </YdButton>
+          <YdButton
             size="sm"
             variant="default"
             @click="handleViewAll"
           >
             {{ t('notification.viewAll') }}
             <ArrowRight :size="14" class="footer-view-all-icon" />
-          </YdButtonBase>
+          </YdButton>
         </div>
       </YdPopoverContentBase>
     </YdPopoverBase>

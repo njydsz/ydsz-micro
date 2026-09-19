@@ -17,7 +17,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -76,27 +76,27 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, class: 'text-destructive', onClick: () => handleTerminate(row) },
               () => $t('wf.terminate'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleSuspend(row) },
               () => $t('wf.suspend'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, class: 'text-green-600', onClick: () => handleActivate(row) },
               () => $t('wf.activate'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleRecall(row) },
               () => $t('wf.recall'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => openTimeline(row) },
               () => $t('wf.timeline'),
             ),
@@ -336,10 +336,10 @@ async function openTimeline(row: FlowInstanceVO) {
   <Page auto-content-height>
     <Grid :table-title="$t('wf.flowInstances')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ $t('wf.startFlow') }}</YdButtonBase>
-        <YdButtonBase variant="secondary" @click="handleBatchUrge">{{
+        <YdButton @click="handleAdd">{{ $t('wf.startFlow') }}</YdButton>
+        <YdButton variant="secondary" @click="handleBatchUrge">{{
           $t('wf.batchUrge')
-        }}</YdButtonBase>
+        }}</YdButton>
       </template>
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />

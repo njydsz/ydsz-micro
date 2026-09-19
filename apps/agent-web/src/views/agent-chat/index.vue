@@ -21,7 +21,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdAccordion, YdAccordionItem, YdTooltip, YdButtonBase, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdAccordion, YdAccordionItem, YdTooltip, YdButton, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';
@@ -180,9 +180,9 @@ onBeforeUnmount(() => {
           class="w-64"
           @keyup.enter="loadHistory"
         />
-        <YdButtonBase @click="loadHistory">加载历史</YdButtonBase>
-        <YdButtonBase :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</YdButtonBase>
-        <YdButtonBase variant="destructive" @click="handleClearHistory">清空会话</YdButtonBase>
+        <YdButton @click="loadHistory">加载历史</YdButton>
+        <YdButton :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</YdButton>
+        <YdButton variant="destructive" @click="handleClearHistory">清空会话</YdButton>
         <YdTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
           <span
             class="text-xs"
@@ -229,8 +229,8 @@ onBeforeUnmount(() => {
             @keydown.enter.exact.prevent="sendMessage"
           />
           <div class="flex flex-col gap-2">
-            <YdButtonBase :disabled="!canSend" @click="sendMessage">发送</YdButtonBase>
-            <YdButtonBase :disabled="!sending" @click="teardownStream">停止</YdButtonBase>
+            <YdButton :disabled="!canSend" @click="sendMessage">发送</YdButton>
+            <YdButton :disabled="!sending" @click="teardownStream">停止</YdButton>
           </div>
         </div>
       </div>

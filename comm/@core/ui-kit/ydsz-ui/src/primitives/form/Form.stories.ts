@@ -11,7 +11,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { ref } from 'vue';
 
-import { YdButtonBase } from '../button';
+import { YdButton } from '../button';
 import { YdInput } from '../input';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -59,7 +59,7 @@ type Story = StoryObj;
 /** 基础登录表单 */
 export const LoginForm: Story = {
   render: () => ({
-    components: { Form, FormField, YdFormItem, YdFormLabel, YdFormControl, YdFormMessage, YdInput, YdButtonBase },
+    components: { Form, FormField, YdFormItem, YdFormLabel, YdFormControl, YdFormMessage, YdInput, YdButton },
     setup() {
       const form = ref({
         username: '',
@@ -96,7 +96,7 @@ export const LoginForm: Story = {
           </YdFormItem>
         </FormField>
 
-        <YdButtonBase type="submit" style="width: 100%; margin-top: 16px;">登录</YdButtonBase>
+        <YdButton type="submit" style="width: 100%; margin-top: 16px;">登录</YdButton>
       </Form>
     `,
   }),
@@ -114,7 +114,7 @@ export const RegistrationForm: Story = {
       YdFormDescription,
       YdFormMessage,
       YdInput,
-      YdButtonBase,
+      YdButton,
     },
     setup() {
       const form = ref({
@@ -177,7 +177,7 @@ export const RegistrationForm: Story = {
           </YdFormItem>
         </FormField>
 
-        <YdButtonBase type="submit" style="width: 100%; margin-top: 16px;">注册</YdButtonBase>
+        <YdButton type="submit" style="width: 100%; margin-top: 16px;">注册</YdButton>
       </Form>
     `,
   }),
@@ -186,7 +186,7 @@ export const RegistrationForm: Story = {
 /** 搜索表单（内联布局） */
 export const SearchForm: Story = {
   render: () => ({
-    components: { Form, FormField, YdFormItem, YdFormControl, YdInput, YdButtonBase },
+    components: { Form, FormField, YdFormItem, YdFormControl, YdInput, YdButton },
     setup() {
       const form = ref({
         keyword: '',
@@ -208,7 +208,7 @@ export const SearchForm: Story = {
           </YdFormItem>
         </FormField>
 
-        <YdButtonBase type="submit">搜索</YdButtonBase>
+        <YdButton type="submit">搜索</YdButton>
       </Form>
     `,
   }),
@@ -217,7 +217,7 @@ export const SearchForm: Story = {
 /** 带错误状态的表单 */
 export const FormWithErrors: Story = {
   render: () => ({
-    components: { Form, FormField, YdFormItem, YdFormLabel, YdFormControl, YdFormMessage, YdInput, YdButtonBase },
+    components: { Form, FormField, YdFormItem, YdFormLabel, YdFormControl, YdFormMessage, YdInput, YdButton },
     setup() {
       const form = ref({
         email: 'invalid-email',
@@ -252,7 +252,7 @@ export const FormWithErrors: Story = {
           </YdFormItem>
         </FormField>
 
-        <YdButtonBase type="submit" style="width: 100%; margin-top: 16px;">提交</YdButtonBase>
+        <YdButton type="submit" style="width: 100%; margin-top: 16px;">提交</YdButton>
       </Form>
     `,
   }),

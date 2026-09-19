@@ -22,7 +22,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdButtonBase, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -81,7 +81,7 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
           const ds = row as GenDatasourceRespVO;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link',
@@ -91,12 +91,12 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
               () => '测试连接',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(ds) },
               () => t('common.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'destructive', onClick: () => handleDelete(ds) },
               () => t('common.delete'),
             ),
@@ -223,7 +223,7 @@ onMounted(() => {
   <Page auto-content-height>
     <Grid table-title="数据源管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
     </Grid>
     <DatasourceFormModal @submit="handleFormSubmit" @success="gridApi.query()" />

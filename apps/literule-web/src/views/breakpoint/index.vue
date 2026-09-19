@@ -15,7 +15,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -58,7 +58,7 @@ const gridOptions: VxeGridProps<DebugRow> = {
       slots: {
         default: ({ row }) =>
           h(
-            YdButtonBase,
+            YdButton,
             {
               size: 'sm',
               variant: 'link',
@@ -208,7 +208,7 @@ async function handleSubmitCommand() {
     <div class="flex flex-col gap-3 p-4">
       <Grid table-title="断点列表">
         <template #toolbar-tools
-          ><YdButtonBase @click="handleAddBreakpoint">新增断点</YdButtonBase></template
+          ><YdButton @click="handleAddBreakpoint">新增断点</YdButton></template
         >
       </Grid>
       <div class="rounded border border-gray-200 bg-white p-3">
@@ -220,8 +220,8 @@ async function handleSubmitCommand() {
             >
           </div>
           <div class="flex gap-2">
-            <YdButtonBase size="sm" @click="handleCreateSession">创建会话</YdButtonBase>
-            <YdButtonBase size="sm" variant="secondary" @click="loadSessions">刷新会话</YdButtonBase>
+            <YdButton size="sm" @click="handleCreateSession">创建会话</YdButton>
+            <YdButton size="sm" variant="secondary" @click="loadSessions">刷新会话</YdButton>
           </div>
         </div>
         <YdTable :data="sessions" border size="small" class="mb-2">
@@ -231,11 +231,11 @@ async function handleSubmitCommand() {
           <YdTableColumn prop="createdAt" label="创建时间" width="170" />
           <YdTableColumn label="操作" width="160" fixed="right">
             <template #default="{ row }">
-              <YdButtonBase variant="link" size="sm" @click="handleSelectSession(row)"
-                >选择</YdButtonBase
+              <YdButton variant="link" size="sm" @click="handleSelectSession(row)"
+                >选择</YdButton
               >
-              <YdButtonBase variant="link" size="sm" @click="handleTerminateSession(row)"
-                >结束</YdButtonBase
+              <YdButton variant="link" size="sm" @click="handleTerminateSession(row)"
+                >结束</YdButton
               >
             </template>
           </YdTableColumn>
@@ -248,8 +248,8 @@ async function handleSubmitCommand() {
             placeholder="输入调试命令…"
             class="flex-1"
           />
-          <YdButtonBase :disabled="!selectedSessionId" @click="handleSubmitCommand"
-            >提交命令</YdButtonBase
+          <YdButton :disabled="!selectedSessionId" @click="handleSubmitCommand"
+            >提交命令</YdButton
           >
         </div>
         <pre

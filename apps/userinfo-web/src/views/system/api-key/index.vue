@@ -18,7 +18,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdSwitch } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -70,7 +70,7 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(YdButtonBase, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleRevoke(row) }, () => '撤销'),
+          h(YdButton, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleRevoke(row) }, () => '撤销'),
         ]),
       },
     },
@@ -145,7 +145,7 @@ async function handleRevoke(row: ApiKeyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="API Key 管理">
-      <template #toolbar-tools><YdButtonBase variant="default" @click="handleAdd">新增</YdButtonBase></template>
+      <template #toolbar-tools><YdButton variant="default" @click="handleAdd">新增</YdButton></template>
     </Grid>
     <ApiKeyFormModal @success="gridApi.query()" />
   </Page>

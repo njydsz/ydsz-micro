@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -119,13 +119,13 @@ const gridColumns: VxeTableGridOptions<TeamRun>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(YdButtonBase, { size: 'sm', variant: 'link', className: 'text-green-600', onClick: () => handleAddMember(row) }, () => '加成员'),
-          h(YdButtonBase, {
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(YdButton, { size: 'sm', variant: 'link', className: 'text-green-600', onClick: () => handleAddMember(row) }, () => '加成员'),
+          h(YdButton, {
             size: 'sm', variant: 'link', className: 'text-yellow-600',
             onClick: () => handleStart(row),
           }, () => '启动'),
-          h(YdButtonBase, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleCancel(row) }, () => '取消'),
+          h(YdButton, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleCancel(row) }, () => '取消'),
         ]),
     },
   },
@@ -261,7 +261,7 @@ async function handleCancel(row: TeamRun): Promise<void> {
         <YdCardContent class="pt-6">
           <Grid table-title="TeamRun 多Agent协作列表">
             <template #toolbar-tools>
-              <YdButtonBase @click="handleCreate">创建 TeamRun</YdButtonBase>
+              <YdButton @click="handleCreate">创建 TeamRun</YdButton>
             </template>
           </Grid>
           <YdEmptyState v-if="teamRuns.length === 0" description="暂无 TeamRun 任务" />
@@ -292,8 +292,8 @@ async function handleCancel(row: TeamRun): Promise<void> {
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="createModalVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="submitCreate">确认创建</YdButtonBase>
+          <YdButton variant="outline" @click="createModalVisible = false">取消</YdButton>
+          <YdButton @click="submitCreate">确认创建</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
@@ -319,8 +319,8 @@ async function handleCancel(row: TeamRun): Promise<void> {
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="addMemberModalVisible = false">取消</YdButtonBase>
-          <YdButtonBase @click="submitAddMember">确认添加</YdButtonBase>
+          <YdButton variant="outline" @click="addMemberModalVisible = false">取消</YdButton>
+          <YdButton @click="submitAddMember">确认添加</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
@@ -435,7 +435,7 @@ async function handleCancel(row: TeamRun): Promise<void> {
           </YdCard>
         </div>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="teamRunDetailVisible = false">关闭</YdButtonBase>
+          <YdButton variant="outline" @click="teamRunDetailVisible = false">关闭</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

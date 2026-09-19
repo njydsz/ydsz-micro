@@ -23,7 +23,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { flushByGroup, flushDue, page } from '#/api/aggregate';
@@ -83,7 +83,7 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            YdButtonBase,
+            YdButton,
             { size: 'sm', variant: 'link', onClick: () => handleFlushByGroup(row) },
             () => '刷新批次',
           ),
@@ -170,7 +170,7 @@ async function handleFlushDue() {
   <Page auto-content-height>
     <Grid table-title="聚合批次">
       <template #toolbar-tools>
-        <YdButtonBase variant="destructive" @click="handleFlushDue">刷新所有到期批次</YdButtonBase>
+        <YdButton variant="destructive" @click="handleFlushDue">刷新所有到期批次</YdButton>
       </template>
     </Grid>
   </Page>

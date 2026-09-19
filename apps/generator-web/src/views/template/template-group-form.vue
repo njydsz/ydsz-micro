@@ -16,7 +16,7 @@
  */
 import { reactive, ref } from 'vue';
 
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'TemplateGroupForm' });
 
@@ -70,8 +70,8 @@ async function handleSubmit() {
         </YdFormItem>
       </YdForm>
       <YdDialogFooter>
-        <YdButtonBase variant="secondary" @click="handleClose">取消</YdButtonBase>
-        <YdButtonBase @click="handleSubmit">确定</YdButtonBase>
+        <YdButton variant="secondary" @click="handleClose">取消</YdButton>
+        <YdButton @click="handleSubmit">确定</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

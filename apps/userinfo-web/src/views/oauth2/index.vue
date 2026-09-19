@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -123,17 +123,17 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleResetSecret(row) },
               () => '重置密钥',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -360,7 +360,7 @@ async function handleDelete(row: OAuth2Application) {
   <Page auto-content-height>
     <Grid table-title="OAuth2 应用管理">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="handleAdd">创建应用</YdButtonBase>
+        <YdButton variant="default" @click="handleAdd">创建应用</YdButton>
       </template>
     </Grid>
 

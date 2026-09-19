@@ -22,7 +22,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import {
-  YdButtonBase,
+  YdButton,
   YdCardGrid,
   YdDropdownMenuBase,
   YdDropdownMenuContentBase,
@@ -456,7 +456,7 @@ void loadCardData();
           表格
         </button>
       </div>
-      <YdButtonBase @click="templateFormApi.open()">{{ t('wf.import') }}</YdButtonBase>
+      <YdButton @click="templateFormApi.open()">{{ t('wf.import') }}</YdButton>
     </div>
 
     <!-- 表格视图 -->
@@ -466,18 +466,18 @@ void loadCardData();
     >
       <template #col-action="{ row }">
         <div class="flex gap-1">
-          <YdButtonBase size="sm" variant="link" @click="handleImport(row as TemplateRow)">{{
+          <YdButton size="sm" variant="link" @click="handleImport(row as TemplateRow)">{{
             t('wf.import')
-          }}</YdButtonBase>
-          <YdButtonBase size="sm" variant="link" @click="handleClone(row as TemplateRow)">{{
+          }}</YdButton>
+          <YdButton size="sm" variant="link" @click="handleClone(row as TemplateRow)">{{
             t('wf.clone')
-          }}</YdButtonBase>
-          <YdButtonBase size="sm" variant="link" @click="handleNewVersion(row as TemplateRow)">{{
+          }}</YdButton>
+          <YdButton size="sm" variant="link" @click="handleNewVersion(row as TemplateRow)">{{
             t('wf.newVersion')
-          }}</YdButtonBase>
-          <YdButtonBase size="sm" variant="link" @click="openVersions(row as TemplateRow)">{{
+          }}</YdButton>
+          <YdButton size="sm" variant="link" @click="openVersions(row as TemplateRow)">{{
             t('wf.version')
-          }}</YdButtonBase>
+          }}</YdButton>
         </div>
       </template>
     </Grid>
@@ -529,7 +529,7 @@ void loadCardData();
           <template #actions>
             <YdDropdownMenuBase>
               <YdDropdownMenuTriggerBase as-child>
-                <YdButtonBase
+                <YdButton
                   size="sm"
                   variant="link"
                   @click.stop
@@ -560,7 +560,7 @@ void loadCardData();
                       r="1"
                     />
                   </svg>
-                </YdButtonBase>
+                </YdButton>
               </YdDropdownMenuTriggerBase>
               <YdDropdownMenuContentBase>
                 <YdDropdownMenuItemBase @click="handleCardAction('import', item)">
@@ -586,7 +586,7 @@ void loadCardData();
     <YdSheet :open="versionsVisible" @update:open="versionsVisible = $event">
       <YdSheetContent class="!max-w-[540px]">
         <div class="mb-2 flex justify-end">
-        <YdButtonBase size="sm" variant="secondary" @click="loadVersions">{{ t('common.refresh') }}</YdButtonBase>
+        <YdButton size="sm" variant="secondary" @click="loadVersions">{{ t('common.refresh') }}</YdButton>
       </div>
       <YdTable
         :data="versionRows"
@@ -626,11 +626,11 @@ void loadCardData();
           fixed="right"
         >
           <template #default="{ row }">
-            <YdButtonBase
+            <YdButton
               variant="link"
               size="sm"
               @click="handleVersionDetail(row as TemplateRow)"
-            >{{ t('wf.detail') }}</YdButtonBase>
+            >{{ t('wf.detail') }}</YdButton>
           </template>
         </YdTableColumn>
       </YdTable>

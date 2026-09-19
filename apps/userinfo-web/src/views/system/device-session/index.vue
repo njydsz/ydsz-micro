@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -136,9 +136,9 @@ onMounted(() => {
     <YdCard>
       <YdCardHeader class="flex flex-row items-center justify-between">
         <YdCardTitle>我的设备</YdCardTitle>
-        <YdButtonBase size="sm" variant="outline" @click="loadDevices">
+        <YdButton size="sm" variant="outline" @click="loadDevices">
           刷新
-        </YdButtonBase>
+        </YdButton>
       </YdCardHeader>
       <YdTable :data="devices" border>
         <YdTableColumn prop="sessionId" label="会话ID" width="140" />
@@ -162,7 +162,7 @@ onMounted(() => {
         </YdTableColumn>
         <YdTableColumn label="操作" width="100" fixed="right">
           <template #default="{ row }">
-            <YdButtonBase
+            <YdButton
               v-if="!row.currentSession"
               size="sm"
               variant="link"
@@ -170,7 +170,7 @@ onMounted(() => {
               @click="handleRevoke(row)"
             >
               吊销
-            </YdButtonBase>
+            </YdButton>
             <span v-else class="text-xs text-gray-400">-</span>
           </template>
         </YdTableColumn>

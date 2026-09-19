@@ -23,7 +23,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem, YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';
@@ -165,37 +165,37 @@ onMounted(() => {
         <YdFormItem label="操作">
           <YdSpace wrap>
             <div class="flex flex-wrap gap-2">
-            <YdButtonBase
+            <YdButton
               v-if="availableActions.includes('pass')"
               size="sm"
               @click="form.action = 'pass'"
             >
               {{ $t('wf.approve') }}
-            </YdButtonBase>
-            <YdButtonBase
+            </YdButton>
+            <YdButton
               v-if="availableActions.includes('reject')"
               variant="destructive"
               size="sm"
               @click="form.action = 'reject'"
             >
               {{ $t('wf.reject') }}
-            </YdButtonBase>
-            <YdButtonBase
+            </YdButton>
+            <YdButton
               v-if="availableActions.includes('transfer')"
               variant="secondary"
               size="sm"
               @click="form.action = 'transfer'"
             >
               {{ $t('wf.transfer') }}
-            </YdButtonBase>
-            <YdButtonBase
+            </YdButton>
+            <YdButton
               v-if="availableActions.includes('delegate')"
               variant="secondary"
               size="sm"
               @click="form.action = 'delegate'"
             >
               {{ $t('wf.delegate') }}
-            </YdButtonBase>
+            </YdButton>
           </div>
         </YdFormItem>
         <YdFormItem label="意见">
@@ -206,10 +206,10 @@ onMounted(() => {
           />
         </YdFormItem>
         <YdFormItem>
-          <YdButtonBase :loading="submitting" @click="handleAction"> 提交 </YdButtonBase>
-          <YdButtonBase v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
+          <YdButton :loading="submitting" @click="handleAction"> 提交 </YdButton>
+          <YdButton v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
             {{ $t('wf.recall') }}
-          </YdButtonBase>
+          </YdButton>
         </YdFormItem>
       </YdForm>
 

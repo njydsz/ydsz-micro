@@ -22,7 +22,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { h } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, resubscribe } from '#/api/unsubscribe';
@@ -72,7 +72,7 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       slots: {
         default: ({ row }) =>
           h(
-            YdButtonBase,
+            YdButton,
             {
               size: 'sm',
               variant: 'link',

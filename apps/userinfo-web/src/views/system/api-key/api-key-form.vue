@@ -17,7 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdAlertBanner, YdForm, YdFormItem, YdInput, YdNumberFieldInput, type FormInstance } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdAlertBanner, YdForm, YdFormItem, YdInput, YdNumberFieldInput, type FormInstance } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { cn } from '@ydsz-core/shared/utils';
 import { reactive, ref } from 'vue';
@@ -126,11 +126,11 @@ defineExpose({ open, close });
       </YdForm>
 
       <YdDialogFooter class="gap-2">
-        <YdButtonBase variant="outline" @click="close">{{ createdApiKey ? '关闭' : '取消' }}</YdButtonBase>
-        <YdButtonBase v-if="!createdApiKey" :disabled="loading" @click="handleSubmit">
+        <YdButton variant="outline" @click="close">{{ createdApiKey ? '关闭' : '取消' }}</YdButton>
+        <YdButton v-if="!createdApiKey" :disabled="loading" @click="handleSubmit">
           <Loader2 v-if="loading" class="mr-2 h-4 w-4 animate-spin" />
           创建
-        </YdButtonBase>
+        </YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

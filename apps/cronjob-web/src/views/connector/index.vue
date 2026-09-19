@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -185,10 +185,10 @@ async function handleExport() {
     </YdForm>
     <TaskGrid class="mt-4" table-title="远程任务">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleTest">测试连接</YdButtonBase>
-        <YdButtonBase variant="outline" @click="handleImport">导入任务</YdButtonBase>
-        <YdButtonBase variant="outline" @click="handleExport">导出任务</YdButtonBase>
-        <YdButtonBase variant="outline" @click="taskGridApi.query()">{{ t('common.search') }}</YdButtonBase>
+        <YdButton @click="handleTest">测试连接</YdButton>
+        <YdButton variant="outline" @click="handleImport">导入任务</YdButton>
+        <YdButton variant="outline" @click="handleExport">导出任务</YdButton>
+        <YdButton variant="outline" @click="taskGridApi.query()">{{ t('common.search') }}</YdButton>
       </template>
     </TaskGrid>
     <ConnectorFormModal @success="taskGridApi.query()" />

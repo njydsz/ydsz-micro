@@ -24,7 +24,7 @@ import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { h, ref } from 'vue';
 
-import { YdBadge, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listMine, upsert } from '#/api/userChannelBinding';
@@ -98,7 +98,7 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
           h(
-            YdButtonBase,
+            YdButton,
             { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
             () => '删除',
           ),
@@ -190,7 +190,7 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
             placeholder="渠道用户标识"
             class="w-56"
           />
-          <YdButtonBase @click="handleQuickCreate">新增绑定</YdButtonBase>
+          <YdButton @click="handleQuickCreate">新增绑定</YdButton>
         </div>
       </template>
     </Grid>

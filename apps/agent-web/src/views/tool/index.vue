@@ -18,7 +18,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 
 const logger = createLogger('agent-tool');
@@ -154,17 +154,17 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleTest(row) },
               () => '测试',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link',
@@ -173,7 +173,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
               () => (row.enabled ? '停用' : t('common.enabled')),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => t('common.delete'),
             ),
@@ -255,7 +255,7 @@ async function handleDelete(row: ToolVO): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="工具管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新增工具</YdButtonBase>
+        <YdButton @click="handleAdd">新增工具</YdButton>
       </template>
     </Grid>
     <ToolFormModal @success="gridApi.query()" />

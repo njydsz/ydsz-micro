@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState, YdTable, YdTableColumn, YdBadge, YdButtonBase, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdTable, YdTableColumn, YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
 
@@ -193,15 +193,15 @@ onMounted(() => {
       <YdCard>
         <YdCardContent class="pt-6">
           <div class="mb-4 flex gap-2">
-            <YdButtonBase :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
+            <YdButton :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
               Trace 追踪
-            </YdButtonBase>
-            <YdButtonBase :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
+            </YdButton>
+            <YdButton :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
               模型使用
-            </YdButtonBase>
-            <YdButtonBase :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
+            </YdButton>
+            <YdButton :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
               性能监控
-            </YdButtonBase>
+            </YdButton>
           </div>
 
           <!-- Trace 追踪 -->
@@ -240,9 +240,9 @@ onMounted(() => {
               </YdTableColumn>
               <YdTableColumn label="操作" width="100" fixed="right">
                 <template #default="{ row }">
-                  <YdButtonBase size="sm" variant="link" @click="viewTraceDetail(row)">
+                  <YdButton size="sm" variant="link" @click="viewTraceDetail(row)">
                     详情
-                  </YdButtonBase>
+                  </YdButton>
                 </template>
               </YdTableColumn>
             </YdTable>
@@ -326,7 +326,7 @@ onMounted(() => {
           </div>
         </div>
         <YdDialogFooter>
-          <YdButtonBase variant="outline" @click="selectedTrace = null">关闭</YdButtonBase>
+          <YdButton variant="outline" @click="selectedTrace = null">关闭</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

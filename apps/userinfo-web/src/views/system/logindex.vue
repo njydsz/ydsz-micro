@@ -19,7 +19,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase, YdDatePicker, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdDatePicker, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -192,7 +192,7 @@ onMounted(() => {
       </YdSelectBase>
       <YdDatePicker v-model="startTime" placeholder="起始时间" class="w-[180px]" @update:model-value="applyFilter" />
       <YdDatePicker v-model="endTime" placeholder="结束时间" class="w-[180px]" @update:model-value="applyFilter" />
-      <YdButtonBase variant="ghost" @click="resetFilter">重置</YdButtonBase>
+      <YdButton variant="ghost" @click="resetFilter">重置</YdButton>
       <div class="ml-auto text-sm text-gray-400">
         共 {{ totalCount }} 条记录
         <span v-if="isLoading" class="ml-2 text-blue-500">加载中...</span>

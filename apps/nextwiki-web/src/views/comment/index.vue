@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -55,9 +55,9 @@ const gridOptions: VxeGridProps<FileCommentVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             !row.resolved
-              ? h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleResolve(row) }, () => '解决')
+              ? h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleResolve(row) }, () => '解决')
               : h('span', {}, ''),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
           ]),
       },
     },
@@ -106,8 +106,8 @@ async function handleDelete(row: FileCommentVO) {
   <Page auto-content-height>
     <div class="mb-2 flex items-center gap-2">
       <YdInput v-model="fileNodeId" placeholder="请输入文件节点ID" class="w-72" clearable @keyup.enter="handleQuery" />
-      <YdButtonBase @click="handleQuery">查询评论</YdButtonBase>
-      <YdButtonBase @click="handleAdd">新增评论</YdButtonBase>
+      <YdButton @click="handleQuery">查询评论</YdButton>
+      <YdButton @click="handleAdd">新增评论</YdButton>
     </div>
     <Grid table-title="文件评论" />
     <CommentFormModal @success="gridApi.query()" />

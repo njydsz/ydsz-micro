@@ -20,7 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -57,10 +57,10 @@ const statsGridOptions: VxeGridProps<GroupStatsRow> = {
         default: ({ row }) => {
           const groupRow = row as GroupStatsRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handlePauseGroup(groupRow) }, () => '暂停该组'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleResumeGroup(groupRow) }, () => '恢复该组'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleTriggerGroup(groupRow) }, () => '触发该组'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleViewGroup(groupRow) }, () => '查看任务'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handlePauseGroup(groupRow) }, () => '暂停该组'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleResumeGroup(groupRow) }, () => '恢复该组'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTriggerGroup(groupRow) }, () => '触发该组'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewGroup(groupRow) }, () => '查看任务'),
           ]);
         },
       },
@@ -187,7 +187,7 @@ function handleViewByInput() {
         placeholder="输入分组名称，查看该组任务"
         @keyup.enter="handleViewByInput"
       />
-      <YdButtonBase @click="handleViewByInput">查询</YdButtonBase>
+      <YdButton @click="handleViewByInput">查询</YdButton>
     </div>
     <TaskGrid class="mt-4" table-title="分组任务（pageByGroup）" />
   </Page>

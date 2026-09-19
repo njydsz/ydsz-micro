@@ -19,7 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -168,10 +168,10 @@ const credentialCount = computed(() => credentials.value.length);
             </div>
           </div>
           <div class="flex gap-2">
-            <YdButtonBase variant="default" @click="registerDialogVisible = true">
+            <YdButton variant="default" @click="registerDialogVisible = true">
               注册 Passkey
-            </YdButtonBase>
-            <YdButtonBase variant="ghost" :disabled="loading" @click="loadCredentials">刷新</YdButtonBase>
+            </YdButton>
+            <YdButton variant="ghost" :disabled="loading" @click="loadCredentials">刷新</YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -189,9 +189,9 @@ const credentialCount = computed(() => credentials.value.length);
           description="尚未注册任何 Passkey 凭证"
           :image-size="100"
         >
-          <YdButtonBase variant="default" @click="registerDialogVisible = true">
+          <YdButton variant="default" @click="registerDialogVisible = true">
             立即注册
-          </YdButtonBase>
+          </YdButton>
         </YdEmptyState>
 
         <!-- 凭证列表 -->
@@ -240,21 +240,21 @@ const credentialCount = computed(() => credentials.value.length);
                 </div>
               </div>
               <div class="flex gap-1">
-                <YdButtonBase
+                <YdButton
                   size="sm"
                   variant="link"
                   @click="handleViewDetail(cred)"
                 >
                   详情
-                </YdButtonBase>
-                <YdButtonBase
+                </YdButton>
+                <YdButton
                   size="sm"
                   variant="link"
                   class="text-destructive"
                   @click="handleDelete(cred)"
                 >
                   删除
-                </YdButtonBase>
+                </YdButton>
               </div>
             </div>
           </div>
@@ -290,10 +290,10 @@ const credentialCount = computed(() => credentials.value.length);
           </YdTimeline>
 
           <YdDialogFooter class="gap-2">
-            <YdButtonBase variant="outline" @click="registerDialogVisible = false">关闭</YdButtonBase>
-            <YdButtonBase disabled>
+            <YdButton variant="outline" @click="registerDialogVisible = false">关闭</YdButton>
+            <YdButton disabled>
               注册 Passkey（需在支持设备上操作）
-            </YdButtonBase>
+            </YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>
@@ -330,9 +330,9 @@ const credentialCount = computed(() => credentials.value.length);
             </YdDescriptionsItem>
           </YdDescriptions>
           <YdDialogFooter class="gap-2">
-            <YdButtonBase variant="outline" @click="detailDialogVisible = false">{{
+            <YdButton variant="outline" @click="detailDialogVisible = false">{{
               t('page.close')
-            }}</YdButtonBase>
+            }}</YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>

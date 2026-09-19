@@ -19,7 +19,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTable, YdTableColumn, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -96,19 +96,19 @@ const gridOptions = {
         default: ({ row }: { row: JobDagInstanceVO }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) },
               () => '详情',
             ),
             isRunning(row.instanceStatus)
               ? h(
-                  YdButtonBase,
+                  YdButton,
                   { size: 'sm', variant: 'link', onClick: () => handlePause(row) },
                   () => '暂停',
                 )
               : row.instanceStatus === 'PAUSED'
                 ? h(
-                    YdButtonBase,
+                    YdButton,
                     {
                       size: 'sm',
                       variant: 'link',
@@ -119,7 +119,7 @@ const gridOptions = {
                 : null,
             isRunning(row.instanceStatus) || row.instanceStatus === 'PAUSED'
               ? h(
-                  YdButtonBase,
+                  YdButton,
                   { size: 'sm', variant: 'link', onClick: () => handleCancel(row) },
                   () => '取消',
                 )
@@ -301,12 +301,12 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
           <YdTableColumn prop="durationMs" label="耗时(ms)" width="90" />
           <YdTableColumn label="操作" width="100">
             <template #default="{ row }">
-              <YdButtonBase
+              <YdButton
                 v-if="row.nodeStatus === 'FAILED'"
                 size="sm"
                 variant="link"
                 @click="handleRetryNode(row)"
-                >重试</YdButtonBase
+                >重试</YdButton
               >
             </template>
           </YdTableColumn>

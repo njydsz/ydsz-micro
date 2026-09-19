@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h } from 'vue';
@@ -40,8 +40,8 @@ const gridOptions: VxeTableGridOptions<Record<string, unknown>> = {
     {
       field: 'action', title: t('common.actions'), width: 140, fixed: 'right',
       slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'approve') }, () => '通过'),
-        h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'reject') }, () => '驳回'),
+        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'approve') }, () => '通过'),
+        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'reject') }, () => '驳回'),
       ]) },
     },
   ],

@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { getUpcomingFireTimes } from '#/api/scheduleCalendar';
@@ -247,7 +247,7 @@ onMounted(() => {
           <label class="whitespace-nowrap text-sm text-gray-600">最大条数：</label>
           <YdInput v-model="maxCount" type="number" :min="1" :max="500" class="w-24" />
         </div>
-          <YdButtonBase :loading="isLoading" @click="handleSearch">查询</YdButtonBase>
+          <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
         </div>
       </YdCardContent>
     </YdCard>

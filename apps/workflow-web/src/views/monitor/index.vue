@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdCountToAnimator, YdBadge, YdButtonBase, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import { YdCountToAnimator, YdBadge, YdButton, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import {
@@ -319,7 +319,7 @@ onMounted(() => {
             </YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-        <YdButtonBase :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</YdButtonBase>
+        <YdButton :loading="loading" @click="loadAllData">{{ t('common.refresh') }}</YdButton>
       </div>
     </div>
 

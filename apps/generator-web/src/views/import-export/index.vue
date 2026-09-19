@@ -18,7 +18,7 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdCheckboxBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdUpload, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdCheckboxBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdUpload, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import type { UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 
 import { exportTemplates, importTemplates } from '#/api/import-export';
@@ -119,12 +119,12 @@ onMounted(() => {
             </YdSelectBase>
           </YdFormItem>
           <YdFormItem>
-            <YdButtonBase
+            <YdButton
               :loading="exporting"
               @click="handleExport"
             >
               导出 ZIP
-            </YdButtonBase>
+            </YdButton>
           </YdFormItem>
         </YdForm>
         <div class="text-xs text-gray-500 mt-2">
@@ -173,7 +173,7 @@ onMounted(() => {
               accept=".zip"
               :limit="1"
             >
-              <YdButtonBase>选择 ZIP 文件</YdButtonBase>
+              <YdButton>选择 ZIP 文件</YdButton>
             </YdUpload>
           </YdFormItem>
         </YdForm>

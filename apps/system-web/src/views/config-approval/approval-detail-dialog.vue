@@ -22,7 +22,7 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger, YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger, YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -332,23 +332,23 @@ defineExpose({ close, open });
     </div>
 
       <YdDialogFooter>
-        <YdButtonBase @click="close">{{ t('common.close') }}</YdButtonBase>
+        <YdButton @click="close">{{ t('common.close') }}</YdButton>
         <template v-if="canOperate">
-          <YdButtonBase :loading="submitting" @click="handleApprove">
+          <YdButton :loading="submitting" @click="handleApprove">
             {{ t('common.approve') }}
-          </YdButtonBase>
-          <YdButtonBase variant="destructive" :loading="submitting" @click="handleReject">
+          </YdButton>
+          <YdButton variant="destructive" :loading="submitting" @click="handleReject">
             {{ t('common.reject') }}
-          </YdButtonBase>
+          </YdButton>
         </template>
-        <YdButtonBase
+        <YdButton
           v-if="canWithdraw"
           variant="destructive"
           :loading="submitting"
           @click="handleWithdraw"
         >
           {{ t('common.withdraw') }}
-        </YdButtonBase>
+        </YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

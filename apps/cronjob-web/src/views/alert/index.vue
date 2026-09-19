@@ -19,7 +19,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -67,10 +67,10 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () => t('common.edit')),
-            h(YdButtonBase, { size: 'sm', variant: rule.enabled === 1 ? 'destructive' : 'link', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) }, () => '日志'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () => t('common.delete')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () => t('common.edit')),
+            h(YdButton, { size: 'sm', variant: rule.enabled === 1 ? 'destructive' : 'link', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) }, () => '日志'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () => t('common.delete')),
           ]);
         },
       },
@@ -154,7 +154,7 @@ async function handleLogs(row: JobAlertRuleVO) {
   <Page auto-content-height>
     <Grid :table-title="t('page.alert')">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">{{ t('common.create') }}</YdButtonBase>
+        <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
       </template>
     </Grid>
     <AlertFormModal @success="gridApi.query()" />

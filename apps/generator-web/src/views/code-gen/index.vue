@@ -22,7 +22,7 @@ import { onMounted, reactive, ref, watch } from 'vue';
 
 import { useRoute } from 'vue-router';
 
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
 import { Clock, FileText as Document } from 'lucide-vue-next';
 
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
@@ -345,7 +345,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
           <YdCardHeader>
             <div class="flex items-center justify-between">
               <YdCardTitle>数据源与模板</YdCardTitle>
-              <YdButtonBase
+              <YdButton
                 size="sm"
                 variant="link"
                 @click="handleOpenHistoryDrawer"
@@ -354,7 +354,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                   <Clock />
                 </YdIcon>
                 历史记录
-              </YdButtonBase>
+              </YdButton>
             </div>
           </YdCardHeader>
           <YdCardContent>
@@ -449,32 +449,32 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
               </YdFormItem>
               <YdFormItem>
                 <div class="flex gap-2">
-                  <YdButtonBase
+                  <YdButton
                     variant="secondary"
                     :loading="previewLoading"
                     @click="handlePreview"
                   >
                     预览代码
-                  </YdButtonBase>
-                  <YdButtonBase
+                  </YdButton>
+                  <YdButton
                     variant="destructive"
                     :loading="zipDownloading"
                     @click="handleDownloadZip"
                   >
                     下载代码 ZIP
-                  </YdButtonBase>
-                  <YdButtonBase
+                  </YdButton>
+                  <YdButton
                     :loading="generating"
                     @click="handleGenerate"
                   >
                     生成当前表
-                  </YdButtonBase>
-                  <YdButtonBase
+                  </YdButton>
+                  <YdButton
                     :loading="batchGenerating"
                     @click="handleGenerateAll"
                   >
                     全量生成（全部表）
-                  </YdButtonBase>
+                  </YdButton>
                 </div>
               </YdFormItem>
             </YdForm>

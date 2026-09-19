@@ -18,7 +18,7 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { YdButtonBase, YdBadge, YdInput, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdBadge, YdInput, YdEmptyState } from '@ydsz-core/ydsz-ui';
 
 import {
   activateGroup,
@@ -197,7 +197,7 @@ onMounted(() => {
     <div class="w-64 flex-shrink-0">
       <div class="mb-3 flex items-center justify-between">
         <span class="font-medium">模板分组</span>
-        <YdButtonBase size="sm" @click="handleAddGroup">新建</YdButtonBase>
+        <YdButton size="sm" @click="handleAddGroup">新建</YdButton>
       </div>
       <div class="space-y-2">
         <div
@@ -225,22 +225,22 @@ onMounted(() => {
             {{ group.description }}
           </div>
           <div class="mt-2 flex gap-1">
-            <YdButtonBase
+            <YdButton
               v-if="!group.isActive"
               size="sm"
               variant="link"
               @click.stop="handleActivateGroup(group)"
             >
               激活
-            </YdButtonBase>
-            <YdButtonBase
+            </YdButton>
+            <YdButton
               v-if="!group.isSystem"
               size="sm"
               variant="destructive"
               @click.stop="handleDeleteGroup(group)"
             >
               删除
-            </YdButtonBase>
+            </YdButton>
           </div>
         </div>
       </div>
@@ -257,7 +257,7 @@ onMounted(() => {
           @clear="handleSearch"
           @keyup.enter="handleSearch"
         />
-        <YdButtonBase variant="secondary" @click="handleSearch">搜索</YdButtonBase>
+        <YdButton variant="secondary" @click="handleSearch">搜索</YdButton>
       </div>
 
       <div v-loading="templatesLoading" class="flex-1 overflow-auto">

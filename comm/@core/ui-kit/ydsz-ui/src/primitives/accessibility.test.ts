@@ -16,7 +16,7 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { axe } from 'vitest-axe';
 
-import { YdButtonBase, type ButtonProps } from './button';
+import { YdButton, type ButtonProps } from './button';
 import {
   YdCard,
   YdCardContent,
@@ -74,16 +74,16 @@ expect.extend({
 });
 
 declare module 'vitest' {
-   
+
   interface Assertion<T> {
     toBeAccessible(): Promise<T>;
   }
 }
 
 describe('Accessibility Audit', () => {
-  describe('YdButtonBase', () => {
+  describe('YdButton', () => {
     it('icon button 应具有 aria-label', async () => {
-      const wrapper = mount(YdButtonBase, {
+      const wrapper = mount(YdButton, {
         attrs: { 'aria-label': 'close' },
         props: { size: 'icon' } as ButtonProps,
         slots: { default: 'X' },
@@ -97,7 +97,7 @@ describe('Accessibility Audit', () => {
     });
 
     it('正常按钮应通过 a11y 检测', async () => {
-      const wrapper = mount(YdButtonBase, {
+      const wrapper = mount(YdButton, {
         props: { variant: 'default' } as ButtonProps,
         slots: { default: 'Click me' },
       });

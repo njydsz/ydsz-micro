@@ -23,7 +23,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import {
   YdBadge,
-  YdButtonBase,
+  YdButton,
   YdSelectBase,
   YdSelectContentBase,
   YdSelectItemBase,
@@ -214,22 +214,22 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignRoles(row) },
               () => t('page.roleAssign'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'ghost', onClick: () => handleResetPassword(row) },
               () => t('page.passwordReset'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -464,15 +464,15 @@ async function handleDelete(row: UserAccountVO) {
           </YdSelectItemBase>
         </YdSelectContentBase>
       </YdSelectBase>
-      <YdButtonBase variant="default" @click="handleSearch">{{ t('page.query') }}</YdButtonBase>
-      <YdButtonBase variant="ghost" @click="handleReset">{{ t('page.reset') }}</YdButtonBase>
+      <YdButton variant="default" @click="handleSearch">{{ t('page.query') }}</YdButton>
+      <YdButton variant="ghost" @click="handleReset">{{ t('page.reset') }}</YdButton>
     </div>
     <Grid :table-title="t('user.userManagement')">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="handleAdd">{{ t('user.createUser') }}</YdButtonBase>
-        <YdButtonBase variant="outline" @click="handleImport">{{ t('user.importUser') }}</YdButtonBase>
-        <YdButtonBase variant="secondary" @click="handleExport">{{ t('user.exportUser') }}</YdButtonBase>
-        <YdButtonBase variant="ghost" @click="handleDownloadTemplate">{{ t('user.downloadTemplate') }}</YdButtonBase>
+        <YdButton variant="default" @click="handleAdd">{{ t('user.createUser') }}</YdButton>
+        <YdButton variant="outline" @click="handleImport">{{ t('user.importUser') }}</YdButton>
+        <YdButton variant="secondary" @click="handleExport">{{ t('user.exportUser') }}</YdButton>
+        <YdButton variant="ghost" @click="handleDownloadTemplate">{{ t('user.downloadTemplate') }}</YdButton>
       </template>
     </Grid>
     <UserFormModal @success="gridApi.query()" />

@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, list } from '#/api/flowCategory';
@@ -46,12 +46,12 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
                 class: 'text-destructive' },
               () => t('common.delete'),
@@ -129,7 +129,7 @@ async function handleDelete(row: FlowCategoryVO) {
   <Page auto-content-height>
     <Grid :table-title="t('category.list.title')">
       <template #toolbar-tools
-        ><YdButtonBase @click="handleAdd">{{ t('common.add') }}</YdButtonBase></template
+        ><YdButton @click="handleAdd">{{ t('common.add') }}</YdButton></template
       >
     </Grid>
     <CategoryFormModal @success="gridApi.query()" />

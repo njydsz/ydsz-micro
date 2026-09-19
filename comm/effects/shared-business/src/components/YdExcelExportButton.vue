@@ -1,7 +1,7 @@
 <!--
  * Excel 导出按钮 — 声明式导出，绑定列定义与数据源即用
  *
- * 使用自研 YdButtonBase + lucide Download 图标，零 element-plus 依赖。
+ * 使用自研 YdButton + lucide Download 图标，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\excel-export-button.vue
  * @author ydsz-team
@@ -13,7 +13,7 @@
  */
 import { Download } from 'lucide-vue-next';
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 import {
   useExcelExport,
@@ -57,12 +57,12 @@ async function handleClick(): Promise<void> {
 </script>
 
 <template>
-  <YdButtonBase
+  <YdButton
     size="sm"
     variant="default"
     @click="handleClick"
   >
     <Download :size="14" class="mr-1" />
     {{ text }}
-  </YdButtonBase>
+  </YdButton>
 </template>

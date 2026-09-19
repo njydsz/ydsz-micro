@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdForm, YdFormItem, YdButtonBase, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdButton, YdCard, YdCardContent, YdInput } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { reactive, ref } from 'vue';
@@ -85,7 +85,7 @@ async function handlePublish() {
           <YdInput v-model="form.correlationValue" placeholder="可选，如 ORD-20260908-001" />
         </YdFormItem>
         <YdFormItem>
-          <YdButtonBase :loading="loading" @click="handlePublish">发布事件</YdButtonBase>
+          <YdButton :loading="loading" @click="handlePublish">发布事件</YdButton>
         </YdFormItem>
       </YdForm>
       </YdCardContent>

@@ -20,7 +20,7 @@ import { onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { YdBadge, YdButtonBase, YdInput, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
@@ -143,12 +143,12 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
           const item = row as GenHistory;
           return h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleViewFiles(item) },
               () => '文件明细',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link',
@@ -158,7 +158,7 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
               () => '回滚',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'destructive', onClick: () => handleDelete(item) },
               () => t('common.delete'),
             ),

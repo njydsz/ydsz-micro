@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdTable, YdTableColumn, YdDialog, YdTransfer } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdTable, YdTableColumn, YdDialog, YdTransfer } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -85,27 +85,27 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('page.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignPermissions(row) },
               () => t('role.assignPermissions'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'ghost', onClick: () => handleCopyRole(row) },
               () => t('role.copy'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleViewUsers(row) },
               () => t('role.viewUsers'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
               () => t('page.delete'),
             ),
@@ -315,7 +315,7 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
   <Page auto-content-height>
     <Grid :table-title="t('role.roleManagement')">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="handleAdd">{{ t('role.createRole') }}</YdButtonBase>
+        <YdButton variant="default" @click="handleAdd">{{ t('role.createRole') }}</YdButton>
       </template>
     </Grid>
     <RoleFormModal @success="gridApi.query()" />
@@ -333,8 +333,8 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         :filter-placeholder="t('role.searchPermission')"
       />
       <template #footer>
-        <YdButtonBase variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</YdButtonBase>
-        <YdButtonBase variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</YdButtonBase>
+        <YdButton variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</YdButton>
+        <YdButton variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</YdButton>
       </template>
     </YdDialog>
 
@@ -360,7 +360,7 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         <YdTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
       </YdTable>
       <template #footer>
-        <YdButtonBase variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButtonBase>
+        <YdButton variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButton>
       </template>
     </YdDialog>
   </Page>

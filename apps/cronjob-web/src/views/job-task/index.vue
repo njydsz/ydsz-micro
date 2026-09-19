@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -182,7 +182,7 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
         default: ({ row }) => {
           const item = row as JobTaskVO;
           return h(
-            YdButtonBase,
+            YdButton,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(item) },
             () => '详情',
           );

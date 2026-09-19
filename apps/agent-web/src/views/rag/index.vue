@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdNumberFieldInput, YdCountToAnimator, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdNumberFieldInput, YdCountToAnimator, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
@@ -138,8 +138,8 @@ onMounted(() => { handleLoadStats(); });
       </YdDescriptionsItem>
     </YdDescriptions>
     <div class="mb-3 flex items-center gap-2">
-      <YdButtonBase :loading="statsLoading" @click="handleLoadStats">刷新统计</YdButtonBase>
-      <YdButtonBase @click="handleOpenIngest">导入文档</YdButtonBase>
+      <YdButton :loading="statsLoading" @click="handleLoadStats">刷新统计</YdButton>
+      <YdButton @click="handleOpenIngest">导入文档</YdButton>
     </div>
     <div class="mb-3 flex flex-wrap items-center gap-2 rounded-md border p-3">
       <YdInput v-model="queryForm.query" placeholder="输入检索内容" class="w-72" @keyup.enter="handleSearch" />
@@ -147,7 +147,7 @@ onMounted(() => { handleLoadStats(); });
       <YdNumberFieldInput v-model="queryForm.topK" :min="1" :max="100" class="w-24" />
       <span class="text-sm text-gray-500">最小得分</span>
       <YdNumberFieldInput v-model="queryForm.minScore" :min="0" :max="1" :step="0.1" class="w-24" />
-      <YdButtonBase :loading="searchLoading" @click="handleSearch">检索</YdButtonBase>
+      <YdButton :loading="searchLoading" @click="handleSearch">检索</YdButton>
     </div>
     <YdTable :data="searchRows" border stripe height="360">
       <YdTableColumn prop="id" label="ID" min-width="180" show-overflow-tooltip />
@@ -159,7 +159,7 @@ onMounted(() => { handleLoadStats(); });
       <YdTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
       <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
         <template #default="{ row }">
-          <YdButtonBase size="sm" variant="destructive" @click="handleDelete(row)">{{ t('common.delete') }}</YdButtonBase>
+          <YdButton size="sm" variant="destructive" @click="handleDelete(row)">{{ t('common.delete') }}</YdButton>
         </template>
       </YdTableColumn>
     </YdTable>

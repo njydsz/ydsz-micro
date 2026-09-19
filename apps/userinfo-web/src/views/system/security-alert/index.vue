@@ -19,7 +19,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -134,9 +134,9 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButtonBase, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(alertRow) }, () => '确认'),
-            h(YdButtonBase, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(alertRow) }, () => '解决'),
-            h(YdButtonBase, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(alertRow) }, () => '忽略'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(alertRow) }, () => '确认'),
+            h(YdButton, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(alertRow) }, () => '解决'),
+            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(alertRow) }, () => '忽略'),
           ]);
         },
       },
@@ -254,7 +254,7 @@ onMounted(() => {
 
     <Grid table-title="安全告警管理">
       <template #toolbar-tools>
-        <YdButtonBase variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButtonBase>
+        <YdButton variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButton>
       </template>
     </Grid>
   </Page>

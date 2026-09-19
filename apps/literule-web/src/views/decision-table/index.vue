@@ -19,7 +19,7 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -72,22 +72,22 @@ const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => '编辑',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDesign(row) },
               () => '设计',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleExport(row) },
               () => '导出',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -199,8 +199,8 @@ async function handleDownloadTemplate(): Promise<void> {
   <Page auto-content-height>
     <Grid table-title="决策表管理">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleAdd">新增</YdButtonBase>
-        <YdButtonBase variant="secondary" @click="handleDownloadTemplate">下载模板</YdButtonBase>
+        <YdButton @click="handleAdd">新增</YdButton>
+        <YdButton variant="secondary" @click="handleDownloadTemplate">下载模板</YdButton>
       </template>
     </Grid>
     <DecisionTableDesigner

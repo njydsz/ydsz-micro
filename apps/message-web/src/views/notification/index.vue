@@ -23,7 +23,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { h, onMounted, ref } from 'vue';
 
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { countUnread, deleteApi, inbox, markAllRead, markRead, recall } from '#/api/notification';
@@ -97,7 +97,7 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
               ? []
               : [
                   h(
-                    YdButtonBase,
+                    YdButton,
                     {
                       size: 'sm',
                       variant: 'link',
@@ -107,12 +107,12 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
                   ),
                 ]),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleRecall(row) },
               () => '撤回',
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
               () => '删除',
             ),
@@ -222,11 +222,11 @@ async function handleDelete(row: MsgNotificationVO) {
   <Page auto-content-height>
     <div class="mb-3 flex items-center gap-2">
       <YdBadge variant="destructive">未读：{{ unreadCount }}</YdBadge>
-      <YdButtonBase size="sm" @click="handleMarkAllRead">全部已读</YdButtonBase>
+      <YdButton size="sm" @click="handleMarkAllRead">全部已读</YdButton>
     </div>
     <Grid table-title="收件箱">
       <template #toolbar-tools>
-        <YdButtonBase @click="handleSend">发送通知</YdButtonBase>
+        <YdButton @click="handleSend">发送通知</YdButton>
       </template>
     </Grid>
     <NotificationFormModal @success="gridApi.query()" />

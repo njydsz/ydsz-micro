@@ -14,7 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdSkeleton, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdSkeleton, YdButton, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -227,26 +227,26 @@ onMounted(async () => {
           </p>
         </div>
         <div class="flex gap-2">
-          <YdButtonBase
+          <YdButton
             v-if="previewSupported && !isImage && !isText && !isPdf"
             size="sm"
             :loading="generating"
             @click="handleGeneratePreview"
           >
             生成预览
-          </YdButtonBase>
-          <YdButtonBase
+          </YdButton>
+          <YdButton
             v-if="aiEnabled"
             size="sm"
             :loading="aiLoading"
             @click="handleGenerateSummary"
           >
             AI 摘要
-          </YdButtonBase>
-          <YdButtonBase size="sm" @click="handleDownload">
+          </YdButton>
+          <YdButton size="sm" @click="handleDownload">
             下载
-          </YdButtonBase>
-          <YdButtonBase size="sm" variant="outline" @click="emit('close')">关闭</YdButtonBase>
+          </YdButton>
+          <YdButton size="sm" variant="outline" @click="emit('close')">关闭</YdButton>
         </div>
       </div>
 
@@ -280,7 +280,7 @@ onMounted(async () => {
         <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
           <p class="text-lg">该文件格式暂不支持在线预览</p>
           <p class="mt-2 text-sm">请下载后使用本地应用打开</p>
-          <YdButtonBase class="mt-4" @click="handleDownload">立即下载</YdButtonBase>
+          <YdButton class="mt-4" @click="handleDownload">立即下载</YdButton>
         </div>
       </div>
 
@@ -289,9 +289,9 @@ onMounted(async () => {
         <YdCardHeader className="pb-3">
           <div class="flex items-center justify-between">
             <span class="font-medium">AI 智能摘要</span>
-            <YdButtonBase variant="ghost" size="sm" @click="aiPanelExpanded = !aiPanelExpanded">
+            <YdButton variant="ghost" size="sm" @click="aiPanelExpanded = !aiPanelExpanded">
               {{ aiPanelExpanded ? '收起' : '展开' }}
-            </YdButtonBase>
+            </YdButton>
           </div>
         </YdCardHeader>
         <YdCardContent v-show="aiPanelExpanded" class="text-sm text-gray-700">

@@ -9,7 +9,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { h } from 'vue';
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import { useAccess } from '@ydsz/access';
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
 
@@ -70,7 +70,7 @@ setupYDSZVxeTable({
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
         return h(
-          YdButtonBase,
+          YdButton,
           { size: 'sm', variant: 'link' },
           { default: () => props?.text },
         );

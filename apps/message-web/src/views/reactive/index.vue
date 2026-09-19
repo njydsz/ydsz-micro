@@ -19,7 +19,7 @@
 */
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { YdEmptyState, YdTimeline, YdTimelineItem, YdBadge, YdButtonBase, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdLabel, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdEmptyState, YdTimeline, YdTimelineItem, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdLabel, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { openSseStream } from '#/utils/sse-client';
@@ -197,19 +197,19 @@ onBeforeUnmount(() => {
             <span class="text-sm">缓冲区: {{ health.bufferSize ?? '-' }}</span>
             <span class="text-sm">运行状态: {{ health.status ?? '-' }}</span>
             <div class="flex-1" />
-            <YdButtonBase
+            <YdButton
               v-if="connectionStatus === 'connected'"
               variant="destructive"
               @click="disconnectSse"
             >
               断开
-            </YdButtonBase>
-            <YdButtonBase
+            </YdButton>
+            <YdButton
               v-else
               @click="connectSse"
             >
               连接
-            </YdButtonBase>
+            </YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -254,7 +254,7 @@ onBeforeUnmount(() => {
               <YdLabel>正文</YdLabel>
               <YdTextarea v-model="publishForm.content" class="mt-1" />
             </div>
-            <YdButtonBase @click="handlePublish">发布</YdButtonBase>
+            <YdButton @click="handlePublish">发布</YdButton>
           </div>
         </YdCardContent>
       </YdCard>

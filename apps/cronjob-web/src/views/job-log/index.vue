@@ -21,7 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButtonBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -136,7 +136,7 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         default: ({ row }) => {
           const log = row as JobLogVO;
           return h(
-            YdButtonBase,
+            YdButton,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(log) },
             () => '详情',
           );

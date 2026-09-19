@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdSelectItem, YdSelect, type FormInstance, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdSelectItem, YdSelect, type FormInstance, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
@@ -207,9 +207,9 @@ defineExpose({ open });
       </YdForm>
 
       <YdDialogFooter>
-        <YdButtonBase variant="outline" @click="handleClose">取消</YdButtonBase>
-        <YdButtonBase v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit">保存</YdButtonBase>
-        <YdButtonBase v-else variant="outline" @click="handleClose">关闭</YdButtonBase>
+        <YdButton variant="outline" @click="handleClose">取消</YdButton>
+        <YdButton v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit">保存</YdButton>
+        <YdButton v-else variant="outline" @click="handleClose">关闭</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

@@ -11,7 +11,7 @@ import { h } from 'vue';
 
 import { setupYDSZVxeTable, useYDSZVxeGrid } from '@ydsz/plugins/vxe-table';
 
-import { YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import { YdImage } from '@ydsz-core/ydsz-ui';
 
 import { useYdForm } from './form';
@@ -54,7 +54,7 @@ setupYDSZVxeTable({
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
         return h(
-          YdButtonBase,
+          YdButton,
           { size: 'sm', variant: 'link' },
           { default: () => props?.text },
         );

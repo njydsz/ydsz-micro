@@ -26,9 +26,6 @@ export type {
   VisibleItem,
 } from './use-virtual-list';
 
-export { useTreeSearch } from './use-tree-search';
-export type { FilteredTreeNode, TreeSearchHandle, TreeSearchOptions } from './use-tree-search';
-
 export { useColumnDrag } from './use-column-drag';
 export type { ColumnDragState, UseColumnDragOptions } from './use-column-drag';
 

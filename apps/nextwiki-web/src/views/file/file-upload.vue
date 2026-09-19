@@ -17,7 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { YdForm, YdFormItem, YdProgress, YdUpload, YdButtonBase, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdProgress, YdUpload, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
@@ -246,8 +246,8 @@ async function handleCancel(): Promise<void> {
       </YdFormItem>
     </YdForm>
     <template #footer>
-      <YdButtonBase variant="outline" @click="handleCancel">取消</YdButtonBase>
-      <YdButtonBase :disabled="uploadStatus === 'uploading'">上传</YdButtonBase>
+      <YdButton variant="outline" @click="handleCancel">取消</YdButton>
+      <YdButton :disabled="uploadStatus === 'uploading'">上传</YdButton>
     </template>
   </Modal>
 </template>

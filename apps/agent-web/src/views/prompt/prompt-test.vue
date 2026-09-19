@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdButtonBase, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import { evaluate } from '#/api/prompt';
 
@@ -128,8 +128,8 @@ defineExpose({ open, close });
     </div>
 
       <YdDialogFooter>
-        <YdButtonBase variant="outline" @click="close">关闭</YdButtonBase>
-        <YdButtonBase :disabled="evaluating" @click="handleEvaluate">执行评估</YdButtonBase>
+        <YdButton variant="outline" @click="close">关闭</YdButton>
+        <YdButton :disabled="evaluating" @click="handleEvaluate">执行评估</YdButton>
       </YdDialogFooter>
     </div>
   </YdDialogContent>

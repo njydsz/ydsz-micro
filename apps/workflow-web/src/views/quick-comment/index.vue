@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButtonBase } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteQuickComment, incrementUseCount, listQuickComments } from '#/api/flowComment';
@@ -60,17 +60,17 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
               () => t('common.edit'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleUse(row) },
               () => t('common.use'),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
                 class: 'text-destructive' },
               () => t('common.delete'),
@@ -142,7 +142,7 @@ async function handleDelete(row: FlowQuickCommentVO) {
   <Page auto-content-height>
     <Grid :table-title="t('quickComment.list.title')">
       <template #toolbar-tools
-        ><YdButtonBase @click="handleAdd">{{ t('common.add') }}</YdButtonBase></template
+        ><YdButton @click="handleAdd">{{ t('common.add') }}</YdButton></template
       >
     </Grid>
     <QuickCommentFormModal @success="gridApi.query()" />

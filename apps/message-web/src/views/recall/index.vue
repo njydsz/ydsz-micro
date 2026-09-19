@@ -21,7 +21,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButtonBase, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdForm, YdFormItem, YdTabsContent, YdTabs, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdForm, YdFormItem, YdTabsContent, YdTabs, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { recallBatch, recallByMsgId, recallMessage, recallNotification } from '#/api/recall';
@@ -314,13 +314,13 @@ onMounted(() => {
                     </YdSelectBase>
                   </YdFormItem>
                   <YdFormItem>
-                    <YdButtonBase
+                    <YdButton
                       v-loading="executing"
                       @click="handleRecallNotification"
                     >
                       执行召回
-                    </YdButtonBase>
-                    <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
+                    </YdButton>
+                    <YdButton variant="outline" @click="handleReset">重置</YdButton>
                   </YdFormItem>
                 </YdForm>
               </YdTabsContent>
@@ -360,26 +360,26 @@ onMounted(() => {
                   </YdFormItem>
                   <YdFormItem>
                     <div class="flex gap-2">
-                      <YdButtonBase
+                      <YdButton
                         v-loading="executing"
                         @click="handleRecallByLogId"
                       >
                         按日志ID召回
-                      </YdButtonBase>
-                      <YdButtonBase
+                      </YdButton>
+                      <YdButton
                         v-loading="executing"
                         @click="handleRecallByMsgId"
                       >
                         按消息ID召回
-                      </YdButtonBase>
-                      <YdButtonBase
+                      </YdButton>
+                      <YdButton
                         v-loading="executing"
                         variant="destructive"
                         @click="handleRecallBatch"
                       >
                         批量召回
-                      </YdButtonBase>
-                      <YdButtonBase variant="outline" @click="handleReset">重置</YdButtonBase>
+                      </YdButton>
+                      <YdButton variant="outline" @click="handleReset">重置</YdButton>
                     </div>
                   </YdFormItem>
                 </YdForm>

@@ -17,7 +17,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs, YdBadge, YdButtonBase, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs, YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -73,7 +73,7 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(
-              YdButtonBase,
+              YdButton,
               {
                 size: 'sm',
                 variant: 'link' as const,
@@ -83,7 +83,7 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
               () => (isEnabled(row) ? t('common.disable') : t('common.enable')),
             ),
             h(
-              YdButtonBase,
+              YdButton,
               { size: 'sm', variant: 'link' as const, class: 'text-destructive', onClick: () => handleRevoke(row) },
               () => t('common.revoke'),
             ),
@@ -246,7 +246,7 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
       <YdTabsContent :label="t('delegate.myAuths')" name="mine">
         <MyGrid :table-title="t('delegate.myAuths')">
           <template #toolbar-tools>
-            <YdButtonBase @click="handleAdd">{{ t('delegate.add') }}</YdButtonBase>
+            <YdButton @click="handleAdd">{{ t('delegate.add') }}</YdButton>
           </template>
         </MyGrid>
       </YdTabsContent>
@@ -316,8 +316,8 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
         </YdFormItem>
       </YdForm>
         <YdDialogFooter>
-          <YdButtonBase variant="secondary" @click="createVisible = false">{{ t('common.cancel') }}</YdButtonBase>
-          <YdButtonBase :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</YdButtonBase>
+          <YdButton variant="secondary" @click="createVisible = false">{{ t('common.cancel') }}</YdButton>
+          <YdButton :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
