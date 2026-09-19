@@ -42,13 +42,22 @@ import {
   NEUTRAL_RAW,
   SUCCESS_RAW,
   WARNING_RAW,
+} from './tokens/colors.ts';
+
+import {
   SPACING_TOKENS,
   RADIUS_TOKENS,
+} from './tokens/spacing.ts';
+
+import {
   DURATION_TOKENS,
   EASING_TOKENS,
+} from './tokens/motion.ts';
+
+import {
   FONT_SIZE_TOKENS,
   FONT_WEIGHT_TOKENS,
-} from './tokens/index.ts';
+} from './tokens/typography.ts';
 
 /** Figma Tokens Studio 兼容类型 */
 export interface FigmaTokenValue {
