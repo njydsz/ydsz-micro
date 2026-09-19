@@ -1,6 +1,6 @@
 # ADR-008: Element Plus 全面退场 — 自研 Ydsz UI 基座替换
 
-- **状态**: 已采纳（v5.0.0 落地，2026-09-17）
+- **状态**: 闭环确认（v5.0.0 收官，2026-09-19）— 运行时/构建时/样式层/文档层全部归零
 - **决策人**: ydsz-team
 - **关联代码**: `comm/@core/ui-kit/ydsz-ui/`、`comm/@core/base/design/`、`apps/*/`
 
@@ -97,3 +97,41 @@ grep -rnE "from ['\"]element-plus|from ['\"]@element-plus" apps/ comm/ main/ \
 - **视觉回归**：理论上零变化。桥接右侧已是 YDSZ 原生令牌，删除后消费者直接读原生令牌
 - **存量 external 残留**：importmap.lock.json 清理后 standalone 模式下 EP 不再 externalize
 - **EP 代码重新合入**：eslint + check-standard 守夜门禁反向阻断
+
+## v5.0.0 闭环确认（2026-09-19）
+
+2026-09-19 完成 EP 退场全量闭环，所有门禁升格为永久阻断态。
+
+### 闭环操作
+
+1. **ESLint apps/ 门禁升格**：删除 `eslint.config.mjs` 与 `@ydsz/eslint-config` 中 apps/ 的 `warn`
+   过渡期覆盖块，apps/ 与 main/ 统一为 `error` 级硬阻断；版本标注从 v4.2.0 更新为 v5.0.0
+2. **Vendor Fallback 清理**：`git rm -r main/public/vendor/esm.sh/_starelement-plus@2.14.5/`
+   （~3MB 离线副本），确认 `importmap.lock.json` 与 `vendor/importmap.json` 无 EP 引用
+3. **PostCSS 配置清理**：`postcss-antd-fixes` 的 prefixes 从 `['ant', 'el']` 精简为 `['ant']`
+4. **文档对齐**：9 个 app/main README 技术栈表格 `element-plus` → `@ydsz-core/ydsz-ui`；
+   本文档状态更新为「闭环确认」
+
+### 闭环验收扫描
+
+```bash
+# 源码层 EP import 零容忍 — 0 结果通过
+grep -rnE "from ['\"]element-plus|from ['\"]@element-plus" apps/ comm/ main/ \
+  --include="*.ts" --include="*.vue"
+
+# 源码层 EP vendor 目录 — 已物理删除
+ls main/public/vendor/esm.sh/_starelement-plus@2.14.5/ 2>&1
+# 期望：No such file or directory
+
+# 源码层 --el-* CSS 变量 — 0 运行时调用通过（Javadoc 不计入）
+grep -rnE "var\(--el-|--el-(color|bg|text|fill|border))" apps/ comm/ main/ \
+  --include="*.vue" --include="*.ts" --include="*.css" --include="*.scss"
+
+# PostCSS 配置 — 确认 prefixes 仅含 ant
+grep -n "prefixes" conf/tailwind-config/src/postconfig.ts
+# 期望：['ant']
+
+# README 全部已对齐
+grep -rn "element-plus" apps/ main/ --include="README.md"
+# 期望：0 结果
+```
