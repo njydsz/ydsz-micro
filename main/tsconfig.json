@@ -4,7 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "#/*": ["./src/*"]
+      "#/*": ["./src/*"],
+      "@/*": ["./comm/@core/ui-kit/ydsz-vue/src/*"]
     }
   },
   "references": [{ "path": "./tsconfig.node.json" }],

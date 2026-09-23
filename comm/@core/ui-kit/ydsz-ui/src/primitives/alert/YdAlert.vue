@@ -1,11 +1,11 @@
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { cn } from '@ydsz-core/shared/utils';
 import {
   AlertCircle,
   AlertTriangle,
   CheckCircle2,
   Info,
-  LucideIcon,
+  type LucideIcon,
   X,
 } from 'lucide-vue-next';
 

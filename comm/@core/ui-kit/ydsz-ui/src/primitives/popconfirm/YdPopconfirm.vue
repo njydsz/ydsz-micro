@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { cn } from '@ydsz-core/shared/utils';
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '@ydsz-core/ydsz-vue';
 

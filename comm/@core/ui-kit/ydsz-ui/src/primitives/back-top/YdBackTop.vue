@@ -11,7 +11,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, unref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

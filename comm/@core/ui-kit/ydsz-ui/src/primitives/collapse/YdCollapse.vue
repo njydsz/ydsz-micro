@@ -11,7 +11,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { computed, provide, readonly, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

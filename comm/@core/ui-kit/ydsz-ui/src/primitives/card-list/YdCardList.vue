@@ -1,4 +1,4 @@
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { cn } from '@ydsz-core/shared/utils';
 
 import { YdSkeleton } from '../skeleton';

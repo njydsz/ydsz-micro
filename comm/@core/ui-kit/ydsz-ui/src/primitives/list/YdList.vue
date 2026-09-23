@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
 -->
-<script lang="ts" setup">
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

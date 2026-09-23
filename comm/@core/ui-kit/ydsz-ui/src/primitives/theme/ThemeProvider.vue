@@ -21,7 +21,7 @@ import type { ThemeHandle } from './use-theme';
 export const THEME_INJECTION_KEY: InjectionKey<ThemeHandle> = Symbol('ydsz-theme');
 </script>
 
-<script lang="ts" setup="setup">
+<script lang="ts" setup="setup>
 import { onBeforeUnmount, onMounted, provide, ref } from 'vue';
 
 import { useTheme } from './use-theme';

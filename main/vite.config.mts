@@ -7,8 +7,12 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { readdirSync } from 'node:fs';
 import { defineConfig } from '@ydsz/vite-config';
+import { existsSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
+import type { Plugin } from 'vite';
 
 /**
  * 微前端基座（main-web）的 Vite 构建配置（默认导出）。
@@ -19,17 +23,69 @@ import { fileURLToPath, URL } from 'node:url';
  * @default —— Vite defineConfig 产物
  */
 export default defineConfig(async () => {
+  // Windows 统一使用正斜杠，Vite 别名兼容 Windows/Linux/macOS
+  const toSlash = (p: string) => p.replace(/\\/g, '/');
+  const mainSrcDir = toSlash(fileURLToPath(new URL('./src', import.meta.url)));
+  const appDir = dirname(fileURLToPath(import.meta.url));
+  const ydszVueSrcDir = toSlash(resolve(appDir, 'comm/@core/ui-kit/ydsz-vue/src'));
+
+  /**
+   * 自动扫描 ydsz-vue/src 下所有一级目录名，作为 @/ 前缀解析白名单。
+   */
+  const ydszVueRootDirs = (() => {
+    const dirs = new Set<string>();
+    try {
+      const ydszVueDir = resolve(appDir, 'comm/@core/ui-kit/ydsz-vue/src');
+      readdirSync(ydszVueDir, { withFileTypes: true }).forEach(ent => {
+        if (ent.isDirectory()) dirs.add(ent.name);
+      });
+    } catch {
+      // 扫描失败时的 fallback
+    }
+    return dirs;
+  })();
+
+  /**
+   * 自定义路径解析插件：ydszz-vue 源码内部使用 @/shared、@/Popper 等裸路径别名。
+   * 当导入源位于 ydsz-vue 包内时，将 @/xxx[/yyy] 解析到其自身 src 目录；
+   * 否则回退到 main/src。
+   */
+  function ydzsVueAliasPlugin(): Plugin {
+    return {
+      name: 'ydsz-vue-internal-alias',
+      enforce: 'pre',
+
+      resolveId(source, importer) {
+        if (!source.startsWith('@/')) return null;
+        if (!importer) return null;
+        const normImporter = importer.replace(/\\/g, '/');
+        if (!normImporter.includes('/comm/@core/ui-kit/ydsz-vue/src/')) return null;
+
+        const tail = source.slice(2);
+        const rootName = tail.split('/')[0];
+        if (!ydszVueRootDirs.has(rootName)) return null;
+
+        const resolved = `${ydszVueSrcDir}/${tail}`;
+        if (
+          existsSync(resolved) ||
+          existsSync(`${resolved}.ts`) ||
+          existsSync(`${resolved}.vue`) ||
+          existsSync(`${resolved}/index.ts`)
+        ) {
+          return resolved;
+        }
+        return null;
+      },
+    };
+  }
+
   return {
     application: {
-      // 启用 PWA 支持（Service Worker 离线缓存）
       pwa: true,
       pwaOptions: {
-        // 自定义 Workbox 配置（已在 vite-config 中配置默认值）
         workbox: {
-          // 预缓存 HTML 入口
           globPatterns: ['**/*.{html,js,css}'],
-          // vendor.js 通常 2-3MB（YDSZ Vue UI + VxeTable），默认 2 MiB 限制不够
-          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MiB
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         },
         manifest: {
           name: 'YDSZ',
@@ -43,24 +99,22 @@ export default defineConfig(async () => {
     vite: {
       resolve: {
         alias: {
-          '@': fileURLToPath(new URL('./src', import.meta.url)),
+          '@': mainSrcDir,
         },
       },
+      plugins: [ydzsVueAliasPlugin()],
       server: {
         port: 5600,
-        // 允许跨域，微前端子应用需要
         cors: true,
         proxy: {
           '/api': {
             changeOrigin: true,
             rewrite: (path) => path.replace(/^\/api/, ''),
-            // 开发环境通过 Gateway 9000 端口统一路由到各后端服务
             target: 'http://localhost:9000',
             ws: true,
           },
         },
       },
-      plugins: [],
     },
   };
 });
