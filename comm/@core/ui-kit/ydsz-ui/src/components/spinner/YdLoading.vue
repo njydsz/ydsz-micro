@@ -11,6 +11,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

@@ -1,5 +1,5 @@
 import { type Ref, computed, nextTick, onUnmounted, ref, watch } from 'vue'
-import { useStateMachine } from '@/shared'
+import { useStateMachine } from '../shared/index.ts'
 import { isClient } from '@vueuse/shared'
 import { defaultWindow } from '@vueuse/core'
 

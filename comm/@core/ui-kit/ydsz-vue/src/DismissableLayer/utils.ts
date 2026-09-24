@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/shared'
-import { handleAndDispatchCustomEvent } from '@/shared'
+import { handleAndDispatchCustomEvent } from '../shared/index.ts'
 import { type Ref, nextTick, ref, watchEffect } from 'vue'
 
 export type PointerDownOutsideEvent = CustomEvent<{

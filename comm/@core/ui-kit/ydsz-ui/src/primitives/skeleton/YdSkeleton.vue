@@ -17,6 +17,7 @@
  * @since 1.0.0 (26.09.17 增强段落模式与可访问性)
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

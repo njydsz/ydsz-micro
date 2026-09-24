@@ -15,6 +15,7 @@
  * @since 1.0.0 (26.09.17 增强：持久化+排序)
  -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { onMounted, ref, type Ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

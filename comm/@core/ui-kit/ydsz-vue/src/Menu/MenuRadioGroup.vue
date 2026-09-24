@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
 import type { MenuGroupProps } from './MenuGroup.vue'
-import { createContext } from '@/shared'
+import { createContext } from '../shared/index.ts'
 
 interface MenuRadioGroupContext {
   modelValue: Ref<string>

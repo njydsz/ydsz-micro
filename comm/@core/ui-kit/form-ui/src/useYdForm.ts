@@ -6,7 +6,7 @@
  * 若传入的 options 是 reactive 对象，会额外 watch schema 并同步到 API，
  * 使外部动态改 Schema 时表单能跟随更新；普通对象不建立该监听。
  *
- * @path comm\@core\ui-kit\form-ui\src\use-YDSZ-form.ts
+ * @path comm\@core\ui-kit\form-ui\src\useYdForm.ts
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -21,7 +21,7 @@ import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 import { useStore } from '@ydsz-core/shared/store';
 
 import { FormApi } from './form-api';
-import YDSZUseForm from './YDSZ-use-form.vue';
+import UseForm from './UseForm.vue';
 
 /**
  * 创建一对「表单组件 + 命令式 API」，是业务使用 form-ui 的推荐入口。
@@ -69,10 +69,10 @@ export function useYdForm<
       });
       api.setState({ ...props, ...attrs });
       return () =>
-        h(YDSZUseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
+        h(UseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
     {
-      name: 'YDSZUseForm',
+      name: 'UseForm',
       inheritAttrs: false,
     },
   );

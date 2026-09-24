@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose, useId } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose, useId } from '../shared/index.ts'
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
@@ -16,8 +17,8 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
 import {
   Primitive,
-} from '@/Primitive'
-import { Presence } from '@/Presence'
+} from '../Primitive/index.ts'
+import { Presence } from '../Presence/index.ts'
 
 defineOptions({
   inheritAttrs: false,

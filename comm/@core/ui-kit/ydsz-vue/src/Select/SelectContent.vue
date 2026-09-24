@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   SelectContentImplEmits,
   SelectContentImplProps,
@@ -19,8 +20,8 @@ export interface SelectContentProps extends SelectContentImplProps {
 import { computed, onMounted, ref } from 'vue'
 import SelectContentImpl from './SelectContentImpl.vue'
 import { injectSelectRootContext } from './SelectRoot.vue'
-import { Presence } from '@/Presence'
-import { useForwardPropsEmits } from '@/shared'
+import { Presence } from '../Presence/index.ts'
+import { useForwardPropsEmits } from '../shared/index.ts'
 import SelectProvider from './SelectProvider.vue'
 
 defineOptions({

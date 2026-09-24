@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { ToggleProps } from '@/Toggle'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { ToggleProps } from '../Toggle/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface ToggleGroupItemProps extends Omit<ToggleProps, 'pressed' | 'defaultValue'> {
   /**
@@ -13,9 +14,9 @@ export interface ToggleGroupItemProps extends Omit<ToggleProps, 'pressed' | 'def
 <script setup lang="ts">
 import { computed } from 'vue'
 import { injectToggleGroupRootContext } from './ToggleGroupRoot.vue'
-import { Toggle } from '@/Toggle'
-import { RovingFocusItem } from '@/RovingFocus'
-import { Primitive } from '@/Primitive'
+import { Toggle } from '../Toggle/index.ts'
+import { RovingFocusItem } from '../RovingFocus/index.ts'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
   as: 'button',

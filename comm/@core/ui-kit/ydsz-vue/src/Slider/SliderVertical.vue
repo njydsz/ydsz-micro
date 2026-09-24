@@ -3,7 +3,7 @@ import SliderImpl from './SliderImpl.vue'
 import { computed, ref, toRefs } from 'vue'
 import type { SliderOrientationPrivateEmits, SliderOrientationPrivateProps } from './utils'
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose } from '../shared/index.ts'
 
 interface SliderVerticalProps extends SliderOrientationPrivateProps {}
 const props = defineProps<SliderVerticalProps>()

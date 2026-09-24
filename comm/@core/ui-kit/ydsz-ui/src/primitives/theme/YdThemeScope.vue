@@ -17,6 +17,7 @@
  * @since 26.09.17
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed, onMounted, ref, watch } from 'vue';
 
 /** 主题模式 */

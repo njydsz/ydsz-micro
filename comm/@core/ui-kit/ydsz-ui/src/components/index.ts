@@ -31,7 +31,6 @@ export * from './hover-card';
 export * from './icon';
 export * from './input-password';
 export * from './logo';
-export * from './notification';
 export * from './pin-input';
 export * from './popover';
 export * from './quick-create';

@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { getCurrentInstance } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

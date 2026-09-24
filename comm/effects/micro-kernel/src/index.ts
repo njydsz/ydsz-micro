@@ -277,3 +277,10 @@ export {
   parseVersion,
   satisfiesVersion,
 } from "@ydsz-core/shared/semver";
+
+// v5.1.0: 依赖倒置注册 — 把 iframe 沙箱工厂注入 micro-runtime 的注册桥，
+// 使 micro-runtime 不再静态依赖本包，消除 kernel↔runtime 循环依赖（turbo 构建阻断）
+import { registerIframeSandboxFactory } from "@ydsz/micro-runtime";
+import { createIframeSandbox } from "./iframe-sandbox";
+
+registerIframeSandboxFactory((appName, parentEl) => createIframeSandbox(appName, parentEl));

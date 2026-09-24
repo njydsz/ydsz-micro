@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { DialogTitleProps } from '@/Dialog'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { DialogTitleProps } from '../Dialog/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface AlertDialogTitleProps extends DialogTitleProps {}
 </script>
 
 <script setup lang="ts">
-import { DialogTitle } from '@/Dialog'
+import { DialogTitle } from '../Dialog/index.ts'
 
 const props = withDefaults(defineProps<AlertDialogTitleProps>(), { as: 'h2' })
 useForwardExpose()

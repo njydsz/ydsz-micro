@@ -1,5 +1,5 @@
 import { Comment, cloneVNode, defineComponent, mergeProps } from 'vue'
-import { renderSlotFragments } from '@/shared'
+import { renderSlotFragments } from '../shared/index.ts'
 
 export const Slot = defineComponent({
   name: 'PrimitiveSlot',

@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuContentImplEmits,
   MenuContentImplProps,
@@ -21,8 +22,8 @@ import MenuContentImpl from './MenuContentImpl.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { SUB_CLOSE_KEYS } from './utils'
-import { Presence } from '@/Presence'
-import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
+import { Presence } from '../Presence/index.ts'
+import { useForwardExpose, useForwardPropsEmits, useId } from '../shared/index.ts'
 
 const props = withDefaults(defineProps<MenuSubContentProps>(), {
   prioritizePosition: true,

@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import { ref, toRefs, watch, watchEffect } from 'vue'
 import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior'
 
@@ -24,13 +25,13 @@ export type SplitterResizeHandleEmits = {
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { injectPanelGroupContext } from './SplitterGroup.vue'
 import type { ResizeEvent, ResizeHandler } from './utils/types'
 import type { PointerHitAreaMargins, ResizeHandlerAction } from './utils/registry'
 import { registerResizeHandle } from './utils/registry'
 import { assert } from './utils/assert'
-import { isBrowser, useForwardExpose, useId } from '@/shared'
+import { isBrowser, useForwardExpose, useId } from '../shared/index.ts'
 
 const props = withDefaults(defineProps<SplitterResizeHandleProps>(), {
   tabindex: 0,

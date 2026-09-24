@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import Tree from './story/_Tree.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { useKbd } from '@/shared'
+import { useKbd } from '../shared/index.ts'
 import { nextTick } from 'vue'
 
 const kbd = useKbd()

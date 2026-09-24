@@ -54,7 +54,8 @@
 
 import type { ReactSubAppMountContext, ReactSubAppOptions, ReactSubAppHandle } from './types-react-sub-app';
 
-import { createIframeSandbox } from '@ydsz/micro-kernel';
+import type { IframeSandboxLike } from './iframe-sandbox-bridge';
+import { resolveIframeSandboxFactory } from './iframe-sandbox-bridge';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -72,7 +73,7 @@ let seq = 0;
 export function createReactSubApp(options: ReactSubAppOptions): ReactSubAppHandle {
   const { mount, name = `react-sub-${++seq}` } = options;
 
-  let sandbox: ReturnType<typeof createIframeSandbox> | null = null;
+  let sandbox: IframeSandboxLike | null = null;
   let unmountFn: (() => void) | null = null;
   let containerEl: HTMLElement | null = null;
 
@@ -85,7 +86,9 @@ export function createReactSubApp(options: ReactSubAppOptions): ReactSubAppHandl
      */
     async mount(props?: Record<string, unknown>): Promise<void> {
       const parentEl = resolveParentContainer(name, props);
-      sandbox = createIframeSandbox(name, parentEl);
+      // v5.1.0: 依赖倒置 — 沙箱工厂由 micro-kernel 注册，runtime 不再静态依赖 kernel
+      const createSandbox = resolveIframeSandboxFactory();
+      sandbox = createSandbox(name, parentEl);
 
       // iframe-sandbox 已自动激活并完成：
       //   - iframe 创建 + append
@@ -185,7 +188,7 @@ function resolveParentContainer(name: string, props?: Record<string, unknown>): 
  * 从 iframe contentWindow 读取 globalState 快照。
  * iframe-bridge 脚本创建了 window.__MICRO_GLOBAL_STATE__。
  */
-function extractGlobalState(sandbox: ReturnType<typeof createIframeSandbox>): Record<string, unknown> {
+function extractGlobalState(sandbox: IframeSandboxLike): Record<string, unknown> {
   return (sandbox.contentWindow as Window & { __MICRO_GLOBAL_STATE__?: Record<string, unknown> })
     ?.__MICRO_GLOBAL_STATE__ ?? {};
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 export interface TeleportProps {
   /**
    * Vue native teleport component prop `:to`

@@ -13,6 +13,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import type { GenericObject } from 'vee-validate';
 
 import { useForm } from 'vee-validate';

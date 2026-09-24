@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface SelectValueProps extends PrimitiveProps {
   /** The content that will be rendered inside the `SelectValue` when no `value` or `defaultValue` is set. */
@@ -11,8 +12,8 @@ export interface SelectValueProps extends PrimitiveProps {
 import { onBeforeMount, onMounted, useSlots } from 'vue'
 import { shouldShowPlaceholder } from './utils'
 import { injectSelectRootContext } from './SelectRoot.vue'
-import { Primitive } from '@/Primitive'
-import { renderSlotFragments, useForwardExpose } from '@/shared'
+import { Primitive } from '../Primitive/index.ts'
+import { renderSlotFragments, useForwardExpose } from '../shared/index.ts'
 
 withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',

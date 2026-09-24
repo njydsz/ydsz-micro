@@ -1,9 +1,10 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuRadioItemEmits,
   MenuRadioItemProps,
-} from '@/Menu'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+} from '../Menu/index.ts'
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
 
 export type DropdownMenuRadioItemEmits = MenuRadioItemEmits
 
@@ -11,7 +12,7 @@ export interface DropdownMenuRadioItemProps extends MenuRadioItemProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuRadioItem } from '@/Menu'
+import { MenuRadioItem } from '../Menu/index.ts'
 
 const props = defineProps<DropdownMenuRadioItemProps>()
 const emits = defineEmits<DropdownMenuRadioItemEmits>()

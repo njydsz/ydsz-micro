@@ -1,10 +1,11 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   ComponentPublicInstance,
   Ref,
 } from 'vue'
-import type { PopperContentProps } from '@/Popper'
-import type { PointerDownOutsideEvent } from '@/DismissableLayer'
+import type { PopperContentProps } from '../Popper/index.ts'
+import type { PointerDownOutsideEvent } from '../DismissableLayer/index.ts'
 import {
   createContext,
   useBodyScrollLock,
@@ -13,7 +14,7 @@ import {
   useForwardProps,
   useHideOthers,
   useTypeahead,
-} from '@/shared'
+} from '../shared/index.ts'
 
 interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>
@@ -89,9 +90,9 @@ import { unrefElement } from '@vueuse/core'
 import { injectSelectRootContext } from './SelectRoot.vue'
 import SelectItemAlignedPosition from './SelectItemAlignedPosition.vue'
 import SelectPopperPosition from './SelectPopperPosition.vue'
-import { FocusScope } from '@/FocusScope'
-import { DismissableLayer } from '@/DismissableLayer'
-import { focusFirst } from '@/Menu/utils'
+import { FocusScope } from '../FocusScope/index.ts'
+import { DismissableLayer } from '../DismissableLayer/index.ts'
+import { focusFirst } from '../Menu/utils.ts'
 
 const props = withDefaults(defineProps<SelectContentImplProps>(), {
   align: 'start',

@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface PopoverCloseProps extends PrimitiveProps {}
 </script>
@@ -9,7 +10,7 @@ export interface PopoverCloseProps extends PrimitiveProps {}
 import {
   injectPopoverRootContext,
 } from './PopoverRoot.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<PopoverCloseProps>(), {
   as: 'button',

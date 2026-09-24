@@ -1,3 +1,4 @@
+<script lang="ts">
 // cspell:words PreviewGroup
 /**
  * YdImagePreviewGroup.vue —— 图片预览组。
@@ -23,13 +24,7 @@
  * @author ydsz-team
  * @since 26.09.17
  */
-import {
-  computed,
-  provide,
-  reactive,
-  ref,
-  watch,
-} from 'vue';
+import { provide, reactive, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -60,6 +55,10 @@ interface Props {
   /** 预览弹窗类名 */
   class?: string;
 }
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue';
 
 const props = defineProps<Props>();
 
@@ -183,7 +182,7 @@ watch(isOpen, (val) => {
       role="dialog"
       aria-modal="true"
       aria-label="图片预览"
-      :class="cn('fixed inset-0 z-50 flex items-center justify-center bg-black/80', class)"
+      :class="cn('fixed inset-0 z-50 flex items-center justify-center bg-black/80', $props.class)"
       @wheel="handleWheel"
       @pointermove="handlePointerMove"
     >

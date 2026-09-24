@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';

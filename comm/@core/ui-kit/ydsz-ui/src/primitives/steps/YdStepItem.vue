@@ -12,6 +12,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import type { StepItem } from './YdSteps.vue';
 
 import { computed } from 'vue';

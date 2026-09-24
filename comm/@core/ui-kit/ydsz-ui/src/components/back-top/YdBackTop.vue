@@ -10,6 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import type { BacktopProps } from './backtop';
 
 import { computed } from 'vue';

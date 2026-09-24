@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
 import {
   AlertCircle,

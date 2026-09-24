@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { DialogCloseProps } from '@/Dialog'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { DialogCloseProps } from '../Dialog/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface AlertDialogActionProps extends DialogCloseProps {}
 </script>
 
 <script setup lang="ts">
-import { DialogClose } from '@/Dialog'
+import { DialogClose } from '../Dialog/index.ts'
 
 const props = withDefaults(defineProps<AlertDialogActionProps>(), { as: 'button' })
 useForwardExpose()

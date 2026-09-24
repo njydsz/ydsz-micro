@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose, useId } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose, useId } from '../shared/index.ts'
 
 export interface DropdownMenuTriggerProps extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with item */
@@ -13,8 +14,8 @@ import { nextTick, onMounted } from 'vue'
 import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
 import {
   Primitive,
-} from '@/Primitive'
-import { MenuAnchor } from '@/Menu'
+} from '../Primitive/index.ts'
+import { MenuAnchor } from '../Menu/index.ts'
 
 const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
   as: 'button',

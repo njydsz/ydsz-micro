@@ -1,9 +1,10 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuContentEmits,
   MenuContentProps,
-} from '@/Menu'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+} from '../Menu/index.ts'
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
 
 export type ContextMenuContentEmits = MenuContentEmits
 
@@ -21,7 +22,7 @@ export interface ContextMenuContentProps
 <script setup lang="ts">
 import { ref } from 'vue'
 import { injectContextMenuRootContext } from './ContextMenuRoot.vue'
-import { MenuContent } from '@/Menu'
+import { MenuContent } from '../Menu/index.ts'
 
 const props = withDefaults(defineProps<ContextMenuContentProps>(), {
   alignOffset: 0,

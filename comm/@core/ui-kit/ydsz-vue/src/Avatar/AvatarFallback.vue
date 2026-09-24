@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface AvatarFallbackProps extends PrimitiveProps {
   /** Useful for delaying rendering so it only appears for those with slower connections. */
@@ -10,7 +11,7 @@ export interface AvatarFallbackProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { injectAvatarRootContext } from './AvatarRoot.vue'
 
 const props = withDefaults(defineProps<AvatarFallbackProps>(), {

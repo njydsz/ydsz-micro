@@ -1,11 +1,12 @@
 <script lang="ts">
+// @ts-nocheck
 import type { CollapsibleContentProps } from '../Collapsible'
 
 export interface AccordionContentProps extends CollapsibleContentProps {}
 </script>
 
 <script setup lang="ts">
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose } from '../shared/index.ts'
 import { CollapsibleContent } from '../Collapsible'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'

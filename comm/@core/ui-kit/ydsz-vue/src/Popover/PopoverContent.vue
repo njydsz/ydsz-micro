@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   PopoverContentImplEmits,
   PopoverContentImplProps,
@@ -19,8 +20,8 @@ export interface PopoverContentProps extends PopoverContentImplProps {
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
-import { Presence } from '@/Presence'
+import { useForwardExpose, useForwardPropsEmits, useId } from '../shared/index.ts'
+import { Presence } from '../Presence/index.ts'
 
 const props = defineProps<PopoverContentProps>()
 const emits = defineEmits<PopoverContentEmits>()

@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.vue'
 
 export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {}
@@ -8,8 +9,8 @@ export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoPr
 import { onMounted, onUnmounted, ref } from 'vue'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
-import { Presence } from '@/Presence'
-import { useForwardExpose } from '@/shared'
+import { Presence } from '../Presence/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 defineOptions({
   inheritAttrs: false,

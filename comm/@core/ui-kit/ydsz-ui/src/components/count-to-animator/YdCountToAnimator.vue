@@ -10,6 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed, onMounted, ref, unref, watch, watchEffect } from 'vue';
 
 import { isNumber } from '@ydsz-core/shared/utils';

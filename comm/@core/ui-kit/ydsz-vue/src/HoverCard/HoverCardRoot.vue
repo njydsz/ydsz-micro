@@ -1,6 +1,7 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, useForwardExpose } from '../shared/index.ts'
 
 export interface HoverCardRootProps {
   /** The open state of the hover card when it is initially rendered. Use when you do not need to control its open state. */
@@ -36,7 +37,7 @@ export const [injectHoverCardRootContext, provideHoverCardRootContext]
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { PopperRoot } from '@/Popper'
+import { PopperRoot } from '../Popper/index.ts'
 
 const props = withDefaults(defineProps<HoverCardRootProps>(), {
   defaultOpen: false,

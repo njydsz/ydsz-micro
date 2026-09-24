@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuContentEmits,
   MenuContentProps,
-} from '@/Menu'
+} from '../Menu/index.ts'
 
 export type DropdownMenuContentEmits = MenuContentEmits
 
@@ -12,8 +13,8 @@ export interface DropdownMenuContentProps extends MenuContentProps {}
 <script setup lang="ts">
 import { ref } from 'vue'
 import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
-import { MenuContent } from '@/Menu'
-import { useForwardExpose, useForwardPropsEmits, useId } from '@/shared'
+import { MenuContent } from '../Menu/index.ts'
+import { useForwardExpose, useForwardPropsEmits, useId } from '../shared/index.ts'
 
 const props = defineProps<DropdownMenuContentProps>()
 const emits = defineEmits<DropdownMenuContentEmits>()

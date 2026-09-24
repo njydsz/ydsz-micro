@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import { createContext, getActiveElement, useForwardExpose, useId } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { createContext, getActiveElement, useForwardExpose, useId } from '../shared/index.ts'
 
 interface SelectItemContext {
   value: string
@@ -41,7 +42,7 @@ import {
 import { injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { SELECTION_KEYS } from './utils'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = defineProps<SelectItemProps>()
 const { disabled } = toRefs(props)

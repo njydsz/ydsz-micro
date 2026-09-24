@@ -249,7 +249,8 @@ onMounted(() => {
               </div>
             </div>
 
-<longcat_arg_value>          </div>
+          </div>
+          </YdCardContent>
         </YdCard>
       </div>
 

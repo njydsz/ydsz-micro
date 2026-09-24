@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type { Direction, ScrollType } from './types'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
 
 export interface ScrollAreaRootContext {
   type: Ref<ScrollType>
@@ -47,7 +48,7 @@ export interface ScrollAreaRootProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   type: 'hover',

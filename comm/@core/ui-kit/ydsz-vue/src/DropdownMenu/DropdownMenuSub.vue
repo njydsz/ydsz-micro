@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { MenuSubEmits, MenuSubProps } from '@/Menu'
+// @ts-nocheck
+import type { MenuSubEmits, MenuSubProps } from '../Menu/index.ts'
 import type { Ref } from 'vue'
 
 export type DropdownMenuSubEmits = MenuSubEmits
@@ -11,8 +12,8 @@ export interface DropdownMenuSubProps extends MenuSubProps {
 
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
-import { MenuSub } from '@/Menu'
-import { useForwardExpose } from '@/shared'
+import { MenuSub } from '../Menu/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
   open: undefined,

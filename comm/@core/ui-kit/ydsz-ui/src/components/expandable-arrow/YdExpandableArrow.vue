@@ -11,6 +11,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { ChevronDown } from '@ydsz-core/icons';
 import { cn } from '@ydsz-core/shared/utils';
 

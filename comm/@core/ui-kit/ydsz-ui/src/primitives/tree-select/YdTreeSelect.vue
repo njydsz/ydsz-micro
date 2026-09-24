@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

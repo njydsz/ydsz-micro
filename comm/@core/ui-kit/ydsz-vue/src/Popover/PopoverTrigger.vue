@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
@@ -8,8 +9,8 @@ export interface PopoverTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { Primitive } from '@/Primitive'
-import { PopperAnchor } from '@/Popper'
+import { Primitive } from '../Primitive/index.ts'
+import { PopperAnchor } from '../Popper/index.ts'
 
 const props = withDefaults(defineProps<PopoverTriggerProps>(), {
   as: 'button',

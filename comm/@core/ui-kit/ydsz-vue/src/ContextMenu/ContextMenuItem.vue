@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { MenuItemEmits, MenuItemProps } from '@/Menu'
+// @ts-nocheck
+import type { MenuItemEmits, MenuItemProps } from '../Menu/index.ts'
 
 export type ContextMenuItemEmits = MenuItemEmits
 
@@ -7,8 +8,8 @@ export interface ContextMenuItemProps extends MenuItemProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuItem } from '@/Menu'
-import { useEmitAsProps, useForwardExpose } from '@/shared'
+import { MenuItem } from '../Menu/index.ts'
+import { useEmitAsProps, useForwardExpose } from '../shared/index.ts'
 
 const props = defineProps<MenuItemProps>()
 const emits = defineEmits<MenuItemEmits>()

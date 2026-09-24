@@ -11,7 +11,7 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from '../'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps } from '../../shared/index.ts'
 
 withDefaults(defineProps<{ type?: AccordionRootProps['type'] }>(), { type: 'single' })
 const emits = defineEmits<AccordionRootEmits>()

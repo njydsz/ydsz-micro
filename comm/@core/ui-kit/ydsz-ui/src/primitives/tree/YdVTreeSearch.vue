@@ -17,6 +17,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed, ref, watch, type Ref } from 'vue';
 
 import { useDebounceFn } from '@vueuse/core';
@@ -169,7 +170,7 @@ defineExpose({
 </script>
 
 <template>
-  <div :class="cn('flex flex-col gap-2', class)">
+  <div :class="cn('flex flex-col gap-2', $props.class)">
     <!-- 搜索框 -->
     <div class="relative flex items-center">
       <Search

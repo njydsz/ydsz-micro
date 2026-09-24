@@ -4,7 +4,7 @@ import { axe } from 'vitest-axe'
 import type { NumberFieldRootProps } from './NumberFieldRoot.vue'
 import userEvent from '@testing-library/user-event'
 import { fireEvent, render } from '@testing-library/vue'
-import { useKbd } from '@/shared'
+import { useKbd } from '../shared/index.ts'
 import { mount } from '@vue/test-utils'
 import { handleSubmit } from '@/test'
 

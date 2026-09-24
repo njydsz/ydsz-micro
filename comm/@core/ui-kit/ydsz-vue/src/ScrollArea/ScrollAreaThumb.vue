@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface ScrollAreaThumbProps extends PrimitiveProps {}
 </script>
@@ -8,7 +9,7 @@ export interface ScrollAreaThumbProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { computed, onUnmounted, ref } from 'vue'
 import { watchOnce } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { addUnlinkedScrollListener } from './utils'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'

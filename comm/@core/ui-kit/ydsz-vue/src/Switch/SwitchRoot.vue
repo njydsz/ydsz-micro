@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useFormControl, useForwardExpose } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { createContext, useFormControl, useForwardExpose } from '../shared/index.ts'
 
 export interface SwitchRootProps extends PrimitiveProps {
   /** The state of the switch when it is initially rendered. Use when you do not need to control its state. */
@@ -37,7 +38,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext]
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<SwitchRootProps>(), {
   as: 'button',

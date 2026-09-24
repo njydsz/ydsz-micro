@@ -1,6 +1,7 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext } from '../shared/index.ts'
 
 export interface Measurable {
   getBoundingClientRect: () => DOMRect

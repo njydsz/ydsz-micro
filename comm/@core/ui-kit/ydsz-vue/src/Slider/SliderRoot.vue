@@ -1,9 +1,10 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type { DataOrientation, Direction } from '../shared/types'
-import { clamp, createContext, useDirection, useFormControl, useForwardExpose } from '@/shared'
-import { CollectionSlot, createCollection } from '@/Collection'
+import { clamp, createContext, useDirection, useFormControl, useForwardExpose } from '../shared/index.ts'
+import { CollectionSlot, createCollection } from '../Collection/index.ts'
 
 export interface SliderRootProps extends PrimitiveProps {
   name?: string

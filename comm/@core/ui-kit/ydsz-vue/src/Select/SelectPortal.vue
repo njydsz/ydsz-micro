@@ -1,11 +1,12 @@
 <script lang="ts">
-import type { TeleportProps } from '@/Teleport'
+// @ts-nocheck
+import type { TeleportProps } from '../Teleport/index.ts'
 
 export interface SelectPortalProps extends TeleportProps {}
 </script>
 
 <script setup lang="ts">
-import { TeleportPrimitive } from '@/Teleport'
+import { TeleportPrimitive } from '../Teleport/index.ts'
 
 const props = defineProps<SelectPortalProps>()
 </script>

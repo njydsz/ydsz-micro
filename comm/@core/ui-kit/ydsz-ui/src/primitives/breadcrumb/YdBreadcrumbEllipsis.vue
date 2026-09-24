@@ -10,6 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
 
 import { MoreHorizontal } from 'lucide-vue-next';

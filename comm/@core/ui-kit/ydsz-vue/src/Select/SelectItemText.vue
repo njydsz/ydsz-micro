@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface SelectItemTextProps extends PrimitiveProps {}
 </script>
@@ -10,7 +11,7 @@ import { computed, h, onBeforeUnmount, onMounted } from 'vue'
 import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
 import { injectSelectItemContext } from './SelectItem.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 defineOptions({
   inheritAttrs: false,

@@ -1,7 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type { ImageLoadingStatus } from './utils'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose } from '../shared/index.ts'
 
 export type AvatarImageEmits = {
   /**

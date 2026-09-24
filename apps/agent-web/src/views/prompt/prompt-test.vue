@@ -131,7 +131,6 @@ defineExpose({ open, close });
         <YdButton variant="outline" @click="close">关闭</YdButton>
         <YdButton :disabled="evaluating" @click="handleEvaluate">执行评估</YdButton>
       </YdDialogFooter>
-    </div>
-  </YdDialogContent>
-</YdDialog>
+    </YdDialogContent>
+  </YdDialog>
 </template>

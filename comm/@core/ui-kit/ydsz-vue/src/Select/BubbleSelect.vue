@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import { VisuallyHidden } from '@/VisuallyHidden'
+import { VisuallyHidden } from '../VisuallyHidden/index.ts'
 
 interface BubbleSelectProps {
   autocomplete?: string

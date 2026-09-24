@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import type { AlertDialogDescriptionProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';

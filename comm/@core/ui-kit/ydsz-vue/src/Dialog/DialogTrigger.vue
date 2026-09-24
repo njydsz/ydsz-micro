@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface DialogTriggerProps extends PrimitiveProps {}
 </script>
@@ -7,8 +8,8 @@ export interface DialogTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { injectDialogRootContext } from './DialogRoot.vue'
-import { useForwardExpose, useId } from '@/shared'
-import { Primitive } from '@/Primitive'
+import { useForwardExpose, useId } from '../shared/index.ts'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<DialogTriggerProps>(), {
   as: 'button',

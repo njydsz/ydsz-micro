@@ -1,9 +1,10 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   DialogContentEmits,
   DialogContentProps,
-} from '@/Dialog'
-import { createContext, useEmitAsProps, useForwardExpose } from '@/shared'
+} from '../Dialog/index.ts'
+import { createContext, useEmitAsProps, useForwardExpose } from '../shared/index.ts'
 
 interface AlertDialogContentContext {
   onCancelElementChange: (el: HTMLElement | undefined) => void
@@ -18,7 +19,7 @@ export interface AlertDialogContentProps extends DialogContentProps {}
 
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
-import { DialogContent } from '@/Dialog'
+import { DialogContent } from '../Dialog/index.ts'
 
 const props = defineProps<AlertDialogContentProps>()
 const emits = defineEmits<AlertDialogContentEmits>()

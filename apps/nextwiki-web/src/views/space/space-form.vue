@@ -18,7 +18,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-space');
-const { t } = useI18n';
+const { t } = useI18n();
 import { computed, onMounted, reactive, ref } from 'vue';
 import { createSpace } from '#/api/space';
 import { listTemplates, useTemplate } from '#/api/spaceTemplate';

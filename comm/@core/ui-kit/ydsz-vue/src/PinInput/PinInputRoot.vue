@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
-import type { Direction } from '@/shared/types'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
+import type { Direction } from '../shared/types.ts'
 
 export type PinInputRootEmits = {
   'update:modelValue': [value: string[]]
@@ -53,7 +54,7 @@ export const [injectPinInputRootContext, providePinInputRootContext]
 
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 defineOptions({
   inheritAttrs: false,

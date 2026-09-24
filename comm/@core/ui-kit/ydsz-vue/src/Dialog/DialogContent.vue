@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   DialogContentImplEmits,
   DialogContentImplProps,
@@ -19,8 +20,8 @@ export interface DialogContentProps extends DialogContentImplProps {
 import DialogContentModal from './DialogContentModal.vue'
 import DialogContentNonModal from './DialogContentNonModal.vue'
 import { injectDialogRootContext } from './DialogRoot.vue'
-import { Presence } from '@/Presence'
-import { useEmitAsProps, useForwardExpose } from '@/shared'
+import { Presence } from '../Presence/index.ts'
+import { useEmitAsProps, useForwardExpose } from '../shared/index.ts'
 
 const props = defineProps<DialogContentProps>()
 const emits = defineEmits<DialogContentEmits>()

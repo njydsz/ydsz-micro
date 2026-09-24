@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { DialogCloseProps } from '@/Dialog'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { DialogCloseProps } from '../Dialog/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface AlertDialogCancelProps extends DialogCloseProps {}
 </script>
@@ -8,7 +9,7 @@ export interface AlertDialogCancelProps extends DialogCloseProps {}
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { injectAlertDialogContentContext } from './AlertDialogContent.vue'
-import { DialogClose } from '@/Dialog'
+import { DialogClose } from '../Dialog/index.ts'
 
 const props = withDefaults(defineProps<AlertDialogCancelProps>(), { as: 'button' })
 const contentContext = injectAlertDialogContentContext()

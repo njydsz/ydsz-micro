@@ -1,7 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type { Ref } from 'vue'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, useForwardExpose } from '../shared/index.ts'
 
 export interface CollapsibleRootProps extends PrimitiveProps {
   /** The open state of the collapsible when it is initially rendered. <br> Use when you do not need to control its open state. */
@@ -29,7 +30,7 @@ export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {

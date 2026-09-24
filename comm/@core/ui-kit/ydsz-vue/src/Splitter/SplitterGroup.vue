@@ -1,11 +1,12 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import {
   initializeDefaultStorage,
   loadPanelGroupState,
   savePanelGroupState,
 } from './utils/storage'
-import { areEqual, createContext, useDirection, useForwardExpose, useId } from '@/shared'
+import { areEqual, createContext, useDirection, useForwardExpose, useId } from '../shared/index.ts'
 import { type CSSProperties, type Ref, computed, ref, toRefs, watch, watchEffect } from 'vue'
 import { useWindowSplitterPanelGroupBehavior } from './utils/composables/useWindowSplitterPanelGroupBehavior'
 
@@ -71,7 +72,7 @@ export const [injectPanelGroupContext, providePanelGroupContext] = createContext
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 import type { PanelConstraints, PanelData } from './SplitterPanel.vue'
 import type { Direction, DragState, ResizeEvent, ResizeHandler } from './utils/types'

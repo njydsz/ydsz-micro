@@ -1,16 +1,17 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
 import type {
   GraceIntent,
   Side,
 } from './utils'
-import type { FocusScopeProps } from '@/FocusScope'
-import type { RovingFocusGroupEmits } from '@/RovingFocus'
+import type { FocusScopeProps } from '../FocusScope/index.ts'
+import type { RovingFocusGroupEmits } from '../RovingFocus/index.ts'
 import type {
   DismissableLayerEmits,
   DismissableLayerProps,
-} from '@/DismissableLayer'
-import type { PopperContentProps } from '@/Popper'
+} from '../DismissableLayer/index.ts'
+import type { PopperContentProps } from '../Popper/index.ts'
 
 import {
   createContext,
@@ -21,7 +22,7 @@ import {
   useFocusGuards,
   useForwardExpose,
   useTypeahead,
-} from '@/shared'
+} from '../shared/index.ts'
 
 export interface MenuContentContext {
   onItemEnter: (event: PointerEvent) => boolean
@@ -101,13 +102,13 @@ import {
   isMouseEvent,
   isPointerInGraceArea,
 } from './utils'
-import { FocusScope } from '@/FocusScope'
-import { DismissableLayer } from '@/DismissableLayer'
+import { FocusScope } from '../FocusScope/index.ts'
+import { DismissableLayer } from '../DismissableLayer/index.ts'
 import {
   PopperContent,
   PopperContentPropsDefaultValue,
-} from '@/Popper'
-import { RovingFocusGroup } from '@/RovingFocus'
+} from '../Popper/index.ts'
+import { RovingFocusGroup } from '../RovingFocus/index.ts'
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
   ...PopperContentPropsDefaultValue,

@@ -20,7 +20,7 @@ import {
   DialogContent,
   DialogRoot,
   DialogTrigger,
-} from '@/Dialog'
+} from '../../Dialog/index.ts'
 
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
 </script>

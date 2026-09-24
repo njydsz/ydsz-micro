@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { VNode } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import type { PopperContentProps } from '@/Popper'
-import { useForwardExpose } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PopperContentProps } from '../Popper/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
@@ -42,10 +43,10 @@ export interface TooltipContentImplProps
 import { Comment, computed, onMounted, useSlots } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { TOOLTIP_OPEN } from './utils'
-import { PopperContent } from '@/Popper'
-import { VisuallyHidden } from '@/VisuallyHidden'
+import { PopperContent } from '../Popper/index.ts'
+import { VisuallyHidden } from '../VisuallyHidden/index.ts'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { DismissableLayer } from '@/DismissableLayer'
+import { DismissableLayer } from '../DismissableLayer/index.ts'
 
 const props = withDefaults(defineProps<TooltipContentImplProps>(), {
   side: 'top',

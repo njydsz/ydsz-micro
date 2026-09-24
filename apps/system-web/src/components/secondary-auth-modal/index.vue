@@ -9,6 +9,6 @@
  * 核心实现已迁移至 @ydsz/shared-business。本文件仅做 re-export，
  * 保证现有调用方零改动。新代码请直接从 @ydsz/shared-business 导入。
 -->
-<script lang="ts" setup>
+<script lang="ts">
 export { default } from '@ydsz/shared-business/components/secondary-auth-modal/index.vue';
 </script>

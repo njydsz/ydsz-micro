@@ -1,4 +1,4 @@
-import { isNullish } from '@/shared'
+import { isNullish } from '../shared/index.ts'
 
 export const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown']
 export const SELECTION_KEYS = [' ', 'Enter']

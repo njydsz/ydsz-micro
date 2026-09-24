@@ -1,7 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
-import type { StringOrNumber } from '@/shared/types'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
+import type { StringOrNumber } from '../shared/types.ts'
 
 export interface TabsTriggerProps extends PrimitiveProps {
   /** A unique value that associates the trigger with a content. */
@@ -14,8 +15,8 @@ export interface TabsTriggerProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed } from 'vue'
 import { injectTabsRootContext } from './TabsRoot.vue'
-import { Primitive } from '@/Primitive'
-import { RovingFocusItem } from '@/RovingFocus'
+import { Primitive } from '../Primitive/index.ts'
+import { RovingFocusItem } from '../RovingFocus/index.ts'
 import { makeContentId, makeTriggerId } from './utils'
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {

@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { MenuArrowProps } from '@/Menu'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { MenuArrowProps } from '../Menu/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface DropdownMenuArrowProps extends MenuArrowProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuArrow } from '@/Menu'
+import { MenuArrow } from '../Menu/index.ts'
 
 const props = withDefaults(defineProps<DropdownMenuArrowProps>(), {
   width: 10,

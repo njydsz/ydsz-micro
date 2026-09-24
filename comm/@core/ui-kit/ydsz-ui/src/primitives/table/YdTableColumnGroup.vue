@@ -18,7 +18,8 @@
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableColumnGroup.vue
  * @author ydsz-team
  * @since 4.2.0
- */
+ -->
+<script setup lang="ts">
 import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted } from 'vue';
 
 import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';

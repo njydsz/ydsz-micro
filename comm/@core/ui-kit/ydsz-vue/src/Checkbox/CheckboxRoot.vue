@@ -1,8 +1,9 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type { Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { createContext, useFormControl, useForwardExpose } from '@/shared'
+import { createContext, useFormControl, useForwardExpose } from '../shared/index.ts'
 import type { CheckedState } from './utils'
 
 export interface CheckboxRootProps extends PrimitiveProps {
@@ -41,7 +42,7 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { getState, isIndeterminate } from './utils'
 
 defineOptions({

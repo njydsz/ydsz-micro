@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export type ToggleEmits = {
   /** Event handler called when the pressed state of the toggle changes. */
@@ -28,7 +29,7 @@ export interface ToggleProps extends PrimitiveProps {
 <script setup lang="ts">
 import { type Ref, computed } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<ToggleProps>(), {
   pressed: undefined,

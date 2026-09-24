@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps } from '../../shared/index.ts'
 import type { CollapsibleRootEmits, CollapsibleRootProps } from '..'
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '..'
 

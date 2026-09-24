@@ -23,7 +23,7 @@ import { computed, ref, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { systemClient } from '@ydsz/system-api';
+import { requestClient } from '@ydsz/request';
 
 /** 模块级日志器 */
 const logger = createLogger('GlobalSearch');
@@ -93,7 +93,7 @@ const doSearch = useDebounceFn(async (kw: string) => {
 
   loading.value = true;
   try {
-    const { data } = await systemClient.get<GlobalSearchResponse>(SEARCH_API, {
+    const data = await requestClient.get<GlobalSearchResponse>(SEARCH_API, {
       params: { keyword: kw.trim(), pageSize: 20 },
     });
     results.value = data;
@@ -118,7 +118,7 @@ const doSuggest = useDebounceFn(async (kw: string) => {
     return;
   }
   try {
-    const { data } = await systemClient.get<SearchSuggestion[]>(SUGGEST_API, {
+    const data = await requestClient.get<SearchSuggestion[]>(SUGGEST_API, {
       params: { keyword: kw.trim(), limit: 8 },
     });
     suggestions.value = data;

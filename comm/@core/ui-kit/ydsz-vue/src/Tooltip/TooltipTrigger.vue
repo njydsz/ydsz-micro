@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose, useId } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose, useId } from '../shared/index.ts'
 
 export type TooltipTriggerDataState =
   | 'closed'
@@ -13,10 +14,10 @@ export interface TooltipTriggerProps extends PrimitiveProps {}
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { PopperAnchor } from '@/Popper'
+import { PopperAnchor } from '../Popper/index.ts'
 import {
   Primitive,
-} from '@/Primitive'
+} from '../Primitive/index.ts'
 import { injectTooltipProviderContext } from './TooltipProvider.vue'
 
 const props = withDefaults(defineProps<TooltipTriggerProps>(), {

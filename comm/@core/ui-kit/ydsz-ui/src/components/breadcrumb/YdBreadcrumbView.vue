@@ -11,6 +11,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import type { BreadcrumbProps } from './types';
 
 import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';

@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useId } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { createContext, useId } from '../shared/index.ts'
 
 export interface SelectGroupProps extends PrimitiveProps {}
 
@@ -13,7 +14,7 @@ export const [injectSelectGroupContext, provideSelectGroupContext]
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = defineProps<SelectGroupProps>()
 

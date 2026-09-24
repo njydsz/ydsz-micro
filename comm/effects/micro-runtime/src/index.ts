@@ -62,3 +62,14 @@ export type {
   ReactSubAppMountFn,
   ReactSubAppOptions,
 } from "./types-react-sub-app";
+
+// v5.1.0: iframe 沙箱工厂注册桥 — kernel→runtime 依赖倒置点，消除循环依赖
+export {
+  registerIframeSandboxFactory,
+  resolveIframeSandboxFactory,
+  resetIframeSandboxFactory,
+} from "./iframe-sandbox-bridge";
+export type {
+  IframeSandboxFactory,
+  IframeSandboxLike,
+} from "./iframe-sandbox-bridge";

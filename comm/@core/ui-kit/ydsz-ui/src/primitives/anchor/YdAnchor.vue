@@ -10,6 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

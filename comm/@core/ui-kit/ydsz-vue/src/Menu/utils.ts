@@ -1,4 +1,4 @@
-import { getActiveElement } from '@/shared'
+import { getActiveElement } from '../shared/index.ts'
 
 export type CheckedState = boolean | 'indeterminate'
 export type Direction = 'ltr' | 'rtl'

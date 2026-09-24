@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const rootContext = injectScrollAreaRootContext()
 

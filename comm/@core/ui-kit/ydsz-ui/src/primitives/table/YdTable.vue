@@ -18,6 +18,7 @@
  * @author ydsz-team
  * @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
  -->
+<script setup lang="ts">
 import { computed, provide, shallowRef, useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -192,11 +193,6 @@ const borderClass = computed(() => (props.border ? 'border border-collapse' : ''
 
 const dataHasItems = computed(() => (props.data?.length ?? 0) > 0);
 const displayEmptyText = computed(() => props.emptyTextCompat ?? props.emptyText ?? '暂无数据');
-
-defineExpose({
-  /** 当前注册的列定义（调试 / 高级用法） */
-  columns: orderedColumns,
-});
 
 // ========== 虚拟滚动 ==========
 /**

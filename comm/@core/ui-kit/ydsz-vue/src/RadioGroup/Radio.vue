@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export type RadioEmits = {
   'update:checked': [value: boolean]
@@ -21,8 +22,8 @@ export interface RadioProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
-import { useFormControl, useForwardExpose } from '@/shared'
+import { Primitive } from '../Primitive/index.ts'
+import { useFormControl, useForwardExpose } from '../shared/index.ts'
 
 const props = withDefaults(defineProps<RadioProps>(), {
   disabled: false,

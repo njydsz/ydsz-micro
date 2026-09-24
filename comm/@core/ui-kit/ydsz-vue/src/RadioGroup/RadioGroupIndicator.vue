@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface RadioGroupIndicatorProps extends PrimitiveProps {
   /**
@@ -13,8 +14,8 @@ export interface RadioGroupIndicatorProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { injectRadioGroupItemContext } from './RadioGroupItem.vue'
-import { Primitive } from '@/Primitive'
-import { Presence } from '@/Presence'
+import { Primitive } from '../Primitive/index.ts'
+import { Presence } from '../Presence/index.ts'
 
 withDefaults(defineProps<RadioGroupIndicatorProps>(), {
   as: 'span',

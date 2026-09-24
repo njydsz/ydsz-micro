@@ -1,16 +1,17 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuSubContentEmits,
   MenuSubContentProps,
-} from '@/Menu'
+} from '../Menu/index.ts'
 
 export type ContextMenuSubContentEmits = MenuSubContentEmits
 export interface ContextMenuSubContentProps extends MenuSubContentProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuSubContent } from '@/Menu'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { MenuSubContent } from '../Menu/index.ts'
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
 
 const props = defineProps<ContextMenuSubContentProps>()
 

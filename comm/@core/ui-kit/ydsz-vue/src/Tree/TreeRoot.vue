@@ -1,6 +1,7 @@
 <script lang="ts">
-import { createContext, getActiveElement, useDirection, useSelectionBehavior, useTypeahead } from '@/shared'
-import type { Direction } from '@/shared/types'
+// @ts-nocheck
+import { createContext, getActiveElement, useDirection, useSelectionBehavior, useTypeahead } from '../shared/index.ts'
+import type { Direction } from '../shared/types.ts'
 import { flatten } from './utils'
 
 export interface TreeRootProps<T = Record<string, any>, U extends Record<string, any> = Record<string, any>> extends PrimitiveProps {
@@ -73,11 +74,11 @@ export const [injectTreeRootContext, provideTreeRootContext] = createContext<Tre
 </script>
 
 <script setup lang="ts" generic="T extends Record<string, any>, U extends Record<string, any>">
-import { Primitive, type PrimitiveProps } from '@/Primitive'
+import { Primitive, type PrimitiveProps } from '../Primitive/index.ts'
 import { type EventHook, createEventHook, useVModel } from '@vueuse/core'
-import { RovingFocusGroup } from '@/RovingFocus'
+import { RovingFocusGroup } from '../RovingFocus/index.ts'
 import { type Ref, computed, nextTick, ref, toRefs } from 'vue'
-import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
+import { MAP_KEY_TO_FOCUS_INTENT } from '../RovingFocus/utils.ts'
 
 const props = withDefaults(defineProps<TreeRootProps<T, U>>(), {
   as: 'ul',

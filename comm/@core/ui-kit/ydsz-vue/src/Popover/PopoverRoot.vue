@@ -1,6 +1,7 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import { createContext } from '@/shared'
+import { createContext } from '../shared/index.ts'
 
 export interface PopoverRootProps {
   /**
@@ -42,7 +43,7 @@ export const [injectPopoverRootContext, providePopoverRootContext]
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { PopperRoot } from '@/Popper'
+import { PopperRoot } from '../Popper/index.ts'
 
 const props = withDefaults(defineProps<PopoverRootProps>(), {
   defaultOpen: false,

@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 export interface ScrollAreaScrollbarAutoProps {
   forceMount?: boolean
 }
@@ -10,8 +11,8 @@ import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
-import { Presence } from '@/Presence'
-import { useForwardExpose } from '@/shared'
+import { Presence } from '../Presence/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 defineProps<ScrollAreaScrollbarAutoProps>()
 

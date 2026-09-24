@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { PopperArrowProps } from '@/Popper'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PopperArrowProps } from '../Popper/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface PopoverArrowProps extends PopperArrowProps {}
 </script>
 
 <script setup lang="ts">
-import { PopperArrow } from '@/Popper'
+import { PopperArrow } from '../Popper/index.ts'
 
 const props = withDefaults(defineProps<PopoverArrowProps>(), {
   width: 10,

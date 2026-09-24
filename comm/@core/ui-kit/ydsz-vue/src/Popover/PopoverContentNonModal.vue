@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import PopoverContentImpl, { type PopoverContentImplEmits, type PopoverContentImplProps } from './PopoverContentImpl.vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits } from '../shared/index.ts'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()

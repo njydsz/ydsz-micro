@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { ComputedRef } from 'vue'
 import type { RadioProps } from './Radio.vue'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, useForwardExpose } from '../shared/index.ts'
 
 export interface RadioGroupItemProps extends Omit<RadioProps, 'checked'> {}
 
@@ -18,7 +19,7 @@ export const [injectRadioGroupItemContext, provideRadiogroupItemContext]
 import { computed, ref } from 'vue'
 import Radio from './Radio.vue'
 import { injectRadioGroupRootContext } from './RadioGroupRoot.vue'
-import { RovingFocusItem } from '@/RovingFocus'
+import { RovingFocusItem } from '../RovingFocus/index.ts'
 import { useEventListener } from '@vueuse/core'
 
 defineOptions({

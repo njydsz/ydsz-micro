@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps } from '../../shared/index.ts'
 
 const props = defineProps<{ defaultOpen?: boolean }>()
 

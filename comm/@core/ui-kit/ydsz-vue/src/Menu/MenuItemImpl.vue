@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface MenuItemImplProps extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with the item. */
@@ -18,9 +19,9 @@ import { isMouseEvent } from './utils'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
 import {
   Primitive,
-} from '@/Primitive'
-import { CollectionItem } from '@/Collection'
-import { useForwardExpose } from '@/shared'
+} from '../Primitive/index.ts'
+import { CollectionItem } from '../Collection/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 defineOptions({
   inheritAttrs: false,

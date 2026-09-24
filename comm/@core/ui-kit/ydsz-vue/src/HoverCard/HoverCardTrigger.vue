@@ -1,14 +1,15 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface HoverCardTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { injectHoverCardRootContext } from './HoverCardRoot.vue'
-import { Primitive } from '@/Primitive'
-import { PopperAnchor } from '@/Popper'
-import { useForwardExpose } from '@/shared'
+import { Primitive } from '../Primitive/index.ts'
+import { PopperAnchor } from '../Popper/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 import { excludeTouch } from './utils'
 
 withDefaults(defineProps<HoverCardTriggerProps>(), {

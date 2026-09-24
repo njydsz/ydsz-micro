@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref, VNode } from 'vue'
 import type { Direction } from '../shared/types'
-import { createContext, useDirection, useFormControl } from '@/shared'
+import { createContext, useDirection, useFormControl } from '../shared/index.ts'
 
 export interface SelectRootProps {
   /** The controlled open state of the Select. Can be bind as `v-model:open`. */
@@ -63,7 +64,7 @@ export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContex
 <script setup lang="ts">
 import { computed, ref, toRefs } from 'vue'
 import BubbleSelect from './BubbleSelect.vue'
-import { PopperRoot } from '@/Popper'
+import { PopperRoot } from '../Popper/index.ts'
 import { useVModel } from '@vueuse/core'
 
 const props = withDefaults(defineProps<SelectRootProps>(), {

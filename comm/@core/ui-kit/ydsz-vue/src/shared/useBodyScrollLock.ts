@@ -5,7 +5,7 @@ import {
 import { type Fn, isClient, isIOS, tryOnBeforeUnmount } from '@vueuse/shared'
 import { computed, nextTick, ref, watch } from 'vue'
 import { defu } from 'defu'
-import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
+import { injectConfigProviderContext } from '../ConfigProvider/ConfigProvider.vue'
 
 import { nanoid } from 'nanoid/non-secure'
 

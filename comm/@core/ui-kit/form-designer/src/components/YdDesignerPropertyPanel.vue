@@ -20,7 +20,7 @@ defineProps<{
 const item = defineModel<CanvasItem | null>('selectedItem');
 
 const emit = defineEmits<{
-  'update-item': [id: string, updates: Partial<CanvasItem]>;
+  'update-item': [id: string, updates: Partial<CanvasItem>];
 }>();
 
 const { isReadonly } = useDesignerContext();

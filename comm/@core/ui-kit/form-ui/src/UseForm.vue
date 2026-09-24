@@ -7,7 +7,7 @@
  * 动作区插槽；各插槽均回传对应的上下文（如校验状态、提交处理函数），
  * 便于在按钮前后插入自定义操作。
  *
- * @path comm\@core\ui-kit\form-ui\src\YDSZ-use-form.vue
+ * @path comm\@core\ui-kit\form-ui\src\UseForm.vue
  * @author ydsz-team
  * @since 1.0.0
 -->

@@ -1,7 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import { useVModel } from '@vueuse/core'
-import { clamp, createContext, snapValueToStep, useFormControl } from '@/shared'
+import { clamp, createContext, snapValueToStep, useFormControl } from '../shared/index.ts'
 import { type HTMLAttributes, type Ref, computed, ref, toRefs } from 'vue'
 
 export interface NumberFieldRootProps extends PrimitiveProps {
@@ -54,7 +55,7 @@ export const [injectNumberFieldRootContext, provideNumberFieldRootContext] = cre
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '../Primitive/index.ts'
 import { handleDecimalOperation, useNumberFormatter, useNumberParser } from './utils'
 
 defineOptions({

@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuCheckboxItemEmits,
   MenuCheckboxItemProps,
-} from '@/Menu'
+} from '../Menu/index.ts'
 
 export type ContextMenuCheckboxItemEmits = MenuCheckboxItemEmits
 
@@ -10,8 +11,8 @@ export interface ContextMenuCheckboxItemProps extends MenuCheckboxItemProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuCheckboxItem } from '@/Menu'
-import { useEmitAsProps, useForwardExpose } from '@/shared'
+import { MenuCheckboxItem } from '../Menu/index.ts'
+import { useEmitAsProps, useForwardExpose } from '../shared/index.ts'
 
 const props = defineProps<ContextMenuCheckboxItemProps>()
 const emits = defineEmits<ContextMenuCheckboxItemEmits>()

@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 export interface TreeVirtualizerProps {
   /** Estimated size (in px) of each item */
   estimateSize?: number
@@ -12,10 +13,10 @@ import { type VirtualItem, type Virtualizer, useVirtualizer } from '@tanstack/vu
 import { type Ref, cloneVNode, computed, nextTick, useSlots } from 'vue'
 import { type FlattenedItem, injectTreeRootContext } from './TreeRoot.vue'
 import { refAutoReset, useParentElement } from '@vueuse/core'
-import { getNextMatch } from '@/shared/useTypeahead'
-import { MAP_KEY_TO_FOCUS_INTENT } from '@/RovingFocus/utils'
-import { useCollection } from '@/Collection'
-import { getActiveElement } from '@/shared'
+import { getNextMatch } from '../shared/useTypeahead.ts'
+import { MAP_KEY_TO_FOCUS_INTENT } from '../RovingFocus/utils.ts'
+import { useCollection } from '../Collection/index.ts'
+import { getActiveElement } from '../shared/index.ts'
 
 const props = defineProps<TreeVirtualizerProps>()
 

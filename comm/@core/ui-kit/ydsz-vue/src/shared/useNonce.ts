@@ -1,4 +1,4 @@
-import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
+import { injectConfigProviderContext } from '../ConfigProvider/ConfigProvider.vue'
 import { type Ref, computed, ref } from 'vue'
 
 export function useNonce(nonce?: Ref<string | undefined>) {

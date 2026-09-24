@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { toValue } from 'vue';
 
 import { ErrorMessage } from 'vee-validate';

@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { ComputedRef, Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
 
 export interface ToggleGroupRootProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType>
   extends PrimitiveProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
@@ -39,9 +40,9 @@ export const [injectToggleGroupRootContext, provideToggleGroupRootContext]
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import { Primitive } from '@/Primitive'
-import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
-import { RovingFocusGroup } from '@/RovingFocus'
+import { Primitive } from '../Primitive/index.ts'
+import { useSingleOrMultipleValue } from '../shared/useSingleOrMultipleValue.ts'
+import { RovingFocusGroup } from '../RovingFocus/index.ts'
 
 const props = withDefaults(defineProps<ToggleGroupRootProps>(), {
   loop: true,

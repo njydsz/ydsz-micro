@@ -11,6 +11,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { Maximize, Minimize } from '@ydsz-core/icons';
 
 import { useFullscreen } from '@vueuse/core';

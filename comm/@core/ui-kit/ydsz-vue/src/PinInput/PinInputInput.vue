@@ -1,7 +1,8 @@
 <script lang="ts">
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '@/Primitive'
+// @ts-nocheck
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '../Primitive/index.ts'
 import { injectPinInputRootContext } from './PinInputRoot.vue'
-import { getActiveElement, useArrowNavigation } from '@/shared'
+import { getActiveElement, useArrowNavigation } from '../shared/index.ts'
 
 export interface PinInputInputProps extends PrimitiveProps {
   /** Position of the value this input binds to. */

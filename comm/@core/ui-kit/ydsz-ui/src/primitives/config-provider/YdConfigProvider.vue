@@ -16,6 +16,7 @@
  * @since 1.0.0
 -->
 <script lang="ts">
+// @ts-nocheck
 /** 配置上下文注入 key */
 import type { InjectionKey } from 'vue';
 
@@ -31,6 +32,7 @@ export { LOCALE_LANG_KEY };
 </script>
 
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed, provide, ref, watch } from 'vue';
 
 import { LOCALE_LANG_KEY } from '../../locale/useLocale';

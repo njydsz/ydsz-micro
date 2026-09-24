@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useId } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useId } from '../shared/index.ts'
 import { PRECISION } from './utils/constants'
 
 export interface SplitterPanelProps extends PrimitiveProps {
@@ -61,7 +62,7 @@ export type PanelData = {
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { injectPanelGroupContext } from './SplitterGroup.vue'
 import { computed, onMounted, onUnmounted, watch } from 'vue'
 

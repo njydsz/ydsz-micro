@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import type { DismissableLayerEmits } from '..'
 import { DismissableLayer } from '..'
-import { useEmitAsProps } from '@/shared'
+import { useEmitAsProps } from '../../shared/index.ts'
 
 defineProps<{
   openLabel?: string

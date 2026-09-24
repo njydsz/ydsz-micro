@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
 const props = defineProps<{

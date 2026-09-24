@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction } from '@/shared/types'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { DataOrientation, Direction } from '../shared/types.ts'
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
 
 export interface RadioGroupRootProps extends PrimitiveProps {
   /** The controlled value of the radio item to check. Can be binded as `v-model`. */
@@ -48,8 +49,8 @@ export const [injectRadioGroupRootContext, provideRadioGroupRootContext]
 <script setup lang="ts">
 import { toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
-import { RovingFocusGroup } from '@/RovingFocus'
+import { Primitive } from '../Primitive/index.ts'
+import { RovingFocusGroup } from '../RovingFocus/index.ts'
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,

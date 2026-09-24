@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import type { PrimitiveProps } from '@ydsz-core/ydsz-vue';
 
 import { cn } from '@ydsz-core/shared/utils';

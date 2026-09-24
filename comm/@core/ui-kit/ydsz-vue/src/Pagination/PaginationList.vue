@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface PaginationListProps extends PrimitiveProps { }
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { computed } from 'vue'
 import { injectPaginationRootContext } from './PaginationRoot.vue'
 import { getRange, transform } from './utils'

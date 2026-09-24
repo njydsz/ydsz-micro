@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import type { SliderRootEmits, SliderRootProps } from '../'
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits } from '../../shared/index.ts'
 
 const props = defineProps<SliderRootProps>()
 const emits = defineEmits<SliderRootEmits>()

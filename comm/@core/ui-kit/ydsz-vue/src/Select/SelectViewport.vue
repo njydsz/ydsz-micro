@@ -1,7 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
-import { useNonce } from '@/shared/useNonce'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
+import { useNonce } from '../shared/useNonce.ts'
 
 export interface SelectViewportProps extends PrimitiveProps {
   /**
@@ -17,7 +18,7 @@ import { SelectContentDefaultContextValue, injectSelectContentContext } from './
 import { CONTENT_MARGIN } from './utils'
 import {
   Primitive,
-} from '@/Primitive'
+} from '../Primitive/index.ts'
 import { injectSelectItemAlignedPositionContext } from './SelectItemAlignedPosition.vue'
 
 const props = defineProps<SelectViewportProps>()

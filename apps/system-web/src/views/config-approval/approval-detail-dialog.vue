@@ -230,7 +230,7 @@ defineExpose({ close, open });
 </script>
 
 <template>
-  <YdDialog :open="visible" @update:open="if (!$event) close()">
+  <YdDialog :open="visible" @update:open="($event) => { if (!$event) close(); }">
     <YdDialogContent style="max-width: 700px">
       <YdDialogHeader>
         <YdDialogTitle>{{ dialogTitle }}</YdDialogTitle>

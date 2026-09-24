@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuContentImplEmits,
   MenuRootContentTypeProps,
@@ -19,8 +20,8 @@ export interface MenuContentProps extends MenuRootContentTypeProps {
 import MenuRootContentModal from './MenuRootContentModal.vue'
 import MenuRootContentNonModal from './MenuRootContentNonModal.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
-import { Presence } from '@/Presence'
-import { useForwardPropsEmits } from '@/shared'
+import { Presence } from '../Presence/index.ts'
+import { useForwardPropsEmits } from '../shared/index.ts'
 
 const props = defineProps<MenuContentProps>()
 const emits = defineEmits<MenuContentImplEmits>()

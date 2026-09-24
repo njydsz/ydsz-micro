@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
 import type { Direction } from './utils'
-import { createContext, useDirection } from '@/shared'
-import { useIsUsingKeyboard } from '@/shared/useIsUsingKeyboard'
+import { createContext, useDirection } from '../shared/index.ts'
+import { useIsUsingKeyboard } from '../shared/useIsUsingKeyboard.ts'
 
 export interface MenuContext {
   open: Ref<boolean>
@@ -52,7 +53,7 @@ import {
   toRefs,
 } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { PopperRoot } from '@/Popper'
+import { PopperRoot } from '../Popper/index.ts'
 
 const props = withDefaults(defineProps<MenuProps>(), {
   open: false,

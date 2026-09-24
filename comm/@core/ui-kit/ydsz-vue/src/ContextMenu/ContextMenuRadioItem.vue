@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuItemEmits,
   MenuRadioItemProps,
-} from '@/Menu'
+} from '../Menu/index.ts'
 
 export type ContextMenuRadioItemEmits = MenuItemEmits
 
@@ -10,8 +11,8 @@ export interface ContextMenuRadioItemProps extends MenuRadioItemProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuRadioItem } from '@/Menu'
-import { useEmitAsProps, useForwardExpose } from '@/shared'
+import { MenuRadioItem } from '../Menu/index.ts'
+import { useEmitAsProps, useForwardExpose } from '../shared/index.ts'
 
 const props = defineProps<ContextMenuRadioItemProps>()
 const emits = defineEmits<ContextMenuRadioItemEmits>()

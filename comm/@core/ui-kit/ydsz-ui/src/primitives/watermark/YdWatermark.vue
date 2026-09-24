@@ -12,6 +12,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

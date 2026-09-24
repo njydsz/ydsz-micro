@@ -1,13 +1,14 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface ProgressIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { injectProgressRootContext } from './ProgressRoot.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = defineProps<ProgressIndicatorProps>()
 

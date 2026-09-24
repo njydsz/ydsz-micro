@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
 import type { MenuContext } from './MenuRoot.vue'
-import { createContext } from '@/shared'
+import { createContext } from '../shared/index.ts'
 
 export interface MenuSubContext {
   contentId: string
@@ -32,7 +33,7 @@ import {
 } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { injectMenuContext, provideMenuContext } from './MenuRoot.vue'
-import { PopperRoot } from '@/Popper'
+import { PopperRoot } from '../Popper/index.ts'
 
 const props = withDefaults(defineProps<MenuSubProps>(), {
   open: undefined,

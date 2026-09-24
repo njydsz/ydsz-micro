@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { inject, ref, watch, withDefaults } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

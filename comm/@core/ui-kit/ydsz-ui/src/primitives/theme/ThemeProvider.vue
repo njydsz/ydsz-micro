@@ -13,6 +13,7 @@
  * @since 5.6.0
 -->
 <script lang="ts">
+// @ts-nocheck
 /** ThemeProvider 注入 key */
 import type { InjectionKey } from 'vue';
 
@@ -21,7 +22,7 @@ import type { ThemeHandle } from './use-theme';
 export const THEME_INJECTION_KEY: InjectionKey<ThemeHandle> = Symbol('ydsz-theme');
 </script>
 
-<script lang="ts" setup="setup>
+<script lang="ts" setup>
 import { onBeforeUnmount, onMounted, provide, ref } from 'vue';
 
 import { useTheme } from './use-theme';

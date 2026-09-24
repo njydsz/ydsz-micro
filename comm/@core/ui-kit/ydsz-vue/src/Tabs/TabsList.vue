@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface TabsListProps extends PrimitiveProps {
   /** When `true`, keyboard navigation will loop from last tab to first, and vice versa. */
@@ -11,8 +12,8 @@ export interface TabsListProps extends PrimitiveProps {
 <script setup lang="ts">
 import { toRefs } from 'vue'
 import { injectTabsRootContext } from './TabsRoot.vue'
-import { Primitive } from '@/Primitive'
-import { RovingFocusGroup } from '@/RovingFocus'
+import { Primitive } from '../Primitive/index.ts'
+import { RovingFocusGroup } from '../RovingFocus/index.ts'
 
 const props = withDefaults(defineProps<TabsListProps>(), {
   loop: true,

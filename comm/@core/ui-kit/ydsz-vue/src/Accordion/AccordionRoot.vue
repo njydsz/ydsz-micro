@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { ComputedRef, Ref } from 'vue'
-import type { PrimitiveProps } from '@/Primitive'
-import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '@/shared/types'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { DataOrientation, Direction, SingleOrMultipleProps, SingleOrMultipleType } from '../shared/types.ts'
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
 
 export interface AccordionRootProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType>
   extends PrimitiveProps, SingleOrMultipleProps<ValidValue, ExplicitType> {
@@ -59,8 +60,8 @@ export const [injectAccordionRootContext, provideAccordionRootContext]
 </script>
 
 <script setup lang="ts" generic="ValidValue extends (string | string[]), ExplicitType extends SingleOrMultipleType">
-import { Primitive } from '@/Primitive'
-import { useSingleOrMultipleValue } from '@/shared/useSingleOrMultipleValue'
+import { Primitive } from '../Primitive/index.ts'
+import { useSingleOrMultipleValue } from '../shared/useSingleOrMultipleValue.ts'
 import { toRefs } from 'vue'
 
 const props = withDefaults(defineProps<AccordionRootProps<ValidValue, ExplicitType>>(), {

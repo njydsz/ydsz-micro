@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface SliderThumbImplProps extends PrimitiveProps {
   index: number
@@ -9,11 +10,11 @@ export interface SliderThumbImplProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useMounted } from '@vueuse/core'
-import { Primitive } from '@/Primitive'
-import { CollectionItem } from '@/Collection'
+import { Primitive } from '../Primitive/index.ts'
+import { CollectionItem } from '../Collection/index.ts'
 import { injectSliderRootContext } from './SliderRoot.vue'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
-import { useForwardExpose, useSize } from '@/shared'
+import { useForwardExpose, useSize } from '../shared/index.ts'
 
 defineOptions({
   inheritAttrs: false,

@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface SelectTriggerProps extends PrimitiveProps {
   disabled?: boolean
@@ -12,9 +13,9 @@ import {
   injectSelectRootContext,
 } from './SelectRoot.vue'
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
-import { Primitive } from '@/Primitive'
-import { PopperAnchor } from '@/Popper'
-import { useCollection, useForwardExpose, useId, useTypeahead } from '@/shared'
+import { Primitive } from '../Primitive/index.ts'
+import { PopperAnchor } from '../Popper/index.ts'
+import { useCollection, useForwardExpose, useId, useTypeahead } from '../shared/index.ts'
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',

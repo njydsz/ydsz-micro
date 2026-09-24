@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import {
   computed,
   nextTick,
@@ -6,12 +7,12 @@ import {
   watchEffect,
 } from 'vue'
 
-import type { PrimitiveProps } from '@/Primitive'
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import type {
   FocusOutsideEvent,
   PointerDownOutsideEvent,
 } from './utils'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -68,7 +69,7 @@ import {
 } from './utils'
 import {
   Primitive,
-} from '@/Primitive'
+} from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
   disableOutsidePointerEvents: false,

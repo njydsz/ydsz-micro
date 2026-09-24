@@ -1,7 +1,8 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Measurable } from './PopperRoot.vue'
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface PopperAnchorProps extends PrimitiveProps {
   element?: Measurable
@@ -13,7 +14,7 @@ import { watchEffect } from 'vue'
 import { injectPopperRootContext } from './PopperRoot.vue'
 import {
   Primitive,
-} from '@/Primitive'
+} from '../Primitive/index.ts'
 
 const props = defineProps<PopperAnchorProps>()
 

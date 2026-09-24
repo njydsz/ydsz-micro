@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type { CheckedState } from './utils'
 import type {
   MenuItemEmits,

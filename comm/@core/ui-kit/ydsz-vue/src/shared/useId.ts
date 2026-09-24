@@ -1,6 +1,6 @@
 // Inspired from https://github.com/tailwindlabs/headlessui/issues/2913
 // as the alternative, and a fallback for Vue version < 3.5
-import { injectConfigProviderContext } from '@/ConfigProvider/ConfigProvider.vue'
+import { injectConfigProviderContext } from '../ConfigProvider/ConfigProvider.vue'
 import * as vue from 'vue'
 
 let count = 0

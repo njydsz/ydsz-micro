@@ -1,4 +1,4 @@
-import { clamp, createContext } from '@/shared'
+import { clamp, createContext } from '../shared/index.ts'
 
 export interface SliderOrientationPrivateProps {
   min: number

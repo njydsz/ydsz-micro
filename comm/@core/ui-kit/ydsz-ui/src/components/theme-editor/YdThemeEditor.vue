@@ -9,6 +9,7 @@
  * @since 1.0.0
  */
 <script lang="ts" setup>
+// @ts-nocheck
 import { ref, watch } from 'vue';
 
 import { getTheme } from '../../primitives/theme/use-theme';

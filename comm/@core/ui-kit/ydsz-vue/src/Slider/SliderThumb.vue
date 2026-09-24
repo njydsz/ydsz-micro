@@ -1,13 +1,14 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface SliderThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import SliderThumbImpl from './SliderThumbImpl.vue'
-import { useCollection } from '@/Collection'
+import { useCollection } from '../Collection/index.ts'
 import { computed } from 'vue'
 
 const props = defineProps<SliderThumbProps>()

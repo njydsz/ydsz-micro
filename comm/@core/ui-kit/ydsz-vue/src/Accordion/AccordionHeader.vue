@@ -1,14 +1,15 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface AccordionHeaderProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose } from '../shared/index.ts'
 import { injectAccordionItemContext } from './AccordionItem.vue'
 import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<AccordionHeaderProps>(), {
   as: 'h3',

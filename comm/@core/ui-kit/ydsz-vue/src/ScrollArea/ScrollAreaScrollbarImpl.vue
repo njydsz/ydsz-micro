@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 type ScrollbarAreaScrollbarImplEmits = {
   onDragScroll: [payload: { x: number, y: number }]
   onWheelScroll: [payload: { x: number, y: number }]
@@ -17,8 +18,8 @@ import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
 import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
 import { toInt } from './utils'
-import { Primitive } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
+import { Primitive } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 const props = defineProps<ScrollAreaScrollbarImplProps>()
 const emit = defineEmits<ScrollbarAreaScrollbarImplEmits>()

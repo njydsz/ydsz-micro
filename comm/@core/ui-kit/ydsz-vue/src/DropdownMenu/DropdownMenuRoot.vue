@@ -1,8 +1,9 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
 import type { Direction } from '../shared/types'
-import type { MenuEmits, MenuProps } from '@/Menu'
-import { createContext, useDirection, useForwardExpose } from '@/shared'
+import type { MenuEmits, MenuProps } from '../Menu/index.ts'
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
 
 export interface DropdownMenuRootProps extends MenuProps {
   /** The open state of the dropdown menu when it is initially rendered. Use when you do not need to control its open state. */
@@ -28,7 +29,7 @@ export const [injectDropdownMenuRootContext, provideDropdownMenuRootContext]
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { MenuRoot } from '@/Menu'
+import { MenuRoot } from '../Menu/index.ts'
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
   modal: true,

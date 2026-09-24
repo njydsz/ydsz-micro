@@ -4,7 +4,7 @@ import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVi
 import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
 import ScrollAreaScrollbarImpl from './ScrollAreaScrollbarImpl.vue'
 import { getThumbSize } from './utils'
-import { useForwardExpose } from '@/shared'
+import { useForwardExpose } from '../shared/index.ts'
 
 const rootContext = injectScrollAreaRootContext()
 const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()

@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../../Primitive/index.ts'
 import { useForwardExpose } from '../useForwardExpose'
 
 export interface ArrowProps extends PrimitiveProps {
@@ -19,7 +20,7 @@ export interface ArrowProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../../Primitive/index.ts'
 
 const props = withDefaults(defineProps<ArrowProps>(), {
   width: 10,

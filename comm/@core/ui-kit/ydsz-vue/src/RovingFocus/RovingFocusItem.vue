@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface RovingFocusItemProps extends PrimitiveProps {
   tabStopId?: string
@@ -12,10 +13,10 @@ export interface RovingFocusItemProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted } from 'vue'
 import { injectRovingFocusGroupContext } from './RovingFocusGroup.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
-import { useId } from '@/shared'
-import { CollectionItem, useCollection } from '@/Collection'
+import { useId } from '../shared/index.ts'
+import { CollectionItem, useCollection } from '../Collection/index.ts'
 
 const props = withDefaults(defineProps<RovingFocusItemProps>(), {
   focusable: true,

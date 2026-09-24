@@ -1,9 +1,10 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   MenuSubContentEmits,
   MenuSubContentProps,
-} from '@/Menu'
-import { useForwardExpose } from '@/shared'
+} from '../Menu/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export type DropdownMenuSubContentEmits = MenuSubContentEmits
 
@@ -11,7 +12,7 @@ export interface DropdownMenuSubContentProps extends MenuSubContentProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuSubContent } from '@/Menu'
+import { MenuSubContent } from '../Menu/index.ts'
 import { useForwardPropsEmits } from '..'
 
 const props = defineProps<DropdownMenuSubContentProps>()

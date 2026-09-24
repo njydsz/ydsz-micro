@@ -1,7 +1,8 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { useForwardExpose } from '@/shared'
-import type { StringOrNumber } from '@/shared/types'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
+import type { StringOrNumber } from '../shared/types.ts'
 
 export interface TabsContentProps extends PrimitiveProps {
   /** A unique value that associates the content with a trigger. */
@@ -17,9 +18,9 @@ export interface TabsContentProps extends PrimitiveProps {
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { injectTabsRootContext } from './TabsRoot.vue'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 import { makeContentId, makeTriggerId } from './utils'
-import { Presence } from '@/Presence'
+import { Presence } from '../Presence/index.ts'
 
 const props = defineProps<TabsContentProps>()
 

@@ -1,4 +1,4 @@
-import { getActiveElement } from '@/shared'
+import { getActiveElement } from '../shared/index.ts'
 
 export type Orientation = 'horizontal' | 'vertical'
 export type Direction = 'ltr' | 'rtl'

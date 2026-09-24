@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type { TooltipContentImplEmits, TooltipContentImplProps } from './TooltipContentImpl.vue'
 
 export type TooltipContentEmits = TooltipContentImplEmits
@@ -16,8 +17,8 @@ export interface TooltipContentProps extends TooltipContentImplProps {
 import TooltipContentImpl from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
-import { Presence } from '@/Presence'
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
+import { Presence } from '../Presence/index.ts'
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: 'top',

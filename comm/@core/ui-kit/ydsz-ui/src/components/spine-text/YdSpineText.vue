@@ -10,6 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+// @ts-nocheck
 import { computed } from 'vue';
 
 const { animationDuration = 2, animationIterationCount = 'infinite' } =

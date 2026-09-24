@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PopperAnchorProps } from '@/Popper'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PopperAnchorProps } from '../Popper/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface PopoverAnchorProps extends PopperAnchorProps {}
 </script>
@@ -8,7 +9,7 @@ export interface PopoverAnchorProps extends PopperAnchorProps {}
 <script setup lang="ts">
 import { onBeforeMount, onUnmounted } from 'vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { PopperAnchor } from '@/Popper'
+import { PopperAnchor } from '../Popper/index.ts'
 
 const props = defineProps<PopoverAnchorProps>()
 

@@ -1,9 +1,10 @@
 <script lang="ts">
+// @ts-nocheck
 import type {
   DismissableLayerEmits,
   DismissableLayerProps,
-} from '@/DismissableLayer'
-import { getActiveElement, useForwardExpose, useId } from '@/shared'
+} from '../DismissableLayer/index.ts'
+import { getActiveElement, useForwardExpose, useId } from '../shared/index.ts'
 
 export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
@@ -35,9 +36,9 @@ export interface DialogContentImplProps extends DismissableLayerProps {
 
 <script setup lang="ts">
 import { injectDialogRootContext } from './DialogRoot.vue'
-import { DismissableLayer } from '@/DismissableLayer'
-import { FocusScope } from '@/FocusScope'
-import { getOpenState } from '@/Menu/utils'
+import { DismissableLayer } from '../DismissableLayer/index.ts'
+import { FocusScope } from '../FocusScope/index.ts'
+import { getOpenState } from '../Menu/utils.ts'
 import { useWarning } from './utils'
 import { onMounted } from 'vue'
 

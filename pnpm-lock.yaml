@@ -1930,6 +1930,9 @@ importers:
       '@ydsz-core/ydsz-vue':
         specifier: workspace:*
         version: link:../ydsz-vue
+      '@ydsz/request':
+        specifier: workspace:*
+        version: link:../../../effects/request
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -2206,9 +2209,6 @@ importers:
       '@ydsz/constants':
         specifier: workspace:*
         version: link:../../constants
-      '@ydsz/micro-kernel':
-        specifier: workspace:*
-        version: link:../micro-kernel
       '@ydsz/stores':
         specifier: workspace:*
         version: link:../../stores

@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { MenuLabelProps } from '@/Menu'
+// @ts-nocheck
+import type { MenuLabelProps } from '../Menu/index.ts'
 
 export interface ContextMenuLabelProps extends MenuLabelProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuLabel } from '@/Menu'
-import { useForwardExpose } from '@/shared'
+import { MenuLabel } from '../Menu/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 const props = defineProps<ContextMenuLabelProps>()
 useForwardExpose()

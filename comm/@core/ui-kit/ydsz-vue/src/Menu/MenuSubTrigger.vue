@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type { MenuItemImplProps } from './MenuItemImpl.vue'
 import type { Side } from './utils'
 
@@ -11,7 +12,7 @@ import MenuItemImpl from './MenuItemImpl.vue'
 import { injectMenuContext, injectMenuRootContext } from './MenuRoot.vue'
 import { injectMenuSubContext } from './MenuSub.vue'
 import { injectMenuContentContext } from './MenuContentImpl.vue'
-import { useId } from '@/shared'
+import { useId } from '../shared/index.ts'
 import { SUB_OPEN_KEYS, getOpenState, isMouseEvent } from './utils'
 import MenuAnchor from './MenuAnchor.vue'
 

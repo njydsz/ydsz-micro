@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import PopoverContentImpl, { type PopoverContentImplEmits, type PopoverContentImplProps } from './PopoverContentImpl.vue'
 import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useBodyScrollLock, useForwardExpose, useForwardPropsEmits, useHideOthers } from '@/shared'
+import { useBodyScrollLock, useForwardExpose, useForwardPropsEmits, useHideOthers } from '../shared/index.ts'
 
 const props = defineProps<PopoverContentImplProps>()
 const emits = defineEmits<PopoverContentImplEmits>()

@@ -1,6 +1,6 @@
-import { createContext } from '@/shared'
+import { createContext } from '../shared/index.ts'
 import { type Ref, computed, defineComponent, h, markRaw, ref, watch, watchEffect } from 'vue'
-import { Slot, usePrimitiveElement } from '@/Primitive'
+import { Slot, usePrimitiveElement } from '../Primitive/index.ts'
 
 interface CollectionContext<ItemData = {}> {
   collectionRef: Ref<HTMLElement | undefined>

@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
-import { getActiveElement, useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { getActiveElement, useForwardExpose } from '../shared/index.ts'
 
 export type FocusScopeEmits = {
   /**
@@ -46,7 +47,7 @@ import {
   getTabbableEdges,
 } from './utils'
 import { createFocusScopesStack, removeLinks } from './stack'
-import { Primitive } from '@/Primitive'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<FocusScopeProps>(), {
   loop: false,

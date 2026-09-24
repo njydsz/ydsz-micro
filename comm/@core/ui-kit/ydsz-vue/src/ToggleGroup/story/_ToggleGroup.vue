@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue'
 import type { ToggleGroupRootEmits, ToggleGroupRootProps } from '../'
 import { ToggleGroupItem, ToggleGroupRoot } from '../'
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits } from '../../shared/index.ts'
 
 const props = defineProps<ToggleGroupRootProps>()
 const emits = defineEmits<ToggleGroupRootEmits>()

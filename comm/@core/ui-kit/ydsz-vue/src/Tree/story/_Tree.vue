@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useForwardPropsEmits } from '@/shared'
+import { useForwardPropsEmits } from '../../shared/index.ts'
 import { TreeItem, TreeRoot, type TreeRootEmits, type TreeRootProps } from '..'
 import { Icon } from '@iconify/vue'
 

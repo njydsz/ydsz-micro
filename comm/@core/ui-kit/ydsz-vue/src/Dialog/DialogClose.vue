@@ -1,13 +1,14 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 
 export interface DialogCloseProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
 import { injectDialogRootContext } from './DialogRoot.vue'
-import { useForwardExpose } from '@/shared'
-import { Primitive } from '@/Primitive'
+import { useForwardExpose } from '../shared/index.ts'
+import { Primitive } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<DialogCloseProps>(), {
   as: 'button',

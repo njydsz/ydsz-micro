@@ -1,5 +1,6 @@
 <script lang="ts">
-import type { PrimitiveProps } from '@/Primitive'
+// @ts-nocheck
+import type { PrimitiveProps } from '../Primitive/index.ts'
 import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
 import { usePressedHold } from './utils'
 import { computed } from 'vue'
@@ -10,7 +11,7 @@ export interface NumberFieldIncrementProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '@/Primitive'
+import { Primitive, usePrimitiveElement } from '../Primitive/index.ts'
 
 const props = withDefaults(defineProps<NumberFieldIncrementProps>(), {
   as: 'button',

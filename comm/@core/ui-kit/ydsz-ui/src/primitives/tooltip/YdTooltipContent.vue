@@ -6,13 +6,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { TooltipContentEmits, TooltipContentProps } from "ydsz-vue";
+import type { TooltipContentEmits, TooltipContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from "vue";
 
 import { cn } from "@ydsz-core/shared/utils";
 
-import { TooltipContent, TooltipPortal, useForwardPropsEmits } from "ydsz-vue";
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 defineOptions({
   inheritAttrs: false,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { PinInputInput, PinInputRoot } from '..'
-import { Label } from '@/Label'
+import { Label } from '../../Label/index.ts'
 
 const value = ref<string[]>([])
 </script>

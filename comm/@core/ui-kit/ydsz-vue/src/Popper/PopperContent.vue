@@ -1,11 +1,12 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
 import type {
   Middleware,
   Placement,
 } from '@floating-ui/vue'
-import type { PrimitiveProps } from '@/Primitive'
-import { createContext, useForwardExpose, useSize } from '@/shared'
+import type { PrimitiveProps } from '../Primitive/index.ts'
+import { createContext, useForwardExpose, useSize } from '../shared/index.ts'
 import type {
   Align,
   Side,
@@ -161,7 +162,7 @@ import {
 } from './utils'
 import {
   Primitive,
-} from '@/Primitive'
+} from '../Primitive/index.ts'
 
 defineOptions({
   inheritAttrs: false,

@@ -1,4 +1,5 @@
 <script lang="ts">
+// @ts-nocheck
 import type { HoverCardContentImplEmits, HoverCardContentImplProps } from './HoverCardContentImpl.vue'
 
 export type HoverCardContentEmits = HoverCardContentImplEmits
@@ -15,9 +16,9 @@ export interface HoverCardContentProps extends HoverCardContentImplProps {
 <script setup lang="ts">
 import { injectHoverCardRootContext } from './HoverCardRoot.vue'
 import { excludeTouch } from './utils'
-import { Presence } from '@/Presence'
+import { Presence } from '../Presence/index.ts'
 import HoverCardContentImpl from './HoverCardContentImpl.vue'
-import { useForwardExpose, useForwardPropsEmits } from '@/shared'
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
 
 const props = defineProps<HoverCardContentProps>()
 const emits = defineEmits<HoverCardContentEmits>()

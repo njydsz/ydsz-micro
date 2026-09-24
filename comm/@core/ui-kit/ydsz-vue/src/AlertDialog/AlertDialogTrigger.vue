@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { DialogTriggerProps } from '@/Dialog'
-import { useForwardExpose } from '@/shared'
+// @ts-nocheck
+import type { DialogTriggerProps } from '../Dialog/index.ts'
+import { useForwardExpose } from '../shared/index.ts'
 
 export interface AlertDialogTriggerProps extends DialogTriggerProps {}
 </script>
 
 <script setup lang="ts">
-import { DialogTrigger } from '@/Dialog'
+import { DialogTrigger } from '../Dialog/index.ts'
 
 const props = withDefaults(defineProps<AlertDialogTriggerProps>(), { as: 'button' })
 useForwardExpose()

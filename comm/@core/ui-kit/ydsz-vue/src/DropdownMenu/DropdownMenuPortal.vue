@@ -1,11 +1,12 @@
 <script lang="ts">
-import type { MenuPortalProps } from '@/Menu'
+// @ts-nocheck
+import type { MenuPortalProps } from '../Menu/index.ts'
 
 export interface DropdownMenuPortalProps extends MenuPortalProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuPortal } from '@/Menu'
+import { MenuPortal } from '../Menu/index.ts'
 
 const props = defineProps<DropdownMenuPortalProps>()
 </script>

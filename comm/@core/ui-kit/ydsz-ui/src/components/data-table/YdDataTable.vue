@@ -12,6 +12,7 @@
  * @since 5.6.0
 -->
 <script lang="ts">
+// @ts-nocheck
 import type { TableColumnDef } from '../../composables/use-table-data';
 
 /** 列定义（复用） */

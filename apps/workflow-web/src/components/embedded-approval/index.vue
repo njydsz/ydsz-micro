@@ -197,6 +197,7 @@ onMounted(() => {
               {{ $t('wf.delegate') }}
             </YdButton>
           </div>
+          </YdSpace>
         </YdFormItem>
         <YdFormItem label="意见">
           <YdInput

@@ -453,6 +453,7 @@
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/typings": "workspace:*",
     "@ydsz-core/ydsz-vue": "workspace:*",
+    "@ydsz/request": "workspace:*",
     "@vueuse/core": "catalog:",
     "class-variance-authority": "catalog:",
     "lucide-vue-next": "catalog:",

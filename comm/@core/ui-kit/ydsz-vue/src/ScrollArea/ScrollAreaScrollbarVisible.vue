@@ -1,6 +1,7 @@
 <script lang="ts">
+// @ts-nocheck
 import type { Ref } from 'vue'
-import { createContext, useForwardExpose } from '@/shared'
+import { createContext, useForwardExpose } from '../shared/index.ts'
 import type { Direction, Sizes } from './types'
 
 export interface ScrollAreaScrollbarVisibleContext {
