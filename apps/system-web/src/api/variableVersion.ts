@@ -14,21 +14,21 @@ import { requestClient } from '#/api/request';
 import type { EntityVersionVO } from './models';
 
 /**
- * listByResourceKey: GET /api/variable/version/{resourceKey}
+ * listByResourceKey: GET /variable/version/{resourceKey}
  */
 export function listByResourceKey({ resourceKey }: {
     resourceKey: string;
   }): Promise<EntityVersionVO[]> {
-  return requestClient.get<EntityVersionVO[]>(`/api/variable/version/${resourceKey}`);
+  return requestClient.get<EntityVersionVO[]>(`/variable/version/${resourceKey}`);
 }
 
 /**
- * rollback: POST /api/variable/version/{resourceKey}/rollback
+ * rollback: POST /variable/version/{resourceKey}/rollback
  */
 export function rollback({ resourceKey }: {
     resourceKey: string;
   }, params: {
     targetVersion?: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/variable/version/${resourceKey}/rollback`, { params });
+  return requestClient.post<string>(`/variable/version/${resourceKey}/rollback`, { params });
 }

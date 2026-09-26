@@ -14,48 +14,48 @@ import { requestClient } from '#/api/request';
 import type { JobVO } from './models';
 
 /**
- * trigger: POST /api/internal/cronjob/{id}/trigger
+ * trigger: POST /internal/cronjob/{id}/trigger
  */
 export function trigger({ id }: {
     id: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/internal/cronjob/${id}/trigger`);
+  return requestClient.post<string>(`/internal/cronjob/${id}/trigger`);
 }
 
 /**
- * triggerWithLock: POST /api/internal/cronjob/{id}/trigger
+ * triggerWithLock: POST /internal/cronjob/{id}/trigger
  */
 export function triggerWithLock({ id }: {
     id: string;
   }, params: {
     holdLock?: boolean;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/internal/cronjob/${id}/trigger`, { params });
+  return requestClient.post<string>(`/internal/cronjob/${id}/trigger`, { params });
 }
 
 /**
- * getJobInfo: GET /api/internal/cronjob/{id}
+ * getJobInfo: GET /internal/cronjob/{id}
  */
 export function getJobInfo({ id }: {
     id: string;
   }): Promise<JobVO> {
-  return requestClient.get<JobVO>(`/api/internal/cronjob/${id}`);
+  return requestClient.get<JobVO>(`/internal/cronjob/${id}`);
 }
 
 /**
- * pauseJob: POST /api/internal/cronjob/{id}/pause
+ * pauseJob: POST /internal/cronjob/{id}/pause
  */
 export function pauseJob({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/internal/cronjob/${id}/pause`);
+  return requestClient.post<void>(`/internal/cronjob/${id}/pause`);
 }
 
 /**
- * resumeJob: POST /api/internal/cronjob/{id}/resume
+ * resumeJob: POST /internal/cronjob/{id}/resume
  */
 export function resumeJob({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/internal/cronjob/${id}/resume`);
+  return requestClient.post<void>(`/internal/cronjob/${id}/resume`);
 }

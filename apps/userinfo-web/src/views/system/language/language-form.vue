@@ -40,7 +40,7 @@ interface LanguageFormState {
   languageCode: string;
   languageName: string;
   isDefault: number;
-  sortOrder: number;
+  sort?: number;
   status: string;
 }
 
@@ -49,7 +49,7 @@ const formData = reactive<LanguageFormState>({
   languageCode: '',
   languageName: '',
   isDefault: 0,
-  sortOrder: 0,
+  sort: 0,
   status: '1',
 });
 
@@ -69,7 +69,7 @@ const [Modal, modalApi] = useYdModal({
         languageCode: data.record.languageCode ?? '',
         languageName: data.record.languageName ?? '',
         isDefault: data.record.isDefault ?? 0,
-        sortOrder: data.record.sortOrder ?? 0,
+        sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
       });
     } else {
@@ -79,7 +79,7 @@ const [Modal, modalApi] = useYdModal({
         languageCode: '',
         languageName: '',
         isDefault: 0,
-        sortOrder: 0,
+        sort: 0,
         status: '1',
       });
     }
@@ -97,7 +97,7 @@ const [Modal, modalApi] = useYdModal({
         languageCode: formData.languageCode,
         languageName: formData.languageName,
         isDefault: formData.isDefault,
-        sortOrder: formData.sortOrder,
+        sort: formData.sort,
         status: formData.status,
       };
       if (isEdit.value) {

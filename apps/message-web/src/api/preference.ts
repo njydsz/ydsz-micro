@@ -14,37 +14,37 @@ import { requestClient } from '#/api/request';
 import type { MsgPreferenceVO, PreferenceUpsertDTO } from './models';
 
 /**
- * upsert: POST /api/message/preference
+ * upsert: POST /message/preference
  */
 export function upsert(data: PreferenceUpsertDTO): Promise<MsgPreferenceVO> {
-  return requestClient.post<MsgPreferenceVO>(`/api/message/preference`, data);
+  return requestClient.post<MsgPreferenceVO>(`/message/preference`, data);
 }
 
 /**
- * listByUser: GET /api/message/preference/{userId}
+ * listByUser: GET /message/preference/{userId}
  */
 export function listByUser({ userId }: {
     userId: string;
   }): Promise<MsgPreferenceVO[]> {
-  return requestClient.get<MsgPreferenceVO[]>(`/api/message/preference/${userId}`);
+  return requestClient.get<MsgPreferenceVO[]>(`/message/preference/${userId}`);
 }
 
 /**
- * getByUser: GET /api/message/preference/{userId}/{channel}/{bizType}
+ * getByUser: GET /message/preference/{userId}/{channel}/{bizType}
  */
 export function getByUser({ userId, channel, bizType }: {
     userId: string;
     channel: string;
     bizType: string;
   }): Promise<MsgPreferenceVO> {
-  return requestClient.get<MsgPreferenceVO>(`/api/message/preference/${userId}/${channel}/${bizType}`);
+  return requestClient.get<MsgPreferenceVO>(`/message/preference/${userId}/${channel}/${bizType}`);
 }
 
 /**
- * delete: DELETE /api/message/preference/{id}
+ * delete: DELETE /message/preference/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/message/preference/${id}`);
+  return requestClient.delete<void>(`/message/preference/${id}`);
 }

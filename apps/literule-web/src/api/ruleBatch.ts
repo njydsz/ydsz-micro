@@ -14,31 +14,31 @@ import { requestClient } from '#/api/request';
 import type { RuleBatchCategoryDTO, RuleBatchPriorityDTO, RuleBatchToggleDTO } from './models';
 
 /**
- * deleteRule: DELETE /api/literule/rules/{ruleCode}
+ * deleteRule: DELETE /literule/rules/{ruleCode}
  */
 export function deleteRule({ ruleCode }: {
     ruleCode: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/literule/rules/${ruleCode}`);
+  return requestClient.delete<void>(`/literule/rules/${ruleCode}`);
 }
 
 /**
- * batchToggle: POST /api/literule/rules/batch-toggle
+ * batchToggle: POST /literule/rules/batch-toggle
  */
 export function batchToggle(data: RuleBatchToggleDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/rules/batch-toggle`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/batch-toggle`, data);
 }
 
 /**
- * batchPriority: POST /api/literule/rules/batch-priority
+ * batchPriority: POST /literule/rules/batch-priority
  */
 export function batchPriority(data: RuleBatchPriorityDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/rules/batch-priority`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/batch-priority`, data);
 }
 
 /**
- * batchCategory: POST /api/literule/rules/batch-category
+ * batchCategory: POST /literule/rules/batch-category
  */
 export function batchCategory(data: RuleBatchCategoryDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/rules/batch-category`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/batch-category`, data);
 }

@@ -14,115 +14,115 @@ import { requestClient } from '#/api/request';
 import type { CurrentUserInfoVO, LoginDTO, LoginVO, RefreshRequest, SecondaryAuthRequest, SendVerifyCodeDTO, WebAuthnSecondaryAuthDTO } from './models';
 
 /**
- * sendMfaCode: POST /api/auth/mfa/send-code
+ * sendMfaCode: POST /auth/mfa/send-code
  */
 export function sendMfaCode(data: SendVerifyCodeDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/auth/mfa/send-code`, data);
+  return requestClient.post<boolean>(`/auth/mfa/send-code`, data);
 }
 
 /**
- * sendMfaEmailCode: POST /api/auth/mfa/send-email-code
+ * sendMfaEmailCode: POST /auth/mfa/send-email-code
  */
 export function sendMfaEmailCode(data: SendVerifyCodeDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/auth/mfa/send-email-code`, data);
+  return requestClient.post<boolean>(`/auth/mfa/send-email-code`, data);
 }
 
 /**
- * login: POST /api/auth/login
+ * login: POST /auth/login
  */
 export function login(params: {
     servletRequest?: Record<string, unknown>;
     servletResponse?: Record<string, unknown>;
   }, data: LoginDTO): Promise<LoginVO> {
-  return requestClient.post<LoginVO>(`/api/auth/login`, data, { params });
+  return requestClient.post<LoginVO>(`/auth/login`, data, { params });
 }
 
 /**
- * getUserInfo: GET /api/auth/userinfo
+ * getUserInfo: GET /auth/userinfo
  */
 export function getUserInfo(): Promise<CurrentUserInfoVO> {
-  return requestClient.get<CurrentUserInfoVO>(`/api/auth/userinfo`);
+  return requestClient.get<CurrentUserInfoVO>(`/auth/userinfo`);
 }
 
 /**
- * getAccessCodes: GET /api/auth/codes
+ * getAccessCodes: GET /auth/codes
  */
 export function getAccessCodes(): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/auth/codes`);
+  return requestClient.get<string[]>(`/auth/codes`);
 }
 
 /**
- * logout: POST /api/auth/logout
+ * logout: POST /auth/logout
  */
 export function logout(): Promise<void> {
-  return requestClient.post<void>(`/api/auth/logout`);
+  return requestClient.post<void>(`/auth/logout`);
 }
 
 /**
- * refresh: POST /api/auth/refresh
+ * refresh: POST /auth/refresh
  */
 export function refresh(data: RefreshRequest): Promise<LoginVO> {
-  return requestClient.post<LoginVO>(`/api/auth/refresh`, data);
+  return requestClient.post<LoginVO>(`/auth/refresh`, data);
 }
 
 /**
- * generateDeviceCode: POST /api/auth/sso/device-code
+ * generateDeviceCode: POST /auth/sso/device-code
  */
 export function generateDeviceCode(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/auth/sso/device-code`);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/auth/sso/device-code`);
 }
 
 /**
- * exchangeDeviceCode: POST /api/auth/sso/device-exchange
+ * exchangeDeviceCode: POST /auth/sso/device-exchange
  */
 export function exchangeDeviceCode(params: {
     code?: string;
   }): Promise<LoginVO> {
-  return requestClient.post<LoginVO>(`/api/auth/sso/device-exchange`, { params });
+  return requestClient.post<LoginVO>(`/auth/sso/device-exchange`, { params });
 }
 
 /**
- * listActiveSessions: GET /api/auth/sessions
+ * listActiveSessions: GET /auth/sessions
  */
 export function listActiveSessions(): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/auth/sessions`);
+  return requestClient.get<string[]>(`/auth/sessions`);
 }
 
 /**
- * kickOutSession: DELETE /api/auth/sessions/{token}
+ * kickOutSession: DELETE /auth/sessions/{token}
  */
 export function kickOutSession({ token }: {
     token: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/auth/sessions/${token}`);
+  return requestClient.delete<void>(`/auth/sessions/${token}`);
 }
 
 /**
- * secondaryAuth: POST /api/auth/secondary-auth
+ * secondaryAuth: POST /auth/secondary-auth
  */
 export function secondaryAuth(data: SecondaryAuthRequest): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/auth/secondary-auth`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/auth/secondary-auth`, data);
 }
 
 /**
- * getWebAuthnChallenge: GET /api/auth/secondary-auth/webauthn/challenge
+ * getWebAuthnChallenge: GET /auth/secondary-auth/webauthn/challenge
  */
 export function getWebAuthnChallenge(params: {
     scene?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/auth/secondary-auth/webauthn/challenge`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/auth/secondary-auth/webauthn/challenge`, { params });
 }
 
 /**
- * webAuthnSecondaryAuth: POST /api/auth/secondary-auth/webauthn
+ * webAuthnSecondaryAuth: POST /auth/secondary-auth/webauthn
  */
 export function webAuthnSecondaryAuth(data: WebAuthnSecondaryAuthDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/auth/secondary-auth/webauthn`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/auth/secondary-auth/webauthn`, data);
 }
 
 /**
- * kickOutOtherSessions: DELETE /api/auth/sessions
+ * kickOutOtherSessions: DELETE /auth/sessions
  */
 export function kickOutOtherSessions(): Promise<void> {
-  return requestClient.delete<void>(`/api/auth/sessions`);
+  return requestClient.delete<void>(`/auth/sessions`);
 }

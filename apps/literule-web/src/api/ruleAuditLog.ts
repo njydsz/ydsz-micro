@@ -14,52 +14,52 @@ import { requestClient } from '#/api/request';
 import type { AuditLogEntryVO } from './models';
 
 /**
- * recent: GET /api/literule/audit/recent
+ * recent: GET /literule/audit/recent
  */
 export function recent(params: {
     limit?: number;
   }): Promise<AuditLogEntryVO[]> {
-  return requestClient.get<AuditLogEntryVO[]>(`/api/literule/audit/recent`, { params });
+  return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/recent`, { params });
 }
 
 /**
- * byRuleCode: GET /api/literule/audit/by-rule/{ruleCode}
+ * byRuleCode: GET /literule/audit/by-rule/{ruleCode}
  */
 export function byRuleCode({ ruleCode }: {
     ruleCode: string;
   }, params: {
     limit?: number;
   }): Promise<AuditLogEntryVO[]> {
-  return requestClient.get<AuditLogEntryVO[]>(`/api/literule/audit/by-rule/${ruleCode}`, { params });
+  return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-rule/${ruleCode}`, { params });
 }
 
 /**
- * byOperator: GET /api/literule/audit/by-operator
+ * byOperator: GET /literule/audit/by-operator
  */
 export function byOperator(params: {
     operator?: string;
     limit?: number;
   }): Promise<AuditLogEntryVO[]> {
-  return requestClient.get<AuditLogEntryVO[]>(`/api/literule/audit/by-operator`, { params });
+  return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-operator`, { params });
 }
 
 /**
- * byAction: GET /api/literule/audit/by-action
+ * byAction: GET /literule/audit/by-action
  */
 export function byAction(params: {
     action?: string;
     limit?: number;
   }): Promise<AuditLogEntryVO[]> {
-  return requestClient.get<AuditLogEntryVO[]>(`/api/literule/audit/by-action`, { params });
+  return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-action`, { params });
 }
 
 /**
- * byTimeRange: GET /api/literule/audit/by-time-range
+ * byTimeRange: GET /literule/audit/by-time-range
  */
 export function byTimeRange(params: {
     startTime?: string;
     endTime?: string;
     limit?: number;
   }): Promise<AuditLogEntryVO[]> {
-  return requestClient.get<AuditLogEntryVO[]>(`/api/literule/audit/by-time-range`, { params });
+  return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-time-range`, { params });
 }

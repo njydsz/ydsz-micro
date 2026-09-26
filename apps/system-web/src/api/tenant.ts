@@ -15,49 +15,49 @@ import type { PageResponse } from './models';
 import type { TenantDTO, TenantPageQuery, TenantVO } from './models';
 
 /**
- * listAccessible: GET /api/tenant/accessible
+ * listAccessible: GET /tenant/accessible
  */
 export function listAccessible(): Promise<TenantVO[]> {
-  return requestClient.get<TenantVO[]>(`/api/tenant/accessible`);
+  return requestClient.get<TenantVO[]>(`/tenant/accessible`);
 }
 
 /**
- * page: GET /api/tenant/page
+ * page: GET /tenant/page
  */
 export function page(params: {
     query?: TenantPageQuery;
   }): Promise<PageResponse<TenantVO[]>> {
-  return requestClient.get<PageResponse<TenantVO[]>>(`/api/tenant/page`, { params });
+  return requestClient.get<PageResponse<TenantVO[]>>(`/tenant/page`, { params });
 }
 
 /**
- * getById: GET /api/tenant/{id}
+ * getById: GET /tenant/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<TenantVO> {
-  return requestClient.get<TenantVO>(`/api/tenant/${id}`);
+  return requestClient.get<TenantVO>(`/tenant/${id}`);
 }
 
 /**
- * save: POST /api/tenant
+ * save: POST /tenant
  */
 export function save(data: TenantDTO): Promise<string> {
-  return requestClient.post<string>(`/api/tenant`, data);
+  return requestClient.post<string>(`/tenant`, data);
 }
 
 /**
- * update: PUT /api/tenant
+ * update: PUT /tenant
  */
 export function update(data: TenantDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/tenant`, data);
+  return requestClient.put<boolean>(`/tenant`, data);
 }
 
 /**
- * remove: DELETE /api/tenant/{id}
+ * remove: DELETE /tenant/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/tenant/${id}`);
+  return requestClient.delete<boolean>(`/tenant/${id}`);
 }

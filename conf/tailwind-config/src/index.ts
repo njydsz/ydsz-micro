@@ -304,9 +304,13 @@ export default {
       },
 
       // 字体系统
+      // 规范：YDIZ-WEB-001（UI 字体统一标准适配）
+      // font-sans 用于 UI 正文，font-code / font-mono 用于代码与等宽场景
       fontFamily: {
         sans: ["var(--font-family)"],
         code: ["var(--font-family-code, var(--font-family))"],
+        // 与 font-code 同义，兼容 Tailwind 默认类名与第三方组件
+        mono: ["var(--font-family-code, var(--font-family))"],
       },
 
       // 字号系统
@@ -342,6 +346,15 @@ export default {
         tight: "var(--tracking-tight)",
         default: "var(--tracking-default)",
         wide: "var(--tracking-wide)",
+      },
+
+      // 字重系统 — 映射 ydsz design tokens 到 Tailwind 工具类
+      // 规范：YDIZ-WEB-001（UI 字体统一标准适配）
+      fontWeight: {
+        normal: "var(--ydsz-font-weight-normal, 400)",
+        medium: "var(--ydsz-font-weight-medium, 500)",
+        semibold: "var(--ydsz-font-weight-semibold, 600)",
+        bold: "var(--ydsz-font-weight-bold, 700)",
       },
 
       // 间距 — 参考 VS Code 层级化垂直节奏

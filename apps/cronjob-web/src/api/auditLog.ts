@@ -15,7 +15,7 @@ import type { PageResponse } from './models';
 import type { AuditLogVO } from './models';
 
 /**
- * page: GET /api/cronjob/audit/page
+ * page: GET /cronjob/audit/page
  */
 export function page(params: {
     pageNum?: number;
@@ -25,5 +25,5 @@ export function page(params: {
     startTime?: string;
     endTime?: string;
   }): Promise<PageResponse<AuditLogVO[]>> {
-  return requestClient.get<PageResponse<AuditLogVO[]>>(`/api/cronjob/audit/page`, { params });
+  return requestClient.get<PageResponse<AuditLogVO[]>>(`/cronjob/audit/page`, { params });
 }

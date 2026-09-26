@@ -11,36 +11,26 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { InsightReportRequest } from './models';
+import type { InsightReportRequest, InsightReportResult } from './models';
 
 /**
- * generateReport: POST /api/agent/insight/report
- *
- * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
- * 后端方法声明为 {@code ResponseEntity}，响应结构未固定为具名 VO，
- * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
- * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
+ * generateReport: POST /agent/insight/report
  */
-export function generateReport(data: InsightReportRequest): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/agent/insight/report`, data);
+export function generateReport(data: InsightReportRequest): Promise<InsightReportResult> {
+  return requestClient.post<InsightReportResult>(`/agent/insight/report`, data);
 }
 
 /**
- * getReport: GET /api/agent/insight/report/{reportId}
- *
- * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
- * 后端方法声明为 {@code ResponseEntity}，响应结构未固定为具名 VO，
- * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
- * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
+ * getReport: GET /agent/insight/report/{reportId}
  */
 export function getReport({ reportId }: {
     reportId: string;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/agent/insight/report/${reportId}`);
+  }): Promise<InsightReportResult> {
+  return requestClient.get<InsightReportResult>(`/agent/insight/report/${reportId}`);
 }
 
 /**
- * exportHtml: GET /api/agent/insight/report/{reportId}/html
+ * exportHtml: GET /agent/insight/report/{reportId}/html
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code ResponseEntity}，响应结构未固定为具名 VO，
@@ -50,34 +40,24 @@ export function getReport({ reportId }: {
 export function exportHtml({ reportId }: {
     reportId: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/agent/insight/report/${reportId}/html`);
+  return requestClient.get<unknown>(`/agent/insight/report/${reportId}/html`);
 }
 
 /**
- * listRecentReports: GET /api/agent/insight/reports
- *
- * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
- * 后端方法声明为 {@code ResponseEntity}，响应结构未固定为具名 VO，
- * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
- * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
+ * listRecentReports: GET /agent/insight/reports
  */
 export function listRecentReports(params: {
     userId?: string;
     limit?: number;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/agent/insight/reports`, { params });
+  }): Promise<InsightReportResult[]> {
+  return requestClient.get<InsightReportResult[]>(`/agent/insight/reports`, { params });
 }
 
 /**
- * deleteReport: DELETE /api/agent/insight/report/{reportId}
- *
- * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
- * 后端方法声明为 {@code ResponseEntity}，响应结构未固定为具名 VO，
- * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
- * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
+ * deleteReport: DELETE /agent/insight/report/{reportId}
  */
 export function deleteReport({ reportId }: {
     reportId: string;
-  }): Promise<unknown> {
-  return requestClient.delete<unknown>(`/api/agent/insight/report/${reportId}`);
+  }): Promise<Record<string, string>> {
+  return requestClient.delete<Record<string, string>>(`/agent/insight/report/${reportId}`);
 }

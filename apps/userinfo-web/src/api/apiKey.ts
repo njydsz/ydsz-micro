@@ -15,44 +15,44 @@ import type { PageResponse } from './models';
 import type { ApiKeyCreateDTO, ApiKeyPageQuery, ApiKeyVO } from './models';
 
 /**
- * createKey: POST /api/apikey
+ * createKey: POST /apikey
  */
 export function createKey(data: ApiKeyCreateDTO): Promise<ApiKeyVO> {
-  return requestClient.post<ApiKeyVO>(`/api/apikey`, data);
+  return requestClient.post<ApiKeyVO>(`/apikey`, data);
 }
 
 /**
- * pageKeys: GET /api/apikey
+ * pageKeys: GET /apikey
  */
 export function pageKeys(params: {
     query?: ApiKeyPageQuery;
   }): Promise<PageResponse<ApiKeyVO[]>> {
-  return requestClient.get<PageResponse<ApiKeyVO[]>>(`/api/apikey`, { params });
+  return requestClient.get<PageResponse<ApiKeyVO[]>>(`/apikey`, { params });
 }
 
 /**
- * listMyKeys: GET /api/apikey/all
+ * listMyKeys: GET /apikey/all
  */
 export function listMyKeys(): Promise<ApiKeyVO[]> {
-  return requestClient.get<ApiKeyVO[]>(`/api/apikey/all`);
+  return requestClient.get<ApiKeyVO[]>(`/apikey/all`);
 }
 
 /**
- * revokeKeys: DELETE /api/apikey
+ * revokeKeys: DELETE /apikey
  */
 export function revokeKeys(params: {
     ids?: number[];
   }): Promise<number> {
-  return requestClient.delete<number>(`/api/apikey`, { params });
+  return requestClient.delete<number>(`/apikey`, { params });
 }
 
 /**
- * updateEnabled: PUT /api/apikey/{id}/enabled
+ * updateEnabled: PUT /apikey/{id}/enabled
  */
 export function updateEnabled({ id }: {
     id: number;
   }, params: {
     enabled?: boolean;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/apikey/${id}/enabled`, { params });
+  return requestClient.put<void>(`/apikey/${id}/enabled`, { params });
 }

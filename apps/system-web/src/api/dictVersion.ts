@@ -15,30 +15,30 @@ import type { PageResponse } from './models';
 import type { EntityVersionPageQuery, EntityVersionVO } from './models';
 
 /**
- * listByTypeCode: GET /api/dict/version/{typeCode}
+ * listByTypeCode: GET /dict/version/{typeCode}
  */
 export function listByTypeCode({ typeCode }: {
     typeCode: string;
   }): Promise<EntityVersionVO[]> {
-  return requestClient.get<EntityVersionVO[]>(`/api/dict/version/${typeCode}`);
+  return requestClient.get<EntityVersionVO[]>(`/dict/version/${typeCode}`);
 }
 
 /**
- * pageByTypeCode: GET /api/dict/version/page
+ * pageByTypeCode: GET /dict/version/page
  */
 export function pageByTypeCode(params: {
     query?: EntityVersionPageQuery;
   }): Promise<PageResponse<EntityVersionVO[]>> {
-  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/api/dict/version/page`, { params });
+  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/dict/version/page`, { params });
 }
 
 /**
- * rollback: POST /api/dict/version/{typeCode}/rollback
+ * rollback: POST /dict/version/{typeCode}/rollback
  */
 export function rollback({ typeCode }: {
     typeCode: string;
   }, params: {
     targetVersion?: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/dict/version/${typeCode}/rollback`, { params });
+  return requestClient.post<string>(`/dict/version/${typeCode}/rollback`, { params });
 }

@@ -62,7 +62,7 @@ interface DeptFormState {
   deptName: string;
   parentId: string;
   description: string;
-  sortOrder: number;
+  sort?: number;
   status: string;
 }
 
@@ -72,7 +72,7 @@ const formData = reactive<DeptFormState>({
   deptName: '',
   parentId: '',
   description: '',
-  sortOrder: 0,
+  sort: 0,
   status: '1',
 });
 
@@ -98,7 +98,7 @@ const [Modal, modalApi] = useYdModal({
         deptName: data.record.deptName ?? '',
         parentId: data.record.parentId ?? '',
         description: '',
-        sortOrder: data.record.sortOrder ?? 0,
+        sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
       });
     } else {
@@ -109,7 +109,7 @@ const [Modal, modalApi] = useYdModal({
         deptName: '',
         parentId: data?.parentId ?? '',
         description: '',
-        sortOrder: 0,
+        sort: 0,
         status: '1',
       });
     }
@@ -128,7 +128,7 @@ const [Modal, modalApi] = useYdModal({
         deptName: formData.deptName,
         parentId: formData.parentId || undefined,
         description: formData.description,
-        sortOrder: formData.sortOrder,
+        sort: formData.sort,
         status: formData.status,
       };
       if (isEdit.value) {
@@ -181,7 +181,7 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.deptBas
         />
       </YdFormItem>
       <YdFormItem :label="t('page.sortOrder')">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('page.status')">
         <YdRadioGroup v-model="formData.status">

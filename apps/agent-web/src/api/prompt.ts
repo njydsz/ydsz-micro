@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * evaluate: POST /api/agent/prompt/evaluate
+ * evaluate: POST /agent/prompt/evaluate
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,11 +22,11 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function evaluate(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/agent/prompt/evaluate`, data);
+  return requestClient.post<unknown>(`/agent/prompt/evaluate`, data);
 }
 
 /**
- * compare: POST /api/agent/prompt/compare
+ * compare: POST /agent/prompt/compare
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -34,5 +34,5 @@ export function evaluate(data: Record<string, unknown>): Promise<unknown> {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function compare(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/agent/prompt/compare`, data);
+  return requestClient.post<unknown>(`/agent/prompt/compare`, data);
 }

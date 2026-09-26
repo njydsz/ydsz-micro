@@ -40,6 +40,8 @@ export interface PageQuery {
 
 /**
  * AlertRule 新增请求 DTO。
+ *
+ * YDIZ-OOP-006 合规：DTO `isEnabled`（primitive `boolean`）与实体/VO 一致。
  */
 export interface AlertRulePostDTO {
   serialVersionUID?: number;
@@ -53,11 +55,14 @@ export interface AlertRulePostDTO {
   channels?: string;
   receivers?: string;
   cooldownMinutes?: number;
-  enabled?: number;
+  /** 是否启用（YDIZ-OOP-006 合规：`isEnabled` primitive `boolean`）。 */
+  isEnabled?: boolean;
 }
 
 /**
  * AlertRule 修改请求 DTO。
+ *
+ * YDIZ-OOP-006 合规：DTO `isEnabled`（primitive `boolean`）与实体/VO 一致。
  */
 export interface AlertRulePutDTO {
   serialVersionUID?: number;
@@ -72,7 +77,8 @@ export interface AlertRulePutDTO {
   channels?: string;
   receivers?: string;
   cooldownMinutes?: number;
-  enabled?: number;
+  /** 是否启用（YDIZ-OOP-006 合规：`isEnabled` primitive `boolean`）。 */
+  isEnabled?: boolean;
 }
 
 /**
@@ -119,6 +125,16 @@ export interface ConnectorConfigPostDTO {
 }
 
 /**
+ * ExportRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ExportRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * JobDag 新增请求 DTO。
  */
 export interface JobDagPostDTO {
@@ -157,6 +173,26 @@ export interface JobDagTriggerDTO {
   serialVersionUID?: number;
   dagKey?: string;
   triggerBy?: string;
+}
+
+/**
+ * DagDefinitionDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface DagDefinitionDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * SaveCodeDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SaveCodeDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -250,6 +286,16 @@ export interface JobVO {
   updatedAt?: string;
   /** 租户 ID（多租户隔离） */
   tenantId?: string;
+}
+
+/**
+ * UnregisterRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface UnregisterRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -408,6 +454,16 @@ export interface JobBatchUpdateDTO {
 }
 
 /**
+ * HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * JobWebhook 新增请求 DTO。
  */
 export interface JobWebhookPostDTO {
@@ -441,9 +497,41 @@ export interface JobWebhookPutDTO {
 }
 
 /**
+ * GlueCodeSaveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface GlueCodeSaveRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * GlueCodeRollbackRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface GlueCodeRollbackRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * GlueTestRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface GlueTestRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * JobAlertRule 视图对象。
  *
  * 用于 Controller 层返回告警规则数据，对应实体 com.njydsz.cronjob.domain.entity.job.JobAlertRule。
+ * YDIZ-OOP-006 合规：VO `isEnabled`（primitive `boolean`）与实体一致，
+ * Lombok 生成 `isEnabled()` getter，保持跨层命名统一。
  */
 export interface JobAlertRuleVO {
   serialVersionUID?: number;
@@ -469,8 +557,12 @@ export interface JobAlertRuleVO {
   receivers?: string;
   /** 冷却时间（分钟），同一规则在冷却期内不重复告警（默认 10） */
   cooldownMinutes?: number;
-  /** 是否启用: 0 禁用 / 1 启用 */
-  enabled?: number;
+  /**
+   * 是否启用（true=启用，false=禁用）。
+   * YDIZ-OOP-006 合规：字段 `isEnabled`（primitive `boolean`），
+   * Lombok 生成 `isEnabled()` getter。
+   */
+  isEnabled?: boolean;
   /** 来源类型（如 SLA，用于区分规则业务来源） */
   sourceType?: string;
   /** 租户 ID（P0-FIX 补回：与实体一致，AlertScanner 全局规则告警上下文使用） */
@@ -594,7 +686,21 @@ export interface BatchResultDTO {
   /** 失败条数 */
   failureCount?: number;
   /** 明细列表 */
-  details?: Record<string, unknown>[];
+  details?: ItemResult[];
+  /** 操作项标识 */
+  item?: Record<string, unknown>;
+  /** 是否成功 */
+  isSuccess?: boolean;
+  /** 失败原因（成功时为 null） */
+  error?: string;
+}
+
+/**
+ * 单个批量操作结果。
+ *
+ * @param <T> 操作项类型
+ */
+export interface ItemResult {
   /** 操作项标识 */
   item?: Record<string, unknown>;
   /** 是否成功 */
@@ -657,112 +763,6 @@ export interface ConnectorExportResult {
   skipped?: number;
   /** 错误详情列表 */
   errors?: string[];
-}
-
-/**
- * GlueCode 视图对象。
- *
- * 用于 Controller 层返回 GLUE 在线编码数据，对应实体 com.njydsz.cronjob.domain.entity.schedule.GlueCode。
- */
-export interface GlueCodeVO {
-  serialVersionUID?: number;
-  /** 主键 ID */
-  id?: string;
-  /** 任务 ID（关联 ydsz_job.id） */
-  jobId?: string;
-  /** 源代码（Groovy/Python/Shell/JavaScript 脚本内容） */
-  sourceCode?: string;
-  /** 语言: GROOVY(默认) / PYTHON / SHELL / JAVASCRIPT / JAVA */
-  language?: string;
-  /** 版本号（从 1 递增） */
-  version?: number;
-  /** 版本备注 */
-  remark?: string;
-  /** 创建人 */
-  createdBy?: string;
-  /** 创建时间 */
-  createdAt?: string;
-  /** 更新人 */
-  updatedBy?: string;
-  /** 更新时间 */
-  updatedAt?: string;
-}
-
-/**
- * 任务执行结果
- */
-export interface ProcessResult {
-  /** 是否成功 */
-  isSuccess?: boolean;
-  /** 结果数据（JSON 字符串） */
-  result?: string;
-  /** 错误信息 */
-  errorMessage?: string;
-}
-
-/**
- * JobLog 视图对象。
- *
- * 用于 Controller 层返回任务执行日志数据，对应实体 com.njydsz.cronjob.domain.entity.log.JobLog。
- */
-export interface JobLogVO {
-  serialVersionUID?: number;
-  /** 主键 ID */
-  id?: string;
-  /** 任务 ID */
-  jobId?: string;
-  /** 任务 KEY */
-  jobKey?: string;
-  /** 开始时间 */
-  startTime?: string;
-  /** 结束时间 */
-  endTime?: string;
-  /** 耗时(毫秒) */
-  durationMs?: number;
-  /** 错误信息 */
-  errorMessage?: string;
-  /** 参数 JSON */
-  paramsJson?: string;
-  /** 结果 JSON */
-  resultJson?: string;
-  /** 链路追踪 ID */
-  traceId?: string;
-  /** 触发类型: CRON 定时 / MANUAL 手动 / RETRY 重试 / MISFIRED Misfire 触发 */
-  triggerType?: string;
-  /** 持锁者标识（hostname:pid） */
-  lockHolder?: string;
-  /** 执行节点 ID（hostname:port） */
-  execNodeId?: string;
-  /** 执行线程 ID */
-  execThreadId?: number;
-  /** 执行状态: RUNNING / SUCCESS / FAILED / TIMEOUT */
-  status?: string;
-  /** 删除标记：false=未删 / true=已删 */
-  isDeleted?: boolean;
-  /** 分片索引（0-based，非分片任务为 null） */
-  shardIndex?: number;
-  /** 分片总数（非分片任务为 null） */
-  shardTotal?: number;
-  /** 慢任务标记（0=非慢 / 1=慢） */
-  slow?: number;
-  /** 慢任务阈值快照（毫秒） */
-  slowThresholdMs?: number;
-  /** 入队时间（任务被扫描并入队的时刻） */
-  queueTime?: string;
-  /** 派发时间（任务被派发的时刻） */
-  dispatchTime?: string;
-  /** Handler 初始化时间 */
-  handlerInitTime?: string;
-  /** Handler 执行结束时间 */
-  handlerEndTime?: string;
-  /** 创建人 */
-  createdBy?: string;
-  /** 创建时间 */
-  createdAt?: string;
-  /** 更新人 */
-  updatedBy?: string;
-  /** 更新时间 */
-  updatedAt?: string;
 }
 
 /**
@@ -993,7 +993,7 @@ export interface DagInstanceVisualizationVO {
  * @param edges 边列表（可为空，表示单节点 DAG）
  */
 export interface DagDefinition {
-  nodes?: 'TASK' | 'CONDITION' | 'PARALLEL_GATEWAY' | 'SUB_WORKFLOW' | 'APPROVAL'[];
+  nodes?: 'TASK' | 'CONDITION' | 'PARALLEL_GATEWAY' | 'APPROVAL'[];
   edges?: DagEdge[];
 }
 
@@ -1009,6 +1009,103 @@ export interface DagDefinition {
  * @param condition 条件表达式（null 表示无条件触发；非 null 时按表达式求值决定是否触发）
  */
 export type DagEdge = object;
+
+/**
+ * JobLog 视图对象。
+ *
+ * 用于 Controller 层返回任务执行日志数据，对应实体 com.njydsz.cronjob.domain.entity.log.JobLog。
+ */
+export interface JobLogVO {
+  serialVersionUID?: number;
+  /** 主键 ID */
+  id?: string;
+  /** 任务 ID */
+  jobId?: string;
+  /** 任务 KEY */
+  jobKey?: string;
+  /** 开始时间 */
+  startTime?: string;
+  /** 结束时间 */
+  endTime?: string;
+  /** 耗时(毫秒) */
+  durationMs?: number;
+  /** 错误信息 */
+  errorMessage?: string;
+  /** 参数 JSON */
+  paramsJson?: string;
+  /** 结果 JSON */
+  resultJson?: string;
+  /** 链路追踪 ID */
+  traceId?: string;
+  /** 触发类型: CRON 定时 / MANUAL 手动 / RETRY 重试 / MISFIRED Misfire 触发 */
+  triggerType?: string;
+  /** 持锁者标识（hostname:pid） */
+  lockHolder?: string;
+  /** 执行节点 ID（hostname:port） */
+  execNodeId?: string;
+  /** 执行线程 ID */
+  execThreadId?: number;
+  /** 执行状态: RUNNING / SUCCESS / FAILED / TIMEOUT */
+  status?: string;
+  /** 删除标记：false=未删 / true=已删 */
+  isDeleted?: boolean;
+  /** 分片索引（0-based，非分片任务为 null） */
+  shardIndex?: number;
+  /** 分片总数（非分片任务为 null） */
+  shardTotal?: number;
+  /** 慢任务标记（0=非慢 / 1=慢） */
+  slow?: number;
+  /** 慢任务阈值快照（毫秒） */
+  slowThresholdMs?: number;
+  /** 入队时间（任务被扫描并入队的时刻） */
+  queueTime?: string;
+  /** 派发时间（任务被派发的时刻） */
+  dispatchTime?: string;
+  /** Handler 初始化时间 */
+  handlerInitTime?: string;
+  /** Handler 执行结束时间 */
+  handlerEndTime?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新人 */
+  updatedBy?: string;
+  /** 更新时间 */
+  updatedAt?: string;
+}
+
+/**
+ * SaveResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SaveResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * ValidateResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ValidateResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * 任务执行结果
+ */
+export interface ProcessResult {
+  /** 是否成功 */
+  isSuccess?: boolean;
+  /** 结果数据（JSON 字符串） */
+  result?: string;
+  /** 错误信息 */
+  errorMessage?: string;
+}
 
 /**
  * JobHistory 视图对象。
@@ -1047,8 +1144,12 @@ export interface JobHistoryVO {
   changedBy?: string;
   /** 修改时间 */
   changedAt?: string;
-  /** 逻辑删除标记: 0 未删除 / 1 已删除 */
-  historyDeleted?: number;
+  /**
+   * 是否逻辑删除（true=已删除，false=未删除）。
+   * YDIZ-OOP-006 合规：字段 `isDeleted`（primitive `boolean`），
+   * Lombok 生成 `isDeleted()` getter，与实体命名保持一致。
+   */
+  isDeleted?: boolean;
   /** 创建人 */
   createdBy?: string;
   /** 创建时间 */
@@ -1176,4 +1277,43 @@ export interface JobWebhookVO {
   updatedBy?: string;
   /** 更新时间 */
   updatedAt?: string;
+}
+
+/**
+ * GlueCode 视图对象。
+ *
+ * 用于 Controller 层返回 GLUE 在线编码数据，对应实体 com.njydsz.cronjob.domain.entity.schedule.GlueCode。
+ */
+export interface GlueCodeVO {
+  serialVersionUID?: number;
+  /** 主键 ID */
+  id?: string;
+  /** 任务 ID（关联 ydsz_job.id） */
+  jobId?: string;
+  /** 源代码（Groovy/Python/Shell/JavaScript 脚本内容） */
+  sourceCode?: string;
+  /** 语言: GROOVY(默认) / PYTHON / SHELL / JAVASCRIPT / JAVA */
+  language?: string;
+  /** 版本号（从 1 递增） */
+  version?: number;
+  /** 版本备注 */
+  remark?: string;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新人 */
+  updatedBy?: string;
+  /** 更新时间 */
+  updatedAt?: string;
+}
+
+/**
+ * ScheduleItem（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ScheduleItem {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }

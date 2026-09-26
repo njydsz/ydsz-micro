@@ -15,49 +15,49 @@ import type { PageResponse } from './models';
 import type { DictPageQuery, DictTypeDTO, DictTypeVO } from './models';
 
 /**
- * page: GET /api/dict/type/page
+ * page: GET /dict/type/page
  */
 export function page(params: {
     query?: DictPageQuery;
   }): Promise<PageResponse<DictTypeVO[]>> {
-  return requestClient.get<PageResponse<DictTypeVO[]>>(`/api/dict/type/page`, { params });
+  return requestClient.get<PageResponse<DictTypeVO[]>>(`/dict/type/page`, { params });
 }
 
 /**
- * getById: GET /api/dict/type/{id}
+ * getById: GET /dict/type/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<DictTypeVO> {
-  return requestClient.get<DictTypeVO>(`/api/dict/type/${id}`);
+  return requestClient.get<DictTypeVO>(`/dict/type/${id}`);
 }
 
 /**
- * save: POST /api/dict/type
+ * save: POST /dict/type
  */
 export function save(data: DictTypeDTO): Promise<string> {
-  return requestClient.post<string>(`/api/dict/type`, data);
+  return requestClient.post<string>(`/dict/type`, data);
 }
 
 /**
- * update: PUT /api/dict/type
+ * update: PUT /dict/type
  */
 export function update(data: DictTypeDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/dict/type`, data);
+  return requestClient.put<boolean>(`/dict/type`, data);
 }
 
 /**
- * remove: DELETE /api/dict/type/{id}
+ * remove: DELETE /dict/type/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/dict/type/${id}`);
+  return requestClient.delete<boolean>(`/dict/type/${id}`);
 }
 
 /**
- * listAll: GET /api/dict/type/all
+ * listAll: GET /dict/type/all
  */
 export function listAll(): Promise<DictTypeVO[]> {
-  return requestClient.get<DictTypeVO[]>(`/api/dict/type/all`);
+  return requestClient.get<DictTypeVO[]>(`/dict/type/all`);
 }

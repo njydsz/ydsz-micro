@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud system"
  },
  "paths": {
-  "/api/permission/api/page": {
+  "/permission/api/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -36,7 +36,7 @@
     ]
    }
   },
-  "/api/permission/api/{id}": {
+  "/permission/api/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -94,7 +94,7 @@
     ]
    }
   },
-  "/api/permission/api/scan": {
+  "/permission/api/scan": {
    "post": {
     "operationId": "triggerScan",
     "tags": [
@@ -114,7 +114,7 @@
     }
    }
   },
-  "/api/permission/api/{id}/enable": {
+  "/permission/api/{id}/enable": {
    "post": {
     "operationId": "enable",
     "tags": [
@@ -144,7 +144,7 @@
     ]
    }
   },
-  "/api/permission/api/{id}/disable": {
+  "/permission/api/{id}/disable": {
    "post": {
     "operationId": "disable",
     "tags": [
@@ -174,7 +174,7 @@
     ]
    }
   },
-  "/api/app/page": {
+  "/app/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -204,7 +204,7 @@
     ]
    }
   },
-  "/api/app/{id}": {
+  "/app/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -262,7 +262,7 @@
     ]
    }
   },
-  "/api/app": {
+  "/app": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -320,7 +320,7 @@
     }
    }
   },
-  "/api/admin/audit/logs": {
+  "/admin/audit/logs": {
    "get": {
     "operationId": "queryByTimeRange",
     "tags": [
@@ -378,7 +378,7 @@
     ]
    }
   },
-  "/api/admin/audit/operator/{operatorId}": {
+  "/admin/audit/operator/{operatorId}": {
    "get": {
     "operationId": "queryByOperator",
     "tags": [
@@ -426,7 +426,7 @@
     ]
    }
   },
-  "/api/admin/audit/action/{action}": {
+  "/admin/audit/action/{action}": {
    "get": {
     "operationId": "queryByAction",
     "tags": [
@@ -475,7 +475,7 @@
     ]
    }
   },
-  "/api/admin/audit/trace/{traceId}": {
+  "/admin/audit/trace/{traceId}": {
    "get": {
     "operationId": "queryByTraceId",
     "tags": [
@@ -505,7 +505,7 @@
     ]
    }
   },
-  "/api/admin/audit/{id}": {
+  "/admin/audit/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -535,7 +535,7 @@
     ]
    }
   },
-  "/api/config/approval/pending": {
+  "/config/approval/pending": {
    "get": {
     "operationId": "listPending",
     "tags": [
@@ -565,7 +565,7 @@
     ]
    }
   },
-  "/api/config/approval/submitted": {
+  "/config/approval/submitted": {
    "get": {
     "operationId": "listSubmitted",
     "tags": [
@@ -595,7 +595,7 @@
     ]
    }
   },
-  "/api/config/approval/list": {
+  "/config/approval/list": {
    "get": {
     "operationId": "listAll",
     "tags": [
@@ -625,7 +625,7 @@
     ]
    }
   },
-  "/api/config/approval/submit": {
+  "/config/approval/submit": {
    "post": {
     "operationId": "submit",
     "tags": [
@@ -655,7 +655,7 @@
     }
    }
   },
-  "/api/config/approval/{id}/approve": {
+  "/config/approval/{id}/approve": {
    "post": {
     "operationId": "approve",
     "tags": [
@@ -695,7 +695,7 @@
     }
    }
   },
-  "/api/config/approval/{id}/reject": {
+  "/config/approval/{id}/reject": {
    "post": {
     "operationId": "reject",
     "tags": [
@@ -735,7 +735,7 @@
     }
    }
   },
-  "/api/config/approval/{id}/withdraw": {
+  "/config/approval/{id}/withdraw": {
    "post": {
     "operationId": "withdraw",
     "tags": [
@@ -765,7 +765,7 @@
     ]
    }
   },
-  "/api/config/approval/{id}": {
+  "/config/approval/{id}": {
    "get": {
     "operationId": "detail",
     "tags": [
@@ -795,7 +795,7 @@
     ]
    }
   },
-  "/api/config/page": {
+  "/config/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -825,7 +825,7 @@
     ]
    }
   },
-  "/api/config/cursor": {
+  "/config/cursor": {
    "get": {
     "operationId": "pageByCursor",
     "tags": [
@@ -880,7 +880,7 @@
     ]
    }
   },
-  "/api/config/{id}": {
+  "/config/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -938,7 +938,7 @@
     ]
    }
   },
-  "/api/config": {
+  "/config": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -996,7 +996,7 @@
     }
    }
   },
-  "/api/config/batch": {
+  "/config/batch": {
    "post": {
     "operationId": "batchSave",
     "tags": [
@@ -1026,7 +1026,7 @@
     }
    }
   },
-  "/api/config/key/{configKey}": {
+  "/config/key/{configKey}": {
    "get": {
     "operationId": "getByKey",
     "tags": [
@@ -1056,7 +1056,7 @@
     ]
    }
   },
-  "/api/config/group/{configGroup}": {
+  "/config/group/{configGroup}": {
    "get": {
     "operationId": "getConfigsByGroup",
     "tags": [
@@ -1086,7 +1086,7 @@
     ]
    }
   },
-  "/api/config/public": {
+  "/config/public": {
    "get": {
     "operationId": "listPublicConfigs",
     "tags": [
@@ -1106,7 +1106,7 @@
     }
    }
   },
-  "/api/config/export": {
+  "/config/export": {
    "get": {
     "operationId": "exportConfigs",
     "tags": [
@@ -1139,13 +1139,13 @@
       "in": "query",
       "required": false,
       "schema": {
-       "type": "object"
+       "$ref": "#/components/schemas/HttpServletResponse"
       }
      }
     ]
    }
   },
-  "/api/config/import": {
+  "/config/import": {
    "post": {
     "operationId": "importConfigs",
     "tags": [
@@ -1175,7 +1175,7 @@
     ]
    }
   },
-  "/api/config/version/{resourceKey}": {
+  "/config/version/{resourceKey}": {
    "get": {
     "operationId": "listByResourceKey",
     "tags": [
@@ -1205,7 +1205,53 @@
     ]
    }
   },
-  "/api/config/version/{resourceKey}/rollback": {
+  "/config/version/{resourceKey}/diff": {
+   "get": {
+    "operationId": "diffVersions",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "resourceKey",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "fromVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "toVersion",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/config/version/{resourceKey}/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -1251,7 +1297,7 @@
     ]
    }
   },
-  "/api/dashboard/overview": {
+  "/dashboard/overview": {
    "get": {
     "operationId": "overview",
     "tags": [
@@ -1271,7 +1317,7 @@
     }
    }
   },
-  "/api/dashboard/workspace": {
+  "/dashboard/workspace": {
    "get": {
     "operationId": "workspace",
     "tags": [
@@ -1291,7 +1337,7 @@
     }
    }
   },
-  "/api/dict/type/page": {
+  "/dict/type/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -1321,7 +1367,7 @@
     ]
    }
   },
-  "/api/dict/type/{id}": {
+  "/dict/type/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -1379,7 +1425,7 @@
     ]
    }
   },
-  "/api/dict/type": {
+  "/dict/type": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -1437,7 +1483,7 @@
     }
    }
   },
-  "/api/dict/type/all": {
+  "/dict/type/all": {
    "get": {
     "operationId": "listAll",
     "tags": [
@@ -1457,7 +1503,7 @@
     }
    }
   },
-  "/api/dict/item/page": {
+  "/dict/item/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -1487,7 +1533,7 @@
     ]
    }
   },
-  "/api/dict/item/{id}": {
+  "/dict/item/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -1545,7 +1591,7 @@
     ]
    }
   },
-  "/api/dict/item/lookup": {
+  "/dict/item/lookup": {
    "get": {
     "operationId": "lookup",
     "tags": [
@@ -1583,7 +1629,7 @@
     ]
    }
   },
-  "/api/dict/item/type/{typeCode}": {
+  "/dict/item/type/{typeCode}": {
    "get": {
     "operationId": "listByType",
     "tags": [
@@ -1613,7 +1659,7 @@
     ]
    }
   },
-  "/api/dict/item/children/{parentId}": {
+  "/dict/item/children/{parentId}": {
    "get": {
     "operationId": "listChildren",
     "tags": [
@@ -1643,7 +1689,7 @@
     ]
    }
   },
-  "/api/dict/item/tree/{typeCode}": {
+  "/dict/item/tree/{typeCode}": {
    "get": {
     "operationId": "buildTree",
     "tags": [
@@ -1673,7 +1719,7 @@
     ]
    }
   },
-  "/api/dict/item": {
+  "/dict/item": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -1731,7 +1777,7 @@
     }
    }
   },
-  "/api/dict/item/batch": {
+  "/dict/item/batch": {
    "post": {
     "operationId": "batchSave",
     "tags": [
@@ -1761,7 +1807,7 @@
     }
    }
   },
-  "/api/dict/version/{typeCode}": {
+  "/dict/version/{typeCode}": {
    "get": {
     "operationId": "listByTypeCode",
     "tags": [
@@ -1791,7 +1837,7 @@
     ]
    }
   },
-  "/api/dict/version/page": {
+  "/dict/version/page": {
    "get": {
     "operationId": "pageByTypeCode",
     "tags": [
@@ -1821,7 +1867,7 @@
     ]
    }
   },
-  "/api/dict/version/{typeCode}/rollback": {
+  "/dict/version/{typeCode}/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -1867,7 +1913,7 @@
     ]
    }
   },
-  "/api/feature-flags/me": {
+  "/feature-flags/me": {
    "get": {
     "operationId": "me",
     "tags": [
@@ -1887,7 +1933,7 @@
     }
    }
   },
-  "/api/system/init": {
+  "/system/init": {
    "get": {
     "operationId": "init",
     "tags": [
@@ -1907,7 +1953,7 @@
     }
    }
   },
-  "/api/system/init/dicts": {
+  "/system/init/dicts": {
    "get": {
     "operationId": "initWithDicts",
     "tags": [
@@ -1940,7 +1986,7 @@
     ]
    }
   },
-  "/api/internal/config/get": {
+  "/internal/config/get": {
    "post": {
     "operationId": "getConfig",
     "tags": [
@@ -1970,7 +2016,7 @@
     }
    }
   },
-  "/api/internal/dict/item": {
+  "/internal/dict/item": {
    "post": {
     "operationId": "getDictItem",
     "tags": [
@@ -2000,7 +2046,7 @@
     }
    }
   },
-  "/api/internal/dict/list": {
+  "/internal/dict/list": {
    "post": {
     "operationId": "listDictItems",
     "tags": [
@@ -2030,7 +2076,7 @@
     }
    }
   },
-  "/api/internal/app/validate": {
+  "/internal/app/validate": {
    "post": {
     "operationId": "validateClient",
     "tags": [
@@ -2060,7 +2106,7 @@
     }
    }
   },
-  "/api/system/metrics/dashboard": {
+  "/system/metrics/dashboard": {
    "get": {
     "operationId": "dashboard",
     "tags": [
@@ -2073,6 +2119,128 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "//monitor/error": {
+   "post": {
+    "operationId": "reportErrors",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MonitorErrorBatchDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "//monitor/web-vitals": {
+   "post": {
+    "operationId": "reportWebVitals",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "alert",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/MonitorWebVitalBatchDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/": {
+   "post": {
+    "operationId": "uploadSourcemap",
+    "tags": [
+     "system"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "release",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "file",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "array",
+        "items": {
+         "type": "integer",
+         "format": "int32"
         }
        }
       }
@@ -2111,7 +2279,7 @@
     ]
    }
   },
-  "/api/auth/secondary-auth": {
+  "/auth/secondary-auth": {
    "post": {
     "operationId": "verify",
     "tags": [
@@ -2141,7 +2309,7 @@
     }
    }
   },
-  "/api/tenant/accessible": {
+  "/tenant/accessible": {
    "get": {
     "operationId": "listAccessible",
     "tags": [
@@ -2161,7 +2329,7 @@
     }
    }
   },
-  "/api/tenant/page": {
+  "/tenant/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2191,7 +2359,7 @@
     ]
    }
   },
-  "/api/tenant/{id}": {
+  "/tenant/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -2249,7 +2417,7 @@
     ]
    }
   },
-  "/api/tenant": {
+  "/tenant": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -2327,7 +2495,7 @@
     }
    }
   },
-  "/api/tenant-plan/page": {
+  "/tenant-plan/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2357,7 +2525,7 @@
     ]
    }
   },
-  "/api/tenant-plan/list": {
+  "/tenant-plan/list": {
    "get": {
     "operationId": "listAll",
     "tags": [
@@ -2377,7 +2545,7 @@
     }
    }
   },
-  "/api/tenant-plan/{id}": {
+  "/tenant-plan/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -2435,7 +2603,7 @@
     ]
    }
   },
-  "/api/tenant-plan": {
+  "/tenant-plan": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -2513,7 +2681,7 @@
     }
    }
   },
-  "/api/tenant-plan/{planId}/menus": {
+  "/tenant-plan/{planId}/menus": {
    "get": {
     "operationId": "listMenus",
     "tags": [
@@ -2543,7 +2711,7 @@
     ]
    }
   },
-  "/api/tenant-plan/menus": {
+  "/tenant-plan/menus": {
    "post": {
     "operationId": "updateMenus",
     "tags": [
@@ -2573,7 +2741,7 @@
     }
    }
   },
-  "/api/variable/page": {
+  "/variable/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2603,7 +2771,7 @@
     ]
    }
   },
-  "/api/variable/{id}": {
+  "/variable/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -2661,7 +2829,7 @@
     ]
    }
   },
-  "/api/variable/key/{variableKey}": {
+  "/variable/key/{variableKey}": {
    "get": {
     "operationId": "getByKey",
     "tags": [
@@ -2691,7 +2859,7 @@
     ]
    }
   },
-  "/api/variable": {
+  "/variable": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -2749,7 +2917,7 @@
     }
    }
   },
-  "/api/variable/version/{resourceKey}": {
+  "/variable/version/{resourceKey}": {
    "get": {
     "operationId": "listByResourceKey",
     "tags": [
@@ -2779,7 +2947,7 @@
     ]
    }
   },
-  "/api/variable/version/{resourceKey}/rollback": {
+  "/variable/version/{resourceKey}/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -3216,6 +3384,11 @@
     "description": "系统配置 VO（视图对象）\n\n对应 `ydsz_sys_config` 表的展示视图，是「系统配置中心」列表 / 详情接口的响应载体。\n由 SystemConverter 从 {@link\nConfig} 实体转换而来。\n\n字段语义：\n\n\n`configValue` — 配置值，序列化时按 `valueType` 转换： `STRING` 原样输出；{@code NUMBER /\nBOOLEAN / JSON} 解析为对应类型\n`defaultValue` — 默认值（`configValue` 为空时回退）\n`isPublic` — 是否对前端公开：`true` 公开 / `false` 仅后端； 前端「公开配置」接口仅返回 `isPublic=true`\n的项\n\n\n使用场景：\n\n\n配置中心列表 / 详情 / 编辑回显\n业务参数动态下发（`ydsz.workflow.sla-default-hours` 等）\n前端「公开配置」接口返回值（开关、限流阈值、特性开关等）\n\n\n缓存策略：读取通过 ydsz-common-cache 进程内本地缓存（键 `value:{tenantId`:{configKey}}）；\n写入时 `@CacheEvict` 精准失效；TTL 通过 `ydsz.cache.caches.system:config` 配置（默认 5 分钟）。\n\n注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link\ncom.njydsz.system.domain.dto.ConfigDTO} 负责。",
     "x-field-docs": {}
    },
+   "HttpServletResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "DictPageQuery": {
     "type": "object",
     "properties": {
@@ -3517,6 +3690,231 @@
      "appSecret"
     ]
    },
+   "MonitorErrorBatchDTO": {
+    "type": "object",
+    "properties": {
+     "errors": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MonitorErrorDTO"
+      },
+      "description": "错误条目列表（单批上限 50 条，超出返回参数校验失败）",
+      "maxLength": 50
+     }
+    },
+    "description": "前端错误批量上报 DTO\n\n对应 ydsz-micro 中 `@ydsz/monitor` 上报体 `{ \"errors\": [...] `}，\n上报端点为 `POST /monitor/error`。前端批量通道上限为单批 20 条，\n服务端放宽至 50 条以兼容自定义上报端点的场景，同时限制单请求体规模。",
+    "x-field-docs": {
+     "errors": "错误条目列表（单批上限 50 条，超出返回参数校验失败）"
+    },
+    "required": [
+     "errors"
+    ]
+   },
+   "MonitorErrorDTO": {
+    "type": "object",
+    "properties": {
+     "type": {
+      "type": "string",
+      "description": "错误类型：vue（Vue 组件异常）/ window（全局异常）/ promise（未处理拒绝）/ resource（资源加载失败）"
+     },
+     "message": {
+      "type": "string",
+      "description": "错误消息（截断上限 4000 字符）",
+      "maxLength": 4000
+     },
+     "stack": {
+      "type": "string",
+      "description": "错误堆栈（截断上限 20000 字符，后端结合 sourcemap 做符号化）",
+      "maxLength": 20000
+     },
+     "filename": {
+      "type": "string",
+      "description": "出错脚本文件路径"
+     },
+     "lineno": {
+      "type": "integer",
+      "format": "int32",
+      "description": "出错行号（1 起）"
+     },
+     "colno": {
+      "type": "integer",
+      "format": "int32",
+      "description": "出错列号（1 起）"
+     },
+     "url": {
+      "type": "string",
+      "description": "出错页面 URL"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64",
+      "description": "采集时间戳（epoch 毫秒）"
+     },
+     "userAgent": {
+      "type": "string",
+      "description": "浏览器 User-Agent"
+     },
+     "appVersion": {
+      "type": "string",
+      "description": "应用版本号"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户标识（脱敏由前端 beforeSend 钩子负责）"
+     },
+     "route": {
+      "type": "string",
+      "description": "错误发生时的前端路由路径"
+     },
+     "sessionId": {
+      "type": "string",
+      "description": "会话 ID（单次页面生命周期唯一）"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "错误追踪 ID（单条错误唯一，便于与后端 traceId 关联）"
+     },
+     "release": {
+      "type": "string",
+      "description": "发布版本（commit hash），用于关联已上传的 sourcemap"
+     },
+     "breadcrumbs": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MonitorBreadcrumbDTO"
+      },
+      "description": "错误发生前的用户行为面包屑（前端最多 30 条）"
+     },
+     "extra": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "附加信息（前端自定义键值对）"
+     }
+    },
+    "description": "前端错误上报条目 DTO\n\n对应 ydsz-micro 中 `@ydsz/monitor` 的 ErrorReport 结构。前端经\n`navigator.sendBeacon` 批量上报（降级通道为 keepalive fetch）到\n`POST /monitor/error`，字段命名与前端契约保持 camelCase 一致。\n\n容量约束：单条报文的 `stack` 与 `message`\n已设置长度上限，防止异常客户端提交超大报文导致内存与存储压力。",
+    "x-field-docs": {
+     "type": "错误类型：vue（Vue 组件异常）/ window（全局异常）/ promise（未处理拒绝）/ resource（资源加载失败）",
+     "message": "错误消息（截断上限 4000 字符）",
+     "stack": "错误堆栈（截断上限 20000 字符，后端结合 sourcemap 做符号化）",
+     "filename": "出错脚本文件路径",
+     "lineno": "出错行号（1 起）",
+     "colno": "出错列号（1 起）",
+     "url": "出错页面 URL",
+     "timestamp": "采集时间戳（epoch 毫秒）",
+     "userAgent": "浏览器 User-Agent",
+     "appVersion": "应用版本号",
+     "userId": "用户标识（脱敏由前端 beforeSend 钩子负责）",
+     "route": "错误发生时的前端路由路径",
+     "sessionId": "会话 ID（单次页面生命周期唯一）",
+     "traceId": "错误追踪 ID（单条错误唯一，便于与后端 traceId 关联）",
+     "release": "发布版本（commit hash），用于关联已上传的 sourcemap",
+     "breadcrumbs": "错误发生前的用户行为面包屑（前端最多 30 条）",
+     "extra": "附加信息（前端自定义键值对）"
+    }
+   },
+   "MonitorBreadcrumbDTO": {
+    "type": "object",
+    "properties": {
+     "timestamp": {
+      "type": "integer",
+      "format": "int64",
+      "description": "采集时间戳（epoch 毫秒）"
+     },
+     "category": {
+      "type": "string",
+      "description": "面包屑类别：ui / navigation / http / log / user"
+     },
+     "level": {
+      "type": "string",
+      "description": "级别：debug / info / warning / error"
+     },
+     "message": {
+      "type": "string",
+      "description": "消息文本，例如“点击按钮：提交”"
+     },
+     "data": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "附加数据（键值对，由前端自定义，服务端不解析其内部结构）"
+     }
+    },
+    "description": "前端错误面包屑 DTO\n\n对应 ydsz-micro 中 `@ydsz/monitor` 的 Breadcrumb 结构，记录错误发生前的\n用户行为轨迹（前端为环形缓冲，最多保留 30 条）。字段全部为前端可选项，\n服务端不做非空约束，缺失时按空处理。",
+    "x-field-docs": {
+     "timestamp": "采集时间戳（epoch 毫秒）",
+     "category": "面包屑类别：ui / navigation / http / log / user",
+     "level": "级别：debug / info / warning / error",
+     "message": "消息文本，例如“点击按钮：提交”",
+     "data": "附加数据（键值对，由前端自定义，服务端不解析其内部结构）"
+    }
+   },
+   "MonitorWebVitalBatchDTO": {
+    "type": "object",
+    "properties": {
+     "vitals": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MonitorWebVitalDTO"
+      },
+      "description": "指标条目列表（单批上限 20 条，超出返回参数校验失败）",
+      "maxLength": 20
+     }
+    },
+    "description": "Web Vitals 批量上报 DTO\n\n对应 ydsz-micro 中 `@ydsz/monitor` 上报体 `{ \"vitals\": [...] `}，\n上报端点为 `POST /monitor/web-vitals`（超出性能阈值时附加 `?alert=true`）。\n前端批量缓冲上限为 6 条，服务端放宽至 20 条以兼容自定义上报端点场景。",
+    "x-field-docs": {
+     "vitals": "指标条目列表（单批上限 20 条，超出返回参数校验失败）"
+    },
+    "required": [
+     "vitals"
+    ]
+   },
+   "MonitorWebVitalDTO": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string",
+      "description": "指标名：LCP / FID / CLS / INP / FCP / TTFB / LT / RT"
+     },
+     "value": {
+      "type": "number",
+      "description": "指标值（单位见类注释：毫秒或无量纲得分）"
+     },
+     "rating": {
+      "type": "string",
+      "description": "评级：good / needs-improvement / poor（阈值遵循 Google Web Vitals 标准）"
+     },
+     "delta": {
+      "type": "number",
+      "description": "相对上次上报的增量（CLS 为累计增量，其余通常等于 value）"
+     },
+     "id": {
+      "type": "string",
+      "description": "指标唯一 ID（前端生成，用于去重）"
+     },
+     "page": {
+      "type": "string",
+      "description": "采集页面路径"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64",
+      "description": "采集时间戳（epoch 毫秒）"
+     }
+    },
+    "description": "Web Vitals 指标条目 DTO\n\n对应 ydsz-micro 中 `@ydsz/monitor` 的 WebVitalReport 结构。前端基于\nPerformanceObserver 采集 Core Web Vitals，批量上报至 `POST /monitor/web-vitals`。\n\n单位约定：`LCP` / `FID` / `INP` / `FCP` /\n`TTFB` / `LT`（长任务）为毫秒；`CLS` 为无量纲累计得分；\n`RT`（资源耗时）为毫秒。",
+    "x-field-docs": {
+     "name": "指标名：LCP / FID / CLS / INP / FCP / TTFB / LT / RT",
+     "value": "指标值（单位见类注释：毫秒或无量纲得分）",
+     "rating": "评级：good / needs-improvement / poor（阈值遵循 Google Web Vitals 标准）",
+     "delta": "相对上次上报的增量（CLS 为累计增量，其余通常等于 value）",
+     "id": "指标唯一 ID（前端生成，用于去重）",
+     "page": "采集页面路径",
+     "timestamp": "采集时间戳（epoch 毫秒）"
+    }
+   },
    "SecondaryAuthRequest": {
     "type": "object",
     "properties": {
@@ -3750,6 +4148,658 @@
      "variableKey",
      "valueType"
     ]
+   },
+   "ApiPermissionVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "apiCode": {
+      "type": "string"
+     },
+     "apiName": {
+      "type": "string"
+     },
+     "httpMethod": {
+      "type": "string"
+     },
+     "urlPattern": {
+      "type": "string"
+     },
+     "controllerClass": {
+      "type": "string"
+     },
+     "methodName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string"
+     }
+    },
+    "description": "接口权限 VO（视图对象）\n\n对应 `ydsz_sys_api_permission` 表的展示视图，是「接口权限注册中心」列表 / 详情接口的响应载体。\n\n字段语义：\n\n\n`apiCode` — 权限码（如 sys:config:list）\n`httpMethod` — HTTP 方法\n`urlPattern` — URL 模式\n`controllerClass` — Controller 完全限定名\n`methodName` — Controller 方法名\n`status` — 启用状态: ENABLED/DISABLED",
+    "x-field-docs": {}
+   },
+   "AppInfoVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "appCode": {
+      "type": "string"
+     },
+     "appName": {
+      "type": "string"
+     },
+     "appKey": {
+      "type": "string"
+     },
+     "appSecret": {
+      "type": "string",
+      "description": "应用密钥（BCrypt 哈希），仅供内部密钥校验使用。\n\n标记 `@JsonIgnore` 确保序列化时不暴露给前端。"
+     },
+     "redirectUrl": {
+      "type": "string"
+     },
+     "scopes": {
+      "type": "string"
+     },
+     "boundIps": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "应用注册 VO\n\n对应 `ydsz_sys_app_info` 表的展示视图，是「应用注册中心」列表 / 详情接口的返回值类型。 由 {@link\ncom.njydsz.system.domain.converter.SystemConverter} 从 {@link\ncom.njydsz.system.domain.entity.AppInfo} 实体转换而来。\n\n安全约束（关键）：\n\n\n不暴露 `appSecret` 字段，BCrypt 哈希永远不出现在 VO 中， 即便数据库被拖库也不可逆\n管理后台「查看密钥」入口走单独的 `/app/{id`/secret} 接口， 该接口需 `ydsz:app:secret:view` 权限码 +\n二次密码确认 + 操作审计\n列表接口在 `YdszJson` 序列化层强制忽略 `appSecret` 字段 （如未来误加\n`@com.njydsz.common.json.annotation.JsonProperty`，需通过单元测试拦截）\n\n\n使用场景：\n\n\n应用管理列表 / 详情 / 编辑回显\nOAuth 2.0 客户端注册信息展示\n第三方应用对接时的「应用信息」展示",
+    "x-field-docs": {
+     "appSecret": "应用密钥（BCrypt 哈希），仅供内部密钥校验使用。\n\n标记 `@JsonIgnore` 确保序列化时不暴露给前端。"
+    }
+   },
+   "AuditLog": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "审计记录唯一标识（雪花算法生成）"
+     },
+     "auditType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "审计类型（com.njydsz.common.audit.enums.AuditType 编码）"
+     },
+     "action": {
+      "type": "integer",
+      "format": "int32",
+      "description": "操作行为（com.njydsz.common.audit.enums.AuditAction 编码）"
+     },
+     "status": {
+      "type": "integer",
+      "format": "int32",
+      "description": "审计状态（com.njydsz.common.audit.enums.AuditStatus 编码）"
+     },
+     "module": {
+      "type": "string",
+      "description": "模块名称（如用户管理、订单管理等）"
+     },
+     "content": {
+      "type": "string",
+      "description": "操作内容描述（经 SpEL 解析后的最终文本）"
+     },
+     "businessNo": {
+      "type": "string",
+      "description": "业务流水号（关联业务单据，便于端到端追踪）"
+     },
+     "operatorId": {
+      "type": "string",
+      "description": "操作人 ID"
+     },
+     "operatorName": {
+      "type": "string",
+      "description": "操作人姓名"
+     },
+     "operationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "操作时间（业务方法执行时刻）"
+     },
+     "ipAddress": {
+      "type": "string",
+      "description": "请求 IP 地址"
+     },
+     "requestParams": {
+      "type": "string",
+      "description": "请求参数（已脱敏/截断）"
+     },
+     "responseResult": {
+      "type": "string",
+      "description": "响应结果（已脱敏/截断；默认不记录）"
+     },
+     "diffBeforeSnapshot": {
+      "type": "string",
+      "description": "变更前快照（JSON）。\n\n仅当 com.njydsz.common.audit.annotation.Audit#recordDiff() = true 时\n在方法执行前由切面查询记录。用于 diff 追溯（如：更新前的用户信息）。"
+     },
+     "diffAfterSnapshot": {
+      "type": "string",
+      "description": "变更后快照（JSON）。\n\n方法执行后由切面捕获（含方法返回值）。与 #diffBeforeSnapshot 配合\n记录完整的变更 diff。"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（业务方法抛异常时记录）"
+     },
+     "costTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "执行耗时（毫秒）"
+     },
+     "appKey": {
+      "type": "string",
+      "description": "应用标识（合并原 appId/appCode/appName，从配置中心读取）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（多租户场景下用于数据隔离）"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "链路追踪 ID（独立列，支持索引查询）"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间（审计日志落库时刻）"
+     }
+    },
+    "description": "审计日志实体\n\n封装完整的审计轨迹信息，包括操作人、行为、状态、上下文、参数、结果等。 该实体在审计切面、记录器、存储层之间传递，字段名直接映射数据库列。\n\n字段使用约束：\n\n\n#requestParams 和 #responseResult 默认仅记录截断/脱敏后的数据， 避免日志膨胀和敏感信息泄露\n#operatorId 从 `RequestContext` 透传，避免在审计上下文中重复存储\n#appKey 为应用标识（合并原 appId/appCode/appName），从配置中心读取",
+    "x-field-docs": {
+     "id": "审计记录唯一标识（雪花算法生成）",
+     "auditType": "审计类型（com.njydsz.common.audit.enums.AuditType 编码）",
+     "action": "操作行为（com.njydsz.common.audit.enums.AuditAction 编码）",
+     "status": "审计状态（com.njydsz.common.audit.enums.AuditStatus 编码）",
+     "module": "模块名称（如用户管理、订单管理等）",
+     "content": "操作内容描述（经 SpEL 解析后的最终文本）",
+     "businessNo": "业务流水号（关联业务单据，便于端到端追踪）",
+     "operatorId": "操作人 ID",
+     "operatorName": "操作人姓名",
+     "operationTime": "操作时间（业务方法执行时刻）",
+     "ipAddress": "请求 IP 地址",
+     "requestParams": "请求参数（已脱敏/截断）",
+     "responseResult": "响应结果（已脱敏/截断；默认不记录）",
+     "diffBeforeSnapshot": "变更前快照（JSON）。\n\n仅当 com.njydsz.common.audit.annotation.Audit#recordDiff() = true 时\n在方法执行前由切面查询记录。用于 diff 追溯（如：更新前的用户信息）。",
+     "diffAfterSnapshot": "变更后快照（JSON）。\n\n方法执行后由切面捕获（含方法返回值）。与 #diffBeforeSnapshot 配合\n记录完整的变更 diff。",
+     "errorMessage": "错误信息（业务方法抛异常时记录）",
+     "costTime": "执行耗时（毫秒）",
+     "appKey": "应用标识（合并原 appId/appCode/appName，从配置中心读取）",
+     "tenantId": "租户 ID（多租户场景下用于数据隔离）",
+     "traceId": "链路追踪 ID（独立列，支持索引查询）",
+     "createdAt": "创建时间（审计日志落库时刻）"
+    }
+   },
+   "ConfigApprovalVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "审批单唯一 ID"
+     },
+     "title": {
+      "type": "string",
+      "description": "审批标题"
+     },
+     "resourceType": {
+      "type": "string",
+      "description": "资源类型（CONFIG / DICT / VARIABLE）"
+     },
+     "resourceKey": {
+      "type": "string",
+      "description": "资源唯一标识"
+     },
+     "resourceGroup": {
+      "type": "string",
+      "description": "资源分组"
+     },
+     "changeType": {
+      "type": "string",
+      "description": "变更操作类型（CREATE / UPDATE / DELETE）"
+     },
+     "beforeJson": {
+      "type": "string",
+      "description": "变更前的 JSON 值"
+     },
+     "afterJson": {
+      "type": "string",
+      "description": "变更后的 JSON 值"
+     },
+     "status": {
+      "type": "string",
+      "description": "审批状态（PENDING / APPROVED / REJECTED / WITHDRAWN）"
+     },
+     "submitterId": {
+      "type": "string",
+      "description": "发起人 ID"
+     },
+     "submitterName": {
+      "type": "string",
+      "description": "发起人姓名"
+     },
+     "submittedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "发起时间"
+     },
+     "currentApproverName": {
+      "type": "string",
+      "description": "当前审批人姓名"
+     },
+     "reason": {
+      "type": "string",
+      "description": "变更原因"
+     },
+     "rejectionReason": {
+      "type": "string",
+      "description": "拒绝原因"
+     },
+     "closedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "审批单关闭时间"
+     }
+    },
+    "description": "配置变更审批单视图对象（返回前端）。\n\n封装审批单的完整展示信息，包括审计日志时间线（JSON 解析后填充）。",
+    "x-field-docs": {
+     "id": "审批单唯一 ID",
+     "title": "审批标题",
+     "resourceType": "资源类型（CONFIG / DICT / VARIABLE）",
+     "resourceKey": "资源唯一标识",
+     "resourceGroup": "资源分组",
+     "changeType": "变更操作类型（CREATE / UPDATE / DELETE）",
+     "beforeJson": "变更前的 JSON 值",
+     "afterJson": "变更后的 JSON 值",
+     "status": "审批状态（PENDING / APPROVED / REJECTED / WITHDRAWN）",
+     "submitterId": "发起人 ID",
+     "submitterName": "发起人姓名",
+     "submittedAt": "发起时间",
+     "currentApproverName": "当前审批人姓名",
+     "reason": "变更原因",
+     "rejectionReason": "拒绝原因",
+     "closedAt": "审批单关闭时间"
+    }
+   },
+   "ImportResultVO": {
+    "type": "object",
+    "properties": {
+     "message": {
+      "type": "string",
+      "description": "导入结果消息"
+     },
+     "errorItems": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ImportErrorItem"
+      },
+      "description": "结构化错误列表（含行号、字段名、错误码、消息）。\n\n前端可按此渲染错误定位单元格，无需解析字符串。若为空则兼容旧的 #errors 纯文本列表。"
+     },
+     "row": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Excel 行号（从 2 开始，第 1 行为表头）"
+     },
+     "field": {
+      "type": "string",
+      "description": "出错字段名（如 typeCode / itemCode / configValue）"
+     },
+     "code": {
+      "type": "string",
+      "description": "错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT）"
+     }
+    },
+    "description": "导入结果 VO（系统模块）。\n\n封装 Excel 导入的结果统计信息，继承通用 ExcelImportResult 基类。\n\n结构化错误（#errorItems）与旧错误（#errors）并存： #errorItems 供前端精准定位错误行/字段； #errors 供旧版前端展示纯文本错误。",
+    "x-field-docs": {
+     "message": "导入结果消息",
+     "errorItems": "结构化错误列表（含行号、字段名、错误码、消息）。\n\n前端可按此渲染错误定位单元格，无需解析字符串。若为空则兼容旧的 #errors 纯文本列表。",
+     "row": "Excel 行号（从 2 开始，第 1 行为表头）",
+     "field": "出错字段名（如 typeCode / itemCode / configValue）",
+     "code": "错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT）"
+    }
+   },
+   "ImportErrorItem": {
+    "type": "object",
+    "properties": {
+     "row": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Excel 行号（从 2 开始，第 1 行为表头）"
+     },
+     "field": {
+      "type": "string",
+      "description": "出错字段名（如 typeCode / itemCode / configValue）"
+     },
+     "code": {
+      "type": "string",
+      "description": "错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT）"
+     },
+     "message": {
+      "type": "string",
+      "description": "错误描述（中文可读文案）"
+     }
+    },
+    "description": "导入错误项 DTO（结构化表示单条错误的位置和原因）。\n\n供前端精准定位到 Excel 的具体行和字段，渲染高亮单元格和错误提示。",
+    "x-field-docs": {
+     "row": "Excel 行号（从 2 开始，第 1 行为表头）",
+     "field": "出错字段名（如 typeCode / itemCode / configValue）",
+     "code": "错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT）",
+     "message": "错误描述（中文可读文案）"
+    }
+   },
+   "EntityVersionVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "resourceType": {
+      "type": "string"
+     },
+     "resourceKey": {
+      "type": "string"
+     },
+     "resourceGroup": {
+      "type": "string"
+     },
+     "version": {
+      "type": "string"
+     },
+     "changeLog": {
+      "type": "string"
+     },
+     "effectiveDate": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "snapshotJson": {
+      "type": "string"
+     }
+    },
+    "description": "统一实体版本 VO\n\n对应 `ydsz_sys_entity_version` 表的展示视图，是「版本管理」列表 / 详情接口的返回值类型。",
+    "x-field-docs": {}
+   },
+   "DashboardOverviewItemVO": {
+    "type": "object",
+    "properties": {
+     "title": {
+      "type": "string",
+      "description": "统计项标题（如「租户总数」）"
+     },
+     "totalTitle": {
+      "type": "string",
+      "description": "累计总值标题（如「累计租户」）"
+     },
+     "totalValue": {
+      "type": "integer",
+      "format": "int64",
+      "description": "累计总值"
+     },
+     "value": {
+      "type": "integer",
+      "format": "int64",
+      "description": "今日/增量值"
+     }
+    },
+    "description": "工作台概览统计项 VO\n\n供 `GET /api/dashboard/overview` 返回，对齐前端\n`OverviewItem` 契约（analytics 页顶部统计卡片）。",
+    "x-field-docs": {
+     "title": "统计项标题（如「租户总数」）",
+     "totalTitle": "累计总值标题（如「累计租户」）",
+     "totalValue": "累计总值",
+     "value": "今日/增量值"
+    }
+   },
+   "DashboardWorkspaceVO": {
+    "type": "object",
+    "properties": {
+     "greeting": {
+      "type": "string",
+      "description": "问候文案（按时段 + 当前用户名生成，如「下午好，admin」）"
+     }
+    },
+    "description": "工作台聚合数据 VO\n\n供 `GET /api/dashboard/workspace` 返回，对齐前端 `WorkspaceData` 契约。\n当前版本提供后端可真实计算的「时段化问候语」；项目/待办/动态等列表字段由前端\n按字段粒度回退本地默认值（前端 useWorkspaceData 已内置该合并逻辑），\n待各业务模块沉淀出真实的待办/动态聚合能力后再逐字段接入。",
+    "x-field-docs": {
+     "greeting": "问候文案（按时段 + 当前用户名生成，如「下午好，admin」）"
+    }
+   },
+   "DictTypeVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "typeCode": {
+      "type": "string"
+     },
+     "typeName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "字典类型 VO（视图对象）\n\n对应 `ydsz_sys_dict_type` 表的展示视图，是「字典中心」列表 / 详情接口的响应载体。\n\n字段语义：\n\n\n`typeCode` — 字典类型编码，租户内唯一，业务存储 / 接口传输主键\n`typeName` — 字典类型名称（前端展示文本，如「订单状态」「行业类型」）\n\n\n使用场景：\n\n\n字典中心列表 / 详情 / 编辑回显\n前端「字典类型选择器」数据源（管理员配置字典项前的下拉框）\n字典项管理页的「按类型筛选」下拉框\n\n\n关联关系：1 个 `DictTypeVO` 对应 N 个 DictItemVO，构成「类型 → 项」两级结构。\n\n注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link\ncom.njydsz.system.domain.dto.DictTypeDTO} 负责。",
+    "x-field-docs": {}
+   },
+   "FrontendInitVO": {
+    "type": "object",
+    "properties": {
+     "publicConfigs": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      },
+      "description": "公开配置 Map（key-value 形式，前端直接使用）"
+     },
+     "dictMap": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "array",
+       "items": {
+        "$ref": "#/components/schemas/DictItemVO"
+       }
+      },
+      "description": "字典类型下拉数据（typeCode -> 字典项列表）"
+     },
+     "systemVersion": {
+      "type": "string",
+      "description": "系统版本号"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "当前租户 ID"
+     },
+     "userId": {
+      "type": "string",
+      "description": "当前用户 ID"
+     }
+    },
+    "description": "前端初始化聚合响应 VO\n\n聚合前端初始化所需的数据，减少前端启动时的请求次数。\n\n包含：\n\n\n公开配置（前端可读的系统配置）\n字典类型下拉数据（常用字典）",
+    "x-field-docs": {
+     "publicConfigs": "公开配置 Map（key-value 形式，前端直接使用）",
+     "dictMap": "字典类型下拉数据（typeCode -> 字典项列表）",
+     "systemVersion": "系统版本号",
+     "tenantId": "当前租户 ID",
+     "userId": "当前用户 ID"
+    }
+   },
+   "SecondaryAuthVO": {
+    "type": "object",
+    "properties": {
+     "token": {
+      "type": "string",
+      "description": "认证通过令牌（后续请求头 X-Secondary-Auth 携带）"
+     },
+     "expiresIn": {
+      "type": "integer",
+      "format": "int64",
+      "description": "有效期（毫秒）"
+     },
+     "expiresAt": {
+      "type": "integer",
+      "format": "int64",
+      "description": "过期时间戳（Unix 毫秒）"
+     }
+    },
+    "description": "二次认证响应 VO。\n\n密码校验通过后颁发的短期令牌，前端在后续敏感操作请求头 `X-Secondary-Auth` 中携带该令牌。",
+    "x-field-docs": {
+     "token": "认证通过令牌（后续请求头 X-Secondary-Auth 携带）",
+     "expiresIn": "有效期（毫秒）",
+     "expiresAt": "过期时间戳（Unix 毫秒）"
+    }
+   },
+   "TenantVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "tenantCode": {
+      "type": "string"
+     },
+     "tenantName": {
+      "type": "string"
+     },
+     "contactName": {
+      "type": "string"
+     },
+     "contactPhone": {
+      "type": "string"
+     },
+     "contactEmail": {
+      "type": "string"
+     },
+     "planId": {
+      "type": "string"
+     },
+     "expireAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "datasourceKey": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "remark": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "租户 VO\n\n对应 `ydsz_sys_tenant` 表的展示视图，是「租户管理」列表 / 详情接口的返回值类型。 由 {@link\ncom.njydsz.system.domain.converter.SystemConverter} 从 {@link\ncom.njydsz.system.domain.entity.Tenant} 实体转换而来。\n\n字段语义：\n\n\n`tenantCode` — 租户编码，全局唯一标识\n`planId` — 关联套餐 ID\n`expireAt` — 套餐到期时间，到期后自动降级为基础版",
+    "x-field-docs": {}
+   },
+   "TenantPlanVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "planCode": {
+      "type": "string"
+     },
+     "planName": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "quotaJson": {
+      "type": "string"
+     },
+     "featureJson": {
+      "type": "string"
+     }
+    },
+    "description": "租户套餐 VO（视图对象）\n\n对应 `ydsz_sys_tenant_plan` 表的展示视图，是「套餐管理」列表 / 详情接口的响应载体。\n\n字段语义：\n\n\n`planCode` — 套餐编码，全局唯一标识\n`sort` — 排序号（升序，影响前端套餐选择器顺序）\n\n\n注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link\ncom.njydsz.system.domain.dto.TenantPlanDTO} 负责。",
+    "x-field-docs": {}
+   },
+   "TenantPlanMenuVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "planId": {
+      "type": "string"
+     },
+     "menuId": {
+      "type": "string"
+     }
+    },
+    "description": "租户套餐-菜单关联 VO\n\n对应 `ydsz_sys_tenant_plan_menu` 表的展示视图，记录套餐与菜单的关联关系。 租户购买套餐后自动获得关联菜单的访问权限，是 RBAC 的「套餐级」权限分配。",
+    "x-field-docs": {}
+   },
+   "VariableVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "variableKey": {
+      "type": "string"
+     },
+     "variableValue": {
+      "type": "string"
+     },
+     "valueType": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     }
+    },
+    "description": "系统变量 VO（视图对象）\n\n对应 `ydsz_sys_variable` 表的展示视图，是「系统变量中心」列表 / 详情接口的响应载体。\n\n字段语义：\n\n\n`variableKey` — 变量键，租户内唯一，业务存储 / 接口传输主键\n`variableValue` — 变量值，序列化时按 `valueType` 转换： `STRING` 原样输出；{@code NUMBER /\nBOOLEAN / JSON} 解析为对应类型\n\n\n与 Config 的区别：`Variable` 是全局无分组的扁平结构， 适合「跨模块共享的环境变量」场景；`ConfigVO`\n是按分组管理的结构， 适合「按业务域配置」场景。\n\n使用场景：\n\n\n系统变量中心列表 / 详情 / 编辑回显\n运行时动态配置（如外部 API endpoint、限流阈值）\nSpring 占位符解析：`@Value(\"${ydsz.variable.xxx`\")}\n\n\n缓存策略：读取通过 `ydsz:variable:{key`} 缓存至 Redis； 写入时 `@CacheEvict` 主动失效。\n\n注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link\ncom.njydsz.system.domain.dto.VariableDTO} 负责。",
+    "x-field-docs": {}
    }
   }
  }

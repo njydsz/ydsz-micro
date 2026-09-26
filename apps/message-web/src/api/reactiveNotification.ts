@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 import type { ReactiveEvent } from './models';
 
 /**
- * streamEvents: GET /api/message/reactive/stream
+ * streamEvents: GET /message/reactive/stream
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code Flux}，响应结构未固定为具名 VO，
@@ -22,19 +22,19 @@ import type { ReactiveEvent } from './models';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function streamEvents(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/message/reactive/stream`);
+  return requestClient.get<unknown>(`/message/reactive/stream`);
 }
 
 /**
- * publishEvent: POST /api/message/reactive/publish
+ * publishEvent: POST /message/reactive/publish
  */
 export function publishEvent(data: ReactiveEvent): Promise<string> {
-  return requestClient.post<string>(`/api/message/reactive/publish`, data);
+  return requestClient.post<string>(`/message/reactive/publish`, data);
 }
 
 /**
- * health: GET /api/message/reactive/health
+ * health: GET /message/reactive/health
  */
 export function health(): Promise<Record<string, string>> {
-  return requestClient.get<Record<string, string>>(`/api/message/reactive/health`);
+  return requestClient.get<Record<string, string>>(`/message/reactive/health`);
 }

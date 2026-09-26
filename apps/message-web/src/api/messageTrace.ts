@@ -14,29 +14,29 @@ import { requestClient } from '#/api/request';
 import type { MsgTraceVO } from './models';
 
 /**
- * getByMsgId: GET /api/message/trace/msg/{msgId}
+ * getByMsgId: GET /message/trace/msg/{msgId}
  */
 export function getByMsgId({ msgId }: {
     msgId: string;
   }): Promise<MsgTraceVO[]> {
-  return requestClient.get<MsgTraceVO[]>(`/api/message/trace/msg/${msgId}`);
+  return requestClient.get<MsgTraceVO[]>(`/message/trace/msg/${msgId}`);
 }
 
 /**
- * getByTraceId: GET /api/message/trace/trace/{traceId}
+ * getByTraceId: GET /message/trace/trace/{traceId}
  */
 export function getByTraceId({ traceId }: {
     traceId: string;
   }): Promise<MsgTraceVO[]> {
-  return requestClient.get<MsgTraceVO[]>(`/api/message/trace/trace/${traceId}`);
+  return requestClient.get<MsgTraceVO[]>(`/message/trace/trace/${traceId}`);
 }
 
 /**
- * getByBiz: GET /api/message/trace/biz
+ * getByBiz: GET /message/trace/biz
  */
 export function getByBiz(params: {
     bizType?: string;
     bizId?: string;
   }): Promise<MsgTraceVO[]> {
-  return requestClient.get<MsgTraceVO[]>(`/api/message/trace/biz`, { params });
+  return requestClient.get<MsgTraceVO[]>(`/message/trace/biz`, { params });
 }

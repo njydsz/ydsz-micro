@@ -204,7 +204,7 @@ interface OAuth2FormState {
   allowedScopesText: string;
   allowedAudiencesText: string;
   description: string;
-  sortOrder: number;
+  sort?: number;
 }
 
 const formData = reactive<OAuth2FormState>({
@@ -216,7 +216,7 @@ const formData = reactive<OAuth2FormState>({
   allowedScopesText: '',
   allowedAudiencesText: '',
   description: '',
-  sortOrder: 0,
+  sort: 0,
 });
 
 const rules = {
@@ -257,7 +257,7 @@ const [Modal, modalApi] = useYdModal({
         allowedScopesText: '',
         allowedAudiencesText: '',
         description: '',
-        sortOrder: 0,
+        sort: 0,
       });
     }
   },
@@ -284,7 +284,7 @@ const [Modal, modalApi] = useYdModal({
         allowedScopes: parseList(formData.allowedScopesText),
         allowedAudiences: parseList(formData.allowedAudiencesText),
         description: formData.description,
-        sortOrder: formData.sortOrder,
+        sort: formData.sort,
       };
       if (isEdit.value) {
         await update({ id: formData.id }, payload);
@@ -410,7 +410,7 @@ async function handleDelete(row: OAuth2Application) {
           />
         </YdFormItem>
         <YdFormItem label="排序">
-          <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+          <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
         </YdFormItem>
         <YdFormItem label="描述">
           <YdInput

@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 import type { DagCheckpoint, DagExecutionDTO } from './models';
 
 /**
- * execute: POST /api/agent/dag/execute
+ * execute: POST /agent/dag/execute
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,21 +22,21 @@ import type { DagCheckpoint, DagExecutionDTO } from './models';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function execute(data: DagExecutionDTO): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/agent/dag/execute`, data);
+  return requestClient.post<unknown>(`/agent/dag/execute`, data);
 }
 
 /**
- * getCheckpoint: GET /api/agent/dag/checkpoint/{executionId}
+ * getCheckpoint: GET /agent/dag/checkpoint/{executionId}
  */
 export function getCheckpoint({ executionId }: {
     executionId: string;
   }): Promise<DagCheckpoint> {
-  return requestClient.get<DagCheckpoint>(`/api/agent/dag/checkpoint/${executionId}`);
+  return requestClient.get<DagCheckpoint>(`/agent/dag/checkpoint/${executionId}`);
 }
 
 /**
- * validate: POST /api/agent/dag/validate
+ * validate: POST /agent/dag/validate
  */
 export function validate(data: DagExecutionDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/agent/dag/validate`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/agent/dag/validate`, data);
 }

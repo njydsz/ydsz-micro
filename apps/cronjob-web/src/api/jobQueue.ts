@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * getQueueStatus: GET /api/cronjob/queue/status
+ * getQueueStatus: GET /cronjob/queue/status
  */
 export function getQueueStatus(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/queue/status`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/queue/status`);
 }

@@ -14,15 +14,15 @@ import { requestClient } from '#/api/request';
 import type { DashboardOverviewItemVO, DashboardWorkspaceVO } from './models';
 
 /**
- * overview: GET /api/dashboard/overview
+ * overview: GET /dashboard/overview
  */
 export function overview(): Promise<DashboardOverviewItemVO[]> {
-  return requestClient.get<DashboardOverviewItemVO[]>(`/api/dashboard/overview`);
+  return requestClient.get<DashboardOverviewItemVO[]>(`/dashboard/overview`);
 }
 
 /**
- * workspace: GET /api/dashboard/workspace
+ * workspace: GET /dashboard/workspace
  */
 export function workspace(): Promise<DashboardWorkspaceVO> {
-  return requestClient.get<DashboardWorkspaceVO>(`/api/dashboard/workspace`);
+  return requestClient.get<DashboardWorkspaceVO>(`/dashboard/workspace`);
 }

@@ -15,65 +15,65 @@ import type { PageResponse } from './models';
 import type { TenantPlanDTO, TenantPlanMenuDTO, TenantPlanMenuVO, TenantPlanPageQuery, TenantPlanVO } from './models';
 
 /**
- * page: GET /api/tenant-plan/page
+ * page: GET /tenant-plan/page
  */
 export function page(params: {
     query?: TenantPlanPageQuery;
   }): Promise<PageResponse<TenantPlanVO[]>> {
-  return requestClient.get<PageResponse<TenantPlanVO[]>>(`/api/tenant-plan/page`, { params });
+  return requestClient.get<PageResponse<TenantPlanVO[]>>(`/tenant-plan/page`, { params });
 }
 
 /**
- * listAll: GET /api/tenant-plan/list
+ * listAll: GET /tenant-plan/list
  */
 export function listAll(): Promise<TenantPlanVO[]> {
-  return requestClient.get<TenantPlanVO[]>(`/api/tenant-plan/list`);
+  return requestClient.get<TenantPlanVO[]>(`/tenant-plan/list`);
 }
 
 /**
- * getById: GET /api/tenant-plan/{id}
+ * getById: GET /tenant-plan/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<TenantPlanVO> {
-  return requestClient.get<TenantPlanVO>(`/api/tenant-plan/${id}`);
+  return requestClient.get<TenantPlanVO>(`/tenant-plan/${id}`);
 }
 
 /**
- * save: POST /api/tenant-plan
+ * save: POST /tenant-plan
  */
 export function save(data: TenantPlanDTO): Promise<string> {
-  return requestClient.post<string>(`/api/tenant-plan`, data);
+  return requestClient.post<string>(`/tenant-plan`, data);
 }
 
 /**
- * update: PUT /api/tenant-plan
+ * update: PUT /tenant-plan
  */
 export function update(data: TenantPlanDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/tenant-plan`, data);
+  return requestClient.put<boolean>(`/tenant-plan`, data);
 }
 
 /**
- * remove: DELETE /api/tenant-plan/{id}
+ * remove: DELETE /tenant-plan/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/tenant-plan/${id}`);
+  return requestClient.delete<boolean>(`/tenant-plan/${id}`);
 }
 
 /**
- * listMenus: GET /api/tenant-plan/{planId}/menus
+ * listMenus: GET /tenant-plan/{planId}/menus
  */
 export function listMenus({ planId }: {
     planId: string;
   }): Promise<TenantPlanMenuVO[]> {
-  return requestClient.get<TenantPlanMenuVO[]>(`/api/tenant-plan/${planId}/menus`);
+  return requestClient.get<TenantPlanMenuVO[]>(`/tenant-plan/${planId}/menus`);
 }
 
 /**
- * updateMenus: POST /api/tenant-plan/menus
+ * updateMenus: POST /tenant-plan/menus
  */
 export function updateMenus(data: TenantPlanMenuDTO): Promise<void> {
-  return requestClient.post<void>(`/api/tenant-plan/menus`, data);
+  return requestClient.post<void>(`/tenant-plan/menus`, data);
 }

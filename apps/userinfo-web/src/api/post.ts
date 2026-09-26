@@ -14,40 +14,40 @@ import { requestClient } from '#/api/request';
 import type { PostDTO, PostVO } from './models';
 
 /**
- * list: GET /api/post/list
+ * list: GET /post/list
  */
 export function list(): Promise<PostVO[]> {
-  return requestClient.get<PostVO[]>(`/api/post/list`);
+  return requestClient.get<PostVO[]>(`/post/list`);
 }
 
 /**
- * getById: GET /api/post/{id}
+ * getById: GET /post/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<PostVO> {
-  return requestClient.get<PostVO>(`/api/post/${id}`);
+  return requestClient.get<PostVO>(`/post/${id}`);
 }
 
 /**
- * create: POST /api/post
+ * create: POST /post
  */
 export function create(data: PostDTO): Promise<string> {
-  return requestClient.post<string>(`/api/post`, data);
+  return requestClient.post<string>(`/post`, data);
 }
 
 /**
- * update: PUT /api/post
+ * update: PUT /post
  */
 export function update(data: PostDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/post`, data);
+  return requestClient.put<boolean>(`/post`, data);
 }
 
 /**
- * remove: DELETE /api/post/{id}
+ * remove: DELETE /post/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/post/${id}`);
+  return requestClient.delete<boolean>(`/post/${id}`);
 }

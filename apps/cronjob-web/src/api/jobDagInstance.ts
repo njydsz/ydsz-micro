@@ -14,93 +14,93 @@ import { requestClient } from '#/api/request';
 import type { DagInstanceVisualizationVO, JobDagInstanceVO, JobDagNodeInstanceVO } from './models';
 
 /**
- * getInstanceById: GET /api/cronjob/dag/instance/{instanceId}
+ * getInstanceById: GET /cronjob/dag/instance/{instanceId}
  */
 export function getInstanceById({ instanceId }: {
     instanceId: string;
   }): Promise<JobDagInstanceVO> {
-  return requestClient.get<JobDagInstanceVO>(`/api/cronjob/dag/instance/${instanceId}`);
+  return requestClient.get<JobDagInstanceVO>(`/cronjob/dag/instance/${instanceId}`);
 }
 
 /**
- * listByDagId: GET /api/cronjob/dag/instance/dag/{dagId}
+ * listByDagId: GET /cronjob/dag/instance/dag/{dagId}
  */
 export function listByDagId({ dagId }: {
     dagId: string;
   }, params: {
     limit?: number;
   }): Promise<JobDagInstanceVO[]> {
-  return requestClient.get<JobDagInstanceVO[]>(`/api/cronjob/dag/instance/dag/${dagId}`, { params });
+  return requestClient.get<JobDagInstanceVO[]>(`/cronjob/dag/instance/dag/${dagId}`, { params });
 }
 
 /**
- * listByStatus: GET /api/cronjob/dag/instance/status/{status}
+ * listByStatus: GET /cronjob/dag/instance/status/{status}
  */
 export function listByStatus({ status }: {
     status: string;
   }): Promise<JobDagInstanceVO[]> {
-  return requestClient.get<JobDagInstanceVO[]>(`/api/cronjob/dag/instance/status/${status}`);
+  return requestClient.get<JobDagInstanceVO[]>(`/cronjob/dag/instance/status/${status}`);
 }
 
 /**
- * listNodes: GET /api/cronjob/dag/instance/{instanceId}/nodes
+ * listNodes: GET /cronjob/dag/instance/{instanceId}/nodes
  */
 export function listNodes({ instanceId }: {
     instanceId: string;
   }): Promise<JobDagNodeInstanceVO[]> {
-  return requestClient.get<JobDagNodeInstanceVO[]>(`/api/cronjob/dag/instance/${instanceId}/nodes`);
+  return requestClient.get<JobDagNodeInstanceVO[]>(`/cronjob/dag/instance/${instanceId}/nodes`);
 }
 
 /**
- * getVisualization: GET /api/cronjob/dag/instance/{instanceId}/visualization
+ * getVisualization: GET /cronjob/dag/instance/{instanceId}/visualization
  */
 export function getVisualization({ instanceId }: {
     instanceId: string;
   }): Promise<DagInstanceVisualizationVO> {
-  return requestClient.get<DagInstanceVisualizationVO>(`/api/cronjob/dag/instance/${instanceId}/visualization`);
+  return requestClient.get<DagInstanceVisualizationVO>(`/cronjob/dag/instance/${instanceId}/visualization`);
 }
 
 /**
- * getMermaidDiagram: GET /api/cronjob/dag/instance/{instanceId}/mermaid
+ * getMermaidDiagram: GET /cronjob/dag/instance/{instanceId}/mermaid
  */
 export function getMermaidDiagram({ instanceId }: {
     instanceId: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/cronjob/dag/instance/${instanceId}/mermaid`);
+  return requestClient.get<string>(`/cronjob/dag/instance/${instanceId}/mermaid`);
 }
 
 /**
- * pauseInstance: PUT /api/cronjob/dag/instance/{instanceId}/pause
+ * pauseInstance: PUT /cronjob/dag/instance/{instanceId}/pause
  */
 export function pauseInstance({ instanceId }: {
     instanceId: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/instance/${instanceId}/pause`);
+  return requestClient.put<void>(`/cronjob/dag/instance/${instanceId}/pause`);
 }
 
 /**
- * resumeInstance: PUT /api/cronjob/dag/instance/{instanceId}/resume
+ * resumeInstance: PUT /cronjob/dag/instance/{instanceId}/resume
  */
 export function resumeInstance({ instanceId }: {
     instanceId: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/instance/${instanceId}/resume`);
+  return requestClient.put<void>(`/cronjob/dag/instance/${instanceId}/resume`);
 }
 
 /**
- * cancelInstance: PUT /api/cronjob/dag/instance/{instanceId}/cancel
+ * cancelInstance: PUT /cronjob/dag/instance/{instanceId}/cancel
  */
 export function cancelInstance({ instanceId }: {
     instanceId: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/instance/${instanceId}/cancel`);
+  return requestClient.put<void>(`/cronjob/dag/instance/${instanceId}/cancel`);
 }
 
 /**
- * updateContext: PUT /api/cronjob/dag/instance/{instanceId}/context
+ * updateContext: PUT /cronjob/dag/instance/{instanceId}/context
  */
 export function updateContext({ instanceId }: {
     instanceId: string;
   }, data: string): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/instance/${instanceId}/context`, data);
+  return requestClient.put<void>(`/cronjob/dag/instance/${instanceId}/context`, data);
 }

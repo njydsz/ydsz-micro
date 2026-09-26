@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * listBreakpoints: GET /api/literule/debug/breakpoints
+ * listBreakpoints: GET /literule/debug/breakpoints
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,11 +22,11 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function listBreakpoints(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/literule/debug/breakpoints`);
+  return requestClient.get<unknown>(`/literule/debug/breakpoints`);
 }
 
 /**
- * addBreakpoint: POST /api/literule/debug/breakpoints
+ * addBreakpoint: POST /literule/debug/breakpoints
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -34,11 +34,11 @@ export function listBreakpoints(): Promise<unknown> {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function addBreakpoint(data: Record<string, string>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/literule/debug/breakpoints`, data);
+  return requestClient.post<unknown>(`/literule/debug/breakpoints`, data);
 }
 
 /**
- * removeBreakpoint: DELETE /api/literule/debug/breakpoints/{breakpointId}
+ * removeBreakpoint: DELETE /literule/debug/breakpoints/{breakpointId}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -48,11 +48,11 @@ export function addBreakpoint(data: Record<string, string>): Promise<unknown> {
 export function removeBreakpoint({ breakpointId }: {
     breakpointId: string;
   }): Promise<unknown> {
-  return requestClient.delete<unknown>(`/api/literule/debug/breakpoints/${breakpointId}`);
+  return requestClient.delete<unknown>(`/literule/debug/breakpoints/${breakpointId}`);
 }
 
 /**
- * createSession: POST /api/literule/debug/sessions
+ * createSession: POST /literule/debug/sessions
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -60,11 +60,11 @@ export function removeBreakpoint({ breakpointId }: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function createSession(data: Record<string, string>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/literule/debug/sessions`, data);
+  return requestClient.post<unknown>(`/literule/debug/sessions`, data);
 }
 
 /**
- * getSession: GET /api/literule/debug/sessions/{sessionId}
+ * getSession: GET /literule/debug/sessions/{sessionId}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -74,11 +74,11 @@ export function createSession(data: Record<string, string>): Promise<unknown> {
 export function getSession({ sessionId }: {
     sessionId: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/literule/debug/sessions/${sessionId}`);
+  return requestClient.get<unknown>(`/literule/debug/sessions/${sessionId}`);
 }
 
 /**
- * submitCommand: POST /api/literule/debug/sessions/{sessionId}/command
+ * submitCommand: POST /literule/debug/sessions/{sessionId}/command
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -88,11 +88,11 @@ export function getSession({ sessionId }: {
 export function submitCommand({ sessionId }: {
     sessionId: string;
   }, data: Record<string, string>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/literule/debug/sessions/${sessionId}/command`, data);
+  return requestClient.post<unknown>(`/literule/debug/sessions/${sessionId}/command`, data);
 }
 
 /**
- * terminateSession: DELETE /api/literule/debug/sessions/{sessionId}
+ * terminateSession: DELETE /literule/debug/sessions/{sessionId}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -102,11 +102,11 @@ export function submitCommand({ sessionId }: {
 export function terminateSession({ sessionId }: {
     sessionId: string;
   }): Promise<unknown> {
-  return requestClient.delete<unknown>(`/api/literule/debug/sessions/${sessionId}`);
+  return requestClient.delete<unknown>(`/literule/debug/sessions/${sessionId}`);
 }
 
 /**
- * listSessions: GET /api/literule/debug/sessions
+ * listSessions: GET /literule/debug/sessions
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -114,5 +114,5 @@ export function terminateSession({ sessionId }: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function listSessions(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/literule/debug/sessions`);
+  return requestClient.get<unknown>(`/literule/debug/sessions`);
 }

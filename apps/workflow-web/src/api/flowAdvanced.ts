@@ -14,145 +14,145 @@ import { requestClient } from '#/api/request';
 import type { StringVO } from './models';
 
 /**
- * weeklyReport: GET /api/workflow/advanced/report/weekly
+ * weeklyReport: GET /workflow/advanced/report/weekly
  */
 export function weeklyReport(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/workflow/advanced/report/weekly`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/report/weekly`);
 }
 
 /**
- * monthlyReport: GET /api/workflow/advanced/report/monthly
+ * monthlyReport: GET /workflow/advanced/report/monthly
  */
 export function monthlyReport(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/workflow/advanced/report/monthly`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/report/monthly`);
 }
 
 /**
- * sendWeekly: POST /api/workflow/advanced/report/weekly/send
+ * sendWeekly: POST /workflow/advanced/report/weekly/send
  */
 export function sendWeekly(): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/workflow/advanced/report/weekly/send`);
+  return requestClient.post<boolean>(`/workflow/advanced/report/weekly/send`);
 }
 
 /**
- * sendMonthly: POST /api/workflow/advanced/report/monthly/send
+ * sendMonthly: POST /workflow/advanced/report/monthly/send
  */
 export function sendMonthly(): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/workflow/advanced/report/monthly/send`);
+  return requestClient.post<boolean>(`/workflow/advanced/report/monthly/send`);
 }
 
 /**
- * merge: POST /api/workflow/advanced/merge
+ * merge: POST /workflow/advanced/merge
  */
 export function merge(params: {
     instanceIds?: string[];
   }): Promise<StringVO> {
-  return requestClient.post<StringVO>(`/api/workflow/advanced/merge`, { params });
+  return requestClient.post<StringVO>(`/workflow/advanced/merge`, { params });
 }
 
 /**
- * getMergeGroup: GET /api/workflow/advanced/merge/{mergeGroupId}
+ * getMergeGroup: GET /workflow/advanced/merge/{mergeGroupId}
  */
 export function getMergeGroup({ mergeGroupId }: {
     mergeGroupId: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/workflow/advanced/merge/${mergeGroupId}`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/merge/${mergeGroupId}`);
 }
 
 /**
- * mergePass: POST /api/workflow/advanced/merge/{mergeGroupId}/pass
+ * mergePass: POST /workflow/advanced/merge/{mergeGroupId}/pass
  */
 export function mergePass({ mergeGroupId }: {
     mergeGroupId: string;
   }, params: {
     comment?: string;
   }): Promise<number> {
-  return requestClient.post<number>(`/api/workflow/advanced/merge/${mergeGroupId}/pass`, { params });
+  return requestClient.post<number>(`/workflow/advanced/merge/${mergeGroupId}/pass`, { params });
 }
 
 /**
- * mergeReject: POST /api/workflow/advanced/merge/{mergeGroupId}/reject
+ * mergeReject: POST /workflow/advanced/merge/{mergeGroupId}/reject
  */
 export function mergeReject({ mergeGroupId }: {
     mergeGroupId: string;
   }, params: {
     comment?: string;
   }): Promise<number> {
-  return requestClient.post<number>(`/api/workflow/advanced/merge/${mergeGroupId}/reject`, { params });
+  return requestClient.post<number>(`/workflow/advanced/merge/${mergeGroupId}/reject`, { params });
 }
 
 /**
- * mergeable: GET /api/workflow/advanced/mergeable
+ * mergeable: GET /workflow/advanced/mergeable
  */
 export function mergeable(): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/workflow/advanced/mergeable`);
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/advanced/mergeable`);
 }
 
 /**
- * updateVotePassRate: POST /api/workflow/advanced/countersign/{taskId}/votePassRate
+ * updateVotePassRate: POST /workflow/advanced/countersign/{taskId}/votePassRate
  */
 export function updateVotePassRate({ taskId }: {
     taskId: string;
   }, params: {
     votePassRate?: number;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/workflow/advanced/countersign/${taskId}/votePassRate`, { params });
+  return requestClient.post<void>(`/workflow/advanced/countersign/${taskId}/votePassRate`, { params });
 }
 
 /**
- * updateApproveCount: POST /api/workflow/advanced/countersign/{taskId}/approveCount
+ * updateApproveCount: POST /workflow/advanced/countersign/{taskId}/approveCount
  */
 export function updateApproveCount({ taskId }: {
     taskId: string;
   }, params: {
     approveCount?: number;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/workflow/advanced/countersign/${taskId}/approveCount`, { params });
+  return requestClient.post<void>(`/workflow/advanced/countersign/${taskId}/approveCount`, { params });
 }
 
 /**
- * hasApproved: GET /api/workflow/advanced/dedup/{instanceId}/check/{userId}
+ * hasApproved: GET /workflow/advanced/dedup/{instanceId}/check/{userId}
  */
 export function hasApproved({ instanceId, userId }: {
     instanceId: string;
     userId: string;
   }): Promise<boolean> {
-  return requestClient.get<boolean>(`/api/workflow/advanced/dedup/${instanceId}/check/${userId}`);
+  return requestClient.get<boolean>(`/workflow/advanced/dedup/${instanceId}/check/${userId}`);
 }
 
 /**
- * approvedUsers: GET /api/workflow/advanced/dedup/{instanceId}/approvedUsers
+ * approvedUsers: GET /workflow/advanced/dedup/{instanceId}/approvedUsers
  */
 export function approvedUsers({ instanceId }: {
     instanceId: string;
   }): Promise<StringVO[]> {
-  return requestClient.get<StringVO[]>(`/api/workflow/advanced/dedup/${instanceId}/approvedUsers`);
+  return requestClient.get<StringVO[]>(`/workflow/advanced/dedup/${instanceId}/approvedUsers`);
 }
 
 /**
- * urgeCooldown: GET /api/workflow/advanced/urge/cooldown/{instanceId}
+ * urgeCooldown: GET /workflow/advanced/urge/cooldown/{instanceId}
  */
 export function urgeCooldown({ instanceId }: {
     instanceId: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/workflow/advanced/urge/cooldown/${instanceId}`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/urge/cooldown/${instanceId}`);
 }
 
 /**
- * autoForward: POST /api/workflow/advanced/offlineForward/auto
+ * autoForward: POST /workflow/advanced/offlineForward/auto
  */
 export function autoForward(params: {
     authId?: string;
   }): Promise<number> {
-  return requestClient.post<number>(`/api/workflow/advanced/offlineForward/auto`, { params });
+  return requestClient.post<number>(`/workflow/advanced/offlineForward/auto`, { params });
 }
 
 /**
- * manualForward: POST /api/workflow/advanced/offlineForward/manual
+ * manualForward: POST /workflow/advanced/offlineForward/manual
  */
 export function manualForward(params: {
     userId?: string;
     delegateUserId?: string;
   }): Promise<number> {
-  return requestClient.post<number>(`/api/workflow/advanced/offlineForward/manual`, { params });
+  return requestClient.post<number>(`/workflow/advanced/offlineForward/manual`, { params });
 }

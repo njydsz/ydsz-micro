@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud workflow"
  },
  "paths": {
-  "/api/workflow/advanced/report/weekly": {
+  "/workflow/advanced/report/weekly": {
    "get": {
     "operationId": "weeklyReport",
     "tags": [
@@ -26,7 +26,7 @@
     }
    }
   },
-  "/api/workflow/advanced/report/monthly": {
+  "/workflow/advanced/report/monthly": {
    "get": {
     "operationId": "monthlyReport",
     "tags": [
@@ -46,7 +46,7 @@
     }
    }
   },
-  "/api/workflow/advanced/report/weekly/send": {
+  "/workflow/advanced/report/weekly/send": {
    "post": {
     "operationId": "sendWeekly",
     "tags": [
@@ -66,7 +66,7 @@
     }
    }
   },
-  "/api/workflow/advanced/report/monthly/send": {
+  "/workflow/advanced/report/monthly/send": {
    "post": {
     "operationId": "sendMonthly",
     "tags": [
@@ -86,7 +86,7 @@
     }
    }
   },
-  "/api/workflow/advanced/merge": {
+  "/workflow/advanced/merge": {
    "post": {
     "operationId": "merge",
     "tags": [
@@ -119,7 +119,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/merge/{mergeGroupId}": {
+  "/workflow/advanced/merge/{mergeGroupId}": {
    "get": {
     "operationId": "getMergeGroup",
     "tags": [
@@ -149,7 +149,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/merge/{mergeGroupId}/pass": {
+  "/workflow/advanced/merge/{mergeGroupId}/pass": {
    "post": {
     "operationId": "mergePass",
     "tags": [
@@ -187,7 +187,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/merge/{mergeGroupId}/reject": {
+  "/workflow/advanced/merge/{mergeGroupId}/reject": {
    "post": {
     "operationId": "mergeReject",
     "tags": [
@@ -225,7 +225,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/mergeable": {
+  "/workflow/advanced/mergeable": {
    "get": {
     "operationId": "mergeable",
     "tags": [
@@ -245,7 +245,7 @@
     }
    }
   },
-  "/api/workflow/advanced/countersign/{taskId}/votePassRate": {
+  "/workflow/advanced/countersign/{taskId}/votePassRate": {
    "post": {
     "operationId": "updateVotePassRate",
     "tags": [
@@ -283,7 +283,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/countersign/{taskId}/approveCount": {
+  "/workflow/advanced/countersign/{taskId}/approveCount": {
    "post": {
     "operationId": "updateApproveCount",
     "tags": [
@@ -322,7 +322,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/dedup/{instanceId}/check/{userId}": {
+  "/workflow/advanced/dedup/{instanceId}/check/{userId}": {
    "get": {
     "operationId": "hasApproved",
     "tags": [
@@ -360,7 +360,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/dedup/{instanceId}/approvedUsers": {
+  "/workflow/advanced/dedup/{instanceId}/approvedUsers": {
    "get": {
     "operationId": "approvedUsers",
     "tags": [
@@ -390,7 +390,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/urge/cooldown/{instanceId}": {
+  "/workflow/advanced/urge/cooldown/{instanceId}": {
    "get": {
     "operationId": "urgeCooldown",
     "tags": [
@@ -420,7 +420,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/offlineForward/auto": {
+  "/workflow/advanced/offlineForward/auto": {
    "post": {
     "operationId": "autoForward",
     "tags": [
@@ -450,7 +450,7 @@
     ]
    }
   },
-  "/api/workflow/advanced/offlineForward/manual": {
+  "/workflow/advanced/offlineForward/manual": {
    "post": {
     "operationId": "manualForward",
     "tags": [
@@ -488,7 +488,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/overview": {
+  "/workflow/analytics/overview": {
    "get": {
     "operationId": "overview",
     "tags": [
@@ -528,7 +528,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/approverEfficiency": {
+  "/workflow/analytics/approverEfficiency": {
    "get": {
     "operationId": "approverEfficiency",
     "tags": [
@@ -577,7 +577,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/flowEfficiency": {
+  "/workflow/analytics/flowEfficiency": {
    "get": {
     "operationId": "flowEfficiency",
     "tags": [
@@ -617,7 +617,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/nodeDuration": {
+  "/workflow/analytics/nodeDuration": {
    "get": {
     "operationId": "nodeDuration",
     "tags": [
@@ -647,7 +647,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/approvalTrend": {
+  "/workflow/analytics/approvalTrend": {
    "get": {
     "operationId": "approvalTrend",
     "tags": [
@@ -695,7 +695,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/history/config": {
+  "/workflow/analytics/history/config": {
    "get": {
     "operationId": "getArchiveConfig",
     "tags": [
@@ -715,7 +715,7 @@
     }
    }
   },
-  "/api/workflow/analytics/history/archive": {
+  "/workflow/analytics/history/archive": {
    "post": {
     "operationId": "archive",
     "tags": [
@@ -764,7 +764,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/history/purge": {
+  "/workflow/analytics/history/purge": {
    "post": {
     "operationId": "purge",
     "tags": [
@@ -795,7 +795,133 @@
     ]
    }
   },
-  "/api/workflow/analytics/i18n/enum/{enumType}": {
+  "/workflow/analytics/bottleneckHeatmap": {
+   "get": {
+    "operationId": "bottleneckHeatmap",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "startTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     },
+     {
+      "name": "endTime",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date-time"
+      }
+     }
+    ]
+   }
+  },
+  "/workflow/analytics/anomalyAlerts": {
+   "get": {
+    "operationId": "anomalyAlerts",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "stuckThresholdHours",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "rejectRateThreshold",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number"
+      }
+     },
+     {
+      "name": "backlogThreshold",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/workflow/analytics/impactPreview/{definitionId}": {
+   "get": {
+    "operationId": "impactPreview",
+    "tags": [
+     "workflow"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "definitionId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "nodeIdToCheck",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/workflow/analytics/i18n/enum/{enumType}": {
    "get": {
     "operationId": "enumDescriptions",
     "tags": [
@@ -833,7 +959,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/i18n/enum/{enumType}/{enumName}": {
+  "/workflow/analytics/i18n/enum/{enumType}/{enumName}": {
    "get": {
     "operationId": "enumDescription",
     "tags": [
@@ -879,7 +1005,7 @@
     ]
    }
   },
-  "/api/workflow/analytics/i18n/locales": {
+  "/workflow/analytics/i18n/locales": {
    "get": {
     "operationId": "supportedLocales",
     "tags": [
@@ -899,7 +1025,7 @@
     }
    }
   },
-  "/api/workflow/engine/attachment/task/{taskId}": {
+  "/workflow/engine/attachment/task/{taskId}": {
    "get": {
     "operationId": "listByTask",
     "tags": [
@@ -929,7 +1055,7 @@
     ]
    }
   },
-  "/api/workflow/engine/attachment/instance/{instanceId}": {
+  "/workflow/engine/attachment/instance/{instanceId}": {
    "get": {
     "operationId": "listByInstance",
     "tags": [
@@ -959,7 +1085,7 @@
     ]
    }
   },
-  "/api/workflow/engine/attachment/{attachmentId}": {
+  "/workflow/engine/attachment/{attachmentId}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -997,7 +1123,7 @@
     ]
    }
   },
-  "/api/workflow/engine/attachment/{attachmentId}/preview": {
+  "/workflow/engine/attachment/{attachmentId}/preview": {
    "get": {
     "operationId": "preview",
     "tags": [
@@ -1027,7 +1153,7 @@
     ]
    }
   },
-  "/api/workflow/categories": {
+  "/workflow/categories": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -1103,7 +1229,7 @@
     }
    }
   },
-  "/api/workflow/categories/tree": {
+  "/workflow/categories/tree": {
    "get": {
     "operationId": "tree",
     "tags": [
@@ -1123,7 +1249,7 @@
     }
    }
   },
-  "/api/workflow/categories/{id}": {
+  "/workflow/categories/{id}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -1153,7 +1279,7 @@
     ]
    }
   },
-  "/api/workflow/engine/cc/page": {
+  "/workflow/engine/cc/page": {
    "post": {
     "operationId": "pageCc",
     "tags": [
@@ -1183,7 +1309,7 @@
     }
    }
   },
-  "/api/workflow/engine/cc/unreadCount": {
+  "/workflow/engine/cc/unreadCount": {
    "get": {
     "operationId": "ccUnreadCount",
     "tags": [
@@ -1203,7 +1329,7 @@
     }
    }
   },
-  "/api/workflow/engine/cc/{id}/read": {
+  "/workflow/engine/cc/{id}/read": {
    "post": {
     "operationId": "ccMarkRead",
     "tags": [
@@ -1233,7 +1359,7 @@
     ]
    }
   },
-  "/api/workflow/engine/cc/readAll": {
+  "/workflow/engine/cc/readAll": {
    "post": {
     "operationId": "ccMarkAllRead",
     "tags": [
@@ -1253,7 +1379,7 @@
     }
    }
   },
-  "/api/workflow/comment": {
+  "/workflow/comment": {
    "post": {
     "operationId": "addComment",
     "tags": [
@@ -1283,7 +1409,7 @@
     }
    }
   },
-  "/api/workflow/comment/instance/{instanceId}": {
+  "/workflow/comment/instance/{instanceId}": {
    "get": {
     "operationId": "listByInstance",
     "tags": [
@@ -1313,7 +1439,7 @@
     ]
    }
   },
-  "/api/workflow/comment/root/{instanceId}": {
+  "/workflow/comment/root/{instanceId}": {
    "get": {
     "operationId": "listRootComments",
     "tags": [
@@ -1343,7 +1469,7 @@
     ]
    }
   },
-  "/api/workflow/comment/replies/{parentCommentId}": {
+  "/workflow/comment/replies/{parentCommentId}": {
    "get": {
     "operationId": "listReplies",
     "tags": [
@@ -1373,7 +1499,7 @@
     ]
    }
   },
-  "/api/workflow/comment/{commentId}": {
+  "/workflow/comment/{commentId}": {
    "delete": {
     "operationId": "deleteComment",
     "tags": [
@@ -1403,7 +1529,7 @@
     ]
    }
   },
-  "/api/workflow/comment/quick": {
+  "/workflow/comment/quick": {
    "get": {
     "operationId": "listQuickComments",
     "tags": [
@@ -1479,7 +1605,7 @@
     }
    }
   },
-  "/api/workflow/comment/quick/{id}": {
+  "/workflow/comment/quick/{id}": {
    "delete": {
     "operationId": "deleteQuickComment",
     "tags": [
@@ -1509,7 +1635,7 @@
     ]
    }
   },
-  "/api/workflow/comment/quick/{id}/use": {
+  "/workflow/comment/quick/{id}/use": {
    "post": {
     "operationId": "incrementUseCount",
     "tags": [
@@ -1539,7 +1665,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/deploy": {
+  "/workflow/engine/definition/deploy": {
    "post": {
     "operationId": "deploy",
     "tags": [
@@ -1569,7 +1695,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/batchDeployZip": {
+  "/workflow/engine/definition/batchDeployZip": {
    "post": {
     "operationId": "batchDeployFromZip",
     "tags": [
@@ -1599,7 +1725,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/publish": {
+  "/workflow/engine/definition/{id}/publish": {
    "post": {
     "operationId": "publish",
     "tags": [
@@ -1637,7 +1763,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/deprecate": {
+  "/workflow/engine/definition/{id}/deprecate": {
    "post": {
     "operationId": "deprecate",
     "tags": [
@@ -1667,7 +1793,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/code/{code}": {
+  "/workflow/engine/definition/code/{code}": {
    "get": {
     "operationId": "getByCode",
     "tags": [
@@ -1713,7 +1839,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/page": {
+  "/workflow/engine/definition/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -1725,7 +1851,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "$ref": "#/components/schemas/YdszResponse"
+         "$ref": "#/components/schemas/PageResponse"
         }
        }
       }
@@ -1769,7 +1895,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}": {
+  "/workflow/engine/definition/{id}": {
    "get": {
     "operationId": "getDefinitionDetail",
     "tags": [
@@ -1837,7 +1963,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/{id}/preview": {
+  "/workflow/engine/definition/{id}/preview": {
    "get": {
     "operationId": "getDefinitionPreview",
     "tags": [
@@ -1867,7 +1993,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{code}/switchVersion": {
+  "/workflow/engine/definition/{code}/switchVersion": {
    "post": {
     "operationId": "switchVersion",
     "tags": [
@@ -1913,7 +2039,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/enable": {
+  "/workflow/engine/definition/{id}/enable": {
    "post": {
     "operationId": "enable",
     "tags": [
@@ -1943,7 +2069,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/disable": {
+  "/workflow/engine/definition/{id}/disable": {
    "post": {
     "operationId": "disable",
     "tags": [
@@ -1973,7 +2099,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/versions": {
+  "/workflow/engine/definition/{id}/versions": {
    "get": {
     "operationId": "listVersions",
     "tags": [
@@ -2003,7 +2129,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/diff": {
+  "/workflow/engine/definition/{id}/diff": {
    "get": {
     "operationId": "diffVersions",
     "tags": [
@@ -2051,7 +2177,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/rollback": {
+  "/workflow/engine/definition/rollback": {
    "post": {
     "operationId": "rollbackDefinition",
     "tags": [
@@ -2069,19 +2195,19 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "flowCode",
-      "in": "query",
-      "required": false,
-      "schema": {
-       "type": "string"
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RollbackRequestDTO"
+       }
       }
      }
-    ]
+    }
    }
   },
-  "/api/workflow/engine/definition/{id}/node/{nodeCode}/coordinate": {
+  "/workflow/engine/definition/{id}/node/{nodeCode}/coordinate": {
    "post": {
     "operationId": "updateNodeCoordinate",
     "tags": [
@@ -2129,7 +2255,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/{id}/export": {
+  "/workflow/engine/definition/{id}/export": {
    "get": {
     "operationId": "exportDefinition",
     "tags": [
@@ -2159,7 +2285,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/import": {
+  "/workflow/engine/definition/import": {
    "post": {
     "operationId": "importDefinition",
     "tags": [
@@ -2199,7 +2325,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/migrationImpact": {
+  "/workflow/engine/definition/migrationImpact": {
    "get": {
     "operationId": "analyzeMigrationImpact",
     "tags": [
@@ -2237,7 +2363,7 @@
     ]
    }
   },
-  "/api/workflow/engine/info": {
+  "/workflow/engine/info": {
    "get": {
     "operationId": "info",
     "tags": [
@@ -2257,7 +2383,7 @@
     }
    }
   },
-  "/api/workflow/engine/event/correlateMessage": {
+  "/workflow/engine/event/correlateMessage": {
    "post": {
     "operationId": "correlateMessage",
     "tags": [
@@ -2313,7 +2439,7 @@
     }
    }
   },
-  "/api/workflow/engine/event/throwError": {
+  "/workflow/engine/event/throwError": {
    "post": {
     "operationId": "throwError",
     "tags": [
@@ -2369,7 +2495,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/{instanceId}/eventSubscriptions": {
+  "/workflow/engine/instance/{instanceId}/eventSubscriptions": {
    "get": {
     "operationId": "listEventSubscriptions",
     "tags": [
@@ -2399,7 +2525,7 @@
     ]
    }
   },
-  "/api/workflow/engine/sla/scan": {
+  "/workflow/engine/sla/scan": {
    "post": {
     "operationId": "slaScan",
     "tags": [
@@ -2419,7 +2545,7 @@
     }
    }
   },
-  "/api/workflow/engine/sla/process/{taskId}": {
+  "/workflow/engine/sla/process/{taskId}": {
    "post": {
     "operationId": "slaProcess",
     "tags": [
@@ -2449,7 +2575,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/build": {
+  "/workflow/engine/definition/conditionExpr/build": {
    "post": {
     "operationId": "buildExpression",
     "tags": [
@@ -2482,7 +2608,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/parse": {
+  "/workflow/engine/definition/conditionExpr/parse": {
    "post": {
     "operationId": "parseExpression",
     "tags": [
@@ -2515,7 +2641,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/validate": {
+  "/workflow/engine/definition/conditionExpr/validate": {
    "post": {
     "operationId": "validateExpression",
     "tags": [
@@ -2548,7 +2674,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/operators": {
+  "/workflow/engine/definition/conditionExpr/operators": {
    "get": {
     "operationId": "operators",
     "tags": [
@@ -2568,7 +2694,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/valueTypes": {
+  "/workflow/engine/definition/conditionExpr/valueTypes": {
    "get": {
     "operationId": "valueTypes",
     "tags": [
@@ -2588,7 +2714,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/variables/{id}": {
+  "/workflow/engine/definition/conditionExpr/variables/{id}": {
    "get": {
     "operationId": "variables",
     "tags": [
@@ -2618,7 +2744,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/preview": {
+  "/workflow/engine/definition/conditionExpr/preview": {
    "post": {
     "operationId": "previewExpression",
     "tags": [
@@ -2651,7 +2777,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/conditionExpr/templates": {
+  "/workflow/engine/definition/conditionExpr/templates": {
    "get": {
     "operationId": "conditionTemplates",
     "tags": [
@@ -2671,7 +2797,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/customButtons": {
+  "/workflow/engine/definition/customButtons": {
    "get": {
     "operationId": "listCustomButtons",
     "tags": [
@@ -2761,7 +2887,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/customButtons/execute": {
+  "/workflow/engine/definition/customButtons/execute": {
    "post": {
     "operationId": "executeCustomButton",
     "tags": [
@@ -2820,7 +2946,7 @@
     }
    }
   },
-  "/api/workflow/engine/delegateAuth/create": {
+  "/workflow/engine/delegateAuth/create": {
    "post": {
     "operationId": "createDelegateAuth",
     "tags": [
@@ -2850,7 +2976,7 @@
     }
    }
   },
-  "/api/workflow/engine/delegateAuth/{id}/revoke": {
+  "/workflow/engine/delegateAuth/{id}/revoke": {
    "post": {
     "operationId": "revokeDelegateAuth",
     "tags": [
@@ -2880,7 +3006,7 @@
     ]
    }
   },
-  "/api/workflow/engine/delegateAuth/{id}/status": {
+  "/workflow/engine/delegateAuth/{id}/status": {
    "post": {
     "operationId": "updateDelegateAuthStatus",
     "tags": [
@@ -2918,7 +3044,7 @@
     ]
    }
   },
-  "/api/workflow/engine/delegateAuth/mine": {
+  "/workflow/engine/delegateAuth/mine": {
    "get": {
     "operationId": "listMyDelegateAuths",
     "tags": [
@@ -2948,7 +3074,7 @@
     ]
    }
   },
-  "/api/workflow/engine/delegateAuth/asDelegate": {
+  "/workflow/engine/delegateAuth/asDelegate": {
    "get": {
     "operationId": "listAsDelegate",
     "tags": [
@@ -2978,7 +3104,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/designer": {
+  "/workflow/engine/definition/{id}/designer": {
    "get": {
     "operationId": "getDesignerData",
     "tags": [
@@ -3046,7 +3172,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/{id}/lock": {
+  "/workflow/engine/definition/{id}/lock": {
    "post": {
     "operationId": "lockDefinition",
     "tags": [
@@ -3076,7 +3202,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/unlock": {
+  "/workflow/engine/definition/{id}/unlock": {
    "post": {
     "operationId": "unlockDefinition",
     "tags": [
@@ -3106,7 +3232,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/lockStatus": {
+  "/workflow/engine/definition/{id}/lockStatus": {
    "get": {
     "operationId": "getLockStatus",
     "tags": [
@@ -3136,7 +3262,7 @@
     ]
    }
   },
-  "/api/workflow/engine/definition/{id}/formConfig/{nodeCode}": {
+  "/workflow/engine/definition/{id}/formConfig/{nodeCode}": {
    "get": {
     "operationId": "getFormConfig",
     "tags": [
@@ -3220,7 +3346,7 @@
     }
    }
   },
-  "/api/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
+  "/workflow/engine/definition/{id}/slaConfig/{nodeCode}": {
    "get": {
     "operationId": "getSlaConfig",
     "tags": [
@@ -3307,7 +3433,7 @@
     }
    }
   },
-  "/api/workflow/engine/assignee/types": {
+  "/workflow/engine/assignee/types": {
    "get": {
     "operationId": "listAssigneeTypes",
     "tags": [
@@ -3327,7 +3453,7 @@
     }
    }
   },
-  "/api/workflow/engine/listener/plugins": {
+  "/workflow/engine/listener/plugins": {
    "get": {
     "operationId": "listListenerPlugins",
     "tags": [
@@ -3347,7 +3473,7 @@
     }
    }
   },
-  "/api/workflow/engine/listener/eventTypes": {
+  "/workflow/engine/listener/eventTypes": {
    "get": {
     "operationId": "listListenerEventTypes",
     "tags": [
@@ -3367,7 +3493,7 @@
     }
    }
   },
-  "/api/workflow/engine/template/list": {
+  "/workflow/engine/template/list": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -3397,7 +3523,7 @@
     ]
    }
   },
-  "/api/workflow/engine/template/{templateCode}/import": {
+  "/workflow/engine/template/{templateCode}/import": {
    "post": {
     "operationId": "importTemplate",
     "tags": [
@@ -3435,7 +3561,7 @@
     ]
    }
   },
-  "/api/workflow/engine/template/{templateCode}": {
+  "/workflow/engine/template/{templateCode}": {
    "get": {
     "operationId": "getTemplate",
     "tags": [
@@ -3465,7 +3591,7 @@
     ]
    }
   },
-  "/api/workflow/embedded/panel": {
+  "/workflow/embedded/panel": {
    "get": {
     "operationId": "loadPanel",
     "tags": [
@@ -3511,7 +3637,7 @@
     ]
    }
   },
-  "/api/workflow/embedded/action": {
+  "/workflow/embedded/action": {
    "post": {
     "operationId": "quickAction",
     "tags": [
@@ -3541,7 +3667,7 @@
     }
    }
   },
-  "/api/workflow/embedded/{businessType}/{businessId}/action": {
+  "/workflow/embedded/{businessType}/{businessId}/action": {
    "post": {
     "operationId": "quickActionByPath",
     "tags": [
@@ -3589,7 +3715,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/start": {
+  "/workflow/engine/instance/start": {
    "post": {
     "operationId": "startProcess",
     "tags": [
@@ -3619,7 +3745,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/batchStart": {
+  "/workflow/engine/instance/batchStart": {
    "post": {
     "operationId": "batchStartInstances",
     "tags": [
@@ -3652,7 +3778,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/draft/save": {
+  "/workflow/engine/instance/draft/save": {
    "post": {
     "operationId": "saveDraft",
     "tags": [
@@ -3682,7 +3808,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/draft/submit": {
+  "/workflow/engine/instance/draft/submit": {
    "post": {
     "operationId": "submitDraft",
     "tags": [
@@ -3712,7 +3838,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/{id}/draft/cancel": {
+  "/workflow/engine/instance/{id}/draft/cancel": {
    "post": {
     "operationId": "cancelDraft",
     "tags": [
@@ -3742,7 +3868,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/byBusiness": {
+  "/workflow/engine/instance/byBusiness": {
    "get": {
     "operationId": "getByBusiness",
     "tags": [
@@ -3780,7 +3906,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/terminate": {
+  "/workflow/engine/instance/{id}/terminate": {
    "post": {
     "operationId": "terminate",
     "tags": [
@@ -3818,7 +3944,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/suspend": {
+  "/workflow/engine/instance/{id}/suspend": {
    "post": {
     "operationId": "suspend",
     "tags": [
@@ -3848,7 +3974,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/activate": {
+  "/workflow/engine/instance/{id}/activate": {
    "post": {
     "operationId": "activate",
     "tags": [
@@ -3878,7 +4004,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/recall": {
+  "/workflow/engine/instance/{id}/recall": {
    "post": {
     "operationId": "recall",
     "tags": [
@@ -3916,7 +4042,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/recallableNodes": {
+  "/workflow/engine/instance/{id}/recallableNodes": {
    "get": {
     "operationId": "listRecallableNodes",
     "tags": [
@@ -3946,7 +4072,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/rollback": {
+  "/workflow/engine/instance/{id}/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -3993,7 +4119,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/resubmit": {
+  "/workflow/engine/instance/{id}/resubmit": {
    "post": {
     "operationId": "resubmit",
     "tags": [
@@ -4052,7 +4178,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/{id}/auditTrail": {
+  "/workflow/engine/instance/{id}/auditTrail": {
    "get": {
     "operationId": "auditTrail",
     "tags": [
@@ -4082,7 +4208,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/timeline": {
+  "/workflow/engine/instance/{id}/timeline": {
    "get": {
     "operationId": "timeline",
     "tags": [
@@ -4112,7 +4238,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/diagram": {
+  "/workflow/engine/instance/{id}/diagram": {
    "get": {
     "operationId": "diagram",
     "tags": [
@@ -4142,7 +4268,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/replay": {
+  "/workflow/engine/instance/{id}/replay": {
    "get": {
     "operationId": "replay",
     "tags": [
@@ -4172,7 +4298,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/page": {
+  "/workflow/engine/instance/page": {
    "get": {
     "operationId": "instancePage",
     "tags": [
@@ -4262,7 +4388,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/my": {
+  "/workflow/engine/instance/my": {
    "get": {
     "operationId": "instanceMy",
     "tags": [
@@ -4344,7 +4470,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/all": {
+  "/workflow/engine/instance/all": {
    "get": {
     "operationId": "instanceAll",
     "tags": [
@@ -4418,7 +4544,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/variables": {
+  "/workflow/engine/instance/{id}/variables": {
    "get": {
     "operationId": "getVariables",
     "tags": [
@@ -4486,7 +4612,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/{id}/urge": {
+  "/workflow/engine/instance/{id}/urge": {
    "post": {
     "operationId": "urge",
     "tags": [
@@ -4524,7 +4650,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/urge/node": {
+  "/workflow/engine/instance/{id}/urge/node": {
    "post": {
     "operationId": "urgeByNode",
     "tags": [
@@ -4570,7 +4696,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/{id}/formRender": {
+  "/workflow/engine/instance/{id}/formRender": {
    "get": {
     "operationId": "getFormRenderData",
     "tags": [
@@ -4608,7 +4734,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/migrate": {
+  "/workflow/engine/instance/migrate": {
    "post": {
     "operationId": "migrateInstances",
     "tags": [
@@ -4638,7 +4764,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/migrate/preview": {
+  "/workflow/engine/instance/migrate/preview": {
    "post": {
     "operationId": "previewMigration",
     "tags": [
@@ -4668,7 +4794,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/migrate/autoMap": {
+  "/workflow/engine/instance/migrate/autoMap": {
    "get": {
     "operationId": "autoMapNodes",
     "tags": [
@@ -4708,7 +4834,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/trigger/list": {
+  "/workflow/engine/instance/trigger/list": {
    "get": {
     "operationId": "listTriggers",
     "tags": [
@@ -4728,7 +4854,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/trigger": {
+  "/workflow/engine/instance/trigger": {
    "post": {
     "operationId": "createTrigger",
     "tags": [
@@ -4758,7 +4884,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/trigger/{id}": {
+  "/workflow/engine/instance/trigger/{id}": {
    "delete": {
     "operationId": "deleteTrigger",
     "tags": [
@@ -4788,7 +4914,7 @@
     ]
    }
   },
-  "/api/workflow/engine/instance/trigger/{id}/toggle": {
+  "/workflow/engine/instance/trigger/{id}/toggle": {
    "put": {
     "operationId": "toggleTrigger",
     "tags": [
@@ -4818,7 +4944,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/overview": {
+  "/workflow/engine/monitor/overview": {
    "get": {
     "operationId": "monitorOverview",
     "tags": [
@@ -4838,7 +4964,7 @@
     }
    }
   },
-  "/api/workflow/engine/monitor/anomaly": {
+  "/workflow/engine/monitor/anomaly": {
    "get": {
     "operationId": "monitorAnomaly",
     "tags": [
@@ -4894,7 +5020,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/instanceTrend": {
+  "/workflow/engine/monitor/instanceTrend": {
    "get": {
     "operationId": "monitorInstanceTrend",
     "tags": [
@@ -4925,7 +5051,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/approverEfficiency": {
+  "/workflow/engine/monitor/approverEfficiency": {
    "get": {
     "operationId": "monitorApproverEfficiency",
     "tags": [
@@ -4972,7 +5098,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/flowTypeDistribution": {
+  "/workflow/engine/monitor/flowTypeDistribution": {
    "get": {
     "operationId": "monitorFlowTypeDistribution",
     "tags": [
@@ -5010,7 +5136,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/dashboard": {
+  "/workflow/engine/monitor/dashboard": {
    "get": {
     "operationId": "monitorDashboard",
     "tags": [
@@ -5030,7 +5156,7 @@
     }
    }
   },
-  "/api/workflow/engine/monitor/overdueTasks": {
+  "/workflow/engine/monitor/overdueTasks": {
    "get": {
     "operationId": "monitorOverdueTasks",
     "tags": [
@@ -5061,7 +5187,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/approverWorkload": {
+  "/workflow/engine/monitor/approverWorkload": {
    "get": {
     "operationId": "monitorApproverWorkload",
     "tags": [
@@ -5092,7 +5218,7 @@
     ]
    }
   },
-  "/api/workflow/engine/monitor/flowEfficiencyComparison": {
+  "/workflow/engine/monitor/flowEfficiencyComparison": {
    "get": {
     "operationId": "monitorFlowEfficiencyComparison",
     "tags": [
@@ -5130,7 +5256,7 @@
     ]
    }
   },
-  "/api/workflow/engine/efficiency/stats": {
+  "/workflow/engine/efficiency/stats": {
    "get": {
     "operationId": "efficiencyStats",
     "tags": [
@@ -5168,7 +5294,7 @@
     ]
    }
   },
-  "/api/workflow/engine/efficiency/bottleneck": {
+  "/workflow/engine/efficiency/bottleneck": {
    "get": {
     "operationId": "bottleneckRanking",
     "tags": [
@@ -5207,7 +5333,7 @@
     ]
    }
   },
-  "/api/workflow/engine/efficiency/approverRanking": {
+  "/workflow/engine/efficiency/approverRanking": {
    "get": {
     "operationId": "approverRanking",
     "tags": [
@@ -5254,7 +5380,7 @@
     ]
    }
   },
-  "/api/workflow/engine/efficiency/trend": {
+  "/workflow/engine/efficiency/trend": {
    "get": {
     "operationId": "approvalTrend",
     "tags": [
@@ -5300,7 +5426,7 @@
     ]
    }
   },
-  "/api/workflow/engine/efficiency/healthScore": {
+  "/workflow/engine/efficiency/healthScore": {
    "get": {
     "operationId": "healthScore",
     "tags": [
@@ -5338,7 +5464,7 @@
     ]
    }
   },
-  "/api/workflow/simulation/run": {
+  "/workflow/simulation/run": {
    "post": {
     "operationId": "runSimulation",
     "tags": [
@@ -5361,14 +5487,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/SimulationRequest"
        }
       }
      }
     }
    }
   },
-  "/api/workflow/engine/task/{taskId}": {
+  "/workflow/engine/task/{taskId}": {
    "get": {
     "operationId": "taskDetail",
     "tags": [
@@ -5398,7 +5524,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/claim": {
+  "/workflow/engine/task/claim": {
    "post": {
     "operationId": "claim",
     "tags": [
@@ -5428,7 +5554,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/pass": {
+  "/workflow/engine/task/pass": {
    "post": {
     "operationId": "pass",
     "tags": [
@@ -5458,7 +5584,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/reject": {
+  "/workflow/engine/task/reject": {
    "post": {
     "operationId": "reject",
     "tags": [
@@ -5488,7 +5614,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/{taskId}/rejectableNodes": {
+  "/workflow/engine/task/{taskId}/rejectableNodes": {
    "get": {
     "operationId": "rejectableNodes",
     "tags": [
@@ -5518,7 +5644,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/transfer": {
+  "/workflow/engine/task/transfer": {
    "post": {
     "operationId": "transfer",
     "tags": [
@@ -5548,7 +5674,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/delegate": {
+  "/workflow/engine/task/delegate": {
    "post": {
     "operationId": "delegate",
     "tags": [
@@ -5578,7 +5704,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/countersignBefore": {
+  "/workflow/engine/task/countersignBefore": {
    "post": {
     "operationId": "countersignBefore",
     "tags": [
@@ -5608,7 +5734,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/countersignAfter": {
+  "/workflow/engine/task/countersignAfter": {
    "post": {
     "operationId": "countersignAfter",
     "tags": [
@@ -5638,7 +5764,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/countersignParallel": {
+  "/workflow/engine/task/countersignParallel": {
    "post": {
     "operationId": "countersignParallel",
     "tags": [
@@ -5668,7 +5794,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/jump": {
+  "/workflow/engine/task/jump": {
    "post": {
     "operationId": "jump",
     "tags": [
@@ -5698,7 +5824,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/freeJump": {
+  "/workflow/engine/task/freeJump": {
    "post": {
     "operationId": "freeJump",
     "tags": [
@@ -5728,7 +5854,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/batchPass": {
+  "/workflow/engine/task/batchPass": {
    "post": {
     "operationId": "batchPass",
     "tags": [
@@ -5761,7 +5887,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/batchReject": {
+  "/workflow/engine/task/batchReject": {
    "post": {
     "operationId": "batchReject",
     "tags": [
@@ -5794,7 +5920,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/batchTransfer": {
+  "/workflow/engine/task/batchTransfer": {
    "post": {
     "operationId": "batchTransfer",
     "tags": [
@@ -5827,7 +5953,7 @@
     }
    }
   },
-  "/api/workflow/engine/instance/batchUrge": {
+  "/workflow/engine/instance/batchUrge": {
    "post": {
     "operationId": "batchUrge",
     "tags": [
@@ -5870,7 +5996,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/passAll": {
+  "/workflow/engine/task/passAll": {
    "post": {
     "operationId": "passAll",
     "tags": [
@@ -5890,7 +6016,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/todo": {
+  "/workflow/engine/task/todo": {
    "get": {
     "operationId": "todo",
     "tags": [
@@ -5964,7 +6090,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/todo/cursor": {
+  "/workflow/engine/task/todo/cursor": {
    "get": {
     "operationId": "todoCursor",
     "tags": [
@@ -6021,7 +6147,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/done": {
+  "/workflow/engine/task/done": {
    "get": {
     "operationId": "done",
     "tags": [
@@ -6095,7 +6221,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/overdue": {
+  "/workflow/engine/task/overdue": {
    "get": {
     "operationId": "overdue",
     "tags": [
@@ -6126,7 +6252,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/done/search": {
+  "/workflow/engine/task/done/search": {
    "get": {
     "operationId": "doneSearch",
     "tags": [
@@ -6208,7 +6334,7 @@
     ]
    }
   },
-  "/api/workflow/engine/stats/nodeDuration": {
+  "/workflow/engine/stats/nodeDuration": {
    "get": {
     "operationId": "nodeDurationStats",
     "tags": [
@@ -6238,7 +6364,7 @@
     ]
    }
   },
-  "/api/workflow/engine/stats/overdue": {
+  "/workflow/engine/stats/overdue": {
    "get": {
     "operationId": "overdueStats",
     "tags": [
@@ -6286,7 +6412,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/countersignRemove": {
+  "/workflow/engine/task/countersignRemove": {
    "post": {
     "operationId": "countersignRemove",
     "tags": [
@@ -6316,7 +6442,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/{taskId}/read": {
+  "/workflow/engine/task/{taskId}/read": {
    "post": {
     "operationId": "markRead",
     "tags": [
@@ -6346,7 +6472,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/communicate": {
+  "/workflow/engine/task/communicate": {
    "post": {
     "operationId": "communicate",
     "tags": [
@@ -6376,7 +6502,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/saveDraft": {
+  "/workflow/engine/task/saveDraft": {
    "post": {
     "operationId": "saveDraft",
     "tags": [
@@ -6406,7 +6532,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/addApprover": {
+  "/workflow/engine/task/addApprover": {
    "post": {
     "operationId": "addApprover",
     "tags": [
@@ -6436,7 +6562,7 @@
     }
    }
   },
-  "/api/workflow/engine/task/{taskId}/retract": {
+  "/workflow/engine/task/{taskId}/retract": {
    "post": {
     "operationId": "retract",
     "tags": [
@@ -6474,7 +6600,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/{taskId}/suspend": {
+  "/workflow/engine/task/{taskId}/suspend": {
    "post": {
     "operationId": "suspendTask",
     "tags": [
@@ -6512,7 +6638,7 @@
     ]
    }
   },
-  "/api/workflow/engine/task/{taskId}/activate": {
+  "/workflow/engine/task/{taskId}/activate": {
    "post": {
     "operationId": "activateTask",
     "tags": [
@@ -6542,7 +6668,7 @@
     ]
    }
   },
-  "/api/workflow/engine/todo/count": {
+  "/workflow/engine/todo/count": {
    "get": {
     "operationId": "myTodoCount",
     "tags": [
@@ -6562,7 +6688,7 @@
     }
    }
   },
-  "/api/workflow/engine/todo/pushMine": {
+  "/workflow/engine/todo/pushMine": {
    "post": {
     "operationId": "pushMyTodoCount",
     "tags": [
@@ -6582,7 +6708,7 @@
     }
    }
   },
-  "/api/workflow/engine/countersign/instance/{instanceId}": {
+  "/workflow/engine/countersign/instance/{instanceId}": {
    "get": {
     "operationId": "countersignByInstanceId",
     "tags": [
@@ -6630,7 +6756,7 @@
     ]
    }
   },
-  "/api/workflow/engine/countersign/task/{taskId}": {
+  "/workflow/engine/countersign/task/{taskId}": {
    "get": {
     "operationId": "countersignByTaskId",
     "tags": [
@@ -6678,7 +6804,7 @@
     ]
    }
   },
-  "/api/workflow/template/list": {
+  "/workflow/template/list": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -6708,7 +6834,7 @@
     ]
    }
   },
-  "/api/workflow/template/{templateCode}": {
+  "/workflow/template/{templateCode}": {
    "get": {
     "operationId": "getTemplate",
     "tags": [
@@ -6738,7 +6864,7 @@
     ]
    }
   },
-  "/api/workflow/template/{templateCode}/import": {
+  "/workflow/template/{templateCode}/import": {
    "post": {
     "operationId": "importTemplate",
     "tags": [
@@ -6776,7 +6902,7 @@
     ]
    }
   },
-  "/api/workflow/template/export/{definitionId}": {
+  "/workflow/template/export/{definitionId}": {
    "post": {
     "operationId": "exportAsTemplate",
     "tags": [
@@ -6822,7 +6948,7 @@
     ]
    }
   },
-  "/api/workflow/template/{templateCode}/versions": {
+  "/workflow/template/{templateCode}/versions": {
    "get": {
     "operationId": "listTemplateVersions",
     "tags": [
@@ -6852,7 +6978,7 @@
     ]
    }
   },
-  "/api/workflow/template/{templateCode}/versions/{version}": {
+  "/workflow/template/{templateCode}/versions/{version}": {
    "get": {
     "operationId": "getTemplateVersion",
     "tags": [
@@ -6891,7 +7017,7 @@
     ]
    }
   },
-  "/api/workflow/template/{templateCode}/newVersion": {
+  "/workflow/template/{templateCode}/newVersion": {
    "post": {
     "operationId": "createNewVersion",
     "tags": [
@@ -6929,7 +7055,7 @@
     ]
    }
   },
-  "/api/workflow/template/{templateCode}/clone": {
+  "/workflow/template/{templateCode}/clone": {
    "post": {
     "operationId": "cloneTemplate",
     "tags": [
@@ -6983,7 +7109,7 @@
     ]
    }
   },
-  "/api/workflow/template/{parentTemplateCode}/inherit": {
+  "/workflow/template/{parentTemplateCode}/inherit": {
    "post": {
     "operationId": "inheritFromParent",
     "tags": [
@@ -7037,7 +7163,7 @@
     ]
    }
   },
-  "/api/workflow/template/{parentTemplateCode}/inherited": {
+  "/workflow/template/{parentTemplateCode}/inherited": {
    "get": {
     "operationId": "listInheritedTemplates",
     "tags": [
@@ -7067,7 +7193,7 @@
     ]
    }
   },
-  "/api/workflow/template/{childTemplateCode}/sync": {
+  "/workflow/template/{childTemplateCode}/sync": {
    "post": {
     "operationId": "syncFromParent",
     "tags": [
@@ -7097,7 +7223,7 @@
     ]
    }
   },
-  "/api/workflow/template/recommend": {
+  "/workflow/template/recommend": {
    "get": {
     "operationId": "recommend",
     "tags": [
@@ -7128,7 +7254,7 @@
     ]
    }
   },
-  "/api/workflow/template/recommend/byBusinessType": {
+  "/workflow/template/recommend/byBusinessType": {
    "get": {
     "operationId": "recommendByBusinessType",
     "tags": [
@@ -7167,7 +7293,7 @@
     ]
    }
   },
-  "/api/workflow/message-event/publish": {
+  "/workflow/message-event/publish": {
    "post": {
     "operationId": "publish",
     "tags": [
@@ -7190,14 +7316,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/PublishMessageRequest"
        }
       }
      }
     }
    }
   },
-  "/api/internal/engine/instance/start": {
+  "/internal/engine/instance/start": {
    "post": {
     "operationId": "startProcess",
     "tags": [
@@ -7227,7 +7353,7 @@
     }
    }
   },
-  "/api/internal/engine/instance/byBusiness": {
+  "/internal/engine/instance/byBusiness": {
    "get": {
     "operationId": "getByBusiness",
     "tags": [
@@ -7265,7 +7391,7 @@
     ]
    }
   },
-  "/api/internal/engine/instance/{id}/terminate": {
+  "/internal/engine/instance/{id}/terminate": {
    "post": {
     "operationId": "terminate",
     "tags": [
@@ -7566,14 +7692,14 @@
      "nodes": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/FlowNodeDTO"
       },
       "description": "轻量节点列表（JSON 模式）"
      },
      "skips": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/FlowSkipDTO"
       },
       "description": "轻量跳转列表（JSON 模式）"
      },
@@ -7659,6 +7785,145 @@
     "required": [
      "flowCode",
      "flowName"
+    ]
+   },
+   "FlowNodeDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码（流程内唯一）"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点类型：0开始/1审批/2抄送/3条件/4并行/5包容/6结束/7子流程"
+     },
+     "permissionFlag": {
+      "type": "string",
+      "description": "办理人权限标识"
+     },
+     "performType": {
+      "type": "string",
+      "description": "会签类型"
+     },
+     "skipAnyNode": {
+      "type": "string",
+      "description": "任意跳转目标节点"
+     }
+    },
+    "description": "节点定义",
+    "x-field-docs": {
+     "nodeCode": "节点编码（流程内唯一）",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型：0开始/1审批/2抄送/3条件/4并行/5包容/6结束/7子流程",
+     "permissionFlag": "办理人权限标识",
+     "performType": "会签类型",
+     "skipAnyNode": "任意跳转目标节点"
+    }
+   },
+   "FlowSkipDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fromNodeCode": {
+      "type": "string",
+      "description": "源节点编码"
+     },
+     "toNodeCode": {
+      "type": "string",
+      "description": "目标节点编码"
+     },
+     "skipType": {
+      "type": "string",
+      "description": "跳转类型：PASS/REJECT"
+     },
+     "skipCondition": {
+      "type": "string",
+      "description": "跳转条件"
+     },
+     "skipName": {
+      "type": "string",
+      "description": "跳转名称（线上标签）"
+     }
+    },
+    "description": "跳转定义",
+    "x-field-docs": {
+     "fromNodeCode": "源节点编码",
+     "toNodeCode": "目标节点编码",
+     "skipType": "跳转类型：PASS/REJECT",
+     "skipCondition": "跳转条件",
+     "skipName": "跳转名称（线上标签）"
+    }
+   },
+   "PageResponse": {
+    "type": "object",
+    "properties": {
+     "total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "总记录数。"
+     },
+     "pageNum": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当前页码（从 1 开始）。"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int64",
+      "description": "每页记录数。"
+     },
+     "nextCursor": {
+      "type": "string",
+      "description": "下一页游标（null 表示已无更多数据）。\n\n仅游标分页模式有效，偏移量模式下为 null。"
+     },
+     "isMore": {
+      "type": "boolean",
+      "description": "是否有下一页。\n\n仅游标分页模式有效，偏移量模式下参考 #getPages() 与当前 pageNum 判断。"
+     },
+     "pages": {
+      "type": "string"
+     }
+    },
+    "description": "分页响应信封（YdszResponse 的子类型）。\n\n将分页元信息（total / pageNum / pageSize）收口到专用的分页响应类型中， 使 YdszResponse\n不再承担分页职责，同时提供类型明确的返回对象， 便于 Controller 声明 `PageResponse<UserVO>` 或 {@code\nYdszResponse<PageResponse<UserVO>>}。\n\n本类是 API 响应信封，用于 Controller 层返回分页数据。 新代码请直接返回 `PageResponse<T>`。\n\n迁移提示：YdszResponse 上的分页字段与 `successPage()/emptyPage()` 方法已于 26.09.01\n移除。新代码请直接返回 `PageResponse<T>`。\n\n@param <T> 数据元素的类型",
+    "x-field-docs": {
+     "total": "总记录数。",
+     "pageNum": "当前页码（从 1 开始）。",
+     "pageSize": "每页记录数。",
+     "nextCursor": "下一页游标（null 表示已无更多数据）。\n\n仅游标分页模式有效，偏移量模式下为 null。",
+     "isMore": "是否有下一页。\n\n仅游标分页模式有效，偏移量模式下参考 #getPages() 与当前 pageNum 判断。"
+    }
+   },
+   "RollbackRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码（业务唯一键，租户内唯一）"
+     }
+    },
+    "description": "流程定义回滚请求 DTO\n\n一键回滚流程定义到上一版本的入参载体，对应 `POST /definition/rollback` 请求体。",
+    "x-field-docs": {
+     "flowCode": "流程编码（业务唯一键，租户内唯一）"
+    },
+    "required": [
+     "flowCode"
     ]
    },
    "FlowDelegateAuthPostDTO": {
@@ -8154,6 +8419,11 @@
      "targetFlowCode"
     ]
    },
+   "SimulationRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SimulationRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "FlowTaskOperateDTO": {
     "type": "object",
     "properties": {
@@ -8329,6 +8599,3254 @@
      "fileName",
      "storageKey"
     ]
+   },
+   "PublishMessageRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PublishMessageRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "StringVO": {
+    "type": "object",
+    "properties": {
+     "value": {
+      "type": "string",
+      "description": "包装的字符串值"
+     }
+    },
+    "description": "通用字符串包装视图对象（VO）。\n\n用于接口返回单个字符串结果（如合并组 ID、用户 ID 列表等）， 避免直接返回裸 String 导致 JSON 反序列化歧义。",
+    "x-field-docs": {
+     "value": "包装的字符串值"
+    }
+   },
+   "FlowBottleneckVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "avgDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "平均耗时（毫秒）"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int64",
+      "description": "处理数量"
+     }
+    },
+    "description": "瓶颈节点视图对象\n\n用于标识审批流程中耗时较长、处理数量较多的瓶颈节点，帮助定位流程优化点。",
+    "x-field-docs": {
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "avgDurationMs": "平均耗时（毫秒）",
+     "count": "处理数量"
+    }
+   },
+   "FlowAnomalyVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "type": {
+      "type": "string",
+      "description": "异常类型：STUCK / HIGH_REJECTION / LONG_RUNNING"
+     },
+     "warnLevel": {
+      "type": "string",
+      "description": "告警等级：RED / YELLOW / ORANGE"
+     },
+     "anomalyType": {
+      "type": "string",
+      "description": "异常分类描述"
+     },
+     "instanceId": {
+      "type": "string",
+      "description": "流程实例 ID"
+     },
+     "taskId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "description": {
+      "type": "string",
+      "description": "异常描述信息"
+     },
+     "stuckHours": {
+      "type": "integer",
+      "format": "int64",
+      "description": "卡住时长（小时），仅 STUCK 类型有效"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "异常发生时间"
+     },
+     "totalCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "驳回率统计：总数量"
+     },
+     "rejectedCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "驳回率统计：驳回数量"
+     },
+     "rejectionRate": {
+      "type": "number",
+      "description": "驳回率（0~1），仅 HIGH_REJECTION 类型有效"
+     }
+    },
+    "description": "流程异常记录视图对象\n\n用于展示审批流程中检测到的异常情况，包括卡住（STUCK）、高驳回率（HIGH_REJECTION）、\n长时间运行（LONG_RUNNING）等类型，支持按告警等级分类。",
+    "x-field-docs": {
+     "type": "异常类型：STUCK / HIGH_REJECTION / LONG_RUNNING",
+     "warnLevel": "告警等级：RED / YELLOW / ORANGE",
+     "anomalyType": "异常分类描述",
+     "instanceId": "流程实例 ID",
+     "taskId": "任务 ID",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "description": "异常描述信息",
+     "stuckHours": "卡住时长（小时），仅 STUCK 类型有效",
+     "createdAt": "异常发生时间",
+     "totalCount": "驳回率统计：总数量",
+     "rejectedCount": "驳回率统计：驳回数量",
+     "rejectionRate": "驳回率（0~1），仅 HIGH_REJECTION 类型有效"
+    }
+   },
+   "FlowMigrationImpactVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "oldDefinitionId": {
+      "type": "string",
+      "description": "原流程定义 ID"
+     },
+     "newDefinitionId": {
+      "type": "string",
+      "description": "目标流程定义 ID"
+     },
+     "riskLevel": {
+      "type": "string",
+      "description": "风险等级：HIGH / MEDIUM / LOW / NONE"
+     },
+     "runningInstanceCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "正在运行的实例数量"
+     },
+     "affectedInstances": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      },
+      "description": "受影响的运行实例列表"
+     },
+     "blockedNodes": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      },
+      "description": "阻塞节点列表（迁移后无法继续执行的节点）"
+     },
+     "affectedNodes": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      },
+      "description": "受影响的节点列表"
+     },
+     "recommendation": {
+      "type": "string",
+      "description": "迁移建议"
+     }
+    },
+    "description": "流程迁移影响分析视图对象。\n\n用于评估流程定义迁移对正在运行实例的影响，提供风险等级和建议。",
+    "x-field-docs": {
+     "oldDefinitionId": "原流程定义 ID",
+     "newDefinitionId": "目标流程定义 ID",
+     "riskLevel": "风险等级：HIGH / MEDIUM / LOW / NONE",
+     "runningInstanceCount": "正在运行的实例数量",
+     "affectedInstances": "受影响的运行实例列表",
+     "blockedNodes": "阻塞节点列表（迁移后无法继续执行的节点）",
+     "affectedNodes": "受影响的节点列表",
+     "recommendation": "迁移建议"
+    }
+   },
+   "FlowAttachmentVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "instanceId": {
+      "type": "string"
+     },
+     "taskId": {
+      "type": "string"
+     },
+     "nodeCode": {
+      "type": "string"
+     },
+     "bizType": {
+      "type": "string"
+     },
+     "fileName": {
+      "type": "string"
+     },
+     "fileExt": {
+      "type": "string"
+     },
+     "fileSize": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "contentType": {
+      "type": "string"
+     },
+     "storageKey": {
+      "type": "string"
+     },
+     "storageType": {
+      "type": "string"
+     },
+     "uploaderId": {
+      "type": "string"
+     },
+     "uploaderName": {
+      "type": "string"
+     },
+     "downloadUrl": {
+      "type": "string"
+     },
+     "md5": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowAttachment 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "isDeleted": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+    }
+   },
+   "FlowAttachmentPreviewDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "attachmentId": {
+      "type": "string",
+      "description": "附件 ID"
+     },
+     "fileName": {
+      "type": "string",
+      "description": "原始文件名"
+     },
+     "fileExt": {
+      "type": "string",
+      "description": "文件扩展名（小写，无点号）"
+     },
+     "contentType": {
+      "type": "string",
+      "description": "MIME 类型"
+     },
+     "previewType": {
+      "type": "string",
+      "description": "预览类型：IMAGE / PDF / VIDEO / TEXT / OFFICE / UNSUPPORTED"
+     },
+     "previewUrl": {
+      "type": "string",
+      "description": "预览 URL（IMAGE/PDF/VIDEO/TEXT 即 downloadUrl；OFFICE 为外部预览服务 URL；UNSUPPORTED 为 downloadUrl）"
+     },
+     "downloadUrl": {
+      "type": "string",
+      "description": "下载 URL（始终提供，前端可降级为下载）"
+     },
+     "isPreviewable": {
+      "type": "boolean",
+      "description": "是否支持在线预览（false 时前端应引导下载）"
+     }
+    },
+    "description": "P2-3: 附件在线预览 VO\n\n根据文件类型返回不同的预览策略：\n\n\n`previewType=IMAGE/PDF/VIDEO/TEXT` → `previewUrl` 即 `downloadUrl`，\n前端原生标签（img/iframe/video/pre）直接渲染\n`previewType=OFFICE` → `previewUrl` 为外部预览服务 URL （kkFileView/Office Online），需配置\n`workflow.attachment.preview-server-url`\n`previewType=UNSUPPORTED` → 不支持在线预览，前端引导下载",
+    "x-field-docs": {
+     "attachmentId": "附件 ID",
+     "fileName": "原始文件名",
+     "fileExt": "文件扩展名（小写，无点号）",
+     "contentType": "MIME 类型",
+     "previewType": "预览类型：IMAGE / PDF / VIDEO / TEXT / OFFICE / UNSUPPORTED",
+     "previewUrl": "预览 URL（IMAGE/PDF/VIDEO/TEXT 即 downloadUrl；OFFICE 为外部预览服务 URL；UNSUPPORTED 为 downloadUrl）",
+     "downloadUrl": "下载 URL（始终提供，前端可降级为下载）",
+     "isPreviewable": "是否支持在线预览（false 时前端应引导下载）"
+    }
+   },
+   "FlowCategoryVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "categoryCode": {
+      "type": "string"
+     },
+     "categoryName": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "sortNum": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "icon": {
+      "type": "string"
+     },
+     "remark": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowCategory 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "isDeleted": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+    }
+   },
+   "FlowCategoryTreeVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "分类唯一标识"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "父分类 ID（顶级分类为 \"0\" 或 null）"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FlowCategoryTreeVO"
+      },
+      "description": "子分类列表"
+     },
+     "level": {
+      "type": "integer",
+      "format": "int32",
+      "description": "层级深度（根节点=1，由 TreeBuilder 自动填充）"
+     },
+     "path": {
+      "type": "string",
+      "description": "节点路径（如 \"/1/5/12/\"，由 TreeBuilder 自动填充）"
+     },
+     "categoryCode": {
+      "type": "string",
+      "description": "分类编码（唯一，业务语义，如 \"HR\"、\"FINANCE\"）"
+     },
+     "categoryName": {
+      "type": "string",
+      "description": "分类名称（前端展示）"
+     },
+     "sortNum": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序号（越小越靠前）"
+     },
+     "icon": {
+      "type": "string",
+      "description": "图标（前端展示用，如 Element Plus icon 名称）"
+     },
+     "remark": {
+      "type": "string",
+      "description": "备注（说明分类的业务用途）"
+     }
+    },
+    "description": "流程分类树形 VO，用于前端设计器左侧导航树渲染。\n\n由 impl.FlowCategoryServiceImpl#tree(String) 使用 {@link\ncom.njydsz.common.domain.tree.TreeBuilder#buildSimple} 构建，自动填充 `level`/`path` 元数据。\n\n与 FlowCategoryVO 的区别：\n\n\n`children` — 子节点列表（递归嵌套）\n`level` — 层级深度（根节点=1，逐层+1）\n`path` — 节点路径（如 \"/1/5/12/\"）",
+    "x-field-docs": {
+     "id": "分类唯一标识",
+     "parentId": "父分类 ID（顶级分类为 \"0\" 或 null）",
+     "children": "子分类列表",
+     "level": "层级深度（根节点=1，由 TreeBuilder 自动填充）",
+     "path": "节点路径（如 \"/1/5/12/\"，由 TreeBuilder 自动填充）",
+     "categoryCode": "分类编码（唯一，业务语义，如 \"HR\"、\"FINANCE\"）",
+     "categoryName": "分类名称（前端展示）",
+     "sortNum": "排序号（越小越靠前）",
+     "icon": "图标（前端展示用，如 Element Plus icon 名称）",
+     "remark": "备注（说明分类的业务用途）"
+    }
+   },
+   "FlowCcVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "instanceId": {
+      "type": "string"
+     },
+     "taskId": {
+      "type": "string"
+     },
+     "nodeCode": {
+      "type": "string"
+     },
+     "nodeName": {
+      "type": "string"
+     },
+     "flowCode": {
+      "type": "string"
+     },
+     "flowName": {
+      "type": "string"
+     },
+     "businessKey": {
+      "type": "string"
+     },
+     "ccUserId": {
+      "type": "string"
+     },
+     "ccUserName": {
+      "type": "string"
+     },
+     "ccType": {
+      "type": "string"
+     },
+     "triggerUserId": {
+      "type": "string"
+     },
+     "triggerUserName": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "readStatus": {
+      "type": "string"
+     },
+     "readAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowCc 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+    }
+   },
+   "FlowCommentVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "instanceId": {
+      "type": "string"
+     },
+     "taskId": {
+      "type": "string"
+     },
+     "nodeCode": {
+      "type": "string"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "userName": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "parentCommentId": {
+      "type": "string"
+     },
+     "replyToUserId": {
+      "type": "string"
+     },
+     "replyToUserName": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowComment 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "isDeleted": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+    }
+   },
+   "FlowQuickCommentVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "commentType": {
+      "type": "string"
+     },
+     "sortNum": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "useCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "isSystem": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowQuickComment 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "isDeleted": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+    }
+   },
+   "FlowBatchDeployResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功部署的数量"
+     },
+     "failedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "部署失败的数量"
+     },
+     "definitionIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "成功部署的定义 ID 列表"
+     },
+     "failedItems": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FailedDeployItemVO"
+      },
+      "description": "部署失败的条目列表"
+     },
+     "fileName": {
+      "type": "string",
+      "description": "文件名"
+     },
+     "reason": {
+      "type": "string",
+      "description": "失败原因"
+     }
+    },
+    "description": "批量部署流程结果视图对象。\n\n用于返回批量部署流程定义操作的成功与失败统计信息。",
+    "x-field-docs": {
+     "successCount": "成功部署的数量",
+     "failedCount": "部署失败的数量",
+     "definitionIds": "成功部署的定义 ID 列表",
+     "failedItems": "部署失败的条目列表",
+     "fileName": "文件名",
+     "reason": "失败原因"
+    }
+   },
+   "FailedDeployItemVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileName": {
+      "type": "string",
+      "description": "文件名"
+     },
+     "reason": {
+      "type": "string",
+      "description": "失败原因"
+     }
+    },
+    "description": "批量部署失败条目。",
+    "x-field-docs": {
+     "fileName": "文件名",
+     "reason": "失败原因"
+    }
+   },
+   "FlowDefinitionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码（业务语义，如 project_initiation）"
+     },
+     "flowName": {
+      "type": "string",
+      "description": "流程名称"
+     },
+     "category": {
+      "type": "string",
+      "description": "流程分类"
+     },
+     "flowVersion": {
+      "type": "string",
+      "description": "流程版本号（如 v1、v2）"
+     },
+     "modelValue": {
+      "type": "string",
+      "description": "设计器模型（CLASSICS 经典 / MIMIC 纵向审批）"
+     },
+     "formCustom": {
+      "type": "string",
+      "description": "审批表单是否自定义（Y/N）"
+     },
+     "formPath": {
+      "type": "string",
+      "description": "表单路径"
+     },
+     "activityStatus": {
+      "type": "integer",
+      "format": "int32",
+      "description": "激活状态（0=挂起 / 1=激活）"
+     },
+     "publishStatus": {
+      "type": "integer",
+      "format": "int32",
+      "description": "发布状态（0=未发布 / 1=已发布 / 9=失效）"
+     },
+     "listenerType": {
+      "type": "string",
+      "description": "监听器类型"
+     },
+     "listenerPath": {
+      "type": "string",
+      "description": "监听器路径（Spring Bean 路径）"
+     },
+     "ext": {
+      "type": "string",
+      "description": "扩展字段（JSON）"
+     },
+     "description": {
+      "type": "string",
+      "description": "流程描述"
+     },
+     "providerTraceId": {
+      "type": "string",
+      "description": "外部追踪 ID"
+     },
+     "canaryPercent": {
+      "type": "integer",
+      "format": "int32",
+      "description": "灰度发布百分比"
+     },
+     "canaryStatus": {
+      "type": "string",
+      "description": "灰度状态"
+     },
+     "canaryStrategy": {
+      "type": "string",
+      "description": "灰度策略"
+     },
+     "canaryRolloutLog": {
+      "type": "string",
+      "description": "灰度发布日志"
+     },
+     "lockedBy": {
+      "type": "string",
+      "description": "锁定人"
+     },
+     "lockedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "锁定时间"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32",
+      "description": "乐观锁版本号（对齐实体继承链 MpBaseEntity.revision）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "流程定义视图对象\n\n用于 Controller 层返回流程定义数据，对应实体 FlowDefinition。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "flowCode": "流程编码（业务语义，如 project_initiation）",
+     "flowName": "流程名称",
+     "category": "流程分类",
+     "flowVersion": "流程版本号（如 v1、v2）",
+     "modelValue": "设计器模型（CLASSICS 经典 / MIMIC 纵向审批）",
+     "formCustom": "审批表单是否自定义（Y/N）",
+     "formPath": "表单路径",
+     "activityStatus": "激活状态（0=挂起 / 1=激活）",
+     "publishStatus": "发布状态（0=未发布 / 1=已发布 / 9=失效）",
+     "listenerType": "监听器类型",
+     "listenerPath": "监听器路径（Spring Bean 路径）",
+     "ext": "扩展字段（JSON）",
+     "description": "流程描述",
+     "providerTraceId": "外部追踪 ID",
+     "canaryPercent": "灰度发布百分比",
+     "canaryStatus": "灰度状态",
+     "canaryStrategy": "灰度策略",
+     "canaryRolloutLog": "灰度发布日志",
+     "lockedBy": "锁定人",
+     "lockedAt": "锁定时间",
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "isDeleted": "逻辑删除标记（对齐实体继承链 MpBaseEntity.isDeleted）",
+     "revision": "乐观锁版本号（对齐实体继承链 MpBaseEntity.revision）",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "FlowDefinitionDetailVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "definition": {
+      "$ref": "#/components/schemas/FlowDefinitionVO"
+     },
+     "nodes": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FlowNodeVO"
+      },
+      "description": "节点列表"
+     },
+     "skips": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FlowSkipVO"
+      },
+      "description": "跳转条件列表"
+     },
+     "isReadonly": {
+      "type": "boolean",
+      "description": "是否只读（如发布后不可直接编辑）"
+     }
+    },
+    "description": "流程定义详情视图对象。\n\n聚合流程定义、节点列表、跳转条件和只读标识，用于流程设计器初始化加载。",
+    "x-field-docs": {
+     "definition": "流程定义基本信息",
+     "nodes": "节点列表",
+     "skips": "跳转条件列表",
+     "isReadonly": "是否只读（如发布后不可直接编辑）"
+    }
+   },
+   "FlowNodeVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "definitionId": {
+      "type": "string"
+     },
+     "flowCode": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "nodeCode": {
+      "type": "string"
+     },
+     "nodeName": {
+      "type": "string"
+     },
+     "permissionFlag": {
+      "type": "string"
+     },
+     "skipAnyNode": {
+      "type": "string"
+     },
+     "coordinate": {
+      "type": "string"
+     },
+     "skipList": {
+      "type": "string"
+     },
+     "ext": {
+      "type": "string"
+     },
+     "formFieldsConfig": {
+      "type": "string"
+     },
+     "slaConfig": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "parsedExt": {
+      "type": "object",
+      "description": "ext JSON 懒解析缓存（不参与序列化）。"
+     },
+     "parsedSlaConfig": {
+      "$ref": "#/components/schemas/volatile SlaConfigVO"
+     },
+     "parsedServiceNodeConfig": {
+      "$ref": "#/components/schemas/volatile ServiceNodeConfigVO"
+     },
+     "parsedCountersignConfig": {
+      "$ref": "#/components/schemas/volatile CountersignConfigVO"
+     },
+     "parsedAssigneeConfig": {
+      "$ref": "#/components/schemas/volatile AssigneeConfigVO"
+     },
+     "parsedAiAgentNodeConfig": {
+      "$ref": "#/components/schemas/volatile AiAgentNodeConfigVO"
+     },
+     "parsedRejectStrategyConfig": {
+      "$ref": "#/components/schemas/volatile RejectStrategyConfigVO"
+     },
+     "parsedUrgeChannelConfig": {
+      "$ref": "#/components/schemas/volatile UrgeChannelConfigVO"
+     },
+     "parseLock": {
+      "type": "object",
+      "description": "实例级可重入锁，用于懒解析 double-check（不参与序列化）。"
+     },
+     "extMap": {
+      "type": "string"
+     },
+     "slaConfigJson": {
+      "type": "string"
+     },
+     "serviceNodeConfig": {
+      "type": "string"
+     },
+     "countersignConfig": {
+      "type": "string"
+     },
+     "assigneeConfig": {
+      "type": "string"
+     },
+     "aiAgentNodeConfig": {
+      "type": "string"
+     },
+     "rejectStrategyConfig": {
+      "type": "string"
+     },
+     "urgeChannelConfig": {
+      "type": "string"
+     },
+     "defaultFlowId": {
+      "type": "string"
+     },
+     "autoDedup": {
+      "type": "string"
+     },
+     "formSchemaJson": {
+      "type": "string"
+     },
+     "priority": {
+      "type": "string"
+     },
+     "eventType": {
+      "type": "string"
+     },
+     "attachedToRef": {
+      "type": "string"
+     },
+     "errorRef": {
+      "type": "string"
+     }
+    },
+    "description": "FlowNode 视图对象。\n\n提供 ext JSON 的懒解析 getter 方法，避免调用方重复编写解析逻辑。\n解析结果缓存在 transient volatile 字段中，同一 VO 多次调用只解析一次。\n\n线程安全使用 ReentrantLock 替代 `synchronized` 关键字，\n提供等价的互斥语义同时避免内置锁的局限性。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "parsedExt": "ext JSON 懒解析缓存（不参与序列化）。",
+     "parsedSlaConfig": "SLA 配置懒解析缓存（不参与序列化）。",
+     "parsedServiceNodeConfig": "服务节点配置懒解析缓存（不参与序列化）。",
+     "parsedCountersignConfig": "会签配置懒解析缓存（不参与序列化）。",
+     "parsedAssigneeConfig": "办理人配置懒解析缓存（不参与序列化）。",
+     "parsedAiAgentNodeConfig": "AI 审批节点配置懒解析缓存（不参与序列化）。",
+     "parsedRejectStrategyConfig": "驳回策略配置懒解析缓存（不参与序列化）。",
+     "parsedUrgeChannelConfig": "催办通道配置懒解析缓存（不参与序列化）。",
+     "parseLock": "实例级可重入锁，用于懒解析 double-check（不参与序列化）。",
+     "DEFAULT_PRIORITY": "节点默认优先级。",
+     "DEFAULT_TIMEOUT_MINUTES": "默认超时分钟数。"
+    }
+   },
+   "volatile SlaConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile SlaConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "volatile ServiceNodeConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile ServiceNodeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "volatile CountersignConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile CountersignConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "volatile AssigneeConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile AssigneeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "volatile AiAgentNodeConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile AiAgentNodeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "volatile RejectStrategyConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile RejectStrategyConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "volatile UrgeChannelConfigVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "volatile UrgeChannelConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "FlowSkipVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "definitionId": {
+      "type": "string"
+     },
+     "flowCode": {
+      "type": "string"
+     },
+     "skipName": {
+      "type": "string"
+     },
+     "skipType": {
+      "type": "string"
+     },
+     "coordinate": {
+      "type": "string"
+     },
+     "skipCondition": {
+      "type": "string"
+     },
+     "nextNodeCode": {
+      "type": "string"
+     },
+     "nextNodeType": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sourceNodeCode": {
+      "type": "string"
+     },
+     "coordinateNext": {
+      "type": "string"
+     },
+     "skipList": {
+      "type": "string"
+     },
+     "ext": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "parsedExt": {
+      "type": "object",
+      "description": "ext JSON 懒解析缓存（不参与序列化）。"
+     },
+     "extMap": {
+      "type": "string"
+     },
+     "sourceRef": {
+      "type": "string"
+     },
+     "sequenceFlowId": {
+      "type": "string"
+     }
+    },
+    "description": "FlowSkip 视图对象。\n\n提供 ext JSON 的懒解析 getter 方法，避免调用方重复编写解析逻辑。\n解析结果缓存在 `parsedExt` 中，同一 VO 多次调用只解析一次。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）",
+     "parsedExt": "ext JSON 懒解析缓存（不参与序列化）。"
+    }
+   },
+   "FlowDefinitionVersionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "版本记录主键 ID"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "版本号"
+     },
+     "flowName": {
+      "type": "string",
+      "description": "流程名称"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态"
+     },
+     "publishedBy": {
+      "type": "string",
+      "description": "发布人"
+     },
+     "publishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "发布时间"
+     }
+    },
+    "description": "流程定义版本视图对象。\n\n记录某一流程定义的版本信息，用于版本管理和发布记录。",
+    "x-field-docs": {
+     "id": "版本记录主键 ID",
+     "flowCode": "流程编码",
+     "version": "版本号",
+     "flowName": "流程名称",
+     "status": "状态",
+     "publishedBy": "发布人",
+     "publishedAt": "发布时间"
+    }
+   },
+   "FlowDefinitionDiffVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "v1": {
+      "type": "integer",
+      "format": "int32",
+      "description": "第一个版本号"
+     },
+     "v2": {
+      "type": "integer",
+      "format": "int32",
+      "description": "第二个版本号"
+     },
+     "nodeChanges": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      },
+      "description": "节点变更列表"
+     },
+     "skipChanges": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      },
+      "description": "跳转条件变更列表"
+     }
+    },
+    "description": "流程定义版本差异视图对象。\n\n记录两个版本之间节点和跳转条件的变化详情，用于版本对比功能。",
+    "x-field-docs": {
+     "v1": "第一个版本号",
+     "v2": "第二个版本号",
+     "nodeChanges": "节点变更列表",
+     "skipChanges": "跳转条件变更列表"
+    }
+   },
+   "FlowRollbackResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否回滚成功"
+     },
+     "message": {
+      "type": "string",
+      "description": "结果描述信息"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "fromVersion": {
+      "type": "integer",
+      "format": "int32",
+      "description": "回滚前版本号"
+     },
+     "toVersion": {
+      "type": "integer",
+      "format": "int32",
+      "description": "回滚目标版本号"
+     }
+    },
+    "description": "流程回滚结果视图对象。\n\n用于返回流程版本回滚操作的结果，包含回滚前后的版本信息。",
+    "x-field-docs": {
+     "isSuccess": "是否回滚成功",
+     "message": "结果描述信息",
+     "flowCode": "流程编码",
+     "fromVersion": "回滚前版本号",
+     "toVersion": "回滚目标版本号"
+    }
+   },
+   "FlowEventSubscriptionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "instanceId": {
+      "type": "string"
+     },
+     "definitionId": {
+      "type": "string"
+     },
+     "flowCode": {
+      "type": "string"
+     },
+     "nodeCode": {
+      "type": "string"
+     },
+     "nodeName": {
+      "type": "string"
+     },
+     "eventType": {
+      "type": "string"
+     },
+     "eventRef": {
+      "type": "string"
+     },
+     "correlationKey": {
+      "type": "string"
+     },
+     "boundaryTaskId": {
+      "type": "string"
+     },
+     "subscriptionStatus": {
+      "type": "string"
+     },
+     "payload": {
+      "type": "string"
+     },
+     "triggeredAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "triggerSource": {
+      "type": "string"
+     },
+     "cancelReason": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowEventSubscription 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+    }
+   },
+   "FlowDelegateAuthVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "ownerUserId": {
+      "type": "string"
+     },
+     "ownerUserName": {
+      "type": "string"
+     },
+     "delegateUserId": {
+      "type": "string"
+     },
+     "delegateUserName": {
+      "type": "string"
+     },
+     "scopeType": {
+      "type": "string"
+     },
+     "flowCode": {
+      "type": "string"
+     },
+     "nodeCode": {
+      "type": "string"
+     },
+     "roleCode": {
+      "type": "string"
+     },
+     "startTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "endTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "authStatus": {
+      "type": "string"
+     },
+     "reason": {
+      "type": "string"
+     },
+     "providerTraceId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowDelegateAuth 视图对象。",
+    "x-field-docs": {
+     "tenantId": "租户标识（对齐实体继承链 MpBaseEntity.tenantId）"
+    }
+   },
+   "EmbeddedApprovalViewDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "businessType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "businessId": {
+      "type": "string",
+      "description": "业务 ID"
+     },
+     "instance": {
+      "$ref": "#/components/schemas/FlowInstanceViewDTO"
+     },
+     "diagram": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "流程图（definition / nodes / skips），未发起时为 null"
+     },
+     "currentTasks": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/CurrentTaskView"
+      },
+      "description": "当前待办任务视图（空列表表示流程已结束或未发起）"
+     },
+     "history": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object"
+       }
+      },
+      "description": "审批轨迹时间线（发起 → 通过/驳回 → 结束）"
+     },
+     "myRole": {
+      "type": "string",
+      "description": "当前用户在流程中的角色"
+     },
+     "actions": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "当前用户可执行的快捷操作（PASS/REJECT/TRANSFER/WITHDRAW/URGE/SUBMIT）"
+     },
+     "isCanRecall": {
+      "type": "boolean",
+      "description": "是否可撤回（仅发起人 + 流程运行中）"
+     },
+     "isFinished": {
+      "type": "boolean",
+      "description": "流程是否已结束"
+     },
+     "message": {
+      "type": "string",
+      "description": "友好提示（如\"未发起流程\"/\"流程已结束\"）"
+     },
+     "taskId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点类型"
+     },
+     "assigneeType": {
+      "type": "string",
+      "description": "办理人类型"
+     },
+     "assigneeId": {
+      "type": "string",
+      "description": "办理人 ID"
+     },
+     "assigneeName": {
+      "type": "string",
+      "description": "办理人姓名"
+     },
+     "performType": {
+      "type": "string",
+      "description": "会签类型"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务状态"
+     },
+     "createAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "dueAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "截止时间"
+     },
+     "isMine": {
+      "type": "boolean",
+      "description": "是否当前用户可操作"
+     }
+    },
+    "description": "P2-2 嵌入式审批面板 DTO\n\n业务页（项目立项/合同/工时/采购等）通过嵌入式审批面板一次性获取流程信息， 避免业务页需要单独查询流程定义/任务/历史轨迹再组装。\n\n结构：\n\n<pre>\n{\n\"instance\": { ...流程实例信息... },\n\"diagram\":  { ...流程图数据，含高亮当前节点... },\n\"currentTasks\": [ ...当前待办，含是否我可操作... ],\n\"history\": [ ...审批轨迹时间线... ],\n\"myRole\": \"INITIATOR/APPROVER/OBSERVER\",\n\"actions\": [ \"PASS\",\"REJECT\",\"TRANSFER\",\"WITHDRAW\",\"URGE\" ],\n\"isCanRecall\": true\n}\n</pre>",
+    "x-field-docs": {
+     "businessType": "业务类型",
+     "businessId": "业务 ID",
+     "instance": "流程实例视图（null 表示未发起流程）",
+     "diagram": "流程图（definition / nodes / skips），未发起时为 null",
+     "currentTasks": "当前待办任务视图（空列表表示流程已结束或未发起）",
+     "history": "审批轨迹时间线（发起 → 通过/驳回 → 结束）",
+     "myRole": "当前用户在流程中的角色",
+     "actions": "当前用户可执行的快捷操作（PASS/REJECT/TRANSFER/WITHDRAW/URGE/SUBMIT）",
+     "isCanRecall": "是否可撤回（仅发起人 + 流程运行中）",
+     "isFinished": "流程是否已结束",
+     "message": "友好提示（如\"未发起流程\"/\"流程已结束\"）",
+     "taskId": "任务 ID",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型",
+     "assigneeType": "办理人类型",
+     "assigneeId": "办理人 ID",
+     "assigneeName": "办理人姓名",
+     "performType": "会签类型",
+     "taskStatus": "任务状态",
+     "createAt": "创建时间",
+     "dueAt": "截止时间",
+     "isMine": "是否当前用户可操作"
+    }
+   },
+   "FlowInstanceViewDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "实例 ID"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "flowName": {
+      "type": "string",
+      "description": "流程名称"
+     },
+     "version": {
+      "type": "string",
+      "description": "流程版本"
+     },
+     "businessType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "businessId": {
+      "type": "string",
+      "description": "业务单据 ID"
+     },
+     "businessNo": {
+      "type": "string",
+      "description": "业务单据编号"
+     },
+     "title": {
+      "type": "string",
+      "description": "流程标题"
+     },
+     "initiatorId": {
+      "type": "string",
+      "description": "发起人 ID"
+     },
+     "initiatorName": {
+      "type": "string",
+      "description": "发起人姓名"
+     },
+     "currentNodeCode": {
+      "type": "string",
+      "description": "当前节点编码"
+     },
+     "currentNodeName": {
+      "type": "string",
+      "description": "当前节点名称"
+     },
+     "flowStatus": {
+      "type": "string",
+      "description": "实例状态（FlowInstanceStatus.name）"
+     },
+     "activityStatus": {
+      "type": "integer",
+      "format": "int32",
+      "description": "激活状态：0 挂起 / 1 激活"
+     },
+     "startAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "启动时间"
+     },
+     "endAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "结束时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "耗时（毫秒）"
+     },
+     "variable": {
+      "type": "string",
+      "description": "流程变量 JSON"
+     },
+     "currentTasks": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FlowTaskViewDTO"
+      },
+      "description": "当前待办任务列表"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点类型（FlowNodeType.code）"
+     },
+     "assigneeType": {
+      "type": "string",
+      "description": "办理人类型"
+     },
+     "assigneeId": {
+      "type": "string",
+      "description": "办理人 ID"
+     },
+     "assigneeName": {
+      "type": "string",
+      "description": "办理人姓名"
+     },
+     "performType": {
+      "type": "string",
+      "description": "会签类型"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务状态"
+     },
+     "comment": {
+      "type": "string",
+      "description": "审批意见"
+     },
+     "createAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "claimAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "签收时间"
+     },
+     "finishAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成时间"
+     },
+     "dueAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "截止时间"
+     },
+     "priority": {
+      "type": "integer",
+      "format": "int32",
+      "description": "P1-1: 任务优先级（1-100，默认 50）"
+     }
+    },
+    "description": "流程实例视图 DTO（Feign 友好，姓名字段已标注 SensitiveData 脱敏）",
+    "x-field-docs": {
+     "id": "实例 ID",
+     "flowCode": "流程编码",
+     "flowName": "流程名称",
+     "version": "流程版本",
+     "businessType": "业务类型",
+     "businessId": "业务单据 ID",
+     "businessNo": "业务单据编号",
+     "title": "流程标题",
+     "initiatorId": "发起人 ID",
+     "initiatorName": "发起人姓名",
+     "currentNodeCode": "当前节点编码",
+     "currentNodeName": "当前节点名称",
+     "flowStatus": "实例状态（FlowInstanceStatus.name）",
+     "activityStatus": "激活状态：0 挂起 / 1 激活",
+     "startAt": "启动时间",
+     "endAt": "结束时间",
+     "durationMs": "耗时（毫秒）",
+     "variable": "流程变量 JSON",
+     "currentTasks": "当前待办任务列表",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型（FlowNodeType.code）",
+     "assigneeType": "办理人类型",
+     "assigneeId": "办理人 ID",
+     "assigneeName": "办理人姓名",
+     "performType": "会签类型",
+     "taskStatus": "任务状态",
+     "comment": "审批意见",
+     "createAt": "创建时间",
+     "claimAt": "签收时间",
+     "finishAt": "完成时间",
+     "dueAt": "截止时间",
+     "priority": "P1-1: 任务优先级（1-100，默认 50）"
+    }
+   },
+   "FlowTaskViewDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点类型（FlowNodeType.code）"
+     },
+     "assigneeType": {
+      "type": "string",
+      "description": "办理人类型"
+     },
+     "assigneeId": {
+      "type": "string",
+      "description": "办理人 ID"
+     },
+     "assigneeName": {
+      "type": "string",
+      "description": "办理人姓名"
+     },
+     "performType": {
+      "type": "string",
+      "description": "会签类型"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务状态"
+     },
+     "comment": {
+      "type": "string",
+      "description": "审批意见"
+     },
+     "createAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "claimAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "签收时间"
+     },
+     "finishAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "耗时（毫秒）"
+     },
+     "dueAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "截止时间"
+     },
+     "priority": {
+      "type": "integer",
+      "format": "int32",
+      "description": "P1-1: 任务优先级（1-100，默认 50）"
+     }
+    },
+    "description": "流程任务视图 DTO（Feign 友好，办理人姓名字段已标注 SensitiveData 脱敏）。\n\n对应实例下当前待办任务的最小视图，仅包含任务办理所需的字段， 不承载表单数据与审批流日志。",
+    "x-field-docs": {
+     "id": "任务 ID",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型（FlowNodeType.code）",
+     "assigneeType": "办理人类型",
+     "assigneeId": "办理人 ID",
+     "assigneeName": "办理人姓名",
+     "performType": "会签类型",
+     "taskStatus": "任务状态",
+     "comment": "审批意见",
+     "createAt": "创建时间",
+     "claimAt": "签收时间",
+     "finishAt": "完成时间",
+     "durationMs": "耗时（毫秒）",
+     "dueAt": "截止时间",
+     "priority": "P1-1: 任务优先级（1-100，默认 50）"
+    }
+   },
+   "CurrentTaskView": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "taskId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点类型"
+     },
+     "assigneeType": {
+      "type": "string",
+      "description": "办理人类型"
+     },
+     "assigneeId": {
+      "type": "string",
+      "description": "办理人 ID"
+     },
+     "assigneeName": {
+      "type": "string",
+      "description": "办理人姓名"
+     },
+     "performType": {
+      "type": "string",
+      "description": "会签类型"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务状态"
+     },
+     "createAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "dueAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "截止时间"
+     },
+     "isMine": {
+      "type": "boolean",
+      "description": "是否当前用户可操作"
+     }
+    },
+    "description": "当前待办视图（嵌入式场景下需要判定\"我是否可操作\"）",
+    "x-field-docs": {
+     "taskId": "任务 ID",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型",
+     "assigneeType": "办理人类型",
+     "assigneeId": "办理人 ID",
+     "assigneeName": "办理人姓名",
+     "performType": "会签类型",
+     "taskStatus": "任务状态",
+     "createAt": "创建时间",
+     "dueAt": "截止时间",
+     "isMine": "是否当前用户可操作"
+    }
+   },
+   "FlowBatchStartResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功启动的数量"
+     },
+     "failedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "启动失败的数量"
+     },
+     "instanceIds": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "成功创建的实例 ID 列表"
+     },
+     "failedItems": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FailedItemVO"
+      },
+      "description": "启动失败的条目列表"
+     },
+     "index": {
+      "type": "integer",
+      "format": "int32",
+      "description": "条目序号"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "reason": {
+      "type": "string",
+      "description": "失败原因"
+     }
+    },
+    "description": "批量启动流程结果视图对象。\n\n用于返回批量启动流程实例操作的成功与失败统计信息。",
+    "x-field-docs": {
+     "successCount": "成功启动的数量",
+     "failedCount": "启动失败的数量",
+     "instanceIds": "成功创建的实例 ID 列表",
+     "failedItems": "启动失败的条目列表",
+     "index": "条目序号",
+     "flowCode": "流程编码",
+     "reason": "失败原因"
+    }
+   },
+   "FailedItemVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "index": {
+      "type": "integer",
+      "format": "int32",
+      "description": "条目序号"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "reason": {
+      "type": "string",
+      "description": "失败原因"
+     }
+    },
+    "description": "批量启动失败条目。",
+    "x-field-docs": {
+     "index": "条目序号",
+     "flowCode": "流程编码",
+     "reason": "失败原因"
+    }
+   },
+   "FlowRecallableNodeVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "节点完成时间"
+     },
+     "completedBy": {
+      "type": "string",
+      "description": "完成该节点的操作人"
+     }
+    },
+    "description": "可撤回节点视图对象。\n\n标识流程中可以执行撤回操作的已完成节点，用于撤回功能的可选节点展示。",
+    "x-field-docs": {
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "completedAt": "节点完成时间",
+     "completedBy": "完成该节点的操作人"
+    }
+   },
+   "FlowAuditTrailVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "审计记录主键 ID"
+     },
+     "instanceId": {
+      "type": "string",
+      "description": "流程实例 ID"
+     },
+     "taskId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "businessType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "businessId": {
+      "type": "string",
+      "description": "业务主键 ID"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "action": {
+      "type": "string",
+      "description": "操作动作（通过/驳回/撤回等）"
+     },
+     "operatorId": {
+      "type": "string",
+      "description": "操作人 ID"
+     },
+     "operatorName": {
+      "type": "string",
+      "description": "操作人姓名"
+     },
+     "targetId": {
+      "type": "string",
+      "description": "目标处理人 ID"
+     },
+     "comment": {
+      "type": "string",
+      "description": "审批意见"
+     },
+     "operatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "操作时间"
+     }
+    },
+    "description": "流程审计轨迹视图对象。\n\n记录流程实例中每个节点的审批操作历史，包含操作人、操作动作、时间等信息。",
+    "x-field-docs": {
+     "id": "审计记录主键 ID",
+     "instanceId": "流程实例 ID",
+     "taskId": "任务 ID",
+     "flowCode": "流程编码",
+     "businessType": "业务类型",
+     "businessId": "业务主键 ID",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "action": "操作动作（通过/驳回/撤回等）",
+     "operatorId": "操作人 ID",
+     "operatorName": "操作人姓名",
+     "targetId": "目标处理人 ID",
+     "comment": "审批意见",
+     "operatedAt": "操作时间"
+    }
+   },
+   "FlowTimelineVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "type": {
+      "type": "string",
+      "description": "事件类型：HIS_TASK（历史任务）/ AUDIT_LOG（审计日志）/ CURRENT_TASK（当前任务）"
+     },
+     "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "事件发生时间戳"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "assigneeId": {
+      "type": "string",
+      "description": "处理人 ID"
+     },
+     "assigneeName": {
+      "type": "string",
+      "description": "处理人姓名"
+     },
+     "action": {
+      "type": "string",
+      "description": "操作动作"
+     },
+     "comment": {
+      "type": "string",
+      "description": "审批意见"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务状态"
+     }
+    },
+    "description": "流程时间线视图对象。\n\n聚合流程实例的历史任务、审计日志和当前任务，按时间顺序展示流程执行全过程。",
+    "x-field-docs": {
+     "type": "事件类型：HIS_TASK（历史任务）/ AUDIT_LOG（审计日志）/ CURRENT_TASK（当前任务）",
+     "timestamp": "事件发生时间戳",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "assigneeId": "处理人 ID",
+     "assigneeName": "处理人姓名",
+     "action": "操作动作",
+     "comment": "审批意见",
+     "taskStatus": "任务状态"
+    }
+   },
+   "FlowDiagramVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "definition": {
+      "$ref": "#/components/schemas/FlowDefinitionVO"
+     },
+     "nodes": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/DiagramNodeVO"
+      },
+      "description": "节点列表（每个节点带 active 标记）"
+     },
+     "skips": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FlowSkipVO"
+      },
+      "description": "跳转列表"
+     },
+     "isActive": {
+      "type": "boolean",
+      "description": "是否为当前激活节点（前端高亮）"
+     },
+     "nodeState": {
+      "type": "string",
+      "description": "节点状态（RUNNING / COMPLETED / PENDING / SKIPPED）"
+     }
+    },
+    "description": "流程图视图对象。\n\n用于流程图查询接口（高亮当前节点），包含流程定义、节点列表和跳转列表。\n替代 `Map<String, Object>` 返回值，提供编译期类型安全。\n\n架构合规说明（26.09.01 DDD 分层规范）：视图对象置于 `domain/vo/` 包下，\n以 `VO` 结尾（符合 §34.2.1 表格：vo/ 视图对象）。",
+    "x-field-docs": {
+     "definition": "流程定义基本信息",
+     "nodes": "节点列表（每个节点带 active 标记）",
+     "skips": "跳转列表",
+     "isActive": "是否为当前激活节点（前端高亮）",
+     "nodeState": "节点状态（RUNNING / COMPLETED / PENDING / SKIPPED）"
+    }
+   },
+   "DiagramNodeVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "isActive": {
+      "type": "boolean",
+      "description": "是否为当前激活节点（前端高亮）"
+     },
+     "nodeState": {
+      "type": "string",
+      "description": "节点状态（RUNNING / COMPLETED / PENDING / SKIPPED）"
+     }
+    },
+    "description": "流程图节点视图对象。\n\n继承 FlowNodeVO 的所有字段，额外增加 active 标记用于前端高亮。",
+    "x-field-docs": {
+     "isActive": "是否为当前激活节点（前端高亮）",
+     "nodeState": "节点状态（RUNNING / COMPLETED / PENDING / SKIPPED）"
+    }
+   },
+   "FlowReplayStepVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "stepIndex": {
+      "type": "integer",
+      "format": "int32",
+      "description": "步骤序号"
+     },
+     "type": {
+      "type": "string",
+      "description": "步骤类型：HIS_TASK / AUDIT_LOG / CURRENT_TASK / START / END"
+     },
+     "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "步骤发生时间"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "actor": {
+      "type": "string",
+      "description": "执行人标识"
+     },
+     "actorName": {
+      "type": "string",
+      "description": "执行人姓名"
+     },
+     "action": {
+      "type": "string",
+      "description": "操作动作"
+     },
+     "comment": {
+      "type": "string",
+      "description": "审批意见"
+     },
+     "nodeState": {
+      "type": "string",
+      "description": "节点状态：ENTERED / PASSED / REJECTED / ACTIVE / SKIPPED / FINISHED"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "该步骤耗时（毫秒）"
+     },
+     "coordinate": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "节点坐标信息（含 x、y 等设计器定位数据）"
+     }
+    },
+    "description": "流程回放步骤视图对象。\n\n用于流程回放功能，记录每一步的执行状态、处理人、耗时等信息。",
+    "x-field-docs": {
+     "stepIndex": "步骤序号",
+     "type": "步骤类型：HIS_TASK / AUDIT_LOG / CURRENT_TASK / START / END",
+     "timestamp": "步骤发生时间",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "actor": "执行人标识",
+     "actorName": "执行人姓名",
+     "action": "操作动作",
+     "comment": "审批意见",
+     "nodeState": "节点状态：ENTERED / PASSED / REJECTED / ACTIVE / SKIPPED / FINISHED",
+     "durationMs": "该步骤耗时（毫秒）",
+     "coordinate": "节点坐标信息（含 x、y 等设计器定位数据）"
+    }
+   },
+   "FlowInstanceVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户标识"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "flowName": {
+      "type": "string",
+      "description": "流程名称"
+     },
+     "definitionId": {
+      "type": "string",
+      "description": "流程定义 ID"
+     },
+     "flowVersion": {
+      "type": "string",
+      "description": "流程版本号"
+     },
+     "businessType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "businessId": {
+      "type": "string",
+      "description": "业务单据 ID"
+     },
+     "businessNo": {
+      "type": "string",
+      "description": "业务单据编号"
+     },
+     "title": {
+      "type": "string",
+      "description": "流程标题"
+     },
+     "initiatorId": {
+      "type": "string",
+      "description": "发起人 ID"
+     },
+     "initiatorName": {
+      "type": "string",
+      "description": "发起人名称（冗余）"
+     },
+     "currentNodeCode": {
+      "type": "string",
+      "description": "当前节点编码"
+     },
+     "currentNodeName": {
+      "type": "string",
+      "description": "当前节点名称"
+     },
+     "variable": {
+      "type": "string",
+      "description": "流程变量（JSON）"
+     },
+     "flowStatus": {
+      "type": "string",
+      "description": "流程状态"
+     },
+     "activityStatus": {
+      "type": "integer",
+      "format": "int32",
+      "description": "激活状态（0=挂起 / 1=激活）"
+     },
+     "startAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "开始时间"
+     },
+     "endAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "结束时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "耗时（毫秒）"
+     },
+     "parentInstanceId": {
+      "type": "string",
+      "description": "父流程实例 ID（子流程场景）"
+     },
+     "parentNodeCode": {
+      "type": "string",
+      "description": "父流程节点编码"
+     },
+     "providerTraceId": {
+      "type": "string",
+      "description": "外部追踪 ID"
+     },
+     "dueAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "期望完成时间（SLA 超期时间）"
+     },
+     "rejectReason": {
+      "type": "string",
+      "description": "驳回原因"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "流程实例视图对象\n\n用于 Controller 层返回流程实例数据。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "tenantId": "租户标识",
+     "flowCode": "流程编码",
+     "flowName": "流程名称",
+     "definitionId": "流程定义 ID",
+     "flowVersion": "流程版本号",
+     "businessType": "业务类型",
+     "businessId": "业务单据 ID",
+     "businessNo": "业务单据编号",
+     "title": "流程标题",
+     "initiatorId": "发起人 ID",
+     "initiatorName": "发起人名称（冗余）",
+     "currentNodeCode": "当前节点编码",
+     "currentNodeName": "当前节点名称",
+     "variable": "流程变量（JSON）",
+     "flowStatus": "流程状态",
+     "activityStatus": "激活状态（0=挂起 / 1=激活）",
+     "startAt": "开始时间",
+     "endAt": "结束时间",
+     "durationMs": "耗时（毫秒）",
+     "parentInstanceId": "父流程实例 ID（子流程场景）",
+     "parentNodeCode": "父流程节点编码",
+     "providerTraceId": "外部追踪 ID",
+     "dueAt": "期望完成时间（SLA 超期时间）",
+     "rejectReason": "驳回原因",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "InstanceMigrationResultDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "totalInstances": {
+      "type": "integer",
+      "format": "int32",
+      "description": "符合迁移条件的实例总数"
+     },
+     "migratedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功迁移实例数"
+     },
+     "skippedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "跳过实例数（如节点不兼容且无映射）"
+     },
+     "failedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败实例数（迁移过程中异常）"
+     },
+     "details": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MigrationDetail"
+      },
+      "description": "逐实例迁移明细"
+     },
+     "nodeMappingApplied": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      },
+      "description": "实际生效的节点映射（旧节点编码 -> 新节点编码）"
+     },
+     "instanceId": {
+      "type": "string",
+      "description": "实例 ID"
+     },
+     "instanceTitle": {
+      "type": "string",
+      "description": "实例标题"
+     },
+     "oldNodeCode": {
+      "type": "string",
+      "description": "迁移前节点编码"
+     },
+     "newNodeCode": {
+      "type": "string",
+      "description": "迁移后节点编码"
+     },
+     "status": {
+      "type": "string",
+      "description": "迁移状态：MIGRATED / SKIPPED / FAILED"
+     },
+     "reason": {
+      "type": "string",
+      "description": "状态说明 / 跳过或失败原因"
+     }
+    },
+    "description": "流程实例迁移结果 DTO\n\n封装迁移执行的统计信息与逐实例明细，供前端展示迁移报告。",
+    "x-field-docs": {
+     "totalInstances": "符合迁移条件的实例总数",
+     "migratedCount": "成功迁移实例数",
+     "skippedCount": "跳过实例数（如节点不兼容且无映射）",
+     "failedCount": "失败实例数（迁移过程中异常）",
+     "details": "逐实例迁移明细",
+     "nodeMappingApplied": "实际生效的节点映射（旧节点编码 -> 新节点编码）",
+     "instanceId": "实例 ID",
+     "instanceTitle": "实例标题",
+     "oldNodeCode": "迁移前节点编码",
+     "newNodeCode": "迁移后节点编码",
+     "status": "迁移状态：MIGRATED / SKIPPED / FAILED",
+     "reason": "状态说明 / 跳过或失败原因"
+    }
+   },
+   "MigrationDetail": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "instanceId": {
+      "type": "string",
+      "description": "实例 ID"
+     },
+     "instanceTitle": {
+      "type": "string",
+      "description": "实例标题"
+     },
+     "oldNodeCode": {
+      "type": "string",
+      "description": "迁移前节点编码"
+     },
+     "newNodeCode": {
+      "type": "string",
+      "description": "迁移后节点编码"
+     },
+     "status": {
+      "type": "string",
+      "description": "迁移状态：MIGRATED / SKIPPED / FAILED"
+     },
+     "reason": {
+      "type": "string",
+      "description": "状态说明 / 跳过或失败原因"
+     }
+    },
+    "description": "单个实例的迁移明细",
+    "x-field-docs": {
+     "instanceId": "实例 ID",
+     "instanceTitle": "实例标题",
+     "oldNodeCode": "迁移前节点编码",
+     "newNodeCode": "迁移后节点编码",
+     "status": "迁移状态：MIGRATED / SKIPPED / FAILED",
+     "reason": "状态说明 / 跳过或失败原因"
+    }
+   },
+   "FlowAutoTriggerVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "sourceFlowCode": {
+      "type": "string"
+     },
+     "targetFlowCode": {
+      "type": "string"
+     },
+     "conditionExpression": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "isEnabled": {
+      "type": "boolean"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "FlowAutoTrigger 视图对象。",
+    "x-field-docs": {}
+   },
+   "FlowEfficiencyStatsVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "totalCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "任务总数"
+     },
+     "avgDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "平均耗时（毫秒）"
+     },
+     "proxyRate": {
+      "type": "number",
+      "description": "代理率（0~1）"
+     },
+     "overdueRate": {
+      "type": "number",
+      "description": "逾期率（0~1）"
+     }
+    },
+    "description": "流程效率统计视图对象\n\n用于展示审批流程的整体效率指标，包括任务总数、平均耗时、代理率及逾期率。",
+    "x-field-docs": {
+     "totalCount": "任务总数",
+     "avgDurationMs": "平均耗时（毫秒）",
+     "proxyRate": "代理率（0~1）",
+     "overdueRate": "逾期率（0~1）"
+    }
+   },
+   "FlowApproverEfficiencyVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "userId": {
+      "type": "string",
+      "description": "办理人用户 ID"
+     },
+     "userName": {
+      "type": "string",
+      "description": "办理人姓名"
+     },
+     "completedCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "已完成审批数量"
+     },
+     "avgDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "平均审批耗时（毫秒）"
+     },
+     "totalDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "累计审批耗时（毫秒）"
+     }
+    },
+    "description": "办理人效率统计视图对象\n\n用于展示指定办理人的审批效率数据，包括完成数量、平均耗时及累计耗时。",
+    "x-field-docs": {
+     "userId": "办理人用户 ID",
+     "userName": "办理人姓名",
+     "completedCount": "已完成审批数量",
+     "avgDurationMs": "平均审批耗时（毫秒）",
+     "totalDurationMs": "累计审批耗时（毫秒）"
+    }
+   },
+   "FlowTrendVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "timeLabel": {
+      "type": "string",
+      "description": "时间标签（如 \"2024-01\"、\"2024-W03\"）"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int64",
+      "description": "该时间段内的任务数量"
+     },
+     "avgDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "该时间段内的平均耗时（毫秒）"
+     }
+    },
+    "description": "流程趋势数据视图对象\n\n用于按时间维度展示审批流程的数量与耗时变化趋势，适用于折线图等可视化场景。",
+    "x-field-docs": {
+     "timeLabel": "时间标签（如 \"2024-01\"、\"2024-W03\"）",
+     "count": "该时间段内的任务数量",
+     "avgDurationMs": "该时间段内的平均耗时（毫秒）"
+    }
+   },
+   "SimulationResult": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "steps": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SimulationStep"
+      },
+      "description": "模拟步骤序列"
+     },
+     "visitedNodes": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "访问的节点列表"
+     },
+     "endNode": {
+      "type": "string",
+      "description": "结束节点编码"
+     },
+     "isReachedEnd": {
+      "type": "boolean",
+      "description": "是否到达结束节点"
+     },
+     "warnings": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "警告信息列表（如条件永远不满足）"
+     }
+    },
+    "description": "流程模拟结果\n\n包含模拟执行路径和分析结果。",
+    "x-field-docs": {
+     "steps": "模拟步骤序列",
+     "visitedNodes": "访问的节点列表",
+     "endNode": "结束节点编码",
+     "isReachedEnd": "是否到达结束节点",
+     "warnings": "警告信息列表（如条件永远不满足）"
+    }
+   },
+   "SimulationStep": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "stepIndex": {
+      "type": "integer",
+      "format": "int32",
+      "description": "步骤序号"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "string",
+      "description": "节点类型"
+     },
+     "description": {
+      "type": "string",
+      "description": "步骤描述"
+     },
+     "condition": {
+      "type": "string",
+      "description": "跳转条件（如有）"
+     }
+    },
+    "description": "模拟步骤\n\n记录流程模拟执行过程中的单个步骤信息。",
+    "x-field-docs": {
+     "stepIndex": "步骤序号",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型",
+     "description": "步骤描述",
+     "condition": "跳转条件（如有）"
+    }
+   },
+   "FlowBatchUrgeResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "totalCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "催办总数"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "催办成功数量"
+     },
+     "failedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "催办失败数量"
+     },
+     "urgedByInstance": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "description": "按实例分组的催办结果（实例 ID → 被催办任务 ID 列表）"
+     }
+    },
+    "description": "批量催办结果视图对象。\n\n用于返回批量催办操作的结果统计和详细分发信息。",
+    "x-field-docs": {
+     "totalCount": "催办总数",
+     "successCount": "催办成功数量",
+     "failedCount": "催办失败数量",
+     "urgedByInstance": "按实例分组的催办结果（实例 ID → 被催办任务 ID 列表）"
+    }
+   },
+   "FlowRunTaskVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "instanceId": {
+      "type": "string",
+      "description": "流程实例 ID"
+     },
+     "flowCode": {
+      "type": "string",
+      "description": "流程编码"
+     },
+     "definitionId": {
+      "type": "string",
+      "description": "流程定义 ID"
+     },
+     "nodeCode": {
+      "type": "string",
+      "description": "节点编码"
+     },
+     "nodeName": {
+      "type": "string",
+      "description": "节点名称"
+     },
+     "nodeType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点类型"
+     },
+     "businessType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "businessId": {
+      "type": "string",
+      "description": "业务单据 ID"
+     },
+     "businessNo": {
+      "type": "string",
+      "description": "业务单据编号"
+     },
+     "flowName": {
+      "type": "string",
+      "description": "流程名称"
+     },
+     "title": {
+      "type": "string",
+      "description": "流程标题"
+     },
+     "assignorId": {
+      "type": "string",
+      "description": "分配人 ID"
+     },
+     "assignorName": {
+      "type": "string",
+      "description": "分配人名称"
+     },
+     "assigneeType": {
+      "type": "string",
+      "description": "审批人类型"
+     },
+     "assigneeId": {
+      "type": "string",
+      "description": "审批人 ID"
+     },
+     "assigneeName": {
+      "type": "string",
+      "description": "审批人名称"
+     },
+     "permissionFlag": {
+      "type": "string",
+      "description": "权限标识"
+     },
+     "performType": {
+      "type": "string",
+      "description": "办理方式（会签/或签）"
+     },
+     "approveCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "审批总数"
+     },
+     "approveFinished": {
+      "type": "integer",
+      "format": "int32",
+      "description": "已完成审批数"
+     },
+     "votePassRate": {
+      "type": "number",
+      "description": "投票通过率"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务状态"
+     },
+     "comment": {
+      "type": "string",
+      "description": "审批意见"
+     },
+     "claimAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "签收时间"
+     },
+     "finishAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "耗时（毫秒）"
+     },
+     "dueAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "期望完成时间（SLA 超期时间）"
+     },
+     "priority": {
+      "type": "integer",
+      "format": "int32",
+      "description": "优先级"
+     },
+     "urgeCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "催办次数"
+     },
+     "lastUrgedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后催办时间"
+     },
+     "slaAction": {
+      "type": "string",
+      "description": "SLA 动作"
+     },
+     "slaEscalated": {
+      "type": "integer",
+      "format": "int32",
+      "description": "SLA 是否已升级"
+     },
+     "iterVar": {
+      "type": "string",
+      "description": "迭代变量"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "userWeight": {
+      "type": "integer",
+      "format": "int32",
+      "description": "当前办理人的权重值（票签模式）"
+     },
+     "approveWeight": {
+      "type": "integer",
+      "format": "int32",
+      "description": "累计已通过权重（票签模式）"
+     },
+     "totalWeight": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点总权重（票签模式）"
+     },
+     "effectiveTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "生效时间（P2-1 穿越时空/补录审批）"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成时间（驳回场景使用）"
+     },
+     "providerTraceId": {
+      "type": "string",
+      "description": "外部追踪 ID"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "流程任务视图对象\n\n用于 Controller 层返回待办/已办任务数据，对应实体 FlowRunTask。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "instanceId": "流程实例 ID",
+     "flowCode": "流程编码",
+     "definitionId": "流程定义 ID",
+     "nodeCode": "节点编码",
+     "nodeName": "节点名称",
+     "nodeType": "节点类型",
+     "businessType": "业务类型",
+     "businessId": "业务单据 ID",
+     "businessNo": "业务单据编号",
+     "flowName": "流程名称",
+     "title": "流程标题",
+     "assignorId": "分配人 ID",
+     "assignorName": "分配人名称",
+     "assigneeType": "审批人类型",
+     "assigneeId": "审批人 ID",
+     "assigneeName": "审批人名称",
+     "permissionFlag": "权限标识",
+     "performType": "办理方式（会签/或签）",
+     "approveCount": "审批总数",
+     "approveFinished": "已完成审批数",
+     "votePassRate": "投票通过率",
+     "taskStatus": "任务状态",
+     "comment": "审批意见",
+     "claimAt": "签收时间",
+     "finishAt": "完成时间",
+     "durationMs": "耗时（毫秒）",
+     "dueAt": "期望完成时间（SLA 超期时间）",
+     "priority": "优先级",
+     "urgeCount": "催办次数",
+     "lastUrgedAt": "最后催办时间",
+     "slaAction": "SLA 动作",
+     "slaEscalated": "SLA 是否已升级",
+     "iterVar": "迭代变量",
+     "tenantId": "租户 ID",
+     "userWeight": "当前办理人的权重值（票签模式）",
+     "approveWeight": "累计已通过权重（票签模式）",
+     "totalWeight": "节点总权重（票签模式）",
+     "effectiveTime": "生效时间（P2-1 穿越时空/补录审批）",
+     "completedAt": "完成时间（驳回场景使用）",
+     "providerTraceId": "外部追踪 ID",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
    }
   }
  }

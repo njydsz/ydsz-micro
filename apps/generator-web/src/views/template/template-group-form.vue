@@ -26,7 +26,7 @@ defineProps<{
 
 const emit = defineEmits<{
   'update:visible': [value: boolean];
-  submit: [data: { name: string; description: string; sortOrder?: number }];
+  submit: [data: { name: string; description: string; sort?: number }];
 }>();
 
 const formRef = ref();
@@ -34,7 +34,7 @@ const formRef = ref();
 const form = reactive({
   name: '',
   description: '',
-  sortOrder: 0,
+  sort: 0,
 });
 
 const rules = {
@@ -66,7 +66,7 @@ async function handleSubmit() {
           <YdInput v-model="form.description" placeholder="分组用途说明" />
         </YdFormItem>
         <YdFormItem label="排序">
-          <YdInput v-model="form.sortOrder" type="number" :min="0" />
+          <YdInput v-model="form.sort" type="number" :min="0" />
         </YdFormItem>
       </YdForm>
       <YdDialogFooter>

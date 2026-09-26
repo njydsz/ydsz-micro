@@ -14,18 +14,18 @@ import { requestClient } from '#/api/request';
 import type { SearchResponse, UserSearchQuery } from './models';
 
 /**
- * search: GET /api/userinfo/search
+ * search: GET /userinfo/search
  */
 export function search(params: {
     query?: UserSearchQuery;
     request?: Record<string, unknown>;
   }): Promise<SearchResponse> {
-  return requestClient.get<SearchResponse>(`/api/userinfo/search`, { params });
+  return requestClient.get<SearchResponse>(`/userinfo/search`, { params });
 }
 
 /**
- * rebuildIndex: POST /api/userinfo/search/rebuild
+ * rebuildIndex: POST /userinfo/search/rebuild
  */
 export function rebuildIndex(): Promise<void> {
-  return requestClient.post<void>(`/api/userinfo/search/rebuild`);
+  return requestClient.post<void>(`/userinfo/search/rebuild`);
 }

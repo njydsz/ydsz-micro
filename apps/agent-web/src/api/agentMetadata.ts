@@ -14,15 +14,15 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * models: GET /api/agent/models
+ * models: GET /agent/models
  */
 export function models(): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/agent/models`);
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/agent/models`);
 }
 
 /**
- * tools: GET /api/agent/tools
+ * tools: GET /agent/tools
  */
 export function tools(): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/agent/tools`);
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/agent/tools`);
 }

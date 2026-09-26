@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud nextwiki"
  },
  "paths": {
-  "/api/nextwiki/analysis/overview": {
+  "/nextwiki/analysis/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -36,7 +36,7 @@
     ]
    }
   },
-  "/api/nextwiki/analysis/by-type": {
+  "/nextwiki/analysis/by-type": {
    "get": {
     "operationId": "statsByType",
     "tags": [
@@ -66,7 +66,7 @@
     ]
    }
   },
-  "/api/nextwiki/analysis/top-large-files": {
+  "/nextwiki/analysis/top-large-files": {
    "get": {
     "operationId": "topLargeFiles",
     "tags": [
@@ -105,7 +105,7 @@
     ]
    }
   },
-  "/api/nextwiki/analysis/summary": {
+  "/nextwiki/analysis/summary": {
    "post": {
     "operationId": "analyze",
     "tags": [
@@ -135,7 +135,7 @@
     }
    }
   },
-  "/api/nextwiki/import/batch-upload": {
+  "/nextwiki/import/batch-upload": {
    "post": {
     "operationId": "batchUpload",
     "tags": [
@@ -184,7 +184,7 @@
     ]
    }
   },
-  "/api/nextwiki/import/zip": {
+  "/nextwiki/import/zip": {
    "post": {
     "operationId": "importZip",
     "tags": [
@@ -230,7 +230,7 @@
     ]
    }
   },
-  "/api/nextwiki/download/folder/{folderId}": {
+  "/nextwiki/download/folder/{folderId}": {
    "post": {
     "operationId": "downloadFolder",
     "tags": [
@@ -271,13 +271,13 @@
       "in": "query",
       "required": false,
       "schema": {
-       "type": "object"
+       "$ref": "#/components/schemas/HttpServletResponse"
       }
      }
     ]
    }
   },
-  "/api/nextwiki/download/{nodeId}": {
+  "/nextwiki/download/{nodeId}": {
    "post": {
     "operationId": "download",
     "tags": [
@@ -318,7 +318,7 @@
       "in": "query",
       "required": false,
       "schema": {
-       "type": "object"
+       "$ref": "#/components/schemas/HttpServletRequest"
       }
      },
      {
@@ -332,7 +332,7 @@
     ]
    }
   },
-  "/api/nextwiki/download/{nodeId}/signed-url": {
+  "/nextwiki/download/{nodeId}/signed-url": {
    "post": {
     "operationId": "generateSignedUrl",
     "tags": [
@@ -378,7 +378,7 @@
     ]
    }
   },
-  "/api/nextwiki/download/signed/{sign}": {
+  "/nextwiki/download/signed/{sign}": {
    "get": {
     "operationId": "downloadBySignedUrl",
     "tags": [
@@ -434,7 +434,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/batch/delete": {
+  "/nextwiki/files/batch/delete": {
    "post": {
     "operationId": "batchDelete",
     "tags": [
@@ -477,7 +477,7 @@
     }
    }
   },
-  "/api/nextwiki/files/batch/move": {
+  "/nextwiki/files/batch/move": {
    "post": {
     "operationId": "batchMove",
     "tags": [
@@ -510,14 +510,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/BatchMoveRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/files/{nodeId}/versions": {
+  "/nextwiki/files/{nodeId}/versions": {
    "get": {
     "operationId": "getVersionHistory",
     "tags": [
@@ -547,7 +547,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/{nodeId}/versions/{version}/rollback": {
+  "/nextwiki/files/{nodeId}/versions/{version}/rollback": {
    "post": {
     "operationId": "rollbackVersion",
     "tags": [
@@ -594,7 +594,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/{nodeId}/versions/diff": {
+  "/nextwiki/files/{nodeId}/versions/diff": {
    "get": {
     "operationId": "diffVersions",
     "tags": [
@@ -642,7 +642,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/batch/async-delete": {
+  "/nextwiki/files/batch/async-delete": {
    "post": {
     "operationId": "asyncBatchDelete",
     "tags": [
@@ -685,7 +685,7 @@
     }
    }
   },
-  "/api/nextwiki/files/batch/async-move": {
+  "/nextwiki/files/batch/async-move": {
    "post": {
     "operationId": "asyncBatchMove",
     "tags": [
@@ -725,7 +725,7 @@
     }
    }
   },
-  "/api/nextwiki/files/batch/task/{taskId}": {
+  "/nextwiki/files/batch/task/{taskId}": {
    "get": {
     "operationId": "getBatchTaskStatus",
     "tags": [
@@ -755,7 +755,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/{nodeId}/star": {
+  "/nextwiki/files/{nodeId}/star": {
    "put": {
     "operationId": "toggleStar",
     "tags": [
@@ -793,7 +793,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/chunk/init": {
+  "/nextwiki/files/chunk/init": {
    "post": {
     "operationId": "initChunkUpload",
     "tags": [
@@ -857,7 +857,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
+  "/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
    "post": {
     "operationId": "uploadChunk",
     "tags": [
@@ -912,7 +912,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/chunk/{uploadId}/complete": {
+  "/nextwiki/files/chunk/{uploadId}/complete": {
    "post": {
     "operationId": "completeChunkUpload",
     "tags": [
@@ -950,7 +950,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/chunk/{uploadId}": {
+  "/nextwiki/files/chunk/{uploadId}": {
    "delete": {
     "operationId": "abortChunkUpload",
     "tags": [
@@ -980,7 +980,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
+  "/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
    "get": {
     "operationId": "getUploadedChunks",
     "tags": [
@@ -1010,7 +1010,37 @@
     ]
    }
   },
-  "/api/nextwiki/comments/file/{fileNodeId}": {
+  "/nextwiki/files/chunk/{uploadId}/progress": {
+   "get": {
+    "operationId": "getUploadProgress",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "uploadId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/nextwiki/comments/file/{fileNodeId}": {
    "get": {
     "operationId": "listComments",
     "tags": [
@@ -1040,7 +1070,7 @@
     ]
    }
   },
-  "/api/nextwiki/comments": {
+  "/nextwiki/comments": {
    "post": {
     "operationId": "addComment",
     "tags": [
@@ -1081,14 +1111,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/AddCommentRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/comments/{commentId}": {
+  "/nextwiki/comments/{commentId}": {
    "delete": {
     "operationId": "deleteComment",
     "tags": [
@@ -1126,7 +1156,7 @@
     ]
    }
   },
-  "/api/nextwiki/comments/{commentId}/resolve": {
+  "/nextwiki/comments/{commentId}/resolve": {
    "post": {
     "operationId": "resolveComment",
     "tags": [
@@ -1164,7 +1194,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/upload": {
+  "/nextwiki/files/upload": {
    "post": {
     "operationId": "upload",
     "tags": [
@@ -1226,7 +1256,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/folders": {
+  "/nextwiki/files/folders": {
    "post": {
     "operationId": "createFolder",
     "tags": [
@@ -1259,14 +1289,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CreateFolderRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/files/list": {
+  "/nextwiki/files/list": {
    "get": {
     "operationId": "listFiles",
     "tags": [
@@ -1346,7 +1376,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/{nodeId}/move": {
+  "/nextwiki/files/{nodeId}/move": {
    "put": {
     "operationId": "move",
     "tags": [
@@ -1387,14 +1417,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/MoveRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/files/{nodeId}/rename": {
+  "/nextwiki/files/{nodeId}/rename": {
    "put": {
     "operationId": "rename",
     "tags": [
@@ -1435,14 +1465,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/RenameRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/files/{nodeId}": {
+  "/nextwiki/files/{nodeId}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -1480,7 +1510,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/{nodeId}/copy": {
+  "/nextwiki/files/{nodeId}/copy": {
    "post": {
     "operationId": "copy",
     "tags": [
@@ -1526,7 +1556,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/sort": {
+  "/nextwiki/files/sort": {
    "put": {
     "operationId": "batchSort",
     "tags": [
@@ -1559,14 +1589,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/BatchSortRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/files/{nodeId}/lock": {
+  "/nextwiki/files/{nodeId}/lock": {
    "post": {
     "operationId": "lock",
     "tags": [
@@ -1604,7 +1634,7 @@
     ]
    }
   },
-  "/api/nextwiki/files/{nodeId}/unlock": {
+  "/nextwiki/files/{nodeId}/unlock": {
    "post": {
     "operationId": "unlock",
     "tags": [
@@ -1642,7 +1672,7 @@
     ]
    }
   },
-  "/api/internal/space/get": {
+  "/internal/space/get": {
    "get": {
     "operationId": "getSpaceById",
     "tags": [
@@ -1672,7 +1702,7 @@
     ]
    }
   },
-  "/api/internal/space/batch": {
+  "/internal/space/batch": {
    "post": {
     "operationId": "batchGetSpaces",
     "tags": [
@@ -1705,7 +1735,7 @@
     }
    }
   },
-  "/api/internal/quota/get-by-tenant": {
+  "/internal/quota/get-by-tenant": {
    "get": {
     "operationId": "getQuotaByTenantId",
     "tags": [
@@ -1735,7 +1765,7 @@
     ]
    }
   },
-  "/api/internal/quota/get-by-space": {
+  "/internal/quota/get-by-space": {
    "get": {
     "operationId": "getQuotaBySpaceId",
     "tags": [
@@ -1765,7 +1795,7 @@
     ]
    }
   },
-  "/api/nextwiki/preview/{fileNodeId}/generate": {
+  "/nextwiki/preview/{fileNodeId}/generate": {
    "post": {
     "operationId": "generatePreview",
     "tags": [
@@ -1795,7 +1825,7 @@
     ]
    }
   },
-  "/api/nextwiki/preview/supported": {
+  "/nextwiki/preview/supported": {
    "get": {
     "operationId": "isSupported",
     "tags": [
@@ -1825,7 +1855,7 @@
     ]
    }
   },
-  "/api/nextwiki/preview/type": {
+  "/nextwiki/preview/type": {
    "get": {
     "operationId": "getPreviewType",
     "tags": [
@@ -1855,7 +1885,7 @@
     ]
    }
   },
-  "/api/nextwiki/quota/info": {
+  "/nextwiki/quota/info": {
    "get": {
     "operationId": "getQuota",
     "tags": [
@@ -1893,7 +1923,7 @@
     ]
    }
   },
-  "/api/nextwiki/quota/set": {
+  "/nextwiki/quota/set": {
    "post": {
     "operationId": "setQuota",
     "tags": [
@@ -1926,14 +1956,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/SetQuotaRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/search": {
+  "/nextwiki/search": {
    "post": {
     "operationId": "search",
     "tags": [
@@ -1973,7 +2003,7 @@
     }
    }
   },
-  "/api/nextwiki/search/suggest": {
+  "/nextwiki/search/suggest": {
    "get": {
     "operationId": "suggest",
     "tags": [
@@ -2003,7 +2033,7 @@
     ]
    }
   },
-  "/api/nextwiki/search/did-you-mean": {
+  "/nextwiki/search/did-you-mean": {
    "get": {
     "operationId": "didYouMean",
     "tags": [
@@ -2033,7 +2063,7 @@
     ]
    }
   },
-  "/api/nextwiki/search/rebuild": {
+  "/nextwiki/search/rebuild": {
    "post": {
     "operationId": "rebuildIndices",
     "tags": [
@@ -2063,7 +2093,7 @@
     ]
    }
   },
-  "/api/nextwiki/search/history": {
+  "/nextwiki/search/history": {
    "get": {
     "operationId": "getSearchHistory",
     "tags": [
@@ -2121,7 +2151,7 @@
     ]
    }
   },
-  "/api/nextwiki/search/hot": {
+  "/nextwiki/search/hot": {
    "get": {
     "operationId": "getHotSearches",
     "tags": [
@@ -2141,7 +2171,7 @@
     }
    }
   },
-  "/api/nextwiki/search/advanced": {
+  "/nextwiki/search/advanced": {
    "get": {
     "operationId": "advancedSearch",
     "tags": [
@@ -2205,7 +2235,7 @@
     ]
    }
   },
-  "/api/nextwiki/shares": {
+  "/nextwiki/shares": {
    "post": {
     "operationId": "createShare",
     "tags": [
@@ -2238,14 +2268,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CreateShareRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/shares/verify": {
+  "/nextwiki/shares/verify": {
    "post": {
     "operationId": "verifyAccess",
     "tags": [
@@ -2278,14 +2308,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/VerifyShareRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/shares/{shareId}": {
+  "/nextwiki/shares/{shareId}": {
    "delete": {
     "operationId": "revoke",
     "tags": [
@@ -2323,7 +2353,7 @@
     ]
    }
   },
-  "/api/nextwiki/shares/my": {
+  "/nextwiki/shares/my": {
    "get": {
     "operationId": "myShares",
     "tags": [
@@ -2353,7 +2383,7 @@
     ]
    }
   },
-  "/api/nextwiki/shares/{shareId}/logs": {
+  "/nextwiki/shares/{shareId}/logs": {
    "get": {
     "operationId": "getAccessLogs",
     "tags": [
@@ -2400,7 +2430,7 @@
     ]
    }
   },
-  "/api/nextwiki/shares/{shareId}/recipients": {
+  "/nextwiki/shares/{shareId}/recipients": {
    "get": {
     "operationId": "getRecipients",
     "tags": [
@@ -2438,7 +2468,7 @@
     ]
    }
   },
-  "/api/nextwiki/shares/received": {
+  "/nextwiki/shares/received": {
    "get": {
     "operationId": "getReceivedShares",
     "tags": [
@@ -2468,7 +2498,7 @@
     ]
    }
   },
-  "/api/nextwiki/spaces": {
+  "/nextwiki/spaces": {
    "get": {
     "operationId": "listSpaces",
     "tags": [
@@ -2529,14 +2559,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CreateSpaceRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/spaces/{spaceId}": {
+  "/nextwiki/spaces/{spaceId}": {
    "get": {
     "operationId": "getSpace",
     "tags": [
@@ -2613,7 +2643,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/UpdateSpaceRequest"
        }
       }
      }
@@ -2656,7 +2686,7 @@
     ]
    }
   },
-  "/api/nextwiki/spaces/{spaceId}/archive": {
+  "/nextwiki/spaces/{spaceId}/archive": {
    "post": {
     "operationId": "archiveSpace",
     "tags": [
@@ -2694,7 +2724,7 @@
     ]
    }
   },
-  "/api/nextwiki/spaces/{spaceId}/members": {
+  "/nextwiki/spaces/{spaceId}/members": {
    "post": {
     "operationId": "addMember",
     "tags": [
@@ -2735,7 +2765,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/AddMemberRequest"
        }
       }
      }
@@ -2778,7 +2808,7 @@
     ]
    }
   },
-  "/api/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
+  "/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
    "delete": {
     "operationId": "removeMember",
     "tags": [
@@ -2824,7 +2854,7 @@
     ]
    }
   },
-  "/api/nextwiki/templates": {
+  "/nextwiki/templates": {
    "get": {
     "operationId": "listTemplates",
     "tags": [
@@ -2885,14 +2915,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CreateTemplateRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/templates/{templateId}": {
+  "/nextwiki/templates/{templateId}": {
    "get": {
     "operationId": "getTemplate",
     "tags": [
@@ -2961,7 +2991,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/UpdateTemplateRequest"
        }
       }
      }
@@ -3004,7 +3034,7 @@
     ]
    }
   },
-  "/api/nextwiki/templates/{templateId}/use": {
+  "/nextwiki/templates/{templateId}/use": {
    "post": {
     "operationId": "useTemplate",
     "tags": [
@@ -3045,14 +3075,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/UseTemplateRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/tags": {
+  "/nextwiki/tags": {
    "post": {
     "operationId": "createTag",
     "tags": [
@@ -3085,7 +3115,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CreateTagRequest"
        }
       }
      }
@@ -3110,7 +3140,7 @@
     }
    }
   },
-  "/api/nextwiki/tags/bind": {
+  "/nextwiki/tags/bind": {
    "post": {
     "operationId": "bindTag",
     "tags": [
@@ -3143,14 +3173,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/BindTagRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/tags/file/{fileNodeId}": {
+  "/nextwiki/tags/file/{fileNodeId}": {
    "get": {
     "operationId": "getFileTags",
     "tags": [
@@ -3180,7 +3210,7 @@
     ]
    }
   },
-  "/api/nextwiki/tags/recommend/{fileNodeId}": {
+  "/nextwiki/tags/recommend/{fileNodeId}": {
    "get": {
     "operationId": "recommendTags",
     "tags": [
@@ -3210,7 +3240,7 @@
     ]
    }
   },
-  "/api/nextwiki/trash/list": {
+  "/nextwiki/trash/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -3240,7 +3270,7 @@
     ]
    }
   },
-  "/api/nextwiki/trash/{trashItemId}/restore": {
+  "/nextwiki/trash/{trashItemId}/restore": {
    "post": {
     "operationId": "restore",
     "tags": [
@@ -3278,7 +3308,7 @@
     ]
    }
   },
-  "/api/nextwiki/trash/batch-restore": {
+  "/nextwiki/trash/batch-restore": {
    "post": {
     "operationId": "batchRestore",
     "tags": [
@@ -3321,7 +3351,7 @@
     }
    }
   },
-  "/api/nextwiki/trash/{trashItemId}": {
+  "/nextwiki/trash/{trashItemId}": {
    "delete": {
     "operationId": "purge",
     "tags": [
@@ -3359,7 +3389,7 @@
     ]
    }
   },
-  "/api/nextwiki/trash/empty": {
+  "/nextwiki/trash/empty": {
    "delete": {
     "operationId": "emptyTrash",
     "tags": [
@@ -3389,7 +3419,7 @@
     ]
    }
   },
-  "/api/nextwiki/favorites": {
+  "/nextwiki/favorites": {
    "get": {
     "operationId": "listFavorites",
     "tags": [
@@ -3428,7 +3458,7 @@
     ]
    }
   },
-  "/api/nextwiki/favorites/{nodeId}": {
+  "/nextwiki/favorites/{nodeId}": {
    "post": {
     "operationId": "addFavorite",
     "tags": [
@@ -3502,7 +3532,7 @@
     ]
    }
   },
-  "/api/nextwiki/favorites/{nodeId}/is-favorited": {
+  "/nextwiki/favorites/{nodeId}/is-favorited": {
    "get": {
     "operationId": "isFavorited",
     "tags": [
@@ -3540,7 +3570,7 @@
     ]
    }
   },
-  "/api/nextwiki/favorites/{nodeId}/sort": {
+  "/nextwiki/favorites/{nodeId}/sort": {
    "post": {
     "operationId": "updatesort",
     "tags": [
@@ -3587,7 +3617,7 @@
     ]
    }
   },
-  "/api/nextwiki/favorites/count": {
+  "/nextwiki/favorites/count": {
    "get": {
     "operationId": "getFavoriteCount",
     "tags": [
@@ -3617,7 +3647,7 @@
     ]
    }
   },
-  "/api/nextwiki/recent": {
+  "/nextwiki/recent": {
    "get": {
     "operationId": "listRecent",
     "tags": [
@@ -3684,7 +3714,7 @@
     ]
    }
   },
-  "/api/nextwiki/recent/{nodeId}": {
+  "/nextwiki/recent/{nodeId}": {
    "post": {
     "operationId": "recordAccess",
     "tags": [
@@ -3766,7 +3796,7 @@
     ]
    }
   },
-  "/api/nextwiki/recent/count": {
+  "/nextwiki/recent/count": {
    "get": {
     "operationId": "getRecentCount",
     "tags": [
@@ -3796,7 +3826,7 @@
     ]
    }
   },
-  "/api/nextwiki/wopi/files/{fileId}": {
+  "/nextwiki/wopi/files/{fileId}": {
    "get": {
     "operationId": "checkFileInfo",
     "tags": [
@@ -3808,7 +3838,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/WopiCheckFileInfoResponse"
         }
        }
       }
@@ -3842,7 +3872,7 @@
     ]
    }
   },
-  "/api/nextwiki/wopi/files/{fileId}/contents": {
+  "/nextwiki/wopi/files/{fileId}/contents": {
    "get": {
     "operationId": "getFileContents",
     "tags": [
@@ -3894,7 +3924,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/WopiPutFileResponse"
         }
        }
       }
@@ -3950,7 +3980,7 @@
     }
    }
   },
-  "/api/nextwiki/wopi/files/{fileId}/lock": {
+  "/nextwiki/wopi/files/{fileId}/lock": {
    "post": {
     "operationId": "lockFile",
     "tags": [
@@ -4004,7 +4034,7 @@
     ]
    }
   },
-  "/api/nextwiki/wopi/files/{fileId}/unlock": {
+  "/nextwiki/wopi/files/{fileId}/unlock": {
    "post": {
     "operationId": "unlockFile",
     "tags": [
@@ -4050,7 +4080,55 @@
     ]
    }
   },
-  "/api/nextwiki/ai/summary": {
+  "/nextwiki/activities": {
+   "get": {
+    "operationId": "listActivities",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/nextwiki/ai/summary": {
    "post": {
     "operationId": "generateSummary",
     "tags": [
@@ -4083,14 +4161,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/GenerateSummaryRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/ai/status": {
+  "/nextwiki/ai/status": {
    "get": {
     "operationId": "getStatus",
     "tags": [
@@ -4110,7 +4188,7 @@
     }
    }
   },
-  "/api/nextwiki/storage/presigned-upload": {
+  "/nextwiki/storage/presigned-upload": {
    "post": {
     "operationId": "generateUploadUrl",
     "tags": [
@@ -4143,14 +4221,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/PresignedUrlRequest"
        }
       }
      }
     }
    }
   },
-  "/api/nextwiki/storage/presigned-download": {
+  "/nextwiki/storage/presigned-download": {
    "post": {
     "operationId": "generateDownloadUrl",
     "tags": [
@@ -4188,6 +4266,128 @@
       }
      }
     }
+   }
+  },
+  "/nextwiki/templates/file": {
+   "post": {
+    "operationId": "createFromFile",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CreateFileTemplateRequest"
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "operationId": "listFileTemplates",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/nextwiki/templates/file/{templateId}/use": {
+   "post": {
+    "operationId": "createFromFileTemplate",
+    "tags": [
+     "nextwiki"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "templateId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "userId",
+      "in": "header",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "parentId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
    }
   }
  },
@@ -4266,6 +4466,51 @@
      "tid": "ensure traceId resolved first so we know if it's present"
     }
    },
+   "HttpServletResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "HttpServletRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "BatchMoveRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "BatchMoveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "AddCommentRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "AddCommentRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CreateFolderRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateFolderRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "MoveRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "MoveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "RenameRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "RenameRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "BatchSortRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "BatchSortRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SetQuotaRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SetQuotaRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "SearchRequest": {
     "type": "object",
     "properties": {
@@ -4306,11 +4551,11 @@
       "type": "string",
       "description": "排序字段"
      },
-     "ascending": {
+     "isAscending": {
       "type": "boolean",
       "description": "是否升序（默认 false 降序）"
      },
-     "highlight": {
+     "isHighlight": {
       "type": "boolean",
       "description": "是否启用高亮"
      },
@@ -4327,7 +4572,7 @@
       "format": "int32",
       "description": "高亮片段最大长度"
      },
-     "fuzzy": {
+     "isFuzzy": {
       "type": "boolean",
       "description": "是否启用模糊匹配"
      },
@@ -4380,11 +4625,11 @@
       "type": "string",
       "description": "部门 ID（用于权限过滤）"
      },
-     "admin": {
+     "isAdmin": {
       "type": "boolean",
       "description": "是否管理员（跳过数据权限过滤）"
      },
-     "titleOnly": {
+     "isTitleOnly": {
       "type": "boolean",
       "description": "是否仅搜索标题"
      },
@@ -4393,7 +4638,7 @@
       "description": "游标（用于 keyset 分页）"
      }
     },
-    "description": "统一搜索请求\n\n封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。",
+    "description": "统一搜索请求\n\n封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。\n\n布尔字段遵循 YDIZ-OOP-006 规范：字段以 `is` 前缀命名，\nLombok 将生成 `isXxx()` / `setXxx()` 方法（非 `getIsXxx()`），\nJackson 默认命名策略将前缀 `is` 剥离后映射到 JSON 属性 `\"ascending\"`、`\"highlight\"` 等。\n如需控制 JSON 序列化名称，在字段上方添加 `@JsonProperty(\"isAscending\")` 等注解。",
     "x-field-docs": {
      "keyword": "搜索关键词",
      "types": "搜索范围（实体类型列表），为空表示搜索全部",
@@ -4401,12 +4646,12 @@
      "pageSize": "每页大小",
      "offset": "偏移量（跳过的记录数）",
      "sortBy": "排序字段",
-     "ascending": "是否升序（默认 false 降序）",
-     "highlight": "是否启用高亮",
+     "isAscending": "是否升序（默认 false 降序）",
+     "isHighlight": "是否启用高亮",
      "highlightPreTag": "高亮前置标签",
      "highlightPostTag": "高亮后置标签",
      "highlightFragmentSize": "高亮片段最大长度",
-     "fuzzy": "是否启用模糊匹配",
+     "isFuzzy": "是否启用模糊匹配",
      "fuzzyMinSimilarity": "模糊匹配最小相似度",
      "filters": "过滤条件列表（跨字段 AND，同字段内 OR）",
      "aggregations": "聚合/分面配置列表",
@@ -4414,8 +4659,8 @@
      "userId": "用户 ID（用于数据权限过滤）",
      "roles": "用户角色列表（用于权限过滤）",
      "deptId": "部门 ID（用于权限过滤）",
-     "admin": "是否管理员（跳过数据权限过滤）",
-     "titleOnly": "是否仅搜索标题",
+     "isAdmin": "是否管理员（跳过数据权限过滤）",
+     "isTitleOnly": "是否仅搜索标题",
      "cursor": "游标（用于 keyset 分页）"
     }
    },
@@ -4437,7 +4682,7 @@
      "buckets": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/Bucket"
       },
       "description": "聚合桶列表"
      },
@@ -4459,6 +4704,1306 @@
      "key": "桶键值",
      "count": "桶文档数"
     }
+   },
+   "Bucket": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "key": {
+      "type": "string",
+      "description": "桶键值"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int64",
+      "description": "桶文档数"
+     }
+    },
+    "description": "聚合桶",
+    "x-field-docs": {
+     "key": "桶键值",
+     "count": "桶文档数"
+    }
+   },
+   "CreateShareRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateShareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "VerifyShareRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "VerifyShareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CreateSpaceRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateSpaceRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UpdateSpaceRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "UpdateSpaceRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "AddMemberRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "AddMemberRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CreateTemplateRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UpdateTemplateRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "UpdateTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UseTemplateRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "UseTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CreateTagRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateTagRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "BindTagRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "BindTagRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "WopiCheckFileInfoResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "WopiCheckFileInfoResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "WopiPutFileResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "WopiPutFileResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "GenerateSummaryRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "GenerateSummaryRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "PresignedUrlRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PresignedUrlRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CreateFileTemplateRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateFileTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "FileNodeVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "parentId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "string"
+     },
+     "suffix": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "mimeType": {
+      "type": "string"
+     },
+     "storageKey": {
+      "type": "string"
+     },
+     "bucketName": {
+      "type": "string"
+     },
+     "storageClass": {
+      "type": "string"
+     },
+     "fileHash": {
+      "type": "string"
+     },
+     "path": {
+      "type": "string"
+     },
+     "level": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "currentVersion": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "thumbnailKey": {
+      "type": "string"
+     },
+     "isPreviewReady": {
+      "type": "boolean"
+     },
+     "isStarred": {
+      "type": "boolean"
+     },
+     "status": {
+      "type": "string"
+     },
+     "shareStatus": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/FileNodeVO"
+      }
+     },
+     "tags": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "ancestors": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/BreadcrumbItem"
+      },
+      "description": "P1-4: 面包屑导航路径（从根到直接父节点的有序列表）。\n\n前端打开深层目录时一次性获取完整面包屑路径，避免逐层请求父节点构建导航。\n列表首位为根节点，末位为直接父节点。当前节点自身不包含在内。"
+     }
+    },
+    "description": "文件节点聚合根 VO\n\nS2-P1-2 改进：引入领域行为方法\n\n文件节点是知识库系统的核心聚合根，包含完整的业务字段和领域行为：\n\n\n基础属性：节点 ID、父节点 ID、名称、类型、路径、层级\n存储属性：存储键、存储桶、存储类型、文件哈希、大小\n状态属性：版本号、排序号、星标、分享状态、锁定状态\n关系属性：子节点列表、标签列表\n\n\n领域行为：\n\n\n#isFolder() / #isFile() — 类型判断\n#isRoot() — 根节点判断（父节点为 null 或 \"0\"）\n#isDescendantOf(FileNodeVO) — 后代关系判断（基于路径前缀）\n#canMoveTo(FileNodeVO) — 移动合法性校验（防循环）\n#calculatePath(String, String) — 静态路径计算工具\n\n\n设计说明：\n\n\n本 VO 兼具领域聚合根与展示视图职责，适用于当前单体架构\n未来微服务拆分时，可将展示字段抽取为 `FileNodeView`\n数据持久化通过 `FileNodeDTO` → `FileNode` 转换实现",
+    "x-field-docs": {
+     "TYPE_FOLDER": "节点类型：文件夹",
+     "TYPE_FILE": "节点类型：文件",
+     "ROOT_PARENT_ID": "根节点父 ID 约定值",
+     "STATUS_ACTIVE": "节点状态：活跃",
+     "STATUS_LOCKED": "节点状态：已锁定（Check-out 防并发编辑）",
+     "STATUS_ARCHIVED": "节点状态：已归档（冷数据）",
+     "ancestors": "P1-4: 面包屑导航路径（从根到直接父节点的有序列表）。\n\n前端打开深层目录时一次性获取完整面包屑路径，避免逐层请求父节点构建导航。\n列表首位为根节点，末位为直接父节点。当前节点自身不包含在内。"
+    }
+   },
+   "BreadcrumbItem": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     }
+    },
+    "description": "面包屑单项（P1-4 轻量结构，仅含导航必要字段）。",
+    "x-field-docs": {}
+   },
+   "BatchImportResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "BatchImportResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "BatchResultDTO": {
+    "type": "object",
+    "properties": {
+     "total": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总处理条数"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功条数"
+     },
+     "failureCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败条数"
+     },
+     "details": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ItemResult"
+      },
+      "description": "明细列表"
+     },
+     "item": {
+      "type": "object",
+      "description": "操作项标识"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "error": {
+      "type": "string",
+      "description": "失败原因（成功时为 null）"
+     }
+    },
+    "description": "批量操作结果（P2-F4）。\n\n提供比简单 count 更详细的批量操作结果，包含每个条目的处理状态与失败原因， 前端可据此展示\"部分成功\"详情弹窗，而非仅显示\"成功 N 条\"。\n\n<h3>典型返回结构</h3>\n\n<pre>{@code\n{\n\"total\": 5,\n\"successCount\": 3,\n\"failureCount\": 2,\n\"details\": [\n{\"item\": \"job-001\", \"success\": true,  \"error\": null},\n{\"item\": \"job-002\", \"success\": false, \"error\": \"任务不存在\"},\n...\n]\n}\n}</pre>\n\n@param <T> 批量操作项的类型（通常为 String，表示 jobId）",
+    "x-field-docs": {
+     "total": "总处理条数",
+     "successCount": "成功条数",
+     "failureCount": "失败条数",
+     "details": "明细列表",
+     "item": "操作项标识",
+     "isSuccess": "是否成功",
+     "error": "失败原因（成功时为 null）"
+    }
+   },
+   "ItemResult": {
+    "type": "object",
+    "properties": {
+     "item": {
+      "type": "object",
+      "description": "操作项标识"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "error": {
+      "type": "string",
+      "description": "失败原因（成功时为 null）"
+     }
+    },
+    "description": "单个批量操作结果。\n\n@param <T> 操作项类型",
+    "x-field-docs": {
+     "item": "操作项标识",
+     "isSuccess": "是否成功",
+     "error": "失败原因（成功时为 null）"
+    }
+   },
+   "FileVersionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "versionNumber": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "storageKey": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileHash": {
+      "type": "string"
+     },
+     "mimeType": {
+      "type": "string"
+     },
+     "remark": {
+      "type": "string"
+     },
+     "changeType": {
+      "type": "string"
+     },
+     "isActive": {
+      "type": "boolean"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "文件版本 VO",
+    "x-field-docs": {}
+   },
+   "DiffResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "entries": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/DiffEntryVO"
+      },
+      "description": "diff 条目列表"
+     },
+     "oldLineCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "旧版本总行数"
+     },
+     "newLineCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "新版本总行数"
+     },
+     "additions": {
+      "type": "integer",
+      "format": "int32",
+      "description": "新增行数"
+     },
+     "deletions": {
+      "type": "integer",
+      "format": "int32",
+      "description": "删除行数"
+     }
+    },
+    "description": "版本对比结果 VO（P3-1：从 VersionDiffService 内部类提取为统一领域 VO）。\n\n聚合一次 diff 计算的全量结果，包含条目列表、行数统计与摘要信息，直接用于前端可视化渲染。",
+    "x-field-docs": {
+     "entries": "diff 条目列表",
+     "oldLineCount": "旧版本总行数",
+     "newLineCount": "新版本总行数",
+     "additions": "新增行数",
+     "deletions": "删除行数"
+    }
+   },
+   "DiffEntryVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "type": {
+      "type": "string",
+      "enum": [
+       "ADD",
+       "DELETE",
+       "UNCHANGED"
+      ],
+      "description": "变更类型：新增 / 删除 / 未变"
+     },
+     "lineContent": {
+      "type": "string",
+      "description": "行内容文本"
+     },
+     "oldLineNumber": {
+      "type": "integer",
+      "format": "int32",
+      "description": "旧版本行号（0 表示不存在）"
+     },
+     "newLineNumber": {
+      "type": "integer",
+      "format": "int32",
+      "description": "新版本行号（0 表示不存在）"
+     }
+    },
+    "description": "版本对比差异条目 VO（P3-1：从 VersionDiffService 内部类提取为独立领域 VO）。\n\n标识单行文本的变更类型与内容，前端据此渲染 diff 高亮（红色删除 / 绿色新增 / 灰色未变）。",
+    "x-field-docs": {
+     "type": "变更类型：新增 / 删除 / 未变",
+     "lineContent": "行内容文本",
+     "oldLineNumber": "旧版本行号（0 表示不存在）",
+     "newLineNumber": "新版本行号（0 表示不存在）"
+    }
+   },
+   "FileCommentVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "parentCommentId": {
+      "type": "string"
+     },
+     "isResolved": {
+      "type": "boolean"
+     },
+     "position": {
+      "type": "string"
+     },
+     "isEdited": {
+      "type": "boolean"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "文件评论 VO",
+    "x-field-docs": {}
+   },
+   "SpaceVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "iconUrl": {
+      "type": "string"
+     },
+     "coverUrl": {
+      "type": "string"
+     },
+     "ownerId": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "visibility": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "memberCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "nodeCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "quotaLimit": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "quotaUsed": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "知识库空间视图对象\n\n返回给前端的空间信息。",
+    "x-field-docs": {}
+   },
+   "StorageQuotaVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "scopeType": {
+      "type": "string"
+     },
+     "scopeId": {
+      "type": "string"
+     },
+     "quotaLimit": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "quotaUsed": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileCountLimit": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "fileCountUsed": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "isDeleted": {
+      "type": "boolean"
+     }
+    },
+    "description": "存储配额 VO",
+    "x-field-docs": {}
+   },
+   "SearchResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "hits": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SearchHitVO"
+      }
+     },
+     "total": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "page": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tookMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "path": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "string"
+     },
+     "suffix": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "highlight": {
+      "type": "string"
+     },
+     "score": {
+      "type": "number"
+     },
+     "tags": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string"
+     }
+    },
+    "description": "全文搜索结果 VO",
+    "x-field-docs": {}
+   },
+   "SearchHitVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "path": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "string"
+     },
+     "suffix": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "highlight": {
+      "type": "string"
+     },
+     "score": {
+      "type": "number"
+     },
+     "tags": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string"
+     }
+    },
+    "description": "单条搜索命中",
+    "x-field-docs": {}
+   },
+   "ShareLinkVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "shareCode": {
+      "type": "string"
+     },
+     "extractCode": {
+      "type": "string"
+     },
+     "fileName": {
+      "type": "string"
+     },
+     "shareType": {
+      "type": "string"
+     },
+     "expireTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "maxAccessCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "accessCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "shareTargetType": {
+      "type": "string"
+     },
+     "password": {
+      "type": "string"
+     },
+     "isReminderSent": {
+      "type": "boolean"
+     },
+     "title": {
+      "type": "string"
+     },
+     "isHasPassword": {
+      "type": "boolean"
+     },
+     "shareUrl": {
+      "type": "string"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "分享链接 VO",
+    "x-field-docs": {}
+   },
+   "ShareAccessLogVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "shareId": {
+      "type": "string"
+     },
+     "shareCode": {
+      "type": "string"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "visitorId": {
+      "type": "string"
+     },
+     "visitorName": {
+      "type": "string"
+     },
+     "visitorIp": {
+      "type": "string"
+     },
+     "userAgent": {
+      "type": "string"
+     },
+     "accessType": {
+      "type": "string"
+     },
+     "accessStatus": {
+      "type": "string"
+     },
+     "failReason": {
+      "type": "string"
+     },
+     "accessTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "isDeleted": {
+      "type": "boolean"
+     }
+    },
+    "description": "分享访问日志 VO",
+    "x-field-docs": {}
+   },
+   "ShareRecipientVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "shareId": {
+      "type": "string"
+     },
+     "recipientType": {
+      "type": "string"
+     },
+     "recipientId": {
+      "type": "string"
+     },
+     "recipientName": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "viewedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "分享目标用户 VO",
+    "x-field-docs": {}
+   },
+   "SpaceMemberDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "spaceId": {
+      "type": "string"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "role": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "joinedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     }
+    },
+    "description": "空间成员 DTO",
+    "x-field-docs": {}
+   },
+   "SpaceTemplateDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "category": {
+      "type": "string"
+     },
+     "iconUrl": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isSystem": {
+      "type": "boolean"
+     },
+     "isPublicAccess": {
+      "type": "boolean"
+     },
+     "structureJson": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "usageCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "templateType": {
+      "type": "string",
+      "description": "P2-3: 模板类型（space=空间模板，file=文件模板）"
+     },
+     "sourceNodeId": {
+      "type": "string",
+      "description": "P2-3: 源文件节点 ID（templateType=file 时必填）"
+     },
+     "visibility": {
+      "type": "string",
+      "description": "P2-3: 可见性级别（system/org/private）"
+     }
+    },
+    "description": "空间模板 DTO",
+    "x-field-docs": {
+     "templateType": "P2-3: 模板类型（space=空间模板，file=文件模板）",
+     "sourceNodeId": "P2-3: 源文件节点 ID（templateType=file 时必填）",
+     "visibility": "P2-3: 可见性级别（system/org/private）"
+    }
+   },
+   "TagDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "color": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "usageCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "tenantId": {
+      "type": "string"
+     }
+    },
+    "description": "标签 DTO\n\n用于标签的创建和更新操作，作为 Repository 接口 CUD 方法的入参。",
+    "x-field-docs": {}
+   },
+   "TagVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "color": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "usageCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "标签 VO",
+    "x-field-docs": {}
+   },
+   "TrashItemVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string"
+     },
+     "fileNodeId": {
+      "type": "string"
+     },
+     "originalName": {
+      "type": "string"
+     },
+     "originalPath": {
+      "type": "string"
+     },
+     "originalParentId": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "deletedTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "purgeTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "status": {
+      "type": "string"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "回收站条目 VO",
+    "x-field-docs": {}
+   },
+   "UserFavoriteVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "favoriteId": {
+      "type": "string"
+     },
+     "nodeId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "string"
+     },
+     "suffix": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "path": {
+      "type": "string"
+     },
+     "thumbnailKey": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "isStarred": {
+      "type": "boolean"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "favoritedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "用户收藏夹视图对象\n\n返回给前端的收藏节点信息（含节点元数据 + 收藏排序号）。",
+    "x-field-docs": {}
+   },
+   "UserRecentVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "nodeId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "nodeType": {
+      "type": "string"
+     },
+     "suffix": {
+      "type": "string"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "path": {
+      "type": "string"
+     },
+     "thumbnailKey": {
+      "type": "string"
+     },
+     "accessType": {
+      "type": "string"
+     },
+     "accessedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "description": "用户最近访问视图对象\n\n返回给前端的最近访问节点信息（含节点元数据 + 访问信息）。",
+    "x-field-docs": {}
+   },
+   "ActivityItem": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ActivityItem（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SummaryResult": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileNodeId": {
+      "type": "string",
+      "description": "文件节点ID"
+     },
+     "summary": {
+      "type": "string",
+      "description": "摘要内容"
+     },
+     "summaryType": {
+      "type": "string",
+      "description": "摘要类型"
+     },
+     "wordCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "内容字数"
+     },
+     "generatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "生成时间"
+     }
+    },
+    "description": "AI 摘要结果 VO。\n\n定义 AI 生成的摘要结果数据结构，供 server 层和 api 层共享使用。",
+    "x-field-docs": {
+     "fileNodeId": "文件节点ID",
+     "summary": "摘要内容",
+     "summaryType": "摘要类型",
+     "wordCount": "内容字数",
+     "generatedAt": "生成时间"
+    }
+   },
+   "AiStatusResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "AiStatusResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "PresignedUrlResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PresignedUrlResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    }
   }
  }

@@ -40,7 +40,7 @@ interface PostFormState {
   postName: string;
   postCode: string;
   description: string;
-  sortOrder: number;
+  sort?: number;
   status: string;
 }
 
@@ -49,7 +49,7 @@ const formData = reactive<PostFormState>({
   postName: '',
   postCode: '',
   description: '',
-  sortOrder: 0,
+  sort: 0,
   status: '1',
 });
 
@@ -68,8 +68,8 @@ const [Modal, modalApi] = useYdModal({
         id: data.record.id ?? '',
         postName: data.record.postName ?? '',
         postCode: data.record.postCode ?? '',
-        description: data.record.description ?? '',
-        sortOrder: data.record.sortOrder ?? 0,
+  description: data.record.description ?? '',
+  sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
       });
     } else {
@@ -78,8 +78,8 @@ const [Modal, modalApi] = useYdModal({
         id: '',
         postName: '',
         postCode: '',
-        description: '',
-        sortOrder: 0,
+  description: '',
+  sort: 0,
         status: '1',
       });
     }
@@ -96,8 +96,8 @@ const [Modal, modalApi] = useYdModal({
       const payload: PostDTO = {
         postName: formData.postName,
         postCode: formData.postCode,
-        description: formData.description,
-        sortOrder: formData.sortOrder,
+  description: formData.description,
+  sort: formData.sort,
         status: formData.status,
       };
       if (isEdit.value) {
@@ -142,7 +142,7 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.postBas
         />
       </YdFormItem>
       <YdFormItem :label="t('page.sortOrder')">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('page.status')">
         <YdRadioGroup v-model="formData.status">

@@ -14,16 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * publish: POST /api/workflow/message-event/publish
+ * publish: POST /workflow/message-event/publish
  */
 export function publish(data: Record<string, unknown>): Promise<string> {
-  return requestClient.post<string>(`/api/workflow/message-event/publish`, data);
-}
-
-/**
- * publishMessageEvent: POST /api/workflow/message-event/publish
- * <p>{@link publish} 的别名，供视图层使用更语义化的命名。
- */
-export function publishMessageEvent(data: Record<string, unknown>): Promise<string> {
-  return publish(data);
+  return requestClient.post<string>(`/workflow/message-event/publish`, data);
 }

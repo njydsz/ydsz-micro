@@ -14,103 +14,103 @@ import { requestClient } from '#/api/request';
 import type { JobDagPostDTO, JobDagPutDTO, JobDagTriggerDTO, JobDagVO, JobDagVersionVO } from './models';
 
 /**
- * createDag: POST /api/cronjob/dag
+ * createDag: POST /cronjob/dag
  */
 export function createDag(data: JobDagPostDTO): Promise<string> {
-  return requestClient.post<string>(`/api/cronjob/dag`, data);
+  return requestClient.post<string>(`/cronjob/dag`, data);
 }
 
 /**
- * updateDag: PUT /api/cronjob/dag/{dagId}
+ * updateDag: PUT /cronjob/dag/{dagId}
  */
 export function updateDag({ dagId }: {
     dagId: string;
   }, data: JobDagPutDTO): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/${dagId}`, data);
+  return requestClient.put<void>(`/cronjob/dag/${dagId}`, data);
 }
 
 /**
- * deleteDag: DELETE /api/cronjob/dag/{dagId}
+ * deleteDag: DELETE /cronjob/dag/{dagId}
  */
 export function deleteDag({ dagId }: {
     dagId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/cronjob/dag/${dagId}`);
+  return requestClient.delete<void>(`/cronjob/dag/${dagId}`);
 }
 
 /**
- * enableDag: PUT /api/cronjob/dag/{dagId}/enable
+ * enableDag: PUT /cronjob/dag/{dagId}/enable
  */
 export function enableDag({ dagId }: {
     dagId: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/${dagId}/enable`);
+  return requestClient.put<void>(`/cronjob/dag/${dagId}/enable`);
 }
 
 /**
- * disableDag: PUT /api/cronjob/dag/{dagId}/disable
+ * disableDag: PUT /cronjob/dag/{dagId}/disable
  */
 export function disableDag({ dagId }: {
     dagId: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/dag/${dagId}/disable`);
+  return requestClient.put<void>(`/cronjob/dag/${dagId}/disable`);
 }
 
 /**
- * getDagById: GET /api/cronjob/dag/{dagId}
+ * getDagById: GET /cronjob/dag/{dagId}
  */
 export function getDagById({ dagId }: {
     dagId: string;
   }): Promise<JobDagVO> {
-  return requestClient.get<JobDagVO>(`/api/cronjob/dag/${dagId}`);
+  return requestClient.get<JobDagVO>(`/cronjob/dag/${dagId}`);
 }
 
 /**
- * getDagByKey: GET /api/cronjob/dag/key/{dagKey}
+ * getDagByKey: GET /cronjob/dag/key/{dagKey}
  */
 export function getDagByKey({ dagKey }: {
     dagKey: string;
   }): Promise<JobDagVO> {
-  return requestClient.get<JobDagVO>(`/api/cronjob/dag/key/${dagKey}`);
+  return requestClient.get<JobDagVO>(`/cronjob/dag/key/${dagKey}`);
 }
 
 /**
- * listEnabledDags: GET /api/cronjob/dag/enabled
+ * listEnabledDags: GET /cronjob/dag/enabled
  */
 export function listEnabledDags(): Promise<JobDagVO[]> {
-  return requestClient.get<JobDagVO[]>(`/api/cronjob/dag/enabled`);
+  return requestClient.get<JobDagVO[]>(`/cronjob/dag/enabled`);
 }
 
 /**
- * triggerDag: POST /api/cronjob/dag/trigger
+ * triggerDag: POST /cronjob/dag/trigger
  */
 export function triggerDag(data: JobDagTriggerDTO): Promise<string> {
-  return requestClient.post<string>(`/api/cronjob/dag/trigger`, data);
+  return requestClient.post<string>(`/cronjob/dag/trigger`, data);
 }
 
 /**
- * validateDag: POST /api/cronjob/dag/validate
+ * validateDag: POST /cronjob/dag/validate
  */
 export function validateDag(data: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/cronjob/dag/validate`, data);
+  return requestClient.post<boolean>(`/cronjob/dag/validate`, data);
 }
 
 /**
- * listDagVersions: GET /api/cronjob/dag/{dagId}/versions
+ * listDagVersions: GET /cronjob/dag/{dagId}/versions
  */
 export function listDagVersions({ dagId }: {
     dagId: string;
   }): Promise<JobDagVersionVO[]> {
-  return requestClient.get<JobDagVersionVO[]>(`/api/cronjob/dag/${dagId}/versions`);
+  return requestClient.get<JobDagVersionVO[]>(`/cronjob/dag/${dagId}/versions`);
 }
 
 /**
- * rollbackDag: POST /api/cronjob/dag/{dagId}/rollback
+ * rollbackDag: POST /cronjob/dag/{dagId}/rollback
  */
 export function rollbackDag({ dagId }: {
     dagId: string;
   }, params: {
     version?: number;
   }): Promise<JobDagVO> {
-  return requestClient.post<JobDagVO>(`/api/cronjob/dag/${dagId}/rollback`, { params });
+  return requestClient.post<JobDagVO>(`/cronjob/dag/${dagId}/rollback`, { params });
 }

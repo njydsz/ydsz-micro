@@ -42,7 +42,7 @@ interface ConfigFormState {
   defaultValue: string;
   description: string;
   isPublic: number;
-  sortOrder: number;
+  sort?: number;
   status: string;
 }
 
@@ -55,7 +55,7 @@ const formData = reactive<ConfigFormState>({
   defaultValue: '',
   description: '',
   isPublic: 0,
-  sortOrder: 0,
+  sort: 0,
   status: '1',
 });
 
@@ -78,8 +78,8 @@ const [Modal, modalApi] = useYdModal({
         valueType: data.record.valueType ?? '',
         defaultValue: data.record.defaultValue ?? '',
         description: data.record.description ?? '',
-        isPublic: data.record.isPublic ?? 0,
-        sortOrder: data.record.sortOrder ?? 0,
+  isPublic: data.record.isPublic ?? 0,
+  sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
       });
     } else {
@@ -92,8 +92,8 @@ const [Modal, modalApi] = useYdModal({
         valueType: '',
         defaultValue: '',
         description: '',
-        isPublic: 0,
-        sortOrder: 0,
+  isPublic: 0,
+  sort: 0,
         status: '1',
       });
     }
@@ -144,7 +144,7 @@ const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')
         <YdInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('defaultValuePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('sortOrder')" prop="sortOrder">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('isPublic')" prop="isPublic">
         <YdRadioGroup v-model="formData.isPublic">

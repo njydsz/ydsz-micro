@@ -14,22 +14,22 @@ import { requestClient } from '#/api/request';
 import type { ProcessResult, RemoteSubTaskRequest, RemoteTaskRequest } from './models';
 
 /**
- * execute: POST /api/cronjob/internal/execute
+ * execute: POST /cronjob/internal/execute
  */
 export function execute(data: RemoteTaskRequest): Promise<string> {
-  return requestClient.post<string>(`/api/cronjob/internal/execute`, data);
+  return requestClient.post<string>(`/cronjob/internal/execute`, data);
 }
 
 /**
- * executeSubTask: POST /api/cronjob/internal/executeSubTask
+ * executeSubTask: POST /cronjob/internal/executeSubTask
  */
 export function executeSubTask(data: RemoteSubTaskRequest): Promise<ProcessResult> {
-  return requestClient.post<ProcessResult>(`/api/cronjob/internal/executeSubTask`, data);
+  return requestClient.post<ProcessResult>(`/cronjob/internal/executeSubTask`, data);
 }
 
 /**
- * executeBatch: POST /api/cronjob/internal/executeBatch
+ * executeBatch: POST /cronjob/internal/executeBatch
  */
 export function executeBatch(data: RemoteTaskRequest[]): Promise<string[]> {
-  return requestClient.post<string[]>(`/api/cronjob/internal/executeBatch`, data);
+  return requestClient.post<string[]>(`/cronjob/internal/executeBatch`, data);
 }

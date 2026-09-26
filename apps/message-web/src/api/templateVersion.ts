@@ -11,37 +11,37 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MessageResult, MsgTemplateVersionVO, TemplatePreviewDTO, TemplateTestSendDTO } from './models';
+import type { MessageSendResultVO, MsgTemplateVersionVO, TemplatePreviewDTO, TemplateTestSendDTO } from './models';
 
 /**
- * listVersions: GET /api/message/template/version/list/{templateCode}
+ * listVersions: GET /message/template/version/list/{templateCode}
  */
 export function listVersions({ templateCode }: {
     templateCode: string;
   }): Promise<MsgTemplateVersionVO[]> {
-  return requestClient.get<MsgTemplateVersionVO[]>(`/api/message/template/version/list/${templateCode}`);
+  return requestClient.get<MsgTemplateVersionVO[]>(`/message/template/version/list/${templateCode}`);
 }
 
 /**
- * rollback: POST /api/message/template/version/rollback
+ * rollback: POST /message/template/version/rollback
  */
 export function rollback(params: {
     templateCode?: string;
     version?: number;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/message/template/version/rollback`, { params });
+  return requestClient.post<string>(`/message/template/version/rollback`, { params });
 }
 
 /**
- * preview: POST /api/message/template/version/preview
+ * preview: POST /message/template/version/preview
  */
 export function preview(data: TemplatePreviewDTO): Promise<string> {
-  return requestClient.post<string>(`/api/message/template/version/preview`, data);
+  return requestClient.post<string>(`/message/template/version/preview`, data);
 }
 
 /**
- * testSend: POST /api/message/template/version/testSend
+ * testSend: POST /message/template/version/testSend
  */
-export function testSend(data: TemplateTestSendDTO): Promise<MessageResult> {
-  return requestClient.post<MessageResult>(`/api/message/template/version/testSend`, data);
+export function testSend(data: TemplateTestSendDTO): Promise<MessageSendResultVO> {
+  return requestClient.post<MessageSendResultVO>(`/message/template/version/testSend`, data);
 }

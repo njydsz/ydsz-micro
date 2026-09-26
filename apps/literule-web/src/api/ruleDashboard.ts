@@ -14,59 +14,59 @@ import { requestClient } from '#/api/request';
 import type { RuleDashboardDistributionVO, RuleDashboardOverviewVO, RuleDashboardRealtimeVO, RuleDashboardTopRuleVO, RuleDashboardTrendVO } from './models';
 
 /**
- * overview: GET /api/literule/dashboard/overview
+ * overview: GET /literule/dashboard/overview
  */
 export function overview(): Promise<RuleDashboardOverviewVO> {
-  return requestClient.get<RuleDashboardOverviewVO>(`/api/literule/dashboard/overview`);
+  return requestClient.get<RuleDashboardOverviewVO>(`/literule/dashboard/overview`);
 }
 
 /**
- * trends: GET /api/literule/dashboard/trends
+ * trends: GET /literule/dashboard/trends
  */
 export function trends(params: {
     timeRange?: string;
   }): Promise<RuleDashboardTrendVO> {
-  return requestClient.get<RuleDashboardTrendVO>(`/api/literule/dashboard/trends`, { params });
+  return requestClient.get<RuleDashboardTrendVO>(`/literule/dashboard/trends`, { params });
 }
 
 /**
- * distribution: GET /api/literule/dashboard/distribution
+ * distribution: GET /literule/dashboard/distribution
  */
 export function distribution(): Promise<RuleDashboardDistributionVO> {
-  return requestClient.get<RuleDashboardDistributionVO>(`/api/literule/dashboard/distribution`);
+  return requestClient.get<RuleDashboardDistributionVO>(`/literule/dashboard/distribution`);
 }
 
 /**
- * topRules: GET /api/literule/dashboard/top-rules
+ * topRules: GET /literule/dashboard/top-rules
  */
 export function topRules(params: {
     type?: string;
     limit?: number;
   }): Promise<RuleDashboardTopRuleVO[]> {
-  return requestClient.get<RuleDashboardTopRuleVO[]>(`/api/literule/dashboard/top-rules`, { params });
+  return requestClient.get<RuleDashboardTopRuleVO[]>(`/literule/dashboard/top-rules`, { params });
 }
 
 /**
- * realtime: GET /api/literule/dashboard/realtime
+ * realtime: GET /literule/dashboard/realtime
  */
 export function realtime(): Promise<RuleDashboardRealtimeVO> {
-  return requestClient.get<RuleDashboardRealtimeVO>(`/api/literule/dashboard/realtime`);
+  return requestClient.get<RuleDashboardRealtimeVO>(`/literule/dashboard/realtime`);
 }
 
 /**
- * slowRules: GET /api/literule/dashboard/slow-rules
+ * slowRules: GET /literule/dashboard/slow-rules
  */
 export function slowRules(params: {
     limit?: number;
   }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/literule/dashboard/slow-rules`, { params });
+  return requestClient.get<Record<string, unknown>[]>(`/literule/dashboard/slow-rules`, { params });
 }
 
 /**
- * hotRules: GET /api/literule/dashboard/hot-rules
+ * hotRules: GET /literule/dashboard/hot-rules
  */
 export function hotRules(params: {
     limit?: number;
   }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/literule/dashboard/hot-rules`, { params });
+  return requestClient.get<Record<string, unknown>[]>(`/literule/dashboard/hot-rules`, { params });
 }

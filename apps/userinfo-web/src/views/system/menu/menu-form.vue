@@ -83,7 +83,7 @@ interface MenuFormState {
   component: string;
   icon: string;
   permissionCode: string;
-  sortOrder: number;
+  sort?: number;
   visible: number;
   status: string;
 }
@@ -98,7 +98,7 @@ const formData = reactive<MenuFormState>({
   component: '',
   icon: '',
   permissionCode: '',
-  sortOrder: 0,
+  sort: 0,
   visible: 1,
   status: '1',
 });
@@ -129,8 +129,8 @@ const [Modal, modalApi] = useYdModal({
         path: data.record.path ?? '',
         component: data.record.component ?? '',
         icon: data.record.icon ?? '',
-        permissionCode: data.record.permissionCode ?? '',
-        sortOrder: data.record.sortOrder ?? 0,
+  permissionCode: data.record.permissionCode ?? '',
+  sort: data.record.sort ?? 0,
         visible: data.record.visible ?? 1,
         status: data.record.status ?? '1',
       });
@@ -145,8 +145,8 @@ const [Modal, modalApi] = useYdModal({
         path: '',
         component: '',
         icon: '',
-        permissionCode: '',
-        sortOrder: 0,
+  permissionCode: '',
+  sort: 0,
         visible: 1,
         status: '1',
       });
@@ -169,8 +169,8 @@ const [Modal, modalApi] = useYdModal({
         path: formData.path,
         component: formData.component,
         icon: formData.icon,
-        permissionCode: formData.permissionCode,
-        sortOrder: formData.sortOrder,
+  permissionCode: formData.permissionCode,
+  sort: formData.sort,
         visible: formData.visible,
         status: formData.status,
       };
@@ -241,7 +241,7 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
         <YdInput v-model="formData.permissionCode" :placeholder="t('menu.permissionPlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('page.sortOrder')">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('menu.visible')">
         <YdRadioGroup v-model="formData.visible">

@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * save: POST /api/cronjob/glue/save
+ * save: POST /cronjob/glue/save
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,11 +22,11 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function save(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/cronjob/glue/save`, data);
+  return requestClient.post<unknown>(`/cronjob/glue/save`, data);
 }
 
 /**
- * validate: POST /api/cronjob/glue/validate
+ * validate: POST /cronjob/glue/validate
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -34,5 +34,5 @@ export function save(data: Record<string, unknown>): Promise<unknown> {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function validate(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/cronjob/glue/validate`, data);
+  return requestClient.post<unknown>(`/cronjob/glue/validate`, data);
 }

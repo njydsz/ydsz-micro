@@ -14,22 +14,22 @@ import { requestClient } from '#/api/request';
 import type { RuleImportDTO } from './models';
 
 /**
- * exportRules: GET /api/literule/rules/export
+ * exportRules: GET /literule/rules/export
  */
 export function exportRules(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/literule/rules/export`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/rules/export`);
 }
 
 /**
- * exportRulesAsYaml: GET /api/literule/rules/export.yaml
+ * exportRulesAsYaml: GET /literule/rules/export.yaml
  */
 export function exportRulesAsYaml(): Promise<string> {
-  return requestClient.get<string>(`/api/literule/rules/export.yaml`);
+  return requestClient.get<string>(`/literule/rules/export.yaml`);
 }
 
 /**
- * importRules: POST /api/literule/rules/import
+ * importRules: POST /literule/rules/import
  */
 export function importRules(data: RuleImportDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/rules/import`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/import`, data);
 }

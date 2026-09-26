@@ -14,60 +14,60 @@ import { requestClient } from '#/api/request';
 import type { GlueCodeVO } from './models';
 
 /**
- * save: POST /api/cronjob/glue/save
+ * save: POST /cronjob/glue/save
  */
 export function save(data: Record<string, unknown>): Promise<GlueCodeVO> {
-  return requestClient.post<GlueCodeVO>(`/api/cronjob/glue/save`, data);
+  return requestClient.post<GlueCodeVO>(`/cronjob/glue/save`, data);
 }
 
 /**
- * latest: GET /api/cronjob/glue/latest
+ * latest: GET /cronjob/glue/latest
  */
 export function latest(params: {
     jobId?: string;
   }): Promise<GlueCodeVO> {
-  return requestClient.get<GlueCodeVO>(`/api/cronjob/glue/latest`, { params });
+  return requestClient.get<GlueCodeVO>(`/cronjob/glue/latest`, { params });
 }
 
 /**
- * versions: GET /api/cronjob/glue/versions
+ * versions: GET /cronjob/glue/versions
  */
 export function versions(params: {
     jobId?: string;
   }): Promise<GlueCodeVO[]> {
-  return requestClient.get<GlueCodeVO[]>(`/api/cronjob/glue/versions`, { params });
+  return requestClient.get<GlueCodeVO[]>(`/cronjob/glue/versions`, { params });
 }
 
 /**
- * rollback: POST /api/cronjob/glue/rollback
+ * rollback: POST /cronjob/glue/rollback
  */
 export function rollback(data: Record<string, unknown>): Promise<GlueCodeVO> {
-  return requestClient.post<GlueCodeVO>(`/api/cronjob/glue/rollback`, data);
+  return requestClient.post<GlueCodeVO>(`/cronjob/glue/rollback`, data);
 }
 
 /**
- * test: POST /api/cronjob/glue/test
+ * test: POST /cronjob/glue/test
  */
 export function test(data: Record<string, unknown>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/cronjob/glue/test`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/cronjob/glue/test`, data);
 }
 
 /**
- * template: GET /api/cronjob/glue/template
+ * template: GET /cronjob/glue/template
  */
 export function template(params: {
     language?: string;
   }): Promise<Record<string, string>> {
-  return requestClient.get<Record<string, string>>(`/api/cronjob/glue/template`, { params });
+  return requestClient.get<Record<string, string>>(`/cronjob/glue/template`, { params });
 }
 
 /**
- * diff: GET /api/cronjob/glue/diff
+ * diff: GET /cronjob/glue/diff
  */
 export function diff(params: {
     jobId?: string;
     versionA?: number;
     versionB?: number;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/glue/diff`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/glue/diff`, { params });
 }

@@ -14,67 +14,67 @@ import { requestClient } from '#/api/request';
 import type { OAuth2AuthorizeRequest, OAuth2TokenRequest } from './models';
 
 /**
- * authorize: GET /api/oauth2/authorize
+ * authorize: GET /oauth2/authorize
  */
 export function authorize(params: {
     request?: OAuth2AuthorizeRequest;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/oauth2/authorize`, { params });
+  return requestClient.get<string>(`/oauth2/authorize`, { params });
 }
 
 /**
- * getConsentInfo: GET /api/oauth2/consent
+ * getConsentInfo: GET /oauth2/consent
  */
 export function getConsentInfo(params: {
     clientId?: string;
     redirectUri?: string;
     scope?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/oauth2/consent`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/oauth2/consent`, { params });
 }
 
 /**
- * submitConsent: POST /api/oauth2/consent
+ * submitConsent: POST /oauth2/consent
  */
 export function submitConsent(params: {
     request?: OAuth2AuthorizeRequest;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/oauth2/consent`, { params });
+  return requestClient.post<string>(`/oauth2/consent`, { params });
 }
 
 /**
- * token: POST /api/oauth2/token
+ * token: POST /oauth2/token
  */
 export function token(params: {
     request?: OAuth2TokenRequest;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/oauth2/token`, { params });
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/oauth2/token`, { params });
 }
 
 /**
- * revoke: POST /api/oauth2/revoke
+ * revoke: POST /oauth2/revoke
  */
 export function revoke(params: {
     token?: string;
     tokenTypeHint?: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/oauth2/revoke`, { params });
+  return requestClient.post<void>(`/oauth2/revoke`, { params });
 }
 
 /**
- * introspect: POST /api/oauth2/introspect
+ * introspect: POST /oauth2/introspect
  */
 export function introspect(params: {
     token?: string;
     clientId?: string;
     clientSecret?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/oauth2/introspect`, { params });
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/oauth2/introspect`, { params });
 }
 
 /**
- * userinfo: GET /api/oauth2/userinfo
+ * userinfo: GET /oauth2/userinfo
  */
 export function userinfo(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/oauth2/userinfo`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/oauth2/userinfo`);
 }

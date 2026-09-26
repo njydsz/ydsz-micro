@@ -11,74 +11,69 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { BatchResultDTO, FileNodeVO, FileVersionVO } from './models';
+import type { BatchResultDTO, DiffResultVO, FileNodeVO, FileVersionVO } from './models';
 
 /**
- * batchDelete: POST /api/nextwiki/files/batch/delete
+ * batchDelete: POST /nextwiki/files/batch/delete
  */
 export function batchDelete(data: string[]): Promise<BatchResultDTO> {
-  return requestClient.post<BatchResultDTO>(`/api/nextwiki/files/batch/delete`, data);
+  return requestClient.post<BatchResultDTO>(`/nextwiki/files/batch/delete`, data);
 }
 
 /**
- * batchMove: POST /api/nextwiki/files/batch/move
+ * batchMove: POST /nextwiki/files/batch/move
  */
 export function batchMove(data: Record<string, unknown>): Promise<BatchResultDTO> {
-  return requestClient.post<BatchResultDTO>(`/api/nextwiki/files/batch/move`, data);
+  return requestClient.post<BatchResultDTO>(`/nextwiki/files/batch/move`, data);
 }
 
 /**
- * getVersionHistory: GET /api/nextwiki/files/{nodeId}/versions
+ * getVersionHistory: GET /nextwiki/files/{nodeId}/versions
  */
 export function getVersionHistory({ nodeId }: {
     nodeId: string;
   }): Promise<FileVersionVO[]> {
-  return requestClient.get<FileVersionVO[]>(`/api/nextwiki/files/${nodeId}/versions`);
+  return requestClient.get<FileVersionVO[]>(`/nextwiki/files/${nodeId}/versions`);
 }
 
 /**
- * rollbackVersion: POST /api/nextwiki/files/{nodeId}/versions/{version}/rollback
+ * rollbackVersion: POST /nextwiki/files/{nodeId}/versions/{version}/rollback
  */
 export function rollbackVersion({ nodeId, version }: {
     nodeId: string;
     version: number;
   }): Promise<FileNodeVO> {
-  return requestClient.post<FileNodeVO>(`/api/nextwiki/files/${nodeId}/versions/${version}/rollback`);
+  return requestClient.post<FileNodeVO>(`/nextwiki/files/${nodeId}/versions/${version}/rollback`);
 }
 
 /**
- * diffVersions: GET /api/nextwiki/files/{nodeId}/versions/diff
- *
- * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
- * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
- * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
- * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
+ * diffVersions: GET /nextwiki/files/{nodeId}/versions/diff
  */
 export function diffVersions({ nodeId }: {
     nodeId: string;
   }, params: {
     oldVersion?: number;
     newVersion?: number;
-  }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/nextwiki/files/${nodeId}/versions/diff`, { params });
+  }): Promise<DiffResultVO> {
+  return requestClient.get<DiffResultVO>(`/nextwiki/files/${nodeId}/versions/diff`, { params });
 }
 
 /**
- * asyncBatchDelete: POST /api/nextwiki/files/batch/async-delete
+ * asyncBatchDelete: POST /nextwiki/files/batch/async-delete
  */
 export function asyncBatchDelete(data: string[]): Promise<string> {
-  return requestClient.post<string>(`/api/nextwiki/files/batch/async-delete`, data);
+  return requestClient.post<string>(`/nextwiki/files/batch/async-delete`, data);
 }
 
 /**
- * asyncBatchMove: POST /api/nextwiki/files/batch/async-move
+ * asyncBatchMove: POST /nextwiki/files/batch/async-move
  */
 export function asyncBatchMove(data: Record<string, unknown>): Promise<string> {
-  return requestClient.post<string>(`/api/nextwiki/files/batch/async-move`, data);
+  return requestClient.post<string>(`/nextwiki/files/batch/async-move`, data);
 }
 
 /**
- * getBatchTaskStatus: GET /api/nextwiki/files/batch/task/{taskId}
+ * getBatchTaskStatus: GET /nextwiki/files/batch/task/{taskId}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -88,14 +83,14 @@ export function asyncBatchMove(data: Record<string, unknown>): Promise<string> {
 export function getBatchTaskStatus({ taskId }: {
     taskId: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/nextwiki/files/batch/task/${taskId}`);
+  return requestClient.get<unknown>(`/nextwiki/files/batch/task/${taskId}`);
 }
 
 /**
- * toggleStar: PUT /api/nextwiki/files/{nodeId}/star
+ * toggleStar: PUT /nextwiki/files/{nodeId}/star
  */
 export function toggleStar({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/nextwiki/files/${nodeId}/star`);
+  return requestClient.put<void>(`/nextwiki/files/${nodeId}/star`);
 }

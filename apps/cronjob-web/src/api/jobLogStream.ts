@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * stream: GET /api/cronjob/log/stream/{logId}
+ * stream: GET /cronjob/log/stream/{logId}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code SseEmitter}，响应结构未固定为具名 VO，
@@ -24,5 +24,5 @@ import { requestClient } from '#/api/request';
 export function stream({ logId }: {
     logId: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/cronjob/log/stream/${logId}`);
+  return requestClient.get<unknown>(`/cronjob/log/stream/${logId}`);
 }

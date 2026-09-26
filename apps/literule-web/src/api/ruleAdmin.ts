@@ -15,56 +15,56 @@ import type { PageResponse } from './models';
 import type { ExpressionValidateDTO, ExpressionValidationResultVO, PageQuery, RuleABTestDTO, RuleDefinitionDTO, RuleDefinitionVO, RuleEngineStatsVO, RuleResultVO, RuleVersionDiffVO, RuleVersionVO } from './models';
 
 /**
- * list: GET /api/literule/rules
+ * list: GET /literule/rules
  */
 export function list(params: {
     pageQuery?: PageQuery;
   }): Promise<PageResponse<RuleDefinitionVO[]>> {
-  return requestClient.get<PageResponse<RuleDefinitionVO[]>>(`/api/literule/rules`, { params });
+  return requestClient.get<PageResponse<RuleDefinitionVO[]>>(`/literule/rules`, { params });
 }
 
 /**
- * get: GET /api/literule/rules/{ruleCode}
+ * get: GET /literule/rules/{ruleCode}
  */
 export function get({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleDefinitionVO> {
-  return requestClient.get<RuleDefinitionVO>(`/api/literule/rules/${ruleCode}`);
+  return requestClient.get<RuleDefinitionVO>(`/literule/rules/${ruleCode}`);
 }
 
 /**
- * save: POST /api/literule/rules
+ * save: POST /literule/rules
  */
 export function save(params: {
     changeDesc?: string;
   }, data: RuleDefinitionDTO): Promise<RuleDefinitionVO> {
-  return requestClient.post<RuleDefinitionVO>(`/api/literule/rules`, data, { params });
+  return requestClient.post<RuleDefinitionVO>(`/literule/rules`, data, { params });
 }
 
 /**
- * toggle: PUT /api/literule/rules/{ruleCode}/toggle
+ * toggle: PUT /literule/rules/{ruleCode}/toggle
  */
 export function toggle({ ruleCode }: {
     ruleCode: string;
   }, params: {
     enabled?: boolean;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/literule/rules/${ruleCode}/toggle`, { params });
+  return requestClient.put<void>(`/literule/rules/${ruleCode}/toggle`, { params });
 }
 
 /**
- * listVersions: GET /api/literule/rules/{ruleCode}/versions
+ * listVersions: GET /literule/rules/{ruleCode}/versions
  */
 export function listVersions({ ruleCode }: {
     ruleCode: string;
   }, params: {
     pageQuery?: PageQuery;
   }): Promise<PageResponse<RuleVersionVO[]>> {
-  return requestClient.get<PageResponse<RuleVersionVO[]>>(`/api/literule/rules/${ruleCode}/versions`, { params });
+  return requestClient.get<PageResponse<RuleVersionVO[]>>(`/literule/rules/${ruleCode}/versions`, { params });
 }
 
 /**
- * versionDiff: GET /api/literule/rules/{ruleCode}/version-diff
+ * versionDiff: GET /literule/rules/{ruleCode}/version-diff
  */
 export function versionDiff({ ruleCode }: {
     ruleCode: string;
@@ -72,50 +72,50 @@ export function versionDiff({ ruleCode }: {
     oldVersion?: number;
     newVersion?: number;
   }): Promise<RuleVersionDiffVO> {
-  return requestClient.get<RuleVersionDiffVO>(`/api/literule/rules/${ruleCode}/version-diff`, { params });
+  return requestClient.get<RuleVersionDiffVO>(`/literule/rules/${ruleCode}/version-diff`, { params });
 }
 
 /**
- * rollback: POST /api/literule/rules/{ruleCode}/rollback
+ * rollback: POST /literule/rules/{ruleCode}/rollback
  */
 export function rollback({ ruleCode }: {
     ruleCode: string;
   }, params: {
     version?: number;
   }): Promise<RuleDefinitionVO> {
-  return requestClient.post<RuleDefinitionVO>(`/api/literule/rules/${ruleCode}/rollback`, { params });
+  return requestClient.post<RuleDefinitionVO>(`/literule/rules/${ruleCode}/rollback`, { params });
 }
 
 /**
- * dryRun: POST /api/literule/rules/dry-run
+ * dryRun: POST /literule/rules/dry-run
  */
 export function dryRun(params: {
     ruleCode?: string;
   }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
-  return requestClient.post<RuleResultVO[]>(`/api/literule/rules/dry-run`, data, { params });
+  return requestClient.post<RuleResultVO[]>(`/literule/rules/dry-run`, data, { params });
 }
 
 /**
- * validate: GET /api/literule/rules/validate
+ * validate: GET /literule/rules/validate
  */
 export function validate(params: {
     expression?: string;
   }): Promise<boolean> {
-  return requestClient.get<boolean>(`/api/literule/rules/validate`, { params });
+  return requestClient.get<boolean>(`/literule/rules/validate`, { params });
 }
 
 /**
- * evaluate: POST /api/literule/rules/evaluate
+ * evaluate: POST /literule/rules/evaluate
  */
 export function evaluate(params: {
     ruleCode?: string;
     scenario?: string;
   }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
-  return requestClient.post<RuleResultVO[]>(`/api/literule/rules/evaluate`, data, { params });
+  return requestClient.post<RuleResultVO[]>(`/literule/rules/evaluate`, data, { params });
 }
 
 /**
- * traceExpression: POST /api/literule/rules/expr-trace
+ * traceExpression: POST /literule/rules/expr-trace
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -123,25 +123,25 @@ export function evaluate(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function traceExpression(data: Record<string, Record<string, unknown>>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/literule/rules/expr-trace`, data);
+  return requestClient.post<unknown>(`/literule/rules/expr-trace`, data);
 }
 
 /**
- * validateExpression: POST /api/literule/rules/validate-expression
+ * validateExpression: POST /literule/rules/validate-expression
  */
 export function validateExpression(data: ExpressionValidateDTO): Promise<ExpressionValidationResultVO> {
-  return requestClient.post<ExpressionValidationResultVO>(`/api/literule/rules/validate-expression`, data);
+  return requestClient.post<ExpressionValidationResultVO>(`/literule/rules/validate-expression`, data);
 }
 
 /**
- * validateBatch: POST /api/literule/rules/validate-batch
+ * validateBatch: POST /literule/rules/validate-batch
  */
 export function validateBatch(data: Record<string, string>): Promise<Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>> {
-  return requestClient.post<Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>>(`/api/literule/rules/validate-batch`, data);
+  return requestClient.post<Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>>(`/literule/rules/validate-batch`, data);
 }
 
 /**
- * abTest: POST /api/literule/rules/{ruleCode}/ab-test
+ * abTest: POST /literule/rules/{ruleCode}/ab-test
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -151,12 +151,12 @@ export function validateBatch(data: Record<string, string>): Promise<Record<stri
 export function abTest({ ruleCode }: {
     ruleCode: string;
   }, data: RuleABTestDTO): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/literule/rules/${ruleCode}/ab-test`, data);
+  return requestClient.post<unknown>(`/literule/rules/${ruleCode}/ab-test`, data);
 }
 
 /**
- * stats: GET /api/literule/rules/stats
+ * stats: GET /literule/rules/stats
  */
 export function stats(): Promise<RuleEngineStatsVO> {
-  return requestClient.get<RuleEngineStatsVO>(`/api/literule/rules/stats`);
+  return requestClient.get<RuleEngineStatsVO>(`/literule/rules/stats`);
 }

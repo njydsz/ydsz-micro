@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 import type { RuleConflictInfoVO } from './models';
 
 /**
- * detectConflicts: GET /api/literule/rules/conflicts
+ * detectConflicts: GET /literule/rules/conflicts
  */
 export function detectConflicts(): Promise<RuleConflictInfoVO[]> {
-  return requestClient.get<RuleConflictInfoVO[]>(`/api/literule/rules/conflicts`);
+  return requestClient.get<RuleConflictInfoVO[]>(`/literule/rules/conflicts`);
 }

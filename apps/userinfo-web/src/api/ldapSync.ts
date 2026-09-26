@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * triggerSync: POST /api/admin/ldap/sync
+ * triggerSync: POST /admin/ldap/sync
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,11 +22,11 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function triggerSync(): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/admin/ldap/sync`);
+  return requestClient.post<unknown>(`/admin/ldap/sync`);
 }
 
 /**
- * getStatus: GET /api/admin/ldap/sync/status
+ * getStatus: GET /admin/ldap/sync/status
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -34,12 +34,12 @@ export function triggerSync(): Promise<unknown> {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function getStatus(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/admin/ldap/sync/status`);
+  return requestClient.get<unknown>(`/admin/ldap/sync/status`);
 }
 
 /**
- * getLogs: GET /api/admin/ldap/sync/logs
+ * getLogs: GET /admin/ldap/sync/logs
  */
 export function getLogs(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/admin/ldap/sync/logs`);
+  return requestClient.get<Record<string, unknown>[]>(`/admin/ldap/sync/logs`);
 }

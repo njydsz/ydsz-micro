@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * dashboard: GET /api/system/metrics/dashboard
+ * dashboard: GET /system/metrics/dashboard
  */
 export function dashboard(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/system/metrics/dashboard`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/system/metrics/dashboard`);
 }

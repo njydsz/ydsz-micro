@@ -39,9 +39,103 @@ export interface PageQuery {
 }
 
 /**
+ * HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * HttpServletRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * BatchMoveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface BatchMoveRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * AddCommentRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface AddCommentRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CreateFolderRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateFolderRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * MoveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface MoveRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * RenameRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface RenameRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * BatchSortRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface BatchSortRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * SetQuotaRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SetQuotaRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 统一搜索请求
  *
  * 封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。
+ * 布尔字段遵循 YDIZ-OOP-006 规范：字段以 `is` 前缀命名，
+ * Lombok 将生成 `isXxx()` / `setXxx()` 方法（非 `getIsXxx()`），
+ * Jackson 默认命名策略将前缀 `is` 剥离后映射到 JSON 属性 `"ascending"`、`"highlight"` 等。
+ * 如需控制 JSON 序列化名称，在字段上方添加 `@JsonProperty("isAscending")` 等注解。
  */
 export interface SearchRequest {
   serialVersionUID?: number;
@@ -58,9 +152,9 @@ export interface SearchRequest {
   /** 排序字段 */
   sortBy?: string;
   /** 是否升序（默认 false 降序） */
-  ascending?: boolean;
+  isAscending?: boolean;
   /** 是否启用高亮 */
-  highlight?: boolean;
+  isHighlight?: boolean;
   /** 高亮前置标签 */
   highlightPreTag?: string;
   /** 高亮后置标签 */
@@ -68,7 +162,7 @@ export interface SearchRequest {
   /** 高亮片段最大长度 */
   highlightFragmentSize?: number;
   /** 是否启用模糊匹配 */
-  fuzzy?: boolean;
+  isFuzzy?: boolean;
   /** 模糊匹配最小相似度 */
   fuzzyMinSimilarity?: number;
   /** 过滤条件列表（跨字段 AND，同字段内 OR） */
@@ -84,9 +178,9 @@ export interface SearchRequest {
   /** 部门 ID（用于权限过滤） */
   deptId?: string;
   /** 是否管理员（跳过数据权限过滤） */
-  admin?: boolean;
+  isAdmin?: boolean;
   /** 是否仅搜索标题 */
-  titleOnly?: boolean;
+  isTitleOnly?: boolean;
   /** 游标（用于 keyset 分页） */
   cursor?: string;
 }
@@ -106,7 +200,7 @@ export interface SearchAggregation {
   /** 聚合标签（如"类型"、"标签"） */
   label?: string;
   /** 聚合桶列表 */
-  buckets?: Record<string, unknown>[];
+  buckets?: Bucket[];
   /** 桶键值 */
   key?: string;
   /** 桶文档数 */
@@ -114,22 +208,164 @@ export interface SearchAggregation {
 }
 
 /**
- * AI 摘要结果 VO。
- *
- * 定义 AI 生成的摘要结果数据结构，供 server 层和 api 层共享使用。
+ * 聚合桶
  */
-export interface SummaryResult {
+export interface Bucket {
   serialVersionUID?: number;
-  /** 文件节点ID */
-  fileNodeId?: string;
-  /** 摘要内容 */
-  summary?: string;
-  /** 摘要类型 */
-  summaryType?: string;
-  /** 内容字数 */
-  wordCount?: number;
-  /** 生成时间 */
-  generatedAt?: string;
+  /** 桶键值 */
+  key?: string;
+  /** 桶文档数 */
+  count?: number;
+}
+
+/**
+ * CreateShareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateShareRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * VerifyShareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface VerifyShareRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CreateSpaceRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateSpaceRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * UpdateSpaceRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface UpdateSpaceRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * AddMemberRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface AddMemberRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CreateTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateTemplateRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * UpdateTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface UpdateTemplateRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * UseTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface UseTemplateRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CreateTagRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateTagRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * BindTagRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface BindTagRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * WopiCheckFileInfoResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface WopiCheckFileInfoResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * WopiPutFileResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface WopiPutFileResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * GenerateSummaryRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface GenerateSummaryRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * PresignedUrlRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PresignedUrlRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CreateFileTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateFileTemplateRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -181,6 +417,31 @@ export interface FileNodeVO {
   updatedAt?: string;
   children?: FileNodeVO[];
   tags?: string[];
+  /**
+   * P1-4: 面包屑导航路径（从根到直接父节点的有序列表）。
+   * 前端打开深层目录时一次性获取完整面包屑路径，避免逐层请求父节点构建导航。
+   * 列表首位为根节点，末位为直接父节点。当前节点自身不包含在内。
+   */
+  ancestors?: BreadcrumbItem[];
+}
+
+/**
+ * 面包屑单项（P1-4 轻量结构，仅含导航必要字段）。
+ */
+export interface BreadcrumbItem {
+  serialVersionUID?: number;
+  id?: string;
+  name?: string;
+}
+
+/**
+ * BatchImportResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface BatchImportResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -210,7 +471,21 @@ export interface BatchResultDTO {
   /** 失败条数 */
   failureCount?: number;
   /** 明细列表 */
-  details?: Record<string, unknown>[];
+  details?: ItemResult[];
+  /** 操作项标识 */
+  item?: Record<string, unknown>;
+  /** 是否成功 */
+  isSuccess?: boolean;
+  /** 失败原因（成功时为 null） */
+  error?: string;
+}
+
+/**
+ * 单个批量操作结果。
+ *
+ * @param <T> 操作项类型
+ */
+export interface ItemResult {
   /** 操作项标识 */
   item?: Record<string, unknown>;
   /** 是否成功 */
@@ -236,6 +511,42 @@ export interface FileVersionVO {
   isActive?: boolean;
   createdBy?: string;
   createdAt?: string;
+}
+
+/**
+ * 版本对比结果 VO（P3-1：从 VersionDiffService 内部类提取为统一领域 VO）。
+ *
+ * 聚合一次 diff 计算的全量结果，包含条目列表、行数统计与摘要信息，直接用于前端可视化渲染。
+ */
+export interface DiffResultVO {
+  serialVersionUID?: number;
+  /** diff 条目列表 */
+  entries?: DiffEntryVO[];
+  /** 旧版本总行数 */
+  oldLineCount?: number;
+  /** 新版本总行数 */
+  newLineCount?: number;
+  /** 新增行数 */
+  additions?: number;
+  /** 删除行数 */
+  deletions?: number;
+}
+
+/**
+ * 版本对比差异条目 VO（P3-1：从 VersionDiffService 内部类提取为独立领域 VO）。
+ *
+ * 标识单行文本的变更类型与内容，前端据此渲染 diff 高亮（红色删除 / 绿色新增 / 灰色未变）。
+ */
+export interface DiffEntryVO {
+  serialVersionUID?: number;
+  /** 变更类型：新增 / 删除 / 未变 */
+  type?: 'ADD' | 'DELETE' | 'UNCHANGED';
+  /** 行内容文本 */
+  lineContent?: string;
+  /** 旧版本行号（0 表示不存在） */
+  oldLineNumber?: number;
+  /** 新版本行号（0 表示不存在） */
+  newLineNumber?: number;
 }
 
 /**
@@ -303,11 +614,29 @@ export interface StorageQuotaVO {
  */
 export interface SearchResultVO {
   serialVersionUID?: number;
-  hits?: Record<string, unknown>[];
+  hits?: SearchHitVO[];
   total?: number;
   page?: number;
   pageSize?: number;
   tookMs?: number;
+  fileNodeId?: string;
+  name?: string;
+  path?: string;
+  nodeType?: string;
+  suffix?: string;
+  size?: number;
+  highlight?: string;
+  score?: number;
+  tags?: string[];
+  createdBy?: string;
+  updatedAt?: string;
+}
+
+/**
+ * 单条搜索命中
+ */
+export interface SearchHitVO {
+  serialVersionUID?: number;
   fileNodeId?: string;
   name?: string;
   path?: string;
@@ -424,6 +753,12 @@ export interface SpaceTemplateDTO {
   createdBy?: string;
   updatedAt?: string;
   updatedBy?: string;
+  /** P2-3: 模板类型（space=空间模板，file=文件模板） */
+  templateType?: string;
+  /** P2-3: 源文件节点 ID（templateType=file 时必填） */
+  sourceNodeId?: string;
+  /** P2-3: 可见性级别（system/org/private） */
+  visibility?: string;
 }
 
 /**
@@ -517,4 +852,53 @@ export interface UserRecentVO {
   accessedAt?: string;
   updatedBy?: string;
   updatedAt?: string;
+}
+
+/**
+ * ActivityItem（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ActivityItem {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * AI 摘要结果 VO。
+ *
+ * 定义 AI 生成的摘要结果数据结构，供 server 层和 api 层共享使用。
+ */
+export interface SummaryResult {
+  serialVersionUID?: number;
+  /** 文件节点ID */
+  fileNodeId?: string;
+  /** 摘要内容 */
+  summary?: string;
+  /** 摘要类型 */
+  summaryType?: string;
+  /** 内容字数 */
+  wordCount?: number;
+  /** 生成时间 */
+  generatedAt?: string;
+}
+
+/**
+ * AiStatusResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface AiStatusResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * PresignedUrlResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PresignedUrlResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }

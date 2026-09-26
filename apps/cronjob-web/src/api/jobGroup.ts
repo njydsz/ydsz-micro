@@ -15,7 +15,7 @@ import type { PageResponse } from './models';
 import type { BatchResultDTO, JobVO } from './models';
 
 /**
- * pageByGroup: GET /api/cronjob/group/{jobGroup}/page
+ * pageByGroup: GET /cronjob/group/{jobGroup}/page
  */
 export function pageByGroup({ jobGroup }: {
     jobGroup: string;
@@ -23,39 +23,39 @@ export function pageByGroup({ jobGroup }: {
     page?: number;
     size?: number;
   }): Promise<PageResponse<JobVO[]>> {
-  return requestClient.get<PageResponse<JobVO[]>>(`/api/cronjob/group/${jobGroup}/page`, { params });
+  return requestClient.get<PageResponse<JobVO[]>>(`/cronjob/group/${jobGroup}/page`, { params });
 }
 
 /**
- * pauseByGroup: POST /api/cronjob/group/{jobGroup}/pause
+ * pauseByGroup: POST /cronjob/group/{jobGroup}/pause
  */
 export function pauseByGroup({ jobGroup }: {
     jobGroup: string;
   }): Promise<BatchResultDTO> {
-  return requestClient.post<BatchResultDTO>(`/api/cronjob/group/${jobGroup}/pause`);
+  return requestClient.post<BatchResultDTO>(`/cronjob/group/${jobGroup}/pause`);
 }
 
 /**
- * resumeByGroup: POST /api/cronjob/group/{jobGroup}/resume
+ * resumeByGroup: POST /cronjob/group/{jobGroup}/resume
  */
 export function resumeByGroup({ jobGroup }: {
     jobGroup: string;
   }): Promise<BatchResultDTO> {
-  return requestClient.post<BatchResultDTO>(`/api/cronjob/group/${jobGroup}/resume`);
+  return requestClient.post<BatchResultDTO>(`/cronjob/group/${jobGroup}/resume`);
 }
 
 /**
- * triggerByGroup: POST /api/cronjob/group/{jobGroup}/trigger
+ * triggerByGroup: POST /cronjob/group/{jobGroup}/trigger
  */
 export function triggerByGroup({ jobGroup }: {
     jobGroup: string;
   }): Promise<BatchResultDTO> {
-  return requestClient.post<BatchResultDTO>(`/api/cronjob/group/${jobGroup}/trigger`);
+  return requestClient.post<BatchResultDTO>(`/cronjob/group/${jobGroup}/trigger`);
 }
 
 /**
- * groupStats: GET /api/cronjob/group/stats
+ * groupStats: GET /cronjob/group/stats
  */
 export function groupStats(): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/cronjob/group/stats`);
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/cronjob/group/stats`);
 }

@@ -50,7 +50,7 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
     { type: 'seq', width: 50, title: t('page.rowIndex') },
     { field: 'roleName', title: t('page.roleName'), width: 150 },
     { field: 'roleCode', title: t('page.roleCode'), width: 150 },
-    { field: 'sortOrder', title: t('page.sortOrder'), width: 80, align: 'center' },
+    { field: 'sort', title: t('page.sort'), width: 80, align: 'center' },
     {
       field: 'builtIn',
       title: t('role.builtIn'),
@@ -273,9 +273,8 @@ async function handleCopyRole(row: RoleVO): Promise<void> {
       roleName: `${sourceRole.roleName ?? ''}_副本`,
       roleCode: `${sourceRole.roleCode ?? ''}_COPY_${Date.now()}`,
       description: sourceRole.description,
-      sortOrder: sourceRole.sortOrder,
-      dataScope: sourceRole.dataScope,
-      status: sourceRole.status,
+dataScope: sourceRole.dataScope,
+status: sourceRole.status,
       tenantId: sourceRole.tenantId,
     });
     // 复制权限

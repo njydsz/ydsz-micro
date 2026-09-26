@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 import type { FileNodeVO } from './models';
 
 /**
- * getOverview: GET /api/nextwiki/analysis/overview
+ * getOverview: GET /nextwiki/analysis/overview
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,27 +22,27 @@ import type { FileNodeVO } from './models';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function getOverview(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/nextwiki/analysis/overview`);
+  return requestClient.get<unknown>(`/nextwiki/analysis/overview`);
 }
 
 /**
- * statsByType: GET /api/nextwiki/analysis/by-type
+ * statsByType: GET /nextwiki/analysis/by-type
  */
 export function statsByType(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/nextwiki/analysis/by-type`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/nextwiki/analysis/by-type`);
 }
 
 /**
- * topLargeFiles: GET /api/nextwiki/analysis/top-large-files
+ * topLargeFiles: GET /nextwiki/analysis/top-large-files
  */
 export function topLargeFiles(params: {
     limit?: number;
   }): Promise<FileNodeVO[]> {
-  return requestClient.get<FileNodeVO[]>(`/api/nextwiki/analysis/top-large-files`, { params });
+  return requestClient.get<FileNodeVO[]>(`/nextwiki/analysis/top-large-files`, { params });
 }
 
 /**
- * analyze: POST /api/nextwiki/analysis/summary
+ * analyze: POST /nextwiki/analysis/summary
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -50,5 +50,5 @@ export function topLargeFiles(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function analyze(data: string): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/analysis/summary`, data);
+  return requestClient.post<unknown>(`/nextwiki/analysis/summary`, data);
 }

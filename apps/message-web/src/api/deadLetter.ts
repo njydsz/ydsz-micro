@@ -15,19 +15,19 @@ import type { PageResponse } from './models';
 import type { MessageLogQueryDTO, MsgLogVO } from './models';
 
 /**
- * page: GET /api/message/dead-letter/page
+ * page: GET /message/dead-letter/page
  */
 export function page(params: {
     query?: MessageLogQueryDTO;
   }): Promise<PageResponse<MsgLogVO[]>> {
-  return requestClient.get<PageResponse<MsgLogVO[]>>(`/api/message/dead-letter/page`, { params });
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/dead-letter/page`, { params });
 }
 
 /**
- * resend: POST /api/message/dead-letter/{logId}/resend
+ * resend: POST /message/dead-letter/{logId}/resend
  */
 export function resend({ logId }: {
     logId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/message/dead-letter/${logId}/resend`);
+  return requestClient.post<void>(`/message/dead-letter/${logId}/resend`);
 }

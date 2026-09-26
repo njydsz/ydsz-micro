@@ -14,17 +14,17 @@ import { requestClient } from '#/api/request';
 import type { MsgReceiptVO, ReceiptCallbackDTO } from './models';
 
 /**
- * callback: POST /api/message/receipt/callback
+ * callback: POST /message/receipt/callback
  */
 export function callback(data: ReceiptCallbackDTO): Promise<void> {
-  return requestClient.post<void>(`/api/message/receipt/callback`, data);
+  return requestClient.post<void>(`/message/receipt/callback`, data);
 }
 
 /**
- * listByLogId: GET /api/message/receipt/{logId}
+ * listByLogId: GET /message/receipt/{logId}
  */
 export function listByLogId({ logId }: {
     logId: string;
   }): Promise<MsgReceiptVO[]> {
-  return requestClient.get<MsgReceiptVO[]>(`/api/message/receipt/${logId}`);
+  return requestClient.get<MsgReceiptVO[]>(`/message/receipt/${logId}`);
 }

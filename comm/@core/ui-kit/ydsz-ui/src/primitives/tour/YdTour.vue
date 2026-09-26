@@ -160,7 +160,7 @@ const highlightStyle = computed(() => {
         v-if="highlightStyle"
         class="absolute rounded-lg transition-all duration-300"
         :style="highlightStyle"
-        style="box-shadow: 0 0 0 9999px rgba(0,0,0,0.5)"
+        style="box-shadow: 0 0 0 9999px rgb(0 0 0 / 50%)"
       />
     </div>
 

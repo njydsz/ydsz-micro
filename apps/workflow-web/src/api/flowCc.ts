@@ -14,31 +14,31 @@ import { requestClient } from '#/api/request';
 import type { FlowCcQuery, FlowCcVO } from './models';
 
 /**
- * pageCc: POST /api/workflow/engine/cc/page
+ * pageCc: POST /workflow/engine/cc/page
  */
 export function pageCc(data: FlowCcQuery): Promise<FlowCcVO[]> {
-  return requestClient.post<FlowCcVO[]>(`/api/workflow/engine/cc/page`, data);
+  return requestClient.post<FlowCcVO[]>(`/workflow/engine/cc/page`, data);
 }
 
 /**
- * ccUnreadCount: GET /api/workflow/engine/cc/unreadCount
+ * ccUnreadCount: GET /workflow/engine/cc/unreadCount
  */
 export function ccUnreadCount(): Promise<number> {
-  return requestClient.get<number>(`/api/workflow/engine/cc/unreadCount`);
+  return requestClient.get<number>(`/workflow/engine/cc/unreadCount`);
 }
 
 /**
- * ccMarkRead: POST /api/workflow/engine/cc/{id}/read
+ * ccMarkRead: POST /workflow/engine/cc/{id}/read
  */
 export function ccMarkRead({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/workflow/engine/cc/${id}/read`);
+  return requestClient.post<boolean>(`/workflow/engine/cc/${id}/read`);
 }
 
 /**
- * ccMarkAllRead: POST /api/workflow/engine/cc/readAll
+ * ccMarkAllRead: POST /workflow/engine/cc/readAll
  */
 export function ccMarkAllRead(): Promise<number> {
-  return requestClient.post<number>(`/api/workflow/engine/cc/readAll`);
+  return requestClient.post<number>(`/workflow/engine/cc/readAll`);
 }

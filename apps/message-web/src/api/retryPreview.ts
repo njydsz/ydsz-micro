@@ -14,24 +14,24 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * previewRetrySchedule: GET /api/message/retry/preview
+ * previewRetrySchedule: GET /message/retry/preview
  */
 export function previewRetrySchedule(params: {
     preset?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/message/retry/preview`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/message/retry/preview`, { params });
 }
 
 /**
- * previewAllPresets: GET /api/message/retry/preview/all
+ * previewAllPresets: GET /message/retry/preview/all
  */
 export function previewAllPresets(): Promise<Record<string, Record<string, Record<string, unknown>>>> {
-  return requestClient.get<Record<string, Record<string, Record<string, unknown>>>>(`/api/message/retry/preview/all`);
+  return requestClient.get<Record<string, Record<string, Record<string, unknown>>>>(`/message/retry/preview/all`);
 }
 
 /**
- * listPresets: GET /api/message/retry/presets
+ * listPresets: GET /message/retry/presets
  */
 export function listPresets(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/message/retry/presets`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/message/retry/presets`);
 }

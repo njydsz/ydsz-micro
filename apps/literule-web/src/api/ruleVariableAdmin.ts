@@ -14,49 +14,49 @@ import { requestClient } from '#/api/request';
 import type { VariableDefinition, VariableDefinitionVO } from './models';
 
 /**
- * list: GET /api/literule/variables
+ * list: GET /literule/variables
  */
 export function list(params: {
     category?: string;
   }): Promise<VariableDefinitionVO[]> {
-  return requestClient.get<VariableDefinitionVO[]>(`/api/literule/variables`, { params });
+  return requestClient.get<VariableDefinitionVO[]>(`/literule/variables`, { params });
 }
 
 /**
- * get: GET /api/literule/variables/{varName}
+ * get: GET /literule/variables/{varName}
  */
 export function get({ varName }: {
     varName: string;
   }): Promise<VariableDefinitionVO> {
-  return requestClient.get<VariableDefinitionVO>(`/api/literule/variables/${varName}`);
+  return requestClient.get<VariableDefinitionVO>(`/literule/variables/${varName}`);
 }
 
 /**
- * save: POST /api/literule/variables
+ * save: POST /literule/variables
  */
 export function save(data: VariableDefinition): Promise<VariableDefinitionVO> {
-  return requestClient.post<VariableDefinitionVO>(`/api/literule/variables`, data);
+  return requestClient.post<VariableDefinitionVO>(`/literule/variables`, data);
 }
 
 /**
- * delete: DELETE /api/literule/variables/{varName}
+ * delete: DELETE /literule/variables/{varName}
  */
 export function deleteApi({ varName }: {
     varName: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/literule/variables/${varName}`);
+  return requestClient.delete<void>(`/literule/variables/${varName}`);
 }
 
 /**
- * refresh: POST /api/literule/variables/refresh
+ * refresh: POST /literule/variables/refresh
  */
 export function refresh(): Promise<void> {
-  return requestClient.post<void>(`/api/literule/variables/refresh`);
+  return requestClient.post<void>(`/literule/variables/refresh`);
 }
 
 /**
- * listAvailable: GET /api/literule/variables/available
+ * listAvailable: GET /literule/variables/available
  */
 export function listAvailable(): Promise<VariableDefinitionVO[]> {
-  return requestClient.get<VariableDefinitionVO[]>(`/api/literule/variables/available`);
+  return requestClient.get<VariableDefinitionVO[]>(`/literule/variables/available`);
 }

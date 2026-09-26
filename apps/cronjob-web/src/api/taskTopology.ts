@@ -14,28 +14,28 @@ import { requestClient } from '#/api/request';
 import type { JobLogVO } from './models';
 
 /**
- * getDagInstanceTopology: GET /api/cronjob/topology/dagInstance/{dagInstanceId}
+ * getDagInstanceTopology: GET /cronjob/topology/dagInstance/{dagInstanceId}
  */
 export function getDagInstanceTopology({ dagInstanceId }: {
     dagInstanceId: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/topology/dagInstance/${dagInstanceId}`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/topology/dagInstance/${dagInstanceId}`);
 }
 
 /**
- * getDagInstanceCytoscape: GET /api/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape
+ * getDagInstanceCytoscape: GET /cronjob/topology/dagInstance/{dagInstanceId}/cytoscape
  */
 export function getDagInstanceCytoscape({ dagInstanceId }: {
     dagInstanceId: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/topology/dagInstance/${dagInstanceId}/cytoscape`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/topology/dagInstance/${dagInstanceId}/cytoscape`);
 }
 
 /**
- * getJobExecutionHistory: GET /api/cronjob/topology/jobHistory/{jobKey}
+ * getJobExecutionHistory: GET /cronjob/topology/jobHistory/{jobKey}
  */
 export function getJobExecutionHistory({ jobKey }: {
     jobKey: string;
   }): Promise<JobLogVO[]> {
-  return requestClient.get<JobLogVO[]>(`/api/cronjob/topology/jobHistory/${jobKey}`);
+  return requestClient.get<JobLogVO[]>(`/cronjob/topology/jobHistory/${jobKey}`);
 }

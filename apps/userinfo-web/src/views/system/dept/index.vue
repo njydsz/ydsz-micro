@@ -119,7 +119,7 @@ async function handleDelete(row: DepartmentTreeVO) {
         <YdTableColumn prop="deptName" :label="t('page.deptName')" min-width="200" />
         <YdTableColumn prop="deptCode" :label="t('dept.deptCode')" width="140" />
         <YdTableColumn prop="description" :label="t('page.description')" min-width="180" />
-        <YdTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
+        <YdTableColumn prop="sort" :label="t('page.sort')" width="80" align="center" />
         <YdTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''" class="text-xs">

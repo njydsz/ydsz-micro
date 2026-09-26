@@ -70,18 +70,18 @@ const gridOptions: VxeGridProps<UserFavoriteVO> = {
     { field: 'path', title: t('path'), minWidth: 200 },
     { field: 'favoritedAt', title: t('favoritesFavoritedAt'), width: 170 },
     {
-      field: 'sortOrder',
-      title: t('favoritesSortOrder'),
-      width: 140,
+field: 'sort',
+title: t('favoritesSort'),
+width: 140,
       slots: {
         default: ({ row }) =>
           h(YdNumberField, {
-            modelValue: row.sortOrder ?? 0,
+            modelValue: row.sort ?? 0,
             min: 0,
             max: 9999,
             step: 1,
             'onUpdate:modelValue': (val: number | string) => {
-              row.sortOrder = Number(val);
+              row.sort = Number(val);
               handleSortChange(row);
             },
           }, {
@@ -137,9 +137,9 @@ async function handleRemove(row: UserFavoriteVO) {
 }
 
 async function handleSortChange(row: UserFavoriteVO) {
-  if (!row.nodeId || row.sortOrder === undefined || row.sortOrder === null) return;
+  if (!row.nodeId || row.sort === undefined || row.sort === null) return;
   try {
-    await updateSortOrder({ nodeId: row.nodeId }, { sortOrder: row.sortOrder });
+    await updateSort({ nodeId: row.nodeId }, { sort: row.sort });
     showToast.success(t('favoritesSortSuccess'));
     gridApi.query();
   } catch (error) {

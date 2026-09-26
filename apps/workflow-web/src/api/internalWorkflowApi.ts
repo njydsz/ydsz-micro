@@ -14,29 +14,29 @@ import { requestClient } from '#/api/request';
 import type { FlowInstanceViewDTO, FlowStartProcessDTO } from './models';
 
 /**
- * startProcess: POST /api/internal/engine/instance/start
+ * startProcess: POST /internal/engine/instance/start
  */
 export function startProcess(data: FlowStartProcessDTO): Promise<string> {
-  return requestClient.post<string>(`/api/internal/engine/instance/start`, data);
+  return requestClient.post<string>(`/internal/engine/instance/start`, data);
 }
 
 /**
- * getByBusiness: GET /api/internal/engine/instance/byBusiness
+ * getByBusiness: GET /internal/engine/instance/byBusiness
  */
 export function getByBusiness(params: {
     businessType?: string;
     businessId?: string;
   }): Promise<FlowInstanceViewDTO> {
-  return requestClient.get<FlowInstanceViewDTO>(`/api/internal/engine/instance/byBusiness`, { params });
+  return requestClient.get<FlowInstanceViewDTO>(`/internal/engine/instance/byBusiness`, { params });
 }
 
 /**
- * terminate: POST /api/internal/engine/instance/{id}/terminate
+ * terminate: POST /internal/engine/instance/{id}/terminate
  */
 export function terminate({ id }: {
     id: string;
   }, params: {
     reason?: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/internal/engine/instance/${id}/terminate`, { params });
+  return requestClient.post<void>(`/internal/engine/instance/${id}/terminate`, { params });
 }

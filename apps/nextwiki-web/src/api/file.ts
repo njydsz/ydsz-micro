@@ -15,7 +15,7 @@ import type { PageResponse } from './models';
 import type { FileNodeVO } from './models';
 
 /**
- * upload: POST /api/nextwiki/files/upload
+ * upload: POST /nextwiki/files/upload
  */
 export function upload(params: {
     file?: Record<string, unknown>;
@@ -23,18 +23,18 @@ export function upload(params: {
     rename?: string;
     versionRemark?: string;
   }): Promise<FileNodeVO> {
-  return requestClient.post<FileNodeVO>(`/api/nextwiki/files/upload`, { params });
+  return requestClient.post<FileNodeVO>(`/nextwiki/files/upload`, { params });
 }
 
 /**
- * createFolder: POST /api/nextwiki/files/folders
+ * createFolder: POST /nextwiki/files/folders
  */
 export function createFolder(data: Record<string, unknown>): Promise<FileNodeVO> {
-  return requestClient.post<FileNodeVO>(`/api/nextwiki/files/folders`, data);
+  return requestClient.post<FileNodeVO>(`/nextwiki/files/folders`, data);
 }
 
 /**
- * listFiles: GET /api/nextwiki/files/list
+ * listFiles: GET /nextwiki/files/list
  */
 export function listFiles(params: {
     parentId?: string;
@@ -44,50 +44,50 @@ export function listFiles(params: {
     page?: number;
     pageSize?: number;
   }): Promise<PageResponse<FileNodeVO[]>> {
-  return requestClient.get<PageResponse<FileNodeVO[]>>(`/api/nextwiki/files/list`, { params });
+  return requestClient.get<PageResponse<FileNodeVO[]>>(`/nextwiki/files/list`, { params });
 }
 
 /**
- * move: PUT /api/nextwiki/files/{nodeId}/move
+ * move: PUT /nextwiki/files/{nodeId}/move
  */
 export function move({ nodeId }: {
     nodeId: string;
   }, data: Record<string, unknown>): Promise<FileNodeVO> {
-  return requestClient.put<FileNodeVO>(`/api/nextwiki/files/${nodeId}/move`, data);
+  return requestClient.put<FileNodeVO>(`/nextwiki/files/${nodeId}/move`, data);
 }
 
 /**
- * rename: PUT /api/nextwiki/files/{nodeId}/rename
+ * rename: PUT /nextwiki/files/{nodeId}/rename
  */
 export function rename({ nodeId }: {
     nodeId: string;
   }, data: Record<string, unknown>): Promise<FileNodeVO> {
-  return requestClient.put<FileNodeVO>(`/api/nextwiki/files/${nodeId}/rename`, data);
+  return requestClient.put<FileNodeVO>(`/nextwiki/files/${nodeId}/rename`, data);
 }
 
 /**
- * delete: DELETE /api/nextwiki/files/{nodeId}
+ * delete: DELETE /nextwiki/files/{nodeId}
  */
 export function deleteApi({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/nextwiki/files/${nodeId}`);
+  return requestClient.delete<void>(`/nextwiki/files/${nodeId}`);
 }
 
 /**
- * copy: POST /api/nextwiki/files/{nodeId}/copy
+ * copy: POST /nextwiki/files/{nodeId}/copy
  */
 export function copy({ nodeId }: {
     nodeId: string;
   }, params: {
     targetParentId?: string;
   }): Promise<FileNodeVO> {
-  return requestClient.post<FileNodeVO>(`/api/nextwiki/files/${nodeId}/copy`, { params });
+  return requestClient.post<FileNodeVO>(`/nextwiki/files/${nodeId}/copy`, { params });
 }
 
 /**
- * batchSort: PUT /api/nextwiki/files/sort
+ * batchSort: PUT /nextwiki/files/sort
  */
 export function batchSort(data: Record<string, unknown>): Promise<number> {
-  return requestClient.put<number>(`/api/nextwiki/files/sort`, data);
+  return requestClient.put<number>(`/nextwiki/files/sort`, data);
 }

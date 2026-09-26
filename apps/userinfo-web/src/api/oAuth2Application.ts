@@ -14,22 +14,14 @@ import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
 
 /**
- * register: POST /api/admin/oauth2/applications
+ * register: POST /admin/oauth2/applications
  */
 export function register(data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications`, data);
+  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications`, data);
 }
 
 /**
- * create: POST /api/admin/oauth2/applications
- * <p>{@link register} 的别名，供视图层统一使用 create 命名。
- */
-export function create(data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return register(data);
-}
-
-/**
- * page: GET /api/admin/oauth2/applications
+ * page: GET /admin/oauth2/applications
  */
 export function page(params: {
     status?: string;
@@ -37,41 +29,41 @@ export function page(params: {
     pageNum?: number;
     pageSize?: number;
   }): Promise<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>> {
-  return requestClient.get<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>>(`/api/admin/oauth2/applications`, { params });
+  return requestClient.get<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>>(`/admin/oauth2/applications`, { params });
 }
 
 /**
- * getById: GET /api/admin/oauth2/applications/{id}
+ * getById: GET /admin/oauth2/applications/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.get<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications/${id}`);
+  return requestClient.get<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications/${id}`);
 }
 
 /**
- * update: PUT /api/admin/oauth2/applications/{id}
+ * update: PUT /admin/oauth2/applications/{id}
  */
 export function update({ id }: {
     id: string;
   }, data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.put<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications/${id}`, data);
+  return requestClient.put<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications/${id}`, data);
 }
 
 /**
- * resetSecret: POST /api/admin/oauth2/applications/{id}/reset-secret
+ * resetSecret: POST /admin/oauth2/applications/{id}/reset-secret
  */
 export function resetSecret({ id }: {
     id: string;
   }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/api/admin/oauth2/applications/${id}/reset-secret`);
+  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications/${id}/reset-secret`);
 }
 
 /**
- * delete: DELETE /api/admin/oauth2/applications/{id}
+ * delete: DELETE /admin/oauth2/applications/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/admin/oauth2/applications/${id}`);
+  return requestClient.delete<boolean>(`/admin/oauth2/applications/${id}`);
 }

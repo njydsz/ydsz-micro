@@ -12,83 +12,83 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { BroadcastRequestDTO, MessageResult, MsgNotificationVO, NotificationQueryDTO, NotificationSendDTO, PushRealtimeRequestDTO } from './models';
+import type { BroadcastRequestDTO, MessageSendResultVO, MsgNotificationVO, NotificationQueryDTO, NotificationSendDTO, PushRealtimeRequestDTO } from './models';
 
 /**
- * send: POST /api/message/notifications/send
+ * send: POST /message/notifications/send
  */
 export function send(data: NotificationSendDTO): Promise<number> {
-  return requestClient.post<number>(`/api/message/notifications/send`, data);
+  return requestClient.post<number>(`/message/notifications/send`, data);
 }
 
 /**
- * inbox: GET /api/message/notifications/inbox
+ * inbox: GET /message/notifications/inbox
  */
 export function inbox(params: {
     query?: NotificationQueryDTO;
   }): Promise<PageResponse<MsgNotificationVO[]>> {
-  return requestClient.get<PageResponse<MsgNotificationVO[]>>(`/api/message/notifications/inbox`, { params });
+  return requestClient.get<PageResponse<MsgNotificationVO[]>>(`/message/notifications/inbox`, { params });
 }
 
 /**
- * countUnread: GET /api/message/notifications/unreadCount
+ * countUnread: GET /message/notifications/unreadCount
  */
 export function countUnread(): Promise<number> {
-  return requestClient.get<number>(`/api/message/notifications/unreadCount`);
+  return requestClient.get<number>(`/message/notifications/unreadCount`);
 }
 
 /**
- * markRead: POST /api/message/notifications/{id}/read
+ * markRead: POST /message/notifications/{id}/read
  */
 export function markRead({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/message/notifications/${id}/read`);
+  return requestClient.post<boolean>(`/message/notifications/${id}/read`);
 }
 
 /**
- * markAllRead: POST /api/message/notifications/readAll
+ * markAllRead: POST /message/notifications/readAll
  */
 export function markAllRead(): Promise<number> {
-  return requestClient.post<number>(`/api/message/notifications/readAll`);
+  return requestClient.post<number>(`/message/notifications/readAll`);
 }
 
 /**
- * delete: DELETE /api/message/notifications
+ * delete: DELETE /message/notifications
  */
 export function deleteApi(data: string[]): Promise<void> {
-  return requestClient.delete<void>(`/api/message/notifications`, { data });
+  return requestClient.delete<void>(`/message/notifications`, { data });
 }
 
 /**
- * recall: POST /api/message/notifications/{id}/recall
+ * recall: POST /message/notifications/{id}/recall
  */
 export function recall({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/message/notifications/${id}/recall`);
+  return requestClient.post<boolean>(`/message/notifications/${id}/recall`);
 }
 
 /**
- * push: POST /api/message/notifications/push
+ * push: POST /message/notifications/push
  */
 export function push(params: {
     userId?: string;
     type?: string;
   }, data: PushRealtimeRequestDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/message/notifications/push`, data, { params });
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/message/notifications/push`, data, { params });
 }
 
 /**
- * broadcast: POST /api/message/notifications/broadcast
+ * broadcast: POST /message/notifications/broadcast
  */
-export function broadcast(data: BroadcastRequestDTO): Promise<MessageResult> {
-  return requestClient.post<MessageResult>(`/api/message/notifications/broadcast`, data);
+export function broadcast(data: BroadcastRequestDTO): Promise<MessageSendResultVO> {
+  return requestClient.post<MessageSendResultVO>(`/message/notifications/broadcast`, data);
 }
 
 /**
- * pushRealtime: POST /api/message/notifications/push-realtime
+ * pushRealtime: POST /message/notifications/push-realtime
  */
-export function pushRealtime(data: PushRealtimeRequestDTO): Promise<MessageResult> {
-  return requestClient.post<MessageResult>(`/api/message/notifications/push-realtime`, data);
+export function pushRealtime(data: PushRealtimeRequestDTO): Promise<MessageSendResultVO> {
+  return requestClient.post<MessageSendResultVO>(`/message/notifications/push-realtime`, data);
 }

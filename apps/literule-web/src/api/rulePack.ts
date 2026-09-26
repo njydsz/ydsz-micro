@@ -14,62 +14,62 @@ import { requestClient } from '#/api/request';
 import type { InstallResultVO, PackDiffVO, PackUpdateInfoVO, RulePackVO } from './models';
 
 /**
- * listPacks: GET /api/literule/rules/packs
+ * listPacks: GET /literule/rules/packs
  */
 export function listPacks(): Promise<RulePackVO[]> {
-  return requestClient.get<RulePackVO[]>(`/api/literule/rules/packs`);
+  return requestClient.get<RulePackVO[]>(`/literule/rules/packs`);
 }
 
 /**
- * searchPacks: GET /api/literule/rules/packs/search
+ * searchPacks: GET /literule/rules/packs/search
  */
 export function searchPacks(params: {
     keyword?: string;
   }): Promise<RulePackVO[]> {
-  return requestClient.get<RulePackVO[]>(`/api/literule/rules/packs/search`, { params });
+  return requestClient.get<RulePackVO[]>(`/literule/rules/packs/search`, { params });
 }
 
 /**
- * getLatestPack: GET /api/literule/rules/packs/{packCode}/latest
+ * getLatestPack: GET /literule/rules/packs/{packCode}/latest
  */
 export function getLatestPack({ packCode }: {
     packCode: string;
   }): Promise<RulePackVO> {
-  return requestClient.get<RulePackVO>(`/api/literule/rules/packs/${packCode}/latest`);
+  return requestClient.get<RulePackVO>(`/literule/rules/packs/${packCode}/latest`);
 }
 
 /**
- * listPackVersions: GET /api/literule/rules/packs/{packCode}/versions
+ * listPackVersions: GET /literule/rules/packs/{packCode}/versions
  */
 export function listPackVersions({ packCode }: {
     packCode: string;
   }): Promise<RulePackVO[]> {
-  return requestClient.get<RulePackVO[]>(`/api/literule/rules/packs/${packCode}/versions`);
+  return requestClient.get<RulePackVO[]>(`/literule/rules/packs/${packCode}/versions`);
 }
 
 /**
- * getPackVersion: GET /api/literule/rules/packs/{packCode}/versions/{version}
+ * getPackVersion: GET /literule/rules/packs/{packCode}/versions/{version}
  */
 export function getPackVersion({ packCode, version }: {
     packCode: string;
     version: string;
   }): Promise<RulePackVO> {
-  return requestClient.get<RulePackVO>(`/api/literule/rules/packs/${packCode}/versions/${version}`);
+  return requestClient.get<RulePackVO>(`/literule/rules/packs/${packCode}/versions/${version}`);
 }
 
 /**
- * rollbackPack: POST /api/literule/rules/packs/{packCode}/rollback
+ * rollbackPack: POST /literule/rules/packs/{packCode}/rollback
  */
 export function rollbackPack({ packCode }: {
     packCode: string;
   }, params: {
     version?: string;
   }): Promise<InstallResultVO> {
-  return requestClient.post<InstallResultVO>(`/api/literule/rules/packs/${packCode}/rollback`, { params });
+  return requestClient.post<InstallResultVO>(`/literule/rules/packs/${packCode}/rollback`, { params });
 }
 
 /**
- * diffPack: GET /api/literule/rules/packs/{packCode}/diff
+ * diffPack: GET /literule/rules/packs/{packCode}/diff
  */
 export function diffPack({ packCode }: {
     packCode: string;
@@ -77,60 +77,60 @@ export function diffPack({ packCode }: {
     fromVersion?: string;
     toVersion?: string;
   }): Promise<PackDiffVO> {
-  return requestClient.get<PackDiffVO>(`/api/literule/rules/packs/${packCode}/diff`, { params });
+  return requestClient.get<PackDiffVO>(`/literule/rules/packs/${packCode}/diff`, { params });
 }
 
 /**
- * publishPack: POST /api/literule/rules/packs
+ * publishPack: POST /literule/rules/packs
  */
 export function publishPack(data: RulePackVO): Promise<RulePackVO> {
-  return requestClient.post<RulePackVO>(`/api/literule/rules/packs`, data);
+  return requestClient.post<RulePackVO>(`/literule/rules/packs`, data);
 }
 
 /**
- * installPack: POST /api/literule/rules/packs/{packCode}/install
+ * installPack: POST /literule/rules/packs/{packCode}/install
  */
 export function installPack({ packCode }: {
     packCode: string;
   }, params: {
     version?: string;
   }): Promise<InstallResultVO> {
-  return requestClient.post<InstallResultVO>(`/api/literule/rules/packs/${packCode}/install`, { params });
+  return requestClient.post<InstallResultVO>(`/literule/rules/packs/${packCode}/install`, { params });
 }
 
 /**
- * deletePack: DELETE /api/literule/rules/packs/{id}
+ * deletePack: DELETE /literule/rules/packs/{id}
  */
 export function deletePack({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/literule/rules/packs/${id}`);
+  return requestClient.delete<void>(`/literule/rules/packs/${id}`);
 }
 
 /**
- * markOfficialPack: PUT /api/literule/rules/packs/{id}/official
+ * markOfficialPack: PUT /literule/rules/packs/{id}/official
  */
 export function markOfficialPack({ id }: {
     id: string;
   }, params: {
     official?: boolean;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/literule/rules/packs/${id}/official`, { params });
+  return requestClient.put<void>(`/literule/rules/packs/${id}/official`, { params });
 }
 
 /**
- * ratePack: PUT /api/literule/rules/packs/{id}/rate
+ * ratePack: PUT /literule/rules/packs/{id}/rate
  */
 export function ratePack({ id }: {
     id: string;
   }, params: {
     rating?: number;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/literule/rules/packs/${id}/rate`, { params });
+  return requestClient.put<void>(`/literule/rules/packs/${id}/rate`, { params });
 }
 
 /**
- * stressTest: POST /api/literule/rules/stress-test
+ * stressTest: POST /literule/rules/stress-test
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -138,19 +138,19 @@ export function ratePack({ id }: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function stressTest(data: Record<string, Record<string, unknown>>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/literule/rules/stress-test`, data);
+  return requestClient.post<unknown>(`/literule/rules/stress-test`, data);
 }
 
 /**
- * checkPackUpdates: GET /api/literule/rules/packs/update-check
+ * checkPackUpdates: GET /literule/rules/packs/update-check
  */
 export function checkPackUpdates(): Promise<PackUpdateInfoVO[]> {
-  return requestClient.get<PackUpdateInfoVO[]>(`/api/literule/rules/packs/update-check`);
+  return requestClient.get<PackUpdateInfoVO[]>(`/literule/rules/packs/update-check`);
 }
 
 /**
- * batchUpdatePacks: POST /api/literule/rules/packs/batch-update
+ * batchUpdatePacks: POST /literule/rules/packs/batch-update
  */
 export function batchUpdatePacks(data: string[]): Promise<InstallResultVO[]> {
-  return requestClient.post<InstallResultVO[]>(`/api/literule/rules/packs/batch-update`, data);
+  return requestClient.post<InstallResultVO[]>(`/literule/rules/packs/batch-update`, data);
 }

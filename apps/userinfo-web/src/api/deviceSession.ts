@@ -14,17 +14,17 @@ import { requestClient } from '#/api/request';
 import type { DeviceSessionVO } from './models';
 
 /**
- * listMyDevices: GET /api/devices
+ * listMyDevices: GET /devices
  */
 export function listMyDevices(): Promise<DeviceSessionVO[]> {
-  return requestClient.get<DeviceSessionVO[]>(`/api/devices`);
+  return requestClient.get<DeviceSessionVO[]>(`/devices`);
 }
 
 /**
- * revokeDevice: DELETE /api/devices/{sessionId}
+ * revokeDevice: DELETE /devices/{sessionId}
  */
 export function revokeDevice({ sessionId }: {
     sessionId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/devices/${sessionId}`);
+  return requestClient.delete<boolean>(`/devices/${sessionId}`);
 }

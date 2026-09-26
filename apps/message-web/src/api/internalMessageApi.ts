@@ -11,11 +11,11 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MessageRequest } from './models';
+import type { MessageSendDTO } from './models';
 
 /**
- * sendMessage: POST /api/internal/message/send
+ * sendMessage: POST /internal/message/send
  */
-export function sendMessage(data: MessageRequest): Promise<string> {
-  return requestClient.post<string>(`/api/internal/message/send`, data);
+export function sendMessage(data: MessageSendDTO): Promise<string> {
+  return requestClient.post<string>(`/internal/message/send`, data);
 }

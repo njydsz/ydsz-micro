@@ -14,39 +14,39 @@ import { requestClient } from '#/api/request';
 import type { FlowAttachmentPreviewDTO, FlowAttachmentVO } from './models';
 
 /**
- * listByTask: GET /api/workflow/engine/attachment/task/{taskId}
+ * listByTask: GET /workflow/engine/attachment/task/{taskId}
  */
 export function listByTask({ taskId }: {
     taskId: string;
   }): Promise<FlowAttachmentVO[]> {
-  return requestClient.get<FlowAttachmentVO[]>(`/api/workflow/engine/attachment/task/${taskId}`);
+  return requestClient.get<FlowAttachmentVO[]>(`/workflow/engine/attachment/task/${taskId}`);
 }
 
 /**
- * listByInstance: GET /api/workflow/engine/attachment/instance/{instanceId}
+ * listByInstance: GET /workflow/engine/attachment/instance/{instanceId}
  */
 export function listByInstance({ instanceId }: {
     instanceId: string;
   }): Promise<FlowAttachmentVO[]> {
-  return requestClient.get<FlowAttachmentVO[]>(`/api/workflow/engine/attachment/instance/${instanceId}`);
+  return requestClient.get<FlowAttachmentVO[]>(`/workflow/engine/attachment/instance/${instanceId}`);
 }
 
 /**
- * delete: DELETE /api/workflow/engine/attachment/{attachmentId}
+ * delete: DELETE /workflow/engine/attachment/{attachmentId}
  */
 export function deleteApi({ attachmentId }: {
     attachmentId: string;
   }, params: {
     operatorId?: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/workflow/engine/attachment/${attachmentId}`, { params });
+  return requestClient.delete<void>(`/workflow/engine/attachment/${attachmentId}`, { params });
 }
 
 /**
- * preview: GET /api/workflow/engine/attachment/{attachmentId}/preview
+ * preview: GET /workflow/engine/attachment/{attachmentId}/preview
  */
 export function preview({ attachmentId }: {
     attachmentId: string;
   }): Promise<FlowAttachmentPreviewDTO> {
-  return requestClient.get<FlowAttachmentPreviewDTO>(`/api/workflow/engine/attachment/${attachmentId}/preview`);
+  return requestClient.get<FlowAttachmentPreviewDTO>(`/workflow/engine/attachment/${attachmentId}/preview`);
 }

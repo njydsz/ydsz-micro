@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * batchUpload: POST /api/nextwiki/import/batch-upload
+ * batchUpload: POST /nextwiki/import/batch-upload
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -25,11 +25,11 @@ export function batchUpload(params: {
     files?: Record<string, unknown>[];
     parentId?: string;
   }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/import/batch-upload`, { params });
+  return requestClient.post<unknown>(`/nextwiki/import/batch-upload`, { params });
 }
 
 /**
- * importZip: POST /api/nextwiki/import/zip
+ * importZip: POST /nextwiki/import/zip
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -40,5 +40,5 @@ export function importZip(params: {
     file?: Record<string, unknown>;
     parentId?: string;
   }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/import/zip`, { params });
+  return requestClient.post<unknown>(`/nextwiki/import/zip`, { params });
 }

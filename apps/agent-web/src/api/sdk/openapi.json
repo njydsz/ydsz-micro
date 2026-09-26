@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud agent"
  },
  "paths": {
-  "/api/agent/execute": {
+  "/agent/execute": {
    "post": {
     "operationId": "execute",
     "tags": [
@@ -36,7 +36,7 @@
     }
    }
   },
-  "/api/agent/execute/stream": {
+  "/agent/execute/stream": {
    "post": {
     "operationId": "executeStream",
     "tags": [
@@ -66,7 +66,7 @@
     }
    }
   },
-  "/api/agent/chat": {
+  "/agent/chat": {
    "post": {
     "operationId": "chat",
     "tags": [
@@ -96,7 +96,7 @@
     }
    }
   },
-  "/api/agent/chat/stream": {
+  "/agent/chat/stream": {
    "post": {
     "operationId": "chatStream",
     "tags": [
@@ -126,7 +126,7 @@
     }
    }
   },
-  "/api/agent/chat/batch": {
+  "/agent/chat/batch": {
    "post": {
     "operationId": "batchChat",
     "tags": [
@@ -156,7 +156,7 @@
     }
    }
   },
-  "/api/agent/history": {
+  "/agent/history": {
    "get": {
     "operationId": "history",
     "tags": [
@@ -222,7 +222,7 @@
     ]
    }
   },
-  "/api/agent/definitions": {
+  "/agent/definitions": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -298,7 +298,7 @@
     }
    }
   },
-  "/api/agent/definitions/{id}": {
+  "/agent/definitions/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -356,7 +356,7 @@
     ]
    }
   },
-  "/api/agent/definitions/code/{code}": {
+  "/agent/definitions/code/{code}": {
    "get": {
     "operationId": "getByCode",
     "tags": [
@@ -386,7 +386,7 @@
     ]
    }
   },
-  "/api/agent/models": {
+  "/agent/models": {
    "get": {
     "operationId": "models",
     "tags": [
@@ -406,7 +406,7 @@
     }
    }
   },
-  "/api/agent/tools": {
+  "/agent/tools": {
    "get": {
     "operationId": "tools",
     "tags": [
@@ -426,7 +426,7 @@
     }
    }
   },
-  "/api/agent/dag/execute": {
+  "/agent/dag/execute": {
    "post": {
     "operationId": "execute",
     "tags": [
@@ -456,7 +456,7 @@
     }
    }
   },
-  "/api/agent/dag/checkpoint/{executionId}": {
+  "/agent/dag/checkpoint/{executionId}": {
    "get": {
     "operationId": "getCheckpoint",
     "tags": [
@@ -486,7 +486,7 @@
     ]
    }
   },
-  "/api/agent/dag/validate": {
+  "/agent/dag/validate": {
    "post": {
     "operationId": "validate",
     "tags": [
@@ -516,7 +516,125 @@
     }
    }
   },
-  "/api/agent/debug/traces": {
+  "/agent/dag-workflow/save": {
+   "post": {
+    "operationId": "save",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DagWorkflowDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/dag-workflow/{code}": {
+   "get": {
+    "operationId": "getByCode",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "code",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "code",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/dag-workflow/list": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/debug/traces": {
    "get": {
     "operationId": "listTraces",
     "tags": [
@@ -547,7 +665,7 @@
     ]
    }
   },
-  "/api/agent/debug/trace/{traceId}": {
+  "/agent/debug/trace/{traceId}": {
    "get": {
     "operationId": "getTrace",
     "tags": [
@@ -577,7 +695,7 @@
     ]
    }
   },
-  "/api/agent/debug/trace/{traceId}/replay": {
+  "/agent/debug/trace/{traceId}/replay": {
    "post": {
     "operationId": "replayTrace",
     "tags": [
@@ -607,7 +725,7 @@
     ]
    }
   },
-  "/api/agent/approvals/pending": {
+  "/agent/approvals/pending": {
    "get": {
     "operationId": "listPending",
     "tags": [
@@ -627,7 +745,7 @@
     }
    }
   },
-  "/api/agent/approvals/{id}": {
+  "/agent/approvals/{id}": {
    "get": {
     "operationId": "getApproval",
     "tags": [
@@ -657,7 +775,7 @@
     ]
    }
   },
-  "/api/agent/approvals/{id}/approve": {
+  "/agent/approvals/{id}/approve": {
    "post": {
     "operationId": "approve",
     "tags": [
@@ -703,7 +821,7 @@
     ]
    }
   },
-  "/api/agent/approvals/{id}/reject": {
+  "/agent/approvals/{id}/reject": {
    "post": {
     "operationId": "reject",
     "tags": [
@@ -749,7 +867,7 @@
     ]
    }
   },
-  "/api/agent/insight/report": {
+  "/agent/insight/report": {
    "post": {
     "operationId": "generateReport",
     "tags": [
@@ -761,7 +879,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/YdszResponse"
         }
        }
       }
@@ -779,7 +897,7 @@
     }
    }
   },
-  "/api/agent/insight/report/{reportId}": {
+  "/agent/insight/report/{reportId}": {
    "get": {
     "operationId": "getReport",
     "tags": [
@@ -791,7 +909,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/YdszResponse"
         }
        }
       }
@@ -819,7 +937,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/YdszResponse"
         }
        }
       }
@@ -837,7 +955,7 @@
     ]
    }
   },
-  "/api/agent/insight/report/{reportId}/html": {
+  "/agent/insight/report/{reportId}/html": {
    "get": {
     "operationId": "exportHtml",
     "tags": [
@@ -849,7 +967,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/ResponseEntity"
         }
        }
       }
@@ -867,7 +985,7 @@
     ]
    }
   },
-  "/api/agent/insight/reports": {
+  "/agent/insight/reports": {
    "get": {
     "operationId": "listRecentReports",
     "tags": [
@@ -879,7 +997,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/YdszResponse"
         }
        }
       }
@@ -906,7 +1024,343 @@
     ]
    }
   },
-  "/api/agent/observability/overview": {
+  "/agent/knowledge/ingest": {
+   "post": {
+    "operationId": "ingest",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "additionalProperties": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/knowledge/entity/search": {
+   "get": {
+    "operationId": "searchEntities",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "depth",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/knowledge/entity/{entityId}/subgraph": {
+   "get": {
+    "operationId": "querySubgraph",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "entityId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "depth",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/knowledge/entity/{entityId}/relations": {
+   "get": {
+    "operationId": "queryRelations",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "entityId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/knowledge/stats": {
+   "get": {
+    "operationId": "stats",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/memory/{conversationId}": {
+   "get": {
+    "operationId": "loadMemory",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "maxMessages",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   },
+   "post": {
+    "operationId": "saveMemory",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SaveMemoryRequest"
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "operationId": "clearMemory",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/memory/{conversationId}/count": {
+   "get": {
+    "operationId": "countMessages",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/memory/{conversationId}/consolidate": {
+   "post": {
+    "operationId": "consolidate",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "conversationId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ConsolidateMemoryRequest"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/observability/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -926,7 +1380,7 @@
     }
    }
   },
-  "/api/agent/observability/model-usage": {
+  "/agent/observability/model-usage": {
    "get": {
     "operationId": "getModelUsage",
     "tags": [
@@ -957,7 +1411,66 @@
     ]
    }
   },
-  "/api/agent/prompt/evaluate": {
+  "/agent/observability/trace-context": {
+   "post": {
+    "operationId": "getTraceContext",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/observability/metrics/bot/{botId}": {
+   "get": {
+    "operationId": "getMetricsByBotId",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "botId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "days",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/prompt/evaluate": {
    "post": {
     "operationId": "evaluate",
     "tags": [
@@ -980,14 +1493,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/EvaluateRequest"
        }
       }
      }
     }
    }
   },
-  "/api/agent/prompt/compare": {
+  "/agent/prompt/compare": {
    "post": {
     "operationId": "compare",
     "tags": [
@@ -1010,14 +1523,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CompareRequest"
        }
       }
      }
     }
    }
   },
-  "/api/agent/rag/ingest": {
+  "/agent/rag/ingest": {
    "post": {
     "operationId": "ingest",
     "tags": [
@@ -1047,7 +1560,7 @@
     }
    }
   },
-  "/api/agent/rag/search": {
+  "/agent/rag/search": {
    "post": {
     "operationId": "search",
     "tags": [
@@ -1077,7 +1590,7 @@
     }
    }
   },
-  "/api/agent/rag/documents/{documentId}": {
+  "/agent/rag/documents/{documentId}": {
    "delete": {
     "operationId": "deleteDocument",
     "tags": [
@@ -1107,7 +1620,7 @@
     ]
    }
   },
-  "/api/agent/rag/stats": {
+  "/agent/rag/stats": {
    "get": {
     "operationId": "stats",
     "tags": [
@@ -1127,7 +1640,97 @@
     }
    }
   },
-  "/api/agent/runtime/sessions/active": {
+  "/agent/rag/ingest-scanned-pdf": {
+   "post": {
+    "operationId": "ingestScannedPdf",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScannedPdfIngestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/rag/ingest-image": {
+   "post": {
+    "operationId": "ingestImage",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ImageIngestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/rag/hybrid-search": {
+   "post": {
+    "operationId": "hybridSearch",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/HybridSearchDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/runtime/sessions/active": {
    "get": {
     "operationId": "getActiveSessions",
     "tags": [
@@ -1157,7 +1760,7 @@
     ]
    }
   },
-  "/api/agent/runtime/sessions/recent": {
+  "/agent/runtime/sessions/recent": {
    "get": {
     "operationId": "getRecentSessions",
     "tags": [
@@ -1188,7 +1791,7 @@
     ]
    }
   },
-  "/api/agent/runtime/sessions/{executionId}": {
+  "/agent/runtime/sessions/{executionId}": {
    "get": {
     "operationId": "getSession",
     "tags": [
@@ -1246,7 +1849,7 @@
     ]
    }
   },
-  "/api/agent/runtime/overview": {
+  "/agent/runtime/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -1266,9 +1869,9 @@
     }
    }
   },
-  "/api/agent/teamruns": {
-   "post": {
-    "operationId": "createTeamRun",
+  "/agent/tool/search": {
+   "get": {
+    "operationId": "searchTools",
     "tags": [
      "agent"
     ],
@@ -1286,20 +1889,291 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
+      "name": "query",
+      "in": "query",
       "required": false,
       "schema": {
        "type": "string"
       }
+     },
+     {
+      "name": "topK",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
      }
+    ]
+   }
+  },
+  "/agent/tool/list": {
+   "get": {
+    "operationId": "listAllTools",
+    "tags": [
+     "agent"
     ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/agent/async-task/submit": {
+   "post": {
+    "operationId": "submitTask",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
     "requestBody": {
      "required": true,
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/AsyncTaskSubmitDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/agent/async-task/{taskId}": {
+   "get": {
+    "operationId": "getTask",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "taskId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     }
+    ]
+   }
+  },
+  "/api/agent/async-task/{taskId}/cancel": {
+   "post": {
+    "operationId": "cancelTask",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "taskId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "format": "int64"
+      }
+     }
+    ]
+   }
+  },
+  "/api/agent/async-task/active": {
+   "get": {
+    "operationId": "listActiveTasks",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "tenantCode",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/skill/list": {
+   "get": {
+    "operationId": "listSkills",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/skill/{skillCode}": {
+   "get": {
+    "operationId": "getSkillDetail",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "skillCode",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/skill/execute": {
+   "post": {
+    "operationId": "executeSkill",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SkillExecutionRequestDTO"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/skill/sandbox/invalidate": {
+   "post": {
+    "operationId": "invalidateSandbox",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/teamruns": {
+   "post": {
+    "operationId": "createTeamRun",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CreateTeamRunRequest"
        }
       }
      }
@@ -1321,20 +2195,10 @@
        }
       }
      }
-    },
-    "parameters": [
-     {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     }
-    ]
+    }
    }
   },
-  "/api/agent/teamruns/{teamRunId}/members": {
+  "/agent/teamruns/{teamRunId}/members": {
    "post": {
     "operationId": "addMember",
     "tags": [
@@ -1354,14 +2218,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "teamRunId",
       "in": "path",
       "required": true,
@@ -1375,14 +2231,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/AddMemberRequest"
        }
       }
      }
     }
    }
   },
-  "/api/agent/teamruns/{teamRunId}/start": {
+  "/agent/teamruns/{teamRunId}/start": {
    "post": {
     "operationId": "startTeamRun",
     "tags": [
@@ -1402,14 +2258,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "teamRunId",
       "in": "path",
       "required": true,
@@ -1420,7 +2268,7 @@
     ]
    }
   },
-  "/api/agent/teamruns/{teamRunId}/cancel": {
+  "/agent/teamruns/{teamRunId}/cancel": {
    "post": {
     "operationId": "cancelTeamRun",
     "tags": [
@@ -1440,14 +2288,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "teamRunId",
       "in": "path",
       "required": true,
@@ -1458,7 +2298,7 @@
     ]
    }
   },
-  "/api/agent/teamruns/{teamRunId}": {
+  "/agent/teamruns/{teamRunId}": {
    "get": {
     "operationId": "getTeamRun",
     "tags": [
@@ -1478,14 +2318,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "teamRunId",
       "in": "path",
       "required": true,
@@ -1496,7 +2328,7 @@
     ]
    }
   },
-  "/api/agent/triggers": {
+  "/agent/triggers": {
    "post": {
     "operationId": "createTrigger",
     "tags": [
@@ -1514,22 +2346,12 @@
       }
      }
     },
-    "parameters": [
-     {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     }
-    ],
     "requestBody": {
      "required": true,
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/CreateTriggerRequest"
        }
       }
      }
@@ -1551,20 +2373,10 @@
        }
       }
      }
-    },
-    "parameters": [
-     {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     }
-    ]
+    }
    }
   },
-  "/api/agent/triggers/{triggerId}": {
+  "/agent/triggers/{triggerId}": {
    "put": {
     "operationId": "updateTrigger",
     "tags": [
@@ -1584,14 +2396,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "triggerId",
       "in": "path",
       "required": true,
@@ -1605,7 +2409,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/UpdateTriggerRequest"
        }
       }
      }
@@ -1629,14 +2433,6 @@
      }
     },
     "parameters": [
-     {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
      {
       "name": "triggerId",
       "in": "path",
@@ -1666,14 +2462,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "triggerId",
       "in": "path",
       "required": true,
@@ -1684,7 +2472,7 @@
     ]
    }
   },
-  "/api/agent/triggers/{triggerId}/enable": {
+  "/agent/triggers/{triggerId}/enable": {
    "post": {
     "operationId": "enableTrigger",
     "tags": [
@@ -1704,14 +2492,6 @@
     },
     "parameters": [
      {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
-     {
       "name": "triggerId",
       "in": "path",
       "required": true,
@@ -1722,7 +2502,7 @@
     ]
    }
   },
-  "/api/agent/triggers/{triggerId}/disable": {
+  "/agent/triggers/{triggerId}/disable": {
    "post": {
     "operationId": "disableTrigger",
     "tags": [
@@ -1741,14 +2521,6 @@
      }
     },
     "parameters": [
-     {
-      "name": "tenantId",
-      "in": "header",
-      "required": false,
-      "schema": {
-       "type": "string"
-      }
-     },
      {
       "name": "triggerId",
       "in": "path",
@@ -1917,7 +2689,7 @@
      "multimodalContent": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/ContentPartDTO"
       },
       "description": "多模态内容段落列表（Vision 模型场景，与 message 二选一）\n\n当该字段非空时，优先使用多模态格式传递给 LLM，`message` 字段忽略。 每个段落可以是文本（type=text）或图片（type=image_url）。"
      },
@@ -1969,6 +2741,33 @@
      "message"
     ]
    },
+   "ContentPartDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "type": {
+      "type": "string",
+      "description": "内容类型（text / image_url）"
+     },
+     "text": {
+      "type": "string",
+      "description": "文本内容（type=text 时有效）"
+     },
+     "imageUrl": {
+      "type": "string",
+      "description": "图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式）"
+     }
+    },
+    "description": "多模态内容段落 DTO\n\n每个段落可以是文本或图片之一，类型由 #type 标识。",
+    "x-field-docs": {
+     "type": "内容类型（text / image_url）",
+     "text": "文本内容（type=text 时有效）",
+     "imageUrl": "图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式）"
+    }
+   },
    "BatchChatRequestDTO": {
     "type": "object",
     "properties": {
@@ -1983,7 +2782,7 @@
      "items": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/BatchChatItem"
       },
       "description": "批量对话条目列表（至少 1 条，最多 50 条）",
       "minLength": 1,
@@ -2042,6 +2841,46 @@
     "required": [
      "items"
     ]
+   },
+   "BatchChatItem": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "itemId": {
+      "type": "string",
+      "description": "条目唯一标识（用于响应中对应结果，由调用方保证唯一）"
+     },
+     "conversationId": {
+      "type": "string",
+      "description": "对话 ID（null 则新建）"
+     },
+     "message": {
+      "type": "string",
+      "description": "用户消息（纯文本，与 multimodalContent 二选一）"
+     },
+     "multimodalContent": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      },
+      "description": "多模态内容段落（Vision 模型，与 message 二选一）"
+     },
+     "systemPrompt": {
+      "type": "string",
+      "description": "系统提示词（可选，覆盖外层共享 systemPrompt）"
+     }
+    },
+    "description": "批量对话单条条目\n\n每条包含独立的用户消息和对话 ID，共享外层模型配置。",
+    "x-field-docs": {
+     "itemId": "条目唯一标识（用于响应中对应结果，由调用方保证唯一）",
+     "conversationId": "对话 ID（null 则新建）",
+     "message": "用户消息（纯文本，与 multimodalContent 二选一）",
+     "multimodalContent": "多模态内容段落（Vision 模型，与 message 二选一）",
+     "systemPrompt": "系统提示词（可选，覆盖外层共享 systemPrompt）"
+    }
    },
    "AgentDefinitionDTO": {
     "type": "object",
@@ -2136,6 +2975,52 @@
      "userInput"
     ]
    },
+   "DagWorkflowDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "workflowCode": {
+      "type": "string",
+      "description": "工作流编码（唯一，更新时必填）"
+     },
+     "workflowName": {
+      "type": "string",
+      "description": "工作流名称（必填）"
+     },
+     "description": {
+      "type": "string",
+      "description": "工作流描述"
+     },
+     "dslContent": {
+      "type": "string",
+      "description": "YAML DSL 内容（必填）"
+     },
+     "layoutJson": {
+      "type": "string",
+      "description": "可视化布局 JSON（节点坐标等前端状态，可选）"
+     },
+     "category": {
+      "type": "string",
+      "description": "分类标签"
+     }
+    },
+    "description": "DAG 工作流保存 DTO。",
+    "x-field-docs": {
+     "workflowCode": "工作流编码（唯一，更新时必填）",
+     "workflowName": "工作流名称（必填）",
+     "description": "工作流描述",
+     "dslContent": "YAML DSL 内容（必填）",
+     "layoutJson": "可视化布局 JSON（节点坐标等前端状态，可选）",
+     "category": "分类标签"
+    },
+    "required": [
+     "workflowName",
+     "dslContent"
+    ]
+   },
    "InsightReportRequest": {
     "type": "object",
     "properties": {
@@ -2179,6 +3064,68 @@
     ],
     "description": "洞察报告生成请求值对象（不可变 record）。\n\n封装用户触发的 BI 洞察报告生成所需的全部输入参数，包括原始分析查询、数据分析结果、\n期望输出格式等。作为 InsightReportService#generateReport 的入参。\n\n@param userId 触发用户\n@param conversationId 关联对话 ID（可选）\n@param reportTitle 报告标题\n@param query 原始分析查询\n@param dataSourceType 数据源类型（sql / python / mixed）\n@param dataJson 原始数据分析结果的 JSON 字符串\n@param reportFormat 报告格式（html / pdf / markdown）\n@param extraParams 额外参数",
     "x-field-docs": {}
+   },
+   "ResponseEntity": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SaveMemoryRequest": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "role": {
+      "type": "string",
+      "description": "消息角色（SYSTEM/USER/ASSISTANT/TOOL）"
+     },
+     "content": {
+      "type": "string",
+      "description": "消息内容"
+     },
+     "toolCallId": {
+      "type": "string",
+      "description": "工具调用 ID（Tool 角色必填）"
+     }
+    },
+    "description": "保存对话记忆请求 DTO。\n\n封装写入单条对话记忆的消息数据。",
+    "x-field-docs": {
+     "role": "消息角色（SYSTEM/USER/ASSISTANT/TOOL）",
+     "content": "消息内容",
+     "toolCallId": "工具调用 ID（Tool 角色必填）"
+    },
+    "required": [
+     "role"
+    ]
+   },
+   "ConsolidateMemoryRequest": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（可选，缺省使用当前租户）"
+     }
+    },
+    "description": "记忆整合请求 DTO。\n\n用于触发对指定对话的历史记忆执行整合（提取事实 + 画像刷新）。",
+    "x-field-docs": {
+     "tenantId": "租户 ID（可选，缺省使用当前租户）"
+    }
+   },
+   "EvaluateRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "EvaluateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CompareRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "DocumentIngestDTO": {
     "type": "object",
@@ -2251,6 +3198,1263 @@
     "required": [
      "query"
     ]
+   },
+   "ScannedPdfIngestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "fileName": {
+      "type": "string",
+      "description": "文件名（含后缀，用于格式检测和索引标识）"
+     },
+     "base64Content": {
+      "type": "string",
+      "description": "PDF 文件内容的 Base64 编码"
+     },
+     "datasetId": {
+      "type": "string",
+      "description": "数据集 ID（可选，用于分组管理）"
+     }
+    },
+    "description": "扫描版 PDF 摄入请求 DTO\n\n封装扫描版 PDF 文档的摄入请求，文件内容以 Base64 编码传输，\n服务端调用 OCR 引擎逐页提取文字后走正常 ingestion 流程。",
+    "x-field-docs": {
+     "fileName": "文件名（含后缀，用于格式检测和索引标识）",
+     "base64Content": "PDF 文件内容的 Base64 编码",
+     "datasetId": "数据集 ID（可选，用于分组管理）"
+    },
+    "required": [
+     "fileName",
+     "base64Content"
+    ]
+   },
+   "ImageIngestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "base64Content": {
+      "type": "string",
+      "description": "图片文件内容的 Base64 编码"
+     },
+     "format": {
+      "type": "string",
+      "description": "图片格式（PNG/JPEG/BMP/TIFF）"
+     },
+     "datasetId": {
+      "type": "string",
+      "description": "数据集 ID"
+     }
+    },
+    "description": "图片摄入请求 DTO\n\n封装图片文件的摄入请求，图片经 OCR 提取文字后存入向量库。",
+    "x-field-docs": {
+     "base64Content": "图片文件内容的 Base64 编码",
+     "format": "图片格式（PNG/JPEG/BMP/TIFF）",
+     "datasetId": "数据集 ID"
+    },
+    "required": [
+     "base64Content",
+     "format"
+    ]
+   },
+   "HybridSearchDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "query": {
+      "type": "string",
+      "description": "查询文本（必填）"
+     },
+     "datasetId": {
+      "type": "string",
+      "description": "数据集 ID（可选，为 null 时仅执行 web 搜索）"
+     },
+     "topK": {
+      "type": "integer",
+      "format": "int32",
+      "description": "返回前 K 条结果（默认 5）"
+     }
+    },
+    "description": "混合搜索请求 DTO\n\n封装融合知识库 RAG 检索和 Web 搜索的请求参数。",
+    "x-field-docs": {
+     "query": "查询文本（必填）",
+     "datasetId": "数据集 ID（可选，为 null 时仅执行 web 搜索）",
+     "topK": "返回前 K 条结果（默认 5）"
+    },
+    "required": [
+     "query"
+    ]
+   },
+   "AsyncTaskSubmitDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "taskType": {
+      "type": "string",
+      "description": "任务类型编码（REPORT_GENERATE / DOC_INGEST / BATCH_CHAT / CODE_EXECUTION）"
+     },
+     "inputPayload": {
+      "type": "string",
+      "description": "任务输入参数 JSON（可选，null 表示无输入）"
+     },
+     "tenantCode": {
+      "type": "string",
+      "description": "租户编码（可选，多租户隔离标识）"
+     },
+     "userId": {
+      "type": "string",
+      "description": "触发用户 ID（可选）"
+     },
+     "timeoutSeconds": {
+      "type": "integer",
+      "format": "int64",
+      "description": "自定义超时秒数（可选，null 时使用任务类型默认值）"
+     }
+    },
+    "description": "异步任务提交请求 DTO\n\n封装提交异步任务时客户端需要提供的参数：任务类型、输入参数 JSON 以及可选自定义超时秒数。",
+    "x-field-docs": {
+     "taskType": "任务类型编码（REPORT_GENERATE / DOC_INGEST / BATCH_CHAT / CODE_EXECUTION）",
+     "inputPayload": "任务输入参数 JSON（可选，null 表示无输入）",
+     "tenantCode": "租户编码（可选，多租户隔离标识）",
+     "userId": "触发用户 ID（可选）",
+     "timeoutSeconds": "自定义超时秒数（可选，null 时使用任务类型默认值）"
+    },
+    "required": [
+     "taskType"
+    ]
+   },
+   "SkillExecutionRequestDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "skillCode": {
+      "type": "string",
+      "description": "Skill 编码"
+     },
+     "inputParams": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "输入参数（key→value）"
+     },
+     "timeoutMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "超时毫秒数（0 表示使用默认值）"
+     },
+     "envVariables": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      },
+      "description": "环境变量注入"
+     }
+    },
+    "description": "Skill 执行请求 DTO\n\n封装通过编码执行 Skill 的请求参数，支持输入参数、超时配置和环境变量注入。",
+    "x-field-docs": {
+     "skillCode": "Skill 编码",
+     "inputParams": "输入参数（key→value）",
+     "timeoutMs": "超时毫秒数（0 表示使用默认值）",
+     "envVariables": "环境变量注入"
+    },
+    "required": [
+     "skillCode"
+    ]
+   },
+   "CreateTeamRunRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateTeamRunRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "AddMemberRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "AddMemberRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "CreateTriggerRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "CreateTriggerRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UpdateTriggerRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "UpdateTriggerRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "ChatResponseDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "conversationId": {
+      "type": "string",
+      "description": "对话 ID"
+     },
+     "content": {
+      "type": "string",
+      "description": "助手回复内容"
+     },
+     "model": {
+      "type": "string",
+      "description": "实际使用的模型名称"
+     },
+     "usage": {
+      "$ref": "#/components/schemas/TokenUsageDTO"
+     },
+     "respondedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "响应时间"
+     },
+     "promptTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "输入 Token 数量（prompt 消耗）"
+     },
+     "completionTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "输出 Token 数量（completion 消耗）"
+     },
+     "totalTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总 Token 数量（prompt + completion）"
+     }
+    },
+    "description": "对话响应 DTO\n\n封装 Agent 对话的响应结果，包括回复内容、 实际使用的模型、Token 用量统计和响应时间。",
+    "x-field-docs": {
+     "conversationId": "对话 ID",
+     "content": "助手回复内容",
+     "model": "实际使用的模型名称",
+     "usage": "Token 用量统计",
+     "respondedAt": "响应时间",
+     "promptTokens": "输入 Token 数量（prompt 消耗）",
+     "completionTokens": "输出 Token 数量（completion 消耗）",
+     "totalTokens": "总 Token 数量（prompt + completion）"
+    }
+   },
+   "TokenUsageDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "promptTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "输入 Token 数量（prompt 消耗）"
+     },
+     "completionTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "输出 Token 数量（completion 消耗）"
+     },
+     "totalTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总 Token 数量（prompt + completion）"
+     }
+    },
+    "description": "Token 用量统计 DTO\n\n记录单次 LLM 调用的 Token 消耗明细，用于成本分析和用量监控。",
+    "x-field-docs": {
+     "promptTokens": "输入 Token 数量（prompt 消耗）",
+     "completionTokens": "输出 Token 数量（completion 消耗）",
+     "totalTokens": "总 Token 数量（prompt + completion）"
+    }
+   },
+   "BatchChatResponseDTO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "results": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/BatchResultItem"
+      },
+      "description": "批量结果列表（与请求 items 顺序一致）"
+     },
+     "totalDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "总耗时（毫秒）"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功条目数"
+     },
+     "failedCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败条目数"
+     },
+     "itemId": {
+      "type": "string",
+      "description": "条目标识（与请求中 itemId 对应）"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "content": {
+      "type": "string",
+      "description": "响应内容（成功时非空）"
+     },
+     "model": {
+      "type": "string",
+      "description": "使用模型（成功时非空）"
+     },
+     "usage": {
+      "type": "object",
+      "description": "Token 用量（成功时非空）"
+     },
+     "finishReason": {
+      "type": "string",
+      "description": "结束原因（成功时非空）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（失败时非空）"
+     }
+    },
+    "description": "批量对话响应 DTO\n\n封装一组对话结果，与请求条目一一对应。\n\n每条结果独立返回成功或失败：成功的包含 content / usage，失败的包含 errorMessage。\n调用方可通过 BatchResultItem#success 字段快速判断每条结果状态。",
+    "x-field-docs": {
+     "results": "批量结果列表（与请求 items 顺序一致）",
+     "totalDurationMs": "总耗时（毫秒）",
+     "successCount": "成功条目数",
+     "failedCount": "失败条目数",
+     "itemId": "条目标识（与请求中 itemId 对应）",
+     "isSuccess": "是否成功",
+     "content": "响应内容（成功时非空）",
+     "model": "使用模型（成功时非空）",
+     "usage": "Token 用量（成功时非空）",
+     "finishReason": "结束原因（成功时非空）",
+     "errorMessage": "错误信息（失败时非空）"
+    }
+   },
+   "BatchResultItem": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "itemId": {
+      "type": "string",
+      "description": "条目标识（与请求中 itemId 对应）"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "content": {
+      "type": "string",
+      "description": "响应内容（成功时非空）"
+     },
+     "model": {
+      "type": "string",
+      "description": "使用模型（成功时非空）"
+     },
+     "usage": {
+      "type": "object",
+      "description": "Token 用量（成功时非空）"
+     },
+     "finishReason": {
+      "type": "string",
+      "description": "结束原因（成功时非空）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（失败时非空）"
+     }
+    },
+    "description": "批量对话单条结果\n\n每条结果与请求中的 BatchChatRequestDTO.BatchChatItem 通过 #itemId 对应。",
+    "x-field-docs": {
+     "itemId": "条目标识（与请求中 itemId 对应）",
+     "isSuccess": "是否成功",
+     "content": "响应内容（成功时非空）",
+     "model": "使用模型（成功时非空）",
+     "usage": "Token 用量（成功时非空）",
+     "finishReason": "结束原因（成功时非空）",
+     "errorMessage": "错误信息（失败时非空）"
+    }
+   },
+   "AgentDefinitionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "agentCode": {
+      "type": "string",
+      "description": "Agent 编码"
+     },
+     "agentName": {
+      "type": "string",
+      "description": "Agent 名称"
+     },
+     "agentType": {
+      "type": "string",
+      "description": "Agent 类型"
+     },
+     "description": {
+      "type": "string",
+      "description": "描述"
+     },
+     "systemPrompt": {
+      "type": "string",
+      "description": "系统提示词"
+     },
+     "modelConfig": {
+      "type": "string",
+      "description": "模型配置 JSON"
+     },
+     "toolNames": {
+      "type": "string",
+      "description": "工具名称列表 JSON"
+     },
+     "temperature": {
+      "type": "number",
+      "description": "温度参数（LLM 采样温度，范围 0~2）"
+     },
+     "maxTokens": {
+      "type": "integer",
+      "format": "int32",
+      "description": "最大生成 Token 数"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "AgentDefinition 视图对象。\n\n用于 Controller 层返回 Agent 定义的展示数据。\n\n线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "agentCode": "Agent 编码",
+     "agentName": "Agent 名称",
+     "agentType": "Agent 类型",
+     "description": "描述",
+     "systemPrompt": "系统提示词",
+     "modelConfig": "模型配置 JSON",
+     "toolNames": "工具名称列表 JSON",
+     "temperature": "温度参数（LLM 采样温度，范围 0~2）",
+     "maxTokens": "最大生成 Token 数",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "DagExecutionResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "DagExecutionResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "DagCheckpoint": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "executionId": {
+      "type": "string",
+      "description": "执行 ID（与 DagOrchestrationExecutor.DagExecutionResult#executionId() 一致）"
+     },
+     "dagName": {
+      "type": "string",
+      "description": "DAG 名称"
+     },
+     "dsl": {
+      "type": "string",
+      "description": "原始 YAML DSL（用于续跑时重建 DAG 拓扑）"
+     },
+     "userInput": {
+      "type": "string",
+      "description": "用户原始输入"
+     },
+     "nodeResults": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      },
+      "description": "各节点执行结果（节点 ID → 输出），不可变映射"
+     },
+     "completedNodes": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "成功完成的节点集合"
+     },
+     "failedNodes": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "执行失败的节点集合"
+     },
+     "snapshotTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "快照时间（最后更新时间）"
+     }
+    },
+    "description": "DAG 执行检查点\n\n快照编排执行的中间状态，支持从断点续跑。 记录已完成节点的输出、失败节点集合以及原始请求上下文（DSL / 用户输入）， 以便在原执行超时或中断后跳过已成功的节点、仅重试失败及未执行的节点。\n\n线程安全：所有字段 final，集合经不可变封装，实例不可变、可安全跨线程传递。",
+    "x-field-docs": {
+     "executionId": "执行 ID（与 DagOrchestrationExecutor.DagExecutionResult#executionId() 一致）",
+     "dagName": "DAG 名称",
+     "dsl": "原始 YAML DSL（用于续跑时重建 DAG 拓扑）",
+     "userInput": "用户原始输入",
+     "nodeResults": "各节点执行结果（节点 ID → 输出），不可变映射",
+     "completedNodes": "成功完成的节点集合",
+     "failedNodes": "执行失败的节点集合",
+     "snapshotTime": "快照时间（最后更新时间）"
+    }
+   },
+   "DagWorkflow": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "workflowCode": {
+      "type": "string",
+      "description": "工作流编码（业务唯一标识）"
+     },
+     "name": {
+      "type": "string",
+      "description": "工作流名称"
+     },
+     "dsl": {
+      "type": "string",
+      "description": "DAG 定义（YAML DSL）"
+     },
+     "description": {
+      "type": "string",
+      "description": "工作流描述"
+     },
+     "category": {
+      "type": "string",
+      "description": "分类（用于分组检索）"
+     }
+    },
+    "description": "DAG 工作流（domain 层持久化实体，YDIZ-DDD-007 单包模式）\n\nYDIZ-DDD-007：domain Entity 直接携带 MyBatis-Plus ORM 注解，\ninfra 层通过依赖 domain 模块引用本类，禁止自建 PO/DO 副本。",
+    "x-field-docs": {
+     "workflowCode": "工作流编码（业务唯一标识）",
+     "name": "工作流名称",
+     "dsl": "DAG 定义（YAML DSL）",
+     "description": "工作流描述",
+     "category": "分类（用于分组检索）"
+    }
+   },
+   "AgentTraceListDTO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "conversationId": {
+      "type": "string"
+     },
+     "agentType": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "stepCount": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "required": [
+     "id",
+     "conversationId",
+     "agentType",
+     "status",
+     "startedAt",
+     "durationMs",
+     "stepCount"
+    ],
+    "description": "Agent 执行轨迹列表 DTO\n\n用于列表展示 Agent 执行历史记录，包含执行状态、耗时和步骤数等摘要信息。\n\n@param id 轨迹记录 ID\n@param conversationId 会话 ID\n@param agentType Agent 类型（CHAT/REACT/PLAN_EXECUTE/ROUTER）\n@param status 执行状态（RUNNING/SUCCESS/FAILED/CANCELLED）\n@param startedAt 开始时间\n@param durationMs 执行耗时（毫秒）\n@param stepCount 执行步骤数",
+    "x-field-docs": {}
+   },
+   "AgentTraceDetailDTO": {
+    "type": "object",
+    "properties": {
+     "traceId": {
+      "type": "string"
+     },
+     "agentType": {
+      "type": "string"
+     },
+     "plan": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "traceId",
+     "agentType",
+     "plan"
+    ],
+    "description": "Agent 执行轨迹详情 DTO\n\n包含单次 Agent 执行的完整轨迹信息，用于调试和执行分析。\n\n@param traceId 链路追踪 ID\n@param agentType Agent 类型（CHAT/REACT/PLAN_EXECUTE/ROUTER）\n@param plan 执行计划（JSON 格式，包含步骤列表）",
+    "x-field-docs": {}
+   },
+   "ApprovalRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ApprovalRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "InsightReportResult": {
+    "type": "object",
+    "properties": {
+     "reportId": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "sections": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/InsightSection"
+      }
+     },
+     "status": {
+      "type": "string",
+      "enum": [],
+      "description": "洞察报告状态枚举。\n\n描述洞察报告从创建到导出全生命周期的状态流转。"
+     },
+     "reportPath": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64"
+     }
+    },
+    "required": [
+     "reportId",
+     "title",
+     "content",
+     "sections",
+     "status",
+     "reportPath",
+     "createdAt",
+     "durationMs"
+    ],
+    "description": "洞察报告生成结果值对象（不可变 record）。\n\n封装 BI 洞察报告生成的完整输出，包括报告 ID、标题、完整内容、结构化章节列表、\n状态、存储路径和耗时。作为 InsightReportService#generateReport 的返回值。\n\n@param reportId 报告唯一 ID\n@param title 报告标题\n@param content 生成的报告全文\n@param sections 报告章节列表\n@param status 报告状态\n@param reportPath 存储路径/URL\n@param createdAt 创建时间\n@param durationMs 生成耗时（毫秒）",
+    "x-field-docs": {
+     "COLLECTION_CAPACITY": "集合初始容量"
+    }
+   },
+   "InsightSection": {
+    "type": "object",
+    "properties": {
+     "sectionType": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "dataJson": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "required": [
+     "sectionType",
+     "title",
+     "content",
+     "dataJson",
+     "sort"
+    ],
+    "description": "洞察报告章节值对象（不可变 record）。\n\n描述 BI 洞察报告中的一个结构化章节，每个章节有独立的类型、标题、内容和可选的结构化数据\n（如图表数据 JSON）。章节按 `sort` 排序后组成完整报告。\n\n支持类型：\n\nsummary — 数据摘要（总览概览）\ndata — 数据明细（表格展示）\nchart — 图表可视化（含 chartType + datasets）\ninsight — 分析洞察（文字结论）\ntrend — 趋势分析（时序变化）\nprediction — 预测推断\n\n\n@param sectionType 章节类型\n@param title 章节标题\n@param content 章节内容（Markdown 或纯文本）\n@param dataJson 结构化数据 JSON（可选）\n@param sort 排序序号",
+    "x-field-docs": {
+     "VALID_TYPES": "允许的章节类型集合"
+    }
+   },
+   "EntityVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "EntityVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SubGraphVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SubGraphVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "RelationVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "RelationVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "MemoryVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "消息唯一 ID"
+     },
+     "role": {
+      "type": "string",
+      "description": "消息角色（SYSTEM/USER/ASSISTANT/TOOL）"
+     },
+     "content": {
+      "type": "string",
+      "description": "消息内容"
+     },
+     "conversationId": {
+      "type": "string",
+      "description": "所属对话 ID"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "toolCallId": {
+      "type": "string",
+      "description": "工具调用 ID（Tool 角色使用）"
+     }
+    },
+    "description": "对话记忆视图对象。\n\n用于返回单条对话记忆消息的展示数据。\n\n线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。",
+    "x-field-docs": {
+     "id": "消息唯一 ID",
+     "role": "消息角色（SYSTEM/USER/ASSISTANT/TOOL）",
+     "content": "消息内容",
+     "conversationId": "所属对话 ID",
+     "createdAt": "创建时间",
+     "toolCallId": "工具调用 ID（Tool 角色使用）"
+    }
+   },
+   "DashboardOverviewDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "DashboardOverviewDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "ModelUsageDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ModelUsageDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "PromptEvaluationResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PromptEvaluationResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "PromptComparisonResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PromptComparisonResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "RuntimeSession": {
+    "type": "object",
+    "properties": {
+     "executionId": {
+      "type": "string"
+     },
+     "conversationId": {
+      "type": "string"
+     },
+     "agentCode": {
+      "type": "string"
+     },
+     "agentType": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "userId": {
+      "type": "string"
+     },
+     "model": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string"
+     },
+     "currentStep": {
+      "type": "string"
+     },
+     "currentIteration": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "maxIterations": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "totalTokens": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "costUsd": {
+      "type": "number"
+     },
+     "startTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "lastActiveTime": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "source": {
+      "type": "string"
+     },
+     "errorMessage": {
+      "type": "string"
+     },
+     "elapsedMillis": {
+      "type": "string"
+     }
+    },
+    "description": "Agent 运行时会话值对象。\n\n记录一次 Agent 执行会话的完整生命周期状态，包括执行元数据、进度信息、资源消耗。\n不可变对象，所有字段均为 final。",
+    "x-field-docs": {}
+   },
+   "AsyncTaskVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "任务唯一 ID"
+     },
+     "taskType": {
+      "type": "string",
+      "description": "任务类型编码"
+     },
+     "taskTypeDesc": {
+      "type": "string",
+      "description": "任务类型描述"
+     },
+     "status": {
+      "type": "string",
+      "description": "当前状态编码"
+     },
+     "statusDesc": {
+      "type": "string",
+      "description": "当前状态描述"
+     },
+     "tenantCode": {
+      "type": "string",
+      "description": "租户编码"
+     },
+     "userId": {
+      "type": "string",
+      "description": "触发用户 ID"
+     },
+     "progressPercent": {
+      "type": "integer",
+      "format": "int32",
+      "description": "当前进度百分比（0-100）"
+     },
+     "outputPayload": {
+      "type": "string",
+      "description": "执行结果（已完成时非空）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "失败原因（失败时非空）"
+     },
+     "retryCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "已重试次数"
+     },
+     "maxRetry": {
+      "type": "integer",
+      "format": "int32",
+      "description": "最大重试次数"
+     },
+     "expireAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "任务过期时间"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "任务开始执行时间"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "任务完成时间"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "isTerminal": {
+      "type": "boolean",
+      "description": "是否处于终态"
+     },
+     "isRetryable": {
+      "type": "boolean",
+      "description": "是否可重试"
+     }
+    },
+    "description": "异步任务视图对象\n\n用于向前端返回异步任务的当前状态、进度和执行结果。\n由 AsyncTask 实体转换而来，仅暴露前端必要字段。",
+    "x-field-docs": {
+     "id": "任务唯一 ID",
+     "taskType": "任务类型编码",
+     "taskTypeDesc": "任务类型描述",
+     "status": "当前状态编码",
+     "statusDesc": "当前状态描述",
+     "tenantCode": "租户编码",
+     "userId": "触发用户 ID",
+     "progressPercent": "当前进度百分比（0-100）",
+     "outputPayload": "执行结果（已完成时非空）",
+     "errorMessage": "失败原因（失败时非空）",
+     "retryCount": "已重试次数",
+     "maxRetry": "最大重试次数",
+     "expireAt": "任务过期时间",
+     "startedAt": "任务开始执行时间",
+     "completedAt": "任务完成时间",
+     "createdAt": "创建时间",
+     "updatedAt": "更新时间",
+     "isTerminal": "是否处于终态",
+     "isRetryable": "是否可重试",
+     "type": "枚举描述填充"
+    }
+   },
+   "SkillDescriptorVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SkillDescriptorVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SkillExecutionResponseVO": {
+    "type": "object",
+    "properties": {
+     "success": {
+      "type": "boolean"
+     },
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "skillCode": {
+      "type": "string",
+      "description": "Skill 编码"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "执行是否成功"
+     },
+     "stdout": {
+      "type": "string",
+      "description": "标准输出内容"
+     },
+     "stderr": {
+      "type": "string",
+      "description": "标准错误内容"
+     },
+     "outputFiles": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "产物文件列表"
+     },
+     "metrics": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "执行指标（elapsedMs / exitCode 等）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "失败原因"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "执行完成时间"
+     }
+    },
+    "description": "Skill 执行结果视图对象\n\n用于 Controller 层返回 Skill 执行结果的展示数据。",
+    "x-field-docs": {
+     "skillCode": "Skill 编码",
+     "isSuccess": "执行是否成功",
+     "stdout": "标准输出内容",
+     "stderr": "标准错误内容",
+     "outputFiles": "产物文件列表",
+     "metrics": "执行指标（elapsedMs / exitCode 等）",
+     "errorMessage": "失败原因",
+     "completedAt": "执行完成时间"
+    }
+   },
+   "TeamRun": {
+    "type": "object",
+    "properties": {
+     "COLLECTION_CAPACITY": {
+      "type": "integer",
+      "format": "int32",
+      "description": "集合初始容量"
+     },
+     "teamRunId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "pattern": {
+      "type": "string",
+      "enum": [],
+      "description": "Team Run 协作模式枚举。\n\n定义多 Agent 之间的协作方式。"
+     },
+     "members": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/TeamRunMember"
+      }
+     },
+     "status": {
+      "type": "string",
+      "enum": [],
+      "description": "Team Run 状态枚举。\n\n定义多 Agent 协作执行的生命周期状态。"
+     },
+     "initiatedBy": {
+      "type": "string"
+     },
+     "finalResult": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "context": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "nextPendingMember": {
+      "type": "string"
+     }
+    },
+    "description": "Team Run 聚合根。\n\n代表一次多 Agent 协作执行，包含协作模式、成员列表、整体状态等。\n借鉴 MateClaw 的 Team Runs 设计，支持顺序、并行、层级、协商等多种协作模式。",
+    "x-field-docs": {
+     "COLLECTION_CAPACITY": "集合初始容量"
+    }
+   },
+   "TeamRunMember": {
+    "type": "object",
+    "properties": {
+     "memberId": {
+      "type": "string"
+     },
+     "agentCode": {
+      "type": "string"
+     },
+     "agentName": {
+      "type": "string"
+     },
+     "role": {
+      "type": "string"
+     },
+     "executionOrder": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "inputContext": {
+      "type": "string"
+     },
+     "outputResult": {
+      "type": "string"
+     },
+     "executionId": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string",
+      "enum": [],
+      "description": "Team Run 成员状态枚举。\n\n定义单个 Agent 在 Team Run 中的执行状态。"
+     },
+     "errorMessage": {
+      "type": "string"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "metadata": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     }
+    },
+    "description": "Team Run 成员值对象。\n\n记录单个 Agent 在 Team Run 中的执行信息和状态。",
+    "x-field-docs": {}
+   },
+   "AgentTrigger": {
+    "type": "object",
+    "properties": {
+     "triggerId": {
+      "type": "string"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "triggerType": {
+      "type": "string",
+      "enum": [],
+      "description": "Agent 触发器类型枚举。\n\n定义 Agent 可被外部事件触发执行的类型。\n借鉴 MateClaw 的 Triggers 系统（6 种模式：cron / webhook / channel_message /\nagent_lifecycle / content_match / workflow_completion），\n并扩展了 Agent 特有的生命周期触发。"
+     },
+     "targetAgentCode": {
+      "type": "string"
+     },
+     "targetAgentType": {
+      "type": "string"
+     },
+     "cronExpression": {
+      "type": "string"
+     },
+     "matchPattern": {
+      "type": "string"
+     },
+     "config": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     },
+     "isEnabled": {
+      "type": "boolean"
+     },
+     "maxExecutionsPerHour": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "lastTriggeredAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "totalTriggerCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "DEFAULT_MAX_EXECUTIONS_PER_HOUR": {
+      "type": "integer",
+      "format": "int32",
+      "description": "默认每小时最大执行次数"
+     }
+    },
+    "description": "Agent 触发器聚合根。\n\n定义一个触发规则，当满足条件时自动启动指定的 Agent 执行。\n支持多种触发类型：定时、Webhook、事件驱动等。\n\n借鉴 MateClaw 的 Triggers 系统设计，包含事件治理机制：\n去重、限速、递归守卫、失败关闭未知模式。",
+    "x-field-docs": {
+     "DEFAULT_MAX_EXECUTIONS_PER_HOUR": "默认每小时最大执行次数"
+    }
    }
   }
  }

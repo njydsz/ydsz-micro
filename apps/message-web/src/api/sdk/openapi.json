@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud message"
  },
  "paths": {
-  "/api/message/aggregate/page": {
+  "/message/aggregate/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -36,7 +36,7 @@
     ]
    }
   },
-  "/api/message/aggregate/flush": {
+  "/message/aggregate/flush": {
    "post": {
     "operationId": "flushByGroup",
     "tags": [
@@ -74,7 +74,7 @@
     ]
    }
   },
-  "/api/message/aggregate/flushDue": {
+  "/message/aggregate/flushDue": {
    "post": {
     "operationId": "flushDue",
     "tags": [
@@ -94,7 +94,7 @@
     }
    }
   },
-  "/api/message/batch/send": {
+  "/message/batch/send": {
    "post": {
     "operationId": "submitBatch",
     "tags": [
@@ -124,7 +124,7 @@
     }
    }
   },
-  "/api/message/batch/progress/{batchId}": {
+  "/message/batch/progress/{batchId}": {
    "get": {
     "operationId": "getProgress",
     "tags": [
@@ -154,7 +154,7 @@
     ]
    }
   },
-  "/api/message/batch/progress/{batchId}/sse": {
+  "/message/batch/progress/{batchId}/sse": {
    "get": {
     "operationId": "subscribeProgress",
     "tags": [
@@ -192,7 +192,7 @@
     ]
    }
   },
-  "/api/message/canary/experiment": {
+  "/message/canary/experiment": {
    "post": {
     "operationId": "createExperiment",
     "tags": [
@@ -247,7 +247,7 @@
     ]
    }
   },
-  "/api/message/canary/assign": {
+  "/message/canary/assign": {
    "get": {
     "operationId": "assignBucket",
     "tags": [
@@ -285,7 +285,7 @@
     ]
    }
   },
-  "/api/message/dead-letter/page": {
+  "/message/dead-letter/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -315,7 +315,7 @@
     ]
    }
   },
-  "/api/message/dead-letter/{logId}/resend": {
+  "/message/dead-letter/{logId}/resend": {
    "post": {
     "operationId": "resend",
     "tags": [
@@ -345,7 +345,7 @@
     ]
    }
   },
-  "/api/message/archive/search": {
+  "/message/archive/search": {
    "get": {
     "operationId": "search",
     "tags": [
@@ -435,7 +435,7 @@
     ]
    }
   },
-  "/api/message/send": {
+  "/message/send": {
    "post": {
     "operationId": "send",
     "tags": [
@@ -465,7 +465,7 @@
     }
    }
   },
-  "/api/message/log/page": {
+  "/message/log/page": {
    "get": {
     "operationId": "pageLog",
     "tags": [
@@ -495,7 +495,46 @@
     ]
    }
   },
-  "/api/message/cancelScheduled": {
+  "/message/log/export": {
+   "get": {
+    "operationId": "exportLogs",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/MessageLogQueryDTO"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/HttpServletResponse"
+      }
+     }
+    ]
+   }
+  },
+  "/message/cancelScheduled": {
    "post": {
     "operationId": "cancelScheduled",
     "tags": [
@@ -525,7 +564,7 @@
     ]
    }
   },
-  "/api/message/batch/{batchId}/progress": {
+  "/message/batch/{batchId}/progress": {
    "get": {
     "operationId": "batchProgress",
     "tags": [
@@ -573,7 +612,7 @@
     ]
    }
   },
-  "/api/message/feedback": {
+  "/message/feedback": {
    "post": {
     "operationId": "submitFeedback",
     "tags": [
@@ -603,7 +642,7 @@
     }
    }
   },
-  "/api/message/feedback/rating": {
+  "/message/feedback/rating": {
    "get": {
     "operationId": "getAverageRating",
     "tags": [
@@ -641,7 +680,7 @@
     ]
    }
   },
-  "/api/message/feedback/page": {
+  "/message/feedback/page": {
    "get": {
     "operationId": "pageFeedback",
     "tags": [
@@ -697,7 +736,7 @@
     ]
    }
   },
-  "/api/message/feedback/shouldReduceFreq": {
+  "/message/feedback/shouldReduceFreq": {
    "get": {
     "operationId": "shouldReduceFrequency",
     "tags": [
@@ -727,7 +766,7 @@
     ]
    }
   },
-  "/api/message/stats/overview": {
+  "/message/stats/overview": {
    "get": {
     "operationId": "overview",
     "tags": [
@@ -767,7 +806,7 @@
     ]
    }
   },
-  "/api/message/stats/channel": {
+  "/message/stats/channel": {
    "get": {
     "operationId": "channelStats",
     "tags": [
@@ -807,7 +846,7 @@
     ]
    }
   },
-  "/api/message/stats/receipt": {
+  "/message/stats/receipt": {
    "get": {
     "operationId": "receiptStats",
     "tags": [
@@ -847,7 +886,7 @@
     ]
    }
   },
-  "/api/message/stats/funnel": {
+  "/message/stats/funnel": {
    "get": {
     "operationId": "funnel",
     "tags": [
@@ -903,7 +942,7 @@
     ]
    }
   },
-  "/api/message/stats/cost": {
+  "/message/stats/cost": {
    "get": {
     "operationId": "cost",
     "tags": [
@@ -943,7 +982,7 @@
     ]
    }
   },
-  "/api/message/trace/msg/{msgId}": {
+  "/message/trace/msg/{msgId}": {
    "get": {
     "operationId": "getByMsgId",
     "tags": [
@@ -973,7 +1012,7 @@
     ]
    }
   },
-  "/api/message/trace/trace/{traceId}": {
+  "/message/trace/trace/{traceId}": {
    "get": {
     "operationId": "getByTraceId",
     "tags": [
@@ -1003,7 +1042,7 @@
     ]
    }
   },
-  "/api/message/trace/biz": {
+  "/message/trace/biz": {
    "get": {
     "operationId": "getByBiz",
     "tags": [
@@ -1041,7 +1080,7 @@
     ]
    }
   },
-  "/api/message/notifications/send": {
+  "/message/notifications/send": {
    "post": {
     "operationId": "send",
     "tags": [
@@ -1071,7 +1110,7 @@
     }
    }
   },
-  "/api/message/notifications/inbox": {
+  "/message/notifications/inbox": {
    "get": {
     "operationId": "inbox",
     "tags": [
@@ -1101,7 +1140,7 @@
     ]
    }
   },
-  "/api/message/notifications/unreadCount": {
+  "/message/notifications/unreadCount": {
    "get": {
     "operationId": "countUnread",
     "tags": [
@@ -1121,7 +1160,7 @@
     }
    }
   },
-  "/api/message/notifications/{id}/read": {
+  "/message/notifications/{id}/read": {
    "post": {
     "operationId": "markRead",
     "tags": [
@@ -1151,7 +1190,7 @@
     ]
    }
   },
-  "/api/message/notifications/readAll": {
+  "/message/notifications/readAll": {
    "post": {
     "operationId": "markAllRead",
     "tags": [
@@ -1171,7 +1210,7 @@
     }
    }
   },
-  "/api/message/notifications": {
+  "/message/notifications": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -1204,7 +1243,7 @@
     }
    }
   },
-  "/api/message/notifications/{id}/recall": {
+  "/message/notifications/{id}/recall": {
    "post": {
     "operationId": "recall",
     "tags": [
@@ -1234,7 +1273,7 @@
     ]
    }
   },
-  "/api/message/notifications/push": {
+  "/message/notifications/push": {
    "post": {
     "operationId": "push",
     "tags": [
@@ -1282,7 +1321,7 @@
     }
    }
   },
-  "/api/message/notifications/broadcast": {
+  "/message/notifications/broadcast": {
    "post": {
     "operationId": "broadcast",
     "tags": [
@@ -1312,7 +1351,7 @@
     }
    }
   },
-  "/api/message/notifications/push-realtime": {
+  "/message/notifications/push-realtime": {
    "post": {
     "operationId": "pushRealtime",
     "tags": [
@@ -1342,7 +1381,7 @@
     }
    }
   },
-  "/api/message/ops/template-cache/stats": {
+  "/message/ops/template-cache/stats": {
    "get": {
     "operationId": "getTemplateCacheStats",
     "tags": [
@@ -1362,7 +1401,7 @@
     }
    }
   },
-  "/api/message/ops/template-cache": {
+  "/message/ops/template-cache": {
    "delete": {
     "operationId": "evictTemplateCache",
     "tags": [
@@ -1392,7 +1431,7 @@
     ]
    }
   },
-  "/api/message/ops/template-cache/all": {
+  "/message/ops/template-cache/all": {
    "delete": {
     "operationId": "clearTemplateCache",
     "tags": [
@@ -1412,7 +1451,7 @@
     }
    }
   },
-  "/api/message/ops/bloomfilter/stats": {
+  "/message/ops/bloomfilter/stats": {
    "get": {
     "operationId": "getBloomFilterStats",
     "tags": [
@@ -1432,7 +1471,47 @@
     }
    }
   },
-  "/api/message/preference": {
+  "/message/ops/pipeline/topology": {
+   "get": {
+    "operationId": "getPipelineTopology",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/message/ops/scheduled/backlog": {
+   "get": {
+    "operationId": "getScheduledBacklog",
+    "tags": [
+     "message"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/message/preference": {
    "post": {
     "operationId": "upsert",
     "tags": [
@@ -1462,7 +1541,7 @@
     }
    }
   },
-  "/api/message/preference/{userId}": {
+  "/message/preference/{userId}": {
    "get": {
     "operationId": "listByUser",
     "tags": [
@@ -1492,7 +1571,7 @@
     ]
    }
   },
-  "/api/message/preference/{userId}/{channel}/{bizType}": {
+  "/message/preference/{userId}/{channel}/{bizType}": {
    "get": {
     "operationId": "getByUser",
     "tags": [
@@ -1538,7 +1617,7 @@
     ]
    }
   },
-  "/api/message/preference/{id}": {
+  "/message/preference/{id}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -1568,7 +1647,7 @@
     ]
    }
   },
-  "/api/message/reactive/stream": {
+  "/message/reactive/stream": {
    "get": {
     "operationId": "streamEvents",
     "tags": [
@@ -1598,7 +1677,7 @@
     ]
    }
   },
-  "/api/message/reactive/publish": {
+  "/message/reactive/publish": {
    "post": {
     "operationId": "publishEvent",
     "tags": [
@@ -1628,7 +1707,7 @@
     }
    }
   },
-  "/api/message/reactive/health": {
+  "/message/reactive/health": {
    "get": {
     "operationId": "health",
     "tags": [
@@ -1648,7 +1727,7 @@
     }
    }
   },
-  "/api/message/read-receipt/s/{shortCode}": {
+  "/message/read-receipt/s/{shortCode}": {
    "get": {
     "operationId": "shortLinkRedirect",
     "tags": [
@@ -1687,7 +1766,7 @@
     ]
    }
   },
-  "/api/message/read-status/read/{msgId}": {
+  "/message/read-status/read/{msgId}": {
    "post": {
     "operationId": "markRead",
     "tags": [
@@ -1725,7 +1804,7 @@
     ]
    }
   },
-  "/api/message/read-status/readBatch": {
+  "/message/read-status/readBatch": {
    "post": {
     "operationId": "markReadBatch",
     "tags": [
@@ -1768,7 +1847,7 @@
     }
    }
   },
-  "/api/message/read-status/notification/{notificationId}": {
+  "/message/read-status/notification/{notificationId}": {
    "post": {
     "operationId": "markNotificationRead",
     "tags": [
@@ -1806,7 +1885,7 @@
     ]
    }
   },
-  "/api/message/read-status/notification/readAll": {
+  "/message/read-status/notification/readAll": {
    "post": {
     "operationId": "markAllNotificationsRead",
     "tags": [
@@ -1844,7 +1923,7 @@
     ]
    }
   },
-  "/api/message/read-status/unreadCount": {
+  "/message/read-status/unreadCount": {
    "get": {
     "operationId": "getUnreadCount",
     "tags": [
@@ -1882,7 +1961,7 @@
     ]
    }
   },
-  "/api/message/recall/notification": {
+  "/message/recall/notification": {
    "post": {
     "operationId": "recallNotification",
     "tags": [
@@ -1922,7 +2001,7 @@
     }
    }
   },
-  "/api/message/recall/message/{logId}": {
+  "/message/recall/message/{logId}": {
    "post": {
     "operationId": "recallMessage",
     "tags": [
@@ -1952,7 +2031,7 @@
     ]
    }
   },
-  "/api/message/recall/msg/{msgId}": {
+  "/message/recall/msg/{msgId}": {
    "post": {
     "operationId": "recallByMsgId",
     "tags": [
@@ -1982,7 +2061,7 @@
     ]
    }
   },
-  "/api/message/recall/batch": {
+  "/message/recall/batch": {
    "post": {
     "operationId": "recallBatch",
     "tags": [
@@ -2012,7 +2091,7 @@
     }
    }
   },
-  "/api/message/receipt/callback": {
+  "/message/receipt/callback": {
    "post": {
     "operationId": "callback",
     "tags": [
@@ -2042,7 +2121,7 @@
     }
    }
   },
-  "/api/message/receipt/{logId}": {
+  "/message/receipt/{logId}": {
    "get": {
     "operationId": "listByLogId",
     "tags": [
@@ -2072,7 +2151,7 @@
     ]
    }
   },
-  "/api/message/retry/preview": {
+  "/message/retry/preview": {
    "get": {
     "operationId": "previewRetrySchedule",
     "tags": [
@@ -2102,7 +2181,7 @@
     ]
    }
   },
-  "/api/message/retry/preview/all": {
+  "/message/retry/preview/all": {
    "get": {
     "operationId": "previewAllPresets",
     "tags": [
@@ -2122,7 +2201,7 @@
     }
    }
   },
-  "/api/message/retry/presets": {
+  "/message/retry/presets": {
    "get": {
     "operationId": "listPresets",
     "tags": [
@@ -2142,7 +2221,7 @@
     }
    }
   },
-  "/api/message/route-rule": {
+  "/message/route-rule": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -2172,7 +2251,7 @@
     }
    }
   },
-  "/api/message/route-rule/{id}": {
+  "/message/route-rule/{id}": {
    "put": {
     "operationId": "update",
     "tags": [
@@ -2268,7 +2347,7 @@
     ]
    }
   },
-  "/api/message/route-rule/page": {
+  "/message/route-rule/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2298,7 +2377,7 @@
     ]
    }
   },
-  "/api/message/route-rule/enabled": {
+  "/message/route-rule/enabled": {
    "get": {
     "operationId": "listEnabled",
     "tags": [
@@ -2318,7 +2397,7 @@
     }
    }
   },
-  "/api/message/subscription": {
+  "/message/subscription": {
    "post": {
     "operationId": "upsert",
     "tags": [
@@ -2348,7 +2427,7 @@
     }
    }
   },
-  "/api/message/subscription/user/{userId}": {
+  "/message/subscription/user/{userId}": {
    "get": {
     "operationId": "listByUser",
     "tags": [
@@ -2378,7 +2457,7 @@
     ]
    }
   },
-  "/api/message/subscription/topic/{topicCode}/{channel}": {
+  "/message/subscription/topic/{topicCode}/{channel}": {
    "get": {
     "operationId": "listByTopic",
     "tags": [
@@ -2416,7 +2495,7 @@
     ]
    }
   },
-  "/api/message/subscription/unsubscribe": {
+  "/message/subscription/unsubscribe": {
    "post": {
     "operationId": "unsubscribe",
     "tags": [
@@ -2462,7 +2541,7 @@
     ]
    }
   },
-  "/api/message/health": {
+  "/message/health": {
    "get": {
     "operationId": "getSystemHealth",
     "tags": [
@@ -2482,7 +2561,7 @@
     }
    }
   },
-  "/api/message/health/channels": {
+  "/message/health/channels": {
    "get": {
     "operationId": "getChannelHealths",
     "tags": [
@@ -2502,7 +2581,7 @@
     }
    }
   },
-  "/api/message/template": {
+  "/message/template": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -2532,7 +2611,7 @@
     }
    }
   },
-  "/api/message/template/{id}": {
+  "/message/template/{id}": {
    "put": {
     "operationId": "update",
     "tags": [
@@ -2628,7 +2707,7 @@
     ]
    }
   },
-  "/api/message/template/page": {
+  "/message/template/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2658,7 +2737,7 @@
     ]
    }
   },
-  "/api/message/template/{id}/audit": {
+  "/message/template/{id}/audit": {
    "post": {
     "operationId": "audit",
     "tags": [
@@ -2698,7 +2777,7 @@
     }
    }
   },
-  "/api/message/template/preview/by-code": {
+  "/message/template/preview/by-code": {
    "post": {
     "operationId": "previewByCode",
     "tags": [
@@ -2721,14 +2800,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/PreviewRequest"
        }
       }
      }
     }
    }
   },
-  "/api/message/template/preview/raw": {
+  "/message/template/preview/raw": {
    "post": {
     "operationId": "previewRaw",
     "tags": [
@@ -2751,14 +2830,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/RawPreviewRequest"
        }
       }
      }
     }
    }
   },
-  "/api/message/template/version/list/{templateCode}": {
+  "/message/template/version/list/{templateCode}": {
    "get": {
     "operationId": "listVersions",
     "tags": [
@@ -2788,7 +2867,7 @@
     ]
    }
   },
-  "/api/message/template/version/rollback": {
+  "/message/template/version/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -2827,7 +2906,7 @@
     ]
    }
   },
-  "/api/message/template/version/preview": {
+  "/message/template/version/preview": {
    "post": {
     "operationId": "preview",
     "tags": [
@@ -2857,7 +2936,7 @@
     }
    }
   },
-  "/api/message/template/version/testSend": {
+  "/message/template/version/testSend": {
    "post": {
     "operationId": "testSend",
     "tags": [
@@ -2887,7 +2966,7 @@
     }
    }
   },
-  "/api/message/unsubscribe/oneClick": {
+  "/message/unsubscribe/oneClick": {
    "post": {
     "operationId": "oneClick",
     "tags": [
@@ -2917,7 +2996,7 @@
     ]
    }
   },
-  "/api/message/unsubscribe/preview": {
+  "/message/unsubscribe/preview": {
    "get": {
     "operationId": "preview",
     "tags": [
@@ -2947,7 +3026,7 @@
     ]
    }
   },
-  "/api/message/unsubscribe/page": {
+  "/message/unsubscribe/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2977,7 +3056,7 @@
     ]
    }
   },
-  "/api/message/unsubscribe/resubscribe": {
+  "/message/unsubscribe/resubscribe": {
    "post": {
     "operationId": "resubscribe",
     "tags": [
@@ -3023,7 +3102,7 @@
     ]
    }
   },
-  "/api/message/user-channels": {
+  "/message/user-channels": {
    "post": {
     "operationId": "upsert",
     "tags": [
@@ -3053,7 +3132,7 @@
     }
    }
   },
-  "/api/message/user-channels/mine": {
+  "/message/user-channels/mine": {
    "get": {
     "operationId": "listMine",
     "tags": [
@@ -3073,7 +3152,7 @@
     }
    }
   },
-  "/api/message/user-channels/user/{userId}": {
+  "/message/user-channels/user/{userId}": {
    "get": {
     "operationId": "listByUser",
     "tags": [
@@ -3103,7 +3182,7 @@
     ]
    }
   },
-  "/api/message/user-channels/{id}": {
+  "/message/user-channels/{id}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -3133,7 +3212,7 @@
     ]
    }
   },
-  "/api/internal/message/send": {
+  "/internal/message/send": {
    "post": {
     "operationId": "sendMessage",
     "tags": [
@@ -3156,7 +3235,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "$ref": "#/components/schemas/MessageRequest"
+        "$ref": "#/components/schemas/MessageSendDTO"
        }
       }
      }
@@ -3264,7 +3343,7 @@
         "ASC",
         "DESC"
        ],
-       "description": "排序项（结构化，替代字符串拼接）。\n\n将「排序列 + 方向」二元组封装为不可变对象，避免 PageQuery 以 `List<String>` 存储排序项并在每次读取时重新解析字符串。\n\n<pre>{@code\nOrderItem.of(\"created_at\", true)          // ASC\nOrderItem.desc(\"updated_at\")              // DESC\norderItem.toSql()                         // \"created_at ASC\"\n}</pre>"
+       "description": "排序项（结构化，替代字符串拼接）。\n\n将「排序列 + 方向」二元组封装为不可变对象，避免 PageQuery 以 `List<String>` 存储排序项并在每次读取时重新解析字符串。\n\nSQL 片段在构造时预计算（#sql），#toSql() 直接返回缓存值，\n避免 MyBatis-Plus Wrapper 多次读取排序条件时重复字符串拼接。\n\n<pre>{@code\nOrderItem.of(\"created_at\", true)          // ASC\nOrderItem.desc(\"updated_at\")              // DESC\norderItem.toSql()                         // \"created_at ASC\"\n}</pre>"
       },
       "description": "排序项列表（结构化 OrderItem）。"
      },
@@ -3331,6 +3410,10 @@
       "type": "boolean",
       "description": "是否异步发送（默认 true；false 时同步返回结果）"
      },
+     "priority": {
+      "type": "string",
+      "description": "优先级 LOW/NORMAL/HIGH/URGENT（默认 NORMAL）"
+     },
      "senderId": {
       "type": "string",
       "description": "触发发送的用户 ID"
@@ -3338,7 +3421,7 @@
      "requests": {
       "type": "array",
       "items": {
-       "$ref": "#/components/schemas/MessageRequest"
+       "$ref": "#/components/schemas/MessageItemRequestDTO"
       },
       "description": "直接传入的请求列表（requests 模式，优先于 receiverList）"
      }
@@ -3353,11 +3436,12 @@
      "params": "统一模板参数（receiverList 模式下使用，所有接收人共用）",
      "receiverList": "接收人列表（receiverList 模式）",
      "isAsync": "是否异步发送（默认 true；false 时同步返回结果）",
+     "priority": "优先级 LOW/NORMAL/HIGH/URGENT（默认 NORMAL）",
      "senderId": "触发发送的用户 ID",
      "requests": "直接传入的请求列表（requests 模式，优先于 receiverList）"
     }
    },
-   "MessageRequest": {
+   "MessageItemRequestDTO": {
     "type": "object",
     "properties": {
      "serialVersionUID": {
@@ -3426,7 +3510,7 @@
      "cascadeTo": {
       "type": "array",
       "items": {
-       "$ref": "#/components/schemas/MessageRequest"
+       "$ref": "#/components/schemas/MessageItemRequestDTO"
       },
       "description": "级联子消息列表"
      },
@@ -3435,7 +3519,7 @@
       "description": "发送场景标识（可选，用于管线模板选择）。\n\n可选值：simple / template / batch / callback / full。 为空时由 {@link\ncom.njydsz.message.server.service.chain.SendPipelineFacade} 自动推断。\n\n自动推断规则：\n\n\n有 parentMsgId → callback（内部回调）\n有 cascadeTo → batch（批量/级联）\n有 templateCode → template（模板发送）\n其他 → simple（简单直发）"
      }
     },
-    "description": "消息发送请求 DTO（兼容旧 com.njydsz.common.feign.MessageRequest）。\n\n封装消息发送所需的全部信息，支持多通道路由。",
+    "description": "单条消息请求 DTO（ydz-message 模块内部契约）。\n\n替代已弃用的 `com.njydsz.common.feign.MessageRequest`，用于批量发送场景中的子请求项。\n字段与原始 `MessageRequest` 完全一致，仅做了包归属迁移以符合 DDD 分层（消息 DTO 不应散落于 common-feign）。",
     "x-field-docs": {
      "channel": "消息通道：INAPP / EMAIL / WEBHOOK / SMS",
      "receiver": "接收者标识（用户ID / 邮箱 / Webhook URL 等）",
@@ -3615,7 +3699,7 @@
      "batchRequests": {
       "type": "array",
       "items": {
-       "$ref": "#/components/schemas/MessageRequest"
+       "$ref": "#/components/schemas/MessageItemRequestDTO"
       },
       "description": "批量请求列表（仅 strategy=BATCH 时使用）。\n\n单次最多 100 条，超出返回 400。"
      },
@@ -3646,6 +3730,11 @@
     "required": [
      "strategy"
     ]
+   },
+   "HttpServletResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "MessageFeedbackDTO": {
     "type": "object",
@@ -3795,9 +3884,9 @@
       "description": "通知级别"
      },
      "readStatus": {
-      "type": "integer",
-      "format": "int32",
-      "description": "已读状态: 0 未读 / 1 已读"
+      "type": "string",
+      "enum": [],
+      "description": "已读状态: UNREAD(未读) / READ(已读)"
      },
      "receiverId": {
       "type": "string",
@@ -3835,7 +3924,7 @@
     "x-field-docs": {
      "category": "通知分类",
      "level": "通知级别",
-     "readStatus": "已读状态: 0 未读 / 1 已读",
+     "readStatus": "已读状态: UNREAD(未读) / READ(已读)",
      "receiverId": "接收人 ID",
      "ids": "通知 ID 列表（批量查询）",
      "tenantId": "租户 ID",
@@ -3872,7 +3961,7 @@
       "description": "业务级消息唯一 ID（可选，用于幂等去重）"
      }
     },
-    "description": "实时单播推送请求 DTO。\n\n封装单播推送的全部参数（目标用户 ID + 消息类型 + 数据载荷）， 用于工作流待办数推送、任务分配通知等场景。\n\nP0-3-fix：新增 DTO 以支持 com.njydsz.common.feign.NotificationClient#pushRealtime 方法。",
+    "description": "实时单播推送请求 DTO。\n\n封装单播推送的全部参数（目标用户 ID + 消息类型 + 数据载荷）， 用于工作流待办数推送、任务分配通知等场景。\n\nP0-3-fix：新增 DTO 以支持 com.njydsz.message.api.client.NotificationClient#pushRealtime 方法。\n\n@apiNote 推送请求 DTO 原有职责在 Feign 层定义，目前已扩展为项目全局使用的实时单播推送请求 VO；\n后续计划将其迁移至 ydsz-common-core 或 ydsz-message，在此之前继续在此处定义以兼容全量调用方。",
     "x-field-docs": {
      "userId": "目标用户 ID",
      "type": "推送消息类型（如 \"TODO_COUNT\"、\"TASK_ASSIGNED\"）",
@@ -3903,7 +3992,7 @@
       "description": "业务级消息唯一 ID（可选，用于幂等去重）。\n\n非空时，消息中心基于此 ID 去重，避免重复广播。"
      }
     },
-    "description": "广播推送请求 DTO。\n\n封装广播推送的全部参数，替代原 `broadcast(String topic, RealtimePushDTO)` 的分离参数设计， 使接口符合 RESTful POST\n语义（请求体自描述），并支持幂等去重。\n\nP0-3-fix：将 topic 并入请求体，返回 com.njydsz.common.socket.push.PushResult 使调用方可感知结果。",
+    "description": "广播推送请求 DTO。\n\n封装广播推送的全部参数，替代原分离参数设计，使接口符合 RESTful POST\n语义（请求体自描述），并支持幂等去重。\n\nP0-3-fix：将 topic 并入请求体，返回 com.njydsz.common.socket.push.PushResult 使调用方可感知结果。\n\n@apiNote 推送请求 DTO 原有职责在 Feign 层定义，目前已扩展为项目全局使用的广播推送请求 VO；\n后续计划将其迁移至 ydsz-common-core 或 ydsz-message，在此之前继续在此处定义以兼容全量调用方。",
     "x-field-docs": {
      "topic": "广播主题（如 \"ALERT\"、\"TASK\"）。\n\n用于前端订阅过滤，仅推送给订阅了该主题的连接。",
      "data": "推送数据载荷。\n\nMap 结构，将被序列化为 JSON 发送到客户端。",
@@ -3925,15 +4014,13 @@
       "type": "string",
       "description": "业务类型"
      },
-     "enabled": {
-      "type": "integer",
-      "format": "int32",
-      "description": "是否启用该通道: 0 关闭 / 1 开启"
+     "isEnabled": {
+      "type": "boolean",
+      "description": "是否启用该通道: true=开启 / false=关闭"
      },
-     "dndEnabled": {
-      "type": "integer",
-      "format": "int32",
-      "description": "免打扰开关: 0 关闭 / 1 开启"
+     "isDndEnabled": {
+      "type": "boolean",
+      "description": "是否开启免打扰: true=开启 / false=关闭"
      },
      "dndStart": {
       "type": "string",
@@ -3953,10 +4040,9 @@
       "format": "int32",
       "description": "每小时发送上限"
      },
-     "digestEnabled": {
-      "type": "integer",
-      "format": "int32",
-      "description": "聚合开关: 0 即时发送 / 1 聚合摘要"
+     "isDigestEnabled": {
+      "type": "boolean",
+      "description": "是否启用聚合: true=聚合 / false=即时发送"
      },
      "digestFrequency": {
       "type": "string",
@@ -3976,13 +4062,13 @@
      "userId": "用户 ID",
      "channel": "通道",
      "bizType": "业务类型",
-     "enabled": "是否启用该通道: 0 关闭 / 1 开启",
-     "dndEnabled": "免打扰开关: 0 关闭 / 1 开启",
+     "isEnabled": "是否启用该通道: true=开启 / false=关闭",
+     "isDndEnabled": "是否开启免打扰: true=开启 / false=关闭",
      "dndStart": "免打扰开始时间 HH:mm",
      "dndEnd": "免打扰结束时间 HH:mm",
      "dailyLimit": "每日发送上限",
      "hourlyLimit": "每小时发送上限",
-     "digestEnabled": "聚合开关: 0 即时发送 / 1 聚合摘要",
+     "isDigestEnabled": "是否启用聚合: true=聚合 / false=即时发送",
      "digestFrequency": "聚合频率: HOURLY/DAILY/WEEKLY",
      "locale": "偏好语言",
      "extra": "扩展字段 JSON"
@@ -4347,6 +4433,16 @@
      "auditRemark": "审核备注"
     }
    },
+   "PreviewRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PreviewRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "RawPreviewRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "RawPreviewRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "TemplatePreviewDTO": {
     "type": "object",
     "properties": {
@@ -4483,6 +4579,2176 @@
      "verified": "是否已验证: 0 未验证 / 1 已验证",
      "isPrimary": "是否主绑定: 0 否 / 1 是",
      "extra": "扩展字段 JSON"
+    }
+   },
+   "MsgAggregateVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "聚合记录唯一标识（主键）"
+     },
+     "aggregateGroup": {
+      "type": "string",
+      "description": "聚合分组键"
+     },
+     "receiver": {
+      "type": "string",
+      "description": "接收人"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道"
+     },
+     "batchStatus": {
+      "type": "string",
+      "description": "批次状态（PENDING/SENDING/SENT/FAILED）"
+     },
+     "messageCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "聚合消息数"
+     },
+     "firstMessageAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "首条消息时间"
+     },
+     "lastMessageAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "末条消息时间"
+     },
+     "scheduledSendAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "计划发送时间"
+     },
+     "sentAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "实际发送时间"
+     },
+     "digestContent": {
+      "type": "string",
+      "description": "摘要内容"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（ACTIVE/EXPIRED/SENT）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "聚合批次视图对象（VO）。\n\n用于 Controller 层返回消息聚合发送的完整信息，将同一接收人同一通道的 多条消息聚合为一条摘要消息发送，减少打扰并提升信息密度。",
+    "x-field-docs": {
+     "id": "聚合记录唯一标识（主键）",
+     "aggregateGroup": "聚合分组键",
+     "receiver": "接收人",
+     "channel": "通道",
+     "batchStatus": "批次状态（PENDING/SENDING/SENT/FAILED）",
+     "messageCount": "聚合消息数",
+     "firstMessageAt": "首条消息时间",
+     "lastMessageAt": "末条消息时间",
+     "scheduledSendAt": "计划发送时间",
+     "sentAt": "实际发送时间",
+     "digestContent": "摘要内容",
+     "status": "状态（ACTIVE/EXPIRED/SENT）",
+     "tenantId": "租户 ID",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MsgBatchVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "批次记录唯一标识（主键）"
+     },
+     "batchId": {
+      "type": "string",
+      "description": "批次 ID（业务唯一）"
+     },
+     "batchName": {
+      "type": "string",
+      "description": "批次名称"
+     },
+     "channel": {
+      "type": "string",
+      "description": "发送通道"
+     },
+     "templateCode": {
+      "type": "string",
+      "description": "模板编码"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "total": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总条数"
+     },
+     "success": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功条数"
+     },
+     "failed": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败条数"
+     },
+     "skipped": {
+      "type": "integer",
+      "format": "int32",
+      "description": "跳过条数（去重/限流/免打扰）"
+     },
+     "status": {
+      "type": "string",
+      "description": "批次状态（PENDING/RUNNING/COMPLETED/FAILED/CANCELLED）"
+     },
+     "priority": {
+      "type": "string",
+      "description": "优先级（LOW/NORMAL/HIGH/URGENT，默认 NORMAL）"
+     },
+     "audienceSource": {
+      "type": "string",
+      "description": "受众来源（MANUAL/TAG/DEPT/FILE）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "开始发送时间"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成发送时间"
+     },
+     "senderId": {
+      "type": "string",
+      "description": "发送人 ID"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "payload": {
+      "type": "string",
+      "description": "请求列表 JSON（断点续传）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息发送批次视图对象（VO）。\n\n用于 Controller 层返回批量发送的进度和统计信息，包含总条数、成功/失败/跳过数、 批次状态及时间线，支撑批量发送运维监控。",
+    "x-field-docs": {
+     "id": "批次记录唯一标识（主键）",
+     "batchId": "批次 ID（业务唯一）",
+     "batchName": "批次名称",
+     "channel": "发送通道",
+     "templateCode": "模板编码",
+     "bizType": "业务类型",
+     "total": "总条数",
+     "success": "成功条数",
+     "failed": "失败条数",
+     "skipped": "跳过条数（去重/限流/免打扰）",
+     "status": "批次状态（PENDING/RUNNING/COMPLETED/FAILED/CANCELLED）",
+     "priority": "优先级（LOW/NORMAL/HIGH/URGENT，默认 NORMAL）",
+     "audienceSource": "受众来源（MANUAL/TAG/DEPT/FILE）",
+     "errorMessage": "错误信息",
+     "startedAt": "开始发送时间",
+     "completedAt": "完成发送时间",
+     "senderId": "发送人 ID",
+     "tenantId": "租户 ID",
+     "payload": "请求列表 JSON（断点续传）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "BatchProgressDTO": {
+    "type": "object",
+    "properties": {
+     "batchId": {
+      "type": "string",
+      "description": "批次 ID"
+     },
+     "batchName": {
+      "type": "string",
+      "description": "批次名称"
+     },
+     "channel": {
+      "type": "string",
+      "description": "发送通道"
+     },
+     "templateCode": {
+      "type": "string",
+      "description": "模板编码"
+     },
+     "total": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总数"
+     },
+     "success": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功数"
+     },
+     "failed": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败数"
+     },
+     "skipped": {
+      "type": "integer",
+      "format": "int32",
+      "description": "跳过数"
+     },
+     "processed": {
+      "type": "integer",
+      "format": "int32",
+      "description": "已处理数（success + failed + skipped）"
+     },
+     "progressPercent": {
+      "type": "number",
+      "description": "进度百分比（0-100）"
+     },
+     "status": {
+      "type": "string",
+      "description": "批次状态: PENDING / PROCESSING / COMPLETED / FAILED"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "开始处理时间"
+     },
+     "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成时间"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     }
+    },
+    "description": "批次发送进度 VO。",
+    "x-field-docs": {
+     "batchId": "批次 ID",
+     "batchName": "批次名称",
+     "channel": "发送通道",
+     "templateCode": "模板编码",
+     "total": "总数",
+     "success": "成功数",
+     "failed": "失败数",
+     "skipped": "跳过数",
+     "processed": "已处理数（success + failed + skipped）",
+     "progressPercent": "进度百分比（0-100）",
+     "status": "批次状态: PENDING / PROCESSING / COMPLETED / FAILED",
+     "errorMessage": "错误信息",
+     "startedAt": "开始处理时间",
+     "completedAt": "完成时间",
+     "createdAt": "创建时间"
+    }
+   },
+   "MsgLogVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "日志唯一标识（主键）"
+     },
+     "channel": {
+      "type": "string",
+      "description": "发送通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE）"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "bizId": {
+      "type": "string",
+      "description": "业务 ID"
+     },
+     "receiver": {
+      "type": "string",
+      "description": "接收人标识（手机号/邮箱/openid）"
+     },
+     "templateCode": {
+      "type": "string",
+      "description": "模板编码"
+     },
+     "templateParams": {
+      "type": "string",
+      "description": "模板参数 JSON"
+     },
+     "content": {
+      "type": "string",
+      "description": "实际发送内容"
+     },
+     "status": {
+      "type": "string",
+      "description": "发送状态（PENDING/SENDING/SUCCESS/FAILED/SKIPPED）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息"
+     },
+     "priority": {
+      "type": "string",
+      "description": "优先级（LOW/NORMAL/HIGH/URGENT）"
+     },
+     "senderId": {
+      "type": "string",
+      "description": "发送人 ID"
+     },
+     "messageGroup": {
+      "type": "string",
+      "description": "消息分组"
+     },
+     "batchId": {
+      "type": "string",
+      "description": "批次 ID"
+     },
+     "routeRuleId": {
+      "type": "string",
+      "description": "路由规则 ID"
+     },
+     "canary": {
+      "type": "integer",
+      "format": "int32",
+      "description": "灰度标记（0=主版本，1=灰度版本）"
+     },
+     "canaryKey": {
+      "type": "string",
+      "description": "灰度分桶键"
+     },
+     "dedupKey": {
+      "type": "string",
+      "description": "去重键"
+     },
+     "recallStatus": {
+      "type": "string",
+      "description": "撤回状态"
+     },
+     "recallAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "撤回时间"
+     },
+     "receiptStatus": {
+      "type": "string",
+      "description": "回执状态（PENDING/DELIVERED/READ/FAILED）"
+     },
+     "receiptAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "回执时间"
+     },
+     "retryCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "重试次数"
+     },
+     "nextRetryAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "下次重试时间"
+     },
+     "providerTraceId": {
+      "type": "string",
+      "description": "供应商追踪 ID"
+     },
+     "costMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "发送耗时（毫秒）"
+     },
+     "cost": {
+      "type": "number",
+      "description": "发送成本（元）"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "链路追踪 ID"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "msgId": {
+      "type": "string",
+      "description": "消息 ID"
+     },
+     "topic": {
+      "type": "string",
+      "description": "MQ Topic"
+     },
+     "reconsumeTimes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "MQ 重消费次数"
+     },
+     "parentMsgId": {
+      "type": "string",
+      "description": "父消息 ID（聚合/拆分场景）"
+     },
+     "scheduledAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "计划发送时间"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息发送日志视图对象（VO）。\n\n用于 Controller 层返回消息发送日志的完整信息，包含通道、模板、发送状态、 重试信息、灰度标记、回执状态及成本等，支撑消息全链路追踪与运维排查。",
+    "x-field-docs": {
+     "id": "日志唯一标识（主键）",
+     "channel": "发送通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE）",
+     "bizType": "业务类型",
+     "bizId": "业务 ID",
+     "receiver": "接收人标识（手机号/邮箱/openid）",
+     "templateCode": "模板编码",
+     "templateParams": "模板参数 JSON",
+     "content": "实际发送内容",
+     "status": "发送状态（PENDING/SENDING/SUCCESS/FAILED/SKIPPED）",
+     "errorMessage": "错误信息",
+     "priority": "优先级（LOW/NORMAL/HIGH/URGENT）",
+     "senderId": "发送人 ID",
+     "messageGroup": "消息分组",
+     "batchId": "批次 ID",
+     "routeRuleId": "路由规则 ID",
+     "canary": "灰度标记（0=主版本，1=灰度版本）",
+     "canaryKey": "灰度分桶键",
+     "dedupKey": "去重键",
+     "recallStatus": "撤回状态",
+     "recallAt": "撤回时间",
+     "receiptStatus": "回执状态（PENDING/DELIVERED/READ/FAILED）",
+     "receiptAt": "回执时间",
+     "retryCount": "重试次数",
+     "nextRetryAt": "下次重试时间",
+     "providerTraceId": "供应商追踪 ID",
+     "costMs": "发送耗时（毫秒）",
+     "cost": "发送成本（元）",
+     "traceId": "链路追踪 ID",
+     "tenantId": "租户 ID",
+     "msgId": "消息 ID",
+     "topic": "MQ Topic",
+     "reconsumeTimes": "MQ 重消费次数",
+     "parentMsgId": "父消息 ID（聚合/拆分场景）",
+     "scheduledAt": "计划发送时间",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MessageSendResultVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否发送成功"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "消息追踪 ID"
+     },
+     "providerTraceId": {
+      "type": "string",
+      "description": "服务商追踪 ID（回执查询用）"
+     },
+     "status": {
+      "type": "string",
+      "description": "发送状态（SUCCESS / FAILED / UNKNOWN）"
+     },
+     "errorCode": {
+      "type": "string",
+      "description": "错误码（失败时填充，便于前端/客户端识别错误类别）。\n\n取值来自 com.njydsz.message.domain.enums.MessageExceptionCode#getCode()， 为 null 表示无细分错误码（兼容旧调用方）。"
+     },
+     "userMessage": {
+      "type": "string",
+      "description": "用户友好消息（走 i18n 解析，前端直接展示）。"
+     },
+     "developerMessage": {
+      "type": "string",
+      "description": "开发者调试信息（含异常类名 + 详情，前端可折叠展示或日志采集）。"
+     },
+     "retryAfter": {
+      "type": "integer",
+      "format": "int32",
+      "description": "建议重试等待秒数（单位秒，取自 com.njydsz.common.exception.enums.ExceptionCode#retryAfterSeconds()）。"
+     }
+    },
+    "description": "消息发送结果 VO（替代旧 `com.njydsz.common.feign.MessageResult`）。\n\n错误消息分层：\n\n\n#userMessage — 用户友好消息，走 i18n 解析，前端直接展示\n#developerMessage — 开发者调试信息，含异常类名 + 详情，前端可折叠展示或日志采集\n#retryAfter — 建议重试等待秒数，取自 {@link\ncom.njydsz.common.exception.enums.ExceptionCode#retryAfterSeconds()}",
+    "x-field-docs": {
+     "isSuccess": "是否发送成功",
+     "traceId": "消息追踪 ID",
+     "providerTraceId": "服务商追踪 ID（回执查询用）",
+     "status": "发送状态（SUCCESS / FAILED / UNKNOWN）",
+     "errorCode": "错误码（失败时填充，便于前端/客户端识别错误类别）。\n\n取值来自 com.njydsz.message.domain.enums.MessageExceptionCode#getCode()， 为 null 表示无细分错误码（兼容旧调用方）。",
+     "userMessage": "用户友好消息（走 i18n 解析，前端直接展示）。",
+     "developerMessage": "开发者调试信息（含异常类名 + 详情，前端可折叠展示或日志采集）。",
+     "retryAfter": "建议重试等待秒数（单位秒，取自 com.njydsz.common.exception.enums.ExceptionCode#retryAfterSeconds()）。"
+    }
+   },
+   "MsgFeedbackVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "反馈记录唯一标识（主键）"
+     },
+     "msgId": {
+      "type": "string",
+      "description": "关联消息 ID"
+     },
+     "notificationId": {
+      "type": "string",
+      "description": "关联通知 ID"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "rating": {
+      "type": "integer",
+      "format": "int32",
+      "description": "评分（1~5）"
+     },
+     "feedbackType": {
+      "type": "string",
+      "description": "反馈类型（USEFUL/USELESS/SPAM/OTHER）"
+     },
+     "content": {
+      "type": "string",
+      "description": "反馈内容"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（PENDING/PROCESSED）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息用户反馈视图对象（VO）。\n\n用于 Controller 层返回用户对消息的反馈信息，包含评分、反馈类型和内容， 支撑消息质量评估和用户满意度分析。",
+    "x-field-docs": {
+     "id": "反馈记录唯一标识（主键）",
+     "msgId": "关联消息 ID",
+     "notificationId": "关联通知 ID",
+     "userId": "用户 ID",
+     "channel": "通道",
+     "bizType": "业务类型",
+     "rating": "评分（1~5）",
+     "feedbackType": "反馈类型（USEFUL/USELESS/SPAM/OTHER）",
+     "content": "反馈内容",
+     "status": "状态（PENDING/PROCESSED）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MessageStatsDTO": {
+    "type": "object",
+    "properties": {
+     "total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "总发送量"
+     },
+     "success": {
+      "type": "integer",
+      "format": "int64",
+      "description": "发送成功数"
+     },
+     "failed": {
+      "type": "integer",
+      "format": "int64",
+      "description": "发送失败数"
+     },
+     "retry": {
+      "type": "integer",
+      "format": "int64",
+      "description": "重试中数"
+     },
+     "dead": {
+      "type": "integer",
+      "format": "int64",
+      "description": "死信数"
+     },
+     "recalled": {
+      "type": "integer",
+      "format": "int64",
+      "description": "已撤回数"
+     },
+     "successRate": {
+      "type": "number",
+      "description": "成功率(%) = success / total * 100"
+     },
+     "deadRate": {
+      "type": "number",
+      "description": "死信率(%) = dead / total * 100"
+     },
+     "start": {
+      "type": "string",
+      "description": "统计起始时间"
+     },
+     "end": {
+      "type": "string",
+      "description": "统计结束时间"
+     }
+    },
+    "description": "消息发送总览统计（P1-2 可观测看板）。",
+    "x-field-docs": {
+     "total": "总发送量",
+     "success": "发送成功数",
+     "failed": "发送失败数",
+     "retry": "重试中数",
+     "dead": "死信数",
+     "recalled": "已撤回数",
+     "successRate": "成功率(%) = success / total * 100",
+     "deadRate": "死信率(%) = dead / total * 100",
+     "start": "统计起始时间",
+     "end": "统计结束时间"
+    }
+   },
+   "ChannelStatsDTO": {
+    "type": "object",
+    "properties": {
+     "channel": {
+      "type": "string",
+      "description": "通道"
+     },
+     "total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "总发送量"
+     },
+     "success": {
+      "type": "integer",
+      "format": "int64",
+      "description": "发送成功数"
+     },
+     "failed": {
+      "type": "integer",
+      "format": "int64",
+      "description": "发送失败数"
+     },
+     "retry": {
+      "type": "integer",
+      "format": "int64",
+      "description": "重试中数"
+     },
+     "dead": {
+      "type": "integer",
+      "format": "int64",
+      "description": "死信数"
+     },
+     "successRate": {
+      "type": "number",
+      "description": "成功率(%)"
+     },
+     "deadRate": {
+      "type": "number",
+      "description": "死信率(%)"
+     }
+    },
+    "description": "按通道维度的发送统计（P1-2 可观测看板）。",
+    "x-field-docs": {
+     "channel": "通道",
+     "total": "总发送量",
+     "success": "发送成功数",
+     "failed": "发送失败数",
+     "retry": "重试中数",
+     "dead": "死信数",
+     "successRate": "成功率(%)",
+     "deadRate": "死信率(%)"
+    }
+   },
+   "ReceiptStatsDTO": {
+    "type": "object",
+    "properties": {
+     "total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "成功发送总数（回执分母）"
+     },
+     "delivered": {
+      "type": "integer",
+      "format": "int64",
+      "description": "已送达"
+     },
+     "read": {
+      "type": "integer",
+      "format": "int64",
+      "description": "已读"
+     },
+     "clicked": {
+      "type": "integer",
+      "format": "int64",
+      "description": "已点击"
+     },
+     "failed": {
+      "type": "integer",
+      "format": "int64",
+      "description": "投递失败"
+     },
+     "timeout": {
+      "type": "integer",
+      "format": "int64",
+      "description": "回执超时"
+     },
+     "none": {
+      "type": "integer",
+      "format": "int64",
+      "description": "无回执"
+     },
+     "deliveryRate": {
+      "type": "number",
+      "description": "送达率(%) = (delivered + read + clicked) / total * 100"
+     },
+     "readRate": {
+      "type": "number",
+      "description": "已读率(%) = (read + clicked) / total * 100"
+     }
+    },
+    "description": "回执统计（P1-2 可观测看板）。",
+    "x-field-docs": {
+     "total": "成功发送总数（回执分母）",
+     "delivered": "已送达",
+     "read": "已读",
+     "clicked": "已点击",
+     "failed": "投递失败",
+     "timeout": "回执超时",
+     "none": "无回执",
+     "deliveryRate": "送达率(%) = (delivered + read + clicked) / total * 100",
+     "readRate": "已读率(%) = (read + clicked) / total * 100"
+    }
+   },
+   "FunnelStatsDTO": {
+    "type": "object",
+    "properties": {
+     "sent": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "delivered": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "read": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "clicked": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "deliveryRate": {
+      "type": "number"
+     },
+     "readRate": {
+      "type": "number"
+     },
+     "clickRate": {
+      "type": "number"
+     },
+     "deliveredToReadRate": {
+      "type": "number"
+     },
+     "readToClickRate": {
+      "type": "number"
+     },
+     "overallConversionRate": {
+      "type": "number"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "templateCode": {
+      "type": "string"
+     },
+     "start": {
+      "type": "string"
+     },
+     "end": {
+      "type": "string"
+     }
+    },
+    "description": "消息转化漏斗统计 VO（P2-2 漏斗分析）。\n\n漏斗四阶段（逐层递减）：\n\n<ol>\nsent（已发送）：status = SUCCESS 的消息总量\ndelivered（已送达）：receiptStatus IN (DELIVERED, READ, CLICKED)\nread（已读）：receiptStatus IN (READ, CLICKED)\nclicked（已点击）：receiptStatus = CLICKED\n</ol>\n\n各阶段转化率 = 下一阶段 / 上一阶段 * 100，整体转化率 = clicked / sent * 100。",
+    "x-field-docs": {}
+   },
+   "CostStatsDTO": {
+    "type": "object",
+    "properties": {
+     "totalCost": {
+      "type": "number"
+     },
+     "channels": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ChannelCost"
+      }
+     },
+     "start": {
+      "type": "string"
+     },
+     "end": {
+      "type": "string"
+     },
+     "channel": {
+      "type": "string"
+     },
+     "messageCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "unitPrice": {
+      "type": "number"
+     }
+    },
+    "description": "消息发送成本统计 VO（P2-4 成本看板）。\n\n按通道维度统计发送成本：单条成本 × 成功发送数 = 通道总成本。 通道单价由 `ydsz.message.cost.unit-prices` 配置。",
+    "x-field-docs": {}
+   },
+   "ChannelCost": {
+    "type": "object",
+    "properties": {
+     "channel": {
+      "type": "string"
+     },
+     "messageCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "unitPrice": {
+      "type": "number"
+     },
+     "totalCost": {
+      "type": "number"
+     }
+    },
+    "description": "单通道成本明细。",
+    "x-field-docs": {}
+   },
+   "MsgTraceVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "轨迹记录唯一标识（主键）"
+     },
+     "msgId": {
+      "type": "string",
+      "description": "消息 ID"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "链路追踪 ID"
+     },
+     "node": {
+      "type": "string",
+      "description": "轨迹节点类型"
+     },
+     "status": {
+      "type": "string",
+      "description": "节点状态（SUCCESS/FAILED/SKIPPED/PENDING）"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道"
+     },
+     "receiver": {
+      "type": "string",
+      "description": "接收人"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "bizId": {
+      "type": "string",
+      "description": "业务单据 ID"
+     },
+     "templateCode": {
+      "type": "string",
+      "description": "模板编码"
+     },
+     "costMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "节点耗时（毫秒）"
+     },
+     "message": {
+      "type": "string",
+      "description": "节点描述/错误信息"
+     },
+     "extra": {
+      "type": "string",
+      "description": "扩展信息 JSON"
+     },
+     "eventAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "节点发生时间"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息轨迹视图对象（VO）。\n\n用于返回消息轨迹的完整信息，包含节点类型、状态及耗时等。",
+    "x-field-docs": {
+     "id": "轨迹记录唯一标识（主键）",
+     "msgId": "消息 ID",
+     "traceId": "链路追踪 ID",
+     "node": "轨迹节点类型",
+     "status": "节点状态（SUCCESS/FAILED/SKIPPED/PENDING）",
+     "channel": "通道",
+     "receiver": "接收人",
+     "bizType": "业务类型",
+     "bizId": "业务单据 ID",
+     "templateCode": "模板编码",
+     "costMs": "节点耗时（毫秒）",
+     "message": "节点描述/错误信息",
+     "extra": "扩展信息 JSON",
+     "eventAt": "节点发生时间",
+     "tenantId": "租户 ID",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MsgNotificationVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "通知唯一标识（主键）"
+     },
+     "title": {
+      "type": "string",
+      "description": "通知标题"
+     },
+     "content": {
+      "type": "string",
+      "description": "通知内容"
+     },
+     "level": {
+      "type": "string",
+      "description": "级别（INFO/WARN/ERROR/CRITICAL）"
+     },
+     "category": {
+      "type": "string",
+      "description": "分类"
+     },
+     "priority": {
+      "type": "string",
+      "description": "优先级（LOW/NORMAL/HIGH/URGENT）"
+     },
+     "senderId": {
+      "type": "string",
+      "description": "发送人 ID"
+     },
+     "receiverId": {
+      "type": "string",
+      "description": "接收人 ID"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "bizId": {
+      "type": "string",
+      "description": "业务 ID"
+     },
+     "messageGroup": {
+      "type": "string",
+      "description": "消息分组（同组消息在收件箱中折叠展示）"
+     },
+     "batchId": {
+      "type": "string",
+      "description": "批次 ID"
+     },
+     "actionUrl": {
+      "type": "string",
+      "description": "操作跳转 URL"
+     },
+     "actionText": {
+      "type": "string",
+      "description": "操作按钮文案"
+     },
+     "icon": {
+      "type": "string",
+      "description": "图标"
+     },
+     "extra": {
+      "type": "string",
+      "description": "扩展信息（JSON）"
+     },
+     "sourceModule": {
+      "type": "string",
+      "description": "来源模块"
+     },
+     "readStatus": {
+      "type": "string",
+      "enum": [],
+      "description": "已读状态（UNREAD=未读，READ=已读）"
+     },
+     "readTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "已读时间"
+     },
+     "recallStatus": {
+      "type": "string",
+      "description": "撤回状态（null=未撤回，RECALLED=已撤回）"
+     },
+     "recallAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "撤回时间"
+     },
+     "expiredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "过期时间"
+     },
+     "mentionUserIds": {
+      "type": "string",
+      "description": "@提及用户 ID 列表，逗号分隔"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（PENDING/SENT/FAILED）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     }
+    },
+    "description": "站内通知视图对象（VO）。\n\n用于 Controller 层返回站内通知的完整信息，包含通知内容、业务关联、 已读状态、撤回状态及审计字段。",
+    "x-field-docs": {
+     "id": "通知唯一标识（主键）",
+     "title": "通知标题",
+     "content": "通知内容",
+     "level": "级别（INFO/WARN/ERROR/CRITICAL）",
+     "category": "分类",
+     "priority": "优先级（LOW/NORMAL/HIGH/URGENT）",
+     "senderId": "发送人 ID",
+     "receiverId": "接收人 ID",
+     "bizType": "业务类型",
+     "bizId": "业务 ID",
+     "messageGroup": "消息分组（同组消息在收件箱中折叠展示）",
+     "batchId": "批次 ID",
+     "actionUrl": "操作跳转 URL",
+     "actionText": "操作按钮文案",
+     "icon": "图标",
+     "extra": "扩展信息（JSON）",
+     "sourceModule": "来源模块",
+     "readStatus": "已读状态（UNREAD=未读，READ=已读）",
+     "readTime": "已读时间",
+     "recallStatus": "撤回状态（null=未撤回，RECALLED=已撤回）",
+     "recallAt": "撤回时间",
+     "expiredAt": "过期时间",
+     "mentionUserIds": "@提及用户 ID 列表，逗号分隔",
+     "status": "状态（PENDING/SENT/FAILED）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间",
+     "tenantId": "租户 ID"
+    }
+   },
+   "CacheStatsVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "size": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当前缓存条目数"
+     },
+     "hitCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "缓存命中次数"
+     },
+     "missCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "缓存未命中次数"
+     },
+     "hitRate": {
+      "type": "number",
+      "description": "缓存命中率（0.0 ~ 1.0）"
+     },
+     "evictionCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "缓存淘汰次数"
+     }
+    },
+    "description": "缓存统计信息视图对象。\n\n反映模板引擎 AST 缓存（YdszCache）的运行时统计指标，包含缓存条目数、命中率、淘汰次数等运维关键数据，\n供运维诊断接口（`GET /api/message/ops/template-cache/stats`）返回。",
+    "x-field-docs": {
+     "size": "当前缓存条目数",
+     "hitCount": "缓存命中次数",
+     "missCount": "缓存未命中次数",
+     "hitRate": "缓存命中率（0.0 ~ 1.0）",
+     "evictionCount": "缓存淘汰次数"
+    }
+   },
+   "BloomFilterStatsVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "expectedInsertions": {
+      "type": "integer",
+      "format": "int64",
+      "description": "预期插入条目数（单窗口容量）"
+     },
+     "fpp": {
+      "type": "number",
+      "description": "当前误判率"
+     },
+     "isPrimary": {
+      "type": "boolean",
+      "description": "当前窗口是否为主窗口（true=活跃写入窗口）"
+     },
+     "windowAgeSeconds": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当前窗口已运行秒数"
+     }
+    },
+    "description": "BloomFilter 统计信息视图对象。\n\n反映消息去重 BloomFilter 的运行状态，包含预期插入条目数、当前误判率、窗口年龄等运维关键数据，\n供运维诊断接口（`GET /api/message/ops/bloomfilter/stats`）返回。",
+    "x-field-docs": {
+     "expectedInsertions": "预期插入条目数（单窗口容量）",
+     "fpp": "当前误判率",
+     "isPrimary": "当前窗口是否为主窗口（true=活跃写入窗口）",
+     "windowAgeSeconds": "当前窗口已运行秒数"
+    }
+   },
+   "PipelineTopologyVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "template": {
+      "type": "string",
+      "description": "管线模板标识（full / template / simple / batch / callback）"
+     },
+     "handlers": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/HandlerNode"
+      },
+      "description": "该模板包含的 Handler 节点列表（已按 order 升序排列）"
+     },
+     "totalHandlerCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "全局 Handler 总数量（不区分模板）"
+     },
+     "name": {
+      "type": "string",
+      "description": "Handler 名称（类.getSimpleName）"
+     },
+     "className": {
+      "type": "string",
+      "description": "Handler 类全限定名"
+     },
+     "order": {
+      "type": "integer",
+      "format": "int32",
+      "description": "执行顺序（升序，值越小越先执行）"
+     },
+     "description": {
+      "type": "string",
+      "description": "Handler 中文描述"
+     }
+    },
+    "description": "发送管线拓扑视图对象（VO）。\n\n描述 com.njydsz.message.server.service.chain.SendPipeline 在特定模板下的 Handler 链结构与执行顺序，供运维\n拓扑看板渲染。\n\n每个 HandlerNode 对应一个 com.njydsz.message.server.service.chain.SendHandler， `order`\n字段决定执行顺序（升序）。",
+    "x-field-docs": {
+     "template": "管线模板标识（full / template / simple / batch / callback）",
+     "handlers": "该模板包含的 Handler 节点列表（已按 order 升序排列）",
+     "totalHandlerCount": "全局 Handler 总数量（不区分模板）",
+     "name": "Handler 名称（类.getSimpleName）",
+     "className": "Handler 类全限定名",
+     "order": "执行顺序（升序，值越小越先执行）",
+     "description": "Handler 中文描述"
+    }
+   },
+   "HandlerNode": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "name": {
+      "type": "string",
+      "description": "Handler 名称（类.getSimpleName）"
+     },
+     "className": {
+      "type": "string",
+      "description": "Handler 类全限定名"
+     },
+     "order": {
+      "type": "integer",
+      "format": "int32",
+      "description": "执行顺序（升序，值越小越先执行）"
+     },
+     "description": {
+      "type": "string",
+      "description": "Handler 中文描述"
+     }
+    },
+    "description": "Handler 节点描述。",
+    "x-field-docs": {
+     "name": "Handler 名称（类.getSimpleName）",
+     "className": "Handler 类全限定名",
+     "order": "执行顺序（升序，值越小越先执行）",
+     "description": "Handler 中文描述"
+    }
+   },
+   "MsgPreferenceVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "偏好记录唯一标识（主键）"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE）"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "isEnabled": {
+      "type": "boolean",
+      "description": "是否启用(true=启用,false=停用)"
+     },
+     "isDndEnabled": {
+      "type": "boolean",
+      "description": "是否启用免打扰(true=启用,false=停用)"
+     },
+     "dndStart": {
+      "type": "string",
+      "description": "免打扰开始时间（HH:mm 格式）"
+     },
+     "dndEnd": {
+      "type": "string",
+      "description": "免打扰结束时间（HH:mm 格式）"
+     },
+     "dailyLimit": {
+      "type": "integer",
+      "format": "int32",
+      "description": "每日发送上限"
+     },
+     "hourlyLimit": {
+      "type": "integer",
+      "format": "int32",
+      "description": "每小时发送上限"
+     },
+     "isDigestEnabled": {
+      "type": "boolean",
+      "description": "是否启用摘要聚合(true=启用,false=停用)"
+     },
+     "digestFrequency": {
+      "type": "string",
+      "description": "摘要频率（HOURLY/DAILY/WEEKLY）"
+     },
+     "locale": {
+      "type": "string",
+      "description": "语言区域"
+     },
+     "extra": {
+      "type": "string",
+      "description": "扩展配置（JSON）"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（ACTIVE/INACTIVE）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "用户消息偏好视图对象（VO）。\n\n用于 Controller 层返回用户消息偏好的完整信息，包含通道启停、免打扰时段、 频率限制、摘要配置及语言偏好，支撑用户个性化消息设置。",
+    "x-field-docs": {
+     "id": "偏好记录唯一标识（主键）",
+     "userId": "用户 ID",
+     "channel": "通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE）",
+     "bizType": "业务类型",
+     "isEnabled": "是否启用(true=启用,false=停用)",
+     "isDndEnabled": "是否启用免打扰(true=启用,false=停用)",
+     "dndStart": "免打扰开始时间（HH:mm 格式）",
+     "dndEnd": "免打扰结束时间（HH:mm 格式）",
+     "dailyLimit": "每日发送上限",
+     "hourlyLimit": "每小时发送上限",
+     "isDigestEnabled": "是否启用摘要聚合(true=启用,false=停用)",
+     "digestFrequency": "摘要频率（HOURLY/DAILY/WEEKLY）",
+     "locale": "语言区域",
+     "extra": "扩展配置（JSON）",
+     "status": "状态（ACTIVE/INACTIVE）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MsgReceiptVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "回执记录唯一标识（主键）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "logId": {
+      "type": "string",
+      "description": "关联消息日志 ID"
+     },
+     "providerTraceId": {
+      "type": "string",
+      "description": "三方服务商回执 ID"
+     },
+     "receiptType": {
+      "type": "string",
+      "description": "回执类型（DELIVERED/READ/CLICKED/FAILED）"
+     },
+     "receiptTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "回执时间"
+     },
+     "providerCode": {
+      "type": "string",
+      "description": "供应商编码"
+     },
+     "providerMsg": {
+      "type": "string",
+      "description": "供应商消息"
+     },
+     "rawResponse": {
+      "type": "string",
+      "description": "原始响应 JSON"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息回执视图对象（VO）。\n\n用于返回消息回执的完整信息，包含回执类型、供应商信息及原始响应。",
+    "x-field-docs": {
+     "id": "回执记录唯一标识（主键）",
+     "tenantId": "租户 ID",
+     "logId": "关联消息日志 ID",
+     "providerTraceId": "三方服务商回执 ID",
+     "receiptType": "回执类型（DELIVERED/READ/CLICKED/FAILED）",
+     "receiptTime": "回执时间",
+     "providerCode": "供应商编码",
+     "providerMsg": "供应商消息",
+     "rawResponse": "原始响应 JSON",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MsgRouteRuleVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "路由规则唯一标识（主键）"
+     },
+     "ruleCode": {
+      "type": "string",
+      "description": "规则编码（唯一）"
+     },
+     "ruleName": {
+      "type": "string",
+      "description": "规则名称"
+     },
+     "bizType": {
+      "type": "string",
+      "description": "业务类型"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道"
+     },
+     "priority": {
+      "type": "integer",
+      "format": "int32",
+      "description": "优先级（数值越小越优先）"
+     },
+     "conditionExpr": {
+      "type": "string",
+      "description": "路由条件（SpEL 表达式）"
+     },
+     "targetChannel": {
+      "type": "string",
+      "description": "命中后目标通道"
+     },
+     "fallbackChannel": {
+      "type": "string",
+      "description": "目标通道发送失败时降级通道"
+     },
+     "description": {
+      "type": "string",
+      "description": "描述说明"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（ENABLED/DISABLED）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息路由规则视图对象（VO）。\n\n用于 Controller 层返回消息路由规则的配置信息，路由规则决定消息 从哪个通道发出、按什么条件筛选等，支撑消息智能路由。",
+    "x-field-docs": {
+     "id": "路由规则唯一标识（主键）",
+     "ruleCode": "规则编码（唯一）",
+     "ruleName": "规则名称",
+     "bizType": "业务类型",
+     "channel": "通道",
+     "priority": "优先级（数值越小越优先）",
+     "conditionExpr": "路由条件（SpEL 表达式）",
+     "targetChannel": "命中后目标通道",
+     "fallbackChannel": "目标通道发送失败时降级通道",
+     "description": "描述说明",
+     "sort": "排序序号",
+     "status": "状态（ENABLED/DISABLED）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MsgSubscriptionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "订阅记录唯一标识（主键）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "topicCode": {
+      "type": "string",
+      "description": "订阅主题编码"
+     },
+     "channel": {
+      "type": "string",
+      "description": "接收通道"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（SUBSCRIBED/UNSUBSCRIBED）"
+     },
+     "roleScope": {
+      "type": "string",
+      "description": "角色范围"
+     },
+     "extra": {
+      "type": "string",
+      "description": "扩展配置（JSON）"
+     },
+     "unsubscribedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "退订时间"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "订阅关系视图对象（VO）。\n\n用于 Controller 层返回用户订阅关系的完整信息，包含订阅主题、通道、 状态及退订时间，支撑消息订阅管理。",
+    "x-field-docs": {
+     "id": "订阅记录唯一标识（主键）",
+     "tenantId": "租户 ID",
+     "userId": "用户 ID",
+     "topicCode": "订阅主题编码",
+     "channel": "接收通道",
+     "status": "状态（SUBSCRIBED/UNSUBSCRIBED）",
+     "roleScope": "角色范围",
+     "extra": "扩展配置（JSON）",
+     "unsubscribedAt": "退订时间",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "SystemHealthVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "status": {
+      "type": "string",
+      "description": "整体健康状态：UP（正常）/ DEGRADED（降级）/ DOWN（不可用）"
+     },
+     "totalChannels": {
+      "type": "integer",
+      "format": "int32",
+      "description": "已注册通道总数"
+     },
+     "enabledChannels": {
+      "type": "integer",
+      "format": "int32",
+      "description": "启用通道数"
+     },
+     "openBreakers": {
+      "type": "integer",
+      "format": "int32",
+      "description": "熔断打开的通道数"
+     },
+     "channels": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ChannelHealthVO"
+      },
+      "description": "各通道详细健康状态列表"
+     }
+    },
+    "description": "系统健康状态视图对象。\n\n汇总消息模块的整体健康状态，包含全局摘要和各通道详细健康指标，是系统健康检查接口的顶层返回对象，供运维监控和大屏展示使用。\n\n健康判定规则：\n\n\n任一通道熔断器状态为 OPEN → 整体状态 DEGRADED\n所有通道熔断器状态为 CLOSED → 整体状态 UP\n无可用通道 → 整体状态 DOWN",
+    "x-field-docs": {
+     "status": "整体健康状态：UP（正常）/ DEGRADED（降级）/ DOWN（不可用）",
+     "totalChannels": "已注册通道总数",
+     "enabledChannels": "启用通道数",
+     "openBreakers": "熔断打开的通道数",
+     "channels": "各通道详细健康状态列表"
+    }
+   },
+   "ChannelHealthVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道名称（大写，如 SMS/EMAIL/PUSH）"
+     },
+     "isEnabled": {
+      "type": "boolean",
+      "description": "通道是否启用"
+     },
+     "circuitBreakerState": {
+      "type": "string",
+      "description": "熔断器状态：CLOSED / OPEN / HALF_OPEN"
+     },
+     "failureCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "滑动窗口内失败次数"
+     },
+     "totalCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "滑动窗口内总请求次数"
+     },
+     "failureRate": {
+      "type": "number",
+      "description": "失败率（失败次数 / 总请求次数，总计为 0 时返回 0）"
+     }
+    },
+    "description": "通道健康状态视图对象。\n\n反映单个消息通道的实时运行状态，包含熔断器状态、启用状态、滑动窗口失败计数等运维关键指标，供管理后台通道监控面板和系统健康检查接口使用。",
+    "x-field-docs": {
+     "channel": "通道名称（大写，如 SMS/EMAIL/PUSH）",
+     "isEnabled": "通道是否启用",
+     "circuitBreakerState": "熔断器状态：CLOSED / OPEN / HALF_OPEN",
+     "failureCount": "滑动窗口内失败次数",
+     "totalCount": "滑动窗口内总请求次数",
+     "failureRate": "失败率（失败次数 / 总请求次数，总计为 0 时返回 0）"
+    }
+   },
+   "MsgTemplateVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "模板唯一标识（主键）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "templateCode": {
+      "type": "string",
+      "description": "模板编码，业务唯一"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE）"
+     },
+     "locale": {
+      "type": "string",
+      "description": "语言区域（如 zh_CN/en_US）"
+     },
+     "version": {
+      "type": "string",
+      "description": "版本号"
+     },
+     "category": {
+      "type": "string",
+      "description": "分类"
+     },
+     "sceneCode": {
+      "type": "string",
+      "description": "场景编码"
+     },
+     "subject": {
+      "type": "string",
+      "description": "主题（邮件标题/短信签名+正文）"
+     },
+     "content": {
+      "type": "string",
+      "description": "模板内容"
+     },
+     "provider": {
+      "type": "string",
+      "description": "供应商（ALIYUN/TENCENT/HUAWEI）"
+     },
+     "providerKey": {
+      "type": "string",
+      "description": "供应商侧模板 ID"
+     },
+     "signName": {
+      "type": "string",
+      "description": "签名名称"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（ENABLED/DISABLED）"
+     },
+     "auditStatus": {
+      "type": "string",
+      "description": "审核状态（PENDING/APPROVED/REJECTED）"
+     },
+     "auditBy": {
+      "type": "string",
+      "description": "审核人"
+     },
+     "auditAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "审核时间"
+     },
+     "auditRemark": {
+      "type": "string",
+      "description": "审核备注"
+     },
+     "description": {
+      "type": "string",
+      "description": "模板描述"
+     },
+     "variableDefs": {
+      "type": "string",
+      "description": "变量定义 JSON"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息模板视图对象（VO）。\n\n用于 Controller 层返回消息模板的完整信息，包含模板内容、通道配置、 供应商绑定、审核状态及变量定义，支撑模板管理与多语言配置。",
+    "x-field-docs": {
+     "id": "模板唯一标识（主键）",
+     "tenantId": "租户 ID",
+     "templateCode": "模板编码，业务唯一",
+     "channel": "通道（SMS/EMAIL/WEBHOOK/WECHAT/INSITE）",
+     "locale": "语言区域（如 zh_CN/en_US）",
+     "version": "版本号",
+     "category": "分类",
+     "sceneCode": "场景编码",
+     "subject": "主题（邮件标题/短信签名+正文）",
+     "content": "模板内容",
+     "provider": "供应商（ALIYUN/TENCENT/HUAWEI）",
+     "providerKey": "供应商侧模板 ID",
+     "signName": "签名名称",
+     "status": "状态（ENABLED/DISABLED）",
+     "auditStatus": "审核状态（PENDING/APPROVED/REJECTED）",
+     "auditBy": "审核人",
+     "auditAt": "审核时间",
+     "auditRemark": "审核备注",
+     "description": "模板描述",
+     "variableDefs": "变量定义 JSON",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "MsgTemplateVersionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "版本记录唯一标识（主键）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "templateCode": {
+      "type": "string",
+      "description": "模板编码"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "版本号"
+     },
+     "content": {
+      "type": "string",
+      "description": "模板内容快照"
+     },
+     "variableDefs": {
+      "type": "string",
+      "description": "模板变量定义快照（JSON）"
+     },
+     "auditStatus": {
+      "type": "string",
+      "description": "审核状态（APPROVED/REJECTED）"
+     },
+     "auditor": {
+      "type": "string",
+      "description": "审核人"
+     },
+     "auditRemark": {
+      "type": "string",
+      "description": "审核意见"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "消息模板版本历史视图对象（VO）。\n\n用于返回模板版本历史的完整信息，包含版本号、内容快照及审核信息。",
+    "x-field-docs": {
+     "id": "版本记录唯一标识（主键）",
+     "tenantId": "租户 ID",
+     "templateCode": "模板编码",
+     "version": "版本号",
+     "content": "模板内容快照",
+     "variableDefs": "模板变量定义快照（JSON）",
+     "auditStatus": "审核状态（APPROVED/REJECTED）",
+     "auditor": "审核人",
+     "auditRemark": "审核意见",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "UnsubscribeTokenPayload": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "topicCode": {
+      "type": "string",
+      "description": "主题编码"
+     },
+     "channel": {
+      "type": "string",
+      "description": "通道"
+     },
+     "expiresAt": {
+      "type": "integer",
+      "format": "int64",
+      "description": "过期时间（epoch 秒）"
+     }
+    },
+    "description": "退订 token 载荷（P1-5）。\n\n封装 token 解析后的关键字段，用于退订确认页渲染与执行退订。 字段经 HMAC-SHA256 签名，token 不可篡改。",
+    "x-field-docs": {
+     "userId": "用户 ID",
+     "topicCode": "主题编码",
+     "channel": "通道",
+     "expiresAt": "过期时间（epoch 秒）"
+    }
+   },
+   "MsgUserChannelVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "绑定记录唯一标识（主键）"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "channelType": {
+      "type": "string",
+      "description": "通道类型（SMS/EMAIL/WECHAT/WEBHOOK）"
+     },
+     "channelUserId": {
+      "type": "string",
+      "description": "通道侧用户 ID（手机号/邮箱/openid）"
+     },
+     "verified": {
+      "type": "integer",
+      "format": "int32",
+      "description": "是否已验证（1=已验证，0=未验证）"
+     },
+     "isPrimary": {
+      "type": "integer",
+      "format": "int32",
+      "description": "是否主通道（1=主通道，0=备用）"
+     },
+     "extra": {
+      "type": "string",
+      "description": "扩展配置（JSON）"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态（ACTIVE/INACTIVE）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "用户通道绑定视图对象（VO）。\n\n用于 Controller 层返回用户在各通道的身份绑定信息，@包含通道用户 ID、 验证状态和主通道标记，支撑多通道消息投递。",
+    "x-field-docs": {
+     "id": "绑定记录唯一标识（主键）",
+     "userId": "用户 ID",
+     "channelType": "通道类型（SMS/EMAIL/WECHAT/WEBHOOK）",
+     "channelUserId": "通道侧用户 ID（手机号/邮箱/openid）",
+     "verified": "是否已验证（1=已验证，0=未验证）",
+     "isPrimary": "是否主通道（1=主通道，0=备用）",
+     "extra": "扩展配置（JSON）",
+     "status": "状态（ACTIVE/INACTIVE）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
     }
    }
   }

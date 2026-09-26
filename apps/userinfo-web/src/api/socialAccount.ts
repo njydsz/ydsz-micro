@@ -14,24 +14,24 @@ import { requestClient } from '#/api/request';
 import type { SocialAccountVO } from './models';
 
 /**
- * getBindings: GET /api/profile/social/bindings
+ * getBindings: GET /profile/social/bindings
  */
 export function getBindings(): Promise<SocialAccountVO[]> {
-  return requestClient.get<SocialAccountVO[]>(`/api/profile/social/bindings`);
+  return requestClient.get<SocialAccountVO[]>(`/profile/social/bindings`);
 }
 
 /**
- * getAvailablePlatforms: GET /api/profile/social/platforms
+ * getAvailablePlatforms: GET /profile/social/platforms
  */
 export function getAvailablePlatforms(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/profile/social/platforms`);
+  return requestClient.get<Record<string, unknown>[]>(`/profile/social/platforms`);
 }
 
 /**
- * unbind: DELETE /api/profile/social/bindings/{platform}
+ * unbind: DELETE /profile/social/bindings/{platform}
  */
 export function unbind({ platform }: {
     platform: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/profile/social/bindings/${platform}`);
+  return requestClient.delete<boolean>(`/profile/social/bindings/${platform}`);
 }

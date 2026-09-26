@@ -14,60 +14,60 @@ import { requestClient } from '#/api/request';
 import type { AgentTrigger } from './models';
 
 /**
- * createTrigger: POST /api/agent/triggers
+ * createTrigger: POST /agent/triggers
  */
 export function createTrigger(data: Record<string, unknown>): Promise<AgentTrigger> {
-  return requestClient.post<AgentTrigger>(`/api/agent/triggers`, data);
+  return requestClient.post<AgentTrigger>(`/agent/triggers`, data);
 }
 
 /**
- * updateTrigger: PUT /api/agent/triggers/{triggerId}
+ * updateTrigger: PUT /agent/triggers/{triggerId}
  */
 export function updateTrigger({ triggerId }: {
     triggerId: string;
   }, data: Record<string, unknown>): Promise<AgentTrigger> {
-  return requestClient.put<AgentTrigger>(`/api/agent/triggers/${triggerId}`, data);
+  return requestClient.put<AgentTrigger>(`/agent/triggers/${triggerId}`, data);
 }
 
 /**
- * enableTrigger: POST /api/agent/triggers/{triggerId}/enable
+ * enableTrigger: POST /agent/triggers/{triggerId}/enable
  */
 export function enableTrigger({ triggerId }: {
     triggerId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/agent/triggers/${triggerId}/enable`);
+  return requestClient.post<void>(`/agent/triggers/${triggerId}/enable`);
 }
 
 /**
- * disableTrigger: POST /api/agent/triggers/{triggerId}/disable
+ * disableTrigger: POST /agent/triggers/{triggerId}/disable
  */
 export function disableTrigger({ triggerId }: {
     triggerId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/agent/triggers/${triggerId}/disable`);
+  return requestClient.post<void>(`/agent/triggers/${triggerId}/disable`);
 }
 
 /**
- * deleteTrigger: DELETE /api/agent/triggers/{triggerId}
+ * deleteTrigger: DELETE /agent/triggers/{triggerId}
  */
 export function deleteTrigger({ triggerId }: {
     triggerId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/agent/triggers/${triggerId}`);
+  return requestClient.delete<void>(`/agent/triggers/${triggerId}`);
 }
 
 /**
- * getTrigger: GET /api/agent/triggers/{triggerId}
+ * getTrigger: GET /agent/triggers/{triggerId}
  */
 export function getTrigger({ triggerId }: {
     triggerId: string;
   }): Promise<AgentTrigger> {
-  return requestClient.get<AgentTrigger>(`/api/agent/triggers/${triggerId}`);
+  return requestClient.get<AgentTrigger>(`/agent/triggers/${triggerId}`);
 }
 
 /**
- * listTriggers: GET /api/agent/triggers
+ * listTriggers: GET /agent/triggers
  */
 export function listTriggers(): Promise<AgentTrigger[]> {
-  return requestClient.get<AgentTrigger[]>(`/api/agent/triggers`);
+  return requestClient.get<AgentTrigger[]>(`/agent/triggers`);
 }

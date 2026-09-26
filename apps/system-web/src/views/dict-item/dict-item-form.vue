@@ -38,7 +38,7 @@ interface DictItemFormState {
   typeCode: string;
   itemCode: string;
   itemValue: string;
-  sortOrder: number;
+  sort?: number;
   description: string;
   status: string;
 }
@@ -48,7 +48,7 @@ const formData = reactive<DictItemFormState>({
   typeCode: '',
   itemCode: '',
   itemValue: '',
-  sortOrder: 0,
+  sort: 0,
   description: '',
   status: '1',
 });
@@ -78,8 +78,8 @@ const [Modal, modalApi] = useYdModal({
         id: data.record.id ?? '',
         typeCode: data.record.typeCode ?? '',
         itemCode: data.record.itemCode ?? '',
-        itemValue: data.record.itemValue ?? '',
-        sortOrder: data.record.sortOrder ?? 0,
+  itemValue: data.record.itemValue ?? '',
+  sort: data.record.sort ?? 0,
         description: data.record.description ?? '',
         status: data.record.status ?? '1',
       });
@@ -89,8 +89,8 @@ const [Modal, modalApi] = useYdModal({
         id: '',
         typeCode: '',
         itemCode: '',
-        itemValue: '',
-        sortOrder: 0,
+  itemValue: '',
+  sort: 0,
         description: '',
         status: '1',
       });
@@ -146,7 +146,7 @@ const title = computed(() => (isEdit.value ? '编辑字典项' : '新增字典�
         <YdInput v-model="formData.itemValue" placeholder="请输入字典值" />
       </YdFormItem>
       <YdFormItem label="排序" prop="sortOrder">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem label="描述">
         <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />

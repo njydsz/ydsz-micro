@@ -14,60 +14,60 @@ import { requestClient } from '#/api/request';
 import type { ShareAccessLogVO, ShareLinkVO, ShareRecipientVO } from './models';
 
 /**
- * createShare: POST /api/nextwiki/shares
+ * createShare: POST /nextwiki/shares
  */
 export function createShare(data: Record<string, unknown>): Promise<ShareLinkVO> {
-  return requestClient.post<ShareLinkVO>(`/api/nextwiki/shares`, data);
+  return requestClient.post<ShareLinkVO>(`/nextwiki/shares`, data);
 }
 
 /**
- * verifyAccess: POST /api/nextwiki/shares/verify
+ * verifyAccess: POST /nextwiki/shares/verify
  */
 export function verifyAccess(params: {
     httpRequest?: Record<string, unknown>;
   }, data: Record<string, unknown>): Promise<ShareLinkVO> {
-  return requestClient.post<ShareLinkVO>(`/api/nextwiki/shares/verify`, data, { params });
+  return requestClient.post<ShareLinkVO>(`/nextwiki/shares/verify`, data, { params });
 }
 
 /**
- * revoke: DELETE /api/nextwiki/shares/{shareId}
+ * revoke: DELETE /nextwiki/shares/{shareId}
  */
 export function revoke({ shareId }: {
     shareId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/nextwiki/shares/${shareId}`);
+  return requestClient.delete<void>(`/nextwiki/shares/${shareId}`);
 }
 
 /**
- * myShares: GET /api/nextwiki/shares/my
+ * myShares: GET /nextwiki/shares/my
  */
 export function myShares(): Promise<ShareLinkVO[]> {
-  return requestClient.get<ShareLinkVO[]>(`/api/nextwiki/shares/my`);
+  return requestClient.get<ShareLinkVO[]>(`/nextwiki/shares/my`);
 }
 
 /**
- * getAccessLogs: GET /api/nextwiki/shares/{shareId}/logs
+ * getAccessLogs: GET /nextwiki/shares/{shareId}/logs
  */
 export function getAccessLogs({ shareId }: {
     shareId: string;
   }, params: {
     limit?: number;
   }): Promise<ShareAccessLogVO[]> {
-  return requestClient.get<ShareAccessLogVO[]>(`/api/nextwiki/shares/${shareId}/logs`, { params });
+  return requestClient.get<ShareAccessLogVO[]>(`/nextwiki/shares/${shareId}/logs`, { params });
 }
 
 /**
- * getRecipients: GET /api/nextwiki/shares/{shareId}/recipients
+ * getRecipients: GET /nextwiki/shares/{shareId}/recipients
  */
 export function getRecipients({ shareId }: {
     shareId: string;
   }): Promise<ShareRecipientVO[]> {
-  return requestClient.get<ShareRecipientVO[]>(`/api/nextwiki/shares/${shareId}/recipients`);
+  return requestClient.get<ShareRecipientVO[]>(`/nextwiki/shares/${shareId}/recipients`);
 }
 
 /**
- * getReceivedShares: GET /api/nextwiki/shares/received
+ * getReceivedShares: GET /nextwiki/shares/received
  */
 export function getReceivedShares(): Promise<ShareRecipientVO[]> {
-  return requestClient.get<ShareRecipientVO[]>(`/api/nextwiki/shares/received`);
+  return requestClient.get<ShareRecipientVO[]>(`/nextwiki/shares/received`);
 }

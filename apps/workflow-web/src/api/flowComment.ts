@@ -14,83 +14,83 @@ import { requestClient } from '#/api/request';
 import type { FlowCommentCreateDTO, FlowCommentVO, FlowQuickCommentDTO, FlowQuickCommentVO } from './models';
 
 /**
- * addComment: POST /api/workflow/comment
+ * addComment: POST /workflow/comment
  */
 export function addComment(data: FlowCommentCreateDTO): Promise<string> {
-  return requestClient.post<string>(`/api/workflow/comment`, data);
+  return requestClient.post<string>(`/workflow/comment`, data);
 }
 
 /**
- * listByInstance: GET /api/workflow/comment/instance/{instanceId}
+ * listByInstance: GET /workflow/comment/instance/{instanceId}
  */
 export function listByInstance({ instanceId }: {
     instanceId: string;
   }): Promise<FlowCommentVO[]> {
-  return requestClient.get<FlowCommentVO[]>(`/api/workflow/comment/instance/${instanceId}`);
+  return requestClient.get<FlowCommentVO[]>(`/workflow/comment/instance/${instanceId}`);
 }
 
 /**
- * listRootComments: GET /api/workflow/comment/root/{instanceId}
+ * listRootComments: GET /workflow/comment/root/{instanceId}
  */
 export function listRootComments({ instanceId }: {
     instanceId: string;
   }): Promise<FlowCommentVO[]> {
-  return requestClient.get<FlowCommentVO[]>(`/api/workflow/comment/root/${instanceId}`);
+  return requestClient.get<FlowCommentVO[]>(`/workflow/comment/root/${instanceId}`);
 }
 
 /**
- * listReplies: GET /api/workflow/comment/replies/{parentCommentId}
+ * listReplies: GET /workflow/comment/replies/{parentCommentId}
  */
 export function listReplies({ parentCommentId }: {
     parentCommentId: string;
   }): Promise<FlowCommentVO[]> {
-  return requestClient.get<FlowCommentVO[]>(`/api/workflow/comment/replies/${parentCommentId}`);
+  return requestClient.get<FlowCommentVO[]>(`/workflow/comment/replies/${parentCommentId}`);
 }
 
 /**
- * deleteComment: DELETE /api/workflow/comment/{commentId}
+ * deleteComment: DELETE /workflow/comment/{commentId}
  */
 export function deleteComment({ commentId }: {
     commentId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/workflow/comment/${commentId}`);
+  return requestClient.delete<boolean>(`/workflow/comment/${commentId}`);
 }
 
 /**
- * listQuickComments: GET /api/workflow/comment/quick
+ * listQuickComments: GET /workflow/comment/quick
  */
 export function listQuickComments(): Promise<FlowQuickCommentVO[]> {
-  return requestClient.get<FlowQuickCommentVO[]>(`/api/workflow/comment/quick`);
+  return requestClient.get<FlowQuickCommentVO[]>(`/workflow/comment/quick`);
 }
 
 /**
- * createQuickComment: POST /api/workflow/comment/quick
+ * createQuickComment: POST /workflow/comment/quick
  */
 export function createQuickComment(data: FlowQuickCommentDTO): Promise<string> {
-  return requestClient.post<string>(`/api/workflow/comment/quick`, data);
+  return requestClient.post<string>(`/workflow/comment/quick`, data);
 }
 
 /**
- * updateQuickComment: PUT /api/workflow/comment/quick
+ * updateQuickComment: PUT /workflow/comment/quick
  */
 export function updateQuickComment(data: FlowQuickCommentDTO): Promise<void> {
-  return requestClient.put<void>(`/api/workflow/comment/quick`, data);
+  return requestClient.put<void>(`/workflow/comment/quick`, data);
 }
 
 /**
- * deleteQuickComment: DELETE /api/workflow/comment/quick/{id}
+ * deleteQuickComment: DELETE /workflow/comment/quick/{id}
  */
 export function deleteQuickComment({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/workflow/comment/quick/${id}`);
+  return requestClient.delete<void>(`/workflow/comment/quick/${id}`);
 }
 
 /**
- * incrementUseCount: POST /api/workflow/comment/quick/{id}/use
+ * incrementUseCount: POST /workflow/comment/quick/{id}/use
  */
 export function incrementUseCount({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/workflow/comment/quick/${id}/use`);
+  return requestClient.post<void>(`/workflow/comment/quick/${id}/use`);
 }

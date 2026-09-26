@@ -14,42 +14,42 @@ import { requestClient } from '#/api/request';
 import type { ConnectorConfigPostDTO, ConnectorExportResult, ConnectorTaskInfo } from './models';
 
 /**
- * types: GET /api/cronjob/connector/types
+ * types: GET /cronjob/connector/types
  */
 export function types(): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/cronjob/connector/types`);
+  return requestClient.get<string[]>(`/cronjob/connector/types`);
 }
 
 /**
- * testConnection: POST /api/cronjob/connector/test
+ * testConnection: POST /cronjob/connector/test
  */
 export function testConnection(params: {
     type?: string;
   }, data: ConnectorConfigPostDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/cronjob/connector/test`, data, { params });
+  return requestClient.post<boolean>(`/cronjob/connector/test`, data, { params });
 }
 
 /**
- * listRemoteTasks: POST /api/cronjob/connector/remote-tasks
+ * listRemoteTasks: POST /cronjob/connector/remote-tasks
  */
 export function listRemoteTasks(params: {
     type?: string;
   }, data: ConnectorConfigPostDTO): Promise<ConnectorTaskInfo[]> {
-  return requestClient.post<ConnectorTaskInfo[]>(`/api/cronjob/connector/remote-tasks`, data, { params });
+  return requestClient.post<ConnectorTaskInfo[]>(`/cronjob/connector/remote-tasks`, data, { params });
 }
 
 /**
- * importTasks: POST /api/cronjob/connector/import
+ * importTasks: POST /cronjob/connector/import
  */
 export function importTasks(params: {
     type?: string;
   }, data: ConnectorConfigPostDTO): Promise<ConnectorTaskInfo[]> {
-  return requestClient.post<ConnectorTaskInfo[]>(`/api/cronjob/connector/import`, data, { params });
+  return requestClient.post<ConnectorTaskInfo[]>(`/cronjob/connector/import`, data, { params });
 }
 
 /**
- * exportTasks: POST /api/cronjob/connector/export
+ * exportTasks: POST /cronjob/connector/export
  */
 export function exportTasks(data: Record<string, unknown>): Promise<ConnectorExportResult> {
-  return requestClient.post<ConnectorExportResult>(`/api/cronjob/connector/export`, data);
+  return requestClient.post<ConnectorExportResult>(`/cronjob/connector/export`, data);
 }

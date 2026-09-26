@@ -14,74 +14,74 @@ import { requestClient } from '#/api/request';
 import type { LoginVO, WebAuthnCredentialVO } from './models';
 
 /**
- * getPasskeyRegistrationOptions: GET /api/webauthn/passkey/registration/options
+ * getPasskeyRegistrationOptions: GET /webauthn/passkey/registration/options
  */
 export function getPasskeyRegistrationOptions(params: {
     username?: string;
     displayName?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/webauthn/passkey/registration/options`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/passkey/registration/options`, { params });
 }
 
 /**
- * getPasskeyAuthenticationOptions: GET /api/webauthn/passkey/options
+ * getPasskeyAuthenticationOptions: GET /webauthn/passkey/options
  */
 export function getPasskeyAuthenticationOptions(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/webauthn/passkey/options`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/passkey/options`);
 }
 
 /**
- * verifyPasskeyAuthentication: POST /api/webauthn/passkey/verify
+ * verifyPasskeyAuthentication: POST /webauthn/passkey/verify
  */
 export function verifyPasskeyAuthentication(data: Record<string, Record<string, unknown>>): Promise<LoginVO> {
-  return requestClient.post<LoginVO>(`/api/webauthn/passkey/verify`, data);
+  return requestClient.post<LoginVO>(`/webauthn/passkey/verify`, data);
 }
 
 /**
- * getRegistrationOptions: GET /api/webauthn/registration/options
+ * getRegistrationOptions: GET /webauthn/registration/options
  */
 export function getRegistrationOptions(params: {
     username?: string;
     displayName?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/webauthn/registration/options`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/registration/options`, { params });
 }
 
 /**
- * verifyRegistration: POST /api/webauthn/registration/verify
+ * verifyRegistration: POST /webauthn/registration/verify
  */
 export function verifyRegistration(data: Record<string, Record<string, unknown>>): Promise<void> {
-  return requestClient.post<void>(`/api/webauthn/registration/verify`, data);
+  return requestClient.post<void>(`/webauthn/registration/verify`, data);
 }
 
 /**
- * getAuthenticationOptions: GET /api/webauthn/authentication/options
+ * getAuthenticationOptions: GET /webauthn/authentication/options
  */
 export function getAuthenticationOptions(params: {
     userId?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/webauthn/authentication/options`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/authentication/options`, { params });
 }
 
 /**
- * verifyAuthentication: POST /api/webauthn/authentication/verify
+ * verifyAuthentication: POST /webauthn/authentication/verify
  */
 export function verifyAuthentication(data: Record<string, Record<string, unknown>>): Promise<LoginVO> {
-  return requestClient.post<LoginVO>(`/api/webauthn/authentication/verify`, data);
+  return requestClient.post<LoginVO>(`/webauthn/authentication/verify`, data);
 }
 
 /**
- * listCredentials: GET /api/webauthn/credentials
+ * listCredentials: GET /webauthn/credentials
  */
 export function listCredentials(): Promise<WebAuthnCredentialVO[]> {
-  return requestClient.get<WebAuthnCredentialVO[]>(`/api/webauthn/credentials`);
+  return requestClient.get<WebAuthnCredentialVO[]>(`/webauthn/credentials`);
 }
 
 /**
- * deleteCredential: DELETE /api/webauthn/credentials/{credentialId}
+ * deleteCredential: DELETE /webauthn/credentials/{credentialId}
  */
 export function deleteCredential({ credentialId }: {
     credentialId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/webauthn/credentials/${credentialId}`);
+  return requestClient.delete<void>(`/webauthn/credentials/${credentialId}`);
 }

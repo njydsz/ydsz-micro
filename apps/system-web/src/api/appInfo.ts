@@ -15,42 +15,42 @@ import type { PageResponse } from './models';
 import type { AppInfoDTO, AppInfoPageQuery, AppInfoVO } from './models';
 
 /**
- * page: GET /api/app/page
+ * page: GET /app/page
  */
 export function page(params: {
     query?: AppInfoPageQuery;
   }): Promise<PageResponse<AppInfoVO[]>> {
-  return requestClient.get<PageResponse<AppInfoVO[]>>(`/api/app/page`, { params });
+  return requestClient.get<PageResponse<AppInfoVO[]>>(`/app/page`, { params });
 }
 
 /**
- * getById: GET /api/app/{id}
+ * getById: GET /app/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<AppInfoVO> {
-  return requestClient.get<AppInfoVO>(`/api/app/${id}`);
+  return requestClient.get<AppInfoVO>(`/app/${id}`);
 }
 
 /**
- * save: POST /api/app
+ * save: POST /app
  */
 export function save(data: AppInfoDTO): Promise<string> {
-  return requestClient.post<string>(`/api/app`, data);
+  return requestClient.post<string>(`/app`, data);
 }
 
 /**
- * update: PUT /api/app
+ * update: PUT /app
  */
 export function update(data: AppInfoDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/app`, data);
+  return requestClient.put<boolean>(`/app`, data);
 }
 
 /**
- * remove: DELETE /api/app/{id}
+ * remove: DELETE /app/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/app/${id}`);
+  return requestClient.delete<boolean>(`/app/${id}`);
 }

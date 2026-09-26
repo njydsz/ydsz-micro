@@ -14,40 +14,40 @@ import { requestClient } from '#/api/request';
 import type { TagDTO, TagVO } from './models';
 
 /**
- * createTag: POST /api/nextwiki/tags
+ * createTag: POST /nextwiki/tags
  */
 export function createTag(data: Record<string, unknown>): Promise<TagDTO> {
-  return requestClient.post<TagDTO>(`/api/nextwiki/tags`, data);
+  return requestClient.post<TagDTO>(`/nextwiki/tags`, data);
 }
 
 /**
- * listTags: GET /api/nextwiki/tags
+ * listTags: GET /nextwiki/tags
  */
 export function listTags(): Promise<TagVO[]> {
-  return requestClient.get<TagVO[]>(`/api/nextwiki/tags`);
+  return requestClient.get<TagVO[]>(`/nextwiki/tags`);
 }
 
 /**
- * bindTag: POST /api/nextwiki/tags/bind
+ * bindTag: POST /nextwiki/tags/bind
  */
 export function bindTag(data: Record<string, unknown>): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/tags/bind`, data);
+  return requestClient.post<void>(`/nextwiki/tags/bind`, data);
 }
 
 /**
- * getFileTags: GET /api/nextwiki/tags/file/{fileNodeId}
+ * getFileTags: GET /nextwiki/tags/file/{fileNodeId}
  */
 export function getFileTags({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<TagVO[]> {
-  return requestClient.get<TagVO[]>(`/api/nextwiki/tags/file/${fileNodeId}`);
+  return requestClient.get<TagVO[]>(`/nextwiki/tags/file/${fileNodeId}`);
 }
 
 /**
- * recommendTags: GET /api/nextwiki/tags/recommend/{fileNodeId}
+ * recommendTags: GET /nextwiki/tags/recommend/{fileNodeId}
  */
 export function recommendTags({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<TagVO[]> {
-  return requestClient.get<TagVO[]>(`/api/nextwiki/tags/recommend/${fileNodeId}`);
+  return requestClient.get<TagVO[]>(`/nextwiki/tags/recommend/${fileNodeId}`);
 }

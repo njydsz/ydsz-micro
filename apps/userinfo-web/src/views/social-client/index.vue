@@ -208,7 +208,7 @@ interface SocialClientFormState {
   scope: string;
   redirectUri: string;
   status: string;
-  sortOrder: number;
+  sort?: number;
   remark: string;
 }
 
@@ -221,7 +221,7 @@ const formData = reactive<SocialClientFormState>({
   scope: '',
   redirectUri: '',
   status: 'ENABLED',
-  sortOrder: 0,
+  sort: 0,
   remark: '',
 });
 
@@ -247,7 +247,7 @@ const [Modal, modalApi] = useYdModal({
         scope: data.record.scope ?? '',
         redirectUri: data.record.redirectUri ?? '',
         status: data.record.status ?? 'ENABLED',
-        sortOrder: data.record.sortOrder ?? 0,
+        sort: data.record.sort ?? 0,
         remark: data.record.remark ?? '',
       });
     } else {
@@ -261,7 +261,7 @@ const [Modal, modalApi] = useYdModal({
         scope: '',
         redirectUri: '',
         status: 'ENABLED',
-        sortOrder: 0,
+        sort: 0,
         remark: '',
       });
     }
@@ -284,7 +284,7 @@ const [Modal, modalApi] = useYdModal({
         scope: formData.scope,
         redirectUri: formData.redirectUri,
         status: formData.status,
-        sortOrder: formData.sortOrder,
+        sort: formData.sort,
         remark: formData.remark,
       };
       if (isEdit.value) {
@@ -337,7 +337,7 @@ async function handleToggleStatus(row: SocialClientVO) {
       scope: row.scope,
       redirectUri: row.redirectUri,
       status: newStatus,
-      sortOrder: row.sortOrder,
+      sort: row.sort,
       remark: row.remark,
     });
     showToast.success('操作成功');
@@ -422,7 +422,7 @@ async function handleDelete(row: SocialClientVO) {
           </YdRadioGroup>
         </YdFormItem>
         <YdFormItem label="排序">
-          <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+          <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
         </YdFormItem>
         <YdFormItem label="备注">
           <YdInput v-model="formData.remark" type="textarea" :rows="2" placeholder="备注说明" />

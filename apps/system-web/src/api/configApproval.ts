@@ -15,71 +15,71 @@ import type { PageResponse } from './models';
 import type { ConfigApprovalQuery, ConfigApprovalSubmitDTO, ConfigApprovalVO } from './models';
 
 /**
- * listPending: GET /api/config/approval/pending
+ * listPending: GET /config/approval/pending
  */
 export function listPending(params: {
     query?: ConfigApprovalQuery;
   }): Promise<PageResponse<ConfigApprovalVO[]>> {
-  return requestClient.get<PageResponse<ConfigApprovalVO[]>>(`/api/config/approval/pending`, { params });
+  return requestClient.get<PageResponse<ConfigApprovalVO[]>>(`/config/approval/pending`, { params });
 }
 
 /**
- * listSubmitted: GET /api/config/approval/submitted
+ * listSubmitted: GET /config/approval/submitted
  */
 export function listSubmitted(params: {
     query?: ConfigApprovalQuery;
   }): Promise<PageResponse<ConfigApprovalVO[]>> {
-  return requestClient.get<PageResponse<ConfigApprovalVO[]>>(`/api/config/approval/submitted`, { params });
+  return requestClient.get<PageResponse<ConfigApprovalVO[]>>(`/config/approval/submitted`, { params });
 }
 
 /**
- * listAll: GET /api/config/approval/list
+ * listAll: GET /config/approval/list
  */
 export function listAll(params: {
     query?: ConfigApprovalQuery;
   }): Promise<PageResponse<ConfigApprovalVO[]>> {
-  return requestClient.get<PageResponse<ConfigApprovalVO[]>>(`/api/config/approval/list`, { params });
+  return requestClient.get<PageResponse<ConfigApprovalVO[]>>(`/config/approval/list`, { params });
 }
 
 /**
- * submit: POST /api/config/approval/submit
+ * submit: POST /config/approval/submit
  */
 export function submit(data: ConfigApprovalSubmitDTO): Promise<string> {
-  return requestClient.post<string>(`/api/config/approval/submit`, data);
+  return requestClient.post<string>(`/config/approval/submit`, data);
 }
 
 /**
- * approve: POST /api/config/approval/{id}/approve
+ * approve: POST /config/approval/{id}/approve
  */
 export function approve({ id }: {
     id: string;
   }, data: Record<string, unknown>): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/config/approval/${id}/approve`, data);
+  return requestClient.post<boolean>(`/config/approval/${id}/approve`, data);
 }
 
 /**
- * reject: POST /api/config/approval/{id}/reject
+ * reject: POST /config/approval/{id}/reject
  */
 export function reject({ id }: {
     id: string;
   }, data: Record<string, unknown>): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/config/approval/${id}/reject`, data);
+  return requestClient.post<boolean>(`/config/approval/${id}/reject`, data);
 }
 
 /**
- * withdraw: POST /api/config/approval/{id}/withdraw
+ * withdraw: POST /config/approval/{id}/withdraw
  */
 export function withdraw({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/config/approval/${id}/withdraw`);
+  return requestClient.post<boolean>(`/config/approval/${id}/withdraw`);
 }
 
 /**
- * detail: GET /api/config/approval/{id}
+ * detail: GET /config/approval/{id}
  */
 export function detail({ id }: {
     id: string;
   }): Promise<ConfigApprovalVO> {
-  return requestClient.get<ConfigApprovalVO>(`/api/config/approval/${id}`);
+  return requestClient.get<ConfigApprovalVO>(`/config/approval/${id}`);
 }

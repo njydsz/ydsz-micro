@@ -14,14 +14,14 @@ import { requestClient } from '#/api/request';
 import type { AgentExecutionRequestDTO, BatchChatRequestDTO, BatchChatResponseDTO, ChatRequestDTO, ChatResponseDTO } from './models';
 
 /**
- * execute: POST /api/agent/execute
+ * execute: POST /agent/execute
  */
 export function execute(data: AgentExecutionRequestDTO): Promise<ChatResponseDTO> {
-  return requestClient.post<ChatResponseDTO>(`/api/agent/execute`, data);
+  return requestClient.post<ChatResponseDTO>(`/agent/execute`, data);
 }
 
 /**
- * executeStream: POST /api/agent/execute/stream
+ * executeStream: POST /agent/execute/stream
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code SseEmitter}，响应结构未固定为具名 VO，
@@ -29,18 +29,18 @@ export function execute(data: AgentExecutionRequestDTO): Promise<ChatResponseDTO
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function executeStream(data: AgentExecutionRequestDTO): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/agent/execute/stream`, data);
+  return requestClient.post<unknown>(`/agent/execute/stream`, data);
 }
 
 /**
- * chat: POST /api/agent/chat
+ * chat: POST /agent/chat
  */
 export function chat(data: ChatRequestDTO): Promise<ChatResponseDTO> {
-  return requestClient.post<ChatResponseDTO>(`/api/agent/chat`, data);
+  return requestClient.post<ChatResponseDTO>(`/agent/chat`, data);
 }
 
 /**
- * chatStream: POST /api/agent/chat/stream
+ * chatStream: POST /agent/chat/stream
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code SseEmitter}，响应结构未固定为具名 VO，
@@ -48,31 +48,31 @@ export function chat(data: ChatRequestDTO): Promise<ChatResponseDTO> {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function chatStream(data: ChatRequestDTO): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/agent/chat/stream`, data);
+  return requestClient.post<unknown>(`/agent/chat/stream`, data);
 }
 
 /**
- * batchChat: POST /api/agent/chat/batch
+ * batchChat: POST /agent/chat/batch
  */
 export function batchChat(data: BatchChatRequestDTO): Promise<BatchChatResponseDTO> {
-  return requestClient.post<BatchChatResponseDTO>(`/api/agent/chat/batch`, data);
+  return requestClient.post<BatchChatResponseDTO>(`/agent/chat/batch`, data);
 }
 
 /**
- * history: GET /api/agent/history
+ * history: GET /agent/history
  */
 export function history(params: {
     conversationId?: string;
   }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/agent/history`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/agent/history`, { params });
 }
 
 /**
- * clearHistory: DELETE /api/agent/history
+ * clearHistory: DELETE /agent/history
  */
 export function clearHistory(params: {
     conversationId?: string;
     requestId?: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/agent/history`, { params });
+  return requestClient.delete<void>(`/agent/history`, { params });
 }

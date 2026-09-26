@@ -15,86 +15,86 @@ import type { PageResponse } from './models';
 import type { DictItemBatchDTO, DictItemDTO, DictItemPageQuery, DictItemVO } from './models';
 
 /**
- * page: GET /api/dict/item/page
+ * page: GET /dict/item/page
  */
 export function page(params: {
     query?: DictItemPageQuery;
   }): Promise<PageResponse<DictItemVO[]>> {
-  return requestClient.get<PageResponse<DictItemVO[]>>(`/api/dict/item/page`, { params });
+  return requestClient.get<PageResponse<DictItemVO[]>>(`/dict/item/page`, { params });
 }
 
 /**
- * getById: GET /api/dict/item/{id}
+ * getById: GET /dict/item/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<DictItemVO> {
-  return requestClient.get<DictItemVO>(`/api/dict/item/${id}`);
+  return requestClient.get<DictItemVO>(`/dict/item/${id}`);
 }
 
 /**
- * lookup: GET /api/dict/item/lookup
+ * lookup: GET /dict/item/lookup
  */
 export function lookup(params: {
     typeCode?: string;
     itemCode?: string;
   }): Promise<DictItemVO> {
-  return requestClient.get<DictItemVO>(`/api/dict/item/lookup`, { params });
+  return requestClient.get<DictItemVO>(`/dict/item/lookup`, { params });
 }
 
 /**
- * listByType: GET /api/dict/item/type/{typeCode}
+ * listByType: GET /dict/item/type/{typeCode}
  */
 export function listByType({ typeCode }: {
     typeCode: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/dict/item/type/${typeCode}`);
+  return requestClient.get<DictItemVO[]>(`/dict/item/type/${typeCode}`);
 }
 
 /**
- * listChildren: GET /api/dict/item/children/{parentId}
+ * listChildren: GET /dict/item/children/{parentId}
  */
 export function listChildren({ parentId }: {
     parentId: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/dict/item/children/${parentId}`);
+  return requestClient.get<DictItemVO[]>(`/dict/item/children/${parentId}`);
 }
 
 /**
- * buildTree: GET /api/dict/item/tree/{typeCode}
+ * buildTree: GET /dict/item/tree/{typeCode}
  */
 export function buildTree({ typeCode }: {
     typeCode: string;
   }): Promise<DictItemVO[]> {
-  return requestClient.get<DictItemVO[]>(`/api/dict/item/tree/${typeCode}`);
+  return requestClient.get<DictItemVO[]>(`/dict/item/tree/${typeCode}`);
 }
 
 /**
- * save: POST /api/dict/item
+ * save: POST /dict/item
  */
 export function save(data: DictItemDTO): Promise<string> {
-  return requestClient.post<string>(`/api/dict/item`, data);
+  return requestClient.post<string>(`/dict/item`, data);
 }
 
 /**
- * update: PUT /api/dict/item
+ * update: PUT /dict/item
  */
 export function update(data: DictItemDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/dict/item`, data);
+  return requestClient.put<boolean>(`/dict/item`, data);
 }
 
 /**
- * remove: DELETE /api/dict/item/{id}
+ * remove: DELETE /dict/item/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/dict/item/${id}`);
+  return requestClient.delete<boolean>(`/dict/item/${id}`);
 }
 
 /**
- * batchSave: POST /api/dict/item/batch
+ * batchSave: POST /dict/item/batch
  */
 export function batchSave(data: DictItemBatchDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/dict/item/batch`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/dict/item/batch`, data);
 }

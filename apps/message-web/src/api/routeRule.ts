@@ -15,51 +15,51 @@ import type { PageResponse } from './models';
 import type { MsgRouteRuleVO, PageQuery, RouteRuleUpsertDTO } from './models';
 
 /**
- * create: POST /api/message/route-rule
+ * create: POST /message/route-rule
  */
 export function create(data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
-  return requestClient.post<MsgRouteRuleVO>(`/api/message/route-rule`, data);
+  return requestClient.post<MsgRouteRuleVO>(`/message/route-rule`, data);
 }
 
 /**
- * update: PUT /api/message/route-rule/{id}
+ * update: PUT /message/route-rule/{id}
  */
 export function update({ id }: {
     id: string;
   }, data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
-  return requestClient.put<MsgRouteRuleVO>(`/api/message/route-rule/${id}`, data);
+  return requestClient.put<MsgRouteRuleVO>(`/message/route-rule/${id}`, data);
 }
 
 /**
- * delete: DELETE /api/message/route-rule/{id}
+ * delete: DELETE /message/route-rule/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/message/route-rule/${id}`);
+  return requestClient.delete<void>(`/message/route-rule/${id}`);
 }
 
 /**
- * getById: GET /api/message/route-rule/{id}
+ * getById: GET /message/route-rule/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<MsgRouteRuleVO> {
-  return requestClient.get<MsgRouteRuleVO>(`/api/message/route-rule/${id}`);
+  return requestClient.get<MsgRouteRuleVO>(`/message/route-rule/${id}`);
 }
 
 /**
- * page: GET /api/message/route-rule/page
+ * page: GET /message/route-rule/page
  */
 export function page(params: {
     query?: PageQuery;
   }): Promise<PageResponse<MsgRouteRuleVO[]>> {
-  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/api/message/route-rule/page`, { params });
+  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/message/route-rule/page`, { params });
 }
 
 /**
- * listEnabled: GET /api/message/route-rule/enabled
+ * listEnabled: GET /message/route-rule/enabled
  */
 export function listEnabled(): Promise<MsgRouteRuleVO[]> {
-  return requestClient.get<MsgRouteRuleVO[]>(`/api/message/route-rule/enabled`);
+  return requestClient.get<MsgRouteRuleVO[]>(`/message/route-rule/enabled`);
 }

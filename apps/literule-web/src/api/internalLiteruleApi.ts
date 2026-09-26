@@ -14,20 +14,20 @@ import { requestClient } from '#/api/request';
 import type { RuleResultVO } from './models';
 
 /**
- * dryRun: POST /api/internal/literule/rules/dry-run
+ * dryRun: POST /internal/literule/rules/dry-run
  */
 export function dryRun(params: {
     ruleCode?: string;
   }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
-  return requestClient.post<RuleResultVO[]>(`/api/internal/literule/rules/dry-run`, data, { params });
+  return requestClient.post<RuleResultVO[]>(`/internal/literule/rules/dry-run`, data, { params });
 }
 
 /**
- * evaluate: POST /api/internal/literule/rules/evaluate
+ * evaluate: POST /internal/literule/rules/evaluate
  */
 export function evaluate(params: {
     ruleCode?: string;
     scenario?: string;
   }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
-  return requestClient.post<RuleResultVO[]>(`/api/internal/literule/rules/evaluate`, data, { params });
+  return requestClient.post<RuleResultVO[]>(`/internal/literule/rules/evaluate`, data, { params });
 }

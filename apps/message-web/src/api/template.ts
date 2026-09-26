@@ -15,53 +15,53 @@ import type { PageResponse } from './models';
 import type { MsgTemplateVO, TemplateAuditDTO, TemplateCreateDTO, TemplateQueryDTO } from './models';
 
 /**
- * create: POST /api/message/template
+ * create: POST /message/template
  */
 export function create(data: TemplateCreateDTO): Promise<MsgTemplateVO> {
-  return requestClient.post<MsgTemplateVO>(`/api/message/template`, data);
+  return requestClient.post<MsgTemplateVO>(`/message/template`, data);
 }
 
 /**
- * update: PUT /api/message/template/{id}
+ * update: PUT /message/template/{id}
  */
 export function update({ id }: {
     id: string;
   }, data: TemplateCreateDTO): Promise<MsgTemplateVO> {
-  return requestClient.put<MsgTemplateVO>(`/api/message/template/${id}`, data);
+  return requestClient.put<MsgTemplateVO>(`/message/template/${id}`, data);
 }
 
 /**
- * delete: DELETE /api/message/template/{id}
+ * delete: DELETE /message/template/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/message/template/${id}`);
+  return requestClient.delete<void>(`/message/template/${id}`);
 }
 
 /**
- * getById: GET /api/message/template/{id}
+ * getById: GET /message/template/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<MsgTemplateVO> {
-  return requestClient.get<MsgTemplateVO>(`/api/message/template/${id}`);
+  return requestClient.get<MsgTemplateVO>(`/message/template/${id}`);
 }
 
 /**
- * page: GET /api/message/template/page
+ * page: GET /message/template/page
  */
 export function page(params: {
     query?: TemplateQueryDTO;
   }): Promise<PageResponse<MsgTemplateVO[]>> {
-  return requestClient.get<PageResponse<MsgTemplateVO[]>>(`/api/message/template/page`, { params });
+  return requestClient.get<PageResponse<MsgTemplateVO[]>>(`/message/template/page`, { params });
 }
 
 /**
- * audit: POST /api/message/template/{id}/audit
+ * audit: POST /message/template/{id}/audit
  */
 export function audit({ id }: {
     id: string;
   }, data: TemplateAuditDTO): Promise<void> {
-  return requestClient.post<void>(`/api/message/template/${id}/audit`, data);
+  return requestClient.post<void>(`/message/template/${id}/audit`, data);
 }

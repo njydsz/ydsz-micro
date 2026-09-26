@@ -15,42 +15,42 @@ import type { PageResponse } from './models';
 import type { SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './models';
 
 /**
- * page: GET /api/social-client-config/page
+ * page: GET /social-client-config/page
  */
 export function page(params: {
     query?: SocialClientPageQuery;
   }): Promise<PageResponse<SocialClientVO[]>> {
-  return requestClient.get<PageResponse<SocialClientVO[]>>(`/api/social-client-config/page`, { params });
+  return requestClient.get<PageResponse<SocialClientVO[]>>(`/social-client-config/page`, { params });
 }
 
 /**
- * listEnabled: GET /api/social-client-config/enabled
+ * listEnabled: GET /social-client-config/enabled
  */
 export function listEnabled(): Promise<SocialClientVO[]> {
-  return requestClient.get<SocialClientVO[]>(`/api/social-client-config/enabled`);
+  return requestClient.get<SocialClientVO[]>(`/social-client-config/enabled`);
 }
 
 /**
- * create: POST /api/social-client-config
+ * create: POST /social-client-config
  */
 export function create(data: SocialClientDTO): Promise<void> {
-  return requestClient.post<void>(`/api/social-client-config`, data);
+  return requestClient.post<void>(`/social-client-config`, data);
 }
 
 /**
- * update: PUT /api/social-client-config/{platform}
+ * update: PUT /social-client-config/{platform}
  */
 export function update({ platform }: {
     platform: string;
   }, data: SocialClientDTO): Promise<void> {
-  return requestClient.put<void>(`/api/social-client-config/${platform}`, data);
+  return requestClient.put<void>(`/social-client-config/${platform}`, data);
 }
 
 /**
- * delete: DELETE /api/social-client-config/{platform}
+ * delete: DELETE /social-client-config/{platform}
  */
 export function deleteApi({ platform }: {
     platform: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/social-client-config/${platform}`);
+  return requestClient.delete<void>(`/social-client-config/${platform}`);
 }

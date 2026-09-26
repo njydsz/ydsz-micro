@@ -48,7 +48,7 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
     { field: 'postName', title: t('page.postName'), minWidth: 150 },
     { field: 'postCode', title: t('page.postCode'), width: 150 },
     { field: 'description', title: t('page.description'), minWidth: 180 },
-    { field: 'sortOrder', title: t('page.sortOrder'), width: 80, align: 'center' },
+    { field: 'sort', title: t('page.sort'), width: 80, align: 'center' },
     {
       field: 'status',
       title: t('page.status'),

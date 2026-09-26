@@ -15,53 +15,53 @@ import type { PageResponse } from './models';
 import type { SecurityAlertPageQuery } from './models';
 
 /**
- * pageAlerts: GET /api/admin/security/alerts
+ * pageAlerts: GET /admin/security/alerts
  */
 export function pageAlerts(params: {
     query?: SecurityAlertPageQuery;
   }): Promise<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>> {
-  return requestClient.get<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>>(`/api/admin/security/alerts`, { params });
+  return requestClient.get<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>>(`/admin/security/alerts`, { params });
 }
 
 /**
- * getPendingAlerts: GET /api/admin/security/alerts/pending
+ * getPendingAlerts: GET /admin/security/alerts/pending
  */
 export function getPendingAlerts(params: {
     riskLevel?: string;
     limit?: number;
   }): Promise<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]> {
-  return requestClient.get<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>(`/api/admin/security/alerts/pending`, { params });
+  return requestClient.get<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>(`/admin/security/alerts/pending`, { params });
 }
 
 /**
- * acknowledgeAlert: PUT /api/admin/security/alerts/{id}/acknowledge
+ * acknowledgeAlert: PUT /admin/security/alerts/{id}/acknowledge
  */
 export function acknowledgeAlert({ id }: {
     id: string;
   }, params: {
     note?: string;
   }): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/admin/security/alerts/${id}/acknowledge`, { params });
+  return requestClient.put<boolean>(`/admin/security/alerts/${id}/acknowledge`, { params });
 }
 
 /**
- * resolveAlert: PUT /api/admin/security/alerts/{id}/resolve
+ * resolveAlert: PUT /admin/security/alerts/{id}/resolve
  */
 export function resolveAlert({ id }: {
     id: string;
   }, params: {
     note?: string;
   }): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/admin/security/alerts/${id}/resolve`, { params });
+  return requestClient.put<boolean>(`/admin/security/alerts/${id}/resolve`, { params });
 }
 
 /**
- * ignoreAlert: PUT /api/admin/security/alerts/{id}/ignore
+ * ignoreAlert: PUT /admin/security/alerts/{id}/ignore
  */
 export function ignoreAlert({ id }: {
     id: string;
   }, params: {
     note?: string;
   }): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/admin/security/alerts/${id}/ignore`, { params });
+  return requestClient.put<boolean>(`/admin/security/alerts/${id}/ignore`, { params });
 }

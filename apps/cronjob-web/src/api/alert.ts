@@ -14,64 +14,64 @@ import { requestClient } from '#/api/request';
 import type { AlertRulePostDTO, AlertRulePutDTO, JobAlertLogVO, JobAlertRuleVO } from './models';
 
 /**
- * createRule: POST /api/cronjob/alert/rule
+ * createRule: POST /cronjob/alert/rule
  */
 export function createRule(data: AlertRulePostDTO): Promise<string> {
-  return requestClient.post<string>(`/api/cronjob/alert/rule`, data);
+  return requestClient.post<string>(`/cronjob/alert/rule`, data);
 }
 
 /**
- * updateRule: PUT /api/cronjob/alert/rule/{id}
+ * updateRule: PUT /cronjob/alert/rule/{id}
  */
 export function updateRule({ id }: {
     id: string;
   }, data: AlertRulePutDTO): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/alert/rule/${id}`, data);
+  return requestClient.put<void>(`/cronjob/alert/rule/${id}`, data);
 }
 
 /**
- * deleteRule: DELETE /api/cronjob/alert/rule/{id}
+ * deleteRule: DELETE /cronjob/alert/rule/{id}
  */
 export function deleteRule({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/cronjob/alert/rule/${id}`);
+  return requestClient.delete<void>(`/cronjob/alert/rule/${id}`);
 }
 
 /**
- * getRuleById: GET /api/cronjob/alert/rule/{id}
+ * getRuleById: GET /cronjob/alert/rule/{id}
  */
 export function getRuleById({ id }: {
     id: string;
   }): Promise<JobAlertRuleVO> {
-  return requestClient.get<JobAlertRuleVO>(`/api/cronjob/alert/rule/${id}`);
+  return requestClient.get<JobAlertRuleVO>(`/cronjob/alert/rule/${id}`);
 }
 
 /**
- * listRules: GET /api/cronjob/alert/rules
+ * listRules: GET /cronjob/alert/rules
  */
 export function listRules(): Promise<JobAlertRuleVO[]> {
-  return requestClient.get<JobAlertRuleVO[]>(`/api/cronjob/alert/rules`);
+  return requestClient.get<JobAlertRuleVO[]>(`/cronjob/alert/rules`);
 }
 
 /**
- * toggleRule: PUT /api/cronjob/alert/rule/{id}/toggle
+ * toggleRule: PUT /cronjob/alert/rule/{id}/toggle
  */
 export function toggleRule({ id }: {
     id: string;
   }, params: {
     enabled?: number;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/alert/rule/${id}/toggle`, { params });
+  return requestClient.put<void>(`/cronjob/alert/rule/${id}/toggle`, { params });
 }
 
 /**
- * queryAlertLogs: GET /api/cronjob/alert/logs/{jobId}
+ * queryAlertLogs: GET /cronjob/alert/logs/{jobId}
  */
 export function queryAlertLogs({ jobId }: {
     jobId: string;
   }, params: {
     since?: string;
   }): Promise<JobAlertLogVO[]> {
-  return requestClient.get<JobAlertLogVO[]>(`/api/cronjob/alert/logs/${jobId}`, { params });
+  return requestClient.get<JobAlertLogVO[]>(`/cronjob/alert/logs/${jobId}`, { params });
 }

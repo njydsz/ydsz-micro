@@ -14,44 +14,44 @@ import { requestClient } from '#/api/request';
 import type { RuntimeSession } from './models';
 
 /**
- * getActiveSessions: GET /api/agent/runtime/sessions/active
+ * getActiveSessions: GET /agent/runtime/sessions/active
  */
 export function getActiveSessions(params: {
     tenantId?: string;
   }): Promise<RuntimeSession[]> {
-  return requestClient.get<RuntimeSession[]>(`/api/agent/runtime/sessions/active`, { params });
+  return requestClient.get<RuntimeSession[]>(`/agent/runtime/sessions/active`, { params });
 }
 
 /**
- * getRecentSessions: GET /api/agent/runtime/sessions/recent
+ * getRecentSessions: GET /agent/runtime/sessions/recent
  */
 export function getRecentSessions(params: {
     limit?: number;
   }): Promise<RuntimeSession[]> {
-  return requestClient.get<RuntimeSession[]>(`/api/agent/runtime/sessions/recent`, { params });
+  return requestClient.get<RuntimeSession[]>(`/agent/runtime/sessions/recent`, { params });
 }
 
 /**
- * getSession: GET /api/agent/runtime/sessions/{executionId}
+ * getSession: GET /agent/runtime/sessions/{executionId}
  */
 export function getSession({ executionId }: {
     executionId: string;
   }): Promise<RuntimeSession> {
-  return requestClient.get<RuntimeSession>(`/api/agent/runtime/sessions/${executionId}`);
+  return requestClient.get<RuntimeSession>(`/agent/runtime/sessions/${executionId}`);
 }
 
 /**
- * getOverview: GET /api/agent/runtime/overview
+ * getOverview: GET /agent/runtime/overview
  */
 export function getOverview(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/agent/runtime/overview`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/agent/runtime/overview`);
 }
 
 /**
- * forceRecycle: DELETE /api/agent/runtime/sessions/{executionId}
+ * forceRecycle: DELETE /agent/runtime/sessions/{executionId}
  */
 export function forceRecycle({ executionId }: {
     executionId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/agent/runtime/sessions/${executionId}`);
+  return requestClient.delete<boolean>(`/agent/runtime/sessions/${executionId}`);
 }

@@ -49,7 +49,7 @@ interface RoleFormState {
   roleCode: string;
   roleName: string;
   dataScope: string;
-  sortOrder: number;
+  sort?: number;
   status: string;
   builtIn: boolean;
   description: string;
@@ -60,7 +60,7 @@ const formData = reactive<RoleFormState>({
   roleCode: '',
   roleName: '',
   dataScope: '3',
-  sortOrder: 0,
+  sort: 0,
   status: '1',
   builtIn: false,
   description: '',
@@ -79,9 +79,9 @@ const [Modal, modalApi] = useYdModal({
       isEdit.value = true;
       Object.assign(formData, {
         id: data.record.id ?? '',
-        roleCode: data.record.roleCode ?? '',
-        roleName: data.record.roleName ?? '',
-        sortOrder: data.record.sortOrder ?? 0,
+roleCode: data.record.roleCode ?? '',
+roleName: data.record.roleName ?? '',
+sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
         builtIn: data.record.builtIn ?? false,
         description: data.record.description ?? '',
@@ -92,9 +92,9 @@ const [Modal, modalApi] = useYdModal({
         id: '',
         roleCode: '',
         roleName: '',
-        dataScope: '3',
-        sortOrder: 0,
-        status: '1',
+dataScope: '3',
+sort: 0,
+status: '1',
         builtIn: false,
         description: '',
       });
@@ -112,9 +112,9 @@ const [Modal, modalApi] = useYdModal({
       const payload: RoleDTO = {
         roleCode: formData.roleCode,
         roleName: formData.roleName,
-        dataScope: formData.dataScope,
-        sortOrder: formData.sortOrder,
-        status: formData.status,
+dataScope: formData.dataScope,
+sort: formData.sort,
+status: formData.status,
         builtIn: formData.builtIn,
         description: formData.description,
       };
@@ -162,7 +162,7 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.roleBas
         </YdSelect>
       </YdFormItem>
       <YdFormItem :label="t('page.sortOrder')">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem label="内置角色">
         <YdSwitch v-model="formData.builtIn" :active-value="true" :inactive-value="false" />

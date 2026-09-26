@@ -14,98 +14,98 @@ import { requestClient } from '#/api/request';
 import type { ApprovalFlowVO, ApprovalRecordVO, RuleApproveDTO, RuleDefinitionVO, RuleDelegateDTO, RuleRejectDTO, RuleStatusChangeDTO, RuleSubmitReviewDTO } from './models';
 
 /**
- * changeStatus: PUT /api/literule/rules/{ruleCode}/status
+ * changeStatus: PUT /literule/rules/{ruleCode}/status
  */
 export function changeStatus({ ruleCode }: {
     ruleCode: string;
   }, data: RuleStatusChangeDTO): Promise<RuleDefinitionVO> {
-  return requestClient.put<RuleDefinitionVO>(`/api/literule/rules/${ruleCode}/status`, data);
+  return requestClient.put<RuleDefinitionVO>(`/literule/rules/${ruleCode}/status`, data);
 }
 
 /**
- * approve: POST /api/literule/rules/{ruleCode}/approve
+ * approve: POST /literule/rules/{ruleCode}/approve
  */
 export function approve({ ruleCode }: {
     ruleCode: string;
   }, data: RuleApproveDTO): Promise<RuleDefinitionVO> {
-  return requestClient.post<RuleDefinitionVO>(`/api/literule/rules/${ruleCode}/approve`, data);
+  return requestClient.post<RuleDefinitionVO>(`/literule/rules/${ruleCode}/approve`, data);
 }
 
 /**
- * reject: POST /api/literule/rules/{ruleCode}/reject
+ * reject: POST /literule/rules/{ruleCode}/reject
  */
 export function reject({ ruleCode }: {
     ruleCode: string;
   }, data: RuleRejectDTO): Promise<RuleDefinitionVO> {
-  return requestClient.post<RuleDefinitionVO>(`/api/literule/rules/${ruleCode}/reject`, data);
+  return requestClient.post<RuleDefinitionVO>(`/literule/rules/${ruleCode}/reject`, data);
 }
 
 /**
- * submitReview: POST /api/literule/rules/{ruleCode}/submit-review
+ * submitReview: POST /literule/rules/{ruleCode}/submit-review
  */
 export function submitReview({ ruleCode }: {
     ruleCode: string;
   }, data: RuleSubmitReviewDTO): Promise<ApprovalRecordVO> {
-  return requestClient.post<ApprovalRecordVO>(`/api/literule/rules/${ruleCode}/submit-review`, data);
+  return requestClient.post<ApprovalRecordVO>(`/literule/rules/${ruleCode}/submit-review`, data);
 }
 
 /**
- * approveLevel: POST /api/literule/rules/{ruleCode}/approve-level
+ * approveLevel: POST /literule/rules/{ruleCode}/approve-level
  */
 export function approveLevel({ ruleCode }: {
     ruleCode: string;
   }, data: RuleApproveDTO): Promise<ApprovalRecordVO> {
-  return requestClient.post<ApprovalRecordVO>(`/api/literule/rules/${ruleCode}/approve-level`, data);
+  return requestClient.post<ApprovalRecordVO>(`/literule/rules/${ruleCode}/approve-level`, data);
 }
 
 /**
- * rejectLevel: POST /api/literule/rules/{ruleCode}/reject-level
+ * rejectLevel: POST /literule/rules/{ruleCode}/reject-level
  */
 export function rejectLevel({ ruleCode }: {
     ruleCode: string;
   }, data: RuleRejectDTO): Promise<ApprovalRecordVO> {
-  return requestClient.post<ApprovalRecordVO>(`/api/literule/rules/${ruleCode}/reject-level`, data);
+  return requestClient.post<ApprovalRecordVO>(`/literule/rules/${ruleCode}/reject-level`, data);
 }
 
 /**
- * delegate: POST /api/literule/rules/{ruleCode}/delegate
+ * delegate: POST /literule/rules/{ruleCode}/delegate
  */
 export function delegate({ ruleCode }: {
     ruleCode: string;
   }, data: RuleDelegateDTO): Promise<ApprovalRecordVO> {
-  return requestClient.post<ApprovalRecordVO>(`/api/literule/rules/${ruleCode}/delegate`, data);
+  return requestClient.post<ApprovalRecordVO>(`/literule/rules/${ruleCode}/delegate`, data);
 }
 
 /**
- * approvalStatus: GET /api/literule/rules/{ruleCode}/approval-status
+ * approvalStatus: GET /literule/rules/{ruleCode}/approval-status
  */
 export function approvalStatus({ ruleCode }: {
     ruleCode: string;
   }): Promise<ApprovalRecordVO> {
-  return requestClient.get<ApprovalRecordVO>(`/api/literule/rules/${ruleCode}/approval-status`);
+  return requestClient.get<ApprovalRecordVO>(`/literule/rules/${ruleCode}/approval-status`);
 }
 
 /**
- * pendingApprovals: GET /api/literule/rules/pending-approvals
+ * pendingApprovals: GET /literule/rules/pending-approvals
  */
 export function pendingApprovals(params: {
     approver?: string;
   }): Promise<ApprovalRecordVO[]> {
-  return requestClient.get<ApprovalRecordVO[]>(`/api/literule/rules/pending-approvals`, { params });
+  return requestClient.get<ApprovalRecordVO[]>(`/literule/rules/pending-approvals`, { params });
 }
 
 /**
- * cancelReview: POST /api/literule/rules/{ruleCode}/cancel-review
+ * cancelReview: POST /literule/rules/{ruleCode}/cancel-review
  */
 export function cancelReview({ ruleCode }: {
     ruleCode: string;
   }): Promise<ApprovalRecordVO> {
-  return requestClient.post<ApprovalRecordVO>(`/api/literule/rules/${ruleCode}/cancel-review`);
+  return requestClient.post<ApprovalRecordVO>(`/literule/rules/${ruleCode}/cancel-review`);
 }
 
 /**
- * approvalFlows: GET /api/literule/rules/approval-flows
+ * approvalFlows: GET /literule/rules/approval-flows
  */
 export function approvalFlows(): Promise<ApprovalFlowVO[]> {
-  return requestClient.get<ApprovalFlowVO[]>(`/api/literule/rules/approval-flows`);
+  return requestClient.get<ApprovalFlowVO[]>(`/literule/rules/approval-flows`);
 }

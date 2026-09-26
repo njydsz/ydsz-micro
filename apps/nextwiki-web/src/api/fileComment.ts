@@ -14,35 +14,35 @@ import { requestClient } from '#/api/request';
 import type { FileCommentVO } from './models';
 
 /**
- * listComments: GET /api/nextwiki/comments/file/{fileNodeId}
+ * listComments: GET /nextwiki/comments/file/{fileNodeId}
  */
 export function listComments({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<FileCommentVO[]> {
-  return requestClient.get<FileCommentVO[]>(`/api/nextwiki/comments/file/${fileNodeId}`);
+  return requestClient.get<FileCommentVO[]>(`/nextwiki/comments/file/${fileNodeId}`);
 }
 
 /**
- * addComment: POST /api/nextwiki/comments
+ * addComment: POST /nextwiki/comments
  */
 export function addComment(data: Record<string, unknown>): Promise<FileCommentVO> {
-  return requestClient.post<FileCommentVO>(`/api/nextwiki/comments`, data);
+  return requestClient.post<FileCommentVO>(`/nextwiki/comments`, data);
 }
 
 /**
- * deleteComment: DELETE /api/nextwiki/comments/{commentId}
+ * deleteComment: DELETE /nextwiki/comments/{commentId}
  */
 export function deleteComment({ commentId }: {
     commentId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/nextwiki/comments/${commentId}`);
+  return requestClient.delete<void>(`/nextwiki/comments/${commentId}`);
 }
 
 /**
- * resolveComment: POST /api/nextwiki/comments/{commentId}/resolve
+ * resolveComment: POST /nextwiki/comments/{commentId}/resolve
  */
 export function resolveComment({ commentId }: {
     commentId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/comments/${commentId}/resolve`);
+  return requestClient.post<void>(`/nextwiki/comments/${commentId}/resolve`);
 }

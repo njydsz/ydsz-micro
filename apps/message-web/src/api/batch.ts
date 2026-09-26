@@ -14,23 +14,23 @@ import { requestClient } from '#/api/request';
 import type { BatchProgressDTO, BatchSendRequestDTO, MsgBatchVO } from './models';
 
 /**
- * submitBatch: POST /api/message/batch/send
+ * submitBatch: POST /message/batch/send
  */
 export function submitBatch(data: BatchSendRequestDTO): Promise<MsgBatchVO> {
-  return requestClient.post<MsgBatchVO>(`/api/message/batch/send`, data);
+  return requestClient.post<MsgBatchVO>(`/message/batch/send`, data);
 }
 
 /**
- * getProgress: GET /api/message/batch/progress/{batchId}
+ * getProgress: GET /message/batch/progress/{batchId}
  */
 export function getProgress({ batchId }: {
     batchId: string;
   }): Promise<BatchProgressDTO> {
-  return requestClient.get<BatchProgressDTO>(`/api/message/batch/progress/${batchId}`);
+  return requestClient.get<BatchProgressDTO>(`/message/batch/progress/${batchId}`);
 }
 
 /**
- * subscribeProgress: GET /api/message/batch/progress/{batchId}/sse
+ * subscribeProgress: GET /message/batch/progress/{batchId}/sse
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code SseEmitter}，响应结构未固定为具名 VO，
@@ -40,5 +40,5 @@ export function getProgress({ batchId }: {
 export function subscribeProgress({ batchId }: {
     batchId: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/message/batch/progress/${batchId}/sse`);
+  return requestClient.get<unknown>(`/message/batch/progress/${batchId}/sse`);
 }

@@ -14,22 +14,22 @@ import { requestClient } from '#/api/request';
 import type { RuleDslVO } from './models';
 
 /**
- * validate: POST /api/literule/dsl/validate
+ * validate: POST /literule/dsl/validate
  */
 export function validate(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/dsl/validate`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/dsl/validate`, data);
 }
 
 /**
- * parse: POST /api/literule/dsl/parse
+ * parse: POST /literule/dsl/parse
  */
 export function parse(data: Record<string, Record<string, unknown>>): Promise<RuleDslVO> {
-  return requestClient.post<RuleDslVO>(`/api/literule/dsl/parse`, data);
+  return requestClient.post<RuleDslVO>(`/literule/dsl/parse`, data);
 }
 
 /**
- * preview: POST /api/literule/dsl/preview
+ * preview: POST /literule/dsl/preview
  */
 export function preview(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.post<Record<string, Record<string, unknown>>[]>(`/api/literule/dsl/preview`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>[]>(`/literule/dsl/preview`, data);
 }

@@ -14,47 +14,47 @@ import { requestClient } from '#/api/request';
 import type { DepartmentDTO, DepartmentTreeVO, DepartmentVO } from './models';
 
 /**
- * list: GET /api/dept/list
+ * list: GET /dept/list
  */
 export function list(): Promise<DepartmentVO[]> {
-  return requestClient.get<DepartmentVO[]>(`/api/dept/list`);
+  return requestClient.get<DepartmentVO[]>(`/dept/list`);
 }
 
 /**
- * tree: GET /api/dept/tree
+ * tree: GET /dept/tree
  */
 export function tree(): Promise<DepartmentTreeVO[]> {
-  return requestClient.get<DepartmentTreeVO[]>(`/api/dept/tree`);
+  return requestClient.get<DepartmentTreeVO[]>(`/dept/tree`);
 }
 
 /**
- * getById: GET /api/dept/{id}
+ * getById: GET /dept/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<DepartmentVO> {
-  return requestClient.get<DepartmentVO>(`/api/dept/${id}`);
+  return requestClient.get<DepartmentVO>(`/dept/${id}`);
 }
 
 /**
- * create: POST /api/dept
+ * create: POST /dept
  */
 export function create(data: DepartmentDTO): Promise<string> {
-  return requestClient.post<string>(`/api/dept`, data);
+  return requestClient.post<string>(`/dept`, data);
 }
 
 /**
- * update: PUT /api/dept
+ * update: PUT /dept
  */
 export function update(data: DepartmentDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/dept`, data);
+  return requestClient.put<boolean>(`/dept`, data);
 }
 
 /**
- * remove: DELETE /api/dept/{id}
+ * remove: DELETE /dept/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/dept/${id}`);
+  return requestClient.delete<boolean>(`/dept/${id}`);
 }

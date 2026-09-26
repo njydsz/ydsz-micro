@@ -14,22 +14,22 @@ import { requestClient } from '#/api/request';
 import type { UserPreferenceDTO, UserPreferenceVO } from './models';
 
 /**
- * get: GET /api/user/preferences
+ * get: GET /user/preferences
  */
 export function get(): Promise<UserPreferenceVO> {
-  return requestClient.get<UserPreferenceVO>(`/api/user/preferences`);
+  return requestClient.get<UserPreferenceVO>(`/user/preferences`);
 }
 
 /**
- * save: PUT /api/user/preferences
+ * save: PUT /user/preferences
  */
 export function save(data: UserPreferenceDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/user/preferences`, data);
+  return requestClient.put<boolean>(`/user/preferences`, data);
 }
 
 /**
- * reset: POST /api/user/preferences/reset
+ * reset: POST /user/preferences/reset
  */
 export function reset(): Promise<UserPreferenceVO> {
-  return requestClient.post<UserPreferenceVO>(`/api/user/preferences/reset`);
+  return requestClient.post<UserPreferenceVO>(`/user/preferences/reset`);
 }

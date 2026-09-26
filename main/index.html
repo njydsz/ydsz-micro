@@ -14,6 +14,16 @@
     <!-- 由 vite 注入 VITE_APP_TITLE 变量，在 .env 文件内配置 -->
     <title><%= VITE_APP_TITLE %></title>
     <link rel="icon" href="/favicon.ico" />
+    <!-- Google Fonts: preconnect 字体资源域，减少首请求延迟 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Google Fonts 字体加载 — Inter Variable + JetBrains Mono
+      - display=swap: 字体加载完成前使用回退字体，避免 FOIT（不可见文本闪烁）
+      - Inter Variable: 含 opsz(14..32) + wght(100..900) 双可变轴
+      - JetBrains Mono: wght(400..700) 可变轴
+    -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400..700&display=swap" />
     <!-- C4: preconnect 外部资源域，减少首请求延迟 -->
     <link rel="preconnect" href="https://hm.baidu.com" crossorigin />
     <link rel="dns-prefetch" href="https://hm.baidu.com" />

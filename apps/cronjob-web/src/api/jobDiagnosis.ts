@@ -14,10 +14,10 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * diagnose: GET /api/cronjob/monitor/diagnosis/{jobKey}
+ * diagnose: GET /cronjob/monitor/diagnosis/{jobKey}
  */
 export function diagnose({ jobKey }: {
     jobKey: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/monitor/diagnosis/${jobKey}`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/monitor/diagnosis/${jobKey}`);
 }

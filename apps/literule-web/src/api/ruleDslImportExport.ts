@@ -14,26 +14,26 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * importDsl: POST /api/literule/dsl/import
+ * importDsl: POST /literule/dsl/import
  */
 export function importDsl(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/dsl/import`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/dsl/import`, data);
 }
 
 /**
- * exportAll: GET /api/literule/dsl/export
+ * exportAll: GET /literule/dsl/export
  */
 export function exportAll(params: {
     category?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/literule/dsl/export`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/dsl/export`, { params });
 }
 
 /**
- * exportSingle: GET /api/literule/dsl/export/{ruleCode}
+ * exportSingle: GET /literule/dsl/export/{ruleCode}
  */
 export function exportSingle({ ruleCode }: {
     ruleCode: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/literule/dsl/export/${ruleCode}`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/dsl/export/${ruleCode}`);
 }

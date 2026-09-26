@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * getOverview: GET /api/sso/metrics/overview
+ * getOverview: GET /sso/metrics/overview
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,5 +22,5 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function getOverview(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/sso/metrics/overview`);
+  return requestClient.get<unknown>(`/sso/metrics/overview`);
 }

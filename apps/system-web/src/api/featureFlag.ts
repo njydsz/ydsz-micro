@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * me: GET /api/feature-flags/me
+ * me: GET /feature-flags/me
  */
 export function me(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/feature-flags/me`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/feature-flags/me`);
 }

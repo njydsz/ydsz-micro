@@ -14,59 +14,59 @@ import { requestClient } from '#/api/request';
 import type { MfaOperationDTO, MfaSetupVO, UserAccountVO, UserProfileUpdateDTO } from './models';
 
 /**
- * getCurrentUserProfile: GET /api/profile/me
+ * getCurrentUserProfile: GET /profile/me
  */
 export function getCurrentUserProfile(): Promise<UserAccountVO> {
-  return requestClient.get<UserAccountVO>(`/api/profile/me`);
+  return requestClient.get<UserAccountVO>(`/profile/me`);
 }
 
 /**
- * updateCurrentUserProfile: PUT /api/profile/me
+ * updateCurrentUserProfile: PUT /profile/me
  */
 export function updateCurrentUserProfile(data: UserProfileUpdateDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/profile/me`, data);
+  return requestClient.put<boolean>(`/profile/me`, data);
 }
 
 /**
- * changePassword: PUT /api/profile/password
+ * changePassword: PUT /profile/password
  */
 export function changePassword(data: Record<string, unknown>): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/profile/password`, data);
+  return requestClient.put<boolean>(`/profile/password`, data);
 }
 
 /**
- * uploadAvatar: PUT /api/profile/avatar
+ * uploadAvatar: PUT /profile/avatar
  */
 export function uploadAvatar(params: {
     file?: Record<string, unknown>;
   }): Promise<string> {
-  return requestClient.put<string>(`/api/profile/avatar`, { params });
+  return requestClient.put<string>(`/profile/avatar`, { params });
 }
 
 /**
- * getMfaStatus: GET /api/profile/mfa/status
+ * getMfaStatus: GET /profile/mfa/status
  */
 export function getMfaStatus(): Promise<boolean> {
-  return requestClient.get<boolean>(`/api/profile/mfa/status`);
+  return requestClient.get<boolean>(`/profile/mfa/status`);
 }
 
 /**
- * setupMfa: POST /api/profile/mfa/setup
+ * setupMfa: POST /profile/mfa/setup
  */
 export function setupMfa(): Promise<MfaSetupVO> {
-  return requestClient.post<MfaSetupVO>(`/api/profile/mfa/setup`);
+  return requestClient.post<MfaSetupVO>(`/profile/mfa/setup`);
 }
 
 /**
- * activateMfa: POST /api/profile/mfa/activate
+ * activateMfa: POST /profile/mfa/activate
  */
 export function activateMfa(data: MfaOperationDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/profile/mfa/activate`, data);
+  return requestClient.post<boolean>(`/profile/mfa/activate`, data);
 }
 
 /**
- * disableMfa: POST /api/profile/mfa/disable
+ * disableMfa: POST /profile/mfa/disable
  */
 export function disableMfa(data: MfaOperationDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/profile/mfa/disable`, data);
+  return requestClient.post<boolean>(`/profile/mfa/disable`, data);
 }

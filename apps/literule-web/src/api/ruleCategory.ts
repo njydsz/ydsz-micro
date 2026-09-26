@@ -14,48 +14,48 @@ import { requestClient } from '#/api/request';
 import type { CategoryNodeVO, RuleDefinitionVO } from './models';
 
 /**
- * categoryTree: GET /api/literule/rules/category-tree
+ * categoryTree: GET /literule/rules/category-tree
  */
 export function categoryTree(): Promise<CategoryNodeVO> {
-  return requestClient.get<CategoryNodeVO>(`/api/literule/rules/category-tree`);
+  return requestClient.get<CategoryNodeVO>(`/literule/rules/category-tree`);
 }
 
 /**
- * listByCategoryPath: GET /api/literule/rules/by-category-path
+ * listByCategoryPath: GET /literule/rules/by-category-path
  */
 export function listByCategoryPath(params: {
     path?: string;
   }): Promise<RuleDefinitionVO[]> {
-  return requestClient.get<RuleDefinitionVO[]>(`/api/literule/rules/by-category-path`, { params });
+  return requestClient.get<RuleDefinitionVO[]>(`/literule/rules/by-category-path`, { params });
 }
 
 /**
- * listByOwner: GET /api/literule/rules/by-owner
+ * listByOwner: GET /literule/rules/by-owner
  */
 export function listByOwner(params: {
     owner?: string;
   }): Promise<RuleDefinitionVO[]> {
-  return requestClient.get<RuleDefinitionVO[]>(`/api/literule/rules/by-owner`, { params });
+  return requestClient.get<RuleDefinitionVO[]>(`/literule/rules/by-owner`, { params });
 }
 
 /**
- * setOwner: PUT /api/literule/rules/{ruleCode}/owner
+ * setOwner: PUT /literule/rules/{ruleCode}/owner
  */
 export function setOwner({ ruleCode }: {
     ruleCode: string;
   }, params: {
     owner?: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/literule/rules/${ruleCode}/owner`, { params });
+  return requestClient.put<void>(`/literule/rules/${ruleCode}/owner`, { params });
 }
 
 /**
- * setCategoryPath: PUT /api/literule/rules/{ruleCode}/category-path
+ * setCategoryPath: PUT /literule/rules/{ruleCode}/category-path
  */
 export function setCategoryPath({ ruleCode }: {
     ruleCode: string;
   }, params: {
     path?: string;
   }): Promise<void> {
-  return requestClient.put<void>(`/api/literule/rules/${ruleCode}/category-path`, { params });
+  return requestClient.put<void>(`/literule/rules/${ruleCode}/category-path`, { params });
 }

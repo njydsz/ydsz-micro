@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * createExperiment: POST /api/message/canary/experiment
+ * createExperiment: POST /message/canary/experiment
  */
 export function createExperiment(params: {
     templateCode?: string;
@@ -22,15 +22,15 @@ export function createExperiment(params: {
     canaryPercent?: number;
     metricsGoal?: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/message/canary/experiment`, { params });
+  return requestClient.post<string>(`/message/canary/experiment`, { params });
 }
 
 /**
- * assignBucket: GET /api/message/canary/assign
+ * assignBucket: GET /message/canary/assign
  */
 export function assignBucket(params: {
     experimentId?: string;
     requestKey?: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/message/canary/assign`, { params });
+  return requestClient.get<string>(`/message/canary/assign`, { params });
 }

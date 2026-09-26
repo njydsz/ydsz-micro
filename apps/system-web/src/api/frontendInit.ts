@@ -14,17 +14,17 @@ import { requestClient } from '#/api/request';
 import type { FrontendInitVO } from './models';
 
 /**
- * init: GET /api/system/init
+ * init: GET /system/init
  */
 export function init(): Promise<FrontendInitVO> {
-  return requestClient.get<FrontendInitVO>(`/api/system/init`);
+  return requestClient.get<FrontendInitVO>(`/system/init`);
 }
 
 /**
- * initWithDicts: GET /api/system/init/dicts
+ * initWithDicts: GET /system/init/dicts
  */
 export function initWithDicts(params: {
     dictTypes?: string[];
   }): Promise<FrontendInitVO> {
-  return requestClient.get<FrontendInitVO>(`/api/system/init/dicts`, { params });
+  return requestClient.get<FrontendInitVO>(`/system/init/dicts`, { params });
 }

@@ -14,29 +14,29 @@ import { requestClient } from '#/api/request';
 import type { AccountUnlockDTO, ForgotPasswordDTO, SelfRegisterDTO, SendVerifyCodeDTO } from './models';
 
 /**
- * sendVerifyCode: POST /api/self-service/send-verify-code
+ * sendVerifyCode: POST /self-service/send-verify-code
  */
 export function sendVerifyCode(data: SendVerifyCodeDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/self-service/send-verify-code`, data);
+  return requestClient.post<boolean>(`/self-service/send-verify-code`, data);
 }
 
 /**
- * register: POST /api/self-service/register
+ * register: POST /self-service/register
  */
 export function register(data: SelfRegisterDTO): Promise<string> {
-  return requestClient.post<string>(`/api/self-service/register`, data);
+  return requestClient.post<string>(`/self-service/register`, data);
 }
 
 /**
- * forgotPassword: POST /api/self-service/forgot-password
+ * forgotPassword: POST /self-service/forgot-password
  */
 export function forgotPassword(data: ForgotPasswordDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/self-service/forgot-password`, data);
+  return requestClient.post<boolean>(`/self-service/forgot-password`, data);
 }
 
 /**
- * unlockAccount: POST /api/self-service/unlock
+ * unlockAccount: POST /self-service/unlock
  */
 export function unlockAccount(data: AccountUnlockDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/self-service/unlock`, data);
+  return requestClient.post<boolean>(`/self-service/unlock`, data);
 }

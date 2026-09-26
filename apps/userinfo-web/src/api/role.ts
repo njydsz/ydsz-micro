@@ -15,67 +15,67 @@ import type { PageResponse } from './models';
 import type { AssignPermissionsDTO, RoleDTO, RolePageQuery, RoleVO } from './models';
 
 /**
- * page: GET /api/role/page
+ * page: GET /role/page
  */
 export function page(params: {
     query?: RolePageQuery;
   }): Promise<PageResponse<RoleVO[]>> {
-  return requestClient.get<PageResponse<RoleVO[]>>(`/api/role/page`, { params });
+  return requestClient.get<PageResponse<RoleVO[]>>(`/role/page`, { params });
 }
 
 /**
- * list: GET /api/role/list
+ * list: GET /role/list
  */
 export function list(): Promise<RoleVO[]> {
-  return requestClient.get<RoleVO[]>(`/api/role/list`);
+  return requestClient.get<RoleVO[]>(`/role/list`);
 }
 
 /**
- * getById: GET /api/role/{id}
+ * getById: GET /role/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<RoleVO> {
-  return requestClient.get<RoleVO>(`/api/role/${id}`);
+  return requestClient.get<RoleVO>(`/role/${id}`);
 }
 
 /**
- * create: POST /api/role
+ * create: POST /role
  */
 export function create(data: RoleDTO): Promise<string> {
-  return requestClient.post<string>(`/api/role`, data);
+  return requestClient.post<string>(`/role`, data);
 }
 
 /**
- * update: PUT /api/role
+ * update: PUT /role
  */
 export function update(data: RoleDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/role`, data);
+  return requestClient.put<boolean>(`/role`, data);
 }
 
 /**
- * remove: DELETE /api/role/{id}
+ * remove: DELETE /role/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/role/${id}`);
+  return requestClient.delete<boolean>(`/role/${id}`);
 }
 
 /**
- * assignPermissions: POST /api/role/{roleId}/permissions
+ * assignPermissions: POST /role/{roleId}/permissions
  */
 export function assignPermissions({ roleId }: {
     roleId: string;
   }, data: AssignPermissionsDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/role/${roleId}/permissions`, data);
+  return requestClient.post<boolean>(`/role/${roleId}/permissions`, data);
 }
 
 /**
- * getRolePermissions: GET /api/role/{roleId}/permissions
+ * getRolePermissions: GET /role/{roleId}/permissions
  */
 export function getRolePermissions({ roleId }: {
     roleId: string;
   }): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/role/${roleId}/permissions`);
+  return requestClient.get<string[]>(`/role/${roleId}/permissions`);
 }

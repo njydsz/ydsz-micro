@@ -14,46 +14,46 @@ import { requestClient } from '#/api/request';
 import type { FlowDelegateAuthPostDTO, FlowDelegateAuthVO } from './models';
 
 /**
- * createDelegateAuth: POST /api/workflow/engine/delegateAuth/create
+ * createDelegateAuth: POST /workflow/engine/delegateAuth/create
  */
 export function createDelegateAuth(data: FlowDelegateAuthPostDTO): Promise<string> {
-  return requestClient.post<string>(`/api/workflow/engine/delegateAuth/create`, data);
+  return requestClient.post<string>(`/workflow/engine/delegateAuth/create`, data);
 }
 
 /**
- * revokeDelegateAuth: POST /api/workflow/engine/delegateAuth/{id}/revoke
+ * revokeDelegateAuth: POST /workflow/engine/delegateAuth/{id}/revoke
  */
 export function revokeDelegateAuth({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/workflow/engine/delegateAuth/${id}/revoke`);
+  return requestClient.post<void>(`/workflow/engine/delegateAuth/${id}/revoke`);
 }
 
 /**
- * updateDelegateAuthStatus: POST /api/workflow/engine/delegateAuth/{id}/status
+ * updateDelegateAuthStatus: POST /workflow/engine/delegateAuth/{id}/status
  */
 export function updateDelegateAuthStatus({ id }: {
     id: string;
   }, params: {
     status?: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/workflow/engine/delegateAuth/${id}/status`, { params });
+  return requestClient.post<void>(`/workflow/engine/delegateAuth/${id}/status`, { params });
 }
 
 /**
- * listMyDelegateAuths: GET /api/workflow/engine/delegateAuth/mine
+ * listMyDelegateAuths: GET /workflow/engine/delegateAuth/mine
  */
 export function listMyDelegateAuths(params: {
     status?: string;
   }): Promise<FlowDelegateAuthVO[]> {
-  return requestClient.get<FlowDelegateAuthVO[]>(`/api/workflow/engine/delegateAuth/mine`, { params });
+  return requestClient.get<FlowDelegateAuthVO[]>(`/workflow/engine/delegateAuth/mine`, { params });
 }
 
 /**
- * listAsDelegate: GET /api/workflow/engine/delegateAuth/asDelegate
+ * listAsDelegate: GET /workflow/engine/delegateAuth/asDelegate
  */
 export function listAsDelegate(params: {
     status?: string;
   }): Promise<FlowDelegateAuthVO[]> {
-  return requestClient.get<FlowDelegateAuthVO[]>(`/api/workflow/engine/delegateAuth/asDelegate`, { params });
+  return requestClient.get<FlowDelegateAuthVO[]>(`/workflow/engine/delegateAuth/asDelegate`, { params });
 }

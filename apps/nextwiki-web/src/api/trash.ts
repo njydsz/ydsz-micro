@@ -14,40 +14,40 @@ import { requestClient } from '#/api/request';
 import type { TrashItemVO } from './models';
 
 /**
- * list: GET /api/nextwiki/trash/list
+ * list: GET /nextwiki/trash/list
  */
 export function list(): Promise<TrashItemVO[]> {
-  return requestClient.get<TrashItemVO[]>(`/api/nextwiki/trash/list`);
+  return requestClient.get<TrashItemVO[]>(`/nextwiki/trash/list`);
 }
 
 /**
- * restore: POST /api/nextwiki/trash/{trashItemId}/restore
+ * restore: POST /nextwiki/trash/{trashItemId}/restore
  */
 export function restore({ trashItemId }: {
     trashItemId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/trash/${trashItemId}/restore`);
+  return requestClient.post<void>(`/nextwiki/trash/${trashItemId}/restore`);
 }
 
 /**
- * batchRestore: POST /api/nextwiki/trash/batch-restore
+ * batchRestore: POST /nextwiki/trash/batch-restore
  */
 export function batchRestore(data: string[]): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/trash/batch-restore`, data);
+  return requestClient.post<void>(`/nextwiki/trash/batch-restore`, data);
 }
 
 /**
- * purge: DELETE /api/nextwiki/trash/{trashItemId}
+ * purge: DELETE /nextwiki/trash/{trashItemId}
  */
 export function purge({ trashItemId }: {
     trashItemId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/nextwiki/trash/${trashItemId}`);
+  return requestClient.delete<void>(`/nextwiki/trash/${trashItemId}`);
 }
 
 /**
- * emptyTrash: DELETE /api/nextwiki/trash/empty
+ * emptyTrash: DELETE /nextwiki/trash/empty
  */
 export function emptyTrash(): Promise<void> {
-  return requestClient.delete<void>(`/api/nextwiki/trash/empty`);
+  return requestClient.delete<void>(`/nextwiki/trash/empty`);
 }

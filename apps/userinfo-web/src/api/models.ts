@@ -155,6 +155,26 @@ export interface LoginDTO {
 }
 
 /**
+ * HttpServletRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 刷新 Token 请求体
  *
  * 封装 refreshToken 字段，避免与 com.njydsz.userinfo.domain.dto.LoginDTO 耦合。
@@ -267,6 +287,16 @@ export interface AuthPolicyDTO {
 }
 
 /**
+ * ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ResponseEntity {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 公司请求 DTO。
  *
  * 同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
@@ -359,6 +389,25 @@ export interface LanguageDTO {
 }
 
 /**
+ * 登录日志分页查询条件。
+ *
+ * 支持按用户名、IP、登录结果、时间范围筛选。
+ */
+export interface LoginLogPageQuery {
+  serialVersionUID?: number;
+  /** 用户名（模糊匹配） */
+  username?: string;
+  /** 登录 IP（精确或模糊匹配） */
+  loginIp?: string;
+  /** 登录结果（SUCCESS/FAILED/ALL） */
+  status?: string;
+  /** 起始时间（含） */
+  startTime?: string;
+  /** 结束时间（含） */
+  endTime?: string;
+}
+
+/**
  * 菜单请求 DTO。
  *
  * 同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
@@ -373,11 +422,11 @@ export interface MenuDTO {
   menuName?: string;
   /** 菜单编码（全局唯一） */
   menuCode?: string;
-  /** 菜单类型（DIR=目录 / YdMenu=菜单 / BUTTON=按钮） */
+  /** 菜单类型（DIR=目录 / Menu=菜单 / BUTTON=按钮） */
   menuType?: string;
-  /** 前端路由路径（menuType=YdMenu 时必填） */
+  /** 前端路由路径（menuType=Menu 时必填） */
   path?: string;
-  /** 前端组件路径（menuType=YdMenu 时必填，如 `"system/user/index"`） */
+  /** 前端组件路径（menuType=Menu 时必填，如 `"system/user/index"`） */
   component?: string;
   /** 菜单图标（Iconify / Element Plus 图标名） */
   icon?: string;
@@ -389,6 +438,26 @@ export interface MenuDTO {
   visible?: number;
   /** 启用状态（`"ENABLED"` / `"DISABLED"`） */
   status?: string;
+}
+
+/**
+ * RegisterApplicationDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface RegisterApplicationDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * UpdateApplicationDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface UpdateApplicationDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -670,7 +739,7 @@ export interface ScimMeta {
  * </pre>
  */
 export interface ScimPatchOp {
-  Operations?: Record<string, unknown>[];
+  Operations?: ScimPatchOperation[];
   /**
    * 操作类型。
    * 可选值：add、remove、replace（大小写不敏感）。
@@ -692,7 +761,31 @@ export interface ScimPatchOp {
   /** Schema 标识（固定值）。 */
   schemas?: string[];
   /** PATCH 操作列表（按顺序执行）。 */
-  operations?: Record<string, unknown>[];
+  operations?: ScimPatchOperation[];
+}
+
+/**
+ * 单个 PATCH 操作。
+ *
+ * 表示对资源的一个原子修改操作。
+ */
+export interface ScimPatchOperation {
+  /**
+   * 操作类型。
+   * 可选值：add、remove、replace（大小写不敏感）。
+   */
+  op?: string;
+  /**
+   * 目标属性路径（可选）。
+   * 支持 SCIM 标准路径语法，如 `displayName`、`emails`、
+   * `emails[value eq "xxx"].value`。为 null 时表示操作整个资源。
+   */
+  path?: string;
+  /**
+   * 操作值（可选）。
+   * 用于 add/replace 操作。当 op 为 remove 时，value 应为 null。
+   */
+  value?: Record<string, unknown>;
 }
 
 /**
@@ -755,6 +848,26 @@ export interface SocialClientDTO {
   sort?: number;
   /** 备注说明 */
   remark?: string;
+}
+
+/**
+ * TokenExchangeRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface TokenExchangeRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * LogoutNotifyRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface LogoutNotifyRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -939,6 +1052,7 @@ export interface UserSearchQuery {
  * 后端整体覆盖式保存（PUT 语义）。
  */
 export interface UserPreferenceDTO {
+  accordionMenu?: boolean;
   /** 默认首页路径 */
   defaultIndex?: string;
   /** 语言设置（如 zh-CN / en-US） */
@@ -949,8 +1063,8 @@ export interface UserPreferenceDTO {
   themeColor?: string;
   /** 菜单布局 */
   menuLayout?: string;
-  /** 菜单手风琴 */
-  accordionMenu?: boolean;
+  /** 菜单手风琴模式（true = 手风琴） */
+  isAccordionMenu?: boolean;
   /** 表格密度 */
   tableSize?: string;
   /** 字体大小 */
@@ -972,6 +1086,16 @@ export interface UserProfileUpdateDTO {
   email?: string;
   /** 头像 URL */
   avatar?: string;
+}
+
+/**
+ * Valid  ChangePasswordDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface Valid  ChangePasswordDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -1053,6 +1177,16 @@ export interface AccountUnlockDTO {
   captchaKey?: string;
   /** 图形验证码用户输入 */
   captcha?: string;
+}
+
+/**
+ * TenantSwitchRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface TenantSwitchRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -1170,7 +1304,29 @@ export interface LoginVO {
   /** 授权范围，如 `read write`，空表示全部权限 */
   scope?: string;
   /** 当前登录用户的基本信息 */
-  userInfo?: Record<string, unknown>;
+  userInfo?: UserInfoVO;
+  /** 用户唯一标识 */
+  userId?: string;
+  /** 登录用户名 */
+  username?: string;
+  /** 用户真实姓名 */
+  realName?: string;
+  /** 主角色编码，用于前端权限路由判断 */
+  roleCode?: string;
+  /** 主角色名称 */
+  roleName?: string;
+  /** 租户 ID，多租户场景下标识所属租户 */
+  tenantId?: string;
+  /** 用户头像 URL */
+  avatar?: string;
+}
+
+/**
+ * 当前登录用户的基本信息。
+ *
+ * 仅包含前端首屏渲染所需的最小字段集， 权限列表和详细用户资料通过单独接口获取。
+ */
+export interface UserInfoVO {
   /** 用户唯一标识 */
   userId?: string;
   /** 登录用户名 */
@@ -1377,32 +1533,6 @@ export interface DepartmentTreeVO {
 }
 
 /**
- * 设备会话视图对象（P3-2）。
- *
- * 展示用户当前活跃的设备会话信息，用于设备管理页面。
- */
-export interface DeviceSessionVO {
-  /** 会话标识（access_token 前 8 位掩码，用于前端展示） */
-  sessionId?: string;
-  /** 设备类型编码（web/app/api/unknown） */
-  deviceType?: string;
-  /** 设备类型描述 */
-  deviceTypeDesc?: string;
-  /** 登录 IP */
-  loginIp?: string;
-  /** 登录时间 */
-  loginTime?: string;
-  /** 最后活跃时间 */
-  lastActiveTime?: string;
-  /** 是否为当前会话（用户正在使用的会话） */
-  currentSession?: boolean;
-  /** 设备指纹（User-Agent 摘要） */
-  deviceFingerprint?: string;
-  /** 地理位置（基于 IP 解析，可能为空） */
-  location?: string;
-}
-
-/**
  * 用户账号 VO，用于 Controller 返回，不包含密码、盐值等敏感字段。
  *
  * 由 `UserInfoConverter.entityToVO()` 从 `UserAccount` 实体转换而来， 供前端展示和跨模块查询使用。
@@ -1495,6 +1625,75 @@ export interface LanguageVO {
 }
 
 /**
+ * SyncResultVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SyncResultVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * SyncStatusVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SyncStatusVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * SyncLogVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SyncLogVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * 用户登录历史视图对象。
+ *
+ * 记录用户的每次登录尝试（成功/失败），用于登录审计和安全分析。
+ * 敏感信息（密码、Token）不包含在返回字段中。
+ * 字段语义：
+ * `userId` — 用户 ID
+ * `username` — 登录用户名
+ * `loginIp` — 登录来源 IP 地址
+ * `loginResult` — 登录结果（SUCCESS/FAILED）
+ * `failReason` — 失败原因（成功时为 null，如 PASSWORD_INCORRECT/ACCOUNT_LOCKED）
+ * `userAgent` — 浏览器/设备信息
+ * `createdAt` — 登录时间
+ */
+export interface UserLoginHistoryVO {
+  /** 记录唯一标识 */
+  id?: string;
+  /** 用户 ID */
+  userId?: string;
+  /** 用户名 */
+  username?: string;
+  /** 登录 IP 地址 */
+  loginIp?: string;
+  /** 登录结果：SUCCESS / FAILED */
+  loginResult?: string;
+  /** 失败原因（成功时为 null） */
+  failReason?: string;
+  /** 用户代理（浏览器/设备信息） */
+  userAgent?: string;
+  /** 登录时间 */
+  createdAt?: string;
+  /** 浏览器名称（由 User-Agent 解析） */
+  browser?: string;
+  /** 操作系统（由 User-Agent 解析） */
+  os?: string;
+  /** IP 归属地 */
+  location?: string;
+}
+
+/**
  * 菜单 VO，扁平结构，用于 Controller 列表返回。
  *
  * 不包含 deleted、createdBy 等内部维护字段。 树形结构请使用 MenuTreeVO。
@@ -1508,7 +1707,7 @@ export interface MenuVO {
   menuName?: string;
   /** 菜单编码，全局唯一 */
   menuCode?: string;
-  /** 菜单类型：DIRECTORY-目录、YdMenu-菜单、BUTTON-按钮 */
+  /** 菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮 */
   menuType?: string;
   /** 前端路由路径 */
   path?: string;
@@ -1540,7 +1739,7 @@ export interface MenuTreeVO {
   menuName?: string;
   /** 菜单编码 */
   menuCode?: string;
-  /** 菜单类型：DIRECTORY-目录、YdMenu-菜单、BUTTON-按钮 */
+  /** 菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮 */
   menuType?: string;
   /** 前端路由路径 */
   path?: string;
@@ -1574,6 +1773,7 @@ export interface MenuTreeVO {
  * `children` ← 按 `parentId` 递归构建，按 `sort` 升序
  */
 export interface MenuRouteVO {
+  hideInMenu?: boolean;
   /** 路由名称（唯一标识，取 menuCode，为空时回退 menu-{id}） */
   name?: string;
   /** 路由路径 */
@@ -1583,7 +1783,7 @@ export interface MenuRouteVO {
   /** 重定向路径（可选，目录节点使用） */
   redirect?: string;
   /** 路由元信息 */
-  meta?: Record<string, unknown>;
+  meta?: Meta;
   /** 子路由 */
   children?: MenuRouteVO[];
   /** 菜单标题（取 menuName） */
@@ -1593,7 +1793,22 @@ export interface MenuRouteVO {
   /** 排序权重（取 sort，前端据此排序菜单） */
   order?: number;
   /** 是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问） */
+  isHideInMenu?: boolean;
+}
+
+/**
+ * 路由元信息（对齐前端 `RouteMeta` 所需最小字段集）。
+ */
+export interface Meta {
   hideInMenu?: boolean;
+  /** 菜单标题（取 menuName） */
+  title?: string;
+  /** 菜单图标 */
+  icon?: string;
+  /** 排序权重（取 sort，前端据此排序菜单） */
+  order?: number;
+  /** 是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问） */
+  isHideInMenu?: boolean;
 }
 
 /**
@@ -1917,6 +2132,16 @@ export interface SocialAccountVO {
 }
 
 /**
+ * PlatformBindingStatusVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PlatformBindingStatusVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 社交平台客户端配置视图对象（P1-1 社交认证配置管理）。
  *
  * 展示第三方社交平台（企业微信、钉钉、飞书等）的 OAuth2 客户端配置信息，
@@ -1957,6 +2182,46 @@ export interface SocialClientVO {
 }
 
 /**
+ * SsoMetricsVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SsoMetricsVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * TokenExchangeVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface TokenExchangeVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * TokenValidateVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface TokenValidateVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * LogoutNotifyVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface LogoutNotifyVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 用户批量导入结果 DTO。
  *
  * 封装批量导入的执行结果，继承通用 ExcelImportResult 基类。
@@ -1964,79 +2229,6 @@ export interface SocialClientVO {
 export interface UserImportResultDTO {
   /** 失败明细列表（行号 + 原因） */
   failDetails?: string;
-}
-
-/**
- * 用户登录历史视图对象。
- *
- * 记录用户的每次登录尝试（成功/失败），用于登录审计和安全分析。
- * 敏感信息（密码、Token）不包含在返回字段中。
- * 字段语义：
- * `userId` — 用户 ID
- * `username` — 登录用户名
- * `loginIp` — 登录来源 IP 地址
- * `loginResult` — 登录结果（SUCCESS/FAILED）
- * `failReason` — 失败原因（成功时为 null，如 PASSWORD_INCORRECT/ACCOUNT_LOCKED）
- * `userAgent` — 浏览器/设备信息
- * `createdAt` — 登录时间
- */
-export interface UserLoginHistoryVO {
-  /** 记录唯一标识 */
-  id?: string;
-  /** 用户 ID */
-  userId?: string;
-  /** 用户名 */
-  username?: string;
-  /** 登录 IP 地址 */
-  loginIp?: string;
-  /** 登录结果：SUCCESS / FAILED */
-  loginResult?: string;
-  /** 失败原因（成功时为 null） */
-  failReason?: string;
-  /** 用户代理（浏览器/设备信息） */
-  userAgent?: string;
-  /** 登录时间 */
-  createdAt?: string;
-}
-
-/**
- * 用户偏好 VO
- *
- * 供 `GET /api/user/preferences` 与 `POST /api/user/preferences/reset`
- * 返回，字段与 com.njydsz.userinfo.domain.dto.UserPreferenceDTO 对齐。
- * 重置场景返回全默认值的空 VO（前端按缺省字段回退本地默认）。
- */
-export interface UserPreferenceVO {
-  /** 默认首页路径 */
-  defaultIndex?: string;
-  /** 语言设置（如 zh-CN / en-US） */
-  language?: string;
-  /** 主题模式（light / dark / auto） */
-  theme?: string;
-  /** 主题色 */
-  themeColor?: string;
-  /** 菜单布局 */
-  menuLayout?: string;
-  /** 菜单手风琴 */
-  accordionMenu?: boolean;
-  /** 表格密度 */
-  tableSize?: string;
-  /** 字体大小 */
-  fontSize?: string;
-}
-
-/**
- * 双因素认证（TOTP）绑定信息 VO。
- *
- * 返回给前端的绑定初始数据：Base32 密钥（供手动录入）与 otpauth URI（供生成二维码，兼容 Google /
- * Microsoft Authenticator）。
- */
-export interface MfaSetupVO {
-  serialVersionUID?: number;
-  /** Base32 编码的 TOTP 密钥（仅供绑定当次展示，绑定成功后服务端留存） */
-  secret?: string;
-  /** otpauth:// 协议 URI，前端可渲染为二维码（如 qrcode.js） */
-  otpauthUri?: string;
 }
 
 /**
@@ -2057,15 +2249,17 @@ export interface SearchResponse {
   /** 聚合结果列表 */
   aggregations?: SearchAggregation[];
   /** 搜索建议（"您是不是要找"） */
-  suggestion?: 'AUTOCOMPLETE' | 'DID_YOU_MEAN';
+  suggestion?: 'AUTOCOMPLETE' | 'DID_YOU_MEAN' | 'HOT_SEARCH';
   /** 使用的搜索引擎名称 */
   engine?: string;
   /** 是否为降级结果 */
-  degraded?: boolean;
+  isDegraded?: boolean;
   /** P3-21: 下一页游标（为空表示无更多数据） */
   nextCursor?: string;
   /** P5-13: 各阶段耗时详情（毫秒），用于可观测性分析与性能诊断 */
   timing?: Record<string, number>;
+  /** Phase 3-U2: 错误信息（null 表示请求成功；非 null 表示限流 / 参数错 / 引擎故障） */
+  error?: SearchError;
 }
 
 /**
@@ -2116,11 +2310,78 @@ export interface SearchAggregation {
   /** 聚合标签（如"类型"、"标签"） */
   label?: string;
   /** 聚合桶列表 */
-  buckets?: Record<string, unknown>[];
+  buckets?: Bucket[];
   /** 桶键值 */
   key?: string;
   /** 桶文档数 */
   count?: number;
+}
+
+/**
+ * 聚合桶
+ */
+export interface Bucket {
+  serialVersionUID?: number;
+  /** 桶键值 */
+  key?: string;
+  /** 桶文档数 */
+  count?: number;
+}
+
+/**
+ * 搜索请求被拒绝 / 出错时的错误信息。
+ *
+ * 当 SearchResponse#error 非 `null` 时，表示请求未能正常检索（限流、参数错误、引擎故障）， 调用方应据此决定 UX 展示（如： toast 提示 vs. 展示空结果页）。
+ * 该错误码采用"不抛异常"风格返回，永不因错误码导致搜索链路抛出运行时异常。
+ */
+export interface SearchError {
+  /** 错误码（参见 SearchErrorCode） */
+  code?: number;
+  /** i18n 消息 key */
+  messageKey?: string;
+  /** 面向开发者的兜底英文描述（可用于日志，不应直接给终端用户看） */
+  detail?: string;
+}
+
+/**
+ * 用户偏好 VO
+ *
+ * 供 `GET /api/user/preferences` 与 `POST /api/user/preferences/reset`
+ * 返回，字段与 com.njydsz.userinfo.domain.dto.UserPreferenceDTO 对齐。
+ * 重置场景返回全默认值的空 VO（前端按缺省字段回退本地默认）。
+ */
+export interface UserPreferenceVO {
+  accordionMenu?: boolean;
+  /** 默认首页路径 */
+  defaultIndex?: string;
+  /** 语言设置（如 zh-CN / en-US） */
+  language?: string;
+  /** 主题模式（light / dark / auto） */
+  theme?: string;
+  /** 主题色 */
+  themeColor?: string;
+  /** 菜单布局 */
+  menuLayout?: string;
+  /** 菜单手风琴模式（true = 手风琴） */
+  isAccordionMenu?: boolean;
+  /** 表格密度 */
+  tableSize?: string;
+  /** 字体大小 */
+  fontSize?: string;
+}
+
+/**
+ * 双因素认证（TOTP）绑定信息 VO。
+ *
+ * 返回给前端的绑定初始数据：Base32 密钥（供手动录入）与 otpauth URI（供生成二维码，兼容 Google /
+ * Microsoft Authenticator）。
+ */
+export interface MfaSetupVO {
+  serialVersionUID?: number;
+  /** Base32 编码的 TOTP 密钥（仅供绑定当次展示，绑定成功后服务端留存） */
+  secret?: string;
+  /** otpauth:// 协议 URI，前端可渲染为二维码（如 qrcode.js） */
+  otpauthUri?: string;
 }
 
 /**
@@ -2150,49 +2411,49 @@ export interface WebAuthnCredentialVO {
   lastUsedAt?: string;
 }
 
-// ==================== 手动补充: 登录日志（login-log）类型定义 ====================
-// 对应后端 LoginLogController (ydsz-userinfo)
-
-/** 登录日志分页查询条件 */
-export interface LoginLogPageQuery {
-  /** 当前页码（从 1 开始） */
-  pageNum?: number;
-  /** 每页记录数 */
-  pageSize?: number;
-  /** 用户名（模糊匹配） */
-  username?: string;
+/**
+ * 设备会话视图对象（P3-2）。
+ *
+ * 展示用户当前活跃的设备会话信息，用于设备管理页面。
+ */
+export interface DeviceSessionVO {
+  currentSession?: boolean;
+  /** 会话标识（access_token 前 8 位掩码，用于前端展示） */
+  sessionId?: string;
+  /** 设备类型编码（web/app/api/unknown） */
+  deviceType?: string;
+  /** 设备类型描述 */
+  deviceTypeDesc?: string;
   /** 登录 IP */
   loginIp?: string;
-  /** 登录结果（SUCCESS/FAILED/ALL） */
-  status?: string;
-  /** 起始时间 */
-  startTime?: string;
-  /** 结束时间 */
-  endTime?: string;
+  /** 登录时间 */
+  loginTime?: string;
+  /** 最后活跃时间 */
+  lastActiveTime?: string;
+  /** 是否为当前会话（用户正在使用的会话） */
+  isCurrentSession?: boolean;
+  /** 设备指纹（User-Agent 摘要） */
+  deviceFingerprint?: string;
+  /** 地理位置（基于 IP 解析，可能为空） */
+  location?: string;
 }
 
-/** 登录日志视图对象 */
-export interface LoginLogVO {
-  /** 记录唯一 ID */
-  id: string;
-  /** 用户 ID */
-  userId?: string;
-  /** 用户名 */
-  username: string;
-  /** 登录 IP 地址 */
-  loginIp: string;
-  /** 登录结果（SUCCESS / FAILED） */
-  loginResult: string;
-  /** 失败原因 */
-  failReason?: string;
-  /** 浏览器名称（由 UA 解析） */
-  browser: string;
-  /** 操作系统（由 UA 解析） */
-  os: string;
-  /** IP 归属地 */
-  location: string;
-  /** User-Agent 原文 */
-  userAgent: string;
-  /** 登录时间 */
-  loginTime: string;
+/**
+ * DeviceAuthorizationResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface DeviceAuthorizationResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * TenantSwitchResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface TenantSwitchResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }

@@ -14,54 +14,54 @@ import { requestClient } from '#/api/request';
 import type { MenuDTO, MenuRouteVO, MenuTreeVO, MenuVO } from './models';
 
 /**
- * list: GET /api/menu/list
+ * list: GET /menu/list
  */
 export function list(): Promise<MenuVO[]> {
-  return requestClient.get<MenuVO[]>(`/api/menu/list`);
+  return requestClient.get<MenuVO[]>(`/menu/list`);
 }
 
 /**
- * tree: GET /api/menu/tree
+ * tree: GET /menu/tree
  */
 export function tree(): Promise<MenuTreeVO[]> {
-  return requestClient.get<MenuTreeVO[]>(`/api/menu/tree`);
+  return requestClient.get<MenuTreeVO[]>(`/menu/tree`);
 }
 
 /**
- * routes: GET /api/menu/routes
+ * routes: GET /menu/routes
  */
 export function routes(): Promise<MenuRouteVO[]> {
-  return requestClient.get<MenuRouteVO[]>(`/api/menu/routes`);
+  return requestClient.get<MenuRouteVO[]>(`/menu/routes`);
 }
 
 /**
- * getById: GET /api/menu/{id}
+ * getById: GET /menu/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<MenuVO> {
-  return requestClient.get<MenuVO>(`/api/menu/${id}`);
+  return requestClient.get<MenuVO>(`/menu/${id}`);
 }
 
 /**
- * create: POST /api/menu
+ * create: POST /menu
  */
 export function create(data: MenuDTO): Promise<string> {
-  return requestClient.post<string>(`/api/menu`, data);
+  return requestClient.post<string>(`/menu`, data);
 }
 
 /**
- * update: PUT /api/menu
+ * update: PUT /menu
  */
 export function update(data: MenuDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/menu`, data);
+  return requestClient.put<boolean>(`/menu`, data);
 }
 
 /**
- * remove: DELETE /api/menu/{id}
+ * remove: DELETE /menu/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/menu/${id}`);
+  return requestClient.delete<boolean>(`/menu/${id}`);
 }

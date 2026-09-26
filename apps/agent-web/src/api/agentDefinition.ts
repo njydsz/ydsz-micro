@@ -14,49 +14,49 @@ import { requestClient } from '#/api/request';
 import type { AgentDefinitionDTO, AgentDefinitionVO } from './models';
 
 /**
- * list: GET /api/agent/definitions
+ * list: GET /agent/definitions
  */
 export function list(): Promise<AgentDefinitionVO[]> {
-  return requestClient.get<AgentDefinitionVO[]>(`/api/agent/definitions`);
+  return requestClient.get<AgentDefinitionVO[]>(`/agent/definitions`);
 }
 
 /**
- * getById: GET /api/agent/definitions/{id}
+ * getById: GET /agent/definitions/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<AgentDefinitionVO> {
-  return requestClient.get<AgentDefinitionVO>(`/api/agent/definitions/${id}`);
+  return requestClient.get<AgentDefinitionVO>(`/agent/definitions/${id}`);
 }
 
 /**
- * getByCode: GET /api/agent/definitions/code/{code}
+ * getByCode: GET /agent/definitions/code/{code}
  */
 export function getByCode({ code }: {
     code: string;
   }): Promise<AgentDefinitionVO> {
-  return requestClient.get<AgentDefinitionVO>(`/api/agent/definitions/code/${code}`);
+  return requestClient.get<AgentDefinitionVO>(`/agent/definitions/code/${code}`);
 }
 
 /**
- * create: POST /api/agent/definitions
+ * create: POST /agent/definitions
  */
 export function create(data: AgentDefinitionDTO): Promise<AgentDefinitionVO> {
-  return requestClient.post<AgentDefinitionVO>(`/api/agent/definitions`, data);
+  return requestClient.post<AgentDefinitionVO>(`/agent/definitions`, data);
 }
 
 /**
- * update: PUT /api/agent/definitions
+ * update: PUT /agent/definitions
  */
 export function update(data: AgentDefinitionDTO): Promise<AgentDefinitionVO> {
-  return requestClient.put<AgentDefinitionVO>(`/api/agent/definitions`, data);
+  return requestClient.put<AgentDefinitionVO>(`/agent/definitions`, data);
 }
 
 /**
- * delete: DELETE /api/agent/definitions/{id}
+ * delete: DELETE /agent/definitions/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/agent/definitions/${id}`);
+  return requestClient.delete<boolean>(`/agent/definitions/${id}`);
 }

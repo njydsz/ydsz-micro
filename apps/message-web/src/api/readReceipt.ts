@@ -14,12 +14,12 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * shortLinkRedirect: GET /api/message/read-receipt/s/{shortCode}
+ * shortLinkRedirect: GET /message/read-receipt/s/{shortCode}
  */
 export function shortLinkRedirect({ shortCode }: {
     shortCode: string;
   }, params: {
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.get<void>(`/api/message/read-receipt/s/${shortCode}`, { params });
+  return requestClient.get<void>(`/message/read-receipt/s/${shortCode}`, { params });
 }

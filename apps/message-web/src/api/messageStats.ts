@@ -14,37 +14,37 @@ import { requestClient } from '#/api/request';
 import type { ChannelStatsDTO, CostStatsDTO, FunnelStatsDTO, MessageStatsDTO, ReceiptStatsDTO } from './models';
 
 /**
- * overview: GET /api/message/stats/overview
+ * overview: GET /message/stats/overview
  */
 export function overview(params: {
     start?: string;
     end?: string;
   }): Promise<MessageStatsDTO> {
-  return requestClient.get<MessageStatsDTO>(`/api/message/stats/overview`, { params });
+  return requestClient.get<MessageStatsDTO>(`/message/stats/overview`, { params });
 }
 
 /**
- * channelStats: GET /api/message/stats/channel
+ * channelStats: GET /message/stats/channel
  */
 export function channelStats(params: {
     start?: string;
     end?: string;
   }): Promise<ChannelStatsDTO[]> {
-  return requestClient.get<ChannelStatsDTO[]>(`/api/message/stats/channel`, { params });
+  return requestClient.get<ChannelStatsDTO[]>(`/message/stats/channel`, { params });
 }
 
 /**
- * receiptStats: GET /api/message/stats/receipt
+ * receiptStats: GET /message/stats/receipt
  */
 export function receiptStats(params: {
     start?: string;
     end?: string;
   }): Promise<ReceiptStatsDTO> {
-  return requestClient.get<ReceiptStatsDTO>(`/api/message/stats/receipt`, { params });
+  return requestClient.get<ReceiptStatsDTO>(`/message/stats/receipt`, { params });
 }
 
 /**
- * funnel: GET /api/message/stats/funnel
+ * funnel: GET /message/stats/funnel
  */
 export function funnel(params: {
     start?: string;
@@ -52,15 +52,15 @@ export function funnel(params: {
     channel?: string;
     templateCode?: string;
   }): Promise<FunnelStatsDTO> {
-  return requestClient.get<FunnelStatsDTO>(`/api/message/stats/funnel`, { params });
+  return requestClient.get<FunnelStatsDTO>(`/message/stats/funnel`, { params });
 }
 
 /**
- * cost: GET /api/message/stats/cost
+ * cost: GET /message/stats/cost
  */
 export function cost(params: {
     start?: string;
     end?: string;
   }): Promise<CostStatsDTO> {
-  return requestClient.get<CostStatsDTO>(`/api/message/stats/cost`, { params });
+  return requestClient.get<CostStatsDTO>(`/message/stats/cost`, { params });
 }

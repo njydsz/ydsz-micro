@@ -14,44 +14,44 @@ import { requestClient } from '#/api/request';
 import type { UserRecentVO } from './models';
 
 /**
- * listRecent: GET /api/nextwiki/recent
+ * listRecent: GET /nextwiki/recent
  */
 export function listRecent(params: {
     limit?: number;
   }): Promise<UserRecentVO[]> {
-  return requestClient.get<UserRecentVO[]>(`/api/nextwiki/recent`, { params });
+  return requestClient.get<UserRecentVO[]>(`/nextwiki/recent`, { params });
 }
 
 /**
- * recordAccess: POST /api/nextwiki/recent/{nodeId}
+ * recordAccess: POST /nextwiki/recent/{nodeId}
  */
 export function recordAccess({ nodeId }: {
     nodeId: string;
   }, params: {
     accessType?: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/nextwiki/recent/${nodeId}`, { params });
+  return requestClient.post<boolean>(`/nextwiki/recent/${nodeId}`, { params });
 }
 
 /**
- * clearAll: DELETE /api/nextwiki/recent
+ * clearAll: DELETE /nextwiki/recent
  */
 export function clearAll(): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/nextwiki/recent`);
+  return requestClient.delete<boolean>(`/nextwiki/recent`);
 }
 
 /**
- * removeRecent: DELETE /api/nextwiki/recent/{nodeId}
+ * removeRecent: DELETE /nextwiki/recent/{nodeId}
  */
 export function removeRecent({ nodeId }: {
     nodeId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/nextwiki/recent/${nodeId}`);
+  return requestClient.delete<boolean>(`/nextwiki/recent/${nodeId}`);
 }
 
 /**
- * getRecentCount: GET /api/nextwiki/recent/count
+ * getRecentCount: GET /nextwiki/recent/count
  */
 export function getRecentCount(): Promise<number> {
-  return requestClient.get<number>(`/api/nextwiki/recent/count`);
+  return requestClient.get<number>(`/nextwiki/recent/count`);
 }

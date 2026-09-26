@@ -14,90 +14,90 @@ import { requestClient } from '#/api/request';
 import type { ActiveUserVO, AnomalySessionVO, DeviceDistributionVO, LoginFailDistributionVO, LoginSuccessRateVO, MfaCoverageVO, RiskLevelDistributionVO, SecurityDashboardVO, SecurityEventVO, SessionActivityVO, SessionTrendVO } from './models';
 
 /**
- * getDashboard: GET /api/admin/security/dashboard
+ * getDashboard: GET /admin/security/dashboard
  */
 export function getDashboard(): Promise<SecurityDashboardVO> {
-  return requestClient.get<SecurityDashboardVO>(`/api/admin/security/dashboard`);
+  return requestClient.get<SecurityDashboardVO>(`/admin/security/dashboard`);
 }
 
 /**
- * getLoginSuccessRate: GET /api/admin/security/login-success-rate
+ * getLoginSuccessRate: GET /admin/security/login-success-rate
  */
 export function getLoginSuccessRate(params: {
     start?: string;
     end?: string;
   }): Promise<LoginSuccessRateVO[]> {
-  return requestClient.get<LoginSuccessRateVO[]>(`/api/admin/security/login-success-rate`, { params });
+  return requestClient.get<LoginSuccessRateVO[]>(`/admin/security/login-success-rate`, { params });
 }
 
 /**
- * getLoginFailDistribution: GET /api/admin/security/login-fail-distribution
+ * getLoginFailDistribution: GET /admin/security/login-fail-distribution
  */
 export function getLoginFailDistribution(params: {
     date?: string;
   }): Promise<LoginFailDistributionVO[]> {
-  return requestClient.get<LoginFailDistributionVO[]>(`/api/admin/security/login-fail-distribution`, { params });
+  return requestClient.get<LoginFailDistributionVO[]>(`/admin/security/login-fail-distribution`, { params });
 }
 
 /**
- * getMfaCoverage: GET /api/admin/security/mfa-coverage
+ * getMfaCoverage: GET /admin/security/mfa-coverage
  */
 export function getMfaCoverage(): Promise<MfaCoverageVO> {
-  return requestClient.get<MfaCoverageVO>(`/api/admin/security/mfa-coverage`);
+  return requestClient.get<MfaCoverageVO>(`/admin/security/mfa-coverage`);
 }
 
 /**
- * getRiskLevelDistribution: GET /api/admin/security/risk-distribution
+ * getRiskLevelDistribution: GET /admin/security/risk-distribution
  */
 export function getRiskLevelDistribution(): Promise<RiskLevelDistributionVO> {
-  return requestClient.get<RiskLevelDistributionVO>(`/api/admin/security/risk-distribution`);
+  return requestClient.get<RiskLevelDistributionVO>(`/admin/security/risk-distribution`);
 }
 
 /**
- * getRecentSecurityEvents: GET /api/admin/security/recent-events
+ * getRecentSecurityEvents: GET /admin/security/recent-events
  */
 export function getRecentSecurityEvents(params: {
     limit?: number;
   }): Promise<SecurityEventVO[]> {
-  return requestClient.get<SecurityEventVO[]>(`/api/admin/security/recent-events`, { params });
+  return requestClient.get<SecurityEventVO[]>(`/admin/security/recent-events`, { params });
 }
 
 /**
- * getSessionActivity: GET /api/admin/security/session-activity
+ * getSessionActivity: GET /admin/security/session-activity
  */
 export function getSessionActivity(): Promise<SessionActivityVO> {
-  return requestClient.get<SessionActivityVO>(`/api/admin/security/session-activity`);
+  return requestClient.get<SessionActivityVO>(`/admin/security/session-activity`);
 }
 
 /**
- * getActiveUserRanking: GET /api/admin/security/active-user-ranking
+ * getActiveUserRanking: GET /admin/security/active-user-ranking
  */
 export function getActiveUserRanking(params: {
     limit?: number;
   }): Promise<ActiveUserVO[]> {
-  return requestClient.get<ActiveUserVO[]>(`/api/admin/security/active-user-ranking`, { params });
+  return requestClient.get<ActiveUserVO[]>(`/admin/security/active-user-ranking`, { params });
 }
 
 /**
- * getSessionTrend: GET /api/admin/security/session-trend
+ * getSessionTrend: GET /admin/security/session-trend
  */
 export function getSessionTrend(params: {
     start?: string;
     end?: string;
   }): Promise<SessionTrendVO[]> {
-  return requestClient.get<SessionTrendVO[]>(`/api/admin/security/session-trend`, { params });
+  return requestClient.get<SessionTrendVO[]>(`/admin/security/session-trend`, { params });
 }
 
 /**
- * getDeviceDistribution: GET /api/admin/security/device-distribution
+ * getDeviceDistribution: GET /admin/security/device-distribution
  */
 export function getDeviceDistribution(): Promise<DeviceDistributionVO[]> {
-  return requestClient.get<DeviceDistributionVO[]>(`/api/admin/security/device-distribution`);
+  return requestClient.get<DeviceDistributionVO[]>(`/admin/security/device-distribution`);
 }
 
 /**
- * detectAnomalySessions: GET /api/admin/security/anomaly-sessions
+ * detectAnomalySessions: GET /admin/security/anomaly-sessions
  */
 export function detectAnomalySessions(): Promise<AnomalySessionVO[]> {
-  return requestClient.get<AnomalySessionVO[]>(`/api/admin/security/anomaly-sessions`);
+  return requestClient.get<AnomalySessionVO[]>(`/admin/security/anomaly-sessions`);
 }

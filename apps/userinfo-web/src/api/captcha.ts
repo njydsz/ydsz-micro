@@ -14,18 +14,18 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * generate: GET /api/captcha/generate
+ * generate: GET /captcha/generate
  */
 export function generate(): Promise<Record<string, string>> {
-  return requestClient.get<Record<string, string>>(`/api/captcha/generate`);
+  return requestClient.get<Record<string, string>>(`/captcha/generate`);
 }
 
 /**
- * validate: POST /api/captcha/validate
+ * validate: POST /captcha/validate
  */
 export function validate(params: {
     captchaKey?: string;
     captcha?: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/captcha/validate`, { params });
+  return requestClient.post<boolean>(`/captcha/validate`, { params });
 }

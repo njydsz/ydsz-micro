@@ -56,7 +56,7 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
     { field: 'typeCode', title: '字典类型', width: 130 },
     { field: 'itemCode', title: '字典项编码', width: 130 },
     { field: 'itemValue', title: '字典值', width: 150 },
-    { field: 'sortOrder', title: '排序', width: 80 },
+    { field: 'sort', title: '排序', width: 80 },
     {
       field: 'status',
       title: t('status'),

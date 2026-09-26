@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * getOverview: GET /api/cronjob/dashboard/overview
+ * getOverview: GET /cronjob/dashboard/overview
  */
 export function getOverview(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/dashboard/overview`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/dashboard/overview`);
 }

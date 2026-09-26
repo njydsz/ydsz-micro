@@ -141,7 +141,7 @@ async function handleDelete(row: MenuTreeVO) {
         <YdTableColumn prop="component" :label="t('page.component')" width="200" />
         <YdTableColumn prop="permissionCode" :label="t('page.permission')" width="160" />
         <YdTableColumn prop="icon" :label="t('page.icon')" width="80" align="center" />
-        <YdTableColumn prop="sortOrder" :label="t('page.sortOrder')" width="80" align="center" />
+        <YdTableColumn prop="sort" :label="t('page.sort')" width="80" align="center" />
         <YdTableColumn :label="t('menu.visible')" width="80" align="center">
           <template #default="{ row }">
             <YdBadge :variant="isVisible(row.visible) ? 'outline' : 'secondary'" :class="isVisible(row.visible) ? 'border-green-500 text-green-600 dark:text-green-400' : 'text-xs'">

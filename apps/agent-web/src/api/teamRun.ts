@@ -14,51 +14,51 @@ import { requestClient } from '#/api/request';
 import type { TeamRun } from './models';
 
 /**
- * createTeamRun: POST /api/agent/teamruns
+ * createTeamRun: POST /agent/teamruns
  */
 export function createTeamRun(data: Record<string, unknown>): Promise<TeamRun> {
-  return requestClient.post<TeamRun>(`/api/agent/teamruns`, data);
+  return requestClient.post<TeamRun>(`/agent/teamruns`, data);
 }
 
 /**
- * addMember: POST /api/agent/teamruns/{teamRunId}/members
+ * addMember: POST /agent/teamruns/{teamRunId}/members
  */
 export function addMember({ teamRunId }: {
     teamRunId: string;
   }, data: Record<string, unknown>): Promise<TeamRun> {
-  return requestClient.post<TeamRun>(`/api/agent/teamruns/${teamRunId}/members`, data);
+  return requestClient.post<TeamRun>(`/agent/teamruns/${teamRunId}/members`, data);
 }
 
 /**
- * startTeamRun: POST /api/agent/teamruns/{teamRunId}/start
+ * startTeamRun: POST /agent/teamruns/{teamRunId}/start
  */
 export function startTeamRun({ teamRunId }: {
     teamRunId: string;
   }): Promise<TeamRun> {
-  return requestClient.post<TeamRun>(`/api/agent/teamruns/${teamRunId}/start`);
+  return requestClient.post<TeamRun>(`/agent/teamruns/${teamRunId}/start`);
 }
 
 /**
- * cancelTeamRun: POST /api/agent/teamruns/{teamRunId}/cancel
+ * cancelTeamRun: POST /agent/teamruns/{teamRunId}/cancel
  */
 export function cancelTeamRun({ teamRunId }: {
     teamRunId: string;
   }): Promise<TeamRun> {
-  return requestClient.post<TeamRun>(`/api/agent/teamruns/${teamRunId}/cancel`);
+  return requestClient.post<TeamRun>(`/agent/teamruns/${teamRunId}/cancel`);
 }
 
 /**
- * getTeamRun: GET /api/agent/teamruns/{teamRunId}
+ * getTeamRun: GET /agent/teamruns/{teamRunId}
  */
 export function getTeamRun({ teamRunId }: {
     teamRunId: string;
   }): Promise<TeamRun> {
-  return requestClient.get<TeamRun>(`/api/agent/teamruns/${teamRunId}`);
+  return requestClient.get<TeamRun>(`/agent/teamruns/${teamRunId}`);
 }
 
 /**
- * listActiveTeamRuns: GET /api/agent/teamruns
+ * listActiveTeamRuns: GET /agent/teamruns
  */
 export function listActiveTeamRuns(): Promise<TeamRun[]> {
-  return requestClient.get<TeamRun[]>(`/api/agent/teamruns`);
+  return requestClient.get<TeamRun[]>(`/agent/teamruns`);
 }

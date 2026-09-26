@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * getGlobalTopology: GET /api/cronjob/topology/global
+ * getGlobalTopology: GET /cronjob/topology/global
  */
 export function getGlobalTopology(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/topology/global`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/topology/global`);
 }

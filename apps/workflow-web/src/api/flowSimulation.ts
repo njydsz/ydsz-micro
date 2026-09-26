@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 import type { SimulationResult } from './models';
 
 /**
- * runSimulation: POST /api/workflow/simulation/run
+ * runSimulation: POST /workflow/simulation/run
  */
 export function runSimulation(data: Record<string, unknown>): Promise<SimulationResult> {
-  return requestClient.post<SimulationResult>(`/api/workflow/simulation/run`, data);
+  return requestClient.post<SimulationResult>(`/workflow/simulation/run`, data);
 }

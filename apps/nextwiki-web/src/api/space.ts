@@ -14,79 +14,79 @@ import { requestClient } from '#/api/request';
 import type { SpaceMemberDTO, SpaceVO } from './models';
 
 /**
- * listSpaces: GET /api/nextwiki/spaces
+ * listSpaces: GET /nextwiki/spaces
  */
 export function listSpaces(): Promise<SpaceVO[]> {
-  return requestClient.get<SpaceVO[]>(`/api/nextwiki/spaces`);
+  return requestClient.get<SpaceVO[]>(`/nextwiki/spaces`);
 }
 
 /**
- * createSpace: POST /api/nextwiki/spaces
+ * createSpace: POST /nextwiki/spaces
  */
 export function createSpace(data: Record<string, unknown>): Promise<SpaceVO> {
-  return requestClient.post<SpaceVO>(`/api/nextwiki/spaces`, data);
+  return requestClient.post<SpaceVO>(`/nextwiki/spaces`, data);
 }
 
 /**
- * getSpace: GET /api/nextwiki/spaces/{spaceId}
+ * getSpace: GET /nextwiki/spaces/{spaceId}
  */
 export function getSpace({ spaceId }: {
     spaceId: string;
   }): Promise<SpaceVO> {
-  return requestClient.get<SpaceVO>(`/api/nextwiki/spaces/${spaceId}`);
+  return requestClient.get<SpaceVO>(`/nextwiki/spaces/${spaceId}`);
 }
 
 /**
- * updateSpace: PUT /api/nextwiki/spaces/{spaceId}
+ * updateSpace: PUT /nextwiki/spaces/{spaceId}
  */
 export function updateSpace({ spaceId }: {
     spaceId: string;
   }, data: Record<string, unknown>): Promise<SpaceVO> {
-  return requestClient.put<SpaceVO>(`/api/nextwiki/spaces/${spaceId}`, data);
+  return requestClient.put<SpaceVO>(`/nextwiki/spaces/${spaceId}`, data);
 }
 
 /**
- * archiveSpace: POST /api/nextwiki/spaces/{spaceId}/archive
+ * archiveSpace: POST /nextwiki/spaces/{spaceId}/archive
  */
 export function archiveSpace({ spaceId }: {
     spaceId: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/nextwiki/spaces/${spaceId}/archive`);
+  return requestClient.post<boolean>(`/nextwiki/spaces/${spaceId}/archive`);
 }
 
 /**
- * deleteSpace: DELETE /api/nextwiki/spaces/{spaceId}
+ * deleteSpace: DELETE /nextwiki/spaces/{spaceId}
  */
 export function deleteSpace({ spaceId }: {
     spaceId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/nextwiki/spaces/${spaceId}`);
+  return requestClient.delete<boolean>(`/nextwiki/spaces/${spaceId}`);
 }
 
 /**
- * addMember: POST /api/nextwiki/spaces/{spaceId}/members
+ * addMember: POST /nextwiki/spaces/{spaceId}/members
  */
 export function addMember({ spaceId }: {
     spaceId: string;
   }, data: Record<string, unknown>): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/nextwiki/spaces/${spaceId}/members`, data);
+  return requestClient.post<boolean>(`/nextwiki/spaces/${spaceId}/members`, data);
 }
 
 /**
- * removeMember: DELETE /api/nextwiki/spaces/{spaceId}/members/{targetUserId}
+ * removeMember: DELETE /nextwiki/spaces/{spaceId}/members/{targetUserId}
  */
 export function removeMember({ spaceId, targetUserId }: {
     spaceId: string;
     targetUserId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/nextwiki/spaces/${spaceId}/members/${targetUserId}`);
+  return requestClient.delete<boolean>(`/nextwiki/spaces/${spaceId}/members/${targetUserId}`);
 }
 
 /**
- * listMembers: GET /api/nextwiki/spaces/{spaceId}/members
+ * listMembers: GET /nextwiki/spaces/{spaceId}/members
  */
 export function listMembers({ spaceId }: {
     spaceId: string;
   }): Promise<SpaceMemberDTO[]> {
-  return requestClient.get<SpaceMemberDTO[]>(`/api/nextwiki/spaces/${spaceId}/members`);
+  return requestClient.get<SpaceMemberDTO[]>(`/nextwiki/spaces/${spaceId}/members`);
 }

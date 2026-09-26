@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * tokenExchange: POST /api/sso/token-exchange
+ * tokenExchange: POST /sso/token-exchange
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -24,11 +24,11 @@ import { requestClient } from '#/api/request';
 export function tokenExchange(params: {
     request?: Record<string, unknown>;
   }, data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/sso/token-exchange`, data, { params });
+  return requestClient.post<unknown>(`/sso/token-exchange`, data, { params });
 }
 
 /**
- * validate: GET /api/sso/validate
+ * validate: GET /sso/validate
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -39,11 +39,11 @@ export function validate(params: {
     request?: Record<string, unknown>;
     token?: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/sso/validate`, { params });
+  return requestClient.get<unknown>(`/sso/validate`, { params });
 }
 
 /**
- * logoutNotify: POST /api/sso/logout-notify
+ * logoutNotify: POST /sso/logout-notify
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -53,5 +53,5 @@ export function validate(params: {
 export function logoutNotify(params: {
     request?: Record<string, unknown>;
   }, data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/sso/logout-notify`, data, { params });
+  return requestClient.post<unknown>(`/sso/logout-notify`, data, { params });
 }

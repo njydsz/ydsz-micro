@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * save: POST /api/cronjob/dag/save
+ * save: POST /cronjob/dag/save
  */
 export function save(data: Record<string, unknown>): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/cronjob/dag/save`, data);
+  return requestClient.post<boolean>(`/cronjob/dag/save`, data);
 }

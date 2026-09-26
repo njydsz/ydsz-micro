@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * deviceAuthorization: POST /api/oauth2/device_authorization
+ * deviceAuthorization: POST /oauth2/device_authorization
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -25,5 +25,5 @@ export function deviceAuthorization(params: {
     clientId?: string;
     scope?: string;
   }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/oauth2/device_authorization`, { params });
+  return requestClient.post<unknown>(`/oauth2/device_authorization`, { params });
 }

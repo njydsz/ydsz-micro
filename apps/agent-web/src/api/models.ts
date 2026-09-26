@@ -84,7 +84,7 @@ export interface ChatRequestDTO {
    * 多模态内容段落列表（Vision 模型场景，与 message 二选一）
    * 当该字段非空时，优先使用多模态格式传递给 LLM，`message` 字段忽略。 每个段落可以是文本（type=text）或图片（type=image_url）。
    */
-  multimodalContent?: Record<string, unknown>[];
+  multimodalContent?: ContentPartDTO[];
   /** 系统提示词（可选，覆盖 Agent 默认配置） */
   systemPrompt?: string;
   /** 模型名称（可选，覆盖默认模型配置） */
@@ -93,6 +93,21 @@ export interface ChatRequestDTO {
   temperature?: number;
   /** 最大生成 Token 数（可选） */
   maxTokens?: number;
+  /** 内容类型（text / image_url） */
+  type?: string;
+  /** 文本内容（type=text 时有效） */
+  text?: string;
+  /** 图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式） */
+  imageUrl?: string;
+}
+
+/**
+ * 多模态内容段落 DTO
+ *
+ * 每个段落可以是文本或图片之一，类型由 #type 标识。
+ */
+export interface ContentPartDTO {
+  serialVersionUID?: number;
   /** 内容类型（text / image_url） */
   type?: string;
   /** 文本内容（type=text 时有效） */
@@ -119,7 +134,7 @@ export interface BatchChatRequestDTO {
   /** 请求幂等键（防重，建议每条请求唯一） */
   requestId?: string;
   /** 批量对话条目列表（至少 1 条，最多 50 条） */
-  items?: Record<string, unknown>[];
+  items?: BatchChatItem[];
   /** 模型名称（可选，覆盖默认模型配置） */
   model?: string;
   /** 温度参数（可选，取值范围 0-2） */
@@ -136,6 +151,25 @@ export interface BatchChatRequestDTO {
   message?: string;
   /** 多模态内容段落（Vision 模型，与 message 二选一） */
   multimodalContent?: Record<string, unknown>[];
+}
+
+/**
+ * 批量对话单条条目
+ *
+ * 每条包含独立的用户消息和对话 ID，共享外层模型配置。
+ */
+export interface BatchChatItem {
+  serialVersionUID?: number;
+  /** 条目唯一标识（用于响应中对应结果，由调用方保证唯一） */
+  itemId?: string;
+  /** 对话 ID（null 则新建） */
+  conversationId?: string;
+  /** 用户消息（纯文本，与 multimodalContent 二选一） */
+  message?: string;
+  /** 多模态内容段落（Vision 模型，与 message 二选一） */
+  multimodalContent?: Record<string, unknown>[];
+  /** 系统提示词（可选，覆盖外层共享 systemPrompt） */
+  systemPrompt?: string;
 }
 
 /**
@@ -192,6 +226,25 @@ export interface DagExecutionDTO {
 }
 
 /**
+ * DAG 工作流保存 DTO。
+ */
+export interface DagWorkflowDTO {
+  serialVersionUID?: number;
+  /** 工作流编码（唯一，更新时必填） */
+  workflowCode?: string;
+  /** 工作流名称（必填） */
+  workflowName?: string;
+  /** 工作流描述 */
+  description?: string;
+  /** YAML DSL 内容（必填） */
+  dslContent?: string;
+  /** 可视化布局 JSON（节点坐标等前端状态，可选） */
+  layoutJson?: string;
+  /** 分类标签 */
+  category?: string;
+}
+
+/**
  * 洞察报告生成请求值对象（不可变 record）。
  *
  * 封装用户触发的 BI 洞察报告生成所需的全部输入参数，包括原始分析查询、数据分析结果、
@@ -214,6 +267,62 @@ export interface InsightReportRequest {
   dataJson?: string;
   reportFormat?: string;
   extraParams?: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ResponseEntity {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * 保存对话记忆请求 DTO。
+ *
+ * 封装写入单条对话记忆的消息数据。
+ */
+export interface SaveMemoryRequest {
+  serialVersionUID?: number;
+  /** 消息角色（SYSTEM/USER/ASSISTANT/TOOL） */
+  role?: string;
+  /** 消息内容 */
+  content?: string;
+  /** 工具调用 ID（Tool 角色必填） */
+  toolCallId?: string;
+}
+
+/**
+ * 记忆整合请求 DTO。
+ *
+ * 用于触发对指定对话的历史记忆执行整合（提取事实 + 画像刷新）。
+ */
+export interface ConsolidateMemoryRequest {
+  serialVersionUID?: number;
+  /** 租户 ID（可选，缺省使用当前租户） */
+  tenantId?: string;
+}
+
+/**
+ * EvaluateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface EvaluateRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CompareRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -251,6 +360,128 @@ export interface RagQueryDTO {
 }
 
 /**
+ * 扫描版 PDF 摄入请求 DTO
+ *
+ * 封装扫描版 PDF 文档的摄入请求，文件内容以 Base64 编码传输，
+ * 服务端调用 OCR 引擎逐页提取文字后走正常 ingestion 流程。
+ */
+export interface ScannedPdfIngestDTO {
+  serialVersionUID?: number;
+  /** 文件名（含后缀，用于格式检测和索引标识） */
+  fileName?: string;
+  /** PDF 文件内容的 Base64 编码 */
+  base64Content?: string;
+  /** 数据集 ID（可选，用于分组管理） */
+  datasetId?: string;
+}
+
+/**
+ * 图片摄入请求 DTO
+ *
+ * 封装图片文件的摄入请求，图片经 OCR 提取文字后存入向量库。
+ */
+export interface ImageIngestDTO {
+  serialVersionUID?: number;
+  /** 图片文件内容的 Base64 编码 */
+  base64Content?: string;
+  /** 图片格式（PNG/JPEG/BMP/TIFF） */
+  format?: string;
+  /** 数据集 ID */
+  datasetId?: string;
+}
+
+/**
+ * 混合搜索请求 DTO
+ *
+ * 封装融合知识库 RAG 检索和 Web 搜索的请求参数。
+ */
+export interface HybridSearchDTO {
+  serialVersionUID?: number;
+  /** 查询文本（必填） */
+  query?: string;
+  /** 数据集 ID（可选，为 null 时仅执行 web 搜索） */
+  datasetId?: string;
+  /** 返回前 K 条结果（默认 5） */
+  topK?: number;
+}
+
+/**
+ * 异步任务提交请求 DTO
+ *
+ * 封装提交异步任务时客户端需要提供的参数：任务类型、输入参数 JSON 以及可选自定义超时秒数。
+ */
+export interface AsyncTaskSubmitDTO {
+  serialVersionUID?: number;
+  /** 任务类型编码（REPORT_GENERATE / DOC_INGEST / BATCH_CHAT / CODE_EXECUTION） */
+  taskType?: string;
+  /** 任务输入参数 JSON（可选，null 表示无输入） */
+  inputPayload?: string;
+  /** 租户编码（可选，多租户隔离标识） */
+  tenantCode?: string;
+  /** 触发用户 ID（可选） */
+  userId?: string;
+  /** 自定义超时秒数（可选，null 时使用任务类型默认值） */
+  timeoutSeconds?: number;
+}
+
+/**
+ * Skill 执行请求 DTO
+ *
+ * 封装通过编码执行 Skill 的请求参数，支持输入参数、超时配置和环境变量注入。
+ */
+export interface SkillExecutionRequestDTO {
+  serialVersionUID?: number;
+  /** Skill 编码 */
+  skillCode?: string;
+  /** 输入参数（key→value） */
+  inputParams?: Record<string, Record<string, unknown>>;
+  /** 超时毫秒数（0 表示使用默认值） */
+  timeoutMs?: number;
+  /** 环境变量注入 */
+  envVariables?: Record<string, string>;
+}
+
+/**
+ * CreateTeamRunRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateTeamRunRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * AddMemberRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface AddMemberRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * CreateTriggerRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface CreateTriggerRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * UpdateTriggerRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface UpdateTriggerRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 对话响应 DTO
  *
  * 封装 Agent 对话的响应结果，包括回复内容、 实际使用的模型、Token 用量统计和响应时间。
@@ -264,9 +495,24 @@ export interface ChatResponseDTO {
   /** 实际使用的模型名称 */
   model?: string;
   /** Token 用量统计 */
-  usage?: Record<string, unknown>;
+  usage?: TokenUsageDTO;
   /** 响应时间 */
   respondedAt?: string;
+  /** 输入 Token 数量（prompt 消耗） */
+  promptTokens?: number;
+  /** 输出 Token 数量（completion 消耗） */
+  completionTokens?: number;
+  /** 总 Token 数量（prompt + completion） */
+  totalTokens?: number;
+}
+
+/**
+ * Token 用量统计 DTO
+ *
+ * 记录单次 LLM 调用的 Token 消耗明细，用于成本分析和用量监控。
+ */
+export interface TokenUsageDTO {
+  serialVersionUID?: number;
   /** 输入 Token 数量（prompt 消耗） */
   promptTokens?: number;
   /** 输出 Token 数量（completion 消耗） */
@@ -285,13 +531,36 @@ export interface ChatResponseDTO {
 export interface BatchChatResponseDTO {
   serialVersionUID?: number;
   /** 批量结果列表（与请求 items 顺序一致） */
-  results?: Record<string, unknown>[];
+  results?: BatchResultItem[];
   /** 总耗时（毫秒） */
   totalDurationMs?: number;
   /** 成功条目数 */
   successCount?: number;
   /** 失败条目数 */
   failedCount?: number;
+  /** 条目标识（与请求中 itemId 对应） */
+  itemId?: string;
+  /** 是否成功 */
+  isSuccess?: boolean;
+  /** 响应内容（成功时非空） */
+  content?: string;
+  /** 使用模型（成功时非空） */
+  model?: string;
+  /** Token 用量（成功时非空） */
+  usage?: Record<string, unknown>;
+  /** 结束原因（成功时非空） */
+  finishReason?: string;
+  /** 错误信息（失败时非空） */
+  errorMessage?: string;
+}
+
+/**
+ * 批量对话单条结果
+ *
+ * 每条结果与请求中的 BatchChatRequestDTO.BatchChatItem 通过 #itemId 对应。
+ */
+export interface BatchResultItem {
+  serialVersionUID?: number;
   /** 条目标识（与请求中 itemId 对应） */
   itemId?: string;
   /** 是否成功 */
@@ -347,6 +616,16 @@ export interface AgentDefinitionVO {
 }
 
 /**
+ * DagExecutionResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface DagExecutionResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * DAG 执行检查点
  *
  * 快照编排执行的中间状态，支持从断点续跑。 记录已完成节点的输出、失败节点集合以及原始请求上下文（DSL / 用户输入）， 以便在原执行超时或中断后跳过已成功的节点、仅重试失败及未执行的节点。
@@ -372,18 +651,24 @@ export interface DagCheckpoint {
   snapshotTime?: string;
 }
 
-/** DAG 工作流持久化实体（可视化编辑器保存/加载）。 */
+/**
+ * DAG 工作流（domain 层持久化实体，YDIZ-DDD-007 单包模式）
+ *
+ * YDIZ-DDD-007：domain Entity 直接携带 MyBatis-Plus ORM 注解，
+ * infra 层通过依赖 domain 模块引用本类，禁止自建 PO/DO 副本。
+ */
 export interface DagWorkflow {
-  id?: string;
+  serialVersionUID?: number;
+  /** 工作流编码（业务唯一标识） */
   workflowCode?: string;
-  workflowName?: string;
+  /** 工作流名称 */
+  name?: string;
+  /** DAG 定义（YAML DSL） */
+  dsl?: string;
+  /** 工作流描述 */
   description?: string;
-  dslContent?: string;
-  layoutJson?: string;
+  /** 分类（用于分组检索） */
   category?: string;
-  isPublished?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 /**
@@ -423,6 +708,163 @@ export interface AgentTraceDetailDTO {
 }
 
 /**
+ * ApprovalRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ApprovalRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * 洞察报告生成结果值对象（不可变 record）。
+ *
+ * 封装 BI 洞察报告生成的完整输出，包括报告 ID、标题、完整内容、结构化章节列表、
+ * 状态、存储路径和耗时。作为 InsightReportService#generateReport 的返回值。
+ * @param reportId 报告唯一 ID
+ * @param title 报告标题
+ * @param content 生成的报告全文
+ * @param sections 报告章节列表
+ * @param status 报告状态
+ * @param reportPath 存储路径/URL
+ * @param createdAt 创建时间
+ * @param durationMs 生成耗时（毫秒）
+ */
+export interface InsightReportResult {
+  reportId?: string;
+  title?: string;
+  content?: string;
+  sections?: InsightSection[];
+  /**
+   * 洞察报告状态枚举。
+   * 描述洞察报告从创建到导出全生命周期的状态流转。
+   */
+  status?: string;
+  reportPath?: string;
+  createdAt?: string;
+  durationMs?: number;
+}
+
+/**
+ * 洞察报告章节值对象（不可变 record）。
+ *
+ * 描述 BI 洞察报告中的一个结构化章节，每个章节有独立的类型、标题、内容和可选的结构化数据
+ * （如图表数据 JSON）。章节按 `sort` 排序后组成完整报告。
+ * 支持类型：
+ * summary — 数据摘要（总览概览）
+ * data — 数据明细（表格展示）
+ * chart — 图表可视化（含 chartType + datasets）
+ * insight — 分析洞察（文字结论）
+ * trend — 趋势分析（时序变化）
+ * prediction — 预测推断
+ * @param sectionType 章节类型
+ * @param title 章节标题
+ * @param content 章节内容（Markdown 或纯文本）
+ * @param dataJson 结构化数据 JSON（可选）
+ * @param sort 排序序号
+ */
+export interface InsightSection {
+  sectionType?: string;
+  title?: string;
+  content?: string;
+  dataJson?: string;
+  sort?: number;
+}
+
+/**
+ * EntityVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface EntityVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * SubGraphVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SubGraphVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * RelationVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface RelationVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * 对话记忆视图对象。
+ *
+ * 用于返回单条对话记忆消息的展示数据。
+ * 线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。
+ */
+export interface MemoryVO {
+  serialVersionUID?: number;
+  /** 消息唯一 ID */
+  id?: string;
+  /** 消息角色（SYSTEM/USER/ASSISTANT/TOOL） */
+  role?: string;
+  /** 消息内容 */
+  content?: string;
+  /** 所属对话 ID */
+  conversationId?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 工具调用 ID（Tool 角色使用） */
+  toolCallId?: string;
+}
+
+/**
+ * DashboardOverviewDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface DashboardOverviewDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * ModelUsageDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface ModelUsageDTO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * PromptEvaluationResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PromptEvaluationResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * PromptComparisonResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PromptComparisonResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * Agent 运行时会话值对象。
  *
  * 记录一次 Agent 执行会话的完整生命周期状态，包括执行元数据、进度信息、资源消耗。
@@ -447,6 +889,90 @@ export interface RuntimeSession {
   source?: string;
   errorMessage?: string;
   elapsedMillis?: string;
+}
+
+/**
+ * 异步任务视图对象
+ *
+ * 用于向前端返回异步任务的当前状态、进度和执行结果。
+ * 由 AsyncTask 实体转换而来，仅暴露前端必要字段。
+ */
+export interface AsyncTaskVO {
+  serialVersionUID?: number;
+  /** 任务唯一 ID */
+  id?: number;
+  /** 任务类型编码 */
+  taskType?: string;
+  /** 任务类型描述 */
+  taskTypeDesc?: string;
+  /** 当前状态编码 */
+  status?: string;
+  /** 当前状态描述 */
+  statusDesc?: string;
+  /** 租户编码 */
+  tenantCode?: string;
+  /** 触发用户 ID */
+  userId?: string;
+  /** 当前进度百分比（0-100） */
+  progressPercent?: number;
+  /** 执行结果（已完成时非空） */
+  outputPayload?: string;
+  /** 失败原因（失败时非空） */
+  errorMessage?: string;
+  /** 已重试次数 */
+  retryCount?: number;
+  /** 最大重试次数 */
+  maxRetry?: number;
+  /** 任务过期时间 */
+  expireAt?: string;
+  /** 任务开始执行时间 */
+  startedAt?: string;
+  /** 任务完成时间 */
+  completedAt?: string;
+  /** 创建时间 */
+  createdAt?: string;
+  /** 更新时间 */
+  updatedAt?: string;
+  /** 是否处于终态 */
+  isTerminal?: boolean;
+  /** 是否可重试 */
+  isRetryable?: boolean;
+}
+
+/**
+ * SkillDescriptorVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SkillDescriptorVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * Skill 执行结果视图对象
+ *
+ * 用于 Controller 层返回 Skill 执行结果的展示数据。
+ */
+export interface SkillExecutionResponseVO {
+  success?: boolean;
+  serialVersionUID?: number;
+  /** Skill 编码 */
+  skillCode?: string;
+  /** 执行是否成功 */
+  isSuccess?: boolean;
+  /** 标准输出内容 */
+  stdout?: string;
+  /** 标准错误内容 */
+  stderr?: string;
+  /** 产物文件列表 */
+  outputFiles?: string[];
+  /** 执行指标（elapsedMs / exitCode 等） */
+  metrics?: Record<string, Record<string, unknown>>;
+  /** 失败原因 */
+  errorMessage?: string;
+  /** 执行完成时间 */
+  completedAt?: string;
 }
 
 /**

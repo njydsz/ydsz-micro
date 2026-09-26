@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * generateUploadUrl: POST /api/nextwiki/storage/presigned-upload
+ * generateUploadUrl: POST /nextwiki/storage/presigned-upload
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -22,11 +22,11 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function generateUploadUrl(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/storage/presigned-upload`, data);
+  return requestClient.post<unknown>(`/nextwiki/storage/presigned-upload`, data);
 }
 
 /**
- * generateDownloadUrl: POST /api/nextwiki/storage/presigned-download
+ * generateDownloadUrl: POST /nextwiki/storage/presigned-download
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -34,5 +34,5 @@ export function generateUploadUrl(data: Record<string, unknown>): Promise<unknow
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function generateDownloadUrl(data: Record<string, unknown>): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/storage/presigned-download`, data);
+  return requestClient.post<unknown>(`/nextwiki/storage/presigned-download`, data);
 }

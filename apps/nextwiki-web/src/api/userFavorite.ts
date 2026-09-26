@@ -14,67 +14,55 @@ import { requestClient } from '#/api/request';
 import type { UserFavoriteVO } from './models';
 
 /**
- * listFavorites: GET /api/nextwiki/favorites
+ * listFavorites: GET /nextwiki/favorites
  */
 export function listFavorites(params: {
     limit?: number;
   }): Promise<UserFavoriteVO[]> {
-  return requestClient.get<UserFavoriteVO[]>(`/api/nextwiki/favorites`, { params });
+  return requestClient.get<UserFavoriteVO[]>(`/nextwiki/favorites`, { params });
 }
 
 /**
- * addFavorite: POST /api/nextwiki/favorites/{nodeId}
+ * addFavorite: POST /nextwiki/favorites/{nodeId}
  */
 export function addFavorite({ nodeId }: {
     nodeId: string;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/nextwiki/favorites/${nodeId}`);
+  return requestClient.post<string>(`/nextwiki/favorites/${nodeId}`);
 }
 
 /**
- * removeFavorite: DELETE /api/nextwiki/favorites/{nodeId}
+ * removeFavorite: DELETE /nextwiki/favorites/{nodeId}
  */
 export function removeFavorite({ nodeId }: {
     nodeId: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/nextwiki/favorites/${nodeId}`);
+  return requestClient.delete<boolean>(`/nextwiki/favorites/${nodeId}`);
 }
 
 /**
- * isFavorited: GET /api/nextwiki/favorites/{nodeId}/is-favorited
+ * isFavorited: GET /nextwiki/favorites/{nodeId}/is-favorited
  */
 export function isFavorited({ nodeId }: {
     nodeId: string;
   }): Promise<boolean> {
-  return requestClient.get<boolean>(`/api/nextwiki/favorites/${nodeId}/is-favorited`);
+  return requestClient.get<boolean>(`/nextwiki/favorites/${nodeId}/is-favorited`);
 }
 
 /**
- * updatesort: POST /api/nextwiki/favorites/{nodeId}/sort
+ * updatesort: POST /nextwiki/favorites/{nodeId}/sort
  */
 export function updatesort({ nodeId }: {
     nodeId: string;
   }, params: {
     sort?: number;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/nextwiki/favorites/${nodeId}/sort`, { params });
+  return requestClient.post<boolean>(`/nextwiki/favorites/${nodeId}/sort`, { params });
 }
 
 /**
- * updateSortOrder: POST /api/nextwiki/favorites/{nodeId}/sort
- * <p>{@link updatesort} 的别名，供视图层使用驼峰命名。
- */
-export function updateSortOrder({ nodeId }: {
-    nodeId: string;
-  }, params: {
-    sort?: number;
-  }): Promise<boolean> {
-  return updatesort({ nodeId }, params);
-}
-
-/**
- * getFavoriteCount: GET /api/nextwiki/favorites/count
+ * getFavoriteCount: GET /nextwiki/favorites/count
  */
 export function getFavoriteCount(): Promise<number> {
-  return requestClient.get<number>(`/api/nextwiki/favorites/count`);
+  return requestClient.get<number>(`/nextwiki/favorites/count`);
 }

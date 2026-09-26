@@ -14,15 +14,15 @@ import { requestClient } from '#/api/request';
 import type { ChannelHealthVO, SystemHealthVO } from './models';
 
 /**
- * getSystemHealth: GET /api/message/health
+ * getSystemHealth: GET /message/health
  */
 export function getSystemHealth(): Promise<SystemHealthVO> {
-  return requestClient.get<SystemHealthVO>(`/api/message/health`);
+  return requestClient.get<SystemHealthVO>(`/message/health`);
 }
 
 /**
- * getChannelHealths: GET /api/message/health/channels
+ * getChannelHealths: GET /message/health/channels
  */
 export function getChannelHealths(): Promise<ChannelHealthVO[]> {
-  return requestClient.get<ChannelHealthVO[]>(`/api/message/health/channels`);
+  return requestClient.get<ChannelHealthVO[]>(`/message/health/channels`);
 }

@@ -15,44 +15,44 @@ import type { PageResponse } from './models';
 import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO } from './models';
 
 /**
- * page: GET /api/auth-policy/page
+ * page: GET /auth-policy/page
  */
 export function page(params: {
     query?: AuthPolicyPageQuery;
   }): Promise<PageResponse<AuthPolicyVO[]>> {
-  return requestClient.get<PageResponse<AuthPolicyVO[]>>(`/api/auth-policy/page`, { params });
+  return requestClient.get<PageResponse<AuthPolicyVO[]>>(`/auth-policy/page`, { params });
 }
 
 /**
- * getByTenantId: GET /api/auth-policy/{tenantId}
+ * getByTenantId: GET /auth-policy/{tenantId}
  */
 export function getByTenantId({ tenantId }: {
     tenantId: string;
   }): Promise<AuthPolicyVO> {
-  return requestClient.get<AuthPolicyVO>(`/api/auth-policy/${tenantId}`);
+  return requestClient.get<AuthPolicyVO>(`/auth-policy/${tenantId}`);
 }
 
 /**
- * create: POST /api/auth-policy
+ * create: POST /auth-policy
  */
 export function create(data: AuthPolicyDTO): Promise<void> {
-  return requestClient.post<void>(`/api/auth-policy`, data);
+  return requestClient.post<void>(`/auth-policy`, data);
 }
 
 /**
- * update: PUT /api/auth-policy/{tenantId}
+ * update: PUT /auth-policy/{tenantId}
  */
 export function update({ tenantId }: {
     tenantId: string;
   }, data: AuthPolicyDTO): Promise<void> {
-  return requestClient.put<void>(`/api/auth-policy/${tenantId}`, data);
+  return requestClient.put<void>(`/auth-policy/${tenantId}`, data);
 }
 
 /**
- * delete: DELETE /api/auth-policy/{tenantId}
+ * delete: DELETE /auth-policy/{tenantId}
  */
 export function deleteApi({ tenantId }: {
     tenantId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/auth-policy/${tenantId}`);
+  return requestClient.delete<void>(`/auth-policy/${tenantId}`);
 }

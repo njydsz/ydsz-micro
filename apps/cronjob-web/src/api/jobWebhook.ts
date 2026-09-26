@@ -15,30 +15,30 @@ import type { PageResponse } from './models';
 import type { JobWebhookPostDTO, JobWebhookPutDTO, JobWebhookVO } from './models';
 
 /**
- * create: POST /api/cronjob/webhook
+ * create: POST /cronjob/webhook
  */
 export function create(data: JobWebhookPostDTO): Promise<string> {
-  return requestClient.post<string>(`/api/cronjob/webhook`, data);
+  return requestClient.post<string>(`/cronjob/webhook`, data);
 }
 
 /**
- * update: PUT /api/cronjob/webhook
+ * update: PUT /cronjob/webhook
  */
 export function update(data: JobWebhookPutDTO): Promise<void> {
-  return requestClient.put<void>(`/api/cronjob/webhook`, data);
+  return requestClient.put<void>(`/cronjob/webhook`, data);
 }
 
 /**
- * delete: DELETE /api/cronjob/webhook/{id}
+ * delete: DELETE /cronjob/webhook/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/cronjob/webhook/${id}`);
+  return requestClient.delete<void>(`/cronjob/webhook/${id}`);
 }
 
 /**
- * page: GET /api/cronjob/webhook/page
+ * page: GET /cronjob/webhook/page
  */
 export function page(params: {
     pageNum?: number;
@@ -46,23 +46,23 @@ export function page(params: {
     eventType?: string;
     jobKey?: string;
   }): Promise<PageResponse<JobWebhookVO[]>> {
-  return requestClient.get<PageResponse<JobWebhookVO[]>>(`/api/cronjob/webhook/page`, { params });
+  return requestClient.get<PageResponse<JobWebhookVO[]>>(`/cronjob/webhook/page`, { params });
 }
 
 /**
- * getById: GET /api/cronjob/webhook/{id}
+ * getById: GET /cronjob/webhook/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<JobWebhookVO> {
-  return requestClient.get<JobWebhookVO>(`/api/cronjob/webhook/${id}`);
+  return requestClient.get<JobWebhookVO>(`/cronjob/webhook/${id}`);
 }
 
 /**
- * testWebhook: POST /api/cronjob/webhook/{id}/test
+ * testWebhook: POST /cronjob/webhook/{id}/test
  */
 export function testWebhook({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/cronjob/webhook/${id}/test`);
+  return requestClient.post<void>(`/cronjob/webhook/${id}/test`);
 }

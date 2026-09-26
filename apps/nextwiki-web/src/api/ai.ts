@@ -14,14 +14,14 @@ import { requestClient } from '#/api/request';
 import type { SummaryResult } from './models';
 
 /**
- * generateSummary: POST /api/nextwiki/ai/summary
+ * generateSummary: POST /nextwiki/ai/summary
  */
 export function generateSummary(data: Record<string, unknown>): Promise<SummaryResult> {
-  return requestClient.post<SummaryResult>(`/api/nextwiki/ai/summary`, data);
+  return requestClient.post<SummaryResult>(`/nextwiki/ai/summary`, data);
 }
 
 /**
- * getStatus: GET /api/nextwiki/ai/status
+ * getStatus: GET /nextwiki/ai/status
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -29,5 +29,5 @@ export function generateSummary(data: Record<string, unknown>): Promise<SummaryR
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function getStatus(): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/nextwiki/ai/status`);
+  return requestClient.get<unknown>(`/nextwiki/ai/status`);
 }

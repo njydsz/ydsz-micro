@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud userinfo"
  },
  "paths": {
-  "/api/admin/users/{userId}/ban": {
+  "/admin/users/{userId}/ban": {
    "post": {
     "operationId": "banUser",
     "tags": [
@@ -46,7 +46,7 @@
     }
    }
   },
-  "/api/admin/users/{userId}/unban": {
+  "/admin/users/{userId}/unban": {
    "post": {
     "operationId": "unbanUser",
     "tags": [
@@ -76,7 +76,7 @@
     ]
    }
   },
-  "/api/admin/users/{userId}/ban-info": {
+  "/admin/users/{userId}/ban-info": {
    "get": {
     "operationId": "getBanInfo",
     "tags": [
@@ -106,7 +106,7 @@
     ]
    }
   },
-  "/api/admin/users/{userId}/sessions": {
+  "/admin/users/{userId}/sessions": {
    "get": {
     "operationId": "getUserSessions",
     "tags": [
@@ -136,7 +136,7 @@
     ]
    }
   },
-  "/api/admin/users/{userId}/sessions/{accessToken}": {
+  "/admin/users/{userId}/sessions/{accessToken}": {
    "delete": {
     "operationId": "forceLogout",
     "tags": [
@@ -174,7 +174,7 @@
     ]
    }
   },
-  "/api/admin/sessions": {
+  "/admin/sessions": {
    "get": {
     "operationId": "getAllActiveSessions",
     "tags": [
@@ -214,7 +214,7 @@
     ]
    }
   },
-  "/api/admin/sessions/statistics": {
+  "/admin/sessions/statistics": {
    "get": {
     "operationId": "getSessionStatistics",
     "tags": [
@@ -234,7 +234,7 @@
     }
    }
   },
-  "/api/apikey": {
+  "/apikey": {
    "post": {
     "operationId": "createKey",
     "tags": [
@@ -324,7 +324,7 @@
     ]
    }
   },
-  "/api/apikey/all": {
+  "/apikey/all": {
    "get": {
     "operationId": "listMyKeys",
     "tags": [
@@ -344,7 +344,7 @@
     }
    }
   },
-  "/api/apikey/{id}/enabled": {
+  "/apikey/{id}/enabled": {
    "put": {
     "operationId": "updateEnabled",
     "tags": [
@@ -383,7 +383,7 @@
     ]
    }
   },
-  "/api/auth/mfa/send-code": {
+  "/auth/mfa/send-code": {
    "post": {
     "operationId": "sendMfaCode",
     "tags": [
@@ -413,7 +413,7 @@
     }
    }
   },
-  "/api/auth/mfa/send-email-code": {
+  "/auth/mfa/send-email-code": {
    "post": {
     "operationId": "sendMfaEmailCode",
     "tags": [
@@ -443,7 +443,7 @@
     }
    }
   },
-  "/api/auth/login": {
+  "/auth/login": {
    "post": {
     "operationId": "login",
     "tags": [
@@ -467,7 +467,7 @@
       "in": "query",
       "required": false,
       "schema": {
-       "type": "object"
+       "$ref": "#/components/schemas/HttpServletRequest"
       }
      },
      {
@@ -475,7 +475,7 @@
       "in": "query",
       "required": false,
       "schema": {
-       "type": "object"
+       "$ref": "#/components/schemas/HttpServletResponse"
       }
      }
     ],
@@ -491,7 +491,7 @@
     }
    }
   },
-  "/api/auth/userinfo": {
+  "/auth/userinfo": {
    "get": {
     "operationId": "getUserInfo",
     "tags": [
@@ -511,7 +511,7 @@
     }
    }
   },
-  "/api/auth/codes": {
+  "/auth/codes": {
    "get": {
     "operationId": "getAccessCodes",
     "tags": [
@@ -531,7 +531,7 @@
     }
    }
   },
-  "/api/auth/logout": {
+  "/auth/logout": {
    "post": {
     "operationId": "logout",
     "tags": [
@@ -561,7 +561,7 @@
     ]
    }
   },
-  "/api/auth/refresh": {
+  "/auth/refresh": {
    "post": {
     "operationId": "refresh",
     "tags": [
@@ -591,7 +591,7 @@
     }
    }
   },
-  "/api/auth/sso/device-code": {
+  "/auth/sso/device-code": {
    "post": {
     "operationId": "generateDeviceCode",
     "tags": [
@@ -621,7 +621,7 @@
     ]
    }
   },
-  "/api/auth/sso/device-exchange": {
+  "/auth/sso/device-exchange": {
    "post": {
     "operationId": "exchangeDeviceCode",
     "tags": [
@@ -651,7 +651,7 @@
     ]
    }
   },
-  "/api/auth/sessions": {
+  "/auth/sessions": {
    "get": {
     "operationId": "listActiveSessions",
     "tags": [
@@ -699,7 +699,7 @@
     ]
    }
   },
-  "/api/auth/sessions/{token}": {
+  "/auth/sessions/{token}": {
    "delete": {
     "operationId": "kickOutSession",
     "tags": [
@@ -729,7 +729,7 @@
     ]
    }
   },
-  "/api/auth/secondary-auth": {
+  "/auth/secondary-auth": {
    "post": {
     "operationId": "secondaryAuth",
     "tags": [
@@ -759,7 +759,7 @@
     }
    }
   },
-  "/api/auth/secondary-auth/webauthn/challenge": {
+  "/auth/secondary-auth/webauthn/challenge": {
    "get": {
     "operationId": "getWebAuthnChallenge",
     "tags": [
@@ -789,7 +789,7 @@
     ]
    }
   },
-  "/api/auth/secondary-auth/webauthn": {
+  "/auth/secondary-auth/webauthn": {
    "post": {
     "operationId": "webAuthnSecondaryAuth",
     "tags": [
@@ -819,7 +819,7 @@
     }
    }
   },
-  "/api/auth-policy/page": {
+  "/auth-policy/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -849,7 +849,7 @@
     ]
    }
   },
-  "/api/auth-policy/{tenantId}": {
+  "/auth-policy/{tenantId}": {
    "get": {
     "operationId": "getByTenantId",
     "tags": [
@@ -945,7 +945,7 @@
     ]
    }
   },
-  "/api/auth-policy": {
+  "/auth-policy": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -975,7 +975,7 @@
     }
    }
   },
-  "/api/captcha/generate": {
+  "/captcha/generate": {
    "get": {
     "operationId": "generate",
     "tags": [
@@ -995,7 +995,7 @@
     }
    }
   },
-  "/api/captcha/validate": {
+  "/captcha/validate": {
    "post": {
     "operationId": "validate",
     "tags": [
@@ -1045,7 +1045,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "type": "object"
+         "$ref": "#/components/schemas/ResponseEntity"
         }
        }
       }
@@ -1269,7 +1269,7 @@
     ]
    }
   },
-  "/api/company/list": {
+  "/company/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -1289,7 +1289,7 @@
     }
    }
   },
-  "/api/company/tree": {
+  "/company/tree": {
    "get": {
     "operationId": "tree",
     "tags": [
@@ -1309,7 +1309,7 @@
     }
    }
   },
-  "/api/company/{id}": {
+  "/company/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -1367,7 +1367,7 @@
     ]
    }
   },
-  "/api/company": {
+  "/company": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -1425,7 +1425,7 @@
     }
    }
   },
-  "/api/dept/list": {
+  "/dept/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -1445,7 +1445,7 @@
     }
    }
   },
-  "/api/dept/tree": {
+  "/dept/tree": {
    "get": {
     "operationId": "tree",
     "tags": [
@@ -1465,7 +1465,7 @@
     }
    }
   },
-  "/api/dept/{id}": {
+  "/dept/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -1523,7 +1523,7 @@
     ]
    }
   },
-  "/api/dept": {
+  "/dept": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -1581,7 +1581,7 @@
     }
    }
   },
-  "/api/internal/user/info": {
+  "/internal/user/info": {
    "get": {
     "operationId": "getUserInfo",
     "tags": [
@@ -1611,7 +1611,7 @@
     ]
    }
   },
-  "/api/internal/dept/tree": {
+  "/internal/dept/tree": {
    "get": {
     "operationId": "getDeptTree",
     "tags": [
@@ -1631,7 +1631,7 @@
     }
    }
   },
-  "/api/internal/dept/list": {
+  "/internal/dept/list": {
    "get": {
     "operationId": "getDeptList",
     "tags": [
@@ -1651,7 +1651,7 @@
     }
    }
   },
-  "/api/internal/user/list-by-role": {
+  "/internal/user/list-by-role": {
    "get": {
     "operationId": "listUserIdsByRole",
     "tags": [
@@ -1681,7 +1681,7 @@
     ]
    }
   },
-  "/api/internal/user/role-codes": {
+  "/internal/user/role-codes": {
    "get": {
     "operationId": "listRoleCodesByUserId",
     "tags": [
@@ -1711,7 +1711,7 @@
     ]
    }
   },
-  "/api/internal/user/dept-ids": {
+  "/internal/user/dept-ids": {
    "get": {
     "operationId": "listDeptIdsByUserId",
     "tags": [
@@ -1741,7 +1741,7 @@
     ]
    }
   },
-  "/api/internal/user/leader": {
+  "/internal/user/leader": {
    "get": {
     "operationId": "getLeaderByUserId",
     "tags": [
@@ -1771,7 +1771,7 @@
     ]
    }
   },
-  "/api/internal/user/list-by-position": {
+  "/internal/user/list-by-position": {
    "get": {
     "operationId": "listUserIdsByPosition",
     "tags": [
@@ -1801,7 +1801,7 @@
     ]
    }
   },
-  "/api/internal/dept/leader-by-id": {
+  "/internal/dept/leader-by-id": {
    "get": {
     "operationId": "getDeptLeaderByDeptId",
     "tags": [
@@ -1831,7 +1831,7 @@
     ]
    }
   },
-  "/api/internal/dept/leader-by-code": {
+  "/internal/dept/leader-by-code": {
    "get": {
     "operationId": "getDeptLeaderByDeptCode",
     "tags": [
@@ -1861,7 +1861,7 @@
     ]
    }
   },
-  "/api/internal/user/batch-names": {
+  "/internal/user/batch-names": {
    "post": {
     "operationId": "batchUserNames",
     "tags": [
@@ -1894,7 +1894,7 @@
     }
    }
   },
-  "/api/internal/dept/batch-names": {
+  "/internal/dept/batch-names": {
    "post": {
     "operationId": "batchDeptNames",
     "tags": [
@@ -1927,7 +1927,7 @@
     }
    }
   },
-  "/api/internal/role/batch-names": {
+  "/internal/role/batch-names": {
    "post": {
     "operationId": "batchRoleNames",
     "tags": [
@@ -1960,7 +1960,7 @@
     }
    }
   },
-  "/api/internal/post/batch-names": {
+  "/internal/post/batch-names": {
    "post": {
     "operationId": "batchPostNames",
     "tags": [
@@ -1993,7 +1993,7 @@
     }
    }
   },
-  "/api/internal/company/batch-names": {
+  "/internal/company/batch-names": {
    "post": {
     "operationId": "batchCompanyNames",
     "tags": [
@@ -2026,7 +2026,45 @@
     }
    }
   },
-  "/api/language/page": {
+  "/internal/user/verify-password": {
+   "get": {
+    "operationId": "verifyPassword",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "userId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "password",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/language/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2056,7 +2094,7 @@
     ]
    }
   },
-  "/api/language/{id}": {
+  "/language/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -2114,7 +2152,7 @@
     ]
    }
   },
-  "/api/language/list": {
+  "/language/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -2134,7 +2172,7 @@
     }
    }
   },
-  "/api/language": {
+  "/language": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -2192,7 +2230,7 @@
     }
    }
   },
-  "/api/admin/ldap/sync": {
+  "/admin/ldap/sync": {
    "post": {
     "operationId": "triggerSync",
     "tags": [
@@ -2212,7 +2250,7 @@
     }
    }
   },
-  "/api/admin/ldap/sync/status": {
+  "/admin/ldap/sync/status": {
    "get": {
     "operationId": "getStatus",
     "tags": [
@@ -2232,7 +2270,7 @@
     }
    }
   },
-  "/api/admin/ldap/sync/logs": {
+  "/admin/ldap/sync/logs": {
    "get": {
     "operationId": "getLogs",
     "tags": [
@@ -2252,7 +2290,37 @@
     }
    }
   },
-  "/api/menu/list": {
+  "/userinfo/login-log/page": {
+   "get": {
+    "operationId": "page",
+    "tags": [
+     "userinfo"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/LoginLogPageQuery"
+      }
+     }
+    ]
+   }
+  },
+  "/menu/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -2272,7 +2340,7 @@
     }
    }
   },
-  "/api/menu/tree": {
+  "/menu/tree": {
    "get": {
     "operationId": "tree",
     "tags": [
@@ -2292,7 +2360,7 @@
     }
    }
   },
-  "/api/menu/routes": {
+  "/menu/routes": {
    "get": {
     "operationId": "routes",
     "tags": [
@@ -2312,7 +2380,7 @@
     }
    }
   },
-  "/api/menu/{id}": {
+  "/menu/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -2370,7 +2438,7 @@
     ]
    }
   },
-  "/api/menu": {
+  "/menu": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -2428,7 +2496,7 @@
     }
    }
   },
-  "/api/admin/oauth2/applications": {
+  "/admin/oauth2/applications": {
    "post": {
     "operationId": "register",
     "tags": [
@@ -2451,7 +2519,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/RegisterApplicationDTO"
        }
       }
      }
@@ -2512,7 +2580,7 @@
     ]
    }
   },
-  "/api/admin/oauth2/applications/{id}": {
+  "/admin/oauth2/applications/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -2573,7 +2641,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/UpdateApplicationDTO"
        }
       }
      }
@@ -2608,7 +2676,7 @@
     ]
    }
   },
-  "/api/admin/oauth2/applications/{id}/reset-secret": {
+  "/admin/oauth2/applications/{id}/reset-secret": {
    "post": {
     "operationId": "resetSecret",
     "tags": [
@@ -2638,7 +2706,7 @@
     ]
    }
   },
-  "/api/oauth2/authorize": {
+  "/oauth2/authorize": {
    "get": {
     "operationId": "authorize",
     "tags": [
@@ -2668,7 +2736,7 @@
     ]
    }
   },
-  "/api/oauth2/consent": {
+  "/oauth2/consent": {
    "get": {
     "operationId": "getConsentInfo",
     "tags": [
@@ -2750,7 +2818,7 @@
     ]
    }
   },
-  "/api/oauth2/token": {
+  "/oauth2/token": {
    "post": {
     "operationId": "token",
     "tags": [
@@ -2780,7 +2848,7 @@
     ]
    }
   },
-  "/api/oauth2/revoke": {
+  "/oauth2/revoke": {
    "post": {
     "operationId": "revoke",
     "tags": [
@@ -2818,7 +2886,7 @@
     ]
    }
   },
-  "/api/oauth2/introspect": {
+  "/oauth2/introspect": {
    "post": {
     "operationId": "introspect",
     "tags": [
@@ -2864,7 +2932,7 @@
     ]
    }
   },
-  "/api/oauth2/userinfo": {
+  "/oauth2/userinfo": {
    "get": {
     "operationId": "userinfo",
     "tags": [
@@ -2934,7 +3002,7 @@
     }
    }
   },
-  "/api/post/list": {
+  "/post/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -2954,7 +3022,7 @@
     }
    }
   },
-  "/api/post/{id}": {
+  "/post/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -3012,7 +3080,7 @@
     ]
    }
   },
-  "/api/post": {
+  "/post": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -3070,7 +3138,7 @@
     }
    }
   },
-  "/api/role/page": {
+  "/role/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -3100,7 +3168,7 @@
     ]
    }
   },
-  "/api/role/list": {
+  "/role/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -3120,7 +3188,7 @@
     }
    }
   },
-  "/api/role/{id}": {
+  "/role/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -3178,7 +3246,7 @@
     ]
    }
   },
-  "/api/role": {
+  "/role": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -3236,7 +3304,7 @@
     }
    }
   },
-  "/api/role/{roleId}/permissions": {
+  "/role/{roleId}/permissions": {
    "post": {
     "operationId": "assignPermissions",
     "tags": [
@@ -3498,7 +3566,7 @@
     }
    }
   },
-  "/api/saml-idp-config/page": {
+  "/saml-idp-config/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -3528,7 +3596,7 @@
     ]
    }
   },
-  "/api/saml-idp-config/enabled": {
+  "/saml-idp-config/enabled": {
    "get": {
     "operationId": "listEnabled",
     "tags": [
@@ -3548,7 +3616,7 @@
     }
    }
   },
-  "/api/saml-idp-config": {
+  "/saml-idp-config": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -3578,7 +3646,7 @@
     }
    }
   },
-  "/api/saml-idp-config/{entityId}": {
+  "/saml-idp-config/{entityId}": {
    "put": {
     "operationId": "update",
     "tags": [
@@ -3956,7 +4024,7 @@
     }
    }
   },
-  "/api/admin/security/alerts": {
+  "/admin/security/alerts": {
    "get": {
     "operationId": "pageAlerts",
     "tags": [
@@ -3986,7 +4054,7 @@
     ]
    }
   },
-  "/api/admin/security/alerts/pending": {
+  "/admin/security/alerts/pending": {
    "get": {
     "operationId": "getPendingAlerts",
     "tags": [
@@ -4025,7 +4093,7 @@
     ]
    }
   },
-  "/api/admin/security/alerts/{id}/acknowledge": {
+  "/admin/security/alerts/{id}/acknowledge": {
    "put": {
     "operationId": "acknowledgeAlert",
     "tags": [
@@ -4063,7 +4131,7 @@
     ]
    }
   },
-  "/api/admin/security/alerts/{id}/resolve": {
+  "/admin/security/alerts/{id}/resolve": {
    "put": {
     "operationId": "resolveAlert",
     "tags": [
@@ -4101,7 +4169,7 @@
     ]
    }
   },
-  "/api/admin/security/alerts/{id}/ignore": {
+  "/admin/security/alerts/{id}/ignore": {
    "put": {
     "operationId": "ignoreAlert",
     "tags": [
@@ -4139,7 +4207,7 @@
     ]
    }
   },
-  "/api/admin/security/dashboard": {
+  "/admin/security/dashboard": {
    "get": {
     "operationId": "getDashboard",
     "tags": [
@@ -4159,7 +4227,7 @@
     }
    }
   },
-  "/api/admin/security/login-success-rate": {
+  "/admin/security/login-success-rate": {
    "get": {
     "operationId": "getLoginSuccessRate",
     "tags": [
@@ -4199,7 +4267,7 @@
     ]
    }
   },
-  "/api/admin/security/login-fail-distribution": {
+  "/admin/security/login-fail-distribution": {
    "get": {
     "operationId": "getLoginFailDistribution",
     "tags": [
@@ -4230,7 +4298,7 @@
     ]
    }
   },
-  "/api/admin/security/mfa-coverage": {
+  "/admin/security/mfa-coverage": {
    "get": {
     "operationId": "getMfaCoverage",
     "tags": [
@@ -4250,7 +4318,7 @@
     }
    }
   },
-  "/api/admin/security/risk-distribution": {
+  "/admin/security/risk-distribution": {
    "get": {
     "operationId": "getRiskLevelDistribution",
     "tags": [
@@ -4270,7 +4338,7 @@
     }
    }
   },
-  "/api/admin/security/recent-events": {
+  "/admin/security/recent-events": {
    "get": {
     "operationId": "getRecentSecurityEvents",
     "tags": [
@@ -4301,7 +4369,7 @@
     ]
    }
   },
-  "/api/admin/security/session-activity": {
+  "/admin/security/session-activity": {
    "get": {
     "operationId": "getSessionActivity",
     "tags": [
@@ -4321,7 +4389,7 @@
     }
    }
   },
-  "/api/admin/security/active-user-ranking": {
+  "/admin/security/active-user-ranking": {
    "get": {
     "operationId": "getActiveUserRanking",
     "tags": [
@@ -4352,7 +4420,7 @@
     ]
    }
   },
-  "/api/admin/security/session-trend": {
+  "/admin/security/session-trend": {
    "get": {
     "operationId": "getSessionTrend",
     "tags": [
@@ -4392,7 +4460,7 @@
     ]
    }
   },
-  "/api/admin/security/device-distribution": {
+  "/admin/security/device-distribution": {
    "get": {
     "operationId": "getDeviceDistribution",
     "tags": [
@@ -4412,7 +4480,7 @@
     }
    }
   },
-  "/api/admin/security/anomaly-sessions": {
+  "/admin/security/anomaly-sessions": {
    "get": {
     "operationId": "detectAnomalySessions",
     "tags": [
@@ -4432,7 +4500,7 @@
     }
    }
   },
-  "/api/profile/social/bindings": {
+  "/profile/social/bindings": {
    "get": {
     "operationId": "getBindings",
     "tags": [
@@ -4452,7 +4520,7 @@
     }
    }
   },
-  "/api/profile/social/platforms": {
+  "/profile/social/platforms": {
    "get": {
     "operationId": "getAvailablePlatforms",
     "tags": [
@@ -4472,7 +4540,7 @@
     }
    }
   },
-  "/api/profile/social/bindings/{platform}": {
+  "/profile/social/bindings/{platform}": {
    "delete": {
     "operationId": "unbind",
     "tags": [
@@ -4502,7 +4570,7 @@
     ]
    }
   },
-  "/api/social-client-config/page": {
+  "/social-client-config/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -4532,7 +4600,7 @@
     ]
    }
   },
-  "/api/social-client-config/enabled": {
+  "/social-client-config/enabled": {
    "get": {
     "operationId": "listEnabled",
     "tags": [
@@ -4552,7 +4620,7 @@
     }
    }
   },
-  "/api/social-client-config": {
+  "/social-client-config": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -4582,7 +4650,7 @@
     }
    }
   },
-  "/api/social-client-config/{platform}": {
+  "/social-client-config/{platform}": {
    "put": {
     "operationId": "update",
     "tags": [
@@ -4650,7 +4718,7 @@
     ]
    }
   },
-  "/api/sso/metrics/overview": {
+  "/sso/metrics/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -4670,7 +4738,7 @@
     }
    }
   },
-  "/api/sso/token-exchange": {
+  "/sso/token-exchange": {
    "post": {
     "operationId": "tokenExchange",
     "tags": [
@@ -4703,14 +4771,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/TokenExchangeRequest"
        }
       }
      }
     }
    }
   },
-  "/api/sso/validate": {
+  "/sso/validate": {
    "get": {
     "operationId": "validate",
     "tags": [
@@ -4756,7 +4824,7 @@
     ]
    }
   },
-  "/api/sso/logout-notify": {
+  "/sso/logout-notify": {
    "post": {
     "operationId": "logoutNotify",
     "tags": [
@@ -4789,14 +4857,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/LogoutNotifyRequest"
        }
       }
      }
     }
    }
   },
-  "/api/user/page": {
+  "/user/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -4826,7 +4894,7 @@
     ]
    }
   },
-  "/api/user/list": {
+  "/user/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -4846,7 +4914,7 @@
     }
    }
   },
-  "/api/user/{id}": {
+  "/user/{id}": {
    "get": {
     "operationId": "getById",
     "tags": [
@@ -4904,7 +4972,7 @@
     ]
    }
   },
-  "/api/user": {
+  "/user": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -4962,7 +5030,7 @@
     }
    }
   },
-  "/api/user/change-password": {
+  "/user/change-password": {
    "post": {
     "operationId": "changePassword",
     "tags": [
@@ -4992,7 +5060,7 @@
     }
    }
   },
-  "/api/user/reset-password": {
+  "/user/reset-password": {
    "post": {
     "operationId": "resetPassword",
     "tags": [
@@ -5022,7 +5090,7 @@
     }
    }
   },
-  "/api/user/{userId}/roles": {
+  "/user/{userId}/roles": {
    "post": {
     "operationId": "assignRoles",
     "tags": [
@@ -5090,7 +5158,7 @@
     ]
    }
   },
-  "/api/user/import": {
+  "/user/import": {
    "post": {
     "operationId": "importUsers",
     "tags": [
@@ -5120,7 +5188,7 @@
     ]
    }
   },
-  "/api/user/import-template": {
+  "/user/import-template": {
    "get": {
     "operationId": "downloadImportTemplate",
     "tags": [
@@ -5151,7 +5219,7 @@
     ]
    }
   },
-  "/api/user/export": {
+  "/user/export": {
    "get": {
     "operationId": "exportUsers",
     "tags": [
@@ -5182,7 +5250,7 @@
     ]
    }
   },
-  "/api/user/{userId}/login-history": {
+  "/user/{userId}/login-history": {
    "get": {
     "operationId": "getLoginHistory",
     "tags": [
@@ -5221,7 +5289,7 @@
     ]
    }
   },
-  "/api/user/batch-remove": {
+  "/user/batch-remove": {
    "post": {
     "operationId": "batchRemove",
     "tags": [
@@ -5251,7 +5319,7 @@
     }
    }
   },
-  "/api/user/batch-enable": {
+  "/user/batch-enable": {
    "post": {
     "operationId": "batchEnable",
     "tags": [
@@ -5281,7 +5349,7 @@
     }
    }
   },
-  "/api/user/batch-disable": {
+  "/user/batch-disable": {
    "post": {
     "operationId": "batchDisable",
     "tags": [
@@ -5311,7 +5379,7 @@
     }
    }
   },
-  "/api/user/{userId}/lifecycle/suspend": {
+  "/user/{userId}/lifecycle/suspend": {
    "put": {
     "operationId": "suspend",
     "tags": [
@@ -5341,7 +5409,7 @@
     ]
    }
   },
-  "/api/user/{userId}/lifecycle/resume": {
+  "/user/{userId}/lifecycle/resume": {
    "put": {
     "operationId": "resume",
     "tags": [
@@ -5371,7 +5439,7 @@
     ]
    }
   },
-  "/api/user/{userId}/lifecycle/disable": {
+  "/user/{userId}/lifecycle/disable": {
    "put": {
     "operationId": "disable",
     "tags": [
@@ -5401,7 +5469,7 @@
     ]
    }
   },
-  "/api/user/{userId}/lifecycle/enable": {
+  "/user/{userId}/lifecycle/enable": {
    "put": {
     "operationId": "enable",
     "tags": [
@@ -5431,7 +5499,7 @@
     ]
    }
   },
-  "/api/user/{userId}/lifecycle/resign": {
+  "/user/{userId}/lifecycle/resign": {
    "put": {
     "operationId": "resign",
     "tags": [
@@ -5461,7 +5529,7 @@
     ]
    }
   },
-  "/api/user/sensitive-verify": {
+  "/user/sensitive-verify": {
    "post": {
     "operationId": "sensitiveVerify",
     "tags": [
@@ -5491,7 +5559,7 @@
     }
    }
   },
-  "/api/userinfo/search": {
+  "/userinfo/search": {
    "get": {
     "operationId": "search",
     "tags": [
@@ -5529,7 +5597,7 @@
     ]
    }
   },
-  "/api/userinfo/search/rebuild": {
+  "/userinfo/search/rebuild": {
    "post": {
     "operationId": "rebuildIndex",
     "tags": [
@@ -5559,7 +5627,7 @@
     ]
    }
   },
-  "/api/user/preferences": {
+  "/user/preferences": {
    "get": {
     "operationId": "get",
     "tags": [
@@ -5607,7 +5675,7 @@
     }
    }
   },
-  "/api/user/preferences/reset": {
+  "/user/preferences/reset": {
    "post": {
     "operationId": "reset",
     "tags": [
@@ -5627,7 +5695,7 @@
     }
    }
   },
-  "/api/profile/me": {
+  "/profile/me": {
    "get": {
     "operationId": "getCurrentUserProfile",
     "tags": [
@@ -5675,7 +5743,7 @@
     }
    }
   },
-  "/api/profile/password": {
+  "/profile/password": {
    "put": {
     "operationId": "changePassword",
     "tags": [
@@ -5698,14 +5766,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/Valid  ChangePasswordDTO"
        }
       }
      }
     }
    }
   },
-  "/api/profile/avatar": {
+  "/profile/avatar": {
    "put": {
     "operationId": "uploadAvatar",
     "tags": [
@@ -5735,7 +5803,7 @@
     ]
    }
   },
-  "/api/profile/mfa/status": {
+  "/profile/mfa/status": {
    "get": {
     "operationId": "getMfaStatus",
     "tags": [
@@ -5755,7 +5823,7 @@
     }
    }
   },
-  "/api/profile/mfa/setup": {
+  "/profile/mfa/setup": {
    "post": {
     "operationId": "setupMfa",
     "tags": [
@@ -5775,7 +5843,7 @@
     }
    }
   },
-  "/api/profile/mfa/activate": {
+  "/profile/mfa/activate": {
    "post": {
     "operationId": "activateMfa",
     "tags": [
@@ -5805,7 +5873,7 @@
     }
    }
   },
-  "/api/profile/mfa/disable": {
+  "/profile/mfa/disable": {
    "post": {
     "operationId": "disableMfa",
     "tags": [
@@ -5835,7 +5903,7 @@
     }
    }
   },
-  "/api/webauthn/passkey/registration/options": {
+  "/webauthn/passkey/registration/options": {
    "get": {
     "operationId": "getPasskeyRegistrationOptions",
     "tags": [
@@ -5873,7 +5941,7 @@
     ]
    }
   },
-  "/api/webauthn/passkey/options": {
+  "/webauthn/passkey/options": {
    "get": {
     "operationId": "getPasskeyAuthenticationOptions",
     "tags": [
@@ -5893,7 +5961,7 @@
     }
    }
   },
-  "/api/webauthn/passkey/verify": {
+  "/webauthn/passkey/verify": {
    "post": {
     "operationId": "verifyPasskeyAuthentication",
     "tags": [
@@ -5926,7 +5994,7 @@
     }
    }
   },
-  "/api/webauthn/registration/options": {
+  "/webauthn/registration/options": {
    "get": {
     "operationId": "getRegistrationOptions",
     "tags": [
@@ -5964,7 +6032,7 @@
     ]
    }
   },
-  "/api/webauthn/registration/verify": {
+  "/webauthn/registration/verify": {
    "post": {
     "operationId": "verifyRegistration",
     "tags": [
@@ -5997,7 +6065,7 @@
     }
    }
   },
-  "/api/webauthn/authentication/options": {
+  "/webauthn/authentication/options": {
    "get": {
     "operationId": "getAuthenticationOptions",
     "tags": [
@@ -6027,7 +6095,7 @@
     ]
    }
   },
-  "/api/webauthn/authentication/verify": {
+  "/webauthn/authentication/verify": {
    "post": {
     "operationId": "verifyAuthentication",
     "tags": [
@@ -6060,7 +6128,7 @@
     }
    }
   },
-  "/api/webauthn/credentials": {
+  "/webauthn/credentials": {
    "get": {
     "operationId": "listCredentials",
     "tags": [
@@ -6080,7 +6148,7 @@
     }
    }
   },
-  "/api/webauthn/credentials/{credentialId}": {
+  "/webauthn/credentials/{credentialId}": {
    "delete": {
     "operationId": "deleteCredential",
     "tags": [
@@ -6110,7 +6178,7 @@
     ]
    }
   },
-  "/api/devices": {
+  "/devices": {
    "get": {
     "operationId": "listMyDevices",
     "tags": [
@@ -6130,7 +6198,7 @@
     }
    }
   },
-  "/api/devices/{sessionId}": {
+  "/devices/{sessionId}": {
    "delete": {
     "operationId": "revokeDevice",
     "tags": [
@@ -6160,7 +6228,7 @@
     ]
    }
   },
-  "/api/oauth2/device_authorization": {
+  "/oauth2/device_authorization": {
    "post": {
     "operationId": "deviceAuthorization",
     "tags": [
@@ -6198,7 +6266,7 @@
     ]
    }
   },
-  "/api/self-service/send-verify-code": {
+  "/self-service/send-verify-code": {
    "post": {
     "operationId": "sendVerifyCode",
     "tags": [
@@ -6228,7 +6296,7 @@
     }
    }
   },
-  "/api/self-service/register": {
+  "/self-service/register": {
    "post": {
     "operationId": "register",
     "tags": [
@@ -6258,7 +6326,7 @@
     }
    }
   },
-  "/api/self-service/forgot-password": {
+  "/self-service/forgot-password": {
    "post": {
     "operationId": "forgotPassword",
     "tags": [
@@ -6288,7 +6356,7 @@
     }
    }
   },
-  "/api/self-service/unlock": {
+  "/self-service/unlock": {
    "post": {
     "operationId": "unlockAccount",
     "tags": [
@@ -6318,7 +6386,7 @@
     }
    }
   },
-  "/api/auth/events/stream": {
+  "/auth/events/stream": {
    "get": {
     "operationId": "streamEvents",
     "tags": [
@@ -6348,7 +6416,7 @@
     ]
    }
   },
-  "/api/auth/tenant/switch": {
+  "/auth/tenant/switch": {
    "post": {
     "operationId": "switchTenant",
     "tags": [
@@ -6381,7 +6449,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/TenantSwitchRequest"
        }
       }
      }
@@ -6687,6 +6755,16 @@
      "password"
     ]
    },
+   "HttpServletRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "HttpServletResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "RefreshRequest": {
     "type": "object",
     "properties": {
@@ -6875,6 +6953,11 @@
      "sessionTimeoutSeconds": "会话超时时间（秒）",
      "remark": "备注说明"
     }
+   },
+   "ResponseEntity": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "CompanyDTO": {
     "type": "object",
@@ -7070,6 +7153,45 @@
      "languageName"
     ]
    },
+   "LoginLogPageQuery": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "username": {
+      "type": "string",
+      "description": "用户名（模糊匹配）"
+     },
+     "loginIp": {
+      "type": "string",
+      "description": "登录 IP（精确或模糊匹配）"
+     },
+     "status": {
+      "type": "string",
+      "description": "登录结果（SUCCESS/FAILED/ALL）"
+     },
+     "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "起始时间（含）"
+     },
+     "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "结束时间（含）"
+     }
+    },
+    "description": "登录日志分页查询条件。\n\n支持按用户名、IP、登录结果、时间范围筛选。",
+    "x-field-docs": {
+     "username": "用户名（模糊匹配）",
+     "loginIp": "登录 IP（精确或模糊匹配）",
+     "status": "登录结果（SUCCESS/FAILED/ALL）",
+     "startTime": "起始时间（含）",
+     "endTime": "结束时间（含）"
+    }
+   },
    "MenuDTO": {
     "type": "object",
     "properties": {
@@ -7155,6 +7277,16 @@
      "menuCode",
      "menuType"
     ]
+   },
+   "RegisterApplicationDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "RegisterApplicationDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UpdateApplicationDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "UpdateApplicationDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "OAuth2AuthorizeRequest": {
     "type": "object",
@@ -7600,7 +7732,7 @@
      "Operations": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/ScimPatchOperation"
       }
      },
      "op": {
@@ -7632,7 +7764,7 @@
      "operations": {
       "type": "array",
       "items": {
-       "type": "object"
+       "$ref": "#/components/schemas/ScimPatchOperation"
       },
       "description": "PATCH 操作列表（按顺序执行）。"
      }
@@ -7642,6 +7774,29 @@
      "PATCH_OP_SCHEMA": "PATCH 操作 Schema 标识。",
      "schemas": "Schema 标识（固定值）。",
      "operations": "PATCH 操作列表（按顺序执行）。",
+     "op": "操作类型。\n\n可选值：add、remove、replace（大小写不敏感）。",
+     "path": "目标属性路径（可选）。\n\n支持 SCIM 标准路径语法，如 `displayName`、`emails`、\n`emails[value eq \"xxx\"].value`。为 null 时表示操作整个资源。",
+     "value": "操作值（可选）。\n\n用于 add/replace 操作。当 op 为 remove 时，value 应为 null。"
+    }
+   },
+   "ScimPatchOperation": {
+    "type": "object",
+    "properties": {
+     "op": {
+      "type": "string",
+      "description": "操作类型。\n\n可选值：add、remove、replace（大小写不敏感）。"
+     },
+     "path": {
+      "type": "string",
+      "description": "目标属性路径（可选）。\n\n支持 SCIM 标准路径语法，如 `displayName`、`emails`、\n`emails[value eq \"xxx\"].value`。为 null 时表示操作整个资源。"
+     },
+     "value": {
+      "type": "object",
+      "description": "操作值（可选）。\n\n用于 add/replace 操作。当 op 为 remove 时，value 应为 null。"
+     }
+    },
+    "description": "单个 PATCH 操作。\n\n表示对资源的一个原子修改操作。",
+    "x-field-docs": {
      "op": "操作类型。\n\n可选值：add、remove、replace（大小写不敏感）。",
      "path": "目标属性路径（可选）。\n\n支持 SCIM 标准路径语法，如 `displayName`、`emails`、\n`emails[value eq \"xxx\"].value`。为 null 时表示操作整个资源。",
      "value": "操作值（可选）。\n\n用于 add/replace 操作。当 op 为 remove 时，value 应为 null。"
@@ -7782,6 +7937,16 @@
      "platform",
      "appId"
     ]
+   },
+   "TokenExchangeRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "TokenExchangeRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "LogoutNotifyRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "LogoutNotifyRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "UserAccountPageQuery": {
     "type": "object",
@@ -8128,6 +8293,9 @@
    "UserPreferenceDTO": {
     "type": "object",
     "properties": {
+     "accordionMenu": {
+      "type": "boolean"
+     },
      "defaultIndex": {
       "type": "string",
       "description": "默认首页路径"
@@ -8148,9 +8316,9 @@
       "type": "string",
       "description": "菜单布局"
      },
-     "accordionMenu": {
+     "isAccordionMenu": {
       "type": "boolean",
-      "description": "菜单手风琴"
+      "description": "菜单手风琴模式（true = 手风琴）"
      },
      "tableSize": {
       "type": "string",
@@ -8168,7 +8336,7 @@
      "theme": "主题模式（light / dark / auto）",
      "themeColor": "主题色",
      "menuLayout": "菜单布局",
-     "accordionMenu": "菜单手风琴",
+     "isAccordionMenu": "菜单手风琴模式（true = 手风琴）",
      "tableSize": "表格密度",
      "fontSize": "字体大小"
     }
@@ -8209,6 +8377,11 @@
      "email": "邮箱",
      "avatar": "头像 URL"
     }
+   },
+   "Valid  ChangePasswordDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "Valid  ChangePasswordDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "MfaOperationDTO": {
     "type": "object",
@@ -8389,6 +8562,2269 @@
      "captchaKey",
      "captcha"
     ]
+   },
+   "TenantSwitchRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "TenantSwitchRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "BanInfoVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "isBanned": {
+      "type": "boolean",
+      "description": "当前是否处于封禁状态"
+     },
+     "banType": {
+      "type": "string",
+      "description": "封禁类型（TEMPORARY/PERMANENT），未封禁时为 null"
+     },
+     "banReason": {
+      "type": "string",
+      "description": "封禁原因"
+     },
+     "banExpireAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "封禁到期时间（永久封禁为 null）"
+     },
+     "bannedBy": {
+      "type": "string",
+      "description": "操作人标识"
+     },
+     "bannedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "封禁操作时间"
+     }
+    },
+    "description": "账号封禁信息 VO。\n\n供管理端 API 返回，展示封禁类型、原因、到期时间、操作人等信息。\n\n字段语义：\n\n\n`banned`：当前是否处于封禁状态（临时封禁过期后自动为 false）\n`banType`：封禁类型（TEMPORARY/PERMANENT），未封禁时为 null\n`banReason`：封禁原因\n`banExpireAt`：封禁到期时间（永久封禁为 null）\n`bannedBy`：操作人标识\n`bannedAt`：封禁操作时间",
+    "x-field-docs": {
+     "isBanned": "当前是否处于封禁状态",
+     "banType": "封禁类型（TEMPORARY/PERMANENT），未封禁时为 null",
+     "banReason": "封禁原因",
+     "banExpireAt": "封禁到期时间（永久封禁为 null）",
+     "bannedBy": "操作人标识",
+     "bannedAt": "封禁操作时间"
+    }
+   },
+   "UserSessionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "accessToken": {
+      "type": "string",
+      "description": "会话 accessToken（脱敏展示）"
+     },
+     "loginTime": {
+      "type": "string",
+      "description": "登录时间（ISO 8601 格式）"
+     },
+     "loginIp": {
+      "type": "string",
+      "description": "登录 IP"
+     },
+     "userAgent": {
+      "type": "string",
+      "description": "设备/浏览器 User-Agent"
+     },
+     "expireTime": {
+      "type": "string",
+      "description": "会话过期时间（ISO 8601 格式）"
+     },
+     "device": {
+      "type": "string",
+      "description": "设备类型编码（web/app/api/unknown）"
+     },
+     "username": {
+      "type": "string",
+      "description": "用户名"
+     }
+    },
+    "description": "用户会话信息 VO。\n\n用于展示用户当前活跃的会话列表，支持管理员查看和强制下线指定设备。",
+    "x-field-docs": {
+     "accessToken": "会话 accessToken（脱敏展示）",
+     "loginTime": "登录时间（ISO 8601 格式）",
+     "loginIp": "登录 IP",
+     "userAgent": "设备/浏览器 User-Agent",
+     "expireTime": "会话过期时间（ISO 8601 格式）",
+     "device": "设备类型编码（web/app/api/unknown）",
+     "username": "用户名"
+    }
+   },
+   "UserSessionStatisticsVO": {
+    "type": "object",
+    "properties": {
+     "totalActiveSessions": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "activeUserCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "sessionsPerDevice": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      }
+     }
+    },
+    "required": [
+     "totalActiveSessions",
+     "activeUserCount",
+     "sessionsPerDevice"
+    ],
+    "description": "会话统计信息。\n\n封装平台级会话统计数据，用于管理员仪表盘展示。\n\n字段语义：\n\n\n`totalActiveSessions`：当前活跃会话总数\n`activeUserCount`：当前活跃用户数（去重）\n`sessionsPerDevice`：分端会话统计（key=deviceType, value=会话数）\n\n\n@param totalActiveSessions 当前活跃会话总数\n@param activeUserCount 当前活跃用户数（去重）\n@param sessionsPerDevice 分端会话统计",
+    "x-field-docs": {}
+   },
+   "ApiKeyVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "主键 ID"
+     },
+     "apiKey": {
+      "type": "string",
+      "description": "API Key 明文（仅创建时返回，其余场景为 null）"
+     },
+     "apiKeyPrefix": {
+      "type": "string",
+      "description": "API Key 前缀（用于识别）"
+     },
+     "keyName": {
+      "type": "string",
+      "description": "Key 名称"
+     },
+     "scopes": {
+      "type": "string",
+      "description": "授权范围"
+     },
+     "expireAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "过期时间"
+     },
+     "lastUsedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后使用时间"
+     },
+     "rateLimit": {
+      "type": "integer",
+      "format": "int32",
+      "description": "每分钟限流阈值"
+     },
+     "isEnabled": {
+      "type": "boolean",
+      "description": "是否启用"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     }
+    },
+    "description": "API Key 视图对象（列表查询返回）。\n\n注意：出于安全考虑，`apiKey` 字段仅在创建时返回明文，列表/详情均为 null。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "apiKey": "API Key 明文（仅创建时返回，其余场景为 null）",
+     "apiKeyPrefix": "API Key 前缀（用于识别）",
+     "keyName": "Key 名称",
+     "scopes": "授权范围",
+     "expireAt": "过期时间",
+     "lastUsedAt": "最后使用时间",
+     "rateLimit": "每分钟限流阈值",
+     "isEnabled": "是否启用",
+     "createdAt": "创建时间"
+    }
+   },
+   "LoginVO": {
+    "type": "object",
+    "properties": {
+     "accessToken": {
+      "type": "string",
+      "description": "访问令牌（Access Token），用于后续 API 请求的 Bearer 认证"
+     },
+     "refreshToken": {
+      "type": "string",
+      "description": "刷新令牌（Refresh Token），用于在 accessToken 过期后换取新的令牌"
+     },
+     "tokenType": {
+      "type": "string",
+      "description": "令牌类型，固定为 `Bearer`"
+     },
+     "expiresIn": {
+      "type": "integer",
+      "format": "int64",
+      "description": "访问令牌有效期（秒），到期前需使用 refreshToken 刷新"
+     },
+     "scope": {
+      "type": "string",
+      "description": "授权范围，如 `read write`，空表示全部权限"
+     },
+     "userInfo": {
+      "$ref": "#/components/schemas/UserInfoVO"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户唯一标识"
+     },
+     "username": {
+      "type": "string",
+      "description": "登录用户名"
+     },
+     "realName": {
+      "type": "string",
+      "description": "用户真实姓名"
+     },
+     "roleCode": {
+      "type": "string",
+      "description": "主角色编码，用于前端权限路由判断"
+     },
+     "roleName": {
+      "type": "string",
+      "description": "主角色名称"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID，多租户场景下标识所属租户"
+     },
+     "avatar": {
+      "type": "string",
+      "description": "用户头像 URL"
+     }
+    },
+    "description": "登录结果 VO，遵循 OAuth2 Token Response 规范（RFC 6749 §5.1）。\n\n登录成功后由 `AuthServiceImpl.login()` 组装， 包含访问令牌、刷新令牌和当前登录用户的基本信息。",
+    "x-field-docs": {
+     "accessToken": "访问令牌（Access Token），用于后续 API 请求的 Bearer 认证",
+     "refreshToken": "刷新令牌（Refresh Token），用于在 accessToken 过期后换取新的令牌",
+     "tokenType": "令牌类型，固定为 `Bearer`",
+     "expiresIn": "访问令牌有效期（秒），到期前需使用 refreshToken 刷新",
+     "scope": "授权范围，如 `read write`，空表示全部权限",
+     "userInfo": "当前登录用户的基本信息",
+     "userId": "用户唯一标识",
+     "username": "登录用户名",
+     "realName": "用户真实姓名",
+     "roleCode": "主角色编码，用于前端权限路由判断",
+     "roleName": "主角色名称",
+     "tenantId": "租户 ID，多租户场景下标识所属租户",
+     "avatar": "用户头像 URL"
+    }
+   },
+   "UserInfoVO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string",
+      "description": "用户唯一标识"
+     },
+     "username": {
+      "type": "string",
+      "description": "登录用户名"
+     },
+     "realName": {
+      "type": "string",
+      "description": "用户真实姓名"
+     },
+     "roleCode": {
+      "type": "string",
+      "description": "主角色编码，用于前端权限路由判断"
+     },
+     "roleName": {
+      "type": "string",
+      "description": "主角色名称"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID，多租户场景下标识所属租户"
+     },
+     "avatar": {
+      "type": "string",
+      "description": "用户头像 URL"
+     }
+    },
+    "description": "当前登录用户的基本信息。\n\n仅包含前端首屏渲染所需的最小字段集， 权限列表和详细用户资料通过单独接口获取。",
+    "x-field-docs": {
+     "userId": "用户唯一标识",
+     "username": "登录用户名",
+     "realName": "用户真实姓名",
+     "roleCode": "主角色编码，用于前端权限路由判断",
+     "roleName": "主角色名称",
+     "tenantId": "租户 ID，多租户场景下标识所属租户",
+     "avatar": "用户头像 URL"
+    }
+   },
+   "CurrentUserInfoVO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string",
+      "description": "用户唯一标识"
+     },
+     "username": {
+      "type": "string",
+      "description": "登录用户名"
+     },
+     "realName": {
+      "type": "string",
+      "description": "用户真实姓名"
+     },
+     "avatar": {
+      "type": "string",
+      "description": "用户头像 URL"
+     },
+     "roles": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "用户角色编码列表（用于前端权限路由判断）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID，多租户场景下标识所属租户"
+     }
+    },
+    "description": "当前登录用户信息 VO\n\n供 `GET /api/auth/userinfo` 返回，对齐前端 `BasicUserInfo`\n所需最小字段集：登录后拉取用户资料、渲染头像/昵称、进行角色级路由判断。\n\n注意：`roles` 为角色编码数组（区别于登录响应 `LoginVO.UserInfoVO.roleCode`\n的逗号拼接字符串），由前端权限库直接消费。",
+    "x-field-docs": {
+     "userId": "用户唯一标识",
+     "username": "登录用户名",
+     "realName": "用户真实姓名",
+     "avatar": "用户头像 URL",
+     "roles": "用户角色编码列表（用于前端权限路由判断）",
+     "tenantId": "租户 ID，多租户场景下标识所属租户"
+    }
+   },
+   "AuthPolicyVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "策略 ID"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（为空表示全局默认策略）"
+     },
+     "name": {
+      "type": "string",
+      "description": "策略名称"
+     },
+     "passwordMinLength": {
+      "type": "integer",
+      "format": "int32",
+      "description": "密码最小长度"
+     },
+     "isPasswordRequireUppercase": {
+      "type": "boolean",
+      "description": "密码必须包含大写字母"
+     },
+     "isPasswordRequireDigit": {
+      "type": "boolean",
+      "description": "密码必须包含数字"
+     },
+     "isMfaEnabled": {
+      "type": "boolean",
+      "description": "是否启用双因素认证"
+     },
+     "isCaptchaEnabled": {
+      "type": "boolean",
+      "description": "登录是否启用图形验证码"
+     },
+     "allowedIdentityProviders": {
+      "type": "string",
+      "description": "允许的身份提供者类型"
+     },
+     "maxSessionsPerUser": {
+      "type": "integer",
+      "format": "int32",
+      "description": "最大会话数"
+     },
+     "sessionTimeoutSeconds": {
+      "type": "integer",
+      "format": "int32",
+      "description": "会话超时时间（秒）"
+     },
+     "remark": {
+      "type": "string",
+      "description": "备注说明"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "认证策略视图对象（P3-1 多租户认证域隔离）。\n\n封装租户级认证策略配置，供管理端查询接口返回。每个租户最多一条策略，未配置时回退到全局默认策略。\n\n关键字段说明：\n\n\n`tenantId` — 租户 ID（为空表示全局默认策略）\n`passwordMinLength` — 密码最小长度（>= 6）\n`isPasswordRequireUppercase` — 密码必须包含大写字母\n`isPasswordRequireDigit` — 密码必须包含数字\n`isMfaEnabled` — 是否启用双因素认证\n`isCaptchaEnabled` — 登录是否启用图形验证码\n`allowedIdentityProviders` — 允许的身份提供者类型（如 LOCAL,LDAP,SAML）\n`maxSessionsPerUser` — 单用户最大并发会话数\n`sessionTimeoutSeconds` — 会话超时时间（秒）",
+    "x-field-docs": {
+     "id": "策略 ID",
+     "tenantId": "租户 ID（为空表示全局默认策略）",
+     "name": "策略名称",
+     "passwordMinLength": "密码最小长度",
+     "isPasswordRequireUppercase": "密码必须包含大写字母",
+     "isPasswordRequireDigit": "密码必须包含数字",
+     "isMfaEnabled": "是否启用双因素认证",
+     "isCaptchaEnabled": "登录是否启用图形验证码",
+     "allowedIdentityProviders": "允许的身份提供者类型",
+     "maxSessionsPerUser": "最大会话数",
+     "sessionTimeoutSeconds": "会话超时时间（秒）",
+     "remark": "备注说明",
+     "createdAt": "创建时间",
+     "updatedAt": "更新时间"
+    }
+   },
+   "CompanyVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "公司唯一标识"
+     },
+     "companyName": {
+      "type": "string",
+      "description": "公司名称"
+     },
+     "companyCode": {
+      "type": "string",
+      "description": "公司编码，全局唯一"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "父公司 ID"
+     },
+     "contactPerson": {
+      "type": "string",
+      "description": "联系人"
+     },
+     "contactPhone": {
+      "type": "string",
+      "description": "联系电话"
+     },
+     "address": {
+      "type": "string",
+      "description": "地址"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     }
+    },
+    "description": "公司视图对象。\n\n表示组织架构中的公司/子公司节点。公司采用树形结构（通过 parentId 自关联），\n支持集团-子公司多层嵌套。不包含 deleted、createdBy 等内部维护字段。\n\n字段语义：\n\n\n`companyCode` — 公司编码（全局唯一，业务侧引用）\n`parentId` — 上一级公司 ID（顶级公司为 null）\n`contactPerson` — 公司联系人\n`status` — 状态（ENABLE-启用、DISABLE-禁用）",
+    "x-field-docs": {
+     "id": "公司唯一标识",
+     "companyName": "公司名称",
+     "companyCode": "公司编码，全局唯一",
+     "parentId": "父公司 ID",
+     "contactPerson": "联系人",
+     "contactPhone": "联系电话",
+     "address": "地址",
+     "status": "状态：ENABLE-启用、DISABLE-禁用"
+    }
+   },
+   "CompanyTreeVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "公司唯一标识"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "上级公司 ID（顶级公司为 \"0\" 或 null）"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/CompanyTreeVO"
+      },
+      "description": "子公司列表"
+     },
+     "level": {
+      "type": "integer",
+      "format": "int32",
+      "description": "层级深度（根节点=1，由 TreeBuilder 自动填充）"
+     },
+     "path": {
+      "type": "string",
+      "description": "节点路径（如 \"/1/5/12/\"，由 TreeBuilder 自动填充）"
+     },
+     "companyName": {
+      "type": "string",
+      "description": "公司名称（前端展示）"
+     },
+     "companyCode": {
+      "type": "string",
+      "description": "公司编码（业务侧引用，全局唯一）"
+     },
+     "contactPerson": {
+      "type": "string",
+      "description": "联系人姓名"
+     },
+     "contactPhone": {
+      "type": "string",
+      "description": "联系电话"
+     },
+     "address": {
+      "type": "string",
+      "description": "注册地址"
+     },
+     "status": {
+      "type": "string",
+      "description": "启用状态（ENABLED / DISABLED）"
+     }
+    },
+    "description": "公司树形 VO，用于前端集团-子公司组织架构树渲染。\n\n由 impl.CompanyServiceImpl#tree() 使用 {@link\ncom.njydsz.common.domain.tree.TreeBuilder#buildSimple} 构建，自动填充 `level`/`path` 元数据。\n\n与 CompanyVO 的区别：\n\n\n`children` — 子公司节点列表（递归嵌套）\n`level` — 层级深度（根节点=1，逐层+1）\n`path` — 节点路径（如 \"/1/5/12/\"）\n\n\n架构说明：本类仅保留纯业务字段，Swagger 注解下沉至 Web 层的 CompanyTreeResponse DTO，\n避免 domain 层对 swagger-annotations 的编译期依赖（符合 DDD 分层纯净性约束）。",
+    "x-field-docs": {
+     "id": "公司唯一标识",
+     "parentId": "上级公司 ID（顶级公司为 \"0\" 或 null）",
+     "children": "子公司列表",
+     "level": "层级深度（根节点=1，由 TreeBuilder 自动填充）",
+     "path": "节点路径（如 \"/1/5/12/\"，由 TreeBuilder 自动填充）",
+     "companyName": "公司名称（前端展示）",
+     "companyCode": "公司编码（业务侧引用，全局唯一）",
+     "contactPerson": "联系人姓名",
+     "contactPhone": "联系电话",
+     "address": "注册地址",
+     "status": "启用状态（ENABLED / DISABLED）"
+    }
+   },
+   "DepartmentVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "部门唯一标识"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "父部门 ID，根部门为 0 或 null"
+     },
+     "deptName": {
+      "type": "string",
+      "description": "部门名称"
+     },
+     "deptCode": {
+      "type": "string",
+      "description": "部门编码，全局唯一"
+     },
+     "description": {
+      "type": "string",
+      "description": "部门描述"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     },
+     "leaderId": {
+      "type": "string",
+      "description": "部门负责人用户 ID"
+     }
+    },
+    "description": "部门视图对象（扁平结构）。\n\n用于 Controller 列表查询接口。部门通过 parentId 自关联形成树形组织架构，\n支持多级嵌套（如 集团 → 事业部 → 部门 → 小组）。\n\n不包含 deleted、createdBy 等内部维护字段。\n树形结构请使用 DepartmentTreeVO。",
+    "x-field-docs": {
+     "id": "部门唯一标识",
+     "parentId": "父部门 ID，根部门为 0 或 null",
+     "deptName": "部门名称",
+     "deptCode": "部门编码，全局唯一",
+     "description": "部门描述",
+     "sort": "排序序号",
+     "status": "状态：ENABLE-启用、DISABLE-禁用",
+     "leaderId": "部门负责人用户 ID"
+    }
+   },
+   "DepartmentTreeVO": {
+    "type": "object",
+    "properties": {
+     "CHILDREN_CAPACITY": {
+      "type": "integer",
+      "format": "int32",
+      "description": "子部门列表初始容量"
+     },
+     "id": {
+      "type": "string",
+      "description": "部门唯一标识"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "父部门 ID"
+     },
+     "deptCode": {
+      "type": "string",
+      "description": "部门编码"
+     },
+     "deptName": {
+      "type": "string",
+      "description": "部门名称"
+     },
+     "deptPath": {
+      "type": "string",
+      "description": "部门全路径，如 /1/2/3/，用于快速查询子树"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/DepartmentTreeVO"
+      },
+      "description": "子部门列表"
+     }
+    },
+    "description": "部门树形结构 VO，用于前端组织架构树渲染。\n\n由 `DepartmentServiceImpl.buildDeptTree()` 构建递归树， 包含部门路径 `deptPath` 用于快速查询子树。",
+    "x-field-docs": {
+     "CHILDREN_CAPACITY": "子部门列表初始容量",
+     "id": "部门唯一标识",
+     "parentId": "父部门 ID",
+     "deptCode": "部门编码",
+     "deptName": "部门名称",
+     "deptPath": "部门全路径，如 /1/2/3/，用于快速查询子树",
+     "sort": "排序序号",
+     "status": "状态：ENABLE-启用、DISABLE-禁用",
+     "children": "子部门列表"
+    }
+   },
+   "UserAccountVO": {
+    "type": "object",
+    "properties": {
+     "ENABLED_INT_VALUE": {
+      "type": "integer",
+      "format": "int32",
+      "description": "启用状态对应的整数值（1=启用）。"
+     },
+     "DISABLED_INT_VALUE": {
+      "type": "integer",
+      "format": "int32",
+      "description": "禁用状态对应的整数值（0=禁用）。"
+     },
+     "id": {
+      "type": "string",
+      "description": "用户唯一标识"
+     },
+     "username": {
+      "type": "string",
+      "description": "登录用户名"
+     },
+     "realName": {
+      "type": "string",
+      "description": "真实姓名"
+     },
+     "phone": {
+      "type": "string",
+      "description": "手机号码"
+     },
+     "email": {
+      "type": "string",
+      "description": "邮箱地址"
+     },
+     "avatar": {
+      "type": "string",
+      "description": "头像 URL"
+     },
+     "status": {
+      "type": "integer",
+      "format": "int32",
+      "description": "账号状态：1-启用、0-停用"
+     },
+     "userType": {
+      "type": "string",
+      "description": "用户类型，如 SYS（系统）、BIZ（业务）"
+     },
+     "companyId": {
+      "type": "string",
+      "description": "所属公司 ID"
+     },
+     "deptId": {
+      "type": "string",
+      "description": "所属部门 ID（关联 ydsz_org_department.id，支持 dept: 审批人展开）"
+     },
+     "leaderId": {
+      "type": "string",
+      "description": "直属上级用户 ID（关联 ydsz_acct_user.id，支持 leader: 审批人展开）"
+     },
+     "positionCode": {
+      "type": "string",
+      "description": "岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID"
+     },
+     "lastLoginAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后登录时间"
+     },
+     "lastLoginIp": {
+      "type": "string",
+      "description": "最后登录 IP"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "loginFailCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "登录失败次数"
+     },
+     "lockedUntil": {
+      "type": "string",
+      "format": "date-time",
+      "description": "锁定截止时间（未锁定为 null，用于自助解锁功能）"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32",
+      "description": "乐观锁版本号（P1-6）。\n\n由查询响应返回给前端，前端编辑时原样回传，服务端据此做乐观锁冲突检测。"
+     },
+     "banType": {
+      "type": "string",
+      "description": "封禁类型（TEMPORARY/PERMANENT/null），null 表示未封禁"
+     },
+     "banReason": {
+      "type": "string",
+      "description": "封禁原因"
+     },
+     "banExpireAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "封禁到期时间（临时封禁使用，永久封禁为 null）"
+     },
+     "bannedBy": {
+      "type": "string",
+      "description": "封禁操作人标识"
+     },
+     "bannedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "封禁操作时间"
+     }
+    },
+    "description": "用户账号 VO，用于 Controller 返回，不包含密码、盐值等敏感字段。\n\n由 `UserInfoConverter.entityToVO()` 从 `UserAccount` 实体转换而来， 供前端展示和跨模块查询使用。",
+    "x-field-docs": {
+     "ENABLED_INT_VALUE": "启用状态对应的整数值（1=启用）。",
+     "DISABLED_INT_VALUE": "禁用状态对应的整数值（0=禁用）。",
+     "id": "用户唯一标识",
+     "username": "登录用户名",
+     "realName": "真实姓名",
+     "phone": "手机号码",
+     "email": "邮箱地址",
+     "avatar": "头像 URL",
+     "status": "账号状态：1-启用、0-停用",
+     "userType": "用户类型，如 SYS（系统）、BIZ（业务）",
+     "companyId": "所属公司 ID",
+     "deptId": "所属部门 ID（关联 ydsz_org_department.id，支持 dept: 审批人展开）",
+     "leaderId": "直属上级用户 ID（关联 ydsz_acct_user.id，支持 leader: 审批人展开）",
+     "positionCode": "岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开）",
+     "tenantId": "租户 ID",
+     "lastLoginAt": "最后登录时间",
+     "lastLoginIp": "最后登录 IP",
+     "createdAt": "创建时间",
+     "updatedAt": "更新时间",
+     "loginFailCount": "登录失败次数",
+     "lockedUntil": "锁定截止时间（未锁定为 null，用于自助解锁功能）",
+     "revision": "乐观锁版本号（P1-6）。\n\n由查询响应返回给前端，前端编辑时原样回传，服务端据此做乐观锁冲突检测。",
+     "banType": "封禁类型（TEMPORARY/PERMANENT/null），null 表示未封禁",
+     "banReason": "封禁原因",
+     "banExpireAt": "封禁到期时间（临时封禁使用，永久封禁为 null）",
+     "bannedBy": "封禁操作人标识",
+     "bannedAt": "封禁操作时间"
+    }
+   },
+   "LanguageVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "语言唯一标识"
+     },
+     "languageCode": {
+      "type": "string",
+      "description": "语言编码，如 zh-CN、en-US"
+     },
+     "languageName": {
+      "type": "string",
+      "description": "语言名称，如 简体中文"
+     },
+     "isDefault": {
+      "type": "integer",
+      "format": "int32",
+      "description": "是否默认语言：1-是、0-否"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     }
+    },
+    "description": "语言配置视图对象。\n\n管理多语言支持的启用的语言列表，供用户选择语言偏好和前端 i18n 加载。\n不包含 deleted、createdBy 等内部维护字段。\n\n字段语义：\n\n\n`languageCode` — 语言编码（如 zh-CN、en-US、ja-JP）\n`languageName` — 语言名称（如\"简体中文\"、\"English\"）\n`isDefault` — 是否默认语言（1=是、0=否，用户未指定语言偏好时回退）\n`sort` — 排序序号（越小越靠前）\n`status` — 状态（ENABLE-启用、DISABLE-禁用）",
+    "x-field-docs": {
+     "id": "语言唯一标识",
+     "languageCode": "语言编码，如 zh-CN、en-US",
+     "languageName": "语言名称，如 简体中文",
+     "isDefault": "是否默认语言：1-是、0-否",
+     "sort": "排序序号",
+     "status": "状态：ENABLE-启用、DISABLE-禁用"
+    }
+   },
+   "SyncResultVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SyncResultVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SyncStatusVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SyncStatusVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SyncLogVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SyncLogVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UserLoginHistoryVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "记录唯一标识"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "username": {
+      "type": "string",
+      "description": "用户名"
+     },
+     "loginIp": {
+      "type": "string",
+      "description": "登录 IP 地址"
+     },
+     "loginResult": {
+      "type": "string",
+      "description": "登录结果：SUCCESS / FAILED"
+     },
+     "failReason": {
+      "type": "string",
+      "description": "失败原因（成功时为 null）"
+     },
+     "userAgent": {
+      "type": "string",
+      "description": "用户代理（浏览器/设备信息）"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "登录时间"
+     },
+     "browser": {
+      "type": "string",
+      "description": "浏览器名称（由 User-Agent 解析）"
+     },
+     "os": {
+      "type": "string",
+      "description": "操作系统（由 User-Agent 解析）"
+     },
+     "location": {
+      "type": "string",
+      "description": "IP 归属地"
+     }
+    },
+    "description": "用户登录历史视图对象。\n\n记录用户的每次登录尝试（成功/失败），用于登录审计和安全分析。\n敏感信息（密码、Token）不包含在返回字段中。\n\n字段语义：\n\n\n`userId` — 用户 ID\n`username` — 登录用户名\n`loginIp` — 登录来源 IP 地址\n`loginResult` — 登录结果（SUCCESS/FAILED）\n`failReason` — 失败原因（成功时为 null，如 PASSWORD_INCORRECT/ACCOUNT_LOCKED）\n`userAgent` — 浏览器/设备信息\n`createdAt` — 登录时间",
+    "x-field-docs": {
+     "id": "记录唯一标识",
+     "userId": "用户 ID",
+     "username": "用户名",
+     "loginIp": "登录 IP 地址",
+     "loginResult": "登录结果：SUCCESS / FAILED",
+     "failReason": "失败原因（成功时为 null）",
+     "userAgent": "用户代理（浏览器/设备信息）",
+     "createdAt": "登录时间",
+     "browser": "浏览器名称（由 User-Agent 解析）",
+     "os": "操作系统（由 User-Agent 解析）",
+     "location": "IP 归属地"
+    }
+   },
+   "MenuVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "菜单唯一标识"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "父菜单 ID，根菜单为 0 或 null"
+     },
+     "menuName": {
+      "type": "string",
+      "description": "菜单名称"
+     },
+     "menuCode": {
+      "type": "string",
+      "description": "菜单编码，全局唯一"
+     },
+     "menuType": {
+      "type": "string",
+      "description": "菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮"
+     },
+     "path": {
+      "type": "string",
+      "description": "前端路由路径"
+     },
+     "component": {
+      "type": "string",
+      "description": "前端组件路径"
+     },
+     "icon": {
+      "type": "string",
+      "description": "菜单图标"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号，越小越靠前"
+     },
+     "permissionCode": {
+      "type": "string",
+      "description": "权限标识，用于按钮级权限控制"
+     },
+     "visible": {
+      "type": "integer",
+      "format": "int32",
+      "description": "是否可见：1-可见、0-隐藏"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     }
+    },
+    "description": "菜单 VO，扁平结构，用于 Controller 列表返回。\n\n不包含 deleted、createdBy 等内部维护字段。 树形结构请使用 MenuTreeVO。",
+    "x-field-docs": {
+     "id": "菜单唯一标识",
+     "parentId": "父菜单 ID，根菜单为 0 或 null",
+     "menuName": "菜单名称",
+     "menuCode": "菜单编码，全局唯一",
+     "menuType": "菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮",
+     "path": "前端路由路径",
+     "component": "前端组件路径",
+     "icon": "菜单图标",
+     "sort": "排序序号，越小越靠前",
+     "permissionCode": "权限标识，用于按钮级权限控制",
+     "visible": "是否可见：1-可见、0-隐藏",
+     "status": "状态：ENABLE-启用、DISABLE-禁用"
+    }
+   },
+   "MenuTreeVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "菜单唯一标识"
+     },
+     "parentId": {
+      "type": "string",
+      "description": "父菜单 ID，根菜单为 0 或 null"
+     },
+     "menuName": {
+      "type": "string",
+      "description": "菜单名称"
+     },
+     "menuCode": {
+      "type": "string",
+      "description": "菜单编码"
+     },
+     "menuType": {
+      "type": "string",
+      "description": "菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮"
+     },
+     "path": {
+      "type": "string",
+      "description": "前端路由路径"
+     },
+     "component": {
+      "type": "string",
+      "description": "前端组件路径"
+     },
+     "icon": {
+      "type": "string",
+      "description": "菜单图标"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号"
+     },
+     "permissionCode": {
+      "type": "string",
+      "description": "权限标识"
+     },
+     "visible": {
+      "type": "integer",
+      "format": "int32",
+      "description": "是否可见：1-可见、0-隐藏"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MenuTreeVO"
+      },
+      "description": "子菜单列表"
+     }
+    },
+    "description": "菜单树形结构 VO，用于前端动态路由渲染。\n\n由 `MenuServiceImpl.buildMenuTree()` 构建递归树， 前端根据该树渲染侧边栏菜单和路由配置。",
+    "x-field-docs": {
+     "id": "菜单唯一标识",
+     "parentId": "父菜单 ID，根菜单为 0 或 null",
+     "menuName": "菜单名称",
+     "menuCode": "菜单编码",
+     "menuType": "菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮",
+     "path": "前端路由路径",
+     "component": "前端组件路径",
+     "icon": "菜单图标",
+     "sort": "排序序号",
+     "permissionCode": "权限标识",
+     "visible": "是否可见：1-可见、0-隐藏",
+     "status": "状态：ENABLE-启用、DISABLE-禁用",
+     "children": "子菜单列表"
+    }
+   },
+   "MenuRouteVO": {
+    "type": "object",
+    "properties": {
+     "hideInMenu": {
+      "type": "boolean"
+     },
+     "name": {
+      "type": "string",
+      "description": "路由名称（唯一标识，取 menuCode，为空时回退 menu-{id}）"
+     },
+     "path": {
+      "type": "string",
+      "description": "路由路径"
+     },
+     "component": {
+      "type": "string",
+      "description": "组件标识（字符串）：布局组件名或视图路径"
+     },
+     "redirect": {
+      "type": "string",
+      "description": "重定向路径（可选，目录节点使用）"
+     },
+     "meta": {
+      "$ref": "#/components/schemas/Meta"
+     },
+     "children": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/MenuRouteVO"
+      },
+      "description": "子路由"
+     },
+     "title": {
+      "type": "string",
+      "description": "菜单标题（取 menuName）"
+     },
+     "icon": {
+      "type": "string",
+      "description": "菜单图标"
+     },
+     "order": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序权重（取 sort，前端据此排序菜单）"
+     },
+     "isHideInMenu": {
+      "type": "boolean",
+      "description": "是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问）"
+     }
+    },
+    "description": "前端动态路由 VO（vben 路由形态）\n\n当前用户可访问菜单转换为前端路由配置：`component` 为字符串组件标识\n（布局组件名如 `BasicLayout`，或视图路径如 `system/user/index`），\n由前端 `generateAccessible` 通过 `pageMap/layoutMap` 解析为真实组件。\n\n映射规则（`MenuVO` → `MenuRouteVO`）：\n\n\n`name` ← `menuCode`（路由唯一标识；为空时回退 `menu-{id`}）\n`path` / `component` ← 同名字段直传\n`meta.title` ← `menuName`，`meta.icon` ← `icon`\n`meta.order` ← `sort`，`meta.hideInMenu` ← `visible == 0`\n`children` ← 按 `parentId` 递归构建，按 `sort` 升序",
+    "x-field-docs": {
+     "name": "路由名称（唯一标识，取 menuCode，为空时回退 menu-{id}）",
+     "path": "路由路径",
+     "component": "组件标识（字符串）：布局组件名或视图路径",
+     "redirect": "重定向路径（可选，目录节点使用）",
+     "meta": "路由元信息",
+     "children": "子路由",
+     "title": "菜单标题（取 menuName）",
+     "icon": "菜单图标",
+     "order": "排序权重（取 sort，前端据此排序菜单）",
+     "isHideInMenu": "是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问）"
+    }
+   },
+   "Meta": {
+    "type": "object",
+    "properties": {
+     "hideInMenu": {
+      "type": "boolean"
+     },
+     "title": {
+      "type": "string",
+      "description": "菜单标题（取 menuName）"
+     },
+     "icon": {
+      "type": "string",
+      "description": "菜单图标"
+     },
+     "order": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序权重（取 sort，前端据此排序菜单）"
+     },
+     "isHideInMenu": {
+      "type": "boolean",
+      "description": "是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问）"
+     }
+    },
+    "description": "路由元信息（对齐前端 `RouteMeta` 所需最小字段集）。",
+    "x-field-docs": {
+     "title": "菜单标题（取 menuName）",
+     "icon": "菜单图标",
+     "order": "排序权重（取 sort，前端据此排序菜单）",
+     "isHideInMenu": "是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问）"
+    }
+   },
+   "PostVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "岗位唯一标识"
+     },
+     "postName": {
+      "type": "string",
+      "description": "岗位名称"
+     },
+     "postCode": {
+      "type": "string",
+      "description": "岗位编码，全局唯一"
+     },
+     "description": {
+      "type": "string",
+      "description": "岗位描述"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号，越小越靠前"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     }
+    },
+    "description": "岗位视图对象。\n\n岗位是组织架构中的职位分类（如产品经理/开发工程师/测试工程师），用于审批人展开与用户标记。\n不包含 deleted、createdBy 等内部维护字段。\n\n字段语义：\n\n\n`postCode` — 岗位编码（全局唯一，如 PM/DEV/QA/SA），支持 position: 审批人展开\n`postName` — 岗位名称（如\"产品经理\"、\"开发工程师\"）\n`description` — 岗位描述\n`sort` — 排序序号（越小越靠前）\n`status` — 状态（ENABLE-启用、DISABLE-禁用）",
+    "x-field-docs": {
+     "id": "岗位唯一标识",
+     "postName": "岗位名称",
+     "postCode": "岗位编码，全局唯一",
+     "description": "岗位描述",
+     "sort": "排序序号，越小越靠前",
+     "status": "状态：ENABLE-启用、DISABLE-禁用"
+    }
+   },
+   "RoleVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "角色唯一标识"
+     },
+     "roleCode": {
+      "type": "string",
+      "description": "角色编码，全局唯一，用于权限匹配"
+     },
+     "roleName": {
+      "type": "string",
+      "description": "角色名称"
+     },
+     "description": {
+      "type": "string",
+      "description": "角色描述"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序序号，越小越靠前"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLE-启用、DISABLE-禁用"
+     },
+     "isBuiltIn": {
+      "type": "boolean",
+      "description": "是否内置角色，内置角色不允许删除"
+     }
+    },
+    "description": "角色 VO，用于 Controller 返回，不包含 deleted、createdBy 等内部维护字段。\n\n由 `UserInfoConverter.entityToVO()` 从 `Role` 实体转换而来。",
+    "x-field-docs": {
+     "id": "角色唯一标识",
+     "roleCode": "角色编码，全局唯一，用于权限匹配",
+     "roleName": "角色名称",
+     "description": "角色描述",
+     "sort": "排序序号，越小越靠前",
+     "status": "状态：ENABLE-启用、DISABLE-禁用",
+     "isBuiltIn": "是否内置角色，内置角色不允许删除"
+    }
+   },
+   "SamlIdpConfigVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "配置 ID"
+     },
+     "name": {
+      "type": "string",
+      "description": "IdP 显示名称"
+     },
+     "entityId": {
+      "type": "string",
+      "description": "IdP Entity ID"
+     },
+     "ssoUrl": {
+      "type": "string",
+      "description": "IdP SSO 端点 URL"
+     },
+     "certificate": {
+      "type": "string",
+      "description": "IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）"
+     },
+     "emailAttribute": {
+      "type": "string",
+      "description": "邮箱属性名"
+     },
+     "displayNameAttribute": {
+      "type": "string",
+      "description": "显示名称属性名"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLED / DISABLED"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序权重"
+     },
+     "remark": {
+      "type": "string",
+      "description": "备注说明"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建者用户 ID"
+     }
+    },
+    "description": "SAML 2.0 身份提供者（IdP）配置视图对象（P2-1）。\n\n展示已配置的外部 SAML IdP 信息，供管理端 IdP 配置管理界面展示和编辑。\n\n字段语义：\n\n\n`name` — IdP 显示名称（如\"公司 ADFS\"、\"Okta\"）\n`entityId` — IdP Entity ID（唯一标识 URI）\n`ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）\n`certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）\n`emailAttribute` — SAML Assertion 中邮箱属性名（如 emailAddress）\n`displayNameAttribute` — SAML Assertion 中显示名称属性名（如 displayName）\n`status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录",
+    "x-field-docs": {
+     "id": "配置 ID",
+     "name": "IdP 显示名称",
+     "entityId": "IdP Entity ID",
+     "ssoUrl": "IdP SSO 端点 URL",
+     "certificate": "IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）",
+     "emailAttribute": "邮箱属性名",
+     "displayNameAttribute": "显示名称属性名",
+     "status": "状态：ENABLED / DISABLED",
+     "sort": "排序权重",
+     "remark": "备注说明",
+     "createdAt": "创建时间",
+     "updatedAt": "更新时间",
+     "createdBy": "创建者用户 ID"
+    }
+   },
+   "SecurityDashboardVO": {
+    "type": "object",
+    "properties": {
+     "totalUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "activeUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "onlineUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "mfaEnabledUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "lockedUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "bannedUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "todayLoginCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "todayLoginSuccessRate": {
+      "type": "number"
+     },
+     "riskScoreAverage": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "totalUsers",
+     "activeUsers",
+     "onlineUsers",
+     "mfaEnabledUsers",
+     "lockedUsers",
+     "bannedUsers",
+     "todayLoginCount",
+     "todayLoginSuccessRate",
+     "riskScoreAverage"
+    ],
+    "description": "安全仪表盘总览数据。\n\n聚合平台级安全指标，为管理员仪表盘提供一站式数据源。\n\n字段语义：\n\n\n`totalUsers`：平台注册用户总数（不含逻辑删除）\n`activeUsers`：状态为启用的用户数\n`onlineUsers`：当前在线会话数（从 Redis 计数器读取）\n`mfaEnabledUsers`：已绑定双因素认证的用户数\n`lockedUsers`：当前处于锁定状态的用户数\n`bannedUsers`：当前处于封禁状态的用户数\n`todayLoginCount`：今日登录成功次数\n`todayLoginSuccessRate`：今日登录成功率（0.0-1.0）\n`riskScoreAverage`：全平台用户平均风险评分（0-100）\n\n\n@param totalUsers 平台注册用户总数\n@param activeUsers 状态为启用的用户数\n@param onlineUsers 当前在线会话数\n@param mfaEnabledUsers 已绑定双因素认证的用户数\n@param lockedUsers 当前处于锁定状态的用户数\n@param bannedUsers 当前处于封禁状态的用户数\n@param todayLoginCount 今日登录成功次数\n@param todayLoginSuccessRate 今日登录成功率（0.0-1.0）\n@param riskScoreAverage 全平台用户平均风险评分",
+    "x-field-docs": {}
+   },
+   "LoginSuccessRateVO": {
+    "type": "object",
+    "properties": {
+     "date": {
+      "type": "string",
+      "format": "date"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "failCount": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "successRate": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "date",
+     "successCount",
+     "failCount",
+     "successRate"
+    ],
+    "description": "单日登录成功率统计。\n\n用于登录成功率趋势图，展示指定日期范围内的成功/失败分布。\n\n@param date 统计日期\n@param successCount 登录成功次数\n@param failCount 登录失败次数\n@param successRate 成功率（0.0-1.0）",
+    "x-field-docs": {}
+   },
+   "LoginFailDistributionVO": {
+    "type": "object",
+    "properties": {
+     "reason": {
+      "type": "string"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "percentage": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "reason",
+     "count",
+     "percentage"
+    ],
+    "description": "登录失败原因分布 VO。\n\n统计指定日期内各失败原因的分布情况，用于饼图展示。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param reason 失败原因描述\n@param count 失败次数\n@param percentage 占比（0.0-1.0）",
+    "x-field-docs": {}
+   },
+   "MfaCoverageVO": {
+    "type": "object",
+    "properties": {
+     "totalUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "mfaEnabledUsers": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "coverageRate": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "totalUsers",
+     "mfaEnabledUsers",
+     "coverageRate"
+    ],
+    "description": "MFA 覆盖率统计 VO。\n\n统计平台用户中已启用 MFA（多因素认证）的比例。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param totalUsers 总用户数\n@param mfaEnabledUsers 已启用 MFA 的用户数\n@param coverageRate MFA 覆盖率（0.0-1.0）",
+    "x-field-docs": {}
+   },
+   "RiskLevelDistributionVO": {
+    "type": "object",
+    "properties": {
+     "highRisk": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "mediumRisk": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "lowRisk": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "required": [
+     "highRisk",
+     "mediumRisk",
+     "lowRisk"
+    ],
+    "description": "风险等级分布 VO。\n\n按风险等级（高/中/低）聚合用户数量。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param highRisk 高风险用户数\n@param mediumRisk 中风险用户数\n@param lowRisk 低风险用户数",
+    "x-field-docs": {}
+   },
+   "SecurityEventVO": {
+    "type": "object",
+    "properties": {
+     "eventType": {
+      "type": "string"
+     },
+     "username": {
+      "type": "string"
+     },
+     "ip": {
+      "type": "string"
+     },
+     "timestamp": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "description": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "eventType",
+     "username",
+     "ip",
+     "timestamp",
+     "description"
+    ],
+    "description": "安全事件 VO。\n\n记录异常登录、账号锁定等安全相关事件。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param eventType 事件类型编码\n@param username 用户名\n@param ip 来源 IP\n@param timestamp 事件发生时间\n@param description 事件描述",
+    "x-field-docs": {}
+   },
+   "SessionActivityVO": {
+    "type": "object",
+    "properties": {
+     "totalActiveSessions": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "activeUserCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "avgSessionDuration": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "totalActiveSessions",
+     "activeUserCount",
+     "avgSessionDuration"
+    ],
+    "description": "会话活跃度概览。\n\n聚合平台级会话活跃度指标，为管理员仪表盘提供会话维度的实时数据。\n\n字段语义：\n\n\n`totalActiveSessions`：当前活跃会话总数\n`activeUserCount`：当前活跃用户数（去重）\n`avgSessionDuration`：平均会话持续时长（分钟）\n\n\n@param totalActiveSessions 当前活跃会话总数\n@param activeUserCount 当前活跃用户数（去重）\n@param avgSessionDuration 平均会话持续时长（分钟）",
+    "x-field-docs": {}
+   },
+   "ActiveUserVO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "username": {
+      "type": "string"
+     },
+     "loginCount": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "lastLoginTime": {
+      "type": "string",
+      "format": "date-time"
+     }
+    },
+    "required": [
+     "userId",
+     "username",
+     "loginCount",
+     "lastLoginTime"
+    ],
+    "description": "活跃用户排行 VO。\n\n基于最近登录次数的用户排名数据。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param userId 用户 ID\n@param username 用户名\n@param loginCount 登录次数\n@param lastLoginTime 最近登录时间",
+    "x-field-docs": {}
+   },
+   "SessionTrendVO": {
+    "type": "object",
+    "properties": {
+     "date": {
+      "type": "string",
+      "format": "date"
+     },
+     "newSessions": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "activeSessions": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "required": [
+     "date",
+     "newSessions",
+     "activeSessions"
+    ],
+    "description": "会话趋势 VO。\n\n按日期统计的新增会话和活跃会话数据。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param date 统计日期\n@param newSessions 新增会话数\n@param activeSessions 活跃会话数",
+    "x-field-docs": {}
+   },
+   "DeviceDistributionVO": {
+    "type": "object",
+    "properties": {
+     "deviceType": {
+      "type": "string"
+     },
+     "percentage": {
+      "type": "number"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "required": [
+     "deviceType",
+     "percentage",
+     "count"
+    ],
+    "description": "设备分布 VO。\n\n按设备类型（Web/App/API/Unknown）聚合的会话分布。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param deviceType 设备类型\n@param percentage 占比（0.0-1.0）\n@param count 会话数量",
+    "x-field-docs": {}
+   },
+   "AnomalySessionVO": {
+    "type": "object",
+    "properties": {
+     "userId": {
+      "type": "string"
+     },
+     "username": {
+      "type": "string"
+     },
+     "anomalyType": {
+      "type": "string"
+     },
+     "description": {
+      "type": "string"
+     },
+     "riskLevel": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "userId",
+     "username",
+     "anomalyType",
+     "description",
+     "riskLevel"
+    ],
+    "description": "异常会话 VO。\n\n记录检测到的异常会话信息，包括多地登录、异常活跃、长时间未活动等。\n\n使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。\n\n@param userId 用户 ID\n@param username 用户名\n@param anomalyType 异常类型（MULTI_IP/HIGH_ACTIVITY/STALE_SESSION）\n@param description 异常描述\n@param riskLevel 风险等级（HIGH/MEDIUM/LOW）",
+    "x-field-docs": {}
+   },
+   "SocialAccountVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "绑定记录 ID"
+     },
+     "userId": {
+      "type": "string",
+      "description": "关联用户 ID"
+     },
+     "platform": {
+      "type": "string",
+      "description": "平台标识（WECHAT/DINGTALK/ENTERPRISE_WECHAT/GITHUB）"
+     },
+     "openId": {
+      "type": "string",
+      "description": "平台用户唯一标识"
+     },
+     "unionId": {
+      "type": "string",
+      "description": "平台统一应用标识（可为 null）"
+     },
+     "nickname": {
+      "type": "string",
+      "description": "社交昵称"
+     },
+     "avatarUrl": {
+      "type": "string",
+      "description": "头像 URL"
+     },
+     "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "令牌过期时间（可为 null）"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "绑定时间"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "社交账号绑定信息 VO。\n\n用于返回用户社交账号绑定列表，不包含 access_token、refresh_token 等敏感字段。\n由 `SocialAccountRepository` 从 DO 转换后返回。",
+    "x-field-docs": {
+     "id": "绑定记录 ID",
+     "userId": "关联用户 ID",
+     "platform": "平台标识（WECHAT/DINGTALK/ENTERPRISE_WECHAT/GITHUB）",
+     "openId": "平台用户唯一标识",
+     "unionId": "平台统一应用标识（可为 null）",
+     "nickname": "社交昵称",
+     "avatarUrl": "头像 URL",
+     "expiresAt": "令牌过期时间（可为 null）",
+     "createdAt": "绑定时间",
+     "updatedAt": "更新时间"
+    }
+   },
+   "PlatformBindingStatusVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PlatformBindingStatusVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SocialClientVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "客户端配置 ID"
+     },
+     "platform": {
+      "type": "string",
+      "description": "平台标识"
+     },
+     "platformName": {
+      "type": "string",
+      "description": "平台显示名称"
+     },
+     "appId": {
+      "type": "string",
+      "description": "应用 ID"
+     },
+     "scope": {
+      "type": "string",
+      "description": "OAuth2 授权范围（scope）"
+     },
+     "redirectUri": {
+      "type": "string",
+      "description": "回调地址（redirectUri）"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态：ENABLED / DISABLED"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32",
+      "description": "排序权重"
+     },
+     "remark": {
+      "type": "string",
+      "description": "备注说明"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建者用户 ID"
+     }
+    },
+    "description": "社交平台客户端配置视图对象（P1-1 社交认证配置管理）。\n\n展示第三方社交平台（企业微信、钉钉、飞书等）的 OAuth2 客户端配置信息，\n供管理端配置管理界面展示和编辑。\n\n字段语义：\n\n\n`platform` — 平台标识（如 ENTERPRISE_WECHAT/DINGTALK/FEISHU）\n`platformName` — 平台显示名称（如\"企业微信\"、\"钉钉\"）\n`appId` — 平台分配的应用 ID\n`scope` — OAuth2 授权范围\n`redirectUri` — 授权回调地址（必须与平台管理后台注册一致）\n`status` — 状态（ENABLED/DISABLED），禁用后该平台不可登录",
+    "x-field-docs": {
+     "id": "客户端配置 ID",
+     "platform": "平台标识",
+     "platformName": "平台显示名称",
+     "appId": "应用 ID",
+     "scope": "OAuth2 授权范围（scope）",
+     "redirectUri": "回调地址（redirectUri）",
+     "status": "状态：ENABLED / DISABLED",
+     "sort": "排序权重",
+     "remark": "备注说明",
+     "createdAt": "创建时间",
+     "updatedAt": "更新时间",
+     "createdBy": "创建者用户 ID"
+    }
+   },
+   "SsoMetricsVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SsoMetricsVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "TokenExchangeVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "TokenExchangeVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "TokenValidateVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "TokenValidateVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "LogoutNotifyVO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "LogoutNotifyVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "UserImportResultDTO": {
+    "type": "object",
+    "properties": {
+     "failDetails": {
+      "type": "string",
+      "description": "失败明细列表（行号 + 原因）"
+     }
+    },
+    "description": "用户批量导入结果 DTO。\n\n封装批量导入的执行结果，继承通用 ExcelImportResult 基类。",
+    "x-field-docs": {
+     "failDetails": "失败明细列表（行号 + 原因）"
+    }
+   },
+   "SearchResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "hits": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SearchHit"
+      },
+      "description": "搜索结果列表"
+     },
+     "total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "总匹配数"
+     },
+     "page": {
+      "type": "integer",
+      "format": "int32",
+      "description": "当前页码"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32",
+      "description": "每页大小"
+     },
+     "tookMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "搜索耗时（毫秒）"
+     },
+     "aggregations": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/SearchAggregation"
+      },
+      "description": "聚合结果列表"
+     },
+     "suggestion": {
+      "type": "string",
+      "enum": [
+       "AUTOCOMPLETE",
+       "DID_YOU_MEAN",
+       "HOT_SEARCH"
+      ],
+      "description": "搜索建议（\"您是不是要找\"）"
+     },
+     "engine": {
+      "type": "string",
+      "description": "使用的搜索引擎名称"
+     },
+     "isDegraded": {
+      "type": "boolean",
+      "description": "是否为降级结果"
+     },
+     "nextCursor": {
+      "type": "string",
+      "description": "P3-21: 下一页游标（为空表示无更多数据）"
+     },
+     "timing": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "integer",
+       "format": "int64"
+      },
+      "description": "P5-13: 各阶段耗时详情（毫秒），用于可观测性分析与性能诊断"
+     },
+     "error": {
+      "$ref": "#/components/schemas/SearchError"
+     }
+    },
+    "description": "统一搜索响应",
+    "x-field-docs": {
+     "hits": "搜索结果列表",
+     "total": "总匹配数",
+     "page": "当前页码",
+     "pageSize": "每页大小",
+     "tookMs": "搜索耗时（毫秒）",
+     "aggregations": "聚合结果列表",
+     "suggestion": "搜索建议（\"您是不是要找\"）",
+     "engine": "使用的搜索引擎名称",
+     "isDegraded": "是否为降级结果",
+     "nextCursor": "P3-21: 下一页游标（为空表示无更多数据）",
+     "timing": "P5-13: 各阶段耗时详情（毫秒），用于可观测性分析与性能诊断",
+     "error": "Phase 3-U2: 错误信息（null 表示请求成功；非 null 表示限流 / 参数错 / 引擎故障）"
+    }
+   },
+   "SearchHit": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "文档 ID"
+     },
+     "type": {
+      "type": "string",
+      "description": "实体类型（project/contract/wiki/...）"
+     },
+     "title": {
+      "type": "string",
+      "description": "标题"
+     },
+     "subtitle": {
+      "type": "string",
+      "description": "副标题"
+     },
+     "snippet": {
+      "type": "string",
+      "description": "摘要/片段"
+     },
+     "highlight": {
+      "type": "string",
+      "description": "内容高亮片段（HTML 格式，含 &lt;em&gt; 标签）"
+     },
+     "score": {
+      "type": "number",
+      "description": "匹配分数（越高越相关）"
+     },
+     "path": {
+      "type": "string",
+      "description": "跳转路径（前端路由）"
+     },
+     "status": {
+      "type": "string",
+      "description": "状态"
+     },
+     "tags": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "标签列表"
+     },
+     "metadata": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "扩展字段"
+     },
+     "createdAt": {
+      "type": "string",
+      "description": "创建时间（ISO 格式字符串）"
+     },
+     "updatedAt": {
+      "type": "string",
+      "description": "更新时间（ISO 格式字符串）"
+     }
+    },
+    "description": "搜索命中条目",
+    "x-field-docs": {
+     "id": "文档 ID",
+     "type": "实体类型（project/contract/wiki/...）",
+     "title": "标题",
+     "subtitle": "副标题",
+     "snippet": "摘要/片段",
+     "highlight": "内容高亮片段（HTML 格式，含 &lt;em&gt; 标签）",
+     "score": "匹配分数（越高越相关）",
+     "path": "跳转路径（前端路由）",
+     "status": "状态",
+     "tags": "标签列表",
+     "metadata": "扩展字段",
+     "createdAt": "创建时间（ISO 格式字符串）",
+     "updatedAt": "更新时间（ISO 格式字符串）"
+    }
+   },
+   "SearchAggregation": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "field": {
+      "type": "string",
+      "description": "聚合字段名"
+     },
+     "label": {
+      "type": "string",
+      "description": "聚合标签（如\"类型\"、\"标签\"）"
+     },
+     "buckets": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/Bucket"
+      },
+      "description": "聚合桶列表"
+     },
+     "key": {
+      "type": "string",
+      "description": "桶键值"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int64",
+      "description": "桶文档数"
+     }
+    },
+    "description": "搜索聚合/分面结果\n\n封装搜索引擎返回的聚合数据，用于前端分面导航（Faceted Search）。\n每个聚合对象对应一个 `field`，包含多个 Bucket（桶），\n每个桶表示一个分面值及其命中数（doc count）。\n\n典型用途：商品搜索的分类筛选、标签汇总、价格区间分布等。",
+    "x-field-docs": {
+     "field": "聚合字段名",
+     "label": "聚合标签（如\"类型\"、\"标签\"）",
+     "buckets": "聚合桶列表",
+     "key": "桶键值",
+     "count": "桶文档数"
+    }
+   },
+   "Bucket": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "key": {
+      "type": "string",
+      "description": "桶键值"
+     },
+     "count": {
+      "type": "integer",
+      "format": "int64",
+      "description": "桶文档数"
+     }
+    },
+    "description": "聚合桶",
+    "x-field-docs": {
+     "key": "桶键值",
+     "count": "桶文档数"
+    }
+   },
+   "SearchError": {
+    "type": "object",
+    "properties": {
+     "code": {
+      "type": "integer",
+      "format": "int32",
+      "description": "错误码（参见 SearchErrorCode）"
+     },
+     "messageKey": {
+      "type": "string",
+      "description": "i18n 消息 key"
+     },
+     "detail": {
+      "type": "string",
+      "description": "面向开发者的兜底英文描述（可用于日志，不应直接给终端用户看）"
+     }
+    },
+    "description": "搜索请求被拒绝 / 出错时的错误信息。\n\n当 SearchResponse#error 非 `null` 时，表示请求未能正常检索（限流、参数错误、引擎故障）， 调用方应据此决定 UX 展示（如： toast 提示 vs. 展示空结果页）。\n\n该错误码采用\"不抛异常\"风格返回，永不因错误码导致搜索链路抛出运行时异常。",
+    "x-field-docs": {
+     "code": "错误码（参见 SearchErrorCode）",
+     "messageKey": "i18n 消息 key",
+     "detail": "面向开发者的兜底英文描述（可用于日志，不应直接给终端用户看）"
+    }
+   },
+   "UserPreferenceVO": {
+    "type": "object",
+    "properties": {
+     "accordionMenu": {
+      "type": "boolean"
+     },
+     "defaultIndex": {
+      "type": "string",
+      "description": "默认首页路径"
+     },
+     "language": {
+      "type": "string",
+      "description": "语言设置（如 zh-CN / en-US）"
+     },
+     "theme": {
+      "type": "string",
+      "description": "主题模式（light / dark / auto）"
+     },
+     "themeColor": {
+      "type": "string",
+      "description": "主题色"
+     },
+     "menuLayout": {
+      "type": "string",
+      "description": "菜单布局"
+     },
+     "isAccordionMenu": {
+      "type": "boolean",
+      "description": "菜单手风琴模式（true = 手风琴）"
+     },
+     "tableSize": {
+      "type": "string",
+      "description": "表格密度"
+     },
+     "fontSize": {
+      "type": "string",
+      "description": "字体大小"
+     }
+    },
+    "description": "用户偏好 VO\n\n供 `GET /api/user/preferences` 与 `POST /api/user/preferences/reset`\n返回，字段与 com.njydsz.userinfo.domain.dto.UserPreferenceDTO 对齐。\n重置场景返回全默认值的空 VO（前端按缺省字段回退本地默认）。",
+    "x-field-docs": {
+     "defaultIndex": "默认首页路径",
+     "language": "语言设置（如 zh-CN / en-US）",
+     "theme": "主题模式（light / dark / auto）",
+     "themeColor": "主题色",
+     "menuLayout": "菜单布局",
+     "isAccordionMenu": "菜单手风琴模式（true = 手风琴）",
+     "tableSize": "表格密度",
+     "fontSize": "字体大小"
+    }
+   },
+   "MfaSetupVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "secret": {
+      "type": "string",
+      "description": "Base32 编码的 TOTP 密钥（仅供绑定当次展示，绑定成功后服务端留存）"
+     },
+     "otpauthUri": {
+      "type": "string",
+      "description": "otpauth:// 协议 URI，前端可渲染为二维码（如 qrcode.js）"
+     }
+    },
+    "description": "双因素认证（TOTP）绑定信息 VO。\n\n返回给前端的绑定初始数据：Base32 密钥（供手动录入）与 otpauth URI（供生成二维码，兼容 Google /\nMicrosoft Authenticator）。",
+    "x-field-docs": {
+     "secret": "Base32 编码的 TOTP 密钥（仅供绑定当次展示，绑定成功后服务端留存）",
+     "otpauthUri": "otpauth:// 协议 URI，前端可渲染为二维码（如 qrcode.js）"
+    }
+   },
+   "WebAuthnCredentialVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "credentialId": {
+      "type": "string",
+      "description": "凭证 ID（Base64URL 编码）"
+     },
+     "userId": {
+      "type": "string",
+      "description": "用户 ID"
+     },
+     "publicKey": {
+      "type": "string",
+      "description": "公钥（COSE 密钥格式，Base64URL 编码）"
+     },
+     "signCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "签名计数器（防克隆检测）"
+     },
+     "credentialType": {
+      "type": "string",
+      "description": "凭证类型（如 \"public-key\"）"
+     },
+     "aaguid": {
+      "type": "string",
+      "description": "AAGUID（认证器唯一标识）"
+     },
+     "displayName": {
+      "type": "string",
+      "description": "凭证友好名称（如 \"iPhone FaceID\"）"
+     },
+     "registeredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "注册时间"
+     },
+     "lastUsedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后使用时间"
+     }
+    },
+    "description": "WebAuthn 凭证视图对象\n\n存储用户注册的无密码认证凭证（公钥凭证），用于后续认证时验证签名。",
+    "x-field-docs": {
+     "credentialId": "凭证 ID（Base64URL 编码）",
+     "userId": "用户 ID",
+     "publicKey": "公钥（COSE 密钥格式，Base64URL 编码）",
+     "signCount": "签名计数器（防克隆检测）",
+     "credentialType": "凭证类型（如 \"public-key\"）",
+     "aaguid": "AAGUID（认证器唯一标识）",
+     "displayName": "凭证友好名称（如 \"iPhone FaceID\"）",
+     "registeredAt": "注册时间",
+     "lastUsedAt": "最后使用时间"
+    }
+   },
+   "DeviceSessionVO": {
+    "type": "object",
+    "properties": {
+     "currentSession": {
+      "type": "boolean"
+     },
+     "sessionId": {
+      "type": "string",
+      "description": "会话标识（access_token 前 8 位掩码，用于前端展示）"
+     },
+     "deviceType": {
+      "type": "string",
+      "description": "设备类型编码（web/app/api/unknown）"
+     },
+     "deviceTypeDesc": {
+      "type": "string",
+      "description": "设备类型描述"
+     },
+     "loginIp": {
+      "type": "string",
+      "description": "登录 IP"
+     },
+     "loginTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "登录时间"
+     },
+     "lastActiveTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后活跃时间"
+     },
+     "isCurrentSession": {
+      "type": "boolean",
+      "description": "是否为当前会话（用户正在使用的会话）"
+     },
+     "deviceFingerprint": {
+      "type": "string",
+      "description": "设备指纹（User-Agent 摘要）"
+     },
+     "location": {
+      "type": "string",
+      "description": "地理位置（基于 IP 解析，可能为空）"
+     }
+    },
+    "description": "设备会话视图对象（P3-2）。\n\n展示用户当前活跃的设备会话信息，用于设备管理页面。",
+    "x-field-docs": {
+     "sessionId": "会话标识（access_token 前 8 位掩码，用于前端展示）",
+     "deviceType": "设备类型编码（web/app/api/unknown）",
+     "deviceTypeDesc": "设备类型描述",
+     "loginIp": "登录 IP",
+     "loginTime": "登录时间",
+     "lastActiveTime": "最后活跃时间",
+     "isCurrentSession": "是否为当前会话（用户正在使用的会话）",
+     "deviceFingerprint": "设备指纹（User-Agent 摘要）",
+     "location": "地理位置（基于 IP 解析，可能为空）"
+    }
+   },
+   "DeviceAuthorizationResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "DeviceAuthorizationResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "TenantSwitchResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "TenantSwitchResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    }
   }
  }

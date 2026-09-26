@@ -63,18 +63,21 @@ export interface BatchSendRequestDTO {
   receiverList?: string[];
   /** 是否异步发送（默认 true；false 时同步返回结果） */
   isAsync?: boolean;
+  /** 优先级 LOW/NORMAL/HIGH/URGENT（默认 NORMAL） */
+  priority?: string;
   /** 触发发送的用户 ID */
   senderId?: string;
   /** 直接传入的请求列表（requests 模式，优先于 receiverList） */
-  requests?: MessageRequest[];
+  requests?: MessageItemRequestDTO[];
 }
 
 /**
- * 消息发送请求 DTO（兼容旧 com.njydsz.common.feign.MessageRequest）。
+ * 单条消息请求 DTO（ydz-message 模块内部契约）。
  *
- * 封装消息发送所需的全部信息，支持多通道路由。
+ * 替代已弃用的 `com.njydsz.common.feign.MessageRequest`，用于批量发送场景中的子请求项。
+ * 字段与原始 `MessageRequest` 完全一致，仅做了包归属迁移以符合 DDD 分层（消息 DTO 不应散落于 common-feign）。
  */
-export interface MessageRequest {
+export interface MessageItemRequestDTO {
   serialVersionUID?: number;
   /** 消息通道：INAPP / EMAIL / WEBHOOK / SMS */
   channel?: string;
@@ -103,7 +106,7 @@ export interface MessageRequest {
   /** 父消息 ID（级联发送时使用） */
   parentMsgId?: string;
   /** 级联子消息列表 */
-  cascadeTo?: MessageRequest[];
+  cascadeTo?: MessageItemRequestDTO[];
   /**
    * 发送场景标识（可选，用于管线模板选择）。
    * 可选值：simple / template / batch / callback / full。 为空时由 {@link
@@ -202,9 +205,19 @@ export interface MessageSendDTO {
    * 批量请求列表（仅 strategy=BATCH 时使用）。
    * 单次最多 100 条，超出返回 400。
    */
-  batchRequests?: MessageRequest[];
+  batchRequests?: MessageItemRequestDTO[];
   /** 批次 ID（仅 strategy=BATCH 时使用，业务侧生成，用于进度查询）。 */
   batchId?: string;
+}
+
+/**
+ * HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -273,8 +286,8 @@ export interface NotificationQueryDTO {
   category?: string;
   /** 通知级别 */
   level?: string;
-  /** 已读状态: 0 未读 / 1 已读 */
-  readStatus?: number;
+  /** 已读状态: UNREAD(未读) / READ(已读) */
+  readStatus?: string;
   /** 接收人 ID */
   receiverId?: string;
   /** 通知 ID 列表（批量查询） */
@@ -295,7 +308,9 @@ export interface NotificationQueryDTO {
  * 实时单播推送请求 DTO。
  *
  * 封装单播推送的全部参数（目标用户 ID + 消息类型 + 数据载荷）， 用于工作流待办数推送、任务分配通知等场景。
- * P0-3-fix：新增 DTO 以支持 com.njydsz.common.feign.NotificationClient#pushRealtime 方法。
+ * P0-3-fix：新增 DTO 以支持 com.njydsz.message.api.client.NotificationClient#pushRealtime 方法。
+ * @apiNote 推送请求 DTO 原有职责在 Feign 层定义，目前已扩展为项目全局使用的实时单播推送请求 VO；
+ * 后续计划将其迁移至 ydsz-common-core 或 ydsz-message，在此之前继续在此处定义以兼容全量调用方。
  */
 export interface PushRealtimeRequestDTO {
   serialVersionUID?: number;
@@ -312,9 +327,11 @@ export interface PushRealtimeRequestDTO {
 /**
  * 广播推送请求 DTO。
  *
- * 封装广播推送的全部参数，替代原 `broadcast(String topic, RealtimePushDTO)` 的分离参数设计， 使接口符合 RESTful POST
+ * 封装广播推送的全部参数，替代原分离参数设计，使接口符合 RESTful POST
  * 语义（请求体自描述），并支持幂等去重。
  * P0-3-fix：将 topic 并入请求体，返回 com.njydsz.common.socket.push.PushResult 使调用方可感知结果。
+ * @apiNote 推送请求 DTO 原有职责在 Feign 层定义，目前已扩展为项目全局使用的广播推送请求 VO；
+ * 后续计划将其迁移至 ydsz-common-core 或 ydsz-message，在此之前继续在此处定义以兼容全量调用方。
  */
 export interface BroadcastRequestDTO {
   serialVersionUID?: number;
@@ -345,10 +362,10 @@ export interface PreferenceUpsertDTO {
   channel?: string;
   /** 业务类型 */
   bizType?: string;
-  /** 是否启用该通道: 0 关闭 / 1 开启 */
-  enabled?: number;
-  /** 免打扰开关: 0 关闭 / 1 开启 */
-  dndEnabled?: number;
+  /** 是否启用该通道: true=开启 / false=关闭 */
+  isEnabled?: boolean;
+  /** 是否开启免打扰: true=开启 / false=关闭 */
+  isDndEnabled?: boolean;
   /** 免打扰开始时间 HH:mm */
   dndStart?: string;
   /** 免打扰结束时间 HH:mm */
@@ -357,8 +374,8 @@ export interface PreferenceUpsertDTO {
   dailyLimit?: number;
   /** 每小时发送上限 */
   hourlyLimit?: number;
-  /** 聚合开关: 0 即时发送 / 1 聚合摘要 */
-  digestEnabled?: number;
+  /** 是否启用聚合: true=聚合 / false=即时发送 */
+  isDigestEnabled?: boolean;
   /** 聚合频率: HOURLY/DAILY/WEEKLY */
   digestFrequency?: string;
   /** 偏好语言 */
@@ -545,6 +562,26 @@ export interface TemplateAuditDTO {
 }
 
 /**
+ * PreviewRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PreviewRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * RawPreviewRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface RawPreviewRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 模板预览请求 DTO。
  *
  * P1-6: 支持两种预览模式：
@@ -685,6 +722,8 @@ export interface MsgBatchVO {
   skipped?: number;
   /** 批次状态（PENDING/RUNNING/COMPLETED/FAILED/CANCELLED） */
   status?: string;
+  /** 优先级（LOW/NORMAL/HIGH/URGENT，默认 NORMAL） */
+  priority?: string;
   /** 受众来源（MANUAL/TAG/DEPT/FILE） */
   audienceSource?: string;
   /** 错误信息 */
@@ -831,7 +870,7 @@ export interface MsgLogVO {
 }
 
 /**
- * 消息发送结果 DTO（兼容旧 com.njydsz.common.feign.MessageResult）。 *
+ * 消息发送结果 VO（替代旧 `com.njydsz.common.feign.MessageResult`）。
  *
  * 错误消息分层：
  * #userMessage — 用户友好消息，走 i18n 解析，前端直接展示
@@ -839,10 +878,10 @@ export interface MsgLogVO {
  * #retryAfter — 建议重试等待秒数，取自 {@link
  * com.njydsz.common.exception.enums.ExceptionCode#retryAfterSeconds()}
  */
-export interface MessageResult {
+export interface MessageSendResultVO {
   serialVersionUID?: number;
   /** 是否发送成功 */
-  success?: boolean;
+  isSuccess?: boolean;
   /** 消息追踪 ID */
   traceId?: string;
   /** 服务商追踪 ID（回执查询用） */
@@ -1007,12 +1046,22 @@ export interface FunnelStatsDTO {
  */
 export interface CostStatsDTO {
   totalCost?: number;
-  channels?: Record<string, unknown>[];
+  channels?: ChannelCost[];
   start?: string;
   end?: string;
   channel?: string;
   messageCount?: number;
   unitPrice?: number;
+}
+
+/**
+ * 单通道成本明细。
+ */
+export interface ChannelCost {
+  channel?: string;
+  messageCount?: number;
+  unitPrice?: number;
+  totalCost?: number;
 }
 
 /**
@@ -1103,8 +1152,8 @@ export interface MsgNotificationVO {
   extra?: string;
   /** 来源模块 */
   sourceModule?: string;
-  /** 已读状态（0=未读，1=已读） */
-  readStatus?: number;
+  /** 已读状态（UNREAD=未读，READ=已读） */
+  readStatus?: string;
   /** 已读时间 */
   readTime?: string;
   /** 撤回状态（null=未撤回，RECALLED=已撤回） */
@@ -1168,6 +1217,47 @@ export interface BloomFilterStatsVO {
 }
 
 /**
+ * 发送管线拓扑视图对象（VO）。
+ *
+ * 描述 com.njydsz.message.server.service.chain.SendPipeline 在特定模板下的 Handler 链结构与执行顺序，供运维
+ * 拓扑看板渲染。
+ * 每个 HandlerNode 对应一个 com.njydsz.message.server.service.chain.SendHandler， `order`
+ * 字段决定执行顺序（升序）。
+ */
+export interface PipelineTopologyVO {
+  serialVersionUID?: number;
+  /** 管线模板标识（full / template / simple / batch / callback） */
+  template?: string;
+  /** 该模板包含的 Handler 节点列表（已按 order 升序排列） */
+  handlers?: HandlerNode[];
+  /** 全局 Handler 总数量（不区分模板） */
+  totalHandlerCount?: number;
+  /** Handler 名称（类.getSimpleName） */
+  name?: string;
+  /** Handler 类全限定名 */
+  className?: string;
+  /** 执行顺序（升序，值越小越先执行） */
+  order?: number;
+  /** Handler 中文描述 */
+  description?: string;
+}
+
+/**
+ * Handler 节点描述。
+ */
+export interface HandlerNode {
+  serialVersionUID?: number;
+  /** Handler 名称（类.getSimpleName） */
+  name?: string;
+  /** Handler 类全限定名 */
+  className?: string;
+  /** 执行顺序（升序，值越小越先执行） */
+  order?: number;
+  /** Handler 中文描述 */
+  description?: string;
+}
+
+/**
  * 用户消息偏好视图对象（VO）。
  *
  * 用于 Controller 层返回用户消息偏好的完整信息，包含通道启停、免打扰时段、 频率限制、摘要配置及语言偏好，支撑用户个性化消息设置。
@@ -1182,10 +1272,10 @@ export interface MsgPreferenceVO {
   channel?: string;
   /** 业务类型 */
   bizType?: string;
-  /** 是否启用（1=启用，0=停用） */
-  enabled?: number;
-  /** 是否启用免打扰（1=启用，0=停用） */
-  dndEnabled?: number;
+  /** 是否启用(true=启用,false=停用) */
+  isEnabled?: boolean;
+  /** 是否启用免打扰(true=启用,false=停用) */
+  isDndEnabled?: boolean;
   /** 免打扰开始时间（HH:mm 格式） */
   dndStart?: string;
   /** 免打扰结束时间（HH:mm 格式） */
@@ -1194,8 +1284,8 @@ export interface MsgPreferenceVO {
   dailyLimit?: number;
   /** 每小时发送上限 */
   hourlyLimit?: number;
-  /** 是否启用摘要聚合（1=启用，0=停用） */
-  digestEnabled?: number;
+  /** 是否启用摘要聚合(true=启用,false=停用) */
+  isDigestEnabled?: boolean;
   /** 摘要频率（HOURLY/DAILY/WEEKLY） */
   digestFrequency?: string;
   /** 语言区域 */

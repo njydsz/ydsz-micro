@@ -6,7 +6,7 @@
   "description": "static contract extracted from ydsz-cloud cronjob"
  },
  "paths": {
-  "/api/cronjob/alert/rule": {
+  "/cronjob/alert/rule": {
    "post": {
     "operationId": "createRule",
     "tags": [
@@ -36,7 +36,7 @@
     }
    }
   },
-  "/api/cronjob/alert/rule/{id}": {
+  "/cronjob/alert/rule/{id}": {
    "put": {
     "operationId": "updateRule",
     "tags": [
@@ -132,7 +132,7 @@
     ]
    }
   },
-  "/api/cronjob/alert/rules": {
+  "/cronjob/alert/rules": {
    "get": {
     "operationId": "listRules",
     "tags": [
@@ -152,7 +152,7 @@
     }
    }
   },
-  "/api/cronjob/alert/rule/{id}/toggle": {
+  "/cronjob/alert/rule/{id}/toggle": {
    "put": {
     "operationId": "toggleRule",
     "tags": [
@@ -191,7 +191,7 @@
     ]
    }
   },
-  "/api/cronjob/alert/logs/{jobId}": {
+  "/cronjob/alert/logs/{jobId}": {
    "get": {
     "operationId": "queryAlertLogs",
     "tags": [
@@ -230,7 +230,7 @@
     ]
    }
   },
-  "/api/cronjob/audit/page": {
+  "/cronjob/audit/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -305,7 +305,7 @@
     ]
    }
   },
-  "/api/cronjob/cluster/migrate": {
+  "/cronjob/cluster/migrate": {
    "post": {
     "operationId": "migrate",
     "tags": [
@@ -335,7 +335,7 @@
     }
    }
   },
-  "/api/cronjob/cluster/list": {
+  "/cronjob/cluster/list": {
    "get": {
     "operationId": "listClusters",
     "tags": [
@@ -355,7 +355,7 @@
     }
    }
   },
-  "/api/cronjob/cluster/enabled": {
+  "/cronjob/cluster/enabled": {
    "get": {
     "operationId": "enabled",
     "tags": [
@@ -375,7 +375,7 @@
     }
    }
   },
-  "/api/cronjob/connector/types": {
+  "/cronjob/connector/types": {
    "get": {
     "operationId": "types",
     "tags": [
@@ -395,7 +395,7 @@
     }
    }
   },
-  "/api/cronjob/connector/test": {
+  "/cronjob/connector/test": {
    "post": {
     "operationId": "testConnection",
     "tags": [
@@ -435,7 +435,7 @@
     }
    }
   },
-  "/api/cronjob/connector/remote-tasks": {
+  "/cronjob/connector/remote-tasks": {
    "post": {
     "operationId": "listRemoteTasks",
     "tags": [
@@ -475,7 +475,7 @@
     }
    }
   },
-  "/api/cronjob/connector/import": {
+  "/cronjob/connector/import": {
    "post": {
     "operationId": "importTasks",
     "tags": [
@@ -515,7 +515,7 @@
     }
    }
   },
-  "/api/cronjob/connector/export": {
+  "/cronjob/connector/export": {
    "post": {
     "operationId": "exportTasks",
     "tags": [
@@ -538,14 +538,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/ExportRequest"
        }
       }
      }
     }
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/pause": {
+  "/cronjob/dag/instance/{instanceId}/pause": {
    "post": {
     "operationId": "pause",
     "tags": [
@@ -603,7 +603,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/resume": {
+  "/cronjob/dag/instance/{instanceId}/resume": {
    "post": {
     "operationId": "resume",
     "tags": [
@@ -661,7 +661,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/cancel": {
+  "/cronjob/dag/instance/{instanceId}/cancel": {
    "post": {
     "operationId": "cancel",
     "tags": [
@@ -719,7 +719,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/retryNode": {
+  "/cronjob/dag/instance/{instanceId}/retryNode": {
    "post": {
     "operationId": "retryNode",
     "tags": [
@@ -757,7 +757,7 @@
     ]
    }
   },
-  "/api/cronjob/dag": {
+  "/cronjob/dag": {
    "post": {
     "operationId": "createDag",
     "tags": [
@@ -787,7 +787,7 @@
     }
    }
   },
-  "/api/cronjob/dag/{dagId}": {
+  "/cronjob/dag/{dagId}": {
    "put": {
     "operationId": "updateDag",
     "tags": [
@@ -883,7 +883,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/{dagId}/enable": {
+  "/cronjob/dag/{dagId}/enable": {
    "put": {
     "operationId": "enableDag",
     "tags": [
@@ -913,7 +913,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/{dagId}/disable": {
+  "/cronjob/dag/{dagId}/disable": {
    "put": {
     "operationId": "disableDag",
     "tags": [
@@ -943,7 +943,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/key/{dagKey}": {
+  "/cronjob/dag/key/{dagKey}": {
    "get": {
     "operationId": "getDagByKey",
     "tags": [
@@ -973,7 +973,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/enabled": {
+  "/cronjob/dag/enabled": {
    "get": {
     "operationId": "listEnabledDags",
     "tags": [
@@ -993,7 +993,7 @@
     }
    }
   },
-  "/api/cronjob/dag/trigger": {
+  "/cronjob/dag/trigger": {
    "post": {
     "operationId": "triggerDag",
     "tags": [
@@ -1023,7 +1023,7 @@
     }
    }
   },
-  "/api/cronjob/dag/validate": {
+  "/cronjob/dag/validate": {
    "post": {
     "operationId": "validateDag",
     "tags": [
@@ -1053,7 +1053,7 @@
     }
    }
   },
-  "/api/cronjob/dag/{dagId}/versions": {
+  "/cronjob/dag/{dagId}/versions": {
    "get": {
     "operationId": "listDagVersions",
     "tags": [
@@ -1083,7 +1083,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/{dagId}/rollback": {
+  "/cronjob/dag/{dagId}/rollback": {
    "post": {
     "operationId": "rollbackDag",
     "tags": [
@@ -1122,7 +1122,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}": {
+  "/cronjob/dag/instance/{instanceId}": {
    "get": {
     "operationId": "getInstanceById",
     "tags": [
@@ -1152,7 +1152,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/dag/{dagId}": {
+  "/cronjob/dag/instance/dag/{dagId}": {
    "get": {
     "operationId": "listByDagId",
     "tags": [
@@ -1191,7 +1191,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/status/{status}": {
+  "/cronjob/dag/instance/status/{status}": {
    "get": {
     "operationId": "listByStatus",
     "tags": [
@@ -1221,7 +1221,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/nodes": {
+  "/cronjob/dag/instance/{instanceId}/nodes": {
    "get": {
     "operationId": "listNodes",
     "tags": [
@@ -1251,7 +1251,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/visualization": {
+  "/cronjob/dag/instance/{instanceId}/visualization": {
    "get": {
     "operationId": "getVisualization",
     "tags": [
@@ -1281,7 +1281,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/mermaid": {
+  "/cronjob/dag/instance/{instanceId}/mermaid": {
    "get": {
     "operationId": "getMermaidDiagram",
     "tags": [
@@ -1311,7 +1311,7 @@
     ]
    }
   },
-  "/api/cronjob/dag/instance/{instanceId}/context": {
+  "/cronjob/dag/instance/{instanceId}/context": {
    "put": {
     "operationId": "updateContext",
     "tags": [
@@ -1351,7 +1351,7 @@
     }
    }
   },
-  "/api/cronjob/topology/dagInstance/{dagInstanceId}": {
+  "/cronjob/topology/dagInstance/{dagInstanceId}": {
    "get": {
     "operationId": "getDagInstanceTopology",
     "tags": [
@@ -1381,7 +1381,7 @@
     ]
    }
   },
-  "/api/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape": {
+  "/cronjob/topology/dagInstance/{dagInstanceId}/cytoscape": {
    "get": {
     "operationId": "getDagInstanceCytoscape",
     "tags": [
@@ -1411,7 +1411,7 @@
     ]
    }
   },
-  "/api/cronjob/topology/jobHistory/{jobKey}": {
+  "/cronjob/topology/jobHistory/{jobKey}": {
    "get": {
     "operationId": "getJobExecutionHistory",
     "tags": [
@@ -1441,7 +1441,7 @@
     ]
    }
   },
-  "/api/cronjob/dashboard/overview": {
+  "/cronjob/dashboard/overview": {
    "get": {
     "operationId": "getOverview",
     "tags": [
@@ -1481,7 +1481,7 @@
     }
    }
   },
-  "/api/cronjob/dashboard/health": {
+  "/cronjob/dashboard/health": {
    "get": {
     "operationId": "getHealth",
     "tags": [
@@ -1501,7 +1501,7 @@
     }
    }
   },
-  "/api/cronjob/dag/save": {
+  "/cronjob/dag/save": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -1524,7 +1524,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/DagDefinitionDTO"
        }
       }
      }
@@ -1551,7 +1551,7 @@
     }
    }
   },
-  "/api/cronjob/events/job/{jobId}": {
+  "/cronjob/events/job/{jobId}": {
    "get": {
     "operationId": "getJobEventStream",
     "tags": [
@@ -1581,7 +1581,7 @@
     ]
    }
   },
-  "/api/cronjob/events/page": {
+  "/cronjob/events/page": {
    "get": {
     "operationId": "pageByType",
     "tags": [
@@ -1629,7 +1629,7 @@
     ]
    }
   },
-  "/api/cronjob/glue/save": {
+  "/cronjob/glue/save": {
    "post": {
     "operationId": "save",
     "tags": [
@@ -1652,14 +1652,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/GlueCodeSaveRequest"
        }
       }
      }
     }
    }
   },
-  "/api/cronjob/glue/validate": {
+  "/cronjob/glue/validate": {
    "post": {
     "operationId": "validate",
     "tags": [
@@ -1709,7 +1709,7 @@
     }
    }
   },
-  "/api/internal/cronjob/{id}/trigger": {
+  "/internal/cronjob/{id}/trigger": {
    "post": {
     "operationId": "triggerWithLock",
     "tags": [
@@ -1747,7 +1747,7 @@
     ]
    }
   },
-  "/api/internal/cronjob/{id}": {
+  "/internal/cronjob/{id}": {
    "get": {
     "operationId": "getJobInfo",
     "tags": [
@@ -1777,7 +1777,7 @@
     ]
    }
   },
-  "/api/internal/cronjob/{id}/pause": {
+  "/internal/cronjob/{id}/pause": {
    "post": {
     "operationId": "pauseJob",
     "tags": [
@@ -1807,7 +1807,7 @@
     ]
    }
   },
-  "/api/internal/cronjob/{id}/resume": {
+  "/internal/cronjob/{id}/resume": {
    "post": {
     "operationId": "resumeJob",
     "tags": [
@@ -1837,7 +1837,7 @@
     ]
    }
   },
-  "/api/cronjob/internal/migrate/register": {
+  "/cronjob/internal/migrate/register": {
    "post": {
     "operationId": "register",
     "tags": [
@@ -1867,7 +1867,7 @@
     }
    }
   },
-  "/api/cronjob/internal/migrate/unregister": {
+  "/cronjob/internal/migrate/unregister": {
    "post": {
     "operationId": "unregister",
     "tags": [
@@ -1890,14 +1890,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/UnregisterRequest"
        }
       }
      }
     }
    }
   },
-  "/api/cronjob/internal/execute": {
+  "/cronjob/internal/execute": {
    "post": {
     "operationId": "execute",
     "tags": [
@@ -1927,7 +1927,7 @@
     }
    }
   },
-  "/api/cronjob/internal/executeSubTask": {
+  "/cronjob/internal/executeSubTask": {
    "post": {
     "operationId": "executeSubTask",
     "tags": [
@@ -1957,7 +1957,7 @@
     }
    }
   },
-  "/api/cronjob/internal/executeBatch": {
+  "/cronjob/internal/executeBatch": {
    "post": {
     "operationId": "executeBatch",
     "tags": [
@@ -1990,7 +1990,7 @@
     }
    }
   },
-  "/api/cronjob": {
+  "/cronjob": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -2048,7 +2048,7 @@
     }
    }
   },
-  "/api/cronjob/cron/validate": {
+  "/cronjob/cron/validate": {
    "get": {
     "operationId": "validateCron",
     "tags": [
@@ -2087,7 +2087,7 @@
     ]
    }
   },
-  "/api/cronjob/batch/delete": {
+  "/cronjob/batch/delete": {
    "post": {
     "operationId": "batchDelete",
     "tags": [
@@ -2117,7 +2117,7 @@
     }
    }
   },
-  "/api/cronjob/{id}": {
+  "/cronjob/{id}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -2175,7 +2175,7 @@
     ]
    }
   },
-  "/api/cronjob/{id}/pause": {
+  "/cronjob/{id}/pause": {
    "post": {
     "operationId": "pause",
     "tags": [
@@ -2205,7 +2205,7 @@
     ]
    }
   },
-  "/api/cronjob/{id}/resume": {
+  "/cronjob/{id}/resume": {
    "post": {
     "operationId": "resume",
     "tags": [
@@ -2235,7 +2235,7 @@
     ]
    }
   },
-  "/api/cronjob/{id}/trigger": {
+  "/cronjob/{id}/trigger": {
    "post": {
     "operationId": "trigger",
     "tags": [
@@ -2273,7 +2273,7 @@
     ]
    }
   },
-  "/api/cronjob/batch/pause": {
+  "/cronjob/batch/pause": {
    "post": {
     "operationId": "batchPause",
     "tags": [
@@ -2303,7 +2303,7 @@
     }
    }
   },
-  "/api/cronjob/batch/resume": {
+  "/cronjob/batch/resume": {
    "post": {
     "operationId": "batchResume",
     "tags": [
@@ -2333,7 +2333,7 @@
     }
    }
   },
-  "/api/cronjob/batch/trigger": {
+  "/cronjob/batch/trigger": {
    "post": {
     "operationId": "batchTrigger",
     "tags": [
@@ -2363,7 +2363,7 @@
     }
    }
   },
-  "/api/cronjob/batch/updateGroup": {
+  "/cronjob/batch/updateGroup": {
    "post": {
     "operationId": "batchUpdateGroup",
     "tags": [
@@ -2393,7 +2393,7 @@
     }
    }
   },
-  "/api/cronjob/batch/updateCron": {
+  "/cronjob/batch/updateCron": {
    "post": {
     "operationId": "batchUpdateCron",
     "tags": [
@@ -2423,7 +2423,7 @@
     }
    }
   },
-  "/api/cronjob/page": {
+  "/cronjob/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -2487,7 +2487,7 @@
     ]
    }
   },
-  "/api/cronjob/log/page": {
+  "/cronjob/log/page": {
    "get": {
     "operationId": "pageLog",
     "tags": [
@@ -2543,7 +2543,109 @@
     ]
    }
   },
-  "/api/cronjob/reload": {
+  "/cronjob/export": {
+   "get": {
+    "operationId": "exportJobs",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "group",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/HttpServletResponse"
+      }
+     }
+    ]
+   }
+  },
+  "/cronjob/log/export": {
+   "get": {
+    "operationId": "exportJobLogs",
+    "tags": [
+     "cronjob"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "jobKey",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "response",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "object"
+      }
+     }
+    ]
+   }
+  },
+  "/cronjob/reload": {
    "post": {
     "operationId": "reload",
     "tags": [
@@ -2563,7 +2665,7 @@
     }
    }
   },
-  "/api/cronjob/group/{jobGroup}/page": {
+  "/cronjob/group/{jobGroup}/page": {
    "get": {
     "operationId": "pageByGroup",
     "tags": [
@@ -2611,7 +2713,7 @@
     ]
    }
   },
-  "/api/cronjob/group/{jobGroup}/pause": {
+  "/cronjob/group/{jobGroup}/pause": {
    "post": {
     "operationId": "pauseByGroup",
     "tags": [
@@ -2641,7 +2743,7 @@
     ]
    }
   },
-  "/api/cronjob/group/{jobGroup}/resume": {
+  "/cronjob/group/{jobGroup}/resume": {
    "post": {
     "operationId": "resumeByGroup",
     "tags": [
@@ -2671,7 +2773,7 @@
     ]
    }
   },
-  "/api/cronjob/group/{jobGroup}/trigger": {
+  "/cronjob/group/{jobGroup}/trigger": {
    "post": {
     "operationId": "triggerByGroup",
     "tags": [
@@ -2701,7 +2803,7 @@
     ]
    }
   },
-  "/api/cronjob/group/stats": {
+  "/cronjob/group/stats": {
    "get": {
     "operationId": "groupStats",
     "tags": [
@@ -2721,7 +2823,7 @@
     }
    }
   },
-  "/api/cronjob/history/versions": {
+  "/cronjob/history/versions": {
    "get": {
     "operationId": "versions",
     "tags": [
@@ -2751,7 +2853,7 @@
     ]
    }
   },
-  "/api/cronjob/history/detail": {
+  "/cronjob/history/detail": {
    "get": {
     "operationId": "detail",
     "tags": [
@@ -2790,7 +2892,7 @@
     ]
    }
   },
-  "/api/cronjob/history/rollback": {
+  "/cronjob/history/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -2829,7 +2931,7 @@
     ]
    }
   },
-  "/api/cronjob/history/compare": {
+  "/cronjob/history/compare": {
    "get": {
     "operationId": "compare",
     "tags": [
@@ -2877,7 +2979,7 @@
     ]
    }
   },
-  "/api/cronjob/log/stream/{logId}": {
+  "/cronjob/log/stream/{logId}": {
    "get": {
     "operationId": "stream",
     "tags": [
@@ -2907,7 +3009,7 @@
     ]
    }
   },
-  "/api/cronjob/stats/daily": {
+  "/cronjob/stats/daily": {
    "get": {
     "operationId": "daily",
     "tags": [
@@ -2955,7 +3057,7 @@
     ]
    }
   },
-  "/api/cronjob/stats/summary": {
+  "/cronjob/stats/summary": {
    "get": {
     "operationId": "summary",
     "tags": [
@@ -3003,7 +3105,7 @@
     ]
    }
   },
-  "/api/cronjob/stats/dashboard": {
+  "/cronjob/stats/dashboard": {
    "get": {
     "operationId": "dashboard",
     "tags": [
@@ -3023,7 +3125,7 @@
     }
    }
   },
-  "/api/cronjob/stats/recent-failures": {
+  "/cronjob/stats/recent-failures": {
    "get": {
     "operationId": "recentFailures",
     "tags": [
@@ -3054,7 +3156,7 @@
     ]
    }
   },
-  "/api/cronjob/stats/heatmap": {
+  "/cronjob/stats/heatmap": {
    "get": {
     "operationId": "heatmap",
     "tags": [
@@ -3085,7 +3187,7 @@
     ]
    }
   },
-  "/api/cronjob/task/list": {
+  "/cronjob/task/list": {
    "get": {
     "operationId": "list",
     "tags": [
@@ -3115,7 +3217,7 @@
     ]
    }
   },
-  "/api/cronjob/task/page": {
+  "/cronjob/task/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -3163,7 +3265,7 @@
     ]
    }
   },
-  "/api/cronjob/task/progress": {
+  "/cronjob/task/progress": {
    "get": {
     "operationId": "progress",
     "tags": [
@@ -3193,7 +3295,7 @@
     ]
    }
   },
-  "/api/cronjob/webhook": {
+  "/cronjob/webhook": {
    "post": {
     "operationId": "create",
     "tags": [
@@ -3251,7 +3353,7 @@
     }
    }
   },
-  "/api/cronjob/webhook/{id}": {
+  "/cronjob/webhook/{id}": {
    "delete": {
     "operationId": "delete",
     "tags": [
@@ -3309,7 +3411,7 @@
     ]
    }
   },
-  "/api/cronjob/webhook/page": {
+  "/cronjob/webhook/page": {
    "get": {
     "operationId": "page",
     "tags": [
@@ -3365,7 +3467,7 @@
     ]
    }
   },
-  "/api/cronjob/webhook/{id}/test": {
+  "/cronjob/webhook/{id}/test": {
    "post": {
     "operationId": "testWebhook",
     "tags": [
@@ -3395,7 +3497,7 @@
     ]
    }
   },
-  "/api/cronjob/monitor/diagnosis/{jobKey}": {
+  "/cronjob/monitor/diagnosis/{jobKey}": {
    "get": {
     "operationId": "diagnose",
     "tags": [
@@ -3425,7 +3527,7 @@
     ]
    }
   },
-  "/api/cronjob/queue/status": {
+  "/cronjob/queue/status": {
    "get": {
     "operationId": "getQueueStatus",
     "tags": [
@@ -3445,7 +3547,7 @@
     }
    }
   },
-  "/api/cronjob/glue/latest": {
+  "/cronjob/glue/latest": {
    "get": {
     "operationId": "latest",
     "tags": [
@@ -3475,7 +3577,7 @@
     ]
    }
   },
-  "/api/cronjob/glue/versions": {
+  "/cronjob/glue/versions": {
    "get": {
     "operationId": "versions",
     "tags": [
@@ -3505,7 +3607,7 @@
     ]
    }
   },
-  "/api/cronjob/glue/rollback": {
+  "/cronjob/glue/rollback": {
    "post": {
     "operationId": "rollback",
     "tags": [
@@ -3528,14 +3630,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/GlueCodeRollbackRequest"
        }
       }
      }
     }
    }
   },
-  "/api/cronjob/glue/test": {
+  "/cronjob/glue/test": {
    "post": {
     "operationId": "test",
     "tags": [
@@ -3558,14 +3660,14 @@
      "content": {
       "application/json": {
        "schema": {
-        "type": "object"
+        "$ref": "#/components/schemas/GlueTestRequest"
        }
       }
      }
     }
    }
   },
-  "/api/cronjob/glue/template": {
+  "/cronjob/glue/template": {
    "get": {
     "operationId": "template",
     "tags": [
@@ -3595,7 +3697,7 @@
     ]
    }
   },
-  "/api/cronjob/glue/diff": {
+  "/cronjob/glue/diff": {
    "get": {
     "operationId": "diff",
     "tags": [
@@ -3643,7 +3745,7 @@
     ]
    }
   },
-  "/api/cronjob/calendar/fireTimes": {
+  "/cronjob/calendar/fireTimes": {
    "get": {
     "operationId": "getUpcomingFireTimes",
     "tags": [
@@ -3691,7 +3793,7 @@
     ]
    }
   },
-  "/api/cronjob/calendar/schedule": {
+  "/cronjob/calendar/schedule": {
    "get": {
     "operationId": "getScheduleCalendar",
     "tags": [
@@ -3731,7 +3833,7 @@
     ]
    }
   },
-  "/api/cronjob/topology/global": {
+  "/cronjob/topology/global": {
    "get": {
     "operationId": "getGlobalTopology",
     "tags": [
@@ -3887,16 +3989,18 @@
       "type": "integer",
       "format": "int32"
      },
-     "enabled": {
-      "type": "integer",
-      "format": "int32"
+     "isEnabled": {
+      "type": "boolean",
+      "description": "是否启用（YDIZ-OOP-006 合规：`isEnabled` primitive `boolean`）。"
      }
     },
-    "description": "AlertRule 新增请求 DTO。",
-    "x-field-docs": {},
+    "description": "AlertRule 新增请求 DTO。\n\nYDIZ-OOP-006 合规：DTO `isEnabled`（primitive `boolean`）与实体/VO 一致。",
+    "x-field-docs": {
+     "isEnabled": "是否启用（YDIZ-OOP-006 合规：`isEnabled` primitive `boolean`）。"
+    },
     "required": [
      "ruleName",
-     "enabled"
+     "isEnabled"
     ]
    },
    "AlertRulePutDTO": {
@@ -3942,17 +4046,19 @@
       "type": "integer",
       "format": "int32"
      },
-     "enabled": {
-      "type": "integer",
-      "format": "int32"
+     "isEnabled": {
+      "type": "boolean",
+      "description": "是否启用（YDIZ-OOP-006 合规：`isEnabled` primitive `boolean`）。"
      }
     },
-    "description": "AlertRule 修改请求 DTO。",
-    "x-field-docs": {},
+    "description": "AlertRule 修改请求 DTO。\n\nYDIZ-OOP-006 合规：DTO `isEnabled`（primitive `boolean`）与实体/VO 一致。",
+    "x-field-docs": {
+     "isEnabled": "是否启用（YDIZ-OOP-006 合规：`isEnabled` primitive `boolean`）。"
+    },
     "required": [
      "id",
      "ruleName",
-     "enabled"
+     "isEnabled"
     ]
    },
    "JobClusterMigrationDTO": {
@@ -4047,6 +4153,11 @@
      "connectTimeoutSeconds": "连接超时（秒）",
      "readTimeoutSeconds": "读取超时（秒）"
     }
+   },
+   "ExportRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ExportRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "JobDagPostDTO": {
     "type": "object",
@@ -4153,6 +4264,16 @@
     "required": [
      "dagKey"
     ]
+   },
+   "DagDefinitionDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "DagDefinitionDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "SaveCodeDTO": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SaveCodeDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "JobVO": {
     "type": "object",
@@ -4397,6 +4518,11 @@
      "updatedAt": "更新时间",
      "tenantId": "租户 ID（多租户隔离）"
     }
+   },
+   "UnregisterRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "UnregisterRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "RemoteTaskRequest": {
     "type": "object",
@@ -4773,6 +4899,11 @@
      "jobIds"
     ]
    },
+   "HttpServletResponse": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "JobWebhookPostDTO": {
     "type": "object",
     "properties": {
@@ -4851,6 +4982,1716 @@
     },
     "description": "JobWebhook 修改请求 DTO。",
     "x-field-docs": {}
+   },
+   "GlueCodeSaveRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "GlueCodeSaveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "GlueCodeRollbackRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "GlueCodeRollbackRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "GlueTestRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "GlueTestRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "JobAlertRuleVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "ruleName": {
+      "type": "string",
+      "description": "规则名称"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "关联任务 ID（NULL 表示全局规则）"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY（冗余，全局规则为 NULL）"
+     },
+     "alertType": {
+      "type": "string",
+      "description": "告警类型: FAIL / TIMEOUT / SLOW / FAIL_RATE / DURATION_P95"
+     },
+     "alertLevel": {
+      "type": "string",
+      "description": "告警级别: INFO / WARN / ERROR / CRITICAL"
+     },
+     "threshold": {
+      "type": "integer",
+      "format": "int64",
+      "description": "阈值（FAIL_RATE 百分比 0-100 / SLOW+DURATION_P95 毫秒数；FAIL/TIMEOUT 可空）"
+     },
+     "timeWindowMinutes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "统计时间窗口（分钟），仅 FAIL_RATE / DURATION_P95 必填"
+     },
+     "channels": {
+      "type": "string",
+      "description": "通知通道（JSON 数组: [\"EMAIL\",\"DINGTALK\"]）"
+     },
+     "receivers": {
+      "type": "string",
+      "description": "接收人（JSON 数组: 邮箱/手机号/userId 列表）"
+     },
+     "cooldownMinutes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "冷却时间（分钟），同一规则在冷却期内不重复告警（默认 10）"
+     },
+     "isEnabled": {
+      "type": "boolean",
+      "description": "是否启用（true=启用，false=禁用）。\n\nYDIZ-OOP-006 合规：字段 `isEnabled`（primitive `boolean`），\nLombok 生成 `isEnabled()` getter。"
+     },
+     "sourceType": {
+      "type": "string",
+      "description": "来源类型（如 SLA，用于区分规则业务来源）"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（P0-FIX 补回：与实体一致，AlertScanner 全局规则告警上下文使用）"
+     },
+     "lastAlertAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后告警时间（冷却窗口判定起点）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobAlertRule 视图对象。\n\n用于 Controller 层返回告警规则数据，对应实体 com.njydsz.cronjob.domain.entity.job.JobAlertRule。\n\nYDIZ-OOP-006 合规：VO `isEnabled`（primitive `boolean`）与实体一致，\nLombok 生成 `isEnabled()` getter，保持跨层命名统一。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "ruleName": "规则名称",
+     "jobId": "关联任务 ID（NULL 表示全局规则）",
+     "jobKey": "任务 KEY（冗余，全局规则为 NULL）",
+     "alertType": "告警类型: FAIL / TIMEOUT / SLOW / FAIL_RATE / DURATION_P95",
+     "alertLevel": "告警级别: INFO / WARN / ERROR / CRITICAL",
+     "threshold": "阈值（FAIL_RATE 百分比 0-100 / SLOW+DURATION_P95 毫秒数；FAIL/TIMEOUT 可空）",
+     "timeWindowMinutes": "统计时间窗口（分钟），仅 FAIL_RATE / DURATION_P95 必填",
+     "channels": "通知通道（JSON 数组: [\"EMAIL\",\"DINGTALK\"]）",
+     "receivers": "接收人（JSON 数组: 邮箱/手机号/userId 列表）",
+     "cooldownMinutes": "冷却时间（分钟），同一规则在冷却期内不重复告警（默认 10）",
+     "isEnabled": "是否启用（true=启用，false=禁用）。\n\nYDIZ-OOP-006 合规：字段 `isEnabled`（primitive `boolean`），\nLombok 生成 `isEnabled()` getter。",
+     "sourceType": "来源类型（如 SLA，用于区分规则业务来源）",
+     "tenantId": "租户 ID（P0-FIX 补回：与实体一致，AlertScanner 全局规则告警上下文使用）",
+     "lastAlertAt": "最后告警时间（冷却窗口判定起点）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "JobAlertLogVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "alertCode": {
+      "type": "string",
+      "description": "预警编码（cronjob 自动生成: CRONJOB-{timestamp}-{ruleId}）"
+     },
+     "sourceType": {
+      "type": "string",
+      "description": "触发源类型（cronjob 告警固定为 CRONJOB）"
+     },
+     "ruleId": {
+      "type": "string",
+      "description": "规则 ID（映射到 ydsz_job_alert_dispatch.rule_id）"
+     },
+     "ruleName": {
+      "type": "string",
+      "description": "规则名称（映射到 ydsz_job_alert_dispatch.title）"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID（NULL 表示全局告警；映射到 source_id）"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY（冗余）"
+     },
+     "alertType": {
+      "type": "string",
+      "description": "告警类型: FAIL / TIMEOUT / SLOW / FAIL_RATE / DURATION_P95"
+     },
+     "alertLevel": {
+      "type": "string",
+      "description": "告警级别: INFO / WARN / ERROR / CRITICAL"
+     },
+     "triggerValue": {
+      "type": "string",
+      "description": "触发时的实际值（如失败率 85.5、耗时 5000）"
+     },
+     "threshold": {
+      "type": "integer",
+      "format": "int64",
+      "description": "规则阈值（冗余）"
+     },
+     "channels": {
+      "type": "string",
+      "description": "实际发送通道（逗号分隔: INAPP,EMAIL,DINGTALK）"
+     },
+     "alertStatus": {
+      "type": "string",
+      "description": "告警状态: PENDING / SUCCESS / PARTIAL / FAILED / *_RECOVERY"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（部分通道失败时记录；映射到 fail_reason）"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "链路追踪 ID（映射到 provider_trace_id）"
+     },
+     "triggerLogId": {
+      "type": "string",
+      "description": "触发该告警的任务日志 ID（关联 ydsz_job_log.id）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobAlertLog 视图对象。\n\n用于 Controller 层返回告警派发记录，对应实体 com.njydsz.cronjob.domain.entity.job.JobAlertLog。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "alertCode": "预警编码（cronjob 自动生成: CRONJOB-{timestamp}-{ruleId}）",
+     "sourceType": "触发源类型（cronjob 告警固定为 CRONJOB）",
+     "ruleId": "规则 ID（映射到 ydsz_job_alert_dispatch.rule_id）",
+     "ruleName": "规则名称（映射到 ydsz_job_alert_dispatch.title）",
+     "jobId": "任务 ID（NULL 表示全局告警；映射到 source_id）",
+     "jobKey": "任务 KEY（冗余）",
+     "alertType": "告警类型: FAIL / TIMEOUT / SLOW / FAIL_RATE / DURATION_P95",
+     "alertLevel": "告警级别: INFO / WARN / ERROR / CRITICAL",
+     "triggerValue": "触发时的实际值（如失败率 85.5、耗时 5000）",
+     "threshold": "规则阈值（冗余）",
+     "channels": "实际发送通道（逗号分隔: INAPP,EMAIL,DINGTALK）",
+     "alertStatus": "告警状态: PENDING / SUCCESS / PARTIAL / FAILED / *_RECOVERY",
+     "errorMessage": "错误信息（部分通道失败时记录；映射到 fail_reason）",
+     "traceId": "链路追踪 ID（映射到 provider_trace_id）",
+     "triggerLogId": "触发该告警的任务日志 ID（关联 ydsz_job_log.id）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "AuditLogVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "审计记录 ID"
+     },
+     "auditType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "审计类型编码"
+     },
+     "action": {
+      "type": "integer",
+      "format": "int32",
+      "description": "操作行为编码"
+     },
+     "module": {
+      "type": "string",
+      "description": "模块名称"
+     },
+     "content": {
+      "type": "string",
+      "description": "操作内容描述"
+     },
+     "businessNo": {
+      "type": "string",
+      "description": "业务流水号（通常为 jobKey 或 jobId）"
+     },
+     "operatorName": {
+      "type": "string",
+      "description": "操作人姓名"
+     },
+     "operationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "操作时间"
+     },
+     "ipAddress": {
+      "type": "string",
+      "description": "请求 IP 地址"
+     },
+     "costTime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "执行耗时（毫秒）"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "链路追踪 ID"
+     }
+    },
+    "description": "审计日志视图对象（P1-14 操作审计视图）。\n\n用于前端展示操作审计轨迹，包含操作人、操作行为、操作对象、时间、结果等关键信息。",
+    "x-field-docs": {
+     "id": "审计记录 ID",
+     "auditType": "审计类型编码",
+     "action": "操作行为编码",
+     "module": "模块名称",
+     "content": "操作内容描述",
+     "businessNo": "业务流水号（通常为 jobKey 或 jobId）",
+     "operatorName": "操作人姓名",
+     "operationTime": "操作时间",
+     "ipAddress": "请求 IP 地址",
+     "costTime": "执行耗时（毫秒）",
+     "traceId": "链路追踪 ID"
+    }
+   },
+   "BatchResultDTO": {
+    "type": "object",
+    "properties": {
+     "total": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总处理条数"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功条数"
+     },
+     "failureCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败条数"
+     },
+     "details": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ItemResult"
+      },
+      "description": "明细列表"
+     },
+     "item": {
+      "type": "object",
+      "description": "操作项标识"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "error": {
+      "type": "string",
+      "description": "失败原因（成功时为 null）"
+     }
+    },
+    "description": "批量操作结果（P2-F4）。\n\n提供比简单 count 更详细的批量操作结果，包含每个条目的处理状态与失败原因， 前端可据此展示\"部分成功\"详情弹窗，而非仅显示\"成功 N 条\"。\n\n<h3>典型返回结构</h3>\n\n<pre>{@code\n{\n\"total\": 5,\n\"successCount\": 3,\n\"failureCount\": 2,\n\"details\": [\n{\"item\": \"job-001\", \"success\": true,  \"error\": null},\n{\"item\": \"job-002\", \"success\": false, \"error\": \"任务不存在\"},\n...\n]\n}\n}</pre>\n\n@param <T> 批量操作项的类型（通常为 String，表示 jobId）",
+    "x-field-docs": {
+     "total": "总处理条数",
+     "successCount": "成功条数",
+     "failureCount": "失败条数",
+     "details": "明细列表",
+     "item": "操作项标识",
+     "isSuccess": "是否成功",
+     "error": "失败原因（成功时为 null）"
+    }
+   },
+   "ItemResult": {
+    "type": "object",
+    "properties": {
+     "item": {
+      "type": "object",
+      "description": "操作项标识"
+     },
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "error": {
+      "type": "string",
+      "description": "失败原因（成功时为 null）"
+     }
+    },
+    "description": "单个批量操作结果。\n\n@param <T> 操作项类型",
+    "x-field-docs": {
+     "item": "操作项标识",
+     "isSuccess": "是否成功",
+     "error": "失败原因（成功时为 null）"
+    }
+   },
+   "ConnectorTaskInfo": {
+    "type": "object",
+    "properties": {
+     "externalTaskId": {
+      "type": "string",
+      "description": "外部系统任务 ID"
+     },
+     "jobName": {
+      "type": "string",
+      "description": "任务名称"
+     },
+     "jobGroup": {
+      "type": "string",
+      "description": "任务分组"
+     },
+     "cronExpression": {
+      "type": "string",
+      "description": "CRON 表达式"
+     },
+     "jobType": {
+      "type": "string",
+      "description": "任务类型（BEAN / HTTP / GLUE / SHELL）"
+     },
+     "executorHandler": {
+      "type": "string",
+      "description": "执行器/Handler 标识"
+     },
+     "paramsJson": {
+      "type": "string",
+      "description": "执行参数（JSON）"
+     },
+     "description": {
+      "type": "string",
+      "description": "任务描述"
+     },
+     "routeStrategy": {
+      "type": "string",
+      "description": "路由策略"
+     },
+     "blockStrategy": {
+      "type": "string",
+      "description": "阻塞策略"
+     },
+     "timeoutSeconds": {
+      "type": "integer",
+      "format": "int32",
+      "description": "超时时间（秒）"
+     },
+     "retryCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "重试次数"
+     },
+     "alertEmail": {
+      "type": "string",
+      "description": "告警邮箱"
+     },
+     "extraProps": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "string"
+      },
+      "description": "额外属性（各系统特有字段）"
+     },
+     "sourceSystem": {
+      "type": "string",
+      "description": "源系统标识"
+     }
+    },
+    "description": "连接器任务信息（P2-3）。\n\n统一的任务信息模型，用于跨调度系统的任务导入/导出。 不同外部系统的任务模型差异通过字段映射转换为本结构。",
+    "x-field-docs": {
+     "externalTaskId": "外部系统任务 ID",
+     "jobName": "任务名称",
+     "jobGroup": "任务分组",
+     "cronExpression": "CRON 表达式",
+     "jobType": "任务类型（BEAN / HTTP / GLUE / SHELL）",
+     "executorHandler": "执行器/Handler 标识",
+     "paramsJson": "执行参数（JSON）",
+     "description": "任务描述",
+     "routeStrategy": "路由策略",
+     "blockStrategy": "阻塞策略",
+     "timeoutSeconds": "超时时间（秒）",
+     "retryCount": "重试次数",
+     "alertEmail": "告警邮箱",
+     "extraProps": "额外属性（各系统特有字段）",
+     "sourceSystem": "源系统标识"
+    }
+   },
+   "ConnectorExportResult": {
+    "type": "object",
+    "properties": {
+     "ERRORS_CAPACITY": {
+      "type": "integer",
+      "format": "int32",
+      "description": "错误列表初始容量"
+     },
+     "total": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总任务数"
+     },
+     "success": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功数"
+     },
+     "failed": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败数"
+     },
+     "skipped": {
+      "type": "integer",
+      "format": "int32",
+      "description": "跳过数"
+     },
+     "errors": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "错误详情列表"
+     }
+    },
+    "description": "连接器导出结果（P2-3）。",
+    "x-field-docs": {
+     "ERRORS_CAPACITY": "错误列表初始容量",
+     "total": "总任务数",
+     "success": "成功数",
+     "failed": "失败数",
+     "skipped": "跳过数",
+     "errors": "错误详情列表"
+    }
+   },
+   "JobDagVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "dagKey": {
+      "type": "string",
+      "description": "DAG 唯一标识"
+     },
+     "dagName": {
+      "type": "string",
+      "description": "DAG 名称"
+     },
+     "dagDefinition": {
+      "type": "string",
+      "description": "DAG 定义（JSON，包含节点和边）"
+     },
+     "dagStatus": {
+      "type": "string",
+      "description": "DAG 状态"
+     },
+     "triggerType": {
+      "type": "string",
+      "description": "触发类型"
+     },
+     "cronExpression": {
+      "type": "string",
+      "description": "Cron 表达式"
+     },
+     "maxConcurrentInstances": {
+      "type": "integer",
+      "format": "int32",
+      "description": "最大并发实例数"
+     },
+     "failStrategy": {
+      "type": "string",
+      "description": "失败策略"
+     },
+     "description": {
+      "type": "string",
+      "description": "描述"
+     },
+     "timeoutMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "超时时间（毫秒）"
+     },
+     "nextFireTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "下次触发时间"
+     },
+     "lastFireTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "上次触发时间"
+     },
+     "fireCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "触发总次数"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "成功次数"
+     },
+     "failCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "失败次数"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "版本号"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（多租户隔离）"
+     }
+    },
+    "description": "DAG 工作流视图对象\n\n用于 Controller 层返回 DAG 工作流数据，对应实体 com.njydsz.cronjob.domain.entity.dag.JobDag。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "dagKey": "DAG 唯一标识",
+     "dagName": "DAG 名称",
+     "dagDefinition": "DAG 定义（JSON，包含节点和边）",
+     "dagStatus": "DAG 状态",
+     "triggerType": "触发类型",
+     "cronExpression": "Cron 表达式",
+     "maxConcurrentInstances": "最大并发实例数",
+     "failStrategy": "失败策略",
+     "description": "描述",
+     "timeoutMs": "超时时间（毫秒）",
+     "nextFireTime": "下次触发时间",
+     "lastFireTime": "上次触发时间",
+     "fireCount": "触发总次数",
+     "successCount": "成功次数",
+     "failCount": "失败次数",
+     "version": "版本号",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间",
+     "tenantId": "租户 ID（多租户隔离）"
+    }
+   },
+   "JobDagVersionVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "dagId": {
+      "type": "string",
+      "description": "DAG ID（关联 ydsz_job_dag.id）"
+     },
+     "dagKey": {
+      "type": "string",
+      "description": "DAG KEY（冗余）"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "版本号（从 1 递增）"
+     },
+     "dagDefinition": {
+      "type": "string",
+      "description": "DAG 定义 JSON 快照"
+     },
+     "dagName": {
+      "type": "string",
+      "description": "DAG 名称快照"
+     },
+     "triggerType": {
+      "type": "string",
+      "description": "触发类型快照"
+     },
+     "cronExpression": {
+      "type": "string",
+      "description": "Cron 表达式快照"
+     },
+     "failStrategy": {
+      "type": "string",
+      "description": "失败策略快照"
+     },
+     "remark": {
+      "type": "string",
+      "description": "版本备注（如\"新增节点A\"、\"修改条件分支\"）"
+     },
+     "changedBy": {
+      "type": "string",
+      "description": "变更操作人"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobDagVersion 视图对象。\n\n用于 Controller 层返回 DAG 版本历史数据，对应实体 com.njydsz.cronjob.domain.entity.dag.JobDagVersion。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "dagId": "DAG ID（关联 ydsz_job_dag.id）",
+     "dagKey": "DAG KEY（冗余）",
+     "version": "版本号（从 1 递增）",
+     "dagDefinition": "DAG 定义 JSON 快照",
+     "dagName": "DAG 名称快照",
+     "triggerType": "触发类型快照",
+     "cronExpression": "Cron 表达式快照",
+     "failStrategy": "失败策略快照",
+     "remark": "版本备注（如\"新增节点A\"、\"修改条件分支\"）",
+     "changedBy": "变更操作人",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "JobDagInstanceVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "dagId": {
+      "type": "string",
+      "description": "DAG 定义 ID"
+     },
+     "dagKey": {
+      "type": "string",
+      "description": "DAG KEY（冗余）"
+     },
+     "instanceStatus": {
+      "type": "string",
+      "description": "实例状态: PENDING / RUNNING / SUCCESS / FAILED / PARTIAL_SUCCESS / PAUSED / CANCELED"
+     },
+     "triggerType": {
+      "type": "string",
+      "description": "触发类型: MANUAL / CRON / DEPENDENT"
+     },
+     "triggerBy": {
+      "type": "string",
+      "description": "触发人（MANUAL 时为用户 ID）"
+     },
+     "triggerTraceId": {
+      "type": "string",
+      "description": "触发 traceId（链路追踪）"
+     },
+     "contextJson": {
+      "type": "string",
+      "description": "DAG 实例级上下文 JSON（跨节点传参）"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "开始时间"
+     },
+     "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "结束时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "执行耗时（毫秒）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（FAILED 时填充）"
+     },
+     "totalNodes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "总节点数"
+     },
+     "successNodes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功节点数"
+     },
+     "failedNodes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败节点数"
+     },
+     "skippedNodes": {
+      "type": "integer",
+      "format": "int32",
+      "description": "跳过节点数"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（多租户隔离）"
+     }
+    },
+    "description": "JobDagInstance 视图对象。\n\n用于 Controller 层返回 DAG 工作流实例数据，对应实体 {@link\ncom.njydsz.cronjob.domain.entity.dag.JobDagInstance}。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "dagId": "DAG 定义 ID",
+     "dagKey": "DAG KEY（冗余）",
+     "instanceStatus": "实例状态: PENDING / RUNNING / SUCCESS / FAILED / PARTIAL_SUCCESS / PAUSED / CANCELED",
+     "triggerType": "触发类型: MANUAL / CRON / DEPENDENT",
+     "triggerBy": "触发人（MANUAL 时为用户 ID）",
+     "triggerTraceId": "触发 traceId（链路追踪）",
+     "contextJson": "DAG 实例级上下文 JSON（跨节点传参）",
+     "startedAt": "开始时间",
+     "finishedAt": "结束时间",
+     "durationMs": "执行耗时（毫秒）",
+     "errorMessage": "错误信息（FAILED 时填充）",
+     "totalNodes": "总节点数",
+     "successNodes": "成功节点数",
+     "failedNodes": "失败节点数",
+     "skippedNodes": "跳过节点数",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间",
+     "tenantId": "租户 ID（多租户隔离）"
+    }
+   },
+   "JobDagNodeInstanceVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "dagInstanceId": {
+      "type": "string",
+      "description": "DAG 实例 ID"
+     },
+     "dagId": {
+      "type": "string",
+      "description": "DAG 定义 ID"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY（冗余）"
+     },
+     "nodeStatus": {
+      "type": "string",
+      "description": "节点状态: PENDING / RUNNING / SUCCESS / FAILED / SKIPPED / RETRYING"
+     },
+     "logId": {
+      "type": "string",
+      "description": "关联任务执行日志 ID（ydsz_job_log.id）"
+     },
+     "retryCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点级重试次数"
+     },
+     "maxRetries": {
+      "type": "integer",
+      "format": "int32",
+      "description": "节点级最大重试次数"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "节点开始时间"
+     },
+     "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "节点结束时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "节点执行耗时（毫秒）"
+     },
+     "resultJson": {
+      "type": "string",
+      "description": "节点执行结果 JSON"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "节点错误信息"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     },
+     "tenantId": {
+      "type": "string",
+      "description": "租户 ID（多租户隔离）"
+     }
+    },
+    "description": "JobDagNodeInstance 视图对象。\n\n用于 Controller 层返回 DAG 节点实例数据，对应实体 {@link\ncom.njydsz.cronjob.domain.entity.dag.JobDagNodeInstance}。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "dagInstanceId": "DAG 实例 ID",
+     "dagId": "DAG 定义 ID",
+     "jobId": "任务 ID",
+     "jobKey": "任务 KEY（冗余）",
+     "nodeStatus": "节点状态: PENDING / RUNNING / SUCCESS / FAILED / SKIPPED / RETRYING",
+     "logId": "关联任务执行日志 ID（ydsz_job_log.id）",
+     "retryCount": "节点级重试次数",
+     "maxRetries": "节点级最大重试次数",
+     "startedAt": "节点开始时间",
+     "finishedAt": "节点结束时间",
+     "durationMs": "节点执行耗时（毫秒）",
+     "resultJson": "节点执行结果 JSON",
+     "errorMessage": "节点错误信息",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间",
+     "tenantId": "租户 ID（多租户隔离）"
+    }
+   },
+   "DagInstanceVisualizationVO": {
+    "type": "object",
+    "properties": {
+     "instance": {
+      "$ref": "#/components/schemas/JobDagInstanceVO"
+     },
+     "definition": {
+      "$ref": "#/components/schemas/DagDefinition"
+     },
+     "nodeInstances": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/JobDagNodeInstanceVO"
+      },
+      "description": "节点实例执行状态列表"
+     }
+    },
+    "description": "DAG 实例可视化数据 VO（P4-1 细节体验优化）。\n\n组合 DAG 实例、DAG 定义（节点/边）和节点执行状态， 供前端一次性获取渲染 DAG 可视化图所需的全部数据。",
+    "x-field-docs": {
+     "instance": "DAG 实例信息",
+     "definition": "DAG 定义（节点 + 边，含前端坐标 x/y）",
+     "nodeInstances": "节点实例执行状态列表"
+    }
+   },
+   "DagDefinition": {
+    "type": "object",
+    "properties": {
+     "nodes": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "TASK",
+        "CONDITION",
+        "PARALLEL_GATEWAY",
+        "APPROVAL"
+       ],
+       "description": "DAG 节点定义（P1-5/P1-6 子工作流/审批节点）。\n\n对应 dag_definition JSON 中的 nodes 数组元素，描述一个任务节点及其在前端可视化画布上的坐标位置。\n\n支持四种节点类型：\n\n\nNodeType#TASK：普通任务节点，调用 handler 执行\nNodeType#CONDITION：条件分支节点，根据 SpEL 表达式结果选择分支（P1-1）\nNodeType#PARALLEL_GATEWAY：并行网关节点，Fork/Join 并行执行（P1-1）\nNodeType#APPROVAL：审批节点，等待人工审批后继续执行（P1-6）\n\n\n@param jobKey 任务 KEY（唯一标识节点，边通过 jobKey 引用）\n@param jobId 任务 ID（冗余，便于直接派发）\n@param label 节点显示名称（前端画布展示）\n@param x 画布 X 坐标（前端可视化用）\n@param y 画布 Y 坐标（前端可视化用）\n@param paramsJson 节点级参数 JSON（覆盖任务默认 paramsJson，null 表示用任务默认值）\n@param nodeType 节点类型（null 默认 TASK）\n@param conditionExpression 条件表达式（CONDITION 节点必填，SpEL 语法，如 \"${a.result=='success'}\"）\n@param loopCount 保留字段（已废弃，序列化兼容用）\n@param parallelBranches 并行分支数（PARALLEL_GATEWAY 节点可选，默认按出边数确定）\n@param subWorkflowDagKey 子工作流 DAG KEY（已废弃，保留用于反序列化兼容）\n@param approvalUsers 审批人列表（APPROVAL 节点，逗号分隔，P1-6）\n@param approvalTimeoutMinutes 审批超时时间（分钟，超时自动拒绝，P1-6）"
+      }
+     },
+     "edges": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/DagEdge"
+      }
+     }
+    },
+    "required": [
+     "nodes",
+     "edges"
+    ],
+    "description": "DAG 定义模型（P2 DAG 增强）。\n\n对应 `JobDag.dagDefinition` JSON 字段，包含节点列表和边列表。 由 DagDefinitionCodec 负责序列化/反序列化。\n\nJSON 格式示例：\n\n<pre>{@code\n{\n\"nodes\": [\n{\"jobKey\":\"a\",\"jobId\":\"1\",\"label\":\"抽取\",\"x\":100,\"y\":200,\"paramsJson\":\"{}\"},\n{\"jobKey\":\"b\",\"jobId\":\"2\",\"label\":\"清洗\",\"x\":300,\"y\":200},\n{\"jobKey\":\"c\",\"jobId\":null,\"label\":\"条件\",\"nodeType\":\"CONDITION\",\"conditionExpression\":\"${a.result=='success'}\"},\n{\"jobKey\":\"e\",\"jobId\":null,\"label\":\"并行\",\"nodeType\":\"PARALLEL_GATEWAY\",\"parallelBranches\":2}\n],\n\"edges\": [\n{\"from\":\"a\",\"to\":\"b\",\"failStrategy\":\"FAIL_FAST\",\"condition\":null}\n]\n}\n}</pre>\n\n@param nodes 节点列表（不可为空）\n@param edges 边列表（可为空，表示单节点 DAG）",
+    "x-field-docs": {}
+   },
+   "DagEdge": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "description": "DAG 边定义（P2 DAG 增强）。\n\n对应 dag_definition JSON 中的 edges 数组元素，描述一条 `from → to` 的依赖边。\n\nP0-3 架构优化：与 com.njydsz.cronjob.domain.dag.DagEdge 结构完全一致， 通过 {@link\n#toCommon()} 方法可零拷贝转换为通用模型。 后续大版本将直接替换为 common 模块的 DagEdge。\n\n@param from 起始节点 jobKey\n@param to 目标节点 jobKey\n@param failStrategy 失败传播策略（FAIL_FAST / CONTINUE_ON_FAIL / null=使用 DAG 默认策略）\n@param condition 条件表达式（null 表示无条件触发；非 null 时按表达式求值决定是否触发）",
+    "x-field-docs": {}
+   },
+   "JobLogVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY"
+     },
+     "startTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "开始时间"
+     },
+     "endTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "结束时间"
+     },
+     "durationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "耗时(毫秒)"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息"
+     },
+     "paramsJson": {
+      "type": "string",
+      "description": "参数 JSON"
+     },
+     "resultJson": {
+      "type": "string",
+      "description": "结果 JSON"
+     },
+     "traceId": {
+      "type": "string",
+      "description": "链路追踪 ID"
+     },
+     "triggerType": {
+      "type": "string",
+      "description": "触发类型: CRON 定时 / MANUAL 手动 / RETRY 重试 / MISFIRED Misfire 触发"
+     },
+     "lockHolder": {
+      "type": "string",
+      "description": "持锁者标识（hostname:pid）"
+     },
+     "execNodeId": {
+      "type": "string",
+      "description": "执行节点 ID（hostname:port）"
+     },
+     "execThreadId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "执行线程 ID"
+     },
+     "status": {
+      "type": "string",
+      "description": "执行状态: RUNNING / SUCCESS / FAILED / TIMEOUT"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "删除标记：false=未删 / true=已删"
+     },
+     "shardIndex": {
+      "type": "integer",
+      "format": "int32",
+      "description": "分片索引（0-based，非分片任务为 null）"
+     },
+     "shardTotal": {
+      "type": "integer",
+      "format": "int32",
+      "description": "分片总数（非分片任务为 null）"
+     },
+     "slow": {
+      "type": "integer",
+      "format": "int32",
+      "description": "慢任务标记（0=非慢 / 1=慢）"
+     },
+     "slowThresholdMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "慢任务阈值快照（毫秒）"
+     },
+     "queueTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "入队时间（任务被扫描并入队的时刻）"
+     },
+     "dispatchTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "派发时间（任务被派发的时刻）"
+     },
+     "handlerInitTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Handler 初始化时间"
+     },
+     "handlerEndTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Handler 执行结束时间"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobLog 视图对象。\n\n用于 Controller 层返回任务执行日志数据，对应实体 com.njydsz.cronjob.domain.entity.log.JobLog。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "jobId": "任务 ID",
+     "jobKey": "任务 KEY",
+     "startTime": "开始时间",
+     "endTime": "结束时间",
+     "durationMs": "耗时(毫秒)",
+     "errorMessage": "错误信息",
+     "paramsJson": "参数 JSON",
+     "resultJson": "结果 JSON",
+     "traceId": "链路追踪 ID",
+     "triggerType": "触发类型: CRON 定时 / MANUAL 手动 / RETRY 重试 / MISFIRED Misfire 触发",
+     "lockHolder": "持锁者标识（hostname:pid）",
+     "execNodeId": "执行节点 ID（hostname:port）",
+     "execThreadId": "执行线程 ID",
+     "status": "执行状态: RUNNING / SUCCESS / FAILED / TIMEOUT",
+     "isDeleted": "删除标记：false=未删 / true=已删",
+     "shardIndex": "分片索引（0-based，非分片任务为 null）",
+     "shardTotal": "分片总数（非分片任务为 null）",
+     "slow": "慢任务标记（0=非慢 / 1=慢）",
+     "slowThresholdMs": "慢任务阈值快照（毫秒）",
+     "queueTime": "入队时间（任务被扫描并入队的时刻）",
+     "dispatchTime": "派发时间（任务被派发的时刻）",
+     "handlerInitTime": "Handler 初始化时间",
+     "handlerEndTime": "Handler 执行结束时间",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "SaveResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "SaveResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "ValidateResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ValidateResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "ProcessResult": {
+    "type": "object",
+    "properties": {
+     "isSuccess": {
+      "type": "boolean",
+      "description": "是否成功"
+     },
+     "result": {
+      "type": "string",
+      "description": "结果数据（JSON 字符串）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息"
+     }
+    },
+    "description": "任务执行结果",
+    "x-field-docs": {
+     "isSuccess": "是否成功",
+     "result": "结果数据（JSON 字符串）",
+     "errorMessage": "错误信息"
+    }
+   },
+   "JobHistoryVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID（关联 ydsz_job.id）"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "版本号（对应更新前的 job.version）"
+     },
+     "snapshot": {
+      "type": "string",
+      "description": "完整 Job JSON 快照（变更后状态; DELETE 时为 NULL）"
+     },
+     "changeType": {
+      "type": "string",
+      "description": "变更类型: CREATE / UPDATE / DELETE"
+     },
+     "beforeSnapshot": {
+      "type": "string",
+      "description": "变更前快照 JSON（CREATE 时为 NULL; UPDATE/DELETE 时记录变更前状态）"
+     },
+     "changeRemark": {
+      "type": "string",
+      "description": "变更说明（如\"任务创建\"、\"任务更新\"、\"任务删除\"）"
+     },
+     "jobName": {
+      "type": "string",
+      "description": "任务名称（冗余）"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY（冗余）"
+     },
+     "handler": {
+      "type": "string",
+      "description": "处理器（冗余）"
+     },
+     "cronExpression": {
+      "type": "string",
+      "description": "Cron 表达式（冗余）"
+     },
+     "paramsJson": {
+      "type": "string",
+      "description": "参数 JSON（冗余）"
+     },
+     "remark": {
+      "type": "string",
+      "description": "备注（冗余）"
+     },
+     "changedBy": {
+      "type": "string",
+      "description": "修改人 ID"
+     },
+     "changedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "修改时间"
+     },
+     "isDeleted": {
+      "type": "boolean",
+      "description": "是否逻辑删除（true=已删除，false=未删除）。\n\nYDIZ-OOP-006 合规：字段 `isDeleted`（primitive `boolean`），\nLombok 生成 `isDeleted()` getter，与实体命名保持一致。"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobHistory 视图对象。\n\n用于 Controller 层返回任务配置历史版本数据，对应实体 com.njydsz.cronjob.domain.entity.job.JobHistory。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "jobId": "任务 ID（关联 ydsz_job.id）",
+     "version": "版本号（对应更新前的 job.version）",
+     "snapshot": "完整 Job JSON 快照（变更后状态; DELETE 时为 NULL）",
+     "changeType": "变更类型: CREATE / UPDATE / DELETE",
+     "beforeSnapshot": "变更前快照 JSON（CREATE 时为 NULL; UPDATE/DELETE 时记录变更前状态）",
+     "changeRemark": "变更说明（如\"任务创建\"、\"任务更新\"、\"任务删除\"）",
+     "jobName": "任务名称（冗余）",
+     "jobKey": "任务 KEY（冗余）",
+     "handler": "处理器（冗余）",
+     "cronExpression": "Cron 表达式（冗余）",
+     "paramsJson": "参数 JSON（冗余）",
+     "remark": "备注（冗余）",
+     "changedBy": "修改人 ID",
+     "changedAt": "修改时间",
+     "isDeleted": "是否逻辑删除（true=已删除，false=未删除）。\n\nYDIZ-OOP-006 合规：字段 `isDeleted`（primitive `boolean`），\nLombok 生成 `isDeleted()` getter，与实体命名保持一致。",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "JobDailyStatsVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY（冗余）"
+     },
+     "statsDate": {
+      "type": "string",
+      "format": "date",
+      "description": "统计日期"
+     },
+     "fireCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当日触发次数"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当日成功次数"
+     },
+     "failCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当日失败次数"
+     },
+     "timeoutCount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当日超时次数"
+     },
+     "avgDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "平均耗时（毫秒）"
+     },
+     "maxDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "最大耗时（毫秒）"
+     },
+     "minDurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "最小耗时（毫秒）"
+     },
+     "p95DurationMs": {
+      "type": "integer",
+      "format": "int64",
+      "description": "P95 耗时（毫秒）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobDailyStats 视图对象。\n\n用于 Controller 层返回任务每日统计趋势数据，对应实体 com.njydsz.cronjob.domain.entity.log.JobDailyStats。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "jobId": "任务 ID",
+     "jobKey": "任务 KEY（冗余）",
+     "statsDate": "统计日期",
+     "fireCount": "当日触发次数",
+     "successCount": "当日成功次数",
+     "failCount": "当日失败次数",
+     "timeoutCount": "当日超时次数",
+     "avgDurationMs": "平均耗时（毫秒）",
+     "maxDurationMs": "最大耗时（毫秒）",
+     "minDurationMs": "最小耗时（毫秒）",
+     "p95DurationMs": "P95 耗时（毫秒）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "JobTaskVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID（关联 ydsz_job.id）"
+     },
+     "logId": {
+      "type": "string",
+      "description": "执行日志 ID（关联 ydsz_job_log.id）"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "任务 KEY（冗余）"
+     },
+     "taskName": {
+      "type": "string",
+      "description": "子任务名称（root task 为 \"root\"，子任务为业务侧定义的 taskName）"
+     },
+     "taskParams": {
+      "type": "string",
+      "description": "子任务参数 JSON"
+     },
+     "taskType": {
+      "type": "string",
+      "description": "子任务类型: ROOT 根任务 / SUB_TASK 子任务"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "执行状态: PENDING 待执行 / RUNNING 执行中 / SUCCESS 成功 / FAILED 失败"
+     },
+     "result": {
+      "type": "string",
+      "description": "执行结果 JSON（ProcessResult.result 序列化后的字符串）"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（失败时填充）"
+     },
+     "execNodeId": {
+      "type": "string",
+      "description": "执行节点 ID（hostname:port）"
+     },
+     "retryCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "重试次数（每次重试递增）"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobTask 视图对象。\n\n用于 Controller 层返回 MapReduce 子任务数据，对应实体 com.njydsz.cronjob.domain.entity.job.JobTask。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "jobId": "任务 ID（关联 ydsz_job.id）",
+     "logId": "执行日志 ID（关联 ydsz_job_log.id）",
+     "jobKey": "任务 KEY（冗余）",
+     "taskName": "子任务名称（root task 为 \"root\"，子任务为业务侧定义的 taskName）",
+     "taskParams": "子任务参数 JSON",
+     "taskType": "子任务类型: ROOT 根任务 / SUB_TASK 子任务",
+     "taskStatus": "执行状态: PENDING 待执行 / RUNNING 执行中 / SUCCESS 成功 / FAILED 失败",
+     "result": "执行结果 JSON（ProcessResult.result 序列化后的字符串）",
+     "errorMessage": "错误信息（失败时填充）",
+     "execNodeId": "执行节点 ID（hostname:port）",
+     "retryCount": "重试次数（每次重试递增）",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "JobWebhookVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "name": {
+      "type": "string",
+      "description": "WebHook 名称"
+     },
+     "eventType": {
+      "type": "string",
+      "description": "订阅的事件类型: TASK_STARTED / TASK_SUCCESS / TASK_FAILED / TASK_TIMEOUT / DAG_COMPLETED"
+     },
+     "jobKey": {
+      "type": "string",
+      "description": "订阅的任务 KEY（null=所有任务）"
+     },
+     "jobGroup": {
+      "type": "string",
+      "description": "订阅的任务组（null=所有分组）"
+     },
+     "callbackUrl": {
+      "type": "string",
+      "description": "WebHook 回调 URL"
+     },
+     "httpMethod": {
+      "type": "string",
+      "description": "请求方法: POST / PUT"
+     },
+     "headers": {
+      "type": "string",
+      "description": "请求头 JSON"
+     },
+     "secret": {
+      "type": "string",
+      "description": "密钥（用于签名验证）"
+     },
+     "webhookStatus": {
+      "type": "string",
+      "description": "状态: ACTIVE / INACTIVE"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "JobWebhook 视图对象。\n\n用于 Controller 层返回 WebHook 订阅数据，对应实体 com.njydsz.cronjob.domain.entity.job.JobWebhook。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "name": "WebHook 名称",
+     "eventType": "订阅的事件类型: TASK_STARTED / TASK_SUCCESS / TASK_FAILED / TASK_TIMEOUT / DAG_COMPLETED",
+     "jobKey": "订阅的任务 KEY（null=所有任务）",
+     "jobGroup": "订阅的任务组（null=所有分组）",
+     "callbackUrl": "WebHook 回调 URL",
+     "httpMethod": "请求方法: POST / PUT",
+     "headers": "请求头 JSON",
+     "secret": "密钥（用于签名验证）",
+     "webhookStatus": "状态: ACTIVE / INACTIVE",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "GlueCodeVO": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64"
+     },
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
+     },
+     "jobId": {
+      "type": "string",
+      "description": "任务 ID（关联 ydsz_job.id）"
+     },
+     "sourceCode": {
+      "type": "string",
+      "description": "源代码（Groovy/Python/Shell/JavaScript 脚本内容）"
+     },
+     "language": {
+      "type": "string",
+      "description": "语言: GROOVY(默认) / PYTHON / SHELL / JAVASCRIPT / JAVA"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "版本号（从 1 递增）"
+     },
+     "remark": {
+      "type": "string",
+      "description": "版本备注"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
+     },
+     "updatedBy": {
+      "type": "string",
+      "description": "更新人"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间"
+     }
+    },
+    "description": "GlueCode 视图对象。\n\n用于 Controller 层返回 GLUE 在线编码数据，对应实体 com.njydsz.cronjob.domain.entity.schedule.GlueCode。",
+    "x-field-docs": {
+     "id": "主键 ID",
+     "jobId": "任务 ID（关联 ydsz_job.id）",
+     "sourceCode": "源代码（Groovy/Python/Shell/JavaScript 脚本内容）",
+     "language": "语言: GROOVY(默认) / PYTHON / SHELL / JAVASCRIPT / JAVA",
+     "version": "版本号（从 1 递增）",
+     "remark": "版本备注",
+     "createdBy": "创建人",
+     "createdAt": "创建时间",
+     "updatedBy": "更新人",
+     "updatedAt": "更新时间"
+    }
+   },
+   "ScheduleItem": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ScheduleItem（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    }
   }
  }

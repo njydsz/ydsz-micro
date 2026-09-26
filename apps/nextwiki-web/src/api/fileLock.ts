@@ -14,19 +14,19 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * lock: POST /api/nextwiki/files/{nodeId}/lock
+ * lock: POST /nextwiki/files/{nodeId}/lock
  */
 export function lock({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/files/${nodeId}/lock`);
+  return requestClient.post<void>(`/nextwiki/files/${nodeId}/lock`);
 }
 
 /**
- * unlock: POST /api/nextwiki/files/{nodeId}/unlock
+ * unlock: POST /nextwiki/files/{nodeId}/unlock
  */
 export function unlock({ nodeId }: {
     nodeId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/files/${nodeId}/unlock`);
+  return requestClient.post<void>(`/nextwiki/files/${nodeId}/unlock`);
 }

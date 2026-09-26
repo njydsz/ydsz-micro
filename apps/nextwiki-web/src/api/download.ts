@@ -14,18 +14,18 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * downloadFolder: POST /api/nextwiki/download/folder/{folderId}
+ * downloadFolder: POST /nextwiki/download/folder/{folderId}
  */
 export function downloadFolder({ folderId }: {
     folderId: string;
   }, params: {
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/download/folder/${folderId}`, { params });
+  return requestClient.post<void>(`/nextwiki/download/folder/${folderId}`, { params });
 }
 
 /**
- * download: POST /api/nextwiki/download/{nodeId}
+ * download: POST /nextwiki/download/{nodeId}
  */
 export function download({ nodeId }: {
     nodeId: string;
@@ -33,22 +33,22 @@ export function download({ nodeId }: {
     request?: Record<string, unknown>;
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/download/${nodeId}`, { params });
+  return requestClient.post<void>(`/nextwiki/download/${nodeId}`, { params });
 }
 
 /**
- * generateSignedUrl: POST /api/nextwiki/download/{nodeId}/signed-url
+ * generateSignedUrl: POST /nextwiki/download/{nodeId}/signed-url
  */
 export function generateSignedUrl({ nodeId }: {
     nodeId: string;
   }, params: {
     request?: Record<string, unknown>;
   }): Promise<string> {
-  return requestClient.post<string>(`/api/nextwiki/download/${nodeId}/signed-url`, { params });
+  return requestClient.post<string>(`/nextwiki/download/${nodeId}/signed-url`, { params });
 }
 
 /**
- * downloadBySignedUrl: GET /api/nextwiki/download/signed/{sign}
+ * downloadBySignedUrl: GET /nextwiki/download/signed/{sign}
  */
 export function downloadBySignedUrl({ sign }: {
     sign: string;
@@ -57,5 +57,5 @@ export function downloadBySignedUrl({ sign }: {
     request?: Record<string, unknown>;
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.get<void>(`/api/nextwiki/download/signed/${sign}`, { params });
+  return requestClient.get<void>(`/nextwiki/download/signed/${sign}`, { params });
 }

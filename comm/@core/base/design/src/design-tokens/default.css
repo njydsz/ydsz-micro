@@ -22,12 +22,25 @@
   /* ============================================================
    * 字体系统
    * ============================================================ */
+
+  /* ============================================================
+   * 字体回退链设计策略：
+   *  1. 西文首选 Inter Variable（可变字体，含 optical sizing）
+   *  2. 中文回退：macOS → PingFang SC；Windows → Microsoft YaHei；
+   *     Linux → Noto Sans SC（兜底）
+   *  3. 系统字体：-apple-blink 覆盖 San Francisco（macOS）与
+   *     Segoe UI（Windows）原生渲染
+   *  4. 彩色Emoji 置于回保链末尾，确保 emoji 字符不被黑白 LCG 字体替换
+   * ============================================================ */
   --font-family:
-    'Inter Variable', 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-    'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Inter Variable', 'Inter', -apple-system, blinkmacsystemfont, /* 中文回退链 */ 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', /* 西文系统字体回退 */ 'Segoe UI',
+    roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
+    /* Emoji兜底（确保彩色 emoji 不被 LCG 字体替换为黑白） */ 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
   --font-family-code:
-    'JetBrains Mono', 'Fira Code', ui-monospace, sfmono-regular, 'SF Mono', consolas,
+    'JetBrains Mono', 'Fira Code', /* 等宽中文回退：代码块中混排中文时仍需等宽 */ 'PingFang SC',
+    'Microsoft YaHei', /* 系统等宽兜底 */ ui-monospace, sfmono-regular, 'SF Mono', consolas,
     'Liberation Mono', monospace;
 
   /* ============================================================
@@ -245,6 +258,7 @@
   --width-sidebar: 16rem;
   --width-sidebar-collapsed: 3rem;
   --content-max-width: 1600px; /* 超宽屏可读性约束（P2-7） */
+
   /* 响应式断点对齐 Tailwind（仅供文档对齐，CSS 原生不支持 var in @media） */
   --bp-sm: 640px;
   --bp-md: 768px;
@@ -305,6 +319,7 @@
   --duration-default: 200ms;
   --duration-slow: 300ms;
   --duration-slower: 500ms;
+
   /* 页面进出场分离：进入稍慢（柔和），离开稍快（响应） */
   --duration-enter: 300ms;
   --duration-leave: 200ms;
@@ -484,6 +499,7 @@
   --brand-500: 25 95% 53%;
   --brand-600: 25 95% 47%;
   --brand-700: 25 95% 41%;
+
   /* 浅色品牌背景需要深色前景文本保证对比度 */
   --primary-foreground: var(--neutral-950);
 }
@@ -497,6 +513,7 @@
   --brand-500: 45 90% 50%;
   --brand-600: 42 90% 43%;
   --brand-700: 38 90% 36%;
+
   /* 浅色品牌背景需要深色前景文本保证对比度 */
   --primary-foreground: var(--neutral-950);
 }
@@ -521,6 +538,7 @@
   --brand-500: 0 0% 40%;
   --brand-600: 0 0% 34%;
   --brand-700: 0 0% 28%;
+
   /* 浅色品牌背景需要深色前景文本保证对比度 */
   --primary-foreground: var(--neutral-950);
 }
@@ -534,6 +552,7 @@
   --brand-500: 215 20% 40%;
   --brand-600: 215 22% 33%;
   --brand-700: 215 24% 26%;
+
   /* 浅色品牌背景需要深色前景文本保证对比度 */
   --primary-foreground: var(--neutral-950);
 }
@@ -588,6 +607,7 @@
   --brand-500: 220 10% 38%;
   --brand-600: 220 10% 32%;
   --brand-700: 220 12% 26%;
+
   /* 浅色品牌背景需要深色前景文本保证对比度 */
   --primary-foreground: var(--neutral-950);
 }

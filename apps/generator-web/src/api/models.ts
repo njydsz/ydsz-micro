@@ -120,7 +120,7 @@ export interface GenTemplateGroup {
   name: string;
   description?: string;
   isSystem?: boolean;
-  sortOrder?: number;
+  sort?: number;
   isActive?: boolean;
   createdAt?: string;
   updatedAt?: string;

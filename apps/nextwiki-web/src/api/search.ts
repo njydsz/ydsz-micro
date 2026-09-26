@@ -14,60 +14,60 @@ import { requestClient } from '#/api/request';
 import type { SearchRequest, SearchResultVO } from './models';
 
 /**
- * search: POST /api/nextwiki/search
+ * search: POST /nextwiki/search
  */
 export function search(data: SearchRequest): Promise<SearchResultVO> {
-  return requestClient.post<SearchResultVO>(`/api/nextwiki/search`, data);
+  return requestClient.post<SearchResultVO>(`/nextwiki/search`, data);
 }
 
 /**
- * suggest: GET /api/nextwiki/search/suggest
+ * suggest: GET /nextwiki/search/suggest
  */
 export function suggest(params: {
     prefix?: string;
   }): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/nextwiki/search/suggest`, { params });
+  return requestClient.get<string[]>(`/nextwiki/search/suggest`, { params });
 }
 
 /**
- * didYouMean: GET /api/nextwiki/search/did-you-mean
+ * didYouMean: GET /nextwiki/search/did-you-mean
  */
 export function didYouMean(params: {
     keyword?: string;
   }): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/nextwiki/search/did-you-mean`, { params });
+  return requestClient.get<string[]>(`/nextwiki/search/did-you-mean`, { params });
 }
 
 /**
- * rebuildIndices: POST /api/nextwiki/search/rebuild
+ * rebuildIndices: POST /nextwiki/search/rebuild
  */
 export function rebuildIndices(): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/search/rebuild`);
+  return requestClient.post<void>(`/nextwiki/search/rebuild`);
 }
 
 /**
- * getSearchHistory: GET /api/nextwiki/search/history
+ * getSearchHistory: GET /nextwiki/search/history
  */
 export function getSearchHistory(): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/nextwiki/search/history`);
+  return requestClient.get<string[]>(`/nextwiki/search/history`);
 }
 
 /**
- * clearSearchHistory: DELETE /api/nextwiki/search/history
+ * clearSearchHistory: DELETE /nextwiki/search/history
  */
 export function clearSearchHistory(): Promise<void> {
-  return requestClient.delete<void>(`/api/nextwiki/search/history`);
+  return requestClient.delete<void>(`/nextwiki/search/history`);
 }
 
 /**
- * getHotSearches: GET /api/nextwiki/search/hot
+ * getHotSearches: GET /nextwiki/search/hot
  */
 export function getHotSearches(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/nextwiki/search/hot`);
+  return requestClient.get<Record<string, unknown>[]>(`/nextwiki/search/hot`);
 }
 
 /**
- * advancedSearch: GET /api/nextwiki/search/advanced
+ * advancedSearch: GET /nextwiki/search/advanced
  */
 export function advancedSearch(params: {
     rawInput?: string;
@@ -75,5 +75,5 @@ export function advancedSearch(params: {
     page?: number;
     pageSize?: number;
   }): Promise<SearchResultVO> {
-  return requestClient.get<SearchResultVO>(`/api/nextwiki/search/advanced`, { params });
+  return requestClient.get<SearchResultVO>(`/nextwiki/search/advanced`, { params });
 }

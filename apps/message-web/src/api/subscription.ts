@@ -14,38 +14,38 @@ import { requestClient } from '#/api/request';
 import type { MsgSubscriptionVO, SubscriptionUpsertDTO } from './models';
 
 /**
- * upsert: POST /api/message/subscription
+ * upsert: POST /message/subscription
  */
 export function upsert(data: SubscriptionUpsertDTO): Promise<MsgSubscriptionVO> {
-  return requestClient.post<MsgSubscriptionVO>(`/api/message/subscription`, data);
+  return requestClient.post<MsgSubscriptionVO>(`/message/subscription`, data);
 }
 
 /**
- * listByUser: GET /api/message/subscription/user/{userId}
+ * listByUser: GET /message/subscription/user/{userId}
  */
 export function listByUser({ userId }: {
     userId: string;
   }): Promise<MsgSubscriptionVO[]> {
-  return requestClient.get<MsgSubscriptionVO[]>(`/api/message/subscription/user/${userId}`);
+  return requestClient.get<MsgSubscriptionVO[]>(`/message/subscription/user/${userId}`);
 }
 
 /**
- * listByTopic: GET /api/message/subscription/topic/{topicCode}/{channel}
+ * listByTopic: GET /message/subscription/topic/{topicCode}/{channel}
  */
 export function listByTopic({ topicCode, channel }: {
     topicCode: string;
     channel: string;
   }): Promise<MsgSubscriptionVO[]> {
-  return requestClient.get<MsgSubscriptionVO[]>(`/api/message/subscription/topic/${topicCode}/${channel}`);
+  return requestClient.get<MsgSubscriptionVO[]>(`/message/subscription/topic/${topicCode}/${channel}`);
 }
 
 /**
- * unsubscribe: POST /api/message/subscription/unsubscribe
+ * unsubscribe: POST /message/subscription/unsubscribe
  */
 export function unsubscribe(params: {
     userId?: string;
     topicCode?: string;
     channel?: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/message/subscription/unsubscribe`, { params });
+  return requestClient.post<void>(`/message/subscription/unsubscribe`, { params });
 }

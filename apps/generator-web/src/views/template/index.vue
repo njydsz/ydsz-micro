@@ -128,11 +128,11 @@ async function handleDeleteGroup(group: GenTemplateGroup) {
   }
 }
 
-async function handleGroupFormSubmit(data: { name: string; description: string; sortOrder?: number }) {
+async function handleGroupFormSubmit(data: { name: string; description: string; sort?: number }) {
   await createGroup({
     name: data.name,
     description: data.description,
-    sortOrder: data.sortOrder ?? 0,
+    sort: data.sort ?? 0,
     isSystem: false,
   });
   showToast.success('创建分组成功');

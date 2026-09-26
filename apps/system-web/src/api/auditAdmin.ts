@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 import type { AuditLog } from './models';
 
 /**
- * queryByTimeRange: GET /api/admin/audit/logs
+ * queryByTimeRange: GET /admin/audit/logs
  */
 export function queryByTimeRange(params: {
     startTime?: string;
@@ -22,11 +22,11 @@ export function queryByTimeRange(params: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/admin/audit/logs`, { params });
+  return requestClient.get<AuditLog[]>(`/admin/audit/logs`, { params });
 }
 
 /**
- * queryByOperator: GET /api/admin/audit/operator/{operatorId}
+ * queryByOperator: GET /admin/audit/operator/{operatorId}
  */
 export function queryByOperator({ operatorId }: {
     operatorId: string;
@@ -34,11 +34,11 @@ export function queryByOperator({ operatorId }: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/admin/audit/operator/${operatorId}`, { params });
+  return requestClient.get<AuditLog[]>(`/admin/audit/operator/${operatorId}`, { params });
 }
 
 /**
- * queryByAction: GET /api/admin/audit/action/{action}
+ * queryByAction: GET /admin/audit/action/{action}
  */
 export function queryByAction({ action }: {
     action: number;
@@ -46,23 +46,23 @@ export function queryByAction({ action }: {
     page?: number;
     size?: number;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/admin/audit/action/${action}`, { params });
+  return requestClient.get<AuditLog[]>(`/admin/audit/action/${action}`, { params });
 }
 
 /**
- * queryByTraceId: GET /api/admin/audit/trace/{traceId}
+ * queryByTraceId: GET /admin/audit/trace/{traceId}
  */
 export function queryByTraceId({ traceId }: {
     traceId: string;
   }): Promise<AuditLog[]> {
-  return requestClient.get<AuditLog[]>(`/api/admin/audit/trace/${traceId}`);
+  return requestClient.get<AuditLog[]>(`/admin/audit/trace/${traceId}`);
 }
 
 /**
- * getById: GET /api/admin/audit/{id}
+ * getById: GET /admin/audit/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<AuditLog> {
-  return requestClient.get<AuditLog>(`/api/admin/audit/${id}`);
+  return requestClient.get<AuditLog>(`/admin/audit/${id}`);
 }

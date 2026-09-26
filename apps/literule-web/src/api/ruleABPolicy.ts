@@ -14,48 +14,48 @@ import { requestClient } from '#/api/request';
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from './models';
 
 /**
- * getABPolicy: GET /api/literule/rules/{ruleCode}/ab-policy
+ * getABPolicy: GET /literule/rules/{ruleCode}/ab-policy
  */
 export function getAbPolicy({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleABPolicyVO> {
-  return requestClient.get<RuleABPolicyVO>(`/api/literule/rules/${ruleCode}/ab-policy`);
+  return requestClient.get<RuleABPolicyVO>(`/literule/rules/${ruleCode}/ab-policy`);
 }
 
 /**
- * updateABPolicy: PUT /api/literule/rules/{ruleCode}/ab-policy
+ * updateABPolicy: PUT /literule/rules/{ruleCode}/ab-policy
  */
 export function updateAbPolicy({ ruleCode }: {
     ruleCode: string;
   }, data: RuleABPolicyDTO): Promise<void> {
-  return requestClient.put<void>(`/api/literule/rules/${ruleCode}/ab-policy`, data);
+  return requestClient.put<void>(`/literule/rules/${ruleCode}/ab-policy`, data);
 }
 
 /**
- * listRollbackHistory: GET /api/literule/rules/{ruleCode}/ab-rollbacks
+ * listRollbackHistory: GET /literule/rules/{ruleCode}/ab-rollbacks
  */
 export function listRollbackHistory({ ruleCode }: {
     ruleCode: string;
   }): Promise<RuleABRollbackVO[]> {
-  return requestClient.get<RuleABRollbackVO[]>(`/api/literule/rules/${ruleCode}/ab-rollbacks`);
+  return requestClient.get<RuleABRollbackVO[]>(`/literule/rules/${ruleCode}/ab-rollbacks`);
 }
 
 /**
- * evaluateAB: POST /api/literule/rules/{ruleCode}/ab-evaluate
+ * evaluateAB: POST /literule/rules/{ruleCode}/ab-evaluate
  */
 export function evaluateAb({ ruleCode }: {
     ruleCode: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/literule/rules/${ruleCode}/ab-evaluate`);
+  return requestClient.post<boolean>(`/literule/rules/${ruleCode}/ab-evaluate`);
 }
 
 /**
- * manualRollback: POST /api/literule/rules/{ruleCode}/ab-rollback
+ * manualRollback: POST /literule/rules/{ruleCode}/ab-rollback
  */
 export function manualRollback({ ruleCode }: {
     ruleCode: string;
   }, params: {
     reason?: string;
   }): Promise<RuleABRollbackVO> {
-  return requestClient.post<RuleABRollbackVO>(`/api/literule/rules/${ruleCode}/ab-rollback`, { params });
+  return requestClient.post<RuleABRollbackVO>(`/literule/rules/${ruleCode}/ab-rollback`, { params });
 }

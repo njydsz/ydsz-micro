@@ -15,53 +15,53 @@ import type { PageResponse } from './models';
 import type { ApiPermissionQuery, ApiPermissionVO } from './models';
 
 /**
- * page: GET /api/permission/api/page
+ * page: GET /permission/api/page
  */
 export function page(params: {
     query?: ApiPermissionQuery;
   }): Promise<PageResponse<ApiPermissionVO[]>> {
-  return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/api/permission/api/page`, { params });
+  return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/permission/api/page`, { params });
 }
 
 /**
- * getById: GET /api/permission/api/{id}
+ * getById: GET /permission/api/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<ApiPermissionVO> {
-  return requestClient.get<ApiPermissionVO>(`/api/permission/api/${id}`);
+  return requestClient.get<ApiPermissionVO>(`/permission/api/${id}`);
 }
 
 /**
- * triggerScan: POST /api/permission/api/scan
+ * triggerScan: POST /permission/api/scan
  */
 export function triggerScan(): Promise<number> {
-  return requestClient.post<number>(`/api/permission/api/scan`);
+  return requestClient.post<number>(`/permission/api/scan`);
 }
 
 /**
- * enable: POST /api/permission/api/{id}/enable
+ * enable: POST /permission/api/{id}/enable
  */
 export function enable({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/permission/api/${id}/enable`);
+  return requestClient.post<boolean>(`/permission/api/${id}/enable`);
 }
 
 /**
- * disable: POST /api/permission/api/{id}/disable
+ * disable: POST /permission/api/{id}/disable
  */
 export function disable({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/permission/api/${id}/disable`);
+  return requestClient.post<boolean>(`/permission/api/${id}/disable`);
 }
 
 /**
- * remove: DELETE /api/permission/api/{id}
+ * remove: DELETE /permission/api/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/permission/api/${id}`);
+  return requestClient.delete<boolean>(`/permission/api/${id}`);
 }

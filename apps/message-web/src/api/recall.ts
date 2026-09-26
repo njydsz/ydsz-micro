@@ -14,35 +14,35 @@ import { requestClient } from '#/api/request';
 import type { RecallRequestDTO } from './models';
 
 /**
- * recallNotification: POST /api/message/recall/notification
+ * recallNotification: POST /message/recall/notification
  */
 export function recallNotification(params: {
     userId?: string;
   }, data: RecallRequestDTO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/message/recall/notification`, data, { params });
+  return requestClient.post<boolean>(`/message/recall/notification`, data, { params });
 }
 
 /**
- * recallMessage: POST /api/message/recall/message/{logId}
+ * recallMessage: POST /message/recall/message/{logId}
  */
 export function recallMessage({ logId }: {
     logId: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/message/recall/message/${logId}`);
+  return requestClient.post<boolean>(`/message/recall/message/${logId}`);
 }
 
 /**
- * recallByMsgId: POST /api/message/recall/msg/{msgId}
+ * recallByMsgId: POST /message/recall/msg/{msgId}
  */
 export function recallByMsgId({ msgId }: {
     msgId: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/message/recall/msg/${msgId}`);
+  return requestClient.post<boolean>(`/message/recall/msg/${msgId}`);
 }
 
 /**
- * recallBatch: POST /api/message/recall/batch
+ * recallBatch: POST /message/recall/batch
  */
 export function recallBatch(data: RecallRequestDTO): Promise<number> {
-  return requestClient.post<number>(`/api/message/recall/batch`, data);
+  return requestClient.post<number>(`/message/recall/batch`, data);
 }

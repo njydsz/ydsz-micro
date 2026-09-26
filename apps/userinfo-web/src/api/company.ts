@@ -14,47 +14,47 @@ import { requestClient } from '#/api/request';
 import type { CompanyDTO, CompanyTreeVO, CompanyVO } from './models';
 
 /**
- * list: GET /api/company/list
+ * list: GET /company/list
  */
 export function list(): Promise<CompanyVO[]> {
-  return requestClient.get<CompanyVO[]>(`/api/company/list`);
+  return requestClient.get<CompanyVO[]>(`/company/list`);
 }
 
 /**
- * tree: GET /api/company/tree
+ * tree: GET /company/tree
  */
 export function tree(): Promise<CompanyTreeVO[]> {
-  return requestClient.get<CompanyTreeVO[]>(`/api/company/tree`);
+  return requestClient.get<CompanyTreeVO[]>(`/company/tree`);
 }
 
 /**
- * getById: GET /api/company/{id}
+ * getById: GET /company/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<CompanyVO> {
-  return requestClient.get<CompanyVO>(`/api/company/${id}`);
+  return requestClient.get<CompanyVO>(`/company/${id}`);
 }
 
 /**
- * create: POST /api/company
+ * create: POST /company
  */
 export function create(data: CompanyDTO): Promise<string> {
-  return requestClient.post<string>(`/api/company`, data);
+  return requestClient.post<string>(`/company`, data);
 }
 
 /**
- * update: PUT /api/company
+ * update: PUT /company
  */
 export function update(data: CompanyDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/company`, data);
+  return requestClient.put<boolean>(`/company`, data);
 }
 
 /**
- * remove: DELETE /api/company/{id}
+ * remove: DELETE /company/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/company/${id}`);
+  return requestClient.delete<boolean>(`/company/${id}`);
 }

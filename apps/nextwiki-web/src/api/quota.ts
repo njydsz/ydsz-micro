@@ -14,18 +14,18 @@ import { requestClient } from '#/api/request';
 import type { StorageQuotaVO } from './models';
 
 /**
- * getQuota: GET /api/nextwiki/quota/info
+ * getQuota: GET /nextwiki/quota/info
  */
 export function getQuota(params: {
     scopeType?: string;
     scopeId?: string;
   }): Promise<StorageQuotaVO> {
-  return requestClient.get<StorageQuotaVO>(`/api/nextwiki/quota/info`, { params });
+  return requestClient.get<StorageQuotaVO>(`/nextwiki/quota/info`, { params });
 }
 
 /**
- * setQuota: POST /api/nextwiki/quota/set
+ * setQuota: POST /nextwiki/quota/set
  */
 export function setQuota(data: Record<string, unknown>): Promise<StorageQuotaVO> {
-  return requestClient.post<StorageQuotaVO>(`/api/nextwiki/quota/set`, data);
+  return requestClient.post<StorageQuotaVO>(`/nextwiki/quota/set`, data);
 }

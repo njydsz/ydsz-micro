@@ -15,105 +15,105 @@ import type { PageResponse } from './models';
 import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, ImportResultVO } from './models';
 
 /**
- * page: GET /api/config/page
+ * page: GET /config/page
  */
 export function page(params: {
     query?: ConfigPageQuery;
   }): Promise<PageResponse<ConfigVO[]>> {
-  return requestClient.get<PageResponse<ConfigVO[]>>(`/api/config/page`, { params });
+  return requestClient.get<PageResponse<ConfigVO[]>>(`/config/page`, { params });
 }
 
 /**
- * pageByCursor: GET /api/config/cursor
+ * pageByCursor: GET /config/cursor
  */
 export function pageByCursor(params: {
     configGroup?: string;
     configKey?: string;
     pageSize?: number;
     cursor?: string;
-  }): Promise<PageResponse<ConfigVO>> {
-  return requestClient.get<PageResponse<ConfigVO>>(`/api/config/cursor`, { params });
+  }): Promise<PageResponse<ConfigVO[]>> {
+  return requestClient.get<PageResponse<ConfigVO[]>>(`/config/cursor`, { params });
 }
 
 /**
- * getById: GET /api/config/{id}
+ * getById: GET /config/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<ConfigVO> {
-  return requestClient.get<ConfigVO>(`/api/config/${id}`);
+  return requestClient.get<ConfigVO>(`/config/${id}`);
 }
 
 /**
- * save: POST /api/config
+ * save: POST /config
  */
 export function save(data: ConfigDTO): Promise<string> {
-  return requestClient.post<string>(`/api/config`, data);
+  return requestClient.post<string>(`/config`, data);
 }
 
 /**
- * update: PUT /api/config
+ * update: PUT /config
  */
 export function update(data: ConfigDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/config`, data);
+  return requestClient.put<boolean>(`/config`, data);
 }
 
 /**
- * remove: DELETE /api/config/{id}
+ * remove: DELETE /config/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/config/${id}`);
+  return requestClient.delete<boolean>(`/config/${id}`);
 }
 
 /**
- * batchSave: POST /api/config/batch
+ * batchSave: POST /config/batch
  */
 export function batchSave(data: ConfigBatchDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/config/batch`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/config/batch`, data);
 }
 
 /**
- * getByKey: GET /api/config/key/{configKey}
+ * getByKey: GET /config/key/{configKey}
  */
 export function getByKey({ configKey }: {
     configKey: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/config/key/${configKey}`);
+  return requestClient.get<string>(`/config/key/${configKey}`);
 }
 
 /**
- * getConfigsByGroup: GET /api/config/group/{configGroup}
+ * getConfigsByGroup: GET /config/group/{configGroup}
  */
 export function getConfigsByGroup({ configGroup }: {
     configGroup: string;
   }): Promise<ConfigVO[]> {
-  return requestClient.get<ConfigVO[]>(`/api/config/group/${configGroup}`);
+  return requestClient.get<ConfigVO[]>(`/config/group/${configGroup}`);
 }
 
 /**
- * listPublicConfigs: GET /api/config/public
+ * listPublicConfigs: GET /config/public
  */
 export function listPublicConfigs(): Promise<ConfigVO[]> {
-  return requestClient.get<ConfigVO[]>(`/api/config/public`);
+  return requestClient.get<ConfigVO[]>(`/config/public`);
 }
 
 /**
- * exportConfigs: GET /api/config/export
+ * exportConfigs: GET /config/export
  */
 export function exportConfigs(params: {
     configGroup?: string;
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.get<void>(`/api/config/export`, { params });
+  return requestClient.get<void>(`/config/export`, { params });
 }
 
 /**
- * importConfigs: POST /api/config/import
+ * importConfigs: POST /config/import
  */
 export function importConfigs(params: {
     file?: Record<string, unknown>;
   }): Promise<ImportResultVO> {
-  return requestClient.post<ImportResultVO>(`/api/config/import`, { params });
+  return requestClient.post<ImportResultVO>(`/config/import`, { params });
 }

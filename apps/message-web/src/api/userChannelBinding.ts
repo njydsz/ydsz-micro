@@ -14,33 +14,33 @@ import { requestClient } from '#/api/request';
 import type { MsgUserChannelVO, UserChannelBindingDTO } from './models';
 
 /**
- * upsert: POST /api/message/user-channels
+ * upsert: POST /message/user-channels
  */
 export function upsert(data: UserChannelBindingDTO): Promise<MsgUserChannelVO> {
-  return requestClient.post<MsgUserChannelVO>(`/api/message/user-channels`, data);
+  return requestClient.post<MsgUserChannelVO>(`/message/user-channels`, data);
 }
 
 /**
- * listMine: GET /api/message/user-channels/mine
+ * listMine: GET /message/user-channels/mine
  */
 export function listMine(): Promise<MsgUserChannelVO[]> {
-  return requestClient.get<MsgUserChannelVO[]>(`/api/message/user-channels/mine`);
+  return requestClient.get<MsgUserChannelVO[]>(`/message/user-channels/mine`);
 }
 
 /**
- * listByUser: GET /api/message/user-channels/user/{userId}
+ * listByUser: GET /message/user-channels/user/{userId}
  */
 export function listByUser({ userId }: {
     userId: string;
   }): Promise<MsgUserChannelVO[]> {
-  return requestClient.get<MsgUserChannelVO[]>(`/api/message/user-channels/user/${userId}`);
+  return requestClient.get<MsgUserChannelVO[]>(`/message/user-channels/user/${userId}`);
 }
 
 /**
- * delete: DELETE /api/message/user-channels/{id}
+ * delete: DELETE /message/user-channels/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/message/user-channels/${id}`);
+  return requestClient.delete<void>(`/message/user-channels/${id}`);
 }

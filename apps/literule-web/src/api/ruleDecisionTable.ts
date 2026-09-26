@@ -14,71 +14,71 @@ import { requestClient } from '#/api/request';
 import type { DecisionTableDTO, DecisionTableDefinitionVO, DecisionTableVO } from './models';
 
 /**
- * listDecisionTables: GET /api/literule/rules/decision-tables
+ * listDecisionTables: GET /literule/rules/decision-tables
  */
 export function listDecisionTables(): Promise<DecisionTableVO[]> {
-  return requestClient.get<DecisionTableVO[]>(`/api/literule/rules/decision-tables`);
+  return requestClient.get<DecisionTableVO[]>(`/literule/rules/decision-tables`);
 }
 
 /**
- * getDecisionTable: GET /api/literule/rules/decision-tables/{tableCode}
+ * getDecisionTable: GET /literule/rules/decision-tables/{tableCode}
  */
 export function getDecisionTable({ tableCode }: {
     tableCode: string;
   }): Promise<DecisionTableVO> {
-  return requestClient.get<DecisionTableVO>(`/api/literule/rules/decision-tables/${tableCode}`);
+  return requestClient.get<DecisionTableVO>(`/literule/rules/decision-tables/${tableCode}`);
 }
 
 /**
- * saveDecisionTable: POST /api/literule/rules/decision-tables
+ * saveDecisionTable: POST /literule/rules/decision-tables
  */
 export function saveDecisionTable(data: DecisionTableDTO): Promise<DecisionTableVO> {
-  return requestClient.post<DecisionTableVO>(`/api/literule/rules/decision-tables`, data);
+  return requestClient.post<DecisionTableVO>(`/literule/rules/decision-tables`, data);
 }
 
 /**
- * deleteDecisionTable: DELETE /api/literule/rules/decision-tables/{id}
+ * deleteDecisionTable: DELETE /literule/rules/decision-tables/{id}
  */
 export function deleteDecisionTable({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/literule/rules/decision-tables/${id}`);
+  return requestClient.delete<void>(`/literule/rules/decision-tables/${id}`);
 }
 
 /**
- * evaluateDecisionTable: POST /api/literule/rules/decision-tables/{tableCode}/evaluate
+ * evaluateDecisionTable: POST /literule/rules/decision-tables/{tableCode}/evaluate
  */
 export function evaluateDecisionTable({ tableCode }: {
     tableCode: string;
   }, data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.post<Record<string, Record<string, unknown>>[]>(`/api/literule/rules/decision-tables/${tableCode}/evaluate`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>[]>(`/literule/rules/decision-tables/${tableCode}/evaluate`, data);
 }
 
 /**
- * exportDecisionTableExcel: GET /api/literule/rules/decision-tables/{tableCode}/export-excel
+ * exportDecisionTableExcel: GET /literule/rules/decision-tables/{tableCode}/export-excel
  */
 export function exportDecisionTableExcel({ tableCode }: {
     tableCode: string;
   }, params: {
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.get<void>(`/api/literule/rules/decision-tables/${tableCode}/export-excel`, { params });
+  return requestClient.get<void>(`/literule/rules/decision-tables/${tableCode}/export-excel`, { params });
 }
 
 /**
- * importDecisionTableExcel: POST /api/literule/rules/decision-tables/import-excel
+ * importDecisionTableExcel: POST /literule/rules/decision-tables/import-excel
  */
 export function importDecisionTableExcel(params: {
     file?: Record<string, unknown>;
   }): Promise<DecisionTableDefinitionVO> {
-  return requestClient.post<DecisionTableDefinitionVO>(`/api/literule/rules/decision-tables/import-excel`, { params });
+  return requestClient.post<DecisionTableDefinitionVO>(`/literule/rules/decision-tables/import-excel`, { params });
 }
 
 /**
- * downloadDecisionTableExcelTemplate: GET /api/literule/rules/decision-tables/excel-template
+ * downloadDecisionTableExcelTemplate: GET /literule/rules/decision-tables/excel-template
  */
 export function downloadDecisionTableExcelTemplate(params: {
     response?: Record<string, unknown>;
   }): Promise<void> {
-  return requestClient.get<void>(`/api/literule/rules/decision-tables/excel-template`, { params });
+  return requestClient.get<void>(`/literule/rules/decision-tables/excel-template`, { params });
 }

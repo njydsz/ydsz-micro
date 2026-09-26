@@ -133,9 +133,9 @@ export interface FlowDeployProcessDTO {
    */
   bpmnXml?: string;
   /** 轻量节点列表（JSON 模式） */
-  nodes?: Record<string, unknown>[];
+  nodes?: FlowNodeDTO[];
   /** 轻量跳转列表（JSON 模式） */
-  skips?: Record<string, unknown>[];
+  skips?: FlowSkipDTO[];
   /** 租户 ID */
   tenantId?: string;
   /** 链路追踪 ID */
@@ -162,6 +162,53 @@ export interface FlowDeployProcessDTO {
   skipCondition?: string;
   /** 跳转名称（线上标签） */
   skipName?: string;
+}
+
+/**
+ * 节点定义
+ */
+export interface FlowNodeDTO {
+  serialVersionUID?: number;
+  /** 节点编码（流程内唯一） */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 节点类型：0开始/1审批/2抄送/3条件/4并行/5包容/6结束/7子流程 */
+  nodeType?: number;
+  /** 办理人权限标识 */
+  permissionFlag?: string;
+  /** 会签类型 */
+  performType?: string;
+  /** 任意跳转目标节点 */
+  skipAnyNode?: string;
+}
+
+/**
+ * 跳转定义
+ */
+export interface FlowSkipDTO {
+  serialVersionUID?: number;
+  /** 源节点编码 */
+  fromNodeCode?: string;
+  /** 目标节点编码 */
+  toNodeCode?: string;
+  /** 跳转类型：PASS/REJECT */
+  skipType?: string;
+  /** 跳转条件 */
+  skipCondition?: string;
+  /** 跳转名称（线上标签） */
+  skipName?: string;
+}
+
+/**
+ * 流程定义回滚请求 DTO
+ *
+ * 一键回滚流程定义到上一版本的入参载体，对应 `POST /definition/rollback` 请求体。
+ */
+export interface RollbackRequestDTO {
+  serialVersionUID?: number;
+  /** 流程编码（业务唯一键，租户内唯一） */
+  flowCode?: string;
 }
 
 /**
@@ -390,6 +437,16 @@ export interface FlowAutoTriggerCreateDTO {
 }
 
 /**
+ * SimulationRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface SimulationRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 自建工作流引擎 - 任务操作 DTO
  */
 export interface FlowTaskOperateDTO {
@@ -487,6 +544,16 @@ export interface FlowAttachmentDTO {
 }
 
 /**
+ * PublishMessageRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PublishMessageRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 通用字符串包装视图对象（VO）。
  *
  * 用于接口返回单个字符串结果（如合并组 ID、用户 ID 列表等）， 避免直接返回裸 String 导致 JSON 反序列化歧义。
@@ -494,6 +561,84 @@ export interface FlowAttachmentDTO {
 export interface StringVO {
   /** 包装的字符串值 */
   value?: string;
+}
+
+/**
+ * 瓶颈节点视图对象
+ *
+ * 用于标识审批流程中耗时较长、处理数量较多的瓶颈节点，帮助定位流程优化点。
+ */
+export interface FlowBottleneckVO {
+  serialVersionUID?: number;
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 平均耗时（毫秒） */
+  avgDurationMs?: number;
+  /** 处理数量 */
+  count?: number;
+}
+
+/**
+ * 流程异常记录视图对象
+ *
+ * 用于展示审批流程中检测到的异常情况，包括卡住（STUCK）、高驳回率（HIGH_REJECTION）、
+ * 长时间运行（LONG_RUNNING）等类型，支持按告警等级分类。
+ */
+export interface FlowAnomalyVO {
+  serialVersionUID?: number;
+  /** 异常类型：STUCK / HIGH_REJECTION / LONG_RUNNING */
+  type?: string;
+  /** 告警等级：RED / YELLOW / ORANGE */
+  warnLevel?: string;
+  /** 异常分类描述 */
+  anomalyType?: string;
+  /** 流程实例 ID */
+  instanceId?: string;
+  /** 任务 ID */
+  taskId?: string;
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 异常描述信息 */
+  description?: string;
+  /** 卡住时长（小时），仅 STUCK 类型有效 */
+  stuckHours?: number;
+  /** 异常发生时间 */
+  createdAt?: string;
+  /** 驳回率统计：总数量 */
+  totalCount?: number;
+  /** 驳回率统计：驳回数量 */
+  rejectedCount?: number;
+  /** 驳回率（0~1），仅 HIGH_REJECTION 类型有效 */
+  rejectionRate?: number;
+}
+
+/**
+ * 流程迁移影响分析视图对象。
+ *
+ * 用于评估流程定义迁移对正在运行实例的影响，提供风险等级和建议。
+ */
+export interface FlowMigrationImpactVO {
+  serialVersionUID?: number;
+  /** 原流程定义 ID */
+  oldDefinitionId?: string;
+  /** 目标流程定义 ID */
+  newDefinitionId?: string;
+  /** 风险等级：HIGH / MEDIUM / LOW / NONE */
+  riskLevel?: string;
+  /** 正在运行的实例数量 */
+  runningInstanceCount?: number;
+  /** 受影响的运行实例列表 */
+  affectedInstances?: Record<string, Record<string, unknown>>[];
+  /** 阻塞节点列表（迁移后无法继续执行的节点） */
+  blockedNodes?: Record<string, Record<string, unknown>>[];
+  /** 受影响的节点列表 */
+  affectedNodes?: Record<string, Record<string, unknown>>[];
+  /** 迁移建议 */
+  recommendation?: string;
 }
 
 /**
@@ -706,7 +851,18 @@ export interface FlowBatchDeployResultVO {
   /** 成功部署的定义 ID 列表 */
   definitionIds?: string[];
   /** 部署失败的条目列表 */
-  failedItems?: Record<string, unknown>[];
+  failedItems?: FailedDeployItemVO[];
+  /** 文件名 */
+  fileName?: string;
+  /** 失败原因 */
+  reason?: string;
+}
+
+/**
+ * 批量部署失败条目。
+ */
+export interface FailedDeployItemVO {
+  serialVersionUID?: number;
   /** 文件名 */
   fileName?: string;
   /** 失败原因 */
@@ -827,19 +983,19 @@ export interface FlowNodeVO {
   /** ext JSON 懒解析缓存（不参与序列化）。 */
   parsedExt?: Record<string, unknown>;
   /** SLA 配置懒解析缓存（不参与序列化）。 */
-  parsedSlaConfig?: Record<string, unknown>;
+  parsedSlaConfig?: volatile SlaConfigVO;
   /** 服务节点配置懒解析缓存（不参与序列化）。 */
-  parsedServiceNodeConfig?: Record<string, unknown>;
+  parsedServiceNodeConfig?: volatile ServiceNodeConfigVO;
   /** 会签配置懒解析缓存（不参与序列化）。 */
-  parsedCountersignConfig?: Record<string, unknown>;
+  parsedCountersignConfig?: volatile CountersignConfigVO;
   /** 办理人配置懒解析缓存（不参与序列化）。 */
-  parsedAssigneeConfig?: Record<string, unknown>;
+  parsedAssigneeConfig?: volatile AssigneeConfigVO;
   /** AI 审批节点配置懒解析缓存（不参与序列化）。 */
-  parsedAiAgentNodeConfig?: Record<string, unknown>;
+  parsedAiAgentNodeConfig?: volatile AiAgentNodeConfigVO;
   /** 驳回策略配置懒解析缓存（不参与序列化）。 */
-  parsedRejectStrategyConfig?: Record<string, unknown>;
+  parsedRejectStrategyConfig?: volatile RejectStrategyConfigVO;
   /** 催办通道配置懒解析缓存（不参与序列化）。 */
-  parsedUrgeChannelConfig?: Record<string, unknown>;
+  parsedUrgeChannelConfig?: volatile UrgeChannelConfigVO;
   /** 实例级可重入锁，用于懒解析 double-check（不参与序列化）。 */
   parseLock?: Record<string, unknown>;
   extMap?: string;
@@ -857,6 +1013,76 @@ export interface FlowNodeVO {
   eventType?: string;
   attachedToRef?: string;
   errorRef?: string;
+}
+
+/**
+ * volatile SlaConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile SlaConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * volatile ServiceNodeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile ServiceNodeConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * volatile CountersignConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile CountersignConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * volatile AssigneeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile AssigneeConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * volatile AiAgentNodeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile AiAgentNodeConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * volatile RejectStrategyConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile RejectStrategyConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * volatile UrgeChannelConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface volatile UrgeChannelConfigVO {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**
@@ -954,31 +1180,6 @@ export interface FlowRollbackResultVO {
 }
 
 /**
- * 流程迁移影响分析视图对象。
- *
- * 用于评估流程定义迁移对正在运行实例的影响，提供风险等级和建议。
- */
-export interface FlowMigrationImpactVO {
-  serialVersionUID?: number;
-  /** 原流程定义 ID */
-  oldDefinitionId?: string;
-  /** 目标流程定义 ID */
-  newDefinitionId?: string;
-  /** 风险等级：HIGH / MEDIUM / LOW / NONE */
-  riskLevel?: string;
-  /** 正在运行的实例数量 */
-  runningInstanceCount?: number;
-  /** 受影响的运行实例列表 */
-  affectedInstances?: Record<string, Record<string, unknown>>[];
-  /** 阻塞节点列表（迁移后无法继续执行的节点） */
-  blockedNodes?: Record<string, Record<string, unknown>>[];
-  /** 受影响的节点列表 */
-  affectedNodes?: Record<string, Record<string, unknown>>[];
-  /** 迁移建议 */
-  recommendation?: string;
-}
-
-/**
  * FlowEventSubscription 视图对象。
  */
 export interface FlowEventSubscriptionVO {
@@ -1062,7 +1263,7 @@ export interface EmbeddedApprovalViewDTO {
   /** 流程图（definition / nodes / skips），未发起时为 null */
   diagram?: Record<string, Record<string, unknown>>;
   /** 当前待办任务视图（空列表表示流程已结束或未发起） */
-  currentTasks?: Record<string, unknown>[];
+  currentTasks?: CurrentTaskView[];
   /** 审批轨迹时间线（发起 → 通过/驳回 → 结束） */
   history?: Record<string, Record<string, unknown>>[];
   /** 当前用户在流程中的角色 */
@@ -1143,7 +1344,7 @@ export interface FlowInstanceViewDTO {
   /** 流程变量 JSON */
   variable?: string;
   /** 当前待办任务列表 */
-  currentTasks?: Record<string, unknown>[];
+  currentTasks?: FlowTaskViewDTO[];
   /** 节点编码 */
   nodeCode?: string;
   /** 节点名称 */
@@ -1175,6 +1376,78 @@ export interface FlowInstanceViewDTO {
 }
 
 /**
+ * 流程任务视图 DTO（Feign 友好，办理人姓名字段已标注 SensitiveData 脱敏）。
+ *
+ * 对应实例下当前待办任务的最小视图，仅包含任务办理所需的字段， 不承载表单数据与审批流日志。
+ */
+export interface FlowTaskViewDTO {
+  serialVersionUID?: number;
+  /** 任务 ID */
+  id?: string;
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 节点类型（FlowNodeType.code） */
+  nodeType?: number;
+  /** 办理人类型 */
+  assigneeType?: string;
+  /** 办理人 ID */
+  assigneeId?: string;
+  /** 办理人姓名 */
+  assigneeName?: string;
+  /** 会签类型 */
+  performType?: string;
+  /** 任务状态 */
+  taskStatus?: string;
+  /** 审批意见 */
+  comment?: string;
+  /** 创建时间 */
+  createAt?: string;
+  /** 签收时间 */
+  claimAt?: string;
+  /** 完成时间 */
+  finishAt?: string;
+  /** 耗时（毫秒） */
+  durationMs?: number;
+  /** 截止时间 */
+  dueAt?: string;
+  /** P1-1: 任务优先级（1-100，默认 50） */
+  priority?: number;
+}
+
+/**
+ * 当前待办视图（嵌入式场景下需要判定"我是否可操作"）
+ */
+export interface CurrentTaskView {
+  serialVersionUID?: number;
+  /** 任务 ID */
+  taskId?: string;
+  /** 节点编码 */
+  nodeCode?: string;
+  /** 节点名称 */
+  nodeName?: string;
+  /** 节点类型 */
+  nodeType?: number;
+  /** 办理人类型 */
+  assigneeType?: string;
+  /** 办理人 ID */
+  assigneeId?: string;
+  /** 办理人姓名 */
+  assigneeName?: string;
+  /** 会签类型 */
+  performType?: string;
+  /** 任务状态 */
+  taskStatus?: string;
+  /** 创建时间 */
+  createAt?: string;
+  /** 截止时间 */
+  dueAt?: string;
+  /** 是否当前用户可操作 */
+  isMine?: boolean;
+}
+
+/**
  * 批量启动流程结果视图对象。
  *
  * 用于返回批量启动流程实例操作的成功与失败统计信息。
@@ -1188,7 +1461,20 @@ export interface FlowBatchStartResultVO {
   /** 成功创建的实例 ID 列表 */
   instanceIds?: string[];
   /** 启动失败的条目列表 */
-  failedItems?: Record<string, unknown>[];
+  failedItems?: FailedItemVO[];
+  /** 条目序号 */
+  index?: number;
+  /** 流程编码 */
+  flowCode?: string;
+  /** 失败原因 */
+  reason?: string;
+}
+
+/**
+ * 批量启动失败条目。
+ */
+export interface FailedItemVO {
+  serialVersionUID?: number;
   /** 条目序号 */
   index?: number;
   /** 流程编码 */
@@ -1291,9 +1577,22 @@ export interface FlowDiagramVO {
   /** 流程定义基本信息 */
   definition?: FlowDefinitionVO;
   /** 节点列表（每个节点带 active 标记） */
-  nodes?: Record<string, unknown>[];
+  nodes?: DiagramNodeVO[];
   /** 跳转列表 */
   skips?: FlowSkipVO[];
+  /** 是否为当前激活节点（前端高亮） */
+  isActive?: boolean;
+  /** 节点状态（RUNNING / COMPLETED / PENDING / SKIPPED） */
+  nodeState?: string;
+}
+
+/**
+ * 流程图节点视图对象。
+ *
+ * 继承 FlowNodeVO 的所有字段，额外增加 active 标记用于前端高亮。
+ */
+export interface DiagramNodeVO {
+  serialVersionUID?: number;
   /** 是否为当前激活节点（前端高亮） */
   isActive?: boolean;
   /** 节点状态（RUNNING / COMPLETED / PENDING / SKIPPED） */
@@ -1416,9 +1715,28 @@ export interface InstanceMigrationResultDTO {
   /** 失败实例数（迁移过程中异常） */
   failedCount?: number;
   /** 逐实例迁移明细 */
-  details?: Record<string, unknown>[];
+  details?: MigrationDetail[];
   /** 实际生效的节点映射（旧节点编码 -> 新节点编码） */
   nodeMappingApplied?: Record<string, string>;
+  /** 实例 ID */
+  instanceId?: string;
+  /** 实例标题 */
+  instanceTitle?: string;
+  /** 迁移前节点编码 */
+  oldNodeCode?: string;
+  /** 迁移后节点编码 */
+  newNodeCode?: string;
+  /** 迁移状态：MIGRATED / SKIPPED / FAILED */
+  status?: string;
+  /** 状态说明 / 跳过或失败原因 */
+  reason?: string;
+}
+
+/**
+ * 单个实例的迁移明细
+ */
+export interface MigrationDetail {
+  serialVersionUID?: number;
   /** 实例 ID */
   instanceId?: string;
   /** 实例标题 */
@@ -1443,7 +1761,7 @@ export interface FlowAutoTriggerVO {
   targetFlowCode?: string;
   conditionExpression?: string;
   description?: string;
-  enabled?: number;
+  isEnabled?: boolean;
   sort?: number;
   createdBy?: string;
   createdAt?: string;
@@ -1466,23 +1784,6 @@ export interface FlowEfficiencyStatsVO {
   proxyRate?: number;
   /** 逾期率（0~1） */
   overdueRate?: number;
-}
-
-/**
- * 瓶颈节点视图对象
- *
- * 用于标识审批流程中耗时较长、处理数量较多的瓶颈节点，帮助定位流程优化点。
- */
-export interface FlowBottleneckVO {
-  serialVersionUID?: number;
-  /** 节点编码 */
-  nodeCode?: string;
-  /** 节点名称 */
-  nodeName?: string;
-  /** 平均耗时（毫秒） */
-  avgDurationMs?: number;
-  /** 处理数量 */
-  count?: number;
 }
 
 /**
@@ -1533,7 +1834,7 @@ export interface SimulationResult {
   /** 结束节点编码 */
   endNode?: string;
   /** 是否到达结束节点 */
-  reachedEnd?: boolean;
+  isReachedEnd?: boolean;
   /** 警告信息列表（如条件永远不满足） */
   warnings?: string[];
 }

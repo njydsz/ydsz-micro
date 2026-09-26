@@ -14,38 +14,38 @@ import { requestClient } from '#/api/request';
 import type { FlowCategoryDTO, FlowCategoryTreeVO, FlowCategoryVO } from './models';
 
 /**
- * list: GET /api/workflow/categories
+ * list: GET /workflow/categories
  */
 export function list(): Promise<FlowCategoryVO[]> {
-  return requestClient.get<FlowCategoryVO[]>(`/api/workflow/categories`);
+  return requestClient.get<FlowCategoryVO[]>(`/workflow/categories`);
 }
 
 /**
- * tree: GET /api/workflow/categories/tree
+ * tree: GET /workflow/categories/tree
  */
 export function tree(): Promise<FlowCategoryTreeVO[]> {
-  return requestClient.get<FlowCategoryTreeVO[]>(`/api/workflow/categories/tree`);
+  return requestClient.get<FlowCategoryTreeVO[]>(`/workflow/categories/tree`);
 }
 
 /**
- * create: POST /api/workflow/categories
+ * create: POST /workflow/categories
  */
 export function create(data: FlowCategoryDTO): Promise<string> {
-  return requestClient.post<string>(`/api/workflow/categories`, data);
+  return requestClient.post<string>(`/workflow/categories`, data);
 }
 
 /**
- * update: PUT /api/workflow/categories
+ * update: PUT /workflow/categories
  */
 export function update(data: FlowCategoryDTO): Promise<void> {
-  return requestClient.put<void>(`/api/workflow/categories`, data);
+  return requestClient.put<void>(`/workflow/categories`, data);
 }
 
 /**
- * delete: DELETE /api/workflow/categories/{id}
+ * delete: DELETE /workflow/categories/{id}
  */
 export function deleteApi({ id }: {
     id: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/workflow/categories/${id}`);
+  return requestClient.delete<void>(`/workflow/categories/${id}`);
 }

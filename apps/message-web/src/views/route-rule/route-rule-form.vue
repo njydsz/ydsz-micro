@@ -42,7 +42,7 @@ interface RouteRuleFormState {
   fallbackChannel: string;
   status: string;
   description: string;
-  sortOrder: number;
+  sort?: number;
 }
 
 const formData = reactive<RouteRuleFormState>({
@@ -57,7 +57,7 @@ const formData = reactive<RouteRuleFormState>({
   fallbackChannel: '',
   status: 'ENABLED',
   description: '',
-  sortOrder: 0,
+  sort: 0,
 });
 
 const rules = {
@@ -82,9 +82,9 @@ const [Modal, modalApi] = useYdModal({
         conditionExpr: data.record.conditionExpr ?? '',
         targetChannel: data.record.targetChannel ?? '',
         fallbackChannel: data.record.fallbackChannel ?? '',
-        status: data.record.status ?? 'ENABLED',
-        description: data.record.description ?? '',
-        sortOrder: data.record.sortOrder ?? 0,
+  status: data.record.status ?? 'ENABLED',
+  description: data.record.description ?? '',
+  sort: data.record.sort ?? 0,
       });
     } else {
       isEdit.value = false;
@@ -98,9 +98,9 @@ const [Modal, modalApi] = useYdModal({
         conditionExpr: '',
         targetChannel: '',
         fallbackChannel: '',
-        status: 'ENABLED',
-        description: '',
-        sortOrder: 0,
+  status: 'ENABLED',
+  description: '',
+  sort: 0,
       });
     }
   },
@@ -123,7 +123,7 @@ const [Modal, modalApi] = useYdModal({
         fallbackChannel: formData.fallbackChannel || undefined,
         status: formData.status || undefined,
         description: formData.description || undefined,
-        sortOrder: formData.sortOrder,
+        sort: formData.sort,
       };
       if (isEdit.value) {
         await update({ id: formData.id }, payload);
@@ -183,7 +183,7 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
         <YdNumberFieldInput v-model="formData.priority" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem label="排序" prop="sortOrder">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="99999" />
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="99999" />
       </YdFormItem>
       <YdFormItem label="状态" prop="status">
         <YdRadioGroup v-model="formData.status">

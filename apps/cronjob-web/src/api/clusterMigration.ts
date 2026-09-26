@@ -14,22 +14,22 @@ import { requestClient } from '#/api/request';
 import type { BatchResultDTO, JobClusterMigrationDTO } from './models';
 
 /**
- * migrate: POST /api/cronjob/cluster/migrate
+ * migrate: POST /cronjob/cluster/migrate
  */
 export function migrate(data: JobClusterMigrationDTO): Promise<BatchResultDTO> {
-  return requestClient.post<BatchResultDTO>(`/api/cronjob/cluster/migrate`, data);
+  return requestClient.post<BatchResultDTO>(`/cronjob/cluster/migrate`, data);
 }
 
 /**
- * listClusters: GET /api/cronjob/cluster/list
+ * listClusters: GET /cronjob/cluster/list
  */
 export function listClusters(): Promise<string[]> {
-  return requestClient.get<string[]>(`/api/cronjob/cluster/list`);
+  return requestClient.get<string[]>(`/cronjob/cluster/list`);
 }
 
 /**
- * enabled: GET /api/cronjob/cluster/enabled
+ * enabled: GET /cronjob/cluster/enabled
  */
 export function enabled(): Promise<boolean> {
-  return requestClient.get<boolean>(`/api/cronjob/cluster/enabled`);
+  return requestClient.get<boolean>(`/cronjob/cluster/enabled`);
 }

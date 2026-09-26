@@ -15,49 +15,49 @@ import type { PageResponse } from './models';
 import type { LanguageDTO, LanguagePageQuery, LanguageVO } from './models';
 
 /**
- * page: GET /api/language/page
+ * page: GET /language/page
  */
 export function page(params: {
     query?: LanguagePageQuery;
   }): Promise<PageResponse<LanguageVO[]>> {
-  return requestClient.get<PageResponse<LanguageVO[]>>(`/api/language/page`, { params });
+  return requestClient.get<PageResponse<LanguageVO[]>>(`/language/page`, { params });
 }
 
 /**
- * getById: GET /api/language/{id}
+ * getById: GET /language/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<LanguageVO> {
-  return requestClient.get<LanguageVO>(`/api/language/${id}`);
+  return requestClient.get<LanguageVO>(`/language/${id}`);
 }
 
 /**
- * list: GET /api/language/list
+ * list: GET /language/list
  */
 export function list(): Promise<LanguageVO[]> {
-  return requestClient.get<LanguageVO[]>(`/api/language/list`);
+  return requestClient.get<LanguageVO[]>(`/language/list`);
 }
 
 /**
- * create: POST /api/language
+ * create: POST /language
  */
 export function create(data: LanguageDTO): Promise<string> {
-  return requestClient.post<string>(`/api/language`, data);
+  return requestClient.post<string>(`/language`, data);
 }
 
 /**
- * update: PUT /api/language
+ * update: PUT /language
  */
 export function update(data: LanguageDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/language`, data);
+  return requestClient.put<boolean>(`/language`, data);
 }
 
 /**
- * remove: DELETE /api/language/{id}
+ * remove: DELETE /language/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/language/${id}`);
+  return requestClient.delete<boolean>(`/language/${id}`);
 }

@@ -14,28 +14,28 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * generatePreview: POST /api/nextwiki/preview/{fileNodeId}/generate
+ * generatePreview: POST /nextwiki/preview/{fileNodeId}/generate
  */
 export function generatePreview({ fileNodeId }: {
     fileNodeId: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/nextwiki/preview/${fileNodeId}/generate`);
+  return requestClient.post<void>(`/nextwiki/preview/${fileNodeId}/generate`);
 }
 
 /**
- * isSupported: GET /api/nextwiki/preview/supported
+ * isSupported: GET /nextwiki/preview/supported
  */
 export function isSupported(params: {
     suffix?: string;
   }): Promise<boolean> {
-  return requestClient.get<boolean>(`/api/nextwiki/preview/supported`, { params });
+  return requestClient.get<boolean>(`/nextwiki/preview/supported`, { params });
 }
 
 /**
- * getPreviewType: GET /api/nextwiki/preview/type
+ * getPreviewType: GET /nextwiki/preview/type
  */
 export function getPreviewType(params: {
     suffix?: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/nextwiki/preview/type`, { params });
+  return requestClient.get<string>(`/nextwiki/preview/type`, { params });
 }

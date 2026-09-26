@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * checkFileInfo: GET /api/nextwiki/wopi/files/{fileId}
+ * checkFileInfo: GET /nextwiki/wopi/files/{fileId}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code WopiCheckFileInfoResponse}，响应结构未固定为具名 VO，
@@ -24,20 +24,20 @@ import { requestClient } from '#/api/request';
 export function checkFileInfo({ fileId }: {
     fileId: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/nextwiki/wopi/files/${fileId}`);
+  return requestClient.get<unknown>(`/nextwiki/wopi/files/${fileId}`);
 }
 
 /**
- * getFileContents: GET /api/nextwiki/wopi/files/{fileId}/contents
+ * getFileContents: GET /nextwiki/wopi/files/{fileId}/contents
  */
 export function getFileContents({ fileId }: {
     fileId: string;
   }): Promise<number[]> {
-  return requestClient.get<number[]>(`/api/nextwiki/wopi/files/${fileId}/contents`);
+  return requestClient.get<number[]>(`/nextwiki/wopi/files/${fileId}/contents`);
 }
 
 /**
- * putFileContents: POST /api/nextwiki/wopi/files/{fileId}/contents
+ * putFileContents: POST /nextwiki/wopi/files/{fileId}/contents
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code WopiPutFileResponse}，响应结构未固定为具名 VO，
@@ -47,11 +47,11 @@ export function getFileContents({ fileId }: {
 export function putFileContents({ fileId }: {
     fileId: string;
   }, data: number[]): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/wopi/files/${fileId}/contents`, data);
+  return requestClient.post<unknown>(`/nextwiki/wopi/files/${fileId}/contents`, data);
 }
 
 /**
- * lockFile: POST /api/nextwiki/wopi/files/{fileId}/lock
+ * lockFile: POST /nextwiki/wopi/files/{fileId}/lock
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code WopiPutFileResponse}，响应结构未固定为具名 VO，
@@ -61,11 +61,11 @@ export function putFileContents({ fileId }: {
 export function lockFile({ fileId }: {
     fileId: string;
   }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/wopi/files/${fileId}/lock`);
+  return requestClient.post<unknown>(`/nextwiki/wopi/files/${fileId}/lock`);
 }
 
 /**
- * unlockFile: POST /api/nextwiki/wopi/files/{fileId}/unlock
+ * unlockFile: POST /nextwiki/wopi/files/{fileId}/unlock
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code WopiPutFileResponse}，响应结构未固定为具名 VO，
@@ -75,5 +75,5 @@ export function lockFile({ fileId }: {
 export function unlockFile({ fileId }: {
     fileId: string;
   }): Promise<unknown> {
-  return requestClient.post<unknown>(`/api/nextwiki/wopi/files/${fileId}/unlock`);
+  return requestClient.post<unknown>(`/nextwiki/wopi/files/${fileId}/unlock`);
 }

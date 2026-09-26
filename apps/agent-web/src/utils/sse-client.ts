@@ -18,7 +18,7 @@
  * @author ydsz-team
  * @since 4.2.0
  */
-import { openSseRequest } from '@ydsz/shared-auth';
+import { openSseRequest, checkSseFrameForError } from '@ydsz/shared-auth';
 
 /** 流式分片数据（对应后端 sent {@code chunk} 事件负载） */
 export interface AgentStreamChunk {
@@ -76,6 +76,13 @@ export function openAgentStream(
     onClose,
     onError,
     onEvent: (eventName, data) => {
+      // YDIZ-SSE-001：检测帧内业务错误码（chunk/done/error 均可能携带）
+      const rawData = typeof data === 'string' ? data : JSON.stringify(data ?? '');
+      const bizError = checkSseFrameForError(rawData);
+      if (bizError) {
+        onError?.(new Error(`[${bizError.code}] ${bizError.message ?? '业务异常'}`));
+        return;
+      }
       switch (eventName) {
         case 'chunk': {
           onChunk?.({

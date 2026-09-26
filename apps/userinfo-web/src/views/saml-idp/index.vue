@@ -156,7 +156,7 @@ interface SamlIdpFormState {
   emailAttribute: string;
   displayNameAttribute: string;
   status: string;
-  sortOrder: number;
+  sort?: number;
   remark: string;
 }
 
@@ -168,7 +168,7 @@ const formData = reactive<SamlIdpFormState>({
   emailAttribute: 'email',
   displayNameAttribute: 'displayName',
   status: 'ENABLED',
-  sortOrder: 0,
+  sort: 0,
   remark: '',
 });
 
@@ -192,7 +192,7 @@ const [Modal, modalApi] = useYdModal({
         emailAttribute: data.record.emailAttribute ?? 'email',
         displayNameAttribute: data.record.displayNameAttribute ?? 'displayName',
         status: data.record.status ?? 'ENABLED',
-        sortOrder: data.record.sortOrder ?? 0,
+        sort: data.record.sort ?? 0,
         remark: data.record.remark ?? '',
       });
     } else {
@@ -205,7 +205,7 @@ const [Modal, modalApi] = useYdModal({
         emailAttribute: 'email',
         displayNameAttribute: 'displayName',
         status: 'ENABLED',
-        sortOrder: 0,
+        sort: 0,
         remark: '',
       });
     }
@@ -227,7 +227,7 @@ const [Modal, modalApi] = useYdModal({
         emailAttribute: formData.emailAttribute,
         displayNameAttribute: formData.displayNameAttribute,
         status: formData.status,
-        sortOrder: formData.sortOrder,
+        sort: formData.sort,
         remark: formData.remark,
       };
       if (isEdit.value) {
@@ -280,7 +280,7 @@ async function handleToggleStatus(row: SamlIdpConfigVO) {
       emailAttribute: row.emailAttribute,
       displayNameAttribute: row.displayNameAttribute,
       status: newStatus,
-      sortOrder: row.sortOrder,
+      sort: row.sort,
       remark: row.remark,
     });
     showToast.success('操作成功');
@@ -358,7 +358,7 @@ async function handleDelete(row: SamlIdpConfigVO) {
           </YdRadioGroup>
         </YdFormItem>
         <YdFormItem label="排序">
-          <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+          <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
         </YdFormItem>
         <YdFormItem label="备注">
           <YdInput v-model="formData.remark" type="textarea" :rows="2" placeholder="备注说明" />

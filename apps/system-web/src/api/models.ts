@@ -247,6 +247,16 @@ export interface ConfigVO {
 }
 
 /**
+ * HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 字典类型分页查询参数
  *
  * 对应 `ydsz_sys_dict_type` 表的分页查询条件，由 Controller 接收并透传给 `DictTypeService.page()`。继承自
@@ -441,6 +451,122 @@ export interface AppValidateRequest {
   appKey?: string;
   /** 应用密钥（client_secret） */
   appSecret?: string;
+}
+
+/**
+ * 前端错误批量上报 DTO
+ *
+ * 对应 ydsz-micro 中 `@ydsz/monitor` 上报体 `{ "errors": [...] `}，
+ * 上报端点为 `POST /monitor/error`。前端批量通道上限为单批 20 条，
+ * 服务端放宽至 50 条以兼容自定义上报端点的场景，同时限制单请求体规模。
+ */
+export interface MonitorErrorBatchDTO {
+  /** 错误条目列表（单批上限 50 条，超出返回参数校验失败） */
+  errors?: MonitorErrorDTO[];
+}
+
+/**
+ * 前端错误上报条目 DTO
+ *
+ * 对应 ydsz-micro 中 `@ydsz/monitor` 的 ErrorReport 结构。前端经
+ * `navigator.sendBeacon` 批量上报（降级通道为 keepalive fetch）到
+ * `POST /monitor/error`，字段命名与前端契约保持 camelCase 一致。
+ * 容量约束：单条报文的 `stack` 与 `message`
+ * 已设置长度上限，防止异常客户端提交超大报文导致内存与存储压力。
+ */
+export interface MonitorErrorDTO {
+  /** 错误类型：vue（Vue 组件异常）/ window（全局异常）/ promise（未处理拒绝）/ resource（资源加载失败） */
+  type?: string;
+  /** 错误消息（截断上限 4000 字符） */
+  message?: string;
+  /** 错误堆栈（截断上限 20000 字符，后端结合 sourcemap 做符号化） */
+  stack?: string;
+  /** 出错脚本文件路径 */
+  filename?: string;
+  /** 出错行号（1 起） */
+  lineno?: number;
+  /** 出错列号（1 起） */
+  colno?: number;
+  /** 出错页面 URL */
+  url?: string;
+  /** 采集时间戳（epoch 毫秒） */
+  timestamp?: number;
+  /** 浏览器 User-Agent */
+  userAgent?: string;
+  /** 应用版本号 */
+  appVersion?: string;
+  /** 用户标识（脱敏由前端 beforeSend 钩子负责） */
+  userId?: string;
+  /** 错误发生时的前端路由路径 */
+  route?: string;
+  /** 会话 ID（单次页面生命周期唯一） */
+  sessionId?: string;
+  /** 错误追踪 ID（单条错误唯一，便于与后端 traceId 关联） */
+  traceId?: string;
+  /** 发布版本（commit hash），用于关联已上传的 sourcemap */
+  release?: string;
+  /** 错误发生前的用户行为面包屑（前端最多 30 条） */
+  breadcrumbs?: MonitorBreadcrumbDTO[];
+  /** 附加信息（前端自定义键值对） */
+  extra?: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * 前端错误面包屑 DTO
+ *
+ * 对应 ydsz-micro 中 `@ydsz/monitor` 的 Breadcrumb 结构，记录错误发生前的
+ * 用户行为轨迹（前端为环形缓冲，最多保留 30 条）。字段全部为前端可选项，
+ * 服务端不做非空约束，缺失时按空处理。
+ */
+export interface MonitorBreadcrumbDTO {
+  /** 采集时间戳（epoch 毫秒） */
+  timestamp?: number;
+  /** 面包屑类别：ui / navigation / http / log / user */
+  category?: string;
+  /** 级别：debug / info / warning / error */
+  level?: string;
+  /** 消息文本，例如“点击按钮：提交” */
+  message?: string;
+  /** 附加数据（键值对，由前端自定义，服务端不解析其内部结构） */
+  data?: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * Web Vitals 批量上报 DTO
+ *
+ * 对应 ydsz-micro 中 `@ydsz/monitor` 上报体 `{ "vitals": [...] `}，
+ * 上报端点为 `POST /monitor/web-vitals`（超出性能阈值时附加 `?alert=true`）。
+ * 前端批量缓冲上限为 6 条，服务端放宽至 20 条以兼容自定义上报端点场景。
+ */
+export interface MonitorWebVitalBatchDTO {
+  /** 指标条目列表（单批上限 20 条，超出返回参数校验失败） */
+  vitals?: MonitorWebVitalDTO[];
+}
+
+/**
+ * Web Vitals 指标条目 DTO
+ *
+ * 对应 ydsz-micro 中 `@ydsz/monitor` 的 WebVitalReport 结构。前端基于
+ * PerformanceObserver 采集 Core Web Vitals，批量上报至 `POST /monitor/web-vitals`。
+ * 单位约定：`LCP` / `FID` / `INP` / `FCP` /
+ * `TTFB` / `LT`（长任务）为毫秒；`CLS` 为无量纲累计得分；
+ * `RT`（资源耗时）为毫秒。
+ */
+export interface MonitorWebVitalDTO {
+  /** 指标名：LCP / FID / CLS / INP / FCP / TTFB / LT / RT */
+  name?: string;
+  /** 指标值（单位见类注释：毫秒或无量纲得分） */
+  value?: number;
+  /** 评级：good / needs-improvement / poor（阈值遵循 Google Web Vitals 标准） */
+  rating?: string;
+  /** 相对上次上报的增量（CLS 为累计增量，其余通常等于 value） */
+  delta?: number;
+  /** 指标唯一 ID（前端生成，用于去重） */
+  id?: string;
+  /** 采集页面路径 */
+  page?: string;
+  /** 采集时间戳（epoch 毫秒） */
+  timestamp?: number;
 }
 
 /**
@@ -761,9 +887,37 @@ export interface ConfigApprovalVO {
  * 导入结果 VO（系统模块）。
  *
  * 封装 Excel 导入的结果统计信息，继承通用 ExcelImportResult 基类。
+ * 结构化错误（#errorItems）与旧错误（#errors）并存： #errorItems 供前端精准定位错误行/字段； #errors 供旧版前端展示纯文本错误。
  */
 export interface ImportResultVO {
   /** 导入结果消息 */
+  message?: string;
+  /**
+   * 结构化错误列表（含行号、字段名、错误码、消息）。
+   * 前端可按此渲染错误定位单元格，无需解析字符串。若为空则兼容旧的 #errors 纯文本列表。
+   */
+  errorItems?: ImportErrorItem[];
+  /** Excel 行号（从 2 开始，第 1 行为表头） */
+  row?: number;
+  /** 出错字段名（如 typeCode / itemCode / configValue） */
+  field?: string;
+  /** 错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT） */
+  code?: string;
+}
+
+/**
+ * 导入错误项 DTO（结构化表示单条错误的位置和原因）。
+ *
+ * 供前端精准定位到 Excel 的具体行和字段，渲染高亮单元格和错误提示。
+ */
+export interface ImportErrorItem {
+  /** Excel 行号（从 2 开始，第 1 行为表头） */
+  row?: number;
+  /** 出错字段名（如 typeCode / itemCode / configValue） */
+  field?: string;
+  /** 错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT） */
+  code?: string;
+  /** 错误描述（中文可读文案） */
   message?: string;
 }
 
@@ -855,6 +1009,20 @@ export interface FrontendInitVO {
   tenantId?: string;
   /** 当前用户 ID */
   userId?: string;
+}
+
+/**
+ * 二次认证响应 VO。
+ *
+ * 密码校验通过后颁发的短期令牌，前端在后续敏感操作请求头 `X-Secondary-Auth` 中携带该令牌。
+ */
+export interface SecondaryAuthVO {
+  /** 认证通过令牌（后续请求头 X-Secondary-Auth 携带） */
+  token?: string;
+  /** 有效期（毫秒） */
+  expiresIn?: number;
+  /** 过期时间戳（Unix 毫秒） */
+  expiresAt?: number;
 }
 
 /**

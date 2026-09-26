@@ -15,39 +15,39 @@ import type { PageResponse } from './models';
 import type { MsgSubscriptionVO, UnsubscribeQueryDTO, UnsubscribeTokenPayload } from './models';
 
 /**
- * oneClick: POST /api/message/unsubscribe/oneClick
+ * oneClick: POST /message/unsubscribe/oneClick
  */
 export function oneClick(params: {
     token?: string;
   }): Promise<MsgSubscriptionVO> {
-  return requestClient.post<MsgSubscriptionVO>(`/api/message/unsubscribe/oneClick`, { params });
+  return requestClient.post<MsgSubscriptionVO>(`/message/unsubscribe/oneClick`, { params });
 }
 
 /**
- * preview: GET /api/message/unsubscribe/preview
+ * preview: GET /message/unsubscribe/preview
  */
 export function preview(params: {
     token?: string;
   }): Promise<UnsubscribeTokenPayload> {
-  return requestClient.get<UnsubscribeTokenPayload>(`/api/message/unsubscribe/preview`, { params });
+  return requestClient.get<UnsubscribeTokenPayload>(`/message/unsubscribe/preview`, { params });
 }
 
 /**
- * page: GET /api/message/unsubscribe/page
+ * page: GET /message/unsubscribe/page
  */
 export function page(params: {
     query?: UnsubscribeQueryDTO;
   }): Promise<PageResponse<MsgSubscriptionVO[]>> {
-  return requestClient.get<PageResponse<MsgSubscriptionVO[]>>(`/api/message/unsubscribe/page`, { params });
+  return requestClient.get<PageResponse<MsgSubscriptionVO[]>>(`/message/unsubscribe/page`, { params });
 }
 
 /**
- * resubscribe: POST /api/message/unsubscribe/resubscribe
+ * resubscribe: POST /message/unsubscribe/resubscribe
  */
 export function resubscribe(params: {
     userId?: string;
     topicCode?: string;
     channel?: string;
   }): Promise<void> {
-  return requestClient.post<void>(`/api/message/unsubscribe/resubscribe`, { params });
+  return requestClient.post<void>(`/message/unsubscribe/resubscribe`, { params });
 }

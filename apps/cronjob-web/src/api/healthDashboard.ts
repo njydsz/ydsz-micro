@@ -14,8 +14,8 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * getHealth: GET /api/cronjob/dashboard/health
+ * getHealth: GET /cronjob/dashboard/health
  */
 export function getHealth(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/dashboard/health`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/dashboard/health`);
 }

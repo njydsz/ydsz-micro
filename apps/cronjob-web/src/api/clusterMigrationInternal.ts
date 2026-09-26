@@ -14,15 +14,15 @@ import { requestClient } from '#/api/request';
 import type { JobVO } from './models';
 
 /**
- * register: POST /api/cronjob/internal/migrate/register
+ * register: POST /cronjob/internal/migrate/register
  */
 export function register(data: JobVO): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/cronjob/internal/migrate/register`, data);
+  return requestClient.post<boolean>(`/cronjob/internal/migrate/register`, data);
 }
 
 /**
- * unregister: POST /api/cronjob/internal/migrate/unregister
+ * unregister: POST /cronjob/internal/migrate/unregister
  */
 export function unregister(data: Record<string, unknown>): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/cronjob/internal/migrate/unregister`, data);
+  return requestClient.post<boolean>(`/cronjob/internal/migrate/unregister`, data);
 }

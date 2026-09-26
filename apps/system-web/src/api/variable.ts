@@ -15,51 +15,51 @@ import type { PageResponse } from './models';
 import type { VariableDTO, VariablePageQuery, VariableVO } from './models';
 
 /**
- * page: GET /api/variable/page
+ * page: GET /variable/page
  */
 export function page(params: {
     query?: VariablePageQuery;
   }): Promise<PageResponse<VariableVO[]>> {
-  return requestClient.get<PageResponse<VariableVO[]>>(`/api/variable/page`, { params });
+  return requestClient.get<PageResponse<VariableVO[]>>(`/variable/page`, { params });
 }
 
 /**
- * getById: GET /api/variable/{id}
+ * getById: GET /variable/{id}
  */
 export function getById({ id }: {
     id: string;
   }): Promise<VariableVO> {
-  return requestClient.get<VariableVO>(`/api/variable/${id}`);
+  return requestClient.get<VariableVO>(`/variable/${id}`);
 }
 
 /**
- * getByKey: GET /api/variable/key/{variableKey}
+ * getByKey: GET /variable/key/{variableKey}
  */
 export function getByKey({ variableKey }: {
     variableKey: string;
   }): Promise<string> {
-  return requestClient.get<string>(`/api/variable/key/${variableKey}`);
+  return requestClient.get<string>(`/variable/key/${variableKey}`);
 }
 
 /**
- * save: POST /api/variable
+ * save: POST /variable
  */
 export function save(data: VariableDTO): Promise<string> {
-  return requestClient.post<string>(`/api/variable`, data);
+  return requestClient.post<string>(`/variable`, data);
 }
 
 /**
- * update: PUT /api/variable
+ * update: PUT /variable
  */
 export function update(data: VariableDTO): Promise<boolean> {
-  return requestClient.put<boolean>(`/api/variable`, data);
+  return requestClient.put<boolean>(`/variable`, data);
 }
 
 /**
- * remove: DELETE /api/variable/{id}
+ * remove: DELETE /variable/{id}
  */
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/variable/${id}`);
+  return requestClient.delete<boolean>(`/variable/${id}`);
 }

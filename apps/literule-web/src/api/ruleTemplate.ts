@@ -14,35 +14,35 @@ import { requestClient } from '#/api/request';
 import type { RuleDefinitionVO, RuleTemplateVO } from './models';
 
 /**
- * listTemplates: GET /api/literule/rules/templates
+ * listTemplates: GET /literule/rules/templates
  */
 export function listTemplates(): Promise<RuleTemplateVO[]> {
-  return requestClient.get<RuleTemplateVO[]>(`/api/literule/rules/templates`);
+  return requestClient.get<RuleTemplateVO[]>(`/literule/rules/templates`);
 }
 
 /**
- * listTemplatesByCategory: GET /api/literule/rules/templates/category/{category}
+ * listTemplatesByCategory: GET /literule/rules/templates/category/{category}
  */
 export function listTemplatesByCategory({ category }: {
     category: string;
   }): Promise<RuleTemplateVO[]> {
-  return requestClient.get<RuleTemplateVO[]>(`/api/literule/rules/templates/category/${category}`);
+  return requestClient.get<RuleTemplateVO[]>(`/literule/rules/templates/category/${category}`);
 }
 
 /**
- * listTemplatesByIndustry: GET /api/literule/rules/templates/industry/{industry}
+ * listTemplatesByIndustry: GET /literule/rules/templates/industry/{industry}
  */
 export function listTemplatesByIndustry({ industry }: {
     industry: string;
   }): Promise<RuleTemplateVO[]> {
-  return requestClient.get<RuleTemplateVO[]>(`/api/literule/rules/templates/industry/${industry}`);
+  return requestClient.get<RuleTemplateVO[]>(`/literule/rules/templates/industry/${industry}`);
 }
 
 /**
- * importTemplate: POST /api/literule/rules/templates/{templateCode}/import
+ * importTemplate: POST /literule/rules/templates/{templateCode}/import
  */
 export function importTemplate({ templateCode }: {
     templateCode: string;
   }): Promise<RuleDefinitionVO> {
-  return requestClient.post<RuleDefinitionVO>(`/api/literule/rules/templates/${templateCode}/import`);
+  return requestClient.post<RuleDefinitionVO>(`/literule/rules/templates/${templateCode}/import`);
 }

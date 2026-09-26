@@ -15,24 +15,24 @@ import type { PageResponse } from './models';
 import type { MessageFeedbackDTO, MsgFeedbackVO } from './models';
 
 /**
- * submitFeedback: POST /api/message/feedback
+ * submitFeedback: POST /message/feedback
  */
 export function submitFeedback(data: MessageFeedbackDTO): Promise<string> {
-  return requestClient.post<string>(`/api/message/feedback`, data);
+  return requestClient.post<string>(`/message/feedback`, data);
 }
 
 /**
- * getAverageRating: GET /api/message/feedback/rating
+ * getAverageRating: GET /message/feedback/rating
  */
 export function getAverageRating(params: {
     userId?: string;
     channel?: string;
   }): Promise<Record<string, number>> {
-  return requestClient.get<Record<string, number>>(`/api/message/feedback/rating`, { params });
+  return requestClient.get<Record<string, number>>(`/message/feedback/rating`, { params });
 }
 
 /**
- * pageFeedback: GET /api/message/feedback/page
+ * pageFeedback: GET /message/feedback/page
  */
 export function pageFeedback(params: {
     page?: number;
@@ -40,14 +40,14 @@ export function pageFeedback(params: {
     channel?: string;
     userId?: string;
   }): Promise<PageResponse<MsgFeedbackVO[]>> {
-  return requestClient.get<PageResponse<MsgFeedbackVO[]>>(`/api/message/feedback/page`, { params });
+  return requestClient.get<PageResponse<MsgFeedbackVO[]>>(`/message/feedback/page`, { params });
 }
 
 /**
- * shouldReduceFrequency: GET /api/message/feedback/shouldReduceFreq
+ * shouldReduceFrequency: GET /message/feedback/shouldReduceFreq
  */
 export function shouldReduceFrequency(params: {
     userId?: string;
   }): Promise<Record<string, boolean>> {
-  return requestClient.get<Record<string, boolean>>(`/api/message/feedback/shouldReduceFreq`, { params });
+  return requestClient.get<Record<string, boolean>>(`/message/feedback/shouldReduceFreq`, { params });
 }

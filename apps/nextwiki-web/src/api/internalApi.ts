@@ -14,35 +14,35 @@ import { requestClient } from '#/api/request';
 import type { SpaceVO, StorageQuotaVO } from './models';
 
 /**
- * getSpaceById: GET /api/internal/space/get
+ * getSpaceById: GET /internal/space/get
  */
 export function getSpaceById(params: {
     spaceId?: string;
   }): Promise<SpaceVO> {
-  return requestClient.get<SpaceVO>(`/api/internal/space/get`, { params });
+  return requestClient.get<SpaceVO>(`/internal/space/get`, { params });
 }
 
 /**
- * batchGetSpaces: POST /api/internal/space/batch
+ * batchGetSpaces: POST /internal/space/batch
  */
 export function batchGetSpaces(data: string[]): Promise<SpaceVO[]> {
-  return requestClient.post<SpaceVO[]>(`/api/internal/space/batch`, data);
+  return requestClient.post<SpaceVO[]>(`/internal/space/batch`, data);
 }
 
 /**
- * getQuotaByTenantId: GET /api/internal/quota/get-by-tenant
+ * getQuotaByTenantId: GET /internal/quota/get-by-tenant
  */
 export function getQuotaByTenantId(params: {
     tenantId?: string;
   }): Promise<StorageQuotaVO> {
-  return requestClient.get<StorageQuotaVO>(`/api/internal/quota/get-by-tenant`, { params });
+  return requestClient.get<StorageQuotaVO>(`/internal/quota/get-by-tenant`, { params });
 }
 
 /**
- * getQuotaBySpaceId: GET /api/internal/quota/get-by-space
+ * getQuotaBySpaceId: GET /internal/quota/get-by-space
  */
 export function getQuotaBySpaceId(params: {
     spaceId?: string;
   }): Promise<StorageQuotaVO> {
-  return requestClient.get<StorageQuotaVO>(`/api/internal/quota/get-by-space`, { params });
+  return requestClient.get<StorageQuotaVO>(`/internal/quota/get-by-space`, { params });
 }

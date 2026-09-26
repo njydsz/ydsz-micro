@@ -15,42 +15,42 @@ import type { PageResponse } from './models';
 import type { SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
 
 /**
- * page: GET /api/saml-idp-config/page
+ * page: GET /saml-idp-config/page
  */
 export function page(params: {
     query?: SamlIdpPageQuery;
   }): Promise<PageResponse<SamlIdpConfigVO[]>> {
-  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/api/saml-idp-config/page`, { params });
+  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/saml-idp-config/page`, { params });
 }
 
 /**
- * listEnabled: GET /api/saml-idp-config/enabled
+ * listEnabled: GET /saml-idp-config/enabled
  */
 export function listEnabled(): Promise<SamlIdpConfigVO[]> {
-  return requestClient.get<SamlIdpConfigVO[]>(`/api/saml-idp-config/enabled`);
+  return requestClient.get<SamlIdpConfigVO[]>(`/saml-idp-config/enabled`);
 }
 
 /**
- * create: POST /api/saml-idp-config
+ * create: POST /saml-idp-config
  */
 export function create(data: SamlIdpDTO): Promise<void> {
-  return requestClient.post<void>(`/api/saml-idp-config`, data);
+  return requestClient.post<void>(`/saml-idp-config`, data);
 }
 
 /**
- * update: PUT /api/saml-idp-config/{entityId}
+ * update: PUT /saml-idp-config/{entityId}
  */
 export function update({ entityId }: {
     entityId: string;
   }, data: SamlIdpDTO): Promise<void> {
-  return requestClient.put<void>(`/api/saml-idp-config/${entityId}`, data);
+  return requestClient.put<void>(`/saml-idp-config/${entityId}`, data);
 }
 
 /**
- * delete: DELETE /api/saml-idp-config/{entityId}
+ * delete: DELETE /saml-idp-config/{entityId}
  */
 export function deleteApi({ entityId }: {
     entityId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/saml-idp-config/${entityId}`);
+  return requestClient.delete<void>(`/saml-idp-config/${entityId}`);
 }

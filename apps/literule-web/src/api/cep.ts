@@ -11,55 +11,55 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { CEPHitVO, CEPPattern, CEPPatternVO } from './models';
+import type { CEPHitVO, CEPPatternVO } from './models';
 
 /**
- * listPatterns: GET /api/literule/cep/patterns
+ * listPatterns: GET /literule/cep/patterns
  */
 export function listPatterns(): Promise<CEPPatternVO[]> {
-  return requestClient.get<CEPPatternVO[]>(`/api/literule/cep/patterns`);
+  return requestClient.get<CEPPatternVO[]>(`/literule/cep/patterns`);
 }
 
 /**
- * registerPattern: POST /api/literule/cep/patterns
+ * registerPattern: POST /literule/cep/patterns
  */
-export function registerPattern(data: CEPPattern): Promise<void> {
-  return requestClient.post<void>(`/api/literule/cep/patterns`, data);
+export function registerPattern(data: 'TUMBLING' | 'SLIDING'): Promise<void> {
+  return requestClient.post<void>(`/literule/cep/patterns`, data);
 }
 
 /**
- * unregisterPattern: DELETE /api/literule/cep/patterns/{pattern-id}
+ * unregisterPattern: DELETE /literule/cep/patterns/{pattern-id}
  */
 export function unregisterPattern({ patternId }: {
     patternId: string;
   }): Promise<void> {
-  return requestClient.delete<void>(`/api/literule/cep/patterns/${patternId}`);
+  return requestClient.delete<void>(`/literule/cep/patterns/${patternId}`);
 }
 
 /**
- * feedEvent: POST /api/literule/cep/events
+ * feedEvent: POST /literule/cep/events
  */
 export function feedEvent(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/cep/events`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/cep/events`, data);
 }
 
 /**
- * feedEvents: POST /api/literule/cep/events/batch
+ * feedEvents: POST /literule/cep/events/batch
  */
 export function feedEvents(data: Record<string, Record<string, unknown>>[]): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/cep/events/batch`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/cep/events/batch`, data);
 }
 
 /**
- * recentHits: GET /api/literule/cep/hits
+ * recentHits: GET /literule/cep/hits
  */
 export function recentHits(): Promise<CEPHitVO[]> {
-  return requestClient.get<CEPHitVO[]>(`/api/literule/cep/hits`);
+  return requestClient.get<CEPHitVO[]>(`/literule/cep/hits`);
 }
 
 /**
- * stats: GET /api/literule/cep/stats
+ * stats: GET /literule/cep/stats
  */
 export function stats(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/literule/cep/stats`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/cep/stats`);
 }

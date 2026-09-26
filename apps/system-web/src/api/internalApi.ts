@@ -14,29 +14,29 @@ import { requestClient } from '#/api/request';
 import type { AppValidateRequest, ConfigGetRequest, DictItemGetRequest, DictListRequest } from './models';
 
 /**
- * getConfig: POST /api/internal/config/get
+ * getConfig: POST /internal/config/get
  */
 export function getConfig(data: ConfigGetRequest): Promise<string> {
-  return requestClient.post<string>(`/api/internal/config/get`, data);
+  return requestClient.post<string>(`/internal/config/get`, data);
 }
 
 /**
- * getDictItem: POST /api/internal/dict/item
+ * getDictItem: POST /internal/dict/item
  */
 export function getDictItem(data: DictItemGetRequest): Promise<string> {
-  return requestClient.post<string>(`/api/internal/dict/item`, data);
+  return requestClient.post<string>(`/internal/dict/item`, data);
 }
 
 /**
- * listDictItems: POST /api/internal/dict/list
+ * listDictItems: POST /internal/dict/list
  */
 export function listDictItems(data: DictListRequest): Promise<string[]> {
-  return requestClient.post<string[]>(`/api/internal/dict/list`, data);
+  return requestClient.post<string[]>(`/internal/dict/list`, data);
 }
 
 /**
- * validateClient: POST /api/internal/app/validate
+ * validateClient: POST /internal/app/validate
  */
 export function validateClient(data: AppValidateRequest): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/internal/app/validate`, data);
+  return requestClient.post<boolean>(`/internal/app/validate`, data);
 }

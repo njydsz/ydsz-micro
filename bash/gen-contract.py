@@ -240,6 +240,30 @@ class JavaSource:
         self._field_docs: Optional[Dict[str, str]] = None
 
     @classmethod
+    def from_class_text(cls, name: str, class_text: str, pkg: str = "") -> "JavaSource":
+        """从类文本（内部静态类）创建 JavaSource 实例。
+
+        绕过文件 IO，直接用 class_text 作为 src 解析，
+        用于 gen-contract 无法通过文件名索引的内部类场景。
+        """
+        obj = cls.__new__(cls)
+        obj.path = ""
+        obj.src = class_text
+        obj.pkg = pkg
+        obj.cls_name = name
+        obj.imports = []
+        m = re.search(r"\b(?:public\s+)?(?:final\s+)?class\s+(\w+)", class_text)
+        if m and m.group(1) != name:
+            # 内部类文本可能不含自身类名声明，用传入 name 兜底
+            pass
+        obj._record_fields = None
+        obj._class_fields = None
+        obj._enum_values = None
+        obj._class_doc = None
+        obj._field_docs = None
+        return obj
+
+    @classmethod
     def load(cls, simple_name: str, hint_pkg: Optional[str] = None) -> Optional["JavaSource"]:
         """按简单类名查找（带缓存 + 负缓存）"""
         if simple_name in cls._cache:
@@ -496,6 +520,57 @@ def resolve_import(src: JavaSource, simple: str) -> str:
     return simple
 
 
+def _match_brace(src: str, open_idx: int) -> int:
+    """从指向 '{' 的下标配平到匹配的 '}'（含，即 '}' 自身下标 +1）"""
+    depth = 0
+    i = open_idx
+    while i < len(src):
+        ch = src[i]
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return i + 1
+        i += 1
+    return len(src)
+
+
+def find_inner_class(parent: JavaSource, name: str) -> Optional[JavaSource]:
+    """在父类的源码中查找内部静态类定义，返回解析后的 JavaSource（带缓存）。
+
+    @param parent 父 JavaSource 实例
+    @param name 内部类的简单名（如 "FlowNodeDTO"）
+    @return 解析后的 JavaSource；未找到返回 None
+    """
+    cache_key = f"{parent.cls_name}::INNER::{name}"
+    if cache_key in JavaSource._cache:
+        return JavaSource._cache[cache_key]
+    if cache_key in JavaSource._not_found:
+        return None
+    # 匹配: [@Anno] [public|private|protected] static [final] (class|record) Name [{]...
+    # 非贪婪定位到类名后首个 '{'，再配平大括号提取类文本
+    pat = re.compile(
+        r"(?:(?:@\w+(?:\([^)]*\))?\s*)*)"           # 前导注解（可多个，可跨行）
+        r"(?:public|private|protected)?\s*static\s+(?:final\s+|abstract\s+)?"
+        r"(?:class|record)\s+" + re.escape(name) + r"\b"
+        r"(?:\s*<[^>]*>)?(?:\s+extends\s+\w+(?:\s*<[^>]*>)?)?"
+        r"(?:\s+implements\s+[\w.\s<>,]+)?\s*\{",
+        re.S,
+    )
+    m = pat.search(parent.src)
+    if not m:
+        JavaSource._not_found.add(cache_key)
+        return None
+    end = _match_brace(parent.src, m.end() - 1)
+    class_text = parent.src[m.start():end]
+    inner = JavaSource.from_class_text(name, class_text, parent.pkg)
+    # 推断内部类 Javadoc：取 m 之前紧邻的注释
+    inner._class_doc = parent.doc_before(m.start())
+    JavaSource._cache[cache_key] = inner
+    return inner
+
+
 # ======================================================================
 # Schema 转换
 # ======================================================================
@@ -535,6 +610,29 @@ class SchemaBuilder:
                 self.components[ref_name] = {"type": "object", "description": f"building {ref_name}"}
                 self.components[ref_name] = self._build_object_schema(src)
             return {"$ref": f"#/components/schemas/{ref_name}"}
+        # 内部静态类查找：当 JavaSource.load 无法按文件名找到时，
+        # 尝试在 owner（父类）的源码中匹配 static class Name { ... } 内部类。
+        # 典型场景：FlowDeployProcessDTO.FlowNodeDTO / FlowSkipDTO 均为内部类。
+        if owner is not None:
+            inner_src = find_inner_class(owner, name)
+            if inner_src:
+                ref_name = name
+                if ref_name not in self.components:
+                    self.components[ref_name] = {"type": "object", "description": f"building {ref_name}"}
+                    self.components[ref_name] = self._build_object_schema(inner_src)
+                return {"$ref": f"#/components/schemas/{ref_name}"}
+        # DTO/VO 兜底占位：当源文件与内部类都无法找到时，
+        # 若类名符合 DTO/VO/Request/Response 等典型模式，
+        # 仍生成占位 interface，避免前端 TS 类型被擦除为 Record<string, unknown>。
+        # 占位标记 x-placeholder=True 在 build_ts_models 中可被检测并作说明。
+        if _DTO_NAME_RE.search(name) and name not in self.components:
+            self.components[name] = {
+                "type": "object",
+                "x-placeholder": True,
+                "description": f"{name}（占位：未找到 Java 源文件或内部类定义，"
+                               f"可能为内部静态类或生成器扫描遗漏）",
+            }
+            return {"$ref": f"#/components/schemas/{name}"}
         # 未知 -> object
         return {"type": "object"}
 
@@ -762,6 +860,7 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
                 jt = parse_type(m2.group(1))
             name = _param_name(decl)
             kind = "query"
+            is_file = False
             if "@RequestBody" in ann_text:
                 kind = "body"
             elif "@PathVariable" in ann_text:
@@ -778,15 +877,32 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
                 kind = "form"
             elif "@RequestHeader" in ann_text:
                 kind = "header"
+            # 文件上传检测：参数类型为 MultipartFile 时标记为文件
+            if jt and jt.simple in ("MultipartFile", "CommonsMultipartFile"):
+                kind = "form"
+                is_file = True
             if jt:
-                params.append({"name": name, "kind": kind, "type": jt, "annot": ann_text})
+                params.append({"name": name, "kind": kind, "type": jt, "annot": ann_text, "is_file": is_file})
         path = ("/" + base + "/" + sub).replace("//", "/").rstrip("/") or "/"
+        # 提取 @ApiOperation / @Operation 注解中引用的 response class，
+        # 用于 Map<String, Object> 这类未明确 VO 的返回类型作类型补全。
+        # 例：@ApiOperation(response = FlowDefinitionVO.class) / @Operation(responses = ...)
+        response_class: Optional[str] = None
+        api_op_m = re.search(
+            r'@(?:ApiOperation|Operation)\s*\((?:[^)]*?)'
+            r'response\s*=\s*([\w.]+)\.class',
+            src[pos:pos + sig_m.start()] if sig_m else src[pos:pos + 500],
+            re.S,
+        )
+        if api_op_m:
+            response_class = api_op_m.group(1).split(".")[-1]
         endpoints.append({
             "method": verb,
             "path": path,
             "operationId": method_name,
             "returns": ret_ref,
             "params": params,
+            "response_class": response_class,
         })
     return svc, endpoints
 
@@ -860,6 +976,16 @@ def java_to_ts(jschema: Dict[str, Any], builder: SchemaBuilder, depth: int = 0) 
             value_ts = java_to_ts(ap, builder, depth + 1)
             if value_ts and value_ts != "unknown":
                 return f"Record<string, {value_ts}>"
+        # 带 properties 的匿名 object（如 BPMN 解析结果、嵌套 JSON 结构）按字段内联展开，
+        # 避免退化为 Record<string, unknown> 丢失字段信息。
+        props = jschema.get("properties")
+        if props and depth < 3:  # 限制递归深度防止 TS 循环引用诊断问题
+            pairs = []
+            for pn, ps in props.items():
+                safe_pn = pn if re.match(r"^[A-Za-z_$][\w$]*$", pn) else json.dumps(pn)
+                pt = java_to_ts(ps, builder, depth + 1)
+                pairs.append(f"{safe_pn}?: {pt}")
+            return "{ " + "; ".join(pairs) + " }"
         return "Record<string, unknown>"
     if t == "integer":
         return "number"
@@ -876,6 +1002,11 @@ def java_to_ts(jschema: Dict[str, Any], builder: SchemaBuilder, depth: int = 0) 
 
 # 占位描述（生成器早期写入的英文标记），出现时视为「后端无注释」
 _PLACEHOLDER_DOC = re.compile(r"^(class|record|building|enum)\s+\w+$")
+
+# DTO/VO/Request/Response 类名匹配模式（用于内部类兜底查找与占位生成）
+_DTO_NAME_RE = re.compile(
+    r"(DTO|VO|Request|Response|BO|DO|Query|Entity|Config|Item|Event|Msg|Result|Page|Schema)$"
+)
 
 # 类型名后缀 -> 中文语义（后端未提供类注释时用于中性说明，避免产出裸类型）
 _SUFFIX_DOC = (
@@ -942,6 +1073,17 @@ def build_ts_models(builder: SchemaBuilder) -> str:
         doc = (sch.get("description") or "").strip()
         if _PLACEHOLDER_DOC.match(doc):
             doc = ""
+        is_placeholder = sch.get("x-placeholder", False)
+        # 占位 interface：生成空 interface 并在注释中说明原因，
+        # 让前端开发者知道这是代码生成缺口而非"后端真的没有字段"。
+        if is_placeholder:
+            placeholder_note = doc or f"{name}（占位：未找到 Java 源文件）"
+            lines.extend(["/**", f" * {placeholder_note}", " *", " * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件", " * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。", " */"])
+            lines.append(f"export interface {name} {{")
+            lines.append("  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。")
+            lines.append("}")
+            lines.append("")
+            continue
         # 空行分隔：上一 interface 结束时已追加，首个由 BASE_RESPONSE_TS 的尾换行提供
         lines.extend(tsdoc_lines(doc or infer_type_doc(name)))
         if not props:
@@ -1018,7 +1160,7 @@ def safe_fn_name(name: str) -> str:
 
 
 def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> str:
-    """生成一个 Controller 对应的 TS API 文件"""
+    """生成一个 Controller 对应的 TS API 文件（副作用：通过 builder.convert 进一步丰富 components）"""
     header = (
         "/**\n"
         f" * {ctrl_name} API 封装（auto-generated by bash/gen-contract.py）\n"
@@ -1054,6 +1196,24 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
             ret_ts = "void"
         else:
             ret_schema = builder.convert(data_ref)
+            # Map<String, Object> 返回类型的增强处理：
+            # 若方法携带 @ApiOperation(response = X.class) 注解，
+            # 则将其 response class 注入为 $ref 返回，避免 Record<string, Record<string, unknown>> 退化。
+            ep_resp = ep.get("response_class")
+            if ep_resp and ret_schema.get("type") == "object" and ret_schema.get("additionalProperties"):
+                # Map<K,V> 返回值 + 有 Swagger response class → 用 response class 替换 value 类型
+                value_schema = {"$ref": f"#/components/schemas/{ep_resp}"}
+                # 确保 response class 已被加入 components
+                if ep_resp not in builder.components:
+                    resp_src = JavaSource.load(ep_resp)
+                    if resp_src:
+                        builder.components[ep_resp] = builder._build_object_schema(resp_src)
+                    else:
+                        builder.components[ep_resp] = {
+                            "type": "object", "x-placeholder": True,
+                            "description": f"{ep_resp}（来自 @ApiOperation response 引用；未找到源文件）",
+                        }
+                ret_schema = dict(ret_schema, additionalProperties=value_schema)
             ret_ts = java_to_ts(ret_schema, builder)
             if ret_ts in ("object", "Record<string, unknown>"):
                 ret_ts = "unknown"
@@ -1067,6 +1227,7 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         used_types.extend(collect_type_names(ret_annotation))
         # ---- 参数 ----
         path_params, query_params, body_param, form_params = [], [], [], []
+        form_file_params: List[Dict[str, Any]] = []
         for p in ep["params"]:
             pt = java_to_ts(builder.convert(p["type"]), builder)
             used_types.extend(collect_type_names(pt))
@@ -1077,6 +1238,10 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
             elif p["kind"] == "body":
                 body_param = (camel(p["name"]), pt)
             elif p["kind"] == "form":
+                # 文件上传参数类型映射为 File / Blob
+                if p.get("is_file"):
+                    pt = "File | Blob"
+                    form_file_params.append(p)
                 form_params.append(f"    {camel(p['name'])}?: {pt};")
         # URL 模板：path 参数替换为 ${}；并对解析遗漏的占位符兜底替换
         url = ep["path"]
@@ -1118,11 +1283,18 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         if call_args:
             call += ", " + call_args
         call += ")"
+        # 文件上传：生成 FormData 构建体替代 { params }
+        is_upload = len(form_file_params) > 0
         # 生成 JSDoc。
         # 云顶编码规范 §3.1：unknown 属"特殊场景"，必须注释说明理由；
         # 后端返回 Map<String, Object> / Object 这类未固定为具名 VO 的响应会落到 unknown，
         # 若不注明理由即构成规范违规，故在此自动补齐说明。
         doc = [f" * {ep['operationId']}: {ep['method'].upper()} {ep['path']}"]
+        if is_upload:
+            upload_names = ", ".join(camel(p["name"]) for p in form_file_params)
+            doc.append(" *")
+            doc.append(f" * <p>文件上传接口（YDIZ-API-003）：参数包含 {upload_names}，")
+            doc.append(" * 函数内部自动构造 FormData 并以 multipart/form-data 提交。")
         if ret_annotation == "unknown":
             raw_ret = (ret_ref.raw if ret_ref else "").replace("*/", "*\\/")
             doc.append(" *")
@@ -1132,7 +1304,20 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
             doc.append(" * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。")
         lines.append("/**\n" + "\n".join(doc) + "\n */")
         lines.append(f"export function {fn}({sig}): Promise<{ret_annotation}> {{")
-        lines.append(f"  return {call};")
+        if is_upload:
+            # 文件上传：构建 FormData
+            lines.append("  const formData = new FormData();")
+            for p in form_params:
+                fp_name = camel(p["name"])
+                lines.append(f"  if (params?.{fp_name} != null) {{")
+                if p.get("is_file"):
+                    lines.append(f"    formData.append('{fp_name}', params.{fp_name});")
+                else:
+                    lines.append(f"    formData.append('{fp_name}', String(params.{fp_name}));")
+                lines.append("  }")
+            lines.append(f"  return requestClient.{verb}<{ret_annotation}>(`{url}`, {{ data: formData }});")
+        else:
+            lines.append(f"  return {call};")
         lines.append("}")
         lines.append("")
     used_types = sorted(set(t for t in used_types if t != "PageResponse"))
@@ -1143,6 +1328,68 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         import_lines.append("import type { " + ", ".join(used_types) + " } from './models';")
     header = header.replace("{extra_imports}", "\n".join(import_lines))
     return header + "\n".join(lines)
+
+
+def enrich_components_from_endpoints(endpoints: List[Dict[str, Any]], builder: SchemaBuilder) -> None:
+    """仅丰富 builder.components 而不写文件，用于 --check 模式对齐组件集合。
+
+    在完整运行中，gen_api_file 会调用 builder.convert 扫描返回类型和参数类型，
+    并把新发现的类型（如返回值内部泛型参数、response_class hint 引用等）加入 components。
+    此函数模拟该扫描过程，确保 --check 模式生成的 spec 与写盘文件完全一致。
+    """
+    WRAP = ("YdszResponse", "PageResponse", "BaseResponse", "Result", "R", "AjaxResult")
+    for ep in endpoints:
+        ret_ref = ep.get("returns")
+        if ret_ref:
+            data_ref = ret_ref
+            while data_ref and data_ref.simple in WRAP:
+                data_ref = data_ref.args[0] if data_ref.args else None
+            if data_ref:
+                builder.convert(data_ref)
+                ep_resp = ep.get("response_class")
+                if ep_resp and data_ref.simple in (
+                    "Map", "HashMap", "LinkedHashMap", "TreeMap", "ConcurrentHashMap",
+                ):
+                    if ep_resp not in builder.components:
+                        resp_src = JavaSource.load(ep_resp)
+                        if resp_src:
+                            builder.components[ep_resp] = builder._build_object_schema(resp_src)
+                        else:
+                            builder.components[ep_resp] = {
+                                "type": "object", "x-placeholder": True,
+                                "description": f"{ep_resp}（来自 @ApiOperation response 引用；未找到源文件）",
+                            }
+        for p in ep.get("params", []):
+            if p.get("type"):
+                builder.convert(p["type"])
+    resolve_missing_refs(builder)
+
+
+def resolve_missing_refs(builder: SchemaBuilder) -> int:
+    """第二轮扫描：将 components 中仍未被具象化的占位 $ref 尝试解析。
+
+    第一轮 parse_controller + build_openapi 以 Controller 入口参数为起点扫描类型，
+    但某些类型仅出现在 property type 中（如 private List<FlowNodeDTO> nodes），
+    可能因 JavaSource 缓存时序或内部类扫描在首轮未触发而被推迟。
+    本函数补漏：遍历 components，检测仍为占位的 entry 并尝试通过已有 source 缓存解析。
+
+    @return 成功解析的占位数量
+    """
+    resolved = 0
+    cache_values = list(JavaSource._cache.values())
+    for name, sch in list(builder.components.items()):
+        if not sch.get("x-placeholder"):
+            continue
+        # 尝试从所有已加载的 parent 中查找内部类
+        for parent_src in cache_values:
+            if not isinstance(parent_src, JavaSource):
+                continue
+            inner = find_inner_class(parent_src, name)
+            if inner:
+                builder.components[name] = builder._build_object_schema(inner)
+                resolved += 1
+                break
+    return resolved
 
 
 # ======================================================================
@@ -1191,21 +1438,28 @@ def main():
             for ctrl, eps in controllers.items():
                 all_eps.extend(eps)
             spec = build_openapi(svc, all_eps, builder)
+            # 2.5 后处理：解析内部类占位 $ref（必须放在 build_openapi 之后，
+            # 因为 build_openapi 期间才会触发 JavaSource.load 将所有顶层 DTO 文件
+            # 载入缓存，后处理才能通过 find_inner_class 在缓存中定位内部类）。
+            resolved_inner = resolve_missing_refs(builder)
+            if resolved_inner:
+                # 同步更新 spec 中的 components（下游 build_ts_models 读取 builder.components）
+                spec["components"] = {"schemas": builder.components}
         except Exception:
             import traceback
             traceback.print_exc()
             print(f"[gen-contract] {svc}: 生成失败")
             sys.exit(1)
+        # 2.75 enrich：模拟 gen_api_file 的类型扫描（不写文件），保证 builder.components 与
+        # 写盘态完全一致。--check 模式也必须走这一步，否则会因缺少 gen_api_file 的 convert
+        # 调用导致 spec 中 components 少于写盘内容，触发假阳性「契约漂移」。
+        enrich_components_from_endpoints(all_eps, builder)
+        spec["components"] = {"schemas": builder.components}
         # P0-2 修复：--check 必须是纯只读。此前该分支仍会写 openapi.json / api/*.ts / models.ts，
         #          并 rename 归档"孤立"文件，导致 CI 校验污染工作区、产生幽灵变更。
         if not is_check:
-            # 3. 输出 openapi.json + 生成 API 层（直接并入 api/ 根目录，遵循云顶规范 6.2 扁平结构）
+            # 3. 生成 API 层（直接并入 api/ 根目录，遵循云顶规范 6.2 扁平结构）
             try:
-                out_sdk = os.path.join(MICRO_ROOT, "apps", app, "src", "api", "sdk")
-                os.makedirs(out_sdk, exist_ok=True)
-                spec_path = os.path.join(out_sdk, "openapi.json")
-                with open(spec_path, "w", encoding="utf-8") as f:
-                    json.dump(spec, f, ensure_ascii=False, indent=1)
                 # P0-1：--spec-only 模式到此即完成，跳过旧轨 .ts 封装与 index.ts 改写
                 if is_spec_only:
                     print(
@@ -1242,6 +1496,15 @@ def main():
                 # 返回类型（如 RuleDefinitionVO）加入 components，先写会导致类型缺失
                 with open(os.path.join(api_dir, "models.ts"), "w", encoding="utf-8") as f:
                     f.write("/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n// @data-file 纯类型定义生成件（interface 占位不计入行数规则）\n" + BASE_RESPONSE_TS + "\n" + build_ts_models(builder))
+                # openapi.json 必须在 models.ts 之后写入：gen_api_file + build_ts_models 阶段会
+                # 将内部类 DTO（如 FlowDeployProcessDTO.FlowNodeDTO）加入 builder.components，
+                # 先写 openapi.json 会导致契约基线缺失这些内部类 schema。
+                spec["components"] = {"schemas": builder.components}
+                out_sdk = os.path.join(MICRO_ROOT, "apps", app, "src", "api", "sdk")
+                os.makedirs(out_sdk, exist_ok=True)
+                spec_path = os.path.join(out_sdk, "openapi.json")
+                with open(spec_path, "w", encoding="utf-8") as f:
+                    json.dump(spec, f, ensure_ascii=False, indent=1)
                 # 更新 api/index.ts：仅保留 core/request/models 导出。
                 # 业务模块不在此聚合（多个 Controller 存在 get/stats/validate 等重名方法，
                 # export * 会触发 TS2308 歧义），由业务代码按文件名直接 import（如 '#/api/ruleAdmin'）。
@@ -1299,7 +1562,8 @@ def main():
                 print(f"[gen-contract] {svc}: 写文件失败")
                 sys.exit(1)
         total = len(all_eps)
-        print(f"[gen-contract] {svc:10s} -> {app:16s} controllers={len(controllers):3d} endpoints={total:4d} schemas={len(builder.components)}")
+        inner_hint = f" innerResolved={resolved_inner}" if resolved_inner else ""
+        print(f"[gen-contract] {svc:10s} -> {app:16s} controllers={len(controllers):3d} endpoints={total:4d} schemas={len(builder.components)}{inner_hint}")
         # 4. --check 模式：仅校验契约基线是否漂移（不改写文件）
         if is_check:
             spec_path = os.path.join(MICRO_ROOT, "apps", app, "src", "api", "sdk", "openapi.json")

@@ -273,6 +273,16 @@ export interface DecisionTableDTO {
 }
 
 /**
+ * HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface HttpServletResponse {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 规则依赖新增请求体 DTO
  *
  * 用于 `/rules/{ruleCode`/dependencies} 接口，为规则添加依赖关系 （依赖另一条规则的执行结果，支持级联禁用）。
@@ -338,7 +348,7 @@ export interface RuleChainGraph {
   /** 连线列表 */
   edges?: ChainEdgeDTO[];
   /** 画布视口（前端缩放和平移状态） */
-  viewport?: Record<string, unknown>;
+  viewport?: Viewport;
   /** 画布元数据扩展（如作者、标签、自定义属性） */
   metadata?: Record<string, Record<string, unknown>>;
   /** 创建时间 */
@@ -389,15 +399,33 @@ export interface ChainNodeDTO {
   /** 父节点 ID（嵌套链时使用，根节点为 null） */
   parentNodeId?: string;
   /** 节点位置坐标（画布坐标系，左上角为原点） */
-  position?: Record<string, unknown>;
+  position?: Position;
   /** 节点尺寸（可选，前端可按默认尺寸渲染） */
-  size?: Record<string, unknown>;
+  size?: Size;
   /** 节点样式扩展（颜色、图标等，前端自定义） */
   style?: Record<string, Record<string, unknown>>;
   /** 业务扩展字段（如分支条件、循环变量名等，按 chainType 解释） */
   metadata?: Record<string, Record<string, unknown>>;
   x?: number;
   y?: number;
+  width?: number;
+  height?: number;
+}
+
+/**
+ * 节点位置坐标
+ */
+export interface Position {
+  serialVersionUID?: number;
+  x?: number;
+  y?: number;
+}
+
+/**
+ * 节点尺寸
+ */
+export interface Size {
+  serialVersionUID?: number;
   width?: number;
   height?: number;
 }
@@ -433,6 +461,16 @@ export interface ChainEdgeDTO {
   style?: Record<string, Record<string, unknown>>;
   /** 业务扩展字段 */
   metadata?: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * 画布视口（前端画布的缩放和平移状态）
+ */
+export interface Viewport {
+  serialVersionUID?: number;
+  x?: number;
+  y?: number;
+  zoom?: number;
 }
 
 /**
@@ -550,40 +588,6 @@ export interface RulePackVO {
 }
 
 /**
- * CEP 模式定义
- *
- * 支持滚动窗口计数模式：当窗口内匹配的事件数达到阈值时触发。
- * 例如：
- * <pre>
- * Pattern: 检测 "3 分钟内 5 次登录失败"
- * - eventType: LOGIN_FAILED
- * - window: 3 分钟
- * - threshold: 5
- * </pre>
- */
-export interface CEPPattern {
-  serialVersionUID?: number;
-  /** 模式唯一标识 */
-  id?: string;
-  /** 关联的规则编码（命中模式时触发的规则） */
-  ruleCode?: string;
-  /** 模式名称（中文） */
-  name?: string;
-  /** 时间窗口长度 */
-  window?: Record<string, unknown>;
-  /** 触发阈值（窗口内事件次数达到此值时触发） */
-  threshold?: number;
-  /** 事件类型（单事件类型匹配） */
-  eventType?: string;
-  /** 事件类型列表（多类型 OR 匹配，如 LOGIN_FAILED 或 LOGIN_TIMEOUT） */
-  eventTypes?: string[];
-  /** 事件过滤条件（LiteExpr 表达式，可访问 $event.attr('xxx')） */
-  filter?: string;
-  /** 描述 */
-  description?: string;
-}
-
-/**
  * 变量定义元数据
  *
  * 描述规则表达式中可引用的变量，包括名称、类型、描述、示例值等。 由 VariableRegistry 提供，供 {@link
@@ -604,95 +608,6 @@ export interface VariableDefinition {
   /** 是否必填（前端编辑器可标记必填变量） */
   required?: boolean;
   simpleType?: string;
-}
-
-/**
- * CEP（复杂事件处理）模式视图对象（VO）。
- *
- * 用于前端配置与展示复杂事件模式，支持滚动窗口计数模式。与后端 `CEPPattern` 领域对象对应，仅承载展示所需字段。
- */
-export interface CEPPatternVO {
-  /** 模式 ID（业务唯一标识） */
-  id?: string;
-  /** 关联规则编码 */
-  ruleCode?: string;
-  /** 模式名称（展示用） */
-  name?: string;
-  /** 时间窗口长度（滚动窗口大小） */
-  window?: Record<string, unknown>;
-  /** 触发阈值（窗口内事件次数达到该值时触发） */
-  threshold?: number;
-  /** 关注的事件类型（模式只匹配该类型事件） */
-  eventType?: string;
-  /** 事件过滤表达式（对事件附加条件过滤） */
-  filter?: string;
-  /** 模式描述 */
-  description?: string;
-}
-
-/**
- * CEP（复杂事件处理）命中视图对象（VO）。
- *
- * 用于前端展示某条 CEP 模式被事件流命中的记录， 包含命中的模式、规则、匹配到的事件及命中时的度量值。
- */
-export interface CEPHitVO {
-  /** 命中的 CEP 模式 ID */
-  patternId?: string;
-  /** 关联规则编码 */
-  ruleCode?: string;
-  /** 命中的事件列表（按模式匹配到的原始/派生事件对象） */
-  matchedEvents?: Record<string, unknown>[];
-  /** 命中时间（Instant，事件流中的时间戳） */
-  hitAt?: string;
-  /** 命中指标值（如窗口内聚合度量，用于排序/告警分级） */
-  metric?: number;
-  /** 命中上下文（附加维度信息，如项目/组织等） */
-  context?: Record<string, Record<string, unknown>>;
-}
-
-/**
- * 规则评估结果视图对象（VO）。
- *
- * 用于前端展示单次规则评估的输出：是否命中、严重级别、生成的告警标题/描述， 以及当前值、阈值、耗时与灰度桶来源，支撑告警展示与问题下钻。
- */
-export interface RuleResultVO {
-  /** 规则编码 */
-  ruleCode?: string;
-  /** 规则名称（展示用） */
-  ruleName?: string;
-  /** 规则分类 */
-  category?: string;
-  /** 是否命中触发（true=命中并产生告警） */
-  isTriggered?: boolean;
-  /** 命中严重级别（代码，如 HIGH/MEDIUM/LOW/INFO） */
-  severity?: string;
-  /** 命中严重级别枚举（可为 null） */
-  severityEnum?: Record<string, unknown>;
-  /** 告警标题（命中时根据模板生成） */
-  title?: string;
-  /** 告警描述 */
-  description?: string;
-  /** 当前实际值（用于与阈值对比展示） */
-  currentValue?: string;
-  /** 规则设定的判定阈值 */
-  threshold?: string;
-  /** 适用范围 */
-  scope?: string;
-  /** 命中时间 */
-  triggeredAt?: string;
-  /** 是否支持下钻查看命中详情 */
-  isDrilldownAvailable?: boolean;
-  /** 评估耗时（毫秒） */
-  elapsedMs?: number;
-  /** 命中所属桶（如 NORMAL/CANARY，标识来自全量还是灰度） */
-  canaryBucket?: string;
-  /** 是否灰度 */
-  isCanary?: boolean;
-  /** 收集的子结果 */
-  collectedResults?: RuleResultVO[];
-  severityWeight?: string;
-  weight?: string;
-  code?: string;
 }
 
 /**
@@ -893,6 +808,61 @@ export interface RuleVersionDiffVO {
 }
 
 /**
+ * 规则评估结果视图对象（VO）。
+ *
+ * 用于前端展示单次规则评估的输出：是否命中、严重级别、生成的告警标题/描述， 以及当前值、阈值、耗时与灰度桶来源，支撑告警展示与问题下钻。
+ */
+export interface RuleResultVO {
+  /** 规则编码 */
+  ruleCode?: string;
+  /** 规则名称（展示用） */
+  ruleName?: string;
+  /** 规则分类 */
+  category?: string;
+  /** 是否命中触发（true=命中并产生告警） */
+  isTriggered?: boolean;
+  /** 命中严重级别（代码，如 HIGH/MEDIUM/LOW/INFO） */
+  severity?: string;
+  /** 命中严重级别枚举（可为 null） */
+  severityEnum?: Record<string, unknown>;
+  /** 告警标题（命中时根据模板生成） */
+  title?: string;
+  /** 告警描述 */
+  description?: string;
+  /** 当前实际值（用于与阈值对比展示） */
+  currentValue?: string;
+  /** 规则设定的判定阈值 */
+  threshold?: string;
+  /** 适用范围 */
+  scope?: string;
+  /** 命中时间 */
+  triggeredAt?: string;
+  /** 是否支持下钻查看命中详情 */
+  isDrilldownAvailable?: boolean;
+  /** 评估耗时（毫秒） */
+  elapsedMs?: number;
+  /** 命中所属桶（如 NORMAL/CANARY，标识来自全量还是灰度） */
+  canaryBucket?: string;
+  /** 是否灰度 */
+  isCanary?: boolean;
+  /** 收集的子结果 */
+  collectedResults?: RuleResultVO[];
+  severityWeight?: string;
+  weight?: string;
+  code?: string;
+}
+
+/**
+ * TraceResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface TraceResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 表达式校验结果视图对象（VO）。
  *
  * 用于前端展示表达式语法/语义校验结果，包含是否通过、错误类型与精确的位置 （行/列），辅助业务人员定位并修正表达式错误。
@@ -933,7 +903,7 @@ export interface RuleEngineStatsVO {
   /** 最近一次评估涉及的规则数 */
   lastEvaluatedRules?: number;
   /** 各规则统计明细（规则编码 → 统计对象） */
-  perRuleStats?: Record<string, Record<string, unknown>>;
+  perRuleStats?: Record<string, RuleStat>;
   /** 执行次数（与 totalEvaluations 并行的另一统计口径，用于交叉校验） */
   executions?: number;
   /** 命中次数（与 totalTriggered 并行的另一统计口径） */
@@ -943,37 +913,19 @@ export interface RuleEngineStatsVO {
 }
 
 /**
- * 审计日志条目视图对象（VO）。
+ * 单规则统计明细（内部类）。
  *
- * 用于前端展示规则变更的审计轨迹，包含操作人、操作类型、 变更前/后快照及字段级差异，便于合规追溯与问题排查。
+ * 用于 #perRuleStats 的值类型，记录单条规则的执行统计。
  */
-export interface AuditLogEntryVO {
-  /** 审计日志条目 ID（主键） */
-  id?: string;
-  /** 关联规则编码 */
-  ruleCode?: string;
-  /** 规则名称（快照，便于展示） */
-  ruleName?: string;
-  /** 操作类型（如 CREATE/UPDATE/DELETE/TOGGLE） */
-  action?: string;
-  /** 操作人（用户名） */
-  operator?: string;
-  /** 操作来源（如 WEB/API，标识触发渠道） */
-  source?: string;
-  /** 变更说明（人工填写或系统生成的描述） */
-  changeDesc?: string;
-  /** 变更前快照（字段名 → 值），无变更前为空 */
-  beforeSnapshot?: Record<string, Record<string, unknown>>;
-  /** 变更后快照（字段名 → 值） */
-  afterSnapshot?: Record<string, Record<string, unknown>>;
-  /** 字段级差异（字段名 → 前后值对照） */
-  fieldDiffs?: Record<string, Record<string, unknown>>;
-  /** 操作结果（SUCCESS/FAIL） */
-  result?: string;
-  /** 失败时的错误信息（result=FAIL 时有效） */
-  errorMessage?: string;
-  /** 创建时间 */
-  createdAt?: string;
+export interface RuleStat {
+  /** 执行次数 */
+  executions?: number;
+  /** 命中次数 */
+  triggered?: number;
+  /** 错误次数 */
+  errors?: number;
+  /** 总耗时（毫秒） */
+  totalElapsedMs?: number;
 }
 
 /**
@@ -1012,175 +964,6 @@ export interface RuleConflictInfoVO {
   overlapFields?: string[];
   /** 冲突严重级别（如 HIGH/MEDIUM/LOW） */
   severity?: string;
-}
-
-/**
- * 规则引擎监控大盘 - 概览指标 VO
- *
- * 用于大盘首屏指标卡片展示，包含规则数量、触发率、耗时分布、错误率等核心指标。
- */
-export interface RuleDashboardOverviewVO {
-  serialVersionUID?: number;
-  /** 规则总数 */
-  totalRules?: number;
-  /** 启用规则数 */
-  enabledRules?: number;
-  /** 按状态分组的规则数：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
-  statusDistribution?: Record<string, number>;
-  /** 按类别分组的规则数：category → 数量 */
-  categoryDistribution?: Record<string, number>;
-  /** 今日评估次数 */
-  todayEvaluations?: number;
-  /** 今日触发次数 */
-  todayTriggered?: number;
-  /** 今日触发率（0~1） */
-  todayTriggerRate?: number;
-  /** 今日错误次数 */
-  todayErrors?: number;
-  /** 今日错误率（0~1） */
-  todayErrorRate?: number;
-  /** 今日活跃规则数（有触发的规则） */
-  todayActiveRules?: number;
-  /** P50 耗时（毫秒） */
-  p50ElapsedMs?: number;
-  /** P95 耗时（毫秒） */
-  p95ElapsedMs?: number;
-  /** P99 耗时（毫秒） */
-  p99ElapsedMs?: number;
-  /** 平均耗时（毫秒） */
-  avgElapsedMs?: number;
-  /** 统计时间窗口起始时间（含） */
-  since?: string;
-  /** 统计时间窗口结束时间（不含） */
-  until?: string;
-}
-
-/**
- * 规则引擎监控大盘 - 趋势指标 VO
- *
- * 用于折线图展示触发次数、P99 耗时、错误率的时间序列趋势。
- */
-export interface RuleDashboardTrendVO {
-  serialVersionUID?: number;
-  /** 时间维度标签：24h=按小时 / 7d=按天 / 30d=按天 */
-  timeRange?: string;
-  /** 时间点标签列表（X 轴），格式：24h→"HH:00" / 7d/30d→"MM-DD" */
-  timeLabels?: string[];
-  /** 评估次数序列（与 timeLabels 等长） */
-  evaluationSeries?: number[];
-  /** 触发次数序列 */
-  triggeredSeries?: number[];
-  /** 错误次数序列 */
-  errorSeries?: number[];
-  /** P99 耗时序列（毫秒） */
-  p99ElapsedSeries?: number[];
-  /** P50 耗时序列（毫秒） */
-  p50ElapsedSeries?: number[];
-  /** 错误率序列（0~1） */
-  errorRateSeries?: number[];
-  /** 触发率序列（0~1） */
-  triggerRateSeries?: number[];
-  /** 统计时间窗口起始时间（含） */
-  since?: string;
-  /** 统计时间窗口结束时间（不含） */
-  until?: string;
-}
-
-/**
- * 规则引擎监控大盘 - 分布指标 VO
- *
- * 用于饼图展示规则在多个维度的分布情况。
- */
-export interface RuleDashboardDistributionVO {
-  serialVersionUID?: number;
-  /** 按状态分布：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
-  byStatus?: Record<string, number>;
-  /** 按类别分布：category → 数量 */
-  byCategory?: Record<string, number>;
-  /** 按严重度分布（今日触发结果中）：RED/YELLOW/NORMAL → 数量 */
-  bySeverity?: Record<string, number>;
-  /** 按场景分布（今日触发结果中）：scenario → 数量 */
-  byScenario?: Record<string, number>;
-  /** 按租户分布：tenantId → 数量 */
-  byTenant?: Record<string, number>;
-  /** 按责任人分布：owner → 数量 */
-  byOwner?: Record<string, number>;
-  /** 状态分布条目列表（用于前端饼图直接渲染） */
-  statusPie?: Record<string, unknown>[];
-  /** 类别分布条目列表 */
-  categoryPie?: Record<string, unknown>[];
-  /** 严重度分布条目列表 */
-  severityPie?: Record<string, unknown>[];
-  /** 场景分布条目列表 */
-  scenarioPie?: Record<string, unknown>[];
-  /** 名称 */
-  name?: string;
-  /** 数量 */
-  value?: number;
-}
-
-/**
- * 规则引擎监控大盘 - Top 规则条目 VO
- *
- * 用于表格展示最活跃 / 最慢 / 错误率最高的规则。
- */
-export interface RuleDashboardTopRuleVO {
-  serialVersionUID?: number;
-  /** 规则编码 */
-  ruleCode?: string;
-  /** 规则名称 */
-  ruleName?: string;
-  /** 规则类别 */
-  category?: string;
-  /** 责任人 */
-  owner?: string;
-  /** 是否启用 */
-  isEnabled?: boolean;
-  /** 默认严重度 */
-  defaultSeverity?: string;
-  /** 评估次数 */
-  evaluations?: number;
-  /** 触发次数 */
-  triggered?: number;
-  /** 错误次数 */
-  errors?: number;
-  /** 触发率（0~1） */
-  triggerRate?: number;
-  /** 错误率（0~1） */
-  errorRate?: number;
-  /** 平均耗时（毫秒） */
-  avgElapsedMs?: number;
-  /** P99 耗时（毫秒） */
-  p99ElapsedMs?: number;
-  /** 总耗时（毫秒） */
-  totalElapsedMs?: number;
-}
-
-/**
- * 规则引擎监控大盘 - 实时指标 VO
- *
- * 用于展示当前 QPS、活跃规则数等秒级实时指标。
- */
-export interface RuleDashboardRealtimeVO {
-  serialVersionUID?: number;
-  /** 当前注册规则数（引擎内存中） */
-  registeredRules?: number;
-  /** 最近一次评估遍历的规则数 */
-  lastEvaluatedRules?: number;
-  /** 最近 1 分钟评估次数 */
-  recentEvaluations?: number;
-  /** 最近 1 分钟触发次数 */
-  recentTriggered?: number;
-  /** 最近 1 分钟错误次数 */
-  recentErrors?: number;
-  /** 当前 QPS（次/秒） */
-  currentQps?: number;
-  /** 当前活跃规则数（最近 1 分钟有触发的规则） */
-  activeRules?: number;
-  /** Trace 队列积压 */
-  traceQueueSize?: number;
-  /** 服务器当前时间戳（毫秒） */
-  timestamp?: number;
 }
 
 /**
@@ -1291,20 +1074,6 @@ export interface RuleDependencyVO {
 export interface StringVO {
   /** 包装的字符串值 */
   value?: string;
-}
-
-/**
- * 规则 DSL（领域特定语言）视图对象（VO）。
- *
- * 用于承载一次 DSL 导入/导出解析后的结构，包含规则定义列表、规则链列表及元信息。 DSL 以文本化的方式批量描述规则与编排，便于版本管理与跨环境迁移。
- */
-export interface RuleDslVO {
-  /** DSL 中定义的规则列表（每项为一个规则定义对象） */
-  rules?: Record<string, unknown>[];
-  /** DSL 中定义的规则链列表（每项为一个链编排对象） */
-  chains?: Record<string, unknown>[];
-  /** DSL 元信息（如版本、作者、来源等键值对） */
-  meta?: Record<string, Record<string, unknown>>;
 }
 
 /**
@@ -1459,6 +1228,16 @@ export interface PackDiffVO {
 }
 
 /**
+ * StressTestResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface StressTestResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 规则集更新信息视图对象（VO）。
  *
  * 用于前端展示已安装规则集是否有新版本可升级， 包含已安装版本与最新版本对比、是否有更新及安装时间等。
@@ -1566,6 +1345,284 @@ export interface RuleExecutionTraceVO {
   updatedBy?: string;
   /** 更新时间 */
   updatedAt?: string;
+}
+
+/**
+ * CEP（复杂事件处理）模式视图对象（VO）。
+ *
+ * 用于前端配置与展示复杂事件模式，支持滚动窗口计数模式。与后端 `CEPPattern` 领域对象对应，仅承载展示所需字段。
+ */
+export interface CEPPatternVO {
+  /** 模式 ID（业务唯一标识） */
+  id?: string;
+  /** 关联规则编码 */
+  ruleCode?: string;
+  /** 模式名称（展示用） */
+  name?: string;
+  /** 时间窗口长度（滚动窗口大小） */
+  window?: Record<string, unknown>;
+  /** 触发阈值（窗口内事件次数达到该值时触发） */
+  threshold?: number;
+  /** 关注的事件类型（模式只匹配该类型事件） */
+  eventType?: string;
+  /** 事件过滤表达式（对事件附加条件过滤） */
+  filter?: string;
+  /** 模式描述 */
+  description?: string;
+  /** 窗口类型（P0-F1 26.09.23）：TUMBLING(滚动窗口，不重叠) / SLIDING(滑动窗口，重叠)。默认 TUMBLING。 */
+  windowType?: string;
+  /** 聚合类型（P0-F1 26.09.23）：COUNT(计数) / SUM(求和) / AVG(平均值)。默认 COUNT。 */
+  aggregationType?: string;
+  /** 聚合字段（P0-F1 26.09.23）：SUM/AVG 模式下从事件 attributes 中取该字段做数值聚合。COUNT 模式忽略。 */
+  aggregationField?: string;
+}
+
+/**
+ * CEP（复杂事件处理）命中视图对象（VO）。
+ *
+ * 用于前端展示某条 CEP 模式被事件流命中的记录， 包含命中的模式、规则、匹配到的事件及命中时的度量值。
+ */
+export interface CEPHitVO {
+  /** 命中的 CEP 模式 ID */
+  patternId?: string;
+  /** 关联规则编码 */
+  ruleCode?: string;
+  /** 命中的事件列表（按模式匹配到的原始/派生事件对象） */
+  matchedEvents?: Record<string, unknown>[];
+  /** 命中时间（Instant，事件流中的时间戳） */
+  hitAt?: string;
+  /** 命中指标值（如窗口内聚合度量，用于排序/告警分级） */
+  metric?: number;
+  /** 命中上下文（附加维度信息，如项目/组织等） */
+  context?: Record<string, Record<string, unknown>>;
+}
+
+/**
+ * 审计日志条目视图对象（VO）。
+ *
+ * 用于前端展示规则变更的审计轨迹，包含操作人、操作类型、 变更前/后快照及字段级差异，便于合规追溯与问题排查。
+ */
+export interface AuditLogEntryVO {
+  /** 审计日志条目 ID（主键） */
+  id?: string;
+  /** 关联规则编码 */
+  ruleCode?: string;
+  /** 规则名称（快照，便于展示） */
+  ruleName?: string;
+  /** 操作类型（如 CREATE/UPDATE/DELETE/TOGGLE） */
+  action?: string;
+  /** 操作人（用户名） */
+  operator?: string;
+  /** 操作来源（如 WEB/API，标识触发渠道） */
+  source?: string;
+  /** 变更说明（人工填写或系统生成的描述） */
+  changeDesc?: string;
+  /** 变更前快照（字段名 → 值），无变更前为空 */
+  beforeSnapshot?: Record<string, Record<string, unknown>>;
+  /** 变更后快照（字段名 → 值） */
+  afterSnapshot?: Record<string, Record<string, unknown>>;
+  /** 字段级差异（字段名 → 前后值对照） */
+  fieldDiffs?: Record<string, Record<string, unknown>>;
+  /** 操作结果（SUCCESS/FAIL） */
+  result?: string;
+  /** 失败时的错误信息（result=FAIL 时有效） */
+  errorMessage?: string;
+  /** 创建时间 */
+  createdAt?: string;
+}
+
+/**
+ * 规则引擎监控大盘 - 概览指标 VO
+ *
+ * 用于大盘首屏指标卡片展示，包含规则数量、触发率、耗时分布、错误率等核心指标。
+ */
+export interface RuleDashboardOverviewVO {
+  serialVersionUID?: number;
+  /** 规则总数 */
+  totalRules?: number;
+  /** 启用规则数 */
+  enabledRules?: number;
+  /** 按状态分组的规则数：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
+  statusDistribution?: Record<string, number>;
+  /** 按类别分组的规则数：category → 数量 */
+  categoryDistribution?: Record<string, number>;
+  /** 今日评估次数 */
+  todayEvaluations?: number;
+  /** 今日触发次数 */
+  todayTriggered?: number;
+  /** 今日触发率（0~1） */
+  todayTriggerRate?: number;
+  /** 今日错误次数 */
+  todayErrors?: number;
+  /** 今日错误率（0~1） */
+  todayErrorRate?: number;
+  /** 今日活跃规则数（有触发的规则） */
+  todayActiveRules?: number;
+  /** P50 耗时（毫秒） */
+  p50ElapsedMs?: number;
+  /** P95 耗时（毫秒） */
+  p95ElapsedMs?: number;
+  /** P99 耗时（毫秒） */
+  p99ElapsedMs?: number;
+  /** 平均耗时（毫秒） */
+  avgElapsedMs?: number;
+  /** 统计时间窗口起始时间（含） */
+  since?: string;
+  /** 统计时间窗口结束时间（不含） */
+  until?: string;
+}
+
+/**
+ * 规则引擎监控大盘 - 趋势指标 VO
+ *
+ * 用于折线图展示触发次数、P99 耗时、错误率的时间序列趋势。
+ */
+export interface RuleDashboardTrendVO {
+  serialVersionUID?: number;
+  /** 时间维度标签：24h=按小时 / 7d=按天 / 30d=按天 */
+  timeRange?: string;
+  /** 时间点标签列表（X 轴），格式：24h→"HH:00" / 7d/30d→"MM-DD" */
+  timeLabels?: string[];
+  /** 评估次数序列（与 timeLabels 等长） */
+  evaluationSeries?: number[];
+  /** 触发次数序列 */
+  triggeredSeries?: number[];
+  /** 错误次数序列 */
+  errorSeries?: number[];
+  /** P99 耗时序列（毫秒） */
+  p99ElapsedSeries?: number[];
+  /** P50 耗时序列（毫秒） */
+  p50ElapsedSeries?: number[];
+  /** 错误率序列（0~1） */
+  errorRateSeries?: number[];
+  /** 触发率序列（0~1） */
+  triggerRateSeries?: number[];
+  /** 统计时间窗口起始时间（含） */
+  since?: string;
+  /** 统计时间窗口结束时间（不含） */
+  until?: string;
+}
+
+/**
+ * 规则引擎监控大盘 - 分布指标 VO
+ *
+ * 用于饼图展示规则在多个维度的分布情况。
+ */
+export interface RuleDashboardDistributionVO {
+  serialVersionUID?: number;
+  /** 按状态分布：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
+  byStatus?: Record<string, number>;
+  /** 按类别分布：category → 数量 */
+  byCategory?: Record<string, number>;
+  /** 按严重度分布（今日触发结果中）：RED/YELLOW/NORMAL → 数量 */
+  bySeverity?: Record<string, number>;
+  /** 按场景分布（今日触发结果中）：scenario → 数量 */
+  byScenario?: Record<string, number>;
+  /** 按租户分布：tenantId → 数量 */
+  byTenant?: Record<string, number>;
+  /** 按责任人分布：owner → 数量 */
+  byOwner?: Record<string, number>;
+  /** 状态分布条目列表（用于前端饼图直接渲染） */
+  statusPie?: PieItem[];
+  /** 类别分布条目列表 */
+  categoryPie?: PieItem[];
+  /** 严重度分布条目列表 */
+  severityPie?: PieItem[];
+  /** 场景分布条目列表 */
+  scenarioPie?: PieItem[];
+  /** 名称 */
+  name?: string;
+  /** 数量 */
+  value?: number;
+}
+
+/**
+ * 饼图条目
+ */
+export interface PieItem {
+  serialVersionUID?: number;
+  /** 名称 */
+  name?: string;
+  /** 数量 */
+  value?: number;
+}
+
+/**
+ * 规则引擎监控大盘 - Top 规则条目 VO
+ *
+ * 用于表格展示最活跃 / 最慢 / 错误率最高的规则。
+ */
+export interface RuleDashboardTopRuleVO {
+  serialVersionUID?: number;
+  /** 规则编码 */
+  ruleCode?: string;
+  /** 规则名称 */
+  ruleName?: string;
+  /** 规则类别 */
+  category?: string;
+  /** 责任人 */
+  owner?: string;
+  /** 是否启用 */
+  isEnabled?: boolean;
+  /** 默认严重度 */
+  defaultSeverity?: string;
+  /** 评估次数 */
+  evaluations?: number;
+  /** 触发次数 */
+  triggered?: number;
+  /** 错误次数 */
+  errors?: number;
+  /** 触发率（0~1） */
+  triggerRate?: number;
+  /** 错误率（0~1） */
+  errorRate?: number;
+  /** 平均耗时（毫秒） */
+  avgElapsedMs?: number;
+  /** P99 耗时（毫秒） */
+  p99ElapsedMs?: number;
+  /** 总耗时（毫秒） */
+  totalElapsedMs?: number;
+}
+
+/**
+ * 规则引擎监控大盘 - 实时指标 VO
+ *
+ * 用于展示当前 QPS、活跃规则数等秒级实时指标。
+ */
+export interface RuleDashboardRealtimeVO {
+  serialVersionUID?: number;
+  /** 当前注册规则数（引擎内存中） */
+  registeredRules?: number;
+  /** 最近一次评估遍历的规则数 */
+  lastEvaluatedRules?: number;
+  /** 最近 1 分钟评估次数 */
+  recentEvaluations?: number;
+  /** 最近 1 分钟触发次数 */
+  recentTriggered?: number;
+  /** 最近 1 分钟错误次数 */
+  recentErrors?: number;
+  /** 当前 QPS（次/秒） */
+  currentQps?: number;
+  /** 当前活跃规则数（最近 1 分钟有触发的规则） */
+  activeRules?: number;
+  /** Trace 队列积压 */
+  traceQueueSize?: number;
+  /** 服务器当前时间戳（毫秒） */
+  timestamp?: number;
+}
+
+/**
+ * 规则 DSL（领域特定语言）视图对象（VO）。
+ *
+ * 用于承载一次 DSL 导入/导出解析后的结构，包含规则定义列表、规则链列表及元信息。 DSL 以文本化的方式批量描述规则与编排，便于版本管理与跨环境迁移。
+ */
+export interface RuleDslVO {
+  /** DSL 中定义的规则列表（每项为一个规则定义对象） */
+  rules?: Record<string, unknown>[];
+  /** DSL 中定义的规则链列表（每项为一个链编排对象） */
+  chains?: Record<string, unknown>[];
+  /** DSL 元信息（如版本、作者、来源等键值对） */
+  meta?: Record<string, Record<string, unknown>>;
 }
 
 /**

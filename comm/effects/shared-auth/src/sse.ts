@@ -65,6 +65,73 @@ export interface StreamRequestOptions {
   signal?: AbortSignal;
 }
 
+/**
+ * SSE 帧内业务错误信息（YDIZ-SSE-001：后端可能在 SSE 帧内推送业务错误码）。
+ *
+ * <p>当后端业务异常但 HTTP 连接仍保持时（如 LLM 调用失败、权限校验失败等），
+ * 会在 SSE data 帧内推送 {@code {"code": "E00001", "message": "错误描述", ...}}。
+ * 消费方应调用 {@link checkSseFrameForError} 检测并抛出BusinessError。
+ */
+export interface SseBusinessError {
+  /** 业务错误码（非 A00000 即为异常） */
+  code: string;
+  /** 错误描述 */
+  message?: string;
+  /** 原始帧数据（用于透传附加字段） */
+  raw?: string;
+}
+
+/**
+ * 解析后的 SSE 帧业务错误。
+ * 当 data 字段可解析为 JSON 且包含非成功业务码时，本类型描述错误。
+ */
+export class SseFrameBusinessError extends Error {
+  readonly code: string;
+  readonly raw?: string;
+
+  constructor(code: string, message: string, raw?: string) {
+    super(message);
+    this.name = 'SseFrameBusinessError';
+    this.code = code;
+    this.raw = raw;
+  }
+}
+
+/** 后端统一成功码（对齐 YdszResponse 成功标志） */
+export const SSE_SUCCESS_CODE = 'A00000';
+
+/**
+ * 检测 SSE 帧 data 是否携带业务错误码（YDIZ-SSE-001）。
+ *
+ * <p>当 data 可解析为 JSON 且含有 code 字段（非 {@link SSE_SUCCESS_CODE}）时，
+ * 返回 {@link SseBusinessError}；否则返回 null。解析失败或 data 非 JSON 均视为无业务错误。
+ *
+ * @param data SSE 帧 data 字段原始字符串
+ * @returns 业务错误信息（无错误时返回 null）
+ */
+export function checkSseFrameForError(data: string): SseBusinessError | null {
+  if (!data || !data.trim()) {
+    return null;
+  }
+  try {
+    const parsed: unknown = JSON.parse(data);
+    if (parsed !== null && typeof parsed === 'object' && 'code' in parsed) {
+      const record = parsed as Record<string, unknown>;
+      const code = String(record.code ?? '');
+      if (code && code !== SSE_SUCCESS_CODE) {
+        return {
+          code,
+          message: typeof record.message === 'string' ? record.message : undefined,
+          raw: data,
+        };
+      }
+    }
+  } catch {
+    // data 非 JSON（如纯文本 chunk），不视为业务错误
+  }
+  return null;
+}
+
 /** 解析 SSE 文本块，切分出完整帧（data:/event:/id: 字段，空行分隔） */
 export function parseSseChunk(buffer: string): { events: SseEvent[]; rest: string } {
   const events: SseEvent[] = [];

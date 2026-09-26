@@ -66,7 +66,7 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
         },
       },
     },
-    { field: 'sortOrder', title: t('page.sortOrder'), width: 80, align: 'center' },
+    { field: 'sort', title: t('page.sort'), width: 80, align: 'center' },
     {
       field: 'status',
       title: t('page.status'),

@@ -15,27 +15,27 @@ import type { PageResponse } from './models';
 import type { MsgAggregateVO, PageQuery } from './models';
 
 /**
- * page: GET /api/message/aggregate/page
+ * page: GET /message/aggregate/page
  */
 export function page(params: {
     query?: PageQuery;
   }): Promise<PageResponse<MsgAggregateVO[]>> {
-  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/api/message/aggregate/page`, { params });
+  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/message/aggregate/page`, { params });
 }
 
 /**
- * flushByGroup: POST /api/message/aggregate/flush
+ * flushByGroup: POST /message/aggregate/flush
  */
 export function flushByGroup(params: {
     group?: string;
     receiver?: string;
   }): Promise<number> {
-  return requestClient.post<number>(`/api/message/aggregate/flush`, { params });
+  return requestClient.post<number>(`/message/aggregate/flush`, { params });
 }
 
 /**
- * flushDue: POST /api/message/aggregate/flushDue
+ * flushDue: POST /message/aggregate/flushDue
  */
 export function flushDue(): Promise<number> {
-  return requestClient.post<number>(`/api/message/aggregate/flushDue`);
+  return requestClient.post<number>(`/message/aggregate/flushDue`);
 }

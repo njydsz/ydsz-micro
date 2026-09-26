@@ -14,7 +14,7 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * streamEvents: GET /api/auth/events/stream
+ * streamEvents: GET /auth/events/stream
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code SseEmitter}，响应结构未固定为具名 VO，
@@ -24,5 +24,5 @@ import { requestClient } from '#/api/request';
 export function streamEvents(params: {
     request?: Record<string, unknown>;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/auth/events/stream`, { params });
+  return requestClient.get<unknown>(`/auth/events/stream`, { params });
 }

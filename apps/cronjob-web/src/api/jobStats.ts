@@ -14,48 +14,48 @@ import { requestClient } from '#/api/request';
 import type { JobDailyStatsVO, JobLogVO } from './models';
 
 /**
- * daily: GET /api/cronjob/stats/daily
+ * daily: GET /cronjob/stats/daily
  */
 export function daily(params: {
     jobId?: string;
     startDate?: string;
     endDate?: string;
   }): Promise<JobDailyStatsVO[]> {
-  return requestClient.get<JobDailyStatsVO[]>(`/api/cronjob/stats/daily`, { params });
+  return requestClient.get<JobDailyStatsVO[]>(`/cronjob/stats/daily`, { params });
 }
 
 /**
- * summary: GET /api/cronjob/stats/summary
+ * summary: GET /cronjob/stats/summary
  */
 export function summary(params: {
     jobId?: string;
     startDate?: string;
     endDate?: string;
   }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/stats/summary`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/stats/summary`, { params });
 }
 
 /**
- * dashboard: GET /api/cronjob/stats/dashboard
+ * dashboard: GET /cronjob/stats/dashboard
  */
 export function dashboard(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/api/cronjob/stats/dashboard`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/stats/dashboard`);
 }
 
 /**
- * recentFailures: GET /api/cronjob/stats/recent-failures
+ * recentFailures: GET /cronjob/stats/recent-failures
  */
 export function recentFailures(params: {
     limit?: number;
   }): Promise<JobLogVO[]> {
-  return requestClient.get<JobLogVO[]>(`/api/cronjob/stats/recent-failures`, { params });
+  return requestClient.get<JobLogVO[]>(`/cronjob/stats/recent-failures`, { params });
 }
 
 /**
- * heatmap: GET /api/cronjob/stats/heatmap
+ * heatmap: GET /cronjob/stats/heatmap
  */
 export function heatmap(params: {
     date?: string;
   }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/api/cronjob/stats/heatmap`, { params });
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/cronjob/stats/heatmap`, { params });
 }

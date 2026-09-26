@@ -15,7 +15,7 @@ import type { PageResponse } from './models';
 import type { MsgLogVO } from './models';
 
 /**
- * search: GET /api/message/archive/search
+ * search: GET /message/archive/search
  */
 export function search(params: {
     keyword?: string;
@@ -27,5 +27,5 @@ export function search(params: {
     pageNum?: number;
     pageSize?: number;
   }): Promise<PageResponse<MsgLogVO[]>> {
-  return requestClient.get<PageResponse<MsgLogVO[]>>(`/api/message/archive/search`, { params });
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/archive/search`, { params });
 }

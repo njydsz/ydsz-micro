@@ -14,14 +14,14 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * listPending: GET /api/agent/approvals/pending
+ * listPending: GET /agent/approvals/pending
  */
 export function listPending(): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/api/agent/approvals/pending`);
+  return requestClient.get<Record<string, unknown>[]>(`/agent/approvals/pending`);
 }
 
 /**
- * getApproval: GET /api/agent/approvals/{id}
+ * getApproval: GET /agent/approvals/{id}
  *
  * <p>返回 unknown 的理由（云顶编码规范 §3.1 特殊场景豁免）：
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
@@ -31,11 +31,11 @@ export function listPending(): Promise<Record<string, unknown>[]> {
 export function getApproval({ id }: {
     id: string;
   }): Promise<unknown> {
-  return requestClient.get<unknown>(`/api/agent/approvals/${id}`);
+  return requestClient.get<unknown>(`/agent/approvals/${id}`);
 }
 
 /**
- * approve: POST /api/agent/approvals/{id}/approve
+ * approve: POST /agent/approvals/{id}/approve
  */
 export function approve({ id }: {
     id: string;
@@ -43,11 +43,11 @@ export function approve({ id }: {
     approver?: string;
     comment?: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/agent/approvals/${id}/approve`, { params });
+  return requestClient.post<boolean>(`/agent/approvals/${id}/approve`, { params });
 }
 
 /**
- * reject: POST /api/agent/approvals/{id}/reject
+ * reject: POST /agent/approvals/{id}/reject
  */
 export function reject({ id }: {
     id: string;
@@ -55,5 +55,5 @@ export function reject({ id }: {
     approver?: string;
     comment?: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/agent/approvals/${id}/reject`, { params });
+  return requestClient.post<boolean>(`/agent/approvals/${id}/reject`, { params });
 }

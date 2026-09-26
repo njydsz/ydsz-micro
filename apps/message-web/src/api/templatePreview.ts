@@ -14,15 +14,15 @@ import { requestClient } from '#/api/request';
 
 
 /**
- * previewByCode: POST /api/message/template/preview/by-code
+ * previewByCode: POST /message/template/preview/by-code
  */
 export function previewByCode(data: Record<string, unknown>): Promise<Record<string, string>> {
-  return requestClient.post<Record<string, string>>(`/api/message/template/preview/by-code`, data);
+  return requestClient.post<Record<string, string>>(`/message/template/preview/by-code`, data);
 }
 
 /**
- * previewRaw: POST /api/message/template/preview/raw
+ * previewRaw: POST /message/template/preview/raw
  */
 export function previewRaw(data: Record<string, unknown>): Promise<string> {
-  return requestClient.post<string>(`/api/message/template/preview/raw`, data);
+  return requestClient.post<string>(`/message/template/preview/raw`, data);
 }
