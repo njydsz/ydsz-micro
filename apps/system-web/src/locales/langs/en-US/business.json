@@ -51,7 +51,7 @@
   "valueTypeNeedle": "String/Number/Boolean",
   "enabled": "Enabled",
   "disabled": "Disabled",
-  "sortOrder": "Sort Order",
+  "sort": "Sort Order",
   "configKeyPlaceholder": "Enter config key",
   "configGroupPlaceholder": "Enter config group",
   "configValuePlaceholder": "Enter config value",

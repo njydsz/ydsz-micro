@@ -10,7 +10,7 @@
   "parentId": "Parent",
   "parentDept": "Parent Department",
   "deptName": "Dept Name",
-  "sortOrder": "Sort",
+  "sort": "Sort",
   "roleCode": "Role Code",
   "roleName": "Role Name",
   "menuType": "Menu Type",

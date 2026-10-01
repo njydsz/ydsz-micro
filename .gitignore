@@ -57,3 +57,6 @@ __pycache__/
 # ---- WorkBuddy 本地助手记录（不纳入版本库） ----
 .workbuddy/
 .meituan-catpaw/
+
+# ---- 归档的自动生成 API 文件（已被根目录 api/ 下的新生成文件取代） ----
+.generated-archived/

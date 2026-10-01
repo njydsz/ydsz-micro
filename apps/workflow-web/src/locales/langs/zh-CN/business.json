@@ -42,7 +42,7 @@
   "use": "使用",
   "useCount": "使用次数",
   "type": "类型",
-  "sortOrder": "排序",
+  "sort": "排序",
   "scope": "范围",
   "scopeAll": "全部流程",
   "scopeFlow": "指定流程",

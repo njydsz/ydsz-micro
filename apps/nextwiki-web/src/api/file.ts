@@ -16,6 +16,9 @@ import type { FileNodeVO } from './models';
 
 /**
  * upload: POST /nextwiki/files/upload
+ *
+ * <p>文件上传接口（YDIZ-API-003）：参数包含 file，
+ * 函数内部自动构造 FormData 并以 multipart/form-data 提交。
  */
 export function upload(params: {
     file?: Record<string, unknown>;
@@ -23,7 +26,20 @@ export function upload(params: {
     rename?: string;
     versionRemark?: string;
   }): Promise<FileNodeVO> {
-  return requestClient.post<FileNodeVO>(`/nextwiki/files/upload`, { params });
+  const formData = new FormData();
+  if (params?.file != null) {
+    formData.append('file', params.file as Blob);
+  }
+  if (params?.parentId != null) {
+    formData.append('parentId', String(params.parentId));
+  }
+  if (params?.rename != null) {
+    formData.append('rename', String(params.rename));
+  }
+  if (params?.versionRemark != null) {
+    formData.append('versionRemark', String(params.versionRemark));
+  }
+  return requestClient.post<FileNodeVO>(`/nextwiki/files/upload`, { data: formData });
 }
 
 /**

@@ -139,8 +139,8 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.languag
           <YdRadioGroupItem :value="0">{{ t('language.noDefault') }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
-      <YdFormItem :label="t('page.sortOrder')">
-        <YdNumberFieldInput v-model="formData.sortOrder" :min="0" :max="999" />
+      <YdFormItem :label="t('page.sort')" prop="sort">
+        <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('page.status')">
         <YdRadioGroup v-model="formData.status">

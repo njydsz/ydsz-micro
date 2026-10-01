@@ -9,7 +9,7 @@
 /**
  * 系统配置（表单组件）
  * <p>消费后端契约 ConfigController（src/api/config.ts，auto-generated）的系统配置创建/编辑表单，
- * 字段对应契约 ConfigDTO（isPublic/sortOrder 为数字，status 为字符串 '1'/'0'），提交走 save/update。
+ * 字段对应契约 ConfigDTO（isPublic/sort 为数字，status 为字符串 '1'/'0'），提交走 save/update。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -143,7 +143,7 @@ const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')
       <YdFormItem :label="t('defaultValue')" prop="defaultValue">
         <YdInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('defaultValuePlaceholder')" />
       </YdFormItem>
-      <YdFormItem :label="t('sortOrder')" prop="sortOrder">
+      <YdFormItem :label="t('sort')" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('isPublic')" prop="isPublic">

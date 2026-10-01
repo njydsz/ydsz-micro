@@ -10,7 +10,7 @@
   "parentId": "上级部门",
   "parentDept": "上级部门",
   "deptName": "部门名称",
-  "sortOrder": "排序",
+  "sort": "排序",
   "roleCode": "角色编码",
   "roleName": "角色名称",
   "menuType": "菜单类型",

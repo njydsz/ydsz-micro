@@ -145,7 +145,7 @@ const title = computed(() => (isEdit.value ? '编辑字典项' : '新增字典�
       <YdFormItem label="字典值" prop="itemValue">
         <YdInput v-model="formData.itemValue" placeholder="请输入字典值" />
       </YdFormItem>
-      <YdFormItem label="排序" prop="sortOrder">
+      <YdFormItem label="排序" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem label="描述">

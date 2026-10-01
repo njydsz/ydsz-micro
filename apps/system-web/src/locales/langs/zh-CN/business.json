@@ -51,7 +51,7 @@
   "valueTypeNeedle": "String/Number/Boolean",
   "enabled": "启用",
   "disabled": "禁用",
-  "sortOrder": "排序",
+  "sort": "排序",
   "configKeyPlaceholder": "请输入配置键",
   "configGroupPlaceholder": "请输入配置分组",
   "configValuePlaceholder": "请输入配置值",

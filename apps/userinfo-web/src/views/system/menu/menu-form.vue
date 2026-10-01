@@ -240,7 +240,7 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
       <YdFormItem :label="t('page.permission')">
         <YdInput v-model="formData.permissionCode" :placeholder="t('menu.permissionPlaceholder')" />
       </YdFormItem>
-      <YdFormItem :label="t('page.sortOrder')">
+      <YdFormItem :label="t('page.sort')" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('menu.visible')">

@@ -42,7 +42,7 @@
   "use": "Use",
   "useCount": "Use Count",
   "type": "Type",
-  "sortOrder": "Sort",
+  "sort": "Sort",
   "scope": "Scope",
   "scopeAll": "All Flows",
   "scopeFlow": "Specific Flow",

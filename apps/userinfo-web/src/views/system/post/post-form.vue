@@ -141,7 +141,7 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.postBas
           :placeholder="t('page.descriptionPlaceholder')"
         />
       </YdFormItem>
-      <YdFormItem :label="t('page.sortOrder')">
+      <YdFormItem :label="t('page.sort')" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('page.status')">
