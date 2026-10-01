@@ -255,6 +255,12 @@ interface ApplicationPluginOptions extends CommonPluginOptions {
    */
   pwaOptions?: Partial<PwaPluginOptions>;
   /**
+   * 是否开启图片压缩
+   * @default false
+   * @description 使用 vite-plugin-imagemin 在构建时自动压缩图片资源（PNG/JPEG/GIF/SVG/WebP）
+   */
+  imagemin?: boolean;
+  /**
    * 是否开启 VXE YdTable 懒加载
    * @default false
    */

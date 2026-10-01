@@ -26,7 +26,7 @@ async function getCommonConfig(): Promise<UserConfig> {
       global: 'globalThis',
     },
     build: {
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 500,
       reportCompressedSize: false,
       // v4.0 P0-3: 生产环境启用 hidden sourcemap（用于 Sentry 符号化）
       // 'hidden' 表示生成 .map 文件但不附加 source map 注释（浏览器不加载）

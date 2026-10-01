@@ -27,6 +27,8 @@ import viteVueDevTools from 'vite-plugin-vue-devtools';
 import { viteArchiverPlugin } from './archiver';
 import { bundleBudgetPlugin } from './bundle-budget';
 import { viteExtraAppConfigPlugin } from './extra-app-config';
+import { viteFontPlugin } from './font';
+import { viteImageminPlugin } from './imagemin';
 import { viteImportMapPlugin } from './importmap';
 import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 import { viteMetadataPlugin } from './inject-metadata';
@@ -165,6 +167,14 @@ async function loadApplicationPlugins(
       plugins: async () => {
         return [await vitePrintPlugin({ infoMap: printInfoMap })];
       },
+    },
+    {
+      condition: font,
+      plugins: async () => [await viteFontPlugin()],
+    },
+    {
+      condition: isBuild && imagemin,
+      plugins: async () => [await viteImageminPlugin()],
     },
     {
       condition: vxeTableLazyImport,

@@ -61,6 +61,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       env,
       extraAppConfig: true,
       font: true, // 启用字体子集化（中文字体优化）
+      imagemin: true, // 启用图片压缩（PNG optipng level7 / JPEG mozjpeg 85）
       html: true,
       i18n: true,
       importmapOptions: {
@@ -127,7 +128,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
         // v4.0 P0-3: common.ts 中已默认在生产环境启用 hidden sourcemap（用于 Sentry 符号化）；
         //       此处仅当 VITE_MONITOR_SOURCEMAP 显式设为 false 时关闭。
         sourcemap: env.VITE_MONITOR_SOURCEMAP === 'false' ? false : (process.env.NODE_ENV === 'production' ? 'hidden' : false),
-        chunkSizeWarningLimit: 1000,
+        chunkSizeWarningLimit: 500,
         target: 'es2022',
       },
       css: createCssOptions(injectGlobalScss, readSubAppName()),
