@@ -25,46 +25,10 @@ async function viteFontPlugin(): Promise<PluginOption> {
   // 动态导入，避免开发模式加载
   const viteFont = await import('vite-plugin-font');
 
-  return viteFont.default({
-    // 字体文件匹配模式
-    include: ['**/*.ttf', '**/*.otf', '**/*.woff', '**/*.woff2'],
-    // 排除 node_modules 中的字体
-    exclude: ['**/node_modules/**'],
-    // 是否生成原始字体的备份
-    backup: false,
-    // 是否显示处理日志
-    verbose: true,
-    // 字符集配置
-    subsets: {
-      // 自动检测项目中使用的字符
-      auto: true,
-      // 额外包含的字符范围（可选）
-      // 例如：数字、基本标点
-      includeRanges: [
-        [0x0020, 0x007e], // ASCII 可打印字符
-        [0x00a0, 0x00ff], // Latin-1 补充
-        [0x2000, 0x206f], // 通用标点
-        [0x3000, 0x303f], // CJK 符号和标点
-        [0xff00, 0xffef], // 全角 ASCII、半角片假名
-      ],
-    },
-    // 输出格式配置
-    output: {
-      // 生成 woff2 格式（现代浏览器支持，压缩率最高）
-      woff2: true,
-      // 生成 woff 格式（兼容性更好）
-      woff: true,
-      // 是否保留原始格式
-      original: false,
-    },
-    // CSS 更新配置
-    css: {
-      // 自动更新 CSS 中的字体引用
-      update: true,
-      // 是否添加 font-display: swap
-      fontDisplay: 'swap',
-    },
-  });
+  // vite-plugin-font 是 unplugin 架构，其 default export 已经是一个
+  // Vite 兼容的插件对象（包含 name/enforce/resolveId/load/transform hooks），
+  // 不需要再次调用，可直接返回给 Vite 使用。
+  return viteFont.default as unknown as PluginOption;
 }
 
 export { viteFontPlugin };

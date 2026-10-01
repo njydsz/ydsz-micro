@@ -24,52 +24,38 @@ async function viteImageminPlugin(): Promise<PluginOption> {
   const viteImagemin = await import('vite-plugin-imagemin');
 
   return viteImagemin.default({
-    // PNG 压缩配置
-    png: {
-      optipng: {
-        optimizationLevel: 7, // 最高压缩级别 (0-7)
-        interlaced: false,
-      },
+    // PNG 压缩配置（optipng 算法，最高压缩级别 7）
+    optipng: {
+      optimizationLevel: 7, // 最高压缩级别 (0-7)
     },
-    // JPEG 压缩配置
-    jpg: {
-      mozjpeg: {
-        quality: 85, // 压缩质量 (0-100)
-        progressive: true, // 渐进式 JPEG
-      },
+    // JPEG 压缩配置（mozjpeg 算法）
+    mozjpeg: {
+      quality: 85, // 压缩质量 (0-100)
+      progressive: true, // 渐进式 JPEG
     },
-    // GIF 压缩配置
-    gif: {
-      gifsicle: {
-        optimizationLevel: 3, // 最高压缩级别 (0-3)
-        colors: 256, // 最大颜色数
-      },
+    // GIF 压缩配置（gifsicle 算法）
+    gifsicle: {
+      optimizationLevel: 3, // 最高压缩级别 (0-3)
     },
-    // SVG 压缩配置
-    svg: {
-      svgo: {
-        plugins: [
-          {
-            name: 'preset-default',
-            params: {
-              overrides: {
-                removeViewBox: false, // 保留 viewBox
-              },
+    // SVG 压缩配置（svgo 算法）
+    svgo: {
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false, // 保留 viewBox
             },
           },
-        ],
-      },
+        },
+      ],
     },
     // WebP 压缩配置
     webp: {
-      cwebp: {
-        quality: 85, // 压缩质量 (0-100)
-      },
+      quality: 85, // 压缩质量 (0-100)
     },
     // 是否显示压缩日志
     verbose: true,
-    // 跳过大于 10KB 的文件（可选）
-    // silent: false,
   });
 }
 
