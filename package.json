@@ -95,6 +95,7 @@
     "test:unit:watch": "vitest --config vitest.config.ts",
     "test:coverage": "vitest run --config vitest.config.ts --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:smoke": "cross-env E2E_APP_CMD=\"pnpm turbo run dev --filter=@ydsz/main-web\" playwright test --config=tests/e2e/playwright.config.ts",
     "test:a11y": "playwright test --config=playwright.config.ts",
     "test:a11y:install": "playwright install chromium",
     "test:visual": "playwright test --config=playwright.visual.config.ts",

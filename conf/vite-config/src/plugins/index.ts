@@ -186,7 +186,7 @@ async function loadApplicationPlugins(
     },
     {
       condition: injectAppLoading,
-      plugins: async () => [await viteInjectAppLoadingPlugin(!!isBuild, env)],
+      plugins: async () => [await viteInjectAppLoadingPlugin(!!isBuild, env as Record<string, string | undefined> | undefined)],
     },
     {
       condition: license,

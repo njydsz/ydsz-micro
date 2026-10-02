@@ -28,6 +28,7 @@ export * from './resize';
 export * from './safe-html';
 export * from './skeleton';
 export * from './tippy';
+export * from './virtual-list';
 export * from './watermark';
 export * from '@ydsz-core/form-ui';
 export * from '@ydsz-core/popup-ui';

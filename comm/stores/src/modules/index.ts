@@ -8,6 +8,7 @@
 export * from './access';
 export * from './auth';
 export * from './dict';
+export * from './notification-core';
 export * from './tabbar';
 export * from './tenant';
 export * from './user';
