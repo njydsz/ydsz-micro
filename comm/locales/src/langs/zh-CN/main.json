@@ -1,0 +1,68 @@
+{
+  "main": {
+    "search": {
+      "placeholder": "搜索菜单、功能、操作... (⌘K)",
+      "slashModePlaceholder": "输入 / 命令（/lock /theme /goto ...）",
+      "tabNavigation": "功能导航",
+      "tabAllSearch": "全部搜索",
+      "emptyTip": "输入关键词开始搜索，或浏览下方功能导航",
+      "noResults": "未找到匹配项",
+      "loading": "搜索中...",
+      "recentLabel": "历史",
+      "hotLabel": "热门",
+      "hotPrefix": "热门搜索",
+      "hintNavigate": "↑↓ 选择",
+      "hintConfirm": "↵ 确认",
+      "hintClose": "Esc 关闭",
+      "hintSlashEnter": "↵ 执行命令",
+      "category": {
+        "page": "页面",
+        "doc": "文档",
+        "user": "用户",
+        "message": "消息",
+        "task": "任务",
+        "agent": "智能体"
+      }
+    },
+    "slashCmd": {
+      "args": "参数",
+      "lock": "锁定当前屏幕",
+      "unlock": "解锁屏幕",
+      "theme": "切换主题（dark / light）",
+      "goto": "跳转到指定路径",
+      "search": "搜索",
+      "help": "显示全部命令列表",
+      "feedback": "提交反馈",
+      "reload": "重新加载页面",
+      "tip": {
+        "lock": "",
+        "unlock": "",
+        "theme": "可选: dark | light",
+        "goto": "例: /goto /system/role",
+        "search": "例: /search 工单",
+        "help": "",
+        "feedback": "",
+        "reload": ""
+      }
+    },
+    "quickCreate": {
+      "title": "快速创建",
+      "newTicket": "新建工单",
+      "newTicketDesc": "提交一个新的工单",
+      "newDocument": "新建文档",
+      "newDocumentDesc": "创建协作文档",
+      "newTask": "新建任务",
+      "newTaskDesc": "添加待办事项",
+      "addUser": "添加用户",
+      "addUserDesc": "创建新用户账号",
+      "viewNotifications": "查看通知",
+      "viewNotificationsDesc": "打开通知中心",
+      "lockScreen": "锁定屏幕",
+      "lockScreenDesc": "立即锁定当前会话",
+      "submitFeedback": "提交反馈",
+      "submitFeedbackDesc": "意见与建议",
+      "settings": "系统设置",
+      "settingsDesc": "打开偏好设置"
+    }
+  }
+}

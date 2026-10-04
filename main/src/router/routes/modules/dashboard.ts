@@ -40,6 +40,27 @@ const routes: RouteRecordRaw[] = [
           title: $t('page.dashboard.workspace'),
         },
       },
+      {
+        name: 'Notifications',
+        path: 'notifications',
+        component: () => import('#/views/notifications/index.vue'),
+        meta: {
+          icon: 'lucide:bell',
+          ignoreAccess: true,
+          hideInMenu: false,
+          title: $t('page.dashboard.notifications'),
+        },
+      },
+      {
+        name: 'Performance',
+        path: 'performance',
+        component: () => import('#/views/dashboard/performance/index.vue'),
+        meta: {
+          icon: 'lucide:gauge',
+          ignoreAccess: true,
+          title: $t('page.dashboard.performance'),
+        },
+      },
     ],
   },
 ];

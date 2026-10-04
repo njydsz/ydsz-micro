@@ -24,6 +24,14 @@
       - JetBrains Mono: wght(400..700) 可变轴
     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400..700&display=swap" />
+    <!--
+      YDSZ Sans 子集字体预加载
+      - 仅 preload 首屏关键子集（Latin + CJK-3500），CJK-ext 按需加载
+      - crossorigin 必须（即使同域）— CORS 模式加载字体
+      - 实际 woff2 由 pnpm font-subset 生成，源字体需项目采购后提供
+    -->
+    <link rel="preload" href="/fonts-subset/ydsz-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts-subset/ydsz-sans-cjk-3500.woff2" as="font" type="font/woff2" crossorigin />
     <!-- C4: preconnect 外部资源域，减少首请求延迟 -->
     <link rel="preconnect" href="https://hm.baidu.com" crossorigin />
     <link rel="dns-prefetch" href="https://hm.baidu.com" />

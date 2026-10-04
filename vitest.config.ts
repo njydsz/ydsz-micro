@@ -22,11 +22,15 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(rootDir, 'main/src'),
-      '#': resolve(rootDir, 'apps/agent-web/src'),
+      '#': resolve(rootDir, 'main/src'),
+      '@ydsz/request': resolve(rootDir, 'comm/effects/request/src/index.ts'),
     },
   },
   test: {
     globals: true,
+    resolve: {
+      dedupe: ['../src/i18n'],
+    },
     environment: 'happy-dom',
     include: [
       'apps/**/*.test.{ts,tsx}',

@@ -9,7 +9,94 @@
   "dashboard": {
     "title": "YDSZ 项目管理平台",
     "analytics": "数据分析",
-    "workspace": "工作台"
+    "workspace": "工作台",
+    "notifications": "通知中心",
+    "performance": "性能监控"
+  },
+  "operations": "运营",
+  "audit": {
+    "title": "操作审计",
+    "filter": {
+      "operatorName": "操作人",
+      "module": "模块",
+      "actionType": "类型",
+      "result": "操作结果",
+      "dateRange": "时间范围",
+      "keyword": "关键词",
+      "search": "查询",
+      "reset": "重置",
+      "export": "导出"
+    },
+    "table": {
+      "actionTime": "时间",
+      "operatorName": "操作人",
+      "module": "模块",
+      "actionType": "类型",
+      "description": "简要描述",
+      "clientIp": "IP",
+      "operation": "操作",
+      "viewDetail": "查看详情",
+      "empty": "暂无审计记录",
+      "total": "共 {count} 条记录"
+    },
+    "detail": {
+      "title": "审计日志详情",
+      "basicInfo": "基本信息",
+      "clientInfo": "客户端信息",
+      "diffTitle": "变更对比",
+      "errorMessage": "错误信息",
+      "noDiff": "无变更字段数据",
+      "session": "Session ID",
+      "browser": "浏览器",
+      "os": "操作系统",
+      "oldValue": "原值",
+      "newValue": "新值",
+      "loading": "加载中..."
+    },
+    "actionType": {
+      "CREATE": "新增",
+      "UPDATE": "修改",
+      "DELETE": "删除",
+      "LOGIN": "登录",
+      "EXPORT": "导出"
+    },
+    "exportConfirm": "敏感数据导出需要二次认证"
+  },
+  "notification": {
+    "summary": {
+      "total": "通知总数",
+      "unread": "未读",
+      "today": "今日",
+      "connection": "连接状态"
+    },
+    "sse": {
+      "connected": "实时已连接",
+      "disconnected": "未连接"
+    },
+    "col": {
+      "title": "标题",
+      "level": "级别",
+      "time": "时间",
+      "status": "状态"
+    },
+    "level": {
+      "info": "提示",
+      "success": "成功",
+      "warning": "警告",
+      "error": "错误"
+    },
+    "status": {
+      "read": "已读",
+      "unread": "未读"
+    },
+    "filter": {
+      "allLevels": "全部级别",
+      "allStatus": "全部状态"
+    },
+    "markRead": "标记已读",
+    "markAllRead": "全部已读",
+    "clearAll": "清空全部",
+    "viewDetail": "查看详情"
   },
   "microKernel": {
     "containerLabel": "微前端子应用容器",

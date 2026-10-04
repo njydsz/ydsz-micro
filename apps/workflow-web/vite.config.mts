@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { defineConfig } from '@ydsz/vite-config';
+import { defineConfig, withVendorExternals } from '@ydsz/vite-config';
 
 /**
  * 工作流子应用 / Vite 构建配置（默认导出）。
@@ -19,7 +19,7 @@ import { defineConfig } from '@ydsz/vite-config';
 export default defineConfig(async () => {
   return {
     application: {},
-    vite: {
+    vite: withVendorExternals({
       base: '/',
       plugins: [
       ],
@@ -39,6 +39,6 @@ export default defineConfig(async () => {
           },
         },
       },
-    },
+    }),
   };
 });

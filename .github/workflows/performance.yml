@@ -1,0 +1,98 @@
+name: Performance Budget
+
+# 云顶编码规范 §15.8 / §18.5 —— 性能门禁：
+# PR 必跑 Web Vitals 测量（LCP / CLS / FCP / TTFB），
+# 与 main 分支基线对比，退化 > 20% 即失败。
+#
+# 独立于 ci.yml 运行，避免阻塞 lint/type-check 等快速门禁。
+# 使用 Playwright + Chromium 真实测量，结果输出为 HTML 报告 + JUnit XML。
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: perf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web-vitals:
+    name: Web Vitals 基线对比（LCP / CLS / FCP / TTFB）
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 需要完整历史对比 main 基线
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 安装 Playwright Chromium
+        run: pnpm exec playwright install chromium
+
+      # 构建生产产物供 Playwright 实测
+      - name: 构建 main-web（production）
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+          VITE_DISABLE_PERF_TRACK: 'false'  # 确保采集代码不被 tree-shake
+        run: pnpm build:main
+
+      # 检出 main 分支基线（PR 时与 main 对比）
+      - name: 检出 main 分支基线文件
+        if: github.event_name == 'pull_request'
+        run: |
+          git show main:main/.perf-budget.json > /tmp/main-perf-budget.json 2>/dev/null || echo "{}" > /tmp/main-perf-budget.json
+          echo "=== main 基线 budget ==="
+          cat /tmp/main-perf-budget.json || echo "(not found)"
+
+      # 运行 Playwright Web Vitals 测试
+      - name: 运行 Web Vitals 基线测试
+        id: vitals-test
+        continue-on-error: true  # 允许收集报告后再失败
+        run: |
+          pnpm exec playwright test tests/performance/web-vitals.spec.ts \
+            --reporter=html,junit,line \
+            --workers=1 \
+            --timeout=60000
+
+      # 对比退化检测（> 20% 则失败）
+      - name: 性能退化检测（> 20% 失败）
+        if: github.event_name == 'pull_request'
+        run: |
+          python3 bash/check-performance-regression.py \
+            --baseline /tmp/main-perf-budget.json \
+            --current test-results/web-vitals-metrics.json \
+            --threshold 0.20
+
+      # 归档性能报告（HTML + JUnit + 原始指标 JSON）
+      - name: 归档性能监控报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-reports-${{ github.run_number }}
+          path: |
+            test-results/web-vitals-html/**/*
+            test-results/web-vitals-junit.xml
+            test-results/web-vitals-metrics.json
+            playwright-report/**/*
+          if-no-files-found: warn
+          retention-days: 30
+
+      # 门禁失败时显式设置 job 状态
+      - name: 失败时退出
+        if: steps.vitals-test.outcome == 'failure'
+        run: |
+          echo "::error::Web Vitals 测试失败，请查看归档报告了解详情"
+          exit 1

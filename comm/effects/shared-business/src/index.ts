@@ -156,6 +156,13 @@ export {
   openSecondaryAuthModal,
 } from './composables/use-secondary-auth';
 
+// 子应用启动统一工厂 — 封装 pinia / router / i18n / feature-flags / 错误边界共性逻辑
+export {
+  defineYdzSubApp,
+  type SubAppOptions,
+  type SubAppInstance,
+} from './composables/use-bootstrap';
+
 // ===== 统一适配器（消除 9 个子应用的重复代码） =====
 export {
   initSetupYDSZForm,

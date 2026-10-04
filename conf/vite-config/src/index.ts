@@ -11,4 +11,5 @@
 export * from './config';
 export * from './options';
 export * from './plugins';
+export * from './ydsz-vite-preset';
 export { loadAndConvertEnv } from './utils/env';

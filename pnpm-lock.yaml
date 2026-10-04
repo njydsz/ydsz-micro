@@ -2416,6 +2416,9 @@ importers:
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.9.0(vue@3.5.40(typescript@5.9.3))
+      '@ydsz-core/feature-flags':
+        specifier: workspace:*
+        version: link:../../@core/feature-flags
       '@ydsz-core/popup-ui':
         specifier: workspace:*
         version: link:../../@core/ui-kit/popup-ui
@@ -2431,6 +2434,9 @@ importers:
       '@ydsz/locales':
         specifier: workspace:*
         version: link:../../locales
+      '@ydsz/micro-runtime':
+        specifier: workspace:*
+        version: link:../micro-runtime
       '@ydsz/notification':
         specifier: workspace:*
         version: link:../notification
@@ -2440,18 +2446,30 @@ importers:
       '@ydsz/stores':
         specifier: workspace:*
         version: link:../../stores
+      '@ydsz/styles':
+        specifier: workspace:*
+        version: link:../../styles
       '@ydsz/types':
         specifier: workspace:*
         version: link:../../types
       lucide-vue-next:
         specifier: 'catalog:'
         version: 0.507.0(vue@3.5.40(typescript@5.9.3))
+      pinia:
+        specifier: ^3.0.3
+        version: 3.0.4(typescript@5.9.3)(vue@3.5.40(typescript@5.9.3))
+      pinia-plugin-persistedstate:
+        specifier: 'catalog:'
+        version: 4.7.1(@nuxt/kit@3.21.10(magicast@0.5.4))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.40(typescript@5.9.3)))
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
       vue-i18n:
         specifier: 'catalog:'
         version: 11.4.8(vue@3.5.40(typescript@5.9.3))
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.6.4(vue@3.5.40(typescript@5.9.3))
       xlsx:
         specifier: 'catalog:'
         version: 0.18.5

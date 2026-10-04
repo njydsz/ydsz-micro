@@ -33,9 +33,9 @@
    *  4. 彩色Emoji 置于回保链末尾，确保 emoji 字符不被黑白 LCG 字体替换
    * ============================================================ */
   --font-family:
-    'Inter Variable', 'Inter', -apple-system, blinkmacsystemfont, /* 中文回退链 */ 'PingFang SC',
-    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', /* 西文系统字体回退 */ 'Segoe UI',
-    roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
+    'YDSZ Sans', 'Inter Variable', 'Inter', -apple-system, blinkmacsystemfont,
+    /* 中文回退链 */ 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
+    /* 西文系统字体回退 */ 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
     /* Emoji兜底（确保彩色 emoji 不被 LCG 字体替换为黑白） */ 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
   --font-family-code:

@@ -10,6 +10,8 @@
  *       骨架屏类型优先取自子应用 manifest.routes，回退到 route.meta.skeletonType。
  * v4.1: 阶段状态机/骨架屏解析提取为 composable（use-subapp-phase / use-skeleton-resolver），
  *       移除依赖隐式副作用的空 watch（computed 已自动追踪 route.path）。
+ * v4.4: 子应用切换丝滑过渡 — <Transition> 包裹挂载点，淡入 300ms，
+ *       800ms 骨架屏延迟展示，离开前 snapshot 由 page-cache 捕获。
  *
  * @path main\src\views\_core\subapp\index.vue
  * @author ydsz-team
@@ -47,7 +49,7 @@ const {
   state,
   phaseText,
   screenReaderAnnouncement,
-  showSkeleton,
+  showSkeleton: showSkeletonImmediate,
   showErrorMask,
   errorMaskTitle,
   errorMaskHint,
@@ -58,11 +60,33 @@ const {
 /** 骨架屏组件解析（computed 自动追踪 route.path，无需手动 watch） */
 const pageSkeletonComponent = useSkeletonResolver(state.activeAppName, route);
 
-/** 取消订阅函数集合，组件卸载时统一调用 */
-const unsubscribers: Array<() => void> = [];
+/** 挂载点 key — 应用名变化时触发 <Transition> 过渡 */
+const mountKey = ref(state.activeAppName.value || "empty");
+
+/** 应用淡入动画标志 — afterMount 后置 true，触发 opacity 0→1 */
+const isFadingIn = ref(false);
+
+/** 延迟骨架屏标志 — beforeLoad 800ms 后若仍未 mounted 则置 true */
+const showDelayedSkeleton = ref(false);
 
 /** mounted 阶段重置定时器 */
 let mountedResetTimer: ReturnType<typeof setTimeout> | undefined;
+
+/** 骨架屏延迟定时器 */
+let skeletonDelayTimer: ReturnType<typeof setTimeout> | undefined;
+
+/** 取消订阅函数集合，组件卸载时统一调用 */
+const unsubscribers: Array<() => void> = [];
+
+/**
+ * 判断是否展示延迟骨架屏。
+ *
+ * 延迟 800ms 后才在 loading/mounting 阶段展示骨架屏，
+ * 避免快速加载的子应用闪烁骨架屏。
+ */
+function showSkeleton(): boolean {
+  return showDelayedSkeleton.value && showSkeletonImmediate();
+}
 
 onMounted(() => {
   if (!microRuntime) {
@@ -75,6 +99,16 @@ onMounted(() => {
   unsubscribers.push(
     microRuntime.addLifecycleHook("beforeLoad", (app: MicroAppConfig) => {
       setPhase("loading", app.name);
+      // 启动 800ms 延迟骨架屏定时器，mounted 后清除
+      showDelayedSkeleton.value = false;
+      clearTimeout(skeletonDelayTimer);
+      skeletonDelayTimer = window.setTimeout(() => {
+        if (
+          ["loading", "loaded", "mounting"].includes(state.phase.value)
+        ) {
+          showDelayedSkeleton.value = true;
+        }
+      }, 800);
     }),
   );
 
@@ -100,6 +134,15 @@ onMounted(() => {
   unsubscribers.push(
     microRuntime.addLifecycleHook("afterMount", (app: MicroAppConfig) => {
       setPhase("mounted", app.name);
+      mountKey.value = app.name;
+      // 清除延迟骨架屏定时器
+      clearTimeout(skeletonDelayTimer);
+      showDelayedSkeleton.value = false;
+      // 触发淡入动画
+      isFadingIn.value = true);
+      window.setTimeout(() => {
+        isFadingIn.value = false;
+      }, 300);
       // 100% 后短暂保持，再切回 idle 以便复用
       clearTimeout(mountedResetTimer);
       mountedResetTimer = window.setTimeout(() => {
@@ -111,9 +154,11 @@ onMounted(() => {
   // afterUnmount: 子应用卸载完成（切换中的过渡态）
   unsubscribers.push(
     microRuntime.addLifecycleHook("afterUnmount", (app: MicroAppConfig) => {
+      // 离开前的 snapshot 由 page-cache 内部 flush 自动捕获（无需手动）
       // 若当前激活应用仍是被卸载的应用，进入 unmounting 过渡
       if (state.activeAppName.value === app.name) {
         setPhase("unmounting", null);
+        mountKey.value = "empty";
       }
     }),
   );
@@ -123,6 +168,8 @@ onMounted(() => {
     microRuntime.addLifecycleHook(
       "error",
       (app: MicroAppConfig, err: unknown) => {
+        clearTimeout(skeletonDelayTimer);
+        showDelayedSkeleton.value = false;
         setError(err, app.name);
       },
     ),
@@ -133,11 +180,13 @@ onMounted(() => {
   const active = microRuntime.getActiveAppName();
   if (active && state.phase.value === "idle") {
     setPhase("mounted", active);
+    mountKey.value = active;
   }
 });
 
 onUnmounted(() => {
   clearTimeout(mountedResetTimer);
+  clearTimeout(skeletonDelayTimer);
   for (const off of unsubscribers.splice(0)) {
     try {
       off();
@@ -155,51 +204,58 @@ onUnmounted(() => {
       {{ screenReaderAnnouncement }}
     </div>
 
-    <!-- 子应用挂载容器 -->
-    <div
-      id="subapp-container"
-      ref="subappContainerRef"
-      class="subapp-container"
-      role="region"
-      :aria-label="$t('page.microKernel.containerLabel')"
-      :aria-busy="showSkeleton()"
-      :class="{ 'is-loading': showSkeleton(), 'has-error': showErrorMask() }"
-    >
-      <!-- 页面级骨架屏（优先取自 manifest.routes，回退到路由 meta.skeletonType） -->
-      <div v-if="showSkeleton()" class="subapp-skeleton-wrapper">
-        <component :is="pageSkeletonComponent" />
-        <div
-          class="skeleton-progress"
-          role="progressbar"
-          :aria-valuenow="state.progress.value"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        >
-          <div
-            class="progress-bar"
-            :style="{ width: `${state.progress.value}%` }"
-          ></div>
-        </div>
-        <p class="loading-text">
-          {{ phaseText
-          }}<span v-if="state.activeAppName.value">
-            · {{ state.activeAppName.value }}</span
-          >
-        </p>
-      </div>
-
-      <!-- 错误态遮罩（实际错误 UI 由内核 error-boundary 渲染） -->
+    <!-- 子应用挂载容器 — Transition 包裹实现切换淡入 -->
+    <Transition name="subapp-fade" mode="out-in">
       <div
-        v-else-if="showErrorMask()"
-        class="subapp-error-mask"
-        aria-live="polite"
+        :key="mountKey"
+        id="subapp-container"
+        ref="subappContainerRef"
+        class="subapp-container"
+        role="region"
+        :aria-label="$t('page.microKernel.containerLabel')"
+        :aria-busy="showSkeleton()"
+        :class="{
+          'is-loading': showSkeleton(),
+          'has-error': showErrorMask(),
+          'is-fading-in': isFadingIn,
+        }"
       >
-        <p class="error-app">{{ state.activeAppName.value }}</p>
-        <p class="error-title">{{ errorMaskTitle }}</p>
-        <p class="error-msg">{{ state.lastError.value || phaseText }}</p>
-        <p class="error-hint">{{ errorMaskHint }}</p>
+        <!-- 页面级骨架屏（延迟 800ms 展示，避免闪烁） -->
+        <div v-if="showSkeleton()" class="subapp-skeleton-wrapper">
+          <component :is="pageSkeletonComponent" />
+          <div
+            class="skeleton-progress"
+            role="progressbar"
+            :aria-valuenow="state.progress.value"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="progress-bar"
+              :style="{ width: `${state.progress.value}%` }"
+            ></div>
+          </div>
+          <p class="loading-text">
+            {{ phaseText
+            }}<span v-if="state.activeAppName.value">
+              · {{ state.activeAppName.value }}</span
+            >
+          </p>
+        </div>
+
+        <!-- 错误态遮罩（实际错误 UI 由内核 error-boundary 渲染） -->
+        <div
+          v-else-if="showErrorMask()"
+          class="subapp-error-mask"
+          aria-live="polite"
+        >
+          <p class="error-app">{{ state.activeAppName.value }}</p>
+          <p class="error-title">{{ errorMaskTitle }}</p>
+          <p class="error-msg">{{ state.lastError.value || phaseText }}</p>
+          <p class="error-hint">{{ errorMaskHint }}</p>
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -216,20 +272,37 @@ onUnmounted(() => {
   min-height: 400px;
 }
 
-/* P1-4: 骨架屏渐显 — 子应用内容从骨架屏切换到已渲染状态时应用淡入 */
-.subapp-container:not(.is-loading, .has-error) {
-  animation: subapp-fade-in 0.2s ease-out;
+/* ==================== 子应用切换淡入/淡出过渡（300ms） ==================== */
+
+.subapp-fade-enter-active,
+.subapp-fade-leave-active {
+  transition: opacity 300ms ease;
+}
+
+.subapp-fade-enter-from {
+  opacity: 0;
+}
+
+.subapp-fade-leave-to {
+  opacity: 0;
+}
+
+/* mounted 后首帧淡入动画 — 与 Transition 叠加使用 */
+.subapp-container.is-fading-in {
+  animation: subapp-fade-in 300ms ease-out;
 }
 
 @keyframes subapp-fade-in {
   from {
-    opacity: 0.4;
+    opacity: 0;
   }
 
   to {
     opacity: 1;
   }
 }
+
+/* ==================== 加载态 / 错误态 ==================== */
 
 .subapp-container.is-loading {
   display: flex;
@@ -256,7 +329,7 @@ onUnmounted(() => {
   border: 0;
 }
 
-/* 骨骼屏包装器样式 */
+/* 骨架屏包装器样式 */
 .subapp-skeleton-wrapper {
   display: flex;
   flex-direction: column;

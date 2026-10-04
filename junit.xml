@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="6" failures="0" errors="0" time="0.0077834">
-    <testsuite name="comm/stores/src/modules/notification-core.test.ts" timestamp="2026-10-02T02:11:12.768Z" hostname="DESKTOP-FIC0TQ3" tests="6" failures="0" errors="0" skipped="0" time="0.0077834">
-        <testcase classname="comm/stores/src/modules/notification-core.test.ts" name="createNotificationCore &gt; 初始 state 为空列表与零未读数" time="0.0017334">
+<testsuites name="vitest tests" tests="7" failures="0" errors="0" time="0.011709">
+    <testsuite name="main/src/store/__tests__/audit.test.ts" timestamp="2026-10-04T12:11:22.172Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.011709">
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; fetchLogs &gt; 应正确更新 list 与 total" time="0.0030058">
         </testcase>
-        <testcase classname="comm/stores/src/modules/notification-core.test.ts" name="createNotificationCore &gt; loadNotifications 成功后更新列表" time="0.0011644">
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; fetchLogs &gt; 翻页时应传入正确的 pageNum" time="0.0017871">
         </testcase>
-        <testcase classname="comm/stores/src/modules/notification-core.test.ts" name="createNotificationCore &gt; loadNotifications 失败时静默降级（不抛异常）" time="0.0033114">
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; fetchLogs &gt; API 失败时应清空列表并设置 total 为 0" time="0.0039955">
             <system-err>
-[YDSZ][NotificationCore] 加载通知列表失败 Error: Network Error
-    at [90mD:\Code\open\ydsz-micro\[39mcomm\stores\src\modules\notification-core.test.ts:58:54
+[YDSZ][AuditStore] Failed to fetch audit logs: Error: Network error
+    at [90mD:\Code\open\ydsz-micro\[39mmain\src\store\__tests__\audit.test.ts:120:43
     at [90mfile:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
     at [90mfile:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
     at [90mfile:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
@@ -21,11 +21,27 @@
 
             </system-err>
         </testcase>
-        <testcase classname="comm/stores/src/modules/notification-core.test.ts" name="createNotificationCore &gt; refreshUnreadCount 成功后更新未读数" time="0.0001667">
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; resetFilters &gt; 应重置所有筛选条件并重新拉取第一页" time="0.0005488">
         </testcase>
-        <testcase classname="comm/stores/src/modules/notification-core.test.ts" name="createNotificationCore &gt; markRead 成功后更新本地已读状态并递减未读计数" time="0.0004798">
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; fetchDetail &gt; 应正确设置当前 detail" time="0.0005131">
         </testcase>
-        <testcase classname="comm/stores/src/modules/notification-core.test.ts" name="createNotificationCore &gt; markAllRead 后将所有通知改为已读且未读计数归零" time="0.0002811">
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; fetchDetail &gt; API 失败时应将 currentDetail 设为 null" time="0.0006073">
+            <system-err>
+[YDSZ][AuditStore] Failed to fetch audit detail for id=nonexistent-id: Error: Not found
+    at [90mD:\Code\open\ydsz-micro\[39mmain\src\store\__tests__\audit.test.ts:198:47
+    at [90mfile:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (&lt;anonymous&gt;)
+    at runWithTimeout [90m(file:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+    at runSuite [90m(file:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///D:/Code/open/ydsz-micro/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@3.2.7/node_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+            </system-err>
+        </testcase>
+        <testcase classname="main/src/store/__tests__/audit.test.ts" name="useAuditStore &gt; fetchDetail &gt; clearDetail 应清除当前 detail" time="0.0002276">
         </testcase>
     </testsuite>
 </testsuites>

@@ -11,3 +11,4 @@ export * from './menu';
 export * from './notification';
 export * from './tenant';
 export * from './user';
+export * from '../audit';

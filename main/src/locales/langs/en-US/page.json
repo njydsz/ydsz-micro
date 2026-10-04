@@ -9,7 +9,94 @@
   "dashboard": {
     "title": "YDSZ Platform",
     "analytics": "Analytics",
-    "workspace": "Workspace"
+    "workspace": "Workspace",
+    "notifications": "Notifications",
+    "performance": "Performance"
+  },
+  "operations": "Operations",
+  "audit": {
+    "title": "Audit Logs",
+    "filter": {
+      "operatorName": "Operator",
+      "module": "Module",
+      "actionType": "Type",
+      "result": "Result",
+      "dateRange": "Date Range",
+      "keyword": "Keyword",
+      "search": "Search",
+      "reset": "Reset",
+      "export": "Export"
+    },
+    "table": {
+      "actionTime": "Time",
+      "operatorName": "Operator",
+      "module": "Module",
+      "actionType": "Type",
+      "description": "Description",
+      "clientIp": "IP",
+      "operation": "Action",
+      "viewDetail": "View Detail",
+      "empty": "No audit records",
+      "total": "{count} records in total"
+    },
+    "detail": {
+      "title": "Audit Log Detail",
+      "basicInfo": "Basic Information",
+      "clientInfo": "Client Info",
+      "diffTitle": "Change Diff",
+      "errorMessage": "Error Message",
+      "noDiff": "No change data",
+      "session": "Session ID",
+      "browser": "Browser",
+      "os": "OS",
+      "oldValue": "Old",
+      "newValue": "New",
+      "loading": "Loading..."
+    },
+    "actionType": {
+      "CREATE": "Create",
+      "UPDATE": "Update",
+      "DELETE": "Delete",
+      "LOGIN": "Login",
+      "EXPORT": "Export"
+    },
+    "exportConfirm": "Sensitive data export requires secondary authentication"
+  },
+  "notification": {
+    "summary": {
+      "total": "Total",
+      "unread": "Unread",
+      "today": "Today",
+      "connection": "Connection"
+    },
+    "sse": {
+      "connected": "Live",
+      "disconnected": "Disconnected"
+    },
+    "col": {
+      "title": "Title",
+      "level": "Level",
+      "time": "Time",
+      "status": "Status"
+    },
+    "level": {
+      "info": "Info",
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "status": {
+      "read": "Read",
+      "unread": "Unread"
+    },
+    "filter": {
+      "allLevels": "All Levels",
+      "allStatus": "All Status"
+    },
+    "markRead": "Mark as Read",
+    "markAllRead": "Mark All as Read",
+    "clearAll": "Clear All",
+    "viewDetail": "View Detail"
   },
   "microKernel": {
     "containerLabel": "Micro-frontend Subapplication Container",

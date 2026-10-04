@@ -62,6 +62,7 @@
     "gen:error-codes:check": "node ./bash/gen-error-codes.mts --check",
     "gen:nginx": "node ./bash/gen-nginx-conf.mts",
     "gen:nginx:check": "node ./bash/gen-nginx-conf.mts --check",
+    "font-subset": "node --import tsx ./bash/font-subset.mts",
     "gen:registry": "node ./bash/gen-registry.mts",
     "postinstall": "pnpm -r run stub --if-present",
     "preinstall": "npx only-allow pnpm",

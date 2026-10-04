@@ -95,3 +95,10 @@ export {
   useSecondaryAuth,
   openSecondaryAuthModal,
 } from './use-secondary-auth';
+
+// —— 子应用启动统一工厂 ——
+export {
+  defineYdzSubApp,
+  type SubAppOptions,
+  type SubAppInstance,
+} from './use-bootstrap';

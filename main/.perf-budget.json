@@ -1,0 +1,33 @@
+{
+  "budgets": [
+    {
+      "path": "/",
+      "resourceCounts": [
+        { "type": "total", "budget": 50 },
+        { "type": "script", "budget": 15 },
+        { "type": "stylesheet", "budget": 5 },
+        { "type": "image", "budget": 20 },
+        { "type": "document", "budget": 1 },
+        { "type": "font", "budget": 5 }
+      ],
+      "resourceSizes": [
+        { "type": "total", "budget": 1048576 },
+        { "type": "script", "budget": 512000 },
+        { "type": "vendor-js", "budget": 307200 },
+        { "type": "total-js-gzip", "budget": 512000 },
+        { "type": "vendor-js-gzip", "budget": 307200 },
+        { "type": "stylesheet", "budget": 102400 },
+        { "type": "image", "budget": 524288 },
+        { "type": "font", "budget": 204800 }
+      ],
+      "timings": [
+        { "metric": "lcp", "budget": 2500 },
+        { "metric": "cls", "budget": 0.05 },
+        { "metric": "fcp", "budget": 1800 },
+        { "metric": "ttfb", "budget": 800 },
+        { "metric": "fid", "budget": 100 },
+        { "metric": "inp", "budget": 200 }
+      ]
+    }
+  ]
+}

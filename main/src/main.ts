@@ -8,6 +8,7 @@
 import { initPreferences } from '@ydsz/preferences';
 import { unmountGlobalLoading } from '@ydsz/utils';
 
+import { useWebVitals } from '#/composables/use-web-vitals';
 import { overridesPreferences } from './preferences';
 import { registerServiceWorker } from './service-worker';
 
@@ -31,6 +32,9 @@ async function initApplication() {
   // vue应用主要逻辑及视图
   const { bootstrap } = await import('./bootstrap');
   await bootstrap(namespace);
+
+  // 安装 Web Vitals 性能采集（仅在非禁用状态下生效）
+  useWebVitals();
 
   // 移除并销毁loading
   unmountGlobalLoading();

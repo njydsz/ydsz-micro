@@ -1,0 +1,68 @@
+{
+  "main": {
+    "search": {
+      "placeholder": "Search menus, features, actions... (⌘K)",
+      "slashModePlaceholder": "Type a / command (/lock /theme /goto ...)",
+      "tabNavigation": "Navigation",
+      "tabAllSearch": "All Search",
+      "emptyTip": "Type to search or browse navigation below",
+      "noResults": "No results found",
+      "loading": "Searching...",
+      "recentLabel": "Recent",
+      "hotLabel": "Hot",
+      "hotPrefix": "Hot Search",
+      "hintNavigate": "↑↓ Navigate",
+      "hintConfirm": "↵ Confirm",
+      "hintClose": "Esc Close",
+      "hintSlashEnter": "↵ Run Command",
+      "category": {
+        "page": "Page",
+        "doc": "Document",
+        "user": "User",
+        "message": "Message",
+        "task": "Task",
+        "agent": "Agent"
+      }
+    },
+    "slashCmd": {
+      "args": "Args",
+      "lock": "Lock current screen",
+      "unlock": "Unlock screen",
+      "theme": "Switch theme (dark / light)",
+      "goto": "Navigate to path",
+      "search": "Search",
+      "help": "Show all commands",
+      "feedback": "Submit feedback",
+      "reload": "Reload page",
+      "tip": {
+        "lock": "",
+        "unlock": "",
+        "theme": "Options: dark | light",
+        "goto": "e.g. /goto /system/role",
+        "search": "e.g. /search ticket",
+        "help": "",
+        "feedback": "",
+        "reload": ""
+      }
+    },
+    "quickCreate": {
+      "title": "Quick Create",
+      "newTicket": "New Ticket",
+      "newTicketDesc": "Submit a new support ticket",
+      "newDocument": "New Document",
+      "newDocumentDesc": "Create a collaborative doc",
+      "newTask": "New Task",
+      "newTaskDesc": "Add a to-do item",
+      "addUser": "Add User",
+      "addUserDesc": "Create a new user account",
+      "viewNotifications": "View Notifications",
+      "viewNotificationsDesc": "Open notification center",
+      "lockScreen": "Lock Screen",
+      "lockScreenDesc": "Lock current session immediately",
+      "submitFeedback": "Submit Feedback",
+      "submitFeedbackDesc": "Feedback and suggestions",
+      "settings": "Settings",
+      "settingsDesc": "Open preference panel"
+    }
+  }
+}
