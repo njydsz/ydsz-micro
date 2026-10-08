@@ -1,0 +1,59 @@
+{
+  "title": "错误码管理",
+  "createTitle": "新增错误码配置",
+  "editTitle": "编辑错误码配置",
+  "createSuccess": "创建成功",
+  "editSuccess": "更新成功",
+  "toggleSuccess": "状态切换成功",
+  "confirmDelete": "确定删除错误码配置「{errorCode}」吗？删除后该错误码对应的失败消息将无法识别规则。",
+  "columns": {
+    "errorCode": "错误码",
+    "errorMessage": "错误消息模板",
+    "channelType": "通道类型",
+    "retryPolicy": "重试策略",
+    "notifyPolicy": "通知策略",
+    "maxRetryCount": "最大重试次数",
+    "retryIntervalBase": "重试间隔基数(秒)",
+    "description": "描述说明"
+  },
+  "placeholder": {
+    "errorCode": "请输入错误码标识（如 EMAIL_SEND_TIMEOUT）",
+    "errorMessage": "请输入错误消息模板（支持 i18n key 或带占位符文本）",
+    "channelType": "请选择通道类型",
+    "retryPolicy": "请选择重试策略",
+    "notifyPolicy": "请选择通知策略",
+    "description": "请输入描述说明（可为空）"
+  },
+  "validation": {
+    "errorCodeRequired": "请输入错误码标识",
+    "errorMessageRequired": "请输入错误消息模板",
+    "channelTypeRequired": "请选择通道类型"
+  },
+  "channel": {
+    "SMS": "短信",
+    "EMAIL": "邮件",
+    "WEBHOOK": "Webhook",
+    "PUSH": "推送通知",
+    "WECHAT": "微信",
+    "INSITE": "站内信"
+  },
+  "retryPolicy": {
+    "NONE": "不重试",
+    "SIMPLE": "简单重试",
+    "EXPONENTIAL_BACKOFF": "指数退避"
+  },
+  "notifyPolicy": {
+    "NONE": "不通知",
+    "EMAIL_ADMIN": "邮件通知管理员",
+    "SMS_ADMIN": "短信通知管理员",
+    "WEBHOOK_ALERT": "Webhook 告警"
+  },
+  "status": {
+    "enabled": "启用",
+    "disabled": "禁用"
+  },
+  "actions": {
+    "enable": "启用",
+    "disable": "禁用"
+  }
+}

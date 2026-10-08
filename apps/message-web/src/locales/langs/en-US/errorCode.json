@@ -1,0 +1,59 @@
+{
+  "title": "Error Code Management",
+  "createTitle": "Create Error Code Config",
+  "editTitle": "Edit Error Code Config",
+  "createSuccess": "Created successfully",
+  "editSuccess": "Updated successfully",
+  "toggleSuccess": "Status toggled successfully",
+  "confirmDelete": "Are you sure to delete error code config \"{errorCode}\"? Failed messages with this code will no longer match any rule.",
+  "columns": {
+    "errorCode": "Error Code",
+    "errorMessage": "Error Message Template",
+    "channelType": "Channel Type",
+    "retryPolicy": "Retry Policy",
+    "notifyPolicy": "Notification Policy",
+    "maxRetryCount": "Max Retries",
+    "retryIntervalBase": "Retry Interval Base (s)",
+    "description": "Description"
+  },
+  "placeholder": {
+    "errorCode": "Enter error code (e.g. EMAIL_SEND_TIMEOUT)",
+    "errorMessage": "Enter error message template (supports i18n key or placeholder text)",
+    "channelType": "Select channel type",
+    "retryPolicy": "Select retry policy",
+    "notifyPolicy": "Select notification policy",
+    "description": "Enter description (optional)"
+  },
+  "validation": {
+    "errorCodeRequired": "Please enter error code",
+    "errorMessageRequired": "Please enter error message template",
+    "channelTypeRequired": "Please select channel type"
+  },
+  "channel": {
+    "SMS": "SMS",
+    "EMAIL": "Email",
+    "WEBHOOK": "Webhook",
+    "PUSH": "Push",
+    "WECHAT": "WeChat",
+    "INSITE": "In-App"
+  },
+  "retryPolicy": {
+    "NONE": "No Retry",
+    "SIMPLE": "Simple Retry",
+    "EXPONENTIAL_BACKOFF": "Exponential Backoff"
+  },
+  "notifyPolicy": {
+    "NONE": "No Notification",
+    "EMAIL_ADMIN": "Email Admin",
+    "SMS_ADMIN": "SMS Admin",
+    "WEBHOOK_ALERT": "Webhook Alert"
+  },
+  "status": {
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "actions": {
+    "enable": "Enable",
+    "disable": "Disable"
+  }
+}
