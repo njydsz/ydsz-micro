@@ -18,12 +18,20 @@
 import { Page } from '@ydsz/common-ui';
 import { YdTabsContent, YdTabs, YdDescriptions, YdDescriptionsItem, YdButton, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { execute, getCheckpoint, validate } from '#/api/dag';
 import type { DagCheckpoint } from '#/api/models';
 
 import WorkflowDesigner from './components/WorkflowDesigner.vue';
 
 defineOptions({ name: 'DagManagement' });
+
+const router = useRouter();
+
+/** 跳转到工作流管理页面 */
+function goToWorkflowManagement(): void {
+  router.push({ path: '/dag/workflow' });
+}
 
 /** DSL 编排脚本与用户输入 */
 const dsl = ref('');
@@ -99,6 +107,15 @@ async function handleQueryCheckpoint() {
 </script>
 <template>
   <Page>
+    <!-- 顶部入口：跳转工作流管理 -->
+    <div class="mb-4 flex items-center justify-between rounded-md border border-border-subtle bg-accent/30 px-4 py-3">
+      <div>
+        <span class="text-sm font-medium text-text-primary">需要管理工作流的持久化版本？</span>
+        <span class="ml-2 text-sm text-text-secondary">前往工作流管理页面进行创建、编辑、版本管理和导出操作。</span>
+      </div>
+      <YdButton size="sm" @click="goToWorkflowManagement">工作流管理</YdButton>
+    </div>
+
     <YdTabs v-model="activeTab">
       <!-- DSL 编排标签页 -->
       <YdTabsContent label="DSL 编排" name="dsl">

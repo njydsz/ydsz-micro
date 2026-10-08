@@ -40,6 +40,19 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    meta: { icon: 'lucide:zap', order: 4, title: '技能引擎' },
+    name: 'SkillMgmt',
+    path: '/agent',
+    children: [
+      {
+        name: 'SkillManagement',
+        path: 'skill',
+        component: () => import('#/views/skill/index.vue'),
+        meta: { icon: 'lucide:zap', title: '技能引擎' },
+      },
+    ],
+  },
+  {
     meta: { icon: 'lucide:brain', order: 2, title: 'RAG知识库' },
     name: 'RagMgmt',
     path: '/rag',
@@ -61,7 +74,13 @@ const routes: RouteRecordRaw[] = [
         name: 'DagManagement',
         path: 'list',
         component: () => import('#/views/dag/index.vue'),
-        meta: { icon: 'lucide:workflow', title: 'DAG列表' },
+        meta: { icon: 'lucide:workflow', title: 'DAG调试台' },
+      },
+      {
+        name: 'DagWorkflowManagement',
+        path: 'workflow',
+        component: () => import('#/views/dag-workflow/index.vue'),
+        meta: { icon: 'lucide:database', title: '工作流管理' },
       },
     ],
   },
@@ -192,6 +211,32 @@ const routes: RouteRecordRaw[] = [
         path: 'list',
         component: () => import('#/views/insight/index.vue'),
         meta: { icon: 'lucide:file-bar-chart', title: '报告列表' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:git-graph', order: 14, title: '知识图谱' },
+    name: 'KnowledgeGraphMgmt',
+    path: '/agent',
+    children: [
+      {
+        name: 'KnowledgeGraphManagement',
+        path: 'knowledge',
+        component: () => import('#/views/knowledge-graph/index.vue'),
+        meta: { icon: 'lucide:git-graph', title: '知识图谱' },
+      },
+    ],
+  },
+  {
+    meta: { icon: 'lucide:loader', order: 15, title: '并发任务监控' },
+    name: 'AsyncTaskMgmt',
+    path: '/agent',
+    children: [
+      {
+        name: 'AsyncTaskManagement',
+        path: 'async-task',
+        component: () => import('#/views/async-task/index.vue'),
+        meta: { icon: 'lucide:loader', title: '并发任务监控' },
       },
     ],
   },

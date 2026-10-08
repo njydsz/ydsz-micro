@@ -40,5 +40,8 @@
   "create": "Creer",
   "edit": "Modifier",
   "delete": "Supprimer",
+  "export": "Exporter",
+  "exportSuccess": "Exportation reussie",
+  "exportFailed": "Echec de l'exportation",
   "operationSuccess": "Succes"
 }

@@ -15,9 +15,11 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
+import { showToast } from '@ydsz/notification';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelect, YdSelectItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, update } from '#/api/agentDefinition';
+import { tools } from '#/api/agentMetadata';
 import type { AgentDefinitionDTO, AgentDefinitionVO } from '#/api/models';
 /** 表单提交成功后触发，通知父级列表页刷新数据 */
 const emit = defineEmits<{ success: [] }>();
@@ -34,10 +36,35 @@ const formData = reactive<AgentDefinitionDTO>({ id: '',
   temperature: 0,
   maxTokens: 0,
 });
+/** 工具下拉选项（label-value 对），API 不可用时为空 */
+const toolOptions = ref<Array<{ label: string; value: string }>>([]);
+/** 多选当前选中值（与 formData.toolNames 逗号串双向同步） */
+const selectedTools = ref<string[]>([]);
+/** API 调用失败时降级为文本输入 */
+const useTextFallback = ref(false);
+/** 防止重复拉取 */
+let toolsLoaded = false;
 const rules = {
   agentCode: [{ required: true, message: '请输入Agent编码', trigger: 'blur' }],
   agentName: [{ required: true, message: '请输入Agent名称', trigger: 'blur' }],
 };
+/** 加载工具列表，失败时降级文本输入 */
+async function loadToolOptions(): Promise<void> {
+  if (toolsLoaded) return;
+  toolsLoaded = true;
+  try {
+    const list = await tools();
+    toolOptions.value = (list ?? []).map((t) => {
+      const name = String(t.toolName ?? t.name ?? '');
+      const code = String(t.toolCode ?? t.code ?? t.id ?? name);
+      return { label: name || code, value: code };
+    }).filter((opt) => opt.value);
+  } catch {
+    useTextFallback.value = true;
+    showToast.error('工具列表加载失败，已切换为文本输入');
+  }
+}
+
 const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen) => {
     if (!isOpen) return;
@@ -56,6 +83,7 @@ const [Modal, modalApi] = useYdModal({
         temperature: record.temperature ?? 0,
         maxTokens: record.maxTokens ?? 0,
       });
+      selectedTools.value = (formData.toolNames ?? '').split(',').map((s) => s.trim()).filter(Boolean);
     } else {
       isEdit.value = false;
       Object.assign(formData, { id: '',
@@ -69,12 +97,17 @@ const [Modal, modalApi] = useYdModal({
         temperature: 0,
         maxTokens: 0,
       });
+      selectedTools.value = [];
     }
+    // 每次打开都尝试加载工具列表
+    void loadToolOptions();
   },
   onConfirm: async () => {
     try { await formRef.value?.validate(); } catch { return; }
     modalApi.lock();
     try {
+      // 将多选数组拼回逗号分隔字符串
+      formData.toolNames = selectedTools.value.join(',');
       if (isEdit.value) { await update({ ...formData }); showToast.success('更新成功'); }
       else { await create({ ...formData }); showToast.success('创建成功'); }
       emit('success'); modalApi.close();
@@ -105,7 +138,23 @@ const title = computed(() => (isEdit.value ? '编辑Agent定义' : '新增Agent�
         <YdInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
       </YdFormItem>
       <YdFormItem label="工具列表">
-        <YdInput v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
+        <YdSelect
+          v-if="!useTextFallback"
+          v-model="selectedTools"
+          multiple
+          clearable
+          filterable
+          placeholder="请选择工具（可多选）"
+          class="w-full"
+        >
+          <YdSelectItem
+            v-for="opt in toolOptions"
+            :key="opt.value"
+            :label="opt.label"
+            :value="opt.value"
+          />
+        </YdSelect>
+        <YdInput v-else v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
       </YdFormItem>
       <YdFormItem label="温度">
         <YdNumberFieldInput v-model="formData.temperature" :min="0" :max="2" :step="0.1" />

@@ -40,5 +40,8 @@
   "create": "作成",
   "edit": "編集",
   "delete": "削除",
+  "export": "エクスポート",
+  "exportSuccess": "エクスポート成功",
+  "exportFailed": "エクスポート失敗",
   "operationSuccess": "成功"
 }

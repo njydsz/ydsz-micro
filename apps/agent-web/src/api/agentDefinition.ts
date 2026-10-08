@@ -60,3 +60,14 @@ export function deleteApi({ id }: {
   }): Promise<boolean> {
   return requestClient.delete<boolean>(`/agent/definitions/${id}`);
 }
+
+/**
+ * exportAgentDefinitions: GET /agent/definitions/export
+ *
+ * @returns Excel/CSV 二进制 Blob
+ */
+export function exportAgentDefinitions(): Promise<Blob> {
+  return requestClient.get<Blob>(`/agent/definitions/export`, {
+    responseType: 'blob',
+  });
+}

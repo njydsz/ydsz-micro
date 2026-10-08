@@ -22,17 +22,21 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButton } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteApi, list } from '#/api/agentDefinition';
+import { deleteApi, exportAgentDefinitions, list } from '#/api/agentDefinition';
 import type { AgentDefinitionVO } from '#/api/models';
 import AgentForm from './agent-form.vue';
 
 defineOptions({ name: 'AgentManagement' });
 
+const { t } = useI18n();
+
 type ViewMode = 'card' | 'table';
 const viewMode = ref<ViewMode>('card');
 const agentList = ref<AgentDefinitionVO[]>([]);
 const loading = ref<boolean>(false);
+const exporting = ref<boolean>(false);
 
 const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   columns: [
@@ -115,6 +119,27 @@ async function handleRefresh(): Promise<void> {
 
 /** 打开新增弹窗 */
 function handleAdd(): void { agentFormApi.open(); }
+
+/** 导出 Agent 定义列表为 Excel/CSV 文件 */
+async function handleExport(): Promise<void> {
+  exporting.value = true;
+  try {
+    const blob = await exportAgentDefinitions();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `agent-definitions-${new Date().toISOString().slice(0, 10)}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast.success(t('business.exportSuccess'));
+  } catch {
+    showToast.error(t('business.exportFailed'));
+  } finally {
+    exporting.value = false;
+  }
+}
 
 /** 打开编辑弹窗，回填行数据 */
 function handleEdit(row: AgentDefinitionVO): void { agentFormApi.setData({ record: row }); agentFormApi.open(); }
@@ -235,7 +260,33 @@ void loadAgentList();
           表格
         </button>
       </div>
-      <YdButton @click="handleAdd">新增</YdButton>
+      <div class="flex items-center gap-2">
+        <YdButton
+          :loading="exporting"
+          :disabled="exporting"
+          size="sm"
+          variant="outline"
+          @click="handleExport"
+        >
+          <svg
+            class="mb-0.5 me-1 inline"
+            fill="none"
+            height="14"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="14"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          {{ t('business.export') }}
+        </YdButton>
+        <YdButton @click="handleAdd">新增</YdButton>
+      </div>
     </div>
 
     <!-- 表格视图 -->

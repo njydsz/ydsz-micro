@@ -347,7 +347,7 @@ async function openTimeline(row: FlowInstanceVO) {
       <YdSheetContent class="!max-w-[900px]">
       <div class="drawer-content">
         <!-- 流程图高亮 -->
-        <FlowDiagramViewer :instance="timelineInstance" />
+        <FlowDiagramViewer :instance="timelineInstance" :instance-id="timelineInstance?.id ?? ''" />
         <!-- 轨迹表格 -->
         <YdTable :data="timelineRows" border size="small" loading="timelineLoading" class="mt-4">
           <YdTableColumn prop="type" :label="$t('wf.type')" width="100" />

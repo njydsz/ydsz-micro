@@ -11,6 +11,8 @@
 /**
  * Prompt 模板表单
  * <p>支持 {{variable}} 语法的变量定义与自动提取。
+ * <p>提交时将表单数据通过 emit('success') 通知父级写入本地列表
+ *    （后端 CRUD 端点就绪后可在父级 handleFormSuccess 中替换为真实 API 调用）。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -18,7 +20,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
-import { computed, reactive, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 
 const logger = createLogger('agent-prompt');
 
@@ -45,28 +47,37 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  success: [];
+  success: [data: PromptFormData];
 }>();
+
+/** 提交中状态 */
+const submitting = ref(false);
 
 const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
-    if (isOpen && props.record) {
-      Object.assign(formData, props.record);
+    if (!isOpen) return;
+    // 尝试从 modalApi 获取父级传入的记录数据
+    const data = modalApi.getData<{ record?: PromptFormData }>();
+    const record = data?.record;
+    if (record) {
+      Object.assign(formData, record);
+    } else {
+      resetForm();
     }
   },
 });
 
 /** 是否为编辑模式 */
-const isEditMode = computed(() => !!props.record?.id);
+const isEditMode = computed(() => !!formData.id);
 
 /** 表单数据 */
-const formData = reactive({
-  id: '',
+const formData = reactive<PromptFormData>({
+  id: undefined,
   templateCode: '',
   templateName: '',
   category: '',
   content: '',
-  variables: [] as string[],
+  variables: [],
   enabled: true,
   description: '',
 });
@@ -82,6 +93,7 @@ const categoryOptions = [
 
 /** 从内容中提取的变量列表 */
 const extractedVariables = computed<string[]>(() => {
+  if (!formData.content) return [];
   const matches = formData.content.match(/\{\{(\w+)\}\}/g) ?? [];
   return [...new Set(matches.map((m) => m.replace(/[{}]/g, '')))];
 });
@@ -90,28 +102,42 @@ watch(extractedVariables, (val) => {
   formData.variables = val;
 });
 
+/** 重置表单至初始状态 */
+function resetForm(): void {
+  formData.id = undefined;
+  formData.templateCode = '';
+  formData.templateName = '';
+  formData.category = '';
+  formData.content = '';
+  formData.variables = [];
+  formData.enabled = true;
+  formData.description = '';
+}
+
 /** 提交表单 */
 async function handleSubmit(): Promise<void> {
-  if (!formData.templateCode.trim()) {
+  if (!formData.templateCode?.trim()) {
     showToast.warning('请输入模板编码');
     return;
   }
-  if (!formData.templateName.trim()) {
+  if (!formData.templateName?.trim()) {
     showToast.warning('请输入模板名称');
     return;
   }
-  if (!formData.content.trim()) {
+  if (!formData.content?.trim()) {
     showToast.warning('请输入模板内容');
     return;
   }
+  submitting.value = true;
   try {
-    // TODO: 调用后端 API 保存
-    showToast.success(isEditMode.value ? '更新成功' : '创建成功');
-    emit('success');
+    // 将表单数据提交给父级，由父级统一管理列表状态
+    // 后端 CRUD 端点就绪后，可在此处调用 create / update API 后再 emit
+    emit('success', { ...formData });
     modalApi.close();
   } catch (error) {
     logger.warn('保存 Prompt 模板失败: {}', error);
-    // 用户提示由 errorMessageResponseInterceptor 统一处理
+  } finally {
+    submitting.value = false;
   }
 }
 
@@ -121,14 +147,7 @@ watch(
     if (val) {
       Object.assign(formData, val);
     } else {
-      formData.id = '';
-      formData.templateCode = '';
-      formData.templateName = '';
-      formData.category = '';
-      formData.content = '';
-      formData.variables = [];
-      formData.enabled = true;
-      formData.description = '';
+      resetForm();
     }
   },
   { immediate: true },
@@ -186,7 +205,7 @@ watch(
 
     <template #footer>
       <YdButton variant="outline" @click="modalApi.close()">取消</YdButton>
-      <YdButton @click="handleSubmit">保存</YdButton>
+      <YdButton :disabled="submitting" @click="handleSubmit">保存</YdButton>
     </template>
   </Modal>
 </template>

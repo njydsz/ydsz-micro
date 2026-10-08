@@ -40,5 +40,8 @@
   "create": "생성",
   "edit": "편집",
   "delete": "삭제",
+  "export": "내보내기",
+  "exportSuccess": "내보내기 성공",
+  "exportFailed": "내보내기 실패",
   "operationSuccess": "성공"
 }

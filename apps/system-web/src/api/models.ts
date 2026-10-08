@@ -698,6 +698,74 @@ export interface VariablePageQuery {
 }
 
 /**
+ * 特性开关分页查询参数
+ *
+ * 对应 `ydsz_sys_feature_flag` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
+ * `pageSize` / `orderBy` / `sort` 等通用分页参数。
+ * 字段语义：
+ * `flagKey` — 开关键模糊匹配（可选）
+ * `flagName` — 开关名称模糊匹配（可选）
+ * `flagType` — 开关类型精确匹配（BOOLEAN / STRING / JSON，可选）
+ * `status` — 启用状态精确匹配（可选）
+ */
+export interface FeatureFlagPageQuery {
+  serialVersionUID?: number;
+  flagKey?: string;
+  flagName?: string;
+  flagType?: string;
+  status?: string;
+}
+
+/**
+ * 特性开关创建/更新 DTO
+ *
+ * 对应 `ydsz_sys_feature_flag` 表的写入参数。创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
+ * 字段语义：
+ * `flagKey` — 开关键，租户内唯一
+ * `flagName` — 开关名称
+ * `flagType` — 开关类型: BOOLEAN / STRING / JSON
+ * `defaultValue` — 默认值
+ * `currentValue` — 当前值
+ * `description` — 描述
+ * `status` — 启用状态: ENABLED / DISABLED
+ */
+export interface FeatureFlagDTO {
+  id?: string;
+  flagKey?: string;
+  flagName?: string;
+  flagType?: string;
+  defaultValue?: string;
+  currentValue?: string;
+  description?: string;
+  status?: string;
+}
+
+/**
+ * 特性开关 VO（视图对象）
+ *
+ * 对应 `ydsz_sys_feature_flag` 表的展示视图，是「特性开关管理」列表 / 详情接口的响应载体。
+ * 字段语义：
+ * `flagKey` — 开关键，业务存储 / 接口传输主键
+ * `flagName` — 开关名称（前端展示文本）
+ * `flagType` — 开关类型: BOOLEAN / STRING / JSON
+ * `defaultValue` — 默认值（未配置时使用）
+ * `currentValue` — 当前生效值
+ * `status` — 启用状态: ENABLED / DISABLED
+ */
+export interface FeatureFlagVO {
+  id?: string;
+  flagKey?: string;
+  flagName?: string;
+  flagType?: string;
+  defaultValue?: string;
+  currentValue?: string;
+  description?: string;
+  status?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+/**
  * 系统变量创建/更新 DTO
  *
  * 对应 `ydsz_sys_variable` 表的写入参数，是「系统变量中心」创建 / 更新接口的入参载体。

@@ -59,6 +59,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/config-approval/index.vue'),
         meta: { icon: 'lucide:file-badge', title: '配置审批' },
       },
+      {
+        name: 'FeatureFlagManagement',
+        path: 'feature-flag',
+        component: () => import('#/views/feature-flag/index.vue'),
+        meta: { icon: 'lucide:toggle-left', title: '特性开关' },
+      },
     ],
   },
   {

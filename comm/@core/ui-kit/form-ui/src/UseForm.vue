@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 受控表单组件：表单状态由外部 useYdForm 提供，本组件只负责渲染与事件转发。
  *
  * 状态外置后，父组件可在任意时机触发校验、取值或重置，适用于需要在组件之外
@@ -20,9 +20,12 @@ import type { Recordable } from '@ydsz-core/typings';
 
 import type { YdExtendedFormApi, YdFormProps } from './types';
 
-import { nextTick, onMounted, watch } from 'vue';
+import { nextTick, onMounted, ref, unref, watch } from 'vue';
 
-import { useForwardPriorityValues } from '@ydsz-core/composables';
+import {
+  useFormDraft,
+  useForwardPriorityValues,
+} from '@ydsz-core/composables';
 import { cloneDeep, get, isEqual, set } from '@ydsz-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
@@ -47,6 +50,10 @@ interface Props extends YdFormProps {
 
 const props = defineProps<Props>();
 
+const emit = defineEmits<{
+  (e: 'draft-restored', values: Record<string, unknown>): void;
+}>();
+
 const state = props.formApi?.useStore?.();
 
 const forward = useForwardPriorityValues(props, state);
@@ -61,74 +68,27 @@ provideComponentRefMap(componentRefMap);
 props.formApi?.mount?.(form, componentRefMap);
 
 // ===== 草稿自动保存 =====
-let draftRestoreData: Recordable | undefined = undefined;
-if (props.draft) {
-  // 动态导入 useFormDraft 以避免非 draft 场景的额外开销
-  const { useFormDraft } = await import('@ydsz-core/composables');
-  const fieldNames = (state.value.schema || []).map((s) => s.fieldName).join(':');
-  const storageKey =
-    props.draftKey || `form:${window.location.hash || fieldNames}`;
-  // TTL 默认 24 小时
-  const ttlSeconds = props.draftTTL ?? 86_400;
-
-  useFormDraft<Recordable>({
-    key: storageKey,
-    ttlSeconds,
-  });
-
-  // 挂载后恢复草稿
-  onMounted(async () => {
-    await nextTick();
-    // useFormDraft 已加载，此处通过 import 后调用
-    const { useFormDraft: loadDraft } = await import(
-      '@ydsz-core/composables'
-    );
-    // 由于 useFormDraft 需要生命周期 hook，在 onSetup 阶段已调用
-    // 此处直接在组件逻辑中实现恢复
-    const savedRaw = localStorage.getItem(`ydsz:draft:${storageKey}`);
-    if (savedRaw) {
-      try {
-        const meta = JSON.parse(savedRaw);
-        if (meta?.data && typeof meta.savedAt === 'number') {
-          const expired = Date.now() - meta.savedAt > ttlSeconds * 1000;
-          if (!expired) {
-            draftRestoreData = meta.data;
-            // 将草稿数据写入 vee-validate 表单
-            Object.entries(meta.data).forEach(([key, val]) => {
-              form.setFieldValue(key, val);
-            });
-            props.formApi?.emit('draft-restored', meta.data);
-          } else {
-            localStorage.removeItem(`ydsz:draft:${storageKey}`);
-          }
-        }
-      } catch {
-        // 解析失败则清除
-        localStorage.removeItem(`ydsz:draft:${storageKey}`);
-      }
-    }
-  });
-
-  // 值变化时防抖写入草稿
-  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
-  watch(
-    () => form.values,
-    (newVal) => {
-      if (debounceTimer) clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        try {
-          localStorage.setItem(
-            `ydsz:draft:${storageKey}`,
-            JSON.stringify({ savedAt: Date.now(), data: newVal }),
-          );
-        } catch {
-          /* 静默处理配额超出 */
-        }
-      }, 1500);
-    },
-    { deep: true },
-  );
+/**
+ * 草稿存储 key：优先使用 draftKey prop，否则基于路由 hash + 表单字段签名生成。
+ */
+function resolveDraftKey(): string {
+  if (props.draftKey) {
+    return props.draftKey;
+  }
+  const fieldNames = (state.value.schema || [])
+    .map((s: { fieldName: string }) => s.fieldName)
+    .join(':');
+  // 在微前端场景下 window.location.hash 包含子应用路由路径
+  return `form:${window.location.hash || fieldNames}`;
 }
+
+// 仅在 draft=true 时启用草稿 composable（props.draft 不会运行时变更，生命周期安全）
+const draftCtx = props.draft
+  ? useFormDraft<Record<string, unknown>>({
+      key: resolveDraftKey(),
+      ttlSeconds: props.draftTTL ?? 86_400,
+    })
+  : null;
 
 const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: !!value });
@@ -157,6 +117,22 @@ const valuesCache: Recordable<unknown> = {};
 onMounted(async () => {
   // 只在挂载后开始监听，form.values会有一个初始化的过程
   await nextTick();
+
+  // 草稿模式：挂载后尝试恢复草稿
+  if (draftCtx) {
+    const restored = draftCtx.restoreDraft();
+    if (restored) {
+      Object.entries(restored).forEach(([key, val]) => {
+        try {
+          form.setFieldValue(key, val);
+        } catch {
+          /* 字段名不匹配时跳过 */
+        }
+      });
+      emit('draft-restored', restored);
+    }
+  }
+
   watch(
     () => form.values,
     async (newVal) => {
@@ -186,10 +162,30 @@ onMounted(async () => {
         }
       }
       handleValuesChangeDebounced();
+
+      // 草稿模式：同步写入草稿 ref（useFormDraft 内部防抖保存到 localStorage）
+      if (draftCtx && newVal) {
+        draftCtx.draft.value = cloneDeep(newVal);
+      }
     },
     { deep: true },
   );
 });
+
+// 草稿模式：vee-validate 提交成功后清除草稿
+// vee-validate 的 submitCount 在每次提交尝试时递增；当其递增且 errors 为空时表示提交成功
+if (draftCtx) {
+  const prevSubmitCount = ref(unref(form.submitCount));
+  watch(
+    () => unref(form.submitCount),
+    (count) => {
+      if (count > prevSubmitCount.value && Object.keys(form.errors.value).length === 0) {
+        draftCtx.clearDraft();
+      }
+      prevSubmitCount.value = count;
+    },
+  );
+}
 </script>
 
 <template>
@@ -233,4 +229,3 @@ onMounted(async () => {
     </template>
   </Form>
 </template>
-

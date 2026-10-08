@@ -2,6 +2,8 @@
  * Prompt 模板管理列表页面
  *
  * <p>提供 Prompt 模板的管理能力，包括新增/编辑/删除/测试/版本管理。
+ * <p>列表数据当前由本地状态管理（后端 CRUD 端点建设中）；
+ *    测试与评估能力已对接后端 PromptController。
  *
  * @path apps/agent-web/src/views/prompt/index.vue
  * @author ydsz-team
@@ -11,13 +13,14 @@
 /**
  * Prompt 模板管理（列表页）
  * <p>管理 Agent 使用的 Prompt 模板，支持变量替换、版本管理、测试评估。
+ * <p>注：列表 CRUD 当前走本地状态（后端仅开放 evaluate / compare 能力）。
  *
  * @author ydsz-team
  * @since 1.0.0
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -44,48 +47,20 @@ interface PromptTemplateVO {
   updatedAt: string;
 }
 
-/** 模拟数据 */
-const promptList = ref<PromptTemplateVO[]>([
-  {
-    id: '1',
-    templateCode: 'customer_service_v1',
-    templateName: '客服回复模板',
-    category: '客服',
-    content: '你是一个专业的客服人员。用户问题：{{question}}。请用友好的语气回答。',
-    variables: ['question'],
-    version: 1,
-    enabled: true,
-    description: '用于客服场景的标准回复模板',
-    createdAt: '2024-01-15 10:00:00',
-    updatedAt: '2024-01-15 10:00:00',
-  },
-  {
-    id: '2',
-    templateCode: 'sales_assistant_v1',
-    templateName: '销售助手模板',
-    category: '销售',
-    content: '你是一个销售顾问。产品：{{product}}。客户需求：{{need}}。请给出推荐。',
-    variables: ['product', 'need'],
-    version: 2,
-    enabled: true,
-    description: '用于销售场景的产品推荐模板',
-    createdAt: '2024-01-14 09:00:00',
-    updatedAt: '2024-01-15 14:00:00',
-  },
-  {
-    id: '3',
-    templateCode: 'code_review_v1',
-    templateName: '代码审查模板',
-    category: '开发',
-    content: '请审查以下代码：\n```{{language}}\n{{code}}\n```\n关注：安全性、性能、可读性。',
-    variables: ['language', 'code'],
-    version: 1,
-    enabled: false,
-    description: '用于代码审查的 Prompt 模板',
-    createdAt: '2024-01-13 08:00:00',
-    updatedAt: '2024-01-13 08:00:00',
-  },
-]);
+/** 提示词模板表单数据形状（与 prompt-form.vue 内的 PromptFormData 保持一致） */
+interface PromptFormData {
+  id?: string;
+  templateCode?: string;
+  templateName?: string;
+  category?: string;
+  content?: string;
+  variables?: string[];
+  enabled?: boolean;
+  description?: string;
+}
+
+/** 本地 Prompt 列表数据（后端 CRUD 端点接入后可替换为 API 拉取） */
+const promptList = ref<PromptTemplateVO[]>([]);
 
 const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
   columns: [
@@ -172,8 +147,18 @@ const [PromptFormModal, promptFormApi] = useYdModal({ connectedComponent: Prompt
 /** 测试弹窗引用 */
 const promptTestRef = ref<InstanceType<typeof PromptTest> | null>(null);
 
+/**
+ * 格式化当前时间为 yyyy-MM-dd HH:mm:ss
+ */
+function formatNow(): string {
+  const d = new Date();
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
 /** 新增模板 */
 function handleAdd(): void {
+  promptFormApi.setData({ record: undefined });
   promptFormApi.open();
 }
 
@@ -183,12 +168,54 @@ function handleEdit(row: PromptTemplateVO): void {
   promptFormApi.open();
 }
 
+/**
+ * 表单提交成功回调：将表单数据写入本地列表（有 id 则更新，无 id 则新增）
+ * <p>后端 CRUD 端点就绪后可替换为 gridApi.query() 重新拉取。
+ */
+function handleFormSuccess(data?: PromptFormData): void {
+  if (!data) return;
+  if (data.id) {
+    // 编辑：就地更新
+    const index = promptList.value.findIndex((t) => t.id === data.id);
+    if (index !== -1) {
+      promptList.value[index] = {
+        ...promptList.value[index],
+        templateCode: data.templateCode ?? promptList.value[index].templateCode,
+        templateName: data.templateName ?? promptList.value[index].templateName,
+        category: data.category ?? promptList.value[index].category,
+        content: data.content ?? promptList.value[index].content,
+        variables: data.variables ?? promptList.value[index].variables,
+        enabled: data.enabled ?? promptList.value[index].enabled,
+        description: data.description ?? promptList.value[index].description,
+        updatedAt: formatNow(),
+      };
+    }
+  } else {
+    // 新增：追加到列表
+    promptList.value.push({
+      id: `local_${Date.now()}`,
+      templateCode: data.templateCode ?? '',
+      templateName: data.templateName ?? '',
+      category: data.category ?? '',
+      content: data.content ?? '',
+      variables: data.variables ?? [],
+      version: 1,
+      enabled: data.enabled ?? true,
+      description: data.description ?? '',
+      createdAt: formatNow(),
+      updatedAt: formatNow(),
+    });
+  }
+  showToast.success(data.id ? '更新成功' : '创建成功');
+  gridApi.query();
+}
+
 /** 测试模板 */
 function handleTest(row: PromptTemplateVO): void {
   promptTestRef.value?.open(row);
 }
 
-/** 启用/停用 */
+/** 启用/停用模板 */
 function handleToggle(row: PromptTemplateVO): void {
   row.enabled = !row.enabled;
   showToast.success(`已${row.enabled ? '启用' : '停用'}模板「${row.templateName}」`);
@@ -218,8 +245,13 @@ async function handleDelete(row: PromptTemplateVO): Promise<void> {
       <template #toolbar-tools>
         <YdButton @click="handleAdd">新增模板</YdButton>
       </template>
+      <template #empty>
+        <YdEmptyState title="暂无 Prompt 模板" description="点击「新增模板」创建你的第一个 Prompt 模板">
+          <YdButton @click="handleAdd">新增模板</YdButton>
+        </YdEmptyState>
+      </template>
     </Grid>
-    <PromptFormModal @success="gridApi.query()" />
+    <PromptFormModal @success="handleFormSuccess" />
     <PromptTest ref="promptTestRef" />
   </Page>
 </template>
