@@ -1,0 +1,68 @@
+{
+  "main": {
+    "search": {
+      "placeholder": "検索 menus, features, actions... (⌘K)",
+      "slashModePlaceholder": "種類 a / command (/lock /theme /goto ...)",
+      "tabNavigation": "Navigation",
+      "tabAllSearch": "すべて検索",
+      "emptyTip": "種類 to search or browse navigation below",
+      "noResults": "いいえ results found",
+      "loading": "Searching...",
+      "recentLabel": "最近",
+      "hotLabel": "Hot",
+      "hotPrefix": "Hot 検索",
+      "hintNavigate": "↑↓ Navigate",
+      "hintConfirm": "↵ 確認",
+      "hintClose": "Esc 閉じる",
+      "hintSlashEnter": "↵ Run Command",
+      "category": {
+        "page": "Page",
+        "doc": "ドキュメント",
+        "user": "ユーザー",
+        "message": "メッセージ",
+        "task": "タスク",
+        "agent": "エージェント"
+      }
+    },
+    "slashCmd": {
+      "args": "引数",
+      "lock": "Lock current screen",
+      "unlock": "Unlock screen",
+      "theme": "Switch theme (dark / light)",
+      "goto": "Navigate to path",
+      "search": "検索",
+      "help": "Show all commands",
+      "feedback": "送信 feedback",
+      "reload": "Reload page",
+      "tip": {
+        "lock": "",
+        "unlock": "",
+        "theme": "Options: dark | light",
+        "goto": "e.g. /goto /system/role",
+        "search": "e.g. /search ticket",
+        "help": "",
+        "feedback": "",
+        "reload": ""
+      }
+    },
+    "quickCreate": {
+      "title": "Quick 作成",
+      "newTicket": "新規 Ticket",
+      "newTicketDesc": "送信 a new support ticket",
+      "newDocument": "新規 ドキュメント",
+      "newDocumentDesc": "作成 a collaborative doc",
+      "newTask": "新規 タスク",
+      "newTaskDesc": "TODOアイテムを追加",
+      "addUser": "ユーザーを追加",
+      "addUserDesc": "作成 a new user account",
+      "viewNotifications": "表示 通知",
+      "viewNotificationsDesc": "開く notification center",
+      "lockScreen": "Lock Screen",
+      "lockScreenDesc": "Lock current session immediately",
+      "submitFeedback": "送信 Feedback",
+      "submitFeedbackDesc": "Feedback and suggestions",
+      "settings": "設定",
+      "settingsDesc": "開く preference panel"
+    }
+  }
+}

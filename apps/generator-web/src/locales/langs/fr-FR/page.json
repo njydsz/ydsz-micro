@@ -1,0 +1,23 @@
+{
+  "page": {
+    "title": "Code Generator"
+  },
+  "generator": {
+    "history": {
+      "title": "Historique de generation",
+      "empty": "Non history records",
+      "viewDiff": "Voir Diff",
+      "files": "fichiers",
+      "tables": "tables",
+      "rollback": "Restauration",
+      "viewFiles": "Details du fichier"
+    },
+    "diff": {
+      "addLines": "{count} lines added",
+      "deleteLines": "{count} lines deleted",
+      "noChanges": "Non changes",
+      "leftPanel": "Ancien Version",
+      "rightPanel": "Nouvelle version"
+    }
+  }
+}

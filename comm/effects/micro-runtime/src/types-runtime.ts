@@ -111,7 +111,7 @@ export interface StartOptions {
 /**
  * 内核实现必须满足的接口。
  *
- * 内核可以是对应于 qiankun、wujie、自研 micro-kernel 的不同实现。
+ * 当前唯一生产可用实现为自研 micro-kernel（ESM 动态导入方案），
  * registerKernel / createRuntime 实现内核的可插拔注册与选择。
  */
 export interface MicroRuntime {
@@ -143,15 +143,12 @@ export interface MicroRuntime {
   /**
    * 手动卸载指定子应用（供 tabbar 关闭页签时调用）。
    *
-   * 一般内核（qiankun）不暴露此能力，
-   * 自研 micro-kernel 可利用此接口实现细粒度页签控制。
+   * micro-kernel 可利用此接口实现细粒度页签控制。
    */
   unmountApp(name: string): Promise<UnmountResult>;
 
   /**
    * 保活控制：切走时不销毁 DOM，切回时直接复用。
-   *
-   * micro-kernel 原生支持；qiankun adapter 可通过销毁/重建模拟。
    */
   setKeepAlive(name: string, keep: boolean): void;
 

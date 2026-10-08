@@ -1,0 +1,68 @@
+{
+  "main": {
+    "search": {
+      "placeholder": "검색 menus, features, actions... (⌘K)",
+      "slashModePlaceholder": "유형 a / command (/lock /theme /goto ...)",
+      "tabNavigation": "Navigation",
+      "tabAllSearch": "전체 검색",
+      "emptyTip": "유형 to search or browse navigation below",
+      "noResults": "아니요 results found",
+      "loading": "Searching...",
+      "recentLabel": "최근",
+      "hotLabel": "Hot",
+      "hotPrefix": "Hot 검색",
+      "hintNavigate": "↑↓ Navigate",
+      "hintConfirm": "↵ 확인",
+      "hintClose": "Esc 닫기",
+      "hintSlashEnter": "↵ Run Command",
+      "category": {
+        "page": "Page",
+        "doc": "문서",
+        "user": "사용자",
+        "message": "메시지",
+        "task": "작업",
+        "agent": "에이전트"
+      }
+    },
+    "slashCmd": {
+      "args": "인수",
+      "lock": "Lock current screen",
+      "unlock": "Unlock screen",
+      "theme": "Switch theme (dark / light)",
+      "goto": "Navigate to path",
+      "search": "검색",
+      "help": "Show all commands",
+      "feedback": "제출 feedback",
+      "reload": "Reload page",
+      "tip": {
+        "lock": "",
+        "unlock": "",
+        "theme": "Options: dark | light",
+        "goto": "e.g. /goto /system/role",
+        "search": "e.g. /search ticket",
+        "help": "",
+        "feedback": "",
+        "reload": ""
+      }
+    },
+    "quickCreate": {
+      "title": "Quick 생성",
+      "newTicket": "새 Ticket",
+      "newTicketDesc": "제출 a new support ticket",
+      "newDocument": "새 문서",
+      "newDocumentDesc": "생성 a collaborative doc",
+      "newTask": "새 작업",
+      "newTaskDesc": "할 일 항목 추가",
+      "addUser": "사용자 추가",
+      "addUserDesc": "생성 a new user account",
+      "viewNotifications": "보기 알림",
+      "viewNotificationsDesc": "열기 notification center",
+      "lockScreen": "Lock Screen",
+      "lockScreenDesc": "Lock current session immediately",
+      "submitFeedback": "제출 Feedback",
+      "submitFeedbackDesc": "Feedback and suggestions",
+      "settings": "설정",
+      "settingsDesc": "열기 preference panel"
+    }
+  }
+}

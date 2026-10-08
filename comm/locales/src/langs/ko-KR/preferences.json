@@ -1,0 +1,221 @@
+{
+  "title": "환경설정",
+  "subtitle": "Customize 환경설정 & 미리보기 in Real 시간",
+  "resetTip": "Data has changed, click to reset",
+  "resetTitle": "초기화 환경설정",
+  "resetSuccess": "환경설정 reset successfully",
+  "appearance": "모양",
+  "layout": "Layout",
+  "content": "콘텐츠",
+  "other": "기타",
+  "wide": "넓은",
+  "compact": "고정",
+  "followSystem": "Follow 시스템",
+  "vertical": "Vertical",
+  "verticalTip": "Side vertical menu mode",
+  "horizontal": "Horizontal",
+  "horizontalTip": "Horizontal menu mode, all menus displayed at the top",
+  "twoColumn": "Two Column",
+  "twoColumnTip": "Vertical Two Column 메뉴 Mode",
+  "headerSidebarNav": "헤더 Vertical",
+  "headerSidebarNavTip": "헤더 Full 너비, Sidebar Navigation Mode",
+  "headerTwoColumn": "헤더 Two Column",
+  "headerTwoColumnTip": "헤더 Navigation & Sidebar Two Column co-exists",
+  "mixedMenu": "혼합 메뉴",
+  "mixedMenuTip": "Vertical & Horizontal 메뉴 Co-exists",
+  "fullContent": "Full 콘텐츠",
+  "fullContentTip": "Only display content body, hide all menus",
+  "normal": "Normal",
+  "plain": "일반",
+  "rounded": "Rounded",
+  "copyPreferences": "복사 환경설정",
+  "copyPreferencesSuccessTitle": "복사 successful",
+  "copyPreferencesSuccess": "복사 successful, please override in `src/preferences.ts` under app",
+  "clearAndLogout": "캐시를 지우고 로그아웃",
+  "mode": "Mode",
+  "general": "일반",
+  "language": "언어",
+  "dynamicTitle": "Dynamic 제목",
+  "watermark": "Watermark",
+  "checkUpdates": "Periodic update check",
+  "position": {
+    "title": "환경설정 직위",
+    "header": "헤더",
+    "auto": "자동",
+    "fixed": "고정"
+  },
+  "sidebar": {
+    "buttons": "Show Buttons",
+    "buttonFixed": "고정",
+    "buttonCollapsed": "접힘",
+    "title": "Sidebar",
+    "width": "너비",
+    "visible": "Show Sidebar",
+    "collapsed": "메뉴 접기",
+    "collapsedShowTitle": "Show 메뉴 제목",
+    "autoActivateChild": "자동 Activate SubMenu",
+    "autoActivateChildTip": "`Enabled` to automatically activate the submenu while clicking menu.",
+    "expandOnHover": "Expand On Hover",
+    "expandOnHoverTip": "When the mouse hovers over menu, `Enabled` to expand children menus, `Disabled` to expand whole sidebar."
+  },
+  "tabbar": {
+    "title": "Tabbar",
+    "enable": "활성화 Tab Bar",
+    "icon": "Show Tabbar Icon",
+    "showMore": "Show 더 보기 버튼",
+    "showMaximize": "Show Maximize 버튼",
+    "persist": "Persist Tabs",
+    "maxCount": "Max 개수 of Tabs",
+    "maxCountTip": "When the number of tabs exceeds the maximum, the oldest tab will be closed. Set to 0 to disable count checking.",
+    "draggable": "활성화 Draggable 정렬",
+    "wheelable": "Support Mouse Wheel",
+    "middleClickClose": "닫기 Tab when Mouse Middle 버튼 Click",
+    "wheelableTip": "When enabled, the Tabbar area responds to vertical scrolling events of the scroll wheel.",
+    "styleType": {
+      "title": "Tabs Style",
+      "chrome": "크롬",
+      "card": "카드",
+      "plain": "일반",
+      "brisk": "Brisk"
+    },
+    "contextMenu": {
+      "reload": "Reload",
+      "close": "닫기",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "closeLeft": "닫기 Left Tabs",
+      "closeRight": "닫기 Right Tabs",
+      "closeOther": "닫기 기타 Tabs",
+      "closeAll": "모든 탭 닫기",
+      "openInNewWindow": "열기 in 새 윈도우",
+      "maximize": "Maximize",
+      "restoreMaximize": "복원"
+    }
+  },
+  "navigationMenu": {
+    "title": "Navigation 메뉴",
+    "style": "Navigation 메뉴 Style",
+    "accordion": "Sidebar Accordion 메뉴",
+    "split": "Navigation 메뉴 Separation",
+    "splitTip": "When enabled, the sidebar displays the top bar's submenu"
+  },
+  "breadcrumb": {
+    "title": "Breadcrumb",
+    "home": "Show Home 버튼",
+    "enable": "활성화 Breadcrumb",
+    "icon": "Show Breadcrumb Icon",
+    "style": "Breadcrumb Style",
+    "hideOnlyOne": "숨김 when only one",
+    "background": "background"
+  },
+  "animation": {
+    "title": "애니메이션",
+    "loading": "Page 로딩 중...",
+    "transition": "Page Transition",
+    "progress": "Page Progress"
+  },
+  "theme": {
+    "title": "Theme",
+    "radius": "Radius",
+    "light": "밝은 테마",
+    "dark": "어두운 테마",
+    "darkSidebar": "Semi 어두운 테마 Sidebar",
+    "darkHeader": "Semi 어두운 테마 헤더",
+    "weakMode": "Weak Mode",
+    "grayMode": "회색 Mode",
+    "builtin": {
+      "title": "내장",
+      "default": "기본값",
+      "violet": "Violet",
+      "pink": "분홍",
+      "rose": "Rose",
+      "skyBlue": "Sky 파랑",
+      "deepBlue": "Deep 파랑",
+      "green": "초록",
+      "deepGreen": "Deep 초록",
+      "orange": "주황",
+      "yellow": "Yellow",
+      "zinc": "Zinc",
+      "neutral": "Neutral",
+      "slate": "Slate",
+      "gray": "회색",
+      "custom": "사용자 정의"
+    }
+  },
+  "header": {
+    "title": "헤더",
+    "visible": "Show 헤더",
+    "modeStatic": "Static",
+    "modeFixed": "고정",
+    "modeAuto": "자동 hide & Show",
+    "modeAutoScroll": "Scroll to Hide & Show",
+    "menuAlign": "메뉴 Align",
+    "menuAlignStart": "Start",
+    "menuAlignEnd": "종료",
+    "menuAlignCenter": "중앙"
+  },
+  "footer": {
+    "title": "Footer",
+    "visible": "Show Footer",
+    "fixed": "고정 at Bottom"
+  },
+  "copyright": {
+    "title": "Copyright",
+    "enable": "활성화 Copyright",
+    "companyName": "회사 이름",
+    "companySiteLink": "회사 사이트 링크",
+    "date": "날짜",
+    "icp": "ICP License Number",
+    "icpLink": "ICP Site Link"
+  },
+  "shortcutKeys": {
+    "title": "Shortcut Keys",
+    "global": "Global",
+    "search": "Global 검색",
+    "logout": "로그아웃",
+    "preferences": "환경설정"
+  },
+  "widget": {
+    "title": "Widget",
+    "globalSearch": "활성화 Global 검색",
+    "fullscreen": "활성화 Fullscreen",
+    "themeToggle": "활성화 Theme Toggle",
+    "languageToggle": "활성화 언어 Toggle",
+    "notification": "활성화 알림",
+    "sidebarToggle": "활성화 Sidebar Toggle",
+    "lockScreen": "활성화 Lock Screen",
+    "refresh": "활성화 새로 고침",
+    "height": {
+      "label": "Height",
+      "value": "Tall"
+    },
+    "width": {
+      "label": "너비",
+      "value": "넓은"
+    },
+    "minWidth": {
+      "label": "최소 너비",
+      "value": "최소 너비"
+    },
+    "complexity": {
+      "label": "복잡성",
+      "value": "복잡"
+    },
+    "light": {
+      "label": "밝은 테마",
+      "value": "밝은 테마 Mode"
+    },
+    "dark": {
+      "label": "어두운 테마",
+      "value": "어두운 테마 Mode"
+    },
+    "system": {
+      "label": "Follow 시스템",
+      "value": "Follow 시스템"
+    },
+    "auto": {
+      "label": "자동",
+      "value": "자동"
+    }
+  }
+}

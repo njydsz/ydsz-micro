@@ -56,6 +56,7 @@ const visibleToasts = computed(() => toasts.value);
           getVariantClass(item.variant ?? 'default'),
         ]"
         role="alert"
+        aria-atomic="true"
       >
         <!-- 文本区 -->
         <div class="flex-1">

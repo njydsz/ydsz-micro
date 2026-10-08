@@ -1,0 +1,221 @@
+{
+  "title": "Preferences",
+  "subtitle": "Customize Preferences & Apercu in Real Heure",
+  "resetTip": "Data has changed, click to reset",
+  "resetTitle": "Reinitialiser Preferences",
+  "resetSuccess": "Preferences reset successfully",
+  "appearance": "Apparence",
+  "layout": "Layout",
+  "content": "Contenu",
+  "other": "Autre",
+  "wide": "Large",
+  "compact": "Fixe",
+  "followSystem": "Follow Systeme",
+  "vertical": "Vertical",
+  "verticalTip": "Side vertical menu mode",
+  "horizontal": "Horizontal",
+  "horizontalTip": "Horizontal menu mode, all menus displayed at the top",
+  "twoColumn": "Two Column",
+  "twoColumnTip": "Vertical Two Column Menu Mode",
+  "headerSidebarNav": "En-tete Vertical",
+  "headerSidebarNavTip": "En-tete Full Largeur, Sidebar Navigation Mode",
+  "headerTwoColumn": "En-tete Two Column",
+  "headerTwoColumnTip": "En-tete Navigation & Sidebar Two Column co-exists",
+  "mixedMenu": "Mixed Menu",
+  "mixedMenuTip": "Vertical & Horizontal Menu Co-exists",
+  "fullContent": "Full Contenu",
+  "fullContentTip": "Only display content body, hide all menus",
+  "normal": "Normal",
+  "plain": "Simple",
+  "rounded": "Rounded",
+  "copyPreferences": "Copier Preferences",
+  "copyPreferencesSuccessTitle": "Copier successful",
+  "copyPreferencesSuccess": "Copier successful, please override in `src/preferences.ts` under app",
+  "clearAndLogout": "Effacer le cache et se deconnecter",
+  "mode": "Mode",
+  "general": "General",
+  "language": "Langue",
+  "dynamicTitle": "Dynamic Titre",
+  "watermark": "Watermark",
+  "checkUpdates": "Periodic update check",
+  "position": {
+    "title": "Preferences Poste",
+    "header": "En-tete",
+    "auto": "Automatique",
+    "fixed": "Fixe"
+  },
+  "sidebar": {
+    "buttons": "Show Buttons",
+    "buttonFixed": "Fixe",
+    "buttonCollapsed": "Reduit",
+    "title": "Sidebar",
+    "width": "Largeur",
+    "visible": "Show Sidebar",
+    "collapsed": "Reduire le menu",
+    "collapsedShowTitle": "Show Menu Titre",
+    "autoActivateChild": "Activation automatique du sous-menu",
+    "autoActivateChildTip": "`Enabled` to automatically activate the submenu while clicking menu.",
+    "expandOnHover": "Expand On Hover",
+    "expandOnHoverTip": "When the mouse hovers over menu, `Enabled` to expand children menus, `Disabled` to expand whole sidebar."
+  },
+  "tabbar": {
+    "title": "Tabbar",
+    "enable": "Activer Tab Bar",
+    "icon": "Show Tabbar Icon",
+    "showMore": "Show Plus Bouton",
+    "showMaximize": "Show Maximize Bouton",
+    "persist": "Persist Tabs",
+    "maxCount": "Max Compte of Tabs",
+    "maxCountTip": "When the number of tabs exceeds the maximum, the oldest tab will be closed. Set to 0 to disable count checking.",
+    "draggable": "Activer Draggable Tri",
+    "wheelable": "Support Mouse Wheel",
+    "middleClickClose": "Fermer l'onglet en cliquant sur le bouton du milieu",
+    "wheelableTip": "When enabled, the Tabbar area responds to vertical scrolling events of the scroll wheel.",
+    "styleType": {
+      "title": "Tabs Style",
+      "chrome": "Chrome",
+      "card": "Carte",
+      "plain": "Simple",
+      "brisk": "Brisk"
+    },
+    "contextMenu": {
+      "reload": "Reload",
+      "close": "Fermer",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "closeLeft": "Fermer les onglets a gauche",
+      "closeRight": "Fermer les onglets a droite",
+      "closeOther": "Fermer les autres onglets",
+      "closeAll": "Fermer tous les onglets",
+      "openInNewWindow": "Ouvrir in Nouveau Fenetre",
+      "maximize": "Maximize",
+      "restoreMaximize": "Restaurer"
+    }
+  },
+  "navigationMenu": {
+    "title": "Navigation Menu",
+    "style": "Navigation Menu Style",
+    "accordion": "Sidebar Accordion Menu",
+    "split": "Navigation Menu Separation",
+    "splitTip": "When enabled, the sidebar displays the top bar's submenu"
+  },
+  "breadcrumb": {
+    "title": "Fil d'Ariane",
+    "home": "Show Home Bouton",
+    "enable": "Activer Fil d'Ariane",
+    "icon": "Show Fil d'Ariane Icon",
+    "style": "Fil d'Ariane Style",
+    "hideOnlyOne": "Masque when only one",
+    "background": "background"
+  },
+  "animation": {
+    "title": "Animation",
+    "loading": "Page Chargement...",
+    "transition": "Page Transition",
+    "progress": "Page Progress"
+  },
+  "theme": {
+    "title": "Theme",
+    "radius": "Radius",
+    "light": "Light",
+    "dark": "Dark",
+    "darkSidebar": "Semi Dark Sidebar",
+    "darkHeader": "Semi Dark En-tete",
+    "weakMode": "Weak Mode",
+    "grayMode": "Gris Mode",
+    "builtin": {
+      "title": "Integre",
+      "default": "Par defaut",
+      "violet": "Violet",
+      "pink": "Rose",
+      "rose": "Rose",
+      "skyBlue": "Sky Bleu",
+      "deepBlue": "Deep Bleu",
+      "green": "Vert",
+      "deepGreen": "Deep Vert",
+      "orange": "Orange",
+      "yellow": "Yellow",
+      "zinc": "Zinc",
+      "neutral": "Neutral",
+      "slate": "Slate",
+      "gray": "Gris",
+      "custom": "Personnalise"
+    }
+  },
+  "header": {
+    "title": "En-tete",
+    "visible": "Show En-tete",
+    "modeStatic": "Static",
+    "modeFixed": "Fixe",
+    "modeAuto": "Masquer et afficher automatiquement",
+    "modeAutoScroll": "Scroll to Hide & Show",
+    "menuAlign": "Menu Align",
+    "menuAlignStart": "Start",
+    "menuAlignEnd": "Fin",
+    "menuAlignCenter": "Centre"
+  },
+  "footer": {
+    "title": "Footer",
+    "visible": "Show Footer",
+    "fixed": "Fixe at Bottom"
+  },
+  "copyright": {
+    "title": "Copyright",
+    "enable": "Activer Copyright",
+    "companyName": "Nom de l'entreprise",
+    "companySiteLink": "Lien vers le site de l'entreprise",
+    "date": "Date",
+    "icp": "ICP License Number",
+    "icpLink": "ICP Site Link"
+  },
+  "shortcutKeys": {
+    "title": "Shortcut Keys",
+    "global": "Global",
+    "search": "Global Rechercher",
+    "logout": "Deconnexion",
+    "preferences": "Preferences"
+  },
+  "widget": {
+    "title": "Widget",
+    "globalSearch": "Activer Global Rechercher",
+    "fullscreen": "Activer Fullscreen",
+    "themeToggle": "Activer Theme Toggle",
+    "languageToggle": "Activer Langue Toggle",
+    "notification": "Activer Notification",
+    "sidebarToggle": "Activer Sidebar Toggle",
+    "lockScreen": "Activer Lock Screen",
+    "refresh": "Activer Actualiser",
+    "height": {
+      "label": "Height",
+      "value": "Tall"
+    },
+    "width": {
+      "label": "Largeur",
+      "value": "Large"
+    },
+    "minWidth": {
+      "label": "Largeur minimale",
+      "value": "Largeur minimale"
+    },
+    "complexity": {
+      "label": "Complexite",
+      "value": "Complexe"
+    },
+    "light": {
+      "label": "Light",
+      "value": "Light Mode"
+    },
+    "dark": {
+      "label": "Dark",
+      "value": "Dark Mode"
+    },
+    "system": {
+      "label": "Follow Systeme",
+      "value": "Follow Systeme"
+    },
+    "auto": {
+      "label": "Automatique",
+      "value": "Automatique"
+    }
+  }
+}

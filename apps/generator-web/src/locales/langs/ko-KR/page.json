@@ -1,0 +1,23 @@
+{
+  "page": {
+    "title": "코드 Generator"
+  },
+  "generator": {
+    "history": {
+      "title": "생성 기록",
+      "empty": "아니요 history records",
+      "viewDiff": "보기 Diff",
+      "files": "파일",
+      "tables": "테이블",
+      "rollback": "롤백",
+      "viewFiles": "파일 세부 정보"
+    },
+    "diff": {
+      "addLines": "{count} lines added",
+      "deleteLines": "{count} lines deleted",
+      "noChanges": "아니요 changes",
+      "leftPanel": "이전 버전",
+      "rightPanel": "새 버전"
+    }
+  }
+}

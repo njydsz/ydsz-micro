@@ -1,0 +1,18 @@
+{
+  "business": {
+    "tableName": "Table Nom",
+    "tableComment": "Table Commentaire",
+    "moduleName": "Module Nom",
+    "datasourceName": "Source de donnees",
+    "templateGroup": "Modele Groupe",
+    "generate": "Generer",
+    "preview": "Apercu",
+    "generateAll": "Generer Tout",
+    "history": "Historique",
+    "rollback": "Restauration",
+    "datasource": "Source de donnees",
+    "template": "Modele",
+    "importExport": "Importer/Exporter",
+    "tableMeta": "Metadonnees de table"
+  }
+}

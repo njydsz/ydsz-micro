@@ -3,7 +3,7 @@
  *
  * **ESM 边界声明（重要）**：
  * 本项目子应用通过 ESM `dynamic import()` 加载，模块代码在全局作用域执行，
- * ESM 严格模式禁止 `with` 语句，因此无法像 qiankun/Garfish 那样用
+ * ESM 严格模式禁止 `with` 语句，因此无法使用
  * `with(fakeWindow)` 包裹子应用代码来拦截顶层全局访问。
  *
  * 故 Proxy 沙箱在本项目中仅提供 `fakeWindow` 数据隔离层：
@@ -20,8 +20,7 @@
  * - 建议在同源子应用集群中优先使用快照沙箱，仅在必要时启用 Proxy 沙箱
  *
  * **对标实现**：
- * - qiankun proxySandbox（含 with 执行，UMD 场景）
- * - Garfish proxySandbox（含 with 执行，UMD 场景）
+ * - qiankun / Garfish 的 proxySandbox（含 with 执行，UMD 场景，本项目未采用）
  * - 本项目因 ESM 路线不使用 with 执行，仅保留 fakeWindow 数据隔离
  *
  * @path comm\effects\micro-kernel\src\proxy-sandbox.ts

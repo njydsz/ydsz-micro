@@ -1,0 +1,14 @@
+{
+  "message": "메시지",
+  "messageList": "메시지 List",
+  "batchSend": "일괄 전송",
+  "deadLetter": "Dead Letter",
+  "template": "템플릿",
+  "templateList": "템플릿 목록",
+  "notification": "알림",
+  "notificationList": "알림 List",
+  "route": "Route",
+  "routeRule": "Route 규칙",
+  "preference": "Preference",
+  "messagePreference": "메시지 Preference"
+}

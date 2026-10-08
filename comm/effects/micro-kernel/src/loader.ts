@@ -203,7 +203,7 @@ export async function fetchManifest(
 /**
  * 加载子应用 ESM 入口。
  *
- * 相比 qiankun import-html-entry：无 HTML 解析、无 UMD、无 eval。
+ * 纯 ESM 动态导入方案：无 HTML 解析、无 UMD、无 eval。
  *
  * @param config - 子应用注册配置
  * @param options - 加载选项（超时、重试）

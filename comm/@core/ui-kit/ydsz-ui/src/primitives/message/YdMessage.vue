@@ -57,6 +57,7 @@ const typeStyles: Record<string, string> = {
     )"
     role="alert"
     aria-live="polite"
+    aria-atomic="true"
   >
     <component
       :is="props.icon || icons[props.type]"

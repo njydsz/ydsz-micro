@@ -1,0 +1,68 @@
+{
+  "main": {
+    "search": {
+      "placeholder": "Buscar menus, features, actions... (⌘K)",
+      "slashModePlaceholder": "Tipo a / command (/lock /theme /goto ...)",
+      "tabNavigation": "Navigation",
+      "tabAllSearch": "Toda la busqueda",
+      "emptyTip": "Tipo to search or browse navigation below",
+      "noResults": "No results found",
+      "loading": "Searching...",
+      "recentLabel": "Reciente",
+      "hotLabel": "Hot",
+      "hotPrefix": "Hot Buscar",
+      "hintNavigate": "↑↓ Navigate",
+      "hintConfirm": "↵ Confirmar",
+      "hintClose": "Esc Cerrar",
+      "hintSlashEnter": "↵ Run Command",
+      "category": {
+        "page": "Page",
+        "doc": "Documento",
+        "user": "Usuario",
+        "message": "Mensaje",
+        "task": "Tarea",
+        "agent": "Agente"
+      }
+    },
+    "slashCmd": {
+      "args": "Argumentos",
+      "lock": "Lock current screen",
+      "unlock": "Unlock screen",
+      "theme": "Switch theme (dark / light)",
+      "goto": "Navigate to path",
+      "search": "Buscar",
+      "help": "Show all commands",
+      "feedback": "Enviar feedback",
+      "reload": "Reload page",
+      "tip": {
+        "lock": "",
+        "unlock": "",
+        "theme": "Options: dark | light",
+        "goto": "e.g. /goto /system/role",
+        "search": "e.g. /search ticket",
+        "help": "",
+        "feedback": "",
+        "reload": ""
+      }
+    },
+    "quickCreate": {
+      "title": "Quick Crear",
+      "newTicket": "Nuevo Ticket",
+      "newTicketDesc": "Enviar a new support ticket",
+      "newDocument": "Nuevo Documento",
+      "newDocumentDesc": "Crear a collaborative doc",
+      "newTask": "Nuevo Tarea",
+      "newTaskDesc": "Anadir una tarea pendiente",
+      "addUser": "Anadir usuario",
+      "addUserDesc": "Crear a new user account",
+      "viewNotifications": "Ver Notificaciones",
+      "viewNotificationsDesc": "Abrir notification center",
+      "lockScreen": "Lock Screen",
+      "lockScreenDesc": "Lock current session immediately",
+      "submitFeedback": "Enviar Feedback",
+      "submitFeedbackDesc": "Feedback and suggestions",
+      "settings": "Configuracion",
+      "settingsDesc": "Abrir preference panel"
+    }
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "title": "設定",
+  "subtitle": "Customize 設定 & プレビュー in Real 時間",
+  "resetTip": "Data has changed, click to reset",
+  "resetTitle": "リセット 設定",
+  "resetSuccess": "設定 reset successfully",
+  "appearance": "外観",
+  "layout": "Layout",
+  "content": "コンテンツ",
+  "other": "その他",
+  "wide": "ワイド",
+  "compact": "固定",
+  "followSystem": "Follow システム",
+  "vertical": "Vertical",
+  "verticalTip": "Side vertical menu mode",
+  "horizontal": "Horizontal",
+  "horizontalTip": "Horizontal menu mode, all menus displayed at the top",
+  "twoColumn": "Two Column",
+  "twoColumnTip": "Vertical Two Column メニュー Mode",
+  "headerSidebarNav": "ヘッダー Vertical",
+  "headerSidebarNavTip": "ヘッダー Full 幅, Sidebar Navigation Mode",
+  "headerTwoColumn": "ヘッダー Two Column",
+  "headerTwoColumnTip": "ヘッダー Navigation & Sidebar Two Column co-exists",
+  "mixedMenu": "混合メニュー",
+  "mixedMenuTip": "Vertical & Horizontal メニュー Co-exists",
+  "fullContent": "Full コンテンツ",
+  "fullContentTip": "Only display content body, hide all menus",
+  "normal": "Normal",
+  "plain": "プレーン",
+  "rounded": "Rounded",
+  "copyPreferences": "コピー 設定",
+  "copyPreferencesSuccessTitle": "コピー successful",
+  "copyPreferencesSuccess": "コピー successful, please override in `src/preferences.ts` under app",
+  "clearAndLogout": "キャッシュをクリアしてログアウト",
+  "mode": "Mode",
+  "general": "一般",
+  "language": "言語",
+  "dynamicTitle": "Dynamic タイトル",
+  "watermark": "Watermark",
+  "checkUpdates": "Periodic update check",
+  "position": {
+    "title": "設定 役職",
+    "header": "ヘッダー",
+    "auto": "自動",
+    "fixed": "固定"
+  },
+  "sidebar": {
+    "buttons": "Show Buttons",
+    "buttonFixed": "固定",
+    "buttonCollapsed": "折りたたまれた",
+    "title": "Sidebar",
+    "width": "幅",
+    "visible": "Show Sidebar",
+    "collapsed": "メニューを折りたたむ",
+    "collapsedShowTitle": "Show メニュー タイトル",
+    "autoActivateChild": "サブメニューを自動有効化",
+    "autoActivateChildTip": "`Enabled` to automatically activate the submenu while clicking menu.",
+    "expandOnHover": "Expand On Hover",
+    "expandOnHoverTip": "When the mouse hovers over menu, `Enabled` to expand children menus, `Disabled` to expand whole sidebar."
+  },
+  "tabbar": {
+    "title": "Tabbar",
+    "enable": "有効化 Tab Bar",
+    "icon": "Show Tabbar Icon",
+    "showMore": "Show もっと見る ボタン",
+    "showMaximize": "Show Maximize ボタン",
+    "persist": "Persist Tabs",
+    "maxCount": "Max 件数 of Tabs",
+    "maxCountTip": "When the number of tabs exceeds the maximum, the oldest tab will be closed. Set to 0 to disable count checking.",
+    "draggable": "有効化 Draggable 並べ替え",
+    "wheelable": "Support Mouse Wheel",
+    "middleClickClose": "閉じる Tab when Mouse Middle ボタン Click",
+    "wheelableTip": "When enabled, the Tabbar area responds to vertical scrolling events of the scroll wheel.",
+    "styleType": {
+      "title": "Tabs Style",
+      "chrome": "クローム",
+      "card": "カード",
+      "plain": "プレーン",
+      "brisk": "Brisk"
+    },
+    "contextMenu": {
+      "reload": "Reload",
+      "close": "閉じる",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "closeLeft": "左のタブを閉じる",
+      "closeRight": "右のタブを閉じる",
+      "closeOther": "他のタブを閉じる",
+      "closeAll": "すべてのタブを閉じる",
+      "openInNewWindow": "開く in 新規 ウィンドウ",
+      "maximize": "Maximize",
+      "restoreMaximize": "復元"
+    }
+  },
+  "navigationMenu": {
+    "title": "Navigation メニュー",
+    "style": "Navigation メニュー Style",
+    "accordion": "Sidebar Accordion メニュー",
+    "split": "Navigation メニュー Separation",
+    "splitTip": "When enabled, the sidebar displays the top bar's submenu"
+  },
+  "breadcrumb": {
+    "title": "Breadcrumb",
+    "home": "Show Home ボタン",
+    "enable": "有効化 Breadcrumb",
+    "icon": "Show Breadcrumb Icon",
+    "style": "Breadcrumb Style",
+    "hideOnlyOne": "非表示 when only one",
+    "background": "background"
+  },
+  "animation": {
+    "title": "アニメーション",
+    "loading": "Page 読み込み中...",
+    "transition": "Page Transition",
+    "progress": "Page Progress"
+  },
+  "theme": {
+    "title": "Theme",
+    "radius": "Radius",
+    "light": "ライト",
+    "dark": "ダーク",
+    "darkSidebar": "Semi ダーク Sidebar",
+    "darkHeader": "Semi ダーク ヘッダー",
+    "weakMode": "Weak Mode",
+    "grayMode": "グレー Mode",
+    "builtin": {
+      "title": "組み込み",
+      "default": "デフォルト",
+      "violet": "Violet",
+      "pink": "ピンク",
+      "rose": "Rose",
+      "skyBlue": "Sky ブルー",
+      "deepBlue": "Deep ブルー",
+      "green": "緑",
+      "deepGreen": "Deep 緑",
+      "orange": "オレンジ",
+      "yellow": "Yellow",
+      "zinc": "Zinc",
+      "neutral": "Neutral",
+      "slate": "Slate",
+      "gray": "グレー",
+      "custom": "カスタム"
+    }
+  },
+  "header": {
+    "title": "ヘッダー",
+    "visible": "Show ヘッダー",
+    "modeStatic": "Static",
+    "modeFixed": "固定",
+    "modeAuto": "自動的に隠して表示",
+    "modeAutoScroll": "Scroll to Hide & Show",
+    "menuAlign": "メニュー Align",
+    "menuAlignStart": "Start",
+    "menuAlignEnd": "終了",
+    "menuAlignCenter": "中央"
+  },
+  "footer": {
+    "title": "Footer",
+    "visible": "Show Footer",
+    "fixed": "固定 at Bottom"
+  },
+  "copyright": {
+    "title": "Copyright",
+    "enable": "有効化 Copyright",
+    "companyName": "会社名",
+    "companySiteLink": "会社サイトリンク",
+    "date": "日付",
+    "icp": "ICP License Number",
+    "icpLink": "ICP Site Link"
+  },
+  "shortcutKeys": {
+    "title": "Shortcut Keys",
+    "global": "Global",
+    "search": "Global 検索",
+    "logout": "ログアウト",
+    "preferences": "設定"
+  },
+  "widget": {
+    "title": "Widget",
+    "globalSearch": "有効化 Global 検索",
+    "fullscreen": "有効化 Fullscreen",
+    "themeToggle": "有効化 Theme Toggle",
+    "languageToggle": "有効化 言語 Toggle",
+    "notification": "有効化 通知",
+    "sidebarToggle": "有効化 Sidebar Toggle",
+    "lockScreen": "有効化 Lock Screen",
+    "refresh": "有効化 更新",
+    "height": {
+      "label": "Height",
+      "value": "Tall"
+    },
+    "width": {
+      "label": "幅",
+      "value": "ワイド"
+    },
+    "minWidth": {
+      "label": "最小幅",
+      "value": "最小幅"
+    },
+    "complexity": {
+      "label": "複雑さ",
+      "value": "複雑"
+    },
+    "light": {
+      "label": "ライト",
+      "value": "ライト Mode"
+    },
+    "dark": {
+      "label": "ダーク",
+      "value": "ダーク Mode"
+    },
+    "system": {
+      "label": "Follow システム",
+      "value": "Follow システム"
+    },
+    "auto": {
+      "label": "自動",
+      "value": "自動"
+    }
+  }
+}

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — YDSZ 云平台</title>
+    <style>
+      body { margin: 0; padding: 0; font-family: system-ui, sans-serif; color: #1a1a1a; background: #f0f2f5; }
+      header { background: #001529; color: #fff; padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+      header h1 { margin: 0; font-size: 1.25rem; }
+      nav { display: flex; gap: 1rem; }
+      nav a { color: rgba(255,255,255,0.85); text-decoration: none; padding: 0.25rem 0.5rem; }
+      nav a:hover, nav a:focus { color: #fff; }
+      .layout { display: flex; min-height: calc(100vh - 56px); }
+      aside { width: 220px; background: #fff; padding: 1rem; border-right: 1px solid #e8e8e8; }
+      aside ul { list-style: none; padding: 0; margin: 0; }
+      aside li { margin-bottom: 0.5rem; }
+      aside a { display: block; padding: 0.5rem; color: #1a1a1a; text-decoration: none; border-radius: 4px; }
+      aside a:hover, aside a[aria-current="page"] { background: #e6f7ff; color: #1677ff; }
+      main { flex: 1; padding: 1.5rem; }
+      .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+      .stat-card { background: #fff; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+      .stat-card h3 { margin: 0 0 0.5rem; font-size: 0.875rem; color: #666; }
+      .stat-card .value { font-size: 2rem; font-weight: 700; }
+      .section { background: #fff; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+      .a11y-vhidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e8e8e8; }
+      caption { text-align: left; font-weight: 600; padding: 0.5rem 0; }
+      footer { padding: 1rem; text-align: center; color: #999; font-size: 0.75rem; border-top: 1px solid #e8e8e8; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>YDSZ 云平台</h1>
+      <nav aria-label="主导航">
+        <a href="/dashboard" aria-current="page">首页</a>
+        <a href="/system">系统管理</a>
+        <a href="/userinfo">用户中心</a>
+        <a href="/workflow">流程引擎</a>
+        <a href="/logout">退出登录</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <aside>
+        <nav aria-label="侧边导航">
+          <ul>
+            <li><a href="/dashboard" aria-current="page">概览</a></li>
+            <li><a href="/system/dict-type">字典管理</a></li>
+            <li><a href="/system/config">系统配置</a></li>
+            <li><a href="/organization/user">用户管理</a></li>
+            <li><a href="/organization/role">角色管理</a></li>
+            <li><a href="/tenant/list">租户管理</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main id="a11y-fixture" data-a11y-fixture="ready">
+        <h2>数据概览</h2>
+        <div class="dashboard-grid" role="group" aria-label="核心数据统计">
+          <article class="stat-card">
+            <h3>总用户数</h3>
+            <p class="value">1,284</p>
+          </article>
+          <article class="stat-card">
+            <h3>今日活跃</h3>
+            <p class="value">326</p>
+          </article>
+          <article class="stat-card">
+            <h3>待处理工单</h3>
+            <p class="value">18</p>
+          </article>
+        </div>
+
+        <section class="section" aria-labelledby="recent-activity-title">
+          <h2 id="recent-activity-title">最近操作</h2>
+          <table aria-label="最近操作记录">
+            <caption class="a11y-vhidden">最近操作记录（5 条）</caption>
+            <thead>
+              <tr>
+                <th scope="col">操作时间</th>
+                <th scope="col">操作人</th>
+                <th scope="col">模块</th>
+                <th scope="col">描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-01-15 14:32</td>
+                <td>admin</td>
+                <td>用户管理</td>
+                <td>新增用户 zhangsan</td>
+              </tr>
+              <tr>
+                <td>2026-01-15 13:18</td>
+                <td>admin</td>
+                <td>字典管理</td>
+                <td>更新字典 sys_status</td>
+              </tr>
+              <tr>
+                <td>2026-01-15 11:05</td>
+                <td>lisi</td>
+                <td>租户管理</td>
+                <td>创建租户 示例租户</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 YDSZ 云平台 — 无障碍</p>
+    </footer>
+  </body>
+</html>

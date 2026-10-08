@@ -1,0 +1,68 @@
+{
+  "main": {
+    "search": {
+      "placeholder": "Rechercher menus, features, actions... (⌘K)",
+      "slashModePlaceholder": "Type a / command (/lock /theme /goto ...)",
+      "tabNavigation": "Navigation",
+      "tabAllSearch": "Toute la recherche",
+      "emptyTip": "Type to search or browse navigation below",
+      "noResults": "Non results found",
+      "loading": "Searching...",
+      "recentLabel": "Recent",
+      "hotLabel": "Hot",
+      "hotPrefix": "Hot Rechercher",
+      "hintNavigate": "↑↓ Navigate",
+      "hintConfirm": "↵ Confirmer",
+      "hintClose": "Esc Fermer",
+      "hintSlashEnter": "↵ Run Command",
+      "category": {
+        "page": "Page",
+        "doc": "Document",
+        "user": "Utilisateur",
+        "message": "Message",
+        "task": "Tache",
+        "agent": "Agent"
+      }
+    },
+    "slashCmd": {
+      "args": "Arguments",
+      "lock": "Lock current screen",
+      "unlock": "Unlock screen",
+      "theme": "Switch theme (dark / light)",
+      "goto": "Navigate to path",
+      "search": "Rechercher",
+      "help": "Show all commands",
+      "feedback": "Soumettre feedback",
+      "reload": "Reload page",
+      "tip": {
+        "lock": "",
+        "unlock": "",
+        "theme": "Options: dark | light",
+        "goto": "e.g. /goto /system/role",
+        "search": "e.g. /search ticket",
+        "help": "",
+        "feedback": "",
+        "reload": ""
+      }
+    },
+    "quickCreate": {
+      "title": "Quick Creer",
+      "newTicket": "Nouveau Ticket",
+      "newTicketDesc": "Soumettre a new support ticket",
+      "newDocument": "Nouveau Document",
+      "newDocumentDesc": "Creer a collaborative doc",
+      "newTask": "Nouveau Tache",
+      "newTaskDesc": "Ajouter une tache a faire",
+      "addUser": "Ajouter un utilisateur",
+      "addUserDesc": "Creer a new user account",
+      "viewNotifications": "Voir Notifications",
+      "viewNotificationsDesc": "Ouvrir notification center",
+      "lockScreen": "Lock Screen",
+      "lockScreenDesc": "Lock current session immediately",
+      "submitFeedback": "Soumettre Feedback",
+      "submitFeedbackDesc": "Feedback and suggestions",
+      "settings": "Parametres",
+      "settingsDesc": "Ouvrir preference panel"
+    }
+  }
+}

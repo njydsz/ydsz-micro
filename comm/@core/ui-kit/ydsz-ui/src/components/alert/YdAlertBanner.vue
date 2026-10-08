@@ -103,6 +103,8 @@ function handleClose(): void {
       )
     "
     role="alert"
+    aria-live="polite"
+    aria-atomic="true"
   >
     <component
       v-if="showIcon"

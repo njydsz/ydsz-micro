@@ -1,0 +1,18 @@
+{
+  "business": {
+    "tableName": "Table Nombre",
+    "tableComment": "Table Comentario",
+    "moduleName": "Modulo Nombre",
+    "datasourceName": "Fuente de datos",
+    "templateGroup": "Plantilla Grupo",
+    "generate": "Generar",
+    "preview": "Vista previa",
+    "generateAll": "Generar Todo",
+    "history": "Historial",
+    "rollback": "Reversion",
+    "datasource": "Fuente de datos",
+    "template": "Plantilla",
+    "importExport": "Importar/Exportar",
+    "tableMeta": "Metadatos de tabla"
+  }
+}

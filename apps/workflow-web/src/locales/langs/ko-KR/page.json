@@ -1,0 +1,16 @@
+{
+  "template": "템플릿",
+  "templateList": "템플릿 목록",
+  "category": "카테고리",
+  "runtime": "실행 시간",
+  "instance": "Instance",
+  "task": "작업",
+  "approval": "승인",
+  "delegate": "위임",
+  "sla": "SLA",
+  "quickComment": "Quick 댓글",
+  "monitor": "Monitor",
+  "analytics": "분석",
+  "design": "디자인",
+  "designer": "Designer"
+}

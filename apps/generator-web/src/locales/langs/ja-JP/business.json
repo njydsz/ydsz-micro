@@ -1,0 +1,18 @@
+{
+  "business": {
+    "tableName": "Table 名前",
+    "tableComment": "Table コメント",
+    "moduleName": "モジュール 名前",
+    "datasourceName": "データソース",
+    "templateGroup": "テンプレート グループ",
+    "generate": "生成",
+    "preview": "プレビュー",
+    "generateAll": "生成 すべて",
+    "history": "履歴",
+    "rollback": "ロールバック",
+    "datasource": "データソース",
+    "template": "テンプレート",
+    "importExport": "インポート/エクスポート",
+    "tableMeta": "テーブルメタデータ"
+  }
+}

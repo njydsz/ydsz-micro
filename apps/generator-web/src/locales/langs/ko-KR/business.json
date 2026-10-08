@@ -1,0 +1,18 @@
+{
+  "business": {
+    "tableName": "Table 이름",
+    "tableComment": "Table 댓글",
+    "moduleName": "모듈 이름",
+    "datasourceName": "데이터 소스",
+    "templateGroup": "템플릿 그룹",
+    "generate": "생성",
+    "preview": "미리보기",
+    "generateAll": "생성 전체",
+    "history": "기록",
+    "rollback": "롤백",
+    "datasource": "데이터 소스",
+    "template": "템플릿",
+    "importExport": "가져오기/내보내기",
+    "tableMeta": "테이블 메타데이터"
+  }
+}

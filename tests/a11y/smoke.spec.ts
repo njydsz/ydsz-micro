@@ -24,39 +24,11 @@
 
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-
-/**
- * 受控违规阈值 — 仅阻断 critical / serious。
- *
- * <p>moderate / minor 不纳入 PR 卡点（减少二噪声），但输出到报告中供人工跟踪。
- */
-const BLOCKING_IMPACTS = ['critical', 'serious'] as const;
-
-/**
- * 将 axe 结果中的 violation 过滤出阻断级别项，返回空数组即通过。
- *
- * @param violations - axe-core 返回的 violations 列表
- * @return 命中阻断阈值的 violation 数组
- */
-function filterBlockingViolations(
-  violations: Awaited<ReturnType<AxeBuilder['analyze']>>['violations'],
-): typeof violations {
-  return violations.filter((v) => BLOCKING_IMPACTS.includes(v.impact as (typeof BLOCKING_IMPACTS)[number]));
-}
-
-/**
- * 格式化为人类可读的错误详情，便于 CI 日志定位。
- *
- * @param violations - 阻断级 violation 列表
- */
-function formatViolations(violations: Awaited<ReturnType<AxeBuilder['analyze']>>['violations']): string {
-  return violations
-    .map((v) => {
-      const nodes = v.nodes.map((n) => `    - ${n.html} (${n.failureSummary ?? 'no summary'})`).join('\n');
-      return `  [${v.impact?.toUpperCase()}] ${v.id}: ${v.description}\n    help: ${v.helpUrl}\n${nodes}`;
-    })
-    .join('\n\n');
-}
+import {
+  configureAxeBuilder,
+  filterBlockingViolations,
+  formatViolations,
+} from './axe.config';
 
 test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   test.beforeEach(async ({ page }) => {
@@ -67,10 +39,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   });
 
   test('P1-a11y: 整页扫描 — 应无 critical / serious 违规', async ({ page }) => {
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      // color-contrast 已在 axe.config.ts 中关闭规则
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(
@@ -80,10 +51,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   });
 
   test('P1-a11y: Button 组件 — 图标按钮必须具备可访问名称', async ({ page }) => {
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .include('[data-testid="fixture-button"]')
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-button"]'),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(
@@ -93,10 +63,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   });
 
   test('P1-a11y: Input 组件 — 输入控件必须具备 label 关联', async ({ page }) => {
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .include('[data-testid="fixture-input"]')
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-input"]'),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(
@@ -106,10 +75,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   });
 
   test('P1-a11y: Select 组件 — 选择器必须具备可访问名称与选项文本', async ({ page }) => {
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .include('[data-testid="fixture-select"]')
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-select"]'),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(
@@ -119,10 +87,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   });
 
   test('P1-a11y: Table 组件 — 表头必须具备 scope 关联', async ({ page }) => {
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .include('[data-testid="fixture-table"]')
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-table"]'),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(
@@ -137,10 +104,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
     // 等待 Dialog 内容渲染完成
     await page.waitForSelector('[data-testid="fixture-dialog"]', { state: 'visible', timeout: 5_000 });
 
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .include('[data-testid="fixture-dialog"]')
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-dialog"]'),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(
@@ -155,10 +121,9 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
     // 等待 Sheet 内容渲染完成
     await page.waitForSelector('[data-testid="fixture-sheet"]', { state: 'visible', timeout: 5_000 });
 
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .include('[data-testid="fixture-sheet"]')
-      .analyze();
+    const results = await configureAxeBuilder(
+      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-sheet"]'),
+    ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
     expect(

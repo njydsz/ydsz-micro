@@ -111,6 +111,36 @@ jobs:
       - name: 运行无障碍冒烟测试（ydsz-ui 关键组件 WCAG 2.1 AA 扫描）
         run: pnpm test:a11y
 
+      # 无障碍违规摘要 — 解析 JUnit XML 输出结构化违规摘要（CI 日志可见）
+      - name: 无障碍违规摘要（阻断级违规详情）
+        if: always()
+        run: |
+          if [ -f test-results/a11y-junit.xml ]; then
+            echo "## 无障碍扫描违规摘要" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            # 提取失败的 testcase 名称和错误消息
+            python3 -c "
+          import xml.etree.ElementTree as ET
+          import sys
+          tree = ET.parse('test-results/a11y-junit.xml')
+          root = tree.getroot()
+          failures = root.findall('.//testcase[failure]')
+          if not failures:
+              print('| 状态 | 页面 | 说明 |')
+              print('|------|------|------|')
+              print('| 通过 | 全部 | 无 critical / serious 违规 |')
+          else:
+              print('| 状态 | 测试用例 | 说明 |')
+              print('|------|---------|------|')
+              for tc in failures:
+                  name = tc.get('name', 'unknown')
+                  msg = tc.find('failure').get('message', '无详情')[:200]
+                  print(f'| 失败 | {name} | {msg} |')
+          " >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "JUnit 解析跳过（XML 格式不可解析或文件为空）" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "JUnit XML 未生成，跳过摘要" >> $GITHUB_STEP_SUMMARY
+          fi
+
       # 归档 a11y 测试报告（JUnit XML + HTML）
       - name: 归档无障碍测试报告
         if: always()

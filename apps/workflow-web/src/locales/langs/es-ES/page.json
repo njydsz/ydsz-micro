@@ -1,0 +1,16 @@
+{
+  "template": "Plantilla",
+  "templateList": "Lista de plantillas",
+  "category": "Categoria",
+  "runtime": "Tiempo de ejecucion",
+  "instance": "Instance",
+  "task": "Tarea",
+  "approval": "Aprobacion",
+  "delegate": "Delegar",
+  "sla": "SLA",
+  "quickComment": "Quick Comentario",
+  "monitor": "Monitor",
+  "analytics": "Analitica",
+  "design": "Diseno",
+  "designer": "Designer"
+}

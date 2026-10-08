@@ -1,233 +1,200 @@
 /**
- * OpenAPI 契约生成脚本
+ * 统一代码生成入口（API 契约 + i18n）
  *
- * 从后端 SpringDoc /v3/api-docs 生成前端 TypeScript SDK。
- * 每个子应用对应一个后端微服务，输出到各自的 api 目录。
+ * <p>串联 OpenAPI SDK 生成与 i18n 翻译流程，提供单一入口替代分散脚本。
  *
- * 使用方式:
- *   pnpm gen:api              # 生成全部 SDK
- *   pnpm gen:api workflow     # 仅生成 workflow-web 的 SDK
- *   pnpm gen:api --check      # CI 模式：仅检查（有漂移则失败）
+ * <p>使用方式:
+ *   npx tsx bash/gen-api.mts                  # 全量生成（API + i18n）
+ *   npx tsx bash/gen-api.mts --check          # CI 模式：仅检查（有漂移则失败）
+ *   npx tsx bash/gen-api.mts --i18n-only      # 仅执行 i18n 翻译（es-ES/fr-FR/ja-JP/ko-KR）
  *
- * CI 集成（已在 pnpm gen:api --check 中处理）:
- *   1. 生成全部 SDK
- *   2. git diff --exit-code
- *   3. 有变更 → 阻塞 PR，提示开发者运行 pnpm gen:api 同步
+ * <p>子脚本:
+ *   - unified-contract.mts : API 契约生成主逻辑（pnpm gen:api 默认入口）
+ *   - data/scripts/gen_i18n.py : en-US → 四语翻译（保留为被调用子脚本）
  *
- * 依赖: openapi-typescript（pnpm add -D -w openapi-typescript 首次使用需安装）
- *
- * @path bash\gen-api.mjs
+ * @path bash/gen-api.mts
  * @author ydsz-team
- * @since 3.0.0
+ * @since 4.1.0
  */
 
-import { execSync } from 'node:child_process';
-import { existsSync, globSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createHash } from 'node:crypto';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
+const BASH_DIR = __dirname;
+
+/** 颜色日志 */
+function ok(msg: string)  { console.log(`  ✓ ${msg}`); }
+function err(msg: string) { console.error(`  ✗ ${msg}`); }
+function warn(msg: string){ console.log(`  ! ${msg}`); }
+function info(msg: string){ console.log(`  · ${msg}`); }
 
 /**
- * 后端微服务 → 前端子应用 映射表。
- *
- * key:   子应用名（与 apps/ 和 MICRO_APPS 注册名一致）
- * spec:  后端 OpenAPI 规范地址
- * output: SDK 产物输出目录（相对于项目根）
+ * 执行命令并返回结果（不抛出异常）
  */
-const SERVICE_MAP = {
-  userinfo: { spec: 'http://localhost:9002/v3/api-docs', output: 'apps/userinfo-web/src/api/sdk' },
-  system:   { spec: 'http://localhost:9001/v3/api-docs', output: 'apps/system-web/src/api/sdk' },
-  message:  { spec: 'http://localhost:9004/v3/api-docs', output: 'apps/message-web/src/api/sdk' },
-  cronjob:  { spec: 'http://localhost:9006/v3/api-docs', output: 'apps/cronjob-web/src/api/sdk' },
-  workflow: { spec: 'http://localhost:9005/v3/api-docs', output: 'apps/workflow-web/src/api/sdk' },
-  nextwiki: { spec: 'http://localhost:9003/v3/api-docs', output: 'apps/nextwiki-web/src/api/sdk' },
-  literule: { spec: 'http://localhost:9007/v3/api-docs', output: 'apps/literule-web/src/api/sdk' },
-  agent:    { spec: 'http://localhost:9008/v3/api-docs', output: 'apps/agent-web/src/api/sdk' },
-};
-
-/**
- * 为生成的 SDK 计算稳定 hash，输出到 .api-contract.lock。
- *
- * 对输出目录下所有 .ts 文件内容做 SHA-256，写入 lock 文件供 CI 漂移检测。
- *
- * @param serviceName 服务名（仅用于日志输出）
- * @param outputDir   SDK 输出目录（相对于项目根）
- */
-function writeLockFile(serviceName, outputDir) {
-  const lockPath = join(ROOT, outputDir, '.api-contract.lock');
-  const hash = createHash('sha256');
-  const files = globSync(join(ROOT, outputDir, '*.ts'));
-  for (const file of files.sort()) {
-    hash.update(readFileSync(file, 'utf-8'));
-  }
-  writeFileSync(lockPath, `${hash.digest('hex')}\n`);
-  console.log(`  lock: ${lockPath}`);
+function run(cmd: string, args: string[], opts?: { cwd?: string; stdio?: 'pipe' | 'inherit' }) {
+  const result = spawnSync(cmd, args, {
+    cwd: opts?.cwd || ROOT,
+    stdio: opts?.stdio || 'inherit',
+    shell: process.platform === 'win32',
+    windowsHide: true,
+  });
+  return { status: result.status ?? 1, error: result.error };
 }
+
+// ─── 子流程 ───────────────────────────────────────────────────────────────
+
+/**
+ * 流程 A：调用 unified-contract.mts 生成 API SDK
+ * 复用 pnpm gen:api 的全部逻辑，保留 --check 支持
+ */
+function runApiGeneration(extraArgs: string[] = []) {
+  console.log('\n[gen:api] ━━━ Phase 1: OpenAPI SDK 生成 ━━━\n');
+  const script = join(BASH_DIR, 'unified-contract.mts');
+  const tsx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+  // tsx 执行 unified-contract.mts，透传额外参数（如 --check、--live 等）
+  const args = ['tsx', script, ...extraArgs];
+  const { status, error } = run(tsx, args);
+  if (error) {
+    err(`API SDK 生成失败: ${error.message}`);
+    return false;
+  }
+  if (status !== 0) {
+    err(`API SDK 生成退出码: ${status}`);
+    return false;
+  }
+  ok('OpenAPI SDK 生成完成');
+  return true;
+}
+
+/**
+ * 流程 B：调用 Python 脚本执行 i18n 翻译（en-US → es-ES / fr-FR / ja-JP / ko-KR）
+ * 子脚本保留在 data/scripts/gen_i18n.py，此处仅做入参适配与错误处理
+ */
+function runI18nGeneration() {
+  console.log('\n[gen:api] ━━━ Phase 2: i18n 翻译生成 ━━━\n');
+  const scriptPath = join(ROOT, 'data', 'scripts', 'gen_i18n.py');
+  if (!existsSync(scriptPath)) {
+    err(`子脚本不存在: ${scriptPath}`);
+    return false;
+  }
+  const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+  const { status, error } = run(pythonCmd, [scriptPath]);
+  if (error) {
+    err(`i18n 翻译失败: ${error.message}`);
+    info('提示: 确保 Python 环境已安装（需 i18n_dicts 依赖模块）');
+    return false;
+  }
+  if (status !== 0) {
+    err(`i18n 翻译退出码: ${status}`);
+    return false;
+  }
+  ok('i18n 翻译生成完成');
+  return true;
+}
+
+/**
+ * 流程 C：键同步检查（调用 bash/check-locales.mts）
+ */
+function runLocaleCheck() {
+  console.log('\n[gen:api] ━━━ Phase 3: i18n 键一致性检查 ━━━\n');
+  const scriptPath = join(BASH_DIR, 'check-locales.mts');
+  if (!existsSync(scriptPath)) {
+    warn('check-locales.mts 不存在，跳过键检查');
+    return true;
+  }
+  const tsx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+  const { status, error } = run(tsx, ['tsx', scriptPath]);
+  if (error) {
+    err(`键同步检查失败: ${error.message}`);
+    return false;
+  }
+  if (status !== 0) {
+    err(`键同步检查退出码: ${status}（存在缺失键）`);
+    return false;
+  }
+  ok('i18n 键一致性检查通过');
+  return true;
+}
+
+// ─── CLI 解析 ─────────────────────────────────────────────────────────────
+
+function printUsage() {
+  console.log(`
+用法: npx tsx bash/gen-api.mts [选项] [服务名]
+
+选项:
+  --check         CI 模式：仅检查 API 契约漂移 + i18n 键一致性
+  --i18n-only     仅执行 i18n 翻译 + 键检查（不生成 API SDK）
+  --no-i18n       全量模式跳过 i18n 步骤（仅生成 API SDK）
+  --help, -h      显示此帮助
+
+服务名（透传给 unified-contract.mts）:
+  userinfo | system | message | cronjob | workflow | nextwiki | literule | agent
+
+示例:
+  npx tsx bash/gen-api.mts                  # 全量：API + i18n
+  npx tsx bash/gen-api.mts --check          # CI 检查
+  npx tsx bash/gen-api.mts --i18n-only      # 仅更新翻译
+  npx tsx bash/gen-api.mts --live workflow  # 从运行中的后端拉取 workflow spec
+`);
+}
+
+// ─── 主入口 ───────────────────────────────────────────────────────────────
 
 async function main() {
   const args = process.argv.slice(2);
+
+  // --help
+  if (args.includes('--help') || args.includes('-h')) {
+    printUsage();
+    return;
+  }
+
   const isCheck = args.includes('--check');
-  const targetName = args.find(a => !a.startsWith('--'));
+  const isI18nOnly = args.includes('--i18n-only');
+  const skipI18n = args.includes('--no-i18n');
 
-  const targets = targetName
-    ? [[targetName, SERVICE_MAP[targetName]]].filter(([, v]) => v)
-    : Object.entries(SERVICE_MAP);
+  // 透传给子脚本的参数（仅消费本入口独有的标志，--check 需透传给 unified-contract.mts）
+  const passthroughArgs = args.filter(
+    (a) => !['--i18n-only', '--no-i18n'].includes(a),
+  );
 
-  if (targetName && !SERVICE_MAP[targetName]) {
-    console.error(`未知服务: ${targetName}。可用: ${Object.keys(SERVICE_MAP).join(', ')}`);
+  const startTime = Date.now();
+  console.log(`[gen:api] 统一代码生成入口 — ${new Date().toISOString()}`);
+  console.log(`[gen:api] 模式: ${isCheck ? 'CI 检查' : isI18nOnly ? '仅 i18n' : '全量'}`);
+
+  let allSuccess = true;
+
+  // ── Phase 1: OpenAPI SDK 生成 / 检查 ──
+  if (!isI18nOnly) {
+    // 委托 unified-contract.mts（透传 --check / --live / --static / 服务名）
+    const phase1Ok = runApiGeneration(passthroughArgs);
+    if (!phase1Ok) allSuccess = false;
+  }
+
+  // ── Phase 2: i18n 翻译 ──
+  if (!skipI18n && !isCheck) {
+    const i18nOk = runI18nGeneration();
+    if (!i18nOk) allSuccess = false;
+  }
+
+  // ── Phase 3: i18n 键检查（CI 模式或全量模式末尾） ──
+  if (isCheck || (!skipI18n && !isI18nOnly)) {
+    const checkOk = runLocaleCheck();
+    if (!checkOk) allSuccess = false;
+  }
+
+  // ── 总结 ──
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+  console.log(`\n[gen:api] ━━━ ${allSuccess ? '✓ 全部完成' : '✗ 存在失败'} (${elapsed}s) ━━━\n`);
+
+  if (!allSuccess) {
     process.exit(1);
   }
-
-  console.log(`[gen:api] ${isCheck ? 'CI 契约检查模式' : '生成 SDK 模式'}，共 ${targets.length} 个服务\n`);
-
-  let hasChanges = false;
-
-  for (const [name, { spec, output }] of targets) {
-    const outDir = join(ROOT, output);
-    const lockPath = join(outDir, '.api-contract.lock');
-
-    console.log(`[${name}] ${spec}`);
-
-    // 1. 获取 OpenAPI spec
-    let specData;
-    try {
-      const resp = await fetch(spec, { signal: AbortSignal.timeout(15000) });
-      if (!resp.ok) {
-        console.error(`  ✗ 获取 spec 失败: HTTP ${resp.status}`);
-        process.exit(1);
-      }
-      specData = await resp.text();
-    } catch (err) {
-      console.error(`  ✗ 无法连接后端: ${err.message}`);
-      console.error(`    → 确保后端 ${spec} 可访问后再运行 gen:api`);
-      process.exit(1);
-    }
-
-    mkdirSync(outDir, { recursive: true });
-
-    // 2. 写入 spec 原始文件（为后续 generator 准备）
-    const specPath = join(outDir, 'openapi.json');
-    writeFileSync(specPath, specData);
-
-    // 3. 使用 openapi-typescript 生成类型（如果可用）
-    const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-    try {
-      execSync(`${npxCmd} openapi-typescript "${specPath}" --output "${join(outDir, 'schema.d.ts')}" --export-type`, {
-        cwd: ROOT,
-        stdio: 'pipe',
-      });
-      console.log(`  ✓ schema.d.ts (types)`);
-      // 追加 eslint-disable 头（生成的代码不 lint）
-      const schemaPath = join(outDir, 'schema.d.ts');
-      let schema = readFileSync(schemaPath, 'utf-8');
-      schema = `/* eslint-disable */\n/* auto-generated by pnpm gen:api — DO NOT EDIT */\n${schema}`;
-      writeFileSync(schemaPath, schema);
-
-      // 4. 生成 SDK 客户端入口文件（如果不存在则创建）
-      const clientPath = join(outDir, 'index.ts');
-      if (!existsSync(clientPath)) {
-        const clientContent = `/**
- * ${name} OpenAPI SDK 客户端入口
- *
- * <p>基于 openapi-fetch 创建的类型安全 API 客户端。
- * <p>此文件由 gen-api.mjs 自动生成，请勿手动修改。
- *
- * @auto-generated
- * @since 1.0.0
- */
-
-import { createOpenApiClient } from '@ydsz/shared-auth';
-import type { paths } from './schema';
-
-/**
- * ${name} 类型安全 API 客户端
- *
- * <p>基于生成的 schema.d.ts 提供完整的类型检查和自动补全。
- * <p>所有 API 路径、参数、响应类型均与后端 OpenAPI 规范对齐。
- *
- * @example
- * \`\`\`ts
- * import { apiClient } from '#/api/sdk';
- *
- * // 类型安全的 API 调用
- * const { data, error } = await apiClient.GET('/users/{id}', {
- *   params: { path: { id: '123' } },
- * });
- * \`\`\`
- */
-export const apiClient = createOpenApiClient<paths>({
-  baseUrl: '/api/${name}',
-});
-
-// 导出类型供业务代码使用
-export type { paths, components, operations } from './schema';
-`;
-        writeFileSync(clientPath, clientContent);
-        console.log(`  ✓ index.ts (client)`);
-      }
-
-      // 4.1 生成 sdk-client.ts 骨架（业务侧类型安全客户端入口，提交至 git；可手动扩展便捷封装）
-      //     仅在文件不存在时创建，避免覆盖手动添加的便捷封装（如 getUsers 等业务函数）。
-      const sdkClientPath = join(outDir, '..', 'sdk-client.ts');
-      if (!existsSync(sdkClientPath)) {
-        const sdkClientContent = `/**
- * ${name} OpenAPI SDK 客户端
- *
- * 类型安全调用，复用 requestClient 的拦截器链。
- * schema.d.ts 由 gen-api.mjs 自动生成，请勿手动编辑。
- *
- * @path apps/${name}-web/src/api/sdk-client.ts
- * @since 1.0.0
- */
-
-import { createOpenApiClient } from '@ydsz/shared-auth';
-import type { paths } from './sdk/schema';
-
-/**
- * ${name} 类型安全 API 客户端
- *
- * baseUrl 从服务名推导：/api/${name}
- * 此文件为自动生成的骨架，可手动添加便捷封装（如 getXxx 等业务函数）。
- */
-export const apiClient = createOpenApiClient<paths>({
-  baseUrl: '/api/${name}',
-});
-`;
-        writeFileSync(sdkClientPath, sdkClientContent);
-        console.log(`  ✓ sdk-client.ts (skeleton)`);
-      }
-    } catch {
-      console.log(`  ! openapi-typescript 未安装，仅输出 spec raw。运行 pnpm add -D -w openapi-typescript`);
-    }
-
-    // 4. 写入 .gitkeep + .gitignore（SDK 目录结构）
-    writeFileSync(
-      join(outDir, '.gitignore'),
-      `# Auto-generated by gen:api\n# Keep schema.d.ts in git (CI diff 使用)\n# 业务封装文件手动管理\n*\n!schema.d.ts\n!.gitignore\n!.api-contract.lock\n`,
-    );
-
-    writeLockFile(name, output);
-
-    // 5. CI 模式：检查是否有变更
-    if (isCheck) {
-      const oldLock = existsSync(lockPath) ? readFileSync(lockPath, 'utf-8').trim() : '';
-      const newLock = readFileSync(lockPath, 'utf-8').trim();
-      if (oldLock !== newLock && oldLock) {
-        console.error(`  ✗ 契约变更: ${name} 后端接口已修改，请运行 pnpm gen:api 更新 SDK`);
-        hasChanges = true;
-      }
-    }
-  }
-
-  if (isCheck && hasChanges) {
-    console.error('\n[gen:api] 契约漂移检测失败！请运行 pnpm gen:api 同步前端 SDK。');
-    process.exit(1);
-  }
-
-  console.log(`\n[gen:api] ${isCheck ? '契约一致' : '完成，共 ' + targets.length + ' 个服务'}`);
 }
 
 main();

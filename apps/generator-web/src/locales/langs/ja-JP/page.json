@@ -1,0 +1,23 @@
+{
+  "page": {
+    "title": "コード Generator"
+  },
+  "generator": {
+    "history": {
+      "title": "生成履歴",
+      "empty": "いいえ history records",
+      "viewDiff": "表示 Diff",
+      "files": "ファイル",
+      "tables": "テーブル",
+      "rollback": "ロールバック",
+      "viewFiles": "ファイル詳細"
+    },
+    "diff": {
+      "addLines": "{count} lines added",
+      "deleteLines": "{count} lines deleted",
+      "noChanges": "いいえ changes",
+      "leftPanel": "旧 バージョン",
+      "rightPanel": "新バージョン"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "template": "Modele",
+  "templateList": "Liste de modeles",
+  "category": "Categorie",
+  "runtime": "Temps d'execution",
+  "instance": "Instance",
+  "task": "Tache",
+  "approval": "Approbation",
+  "delegate": "Deleguer",
+  "sla": "SLA",
+  "quickComment": "Quick Commentaire",
+  "monitor": "Monitor",
+  "analytics": "Analytique",
+  "design": "Conception",
+  "designer": "Designer"
+}

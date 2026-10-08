@@ -1,0 +1,172 @@
+{
+  "formRules": {
+    "required": "입력하세요 {0}",
+    "selectRequired": "Please select {0}",
+    "minLength": "{0} must be at least {1} characters",
+    "maxLength": "{0} can be at most {1} characters",
+    "length": "{0} must be {1} characters long",
+    "alreadyExists": "{0} `{1}` already exists",
+    "startWith": "{0} must start with `{1}`",
+    "invalidURL": "Please input a valid URL"
+  },
+  "actionTitle": {
+    "edit": "Modify {0}",
+    "create": "{0} 추가",
+    "delete": "삭제 {0}",
+    "view": "보기 {0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "Are you sure to delete {0}?",
+    "deleting": "Deleting {0} ...",
+    "deleteSuccess": "{0} deleted successfully",
+    "operationSuccess": "작업 succeeded",
+    "operationFailed": "작업 failed"
+  },
+  "placeholder": {
+    "input": "입력하세요",
+    "select": "Please select"
+  },
+  "captcha": {
+    "title": "Please complete the security verification",
+    "sliderSuccessText": "Passed",
+    "sliderDefaultText": "Slide and drag",
+    "alt": "Supports img tag src attribute value",
+    "refreshAriaLabel": "새로 고침 captcha",
+    "confirmAriaLabel": "확인 selection",
+    "confirm": "확인",
+    "pointAriaLabel": "Click point",
+    "clickInOrder": "Please click in order"
+  },
+  "iconPicker": {
+    "placeholder": "선택 an icon",
+    "search": "검색 icon..."
+  },
+  "jsonViewer": {
+    "copy": "복사",
+    "copied": "Copied"
+  },
+  "fallback": {
+    "pageNotFound": "Oops! Page Not Found",
+    "pageNotFoundDesc": "Sorry, we couldn't find the page you were looking for.",
+    "forbidden": "Oops! Access Denied",
+    "forbiddenDesc": "Sorry, but you don't have permission to access this page.",
+    "internalError": "Oops! Something Went Wrong",
+    "internalErrorDesc": "Sorry, but the server encountered an error.",
+    "offline": "Offline Page",
+    "offlineError": "Oops! Network 오류",
+    "offlineErrorDesc": "Sorry, can't connect to the internet. Check your connection.",
+    "comingSoon": "출시 예정",
+    "http": {
+      "requestTimeout": "The request timed out. Please try again later.",
+      "networkError": "A network error occurred. Please check your internet connection and try again.",
+      "badRequest": "Bad Request. Please check your input and try again.",
+      "unauthorized": "Unauthorized. Please log in to continue.",
+      "forbidden": "Forbidden. You do not have permission to access this resource.",
+      "notFound": "Not Found. The requested resource could not be found.",
+      "badGateway": "Bad Gateway. The server received an invalid response.",
+      "serviceUnavailable": "Service Unavailable. The server is temporarily unable to handle the request.",
+      "gatewayTimeout": "Gateway Timeout. The server did not receive a timely response.",
+      "internalServerError": "Internal Server 오류. Something went wrong on our end. Please try again later."
+    }
+  },
+  "widgets": {
+    "document": "문서",
+    "qa": "Q&A",
+    "setting": "설정",
+    "logoutTip": "Do you want to logout?",
+    "viewAll": "보기 전체 Messages",
+    "notifications": "알림",
+    "markAllAsRead": "Mark 전체 as Read",
+    "clearNotifications": "지우기",
+    "checkUpdatesTitle": "새 버전 Available",
+    "checkUpdatesDescription": "Click to refresh and get the latest version",
+    "search": {
+      "title": "검색",
+      "searchNavigate": "검색 Navigation",
+      "select": "선택",
+      "navigate": "Navigate",
+      "close": "닫기",
+      "noResults": "아니요 검색 Results Found",
+      "noRecent": "아니요 검색 기록",
+      "recent": "검색 기록"
+    },
+    "lockScreen": {
+      "title": "Lock Screen",
+      "screenButton": "Locking",
+      "password": "비밀번호",
+      "placeholder": "비밀번호를 입력하세요",
+      "unlock": "Click to unlock",
+      "errorPasswordTip": "비밀번호 error, please re-enter",
+      "backToLogin": "로그인으로 돌아가기",
+      "entry": "Enter the system"
+    }
+  },
+  "component": {
+    "transfer": {
+      "title": "Available",
+      "selectedTitle": "Selected",
+      "placeholder": "검색",
+      "notFoundContent": "데이터 없음"
+    },
+    "steps": {
+      "wait": "Waiting",
+      "process": "In Progress",
+      "finish": "Finished",
+      "error": "오류"
+    },
+    "result": {
+      "successTitle": "성공",
+      "errorTitle": "실패",
+      "warningTitle": "경고",
+      "infoTitle": "정보"
+    },
+    "empty": {
+      "description": "데이터 없음"
+    },
+    "skeleton": {
+      "loading": "로딩 중..."
+    },
+    "autoComplete": {
+      "noMatch": "아니요 matching results",
+      "placeholder": "입력하세요"
+    },
+    "slider": {
+      "ariaLabel": "Slider value"
+    },
+    "progress": {
+      "ariaLabel": "Progress"
+    },
+    "rate": {
+      "ariaLabel": "Rating"
+    },
+    "anchor": {
+      "ariaLabel": "앵커 네비게이션"
+    },
+    "image": {
+      "loadError": "Load failed"
+    },
+    "tag": {
+      "closeAriaLabel": "닫기 tag"
+    },
+    "tour": {
+      "next": "다음",
+      "prev": "Previous",
+      "finish": "Finish",
+      "skip": "Skip",
+      "stepIndicator": "Step indicator"
+    },
+    "floatButton": {
+      "ariaLabel": "Float button"
+    },
+    "timeline": {
+      "ariaLabel": "타임라인",
+      "pending": "로딩 중..."
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "로딩 중..."
+    }
+  }
+}

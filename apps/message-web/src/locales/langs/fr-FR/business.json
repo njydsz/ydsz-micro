@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "Message Management",
+    "columns": {
+      "id": "Message ID",
+      "channel": "Canal",
+      "recipient": "Destinataire",
+      "subject": "Subject",
+      "sendTime": "Sent At"
+    },
+    "confirmDelete": "Etes-vous sur de supprimer \"{id}\" ?"
+  },
+  "templateName": "Modele Nom",
+  "templateContent": "Modele Contenu",
+  "templateType": "Modele Type",
+  "routeName": "Route Nom",
+  "routePriority": "Priorite",
+  "routeCondition": "Condition",
+  "preferenceName": "Preference Nom",
+  "dndEnabled": "DND",
+  "dndStart": "DND Start",
+  "dndEnd": "DND Fin",
+  "create": "Creer",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "confirmDelete": "Etes-vous sur de supprimer \"{id}\" ?",
+  "operationSuccess": "Succes"
+}

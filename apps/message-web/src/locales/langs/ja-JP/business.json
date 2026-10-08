@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "メッセージ Management",
+    "columns": {
+      "id": "メッセージ ID",
+      "channel": "チャネル",
+      "recipient": "受信者",
+      "subject": "Subject",
+      "sendTime": "Sent At"
+    },
+    "confirmDelete": "\"{id}\"を削除してもよろしいですか？"
+  },
+  "templateName": "テンプレート 名前",
+  "templateContent": "テンプレート コンテンツ",
+  "templateType": "テンプレート 種類",
+  "routeName": "Route 名前",
+  "routePriority": "優先度",
+  "routeCondition": "条件",
+  "preferenceName": "Preference 名前",
+  "dndEnabled": "DND",
+  "dndStart": "DND Start",
+  "dndEnd": "DND 終了",
+  "create": "作成",
+  "edit": "編集",
+  "delete": "削除",
+  "confirmDelete": "\"{id}\"を削除してもよろしいですか？",
+  "operationSuccess": "成功"
+}

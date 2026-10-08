@@ -1,0 +1,17 @@
+{
+  "task": "Tarea",
+  "taskList": "Tarea List",
+  "taskGroup": "Tarea Grupo",
+  "dag": "DAG",
+  "dagList": "Lista DAG",
+  "log": "Registro",
+  "executionLog": "Execution Registro",
+  "alert": "Alerta",
+  "alertRule": "Regla de alerta",
+  "connector": "Conector",
+  "connectorList": "Lista de conectores",
+  "health": "Panel de salud",
+  "queue": "Cola de trabajos",
+  "stats": "Informe de estadisticas",
+  "webhook": "Gestion de WebHook"
+}

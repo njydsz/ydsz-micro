@@ -1,0 +1,44 @@
+{
+  "agent": {
+    "title": "Gestion de agentes",
+    "editTitle": "Editar Agente",
+    "createTitle": "Crear Agente",
+    "columns": {
+      "name": "Nombre del agente",
+      "type": "Tipo",
+      "provider": "Proveedor de modelos",
+      "model": "Model Nombre",
+      "systemPrompt": "Sistema Prompt",
+      "temperature": "Temperatura",
+      "status": "Estado"
+    },
+    "placeholder": {
+      "name": "Enter agent name",
+      "type": "Enter agent type",
+      "provider": "Introduzca el proveedor de modelos",
+      "model": "Enter model name",
+      "systemPrompt": "Enter system prompt"
+    },
+    "confirmDelete": "¿Esta seguro de que desea eliminar \"{name}\"?",
+    "updateSuccess": "Actualizado exitosamente",
+    "createSuccess": "Creado exitosamente"
+  },
+  "definitionName": "Definition Nombre",
+  "definitionVersion": "Version",
+  "systemPrompt": "Sistema Prompt",
+  "temperature": "Temperatura",
+  "maxTokens": "Maximo de tokens",
+  "knowledgeName": "KB Nombre",
+  "knowledgeType": "KB Tipo",
+  "documentCount": "Documentos",
+  "dagName": "DAG Nombre",
+  "dagStatus": "DAG Estado",
+  "approvalTitle": "Titulo",
+  "approvalStatus": "Estado",
+  "approvalUser": "Aprobador",
+  "approvalTime": "Hora",
+  "create": "Crear",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "operationSuccess": "Exito"
+}

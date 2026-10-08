@@ -1,0 +1,17 @@
+{
+  "task": "작업",
+  "taskList": "작업 List",
+  "taskGroup": "작업 그룹",
+  "dag": "DAG",
+  "dagList": "DAG 목록",
+  "log": "로그",
+  "executionLog": "Execution 로그",
+  "alert": "알림",
+  "alertRule": "알림 규칙",
+  "connector": "커넥터",
+  "connectorList": "커넥터 목록",
+  "health": "상태 대시보드",
+  "queue": "작업 큐",
+  "stats": "통계 보고서",
+  "webhook": "WebHook 관리"
+}

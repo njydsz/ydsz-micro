@@ -1,0 +1,28 @@
+{
+  "message": {
+    "title": "Mensaje Management",
+    "columns": {
+      "id": "Mensaje ID",
+      "channel": "Canal",
+      "recipient": "Destinatario",
+      "subject": "Subject",
+      "sendTime": "Sent At"
+    },
+    "confirmDelete": "¿Esta seguro de eliminar \"{id}\"?"
+  },
+  "templateName": "Plantilla Nombre",
+  "templateContent": "Plantilla Contenido",
+  "templateType": "Plantilla Tipo",
+  "routeName": "Route Nombre",
+  "routePriority": "Prioridad",
+  "routeCondition": "Condicion",
+  "preferenceName": "Preference Nombre",
+  "dndEnabled": "DND",
+  "dndStart": "DND Start",
+  "dndEnd": "DND Fin",
+  "create": "Crear",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "confirmDelete": "¿Esta seguro de eliminar \"{id}\"?",
+  "operationSuccess": "Exito"
+}

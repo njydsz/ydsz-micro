@@ -1,0 +1,17 @@
+{
+  "task": "タスク",
+  "taskList": "タスク List",
+  "taskGroup": "タスク グループ",
+  "dag": "DAG",
+  "dagList": "DAGリスト",
+  "log": "ログ",
+  "executionLog": "Execution ログ",
+  "alert": "アラート",
+  "alertRule": "アラールール",
+  "connector": "コネクタ",
+  "connectorList": "コネクタ一覧",
+  "health": "健全性ダッシュボード",
+  "queue": "ジョブキュー",
+  "stats": "統計レポート",
+  "webhook": "WebHook管理"
+}

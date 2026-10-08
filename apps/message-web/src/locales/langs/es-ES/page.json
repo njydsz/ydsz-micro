@@ -1,0 +1,14 @@
+{
+  "message": "Mensaje",
+  "messageList": "Mensaje List",
+  "batchSend": "Envio por lotes",
+  "deadLetter": "Dead Letter",
+  "template": "Plantilla",
+  "templateList": "Lista de plantillas",
+  "notification": "Notificacion",
+  "notificationList": "Notificacion List",
+  "route": "Route",
+  "routeRule": "Route Regla",
+  "preference": "Preference",
+  "messagePreference": "Mensaje Preference"
+}

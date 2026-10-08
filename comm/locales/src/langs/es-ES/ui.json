@@ -1,0 +1,172 @@
+{
+  "formRules": {
+    "required": "Por favor, introduzca {0}",
+    "selectRequired": "Please select {0}",
+    "minLength": "{0} must be at least {1} characters",
+    "maxLength": "{0} can be at most {1} characters",
+    "length": "{0} must be {1} characters long",
+    "alreadyExists": "{0} `{1}` already exists",
+    "startWith": "{0} must start with `{1}`",
+    "invalidURL": "Please input a valid URL"
+  },
+  "actionTitle": {
+    "edit": "Modify {0}",
+    "create": "Anadir {0}",
+    "delete": "Eliminar {0}",
+    "view": "Ver {0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "¿Esta seguro de eliminar {0}?",
+    "deleting": "Deleting {0} ...",
+    "deleteSuccess": "{0} deleted successfully",
+    "operationSuccess": "Operacion exitosa",
+    "operationFailed": "Operacion fallida"
+  },
+  "placeholder": {
+    "input": "Por favor, introduzca",
+    "select": "Please select"
+  },
+  "captcha": {
+    "title": "Please complete the security verification",
+    "sliderSuccessText": "Passed",
+    "sliderDefaultText": "Slide and drag",
+    "alt": "Supports img tag src attribute value",
+    "refreshAriaLabel": "Actualizar captcha",
+    "confirmAriaLabel": "Confirmar seleccion",
+    "confirm": "Confirmar",
+    "pointAriaLabel": "Haga clic en el punto",
+    "clickInOrder": "Please click in order"
+  },
+  "iconPicker": {
+    "placeholder": "Seleccionar an icon",
+    "search": "Buscar icon..."
+  },
+  "jsonViewer": {
+    "copy": "Copiar",
+    "copied": "Copied"
+  },
+  "fallback": {
+    "pageNotFound": "Oops! Page Not Found",
+    "pageNotFoundDesc": "Sorry, we couldn't find the page you were looking for.",
+    "forbidden": "Oops! Access Denied",
+    "forbiddenDesc": "Sorry, but you don't have permission to access this page.",
+    "internalError": "Oops! Something Went Wrong",
+    "internalErrorDesc": "Sorry, but the server encountered an error.",
+    "offline": "Offline Page",
+    "offlineError": "Oops! Network Error",
+    "offlineErrorDesc": "Sorry, can't connect to the internet. Check your connection.",
+    "comingSoon": "Proximamente",
+    "http": {
+      "requestTimeout": "The request timed out. Please try again later.",
+      "networkError": "A network error occurred. Please check your internet connection and try again.",
+      "badRequest": "Solicitud incorrecta. Verifique su entrada e intente nuevamente.",
+      "unauthorized": "Unauthorized. Please log in to continue.",
+      "forbidden": "Forbidden. You do not have permission to access this resource.",
+      "notFound": "Not Found. The requested resource could not be found.",
+      "badGateway": "Mala puerta de enlace. El servidor recibio una respuesta no valida.",
+      "serviceUnavailable": "Service Unavailable. The server is temporarily unable to handle the request.",
+      "gatewayTimeout": "Gateway Timeout. The server did not receive a timely response.",
+      "internalServerError": "Internal Server Error. Something went wrong on our end. Please try again later."
+    }
+  },
+  "widgets": {
+    "document": "Documento",
+    "qa": "Q&A",
+    "setting": "Configuracion",
+    "logoutTip": "Do you want to logout?",
+    "viewAll": "Ver Todo Messages",
+    "notifications": "Notificaciones",
+    "markAllAsRead": "Mark Todo as Read",
+    "clearNotifications": "Limpiar",
+    "checkUpdatesTitle": "Nuevo Version Disponible",
+    "checkUpdatesDescription": "Haga clic para actualizar y obtener la ultima version",
+    "search": {
+      "title": "Buscar",
+      "searchNavigate": "Buscar Navigation",
+      "select": "Seleccionar",
+      "navigate": "Navigate",
+      "close": "Cerrar",
+      "noResults": "No Buscar Results Found",
+      "noRecent": "No Buscar Historial",
+      "recent": "Buscar Historial"
+    },
+    "lockScreen": {
+      "title": "Lock Screen",
+      "screenButton": "Locking",
+      "password": "Contrasena",
+      "placeholder": "Por favor, introduzca la contrasena",
+      "unlock": "Haga clic para desbloquear",
+      "errorPasswordTip": "Contrasena error, please re-enter",
+      "backToLogin": "Volver al inicio de sesion",
+      "entry": "Enter the system"
+    }
+  },
+  "component": {
+    "transfer": {
+      "title": "Disponible",
+      "selectedTitle": "Selected",
+      "placeholder": "Buscar",
+      "notFoundContent": "Sin datos"
+    },
+    "steps": {
+      "wait": "Waiting",
+      "process": "In Progress",
+      "finish": "Finished",
+      "error": "Error"
+    },
+    "result": {
+      "successTitle": "Exito",
+      "errorTitle": "Fallido",
+      "warningTitle": "Advertencia",
+      "infoTitle": "Informacion"
+    },
+    "empty": {
+      "description": "Sin datos"
+    },
+    "skeleton": {
+      "loading": "Cargando..."
+    },
+    "autoComplete": {
+      "noMatch": "No matching results",
+      "placeholder": "Por favor, introduzca"
+    },
+    "slider": {
+      "ariaLabel": "Slider value"
+    },
+    "progress": {
+      "ariaLabel": "Progress"
+    },
+    "rate": {
+      "ariaLabel": "Rating"
+    },
+    "anchor": {
+      "ariaLabel": "Navegacion de anclaje"
+    },
+    "image": {
+      "loadError": "Load failed"
+    },
+    "tag": {
+      "closeAriaLabel": "Cerrar etiqueta"
+    },
+    "tour": {
+      "next": "Siguiente",
+      "prev": "Previous",
+      "finish": "Finish",
+      "skip": "Skip",
+      "stepIndicator": "Step indicator"
+    },
+    "floatButton": {
+      "ariaLabel": "Float button"
+    },
+    "timeline": {
+      "ariaLabel": "Linea de tiempo",
+      "pending": "Cargando..."
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "Cargando..."
+    }
+  }
+}

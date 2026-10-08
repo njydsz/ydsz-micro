@@ -1,0 +1,16 @@
+{
+  "template": "テンプレート",
+  "templateList": "テンプレート一覧",
+  "category": "カテゴリ",
+  "runtime": "実行時間",
+  "instance": "Instance",
+  "task": "タスク",
+  "approval": "承認",
+  "delegate": "委任",
+  "sla": "SLA",
+  "quickComment": "Quick コメント",
+  "monitor": "Monitor",
+  "analytics": "分析",
+  "design": "デザイン",
+  "designer": "Designer"
+}

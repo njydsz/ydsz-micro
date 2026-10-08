@@ -1,7 +1,7 @@
 ﻿/**
  * Vue 组合式 API — 子应用侧使用全局状态
  *
- * 子应用无需关心底层是 qiankun 还是 micro-kernel，
+ * 子应用无需关心底层内核实现，
  * 始终通过 useGlobalState 获取类型化的响应式状态。
  *
  * v3.2 修复：原实现 subscribe 返回的 unsubscribe 未在组件卸载时调用，

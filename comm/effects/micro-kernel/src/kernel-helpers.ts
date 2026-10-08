@@ -42,7 +42,7 @@ export function resolveContainer(container: string | HTMLElement): HTMLElement |
  * 这样主应用 Vue Router 的 router.push 等操作也能被 micro-kernel 感知，
  * 而不只依赖浏览器 popstate（后者只在前进/后退时触发）。
  *
- * 参照 qiankun、micro-app、Garfish 的通用实践。
+ * 参照社区微前端框架的通用实践。
  *
  * @returns 清理函数（恢复原始 pushState/replaceState）
  */

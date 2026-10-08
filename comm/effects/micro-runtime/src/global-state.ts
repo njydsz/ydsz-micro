@@ -1,7 +1,7 @@
 ﻿/**
  * 类型安全的全局状态。
  *
- * 替代 qiankun initGlobalState（any 广播），提供类型化 get/set/subscribe。
+ * 提供类型化 get/set/subscribe，替代传统 any 广播机制。
  * 状态持久化复用现有的 Pinia + SecureLS 体系，本模块只负责主子应用通信。
  *
  * **安全警告**：
@@ -82,7 +82,7 @@ export function createGlobalStateHandle<T extends Record<string, unknown>>(
       const prev = { ...current.data };
       Object.assign(current.data, patch);
 
-      // 通过内核广播（如 qiankun setGlobalState）
+      // 通过内核广播
       if (raw) {
         raw.setGlobalState(patch as Partial<T>);
       }

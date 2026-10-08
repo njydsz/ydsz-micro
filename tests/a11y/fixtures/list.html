@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字典类型列表 — YDSZ 云平台</title>
+    <style>
+      body { margin: 0; padding: 0; font-family: system-ui, sans-serif; color: #1a1a1a; background: #f0f2f5; }
+      header { background: #001529; color: #fff; padding: 0.5rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+      header h1 { margin: 0; font-size: 1.25rem; }
+      nav { display: flex; gap: 1rem; }
+      nav a { color: rgba(255,255,255,0.85); text-decoration: none; }
+      .layout { display: flex; min-height: calc(100vh - 56px); }
+      aside { width: 220px; background: #fff; padding: 1rem; border-right: 1px solid #e8e8e8; }
+      aside ul { list-style: none; padding: 0; margin: 0; }
+      aside li { margin-bottom: 0.5rem; }
+      aside a { display: block; padding: 0.5rem; color: #1a1a1a; text-decoration: none; border-radius: 4px; }
+      aside a[aria-current="page"] { background: #e6f7ff; color: #1677ff; }
+      main { flex: 1; padding: 1.5rem; }
+      .toolbar { background: #fff; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; }
+      .toolbar .field { display: flex; flex-direction: column; }
+      label { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.25rem; }
+      input, select { padding: 0.4rem; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 0.875rem; }
+      button { padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem; }
+      .btn-primary { background: #1677ff; color: #fff; }
+      .btn-default { background: #fff; border: 1px solid #d9d9d9; }
+      .table-container { background: #fff; border-radius: 8px; padding: 1rem; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e8e8e8; }
+      caption { text-align: left; font-weight: 600; padding: 0.5rem 0; font-size: 1rem; }
+      .pagination { display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: flex-end; align-items: center; }
+      .pagination a, .pagination span { padding: 0.25rem 0.5rem; border: 1px solid #d9d9d9; border-radius: 4px; text-decoration: none; color: #1a1a1a; }
+      .pagination [aria-current="page"] { background: #1677ff; color: #fff; border-color: #1677ff; }
+      .empty { text-align: center; padding: 3rem; color: #999; }
+      .a11y-vhidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+      footer { padding: 1rem; text-align: center; color: #999; font-size: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>YDSZ 云平台</h1>
+      <nav aria-label="主导航">
+        <a href="/dashboard">首页</a>
+        <a href="/system" aria-current="page">系统管理</a>
+        <a href="/logout">退出登录</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <aside>
+        <nav aria-label="侧边导航">
+          <ul>
+            <li><a href="/system/dict-type" aria-current="page">字典管理</a></li>
+            <li><a href="/system/config">系统配置</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main id="a11y-fixture" data-a11y-fixture="ready">
+        <h2>字典类型</h2>
+
+        <!-- 筛选工具栏 -->
+        <section class="toolbar" aria-label="筛选条件">
+          <div class="field">
+            <label for="filter-code">字典编码</label>
+            <input id="filter-code" type="text" placeholder="请输入字典编码" />
+          </div>
+          <div class="field">
+            <label for="filter-name">字典名称</label>
+            <input id="filter-name" type="text" placeholder="请输入字典名称" />
+          </div>
+          <div class="field">
+            <label for="filter-status">状态</label>
+            <select id="filter-status">
+              <option value="">全部</option>
+              <option value="active">启用</option>
+              <option value="inactive">停用</option>
+            </select>
+          </div>
+          <div class="field">
+            <button type="button" class="btn-primary">查询</button>
+          </div>
+          <div class="field">
+            <button type="button" class="btn-default">重置</button>
+          </div>
+          <div class="field" style="margin-left: auto;">
+            <button type="button" class="btn-primary">新增字典</button>
+          </div>
+        </section>
+
+        <!-- 数据表格 -->
+        <section class="table-container" aria-label="字典类型列表">
+          <h3 class="a11y-vhidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">字典类型数据表</h3>
+          <table aria-label="字典类型数据表（共 3 条）">
+            <caption>字典类型列表</caption>
+            <thead>
+              <tr>
+                <th scope="col">
+                  <input type="checkbox" aria-label="全选" />
+                </th>
+                <th scope="col">字典编码</th>
+                <th scope="col">字典名称</th>
+                <th scope="col">状态</th>
+                <th scope="col">描述</th>
+                <th scope="col">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" aria-label="选择 sys_status" /></td>
+                <td>sys_status</td>
+                <td>系统状态</td>
+                <td>启用</td>
+                <td>系统通用状态标识</td>
+                <td><a href="/system/dict-type/sys_status/edit">编辑</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" aria-label="选择 sys_yes_no" /></td>
+                <td>sys_yes_no</td>
+                <td>是否字典</td>
+                <td>启用</td>
+                <td>通用是否标识</td>
+                <td><a href="/system/dict-type/sys_yes_no/edit">编辑</a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" aria-label="选择 sys_priority" /></td>
+                <td>sys_priority</td>
+                <td>优先级</td>
+                <td>停用</td>
+                <td>工单优先级标识</td>
+                <td><a href="/system/dict-type/sys_priority/edit">编辑</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- 分页 -->
+          <nav class="pagination" aria-label="分页导航">
+            <a href="?page=0" aria-label="上一页">上一页</a>
+            <a href="?page=1" aria-current="page">1</a>
+            <a href="?page=2">2</a>
+            <a href="?page=3">3</a>
+            <span aria-hidden="true">...</span>
+            <a href="?page=2" aria-label="下一页">下一页</a>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 YDSZ 云平台</p>
+    </footer>
+  </body>
+</html>

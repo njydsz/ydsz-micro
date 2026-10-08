@@ -1,0 +1,14 @@
+{
+  "message": "メッセージ",
+  "messageList": "メッセージ List",
+  "batchSend": "一括送信",
+  "deadLetter": "Dead Letter",
+  "template": "テンプレート",
+  "templateList": "テンプレート一覧",
+  "notification": "通知",
+  "notificationList": "通知 List",
+  "route": "Route",
+  "routeRule": "Route ルール",
+  "preference": "Preference",
+  "messagePreference": "メッセージ Preference"
+}

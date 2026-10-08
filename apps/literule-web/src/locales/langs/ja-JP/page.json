@@ -1,0 +1,11 @@
+{
+  "rule": "ルール",
+  "ruleList": "ルール一覧",
+  "dsl": "DSL",
+  "variable": "変数",
+  "advanced": "詳細",
+  "cep": "CEP",
+  "breakpoint": "ブレークポイント",
+  "audit": "監査",
+  "auditLog": "監査ログ"
+}

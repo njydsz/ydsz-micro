@@ -1,0 +1,221 @@
+{
+  "title": "Preferencias",
+  "subtitle": "Customize Preferencias & Vista previa in Real Hora",
+  "resetTip": "Data has changed, click to reset",
+  "resetTitle": "Restablecer Preferencias",
+  "resetSuccess": "Preferencias reset successfully",
+  "appearance": "Apariencia",
+  "layout": "Layout",
+  "content": "Contenido",
+  "other": "Otro",
+  "wide": "Amplio",
+  "compact": "Fijo",
+  "followSystem": "Follow Sistema",
+  "vertical": "Vertical",
+  "verticalTip": "Side vertical menu mode",
+  "horizontal": "Horizontal",
+  "horizontalTip": "Horizontal menu mode, all menus displayed at the top",
+  "twoColumn": "Two Column",
+  "twoColumnTip": "Vertical Two Column Menu Mode",
+  "headerSidebarNav": "Encabezado Vertical",
+  "headerSidebarNavTip": "Encabezado Full Ancho, Sidebar Navigation Mode",
+  "headerTwoColumn": "Encabezado Two Column",
+  "headerTwoColumnTip": "Encabezado Navigation & Sidebar Two Column co-exists",
+  "mixedMenu": "Menu mixto",
+  "mixedMenuTip": "Vertical & Horizontal Menu Co-exists",
+  "fullContent": "Full Contenido",
+  "fullContentTip": "Only display content body, hide all menus",
+  "normal": "Normal",
+  "plain": "Sencillo",
+  "rounded": "Rounded",
+  "copyPreferences": "Copiar Preferencias",
+  "copyPreferencesSuccessTitle": "Copiar successful",
+  "copyPreferencesSuccess": "Copiar successful, please override in `src/preferences.ts` under app",
+  "clearAndLogout": "Limpiar cache y cerrar sesion",
+  "mode": "Mode",
+  "general": "General",
+  "language": "Idioma",
+  "dynamicTitle": "Dynamic Titulo",
+  "watermark": "Watermark",
+  "checkUpdates": "Periodic update check",
+  "position": {
+    "title": "Preferencias Puesto",
+    "header": "Encabezado",
+    "auto": "Automatico",
+    "fixed": "Fijo"
+  },
+  "sidebar": {
+    "buttons": "Show Buttons",
+    "buttonFixed": "Fijo",
+    "buttonCollapsed": "Contraido",
+    "title": "Sidebar",
+    "width": "Ancho",
+    "visible": "Show Sidebar",
+    "collapsed": "Contraer menu",
+    "collapsedShowTitle": "Show Menu Titulo",
+    "autoActivateChild": "Activar submenu automaticamente",
+    "autoActivateChildTip": "`Enabled` to automatically activate the submenu while clicking menu.",
+    "expandOnHover": "Expand On Hover",
+    "expandOnHoverTip": "When the mouse hovers over menu, `Enabled` to expand children menus, `Disabled` to expand whole sidebar."
+  },
+  "tabbar": {
+    "title": "Tabbar",
+    "enable": "Habilitar Tab Bar",
+    "icon": "Show Tabbar Icon",
+    "showMore": "Show Mas Boton",
+    "showMaximize": "Show Maximize Boton",
+    "persist": "Persist Tabs",
+    "maxCount": "Max Conteo of Tabs",
+    "maxCountTip": "When the number of tabs exceeds the maximum, the oldest tab will be closed. Set to 0 to disable count checking.",
+    "draggable": "Habilitar Draggable Orden",
+    "wheelable": "Support Mouse Wheel",
+    "middleClickClose": "Cerrar pestana al hacer clic con el boton central",
+    "wheelableTip": "When enabled, the Tabbar area responds to vertical scrolling events of the scroll wheel.",
+    "styleType": {
+      "title": "Tabs Style",
+      "chrome": "Chrome",
+      "card": "Tarjeta",
+      "plain": "Sencillo",
+      "brisk": "Activo"
+    },
+    "contextMenu": {
+      "reload": "Reload",
+      "close": "Cerrar",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "closeLeft": "Cerrar pestanas izquierdas",
+      "closeRight": "Cerrar pestanas derechas",
+      "closeOther": "Cerrar otras pestanas",
+      "closeAll": "Cerrar todas las pestanas",
+      "openInNewWindow": "Abrir in Nuevo Ventana",
+      "maximize": "Maximize",
+      "restoreMaximize": "Restaurar"
+    }
+  },
+  "navigationMenu": {
+    "title": "Navigation Menu",
+    "style": "Navigation Menu Style",
+    "accordion": "Sidebar Accordion Menu",
+    "split": "Navigation Menu Separation",
+    "splitTip": "When enabled, the sidebar displays the top bar's submenu"
+  },
+  "breadcrumb": {
+    "title": "Miga de pan",
+    "home": "Show Inicio Boton",
+    "enable": "Habilitar Miga de pan",
+    "icon": "Show Miga de pan Icon",
+    "style": "Estilo de migas",
+    "hideOnlyOne": "Oculto when only one",
+    "background": "background"
+  },
+  "animation": {
+    "title": "Animacion",
+    "loading": "Page Cargando...",
+    "transition": "Page Transition",
+    "progress": "Page Progress"
+  },
+  "theme": {
+    "title": "Theme",
+    "radius": "Radius",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "darkSidebar": "Semi Oscuro Sidebar",
+    "darkHeader": "Semi Oscuro Encabezado",
+    "weakMode": "Weak Mode",
+    "grayMode": "Gris Mode",
+    "builtin": {
+      "title": "Integrado",
+      "default": "Predeterminado",
+      "violet": "Violet",
+      "pink": "Rosa",
+      "rose": "Rose",
+      "skyBlue": "Sky Azul",
+      "deepBlue": "Deep Azul",
+      "green": "Verde",
+      "deepGreen": "Deep Verde",
+      "orange": "Naranja",
+      "yellow": "Yellow",
+      "zinc": "Zinc",
+      "neutral": "Neutral",
+      "slate": "Slate",
+      "gray": "Gris",
+      "custom": "Personalizado"
+    }
+  },
+  "header": {
+    "title": "Encabezado",
+    "visible": "Show Encabezado",
+    "modeStatic": "Static",
+    "modeFixed": "Fijo",
+    "modeAuto": "Mostrar/ocultar automaticamente",
+    "modeAutoScroll": "Scroll to Hide & Show",
+    "menuAlign": "Menu Align",
+    "menuAlignStart": "Start",
+    "menuAlignEnd": "Fin",
+    "menuAlignCenter": "Centro"
+  },
+  "footer": {
+    "title": "Footer",
+    "visible": "Show Footer",
+    "fixed": "Fijo at Bottom"
+  },
+  "copyright": {
+    "title": "Copyright",
+    "enable": "Habilitar Copyright",
+    "companyName": "Nombre de la empresa",
+    "companySiteLink": "Enlace al sitio de la empresa",
+    "date": "Fecha",
+    "icp": "ICP License Number",
+    "icpLink": "ICP Site Link"
+  },
+  "shortcutKeys": {
+    "title": "Shortcut Keys",
+    "global": "Global",
+    "search": "Global Buscar",
+    "logout": "Cerrar sesion",
+    "preferences": "Preferencias"
+  },
+  "widget": {
+    "title": "Widget",
+    "globalSearch": "Habilitar Global Buscar",
+    "fullscreen": "Habilitar Fullscreen",
+    "themeToggle": "Habilitar Theme Toggle",
+    "languageToggle": "Habilitar Idioma Toggle",
+    "notification": "Habilitar Notificacion",
+    "sidebarToggle": "Habilitar Sidebar Toggle",
+    "lockScreen": "Habilitar Lock Screen",
+    "refresh": "Habilitar Actualizar",
+    "height": {
+      "label": "Altura",
+      "value": "Tall"
+    },
+    "width": {
+      "label": "Ancho",
+      "value": "Amplio"
+    },
+    "minWidth": {
+      "label": "Ancho minimo",
+      "value": "Ancho minimo"
+    },
+    "complexity": {
+      "label": "Complejidad",
+      "value": "Complejo"
+    },
+    "light": {
+      "label": "Claro",
+      "value": "Claro Mode"
+    },
+    "dark": {
+      "label": "Oscuro",
+      "value": "Oscuro Mode"
+    },
+    "system": {
+      "label": "Follow Sistema",
+      "value": "Follow Sistema"
+    },
+    "auto": {
+      "label": "Automatico",
+      "value": "Automatico"
+    }
+  }
+}

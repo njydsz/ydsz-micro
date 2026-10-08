@@ -1,0 +1,172 @@
+{
+  "formRules": {
+    "required": "入力してください {0}",
+    "selectRequired": "Please select {0}",
+    "minLength": "{0} must be at least {1} characters",
+    "maxLength": "{0} can be at most {1} characters",
+    "length": "{0} must be {1} characters long",
+    "alreadyExists": "{0} `{1}` already exists",
+    "startWith": "{0} must start with `{1}`",
+    "invalidURL": "Please input a valid URL"
+  },
+  "actionTitle": {
+    "edit": "Modify {0}",
+    "create": "{0}を追加",
+    "delete": "削除 {0}",
+    "view": "表示 {0}"
+  },
+  "actionMessage": {
+    "deleteConfirm": "{0}を削除してもよろしいですか？",
+    "deleting": "Deleting {0} ...",
+    "deleteSuccess": "{0} deleted successfully",
+    "operationSuccess": "操作 succeeded",
+    "operationFailed": "操作 failed"
+  },
+  "placeholder": {
+    "input": "入力してください",
+    "select": "Please select"
+  },
+  "captcha": {
+    "title": "Please complete the security verification",
+    "sliderSuccessText": "Passed",
+    "sliderDefaultText": "Slide and drag",
+    "alt": "Supports img tag src attribute value",
+    "refreshAriaLabel": "更新 captcha",
+    "confirmAriaLabel": "確認 selection",
+    "confirm": "確認",
+    "pointAriaLabel": "Click point",
+    "clickInOrder": "Please click in order"
+  },
+  "iconPicker": {
+    "placeholder": "選択 an icon",
+    "search": "検索 icon..."
+  },
+  "jsonViewer": {
+    "copy": "コピー",
+    "copied": "Copied"
+  },
+  "fallback": {
+    "pageNotFound": "Oops! Page Not Found",
+    "pageNotFoundDesc": "Sorry, we couldn't find the page you were looking for.",
+    "forbidden": "Oops! Access Denied",
+    "forbiddenDesc": "Sorry, but you don't have permission to access this page.",
+    "internalError": "Oops! Something Went Wrong",
+    "internalErrorDesc": "Sorry, but the server encountered an error.",
+    "offline": "Offline Page",
+    "offlineError": "Oops! Network エラー",
+    "offlineErrorDesc": "Sorry, can't connect to the internet. Check your connection.",
+    "comingSoon": "近日公開",
+    "http": {
+      "requestTimeout": "The request timed out. Please try again later.",
+      "networkError": "A network error occurred. Please check your internet connection and try again.",
+      "badRequest": "Bad Request. Please check your input and try again.",
+      "unauthorized": "Unauthorized. Please log in to continue.",
+      "forbidden": "Forbidden. You do not have permission to access this resource.",
+      "notFound": "Not Found. The requested resource could not be found.",
+      "badGateway": "Bad Gateway. The server received an invalid response.",
+      "serviceUnavailable": "Service Unavailable. The server is temporarily unable to handle the request.",
+      "gatewayTimeout": "Gateway Timeout. The server did not receive a timely response.",
+      "internalServerError": "Internal Server エラー. Something went wrong on our end. Please try again later."
+    }
+  },
+  "widgets": {
+    "document": "ドキュメント",
+    "qa": "Q&A",
+    "setting": "設定",
+    "logoutTip": "Do you want to logout?",
+    "viewAll": "表示 すべて Messages",
+    "notifications": "通知",
+    "markAllAsRead": "Mark すべて as Read",
+    "clearNotifications": "クリア",
+    "checkUpdatesTitle": "新規 バージョン 利用可能",
+    "checkUpdatesDescription": "Click to refresh and get the latest version",
+    "search": {
+      "title": "検索",
+      "searchNavigate": "検索 Navigation",
+      "select": "選択",
+      "navigate": "Navigate",
+      "close": "閉じる",
+      "noResults": "いいえ 検索 Results Found",
+      "noRecent": "いいえ 検索 履歴",
+      "recent": "検索 履歴"
+    },
+    "lockScreen": {
+      "title": "Lock Screen",
+      "screenButton": "Locking",
+      "password": "パスワード",
+      "placeholder": "パスワードを入力してください",
+      "unlock": "Click to unlock",
+      "errorPasswordTip": "パスワード error, please re-enter",
+      "backToLogin": "ログイン画面に戻る",
+      "entry": "Enter the system"
+    }
+  },
+  "component": {
+    "transfer": {
+      "title": "利用可能",
+      "selectedTitle": "Selected",
+      "placeholder": "検索",
+      "notFoundContent": "データなし"
+    },
+    "steps": {
+      "wait": "Waiting",
+      "process": "In Progress",
+      "finish": "Finished",
+      "error": "エラー"
+    },
+    "result": {
+      "successTitle": "成功",
+      "errorTitle": "失敗",
+      "warningTitle": "警告",
+      "infoTitle": "情報"
+    },
+    "empty": {
+      "description": "データなし"
+    },
+    "skeleton": {
+      "loading": "読み込み中..."
+    },
+    "autoComplete": {
+      "noMatch": "いいえ matching results",
+      "placeholder": "入力してください"
+    },
+    "slider": {
+      "ariaLabel": "Slider value"
+    },
+    "progress": {
+      "ariaLabel": "Progress"
+    },
+    "rate": {
+      "ariaLabel": "Rating"
+    },
+    "anchor": {
+      "ariaLabel": "アンカーナビゲーション"
+    },
+    "image": {
+      "loadError": "Load failed"
+    },
+    "tag": {
+      "closeAriaLabel": "閉じる tag"
+    },
+    "tour": {
+      "next": "次へ",
+      "prev": "Previous",
+      "finish": "Finish",
+      "skip": "Skip",
+      "stepIndicator": "Step indicator"
+    },
+    "floatButton": {
+      "ariaLabel": "Float button"
+    },
+    "timeline": {
+      "ariaLabel": "タイムライン",
+      "pending": "読み込み中..."
+    },
+    "descriptions": {
+      "defaultLabelWidth": "120px"
+    },
+    "statistic": {
+      "loading": "読み込み中..."
+    }
+  }
+}

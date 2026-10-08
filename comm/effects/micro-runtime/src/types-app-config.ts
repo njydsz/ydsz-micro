@@ -24,7 +24,7 @@ export type ActiveRule = ((path: string) => boolean) | RegExp | string;
  */
 export type SandboxType = "iframe" | "proxy" | "snapshot";
 
-/** 子应用注册配置（对齐现有 main/src/qiankun/index.ts microApps） */
+/** 子应用注册配置 */
 export interface MicroAppConfig {
   /** 应用唯一标识（如 'workflow-web'） */
   name: string;
@@ -90,7 +90,7 @@ export interface MicroAppConfig {
   parentKernelName?: string;
 }
 
-/** 子应用挂载参数（与 qiankun mountProps 对齐语义） */
+/** 子应用挂载参数 */
 export interface MountProps {
   container: HTMLElement;
   basename: string;

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登录 — YDSZ 云平台</title>
+    <style>
+      body { margin: 0; padding: 0; font-family: system-ui, sans-serif; color: #1a1a1a; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+      main { width: 100%; max-width: 400px; padding: 2rem; }
+      .login-card { background: #fff; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+      h1 { margin: 0 0 1.5rem; text-align: center; font-size: 1.5rem; }
+      label { display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.875rem; }
+      input { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #d9d9d9; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+      button { width: 100%; padding: 0.75rem; background: #1677ff; color: #fff; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; }
+      .error-msg { color: #ff4d4f; font-size: 0.875rem; margin-bottom: 1rem; }
+      .a11y-vhidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+  </head>
+  <body>
+    <main id="a11y-fixture" data-a11y-fixture="ready">
+      <div class="login-card">
+        <h1>登录 YDSZ 云平台</h1>
+        <!-- 模拟错误状态（登录失败后展示） -->
+        <p class="error-msg" role="alert" id="login-error">
+          用户名或密码错误，请重试
+        </p>
+        <form aria-labelledby="login-heading">
+          <h2 id="login-heading" class="a11y-vhidden">登录表单</h2>
+          <div>
+            <label for="username">用户名</label>
+            <input id="username" name="username" type="text" autocomplete="username" required aria-describedby="username-hint" />
+            <p id="username-hint" class="a11y-vhidden">请输入注册时使用的用户名或邮箱</p>
+          </div>
+          <div>
+            <label for="password">密码</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <div>
+            <label for="captcha">验证码</label>
+            <input id="captcha" name="captcha" type="text" autocomplete="off" aria-describedby="captcha-desc" />
+            <span id="captcha-desc" class="a11y-vhidden">请输入图中字符，不区分大小写</span>
+            <img src="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' width='80' height='30'&gt;&lt;text x='5' y='20' font-size='16'&gt;A8K9&lt;/text&gt;&lt;/svg&gt;" alt="验证码：A8K9" width="80" height="30" />
+          </div>
+          <button type="submit">登录</button>
+        </form>
+        <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem;">
+          <a href="/reset-password">忘记密码？</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

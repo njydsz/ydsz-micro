@@ -3,7 +3,7 @@
  *
  * 从 kernel.ts 提取的 RawGlobalStateAPI 实现，消除闭包内状态对 createKernel
  * 大函数的耦合，便于独立测试与复用：
- * - 纯内存 pub-sub，不依赖 qiankun initGlobalState
+ * - 纯内存 pub-sub
  * - 支持键级订阅（仅当订阅的 key 变化时通知，P0-3）
  * - ADR-006: kernel:state 性能标记
  *
@@ -52,7 +52,7 @@ export type GlobalStateAPI<T extends Record<string, unknown> = Record<string, un
  * @example
  * ```ts
  * const api = createGlobalStateAPI<{ theme: string; lang: string }>();
- * // 传统监听（兼容 qiankun API）
+ * // 传统监听（向后兼容）
  * api.onGlobalStateChange((state, prev) => { ... });
  * // 键级订阅（新 API）
  * const unsub = api.onKeyChange('theme', (val, prev, key) => {
