@@ -1,0 +1,11 @@
+{
+  "agent": "Agent",
+  "agentList": "Liste d'agents",
+  "agentDefinition": "Definition de l'agent",
+  "rag": "RAG",
+  "knowledgeBase": "Knowledge Base",
+  "dag": "DAG",
+  "dagList": "Liste DAG",
+  "approval": "Approbation",
+  "humanApproval": "Human Approbation"
+}

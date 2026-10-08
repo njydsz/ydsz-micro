@@ -1,0 +1,12 @@
+{
+  "system": "시스템",
+  "config": "구성",
+  "dictType": "사전 유형",
+  "dictItem": "사전 항목",
+  "variable": "변수",
+  "appInfo": "앱 정보",
+  "common": {
+    "seq": "#",
+    "deleteConfirm": "삭제 확인"
+  }
+}

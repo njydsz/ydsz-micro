@@ -1,0 +1,12 @@
+{
+  "system": "システム",
+  "config": "設定",
+  "dictType": "辞書タイプ",
+  "dictItem": "辞書項目",
+  "variable": "変数",
+  "appInfo": "アプリ情報",
+  "common": {
+    "seq": "#",
+    "deleteConfirm": "削除の確認"
+  }
+}

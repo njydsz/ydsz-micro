@@ -58,6 +58,8 @@ const typeStyles: Record<string, string> = {
       )
     "
     role="alert"
+    aria-live="polite"
+    aria-atomic="true"
   >
     <component :is="icons[props.type]" v-if="props.showIcon" class="mt-0.5 size-4 shrink-0" />
     <div class="flex-1">

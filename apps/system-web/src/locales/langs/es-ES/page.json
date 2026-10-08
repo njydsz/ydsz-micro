@@ -1,0 +1,12 @@
+{
+  "system": "Sistema",
+  "config": "Configuracion",
+  "dictType": "Tipo de diccionario",
+  "dictItem": "Elemento de diccionario",
+  "variable": "Variable",
+  "appInfo": "Informacion de la aplicacion",
+  "common": {
+    "seq": "#",
+    "deleteConfirm": "Confirmar eliminacion"
+  }
+}

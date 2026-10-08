@@ -7,6 +7,10 @@
  * 动作区插槽；各插槽均回传对应的上下文（如校验状态、提交处理函数），
  * 便于在按钮前后插入自定义操作。
  *
+ * <p>草稿自动保存：当 <code>draft</code> 为 <code>true</code> 时，通过
+ * <code>useFormDraft</code> 将表单数据防抖保存到 localStorage，页面刷新后可恢复。
+ * 恢复时 emit <code>draft-restored</code> 事件。
+ *
  * @path comm\@core\ui-kit\form-ui\src\UseForm.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -16,7 +20,6 @@ import type { Recordable } from '@ydsz-core/typings';
 
 import type { YdExtendedFormApi, YdFormProps } from './types';
 
-// import { toRaw, watch } from 'vue';
 import { nextTick, onMounted, watch } from 'vue';
 
 import { useForwardPriorityValues } from '@ydsz-core/composables';
@@ -36,6 +39,7 @@ import {
   provideFormProps,
   useFormInitial,
 } from './use-form-context';
+
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
 interface Props extends YdFormProps {
   formApi: YdExtendedFormApi;
@@ -55,6 +59,76 @@ provideFormProps([forward, form]);
 provideComponentRefMap(componentRefMap);
 
 props.formApi?.mount?.(form, componentRefMap);
+
+// ===== 草稿自动保存 =====
+let draftRestoreData: Recordable | undefined = undefined;
+if (props.draft) {
+  // 动态导入 useFormDraft 以避免非 draft 场景的额外开销
+  const { useFormDraft } = await import('@ydsz-core/composables');
+  const fieldNames = (state.value.schema || []).map((s) => s.fieldName).join(':');
+  const storageKey =
+    props.draftKey || `form:${window.location.hash || fieldNames}`;
+  // TTL 默认 24 小时
+  const ttlSeconds = props.draftTTL ?? 86_400;
+
+  useFormDraft<Recordable>({
+    key: storageKey,
+    ttlSeconds,
+  });
+
+  // 挂载后恢复草稿
+  onMounted(async () => {
+    await nextTick();
+    // useFormDraft 已加载，此处通过 import 后调用
+    const { useFormDraft: loadDraft } = await import(
+      '@ydsz-core/composables'
+    );
+    // 由于 useFormDraft 需要生命周期 hook，在 onSetup 阶段已调用
+    // 此处直接在组件逻辑中实现恢复
+    const savedRaw = localStorage.getItem(`ydsz:draft:${storageKey}`);
+    if (savedRaw) {
+      try {
+        const meta = JSON.parse(savedRaw);
+        if (meta?.data && typeof meta.savedAt === 'number') {
+          const expired = Date.now() - meta.savedAt > ttlSeconds * 1000;
+          if (!expired) {
+            draftRestoreData = meta.data;
+            // 将草稿数据写入 vee-validate 表单
+            Object.entries(meta.data).forEach(([key, val]) => {
+              form.setFieldValue(key, val);
+            });
+            props.formApi?.emit('draft-restored', meta.data);
+          } else {
+            localStorage.removeItem(`ydsz:draft:${storageKey}`);
+          }
+        }
+      } catch {
+        // 解析失败则清除
+        localStorage.removeItem(`ydsz:draft:${storageKey}`);
+      }
+    }
+  });
+
+  // 值变化时防抖写入草稿
+  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+  watch(
+    () => form.values,
+    (newVal) => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(
+            `ydsz:draft:${storageKey}`,
+            JSON.stringify({ savedAt: Date.now(), data: newVal }),
+          );
+        } catch {
+          /* 静默处理配额超出 */
+        }
+      }, 1500);
+    },
+    { deep: true },
+  );
+}
 
 const handleUpdateCollapsed = (value: boolean) => {
   props.formApi?.setState({ collapsed: !!value });

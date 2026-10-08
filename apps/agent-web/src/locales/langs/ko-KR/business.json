@@ -1,0 +1,44 @@
+{
+  "agent": {
+    "title": "에이전트 관리",
+    "editTitle": "편집 에이전트",
+    "createTitle": "생성 에이전트",
+    "columns": {
+      "name": "에이전트 이름",
+      "type": "유형",
+      "provider": "모델 제공자",
+      "model": "Model 이름",
+      "systemPrompt": "시스템 Prompt",
+      "temperature": "온도",
+      "status": "상태"
+    },
+    "placeholder": {
+      "name": "Enter agent name",
+      "type": "Enter agent type",
+      "provider": "모델 제공자를 입력하세요",
+      "model": "Enter model name",
+      "systemPrompt": "Enter system prompt"
+    },
+    "confirmDelete": "\"{name}\"을(를) 삭제하시겠습니까?",
+    "updateSuccess": "수정됨 successfully",
+    "createSuccess": "생성됨 successfully"
+  },
+  "definitionName": "Definition 이름",
+  "definitionVersion": "버전",
+  "systemPrompt": "시스템 Prompt",
+  "temperature": "온도",
+  "maxTokens": "최대 토큰",
+  "knowledgeName": "KB 이름",
+  "knowledgeType": "KB 유형",
+  "documentCount": "문서",
+  "dagName": "DAG 이름",
+  "dagStatus": "DAG 상태",
+  "approvalTitle": "제목",
+  "approvalStatus": "상태",
+  "approvalUser": "승인자",
+  "approvalTime": "시간",
+  "create": "생성",
+  "edit": "편집",
+  "delete": "삭제",
+  "operationSuccess": "성공"
+}

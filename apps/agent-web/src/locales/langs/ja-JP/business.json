@@ -1,0 +1,44 @@
+{
+  "agent": {
+    "title": "エージェント管理",
+    "editTitle": "編集 エージェント",
+    "createTitle": "作成 エージェント",
+    "columns": {
+      "name": "エージェント名",
+      "type": "種類",
+      "provider": "モデルプロバイダー",
+      "model": "Model 名前",
+      "systemPrompt": "システム Prompt",
+      "temperature": "温度",
+      "status": "状態"
+    },
+    "placeholder": {
+      "name": "Enter agent name",
+      "type": "Enter agent type",
+      "provider": "モデルプロバイダーを入力",
+      "model": "Enter model name",
+      "systemPrompt": "Enter system prompt"
+    },
+    "confirmDelete": "\"{name}\"を削除してもよろしいですか？",
+    "updateSuccess": "更新済み successfully",
+    "createSuccess": "作成済み successfully"
+  },
+  "definitionName": "Definition 名前",
+  "definitionVersion": "バージョン",
+  "systemPrompt": "システム Prompt",
+  "temperature": "温度",
+  "maxTokens": "最大トークン数",
+  "knowledgeName": "KB 名前",
+  "knowledgeType": "KB 種類",
+  "documentCount": "ドキュメント",
+  "dagName": "DAG 名前",
+  "dagStatus": "DAG 状態",
+  "approvalTitle": "タイトル",
+  "approvalStatus": "状態",
+  "approvalUser": "承認者",
+  "approvalTime": "時間",
+  "create": "作成",
+  "edit": "編集",
+  "delete": "削除",
+  "operationSuccess": "成功"
+}

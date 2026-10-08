@@ -1,0 +1,11 @@
+{
+  "agent": "エージェント",
+  "agentList": "エージェント一覧",
+  "agentDefinition": "エージェント定義",
+  "rag": "RAG",
+  "knowledgeBase": "Knowledge Base",
+  "dag": "DAG",
+  "dagList": "DAGリスト",
+  "approval": "承認",
+  "humanApproval": "Human 承認"
+}
