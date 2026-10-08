@@ -233,6 +233,24 @@ export interface YdFormProps<
    * @default false
    */
   submitOnEnter?: boolean;
+
+  // ===== 草稿自动保存 =====
+
+  /**
+   * 是否启用草稿自动保存（localStorage 防抖写入）
+   * @default false
+   */
+  draft?: boolean;
+
+  /**
+   * 草稿过期时间（秒），默认 86400（24 小时）
+   */
+  draftTTL?: number;
+
+  /**
+   * 自定义草稿存储 key（默认基于路由 path + 表单字段签名）
+   */
+  draftKey?: string;
 }
 
 import type { HandleResetFn, HandleSubmitFn } from './types-schema';
