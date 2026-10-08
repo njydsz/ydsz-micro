@@ -32,6 +32,12 @@ export type { ColumnDragState, UseColumnDragOptions } from './use-column-drag';
 export { useTableColumnStorage } from './use-table-column-storage';
 export type { StoredColumnConfig } from './use-table-column-storage';
 
+export { useTableFilterStorage } from './use-table-filter-storage';
+export type {
+  UseTableFilterStorageOptions,
+  UseTableFilterStorageReturn,
+} from './use-table-filter-storage';
+
 export { useTreeVirtual } from './use-tree-virtual';
 export type {
   FlatTreeNode,
@@ -62,6 +68,7 @@ export type {
   RowSelectionConfig,
   UseTableDataOptions,
   UseTableDataReturn,
+  FilterPersistConfig,
 } from './use-table-data';
 
 export { useNotificationHub } from './use-notification-hub';

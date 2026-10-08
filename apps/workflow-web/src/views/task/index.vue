@@ -22,7 +22,7 @@ import { YdBadge, YdButton, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
 import { YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { batchPass, batchReject, batchTransfer, batchUrge, done, todo } from '#/api/flowTask';
+import { batchPass, batchReject, batchTransfer, batchUrge, done, passAll, todo } from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
 import { $t } from '#/locales';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -310,6 +310,37 @@ async function handleBatchUrge() {
     // 用户提示由 errorMessageResponseInterceptor 统一处理
   }
 }
+
+/**
+ * 一键通过当前用户全部待办任务。
+ * 步骤1：确认弹窗；步骤2：调用后端 passAll 端点（POST /workflow/engine/task/passAll）。
+ */
+async function handlePassAll() {
+  // 步骤1：确认弹窗（用户取消直接返回）
+  try {
+    await YdConfirm(
+      $t('wf.confirmPassAll'),
+      $t('wf.passAllConfirm'),
+      {
+        type: 'warning',
+        confirmButtonText: $t('wf.passAll'),
+        cancelButtonText: $t('wf.cancel'),
+      },
+    );
+  } catch (error) {
+    logger.warn('用户取消一键通过操作', error);
+    return; // 用户主动取消一键通过
+  }
+  // 步骤2：执行一键通过 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  try {
+    const count = await passAll();
+    showToast.success($t('wf.passAllSuccess', { count: count ?? 0 }));
+    gridApi.query();
+  } catch (error) {
+    logger.warn('一键通过失败，详见拦截器提示', error);
+    // 用户提示由 errorMessageResponseInterceptor 统一处理
+  }
+}
 </script>
 <template>
   <Page auto-content-height>
@@ -331,6 +362,9 @@ async function handleBatchUrge() {
           }}</YdButton>
           <YdButton variant="secondary" @click="handleBatchUrge">{{
             $t('wf.batchUrge')
+          }}</YdButton>
+          <YdButton variant="default" class="bg-orange-500 text-white hover:bg-orange-600" @click="handlePassAll">{{
+            $t('wf.passAll')
           }}</YdButton>
         </template>
       </template>

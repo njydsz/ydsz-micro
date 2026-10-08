@@ -1,0 +1,59 @@
+{
+  "title": "Gestion de Codigos de Error",
+  "createTitle": "Crear Configuracion de Codigo de Error",
+  "editTitle": "Editar Configuracion de Codigo de Error",
+  "createSuccess": "Creado exitosamente",
+  "editSuccess": "Actualizado exitosamente",
+  "toggleSuccess": "Estado cambiado exitosamente",
+  "confirmDelete": "Esta seguro de eliminar la configuracion del codigo de error \"{errorCode}\"?",
+  "columns": {
+    "errorCode": "Codigo de Error",
+    "errorMessage": "Plantilla de Mensaje de Error",
+    "channelType": "Tipo de Canal",
+    "retryPolicy": "Politica de Reintentos",
+    "notifyPolicy": "Politica de Notificacion",
+    "maxRetryCount": "Reintentos Maximos",
+    "retryIntervalBase": "Base de Intervalo de Reintento (s)",
+    "description": "Descripcion"
+  },
+  "placeholder": {
+    "errorCode": "Ingrese el codigo de error (ej. EMAIL_SEND_TIMEOUT)",
+    "errorMessage": "Ingrese la plantilla de mensaje de error",
+    "channelType": "Seleccione el tipo de canal",
+    "retryPolicy": "Seleccione la politica de reintentos",
+    "notifyPolicy": "Seleccione la politica de notificacion",
+    "description": "Ingrese la descripcion (opcional)"
+  },
+  "validation": {
+    "errorCodeRequired": "Por favor ingrese el codigo de error",
+    "errorMessageRequired": "Por favor ingrese la plantilla de mensaje de error",
+    "channelTypeRequired": "Por favor seleccione el tipo de canal"
+  },
+  "channel": {
+    "SMS": "SMS",
+    "EMAIL": "Correo",
+    "WEBHOOK": "Webhook",
+    "PUSH": "Push",
+    "WECHAT": "WeChat",
+    "INSITE": "Interno"
+  },
+  "retryPolicy": {
+    "NONE": "Sin Reintentos",
+    "SIMPLE": "Reintento Simple",
+    "EXPONENTIAL_BACKOFF": "Retroceso Exponencial"
+  },
+  "notifyPolicy": {
+    "NONE": "Sin Notificacion",
+    "EMAIL_ADMIN": "Correo al Admin",
+    "SMS_ADMIN": "SMS al Admin",
+    "WEBHOOK_ALERT": "Alerta Webhook"
+  },
+  "status": {
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado"
+  },
+  "actions": {
+    "enable": "Habilitar",
+    "disable": "Deshabilitar"
+  }
+}

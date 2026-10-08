@@ -1,0 +1,59 @@
+{
+  "title": "エラーコード管理",
+  "createTitle": "エラーコード設定の作成",
+  "editTitle": "エラーコード設定の編集",
+  "createSuccess": "作成しました",
+  "editSuccess": "更新しました",
+  "toggleSuccess": "ステータスを変更しました",
+  "confirmDelete": "エラーコード設定「{errorCode}」を削除してもよろしいですか？",
+  "columns": {
+    "errorCode": "エラーコード",
+    "errorMessage": "エラーメッセージテンプレート",
+    "channelType": "チャネルタイプ",
+    "retryPolicy": "リトライポリシー",
+    "notifyPolicy": "通知ポリシー",
+    "maxRetryCount": "最大リトライ回数",
+    "retryIntervalBase": "リトライ間隔ベース(秒)",
+    "description": "説明"
+  },
+  "placeholder": {
+    "errorCode": "エラーコードを入力してください（例: EMAIL_SEND_TIMEOUT）",
+    "errorMessage": "エラーメッセージテンプレートを入力してください",
+    "channelType": "チャネルタイプを選択してください",
+    "retryPolicy": "リトライポリシーを選択してください",
+    "notifyPolicy": "通知ポリシーを選択してください",
+    "description": "説明を入力してください（任意）"
+  },
+  "validation": {
+    "errorCodeRequired": "エラーコードを入力してください",
+    "errorMessageRequired": "エラーメッセージテンプレートを入力してください",
+    "channelTypeRequired": "チャネルタイプを選択してください"
+  },
+  "channel": {
+    "SMS": "SMS",
+    "EMAIL": "メール",
+    "WEBHOOK": "Webhook",
+    "PUSH": "プッシュ",
+    "WECHAT": "WeChat",
+    "INSITE": "アプリ内"
+  },
+  "retryPolicy": {
+    "NONE": "リトライなし",
+    "SIMPLE": "シンプルリトライ",
+    "EXPONENTIAL_BACKOFF": "指数バックオフ"
+  },
+  "notifyPolicy": {
+    "NONE": "通知なし",
+    "EMAIL_ADMIN": "管理者にメール",
+    "SMS_ADMIN": "管理者にSMS",
+    "WEBHOOK_ALERT": "Webhookアラート"
+  },
+  "status": {
+    "enabled": "有効",
+    "disabled": "無効"
+  },
+  "actions": {
+    "enable": "有効にする",
+    "disable": "無効にする"
+  }
+}

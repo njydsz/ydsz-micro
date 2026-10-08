@@ -158,6 +158,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/canary/index.vue'),
         meta: { icon: 'lucide:flask-conical', title: '灰度实验' },
       },
+      {
+        name: 'ErrorCodeManagement',
+        path: 'error-code',
+        component: () => import('#/views/error-code/index.vue'),
+        meta: { icon: 'lucide:alert-triangle', title: '错误码管理' },
+      },
     ],
   },
   {

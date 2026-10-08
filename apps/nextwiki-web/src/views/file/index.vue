@@ -16,7 +16,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdTabsContent, YdTabs, YdUpload, YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -24,7 +24,6 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { copy, deleteApi, listFiles, move, rename } from '#/api/file';
-import { batchUpload, importZip } from '#/api/batchImport';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
 import FileForm from './file-form.vue';
@@ -32,6 +31,7 @@ import FileUpload from './file-upload.vue';
 import FilePreview from './file-preview.vue';
 import FileVersionHistory from './components/FileVersionHistory.vue';
 import WopiEditor from './components/WopiEditor.vue';
+import BatchImportDialog from './components/BatchImportDialog.vue';
 
 defineOptions({ name: 'FileManagement' });
 
@@ -225,58 +225,18 @@ async function handleDelete(row: FileNodeVO) {
   } catch (error) { logger.warn('删除文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
 }
 
-/** 批量导入弹窗状态 */
+/** 批量导入弹窗可见性 */
 const batchImportVisible = ref(false);
-const batchImportType = ref<'files' | 'zip'>('files');
-const batchImportLoading = ref(false);
-const batchFileList = ref<File[]>([]);
-const zipFile = ref<File | null>(null);
+const batchImportRef = ref<InstanceType<typeof BatchImportDialog> | null>(null);
 
 /** 打开批量导入弹窗 */
 function handleBatchImport(): void {
-  batchImportType.value = 'files';
-  batchFileList.value = [];
-  zipFile.value = null;
   batchImportVisible.value = true;
 }
 
-/** 执行批量上传 */
-async function executeBatchUpload(): Promise<void> {
-  if (batchFileList.value.length === 0) {
-    showToast.warning('请选择要上传的文件');
-    return;
-  }
-  batchImportLoading.value = true;
-  try {
-    const files = batchFileList.value.map((f) => f as unknown as Record<string, unknown>);
-    await batchUpload({ files });
-    showToast.success(`批量导入成功，共 ${batchFileList.value.length} 个文件`);
-    batchImportVisible.value = false;
-    gridApi.query();
-  } catch (error) {
-    logger.warn('批量上传失败: {}', error);
-  } finally {
-    batchImportLoading.value = false;
-  }
-}
-
-/** 执行 ZIP 导入 */
-async function executeZipImport(): Promise<void> {
-  if (!zipFile.value) {
-    showToast.warning('请选择 ZIP 文件');
-    return;
-  }
-  batchImportLoading.value = true;
-  try {
-    await importZip({ file: zipFile.value as unknown as Record<string, unknown> });
-    showToast.success('ZIP 导入成功');
-    batchImportVisible.value = false;
-    gridApi.query();
-  } catch (error) {
-    logger.warn('ZIP 导入失败: {}', error);
-  } finally {
-    batchImportLoading.value = false;
-  }
+/** 批量导入成功回调 */
+function handleBatchImportSuccess(): void {
+  gridApi.query();
 }
 </script>
 <template>
@@ -325,55 +285,6 @@ async function executeZipImport(): Promise<void> {
     </YdSheet>
     <FileVersionHistory ref="fileVersionHistoryRef" :file-node="currentNode" />
     <WopiEditor ref="wopiEditorRef" :file-node="currentNode" />
-
-    <!-- 批量导入弹窗 -->
-    <YdDialog v-model:open="batchImportVisible">
-      <YdDialogContent class="sm:max-w-[560px]">
-        <YdDialogHeader>
-          <YdDialogTitle>批量导入</YdDialogTitle>
-        </YdDialogHeader>
-        <div class="py-4">
-          <YdTabs v-model="batchImportType">
-            <YdTabsContent label="多文件上传" name="files">
-              <YdUpload
-                :auto-upload="false"
-                :file-list="batchFileList as any"
-                :on-change="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
-                :on-remove="(file: any, fileList: any) => { batchFileList.value = fileList.map((f: any) => f.raw || f); }"
-                multiple
-                drag
-              >
-                <div class="py-8 text-center text-sm text-gray-500">
-                  点击或拖拽多个文件到此处
-                </div>
-              </YdUpload>
-            </YdTabsContent>
-            <YdTabsContent label="ZIP 导入" name="zip">
-              <YdUpload
-                :auto-upload="false"
-                :limit="1"
-                :on-change="(file: any) => { zipFile.value = file.raw || null; }"
-                :on-remove="() => { zipFile.value = null; }"
-                accept=".zip"
-                drag
-              >
-                <div class="py-8 text-center text-sm text-gray-500">
-                  点击或拖拽 ZIP 压缩包到此处
-                </div>
-              </YdUpload>
-            </YdTabsContent>
-          </YdTabs>
-        </div>
-        <YdDialogFooter>
-          <YdButton variant="outline" @click="batchImportVisible = false">取消</YdButton>
-          <YdButton
-            :loading="batchImportLoading"
-            @click="batchImportType === 'files' ? executeBatchUpload() : executeZipImport()"
-          >
-            确定导入
-          </YdButton>
-        </YdDialogFooter>
-      </YdDialogContent>
-    </YdDialog>
+    <BatchImportDialog ref="batchImportRef" v-model="batchImportVisible" @success="handleBatchImportSuccess" />
   </Page>
 </template>

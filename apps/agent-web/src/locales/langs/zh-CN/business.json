@@ -82,5 +82,11 @@
       "errorMessage": "错误信息",
       "completedAt": "完成时间"
     }
+  },
+  "insight": {
+    "viewHtml": "查看 HTML",
+    "exportingHtml": "正在加载 HTML 报告…",
+    "exportHtmlFailed": "导出 HTML 报告失败",
+    "delete": "删除"
   }
 }

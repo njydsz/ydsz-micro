@@ -18,9 +18,11 @@
  * @since 5.6.0
  */
 
-import { computed, ref, toValue } from 'vue';
+import { computed, ref, watch, toValue } from 'vue';
 
 import type { ComputedRef, MaybeRefOrGetter, Ref } from 'vue';
+
+import { useTableFilterStorage } from './use-table-filter-storage';
 
 /* ============================================================ */
 /* 类型                                                          */
@@ -63,6 +65,18 @@ export interface RowSelectionConfig<T> {
 /* ============================================================ */
 
 /**
+ * 筛选条件持久化配置。
+ */
+export interface FilterPersistConfig {
+  /** 表格唯一标识，作为 localStorage key 的一部分 */
+  tableId: string;
+  /** 默认筛选条件（首次进入且无持久化数据时使用） */
+  defaultValue?: Record<string, unknown>;
+  /** 过期时间（毫秒），默认 7 天 */
+  ttl?: number;
+}
+
+/**
  * useTableData 参数。
  */
 export interface UseTableDataOptions<T> {
@@ -76,6 +90,12 @@ export interface UseTableDataOptions<T> {
   rowSelection?: RowSelectionConfig<T>;
   /** 默认展开全部 */
   defaultExpandAllRows?: boolean;
+  /**
+   * 筛选条件持久化配置。
+   * 传入后自动将 filterState 保存到 localStorage，页面切换后恢复。
+   * 需同时提供 tableId 以隔离不同表格的存储。
+   */
+  persistFilters?: FilterPersistConfig;
 }
 
 /**
@@ -94,6 +114,10 @@ export interface UseTableDataReturn<T> {
   setFilter: (columnKey: string, values: string[]) => void;
   /** 清除所有筛选 */
   clearFilters: () => void;
+  /** 清除持久化的筛选条件（同时清空内存和 localStorage） */
+  clearPersistedFilters: () => void;
+  /** 是否从 localStorage 恢复了筛选条件 */
+  isFilterRestored: Ref<boolean>;
   /** 选中行 key 集合（内部状态或受控态） */
   selection: Ref<Set<string>>;
   /** 设置选中行 */
@@ -117,7 +141,18 @@ export interface UseTableDataReturn<T> {
 export function useTableData<T extends Record<string, unknown>>(
   options: UseTableDataOptions<T>,
 ): UseTableDataReturn<T> {
-  const { data, columns: getColumns } = options;
+  const { data, columns: getColumns, persistFilters } = options;
+
+  /* ----- 筛选条件持久化（可选） ----- */
+  const filterStorage = persistFilters
+    ? useTableFilterStorage({
+        defaultValue: persistFilters.defaultValue ?? {},
+        tableId: persistFilters.tableId,
+        ttl: persistFilters.ttl,
+      })
+    : null;
+
+  const isFilterRestored = filterStorage?.isRestored ?? ref(false);
 
   /* ----- 排序状态 ----- */
   const sortState = ref<SortState>({ order: null, prop: null });
@@ -136,7 +171,24 @@ export function useTableData<T extends Record<string, unknown>>(
   }
 
   /* ----- 筛选状态 ----- */
-  const filterState = ref<Map<string, Set<string>>>(new Map());
+  // 若启用了初始化持久化，尝试从 storage 恢复初始值
+  function getInitialFilterState(): Map<string, Set<string>> {
+    if (filterStorage) {
+      const restored = filterStorage.filters.value;
+      if (restored && Object.keys(restored).length > 0) {
+        const map = new Map<string, Set<string>>();
+        for (const [key, val] of Object.entries(restored)) {
+          if (Array.isArray(val)) {
+            map.set(key, new Set(val));
+          }
+        }
+        return map;
+      }
+    }
+    return new Map();
+  }
+
+  const filterState = ref<Map<string, Set<string>>>(getInitialFilterState());
 
   function setFilter(columnKey: string, values: string[]): void {
     if (values.length === 0) {
@@ -148,6 +200,14 @@ export function useTableData<T extends Record<string, unknown>>(
 
   function clearFilters(): void {
     filterState.value.clear();
+  }
+
+  /**
+   * 清除持久化的筛选条件（同时清空内存和 localStorage）。
+   */
+  function clearPersistedFilters(): void {
+    clearFilters();
+    filterStorage?.clearFilters();
   }
 
   /* ----- 行选择状态 ----- */
@@ -219,10 +279,34 @@ export function useTableData<T extends Record<string, unknown>>(
     });
   });
 
+  /* ----- 持久化自动同步：filterState 变化时写入 storage ----- */
+  if (filterStorage) {
+    watch(
+      filterState,
+      (newState) => {
+        const obj: Record<string, unknown> = {};
+        for (const [key, set] of newState) {
+          if (set.size > 0) {
+            obj[key] = Array.from(set);
+          }
+        }
+        if (Object.keys(obj).length > 0) {
+          filterStorage.saveFilters(obj);
+        } else {
+          // 筛选全部清空时也同步写入空对象
+          filterStorage.saveFilters({});
+        }
+      },
+      { deep: true },
+    );
+  }
+
   return {
     clearFilters,
+    clearPersistedFilters,
     expandedKeys,
     filterState,
+    isFilterRestored,
     rawRows,
     selection,
     setFilter,

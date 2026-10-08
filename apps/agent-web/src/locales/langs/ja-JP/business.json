@@ -43,5 +43,11 @@
   "export": "エクスポート",
   "exportSuccess": "エクスポート成功",
   "exportFailed": "エクスポート失敗",
-  "operationSuccess": "成功"
+  "operationSuccess": "成功",
+  "insight": {
+    "viewHtml": "HTML 表示",
+    "exportingHtml": "HTML レポートを読み込み中…",
+    "exportHtmlFailed": "HTML レポートのエクスポートに失敗しました",
+    "delete": "削除"
+  }
 }

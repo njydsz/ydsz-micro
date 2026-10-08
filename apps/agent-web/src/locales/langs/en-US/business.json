@@ -82,5 +82,11 @@
       "errorMessage": "Error Message",
       "completedAt": "Completed At"
     }
+  },
+  "insight": {
+    "viewHtml": "View HTML",
+    "exportingHtml": "Loading HTML report…",
+    "exportHtmlFailed": "Failed to export HTML report",
+    "delete": "Delete"
   }
 }

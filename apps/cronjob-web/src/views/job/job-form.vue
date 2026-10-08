@@ -16,14 +16,15 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { create, update, validateCron } from '#/api/job';
+import { create, update } from '#/api/job';
 import type { JobVO } from '#/api/models';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+import CronBuilder from '#/components/cron-builder/index.vue';
 
 const logger = createLogger('cronjob-job');
 
@@ -232,21 +233,6 @@ const [Modal, modalApi] = useYdModal({
 });
 
 const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定时任务'));
-
-/** 校验 Cron 表达式（validateCron 返回 unknown，仅做成功提示与失败提示） */
-async function handleValidateCron() {
-  if (!formData.cronExpression) {
-    showToast.warning('请先输入Cron表达式');
-    return;
-  }
-  try {
-    await validateCron({ expr: formData.cronExpression });
-    showToast.success('Cron 表达式校验通过');
-  } catch {
-    logger.warn('Cron 表达式校验失败', formData.cronExpression);
-    showToast.error('Cron 表达式无效');
-  }
-}
 </script>
 
 <template>
@@ -282,10 +268,7 @@ async function handleValidateCron() {
         </YdSelectBase>
       </YdFormItem>
       <YdFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
-        <div class="flex w-full gap-2">
-          <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
-          <YdButton variant="outline" @click="handleValidateCron">校验</YdButton>
-        </div>
+        <CronBuilder v-model="formData.cronExpression" />
       </YdFormItem>
       <YdFormItem v-if="formData.scheduleType === 'FIXED_RATE'" label="固定速率间隔(ms)">
         <YdInput

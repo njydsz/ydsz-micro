@@ -1,0 +1,59 @@
+{
+  "title": "Gestion des Codes d Erreur",
+  "createTitle": "Creer une Config de Code d Erreur",
+  "editTitle": "Modifier la Config de Code d Erreur",
+  "createSuccess": "Cree avec succes",
+  "editSuccess": "Mis a jour avec succes",
+  "toggleSuccess": "Statut modifie avec succes",
+  "confirmDelete": "Etes-vous sur de vouloir supprimer la configuration du code d erreur \"{errorCode}\" ?",
+  "columns": {
+    "errorCode": "Code d Erreur",
+    "errorMessage": "Modele de Message d Erreur",
+    "channelType": "Type de Canal",
+    "retryPolicy": "Politique de Nouvelle Tentative",
+    "notifyPolicy": "Politique de Notification",
+    "maxRetryCount": "Tentatives Max",
+    "retryIntervalBase": "Base d Intervalle de Nouvelle Tentative (s)",
+    "description": "Description"
+  },
+  "placeholder": {
+    "errorCode": "Entrez le code d erreur (ex. EMAIL_SEND_TIMEOUT)",
+    "errorMessage": "Entrez le modele de message d erreur",
+    "channelType": "Selectionnez le type de canal",
+    "retryPolicy": "Selectionnez la politique de nouvelle tentative",
+    "notifyPolicy": "Selectionnez la politique de notification",
+    "description": "Entrez la description (optionnel)"
+  },
+  "validation": {
+    "errorCodeRequired": "Veuillez entrer le code d erreur",
+    "errorMessageRequired": "Veuillez entrer le modele de message d erreur",
+    "channelTypeRequired": "Veuillez selectionner le type de canal"
+  },
+  "channel": {
+    "SMS": "SMS",
+    "EMAIL": "E-mail",
+    "WEBHOOK": "Webhook",
+    "PUSH": "Push",
+    "WECHAT": "WeChat",
+    "INSITE": "Interne"
+  },
+  "retryPolicy": {
+    "NONE": "Sans Nouvelle Tentative",
+    "SIMPLE": "Nouvelle Tentative Simple",
+    "EXPONENTIAL_BACKOFF": "Backoff Exponentiel"
+  },
+  "notifyPolicy": {
+    "NONE": "Sans Notification",
+    "EMAIL_ADMIN": "E-mail a l Admin",
+    "SMS_ADMIN": "SMS a l Admin",
+    "WEBHOOK_ALERT": "Alerte Webhook"
+  },
+  "status": {
+    "enabled": "Active",
+    "disabled": "Desactive"
+  },
+  "actions": {
+    "enable": "Activer",
+    "disable": "Desactiver"
+  }
+}

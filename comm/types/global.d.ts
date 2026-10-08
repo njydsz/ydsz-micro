@@ -69,3 +69,16 @@ declare global {
     __MICRO_KERNEL__?: MicroRuntime;
   }
 }
+
+/**
+ * 持久化筛选条件结构。
+ *
+ * <p>存储在 localStorage 中，记录用户为某表格设置的筛选条件及更新时间戳，
+ * 用于下次进入页面时自动恢复筛选状态。
+ */
+export interface PersistedFilterState {
+  /** 筛选条件：列 key -> 已选值数组 */
+  filters: Record<string, unknown>;
+  /** 更新时间戳（毫秒级 Date.now()） */
+  updatedAt: number;
+}

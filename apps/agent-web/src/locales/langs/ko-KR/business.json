@@ -43,5 +43,11 @@
   "export": "내보내기",
   "exportSuccess": "내보내기 성공",
   "exportFailed": "내보내기 실패",
-  "operationSuccess": "성공"
+  "operationSuccess": "성공",
+  "insight": {
+    "viewHtml": "HTML 보기",
+    "exportingHtml": "HTML 보고서 불러오는 중…",
+    "exportHtmlFailed": "HTML 보고서 내보내기 실패",
+    "delete": "삭제"
+  }
 }

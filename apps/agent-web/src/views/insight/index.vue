@@ -21,12 +21,15 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteReport, listRecentReports, type InsightReportResultVO } from '#/api/insightReport';
+import { deleteReport, exportHtml, listRecentReports, type InsightReportResultVO } from '#/api/insightReport';
 
 defineOptions({ name: 'InsightReportManagement' });
 
 const logger = createLogger('agent-insight-report');
+
+const { t } = useI18n();
 
 /** 当前用户 ID（实际应从 store / auth 获取） */
 const currentUserId = ref('current-user');
@@ -51,12 +54,12 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
     {
       field: 'action',
       title: '操作',
-      width: 180,
+      width: 240,
       fixed: 'right',
       slots: {
         default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewHtml(row) }, () => t('business.insight.viewHtml') || '查看 HTML'),
+          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => t('business.insight.delete') || '删除'),
         ]),
       },
     },
@@ -87,16 +90,34 @@ const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 /**
- * 导出 HTML 报告。
+ * 查看 HTML 报告。
+ *
+ * <p>调用后端 {@code GET /agent/insight/report/{reportId}/html} 获取 HTML 内容，
+ * 在新窗口中打开供用户查看或打印。
  *
  * @param row - 报告行数据
  */
-async function handleExport(row: InsightReportResultVO) {
+async function handleViewHtml(row: InsightReportResultVO) {
   if (!row.reportId) {
     return;
   }
-  logger.info('导出洞察报告 HTML:', row.reportId);
-  showToast.info('导出功能已触发，请在浏览器弹窗中完成下载。');
+  logger.info('查看洞察报告 HTML:', row.reportId);
+  const loadingToastId = showToast.info(
+    t('business.insight.exportingHtml') || '正在加载 HTML 报告…',
+    { duration: 0 },
+  );
+  try {
+    const html = await exportHtml({ reportId: row.reportId });
+    showToast.dismiss(loadingToastId);
+    const blob = new Blob([String(html)], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank', 'noopener,noreferrer');
+    // 延迟释放 Blob URL，确保新窗口有足够时间加载
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  } catch {
+    showToast.dismiss(loadingToastId);
+    /* 错误已由请求拦截器展示，无需重复处理 */
+  }
 }
 
 /**

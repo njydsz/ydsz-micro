@@ -43,5 +43,11 @@
   "export": "Exportar",
   "exportSuccess": "Exportacion exitosa",
   "exportFailed": "Error al exportar",
-  "operationSuccess": "Exito"
+  "operationSuccess": "Exito",
+  "insight": {
+    "viewHtml": "Ver HTML",
+    "exportingHtml": "Cargando informe HTML…",
+    "exportHtmlFailed": "Error al exportar el informe HTML",
+    "delete": "Eliminar"
+  }
 }
