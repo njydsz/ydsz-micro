@@ -105,6 +105,12 @@
     "hourRange": "范围",
     "every": "每",
     "and": "和",
-    "textInputPlaceholder": "手动输入Cron表达式"
+    "eventStream": "事件流",
+    "confirmPause": "确定暂停任务「{name}」吗？",
+    "confirmResume": "确定恢复任务「{name}」吗？",
+    "confirmTrigger": "确定手动触发任务「{name}」吗？",
+    "pauseSuccess": "已暂停",
+    "resumeSuccess": "已恢复",
+    "triggerSuccess": "触发成功"
   }
 }

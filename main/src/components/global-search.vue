@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import type { SearchItem } from "#/hooks/use-global-search";
 
-import { computed, defineModel, nextTick, ref, watch } from "vue";
+import { computed, nextTick, ref, watch } from "vue";
 
 /** 受控显隐 */
 const props = defineProps<{

@@ -24,10 +24,8 @@ export function createKey(data: ApiKeyCreateDTO): Promise<ApiKeyVO> {
 /**
  * pageKeys: GET /apikey
  */
-export function pageKeys(params: {
-    query?: ApiKeyPageQuery;
-  }): Promise<PageResponse<ApiKeyVO[]>> {
-  return requestClient.get<PageResponse<ApiKeyVO[]>>(`/apikey`, { params });
+export function pageKeys(query?: ApiKeyPageQuery): Promise<PageResponse<ApiKeyVO[]>> {
+  return requestClient.get<PageResponse<ApiKeyVO[]>>(`/apikey`, { params: query });
 }
 
 /**

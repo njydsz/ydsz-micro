@@ -17,10 +17,8 @@ import type { DictItemBatchDTO, DictItemDTO, DictItemPageQuery, DictItemVO } fro
 /**
  * page: GET /dict/item/page
  */
-export function page(params: {
-    query?: DictItemPageQuery;
-  }): Promise<PageResponse<DictItemVO[]>> {
-  return requestClient.get<PageResponse<DictItemVO[]>>(`/dict/item/page`, { params });
+export function page(query?: DictItemPageQuery): Promise<PageResponse<DictItemVO[]>> {
+  return requestClient.get<PageResponse<DictItemVO[]>>(`/dict/item/page`, { params: query });
 }
 
 /**

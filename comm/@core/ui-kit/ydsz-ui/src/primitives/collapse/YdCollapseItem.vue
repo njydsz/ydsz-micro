@@ -10,7 +10,7 @@
 -->
 <script lang="ts" setup>
 // @ts-nocheck
-import { inject, ref, watch, withDefaults } from 'vue';
+import { inject, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown } from 'lucide-vue-next';

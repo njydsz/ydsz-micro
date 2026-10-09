@@ -26,10 +26,8 @@ export function listByTypeCode({ typeCode }: {
 /**
  * pageByTypeCode: GET /dict/version/page
  */
-export function pageByTypeCode(params: {
-    query?: EntityVersionPageQuery;
-  }): Promise<PageResponse<EntityVersionVO[]>> {
-  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/dict/version/page`, { params });
+export function pageByTypeCode(query?: EntityVersionPageQuery): Promise<PageResponse<EntityVersionVO[]>> {
+  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/dict/version/page`, { params: query });
 }
 
 /**

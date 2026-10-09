@@ -105,6 +105,13 @@
     "hourRange": "범위",
     "every": "매",
     "and": "&",
-    "textInputPlaceholder": "Cron 식 수동 입력"
+    "textInputPlaceholder": "Cron 식 수동 입력",
+    "eventStream": "이벤트 스트림",
+    "confirmPause": "작업 \"{name}\"을(를) 일시정지하시겠습니까?",
+    "confirmResume": "작업 \"{name}\"을(를) 재개하시겠습니까?",
+    "confirmTrigger": "작업 \"{name}\"을(를) 수동으로 트리거하시겠습니까?",
+    "pauseSuccess": "작업이 일시정지되었습니다",
+    "resumeSuccess": "작업이 재개되었습니다",
+    "triggerSuccess": "트리거 성공"
   }
 }

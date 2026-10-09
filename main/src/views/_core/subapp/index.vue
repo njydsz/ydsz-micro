@@ -139,7 +139,7 @@ onMounted(() => {
       clearTimeout(skeletonDelayTimer);
       showDelayedSkeleton.value = false;
       // 触发淡入动画
-      isFadingIn.value = true);
+      isFadingIn.value = true;
       window.setTimeout(() => {
         isFadingIn.value = false;
       }, 300);

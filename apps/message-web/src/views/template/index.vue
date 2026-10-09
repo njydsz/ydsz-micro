@@ -136,7 +136,7 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
   proxyConfig: {
     ajax: {
       query: async (_page, formValues) => {
-        const res = await page({ query: { ...formValues } });
+        const res = await page({ ...formValues });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },

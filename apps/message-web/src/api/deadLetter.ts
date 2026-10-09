@@ -17,10 +17,8 @@ import type { MessageLogQueryDTO, MsgLogVO } from './models';
 /**
  * page: GET /message/dead-letter/page
  */
-export function page(params: {
-    query?: MessageLogQueryDTO;
-  }): Promise<PageResponse<MsgLogVO[]>> {
-  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/dead-letter/page`, { params });
+export function page(query?: MessageLogQueryDTO): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/dead-letter/page`, { params: query });
 }
 
 /**

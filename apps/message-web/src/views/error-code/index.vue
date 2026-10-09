@@ -105,7 +105,7 @@ const gridOptions: VxeTableGridOptions<MsgErrorCodeVO> = {
           retryPolicy: formValues.retryPolicy || undefined,
           notifyPolicy: formValues.notifyPolicy || undefined,
         };
-        const res = await page({ query });
+        const res = await page(query);
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },

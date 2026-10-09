@@ -73,7 +73,7 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
   proxyConfig: {
     ajax: {
       query: async (_page, formValues) => {
-        const res = await pageLog({ query: { ...formValues } });
+        const res = await pageLog({ ...formValues });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },

@@ -34,13 +34,13 @@ export function getAverageRating(params: {
 /**
  * pageFeedback: GET /message/feedback/page
  */
-export function pageFeedback(params: {
+export function pageFeedback(query?: {
     page?: number;
     size?: number;
     channel?: string;
     userId?: string;
   }): Promise<PageResponse<MsgFeedbackVO[]>> {
-  return requestClient.get<PageResponse<MsgFeedbackVO[]>>(`/message/feedback/page`, { params });
+  return requestClient.get<PageResponse<MsgFeedbackVO[]>>(`/message/feedback/page`, { params: query });
 }
 
 /**

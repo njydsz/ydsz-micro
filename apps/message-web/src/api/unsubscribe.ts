@@ -35,10 +35,8 @@ export function preview(params: {
 /**
  * page: GET /message/unsubscribe/page
  */
-export function page(params: {
-    query?: UnsubscribeQueryDTO;
-  }): Promise<PageResponse<MsgSubscriptionVO[]>> {
-  return requestClient.get<PageResponse<MsgSubscriptionVO[]>>(`/message/unsubscribe/page`, { params });
+export function page(query?: UnsubscribeQueryDTO): Promise<PageResponse<MsgSubscriptionVO[]>> {
+  return requestClient.get<PageResponse<MsgSubscriptionVO[]>>(`/message/unsubscribe/page`, { params: query });
 }
 
 /**

@@ -86,12 +86,8 @@ export interface ErrorCodeUpsertDTO {
 /**
  * page: GET /message/error-code/page
  */
-export function page(params: {
-  query?: ErrorCodeQueryDTO;
-  pageNum?: number;
-  pageSize?: number;
-}): Promise<PageResponse<MsgErrorCodeVO[]>> {
-  return requestClient.get<PageResponse<MsgErrorCodeVO[]>>(`/message/error-code/page`, { params });
+export function page(query?: ErrorCodeQueryDTO): Promise<PageResponse<MsgErrorCodeVO[]>> {
+  return requestClient.get<PageResponse<MsgErrorCodeVO[]>>(`/message/error-code/page`, { params: query });
 }
 
 /**

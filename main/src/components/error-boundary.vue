@@ -28,6 +28,9 @@ const props = withDefaults(defineProps<{
 const hasError = ref(false);
 const errorInfo = ref<Error | null>(null);
 
+/** 开发模式标志 — 用于在模板中条件渲染错误详情 */
+const isDev = import.meta.env.DEV;
+
 onErrorCaptured((err: unknown) => {
   hasError.value = true;
   errorInfo.value = err instanceof Error ? err : new Error(String(err));
@@ -56,7 +59,7 @@ function handleRetry(): void {
       <span class="i-lucide-refresh-cw mr-1" />
       重试
     </button>
-    <p v-if="errorInfo && import.meta.env.DEV" class="text-base-content/40 mt-4 max-w-md break-all text-xs">
+    <p v-if="errorInfo && isDev" class="text-base-content/40 mt-4 max-w-md break-all text-xs">
       {{ errorInfo.message }}
     </p>
   </div>

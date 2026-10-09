@@ -17,10 +17,8 @@ import type { LanguageDTO, LanguagePageQuery, LanguageVO } from './models';
 /**
  * page: GET /language/page
  */
-export function page(params: {
-    query?: LanguagePageQuery;
-  }): Promise<PageResponse<LanguageVO[]>> {
-  return requestClient.get<PageResponse<LanguageVO[]>>(`/language/page`, { params });
+export function page(query?: LanguagePageQuery): Promise<PageResponse<LanguageVO[]>> {
+  return requestClient.get<PageResponse<LanguageVO[]>>(`/language/page`, { params: query });
 }
 
 /**

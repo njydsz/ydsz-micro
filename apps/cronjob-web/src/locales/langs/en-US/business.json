@@ -105,6 +105,12 @@
     "hourRange": "Range",
     "every": "every",
     "and": "&",
-    "textInputPlaceholder": "Enter cron expression manually"
+    "eventStream": "Event Stream",
+    "confirmPause": "Are you sure you want to pause job \"{name}\"?",
+    "confirmResume": "Are you sure you want to resume job \"{name}\"?",
+    "confirmTrigger": "Are you sure you want to manually trigger job \"{name}\"?",
+    "pauseSuccess": "Job paused",
+    "resumeSuccess": "Job resumed",
+    "triggerSuccess": "Trigger successful"
   }
 }

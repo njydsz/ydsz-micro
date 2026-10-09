@@ -10,6 +10,10 @@
     "search": "검색",
     "loading": "로딩 중...",
     "refresh": "새로고침",
+    "pause": "일시정지",
+    "resume": "재개",
+    "trigger": "트리거",
+    "log": "로그",
     "itemCount": "{count, plural, =0{없음} other{# 개}}"
   }
 }

@@ -17,10 +17,8 @@ import type { SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './m
 /**
  * page: GET /social-client-config/page
  */
-export function page(params: {
-    query?: SocialClientPageQuery;
-  }): Promise<PageResponse<SocialClientVO[]>> {
-  return requestClient.get<PageResponse<SocialClientVO[]>>(`/social-client-config/page`, { params });
+export function page(query?: SocialClientPageQuery): Promise<PageResponse<SocialClientVO[]>> {
+  return requestClient.get<PageResponse<SocialClientVO[]>>(`/social-client-config/page`, { params: query });
 }
 
 /**

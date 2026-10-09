@@ -24,10 +24,8 @@ export function listAccessible(): Promise<TenantVO[]> {
 /**
  * page: GET /tenant/page
  */
-export function page(params: {
-    query?: TenantPageQuery;
-  }): Promise<PageResponse<TenantVO[]>> {
-  return requestClient.get<PageResponse<TenantVO[]>>(`/tenant/page`, { params });
+export function page(query?: TenantPageQuery): Promise<PageResponse<TenantVO[]>> {
+  return requestClient.get<PageResponse<TenantVO[]>>(`/tenant/page`, { params: query });
 }
 
 /**

@@ -242,7 +242,7 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
   proxyConfig: {
     ajax: {
       query: async (_page, formValues) => {
-        const res = await page({ query: { ...searchForm, ...formValues } });
+        const res = await page({ ...searchForm, ...formValues });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },

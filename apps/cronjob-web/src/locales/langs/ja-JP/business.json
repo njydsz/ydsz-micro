@@ -105,6 +105,13 @@
     "hourRange": "範囲",
     "every": "毎",
     "and": "と",
-    "textInputPlaceholder": "Cron式を手動入力"
+    "textInputPlaceholder": "Cron式を手動入力",
+    "eventStream": "イベントストリーム",
+    "confirmPause": "ジョブ「{name}」を一時停止してもよろしいですか？",
+    "confirmResume": "ジョブ「{name}」を再開してもよろしいですか？",
+    "confirmTrigger": "ジョブ「{name}」を手動でトリガーしてもよろしいですか？",
+    "pauseSuccess": "ジョブを一時停止しました",
+    "resumeSuccess": "ジョブを再開しました",
+    "triggerSuccess": "トリガー成功しました"
   }
 }

@@ -17,8 +17,6 @@ import type { LoginLogPageQuery, UserLoginHistoryVO } from './models';
 /**
  * page: GET /userinfo/login-log/page
  */
-export function page(params: {
-    query?: LoginLogPageQuery;
-  }): Promise<PageResponse<UserLoginHistoryVO[]>> {
-  return requestClient.get<PageResponse<UserLoginHistoryVO[]>>(`/userinfo/login-log/page`, { params });
+export function page(query?: LoginLogPageQuery): Promise<PageResponse<UserLoginHistoryVO[]>> {
+  return requestClient.get<PageResponse<UserLoginHistoryVO[]>>(`/userinfo/login-log/page`, { params: query });
 }

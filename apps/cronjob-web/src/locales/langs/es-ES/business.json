@@ -105,6 +105,13 @@
     "hourRange": "Rango",
     "every": "cada",
     "and": "y",
-    "textInputPlaceholder": "Ingrese expresion cron manualmente"
+    "textInputPlaceholder": "Ingrese expresion cron manualmente",
+    "eventStream": "Flujo de eventos",
+    "confirmPause": "¿Está seguro de que desea pausar el trabajo \"{name}\"?",
+    "confirmResume": "¿Está seguro de que desea reanudar el trabajo \"{name}\"?",
+    "confirmTrigger": "¿Está seguro de que desea activar manualmente el trabajo \"{name}\"?",
+    "pauseSuccess": "Trabajo pausado",
+    "resumeSuccess": "Trabajo reanudado",
+    "triggerSuccess": "Activación exitosa"
   }
 }

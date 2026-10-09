@@ -17,10 +17,8 @@ import type { AuthPolicyDTO, AuthPolicyPageQuery, AuthPolicyVO } from './models'
 /**
  * page: GET /auth-policy/page
  */
-export function page(params: {
-    query?: AuthPolicyPageQuery;
-  }): Promise<PageResponse<AuthPolicyVO[]>> {
-  return requestClient.get<PageResponse<AuthPolicyVO[]>>(`/auth-policy/page`, { params });
+export function page(query?: AuthPolicyPageQuery): Promise<PageResponse<AuthPolicyVO[]>> {
+  return requestClient.get<PageResponse<AuthPolicyVO[]>>(`/auth-policy/page`, { params: query });
 }
 
 /**

@@ -51,10 +51,8 @@ export function getById({ id }: {
 /**
  * page: GET /message/template/page
  */
-export function page(params: {
-    query?: TemplateQueryDTO;
-  }): Promise<PageResponse<MsgTemplateVO[]>> {
-  return requestClient.get<PageResponse<MsgTemplateVO[]>>(`/message/template/page`, { params });
+export function page(query?: TemplateQueryDTO): Promise<PageResponse<MsgTemplateVO[]>> {
+  return requestClient.get<PageResponse<MsgTemplateVO[]>>(`/message/template/page`, { params: query });
 }
 
 /**

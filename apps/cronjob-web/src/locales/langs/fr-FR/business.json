@@ -105,6 +105,13 @@
     "hourRange": "Plage",
     "every": "chaque",
     "and": "et",
-    "textInputPlaceholder": "Entrez l'expression cron manuellement"
+    "textInputPlaceholder": "Entrez l'expression cron manuellement",
+    "eventStream": "Flux d'événements",
+    "confirmPause": "Êtes-vous sûr de vouloir mettre le travail \"{name}\" en pause ?",
+    "confirmResume": "Êtes-vous sûr de vouloir reprendre le travail \"{name}\" ?",
+    "confirmTrigger": "Êtes-vous sûr de vouloir déclencher manuellement le travail \"{name}\" ?",
+    "pauseSuccess": "Travail en pause",
+    "resumeSuccess": "Travail repris",
+    "triggerSuccess": "Déclenchement réussi"
   }
 }

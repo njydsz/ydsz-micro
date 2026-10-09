@@ -33,6 +33,9 @@ import {
   type GeneratedErrorCodeMeta,
 } from './error-codes.generated';
 
+// Re-export GENERATED_ERROR_CODE_META 供 @ydsz/locales/errors 等包查询 i18nKey
+export { GENERATED_ERROR_CODE_META } from './error-codes.generated';
+
 /**
  * 统一错误码枚举
  *

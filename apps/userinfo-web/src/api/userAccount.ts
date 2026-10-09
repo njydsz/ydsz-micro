@@ -17,10 +17,8 @@ import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, ResetPasswo
 /**
  * page: GET /user/page
  */
-export function page(params: {
-    query?: UserAccountPageQuery;
-  }): Promise<PageResponse<UserAccountVO[]>> {
-  return requestClient.get<PageResponse<UserAccountVO[]>>(`/user/page`, { params });
+export function page(query?: UserAccountPageQuery): Promise<PageResponse<UserAccountVO[]>> {
+  return requestClient.get<PageResponse<UserAccountVO[]>>(`/user/page`, { params: query });
 }
 
 /**

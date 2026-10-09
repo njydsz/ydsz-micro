@@ -17,10 +17,8 @@ import type { TenantPlanDTO, TenantPlanMenuDTO, TenantPlanMenuVO, TenantPlanPage
 /**
  * page: GET /tenant-plan/page
  */
-export function page(params: {
-    query?: TenantPlanPageQuery;
-  }): Promise<PageResponse<TenantPlanVO[]>> {
-  return requestClient.get<PageResponse<TenantPlanVO[]>>(`/tenant-plan/page`, { params });
+export function page(query?: TenantPlanPageQuery): Promise<PageResponse<TenantPlanVO[]>> {
+  return requestClient.get<PageResponse<TenantPlanVO[]>>(`/tenant-plan/page`, { params: query });
 }
 
 /**

@@ -17,10 +17,8 @@ import type { AppInfoDTO, AppInfoPageQuery, AppInfoVO } from './models';
 /**
  * page: GET /app/page
  */
-export function page(params: {
-    query?: AppInfoPageQuery;
-  }): Promise<PageResponse<AppInfoVO[]>> {
-  return requestClient.get<PageResponse<AppInfoVO[]>>(`/app/page`, { params });
+export function page(query?: AppInfoPageQuery): Promise<PageResponse<AppInfoVO[]>> {
+  return requestClient.get<PageResponse<AppInfoVO[]>>(`/app/page`, { params: query });
 }
 
 /**

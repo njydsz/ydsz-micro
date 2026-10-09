@@ -101,10 +101,8 @@ const gridOptions: VxeGridProps<AlertRow> = {
     ajax: {
       query: async ({ page }) => {
         const res = await pageAlerts({
-          query: {
-            page: page.currentPage,
-            pageSize: page.pageSize,
-          },
+          page: page.currentPage,
+          pageSize: page.pageSize,
         });
         // 将字符串数组转换为 AlertRow 对象数组
         const items: AlertRow[] = (res.data ?? []).map((alertType, index) => ({

@@ -51,10 +51,8 @@ export function getById({ id }: {
 /**
  * page: GET /message/route-rule/page
  */
-export function page(params: {
-    query?: PageQuery;
-  }): Promise<PageResponse<MsgRouteRuleVO[]>> {
-  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/message/route-rule/page`, { params });
+export function page(query?: PageQuery): Promise<PageResponse<MsgRouteRuleVO[]>> {
+  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/message/route-rule/page`, { params: query });
 }
 
 /**

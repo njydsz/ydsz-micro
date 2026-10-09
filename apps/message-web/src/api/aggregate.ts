@@ -17,10 +17,8 @@ import type { MsgAggregateVO, PageQuery } from './models';
 /**
  * page: GET /message/aggregate/page
  */
-export function page(params: {
-    query?: PageQuery;
-  }): Promise<PageResponse<MsgAggregateVO[]>> {
-  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/message/aggregate/page`, { params });
+export function page(query?: PageQuery): Promise<PageResponse<MsgAggregateVO[]>> {
+  return requestClient.get<PageResponse<MsgAggregateVO[]>>(`/message/aggregate/page`, { params: query });
 }
 
 /**

@@ -17,10 +17,8 @@ import type { SecurityAlertPageQuery } from './models';
 /**
  * pageAlerts: GET /admin/security/alerts
  */
-export function pageAlerts(params: {
-    query?: SecurityAlertPageQuery;
-  }): Promise<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>> {
-  return requestClient.get<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>>(`/admin/security/alerts`, { params });
+export function pageAlerts(query?: SecurityAlertPageQuery): Promise<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>> {
+  return requestClient.get<PageResponse<'ACCOUNT_LOCKED' | 'ACCOUNT_BANNED' | 'MFA_FAILED' | 'BRUTE_FORCE' | 'ANOMALOUS_LOGIN' | 'PASSWORD_SPRAY'[]>>(`/admin/security/alerts`, { params: query });
 }
 
 /**

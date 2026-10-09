@@ -10,6 +10,10 @@
     "search": "Rechercher",
     "loading": "Chargement...",
     "refresh": "Actualiser",
+    "pause": "Mettre en pause",
+    "resume": "Reprendre",
+    "trigger": "Déclencher",
+    "log": "Journal",
     "itemCount": "{count, plural, =0{Aucun élément} one{# élément} other{# éléments}}"
   }
 }

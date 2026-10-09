@@ -17,10 +17,8 @@ import type { SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
 /**
  * page: GET /saml-idp-config/page
  */
-export function page(params: {
-    query?: SamlIdpPageQuery;
-  }): Promise<PageResponse<SamlIdpConfigVO[]>> {
-  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/saml-idp-config/page`, { params });
+export function page(query?: SamlIdpPageQuery): Promise<PageResponse<SamlIdpConfigVO[]>> {
+  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/saml-idp-config/page`, { params: query });
 }
 
 /**

@@ -17,10 +17,8 @@ import type { AssignPermissionsDTO, RoleDTO, RolePageQuery, RoleVO } from './mod
 /**
  * page: GET /role/page
  */
-export function page(params: {
-    query?: RolePageQuery;
-  }): Promise<PageResponse<RoleVO[]>> {
-  return requestClient.get<PageResponse<RoleVO[]>>(`/role/page`, { params });
+export function page(query?: RolePageQuery): Promise<PageResponse<RoleVO[]>> {
+  return requestClient.get<PageResponse<RoleVO[]>>(`/role/page`, { params: query });
 }
 
 /**

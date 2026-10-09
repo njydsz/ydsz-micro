@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdConfirm, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -110,34 +110,34 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
               () => t('common.edit'),
             ),
             isPaused(job)
-              ? h(
-                  YdButton,
-                  { size: 'sm', variant: 'link', onClick: () => handleResume(job) },
-                  () => '恢复',
-                )
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', 'aria-label': t('common.resume'), onClick: () => handleResume(job) },
+              () => t('common.resume'),
+            )
               : h(
                   YdButton,
-                  { size: 'sm', variant: 'link', onClick: () => handlePause(job) },
-                  () => '暂停',
+                  { size: 'sm', variant: 'link', 'aria-label': t('common.pause'), onClick: () => handlePause(job) },
+                  () => t('common.pause'),
                 ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleTrigger(job) },
-              () => '触发',
+              { size: 'sm', variant: 'link', 'aria-label': t('common.trigger'), onClick: () => handleTrigger(job) },
+              () => t('common.trigger'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleViewLog(job) },
-              () => '日志',
+              { size: 'sm', variant: 'link', 'aria-label': t('common.log'), onClick: () => handleViewLog(job) },
+              () => t('common.log'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleViewEvents(job) },
-              () => '事件流',
+              { size: 'sm', variant: 'link', 'aria-label': t('business.eventStream'), onClick: () => handleViewEvents(job) },
+              () => t('business.eventStream'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleWebhookConfig(job) },
+              { size: 'sm', variant: 'link', 'aria-label': 'WebHook', onClick: () => handleWebhookConfig(job) },
               () => 'WebHook',
             ),
             h(
@@ -263,8 +263,14 @@ function handleEdit(row: JobRow) {
 async function handlePause(row: JobRow) {
   if (!row.id) return;
   try {
+    await YdConfirm(t('business.confirmPause', { name: row.jobName }), { title: t('common.pause'), type: 'warning' });
+  } catch {
+    logger.warn('用户取消暂停任务', row.id);
+    return;
+  }
+  try {
     await pause({ id: row.id });
-    showToast.success('已暂停');
+    showToast.success(t('business.pauseSuccess'));
     gridApi.query();
   } catch {
     logger.warn('暂停任务失败', row.id);
@@ -275,8 +281,14 @@ async function handlePause(row: JobRow) {
 async function handleResume(row: JobRow) {
   if (!row.id) return;
   try {
+    await YdConfirm(t('business.confirmResume', { name: row.jobName }), { title: t('common.resume'), type: 'warning' });
+  } catch {
+    logger.warn('用户取消恢复任务', row.id);
+    return;
+  }
+  try {
     await resume({ id: row.id });
-    showToast.success('已恢复');
+    showToast.success(t('business.resumeSuccess'));
     gridApi.query();
   } catch {
     logger.warn('恢复任务失败', row.id);
@@ -287,8 +299,14 @@ async function handleResume(row: JobRow) {
 async function handleTrigger(row: JobRow) {
   if (!row.id) return;
   try {
+    await YdConfirm(t('business.confirmTrigger', { name: row.jobName }), { title: t('common.trigger'), type: 'warning' });
+  } catch {
+    logger.warn('用户取消触发任务', row.id);
+    return;
+  }
+  try {
     await trigger({ id: row.id }, {});
-    showToast.success('触发成功');
+    showToast.success(t('business.triggerSuccess'));
   } catch {
     logger.warn('触发任务失败', row.id);
     // 错误提示由请求拦截器统一处理

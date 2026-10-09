@@ -57,7 +57,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
 
   const dayjsCode = dayjsLocaleMap[lang] ?? 'en';
   try {
-    const locale = await import(`dayjs/locale/${dayjsCode}`);
+    const locale = await import(/* @vite-ignore */ `dayjs/locale/${dayjsCode}`);
     dayjs.locale(locale.default ?? locale);
   } catch (error) {
     logger.warn(`Failed to load dayjs locale '${dayjsCode}' for ${lang}: ${error}`);

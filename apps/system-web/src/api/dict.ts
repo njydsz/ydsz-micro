@@ -17,10 +17,8 @@ import type { DictPageQuery, DictTypeDTO, DictTypeVO } from './models';
 /**
  * page: GET /dict/type/page
  */
-export function page(params: {
-    query?: DictPageQuery;
-  }): Promise<PageResponse<DictTypeVO[]>> {
-  return requestClient.get<PageResponse<DictTypeVO[]>>(`/dict/type/page`, { params });
+export function page(query?: DictPageQuery): Promise<PageResponse<DictTypeVO[]>> {
+  return requestClient.get<PageResponse<DictTypeVO[]>>(`/dict/type/page`, { params: query });
 }
 
 /**

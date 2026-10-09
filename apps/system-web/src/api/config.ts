@@ -17,10 +17,8 @@ import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, ImportResult
 /**
  * page: GET /config/page
  */
-export function page(params: {
-    query?: ConfigPageQuery;
-  }): Promise<PageResponse<ConfigVO[]>> {
-  return requestClient.get<PageResponse<ConfigVO[]>>(`/config/page`, { params });
+export function page(query?: ConfigPageQuery): Promise<PageResponse<ConfigVO[]>> {
+  return requestClient.get<PageResponse<ConfigVO[]>>(`/config/page`, { params: query });
 }
 
 /**

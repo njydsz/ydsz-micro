@@ -25,10 +25,8 @@ export function me(): Promise<Record<string, Record<string, unknown>>> {
 /**
  * page: GET /feature-flag/page
  */
-export function page(params: {
-    query?: FeatureFlagPageQuery;
-  }): Promise<PageResponse<FeatureFlagVO[]>> {
-  return requestClient.get<PageResponse<FeatureFlagVO[]>>(`/feature-flag/page`, { params });
+export function page(query?: FeatureFlagPageQuery): Promise<PageResponse<FeatureFlagVO[]>> {
+  return requestClient.get<PageResponse<FeatureFlagVO[]>>(`/feature-flag/page`, { params: query });
 }
 
 /**

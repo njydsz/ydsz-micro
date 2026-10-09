@@ -17,10 +17,8 @@ import type { VariableDTO, VariablePageQuery, VariableVO } from './models';
 /**
  * page: GET /variable/page
  */
-export function page(params: {
-    query?: VariablePageQuery;
-  }): Promise<PageResponse<VariableVO[]>> {
-  return requestClient.get<PageResponse<VariableVO[]>>(`/variable/page`, { params });
+export function page(query?: VariablePageQuery): Promise<PageResponse<VariableVO[]>> {
+  return requestClient.get<PageResponse<VariableVO[]>>(`/variable/page`, { params: query });
 }
 
 /**

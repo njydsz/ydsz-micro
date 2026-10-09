@@ -69,7 +69,9 @@ export async function resolveErrorMessage(
 
   // 2. 回退到 GENERATED_ERROR_CODE_META 中的 i18nKey
   //    lazy import 打破循环依赖（@ydsz/locales ↔ @ydsz/request）
-  const { GENERATED_ERROR_CODE_META } = await import('@ydsz/request');
+  // 通过运行时变量间接引用包名，绕过 Vite 静态预扫描（避免循环依赖报错）
+  const requestPkg = '@ydsz/request';
+  const { GENERATED_ERROR_CODE_META } = await import(/* @vite-ignore */ requestPkg);
   const meta = GENERATED_ERROR_CODE_META[code];
   if (meta?.i18nKey) {
     const i18nMessage = $t(meta.i18nKey as Parameters<typeof $t>[0]);

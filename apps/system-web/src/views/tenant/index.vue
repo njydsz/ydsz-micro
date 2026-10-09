@@ -67,7 +67,7 @@ const gridOptions: VxeGridProps<TenantVO> = {
   proxyConfig: {
     ajax: {
       query: async ({ page: pageObj, formData }) => {
-        const res = await page({ query: { ...formData, pageNum: pageObj.currentPage, pageSize: pageObj.pageSize } });
+        const res = await page({ ...formData, pageNum: pageObj.currentPage, pageSize: pageObj.pageSize });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },

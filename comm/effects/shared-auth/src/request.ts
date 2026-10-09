@@ -193,7 +193,7 @@ export function createSharedRequestClient(
   //   - 命中 i18n 映射则使用翻译后的提示
   //   - 未命中则降级使用后端返回的 serverMessage（兼容老接口 / 未知错误码）
   client.addResponseInterceptor(
-    errorMessageResponseInterceptor((msg: string, error) => {
+    errorMessageResponseInterceptor(async (msg: string, error) => {
       const status = error?.response?.status;
       // 401 由 authenticateResponseInterceptor 处理，跳过避免重复弹窗
       if (status === 401) return;

@@ -148,9 +148,7 @@ const gridOptions: VxeTableGridOptions = {
     ajax: {
       query: async ({ page: pageParams }) => {
         try {
-          const res = await pageAlerts({
-            query: {} as Record<string, unknown>,
-          });
+          const res = await pageAlerts({} as Record<string, unknown>);
           // auto-generated 返回值为 PageResponse<string[]>，将字符串枚举数组转换为 AlertRow 对象数组
           const alertData = ((res?.data ?? []) as unknown) as string[];
           const items: AlertRow[] = alertData.map((alertType: string, index: number) => ({
