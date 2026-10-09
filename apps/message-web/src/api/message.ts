@@ -51,7 +51,7 @@ export function exportLogs(params: {
 export function cancelScheduled(params: {
     msgId?: string;
   }): Promise<MessageSendResultVO> {
-  return requestClient.post<MessageSendResultVO>(`/message/cancelScheduled`, { params });
+  return requestClient.post<MessageSendResultVO>(`/message/cancelScheduled`, null, { params });
 }
 
 /**

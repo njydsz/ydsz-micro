@@ -36,7 +36,7 @@ export async function secondaryAuthApi(
   data: SecondaryAuthDTO,
 ): Promise<SecondaryAuthVO> {
   return requestClient.post<SecondaryAuthVO>(
-    '/api/auth/secondary-auth',
+    '/auth/secondary-auth',
     data,
   );
 }

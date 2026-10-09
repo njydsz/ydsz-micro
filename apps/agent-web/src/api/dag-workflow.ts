@@ -18,20 +18,20 @@ export interface SaveDagWorkflowRequest {
 
 /** 保存工作流（新建/更新） */
 export function saveDagWorkflow(data: SaveDagWorkflowRequest): Promise<string> {
-  return requestClient.post<string>('/api/agent/dag-workflow/save', data);
+  return requestClient.post<string>('/agent/dag-workflow/save', data);
 }
 
 /** 根据编码查询工作流 */
 export function getDagWorkflow(code: string): Promise<DagWorkflow> {
-  return requestClient.get<DagWorkflow>(`/api/agent/dag-workflow/${code}`);
+  return requestClient.get<DagWorkflow>(`/agent/dag-workflow/${code}`);
 }
 
 /** 查询工作流列表 */
 export function listDagWorkflows(category?: string): Promise<DagWorkflow[]> {
-  return requestClient.get<DagWorkflow[]>('/api/agent/dag-workflow/list', { params: { category } });
+  return requestClient.get<DagWorkflow[]>('/agent/dag-workflow/list', { params: { category } });
 }
 
 /** 删除工作流 */
 export function deleteDagWorkflow(code: string): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/agent/dag-workflow/${code}`);
+  return requestClient.delete<boolean>(`/agent/dag-workflow/${code}`);
 }

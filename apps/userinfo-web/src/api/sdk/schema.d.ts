@@ -2998,7 +2998,7 @@ export type components = {
              * Format: int32
              * @description 同级排序序号（升序）
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
             status?: string;
             /** @description 租户 ID */
@@ -3043,7 +3043,7 @@ export type components = {
              * Format: int32
              * @description 排序序号（升序，决定语言切换器展示顺序）
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
             status?: string;
         };
@@ -3075,7 +3075,7 @@ export type components = {
              * Format: int32
              * @description 同级排序序号（升序）
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 权限码（`"system:user:create"` 格式） */
             permissionCode?: string;
             /**
@@ -3139,7 +3139,7 @@ export type components = {
              * Format: int32
              * @description 同级排序序号（升序）
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
             status?: string;
         };
@@ -3182,7 +3182,7 @@ export type components = {
              * Format: int32
              * @description 同级排序序号（升序）
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 数据权限范围（ALL / DEPT_AND_CHILD / DEPT / SELF / CUSTOM） */
             dataScope?: string;
             /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
@@ -3251,7 +3251,7 @@ export type components = {
              * Format: int32
              * @description 排序权重
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 备注说明 */
             remark?: string;
         };
@@ -3471,7 +3471,7 @@ export type components = {
              * Format: int32
              * @description 排序权重
              */
-            sortOrder?: number;
+            sort?: number;
             /** @description 备注说明 */
             remark?: string;
         };

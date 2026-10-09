@@ -92,7 +92,7 @@ async function loadDashboard() {
     // 统一请求客户端（规范 §6.1）：路径对齐契约 /api/{service}/**，
     // 业务信封（code === 'A00000'）与鉴权头由拦截器统一处理。
     dashboardData.value = await requestClient.get<DashboardData>(
-      '/api/system/metrics/dashboard',
+      '/system/metrics/dashboard',
     );
   } catch (error) {
     const msg = error instanceof Error ? error.message : '运维指标接口请求失败';

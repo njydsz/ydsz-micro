@@ -53,7 +53,7 @@ export function searchUsers(params: {
       total?: number;
       page?: number;
       pageSize?: number;
-    }>('/api/userinfo/search', { params })
+    }>('/userinfo/search', { params })
     .then((res) => {
       const hits = res.hits ?? [];
       return {

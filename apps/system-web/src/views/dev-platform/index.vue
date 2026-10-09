@@ -87,7 +87,7 @@ async function loadDatasources() {
   try {
     // 统一请求客户端（规范 §6.1），路径对齐契约 /api/generator/datasources
     datasources.value = await requestClient.get<Datasource[]>(
-      '/api/generator/datasources',
+      '/generator/datasources',
     );
     const defaultDs = datasources.value.find((ds) => ds.isDefault);
     if (defaultDs) {
@@ -114,7 +114,7 @@ async function loadTables() {
   selectedTableId.value = null;
   selectedTableName.value = '';
   try {
-    tables.value = await requestClient.get<TableMeta[]>('/api/generator/tables', {
+    tables.value = await requestClient.get<TableMeta[]>('/generator/tables', {
       params: { datasourceId: selectedDatasourceId.value },
     });
   } catch {
@@ -133,7 +133,7 @@ async function onTableSelect(tableId: number) {
   selectedTableName.value = table?.tableName ?? '';
   try {
     columns.value = await requestClient.get<ColumnMeta[]>(
-      '/api/generator/tables/columns',
+      '/generator/tables/columns',
       { params: { tableMetaId: tableId } },
     );
   } catch {
@@ -155,7 +155,7 @@ async function handleGenerate() {
   resultFiles.value = [];
   try {
     const result = await requestClient.post<GenerateResult>(
-      '/api/generator/code/generate',
+      '/generator/code/generate',
       {
         datasourceId: selectedDatasourceId.value,
         templateGroupId: 1,

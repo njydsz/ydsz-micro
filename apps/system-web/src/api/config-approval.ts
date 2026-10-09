@@ -63,7 +63,7 @@ export interface ConfigApprovalDetail extends ConfigApprovalRecord {
  */
 export function listPendingApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
   return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/api/config/approval/pending',
+    '/config/approval/pending',
     { params: query },
   );
 }
@@ -78,7 +78,7 @@ export function listPendingApprovalApi(query: ConfigApprovalListQuery): Promise<
  */
 export function listSubmittedApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
   return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/api/config/approval/submitted',
+    '/config/approval/submitted',
     { params: query },
   );
 }
@@ -93,7 +93,7 @@ export function listSubmittedApprovalApi(query: ConfigApprovalListQuery): Promis
  */
 export function listAllApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
   return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/api/config/approval/list',
+    '/config/approval/list',
     { params: query },
   );
 }
@@ -111,7 +111,7 @@ export function listAllApprovalApi(query: ConfigApprovalListQuery): Promise<Page
  * @param comment - 审批意见（可选）
  */
 export function approveApprovalApi(id: string, comment?: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/config/approval/${id}/approve`, { comment });
+  return requestClient.post<boolean>(`/config/approval/${id}/approve`, { comment });
 }
 
 /**
@@ -123,7 +123,7 @@ export function approveApprovalApi(id: string, comment?: string): Promise<boolea
  * @param reason - 拒绝原因（必填）
  */
 export function rejectApprovalApi(id: string, reason: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/config/approval/${id}/reject`, { reason });
+  return requestClient.post<boolean>(`/config/approval/${id}/reject`, { reason });
 }
 
 /**
@@ -135,7 +135,7 @@ export function rejectApprovalApi(id: string, reason: string): Promise<boolean> 
  * @param id - 审批单 ID
  */
 export function withdrawApprovalApi(id: string): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/config/approval/${id}/withdraw`);
+  return requestClient.post<boolean>(`/config/approval/${id}/withdraw`);
 }
 
 /**
@@ -146,7 +146,7 @@ export function withdrawApprovalApi(id: string): Promise<boolean> {
  * @param id - 审批单 ID
  */
 export function getApprovalDetailApi(id: string): Promise<ConfigApprovalDetail> {
-  return requestClient.get<ConfigApprovalDetail>(`/api/config/approval/${id}`);
+  return requestClient.get<ConfigApprovalDetail>(`/config/approval/${id}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -162,5 +162,5 @@ export function getApprovalDetailApi(id: string): Promise<ConfigApprovalDetail> 
  * @param data - 配置变更请求 DTO
  */
 export function submitConfigChangeApi(data: SubmitConfigChangeDTO): Promise<{ approvalId: string }> {
-  return requestClient.post<{ approvalId: string }>('/api/config/approval/submit', data);
+  return requestClient.post<{ approvalId: string }>('/config/approval/submit', data);
 }

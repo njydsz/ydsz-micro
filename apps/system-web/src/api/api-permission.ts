@@ -44,7 +44,7 @@ export function page(params: {
     pageNum?: number;
     pageSize?: number;
   }): Promise<PageResponse<ApiPermissionVO[]>> {
-  return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/api/permission/api/page`, { params });
+  return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/permission/api/page`, { params });
 }
 
 /**
@@ -53,14 +53,14 @@ export function page(params: {
 export function getById({ id }: {
     id: string;
   }): Promise<ApiPermissionVO> {
-  return requestClient.get<ApiPermissionVO>(`/api/permission/api/${id}`);
+  return requestClient.get<ApiPermissionVO>(`/permission/api/${id}`);
 }
 
 /**
  * 触发扫描注册: POST /api/permission/api/scan
  */
 export function scan(): Promise<number> {
-  return requestClient.post<number>(`/api/permission/api/scan`);
+  return requestClient.post<number>(`/permission/api/scan`);
 }
 
 /**
@@ -69,7 +69,7 @@ export function scan(): Promise<number> {
 export function enable({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/permission/api/${id}/enable`);
+  return requestClient.post<boolean>(`/permission/api/${id}/enable`);
 }
 
 /**
@@ -78,7 +78,7 @@ export function enable({ id }: {
 export function disable({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/permission/api/${id}/disable`);
+  return requestClient.post<boolean>(`/permission/api/${id}/disable`);
 }
 
 /**
@@ -87,5 +87,5 @@ export function disable({ id }: {
 export function remove({ id }: {
     id: string;
   }): Promise<boolean> {
-  return requestClient.delete<boolean>(`/api/permission/api/${id}`);
+  return requestClient.delete<boolean>(`/permission/api/${id}`);
 }
