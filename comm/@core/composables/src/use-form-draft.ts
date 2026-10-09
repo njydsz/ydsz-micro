@@ -8,15 +8,20 @@
  * <pre lang="ts">
  * const { draft, restoreDraft, clearDraft, hasDraft } = useFormDraft<MyForm>({
  *   key: 'user-form-draft',
- *   debounceMs: 1500,
  * });
  *
- * // 表单数据变化时自动保存
+ * // 表单数据变化时手动保存
  * watch(formData, (val) => draft.value = val, { deep: true });
+ *
+ * // 挂载时恢复草稿
+ * onMounted(() => {
+ *   const saved = restoreDraft();
+ *   if (saved) Object.assign(formData, saved);
+ * });
  *
  * // 提交成功后清除草稿
  * async function handleSubmit() {
- *   await submitApi(formData.value);
+ *   await submitApi(formData);
  *   clearDraft();
  * }
  * </pre>
@@ -28,14 +33,10 @@
 
 import type { Ref } from 'vue';
 
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onUnmounted, ref } from 'vue';
 
 /** 草稿存储前缀，避免与其它 localStorage 键冲突 */
 const DRAFT_PREFIX = 'ydsz:draft:';
-/** 默认防抖等待时长（毫秒） */
-const DEFAULT_DEBOUNCE_MS = 1500;
-/** localStorage 写入失败时的最大静默重试次数 */
-const MAX_SILENT_FAILURES = 3;
 
 /** 草稿选项 */
 interface UseFormDraftOptions {
@@ -44,8 +45,6 @@ interface UseFormDraftOptions {
    * @example 'system-dict-edit:type_code'
    */
   key: string;
-  /** 防抖等待毫秒数（默认 1500ms） */
-  debounceMs?: number;
   /** 草稿最大存活秒数（默认 7 天） */
   ttlSeconds?: number;
 }
@@ -85,12 +84,9 @@ export function useFormDraft<T = Record<string, unknown>>(
   options: UseFormDraftOptions,
 ): UseFormDraftReturn<T> {
   const storageKey = DRAFT_PREFIX + options.key;
-  const debounceMs = options.debounceMs ?? DEFAULT_DEBOUNCE_MS;
   const ttlMs = (options.ttlSeconds ?? 7 * 24 * 3600) * 1000;
 
   const draft = ref<T | undefined>(undefined);
-  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
-  let failureCount = 0;
 
   /**
    * 将草稿写入 localStorage。
@@ -101,15 +97,10 @@ export function useFormDraft<T = Record<string, unknown>>(
    * @param data - 表单数据
    */
   function writeDraft(data: T): void {
-    if (failureCount >= MAX_SILENT_FAILURES) {
-      return;
-    }
     try {
       const payload: DraftMeta<T> = { savedAt: Date.now(), data };
       localStorage.setItem(storageKey, JSON.stringify(payload));
-      failureCount = 0;
     } catch {
-      failureCount++;
       // 静默处理：超出配额或序列化错误时不阻塞用户操作
     }
   }
@@ -150,10 +141,6 @@ export function useFormDraft<T = Record<string, unknown>>(
    * 清除当前表单的 localStorage 草稿。
    */
   function clearDraft(): void {
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
-      debounceTimer = null;
-    }
     try {
       localStorage.removeItem(storageKey);
     } catch {
@@ -176,13 +163,9 @@ export function useFormDraft<T = Record<string, unknown>>(
   }
 
   /**
-   * 立即写入当前 draft 值（跳过防抖）。
+   * 立即写入当前 draft 值到 localStorage。
    */
   function flushDraft(): void {
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
-      debounceTimer = null;
-    }
     if (draft.value !== undefined) {
       writeDraft(draft.value);
     }

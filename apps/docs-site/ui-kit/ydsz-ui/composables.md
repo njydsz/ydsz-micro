@@ -356,7 +356,18 @@ function useIdleHydrate(options?: UseIdleHydrateOptions): IdleHydrateHandle
 
 ## useChunkUpload
 
-大文件分片上传（断点续传 + 秒传）。
+大文件分片上传（断点续传 + 秒传 + 重试 + 超时）。
+
+<p>当传入 <code>multipart.baseURL</code> 时走三步式分片上传，对接后端
+<code>FileMultipartController</code>：
+
+<pre>
+1. POST {baseURL}/init?key={storageKey}&contentType={mime}      → { uploadId, recommendedPartSize }
+2. POST {baseURL}/{uploadId}/part/{partNumber}  (binary body)   → Void（可并行、可重试最多 3 次）
+3. POST {baseURL}/{uploadId}/complete                             → { uploadId }
+</pre>
+
+<p>未配置 <code>multipart</code> 时退化到旧版单 endpoint + /merge 模式。
 
 ```typescript
 function useChunkUpload(options?: ChunkUploadOptions): ChunkUploadHandle
@@ -364,25 +375,50 @@ function useChunkUpload(options?: ChunkUploadOptions): ChunkUploadHandle
 
 **ChunkUploadOptions:**
 
-| 字段 | 类型 | 默认值 |
-|------|------|--------|
-| `chunkSize` | `number` | `5MB` |
-| `maxConcurrency` | `number` | `3` |
-| `data` | `Record<string, string>` | — |
-| `headers` | `Record<string, string>` | — |
-| `hashAlgorithm` | `'simple' \| 'sha256'` | — |
-| `onHashCalculated` | `(hash) => Promise<boolean>` | — |
-| `onChunkProgress` | `(percent, chunkIndex) => void` | — |
-| `withCredentials` | `boolean` | — |
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `chunkSize` | `number` | `5MB` | 触发分片的文件大小阈值 |
+| `maxConcurrency` | `number` | `3` | 最大并发分片数 |
+| `data` | `Record<string, string>` | — | 整文件直传时的附加表单字段 |
+| `headers` | `Record<string, string>` | — | 自定义请求头（直传模式下使用） |
+| `hashAlgorithm` | `'simple' \| 'sha256'` | — | hash 算法（预留） |
+| `onHashCalculated` | `(hash) => Promise<boolean>` | — | 秒传判定回调 |
+| `onChunkProgress` | `(percent, chunkIndex) => void` | — | 分片进度回调 |
+| `withCredentials` | `boolean` | `false` | 是否携带 cookie |
+| `multipart` | `MultipartApiConfig` | — | 分片上传 REST API 配置 |
+| `maxRetries` | `number` | `3` | 单分片最大重试次数 |
+| `chunkTimeout` | `number` | `30000` | 单次分片上传超时(ms) |
+
+**MultipartApiConfig:**
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `baseURL` | `string` | 分片上传控制器 URL（如 <code>/api/v1/system/file/multipart</code>） |
+| `headers` | `Record<string, string>` | 注入到每个请求的额外头部 |
+| `withCredentials` | `boolean` | 覆盖全局 withCredentials 设置 |
+
+**ChunkHttpRequestOptions.storageKey：**
+
+三步式分片上传模式下必填，对应后端 <code>init</code> 接口的 <code>key</code> 参数
+（对象存储路径，如 <code>nextwiki/2026/attachment.bin</code>）。
 
 **ChunkUploadHandle:**
 
 | 字段/方法 | 类型 |
 |-----------|------|
 | `enabled` | `(file: File) => boolean` |
-| `httpRequest` | `(options) => Promise<unknown>` |
+| `httpRequest` | `(options: ChunkHttpRequestOptions) => Promise<unknown>` |
 | `abort` | `() => void` |
 | `overallProgress` | `Ref<number>` |
+
+**常量导出：**
+
+| 常量 | 默认值 |
+|------|--------|
+| `DEFAULT_CHUNK_SIZE` | `5 * 1024 * 1024` |
+| `DEFAULT_MULTIPART_BASE` | `/api/v1/system/file/multipart` |
+| `DEFAULT_MAX_RETRIES` | `3` |
+| `DEFAULT_CHUNK_TIMEOUT` | `30000` |
 
 ---
 

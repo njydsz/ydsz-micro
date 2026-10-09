@@ -16,7 +16,11 @@
 // @ts-nocheck
 import type { GenericObject } from 'vee-validate';
 
+import { onMounted, watch } from 'vue';
+
 import { useForm } from 'vee-validate';
+
+import { useFormDraft } from '../../composables/use-form-draft';
 
 interface Props {
   /** 初始值 */
@@ -25,9 +29,18 @@ interface Props {
   isDisabled?: boolean;
   /** 提交中状态（显示 loading 遮罩） */
   isSubmitting?: boolean;
+  /** 是否启用草稿自动保存 */
+  autoSave?: boolean;
+  /**
+   * 草稿唯一标识（localStorage key 的一部分）。
+   * autoSave=true 时必须传入。
+   * 建议格式：'{业务模块}:{表单用途}'，如 'leave:apply'
+   */
+  draftId?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  autoSave: false,
   isDisabled: false,
   isSubmitting: false,
 });
@@ -71,6 +84,42 @@ defineExpose({
   validate,
   values,
 });
+
+/* ----- 草稿自动保存（可选、最小侵入） ----- */
+const draft = props.autoSave && props.draftId
+  ? useFormDraft({
+      draftId: props.draftId,
+      getData: () => values,
+      setData: (data) => {
+        // 使用 vee-validate 的 setValues 形式直接写入
+        Object.entries(data).forEach(([key, val]) => {
+          // @ts-ignore - vee-validate values 直接赋值
+          values[key] = val;
+        });
+      },
+      resetOnChange: true,
+    })
+  : null;
+
+if (draft) {
+  onMounted(() => {
+    // 尝试恢复草稿
+    draft!.restore();
+    // 启动自动保存
+    draft!.start();
+  });
+
+  // 监听提交成功：成功后清除草稿
+  watch(
+    () => props.isSubmitting,
+    (newVal, oldVal) => {
+      // 提交结束（从 true 变回 false），清除草稿
+      if (oldVal === true && newVal === false) {
+        draft!.clear();
+      }
+    },
+  );
+}
 </script>
 
 <template>

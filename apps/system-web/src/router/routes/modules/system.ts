@@ -65,6 +65,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/feature-flag/index.vue'),
         meta: { icon: 'lucide:toggle-left', title: '特性开关' },
       },
+      {
+        name: 'LockAdminManagement',
+        path: 'lock-admin',
+        component: () => import('#/views/lock-admin/index.vue'),
+        meta: { icon: 'lucide:lock', title: '分布式锁管理' },
+      },
     ],
   },
   {

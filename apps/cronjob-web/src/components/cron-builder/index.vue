@@ -12,7 +12,6 @@
 <script lang="ts" setup name="CronBuilder">
 import {
   YdButton,
-  YdCheckbox,
   YdInput,
   YdInputNumber,
   YdLabel,
@@ -33,6 +32,8 @@ import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
 import cronstrue from 'cronstrue/i18n';
 import dayjs from 'dayjs';
+
+import CronMultiSelect from './CronMultiSelect.vue';
 
 const logger = createLogger('cron-builder');
 
@@ -242,15 +243,30 @@ function buildCron(): string {
   const second = '0';
   const minute = buildSimplePart(state.minute, 'minute');
   const hour = buildSimplePart(state.hour, 'hour');
-  const day = buildDayPart();
   const month = buildSimplePart(state.month, 'month');
-  const week = buildWeekPart();
 
-  // day=?, week=* 或 day=*, week=? 互斥兼容
-  const finalDay = day === '?' ? '*' : day;
-  const finalWeek = day === '?' ? '*' : week;
+  // Quartz cron: day-of-month 和 day-of-week 必须有一个为 ?
+  let day: string;
+  let week: string;
 
-  return `${second} ${minute} ${hour} ${finalDay} ${month} ${finalWeek}`;
+  if (state.day.dayMode === 'byWeekday' && state.day.specific.length > 0) {
+    // 按星期选择时：值写入 week 字段，day 字段置为 ?
+    day = '?';
+    week = state.day.specific.join(',');
+  } else {
+    day = buildDayPart();
+    week = buildWeekPart();
+    // 确保互斥：如果 day 为 ? 则 week 为 *；如果 week 是具体值且 day 不是 ?，day 设为 ?
+    if (day === '?') {
+      week = '*';
+    } else if (week !== '*' && week !== '?' && day !== '*') {
+      // week 选了具体值但 day 也选了具体值 → day 优先，week 退让
+      // （这是 Quartz 的约束：两个字段不能同时有值）
+      // 此处不做强制覆盖，由用户自行处理
+    }
+  }
+
+  return `${second} ${minute} ${hour} ${day} ${month} ${week}`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -635,7 +651,7 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.minute.mode !== 'everyN'"
                 class="w-20"
               />
-              <span class="text-xs">{{ t('cronBuilder.minutes') }}</span>
+              <span class="text-xs">{{ t('cronBuilder.minuteUnit') }}</span>
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="range" id="min-range" />
@@ -667,8 +683,8 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.minute.mode !== 'interval'"
                 class="w-16"
               />
-              <YdLabel class="text-xs">{{ t('cronBuilder.minutes') }}</YdLabel>
-              <YdLabel class="text-xs">{{ t('cronBuilder.to') }}</YdLabel>
+              <YdLabel class="text-xs">{{ t('cronBuilder.minuteUnit') }}</YdLabel>
+              <YdLabel class="text-xs">{{ t('cronBuilder.from') }}</YdLabel>
               <YdInputNumber
                 v-model="state.minute.intervalFrom"
                 :min="0"
@@ -676,28 +692,20 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.minute.mode !== 'interval'"
                 class="w-16"
               />
-              {{ t('cronBuilder.minutes') }}
+              {{ t('cronBuilder.minuteUnit') }}
             </div>
             <div class="space-y-1">
               <div class="flex items-center gap-2">
                 <YdRadioGroupItem value="specific" id="min-specific" />
                 <YdLabel for="min-specific">{{ t('cronBuilder.minuteSpecific') }}</YdLabel>
               </div>
-              <div v-if="state.minute.mode === 'specific'" class="ml-6 flex flex-wrap gap-1">
-                <template v-for="opt in MINUTE_OPTIONS" :key="opt.value">
-                  <div class="flex items-center">
-                    <YdCheckbox
-                      :checked="state.minute.specific.includes(opt.value)"
-                      :disabled="props.disabled"
-                      @update:checked="(checked: boolean) => {
-                        if (checked) state.minute.specific.push(opt.value);
-                        else state.minute.specific = state.minute.specific.filter((v: number) => v !== opt.value);
-                      }"
-                    />
-                    <YdLabel class="ml-1 text-xs">{{ opt.label }}</YdLabel>
-                  </div>
-                </template>
-              </div>
+              <CronMultiSelect
+                v-if="state.minute.mode === 'specific'"
+                v-model="state.minute.specific"
+                :options="MINUTE_OPTIONS"
+                :disabled="props.disabled"
+                class="ml-6"
+              />
             </div>
           </YdRadioGroup>
         </YdTabsContent>
@@ -720,32 +728,24 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.hour.mode !== 'interval'"
                 class="w-16"
               />
-              <YdLabel class="text-xs">{{ t('cronBuilder.hours') }}</YdLabel>
+              <YdLabel class="text-xs">{{ t('cronBuilder.hourUnit') }}</YdLabel>
             </div>
             <div class="space-y-1">
               <div class="flex items-center gap-2">
                 <YdRadioGroupItem value="specific" id="hour-specific" />
                 <YdLabel for="hour-specific">{{ t('cronBuilder.hourSpecific') }}</YdLabel>
               </div>
-              <div v-if="state.hour.mode === 'specific'" class="ml-6 flex flex-wrap gap-1">
-                <template v-for="opt in HOUR_OPTIONS" :key="opt.value">
-                  <div class="flex items-center">
-                    <YdCheckbox
-                      :checked="state.hour.specific.includes(opt.value)"
-                      :disabled="props.disabled"
-                      @update:checked="(checked: boolean) => {
-                        if (checked) state.hour.specific.push(opt.value);
-                        else state.hour.specific = state.hour.specific.filter((v: number) => v !== opt.value);
-                      }"
-                    />
-                    <YdLabel class="ml-1 text-xs">{{ opt.label }}</YdLabel>
-                  </div>
-                </template>
-              </div>
+              <CronMultiSelect
+                v-if="state.hour.mode === 'specific'"
+                v-model="state.hour.specific"
+                :options="HOUR_OPTIONS"
+                :disabled="props.disabled"
+                class="ml-6"
+              />
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="range" id="hour-range" />
-              <YdLabel for="hour-range">{{ t('cronBuilder.minuteRange') }}</YdLabel>
+              <YdLabel for="hour-range">{{ t('cronBuilder.hourRange') }}</YdLabel>
               <YdInputNumber
                 v-model="state.hour.rangeFrom"
                 :min="0"
@@ -761,7 +761,7 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.hour.mode !== 'range'"
                 class="w-16"
               />
-              {{ t('cronBuilder.hours') }}
+              {{ t('cronBuilder.hourUnit') }}
             </div>
           </YdRadioGroup>
         </YdTabsContent>
@@ -783,7 +783,7 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.day.dayMode !== 'everyN'"
                 class="w-16"
               />
-              <YdLabel class="text-xs">{{ t('cronBuilder.days') }}</YdLabel>
+              <YdLabel class="text-xs">{{ t('cronBuilder.dayUnit') }}</YdLabel>
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="lastDay" id="day-last" />
@@ -792,7 +792,7 @@ defineOptions({ name: 'CronBuilder' });
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="nearestWorkday" id="day-nearwork" />
               <YdLabel for="day-nearwork">{{ t('cronBuilder.dayNearestWorkday') }}</YdLabel>
-              {{ t('cronBuilder.to') }}
+              {{ t('cronBuilder.before') }}
               <YdInputNumber
                 v-model="state.day.nearestWorkdayDay"
                 :min="1"
@@ -800,7 +800,7 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.day.dayMode !== 'nearestWorkday'"
                 class="w-16"
               />
-              {{ t('cronBuilder.days') }}
+              {{ t('cronBuilder.dayUnit') }}
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="workday" id="day-work" />
@@ -812,28 +812,20 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.day.dayMode !== 'workday'"
                 class="w-16"
               />
-              {{ t('cronBuilder.days') }}
+              {{ t('cronBuilder.dayUnit') }}
             </div>
             <div class="space-y-1">
               <div class="flex items-center gap-2">
                 <YdRadioGroupItem value="byWeekday" id="day-weekday" />
                 <YdLabel for="day-weekday">{{ t('cronBuilder.dayByWeekday') }}</YdLabel>
               </div>
-              <div v-if="state.day.dayMode === 'byWeekday'" class="ml-6 flex flex-wrap gap-2">
-                <template v-for="opt in WEEKDAY_OPTIONS" :key="opt.value">
-                  <div class="flex items-center">
-                    <YdCheckbox
-                      :checked="state.day.specific.includes(opt.value)"
-                      :disabled="props.disabled"
-                      @update:checked="(checked: boolean) => {
-                        if (checked) state.day.specific.push(opt.value);
-                        else state.day.specific = state.day.specific.filter((v: number) => v !== opt.value);
-                      }"
-                    />
-                    <YdLabel class="text-xs">{{ opt.label }}</YdLabel>
-                  </div>
-                </template>
-              </div>
+              <CronMultiSelect
+                v-if="state.day.dayMode === 'byWeekday'"
+                v-model="state.day.specific"
+                :options="WEEKDAY_OPTIONS"
+                :disabled="props.disabled"
+                class="ml-6"
+              />
             </div>
           </YdRadioGroup>
         </YdTabsContent>
@@ -856,28 +848,20 @@ defineOptions({ name: 'CronBuilder' });
                 :disabled="props.disabled || state.month.mode !== 'interval'"
                 class="w-16"
               />
-              <YdLabel class="text-xs">{{ t('cronBuilder.days') }}</YdLabel>
+              <YdLabel class="text-xs">{{ t('cronBuilder.monthUnit') }}</YdLabel>
             </div>
             <div class="space-y-1">
               <div class="flex items-center gap-2">
                 <YdRadioGroupItem value="specific" id="month-specific" />
                 <YdLabel for="month-specific">{{ t('cronBuilder.monthSpecific') }}</YdLabel>
               </div>
-              <div v-if="state.month.mode === 'specific'" class="ml-6 flex flex-wrap gap-1">
-                <template v-for="opt in MONTH_OPTIONS" :key="opt.value">
-                  <div class="flex items-center">
-                    <YdCheckbox
-                      :checked="state.month.specific.includes(opt.value)"
-                      :disabled="props.disabled"
-                      @update:checked="(checked: boolean) => {
-                        if (checked) state.month.specific.push(opt.value);
-                        else state.month.specific = state.month.specific.filter((v: number) => v !== opt.value);
-                      }"
-                    />
-                    <YdLabel class="ml-1 text-xs">{{ opt.label }}</YdLabel>
-                  </div>
-                </template>
-              </div>
+              <CronMultiSelect
+                v-if="state.month.mode === 'specific'"
+                v-model="state.month.specific"
+                :options="MONTH_OPTIONS"
+                :disabled="props.disabled"
+                class="ml-6"
+              />
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="range" id="month-range" />
@@ -913,21 +897,13 @@ defineOptions({ name: 'CronBuilder' });
                 <YdRadioGroupItem value="specific" id="week-specific" />
                 <YdLabel for="week-specific">{{ t('cronBuilder.weekSpecific') }}</YdLabel>
               </div>
-              <div v-if="state.week.mode === 'specific'" class="ml-6 flex flex-wrap gap-2">
-                <template v-for="opt in WEEKDAY_OPTIONS" :key="opt.value">
-                  <div class="flex items-center">
-                    <YdCheckbox
-                      :checked="state.week.specific.includes(opt.value)"
-                      :disabled="props.disabled"
-                      @update:checked="(checked: boolean) => {
-                        if (checked) state.week.specific.push(opt.value);
-                        else state.week.specific = state.week.specific.filter((v: number) => v !== opt.value);
-                      }"
-                    />
-                    <YdLabel class="text-xs">{{ opt.label }}</YdLabel>
-                  </div>
-                </template>
-              </div>
+              <CronMultiSelect
+                v-if="state.week.mode === 'specific'"
+                v-model="state.week.specific"
+                :options="WEEKDAY_OPTIONS"
+                :disabled="props.disabled"
+                class="ml-6"
+              />
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <YdRadioGroupItem value="ordinal" id="week-ordinal" />

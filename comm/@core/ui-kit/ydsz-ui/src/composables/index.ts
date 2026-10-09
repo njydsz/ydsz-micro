@@ -11,12 +11,15 @@ export type { UseRenderPerformanceOptions } from './use-render-performance';
 export { useIdleHydrate, useSimpleIdleHydrate } from './use-idle-hydrate';
 export type { IdleHydrateHandle, UseIdleHydrateOptions } from './use-idle-hydrate';
 
-export { useChunkUpload, DEFAULT_CHUNK_SIZE } from './use-chunk-upload';
+export { useChunkUpload, DEFAULT_CHUNK_SIZE, DEFAULT_MULTIPART_BASE, DEFAULT_MAX_RETRIES, DEFAULT_CHUNK_TIMEOUT } from './use-chunk-upload';
 export type {
   ChunkUploadHandle,
   ChunkUploadOptions,
   ChunkInfo,
   ChunkHttpRequestOptions,
+  MultipartApiConfig,
+  MultipartInitResponse,
+  MultipartCompleteResponse,
 } from './use-chunk-upload';
 
 export { useVirtualList } from './use-virtual-list';
@@ -68,7 +71,6 @@ export type {
   RowSelectionConfig,
   UseTableDataOptions,
   UseTableDataReturn,
-  FilterPersistConfig,
 } from './use-table-data';
 
 export { useNotificationHub } from './use-notification-hub';
@@ -93,3 +95,9 @@ export type {
 
 export { useOverlayStack } from './use-overlay-stack';
 export type { OverlayStackHandle } from './use-overlay-stack';
+
+export { useFormDraft } from './use-form-draft';
+export type {
+  UseFormDraftOptions,
+  UseFormDraftReturn,
+} from './use-form-draft';

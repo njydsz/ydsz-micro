@@ -4,6 +4,7 @@
   "dictType": "Dict Type",
   "dictItem": "Dict Item",
   "variable": "Variable",
+  "lockAdmin": "Distributed Lock Management",
   "appInfo": "App Info",
   "common": {
     "seq": "#",

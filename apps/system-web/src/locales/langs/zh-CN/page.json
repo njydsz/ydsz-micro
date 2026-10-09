@@ -5,6 +5,7 @@
   "dictItem": "字典项",
   "variable": "系统变量",
   "featureFlag": "特性开关",
+  "lockAdmin": "分布式锁管理",
   "appInfo": "应用注册",
   "common": {
     "seq": "序号",

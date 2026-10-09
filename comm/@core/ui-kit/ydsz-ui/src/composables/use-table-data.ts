@@ -24,6 +24,8 @@ import type { ComputedRef, MaybeRefOrGetter, Ref } from 'vue';
 
 import { useTableFilterStorage } from './use-table-filter-storage';
 
+import type { UseTableFilterStorageOptions } from './use-table-filter-storage';
+
 /* ============================================================ */
 /* 类型                                                          */
 /* ============================================================ */
@@ -64,17 +66,8 @@ export interface RowSelectionConfig<T> {
 /* useTableData                                                  */
 /* ============================================================ */
 
-/**
- * 筛选条件持久化配置。
- */
-export interface FilterPersistConfig {
-  /** 表格唯一标识，作为 localStorage key 的一部分 */
-  tableId: string;
-  /** 默认筛选条件（首次进入且无持久化数据时使用） */
-  defaultValue?: Record<string, unknown>;
-  /** 过期时间（毫秒），默认 7 天 */
-  ttl?: number;
-}
+/** 持久化写入防抖延迟（毫秒） */
+const SAVE_DEBOUNCE_MS = 300;
 
 /**
  * useTableData 参数。
@@ -93,9 +86,9 @@ export interface UseTableDataOptions<T> {
   /**
    * 筛选条件持久化配置。
    * 传入后自动将 filterState 保存到 localStorage，页面切换后恢复。
-   * 需同时提供 tableId 以隔离不同表格的存储。
+   * 内部透传给 useTableFilterStorage。
    */
-  persistFilters?: FilterPersistConfig;
+  filterStorage?: UseTableFilterStorageOptions;
 }
 
 /**
@@ -141,18 +134,14 @@ export interface UseTableDataReturn<T> {
 export function useTableData<T extends Record<string, unknown>>(
   options: UseTableDataOptions<T>,
 ): UseTableDataReturn<T> {
-  const { data, columns: getColumns, persistFilters } = options;
+  const { data, columns: getColumns, filterStorage: filterStorageOptions } = options;
 
   /* ----- 筛选条件持久化（可选） ----- */
-  const filterStorage = persistFilters
-    ? useTableFilterStorage({
-        defaultValue: persistFilters.defaultValue ?? {},
-        tableId: persistFilters.tableId,
-        ttl: persistFilters.ttl,
-      })
+  const filterStorage = filterStorageOptions
+    ? useTableFilterStorage(filterStorageOptions)
     : null;
 
-  const isFilterRestored = filterStorage?.isRestored ?? ref(false);
+  const isFilterRestored = ref(false);
 
   /* ----- 排序状态 ----- */
   const sortState = ref<SortState>({ order: null, prop: null });
@@ -171,7 +160,7 @@ export function useTableData<T extends Record<string, unknown>>(
   }
 
   /* ----- 筛选状态 ----- */
-  // 若启用了初始化持久化，尝试从 storage 恢复初始值
+  // 若启用了持久化，尝试从 storage 恢复初始值
   function getInitialFilterState(): Map<string, Set<string>> {
     if (filterStorage) {
       const restored = filterStorage.filters.value;
@@ -189,6 +178,10 @@ export function useTableData<T extends Record<string, unknown>>(
   }
 
   const filterState = ref<Map<string, Set<string>>>(getInitialFilterState());
+  // 标记是否从 localStorage 恢复了数据
+  if (filterStorage && Object.keys(filterStorage.filters.value).length > 0) {
+    isFilterRestored.value = true;
+  }
 
   function setFilter(columnKey: string, values: string[]): void {
     if (values.length === 0) {
@@ -207,7 +200,7 @@ export function useTableData<T extends Record<string, unknown>>(
    */
   function clearPersistedFilters(): void {
     clearFilters();
-    filterStorage?.clearFilters();
+    filterStorage?.clear();
   }
 
   /* ----- 行选择状态 ----- */
@@ -279,23 +272,26 @@ export function useTableData<T extends Record<string, unknown>>(
     });
   });
 
-  /* ----- 持久化自动同步：filterState 变化时写入 storage ----- */
+  /* ----- 持久化自动同步：filterState 变化时防抖写入 storage ----- */
   if (filterStorage) {
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
     watch(
       filterState,
       (newState) => {
-        const obj: Record<string, unknown> = {};
-        for (const [key, set] of newState) {
-          if (set.size > 0) {
-            obj[key] = Array.from(set);
+        if (debounceTimer) {
+          clearTimeout(debounceTimer);
+        }
+        debounceTimer = setTimeout(() => {
+          const obj: Record<string, unknown> = {};
+          for (const [key, set] of newState) {
+            if (set.size > 0) {
+              obj[key] = Array.from(set);
+            }
           }
-        }
-        if (Object.keys(obj).length > 0) {
-          filterStorage.saveFilters(obj);
-        } else {
-          // 筛选全部清空时也同步写入空对象
-          filterStorage.saveFilters({});
-        }
+          filterStorage!.save(obj);
+          debounceTimer = null;
+        }, SAVE_DEBOUNCE_MS);
       },
       { deep: true },
     );
