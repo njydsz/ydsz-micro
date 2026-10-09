@@ -21,25 +21,25 @@ const enterAnimationPlugin = plugin(({ addUtilities }) => {
     const delay = `${baseDelay * i}s`;
 
     utilities[`.enter-x:nth-child(${i})`] = {
-      animation: `enter-x-animation 0.3s ease-in-out ${delay} forwards`,
+      animation: `enter-x-animation var(--duration-default, 0.3s) var(--ease-in-out, ease-in-out) ${delay} forwards`,
       opacity: '0',
       transform: `translateX(50px)`,
     };
 
     utilities[`.enter-y:nth-child(${i})`] = {
-      animation: `enter-y-animation 0.3s ease-in-out ${delay} forwards`,
+      animation: `enter-y-animation var(--duration-default, 0.3s) var(--ease-in-out, ease-in-out) ${delay} forwards`,
       opacity: '0',
       transform: `translateY(50px)`,
     };
 
     utilities[`.-enter-x:nth-child(${i})`] = {
-      animation: `enter-x-animation 0.3s ease-in-out ${delay} forwards`,
+      animation: `enter-x-animation var(--duration-default, 0.3s) var(--ease-in-out, ease-in-out) ${delay} forwards`,
       opacity: '0',
       transform: `translateX(-50px)`,
     };
 
     utilities[`.-enter-y:nth-child(${i})`] = {
-      animation: `enter-y-animation 0.3s ease-in-out ${delay} forwards`,
+      animation: `enter-y-animation var(--duration-default, 0.3s) var(--ease-in-out, ease-in-out) ${delay} forwards`,
       opacity: '0',
       transform: `translateY(-50px)`,
     };

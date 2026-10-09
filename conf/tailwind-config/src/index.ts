@@ -271,9 +271,7 @@ export default {
         "overlay-lg": "var(--shadow-overlay-200)",
         "direction-left": "var(--shadow-direction-left)",
         "direction-right": "var(--shadow-direction-right)",
-        float: `0 6px 16px 0 rgb(0 0 0 / 8%),
-          0 3px 6px -4px rgb(0 0 0 / 12%),
-          0 9px 28px 8px rgb(0 0 0 / 5%)`,
+        float: "var(--shadow-float, 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%))",
         none: "none",
       },
 
@@ -464,6 +462,18 @@ export default {
       },
 
       zIndex: {
+        base: "var(--z-base, 0)",
+        sticky: "var(--z-sticky, 100)",
+        fixed: "var(--z-fixed, 200)",
+        sidebar: "var(--z-sidebar, 300)",
+        dropdown: "var(--z-dropdown, 400)",
+        backdrop: "var(--z-backdrop, 500)",
+        overlay: "var(--z-overlay, 600)",
+        popover: "var(--z-popover, 700)",
+        tooltip: "var(--z-tooltip, 800)",
+        toast: "var(--z-toast, 1000)",
+        devtools: "var(--z-devtools, 9999)",
+        // 数值兼容别名（既有 class 如 z-100 / z-1000 不破坏）
         "100": "100",
         "1000": "1000",
       },

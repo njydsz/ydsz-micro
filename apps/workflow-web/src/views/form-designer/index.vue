@@ -199,7 +199,7 @@ async function handleSave(): Promise<void> {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="flex h-full flex-col gap-3 p-4">
+    <div v-loading="loading" class="flex h-full flex-col gap-3 p-5">
       <!-- 顶部工具栏 -->
       <YdCard shadow="never" class="shrink-0">
         <div class="flex flex-wrap items-center gap-2">

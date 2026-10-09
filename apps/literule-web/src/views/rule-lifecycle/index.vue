@@ -359,7 +359,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="p-4">
+    <div v-loading="loading" class=" p-5">
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 待我审批 -->

@@ -119,7 +119,7 @@ async function handleQueryCheckpoint() {
     <YdTabs v-model="activeTab">
       <!-- DSL 编排标签页 -->
       <YdTabsContent label="DSL 编排" name="dsl">
-        <div class="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
+        <div class="grid grid-cols-1 gap-5 p-5 lg:grid-cols-2">
           <div class="rounded-md border p-3">
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium">DSL 编排脚本</span>
@@ -127,7 +127,7 @@ async function handleQueryCheckpoint() {
             </div>
             <YdTextarea v-model="dsl" placeholder="粘贴 DSL 编排脚本" />
           </div>
-          <div class="flex flex-col gap-4">
+          <div class="flex flex-col ga p-5">
             <div class="rounded-md border p-3">
               <div class="mb-2 text-sm font-medium">执行参数</div>
               <div class="mb-2">
@@ -148,7 +148,7 @@ async function handleQueryCheckpoint() {
             </div>
           </div>
         </div>
-        <div class="mt-4 grid grid-cols-1 gap-4 px-4 pb-4 lg:grid-cols-2">
+        <div class="mt-4 grid grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-2">
           <div class="rounded-md border p-3">
             <div class="mb-2 text-sm font-medium">校验结果</div>
             <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(validateResult) }}</pre>
@@ -179,7 +179,7 @@ async function handleQueryCheckpoint() {
 
       <!-- 可视化编排标签页 -->
       <YdTabsContent label="可视化编排" name="visual">
-        <div class="p-4">
+        <div class="p-5">
           <YdButton @click="openWorkflowDesigner">打开可视化工作流设计器</YdButton>
           <p class="mt-2 text-sm text-gray-500">使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。</p>
         </div>

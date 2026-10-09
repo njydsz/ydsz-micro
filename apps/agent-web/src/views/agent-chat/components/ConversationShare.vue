@@ -130,7 +130,7 @@ defineExpose({ open, close });
 
       <!-- 发布成功 -->
       <div v-else class="space-y-3 text-center">
-        <div class="rounded bg-green-50 p-4 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
+        <div class="rounded bg-green-50 p-5 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
           发布成功！链接访问权限：{{ permissionLabel[shareConfig.permission] ?? shareConfig.permission }}
         </div>
         <YdInput v-model="shareUrl" readonly />

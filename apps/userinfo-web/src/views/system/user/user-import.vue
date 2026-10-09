@@ -151,9 +151,9 @@ async function handleImport(): Promise<void> {
       </div>
 
       <!-- 导入结果 -->
-      <div v-if="importResult" class="rounded border bg-gray-50 p-4">
+      <div v-if="importResult" class="rounded border bg-gray-50 p-5">
         <h4 class="mb-2 text-sm font-medium">{{ t('user.importResult') }}</h4>
-        <div class="grid grid-cols-3 gap-4 text-center">
+        <div class="grid grid-cols-3 gap-5 text-center">
           <div>
             <p class="text-2xl font-bold text-blue-600">{{ importResult.total ?? 0 }}</p>
             <p class="text-xs text-gray-500">{{ t('user.importTotal') }}</p>

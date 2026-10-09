@@ -171,7 +171,7 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <Page auto-content-height>
-    <div class="flex h-full flex-col p-4">
+    <div class="flex h-full flex-col p-5">
       <!-- 会话工具栏 -->
       <div class="mb-3 flex flex-wrap items-center gap-2">
         <YdInput

@@ -148,7 +148,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="schedule-calendar-container p-4">
+    <div class="schedule-calendar-container p-5">
       <!-- 顶部控制栏 -->
       <div class="mb-4 flex items-center gap-3 rounded-lg bg-gray-50 p-3">
         <YdDatePicker

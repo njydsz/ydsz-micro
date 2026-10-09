@@ -173,7 +173,7 @@ onMounted(() => {
       <YdCardHeader>
         <YdCardTitle>LDAP 同步操作</YdCardTitle>
       </YdCardHeader>
-      <YdCardContent class="flex items-center gap-4">
+      <YdCardContent class="flex items-center gap-5">
         <YdButton
           variant="default"
           :disabled="isSyncing"

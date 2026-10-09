@@ -289,7 +289,7 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="p-4">
+    <div v-loading="loading" class=" p-5">
       <!-- 概览指标卡 -->
       <YdRow :gutter="12" class="mb-4">
         <YdCol :span="4">

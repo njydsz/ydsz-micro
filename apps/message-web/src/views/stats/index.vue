@@ -268,7 +268,7 @@ onMounted(() => {
     </div>
 
     <!-- 概览卡片 -->
-    <div class="mb-4 grid grid-cols-5 gap-4 px-4">
+    <div class="mb-4 grid grid-cols-5 gap-5 px-4">
       <YdCard class="hover:shadow-md transition-shadow">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">总发送量</span>
@@ -302,7 +302,7 @@ onMounted(() => {
     </div>
 
     <!-- 成本卡片 -->
-    <div class="mb-4 grid grid-cols-2 gap-4 px-4">
+    <div class="mb-4 grid grid-cols-2 gap-5 px-4">
       <YdCard class="hover:shadow-md transition-shadow">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">总成本</span>
@@ -318,7 +318,7 @@ onMounted(() => {
     </div>
 
     <!-- 图表区域 -->
-    <div class="grid grid-cols-2 gap-4 px-4 pb-4">
+    <div class="grid grid-cols-2 gap-5 px-4 pb-4">
       <!-- 渠道分布 -->
       <YdCard class="hover:shadow-md transition-shadow">
         <YdCardContent>

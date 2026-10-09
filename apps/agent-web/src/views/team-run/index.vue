@@ -255,7 +255,7 @@ async function handleCancel(row: TeamRun): Promise<void> {
 
 <template>
   <Page auto-content-height>
-    <div class="space-y-4 p-4">
+    <div class="space-y-4 p-5">
       <!-- 列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
@@ -338,7 +338,7 @@ async function handleCancel(row: TeamRun): Promise<void> {
               <YdCardTitle class="text-base font-medium">基本信息</YdCardTitle>
             </YdCardHeader>
             <YdCardContent>
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-2 gap-5">
                 <div>
                   <span class="text-sm text-muted-foreground">TeamRun ID:</span>
                   <span class="text-sm font-medium">{{ selectedTeamRun.teamRunId }}</span>

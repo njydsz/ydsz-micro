@@ -157,6 +157,22 @@
     @apply z-[1];
   }
 
+  /* ============================================================
+   * 减少动效（OS 级偏好兜底）
+   * default.css 已将 --duration-* 置 0，本处兜底所有 animation / transition
+   * 规范：YDIZ-a11y-001（WCAG 2.1 可访问性基线）
+   * ============================================================ */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   input::placeholder,
   textarea::placeholder {
     @apply opacity-100;
@@ -204,6 +220,69 @@
   ::selection {
     background-color: hsl(var(--selection-bg));
     color: hsl(var(--selection-foreground));
+  }
+
+  /* ============================================================
+   * 页面布局原子类 — 统一页面标题 / 工具栏 / 内容区节奏
+   * 规范：YDIZ-STYLE-002（统一页面布局节奏）
+   * ============================================================ */
+
+  /* 页面主标题 —— 用于/views/*/index.vue 第一行标题 */
+  .page-title {
+    margin-bottom: var(--space-group, 1rem);
+    font-size: var(--text-17, 1.0625rem);
+    font-weight: 600;
+    color: hsl(var(--txt-primary));
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--text-line-height-tight);
+  }
+
+  /* 页面工具栏 —— 标题下方的操作按钮 + 筛选器区域 */
+  .page-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-inline, 0.75rem);
+    margin-bottom: var(--space-group, 1rem);
+    flex-wrap: wrap;
+  }
+
+  /* 页面工具栏左侧（标题 + 副标题） */
+  .page-toolbar__label {
+    font-size: var(--text-13, 0.8125rem);
+    color: hsl(var(--txt-secondary));
+  }
+
+  /* 页面内容区 —— 卡片列表垂直间距 */
+  .page-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-group, 1rem);
+  }
+
+  /* 区块标题 —— 内容区内分组标题（小于 page-title） */
+  .section-title {
+    font-size: var(--text-15, 0.9375rem);
+    font-weight: 600;
+    color: hsl(var(--txt-primary));
+    margin-bottom: var(--space-inline, 0.75rem);
+    padding-bottom: var(--space-tight, 0.5rem);
+    border-bottom: 1px solid hsl(var(--border-subtle));
+  }
+
+  /* 卡片悬浮态 —— 用于可点击卡片容器（P2 hover elevation） */
+  .card-interactive {
+    border: 1px solid hsl(var(--border-default));
+    border-radius: var(--radius);
+    transition: box-shadow var(--duration-default) var(--ease-out),
+      border-color var(--duration-default) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .card-interactive:hover {
+    box-shadow: var(--shadow-raised-200);
+    border-color: hsl(var(--brand-400) / 30%);
+    transform: translateY(-1px);
   }
 }
 

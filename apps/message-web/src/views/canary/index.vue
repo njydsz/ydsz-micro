@@ -216,7 +216,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="canary-container p-4">
+    <div class="canary-container p-5">
       <!-- 顶部快速创建 -->
       <YdCard class="mb-4">
         <YdCardContent class="flex items-center justify-between pt-6">

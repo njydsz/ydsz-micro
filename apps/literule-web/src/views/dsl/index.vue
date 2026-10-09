@@ -61,7 +61,7 @@ function handlePreview() {
 </script>
 <template>
   <Page auto-content-height>
-    <div class="flex h-full flex-col gap-3 p-4">
+    <div class="flex h-full flex-col gap-3 p-5">
       <span class="text-sm text-gray-500"
         >输入 DSL 内容，可执行校验 / 解析 / 预览操作（支持语法高亮与自动补全）：</span
       >

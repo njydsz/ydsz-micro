@@ -140,9 +140,9 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="ops-container p-4">
+    <div class="ops-container p-5">
       <!-- 顶部指标卡片区 -->
-      <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
+      <div class="mb-4 grid grid-cols-1 gap-5 md:grid-cols-4">
         <YdCard>
           <YdCardContent class="flex flex-col items-center pt-4">
             <span class="text-sm text-gray-500">缓存命中率</span>
@@ -173,7 +173,7 @@ onMounted(() => {
         </YdCard>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <!-- 模板缓存区 -->
         <YdCard>
           <YdCardContent class="pt-4">
@@ -191,7 +191,7 @@ onMounted(() => {
           </div>
 
           <div v-loading="loading" class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-5">
               <div class="rounded bg-gray-50 p-3">
                 <span class="text-xs text-gray-500">命中次数</span>
                 <p class="mt-1 text-lg font-mono font-bold">{{ cacheStats.hitCount ?? 0 }}</p>
@@ -222,7 +222,7 @@ onMounted(() => {
           </div>
 
           <div v-loading="loading" class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-5">
               <div class="rounded bg-gray-50 p-3">
                 <span class="text-xs text-gray-500">预期插入数</span>
                 <p class="mt-1 text-lg font-mono font-bold">

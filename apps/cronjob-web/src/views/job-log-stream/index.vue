@@ -138,7 +138,7 @@ function statusText(status: ConnectStatus): string {
 </script>
 <template>
   <Page auto-content-height>
-    <div class="p-4 space-y-4">
+    <div class="p-5 space-y-4">
       <!-- 连接控制面板 -->
       <YdCard class="rounded-lg border border-gray-200">
         <YdCardHeader>

@@ -96,7 +96,7 @@ onMounted(() => {
 <template>
   <Page loading="isLoading" auto-content-height>
     <!-- 统计概览 -->
-    <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div class="mb-4 grid grid-cols-1 gap-5 md:grid-cols-3">
       <YdCard class="shadow-sm hover:shadow-md transition-shadow">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>

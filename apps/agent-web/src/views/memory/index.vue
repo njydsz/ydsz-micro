@@ -239,10 +239,10 @@ async function handleDelete(row: MemoryVO): Promise<void> {
 
 <template>
   <Page auto-content-height>
-    <div class="space-y-4 p-4">
+    <div class="space-y-4 p-5">
       <!-- 搜索区域 -->
       <YdCard shadow="never">
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-5">
           <span class="whitespace-nowrap text-sm font-medium">对话 ID：</span>
           <YdInput
             v-model="queryConversationId"
@@ -257,7 +257,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
       </YdCard>
 
       <!-- 统计卡片 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>

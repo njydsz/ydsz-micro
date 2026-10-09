@@ -165,10 +165,10 @@ if (import.meta.env.DEV) {
 </script>
 
 <template>
-  <div class="error-code-management p-4 space-y-4">
+  <div class="error-code-management p-5 space-y-4">
     <!-- 顶部过滤区 -->
     <YdCard shadow="never">
-      <div class="flex flex-wrap items-center gap-4">
+      <div class="flex flex-wrap items-center gap-5">
         <!-- TODO: prefix-icon 与 clearable 需手动组合 slot（shadcn YdInput 不内置） -->
         <YdInput
           v-model="searchKeyword"

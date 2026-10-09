@@ -324,7 +324,7 @@ onMounted(() => {
     </div>
 
     <!-- 概览卡片 -->
-    <div class="mb-4 grid grid-cols-4 gap-4 px-4">
+    <div class="mb-4 grid grid-cols-4 gap-5 px-4">
       <YdCard>
         <YdCardContent class="pt-6">
           <YdCountToAnimator :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
@@ -366,7 +366,7 @@ onMounted(() => {
     </div>
 
     <!-- 图表区域 -->
-    <div class="grid grid-cols-2 gap-4 px-4 pb-4">
+    <div class="grid grid-cols-2 gap-5 px-4 pb-4">
       <!-- 实例趋势 -->
       <YdCard>
         <YdCardContent class="pt-6"><div id="trendChart" class="h-80" /></YdCardContent>

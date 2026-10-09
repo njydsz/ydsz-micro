@@ -334,7 +334,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 </script>
 
 <template>
-  <div class="code-gen p-4">
+  <div class="code-gen p-5">
     <YdTabs v-model="activeTab">
       <YdTabsList>
         <YdTabsTrigger value="config">生成配置</YdTabsTrigger>
@@ -425,7 +425,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
               </YdFormItem>
               <YdFormItem label="冲突策略">
                 <YdRadioGroup v-model="genForm.conflictStrategy">
-                  <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-5">
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-skip" value="SKIP" />
                       <label for="conflict-skip" class="cursor-pointer text-sm">跳过（推荐）</label>
@@ -487,7 +487,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             <YdCardTitle>生成结果</YdCardTitle>
           </YdCardHeader>
           <YdCardContent>
-            <div class="grid grid-cols-4 gap-4 text-center">
+            <div class="grid grid-cols-4 gap-5 text-center">
               <div class="p-3 bg-gray-50 rounded">
                 <div class="text-2xl font-bold text-blue-500">
                   {{ (genResult ?? batchResult)?.fileCount ?? 0 }}

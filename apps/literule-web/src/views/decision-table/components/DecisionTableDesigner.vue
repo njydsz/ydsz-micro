@@ -281,7 +281,7 @@ defineExpose({ open, close });
     <div loading="loading" class="designer-container">
       <!-- 基本信息 -->
       <YdForm label-width="100px" class="mb-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-5">
           <YdFormItem label="决策表编码" required>
             <YdInput
               v-model="tableInfo.tableCode"

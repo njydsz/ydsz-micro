@@ -164,6 +164,24 @@
   --info-foreground: var(--neutral-500);
 
   /* ============================================================
+   * Alert Banner（告警横幅）语义令牌 (Dark Mode)
+   * 暗色下使用 50 阶（已偏亮）作背景、300 描边、500 文本色保证对比度
+   * 规范：YDIZ-STYLE-001（禁止硬编码状态色）
+   * ============================================================ */
+  --alert-success-bg: var(--success-50);
+  --alert-success-border: var(--success-300, 145 30% 28%);
+  --alert-success-text: var(--success-500);
+  --alert-warning-bg: var(--warning-50);
+  --alert-warning-border: var(--warning-300, 42 45% 30%);
+  --alert-warning-text: var(--warning-500);
+  --alert-error-bg: var(--destructive-50);
+  --alert-error-border: var(--destructive-300, 359 40% 30%);
+  --alert-error-text: var(--destructive-500);
+  --alert-info-bg: var(--neutral-100);
+  --alert-info-border: var(--neutral-300);
+  --alert-info-text: var(--neutral-500);
+
+  /* ============================================================
    * Focus Ring (Dark Mode)
    * ============================================================ */
   --ring: var(--brand-400);

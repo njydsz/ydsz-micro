@@ -390,9 +390,9 @@ loadMfaStatus();
 
                 <!-- MFA 设置引导 -->
                 <template v-else>
-                  <div class="rounded-lg border bg-blue-50 p-4">
+                  <div class="rounded-lg border bg-blue-50 p-5">
                     <h4 class="mb-3 text-sm font-medium text-blue-800">步骤1：扫描二维码</h4>
-                    <div class="mb-3 flex items-center gap-4">
+                    <div class="mb-3 flex items-center gap-5">
                       <div class="flex h-40 w-40 items-center justify-center rounded border bg-white">
                         <span class="text-xs text-gray-400">请使用<br />Authenticator<br />扫描</span>
                       </div>
@@ -520,7 +520,8 @@ loadMfaStatus();
 }
 
 .p-4 {
-  padding: 16px;
+  /* 对齐 Tailwind p-5 (1.25rem = 20px)，统一页面容器间距 */
+  padding: var(--padding-page, 1.25rem);
 }
 
 .p-1 {

@@ -205,7 +205,7 @@ async function handleSubmitCommand() {
 </script>
 <template>
   <Page auto-content-height>
-    <div class="flex flex-col gap-3 p-4">
+    <div class="flex flex-col gap-3 p-5">
       <Grid table-title="断点列表">
         <template #toolbar-tools
           ><YdButton @click="handleAddBreakpoint">新增断点</YdButton></template

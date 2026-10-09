@@ -191,12 +191,12 @@ onMounted(() => {
       <YdCardContent>
       <div
         v-if="unboundPlatforms.length > 0"
-        class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+        class="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4"
       >
         <div
           v-for="(platform, index) in unboundPlatforms"
           :key="getPlatformKey(platform, index)"
-          class="flex items-center justify-between rounded-lg border p-4"
+          class="flex items-center justify-between rounded-lg border p-5"
         >
           <div class="flex items-center gap-3">
             <span class="text-lg font-medium">{{ String(platform.name ?? platform.code ?? '-') }}</span>

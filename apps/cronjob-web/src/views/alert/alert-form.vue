@@ -176,7 +176,7 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
       </YdFormItem>
       <YdFormItem :label="t('common.status')">
         <YdRadioGroup v-model="formData.enabled">
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-5">
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="enabled-1" value="1" />
               <label for="enabled-1" class="cursor-pointer text-sm">启用</label>

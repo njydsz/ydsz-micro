@@ -245,9 +245,9 @@ onBeforeUnmount(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="space-y-4 p-4">
+    <div class="space-y-4 p-5">
       <!-- 顶部统计栏 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>

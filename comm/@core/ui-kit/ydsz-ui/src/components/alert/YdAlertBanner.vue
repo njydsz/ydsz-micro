@@ -50,7 +50,13 @@ const IconComponent = computed(() => {
   return map[props.type];
 });
 
-/** 语义配色映射 */
+/**
+ * 语义配色映射。
+ *
+ * 通过 CSS 变量引用主题令牌（default.css / dark.css --alert-*-bg|border|text），
+ * 避免模板出现 hardcode 状态色。深 / 浅色主题自动适配。
+ * 规范：YDIZ-STYLE-001（禁止硬编码状态色）
+ */
 const tone = computed(() => {
   const map: Record<'error' | 'info' | 'success' | 'warning', {
     bg: string;
@@ -59,28 +65,28 @@ const tone = computed(() => {
     title: string;
   }> = {
     error: {
-      bg: 'bg-red-50',
-      border: 'border-red-200',
-      icon: 'text-red-600',
-      title: 'text-red-900',
+      bg: 'bg-[var(--alert-error-bg)]',
+      border: 'border-[var(--alert-error-border)]',
+      icon: 'text-[hsl(var(--alert-error-text))]',
+      title: 'text-[hsl(var(--alert-error-text))]',
     },
     info: {
-      bg: 'bg-blue-50',
-      border: 'border-blue-200',
-      icon: 'text-blue-600',
-      title: 'text-blue-900',
+      bg: 'bg-[var(--alert-info-bg)]',
+      border: 'border-[var(--alert-info-border)]',
+      icon: 'text-[hsl(var(--alert-info-text))]',
+      title: 'text-[hsl(var(--alert-info-text))]',
     },
     success: {
-      bg: 'bg-green-50',
-      border: 'border-green-200',
-      icon: 'text-green-600',
-      title: 'text-green-900',
+      bg: 'bg-[var(--alert-success-bg)]',
+      border: 'border-[var(--alert-success-border)]',
+      icon: 'text-[hsl(var(--alert-success-text))]',
+      title: 'text-[hsl(var(--alert-success-text))]',
     },
     warning: {
-      bg: 'bg-amber-50',
-      border: 'border-amber-200',
-      icon: 'text-amber-600',
-      title: 'text-amber-900',
+      bg: 'bg-[var(--alert-warning-bg)]',
+      border: 'border-[var(--alert-warning-border)]',
+      icon: 'text-[hsl(var(--alert-warning-text))]',
+      title: 'text-[hsl(var(--alert-warning-text))]',
     },
   };
   return map[props.type];
@@ -140,21 +146,21 @@ function handleClose(): void {
   justify-content: center;
   width: 20px;
   height: 20px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm, 0.25rem);
   background: transparent;
   border: none;
   cursor: pointer;
   font-size: 16px;
   line-height: 1;
-  color: hsl(var(--txt-tertiary, #909399));
+  color: hsl(var(--txt-tertiary));
 }
 
 .alert-banner__close:hover {
-  color: hsl(var(--txt-primary, #1f2937));
+  color: hsl(var(--txt-primary));
 }
 
 .alert-banner__body {
-  color: hsl(var(--txt-secondary, #606266));
-  font-size: 12px;
+  color: hsl(var(--txt-secondary));
+  font-size: var(--text-12, 0.75rem);
 }
 </style>

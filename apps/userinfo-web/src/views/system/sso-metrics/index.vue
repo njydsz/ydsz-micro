@@ -90,7 +90,7 @@ onMounted(() => {
 <template>
   <Page loading="isLoading" auto-content-height>
     <!-- 指标概览卡片 -->
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
       <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
@@ -149,13 +149,13 @@ onMounted(() => {
     </div>
 
     <!-- 登录成功率 + 接入应用 -->
-    <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div class="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-2">
       <!-- 今日登录成功率 -->
       <YdCard>
         <template #header>
           <span class="font-medium">今日登录成功率</span>
         </template>
-        <div class="flex flex-col items-center gap-4 py-4">
+        <div class="flex flex-col items-center gap-5 py-4">
           <YdProgress
             type="dashboard"
             :percentage="successRatePercent"

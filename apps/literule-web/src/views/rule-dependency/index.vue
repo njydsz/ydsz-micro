@@ -217,7 +217,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div loading="loading" class="p-4">
+    <div loading="loading" class=" p-5">
       <!-- 搜索区 -->
       <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between">

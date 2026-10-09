@@ -266,7 +266,7 @@ watch(visible, (val) => {
           class="space-y-4"
         >
           <!-- 节点统计 -->
-          <div class="flex gap-4 text-sm">
+          <div class="flex gap-5 text-sm">
             <span class="rounded-md bg-primary/10 px-2 py-1 text-primary">
               {{ $t('knowledgeGraph.detail.nodeCount') || '节点数' }}: {{ subgraphNodes.length }}
             </span>

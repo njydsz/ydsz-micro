@@ -144,7 +144,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="retry-preview-container p-4">
+    <div class="retry-preview-container p-5">
       <!-- Tab 切换区 -->
       <YdCard class="mb-4" shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">

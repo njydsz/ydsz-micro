@@ -416,10 +416,7 @@ defineExpose({ open, close });
                   v-for="node in nodes"
                   :key="node.id"
                   class="workflow-node"
-                  :class="{
-                    'selected': selectedNode?.id === node.id,
-                    'connecting-target': isConnecting && connectStart !== node.id,
-                  }"
+                  :class="{ 'selected': selectedNode?.id === node.id, 'connecting-target': isConnecting && connectStart !== node.id, }"
                   :style="{
                     left: `${node.x}px`,
                     top: `${node.y}px`,
@@ -544,7 +541,7 @@ defineExpose({ open, close });
                   <YdInput v-model="workflowDescription" type="textarea" :rows="2" placeholder="请输入工作流描述" />
                 </YdFormItem>
               </YdForm>
-              <pre class="max-h-96 overflow-auto rounded border bg-muted p-4 text-xs">{{ generateDsl() }}</pre>
+              <pre class="max-h-96 overflow-auto rounded border bg-muted p-5 text-xs">{{ generateDsl() }}</pre>
             </div>
           </YdTabsContent>
         </YdTabs>

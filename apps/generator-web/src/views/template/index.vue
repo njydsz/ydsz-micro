@@ -192,7 +192,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="template-management flex gap-4 p-4" style="height: calc(100vh - 120px)">
+  <div class="template-management flex gap-5 p-5" style="height: calc(100vh - 120px)">
     <!-- 左侧：分组列表 -->
     <div class="w-64 flex-shrink-0">
       <div class="mb-3 flex items-center justify-between">
@@ -204,10 +204,7 @@ onMounted(() => {
           v-for="group in groupList"
           :key="group.id"
           class="p-3 rounded cursor-pointer border transition-colors"
-          :class="{
-            'border-blue-500 bg-blue-50': selectedGroupId === group.id,
-            'border-gray-200 hover:border-gray-300': selectedGroupId !== group.id,
-          }"
+          :class="{ 'border-blue-500 bg-blue-50': selectedGroupId === group.id, 'border-gray-200 hover:border-gray-300': selectedGroupId !== group.id, }"
           @click="handleGroupSelect(group)"
         >
           <div class="flex items-center justify-between">

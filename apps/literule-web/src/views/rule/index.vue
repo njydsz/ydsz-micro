@@ -449,7 +449,7 @@ void loadCategoryTree();
     <!-- 卡片视图 -->
     <div
       v-else
-      class="flex min-h-[500px] gap-4"
+      class="flex min-h-[500px] gap-5"
     >
       <!-- 左侧分类筛选面板 -->
       <div class="w-52 shrink-0">

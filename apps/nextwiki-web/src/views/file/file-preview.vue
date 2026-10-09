@@ -251,7 +251,7 @@ onMounted(async () => {
       </div>
 
       <!-- 预览内容区 -->
-      <div class="preview-content min-h-[400px] rounded border bg-gray-50 p-4">
+      <div class="preview-content min-h-[400px] rounded border bg-gray-50 p-5">
         <!-- 图片预览 -->
         <div v-if="isImage && previewUrl" class="flex justify-center">
           <img :src="previewUrl" :alt="fileNode.name" class="max-h-[600px] max-w-full object-contain" loading="lazy" />
@@ -264,7 +264,7 @@ onMounted(async () => {
 
         <!-- 文本预览 -->
         <div v-else-if="isText">
-          <pre class="overflow-auto whitespace-pre-wrap break-words rounded bg-white p-4 font-mono text-sm">{{ previewContent }}</pre>
+          <pre class="overflow-auto whitespace-pre-wrap break-words rounded bg-white p-5 font-mono text-sm">{{ previewContent }}</pre>
         </div>
 
         <!-- 已生成预览 -->

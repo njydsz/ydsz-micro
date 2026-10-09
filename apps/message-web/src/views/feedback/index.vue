@@ -168,9 +168,9 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="feedback-container p-4">
+    <div class="feedback-container p-5">
       <!-- 顶部指标卡片区 -->
-      <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div class="mb-4 grid grid-cols-1 gap-5 md:grid-cols-3">
         <YdCard>
           <YdCardContent class="flex flex-col items-center pt-6">
             <span class="text-sm text-muted-foreground">平均评分</span>

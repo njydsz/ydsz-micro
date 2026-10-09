@@ -257,7 +257,7 @@ onMounted(() => {});
 
 <template>
   <Page auto-content-height>
-    <div class="mb-4 flex items-center gap-4">
+    <div class="mb-4 flex items-center gap-5">
       <span class="text-sm text-gray-600">显示最近</span>
       <YdInput v-model="limit" type="number" :min="5" :max="100" :step="5" class="w-24" />
       <span class="text-sm text-gray-600">条记录</span>

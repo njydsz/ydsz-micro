@@ -199,7 +199,7 @@ const credentialCount = computed(() => credentials.value.length);
           <div
             v-for="cred in credentials"
             :key="cred.credentialId"
-            class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all"
+            class="flex items-center justify-between p-5 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all"
           >
             <div class="flex items-center gap-3">
               <YdIcon :size="28" class="text-gray-400">
@@ -232,7 +232,7 @@ const credentialCount = computed(() => credentials.value.length);
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-4 text-sm text-gray-500">
+            <div class="flex items-center gap-5 text-sm text-gray-500">
               <div class="text-right">
                 <div>注册于: {{ formatDateTime(cred.registeredAt) }}</div>
                 <div class="mt-0.5">

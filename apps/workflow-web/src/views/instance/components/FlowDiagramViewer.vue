@@ -137,7 +137,7 @@ onMounted(() => {
 <template>
   <div class="flow-diagram-viewer">
     <!-- 图例 -->
-    <div class="diagram-legend mb-3 flex items-center gap-4">
+    <div class="diagram-legend mb-3 flex items-center gap-5">
       <span class="text-xs text-gray-500">节点状态：</span>
       <div v-for="(config, key) in NODE_STATUS_MAP" :key="key" class="flex items-center gap-1">
         <span class="legend-dot" :class="{ 'dot-animate': config.animate }" :style="{ backgroundColor: config.color }" />
@@ -146,7 +146,7 @@ onMounted(() => {
     </div>
 
     <!-- 流程图容器 -->
-    <div class="diagram-container rounded border bg-white p-4">
+    <div class="diagram-container rounded border bg-white p-5">
       <!-- 加载中 -->
       <div v-if="loading" class="flex h-64 items-center justify-center text-gray-400">
         <div class="flex flex-col items-center gap-2">
@@ -171,9 +171,7 @@ onMounted(() => {
             v-for="(node, idx) in nodeList"
             :key="node.id ?? idx"
             class="flex items-center gap-2 rounded border px-4 py-2 transition-all hover:shadow-md cursor-pointer"
-            :class="{
-              'ring-2 ring-blue-400': selectedNodeId === node.id,
-            }"
+            :class="{ 'ring-2 ring-blue-400': selectedNodeId === node.id, }"
             :style="{
               borderColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#dcdfe6',
               backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#ffffff',
@@ -230,9 +228,7 @@ onMounted(() => {
           v-for="(node, idx) in nodeList"
           :key="node.id ?? idx"
           class="flex items-center gap-2 rounded border px-3 py-1.5 transition-all hover:shadow-sm cursor-pointer"
-          :class="{
-            'ring-1 ring-blue-300': selectedNodeId === node.id,
-          }"
+          :class="{ 'ring-1 ring-blue-300': selectedNodeId === node.id, }"
           :style="{
             borderColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#dcdfe6',
             backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#f4f4f5',

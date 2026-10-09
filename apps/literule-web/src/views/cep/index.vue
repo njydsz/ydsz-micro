@@ -362,7 +362,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="flex flex-col gap-3 p-4">
+    <div class="flex flex-col gap-3 p-5">
       <!-- 模式列表 -->
       <Grid table-title="CEP 模式列表">
         <template #toolbar-tools>

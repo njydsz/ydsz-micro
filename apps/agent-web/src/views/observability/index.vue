@@ -131,9 +131,9 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="space-y-4 p-4">
+    <div class="space-y-4 p-5">
       <!-- 概览卡片 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         <YdCard class="hover:shadow-md transition-shadow">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
@@ -206,7 +206,7 @@ onMounted(() => {
 
           <!-- Trace 追踪 -->
           <div v-if="activeTab === 'trace'" class="space-y-4">
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-5">
               <YdInput
                 v-model="traceSearchQuery"
                 placeholder="搜索 Trace ID、Agent 名称或输入内容..."
@@ -262,16 +262,16 @@ onMounted(() => {
 
           <!-- 性能监控 -->
           <div v-if="activeTab === 'performance'" class="space-y-4">
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div class="rounded border border-border p-4 text-center">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+              <div class="rounded border border-border p-5 text-center">
                 <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">99.5%</p>
                 <p class="mt-1 text-sm text-muted-foreground">可用性</p>
               </div>
-              <div class="rounded border border-border p-4 text-center">
+              <div class="rounded border border-border p-5 text-center">
                 <p class="text-3xl font-bold text-green-600 dark:text-green-400">1.2s</p>
                 <p class="mt-1 text-sm text-muted-foreground">P99 延迟</p>
               </div>
-              <div class="rounded border border-border p-4 text-center">
+              <div class="rounded border border-border p-5 text-center">
                 <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">150</p>
                 <p class="mt-1 text-sm text-muted-foreground">QPS</p>
               </div>
@@ -288,7 +288,7 @@ onMounted(() => {
           <YdDialogTitle>Trace 详情</YdDialogTitle>
         </YdDialogHeader>
         <div v-if="selectedTrace" class="space-y-4">
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-5">
             <div>
               <span class="text-sm text-muted-foreground">Trace ID：</span>
               <span class="text-sm font-medium">{{ selectedTrace.traceId }}</span>

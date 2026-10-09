@@ -167,7 +167,7 @@ onMounted(() => {
   <Page auto-content-height>
     <div loading="loading" class="space-y-4">
       <!-- 总览卡片 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
@@ -275,7 +275,7 @@ onMounted(() => {
       </div>
 
       <!-- 风险分布与会话信息 -->
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <!-- 风险等级分布 -->
         <YdCard>
           <template #header>
@@ -326,7 +326,7 @@ onMounted(() => {
           <template #header>
             <span class="font-medium">{{ t('security.sessionActivity') }}</span>
           </template>
-          <div class="grid grid-cols-3 gap-4 text-center">
+          <div class="grid grid-cols-3 gap-5 text-center">
             <div>
               <p class="text-2xl font-bold text-blue-600">{{ sessionActivity.totalActiveSessions ?? 0 }}</p>
               <p class="mt-1 text-xs text-gray-500">{{ t('security.activeSessions') }}</p>
@@ -344,7 +344,7 @@ onMounted(() => {
       </div>
 
       <!-- 异常会话与安全事件 -->
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <!-- 异常会话 -->
         <YdCard>
           <template #header>
@@ -396,7 +396,7 @@ onMounted(() => {
       </YdCard>
 
       <!-- 登录与会话趋势 -->
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <!-- 登录成功率趋势 -->
         <YdCard>
           <template #header>
@@ -451,7 +451,7 @@ onMounted(() => {
       </div>
 
       <!-- 设备分布与登录失败分布 -->
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <!-- 设备分布 -->
         <YdCard>
           <template #header>

@@ -170,7 +170,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="mb-4 flex items-center gap-4">
+    <div class="mb-4 flex items-center gap-5">
       <span class="text-sm text-gray-600">选择数据源：</span>
       <YdSelectBase v-model="selectedDatasourceId" @update:model-value="handleDatasourceChange">
         <YdSelectTriggerBase>

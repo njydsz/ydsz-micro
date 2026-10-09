@@ -200,6 +200,24 @@
   --info-foreground: var(--neutral-500);
 
   /* ============================================================
+   * Alert Banner（告警横幅）语义令牌
+   * AlertBanner 组件引用；语义 → bg / border / text 三变量
+   * 规范：YDIZ-STYLE-001（禁止硬编码状态色）
+   * ============================================================ */
+  --alert-success-bg: var(--success-50);
+  --alert-success-border: var(--success-100);
+  --alert-success-text: var(--success-600);
+  --alert-warning-bg: var(--warning-50);
+  --alert-warning-border: var(--warning-100);
+  --alert-warning-text: var(--warning-600);
+  --alert-error-bg: var(--destructive-50);
+  --alert-error-border: var(--destructive-100);
+  --alert-error-text: var(--destructive-600);
+  --alert-info-bg: var(--neutral-50);
+  --alert-info-border: var(--neutral-200);
+  --alert-info-text: var(--neutral-600);
+
+  /* ============================================================
    * Focus Ring
    * ============================================================ */
   --ring: var(--brand-500);

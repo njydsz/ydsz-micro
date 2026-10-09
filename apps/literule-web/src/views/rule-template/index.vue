@@ -223,7 +223,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="p-4">
+    <div v-loading="loading" class=" p-5">
       <YdRow :gutter="12">
         <!-- 左侧类目树 -->
         <YdCol :span="5">

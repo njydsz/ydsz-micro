@@ -184,14 +184,14 @@ onBeforeUnmount(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="reactive-monitor-container p-4">
+    <div class="reactive-monitor-container p-5">
       <!-- 连接状态 -->
       <YdCard class="mb-4">
         <YdCardHeader>
           <YdCardTitle>连接状态</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-5">
             <YdBadge :variant="getConnectionVariant()">{{ getConnectionText() }}</YdBadge>
             <span class="text-sm">运行模式: {{ health.mode ?? '-' }}</span>
             <span class="text-sm">缓冲区: {{ health.bufferSize ?? '-' }}</span>

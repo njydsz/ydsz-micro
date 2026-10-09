@@ -220,7 +220,7 @@ const getForceMount = computed(() => {
         v-if="showHeader"
         :class="
           cn(
-            '!flex flex-row items-center justify-between border-b px-6 py-5',
+            '!flex flex-row items-center justify-between border-b px-5 py-4',
             headerClass,
             {
               'px-4 py-3': closable,

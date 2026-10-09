@@ -295,7 +295,7 @@ async function handleSendMonthly() {
     <YdTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
       <!-- ==================== Tab 1: 催办中心 ==================== -->
       <YdTabsContent label="催办中心" name="urge">
-        <div class="p-4 space-y-4">
+        <div class="p-5 space-y-4">
           <!-- 查询区域 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
@@ -345,7 +345,7 @@ async function handleSendMonthly() {
 
       <!-- ==================== Tab 2: 合并审批 ==================== -->
       <YdTabsContent label="合并审批" name="merge">
-        <div class="p-4 space-y-4">
+        <div class="p-5 space-y-4">
           <!-- 手动合并 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
@@ -426,7 +426,7 @@ async function handleSendMonthly() {
 
       <!-- ==================== Tab 3: 离线转办 ==================== -->
       <YdTabsContent label="离线转办" name="forward">
-        <div class="p-4 space-y-4">
+        <div class="p-5 space-y-4">
           <!-- 自动转办 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
@@ -493,7 +493,7 @@ async function handleSendMonthly() {
 
       <!-- ==================== Tab 4: 报告推送 ==================== -->
       <YdTabsContent label="报告推送" name="report">
-        <div class="p-4 space-y-4">
+        <div class="p-5 space-y-4">
           <!-- 周报 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>

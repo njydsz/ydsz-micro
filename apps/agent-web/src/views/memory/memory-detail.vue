@@ -144,7 +144,7 @@ defineExpose({ open });
 
       <!-- 查看模式 -->
       <div v-if="mode === 'view' && memoryData" class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-5">
           <div>
             <span class="text-sm text-muted-foreground">消息 ID:</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.id ?? '-' }}</p>

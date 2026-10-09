@@ -372,7 +372,7 @@ onMounted(async () => {
             <div
               v-for="item in searchResult?.hits"
               :key="item.fileNodeId"
-              class="rounded border bg-white p-4 transition-shadow hover:shadow-md"
+              class="rounded border bg-white p-5 transition-shadow hover:shadow-md"
             >
               <div class="flex items-start justify-between">
                 <div class="flex-1">
@@ -409,7 +409,7 @@ onMounted(async () => {
         <!-- 侧边栏 -->
         <div class="w-64 shrink-0">
           <!-- 搜索历史 -->
-          <div v-if="searchHistory.length > 0" class="mb-6 rounded border bg-white p-4">
+          <div v-if="searchHistory.length > 0" class="mb-6 rounded border bg-white p-5">
             <div class="mb-3 flex items-center justify-between">
               <h3 class="text-sm font-medium text-gray-700">{{ t('searchHistory') }}</h3>
               <YdButton size="small" link type="primary" @click="handleClearHistory">{{ t('clearHistory') }}</YdButton>
@@ -429,7 +429,7 @@ onMounted(async () => {
           </div>
 
           <!-- 热门搜索 -->
-          <div v-if="hotSearches.length > 0" class="rounded border bg-white p-4">
+          <div v-if="hotSearches.length > 0" class="rounded border bg-white p-5">
             <h3 class="mb-3 text-sm font-medium text-gray-700">{{ t('hotSearches') }}</h3>
             <div class="space-y-2">
               <div

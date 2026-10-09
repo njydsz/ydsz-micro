@@ -107,7 +107,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div loading="loading" class="p-4">
+    <div loading="loading" class="p-5">
       <!-- 顶部统计区 -->
       <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between mb-4">
@@ -123,13 +123,13 @@ onMounted(() => {
         </div>
 
         <div class="grid grid-cols-3 gap-6 mb-4">
-          <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-center p-5 bg-gray-50 rounded-lg">
             <YdCountToAnimator title="冲突对数" :value="totalPairs" />
           </div>
-          <div class="text-center p-4 bg-red-50 rounded-lg">
+          <div class="text-center p-5 bg-red-50 rounded-lg">
             <YdCountToAnimator title="高严重度数" :value="highSeverityCount" value-style="color: #f56c6c" />
           </div>
-          <div class="text-center p-4 bg-blue-50 rounded-lg">
+          <div class="text-center p-5 bg-blue-50 rounded-lg">
             <YdCountToAnimator title="影响规则数" :value="affectedRulesCount" value-style="color: #409eff" />
           </div>
         </div>

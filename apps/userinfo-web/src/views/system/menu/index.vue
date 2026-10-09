@@ -109,7 +109,7 @@ async function handleDelete(row: MenuTreeVO) {
 
 <template>
   <Page auto-content-height>
-    <div class="p-4">
+    <div class=" p-5">
       <div class="mb-4 flex items-center justify-between">
         <h3 class="text-lg font-semibold">{{ t('menu.menuManagement') }}</h3>
         <div class="flex gap-2">

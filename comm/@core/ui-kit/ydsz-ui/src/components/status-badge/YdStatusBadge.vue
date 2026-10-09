@@ -69,16 +69,21 @@ const defaultLabelMap: Record<StatusVariant, string> = {
 const displayLabel = computed<string>(() => props.label ?? defaultLabelMap[props.status]);
 const badgeVariant = computed<BadgeVariants['variant']>(() => variantMap[props.status]);
 
-/** 圆点颜色（与 badge 语义色同步） */
+/**
+ * 圆点颜色（与 badge 语义色同步）。
+ *
+ * 使用 CSS 变量引用主题令牌，保证 dark mode 下对比度一致；
+ * 避免业务侧出现 bg-green-500 / bg-amber-500 等硬编码色。
+ */
 const dotColorMap: Record<NonNullable<BadgeVariants['variant']>, string> = {
-  default: 'bg-neutral-400',
-  destructive: 'bg-destructive',
-  info: 'bg-blue-500',
-  outline: 'bg-neutral-400',
-  primary: 'bg-primary',
-  secondary: 'bg-neutral-400',
-  success: 'bg-green-500',
-  warning: 'bg-amber-500',
+  default: 'bg-[var(--muted-foreground)]',
+  destructive: 'bg-[var(--destructive)]',
+  info: 'bg-[var(--info-foreground)]',
+  outline: 'bg-[var(--muted-foreground)]',
+  primary: 'bg-[var(--primary)]',
+  secondary: 'bg-[var(--muted-foreground)]',
+  success: 'bg-[var(--success)]',
+  warning: 'bg-[var(--warning)]',
 };
 
 const dotColor = computed<string>(() => dotColorMap[badgeVariant.value ?? 'default']);

@@ -276,9 +276,9 @@ onUnmounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-5">
       <!-- 顶部统计卡片 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
         <!-- 活跃锁数量 -->
         <YdCard shadow="hover">
           <div class="text-center p-2">

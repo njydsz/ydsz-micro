@@ -568,7 +568,7 @@ defineOptions({ name: 'CronBuilder' });
 </script>
 
 <template>
-  <div class="w-full rounded-md border p-4">
+  <div class="w-full rounded-md border p-5">
     <!-- ====== 头部模式切换 ====== -->
     <div class="mb-3 flex items-center justify-between">
       <span class="text-sm font-medium">{{ t('cronBuilder.title') }}</span>

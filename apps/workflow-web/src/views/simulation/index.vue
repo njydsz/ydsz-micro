@@ -129,7 +129,7 @@ function handleReset(): void {
     </div>
 
     <!-- 概览卡片（有结果时展示） -->
-    <div v-if="simulationResult" class="mb-4 grid grid-cols-4 gap-4 px-4">
+    <div v-if="simulationResult" class="mb-4 grid grid-cols-4 gap-5 px-4">
       <YdCard shadow="hover">
         <div class="text-center">
           <div class="text-sm text-gray-500">仿真状态</div>

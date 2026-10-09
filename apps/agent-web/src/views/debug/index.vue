@@ -252,9 +252,9 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class="space-y-4 p-4">
+    <div v-loading="loading" class="space-y-4 p-5">
       <!-- 指标卡片 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5">
         <YdCard shadow="never">
           <YdCountToAnimator title="Trace 总数" :value="totalTraces" />
         </YdCard>

@@ -172,7 +172,7 @@ async function handleDelete(row: CompanyVO) {
 
 <template>
   <Page auto-content-height>
-    <div class="flex gap-4 p-4">
+    <div class="flex gap-5 p-5">
       <div class="w-60 shrink-0">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>

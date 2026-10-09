@@ -252,7 +252,7 @@ onMounted(loadList);
           </YdFormItem>
           <YdFormItem label="请求方法" prop="httpMethod">
             <YdRadioGroup v-model="formData.httpMethod">
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-5">
                 <div class="flex items-center gap-2">
                   <YdRadioGroupItem id="method-post" value="POST" />
                   <label for="method-post" class="cursor-pointer text-sm">POST</label>

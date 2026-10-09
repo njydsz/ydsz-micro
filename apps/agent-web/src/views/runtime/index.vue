@@ -233,9 +233,9 @@ loadOverview();
 
 <template>
   <Page auto-content-height>
-    <div class="space-y-4 p-4">
+    <div class="space-y-4 p-5">
       <!-- 概览卡片 -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
@@ -325,7 +325,7 @@ loadOverview();
       @close="selectedSession = null"
     >
       <div v-if="selectedSession" class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-5">
           <div>
             <span class="text-sm text-gray-500">执行 ID:</span>
             <span class="text-sm font-medium">{{ selectedSession.executionId }}</span>

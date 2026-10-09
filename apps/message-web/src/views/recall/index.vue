@@ -268,8 +268,8 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="recall-container p-4">
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+    <div class="recall-container p-5">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
         <!-- 操作区 -->
         <div class="lg:col-span-2">
           <YdCard>

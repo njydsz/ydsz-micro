@@ -368,7 +368,7 @@ async function executeTestSend(): Promise<void> {
           <YdDialogDescription>渲染后的模板内容预览</YdDialogDescription>
         </YdDialogHeader>
         <div v-loading="previewLoading" class="min-h-32">
-          <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-4 text-sm">{{
+          <pre class="overflow-auto whitespace-pre-wrap rounded bg-gray-50 p-5 text-sm">{{
             previewContent
           }}</pre>
         </div>

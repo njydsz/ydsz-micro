@@ -143,7 +143,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div class="read-receipt-container p-4">
+    <div class="read-receipt-container p-5">
       <!-- 查询入口 -->
       <YdCard class="mb-4">
         <YdCardContent class="pt-4">
@@ -166,39 +166,39 @@ onMounted(() => {
         </YdCardContent>
       </YdCard>
 
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
         <!-- 回执详情区 -->
         <div class="lg:col-span-2">
           <YdCard>
             <h3 class="mb-4 text-base font-medium">回执详情</h3>
 
             <div v-if="receiptDetail" class="space-y-4">
-              <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div class="rounded bg-gray-50 p-4">
+              <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">短码</span>
                   <p class="mt-1 font-mono text-sm font-medium text-blue-600">
                     {{ receiptDetail.shortCode ?? '-' }}
                   </p>
                 </div>
-                <div class="rounded bg-gray-50 p-4">
+                <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">消息ID</span>
                   <p class="mt-1 font-mono text-sm">
                     {{ receiptDetail.msgId ?? '-' }}
                   </p>
                 </div>
-                <div class="rounded bg-gray-50 p-4">
+                <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">阅读人</span>
                   <p class="mt-1 font-mono text-sm">
                     {{ receiptDetail.readBy ?? '-' }}
                   </p>
                 </div>
-                <div class="rounded bg-gray-50 p-4">
+                <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">阅读时间</span>
                   <p class="mt-1 text-sm">
                     {{ receiptDetail.readAt ?? '-' }}
                   </p>
                 </div>
-                <div class="rounded bg-gray-50 p-4">
+                <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">回执状态</span>
                   <p class="mt-1">
                     <YdBadge :variant="getStatusType(receiptDetail.status) === 'success' ? 'default' : getStatusType(receiptDetail.status) === 'warning' ? 'outline' : 'secondary'">
@@ -206,7 +206,7 @@ onMounted(() => {
                     </YdBadge>
                   </p>
                 </div>
-                <div class="rounded bg-gray-50 p-4">
+                <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">重定向地址</span>
                   <p class="mt-1 font-mono text-xs text-gray-600 break-all">
                     {{ receiptDetail.redirectUrl ?? '-' }}

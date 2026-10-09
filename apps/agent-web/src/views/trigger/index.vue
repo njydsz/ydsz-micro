@@ -253,11 +253,11 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
 
 <template>
   <Page auto-content-height>
-    <div class="space-y-4 p-4">
+    <div class="space-y-4 p-5">
       <!-- 搜索区域 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-5">
             <YdInput
               v-model="searchForm.name"
               placeholder="按名称搜索..."

@@ -193,7 +193,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
 </script>
 
 <template>
-  <div class="dev-platform p-4 space-y-4">
+  <div class="dev-platform p-5 space-y-4">
     <YdCard>
       <template #header>
         <div class="flex items-center justify-between">

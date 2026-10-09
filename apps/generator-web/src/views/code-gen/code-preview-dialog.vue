@@ -74,7 +74,7 @@ watch(
       <YdDialogHeader>
         <YdDialogTitle>代码预览</YdDialogTitle>
       </YdDialogHeader>
-      <div v-if="previewList.length > 0" class="flex gap-4" style="height: 70vh">
+      <div v-if="previewList.length > 0" class="flex gap-5" style="height: 70vh">
         <!-- 文件列表 -->
         <div class="w-64 overflow-y-auto border-r pr-3">
           <div class="mb-2 text-sm text-gray-500">
@@ -105,7 +105,7 @@ watch(
         <div class="mb-2 flex items-center justify-between">
           <span class="font-medium">{{ currentFileName }}</span>
         </div>
-        <pre class="bg-gray-50 p-4 rounded text-xs overflow-auto" style="max-height: 60vh"><code>{{ currentContent }}</code></pre>
+        <pre class="bg-gray-50 p-5 rounded text-xs overflow-auto" style="max-height: 60vh"><code>{{ currentContent }}</code></pre>
       </div>
     </div>
       <YdEmptyState v-else description="暂无预览数据" />

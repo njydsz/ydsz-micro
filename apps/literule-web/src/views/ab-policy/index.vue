@@ -287,7 +287,7 @@ async function handleManualRollback(): Promise<void> {
 
 <template>
   <Page auto-content-height>
-    <div class="flex flex-col gap-3 p-4">
+    <div class="flex flex-col gap-3 p-5">
       <Grid table-title="AB 策略列表">
         <template #toolbar-tools>
           <YdButton type="primary" @click="handleCreate">新增策略</YdButton>

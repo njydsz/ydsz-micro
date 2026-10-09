@@ -134,7 +134,7 @@ async function handleAnalyze() {
 </script>
 
 <template>
-  <div class="reverse-gen p-4">
+  <div class="reverse-gen p-5">
     <YdCard>
       <YdCardHeader>
         <YdCardTitle>反向生成配置</YdCardTitle>
@@ -143,7 +143,7 @@ async function handleAnalyze() {
         <YdForm label-width="120px">
           <YdFormItem label="分析模式">
             <YdRadioGroup v-model="mode">
-              <div class="flex items-center gap-4">
+              <div class="flex items-center gap-5">
                 <div class="flex items-center gap-2">
                   <YdRadioGroupItem id="mode-single" value="single" />
                   <label for="mode-single" class="cursor-pointer text-sm">单文件分析</label>

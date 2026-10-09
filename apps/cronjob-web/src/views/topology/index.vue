@@ -201,7 +201,7 @@ onMounted(() => {
 
         <div v-loading="globalLoading">
           <!-- 卡片网格 -->
-          <div v-if="filteredGlobalCards.length" class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div v-if="filteredGlobalCards.length" class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             <YdCard
               v-for="card in filteredGlobalCards"
               :key="card.id"
@@ -245,11 +245,11 @@ onMounted(() => {
 
         <div v-loading="instanceLoading">
           <!-- DAG 实例节点网格 -->
-          <div v-if="instanceNodes.length" class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div v-if="instanceNodes.length" class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             <div
               v-for="node in instanceNodes"
               :key="node.id"
-              class="rounded-lg border-2 bg-white p-4 shadow-sm transition-all hover:shadow-md"
+              class="rounded-lg border-2 bg-white p-5 shadow-sm transition-all hover:shadow-md"
               :style="{ borderColor: statusColor(node.status) }"
             >
               <div class="flex items-center justify-between">

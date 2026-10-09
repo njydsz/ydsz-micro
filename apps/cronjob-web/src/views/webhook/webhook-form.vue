@@ -169,7 +169,7 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
       </YdFormItem>
       <YdFormItem label="HTTP Method" prop="httpMethod">
         <YdRadioGroup v-model="formData.httpMethod">
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-5">
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="method-post" value="POST" />
               <label for="method-post" class="cursor-pointer text-sm">POST</label>
@@ -189,7 +189,7 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
       </YdFormItem>
       <YdFormItem :label="t('common.status')">
         <YdRadioGroup v-model="formData.webhookStatus">
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-5">
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="status-active" value="ACTIVE" />
               <label for="status-active" class="cursor-pointer text-sm">{{ t('common.enabled') }}</label>

@@ -165,7 +165,7 @@ function handleClose() {
         <YdDialogTitle>{{ t('configVersion.diffTitle', { versionA, versionB }) }}</YdDialogTitle>
       </YdDialogHeader>
     <!-- 差异统计 -->
-    <div class="mb-3 flex gap-4 text-sm">
+    <div class="mb-3 flex gap-5 text-sm">
       <span class="text-red-500">
         {{ t('configVersion.diffRemoved') }}: {{ diffStats.removed }}
       </span>
@@ -188,10 +188,7 @@ function handleClose() {
             v-for="(line, idx) in diffLines"
             :key="'left-' + idx"
             class="diff-line"
-            :class="{
-              'diff-line-removed': line.left?.status === 'removed',
-              'diff-line-empty': !line.left,
-            }"
+            :class="{ 'diff-line-removed': line.left?.status === 'removed', 'diff-line-empty': !line.left, }"
           >
             <span v-if="line.left" class="diff-line-content">{{ line.left.text }}</span>
             <span v-else class="diff-line-placeholder"> </span>
@@ -211,10 +208,7 @@ function handleClose() {
             v-for="(line, idx) in diffLines"
             :key="'right-' + idx"
             class="diff-line"
-            :class="{
-              'diff-line-added': line.right?.status === 'added',
-              'diff-line-empty': !line.right,
-            }"
+            :class="{ 'diff-line-added': line.right?.status === 'added', 'diff-line-empty': !line.right, }"
           >
             <span v-if="line.right" class="diff-line-content">{{ line.right.text }}</span>
             <span v-else class="diff-line-placeholder"> </span>

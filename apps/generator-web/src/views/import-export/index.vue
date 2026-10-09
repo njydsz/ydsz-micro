@@ -94,7 +94,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="import-export p-4" style="max-width: 700px">
+  <div class="import-export p-5" style="max-width: 700px">
     <!-- 导出的卡片 -->
     <YdCard class="mb-4">
       <YdCardHeader>

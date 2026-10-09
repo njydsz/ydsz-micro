@@ -172,20 +172,20 @@ onMounted(() => {
 <template>
   <Page auto-content-height>
     <!-- 统计卡片 -->
-    <div class="mb-4 grid grid-cols-3 gap-4 px-4 pt-3">
-      <div class="rounded-lg border bg-gradient-to-r from-blue-50 to-blue-100 p-4">
+    <div class="mb-4 grid grid-cols-3 gap-5 px-4 pt-3">
+      <div class="rounded-lg border bg-gradient-to-r from-blue-50 to-blue-100 p-5">
         <div class="text-sm text-gray-600">{{ t('session.activeSessions') }}</div>
         <div class="mt-1 text-2xl font-bold text-blue-600">
           {{ statistics.totalActiveSessions ?? 0 }}
         </div>
       </div>
-      <div class="rounded-lg border bg-gradient-to-r from-green-50 to-green-100 p-4">
+      <div class="rounded-lg border bg-gradient-to-r from-green-50 to-green-100 p-5">
         <div class="text-sm text-gray-600">{{ t('session.onlineUsers') }}</div>
         <div class="mt-1 text-2xl font-bold text-green-600">
           {{ statistics.activeUserCount ?? 0 }}
         </div>
       </div>
-      <div class="rounded-lg border bg-gradient-to-r from-orange-50 to-orange-100 p-4">
+      <div class="rounded-lg border bg-gradient-to-r from-orange-50 to-orange-100 p-5">
         <div class="text-sm text-gray-600">{{ t('session.deviceTypes') }}</div>
         <div class="mt-1 text-2xl font-bold text-orange-600">
           {{ Object.keys(statistics.sessionsPerDevice ?? {}).length }}
