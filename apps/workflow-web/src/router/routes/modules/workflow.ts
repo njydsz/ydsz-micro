@@ -123,6 +123,19 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    meta: { icon: 'lucide:mail', order: 6, title: '抄送中心' },
+    name: 'FlowCcCenter',
+    path: '/flow',
+    children: [
+      {
+        name: 'FlowCcPage',
+        path: 'cc',
+        component: () => import('#/views/cc/index.vue'),
+        meta: { icon: 'lucide:mail', title: '抄送中心' },
+      },
+    ],
+  },
 ];
 
 /** Workflow 工作流路由配置（子应用内部路由表） */

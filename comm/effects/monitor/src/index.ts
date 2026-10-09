@@ -27,8 +27,10 @@ export type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor';
 export {
   setupWebVitals,
   reportWebVital,
+  customizeAlertThresholds,
+  getAlertThresholds,
 } from './web-vitals';
-export type { WebVitalName, WebVitalReport } from './web-vitals';
+export type { WebVitalName, WebVitalReport, WebVitalAlertThresholds } from './web-vitals';
 
 export {
   addBreadcrumb,

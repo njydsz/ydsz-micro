@@ -112,5 +112,9 @@
     "pauseSuccess": "Job paused",
     "resumeSuccess": "Job resumed",
     "triggerSuccess": "Trigger successful"
-  }
+  },
+  "job.sse.connecting": "Connecting...",
+  "job.sse.connected": "Connected",
+  "job.sse.disconnected": "Disconnected",
+  "job.sse.reconnecting": "Reconnecting ({n})..."
 }

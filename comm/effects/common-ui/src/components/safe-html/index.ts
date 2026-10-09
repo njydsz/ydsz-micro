@@ -1,1 +1,1 @@
-export { vSafeHtml } from './yd-safe-html';
+export { vSafeHtml, registerSafeHtmlDirective } from './yd-safe-html';

@@ -395,5 +395,24 @@
   "wf.designerPanel.urgeMaxCount": "Max 개수",
   "wf.designerPanel.user": "Specific 사용자",
   "wf.designerPanel.webhook": "Webhook",
-  "wf.designerPanel.wecom": "WeCom"
+  "wf.designerPanel.wecom": "WeCom",
+  "cc": {
+    "title": "수신 목록",
+    "processName": "프로세스 이름",
+    "businessNo": "업무 번호",
+    "nodeName": "노드",
+    "ccType": "수신 유형",
+    "subject": "제목",
+    "status": "상태",
+    "initiator": "개시자",
+    "time": "시간",
+    "actions": "조치",
+    "markRead": "읽음으로 표시",
+    "markAllRead": "모두 읽음",
+    "viewInstance": "프로세스 보기",
+    "read": "읽음",
+    "unread": "읽지 않음",
+    "unreadCount": "읽지 않음 {n} 항목",
+    "empty": "수신 항목 없음"
+  }
 }

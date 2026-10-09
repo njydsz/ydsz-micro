@@ -400,5 +400,24 @@
   "wf.designerPanel.urgeMaxCount": "最大次数",
   "wf.designerPanel.user": "指定人员",
   "wf.designerPanel.webhook": "Webhook",
-  "wf.designerPanel.wecom": "企业微信"
+  "wf.designerPanel.wecom": "企业微信",
+  "cc": {
+    "title": "抄送列表",
+    "processName": "流程名称",
+    "businessNo": "业务单号",
+    "nodeName": "抄送节点",
+    "ccType": "抄送类型",
+    "subject": "标题",
+    "status": "状态",
+    "initiator": "发起人",
+    "time": "抄送时间",
+    "actions": "操作",
+    "markRead": "标记已读",
+    "markAllRead": "全部已读",
+    "viewInstance": "查看流程",
+    "read": "已读",
+    "unread": "未读",
+    "unreadCount": "未读 {n} 条",
+    "empty": "暂无抄送"
+  }
 }

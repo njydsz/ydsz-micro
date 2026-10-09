@@ -113,5 +113,9 @@
     "pauseSuccess": "Travail en pause",
     "resumeSuccess": "Travail repris",
     "triggerSuccess": "Déclenchement réussi"
-  }
+  },
+  "job.sse.connecting": "Connexion...",
+  "job.sse.connected": "Connecté",
+  "job.sse.disconnected": "Déconnecté",
+  "job.sse.reconnecting": "Reconnexion ({n})..."
 }

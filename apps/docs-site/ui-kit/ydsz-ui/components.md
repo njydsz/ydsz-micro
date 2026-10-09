@@ -303,19 +303,19 @@ Logo 组件，支持主题适配、尺寸变体。
 
 内部状态管理 composables，需要在业务组件中组合使用。
 
-### useSelectHeadless\<T\>
+### useSelectHeadless&lt;T&gt;
 
 选择器逻辑抽象。
 
 ```typescript
-function useSelectHeadless<T>(options: UseSelectHeadlessOptions<T>): SelectHeadlessHandle<T>
+function useSelectHeadless&lt;T&gt;(options: UseSelectHeadlessOptions&lt;T&gt;): SelectHeadlessHandle&lt;T&gt;
 ```
 
 **UseSelectHeadlessOptions:**
 
 | 字段 | 类型 | 默认值 |
 |------|------|--------|
-| `items` | `MaybeRefOrGetter<T[]>` | — |
+| `items` | `MaybeRefOrGetter&lt;T[]&gt;` | — |
 | `multiple` | `MaybeRefOrGetter<boolean>` | — |
 | `virtualThreshold` | `MaybeRefOrGetter<number>` | `100` |
 | `getValue` | `(item) => string \| number` | **必填** |
@@ -326,7 +326,7 @@ function useSelectHeadless<T>(options: UseSelectHeadlessOptions<T>): SelectHeadl
 
 | 字段 | 类型 |
 |------|------|
-| `resolvedItems` | `MaybeRefOrGetter<T[]>` |
+| `resolvedItems` | `MaybeRefOrGetter&lt;T[]&gt;` |
 | `isVirtualEnabled` | `MaybeRefOrGetter<boolean>` |
 | `getLabelByValue` | `(value) => string` |
 | `toggleItem` | `(current, itemValue, multiple) => value` |
@@ -335,12 +335,12 @@ function useSelectHeadless<T>(options: UseSelectHeadlessOptions<T>): SelectHeadl
 
 ---
 
-### useTreeHeadless\<T\>
+### useTreeHeadless&lt;T&gt;
 
 树形组件逻辑抽象。
 
 ```typescript
-function useTreeHeadless<T>(options: UseTreeHeadlessOptions<T>): TreeHeadlessHandle<T>
+function useTreeHeadless&lt;T&gt;(options: UseTreeHeadlessOptions&lt;T&gt;): TreeHeadlessHandle&lt;T&gt;
 ```
 
 **UseTreeHeadlessOptions:**
@@ -368,12 +368,12 @@ function useTreeHeadless<T>(options: UseTreeHeadlessOptions<T>): TreeHeadlessHan
 
 ---
 
-### useTreeDrag\<T\>
+### useTreeDrag&lt;T&gt;
 
 树形拖拽排序逻辑。
 
 ```typescript
-function useTreeDrag<T>(options: UseTreeDragOptions<T>): TreeDragHandle
+function useTreeDrag&lt;T&gt;(options: UseTreeDragOptions&lt;T&gt;): TreeDragHandle
 ```
 
 **UseTreeDragOptions:**
@@ -385,7 +385,7 @@ function useTreeDrag<T>(options: UseTreeDragOptions<T>): TreeDragHandle
 | `getValue` | `(node) => string \| number` | **必填** |
 | `getChildren` | `(node) => T[]` | **必填** |
 | `setChildren` | `(node, children) => void` | **必填** |
-| `treeData` | `Ref<T[]>` | **必填** |
+| `treeData` | `Ref&lt;T[]&gt;` | **必填** |
 | `autoExpandDelay` | `number` | `600ms` |
 | `canDrag` | `(node) => boolean` | — |
 | `onReorder` | `(payload) => void` | **必填** |

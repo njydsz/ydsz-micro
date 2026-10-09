@@ -40,15 +40,17 @@ import {
   ElUpload,
 } from 'element-plus';
 import { Refresh, Search, UploadFilled, View } from '@element-plus/icons-vue';
-import { ingest, searchEntities, stats } from '#/api/knowledgeGraph';
+import { ingest, querySubgraph, searchEntities, stats } from '#/api/knowledgeGraph';
 import EntityDetailDrawer from './entity-detail-drawer.vue';
+import GraphView from './graph-view.vue';
+import type { GraphNode, GraphRelation } from './graph-view.vue';
 
 defineOptions({ name: 'KnowledgeGraphManagement' });
 
 const { t } = useI18n();
 
 // Tab 状态
-type TabName = 'search' | 'stats' | 'ingest';
+type TabName = 'search' | 'graph' | 'stats' | 'ingest';
 const activeTab = ref<TabName>('search');
 
 // ===== 搜索 Tab 状态 =====
@@ -76,6 +78,13 @@ const ingestProgress = ref<number>(0);
 const ingestResult = ref<string>('');
 const ingestError = ref<string>('');
 const ingestFileName = ref<string>('');
+
+// ===== 图视图 Tab 状态 =====
+const graphLoading = ref<boolean>(false);
+const graphError = ref<string>('');
+const graphNodes = ref<GraphNode[]>([]);
+const graphRelations = ref<GraphRelation[]>([]);
+const selectedGraphEntityId = ref<string>('');
 
 // ===== 详情抽屉 =====
 const detailDrawerVisible = ref<boolean>(false);
@@ -128,6 +137,72 @@ function handleTabChange(name: TabName): void {
   activeTab.value = name;
   if (name === 'stats' && Object.keys(graphStats.value).length === 0) {
     void loadStats();
+  }
+  if (name === 'graph' && graphNodes.value.length === 0) {
+    void loadDefaultGraph();
+  }
+}
+
+/**
+ * 加载默认图数据（图谱统计中的节点和关系概览）
+ * 如果有搜索结果，用搜索结果中第一个实体的子图；否则尝试使用统计中的数据。
+ */
+async function loadDefaultGraph(): Promise<void> {
+  graphLoading.value = true;
+  graphError.value = '';
+  try {
+    // 如果有搜索结果，取第一个节点的子图
+    if (searchResults.value.length > 0 && searchResults.value[0].entityId) {
+      await loadSubgraph(String(searchResults.value[0].entityId));
+      return;
+    }
+    // 无搜索结果时显示空图，由用户点击节点触发加载
+    graphNodes.value = [];
+    graphRelations.value = [];
+  } catch {
+    graphError.value = t('knowledgeGraph.graph.loadFailed') || '加载图谱数据失败';
+    graphNodes.value = [];
+    graphRelations.value = [];
+  } finally {
+    graphLoading.value = false;
+  }
+}
+
+/**
+ * 加载指定实体的子图
+ */
+async function loadSubgraph(entityId: string): Promise<void> {
+  if (!entityId) return;
+  graphLoading.value = true;
+  graphError.value = '';
+  selectedGraphEntityId.value = entityId;
+  try {
+    const data = await querySubgraph({ entityId }, { depth: 2 });
+    if (data && typeof data === 'object') {
+      const d = data as Record<string, unknown>;
+      const nodesRaw = d.nodes;
+      const relationsRaw = d.relations;
+      graphNodes.value = (Array.isArray(nodesRaw) ? nodesRaw : []) as unknown as GraphNode[];
+      graphRelations.value = (Array.isArray(relationsRaw) ? relationsRaw : []) as unknown as GraphRelation[];
+    } else {
+      graphNodes.value = [];
+      graphRelations.value = [];
+    }
+  } catch {
+    graphError.value = t('knowledgeGraph.graph.loadFailed') || '加载图谱数据失败';
+    graphNodes.value = [];
+    graphRelations.value = [];
+  } finally {
+    graphLoading.value = false;
+  }
+}
+
+/**
+ * 图视图节点点击事件
+ */
+function handleGraphNodeClick(node: GraphNode): void {
+  if (node.entityId) {
+    void loadSubgraph(node.entityId);
   }
 }
 
@@ -339,6 +414,25 @@ const typeDistData = computed(() => {
                   </template>
                 </ElTableColumn>
               </ElTable>
+            </ElCard>
+          </div>
+        </ElTabPane>
+
+        <!-- 图视图 Tab -->
+        <ElTabPane :label="$t('knowledgeGraph.tab.graph') || '图视图'" name="graph">
+          <div class="space-y-4 pt-4">
+            <ElCard
+              v-loading="graphLoading"
+              shadow="never"
+            >
+              <GraphView
+                :nodes="graphNodes"
+                :relations="graphRelations"
+                :loading="graphLoading"
+                :error="graphError"
+                @refresh="loadDefaultGraph"
+                @node-click="handleGraphNodeClick"
+              />
             </ElCard>
           </div>
         </ElTabPane>

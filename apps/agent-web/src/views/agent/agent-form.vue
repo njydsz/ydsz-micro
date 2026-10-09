@@ -115,29 +115,50 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 const title = computed(() => (isEdit.value ? '编辑Agent定义' : '新增Agent定义'));
+
+/** 判断给定字段名在 rules 中是否包含 required 校验 */
+function isRequired(field: string): boolean {
+  const fieldRules = rules[field];
+  if (!fieldRules) return false;
+  if (Array.isArray(fieldRules)) return fieldRules.some((r) => r.required);
+  return false;
+}
 </script>
 <template>
   <Modal :title="title">
     <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <YdFormItem label="Agent编码" prop="agentCode">
+      <YdFormItem prop="agentCode">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('agentCode')" class="mr-0.5 text-red-500">*</span>
+          Agent编码
+        </label>
         <YdInput v-model="formData.agentCode" placeholder="请输入Agent编码" :disabled="isEdit" />
       </YdFormItem>
-      <YdFormItem label="Agent名称" prop="agentName">
+      <YdFormItem prop="agentName">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('agentName')" class="mr-0.5 text-red-500">*</span>
+          Agent名称
+        </label>
         <YdInput v-model="formData.agentName" placeholder="请输入Agent名称" />
       </YdFormItem>
-      <YdFormItem label="Agent类型">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">Agent类型</label>
         <YdInput v-model="formData.agentType" placeholder="请输入Agent类型" />
       </YdFormItem>
-      <YdFormItem label="描述">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">描述</label>
         <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
       </YdFormItem>
-      <YdFormItem label="系统提示词">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">系统提示词</label>
         <YdInput v-model="formData.systemPrompt" type="textarea" :rows="2" placeholder="请输入系统提示词" />
       </YdFormItem>
-      <YdFormItem label="模型配置">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">模型配置</label>
         <YdInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
       </YdFormItem>
-      <YdFormItem label="工具列表">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">工具列表</label>
         <YdSelect
           v-if="!useTextFallback"
           v-model="selectedTools"
@@ -156,10 +177,12 @@ const title = computed(() => (isEdit.value ? '编辑Agent定义' : '新增Agent�
         </YdSelect>
         <YdInput v-else v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
       </YdFormItem>
-      <YdFormItem label="温度">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">温度</label>
         <YdNumberFieldInput v-model="formData.temperature" :min="0" :max="2" :step="0.1" />
       </YdFormItem>
-      <YdFormItem label="MaxTokens">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">MaxTokens</label>
         <YdNumberFieldInput v-model="formData.maxTokens" :min="0" :max="100000" :step="100" />
       </YdFormItem>
     </YdForm>

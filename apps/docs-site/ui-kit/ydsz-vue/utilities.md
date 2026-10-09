@@ -7,11 +7,11 @@
 受控 / 非受控状态统一封装，自动处理 `v-model` 与内部状态切换。
 
 ```typescript
-function useControlledState<T>(
+function useControlledState&lt;T&gt;(
   props: { modelValue?: T, model_value?: T },
   emit: (event: 'update:modelValue', value: T) => void,
-  options?: UseControlledStateOptions<T>
-): ControlledStateHandle<T>
+  options?: UseControlledStateOptions&lt;T&gt;
+): ControlledStateHandle&lt;T&gt;
 ```
 
 **UseControlledStateOptions:**
@@ -26,7 +26,7 @@ function useControlledState<T>(
 
 | 字段/方法 | 类型 |
 |-----------|------|
-| `localValue` | `Ref<T>` |
+| `localValue` | `Ref&lt;T&gt;` |
 | `isDirty` | `Ref<boolean>` |
 | `commit` | `() => Promise<boolean>` |
 | `reset` | `() => void` |
@@ -39,10 +39,10 @@ function useControlledState<T>(
 带防抖的搜索输入，返回搜索词、结果和加载状态。
 
 ```typescript
-function useDebouncedSearch<T>(
-  fetcher: (query: string) => Promise<T[]>,
+function useDebouncedSearch&lt;T&gt;(
+  fetcher: (query: string) => Promise&lt;T[]&gt;,
   options?: UseDebouncedSearchOptions
-): UseDebouncedSearchHandle<T>
+): UseDebouncedSearchHandle&lt;T&gt;
 ```
 
 **UseDebouncedSearchOptions:**
@@ -57,7 +57,7 @@ function useDebouncedSearch<T>(
 | 字段/方法 | 类型 |
 |-----------|------|
 | `query` | `Ref<string>` |
-| `results` | `Ref<T[]>` |
+| `results` | `Ref&lt;T[]&gt;` |
 | `isLoading` | `Ref<boolean>` |
 | `error` | `Ref<Error \| null>` |
 | `search` | `() => void` |
@@ -70,9 +70,9 @@ function useDebouncedSearch<T>(
 租户感知的选择器多选逻辑，切换租户自动清空已选。
 
 ```typescript
-function useTenantAwareSelection<T>(
+function useTenantAwareSelection&lt;T&gt;(
   options: UseTenantAwareOptions
-): UseTenantAwareHandle<T>
+): UseTenantAwareHandle&lt;T&gt;
 ```
 
 **UseTenantAwareOptions:**
@@ -86,7 +86,7 @@ function useTenantAwareSelection<T>(
 
 | 字段/方法 | 类型 |
 |-----------|------|
-| `selected` | `Ref<T[]>` |
+| `selected` | `Ref&lt;T[]&gt;` |
 | `clearSelection` | `() => void` |
 | `setSelected` | `(vals: T[]) => void` |
 
@@ -148,21 +148,21 @@ type AsTag = 'a' | 'button' | 'div' | 'form' | 'h2' | 'h3' | 'img'
 | `omit` | `<T, K>(obj: T, ...keys: K[]) => Omit<T, K>` | 从对象移除指定键 |
 | `isNullish` | `(value: any) => boolean` | 判断 null 或 undefined |
 | `areEqual` | `(arrayA: any[], arrayB: any[]) => boolean` | 浅比较数组相等 |
-| `chunk` | `<T>(arr: T[], size: number) => T[][]` | 分组切割 |
+| `chunk` | `&lt;T&gt;(arr: T[], size: number) => T[][]` | 分组切割 |
 | `getActiveElement` | `() => Element \| null` | 获取当前活跃元素（穿透 shadow DOM） |
 | `trapFocus` | `(element: HTMLElement) => HTMLElement \| undefined` | Tab focus trapping |
 | `onFocusOutside` | `(element, handler) => void` | focus outside 事件监听 |
 | `renderSlotFragments` | `(children?: VNode[]) => VNode[]` | 展平 Fragment slot 节点 |
 | `isValidVNodeElement` | `(input: any) => boolean` | 判断是否为有效 VNode 元素 |
-| `handleAndDispatchCustomEvent` | `<E>(name, handler, detail) => void` | 创建并派发自定义事件 |
+| `handleAndDispatchCustomEvent` | `&lt;E&gt;(name, handler, detail) => void` | 创建并派发自定义事件 |
 | `isBrowser` | `boolean` | 是否浏览器环境（SSR 安全） |
 
 ### 状态与上下文
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `createContext` | `<V>(providerName, contextName?) => [inject, provide]` | 类型安全的 provide/inject 工厂 |
-| `useStateMachine` | `<M>(initialState, machine) => { state, dispatch }` | 有限状态机 |
+| `createContext` | `&lt;V&gt;(providerName, contextName?) => [inject, provide]` | 类型安全的 provide/inject 工厂 |
+| `useStateMachine` | `&lt;M&gt;(initialState, machine) => { state, dispatch }` | 有限状态机 |
 | `useId` | `(deterministicId?, prefix?) => string` | 唯一 ID 生成（SSR Safe） |
 | `useDirection` | `(dir?) => ComputedRef<Direction>` | RTL/LTR 方向检测 |
 
@@ -170,10 +170,10 @@ type AsTag = 'a' | 'button' | 'div' | 'form' | 'h2' | 'h3' | 'img'
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `useForwardProps` | `<T>(props) => ComputedRef<T>` | 合并默认值 + 已传值 |
+| `useForwardProps` | `&lt;T&gt;(props) => ComputedRef&lt;T&gt;` | 合并默认值 + 已传值 |
 | `useForwardPropsEmits` | `<T, N>(props, emit?) => ComputedRef<T & EmitsAsProps>` | 转发 props + emits |
 | `useForwardExpose` | `() => { forwardRef, currentRef, currentElement }` | 自动转发组件暴露方法 |
-| `useEmitAsProps` | `<N>(emit) => Record<string, any>` | 将 emit 事件转成 onXx props |
+| `useEmitAsProps` | `&lt;N&gt;(emit) => Record<string, any>` | 将 emit 事件转成 onXx props |
 | `useForwardRef` | `() => handleRefChange` | 直接将 ref 赋值给 expose |
 
 ### 浏览器 / DOM
@@ -186,7 +186,7 @@ type AsTag = 'a' | 'button' | 'div' | 'form' | 'h2' | 'h3' | 'img'
 | `useArrowNavigation` | `(e, current, parent, options?) => HTMLElement \| null` | 键盘方向键导航 |
 | `useGraceArea` | `(trigger, container) => { isPointerInTransit, onPointerExit }` | hover 过渡 grace area |
 | `useTypeahead` | `(collections?) => { search, handleTypeaheadSearch, resetTypeahead }` | 字符快速导航 |
-| `useSelectionBehavior` | `<T>(modelValue, props) => { firstValue, onSelectItem, handleMultipleReplace }` | 多选/单选 selection 行为 |
+| `useSelectionBehavior` | `&lt;T&gt;(modelValue, props) => { firstValue, onSelectItem, handleMultipleReplace }` | 多选/单选 selection 行为 |
 | `useCollection` | `(key?, name?) => { createCollection, injectCollection }` | 集合项 provide/inject |
 | `useSize` | `(element) => { width, height }` | ResizeObserver 元素尺寸 |
 
@@ -224,5 +224,5 @@ interface SingleOrMultipleProps<V, T> {
 }
 
 type ScrollBodyOption = { padding?: boolean | number | string, margin?: boolean | number | string }
-type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
+type ArrayOrWrapped&lt;T&gt; = T extends any[] ? T : Array&lt;T&gt;
 ```

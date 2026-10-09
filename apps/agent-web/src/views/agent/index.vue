@@ -21,7 +21,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButton } from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { h, ref } from 'vue';
+import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, exportAgentDefinitions, list } from '#/api/agentDefinition';
@@ -37,6 +37,22 @@ const viewMode = ref<ViewMode>('card');
 const agentList = ref<AgentDefinitionVO[]>([]);
 const loading = ref<boolean>(false);
 const exporting = ref<boolean>(false);
+
+// P2-3: 卡片视图分页状态
+const pageNum = ref<number>(1);
+const pageSize = ref<number>(12);
+/** 当前页实际展示的数据（分页切片） */
+const paginatedList = computed<AgentDefinitionVO[]>(() => {
+  return agentList.value.slice(0, pageNum.value * pageSize.value);
+});
+/** 是否还有更多数据可加载 */
+const hasMore = computed<boolean>(() => {
+  return paginatedList.value.length < agentList.value.length;
+});
+/** 加载更多：仅递增页码，不重新请求后端 */
+function loadMore(): void {
+  pageNum.value += 1;
+}
 
 const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   columns: [
@@ -113,6 +129,7 @@ async function handleRefresh(): Promise<void> {
   if (viewMode.value === 'table') {
     gridApi.query();
   } else {
+    pageNum.value = 1;
     await loadAgentList();
   }
 }
@@ -302,7 +319,7 @@ void loadAgentList();
     >
       <YdCardGrid
         :is-empty="agentList.length === 0 && !loading"
-        :is-loading="loading"
+        :is-loading="loading && pageNum === 1"
       >
         <template #empty>
           <YdEmptyState
@@ -314,7 +331,7 @@ void loadAgentList();
           />
         </template>
         <YdEntityCard
-          v-for="item in agentList"
+          v-for="item in paginatedList"
           :key="item.id"
           :avatar-text="item.agentName"
           :avatar-variant="item.agentType === 'CHAT' ? 'primary' : (item.agentType === 'WORKFLOW' ? 'purple' : 'blue')"
@@ -391,6 +408,23 @@ void loadAgentList();
           </template>
         </YdEntityCard>
       </YdCardGrid>
+
+      <!-- P2-3: 卡片视图「加载更多」按钮 -->
+      <div v-if="agentList.length > 0 && !loading" class="mt-6 flex justify-center">
+        <YdButton
+          v-if="hasMore"
+          variant="outline"
+          @click="loadMore"
+        >
+          加载更多
+        </YdButton>
+        <span
+          v-else-if="agentList.length > pageSize"
+          class="text-sm text-text-tertiary"
+        >
+          已全部加载（共 {{ agentList.length }} 条）
+        </span>
+      </div>
     </div>
 
     <AgentFormModal @success="handleRefresh()" />

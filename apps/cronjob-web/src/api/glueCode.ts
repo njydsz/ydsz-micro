@@ -71,3 +71,10 @@ export function diff(params: {
   }): Promise<Record<string, Record<string, unknown>>> {
   return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/glue/diff`, { params });
 }
+
+/**
+ * validate: POST /cronjob/glue/validate
+ */
+export function validateGlueCode(data: { sourceCode: string; language: string; paramsJson?: string }): Promise<{ valid: boolean; message: string; errors?: string }> {
+  return requestClient.post(`/cronjob/glue/validate`, data);
+}

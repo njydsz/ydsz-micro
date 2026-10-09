@@ -4,8 +4,10 @@
  * <p>基于 @axe-core/playwright 的 configureAxe 方法，启用 WCAG 2.1 AA 全量规则集
  * （wcag2a + wcag2aa + wcag21aa），作为 PR 卡点的统一检测基准。
  *
- * <p>color-contrast 规则默认关闭：ydsz-ui 动态主题在 SSR/ hydration 过渡期
- * 可能出现短暂对比度不足，该场景由视觉回归测试覆盖，不在 axe 流程中卡控。
+ * <p>color-contrast 规则已恢复扫描（v27.01.05）：WCAG AA 要求正文对比度 ≥ 4.5:1、
+ * 大文本 ≥ 3:1，长期关闭会使色觉障碍用户无法正确识别内容。
+ * 动态主题切换的对比度问题应通过确保所有主题满足对比度标准来解决，
+ * 而非关闭规则。
  *
  * <p>通过 {@link configureAxeBuilder} 将配置统一注入 AxeBuilder 实例，
  * 确保所有 a11y spec 使用一致的规则集和运行选项。
@@ -15,7 +17,7 @@
  * @since 27.01.04
  */
 
-import type { AxeResults, RunOptions, Rule } from 'axe-core';
+import type { AxeResults, RunOptions } from 'axe-core';
 import type AxeBuilder from '@axe-core/playwright';
 
 /**
@@ -29,15 +31,12 @@ export const BLOCKING_IMPACTS = ['critical', 'serious'] as const;
  * 在 axe.configure() 中注入的规则开关列表。
  *
  * <p>Spec.rules 仅支持在 enable/disable 粒度控制单条规则（axe-core Spec 契约）。
- * color-contrast 设为 enabled: false 关闭动态主题切换时的对比度误报。
+ * color-contrast 已恢复启用（WCAG AA 正文对比度 ≥ 4.5:1，大文本 ≥ 3:1）。
  *
  * <p>其余 WCAG 2.1 AA 标准规则全部通过 axe.configure() 默认启用（axe-core 出厂即全开）；
  * 通过 RunOptions.runOnly 限制扫描范围至 wcag2a/wcag2aa/wcag21aa 三条标准。
  */
-export const disabledRules: Pick<Rule, 'id' | 'enabled'>[] = [
-  // 关掉的规则：color-contrast 会因动态主题切换产生误报
-  { id: 'color-contrast', enabled: false },
-];
+export const disabledRules: Array<{ id: string; enabled: boolean }> = [];
 
 /**
  * 运行期选项 — wcag2a / wcag2aa / wcag21aa 全量规则扫描。
@@ -65,7 +64,7 @@ export const axeRunOptions: RunOptions = {
  * @return 同一实例（已配置完成，支持链式调用）
  */
 export function configureAxeBuilder(builder: AxeBuilder): AxeBuilder {
-  // disableRules 关闭 color-contrast 等易误报规则
+  // disabledRules 当前为空 — 所有 WCAG 2.1 AA 规则（含 color-contrast）均参与扫描
   const ruleIds = disabledRules.map((r) => r.id);
   return builder.disableRules(ruleIds);
 }

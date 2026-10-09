@@ -1,11 +1,11 @@
 # 统一响应格式
 
-YDSZ 全平台 REST API 统一使用 `ApiResponse<T>` 响应包装格式。
+YDSZ 全平台 REST API 统一使用 `ApiResponse&lt;T&gt;` 响应包装格式。
 
 ## 响应结构
 
 ```typescript
-interface ApiResponse<T> {
+interface ApiResponse&lt;T&gt; {
   code: string;       // 业务状态码，"0" 表示成功
   msg: string;        // 描述信息
   data: T;            // 业务数据（泛型）

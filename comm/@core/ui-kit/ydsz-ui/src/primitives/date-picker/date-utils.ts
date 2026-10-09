@@ -10,6 +10,24 @@
  */
 import type { DatePickerType } from './types';
 
+/**
+ * 是否为范围模式。
+ */
+export function isRangeType(type: DatePickerType): boolean {
+  return type.endsWith('range');
+}
+
+/**
+ * 解析 range 类型对应的基础粒度。
+ */
+export function resolveRangeBase(type: DatePickerType): DatePickerType {
+  if (type === 'daterange') return 'date';
+  if (type === 'datetimerange') return 'datetime';
+  if (type === 'monthrange') return 'month';
+  if (type === 'yearrange') return 'year';
+  return type;
+}
+
 /** 判断是否为闰年 */
 export function isLeapYear(year: number): boolean {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;

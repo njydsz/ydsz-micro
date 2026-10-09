@@ -395,5 +395,24 @@
   "wf.designerPanel.urgeMaxCount": "Max 件数",
   "wf.designerPanel.user": "Specific ユーザー",
   "wf.designerPanel.webhook": "Webhook",
-  "wf.designerPanel.wecom": "WeCom"
+  "wf.designerPanel.wecom": "WeCom",
+  "cc": {
+    "title": "回覧リスト",
+    "processName": "プロセス名",
+    "businessNo": "業務番号",
+    "nodeName": "ノード",
+    "ccType": "回覧タイプ",
+    "subject": "タイトル",
+    "status": "状態",
+    "initiator": "起票者",
+    "time": "時間",
+    "actions": "操作",
+    "markRead": "既読にする",
+    "markAllRead": "全て既読",
+    "viewInstance": "プロセスを見る",
+    "read": "既読",
+    "unread": "未読",
+    "unreadCount": "未読 {n} 件",
+    "empty": "回覧はありません"
+  }
 }

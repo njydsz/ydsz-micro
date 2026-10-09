@@ -113,5 +113,9 @@
     "pauseSuccess": "ジョブを一時停止しました",
     "resumeSuccess": "ジョブを再開しました",
     "triggerSuccess": "トリガー成功しました"
-  }
+  },
+  "job.sse.connecting": "接続中...",
+  "job.sse.connected": "接続済み",
+  "job.sse.disconnected": "切断されました",
+  "job.sse.reconnecting": "再接続中 ({n})..."
 }

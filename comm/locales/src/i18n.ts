@@ -321,3 +321,7 @@ export {
   preloadLocaleOnIdle,
   setupI18n,
 };
+
+// vue-i18n globalInjection 模式下 $t 全局可用；此处显式导出供非模板场景直接 import 使用
+import type { Composer } from 'vue-i18n';
+export const $t = i18n.global.t as Composer['t'];

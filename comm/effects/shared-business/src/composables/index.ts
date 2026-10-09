@@ -59,6 +59,15 @@ export {
   type DictChangeEventDetail,
 } from './use-dict-event';
 
+// —— 字典 SSE 订阅 ——
+export {
+  useDictSse,
+  type DictSseCallback,
+  type DictSsePayload,
+  type DictSseItem,
+  type ConnectionStatus,
+} from './use-dict-sse';
+
 // —— 多租户 ——
 export {
   setTenantFetcher,

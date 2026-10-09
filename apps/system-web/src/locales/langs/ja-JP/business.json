@@ -285,5 +285,34 @@
       "cyan": "Cyan",
       "gray": "グレー"
     }
+  },
+"system":   {
+    "search": {
+      "tabAll": "全て",
+      "tabTask": "タスク",
+      "tabMessage": "メッセージ",
+      "tabRule": "ルール",
+      "tabDoc": "ドキュメント",
+      "placeholder": "タスク、メッセージ、ルール、ドキュメントを検索...",
+      "btnSearch": "検索",
+      "resultCount": "見つかりました",
+      "resultUnit": "件",
+      "hot": "人気の検索",
+      "loading": "検索中...",
+      "emptyHint": "キーワードを入力して検索を開始",
+      "noResult": "一致する結果が見つかりません",
+      "totalSearches": "累計検索: ",
+      "zeroResultRate": "ゼロ結果率"
+    },
+    "fileUpload": {
+      "statusInitializing": "初期化中...",
+      "statusUploading": "アップロード中",
+      "statusCompleting": "チャンクを結合中...",
+      "statusDone": "アップロード完了",
+      "statusError": "アップロードに失敗しました",
+      "dropHint": "クリックしてファイルを選択するか、ここにファイルをドラッグします",
+      "btnStart": "アップロード開始",
+      "btnCancel": "キャンセル"
+    }
   }
 }

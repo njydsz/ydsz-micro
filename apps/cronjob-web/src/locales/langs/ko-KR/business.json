@@ -113,5 +113,9 @@
     "pauseSuccess": "작업이 일시정지되었습니다",
     "resumeSuccess": "작업이 재개되었습니다",
     "triggerSuccess": "트리거 성공"
-  }
+  },
+  "job.sse.connecting": "연결 중...",
+  "job.sse.connected": "연결됨",
+  "job.sse.disconnected": "연결 끊김",
+  "job.sse.reconnecting": "다시 연결 중 ({n})..."
 }

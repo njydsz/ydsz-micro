@@ -395,5 +395,24 @@
   "wf.designerPanel.urgeMaxCount": "Max Conteo",
   "wf.designerPanel.user": "Specific Usuario",
   "wf.designerPanel.webhook": "Webhook",
-  "wf.designerPanel.wecom": "WeCom"
+  "wf.designerPanel.wecom": "WeCom",
+  "cc": {
+    "title": "Lista de CC",
+    "processName": "Proceso",
+    "businessNo": "Nº de negocio",
+    "nodeName": "Nodo",
+    "ccType": "Tipo",
+    "subject": "Asunto",
+    "status": "Estado",
+    "initiator": "Iniciador",
+    "time": "Hora",
+    "actions": "Acciones",
+    "markRead": "Marcar leído",
+    "markAllRead": "Todo leído",
+    "viewInstance": "Ver proceso",
+    "read": "Leído",
+    "unread": "No leído",
+    "unreadCount": "{n} no leído",
+    "empty": "Sin CC"
+  }
 }

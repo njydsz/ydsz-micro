@@ -285,5 +285,34 @@
       "cyan": "Cyan",
       "gray": "Gris"
     }
+  },
+"system":   {
+    "search": {
+      "tabAll": "Todo",
+      "tabTask": "Tareas",
+      "tabMessage": "Mensajes",
+      "tabRule": "Reglas",
+      "tabDoc": "Documentos",
+      "placeholder": "Buscar tareas, mensajes, reglas, documentos...",
+      "btnSearch": "Buscar",
+      "resultCount": "Encontrado",
+      "resultUnit": "resultados",
+      "hot": "Búsquedas populares",
+      "loading": "Buscando...",
+      "emptyHint": "Escriba una palabra clave para buscar",
+      "noResult": "No se encontraron resultados",
+      "totalSearches": "Búsquedas totales: ",
+      "zeroResultRate": "Tasa de resultados cero"
+    },
+    "fileUpload": {
+      "statusInitializing": "Inicializando...",
+      "statusUploading": "Subiendo",
+      "statusCompleting": "Fusionando fragmentos...",
+      "statusDone": "Carga completada",
+      "statusError": "Error de carga",
+      "dropHint": "Haga clic para seleccionar o arrastre archivos aquí",
+      "btnStart": "Iniciar carga",
+      "btnCancel": "Cancelar"
+    }
   }
 }

@@ -19,12 +19,13 @@
 */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdCard, YdEmptyState, YdButton, YdInput, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdEmptyState, YdInput, YdSelect, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
-import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { clearMemory, consolidateMemory, countMessages, loadMemory } from '#/api/memory';
-import type { MemoryVO } from '#/api/memory';
+import { useYdModal } from '@ydsz/common-ui';
+import { useYDSZVxeGrid, type VxeTableGridOptions } from '#/adapter/vxe-table';
+import { clearMemory, consolidate, countMessages, loadMemory, saveMemory } from '#/api/memory';
+import type { MemoryVO, SaveMemoryRequest } from '#/api/memory';
 
 const logger = createLogger('agent-memory');
 
@@ -151,6 +152,39 @@ const gridOptions: VxeTableGridOptions<MemoryVO> = {
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
+/** 新增记忆弹窗输入 */
+const saveFormRole = ref<string>('USER');
+const saveFormContent = ref<string>('');
+const [SaveMemoryModal, saveMemoryApi] = useYdModal({ connectedComponent: null });
+
+async function handleOpenSaveMemory(): Promise<void> {
+  if (!queryConversationId.value.trim()) {
+    showToast.warning('请先输入对话 ID');
+    return;
+  }
+  saveFormRole.value = 'USER';
+  saveFormContent.value = '';
+  saveMemoryApi.open();
+}
+
+async function handleSaveMemoryConfirm(): Promise<void> {
+  if (!saveFormContent.value.trim()) {
+    showToast.warning('请输入记忆内容');
+    return;
+  }
+  const data: SaveMemoryRequest = {
+    role: saveFormRole.value,
+    content: saveFormContent.value.trim(),
+  };
+  try {
+    await saveMemory({ conversationId: queryConversationId.value.trim() }, data);
+    showToast.success('新增记忆成功');
+    gridApi.query();
+  } catch (error) {
+    logger.warn('新增记忆失败: {}', error);
+  }
+}
+
 /** 搜索处理 */
 function handleSearch(): void {
   if (!queryConversationId.value.trim()) {
@@ -202,7 +236,7 @@ async function handleConsolidate(): Promise<void> {
     return;
   }
   try {
-    await consolidateMemory({ conversationId: queryConversationId.value.trim() });
+    await consolidate({ conversationId: queryConversationId.value.trim() }, {});
     showToast.success('记忆整合任务已触发');
   } catch (error) {
     logger.warn('触发记忆整合失败: {}', error);
@@ -251,8 +285,9 @@ async function handleDelete(row: MemoryVO): Promise<void> {
             @keyup.enter="handleSearch"
           />
           <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
-          <YdButton variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清除全部</YdButton>
-          <YdButton variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">整合记忆</YdButton>
+          <YdButton variant="default" :disabled="!queryConversationId.trim()" @click="handleOpenSaveMemory">新增记忆</YdButton>
+          <YdButton variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清空记忆</YdButton>
+          <YdButton variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">触发整合</YdButton>
         </div>
       </YdCard>
 
@@ -305,5 +340,35 @@ async function handleDelete(row: MemoryVO): Promise<void> {
         <YdEmptyState v-else description="请输入对话 ID 后点击查询" />
       </YdCard>
     </div>
+
+    <!-- 新增记忆弹窗 -->
+    <SaveMemoryModal title="新增记忆">
+      <div class="space-y-4">
+        <div>
+          <label class="mb-1 block text-sm font-medium">角色</label>
+          <YdSelect
+            v-model:value="saveFormRole"
+            :options="[
+              { label: '用户', value: 'USER' },
+              { label: '助手', value: 'ASSISTANT' },
+              { label: '系统', value: 'SYSTEM' },
+              { label: '工具', value: 'TOOL' },
+            ]"
+          />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium">记忆内容</label>
+          <YdTextarea
+            v-model:value="saveFormContent"
+            placeholder="请输入记忆内容"
+            :rows="4"
+          />
+        </div>
+      </div>
+      <template #footer>
+        <YdButton variant="outline" @click="saveMemoryApi.close()">取消</YdButton>
+        <YdButton @click="handleSaveMemoryConfirm">确认</YdButton>
+      </template>
+    </SaveMemoryModal>
   </Page>
 </template>

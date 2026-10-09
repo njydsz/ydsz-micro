@@ -883,7 +883,13 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
                 is_file = True
             if jt:
                 params.append({"name": name, "kind": kind, "type": jt, "annot": ann_text, "is_file": is_file})
-        path = ("/" + base + "/" + sub).replace("//", "/").rstrip("/") or "/"
+        # 路径规范化：剥离 base/sub 两侧斜杠后重新拼接，避免 /// 导致的双斜杠 Bug（#YDIZ-GEN-002）
+        path = (
+            "/"
+            + (base or "").strip("/")
+            + ("/" + sub.strip("/") if sub and sub.strip("/") else "")
+        )
+        path = ("/" + path.strip("/")).rstrip("/") or "/"
         # 提取 @ApiOperation / @Operation 注解中引用的 response class，
         # 用于 Map<String, Object> 这类未明确 VO 的返回类型作类型补全。
         # 例：@ApiOperation(response = FlowDefinitionVO.class) / @Operation(responses = ...)

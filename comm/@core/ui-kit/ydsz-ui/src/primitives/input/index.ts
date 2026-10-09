@@ -8,5 +8,5 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { default as YdInput } from './YdInput.vue';
+export { default as YdInput, default as YDSZInput } from './YdInput.vue';
 export type { InputSize } from './YdInput.vue';

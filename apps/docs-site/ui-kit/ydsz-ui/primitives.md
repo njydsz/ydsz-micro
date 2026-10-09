@@ -182,7 +182,7 @@ interface AutosizeConfig {
 | `value` | `string` | `''` | 否 |
 | `options` | `T[]` | `[]` | 否 |
 | `isAsync` | `boolean` | `false` | 否 |
-| `searchFn` | `(query: string) => Promise<T[]>` | — | 否 |
+| `searchFn` | `(query: string) => Promise&lt;T[]&gt;` | — | 否 |
 | `debounceMs` | `number` | `300` | 否 |
 | `clearable` | `boolean` | `true` | 否 |
 | `emptyText` | `string` | — | 否 |

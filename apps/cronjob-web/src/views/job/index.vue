@@ -20,7 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdBadge, YdButton, YdConfirm, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
-import { h, ref } from 'vue';
+import { h, onMounted, onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -37,6 +37,7 @@ import {
 } from '#/api/job';
 import { getJobEventStream } from '#/api/eventStore';
 import type { JobBatchDTO, JobVO } from '#/api/models';
+import { useJobStatusSse } from '#/composables/use-job-status-sse';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import JobForm from './job-form.vue';
@@ -51,6 +52,9 @@ const { t } = useI18n();
 
 /** 行类型：以真实契约 JobVO 为基础，status 由后端响应附带（契约模型未声明该字段） */
 type JobRow = JobVO & { status?: string };
+
+/** 批量操作进行中状态 — 防止重复点击 */
+const batchLoading = ref(false);
 
 /** 判断任务当前是否为「已暂停」（兼容字符串/数字两种取值，未知值按运行中处理） */
 function isPaused(row: JobRow): boolean {
@@ -110,11 +114,11 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
               () => t('common.edit'),
             ),
             isPaused(job)
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': t('common.resume'), onClick: () => handleResume(job) },
-              () => t('common.resume'),
-            )
+              ? h(
+                  YdButton,
+                  { size: 'sm', variant: 'link', 'aria-label': t('common.resume'), onClick: () => handleResume(job) },
+                  () => t('common.resume'),
+                )
               : h(
                   YdButton,
                   { size: 'sm', variant: 'link', 'aria-label': t('common.pause'), onClick: () => handlePause(job) },
@@ -202,6 +206,32 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 const [JobFormModal, jobFormApi] = useYdModal({ connectedComponent: JobForm });
+
+/** SSE 状态变更处理：收到状态变更事件时更新对应任务的 status badge */
+function handleSseStatusChange(event: { jobId: string; status: string }): void {
+  if (!event.jobId || !event.status) return;
+  // 找到对应行并更新 status，触发 UI 自动刷新
+  const records = gridApi.grid?.getData?.() as JobRow[] | undefined;
+  if (records && Array.isArray(records)) {
+    const target = records.find((r) => r.id === event.jobId);
+    if (target) {
+      target.status = event.status;
+      // 使用 triggerX 强制触发响应式更新
+      gridApi.grid?.updateData?.();
+    }
+  }
+}
+
+/** SSE 连接控制 */
+const { connect: connectSse, disconnect: disconnectSse } = useJobStatusSse(handleSseStatusChange);
+
+onMounted(() => {
+  connectSse();
+});
+
+onBeforeUnmount(() => {
+  disconnectSse();
+});
 
 /** Webhook 配置抽屉可见性 */
 const drawerVisible = ref(false);
@@ -351,6 +381,7 @@ async function handleBatchPause() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
   const data: JobBatchDTO = { jobIds: ids };
+  batchLoading.value = true;
   try {
     await batchPause(data);
     showToast.success('批量暂停成功');
@@ -358,6 +389,8 @@ async function handleBatchPause() {
   } catch {
     logger.warn('批量暂停失败', ids);
     // 错误提示由请求拦截器统一处理
+  } finally {
+    batchLoading.value = false;
   }
 }
 
@@ -365,6 +398,7 @@ async function handleBatchResume() {
   const ids = getSelectedIds();
   if (ids.length === 0) return;
   const data: JobBatchDTO = { jobIds: ids };
+  batchLoading.value = true;
   try {
     await batchResume(data);
     showToast.success('批量恢复成功');
@@ -372,6 +406,8 @@ async function handleBatchResume() {
   } catch {
     logger.warn('批量恢复失败', ids);
     // 错误提示由请求拦截器统一处理
+  } finally {
+    batchLoading.value = false;
   }
 }
 
@@ -386,6 +422,7 @@ async function handleBatchDelete() {
     return; // 用户主动取消批量删除
   }
   // 步骤2：执行批量删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
+  batchLoading.value = true;
   try {
     await batchDelete({ jobIds: ids } satisfies JobBatchDTO);
     showToast.success('批量删除成功');
@@ -393,6 +430,8 @@ async function handleBatchDelete() {
   } catch {
     logger.warn('批量删除失败', ids);
     // 错误已由请求拦截器展示，无需重复处理
+  } finally {
+    batchLoading.value = false;
   }
 }
 </script>
@@ -402,9 +441,9 @@ async function handleBatchDelete() {
     <Grid :table-title="t('page.task')">
       <template #toolbar-tools>
         <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
-        <YdButton variant="destructive" @click="handleBatchPause">批量暂停</YdButton>
-        <YdButton @click="handleBatchResume">批量恢复</YdButton>
-        <YdButton variant="destructive" @click="handleBatchDelete">批量删除</YdButton>
+        <YdButton variant="destructive" :loading="batchLoading" :disabled="batchLoading" @click="handleBatchPause">批量暂停</YdButton>
+        <YdButton :loading="batchLoading" :disabled="batchLoading" @click="handleBatchResume">批量恢复</YdButton>
+        <YdButton variant="destructive" :loading="batchLoading" :disabled="batchLoading" @click="handleBatchDelete">批量删除</YdButton>
       </template>
     </Grid>
     <JobFormModal @success="gridApi.query()" />

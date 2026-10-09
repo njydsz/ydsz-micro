@@ -14,7 +14,7 @@
  *   <li>静态语义：lang、landmark、标题层级、scope 关联</li>
  *   <li>可访问名称：按钮、链接、表单控件、iframe</li>
  *   <li>键盘可达：焦点顺序、tab 陷阱（dialog）</li>
- *   <li>对比度（color-contrast 关闭，由视觉回归替代）</li>
+ *   <li>对比度（color-contrast 已启用，WCAG AA 正文 ≥ 4.5:1、大文本 ≥ 3:1）</li>
  * </ul>
  *
  * @path tests/a11y/smoke.spec.ts

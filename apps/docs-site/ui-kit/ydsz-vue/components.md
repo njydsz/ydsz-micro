@@ -591,7 +591,7 @@
 - **Emits**: `update:modelValue`, `update:expanded`
 - **Slots**: `default` `({ flattenItems, modelValue, expanded })`
 
-### TreeItem (generic \`\<T\>\`)
+### TreeItem (generic \`&lt;T&gt;\`)
 
 | 属性 | 类型 | 必填 |
 |------|------|------|

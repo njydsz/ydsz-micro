@@ -340,5 +340,34 @@
       "cyan": "Cyan",
       "gray": "Gray"
     }
+  },
+"system":   {
+    "search": {
+      "tabAll": "All",
+      "tabTask": "Tasks",
+      "tabMessage": "Messages",
+      "tabRule": "Rules",
+      "tabDoc": "Docs",
+      "placeholder": "Search tasks, messages, rules, documents...",
+      "btnSearch": "Search",
+      "resultCount": "Found",
+      "resultUnit": "results",
+      "hot": "Hot Searches",
+      "loading": "Searching...",
+      "emptyHint": "Type a keyword to search",
+      "noResult": "No results found",
+      "totalSearches": "Total searches: ",
+      "zeroResultRate": "Zero-result rate"
+    },
+    "fileUpload": {
+      "statusInitializing": "Initializing...",
+      "statusUploading": "Uploading",
+      "statusCompleting": "Merging chunks...",
+      "statusDone": "Upload complete",
+      "statusError": "Upload failed",
+      "dropHint": "Click to select or drag files here",
+      "btnStart": "Start Upload",
+      "btnCancel": "Cancel"
+    }
   }
 }

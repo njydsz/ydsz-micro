@@ -171,9 +171,9 @@ YDSZ UI 是在 YDSZ Vue 无头组件层之上封装的**有样式组件库**，�
 
 | 名称 | 说明 |
 |------|------|
-| `useSelectHeadless<T>` | 选择器逻辑抽象 |
-| `useTreeHeadless<T>` | 树形组件逻辑抽象 |
-| `useTreeDrag<T>` | 树形拖拽排序逻辑 |
+| `useSelectHeadless&lt;T&gt;` | 选择器逻辑抽象 |
+| `useTreeHeadless&lt;T&gt;` | 树形组件逻辑抽象 |
+| `useTreeDrag&lt;T&gt;` | 树形拖拽排序逻辑 |
 
 ## 国际化系统
 

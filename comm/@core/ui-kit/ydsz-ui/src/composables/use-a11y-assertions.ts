@@ -15,15 +15,12 @@ import { axe, type AxeResults, type RunOptions } from 'vitest-axe';
 import { expect } from 'vitest';
 
 /**
- * 默认 axe-core 配置：启用全部严重级别规则 + color-contrast（仅 dev 期）。
+ * 默认 axe-core 配置：启用全部严重级别规则，含 color-contrast（WCAG AA 正文 ≥ 4.5:1）。
  *
  * tags 控制遵循的标准集：wcag2a / wcag2aa / wcag21a / wcag21aa / best-practice。
  */
 export const DEFAULT_A11Y_OPTIONS: RunOptions = {
-  rules: {
-    // 关掉的规则：color-contrast 会因动态主题变化产生误报，交给视觉回归测试处理
-    'color-contrast': { enabled: false },
-  },
+  rules: {},
   tags: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'],
   // 保留全部结果，方便详细报告
   resultTypes: ['violations', 'incomplete'],

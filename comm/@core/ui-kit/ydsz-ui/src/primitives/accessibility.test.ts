@@ -2,8 +2,7 @@
  * 无障碍（a11y）检测套件：针对核心 UI 组件的自动化无障碍断言
  *
  * <p>基于 vitest-axe + axe-core 运行 WCAG 2.1 AA 级检测；
- * color-contrast 规则在默认流程中关闭（动态主题切换会带来的误报），
- * 交由视觉回归测试或独立 contrast 检查负责。
+ * color-contrast 规则已启用（v27.01.05），所有主题下的组件必须满足正文对比度 ≥ 4.5:1。
  *
  * <p>扩展 expect matcher 后支持 <code>await expect(el).toBeAccessible()</code> 风格。
  *

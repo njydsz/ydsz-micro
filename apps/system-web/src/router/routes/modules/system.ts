@@ -139,6 +139,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/monitor/index.vue'),
         meta: { icon: 'lucide:activity', title: '监控面板' },
       },
+      {
+        name: 'GlobalSearch',
+        path: 'search',
+        component: () => import('#/views/global-search/index.vue'),
+        meta: { icon: 'lucide:search', title: '全局搜索' },
+      },
     ],
   },
   {

@@ -23,23 +23,7 @@ export type DatePickerType =
   | 'monthrange'
   | 'yearrange';
 
-/**
- * 是否为范围模式。
- */
-export function isRangeType(type: DatePickerType): boolean {
-  return type.endsWith('range');
-}
-
-/**
- * 解析 range 类型对应的基础粒度。
- */
-export function resolveRangeBase(type: DatePickerType): DatePickerType {
-  if (type === 'daterange') return 'date';
-  if (type === 'datetimerange') return 'datetime';
-  if (type === 'monthrange') return 'month';
-  if (type === 'yearrange') return 'year';
-  return type;
-}
+// isRangeType / resolveRangeBase: moved to date-utils.ts
 
 /**
  * YdDatePicker 的 v-model 值形态。

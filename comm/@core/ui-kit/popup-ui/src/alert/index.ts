@@ -15,10 +15,12 @@ export type {
   YdPromptProps,
 } from './alert';
 export { useAlertContext } from './alert';
-export { default as YdAlert } from './YdAlert.vue';
+// Vue 组件直接以 default 名义导出（避免与 AlertBuilder 的二义性冲突）
+export { default } from './YdAlert.vue';
+// 命令式 API：从 AlertBuilder 导出，名称互不冲突
 export {
-  YdAlert as alert,
+  YdAlert,
+  YdConfirm,
+  YdPrompt,
   clearAllAlerts,
-  YdConfirm as confirm,
-  YdPrompt as prompt,
 } from './AlertBuilder';

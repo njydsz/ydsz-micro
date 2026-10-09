@@ -57,6 +57,25 @@ const {
   setError,
 } = useSubAppPhase(subappContainerRef);
 
+/**
+ * 重试加载失败的子应用。
+ *
+ * 当前实现：先将阶段重置为 idle，再通过主应用 router 强制重新导航到当前路由，
+ * 触发内核 beforeLoad → mount 流程重新执行。
+ * P2-2: 错误遮罩增加「重新加载」按钮。
+ */
+function handleRetry(): void {
+  const appName = state.activeAppName.value;
+  if (!appName || !microRuntime) return;
+  // 1. 重置错误阶段为 idle，让错误遮罩消失
+  setPhase("idle", appName);
+  // 2. 通过 router 重新导航到相同路径，触发内核重新加载子应用
+  const currentPath = route.fullPath;
+  void microRuntime.unmountApp(appName).then(() => {
+    microRuntime!.navigateTo(currentPath);
+  });
+}
+
 /** 骨架屏组件解析（computed 自动追踪 route.path，无需手动 watch） */
 const pageSkeletonComponent = useSkeletonResolver(state.activeAppName, route);
 
@@ -253,6 +272,14 @@ onUnmounted(() => {
           <p class="error-title">{{ errorMaskTitle }}</p>
           <p class="error-msg">{{ state.lastError.value || phaseText }}</p>
           <p class="error-hint">{{ errorMaskHint }}</p>
+          <!-- P2-2: 重新加载按钮 — 点击后卸载当前子应用并重新导航触发重新加载 -->
+          <button
+            type="button"
+            class="retry-button"
+            @click="handleRetry"
+          >
+            重新加载
+          </button>
         </div>
       </div>
     </Transition>
@@ -403,6 +430,23 @@ onUnmounted(() => {
   font-size: 12px;
   color: hsl(var(--txt-disabled));
   margin: 0;
+}
+
+.retry-button {
+  margin-top: 12px;
+  padding: 6px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: hsl(var(--txt-primary));
+  background: hsl(var(--surface-1));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.retry-button:hover {
+  background: hsl(var(--surface-2));
 }
 
 @keyframes skeleton-loading {

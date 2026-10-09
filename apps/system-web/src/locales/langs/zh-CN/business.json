@@ -340,5 +340,34 @@
       "cyan": "青色",
       "gray": "灰色"
     }
+  },
+"system":   {
+    "search": {
+      "tabAll": "全部",
+      "tabTask": "任务",
+      "tabMessage": "消息",
+      "tabRule": "规则",
+      "tabDoc": "文档",
+      "placeholder": "搜索任务、消息、规则、文档...",
+      "btnSearch": "搜索",
+      "resultCount": "找到",
+      "resultUnit": "条结果",
+      "hot": "热门搜索",
+      "loading": "搜索中...",
+      "emptyHint": "输入关键词开始搜索",
+      "noResult": "未找到匹配结果",
+      "totalSearches": "累计搜索：",
+      "zeroResultRate": "零结果率"
+    },
+    "fileUpload": {
+      "statusInitializing": "初始化中...",
+      "statusUploading": "上传中",
+      "statusCompleting": "合并分片中...",
+      "statusDone": "上传完成",
+      "statusError": "上传失败",
+      "dropHint": "点击选择文件或拖拽文件到此处",
+      "btnStart": "开始上传",
+      "btnCancel": "取消"
+    }
   }
 }

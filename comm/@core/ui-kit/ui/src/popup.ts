@@ -5,7 +5,7 @@
  *
  * @module @ydsz-core/ui/popup
  */
-export { YdModal, YdDrawer, YdAlert } from '@ydsz-core/popup-ui';
+export { YdModal, YdDrawer, YdAlert, YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 export {
   useYdModal,
   useYdDrawer,

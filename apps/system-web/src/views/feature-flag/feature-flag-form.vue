@@ -112,34 +112,61 @@ const [Modal, modalApi] = useYdModal({
 });
 
 const title = computed(() => (isEdit.value ? t('featureFlag.edit') : t('featureFlag.create')));
+
+/** 判断给定字段名在 rules 中是否包含 required 校验 */
+function isRequired(field: string): boolean {
+  const fieldRules = rules[field];
+  if (!fieldRules) return false;
+  if (Array.isArray(fieldRules)) return fieldRules.some((r) => r.required);
+  return false;
+}
 </script>
 
 <template>
   <Modal :title="title">
     <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <YdFormItem :label="t('featureFlag.flagKey')" prop="flagKey">
+      <YdFormItem prop="flagKey">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('flagKey')" class="mr-0.5 text-red-500">*</span>
+          {{ t('featureFlag.flagKey') }}
+        </label>
         <YdInput v-model="formData.flagKey" :placeholder="t('featureFlag.flagKeyPlaceholder')" :disabled="isEdit" />
       </YdFormItem>
-      <YdFormItem :label="t('featureFlag.flagName')" prop="flagName">
+      <YdFormItem prop="flagName">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('flagName')" class="mr-0.5 text-red-500">*</span>
+          {{ t('featureFlag.flagName') }}
+        </label>
         <YdInput v-model="formData.flagName" :placeholder="t('featureFlag.flagNamePlaceholder')" />
       </YdFormItem>
-      <YdFormItem :label="t('featureFlag.flagType')" prop="flagType">
+      <YdFormItem prop="flagType">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('flagType')" class="mr-0.5 text-red-500">*</span>
+          {{ t('featureFlag.flagType') }}
+        </label>
         <YdRadioGroup v-model="formData.flagType">
           <YdRadioGroupItem value="BOOLEAN">{{ t('featureFlag.typeBoolean') }}</YdRadioGroupItem>
           <YdRadioGroupItem value="STRING">{{ t('featureFlag.typeString') }}</YdRadioGroupItem>
           <YdRadioGroupItem value="JSON">{{ t('featureFlag.typeJson') }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
-      <YdFormItem :label="t('featureFlag.defaultValue')">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('featureFlag.defaultValue') }}</label>
         <YdInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('featureFlag.defaultValuePlaceholder')" />
       </YdFormItem>
-      <YdFormItem :label="t('featureFlag.currentValue')">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('featureFlag.currentValue') }}</label>
         <YdInput v-model="formData.currentValue" type="textarea" :rows="2" :placeholder="t('featureFlag.currentValuePlaceholder')" />
       </YdFormItem>
-      <YdFormItem :label="t('featureFlag.description')">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('featureFlag.description') }}</label>
         <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('featureFlag.descriptionPlaceholder')" />
       </YdFormItem>
-      <YdFormItem :label="t('featureFlag.status')" prop="status">
+      <YdFormItem prop="status">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('status')" class="mr-0.5 text-red-500">*</span>
+          {{ t('featureFlag.status') }}
+        </label>
         <YdRadioGroup v-model="formData.status">
           <YdRadioGroupItem value="1">{{ t('common.enabled') }}</YdRadioGroupItem>
           <YdRadioGroupItem value="0">{{ t('common.disabled') }}</YdRadioGroupItem>

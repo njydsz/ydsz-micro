@@ -11,7 +11,7 @@ import { useRoute } from 'vue-router';
 import { RiDingding } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 
-import { alert, useYdModal } from '@ydsz-core/popup-ui';
+import { YdAlert, useYdModal } from '@ydsz-core/popup-ui';
 import { YdIconButton } from '@ydsz-core/ydsz-ui';
 import { loadScript } from '@ydsz-core/shared/utils';
 

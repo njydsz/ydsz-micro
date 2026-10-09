@@ -50,7 +50,7 @@ export { openApiSchemaToComponentType, openApiSchemaToFormFields } from '@ydsz-c
 export type { ComponentFieldConfig, ComponentMappingOptions } from '@ydsz-core/form-ui';
 
 // ===== 弹窗 / 抽屉 =====
-export { YdModal, YdDrawer, YdAlert } from '@ydsz-core/popup-ui';
+export { YdModal, YdDrawer, YdAlert, YdConfirm, YdPrompt, clearAllAlerts } from '@ydsz-core/popup-ui';
 export { useYdModal, useYdDrawer } from '@ydsz-core/popup-ui';
 export type { YdPopupApi, YdPopupApiCallbacks, YdPopupApiOptions } from '@ydsz-core/popup-ui';
 

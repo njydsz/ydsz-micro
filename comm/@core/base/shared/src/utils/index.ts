@@ -23,6 +23,8 @@ export * from './unique';
 export * from './update-css-variables';
 export * from './util';
 export * from './window';
+// Re-export dayjs for consumers needing it directly (v4.3.1)
+export { default as dayjs } from 'dayjs';
 export { default as cloneDeep } from 'lodash.clonedeep';
 export { default as get } from 'lodash.get';
 export { default as isEqual } from 'lodash.isequal';

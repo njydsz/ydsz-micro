@@ -395,5 +395,24 @@
   "wf.designerPanel.urgeMaxCount": "Max Compte",
   "wf.designerPanel.user": "Specific Utilisateur",
   "wf.designerPanel.webhook": "Webhook",
-  "wf.designerPanel.wecom": "WeCom"
+  "wf.designerPanel.wecom": "WeCom",
+  "cc": {
+    "title": "Liste de diffusion",
+    "processName": "Processus",
+    "businessNo": "N° métier",
+    "nodeName": "Nœud",
+    "ccType": "Type",
+    "subject": "Sujet",
+    "status": "Statut",
+    "initiator": "Initiateur",
+    "time": "Heure",
+    "actions": "Actions",
+    "markRead": "Marquer lu",
+    "markAllRead": "Tout lu",
+    "viewInstance": "Voir processus",
+    "read": "Lu",
+    "unread": "Non lu",
+    "unreadCount": "{n} non lu",
+    "empty": "Aucune diffusion"
+  }
 }

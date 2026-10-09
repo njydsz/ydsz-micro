@@ -14,27 +14,27 @@ import { requestClient } from '#/api/request';
 import type { MonitorErrorBatchDTO, MonitorWebVitalBatchDTO } from './models';
 
 /**
- * reportErrors: POST //monitor/error
+ * reportErrors: POST /monitor/error
  */
 export function reportErrors(data: MonitorErrorBatchDTO): Promise<void> {
-  return requestClient.post<void>(`//monitor/error`, data);
+  return requestClient.post<void>(`/monitor/error`, data);
 }
 
 /**
- * reportWebVitals: POST //monitor/web-vitals
+ * reportWebVitals: POST /monitor/web-vitals
  */
 export function reportWebVitals(params: {
     alert?: boolean;
   }, data: MonitorWebVitalBatchDTO): Promise<void> {
-  return requestClient.post<void>(`//monitor/web-vitals`, data, { params });
+  return requestClient.post<void>(`/monitor/web-vitals`, data, { params });
 }
 
 /**
- * uploadSourcemap: POST /
+ * uploadSourcemap: POST /v1/monitor/sourcemaps
  */
 export function uploadSourcemap(params: {
     release?: string;
     file?: string;
   }, data: number[]): Promise<string> {
-  return requestClient.post<string>(`/`, data, { params });
+  return requestClient.post<string>(`/v1/monitor/sourcemaps`, data, { params });
 }

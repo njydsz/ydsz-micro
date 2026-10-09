@@ -400,5 +400,24 @@
   "wf.designerPanel.urgeMaxCount": "Max Count",
   "wf.designerPanel.user": "Specific User",
   "wf.designerPanel.webhook": "Webhook",
-  "wf.designerPanel.wecom": "WeCom"
+  "wf.designerPanel.wecom": "WeCom",
+  "cc": {
+    "title": "CC List",
+    "processName": "Process Name",
+    "businessNo": "Business No.",
+    "nodeName": "Node",
+    "ccType": "CC Type",
+    "subject": "Subject",
+    "status": "Status",
+    "initiator": "Initiator",
+    "time": "Time",
+    "actions": "Actions",
+    "markRead": "Mark Read",
+    "markAllRead": "Mark All Read",
+    "viewInstance": "View Process",
+    "read": "Read",
+    "unread": "Unread",
+    "unreadCount": "{n} unread",
+    "empty": "No CC items"
+  }
 }

@@ -88,5 +88,75 @@
     "exportingHtml": "正在加载 HTML 报告…",
     "exportHtmlFailed": "导出 HTML 报告失败",
     "delete": "删除"
+  },
+  "knowledgeGraph": {
+    "title": "知识图谱管理",
+    "tab": {
+      "search": "实体搜索",
+      "graph": "图视图",
+      "stats": "图谱统计",
+      "ingest": "图谱摄取"
+    },
+    "search": {
+      "placeholder": "输入关键词搜索实体...",
+      "entityType": "实体类型",
+      "keywordRequired": "请输入搜索关键词",
+      "failed": "搜索失败",
+      "noResults": "未找到匹配的实体",
+      "entityId": "EntityID",
+      "name": "名称",
+      "type": "类型",
+      "description": "描述"
+    },
+    "stats": {
+      "totalEntities": "实体总数",
+      "totalRelations": "关系总数",
+      "entityTypes": "实体类型数",
+      "ingestJobs": "摄取任务数",
+      "failed": "加载统计信息失败",
+      "noData": "暂无统计数据"
+    },
+    "ingest": {
+      "description": "上传结构化数据文件（JSON/JSONL/CSV）以导入知识图谱。",
+      "dragText": "拖拽文件到此处或",
+      "clickText": "点击上传",
+      "formats": "支持 JSON / JSONL / CSV 格式",
+      "success": "摄取成功",
+      "failed": "摄取失败",
+      "selectFile": "请先选择文件"
+    },
+    "graph": {
+      "nodeCount": "节点",
+      "edgeCount": "关系",
+      "engine": "引擎",
+      "svgMode": "SVG",
+      "noData": "暂无图谱数据，请先搜索实体",
+      "loadFailed": "加载图谱数据失败",
+      "otherType": "其他"
+    },
+    "detail": {
+      "title": "实体详情",
+      "basicInfo": "基本信息",
+      "entityId": "EntityID",
+      "name": "名称",
+      "type": "类型",
+      "description": "描述",
+      "subgraph": "子图结构",
+      "emptySubgraph": "暂无子图数据",
+      "nodeCount": "节点数",
+      "relationCount": "关系数",
+      "nodeId": "节点ID",
+      "nodeName": "节点名称",
+      "nodeType": "节点类型",
+      "edges": "关系边",
+      "relationType": "关系类型",
+      "sourceEntity": "源实体",
+      "targetEntity": "目标实体",
+      "weight": "权重",
+      "allRelations": "关联关系",
+      "emptyRelations": "暂无关联关系",
+      "subgraphFailed": "加载子图失败",
+      "relationsFailed": "加载关系列表失败"
+    }
   }
 }

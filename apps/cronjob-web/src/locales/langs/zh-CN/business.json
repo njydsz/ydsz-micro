@@ -112,5 +112,9 @@
     "pauseSuccess": "已暂停",
     "resumeSuccess": "已恢复",
     "triggerSuccess": "触发成功"
-  }
+  },
+  "job.sse.connecting": "连接中...",
+  "job.sse.connected": "已连接",
+  "job.sse.disconnected": "连接断开",
+  "job.sse.reconnecting": "重连中 ({n})..."
 }

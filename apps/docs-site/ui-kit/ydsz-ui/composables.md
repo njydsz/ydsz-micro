@@ -4,28 +4,28 @@
 
 ---
 
-## useTableData\<T\>
+## useTableData&lt;T&gt;
 
 表格数据分页、排序、筛选、选择、展开全功能封装。
 
 ```typescript
-function useTableData<T>(options: UseTableDataOptions<T>): UseTableDataReturn<T>
+function useTableData&lt;T&gt;(options: UseTableDataOptions&lt;T&gt;): UseTableDataReturn&lt;T&gt;
 ```
 
 **UseTableDataOptions:**
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| `data` | `MaybeRefOrGetter<T[]>` | 表格数据源 |
-| `columns` | `MaybeRefOrGetter<TableColumnDef<T>[]>` | 列定义 |
+| `data` | `MaybeRefOrGetter&lt;T[]&gt;` | 表格数据源 |
+| `columns` | `MaybeRefOrGetter<TableColumnDef&lt;T&gt;[]>` | 列定义 |
 | `isRemote` | `boolean` | 是否远程数据（false = 前端分页） |
-| `rowSelection` | `RowSelectionConfig<T>` | 行选择配置 |
+| `rowSelection` | `RowSelectionConfig&lt;T&gt;` | 行选择配置 |
 | `defaultExpandAllRows` | `boolean` | 默认展开所有行 |
 
 **TableColumnDef:**
 
 ```typescript
-interface TableColumnDef<T> {
+interface TableColumnDef&lt;T&gt; {
   key: string;
   isSortable?: boolean;
   isFilterable?: boolean;
@@ -39,7 +39,7 @@ interface TableColumnDef<T> {
 
 | 字段/方法 | 类型 | 说明 |
 |-----------|------|------|
-| `viewRows` | `ComputedRef<T[]>` | 当前视图数据（排序/筛选/分页后） |
+| `viewRows` | `ComputedRef&lt;T[]&gt;` | 当前视图数据（排序/筛选/分页后） |
 | `sortState` | `Ref<SortState>` | 当前排序状态 |
 | `toggleSort` | `(prop: string) => void` | 切换排序字段方向 |
 | `filterState` | `Ref<Map<string, Set<string>>>` | 列筛选状态 |
@@ -50,7 +50,7 @@ interface TableColumnDef<T> {
 | `toggleSelectAll` | `() => void` | 全选/取消全选 |
 | `expandedKeys` | `Ref<Set<string>>` | 已展开行 key 集合 |
 | `toggleExpand` | `(key: string) => void` | 切换行展开状态 |
-| `rawRows` | `ComputedRef<T[]>` | 原始数据 |
+| `rawRows` | `ComputedRef&lt;T[]&gt;` | 原始数据 |
 
 ---
 
@@ -80,13 +80,13 @@ interface StoredColumnConfig {
 
 ---
 
-## useColumnDrag\<T\>
+## useColumnDrag&lt;T&gt;
 
 表格列拖拽排序。
 
 ```typescript
-function useColumnDrag<T>(
-  columns: MaybeRef<T[]> | (() => T[]),
+function useColumnDrag&lt;T&gt;(
+  columns: MaybeRef&lt;T[]&gt; | (() => T[]),
   onReorder: (fromIndex: number, toIndex: number) => void,
   options?: UseColumnDragOptions
 ): {
@@ -112,15 +112,15 @@ interface ColumnDragState { isDragging: boolean; fromIndex: number; toIndex: num
 
 ---
 
-## useVirtualList\<T\>
+## useVirtualList&lt;T&gt;
 
 虚拟滚动列表，大数据量流畅渲染。
 
 ```typescript
-function useVirtualList<T>(
-  items: MaybeRef<T[]> | (() => T[]),
+function useVirtualList&lt;T&gt;(
+  items: MaybeRef&lt;T[]&gt; | (() => T[]),
   options?: UseVirtualListOptions
-): VirtualListHandle<T>
+): VirtualListHandle&lt;T&gt;
 ```
 
 **UseVirtualListOptions:**
@@ -137,7 +137,7 @@ function useVirtualList<T>(
 
 | 字段/方法 | 类型 |
 |-----------|------|
-| `visibleItems` | `Ref<VisibleItem<T>[]>` |
+| `visibleItems` | `Ref<VisibleItem&lt;T&gt;[]>` |
 | `totalHeight` | `Ref<number>` |
 | `offsetY` | `Ref<number>` |
 | `onScroll` | `(event: Event) => void` |
@@ -148,7 +148,7 @@ function useVirtualList<T>(
 **VisibleItem:**
 
 ```typescript
-interface VisibleItem<T> {
+interface VisibleItem&lt;T&gt; {
   data: T;
   index: number;
   offsetY: number;

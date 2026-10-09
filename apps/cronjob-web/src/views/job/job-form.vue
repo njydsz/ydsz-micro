@@ -233,6 +233,14 @@ const [Modal, modalApi] = useYdModal({
 });
 
 const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定时任务'));
+
+/** 判断给定字段名在 rules 中是否包含 required 校验 */
+function isRequired(field: string): boolean {
+  const fieldRules = rules[field];
+  if (!fieldRules) return false;
+  if (Array.isArray(fieldRules)) return fieldRules.some((r) => r.required);
+  return false;
+}
 </script>
 
 <template>
@@ -244,19 +252,27 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
       label-width="110px"
       label-position="right"
     >
-      <YdFormItem :label="t('business.jobName')" prop="jobName">
+      <YdFormItem prop="jobName">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('jobName')" class="mr-0.5 text-red-500">*</span>
+          {{ t('business.jobName') }}
+        </label>
         <YdInput v-model="formData.jobName" placeholder="请输入任务名称" />
       </YdFormItem>
-      <YdFormItem label="任务标识" prop="jobKey">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">任务标识</label>
         <YdInput v-model="formData.jobKey" placeholder="请输入任务标识" />
       </YdFormItem>
-      <YdFormItem :label="t('business.jobGroup')" prop="jobGroup">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('business.jobGroup') }}</label>
         <YdInput v-model="formData.jobGroup" placeholder="请输入任务分组" />
       </YdFormItem>
-      <YdFormItem label="执行器" prop="handler">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">执行器</label>
         <YdInput v-model="formData.handler" placeholder="请输入执行器 Handler" />
       </YdFormItem>
-      <YdFormItem label="调度类型" prop="scheduleType">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">调度类型</label>
         <YdSelectBase v-model="formData.scheduleType">
           <YdSelectTriggerBase placeholder="请选择调度类型" class="w-full" />
           <YdSelectContentBase>
@@ -267,10 +283,15 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
-      <YdFormItem v-if="formData.scheduleType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
+      <YdFormItem v-if="formData.scheduleType === 'CRON'" prop="cronExpression">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+          <span v-if="isRequired('cronExpression')" class="mr-0.5 text-red-500">*</span>
+          {{ t('business.cronExpression') }}
+        </label>
         <CronBuilder v-model="formData.cronExpression" />
       </YdFormItem>
-      <YdFormItem v-if="formData.scheduleType === 'FIXED_RATE'" label="固定速率间隔(ms)">
+      <YdFormItem v-if="formData.scheduleType === 'FIXED_RATE'">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">固定速率间隔(ms)</label>
         <YdInput
           v-model="formData.fixedRateMs"
           type="number"
@@ -280,7 +301,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
           placeholder="如 30000=每30秒"
         />
       </YdFormItem>
-      <YdFormItem v-if="formData.scheduleType === 'FIXED_DELAY'" label="固定延迟间隔(ms)">
+      <YdFormItem v-if="formData.scheduleType === 'FIXED_DELAY'">
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">固定延迟间隔(ms)</label>
         <YdInput
           v-model="formData.fixedDelayMs"
           type="number"
@@ -290,7 +312,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
           placeholder="上次完成后等待毫秒数"
         />
       </YdFormItem>
-      <YdFormItem label="备注" prop="remark">
+      <YdFormItem>
+        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">备注</label>
         <YdTextarea v-model="formData.remark" placeholder="请输入备注" :rows="2" />
       </YdFormItem>
 
@@ -298,14 +321,16 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
         <YdAccordionItem value="advanced">
           <YdAccordionTrigger>高级配置（参数 / 超时 / 重试 / 分片 / 时区）</YdAccordionTrigger>
           <YdAccordionContent>
-          <YdFormItem label="任务参数(JSON)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">任务参数(JSON)</label>
             <YdTextarea
               v-model="formData.paramsJson"
               :rows="3"
               placeholder='如 {"url":"http://example.com","retry":3}'
             />
           </YdFormItem>
-          <YdFormItem label="超时时间(ms)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">超时时间(ms)</label>
             <YdInput
               v-model="formData.timeoutMs"
               type="number"
@@ -315,7 +340,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="null=不限超时"
             />
           </YdFormItem>
-          <YdFormItem label="慢任务阈值(ms)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">慢任务阈值(ms)</label>
             <YdInput
               v-model="formData.slowThresholdMs"
               type="number"
@@ -325,7 +351,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="超过则标记 is_slow"
             />
           </YdFormItem>
-          <YdFormItem label="SLA阈值(ms)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">SLA阈值(ms)</label>
             <YdInput
               v-model="formData.slaMs"
               type="number"
@@ -335,7 +362,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="超过触发 SLA_WARNING 告警"
             />
           </YdFormItem>
-          <YdFormItem label="锁TTL(ms)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">锁TTL(ms)</label>
             <YdInput
               v-model="formData.lockTtlMs"
               type="number"
@@ -345,7 +373,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="null=全局默认 5min"
             />
           </YdFormItem>
-          <YdFormItem label="Misfire策略">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">Misfire策略</label>
             <YdSelectBase v-model="formData.misfirePolicy" class="w-full">
               <YdSelectTriggerBase class="w-full" />
               <YdSelectContentBase>
@@ -359,7 +388,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
-          <YdFormItem label="阻塞策略">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">阻塞策略</label>
             <YdSelectBase v-model="formData.blockStrategy">
               <YdSelectTriggerBase class="w-full" />
               <YdSelectContentBase>
@@ -373,7 +403,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
-          <YdFormItem label="最大重试次数">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">最大重试次数</label>
             <YdInput
               v-model="formData.maxRetries"
               type="number"
@@ -383,7 +414,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="null=不重试"
             />
           </YdFormItem>
-          <YdFormItem label="重试间隔(ms)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">重试间隔(ms)</label>
             <YdInput
               v-model="formData.retryIntervalMs"
               type="number"
@@ -392,7 +424,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               class="w-full"
             />
           </YdFormItem>
-          <YdFormItem label="重试退避">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">重试退避</label>
             <YdSelectBase v-model="formData.retryBackoff">
               <YdSelectTriggerBase class="w-full" />
               <YdSelectContentBase>
@@ -406,7 +439,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
-          <YdFormItem label="熔断阈值">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">熔断阈值</label>
             <YdInput
               v-model="formData.maxConsecutiveFails"
               type="number"
@@ -416,7 +450,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="连续失败次数，达到后自动暂停"
             />
           </YdFormItem>
-          <YdFormItem label="自动恢复(分钟)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">自动恢复(分钟)</label>
             <YdInput
               v-model="formData.autoResumeAfterMinutes"
               type="number"
@@ -426,7 +461,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="熔断后自动恢复"
             />
           </YdFormItem>
-          <YdFormItem label="优先级">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">优先级</label>
             <YdInput
               v-model="formData.priority"
               type="number"
@@ -436,7 +472,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="数值越大越先派发"
             />
           </YdFormItem>
-          <YdFormItem label="分片总数">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">分片总数</label>
             <YdInput
               v-model="formData.shardTotal"
               type="number"
@@ -446,7 +483,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="1=非分片任务"
             />
           </YdFormItem>
-          <YdFormItem label="时区">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">时区</label>
             <YdSelectBase v-model="formData.timezone">
               <YdSelectTriggerBase class="w-full" placeholder="选择或输入时区" />
               <YdSelectContentBase>
@@ -456,10 +494,12 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
-          <YdFormItem label="目标集群">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">目标集群</label>
             <YdInput v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
           </YdFormItem>
-          <YdFormItem label="灰度比例(%)">
+          <YdFormItem>
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">灰度比例(%)</label>
             <YdInput
               v-model="formData.canaryRatio"
               type="number"
@@ -470,7 +510,8 @@ const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定�
               placeholder="0-100，按 jobKey 哈希分桶"
             />
           </YdFormItem>
-          <YdFormItem v-if="formData.canaryRatio" label="灰度处理器">
+          <YdFormItem v-if="formData.canaryRatio">
+            <label class="mb-1 flex items-center text-sm font-medium text-text-primary">灰度处理器</label>
             <YdInput v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
           </YdFormItem>
           </YdAccordionContent>

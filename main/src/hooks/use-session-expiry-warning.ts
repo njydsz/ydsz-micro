@@ -17,7 +17,7 @@
 import { getCurrentScope, onScopeDispose, watch } from 'vue';
 
 import { showToast } from '@ydsz/notification';
-import { ydszConfirm } from '@ydsz-core/popup-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useTokenStore } from '@ydsz/stores';
 
 import { refreshTokenApi } from '#/api/core/auth';
@@ -36,7 +36,7 @@ const CHECK_INTERVAL_MS = 30 * 1000;
  * 启动会话超时预警 composable
  *
  * <p>监听 tokenStore.expiresAt（绝对过期时间戳），在到期前 5 分钟弹出确认框询问用户是否续期。
- * 使用 ydszConfirm（ydsz-ui）弹出确认框，showToast（ydsz-ui）展示消息。
+ * 使用 YdConfirm（ydsz-ui）弹出确认框，showToast（ydsz-ui）展示消息。
  *
  * @remarks 必须在 Pinia 初始化后调用（bootstrap 中 initStores 之后）
  *
@@ -99,8 +99,8 @@ export function useSessionExpiryWarning(): void {
     if (warnedFor === tokenStore.expiresAt) return;
     warnedFor = tokenStore.expiresAt;
     try {
-      // ydszConfirm 取消时 reject，因此 try/catch 捕获
-      await ydszConfirm($t('authentication.sessionExpiringSoon'), {
+      // YdConfirm 取消时 reject，因此 try/catch 捕获
+      await YdConfirm($t('authentication.sessionExpiringSoon'), {
         title: $t('authentication.sessionExpiryTitle'),
         confirmText: $t('authentication.renew'),
         cancelText: $t('common.cancel'),

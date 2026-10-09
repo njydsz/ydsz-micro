@@ -16,7 +16,7 @@
  *
  * <p>容差策略：
  *   - maxDiffPixelRatio ≤ 0.01（允许 1% 像素差异，兼容抗锯齿渲染差异）
- *   - 不纳入 color-contrast 规则（axe 负责），仅检测布局/结构变化
+ *   - 不纳入 color-contrast 规则（axe a11y spec 负责），仅检测布局/结构变化
  *
  * @path playwright.visual.config.ts
  * @author ydsz-ai
