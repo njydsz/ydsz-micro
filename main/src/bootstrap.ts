@@ -55,6 +55,11 @@ async function bootstrap(namespace: string) {
   // 安装前端监控（错误捕获 + Web Vitals）+ Sentry 转发
   setupAppMonitoring(app);
 
+  // 兜底：捕获未被 ErrorBoundary 处理的 JS 异常，避免静默失败
+  app.config.errorHandler = (err: unknown, instance: unknown, info: string): void => {
+    console.error(`[GlobalErrorHandler] ${info}`, err, instance);
+  };
+
   app.mount("#app");
 
   // v3.1 修复：app.mount 同步渲染，#subapp-container 已就绪，

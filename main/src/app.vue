@@ -6,22 +6,24 @@
  * @since 1.0.0
 -->
 <!--
- * 应用根组件（v5.0 重构）
+ * 应用根组件（v5.2 重构）
  *
  * 变更（YDIZ-EP-001 Phase 1）：
  * - 移除旧版 ConfigProvider
  * - 移除 useElementDesignTokens()（主题桥接层废弃）
  * - 挂载 ToastProvider（ydsz-ui 通知系统入口）
  * - 保留 NetworkAlert / SubAppProgress / GlobalSearch
+ * - 新增 ErrorBoundary 全局错误边界，防止组件渲染异常导致白屏
  *
  * @path main\src\app.vue
- * @since 5.0.0
+ * @since 5.2.0
 -->
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
 import { ToastProvider } from '@ydsz/notification';
 
+import ErrorBoundary from '#/components/error-boundary.vue';
 import GlobalSearch from '#/components/global-search.vue';
 import NetworkAlert from '#/components/network-alert.vue';
 import SubAppProgress from '#/components/subapp-progress.vue';
@@ -45,8 +47,16 @@ onUnmounted(() => { stopSearchShortcut?.(); });
 
 <template>
   <ToastProvider />
-  <NetworkAlert />
-  <SubAppProgress v-if="preferences.transition.progress" />
-  <RouterView />
-  <GlobalSearch v-model:visible="searchVisible" />
+  <ErrorBoundary name="全局通知">
+    <NetworkAlert />
+  </ErrorBoundary>
+  <ErrorBoundary name="子应用加载进度">
+    <SubAppProgress v-if="preferences.transition.progress" />
+  </ErrorBoundary>
+  <ErrorBoundary name="主内容区域">
+    <RouterView />
+  </ErrorBoundary>
+  <ErrorBoundary name="全局搜索">
+    <GlobalSearch v-model:visible="searchVisible" />
+  </ErrorBoundary>
 </template>

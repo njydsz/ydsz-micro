@@ -30,11 +30,8 @@ export function sendMfaEmailCode(data: SendVerifyCodeDTO): Promise<boolean> {
 /**
  * login: POST /auth/login
  */
-export function login(params: {
-    servletRequest?: Record<string, unknown>;
-    servletResponse?: Record<string, unknown>;
-  }, data: LoginDTO): Promise<LoginVO> {
-  return requestClient.post<LoginVO>(`/auth/login`, data, { params });
+export function login(data: LoginDTO): Promise<LoginVO> {
+  return requestClient.post<LoginVO>(`/auth/login`, data);
 }
 
 /**

@@ -29,20 +29,15 @@ export function send(data: MessageSendDTO): Promise<unknown> {
 /**
  * pageLog: GET /message/log/page
  */
-export function pageLog(params: {
-    query?: MessageLogQueryDTO;
-  }): Promise<PageResponse<MsgLogVO[]>> {
-  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/log/page`, { params });
+export function pageLog(query?: MessageLogQueryDTO): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/log/page`, { params: query });
 }
 
 /**
  * exportLogs: GET /message/log/export
  */
-export function exportLogs(params: {
-    query?: MessageLogQueryDTO;
-    response?: Record<string, unknown>;
-  }): Promise<void> {
-  return requestClient.get<void>(`/message/log/export`, { params });
+export function exportLogs(query?: MessageLogQueryDTO): Promise<void> {
+  return requestClient.get<void>(`/message/log/export`, { params: query });
 }
 
 /**
