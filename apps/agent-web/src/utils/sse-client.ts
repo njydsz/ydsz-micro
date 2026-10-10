@@ -1,4 +1,12 @@
 /**
+ * 工具函数 - sse-client 模块
+ *
+ * @path apps\agent-web\src\utils\sse-client.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * Agent SSE 客户端工具 — @ydsz/shared-auth openSseRequest 的 Agent 业务分发层
  *
  * <p>用于消费后端 AgentController 的流式接口（{@code POST /api/agent/chat/stream}、

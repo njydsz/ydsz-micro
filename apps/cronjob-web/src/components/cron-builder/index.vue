@@ -34,6 +34,7 @@ import cronstrue from 'cronstrue/i18n';
 import dayjs from 'dayjs';
 
 import CronMultiSelect from './CronMultiSelect.vue';
+import CronPreview from './CronPreview.vue';
 
 const logger = createLogger('cron-builder');
 
@@ -984,25 +985,11 @@ defineOptions({ name: 'CronBuilder' });
       </YdTabs>
 
       <!-- ====== 预览区 ====== -->
-      <div class="mt-3 space-y-2 rounded bg-muted/40 p-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-medium">{{ t('cronBuilder.preview') }}</span>
-          <span class="rounded bg-primary/10 px-2 py-0.5 font-mono text-xs text-primary">
-            {{ cronExpression }}
-          </span>
-        </div>
-        <div class="text-xs text-muted-foreground">
-          {{ t('cronBuilder.previewDescription') }}: {{ cronDescription }}
-        </div>
-        <div v-if="nextRunTimes.length > 0" class="space-y-1">
-          <div class="text-xs font-medium">{{ t('cronBuilder.previewNextRuns') }}</div>
-          <ul class="ml-3 space-y-0.5">
-            <li v-for="(run, idx) in nextRunTimes" :key="idx" class="font-mono text-xs text-muted-foreground">
-              {{ run }}
-            </li>
-          </ul>
-        </div>
-      </div>
+      <CronPreview
+        :cron-expression="cronExpression"
+        :cron-description="cronDescription"
+        :next-run-times="nextRunTimes"
+      />
     </div>
   </div>
 </template>

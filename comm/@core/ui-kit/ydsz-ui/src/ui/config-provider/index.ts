@@ -1,8 +1,15 @@
 /**
  * ConfigProvider 组件 barrel。
  *
- * @author ydsz-ai
- * @since 1.0.0
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\config-provider\index.ts
+ * @author ydsz-team
+ * @since 26.09.24
  */
 export { default as ydConfigProvider } from './config-provider.vue';
-export type { ConfigProviderProps } from './config-provider-types';
+export type {
+  ConfigProviderProps,
+  ConfigProviderEmits,
+  ConfigProviderTheme,
+  LocaleLang,
+  DensityMode,
+} from './config-provider-types';

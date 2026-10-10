@@ -471,7 +471,7 @@ async function handleBatchDelete() {
           暂无事件记录
         </div>
         <div v-else class="space-y-2">
-          <div v-for="(event, idx) in eventStream" :key="idx" class="border-l-4 border-blue-400 pl-3">
+          <div v-for="event in eventStream" :key="event" class="border-l-4 border-blue-400 pl-3">
             <div class="text-sm font-medium">{{ translateEventType(event) }}</div>
             <div class="text-xs text-gray-500">{{ event }}</div>
           </div>

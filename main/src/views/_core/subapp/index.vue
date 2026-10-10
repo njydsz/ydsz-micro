@@ -1,4 +1,11 @@
 <!--
+ * index 模块
+ *
+ * @path main\src\views\_core\subapp\index.vue
+ * @author ydsz-team
+ * @since 1.0.0
+-->
+<!--
  * micro-kernel 微前端子应用挂载容器组件 — 作为子应用的 DOM 挂载点
  *
  * v3.2: 直接订阅 microRuntime 生命周期钩子（替代 window 事件），

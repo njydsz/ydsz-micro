@@ -1,4 +1,12 @@
 /**
+ * 通用组件 - agent-status-badge.test 模块
+ *
+ * @path apps\agent-web\src\components\agent-status-badge.test.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * AgentStatusBadge 组件测试 — 验证状态徽章渲染行为
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。

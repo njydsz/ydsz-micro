@@ -1,4 +1,12 @@
 /**
+ * 工具函数 - agent-text-utils.test 模块
+ *
+ * @path apps\agent-web\src\utils\agent-text-utils.test.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * Agent 文本处理工具集单元测试 — 验证纯函数行为
  *
  * <p>云顶编码规范 §16.10 YDIZ-TEST-FE-001：测试用例必须有明确断言。

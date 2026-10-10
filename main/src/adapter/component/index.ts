@@ -1,4 +1,12 @@
 /**
+ * 模块 - index 模块
+ *
+ * @path main\src\adapter\component\index.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * 通用异步组件注册表 —— 表单/弹窗/抽屉共享的 UI 组件统一装配层（基座版）
  *
  * 将原先写在 adapter/form 内部的基础组件提取为独立模块，使其可被

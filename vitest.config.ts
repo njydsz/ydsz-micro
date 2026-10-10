@@ -24,6 +24,9 @@ export default defineConfig({
       '@': resolve(rootDir, 'main/src'),
       '#': resolve(rootDir, 'main/src'),
       '@ydsz/request': resolve(rootDir, 'comm/effects/request/src/index.ts'),
+      '@ydsz-core/design-tokens/composables': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/composables/index.ts'),
+      '@ydsz-core/design-tokens/density': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/tokens/density.ts'),
+      '@ydsz-core/design-tokens': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/index.ts'),
     },
   },
   test: {

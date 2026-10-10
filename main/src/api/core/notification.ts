@@ -1,4 +1,12 @@
 /**
+ * 模块 - notification 模块
+ *
+ * @path main\src\api\core\notification.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * 站内通知 API —— 收件箱分页/未读数/标记已读/批量删除接口（对齐后端 NotificationController）
  *
  * <p>后端契约：{@code NotificationController} 映射于 {@code /api/message/notifications}，

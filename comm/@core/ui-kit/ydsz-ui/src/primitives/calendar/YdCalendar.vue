@@ -7,29 +7,33 @@
  * - 头部自定义渲染（headerRender：如日期选择器跳转）
  * - 单元格自定义渲染（cellRender / fullCellRender）
  * - 国际化 weekday 标签（通过 locale 注入）
+ * - 月份/年份快速跳转下拉
+ * - "今天"快捷按钮
+ * - 预设快捷选项渲染（today / yesterday / thisWeek 等）
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\calendar\YdCalendar.vue
  * @author ydsz-team
- * @since 1.0.0
+ * @since 26.09.24
 -->
 <script lang="ts" setup>
-// @ts-nocheck
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
+import type { CalendarShortcut } from './use-calendar-shortcuts';
+
 interface Props {
   /** 自定义类名 */
-  class?: any;
+  class?: string;
   /** 禁用日期函数 */
   disabledDate?: (date: Date) => boolean;
   /** 默认展示的月份（受控） */
   defaultValue?: Date;
   /** 自定义单元格完整渲染 */
-  fullCellRender?: (date: Date) => any;
+  fullCellRender?: (date: Date) => unknown;
   /** 头部额外渲染 */
-  headerRender?: () => any;
+  headerRender?: () => unknown;
   /** 是否显示周末（默认显示） */
   showWeekend?: boolean;
   /** 选中日期（受控，单选模式） */
@@ -40,12 +44,22 @@ interface Props {
   startDate?: Date;
   /** 范围选择结束值 */
   endDate?: Date;
+  /** 快捷选项列表 */
+  shortcuts?: readonly CalendarShortcut[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  class: undefined,
   disabledDate: undefined,
+  defaultValue: undefined,
+  fullCellRender: undefined,
+  headerRender: undefined,
   range: false,
   showWeekend: true,
+  value: undefined,
+  startDate: undefined,
+  endDate: undefined,
+  shortcuts: () => [],
 });
 
 const emit = defineEmits<{
@@ -54,6 +68,7 @@ const emit = defineEmits<{
   'update:endDate': [date: Date | undefined];
   select: [date: Date];
   panelChange: [date: Date];
+  'shortcut-select': [shortcut: CalendarShortcut];
 }>();
 
 /** 当前显示的月份 */
@@ -73,7 +88,7 @@ const calendarDays = computed(() => {
   const { firstDay, month, totalDays, year } = daysInMonth.value;
   const prevMonthDays = new Date(year, month, 0).getDate();
 
-  const days: Array<{
+  const days: ReadonlyArray<{
     isCurrentMonth: boolean;
     date: Date;
     disabled: boolean;
@@ -114,6 +129,51 @@ const calendarDays = computed(() => {
 });
 
 const weekLabels = ['日', '一', '二', '三', '四', '五', '六'];
+
+/* ----- 月份/年份跳转 ----- */
+
+/** 当前年份 */
+const currentYear = computed(() => displayDate.value.getFullYear());
+
+/** 当前月份（0-based） */
+const currentMonth = computed(() => displayDate.value.getMonth());
+
+/** 年份下拉选项（前后 10 年） */
+const yearOptions = computed<ReadonlyArray<number>>(() => {
+  const now = new Date().getFullYear();
+  const years: number[] = [];
+  for (let y = now - 10; y <= now + 10; y++) {
+    years.push(y);
+  }
+  return years;
+});
+
+/** 月份下拉选项（1-12） */
+const monthOptions = computed<ReadonlyArray<number>>(() => {
+  return Array.from({ length: 12 }, (_, i) => i);
+});
+
+function onYearChange(year: number): void {
+  const d = new Date(displayDate.value);
+  d.setFullYear(year);
+  displayDate.value = d;
+  emit('panelChange', d);
+}
+
+function onMonthChange(month: number): void {
+  const d = new Date(displayDate.value);
+  d.setMonth(month);
+  displayDate.value = d;
+  emit('panelChange', d);
+}
+
+function goToToday(): void {
+  const today = new Date();
+  displayDate.value = new Date(today.getFullYear(), today.getMonth(), 1);
+  emit('panelChange', displayDate.value);
+}
+
+/* ----- 月份导航 ----- */
 
 function prevMonth(): void {
   const d = new Date(displayDate.value);
@@ -156,21 +216,66 @@ function handleSelect(date: Date): void {
   emit('select', date);
 }
 
-import { ref } from 'vue';
+function handleShortcutClick(shortcut: CalendarShortcut): void {
+  emit('shortcut-select', shortcut);
+}
 </script>
 
 <template>
   <div :class="cn('flex flex-col rounded-lg border p-4', props.class)">
-    <!-- 头部 -->
-    <div class="mb-3 flex items-center justify-between">
-      <button class="hover:bg-muted rounded p-1" type="button" @click="prevMonth">
-        <ChevronLeft class="size-4" />
+    <!-- 快捷选项 -->
+    <div v-if="props.shortcuts.length > 0" class="mb-3 flex flex-wrap gap-1 border-b pb-2">
+      <button
+        v-for="sc in props.shortcuts"
+        :key="sc.label"
+        type="button"
+        class="hover:bg-muted text-muted-foreground rounded px-2 py-0.5 text-xs transition-colors"
+        @click="handleShortcutClick(sc)"
+      >
+        {{ sc.label }}
       </button>
-      <span class="text-sm font-semibold">
-        {{ displayDate.getFullYear() }}年 {{ displayDate.getMonth() + 1 }}月
-      </span>
-      <button class="hover:bg-muted rounded p-1" type="button" @click="nextMonth">
-        <ChevronRight class="size-4" />
+    </div>
+
+    <!-- 头部：年份/月份跳转 + 月份导航 -->
+    <div class="mb-3 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1">
+        <button class="hover:bg-muted rounded p-1" type="button" aria-label="上一月" @click="prevMonth">
+          <ChevronLeft class="size-4" />
+        </button>
+
+        <!-- 年份下拉 -->
+        <select
+          :value="currentYear"
+          class="hover:bg-muted rounded px-1 py-0.5 text-xs"
+          aria-label="选择年份"
+          @change="onYearChange(Number(($event.target as HTMLSelectElement).value))"
+        >
+          <option v-for="y in yearOptions" :key="y" :value="y">{{ y }}年</option>
+        </select>
+
+        <!-- 月份下拉 -->
+        <select
+          :value="currentMonth"
+          class="hover:bg-muted rounded px-1 py-0.5 text-xs"
+          aria-label="选择月份"
+          @change="onMonthChange(Number(($event.target as HTMLSelectElement).value))"
+        >
+          <option v-for="m in monthOptions" :key="m" :value="m">{{ m + 1 }}月</option>
+        </select>
+
+        <!-- 上一月/下一月导航 -->
+        <button class="hover:bg-muted rounded p-1" type="button" aria-label="下一月" @click="nextMonth">
+          <ChevronRight class="size-4" />
+        </button>
+      </div>
+
+      <!-- 今天按钮 -->
+      <button
+        type="button"
+        class="hover:bg-muted text-primary rounded px-2 py-0.5 text-xs font-medium transition-colors"
+        @click="goToToday"
+      >
+        今天
       </button>
     </div>
 

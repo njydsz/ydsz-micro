@@ -64,6 +64,7 @@ export * from './popover';
 export * from './progress';
 export * from './qr-code';
 export * from './radio-group';
+export * from './range-picker';
 export * from './rate';
 export * from './resizable';
 export * from './result';

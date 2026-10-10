@@ -361,7 +361,7 @@ onMounted(() => {
         </YdFormItem>
       </YdForm>
       <div v-if="compareResult.length > 0" class="space-y-2">
-        <div v-for="(diff, idx) in compareResult" :key="idx" class="rounded border border-gray-200 p-3">
+        <div v-for="(diff, idx) in compareResult" :key="`compare-${idx}-${Object.keys(diff).length}`" class="rounded border border-gray-200 p-3">
           <div v-for="(val, field) in diff" :key="field" class="grid grid-cols-3 gap-2 text-sm">
             <span class="font-medium text-gray-600">{{ field }}</span>
             <span class="text-red-600 line-through">{{ String(val ?? '-') }}</span>

@@ -481,7 +481,7 @@ const canImport = computed(() => {
             <div v-if="importResult.errors.length > 0" class="rounded bg-red-50 p-3">
               <p class="mb-1 text-sm font-medium text-red-700">{{ t('batchImport.errorDetails') }}</p>
               <ul class="list-disc pl-4 text-xs text-red-600">
-                <li v-for="(err, idx) in importResult.errors" :key="idx">{{ err }}</li>
+                <li v-for="err in importResult.errors" :key="`err-${err}`">{{ err }}</li>
               </ul>
             </div>
           </div>

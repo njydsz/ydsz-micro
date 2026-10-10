@@ -1,4 +1,12 @@
 /**
+ * 组合式函数 - use-web-vitals 模块
+ *
+ * @path main\src\composables\use-web-vitals.ts
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+
+/**
  * Web Vitals 组合式函数 — 封装 monitor 采集逻辑，提供响应式 store 与阈值告警
  *
  * <p>功能：

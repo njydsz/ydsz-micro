@@ -35,7 +35,7 @@ async function initRedoc(): Promise<void> {
 
     const Redoc = (window as unknown as Record<string, { init: unknown }>).Redoc;
     if (Redoc && typeof Redoc.init === 'function' && containerRef.value) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Redoc 通过 CDN 挂载到 window，无官方类型声明
       (Redoc as any).init(props.specUrl, {
         scrollYOffset: 60,
       }, containerRef.value);

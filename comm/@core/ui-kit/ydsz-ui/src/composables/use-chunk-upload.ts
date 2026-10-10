@@ -693,3 +693,86 @@ export function useChunkUpload(
     overallProgress,
   };
 }
+
+// ---------------------------------------------------------------------------
+// 工厂函数 —— 供 httpRequest prop 直接消费
+// ---------------------------------------------------------------------------
+
+/**
+ * createChunkHttpRequest 的可选配置。
+ *
+ * <p>与 {@link ChunkUploadOptions} 对齐，但不包含回调相关字段，
+ * 回调通过返回的 httpRequest 函数入参传入。
+ */
+export interface ChunkHttpOptions {
+  /** 分片大小（字节），默认 5 MB */
+  chunkSize?: number;
+  /** 最大并发分片上传数，默认 3 */
+  maxConcurrency?: number;
+  /** 最大重试次数，默认 3 */
+  maxRetries?: number;
+  /** 分片上传 REST API 配置 */
+  multipart?: MultipartApiConfig;
+  /** 是否携带 cookie */
+  withCredentials?: boolean;
+}
+
+/**
+ * 工厂函数：返回可直接作为 YdUpload <code>httpRequest</code> prop 使用的函数。
+ *
+ * <p>使用 useChunkUpload 内部封装，返回精简的 httpRequest 接口。
+ *
+ * @param options - 分片上传配置
+ * @return 适配 YdUpload 的 httpRequest 函数（返回 Promise<unknown>）
+ *
+ * @example
+ * ```ts
+ * import { createChunkHttpRequest } from '@ydsz-core/ui-kit/primitives/upload';
+ *
+ * const chunkRequest = createChunkHttpRequest({
+ *   chunkSize: 5 * 1024 * 1024,
+ *   maxConcurrency: 3,
+ *   maxRetries: 3,
+ *   multipart: { baseURL: '/api/v1/system/file/multipart' },
+ * });
+ *
+ * <YdUpload :httpRequest="chunkRequest" action="/api/upload" />
+ * ```
+ */
+export function createChunkHttpRequest(
+  options: ChunkHttpOptions,
+): (options: UploadRequestOptionsLike) => Promise<unknown> {
+  const handle = useChunkUpload({
+    chunkSize: options.chunkSize,
+    maxConcurrency: options.maxConcurrency,
+    maxRetries: options.maxRetries,
+    multipart: options.multipart,
+    withCredentials: options.withCredentials,
+  });
+
+  return async (req: UploadRequestOptionsLike): Promise<unknown> => {
+    return await handle.httpRequest({
+      action: req.action,
+      file: req.file,
+      filename: req.name ?? 'file',
+      headers: req.headers,
+      onError: (err) => req.onError?.(err),
+      onProgress: ({ percentage }) => req.onProgress?.({ percent: percentage }),
+      onSuccess: (response) => req.onSuccess?.(response),
+      withCredentials: options.withCredentials,
+    });
+  };
+}
+
+/** UploadRequestOptions 超集（兼容 ElUpload 原始类型） */
+interface UploadRequestOptionsLike {
+  action: string;
+  file: File;
+  filename?: string;
+  name?: string;
+  headers?: Record<string, string>;
+  onError?: (err: Error) => void;
+  onProgress?: (event: { percent: number }) => void;
+  onSuccess?: (response: unknown) => void;
+  withCredentials?: boolean;
+}
