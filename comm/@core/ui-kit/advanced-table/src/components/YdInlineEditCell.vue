@@ -2,48 +2,87 @@
  * YdInlineEditCell — 可编辑单元格组件。
  *
  * <p>点击后切换到编辑态（输入框），回车保存 / Esc 取消。
+ * 通过 inject 获取父级 useCellEditor 提供的共享编辑状态。
  *
- * <p>使用方式：需与 useInlineEdit composable 配合使用。
+ * <p>使用方式：父级组件必须先调用 useCellEditor provide 状态，
+ * 然后在本组件上绑定 rowKey / field / value 即可。
  *
  * @path comm\@core\ui-kit\advanced-table\src\components\YdInlineEditCell.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { computed } from 'vue';
+
+import {
+  injectCellEditor,
+  type EditorType,
+} from '../composables/use-cell-editor';
 
 const props = defineProps<{
+  /** 行唯一标识 */
+  rowKey: string;
+  /** 列字段名 */
+  field: string;
   /** 显示值 */
   value: unknown;
-  /** 是否正在编辑 */
-  isEditing: boolean;
+  /** 编辑器类型，可选默认从列定义获取 */
+  editorType?: EditorType;
+  /** 选择器选项（当 editorType 为 'select' 时必传） */
+  selectOptions?: ReadonlyArray<{ label: string; value: unknown }>;
 }>();
 
 const emit = defineEmits<{
-  edit: [];
-  save: [value: unknown];
+  save: [rowKey: string, field: string, value: unknown];
   cancel: [];
 }>();
 
-/** 编辑中的草稿值 */
-const draft = ref<unknown>(props.value);
+/** 注入父级编辑状态 */
+const editor = injectCellEditor();
 
-/** 当进入编辑态时初始化草稿 */
-watch(() => props.isEditing, (editing) => {
-  if (editing) {
-    draft.value = props.value;
-  }
-});
+/** 当前单元格是否正在编辑 */
+const isEditing = computed<boolean>(() =>
+  editor?.isCellEditing(props.rowKey, props.field) ?? false,
+);
+
+/** 当前编辑态的临时值 */
+const draft = computed<unknown>(() =>
+  isEditing.value ? editor?.currentEditor?.tempValue : props.value,
+);
+
+/** 当前编辑器类型 */
+const activeEditorType = computed<EditorType>(
+  () => props.editorType ?? editor?.currentEditor?.editorType ?? 'input',
+);
 
 /**
- * 触发保存。
+ * 进入编辑态。
  */
-function handleSave(): void {
-  emit('save', draft.value);
+function handleStartEdit(): void {
+  if (!editor) return;
+  editor.startEdit(props.rowKey, props.field, props.value, activeEditorType.value);
 }
 
 /**
- * 按下 Esc 取消。
+ * 确认保存。
+ */
+function handleSave(): void {
+  if (!editor) return;
+  const finalValue = editor.currentEditor?.tempValue ?? props.value;
+  emit('save', props.rowKey, props.field, finalValue);
+  editor.confirmEdit();
+}
+
+/**
+ * 取消编辑（回滚）。
+ */
+function handleCancel(): void {
+  editor?.cancelEdit();
+  emit('cancel');
+}
+
+/**
+ * 键盘事件：Enter 保存 / Esc 取消。
  */
 function handleKeydown(event: KeyboardEvent): void {
   if (event.key === 'Enter') {
@@ -51,29 +90,61 @@ function handleKeydown(event: KeyboardEvent): void {
     handleSave();
   } else if (event.key === 'Escape') {
     event.preventDefault();
-    emit('cancel');
+    handleCancel();
   }
 }
 
 /**
- * 失焦保存。
+ * 更新 draft。
  */
-function handleBlur(): void {
-  handleSave();
+function handleInput(value: unknown): void {
+  editor?.updateTempValue(value);
 }
 </script>
 
 <template>
   <div class="adt-inline-cell h-full w-full">
-    <!-- 编辑态 -->
+    <!-- 数字编辑器 -->
     <input
-      v-if="isEditing"
-      v-model="draft as string"
+      v-if="isEditing && activeEditorType === 'number'"
+      :value="draft as number | string"
+      type="number"
+      autofocus
+      class="h-full w-full rounded border border-primary bg-background px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+      @input="handleInput(($event.target as HTMLInputElement).value)"
+      @keydown="handleKeydown"
+      @blur="handleSave"
+    />
+
+    <!-- 下拉编辑器 -->
+    <select
+      v-else-if="isEditing && activeEditorType === 'select'"
+      :value="draft as string | number"
+      autofocus
+      class="h-full w-full rounded border border-primary bg-background px-1 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+      @input="handleInput(($event.target as HTMLSelectElement).value)"
+      @keydown="handleKeydown"
+      @blur="handleSave"
+    >
+      <option
+        v-for="opt in selectOptions"
+        :key="String(opt.value)"
+        :value="opt.value as string | number"
+      >
+        {{ opt.label }}
+      </option>
+    </select>
+
+    <!-- 默认文本编辑器 -->
+    <input
+      v-else-if="isEditing"
+      :value="draft as string"
       type="text"
       autofocus
       class="h-full w-full rounded border border-primary bg-background px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+      @input="handleInput(($event.target as HTMLInputElement).value)"
       @keydown="handleKeydown"
-      @blur="handleBlur"
+      @blur="handleSave"
     />
 
     <!-- 展示态 -->
@@ -83,8 +154,8 @@ function handleBlur(): void {
       tabindex="0"
       role="button"
       :aria-label="`双击编辑: ${String(value)}`"
-      @dblclick="emit('edit')"
-      @keydown.enter="emit('edit')"
+      @dblclick="handleStartEdit"
+      @keydown.enter="handleStartEdit"
     >
       {{ value ?? '-' }}
     </div>

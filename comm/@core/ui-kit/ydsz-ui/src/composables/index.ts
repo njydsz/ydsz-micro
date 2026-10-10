@@ -101,3 +101,29 @@ export type {
   UseFormDraftOptions,
   UseFormDraftReturn,
 } from './use-form-draft';
+
+export { useTheme, initTheme } from './use-theme';
+export type { ThemeMode } from './use-theme';
+
+// 从旧 @core/composables 迁移的横向能力 composables（唯一入口收敛）
+export {
+  useCrossTabState,
+  useCrossTabEvent,
+  broadcastCrossTabEvent,
+} from './use-cross-tab-state';
+
+export {
+  usePriorityValue,
+  usePriorityValues,
+  useForwardPriorityValues,
+} from './use-priority-value';
+
+export {
+  createStorageKey,
+  readStorageItem,
+  writeStorageItem,
+  removeStorageItem,
+} from './utils';
+
+export { useSortable } from './use-sortable';
+export type { Sortable } from './use-sortable';

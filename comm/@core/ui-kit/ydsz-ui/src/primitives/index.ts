@@ -55,6 +55,7 @@ export * from './mention';
 export * from './message';
 export * from './notification';
 export * from './number-field';
+export * from './organization-chart';
 export * from './page-header';
 export * from './pagination';
 export * from './pin-input';

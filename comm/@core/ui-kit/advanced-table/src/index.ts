@@ -9,5 +9,11 @@
  */
 
 export { YdInlineEditCell, YdRowExpandContent } from './components';
-export { useInlineEdit, useRowExpand } from './composables';
+export { useInlineEdit, useCellEditor, injectCellEditor, useRowExpand } from './composables';
 export type { RowExpandOptions } from './composables';
+export type {
+  CellEditorState,
+  EditorType,
+  UseCellEditorOptions,
+  UseCellEditorReturn,
+} from './composables';

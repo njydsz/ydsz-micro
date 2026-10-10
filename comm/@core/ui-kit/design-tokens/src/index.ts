@@ -68,6 +68,14 @@ export {
 } from './tokens/density';
 export type { DensityMode } from './tokens/density';
 
+// ===== Composables =====
+export {
+  composeThemeAndDensityCSS,
+  generateDensityOnlyCSS,
+  initDensity,
+  useDensity,
+} from './composables';
+
 // ===== Figma Sync =====
 export {
   exportToFigma,

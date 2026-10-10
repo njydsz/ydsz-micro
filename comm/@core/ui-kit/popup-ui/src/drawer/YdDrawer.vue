@@ -22,11 +22,8 @@ import {
   watch,
 } from 'vue';
 
-import {
-  useIsMobile,
-  usePriorityValues,
-  useSimpleLocale,
-} from '@ydsz-core/composables';
+import { useIsMobile, useSimpleLocale } from '@ydsz-core/composables';
+import { usePriorityValues } from '@ydsz-core/ydsz-ui/composables';
 import { X } from '@ydsz-core/icons';
 import {
   YdButton,

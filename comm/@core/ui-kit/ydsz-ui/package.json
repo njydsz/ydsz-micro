@@ -457,6 +457,7 @@
     "@vueuse/core": "catalog:",
     "class-variance-authority": "catalog:",
     "lucide-vue-next": "catalog:",
+    "sortablejs": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:"
   }

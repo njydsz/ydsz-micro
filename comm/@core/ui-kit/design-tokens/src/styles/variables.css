@@ -158,4 +158,81 @@
   --ydsz-font-weight-medium: 500;
   --ydsz-font-weight-semibold: 600;
   --ydsz-font-weight-bold: 700;
+
+  /* ==================== 组件级 / Focus ring ==================== */
+
+  /* 焦点环 */
+  --ydsz-comp-focus-ring-color: var(--ydsz-color-brand-500);
+  --ydsz-comp-focus-ring-width: 2px;
+  --ydsz-comp-focus-ring-offset: 1px;
+  --ydsz-comp-focus-ring: 0 0 0 var(--ydsz-comp-focus-ring-offset) hsl(var(--ydsz-surface-1)),
+    0 0 0 calc(var(--ydsz-comp-focus-ring-offset) + var(--ydsz-comp-focus-ring-width)) hsl(var(--ydsz-comp-focus-ring-color));
+
+  /* 组件交互状态语义 surface (hover / active / selected) */
+  --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 0.08);
+  --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 0.12);
+  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-500) / 0.10);
+  --ydsz-comp-surface-disabled: var(--ydsz-surface-2);
+
+  /* 组件交互状态语义 border (hover / focus) */
+  --ydsz-comp-border-hover: var(--ydsz-color-neutral-400);
+  --ydsz-comp-border-focus: var(--ydsz-color-brand-500);
+
+  /* 危险/破坏性 交互 */
+  --ydsz-comp-danger-bg: hsl(var(--ydsz-color-destructive-500));
+  --ydsz-comp-danger-bg-hover: hsl(var(--ydsz-color-destructive-600));
+  --ydsz-comp-danger-bg-active: hsl(var(--ydsz-color-destructive-700));
+  --ydsz-comp-danger-text: var(--ydsz-text-inverse);
+  --ydsz-comp-danger-border: hsl(var(--ydsz-color-destructive-600));
+}
+
+/**
+ * 暗色主题覆盖：
+ * - Neutral 色阶反转（50↔700、100↔600、200↔500），使浅色语义值在暗背景下保持可读；
+ * - Surface 使用反转后的 neutral 低阶，Text 使用反转后的高阶；
+ * - Shadow 不透明度增强：暗色环境下阴影不易察觉，需加码以维持层次感知；
+ * - Brand/Success/Warning/Destructive 已是 HSL 分量形式，浏览器渲染无需额外干预。
+ */
+:root[data-theme='dark'] {
+  /* Neutral 色阶 */
+  --ydsz-color-neutral-50: 222 13% 14%;
+  --ydsz-color-neutral-100: 222 13% 18%;
+  --ydsz-color-neutral-200: 222 13% 24%;
+  --ydsz-color-neutral-300: 222 13% 32%;
+  --ydsz-color-neutral-400: 222 13% 48%;
+  --ydsz-color-neutral-500: 222 13% 62%;
+  --ydsz-color-neutral-600: 222 13% 76%;
+  --ydsz-color-neutral-700: 222 13% 88%;
+
+  /* Surface */
+  --ydsz-surface-1: var(--ydsz-color-neutral-50);
+  --ydsz-surface-2: var(--ydsz-color-neutral-100);
+  --ydsz-surface-3: var(--ydsz-color-neutral-200);
+
+  /* Text */
+  --ydsz-text-primary: var(--ydsz-color-neutral-700);
+  --ydsz-text-secondary: var(--ydsz-color-neutral-500);
+  --ydsz-text-tertiary: var(--ydsz-color-neutral-400);
+  --ydsz-text-disabled: var(--ydsz-color-neutral-300);
+  --ydsz-text-inverse: 0 0% 100%;
+
+  /* Border */
+  --ydsz-border-default: var(--ydsz-color-neutral-200);
+  --ydsz-border-strong: var(--ydsz-color-neutral-300);
+  --ydsz-border-subtle: var(--ydsz-color-neutral-100);
+
+  /* Shadow（不透明度上调以弥补暗色下层次感知不足） */
+  --ydsz-shadow-flat: none;
+  --ydsz-shadow-low: 0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.15), 0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.25);
+  --ydsz-shadow-medium: 0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.3), 0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.3);
+  --ydsz-shadow-high: 0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.35), 0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.35);
+  --ydsz-shadow-overlay: 0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.5), 0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.2);
+
+  /* 组件级：暗色下交互状态不透明度上调，防止辨识度不足 */
+  --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 0.16);
+  --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 0.24);
+  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-400) / 0.22);
+
+  /* 焦点环使用 brand-400（比 brand-500 更亮）提升暗色下可见度 */
+  --ydsz-comp-focus-ring-color: var(--ydsz-color-brand-400);
 }

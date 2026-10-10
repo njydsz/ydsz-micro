@@ -9,3 +9,12 @@
 export { default as YdDataTable } from './YdDataTable.vue';
 export type { SummaryRowFn } from './YdDataTable.vue';
 export type { TableColumnDef } from '../../composables/use-table-data';
+export { useFixedColumns, fixedColumnStyle } from './use-table-fixed-columns';
+export { useTableGroupHeader } from './use-table-group-header';
+export type { ColumnFixedConfig, FixedColumnStyle, FixedColumnsResult } from './use-table-fixed-columns';
+export type {
+  GroupHeaderResult,
+  HeaderCell,
+  HeaderRow,
+  TableColumn,
+} from './use-table-group-header';

@@ -20,7 +20,8 @@ import type { TabsProps } from './types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import { useIsMobile, useSortable } from '@ydsz-core/composables';
+import { useIsMobile } from '@ydsz-core/composables';
+import { useSortable } from '@ydsz-core/ydsz-ui/composables';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('use-tabs-drag');
