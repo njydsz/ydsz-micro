@@ -297,6 +297,7 @@ async function uploadPart(
   uploadId: string,
   partNumber: number,
   blob: Blob,
+  maxRetries: number = DEFAULT_MAX_RETRIES,
 ): Promise<void> {
   const { baseURL, headers = {}, withCredentials } = cfg;
   const url = `${baseURL}/${encodeURIComponent(uploadId)}/part/${partNumber}`;
@@ -316,7 +317,7 @@ async function uploadPart(
         },
         DEFAULT_CHUNK_TIMEOUT,
       ),
-    DEFAULT_MAX_RETRIES,
+    maxRetries,
   );
 
   if (!response.ok) {
@@ -333,6 +334,7 @@ async function uploadPart(
 async function completeMultipart(
   cfg: MultipartApiConfig,
   uploadId: string,
+  maxRetries: number = DEFAULT_MAX_RETRIES,
 ): Promise<MultipartCompleteResponse> {
   const { baseURL, headers = {}, withCredentials } = cfg;
   const url = `${baseURL}/${encodeURIComponent(uploadId)}/complete`;
@@ -351,7 +353,7 @@ async function completeMultipart(
         },
         DEFAULT_CHUNK_TIMEOUT,
       ),
-    DEFAULT_MAX_RETRIES,
+    maxRetries,
   );
 
   if (!response.ok) {
@@ -377,6 +379,7 @@ async function uploadChunksWithConcurrency(
   overallProgress: ReturnType<typeof ref<number>>,
   onChunkProgress?: (percent: number, chunkIndex: number) => void,
   abortControllers?: Set<AbortController>,
+  maxRetries: number = DEFAULT_MAX_RETRIES,
 ): Promise<void> {
   const total = chunks.length;
   let completedCount = 0;
@@ -390,7 +393,7 @@ async function uploadChunksWithConcurrency(
 
     try {
       // partNumber 与后端约定从 1 开始
-      await uploadPart(cfg, uploadId, chunk.index + 1, chunk.blob);
+      await uploadPart(cfg, uploadId, chunk.index + 1, chunk.blob, maxRetries);
 
       abortControllers?.delete(ctrl);
       completedCount++;
@@ -647,7 +650,7 @@ export function useChunkUpload(
         onProgress?.({ percentage: 100 });
         onSuccess?.(completeResult);
       } else {
-        // 退化：旧版单 endpoint 分片上传
+        // 退化：旧版单 endpoint 分片上传（无重试，走普通 fetch）
         await uploadChunksSingleEndpoint(
           chunks,
           action,
@@ -659,7 +662,6 @@ export function useChunkUpload(
           overallProgress,
           onChunkProgress,
           abortControllers,
-          maxRetries,
         );
 
         // 通知后端合并分片
