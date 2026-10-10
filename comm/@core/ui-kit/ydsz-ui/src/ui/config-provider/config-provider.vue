@@ -95,18 +95,7 @@ watch(
   { immediate: true, flush: 'sync' },
 );
 
-/** 向子组件提供当前语种状态，供 useLocale() 读取 */
 provide(LOCALE_LANG_KEY, localeState);
-
-function handleConfirm(): void {
-  emit('confirm');
-  emit('update:open', false);
-}
-
-function handleCancel(): void {
-  emit('cancel');
-  emit('update:open', false);
-}
 </script>
 
 <template>

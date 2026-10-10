@@ -96,7 +96,7 @@ describe('useChunkUpload', () => {
       onError,
     });
 
-    expect.onError).toHaveBeenCalledWith(
+    expect(onError).toHaveBeenCalledWith(
       expect.objectContaining({ message: expect.stringContaining('storageKey') }),
     );
   });

@@ -137,6 +137,9 @@ function vueConfig(): Linter.Config {
       // core 规则不识别内嵌 TS 语义，交由 @typescript-eslint 规则接管
       'no-undef': 'off',
       'no-unused-vars': 'off',
+      // §16.7 Vue SFC 未使用变量：TS 规则不能感知模板引用，启用 vue 规则接管消除误报
+      '@typescript-eslint/no-unused-vars': 'off',
+      'vue/no-unused-vars': ['error', { ignorePattern: '^_' }],
       // §4.6 v-for 必须绑定 key（vue 插件内置校验）
       'vue/require-v-for-key': 'error',
       // §7.1 XSS 防护：禁止裸 v-html，必须使用 v-safe-html（DOMPurify 白名单指令）

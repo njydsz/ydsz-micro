@@ -248,6 +248,7 @@ async function initMultipart(
   cfg: MultipartApiConfig,
   file: File,
   storageKey: string,
+  maxRetries: number = DEFAULT_MAX_RETRIES,
 ): Promise<MultipartInitResponse> {
   const { baseURL, headers = {}, withCredentials } = cfg;
 
@@ -269,7 +270,7 @@ async function initMultipart(
         },
         DEFAULT_CHUNK_TIMEOUT,
       ),
-    DEFAULT_MAX_RETRIES,
+    maxRetries,
   );
 
   if (!response.ok) {
@@ -623,7 +624,7 @@ export function useChunkUpload(
         };
 
         // 4a. 初始化
-        const initResult = await initMultipart(cfg, file, storageKey);
+        const initResult = await initMultipart(cfg, file, storageKey, maxRetries);
         logger.info('分片上传初始化完成: uploadId={}, partSize={}', initResult.uploadId, initResult.recommendedPartSize);
 
         // 4b. 并发上传分片
@@ -635,10 +636,11 @@ export function useChunkUpload(
           overallProgress,
           onChunkProgress,
           abortControllers,
+          maxRetries,
         );
 
         // 4c. 完成上传
-        const completeResult = await completeMultipart(cfg, initResult.uploadId);
+        const completeResult = await completeMultipart(cfg, initResult.uploadId, maxRetries);
         logger.info('分片上传完成: uploadId={}', completeResult.uploadId);
 
         overallProgress.value = 100;
@@ -657,6 +659,7 @@ export function useChunkUpload(
           overallProgress,
           onChunkProgress,
           abortControllers,
+          maxRetries,
         );
 
         // 通知后端合并分片
