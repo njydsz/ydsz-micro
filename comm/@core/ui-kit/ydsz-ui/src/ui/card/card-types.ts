@@ -1,9 +1,16 @@
 /**
  * Card 组件的 props 类型。
  *
- * @author ydsz-ai
- * @since 1.0.0
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\card-types.ts
+ * @author ydsz-team
+ * @since 26.09.24
  */
+
+/** 卡片内边距级别 */
+export type CardPadding = 'sm' | 'md' | 'lg';
+
+/** 卡片阴影级别 */
+export type CardShadow = 'flat' | 'low' | 'medium' | 'high';
 
 /**
  * Card 组件属性。
@@ -15,6 +22,10 @@ export interface CardProps {
   disabled?: boolean;
   /** 是否可见（受控模式） */
   open?: boolean;
+  /** 内边距级别 @default 'md' */
+  padding?: CardPadding;
+  /** 阴影级别 @default 'low' */
+  shadow?: CardShadow;
 }
 
 /**

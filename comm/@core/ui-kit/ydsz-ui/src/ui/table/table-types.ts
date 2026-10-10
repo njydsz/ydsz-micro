@@ -1,9 +1,13 @@
 /**
  * Table 组件的 props 类型。
  *
- * @author ydsz-ai
- * @since 1.0.0
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\table-types.ts
+ * @author ydsz-team
+ * @since 26.09.24
  */
+
+/** 表格尺寸 */
+export type TableSize = 'sm' | 'md' | 'lg';
 
 /**
  * Table 组件属性。
@@ -15,6 +19,12 @@ export interface TableProps {
   disabled?: boolean;
   /** 是否可见（受控模式） */
   open?: boolean;
+  /** 是否显示斑马纹 @default false */
+  striped?: boolean;
+  /** 是否显示全边框 @default true */
+  bordered?: boolean;
+  /** 尺寸 @default 'md' */
+  size?: TableSize;
 }
 
 /**

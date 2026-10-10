@@ -228,7 +228,7 @@ watch(keyword, () => {
         </div>
         <p v-if="item.content" class="text-sm text-gray-600">{{ item.content }}</p>
         <div v-if="item.highlight?.length" class="mt-1 text-xs text-gray-400">
-          <span v-for="(h, i) in item.highlight" :key="i" class="mr-2" v-html="h" />
+          <span v-for="(h, i) in item.highlight" :key="i" class="mr-2" v-safe-html="h" />
         </div>
       </div>
     </div>

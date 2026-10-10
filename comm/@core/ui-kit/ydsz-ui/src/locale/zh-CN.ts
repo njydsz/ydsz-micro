@@ -147,6 +147,11 @@ export const zhCN = {
   'empty.search': '未找到匹配结果',
   'empty.networkError': '网络错误',
   'empty.retry': '点击重试',
+  'empty.created': '开始创建',
+  'empty.error': '加载出错',
+  'empty.no-data': '暂无数据',
+  'empty.no-permission': '暂无权限',
+  'empty.no-result': '未找到匹配结果',
 } as const satisfies Record<string, string>;
 
 export default zhCN;

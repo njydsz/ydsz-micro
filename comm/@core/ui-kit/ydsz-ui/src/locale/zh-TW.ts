@@ -146,6 +146,11 @@ export const zhTW = {
   'empty.search': '未找到符合的結果',
   'empty.networkError': '網路錯誤',
   'empty.retry': '點擊重試',
+  'empty.created': '開始建立',
+  'empty.error': '載入失敗',
+  'empty.no-data': '暫無資料',
+  'empty.no-permission': '暫無權限',
+  'empty.no-result': '未找到符合的結果',
 } as const satisfies Record<string, string>;
 
 export default zhTW;

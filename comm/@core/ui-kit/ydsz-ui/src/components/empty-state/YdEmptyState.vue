@@ -8,9 +8,12 @@
  *
  * 无障碍：图标装饰性，aria-hidden=true；按钮通过具名 slot 传入以保证语义正确。
  *
+ * i18n：默认标题通过 useLocale() 读取，预设 key 为 empty.{preset}。
+ * 传入 title prop 时直接使用该值（不走 i18n），便于业务覆盖。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\empty-state\YdEmptyState.vue
  * @author ydsz-team
- * @since 1.0.0
+ * @since 26.09.24
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
@@ -18,6 +21,7 @@ import { computed } from 'vue';
 import { YdButton } from '../../primitives';
 import { cn } from '@ydsz-core/shared/utils';
 import { type CircleOff, FolderOpen, Inbox, SearchX, ShieldAlert } from 'lucide-vue-next';
+import { useLocale } from '../../locale/useLocale';
 
 defineOptions({
   name: 'YdEmptyState',
@@ -30,21 +34,23 @@ interface Props {
   preset?: 'created' | 'error' | 'no-data' | 'no-permission' | 'no-result';
   /** 自定义类名 */
   class?: string;
-  /** 标题（主说明） */
+  /** 标题（主说明）；传入后不走 i18n，直接使用该值 */
   title?: string;
   /** 操作按钮文案，传入后显示操作按钮 */
   actionText?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  class: '',
   description: '',
   preset: 'no-data',
-  title: '暂无数据',
 });
 
 const emit = defineEmits<{
   (e: 'action'): void;
 }>();
+
+const { t } = useLocale();
 
 /** 根据 preset 选择图标组件与色调 */
 const iconComponent = computed(() => {
@@ -58,19 +64,15 @@ const iconComponent = computed(() => {
   return map[props.preset];
 });
 
-/** 默认标题（当未传入 title 时按 preset 提供语义化兜底） */
+/**
+ * 默认标题：优先使用外部传入 title；
+ * 否则按 preset 作为 i18n key（empty.{preset}）读取当前语言文案。
+ */
 const displayTitle = computed<string>(() => {
-  if (props.title !== '暂无数据') {
+  if (props.title) {
     return props.title;
   }
-  const map: Record<NonNullable<Props['preset']>, string> = {
-    created: '开始创建',
-    error: '加载出错',
-    'no-data': '暂无数据',
-    'no-permission': '暂无权限',
-    'no-result': '未找到匹配结果',
-  };
-  return map[props.preset];
+  return t(`empty.${props.preset}`);
 });
 
 function handleAction(): void {
@@ -115,12 +117,12 @@ function handleAction(): void {
     <!-- 默认创建按钮（可覆盖为 actions slot） -->
     <div v-if="actionText">
       <slot name="default-action">
-        <YdButtonSmart
+        <YdButton
           size="sm"
           @click="handleAction"
         >
           {{ actionText }}
-        </YdButtonSmart>
+        </YdButton>
       </slot>
     </div>
 

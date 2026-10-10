@@ -146,6 +146,11 @@ export const enUS = {
   'empty.search': 'No results found',
   'empty.networkError': 'Network error',
   'empty.retry': 'Click to retry',
+  'empty.created': 'Start creating',
+  'empty.error': 'Loading failed',
+  'empty.no-data': 'No data',
+  'empty.no-permission': 'No permission',
+  'empty.no-result': 'No matching results',
 } as const satisfies Record<string, string>;
 
 export default enUS;

@@ -39,5 +39,9 @@ export const { bootstrap, mount, unmount, update } = createSubApp({
 
     // 注册二次认证响应拦截器（必须在 initSharedRequest 之后执行）
     registerSecondaryAuthInterceptor();
+
+    // v-safe-html — XSS 防护指令
+    const { registerSafeHtmlDirective } = await import('@ydsz/common-ui/es/safe-html');
+    registerSafeHtmlDirective(app);
   },
 });

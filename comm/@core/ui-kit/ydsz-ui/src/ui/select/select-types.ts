@@ -1,9 +1,16 @@
 /**
  * Select 组件的 props 类型。
  *
- * @author ydsz-ai
- * @since 1.0.0
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\select-types.ts
+ * @author ydsz-team
+ * @since 26.09.24
  */
+
+/** 选择器尺寸 */
+export type SelectSize = 'sm' | 'md' | 'lg';
+
+/** 选择器变体 */
+export type SelectVariant = 'outline' | 'filled';
 
 /**
  * Select 组件属性。
@@ -15,6 +22,12 @@ export interface SelectProps {
   disabled?: boolean;
   /** 是否可见（受控模式） */
   open?: boolean;
+  /** 占位符文本 */
+  placeholder?: string;
+  /** 视觉变体 @default 'outline' */
+  variant?: SelectVariant;
+  /** 尺寸 @default 'md' */
+  size?: SelectSize;
 }
 
 /**

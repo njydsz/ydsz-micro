@@ -147,6 +147,11 @@ export const jaJP = {
   'empty.search': '一致する結果がありません',
   'empty.networkError': 'ネットワークエラー',
   'empty.retry': 'クリックして再試行',
+  'empty.created': '作成を開始',
+  'empty.error': '読み込みに失敗しました',
+  'empty.no-data': 'データがありません',
+  'empty.no-permission': '権限がありません',
+  'empty.no-result': '一致する結果がありません',
 } as const satisfies Record<string, string>;
 
 export default jaJP;
