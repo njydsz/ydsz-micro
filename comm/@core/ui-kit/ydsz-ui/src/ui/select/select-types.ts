@@ -28,6 +28,16 @@ export interface SelectProps {
   variant?: SelectVariant;
   /** 尺寸 @default 'md' */
   size?: SelectSize;
+  /** ARIA 标签，为屏幕阅读器提供可访问名称 */
+  ariaLabel?: string;
+  /** 与 ariaLabel 互斥：引用外部标签元素的 id */
+  ariaLabelledby?: string;
+  /** 显式设置 aria-controls 引用的 id（listbox），默认自动使用 options id */
+  ariaControls?: string;
+  /** 当前激活（高亮）选项的 id，用于 aria-activedescendant */
+  ariaActivedescendant?: string;
+  /** 多选模式：向原生 select 写入 multiple 并设置 aria-multiselectable */
+  multiple?: boolean;
 }
 
 /**

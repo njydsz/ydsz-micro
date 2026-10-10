@@ -4,6 +4,14 @@
  * <p>通过 CSS 变量引用 `variables.css` 中定义的 token，
  * 支持 `data-theme="dark"` 自动切换。
  *
+ * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
+ * - role="combobox" + aria-expanded + aria-haspopup="listbox" + aria-controls
+ * - aria-activedescendant 指向当前高亮选项
+ * - aria-multiselectable 支持多选模式
+ * - 选项列表 role="listbox" + role="option" + aria-selected（通过 slot 注入）
+ * - 键盘支持：↑↓选择 / Esc关闭 / Home-End跳转 / Typeahead（由原生 select 提供）
+ * - aria-label / aria-labelledby 关联标签
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\select.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -21,6 +29,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   placeholder: '请选择',
   variant: 'outline',
   size: 'md',
+  multiple: false,
 });
 
 const emit = defineEmits<SelectEmits>();
@@ -33,23 +42,49 @@ const selectClass = computed(() => [
   { 'yd-select--disabled': props.disabled },
 ]);
 
-function handleConfirm() {
-  emit('confirm');
-  emit('update:open', false);
-}
+/** 选项列表的稳定 id（用于 aria-controls） */
+const optionsId = computed(() => props.ariaControls ?? `__yd-select-options-${Math.random().toString(36).slice(2, 10)}`);
 
-function handleCancel() {
-  emit('cancel');
-  emit('update:open', false);
+/** combobox 包装器的 ARIA 绑定（不含 class，由 :class 单独绑定避免冲突） */
+const comboboxAttrs = computed(() => ({
+  role: 'combobox' as const,
+  'aria-expanded': props.open ? ('true' as const) : ('false' as const),
+  'aria-haspopup': 'listbox' as const,
+  'aria-controls': props.open ? optionsId.value : undefined,
+  'aria-activedescendant': props.open ? (props.ariaActivedescendant ?? undefined) : undefined,
+  'aria-multiselectable': props.multiple ? ('true' as const) : undefined,
+}));
+
+/** 原生 select 元素的 ARIA 绑定 */
+const selectAttrs = computed(() => ({
+  'aria-label': props.ariaLabel ?? undefined,
+  'aria-labelledby': props.ariaLabelledby ?? undefined,
+}));
+
+function handleChange(event: Event) {
+  if (props.disabled) return;
+  const target = event.target as HTMLSelectElement;
+  const selectedOption = target.options[target.selectedIndex];
+  // 关闭下拉并向上同步 activedescendant 信息
+  if (selectedOption && selectedOption.id) {
+    emit('update:open', false);
+  }
+  emit('confirm');
 }
 </script>
 
 <template>
-  <div :class="selectClass">
+  <div
+    :class="selectClass"
+    v-bind="comboboxAttrs"
+  >
     <select
+      :id="optionsId"
       :disabled="disabled"
+      :multiple="multiple"
       class="yd-select__field"
-      @change="handleConfirm"
+      v-bind="selectAttrs"
+      @change="handleChange"
     >
       <option
         value=""

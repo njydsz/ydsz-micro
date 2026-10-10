@@ -15,6 +15,10 @@ export interface DropdownMenuProps {
   disabled?: boolean;
   /** 是否可见（受控模式） */
   open?: boolean;
+  /** ARIA 标签 */
+  ariaLabel?: string;
+  /** 引用外部标签元素的 id */
+  ariaLabelledby?: string;
 }
 
 /**

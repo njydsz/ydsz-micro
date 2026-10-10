@@ -5,4 +5,4 @@
  * @since 1.0.0
  */
 export { default as ydSlider } from './slider.vue';
-export type { SliderProps } from './slider-types';
+export type { SliderProps, SliderEmits } from './slider-types';
