@@ -39,6 +39,8 @@ import { LOCALE_LANG_KEY } from '../../locale/useLocale';
 import { THEME_INJECTION_KEY } from '../theme/ThemeProvider.vue';
 import { useTheme } from '../theme/use-theme';
 
+import { DENSITY_INJECTION_KEY } from '../../composables/use-density';
+
 import type { ThemeHandle } from '../theme/use-theme';
 import type { LocaleLang } from '../../locale/useLocale';
 
@@ -104,10 +106,15 @@ if (typeof document !== 'undefined') {
   // 'auto' 模式由 useTheme / ThemeProvider 的 prefers-color-scheme 负责
 }
 
+/** 密度档位计算属性 —— 供 useDensity() 消费（响应式） */
+const densityComputed = computed(() => resolvedConfig.value.density);
+
 /** 暴露主题句柄给子组件 */
 provide(THEME_INJECTION_KEY, themeHandle);
 /** 暴露完整配置上下文 */
 provide(CONFIG_INJECTION_KEY, resolvedConfig.value);
+/** 暴露密度档位供 useDensity() 消费 */
+provide(DENSITY_INJECTION_KEY, densityComputed);
 /** 提供国际化语言状态给 useLocale() */
 provide(LOCALE_LANG_KEY, localeState);
 </script>
@@ -116,9 +123,10 @@ provide(LOCALE_LANG_KEY, localeState);
   <div
     :class="[
       `${resolvedConfig.prefixCls}-config-provider`,
+      `yd-density-${resolvedConfig.density}`,
       {
         'yd-density-compact': resolvedConfig.density === 'compact',
-        'yd-density-loose': resolvedConfig.density === 'loose',
+        'yd-density-large': resolvedConfig.density === 'large',
         'yd-size-sm': resolvedConfig.size === 'small',
         'yd-size-lg': resolvedConfig.size === 'large',
         'yd-disabled': resolvedConfig.isDisabled,

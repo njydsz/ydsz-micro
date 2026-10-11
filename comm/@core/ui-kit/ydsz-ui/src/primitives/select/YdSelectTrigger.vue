@@ -19,7 +19,24 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown } from 'lucide-vue-next';
 import { SelectIcon, YdSelectTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
+import { useDensity } from '../../composables/use-density';
+
 const props = defineProps<SelectTriggerProps & { class?: any }>();
+
+/** 全局密度 */
+const density = useDensity();
+
+/** 密度追加类名 */
+const densitySelectClass = computed(() => {
+  switch (density.value) {
+    case 'compact':
+      return 'h-7 px-2 text-xs';
+    case 'large':
+      return 'h-11 px-3 text-base';
+    default:
+      return '';
+  }
+});
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;
@@ -36,6 +53,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     :class="
       cn(
         'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between whitespace-nowrap rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+        densitySelectClass,
         props.class,
       )
     "

@@ -117,6 +117,22 @@ function generateSidebar(): SidebarMulti {
           { text: '业务组件 + Headless', link: '/ui-kit/ydsz-ui/components' },
         ],
       },
+      {
+        text: '组件典型用法 Demo',
+        collapsed: false,
+        items: [
+          { text: 'YdInputGroup 前缀/后缀输入框', link: '/ui-kit/ydsz-ui/components/input-group' },
+          { text: 'YdStepper 多步骤向导', link: '/ui-kit/ydsz-ui/components/stepper' },
+          { text: 'YdPickList 双栏穿梭列表', link: '/ui-kit/ydsz-ui/components/pick-list' },
+          { text: 'YdInputMask 格式化输入框', link: '/ui-kit/ydsz-ui/components/input-mask' },
+          { text: 'YdProgressCircle 圆形进度环', link: '/ui-kit/ydsz-ui/components/progress-circle' },
+          { text: 'YdQrCodePro 二维码生成', link: '/ui-kit/ydsz-ui/components/qr-code-pro' },
+          { text: 'YdEllipsis 文本省略自适应', link: '/ui-kit/ydsz-ui/components/ellipsis' },
+          { text: 'YdOrgChart 组织架构图', link: '/ui-kit/ydsz-ui/components/org-chart' },
+          { text: 'PickList + OrderList 选排管理', link: '/ui-kit/ydsz-ui/components/pick-order-manage' },
+          { text: 'useDialog 命令式对话框', link: '/ui-kit/ydsz-ui/components/use-dialog' },
+        ],
+      },
     ],
     '/standards': [
       {

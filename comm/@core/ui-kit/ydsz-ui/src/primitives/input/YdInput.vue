@@ -20,6 +20,8 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { useVModel } from '@vueuse/core';
 
+import { useDensity } from '../../composables/use-density';
+
 /** 输入框尺寸档位 */
 export type InputSize = 'xs' | 'sm' | 'default' | 'lg';
 
@@ -28,7 +30,7 @@ interface Props {
   class?: any;
   /** 默认值 */
   defaultValue?: number | string;
-  /** 输入框尺寸 */
+  /** 输入框尺寸（显式指定时优先于全局密度） */
   size?: InputSize;
   /** 受控值 */
   modelValue?: number | string;
@@ -110,6 +112,45 @@ function handleClear(): void {
   emits('clear');
 }
 
+/** 全局密度 */
+const density = useDensity();
+
+/** 密度档位 → InputSize 隐式映射（仅当 props.size 未显式设置时生效） */
+const densitySizeMap: Record<'compact' | 'default' | 'large', InputSize> = {
+  compact: 'xs',
+  default: 'default',
+  large: 'lg',
+};
+
+/** 计算最终 InputSize */
+const resolvedSize = computed(() => props.size ?? densitySizeMap[density.value]);
+
+/** 密度追加类名（覆盖 sizeClasses 中的高度/内边距/字号） */
+const densityInputClass = computed(() => {
+  if (props.size) return '';
+  switch (density.value) {
+    case 'compact':
+      return 'h-7 px-2 text-xs';
+    case 'large':
+      return 'h-11 px-3 text-base';
+    default:
+      return '';
+  }
+});
+
+/** 前置/后置内容的密度追加类名 */
+const densityAffixClass = computed(() => {
+  if (props.size) return '';
+  switch (density.value) {
+    case 'compact':
+      return 'px-2 text-xs';
+    case 'large':
+      return 'px-3 text-base';
+    default:
+      return '';
+  }
+});
+
 /** 尺寸类名映射 */
 const sizeClasses: Record<InputSize, string> = {
   default: 'h-10 px-3 py-2 text-sm',
@@ -134,7 +175,7 @@ const affixSizeClasses: Record<InputSize, string> = {
     <span
       v-if="hasPrefix"
       class="border-input bg-muted text-muted-foreground inline-flex items-center border border-r-0 rounded-l-md"
-      :class="affixSizeClasses[props.size ?? 'default']"
+      :class="cn(affixSizeClasses[resolvedSize], densityAffixClass)"
     >
       <slot name="prefix">{{ props.prefix }}</slot>
     </span>
@@ -155,7 +196,8 @@ const affixSizeClasses: Record<InputSize, string> = {
           'hover:border-border-strong',
           'disabled:cursor-not-allowed disabled:opacity-50',
           'readonly:cursor-default readonly:bg-muted/30',
-          sizeClasses[props.size ?? 'default'],
+          sizeClasses[resolvedSize],
+          densityInputClass,
           // 有 prefix 时去除左圆角，有 suffix 时去除右圆角
           hasPrefix && 'rounded-l-none border-l-0',
           hasSuffix && 'rounded-r-none border-r-0',
@@ -172,7 +214,7 @@ const affixSizeClasses: Record<InputSize, string> = {
     <span
       v-if="hasSuffix"
       class="border-input bg-muted text-muted-foreground inline-flex items-center gap-1 border border-l-0 rounded-r-md"
-      :class="affixSizeClasses[props.size ?? 'default']"
+      :class="cn(affixSizeClasses[resolvedSize], densityAffixClass)"
     >
       <!-- 清空按钮 -->
       <button
@@ -221,7 +263,8 @@ const affixSizeClasses: Record<InputSize, string> = {
         'hover:border-border-strong',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'readonly:cursor-default readonly:bg-muted/30',
-        sizeClasses[props.size ?? 'default'],
+        sizeClasses[resolvedSize],
+        densityInputClass,
         props.class,
       )
     "

@@ -12,6 +12,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import type { PrimitiveProps } from '@ydsz-core/ydsz-vue';
 
 import type { ButtonVariants, ButtonVariantSize } from './types';
@@ -22,6 +24,7 @@ import { Loader2 } from 'lucide-vue-next';
 import { Primitive } from '@ydsz-core/ydsz-vue';
 
 import { buttonVariants } from './button';
+import { useDensity } from '../../composables/use-density';
 
 /** CSS class 类型定义 */
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
@@ -30,6 +33,7 @@ interface Props extends PrimitiveProps {
   class?: ClassValue;
   /** 加载中：禁用按钮并在左侧显示旋转动效 */
   loading?: boolean;
+  /** 尺寸（显式指定时优先于全局密度） */
   size?: ButtonVariantSize;
   variant?: ButtonVariants;
 }
@@ -40,6 +44,34 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
 });
 
+/** 全局密度 */
+const density = useDensity();
+
+/** 密度档位 → 按钮 size 变体映射（仅当 props.size 未显式设置时生效） */
+const densitySizeMap: Record<'compact' | 'default' | 'large', ButtonVariantSize> = {
+  compact: 'sm',
+  default: 'default',
+  large: 'lg',
+};
+
+/** 计算最终 size：显式 props.size > 密度映射 > 默认 */
+const resolvedSize = computed(() => {
+  if (props.size != null) return props.size;
+  return densitySizeMap[density.value];
+});
+
+/** 密度追加类名（覆盖 cva 中的高度/内边距/字号） */
+const densityClass = computed(() => {
+  if (props.size != null) return '';
+  switch (density.value) {
+    case 'compact':
+      return 'h-7 px-2 text-xs';
+    case 'large':
+      return 'h-11 px-5 text-base';
+    default:
+      return '';
+  }
+});
 </script>
 
 <template>
@@ -47,7 +79,7 @@ const props = withDefaults(defineProps<Props>(), {
     :as="as"
     :as-child="asChild"
     :aria-disabled="loading"
-    :class="cn(buttonVariants({ variant, size }), props.class)"
+    :class="cn(buttonVariants({ variant: variant, size: resolvedSize }), densityClass, props.class)"
     :disabled="loading"
   >
     <Loader2

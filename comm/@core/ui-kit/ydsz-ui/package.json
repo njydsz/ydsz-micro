@@ -12,6 +12,10 @@
   },
   "license": "MIT",
   "type": "module",
+  "bin": {
+    "ydsz-init": "./src/cli/index.ts",
+    "ydsz-analyze": "./src/cli/analyze-bundle.ts"
+  },
   "scripts": {
     "#build": "pnpm unbuild",
     "#prepublishOnly": "npm run build"
@@ -499,6 +503,14 @@
       "types": "./src/motion/motion-tokens.ts",
       "default": "./src/motion/motion-tokens.ts"
     },
+    "./cli": {
+      "types": "./src/cli/index.ts",
+      "default": "./src/cli/index.ts"
+    },
+    "./cli/analyze": {
+      "types": "./src/cli/analyze-bundle.ts",
+      "default": "./src/cli/analyze-bundle.ts"
+    },
     "./motion/use-reduced-motion": {
       "types": "./src/motion/useReducedMotion.ts",
       "default": "./src/motion/useReducedMotion.ts"
@@ -526,6 +538,7 @@
   },
   "dependencies": {
     "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/design-tokens": "workspace:*",
     "@ydsz-core/icons": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/typings": "workspace:*",

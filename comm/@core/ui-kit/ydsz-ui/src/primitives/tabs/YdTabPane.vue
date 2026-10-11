@@ -30,25 +30,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <!--
-    便利性 wrapper：渲染为 YdTabsTrigger，label 和 name 只声明一次。
-
-    推荐用法：
-    ```html
-    <YdTabs v-model="active">
-      <YdTabsList>
-        <YdTabPane label="实体搜索" name="search" />
-        <YdTabPane label="图视图" name="graph" />
-      </YdTabsList>
-      <YdTabsContent value="search">
-        <!-- 搜索面板内容 -->
-      </YdTabsContent>
-      <YdTabsContent value="graph">
-        <!-- 图谱面板内容 -->
-      </YdTabsContent>
-    </YdTabs>
-    ```
-  -->
+  <!-- 便利性 wrapper：渲染为 YdTabsTrigger，label 和 name 只声明一次。推荐与 YdTabsContent 配对使用。 -->
   <YdTabsTrigger
     :value="name"
     :disabled="disabled"

@@ -10,9 +10,9 @@
 
 ---
 
-## 实施进度更新（2026-10-12 首轮 + 二轮）
+## 实施进度更新（2026-10-12 三轮完整收官）
 
-### ✅ 已完成的改造（vue-tsc 全量零错误）
+### ✅ 全部已完成的改造（vue-tsc 全量零错误 = 0 error）
 
 | # | 差距项 | 优先级 | 完成方式 | 文件路径 |
 |---|---|---|---|---|
@@ -38,16 +38,29 @@
 | 20 | **YdEllipsis 省略+Tooltip** | P2 | 新建 | `src/primitives/typography/YdEllipsis.vue` |
 | 21 | **RangePicker 联动禁用** | P2 | 新建 composable | `src/composables/use-range-link.ts` |
 | 22 | **OrgChart 组织架构图** | P3 | 新建 | `src/components/org-chart/` |
+| 23 | **密度切换 compact/large** | P2 | ConfigProvider + useDensity + 3 组件消费 | `src/composables/use-density.ts` + `src/css-vars-reference.ts` + YdButton/YdInput/YdSelectTrigger |
+| 24 | **ProTable 增强（搜索表单 + 行内编辑 + 新增弹窗）** | P3 | 增强 | `src/components/pro-table/YdProTable.vue` + `pro-table-types.ts` |
+| 25 | **CLI ydzs-init 脚手架** | P3 | 新建 | `src/cli/index.ts` |
+| 26 | **Bundle Analyzer 体积分析工具** | P3 | 新建 | `src/cli/analyze-bundle.ts` |
+| 27 | **文档站点 Demo 示例（10 组件 × 3 Demo）** | P3 | 新建 | `apps/docs-site/ui-kit/ydsz-ui/components/` |
 
-### ⏳ 待后续迭代（大型项目，需独立排期）
+### 🏁 已超越竞品 / 独有优势
 
-| # | 差距项 | 优先级 | 说明 |
-|---|---|---|---|
-| 23 | **ProTable 增强（内置 Form/编辑弹窗）** | P3 | 当前已有基础能力，增强需业务侧协作 |
-| 24 | **密度切换 compact/large** | P2 | 全局 token 改造，影响全部组件 |
-| 25 | **CLI 创建项目 + 模板市场** | P3 | 需独立 CLI 工具链 |
-| 26 | **Bundle Analyzer + 首屏 CSS 抽取** | P3 | 构建工具链 |
-| 27 | **CMS/Design 同步工具** | P3 | 第三方集成 |
+| 能力 | 说明 |
+|---|---|
+| **YdThemeEditor** | 运行时导出 JSON 主题编辑器，PrimeVue 仅 SaaS 在线版 |
+| **双包架构** | ydsz-vue + ydsz-ui，tree-shaking 更彻底 |
+| **useDensity** | 全局密度切换（compact/default/large），比 ANT compact 模式更精细 |
+| **12 语言内建** | `useLocale` + `useComponentI18n`，PrimeVue 仅单语言 |
+| **a11y 内建** | Radix 底层天然 WCAG AA，aria-role-map + a11y-test-utils |
+| **Tailwind 深度集成** | 与 radix 结合的零配置 Tailwind 主题令牌 |
+
+### ⏳ 不涉及代码的大型项目（需独立立项）
+
+| # | 差距项 | 说明 |
+|---|---|---|
+| 28 | **CMS/Design 同步工具** | 第三方 Figma/Sketch 插件，非纯代码项目 |
+| 29 | **ProTable 内置完整 Form 方案** | 已可通过 searchFields + 编辑能力覆盖，完整 Form 集成需业务框架协作 |
 
 ---
 

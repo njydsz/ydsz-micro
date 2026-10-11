@@ -217,3 +217,47 @@ export function getCssVarsForComponent(componentName: string): CssVariableRefere
 export function getCssVarNamesByCategory(category: string): string[] {
   return (CSS_VARIABLES_BY_CATEGORY[category] ?? []).map(v => v.name)
 }
+
+/**
+ * 密度档位 CSS 变量映射。
+ *
+ * 各档位定义按钮的高度 / 水平内边距 / 字号自定义属性，
+ * 组件通过 `var(--btn-h)` 等引用实现密度切换而不必重写组件样式。
+ *
+ * @since 1.0.0
+ */
+export const DENSITY_VARS: Record<'compact' | 'default' | 'large', Record<string, string>> = {
+  compact: {
+    '--btn-h': '1.75rem',
+    '--btn-px': '0.5rem',
+    '--btn-fs': '0.75rem',
+    '--input-h': '1.75rem',
+    '--input-px': '0.5rem',
+    '--input-fs': '0.75rem',
+    '--select-h': '1.75rem',
+    '--select-px': '0.5rem',
+    '--select-fs': '0.75rem',
+  },
+  default: {
+    '--btn-h': '2.25rem',
+    '--btn-px': '1rem',
+    '--btn-fs': '0.875rem',
+    '--input-h': '2.25rem',
+    '--input-px': '0.75rem',
+    '--input-fs': '0.875rem',
+    '--select-h': '2.25rem',
+    '--select-px': '0.75rem',
+    '--select-fs': '0.875rem',
+  },
+  large: {
+    '--btn-h': '2.75rem',
+    '--btn-px': '1.25rem',
+    '--btn-fs': '1rem',
+    '--input-h': '2.75rem',
+    '--input-px': '0.75rem',
+    '--input-fs': '1rem',
+    '--select-h': '2.75rem',
+    '--select-px': '0.75rem',
+    '--select-fs': '1rem',
+  },
+}

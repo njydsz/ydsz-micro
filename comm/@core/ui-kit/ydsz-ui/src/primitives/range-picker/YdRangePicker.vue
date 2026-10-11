@@ -1,4 +1,5 @@
-<!--
+<script lang="ts" setup>
+/**
  * YdRangePicker 日期范围复合选择器。
  *
  * 功能覆盖：
@@ -10,11 +11,9 @@
  * - showTime 模式内嵌 YdTimePicker（时分秒选择）
  * - 日期格式化显示
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\range-picker\YdRangePicker.vue
  * @author ydsz-team
  * @since 26.09.24
--->
-<script lang="ts" setup">
+ */
 import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

@@ -166,3 +166,6 @@ export type { Sortable } from './use-sortable';
 
 export { useRangeLink } from './use-range-link';
 export type { UseRangeLinkOptions } from './use-range-link';
+
+export { useDensity, DENSITY_INJECTION_KEY } from './use-density';
+export type { Density, UseDensityOptions } from './use-density';

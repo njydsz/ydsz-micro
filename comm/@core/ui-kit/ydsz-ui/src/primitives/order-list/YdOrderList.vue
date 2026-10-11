@@ -1,4 +1,5 @@
-<!--
+<script lang="ts" setup>
+/**
  * OrderList 单列拖拽排序列表。
  *
  * 能力：
@@ -6,11 +7,9 @@
  * - 单选 + 控制栏（上移 / 下移 / 置顶 / 置底）
  * - 过滤（filter=true）
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\order-list\YdOrderList.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup">
+ */
 import {
   computed,
   ref,

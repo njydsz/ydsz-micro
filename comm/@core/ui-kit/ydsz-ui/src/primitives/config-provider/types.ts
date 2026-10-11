@@ -8,8 +8,8 @@
 
 import type { LocaleLang } from '../../locale/useLocale';
 
-/** 组件密度档位 */
-export type Density = 'default' | 'compact' | 'loose';
+/** 组件密度档位 —— 对标 PrimeVue 三密度 */
+export type Density = 'default' | 'compact' | 'large';
 
 /** 基础组件尺寸 */
 export type ComponentSize = 'small' | 'default' | 'large';
