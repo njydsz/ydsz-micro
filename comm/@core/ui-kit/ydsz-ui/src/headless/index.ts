@@ -38,3 +38,11 @@ export type {
   TreeNodeLike,
   UseTreeHeadlessOptions,
 } from './use-tree-headless';
+
+export { useDialog, closeAllDialogs } from './use-dialog';
+export type {
+  DialogAction,
+  DialogActionVariant,
+  DialogInstance,
+  DialogOptions,
+} from './use-dialog';

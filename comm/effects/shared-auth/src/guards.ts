@@ -17,10 +17,29 @@
 import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@ydsz/constants';
-import { openSecondaryAuthModal } from '@ydsz/shared-business';
 import { preferences } from '@ydsz/preferences';
 import { useAccessStore } from '@ydsz/stores';
 import { startProgress, stopProgress } from '@ydsz/utils';
+
+/**
+ * 二次认证弹窗 opener 注册接口 —— 由 shared-business 在初始化时注入，
+ * 打破 shared-auth ↔ shared-business 的循环依赖。
+ */
+type SecondaryAuthModalOpener = (hintText?: string) => Promise<string | null>;
+
+let _openSecondaryAuthModal: SecondaryAuthModalOpener | null = null;
+
+/** shared-business 调用此函数注入二次认证弹窗实现 */
+export function registerSecondaryAuthModalOpener(fn: SecondaryAuthModalOpener): void {
+  _openSecondaryAuthModal = fn;
+}
+
+function openSecondaryAuthModal(hintText?: string): Promise<string | null> {
+  if (_openSecondaryAuthModal) return _openSecondaryAuthModal(hintText);
+  return Promise.reject(
+    Error('[shared-auth] registerSecondaryAuthModalOpener() not called.'),
+  );
+}
 
 /** 默认白名单路径 */
 const DEFAULT_WHITE_LIST: readonly string[] = ['/auth', LOGIN_PATH];

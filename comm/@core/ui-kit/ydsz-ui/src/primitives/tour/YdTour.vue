@@ -1,219 +1,346 @@
-<!--
- * Tour 引导：分步骤引导用户认识页面功能。
+﻿<!--
+ * YdTour —— 漫游引导主控制器。
  *
- * <p>核心特性：
- * <ul>
- *   <li>Target 高亮：自动定位目标元素，绘制遮罩和参考框</li>
- *   <li>受控组件：通过 v-model:open 控制显隐，current 控制当前步骤</li>
- *   <li>键盘导航：← → 切换步骤，Esc 关闭</li>
- *   <li>进度指示点、上一步/下一步/跳过按钮</li>
- *   <li>完整 a11y：role="dialog"、aria-describedby、aria-modal</li>
- * </ul>
+ * 对标 EP Tour / ANT Tour 的完整引导能力：
+ * - 顺序导航（v-model 步骤索引 + v-model:visible）
+ * - DOM 目标定位：根据 target 选择器查询元素，获取 bounding rect 实时定位
+ * - 自动面板布局：动态计算面板偏移位置，确保不超出视口
+ * - 蒙版 + 高亮：遮罩层 + spotlight 效果照亮目标元素
+ * - 键盘导航：Escape 关闭、ArrowRight/ArrowLeft 上一步/下一步
+ * - resize 监听：window 尺寸变化时重新定位
+ * - a11y：role="dialog" aria-modal 完整支持
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tour\YdTour.vue
+ * @module primitives/tour/YdTour
  * @author ydsz-team
- * @since 1.0.0 (26.09.17 增强：target 定位 + 键盘导航 + 动画过渡)
+ * @since 1.0.0 (26.10.10 重构：完整 Tour 控制器)
 -->
+
 <script lang="ts" setup>
-// @ts-nocheck
-import { computed, ref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
 
-import { cn } from '@ydsz-core/shared/utils';
+import type { PopoverPlacement, TourPopoverStyle, TourStep } from './tour-types';
+import type { YdTourEmits, YdTourProps } from './tour-types';
+import YdTourMask from './YdTourMask.vue';
+import YdTourStep from './YdTourStep.vue';
 
-import { YdButton } from '../button';
-
-interface TourStep {
-  /** 步骤描述文本 */
-  description?: string;
-  /** 步骤标题 */
-  title: string;
-  /** 目标元素选择器（用于定位高亮） */
-  target?: string;
-}
-
-interface Props {
-  /** 自定义类名 */
-  class?: any;
-  /** 当前步骤索引（受控） */
-  current: number;
-  /** 是否显示遮罩 */
-  mask?: boolean;
-  /** 是否打开（受控） */
-  open: boolean;
-  /** 引导步骤配置 */
-  steps: TourStep[];
-}
-
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<YdTourProps>(), {
+  modelValue: 0,
+  visible: false,
   mask: true,
+  closeOnClickMask: false,
+  prevText: '上一步',
+  nextText: '下一步',
+  skipText: '跳过',
+  finishText: '完成',
 });
 
-const emit = defineEmits<{
-  close: [];
-  finish: [];
-  change: [index: number];
-  'update:open': [value: boolean];
-}>();
+const emit = defineEmits<YdTourEmits>();
 
-const totalSteps = computed(() => props.steps.length);
-const currentStep = computed(() => props.steps[props.current]);
-const isLastStep = computed(() => props.current >= totalSteps.value - 1);
+// ─── 状态 ───
 
-/** 目标元素当前边界（用于高亮定位） */
 const targetRect = ref<DOMRect | null>(null);
 
-/**
- * 根据 target 选择器查询元素并更新高亮框位置。
- */
-function updateTargetRect(): void {
-  const selector = currentStep.value?.target;
-  if (!selector) {
+const popoverStyle = ref<TourPopoverStyle>({
+  left: 0,
+  top: 0,
+  actualPlacement: 'bottom',
+});
+
+const activePlacement = ref<PopoverPlacement>('bottom');
+const transitioning = ref(false);
+
+// ─── 派生 ───
+
+const currentIndex = computed(() => props.modelValue);
+const totalSteps = computed(() => props.steps.length);
+const currentStep = computed<TourStep | undefined>(() => props.steps[props.modelValue] as TourStep | undefined);
+
+// ─── 目标元素查询 ───
+
+function resolveTarget(target: TourStep['target']): HTMLElement | null {
+  if (typeof target === 'function') {
+    try {
+      return target();
+    } catch {
+      return null;
+    }
+  }
+  if (typeof target === 'string') {
+    return document.querySelector<HTMLElement>(target);
+  }
+  return null;
+}
+
+// ─── 面板定位逻辑 ───
+
+function computePopoverPosition(rect: DOMRect, placement: PopoverPlacement): TourPopoverStyle {
+  const panelWidth = 288;
+  const panelHeight = 160;
+  const gap = 12;
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  let left = 0;
+  let top = 0;
+  let actualPlacement: PopoverPlacement = placement;
+
+  const parts = placement.split('-') as [string, string?];
+  const side = parts[0];
+  const alignment = parts[1];
+
+  if (side === 'bottom') {
+    top = rect.bottom + gap;
+    if (alignment === 'start') {
+      left = rect.left;
+    } else if (alignment === 'end') {
+      left = rect.right - panelWidth;
+    } else {
+      left = rect.left + (rect.width - panelWidth) / 2;
+    }
+  } else if (side === 'top') {
+    top = Math.max(0, rect.top - panelHeight - gap);
+    if (alignment === 'start') {
+      left = rect.left;
+    } else if (alignment === 'end') {
+      left = rect.right - panelWidth;
+    } else {
+      left = rect.left + (rect.width - panelWidth) / 2;
+    }
+  } else if (side === 'right') {
+    left = rect.right + gap;
+    if (alignment === 'start') {
+      top = rect.top;
+    } else if (alignment === 'end') {
+      top = Math.max(0, rect.bottom - panelHeight);
+    } else {
+      top = rect.top + (rect.height - panelHeight) / 2;
+    }
+  } else if (side === 'left') {
+    left = Math.max(0, rect.left - panelWidth - gap);
+    if (alignment === 'start') {
+      top = rect.top;
+    } else if (alignment === 'end') {
+      top = Math.max(0, rect.bottom - panelHeight);
+    } else {
+      top = rect.top + (rect.height - panelHeight) / 2;
+    }
+  }
+
+  // 视口边界碰撞
+  if (left < 8) {
+    left = 8;
+  } else if (left + panelWidth > viewportWidth - 8) {
+    left = viewportWidth - panelWidth - 8;
+  }
+  if (top < 8) {
+    top = 8;
+  } else if (top + panelHeight > viewportHeight - 8) {
+    top = viewportHeight - panelHeight - 8;
+  }
+
+  return { left: Math.max(0, left), top: Math.max(0, top), actualPlacement };
+}
+
+// ─── 更新定位 ───
+
+async function updatePosition(): Promise<void> {
+  const step = currentStep.value;
+  if (!step) {
     targetRect.value = null;
     return;
   }
-  const el = document.querySelector<HTMLElement>(selector);
-  if (el) {
-    targetRect.value = el.getBoundingClientRect();
-    // 滚动到可视区域
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } else {
+
+  const el = resolveTarget(step.target);
+  if (!el) {
     targetRect.value = null;
+    popoverStyle.value = {
+      left: (window.innerWidth - 288) / 2,
+      top: (window.innerHeight - 160) / 2,
+      actualPlacement: 'bottom',
+    };
+    return;
   }
+
+  const rect = el.getBoundingClientRect();
+  targetRect.value = rect;
+  activePlacement.value = step.placement ?? 'bottom';
+
+  await nextTick();
+
+  const placement = activePlacement.value;
+  popoverStyle.value = computePopoverPosition(rect, placement);
 }
 
-/**
- * 切换步骤时更新定位。
- */
+// ─── 步骤切换 ───
+
+function goToStep(index: number): void {
+  const clamped = Math.max(0, Math.min(index, totalSteps.value - 1));
+  if (clamped === currentIndex.value) {
+    updatePosition();
+    return;
+  }
+  emit('update:modelValue', clamped);
+}
+
+function handleNext(): void {
+  if (transitioning.value) return;
+  if (currentIndex.value >= totalSteps.value - 1) {
+    handleFinish();
+    return;
+  }
+  transitioning.value = true;
+  goToStep(currentIndex.value + 1);
+  setTimeout(() => {
+    transitioning.value = false;
+  }, 300);
+}
+
+function handlePrev(): void {
+  if (transitioning.value) return;
+  if (currentIndex.value <= 0) return;
+  transitioning.value = true;
+  goToStep(currentIndex.value - 1);
+  setTimeout(() => {
+    transitioning.value = false;
+  }, 300);
+}
+
+function handleFinish(): void {
+  emit('finish');
+  emit('update:visible', false);
+}
+
+function handleClose(): void {
+  emit('close');
+  emit('update:visible', false);
+}
+
+// ─── watch ───
+
 watch(
-  () => [props.current, props.open],
-  () => {
-    if (props.open) {
-      updateTargetRect();
+  () => props.visible,
+  (visible) => {
+    if (visible) {
+      nextTick(() => {
+        updatePosition();
+      });
     }
   },
-  { immediate: true },
 );
 
-function next(): void {
-  if (isLastStep.value) {
-    emit('finish');
-    emit('update:open', false);
-  } else {
-    emit('change', props.current + 1);
-  }
-}
+watch(
+  () => props.modelValue,
+  (newIndex, oldIndex) => {
+    if (newIndex !== oldIndex && props.visible) {
+      nextTick(() => {
+        updatePosition();
+      });
+      const step = props.steps[newIndex];
+      if (step) {
+        emit('change', newIndex, step);
+      }
+    }
+  },
+);
 
-function prev(): void {
-  if (props.current > 0) {
-    emit('change', props.current - 1);
-  }
-}
+// ─── 键盘导航 ───
 
-function cancel(): void {
-  emit('close');
-  emit('update:open', false);
-}
-
-/** 键盘导航 */
 function handleKeydown(event: KeyboardEvent): void {
-  if (!props.open) return;
+  if (!props.visible) return;
+
   switch (event.key) {
     case 'Escape':
-      cancel();
+      event.preventDefault();
+      handleClose();
       break;
     case 'ArrowRight':
     case 'ArrowDown':
       event.preventDefault();
-      next();
+      handleNext();
       break;
     case 'ArrowLeft':
     case 'ArrowUp':
       event.preventDefault();
-      prev();
+      handlePrev();
       break;
   }
 }
 
-/** 遮罩高亮框的样式 */
-const highlightStyle = computed(() => {
-  if (!targetRect.value) return undefined;
-  const { height, left, top, width } = targetRect.value;
-  return {
-    height: `${height + 8}px`,
-    left: `${left - 4}px`,
-    top: `${top - 4}px`,
-    width: `${width + 8}px`,
-  };
+// ─── 生命周期 ───
+
+onMounted(() => {
+  if (props.visible) {
+    updatePosition();
+  }
+  window.addEventListener('resize', updatePosition);
+  window.addEventListener('scroll', updatePosition, true);
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updatePosition);
+  window.removeEventListener('scroll', updatePosition, true);
+  window.removeEventListener('keydown', handleKeydown);
+});
+
+// ─── 派生子组件属性 ───
+
+const shouldShowMask = computed(() => {
+  const step = currentStep.value;
+  if (step && step.mask !== undefined) {
+    return step.mask;
+  }
+  return props.mask;
+});
+
+const effectiveCloseOnClickMask = computed(() => {
+  const step = currentStep.value;
+  if (step && step.closeOnClickMask !== undefined) {
+    return step.closeOnClickMask;
+  }
+  return props.closeOnClickMask;
 });
 </script>
 
 <template>
-  <template v-if="open">
-    <!-- 遮罩层：带高亮穿孔 -->
-    <div
-      v-if="mask"
-      class="fixed inset-0 z-50 bg-black/50 transition-opacity"
-      aria-hidden="true"
-    >
-      <!-- 高亮框（反向镂空效果通过 box-shadow 实现） -->
-      <div
-        v-if="highlightStyle"
-        class="absolute rounded-lg transition-all duration-300"
-        :style="highlightStyle"
-        style="box-shadow: 0 0 0 9999px rgb(0 0 0 / 50%)"
+  <div ref="containerRef">
+    <slot :current="currentIndex" :step="currentStep" />
+
+    <template v-if="props.visible">
+      <YdTourMask
+        :rect="targetRect"
+        :show="shouldShowMask"
+        :closable="effectiveCloseOnClickMask"
+        :z-index="1000"
+        @click-mask="handleClose"
       />
-    </div>
 
-    <!-- 步骤卡片 -->
-    <div
-      v-if="currentStep"
-      class="bg-background fixed end-6 top-6 z-[60] w-80 rounded-lg border p-4 shadow-xl transition-all"
-      :class="cn('animate-in fade-in slide-in-from-top-2', $props.class)"
-      role="dialog"
-      aria-modal="true"
-      :aria-label="`引导步骤 ${current + 1}/${totalSteps}`"
-      @keydown="handleKeydown"
-    >
-      <h3 class="text-foreground mb-2 text-sm font-semibold">{{ currentStep.title }}</h3>
-      <p class="text-muted-foreground mb-4 text-sm leading-relaxed">{{ currentStep.description }}</p>
-
-      <!-- 进度指示点 -->
-      <div
-        class="mb-3 flex gap-1.5"
-        role="progressbar"
-        :aria-valuenow="current + 1"
-        :aria-valuemin="1"
-        :aria-valuemax="totalSteps"
-        aria-label="引导进度"
-      >
-        <span
-          v-for="(_, i) in totalSteps"
-          :key="i"
-          :class="cn(
-            'size-1.5 rounded-full transition-colors',
-            i === current ? 'bg-primary' : i < current ? 'bg-primary/50' : 'bg-muted',
-          )"
-        />
-      </div>
-
-      <!-- 操作按钮 -->
-      <div class="flex items-center justify-between">
-        <span class="text-muted-foreground text-xs">{{ current + 1 }} / {{ totalSteps }}</span>
-        <div class="flex gap-2">
-          <YdButton v-if="current > 0" size="sm" variant="ghost" @click="prev">
-            上一步
-          </YdButton>
-          <YdButton size="sm" @click="next">
-            {{ isLastStep ? '完成' : '下一步' }}
-          </YdButton>
-          <YdButton size="sm" variant="outline" @click="cancel">
-            跳过
-          </YdButton>
-        </div>
-      </div>
-    </div>
-
-    <!-- 锚点：确保 dom 存在以供 focus -->
-    <div tabindex="-1" class="sr-only" />
-  </template>
+      <YdTourStep
+        v-if="currentStep"
+        :step="currentStep"
+        :current-index="currentIndex"
+        :total-steps="totalSteps"
+        :style="{ left: popoverStyle.left + 'px', top: popoverStyle.top + 'px' }"
+        :global-prev-text="prevText"
+        :global-next-text="nextText"
+        :global-skip-text="skipText"
+        :global-finish-text="finishText"
+        :z-index="1010"
+        @next="handleNext"
+        @prev="handlePrev"
+        @finish="handleFinish"
+        @close="handleClose"
+      />
+    </template>
+  </div>
 </template>
+
+<style scoped>
+</style>

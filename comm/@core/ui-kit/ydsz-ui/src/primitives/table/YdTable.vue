@@ -21,6 +21,8 @@
 <script setup lang="ts">
 import { computed, provide, shallowRef, useSlots } from 'vue';
 
+import type { ColumnDef } from './ColumnDef';
+
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
@@ -135,13 +137,6 @@ const alignClass = (align?: string) => {
   }
 };
 
-// ========== 单元格值提取 ==========
-function getCellValue(row: Record<string, unknown>, col: ColumnDef): unknown {
-  if (col.formatter) return col.formatter(row, col, row[col.prop ?? ''], 0);
-  if (col.type === 'index') return undefined;
-  return col.prop ? row[col.prop] : undefined;
-}
-
 // ========== 列排序处理 ==========
 function handleSort(col: ColumnDef): void {
   if (!col.isSortable || !col.prop) return;
@@ -225,7 +220,7 @@ const virtualList = useVirtualList<Record<string, unknown>>(
     itemHeight: props.itemHeight,
     overscan: props.overscan,
     viewportHeight: effectiveViewportHeight.value,
-    getKey: (row, index) => (props.rowKey ? String(row[props.rowKey] ?? index) : String(index)),
+    getKey: (row, index) => (props.rowKey ? String((row as Record<string, unknown>)[props.rowKey] ?? index) : String(index)),
   },
 );
 

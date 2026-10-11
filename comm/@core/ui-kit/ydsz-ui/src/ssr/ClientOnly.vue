@@ -19,5 +19,5 @@ defineExpose({ isClient: mounted })
 </script>
 
 <template>
-  <slot v-if="mounted />
+  <slot v-if="mounted"></slot>
 </template>

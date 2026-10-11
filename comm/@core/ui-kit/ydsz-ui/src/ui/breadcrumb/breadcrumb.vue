@@ -16,15 +16,6 @@ const props = withDefaults(defineProps<BreadcrumbProps>(), {
 
 const emit = defineEmits<BreadcrumbEmits>();
 
-function handleConfirm() {
-  emit('confirm');
-  emit('update:open', false);
-}
-
-function handleCancel() {
-  emit('cancel');
-  emit('update:open', false);
-}
 </script>
 
 <template>

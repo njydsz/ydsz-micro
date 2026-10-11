@@ -135,7 +135,7 @@ export function fixedColumnStyle(
   // 累加前面同侧列的宽度
   let offset = 0;
   for (let i = 0; i < idx; i++) {
-    offset += peerColumns[i].width ?? 100;
+    offset += peerColumns[i]!.width ?? 100;
   }
 
   return {

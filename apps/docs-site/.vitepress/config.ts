@@ -19,6 +19,7 @@ export default defineConfig({
   ],
   markdown: {
     lineNumbers: true,
+    html: false,
     container: {
       tipLabel: '提示',
       warningLabel: '注意',

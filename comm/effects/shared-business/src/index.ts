@@ -10,6 +10,12 @@
  * 子应用按需引用即可，无需各自实现。
  */
 
+// 注册二次认证弹窗 opener → 打破 shared-auth ↔ shared-business 循环依赖
+import { registerSecondaryAuthModalOpener } from '@ydsz/shared-auth';
+import { openSecondaryAuthModal } from './composables/use-secondary-auth';
+
+registerSecondaryAuthModalOpener(openSecondaryAuthModal);
+
 // 状态徽章组件 — 统一的项目/任务/审批状态展示
 export { default as YdStatusBadge } from './components/YdBizStatusBadge.vue';
 

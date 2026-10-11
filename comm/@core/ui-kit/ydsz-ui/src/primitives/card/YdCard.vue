@@ -17,6 +17,8 @@ type ClassValue = string | Record<string, boolean> | (string | Record<string, bo
 const props = defineProps<{
   class?: ClassValue;
   hoverable?: boolean;
+  /** 阴影变体：never / always / hover（默认 always） */
+  shadow?: 'never' | 'always' | 'hover';
 }>();
 </script>
 
@@ -24,7 +26,10 @@ const props = defineProps<{
   <div
     :class="
       cn(
-        'bg-surface-2 text-card-foreground rounded-xl border border-border-subtle shadow-raised',
+        'bg-surface-2 text-card-foreground rounded-xl border border-border-subtle',
+        shadow === 'always' || shadow === undefined ? 'shadow-raised' : '',
+        shadow === 'hover' ? 'shadow-none hover:shadow-raised' : '',
+        shadow === 'never' ? 'shadow-none' : '',
         hoverable && 'hover-card cursor-pointer',
         props.class,
       )

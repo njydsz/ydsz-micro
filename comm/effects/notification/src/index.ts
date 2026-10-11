@@ -1,5 +1,6 @@
 /**
  * @ydsz/notification —— 全局通知与实时通信能力
+ * <p>showNotification: 增强版通知 API，支持 action 操作按钮和持续时长控制
  *
  * <p>提供四级 severity 对齐的 toast 与通知工具，完全基于 ydsz-ui 通知系统：
  * <ul>
@@ -28,6 +29,10 @@ export type { ExceptionSeverity } from '@ydsz/request';
 
 export { showToast } from './use-toast';
 export { default as ToastProvider } from './ToastProvider.vue';
+
+/** 增强版通知 API，支持 action 操作按钮和持续时长控制 */
+export { showNotification } from './use-notification';
+export type { NotificationAction, NotificationOptions } from './use-notification';
 
 /** */
 /** Toast 时长常量（毫秒） */

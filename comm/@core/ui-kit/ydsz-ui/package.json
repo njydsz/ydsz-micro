@@ -51,6 +51,14 @@
       "types": "./src/primitives/input/index.ts",
       "default": "./src/primitives/input/index.ts"
     },
+    "./primitives/input-group": {
+      "types": "./src/primitives/input-group/index.ts",
+      "default": "./src/primitives/input-group/index.ts"
+    },
+    "./primitives/input-mask": {
+      "types": "./src/primitives/input-mask/index.ts",
+      "default": "./src/primitives/input-mask/index.ts"
+    },
     "./primitives/select": {
       "types": "./src/primitives/select/index.ts",
       "default": "./src/primitives/select/index.ts"
@@ -58,6 +66,10 @@
     "./primitives/checkbox": {
       "types": "./src/primitives/checkbox/index.ts",
       "default": "./src/primitives/checkbox/index.ts"
+    },
+    "./primitives/stepper": {
+      "types": "./src/primitives/stepper/index.ts",
+      "default": "./src/primitives/stepper/index.ts"
     },
     "./primitives/tabs": {
       "types": "./src/primitives/tabs/index.ts",

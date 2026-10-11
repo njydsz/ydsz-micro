@@ -38,7 +38,7 @@ export interface SortState {
 }
 
 /** useTableData 返回句柄 */
-export interface TableDataHandle<T extends Record<string, unknown>> {
+export interface TableDataHandle<T extends object> {
   /** 视图数据（排序 + 筛选 + 树形拍平后），供渲染层消费 */
   viewRows: ComputedRef<T[]>
   /** 当前排序状态 */
@@ -75,7 +75,7 @@ export interface TableDataHandle<T extends Record<string, unknown>> {
  * )
  * ```
  */
-export function useTableData<T extends Record<string, unknown>>(
+export function useTableData<T extends object>(
   source: () => T[],
   columns: () => ColumnDef[],
   options: UseTableDataOptions = {},
@@ -119,7 +119,11 @@ export function useTableData<T extends Record<string, unknown>>(
     const comparator = col?.sorter ?? defaultComparator
 
     return [...rows].sort((a: T, b: T): number => {
-      const result = comparator(a, b, prop)
+      const result = comparator(
+        a as Record<string, unknown>,
+        b as Record<string, unknown>,
+        prop,
+      )
       return order === 'desc' ? -result : result
     })
   }
@@ -141,7 +145,9 @@ export function useTableData<T extends Record<string, unknown>>(
 
       const filterMethod = col.filterMethod ?? defaultFilterMethod
       result = result.filter((row): boolean =>
-        activeFilters.some((filterValue: unknown): boolean => filterMethod(filterValue, row, col.prop!)),
+        activeFilters.some((filterValue: unknown): boolean =>
+          filterMethod(filterValue, row as Record<string, unknown>, col.prop!),
+        ),
       )
     }
 
@@ -153,11 +159,11 @@ export function useTableData<T extends Record<string, unknown>>(
     const result: T[] = []
 
     function walk(node: T): void {
-      const key = node[rowKey] as string | number
+      const key = (node as Record<string, unknown>)[rowKey] as string | number
       result.push(node)
 
       if (expandedKeys.value.has(key)) {
-        const children = (node[childrenKey] as T[] | undefined) ?? []
+        const children = ((node as Record<string, unknown>)[childrenKey] as T[] | undefined) ?? []
         children.forEach(walk)
       }
     }
@@ -224,7 +230,7 @@ export function useTableData<T extends Record<string, unknown>>(
     if (isRemote)
       return
 
-    const allKeys = viewRows.value.map((row): string | number => row[rowKey] as string | number)
+    const allKeys = viewRows.value.map((row): string | number => (row as Record<string, unknown>)[rowKey] as string | number)
     const shouldSelect = isSelected ?? selectedKeys.value.size !== allKeys.length
     selectedKeys.value = shouldSelect ? new Set(allKeys) : new Set()
   }
@@ -252,13 +258,13 @@ export function useTableData<T extends Record<string, unknown>>(
 }
 
 /** 默认比较函数（按字段字典序） */
-function defaultComparator<T extends Record<string, unknown>>(
+function defaultComparator<T extends object>(
   a: T,
   b: T,
   prop: string,
 ): number {
-  const va = a[prop] ?? ''
-  const vb = b[prop] ?? ''
+  const va = (a as Record<string, unknown>)[prop] ?? ''
+  const vb = (b as Record<string, unknown>)[prop] ?? ''
   if (va < vb)
     return -1
   if (va > vb)
@@ -269,8 +275,8 @@ function defaultComparator<T extends Record<string, unknown>>(
 /** 默认筛选谓词（值相等） */
 function defaultFilterMethod(
   filterValue: unknown,
-  row: Record<string, unknown>,
+  row: object,
   prop: string,
 ): boolean {
-  return row[prop] === filterValue
+  return (row as Record<string, unknown>)[prop] === filterValue
 }

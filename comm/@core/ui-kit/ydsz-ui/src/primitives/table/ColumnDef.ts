@@ -16,8 +16,8 @@ export interface FilterOption {
 
 /** 表格列内部定义 */
 export interface ColumnDef {
-  /** 列类型：index=序号列，selection=多选框，expand=展开行 */
-  type?: 'index' | 'selection' | 'expand';
+  /** 列类型：index=序号列，selection=多选框，expand=展开行，default=默认数据列 */
+  type?: 'default' | 'index' | 'selection' | 'expand';
   /** 对应行数据的字段名 */
   prop?: string;
   /** 表头文本 */

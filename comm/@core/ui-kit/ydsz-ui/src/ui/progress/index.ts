@@ -1,8 +1,8 @@
 /**
  * Progress 组件 barrel。
  *
- * @author ydsz-ai
+ * @author ydsz-team
  * @since 1.0.0
  */
 export { default as ydProgress } from './progress.vue';
-export type { ProgressProps } from './progress-types';
+export type { ProgressProps, ProgressEmits, ProgressType } from './progress-types';

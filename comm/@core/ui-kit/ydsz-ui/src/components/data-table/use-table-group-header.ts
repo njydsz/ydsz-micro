@@ -163,7 +163,7 @@ function collectLeaves(cols: readonly TableColumn[], out: TableColumn[]): void {
  */
 function buildHeaderRows(topColumns: readonly TableColumn[]): readonly HeaderRow[] {
   const maxDepth = topColumns.reduce((max, col) => Math.max(max, getDepth(col)), 0);
-  const rows: HeaderCell[][] = [];
+  const rows: (readonly HeaderCell[])[] = [];
 
   // 逐层构建
   for (let depth = 0; depth < maxDepth; depth++) {

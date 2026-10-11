@@ -81,7 +81,7 @@ export function generateQRMatrix(value: string, level: QRLevel): boolean[][] {
       }
       // 基于 LCG 的伪随机填充
       const pseudoRandom = pseudoRandomBool(seed, row * n + col);
-      matrix[row][col] = pseudoRandom;
+      matrix[row]![col] = pseudoRandom;
     }
   }
 
@@ -126,10 +126,10 @@ function drawFinderPattern(matrix: boolean[][], startRow: number, startCol: numb
       // 内框（不绘制，在白底上）
       const isInner = dr === 1 || dr === 5 || dc === 1 || dc === 5;
       if (isOuter) {
-        matrix[row][col] = true;
+        matrix[row]![col] = true;
       } else if (!isInner) {
         // 中心 3x3 区域
-        matrix[row][col] = true;
+        matrix[row]![col] = true;
       }
       // 其他（内框与外框之间）保持 false
     }

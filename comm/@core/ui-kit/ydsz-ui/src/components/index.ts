@@ -36,6 +36,7 @@ export * from './logo';
 export * from './pin-input';
 export * from './popover';
 export * from './quick-create';
+export * from './qr-code';
 export * from './render-content';
 export * from './scrollbar';
 export * from './search';

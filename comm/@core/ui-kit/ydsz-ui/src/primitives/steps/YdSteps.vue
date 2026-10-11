@@ -46,6 +46,8 @@ const props = withDefaults(
     steps: StepItem[];
     /** 点状步骤样式 */
     dot?: boolean;
+    /** 完成步骤的自定义图标 */
+    finishIcon?: string;
   }>(),
   {
     current: 0,

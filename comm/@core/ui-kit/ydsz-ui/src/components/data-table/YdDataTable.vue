@@ -26,6 +26,20 @@ import type { TableColumn } from './use-table-group-header';
 export type DataTableColumnDef<T = Record<string, unknown>> = TableColumnDef<T> &
   ColumnFixedConfig &
   TableColumn;
+
+/**
+ * 树形表格配置。
+ */
+export interface TreeConfig {
+  /** 子节点的 key 字段名（默认 'children'） */
+  childrenKey?: string;
+  /** 默认展开的 key 列表 */
+  defaultExpandedKeys?: string[];
+  /** 展开行的 key（受控模式） */
+  expandedKeys?: string[];
+  /** 是否有子节点的判断字段（可选） */
+  hasChildrenKey?: string;
+}
 </script>
 
 <script lang="ts" setup generic="T extends Record<string, unknown>">
@@ -33,6 +47,7 @@ import {
   computed,
   ref,
   useTemplateRef,
+  watch,
 } from 'vue';
 
 import { useVirtualizer } from '@tanstack/vue-virtual';
@@ -50,10 +65,12 @@ import {
   YdTableHeader,
   YdTableRow,
 } from '../../primitives/table';
+import { useColumnResize } from '../../primitives/table/useColumnResize';
+import { useColumnDrag } from '../../composables/use-column-drag';
 import { fixedColumnStyle, useFixedColumns } from './use-table-fixed-columns';
-import { useTableGroupHeader } from './use-table-group-header';
+import { useTableGroupHeader, type HeaderRow } from './use-table-group-header';
 
-import type { ComputedRef, Ref } from 'vue';
+import type { CSSProperties, ComputedRef, Ref } from 'vue';
 
 /* ============================================================ */
 /* 类型                                                          */
@@ -90,6 +107,12 @@ interface Props<T extends Record<string, unknown>> {
   columnVirtualizer?: boolean;
   /** 列虚拟估算宽度（像素），默认 120 */
   estimateColumnWidth?: number;
+  /** 是否启用列宽拖拽 */
+  resizable?: boolean;
+  /** 是否启用列顺序拖拽 */
+  reorderable?: boolean;
+  /** 树形表格配置（传值即启用树形模式） */
+  treeConfig?: TreeConfig;
 }
 
 /* ============================================================ */
@@ -104,6 +127,8 @@ const props = withDefaults(defineProps<Props<T>>(), {
   estimateColumnWidth: 120,
   isRemote: false,
   isSelectable: false,
+  resizable: false,
+  reorderable: false,
   rowKey: (_row: T, idx: number) => String(idx),
   selectType: 'checkbox',
 });
@@ -111,6 +136,9 @@ const props = withDefaults(defineProps<Props<T>>(), {
 const emit = defineEmits<{
   'sort-change': [prop: string, order: 'asc' | 'desc' | null];
   'selection-change': [keys: string[]];
+  'update:expandedKeys': [keys: string[]];
+  'columnResize': [payload: { columnKey: string; newWidth: number }];
+  'columnReorder': [payload: { fromIndex: number; toIndex: number; columns: DataTableColumnDef<T>[] }];
 }>();
 
 const { t } = useLocale();
@@ -171,7 +199,7 @@ const groupHeaderApi = useTableGroupHeader(
 );
 
 /** 多级表头分层行（二维数组） */
-const headerRows: ComputedRef<readonly ReadonlyArray<readonly Array<{ key?: string; label: string; rowspan: number; colspan: number; isLeaf: boolean }>>> = computed(() =>
+const headerRows: ComputedRef<readonly HeaderRow[]> = computed(() =>
   props.enableGroupHeader ? groupHeaderApi.headerRows.value : [],
 );
 
@@ -281,13 +309,171 @@ const table = useTableData<T>({
 });
 
 /* ============================================================ */
-/* 事件处理                                                     */
+/* 树形表格（TreeTable）                                        */
 /* ============================================================ */
 
-function handleSort(prop: string): void {
-  table.toggleSort(prop);
-  emit('sort-change', prop, table.sortState.value.order);
+/** 树形扁平化行：附带深度与是否有子节点信息 */
+interface TreeFlatRow<T> {
+  row: T;
+  depth: number;
+  hasChildren: boolean;
+  key: string;
 }
+
+/** 内部维护的展开 keys（非受控模式使用） */
+const internalExpandedKeys = ref<Set<string>>(
+  new Set(props.treeConfig?.defaultExpandedKeys ?? []),
+);
+
+/** 当前生效展开 keys（受控优先） */
+const effectiveExpandedKeys = computed<Set<string>>(() => {
+  if (props.treeConfig?.expandedKeys) {
+    return new Set(props.treeConfig.expandedKeys);
+  }
+  return internalExpandedKeys.value;
+});
+
+/** 切换展开/收起 */
+function toggleExpand(key: string): void {
+  const next = new Set(internalExpandedKeys.value);
+  if (next.has(key)) {
+    next.delete(key);
+  } else {
+    next.add(key);
+  }
+  internalExpandedKeys.value = next;
+  emit('update:expandedKeys', Array.from(next));
+}
+
+/** 树形扁平化计算 */
+const treeFlatRows = computed<TreeFlatRow<T>[]>(() => {
+  if (!props.treeConfig) return [];
+  const result: TreeFlatRow<T>[] = [];
+  const rows = viewRows.value;
+  const childrenKey = props.treeConfig.childrenKey ?? 'children';
+
+  function flatten(list: T[], depth: number): void {
+    for (let i = 0; i < list.length; i++) {
+      const r = list[i]!;
+      const key = props.rowKey(r, result.length);
+      const kids = (r as Record<string, unknown>)[childrenKey] as T[] | undefined;
+      const hasChild = Array.isArray(kids) && kids.length > 0;
+      result.push({ row: r, depth, hasChildren: hasChild, key });
+      if (hasChild && effectiveExpandedKeys.value.has(key)) {
+        flatten(kids!, depth + 1);
+      }
+    }
+  }
+
+  flatten(rows, 0);
+  return result;
+});
+
+/** 实际渲染行（树形模式下为扁平化列表） */
+const renderRows = computed<TreeFlatRow<T>[] | T[]>(() =>
+  props.treeConfig ? treeFlatRows.value : viewRows.value,
+);
+
+/* ============================================================ */
+/* 列宽拖拽（Column Resize）                                    */
+/* ============================================================ */
+
+const RESIZE_STORAGE_KEY = 'yd-datatable-col-widths';
+
+/** 加载持久化列宽 */
+function loadPersistedWidths(): Record<string, number> {
+  try {
+    const raw = localStorage.getItem(RESIZE_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+/** 持久化列宽 */
+function persistWidths(widths: Record<string, number>): void {
+  try {
+    localStorage.setItem(RESIZE_STORAGE_KEY, JSON.stringify(widths));
+  } catch {
+    // noop
+  }
+}
+
+const columnResizeApi = useColumnResize({
+  initialWidths: loadPersistedWidths(),
+  defaultMinWidth: 60,
+});
+
+/** 列宽拖拽：move handler 需要在组件内声明以便后续移除 */
+let resizeMoveHandler: ((e: PointerEvent) => void) | null = null;
+let resizeUpHandler: (() => void) | null = null;
+
+function handleResizeStart(prop: string, event: PointerEvent): void {
+  if (!props.resizable) return;
+  columnResizeApi.onResizeStart(prop, event);
+
+  resizeMoveHandler = (e: PointerEvent) => {
+    columnResizeApi.onResizeMove(e);
+    // 拖拽过程中实时持久化
+    persistWidths({ ...columnResizeApi.columnWidths.value });
+    // 实时 emit
+    emit('columnResize', {
+      columnKey: prop,
+      newWidth: columnResizeApi.columnWidths.value[prop] ?? 0,
+    });
+  };
+  resizeUpHandler = () => {
+    columnResizeApi.onResizeEnd();
+    document.removeEventListener('pointermove', resizeMoveHandler!);
+    document.removeEventListener('pointerup', resizeUpHandler!);
+    resizeMoveHandler = null;
+    resizeUpHandler = null;
+  };
+  document.addEventListener('pointermove', resizeMoveHandler);
+  document.addEventListener('pointerup', resizeUpHandler, { once: true });
+}
+
+/* ============================================================ */
+/* 列顺序拖拽（Column Reorder）                                 */
+/* ============================================================ */
+
+/** 当前列顺序（支持拖拽重排时的本地副本） */
+const reorderedColumns = ref<DataTableColumnDef<T>[]>([...props.columns]);
+
+watch(
+  () => props.columns,
+  (cols) => {
+    reorderedColumns.value = [...cols];
+  },
+  { deep: true },
+);
+
+const columnDragApi = useColumnDrag<DataTableColumnDef<T>>(
+  () => reorderedColumns.value,
+  (fromIndex, toIndex) => {
+    const newCols = [...reorderedColumns.value];
+    const [moved] = newCols.splice(fromIndex, 1);
+    newCols.splice(toIndex, 0, moved!);
+    reorderedColumns.value = newCols;
+    emit('columnReorder', { fromIndex, toIndex, columns: newCols });
+  },
+);
+
+/** 实际渲染列（支持拖拽重排） */
+const effectiveRenderColumns = computed<readonly ColumnFixedConfig[]>(() => {
+  if (props.reorderable) {
+    return reorderedColumns.value.map((col) => ({
+      key: col.key,
+      width: col.width,
+      fixed: col.fixed,
+    }));
+  }
+  return renderColumns.value;
+});
+
+/* ============================================================ */
+/* 事件处理                                                     */
+/* ============================================================ */
 
 function handleSelectAll(): void {
   table.toggleSelectAll();
@@ -336,8 +522,9 @@ const someSelected = computed<boolean>(
 
 /** 当前列 cell-span（空态 / 汇总行使用） */
 const totalCellSpan = computed<number>(() => {
-  let total = renderColumns.value.length;
+  let total = effectiveRenderColumns.value.length;
   if (props.isSelectable) total += 1;
+  if (props.treeConfig) total += 1;
   return total;
 });
 
@@ -407,6 +594,13 @@ defineExpose({
               />
             </YdTableHead>
 
+            <!-- 树形展开列头（多级表头模式，仅首行 rowspan） -->
+            <YdTableHead
+              v-if="props.treeConfig && hIdx === 0"
+              :rowspan="headerRows.length"
+              class="w-10 px-2"
+            />
+
             <!--
               左 / 右 固定列仅在多级表头的叶行（末行）渲染一次，
               避免在非叶行重复出现导致 colspan 错位。
@@ -415,9 +609,8 @@ defineExpose({
               <YdTableHead
                 v-for="(col, cIdx) in leftFixedColumns"
                 :key="`fixed-left-${col.key}`"
-                :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns])"
-                class="sticky-cell"
-                :class="{ 'border-e': cIdx === leftFixedColumns.length - 1 }"
+                :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
+                :class="cn('sticky-cell', { 'border-e': cIdx === leftFixedColumns.length - 1 })"
               >
                 {{ col.key }}
               </YdTableHead>
@@ -438,9 +631,8 @@ defineExpose({
               <YdTableHead
                 v-for="(col, cIdx) in rightFixedColumns"
                 :key="`fixed-right-${col.key}`"
-                :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns])"
-                class="sticky-cell"
-                :class="{ 'border-s': cIdx === 0 }"
+                :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
+                :class="cn('sticky-cell', { 'border-s': cIdx === 0 })"
               >
                 {{ col.key }}
               </YdTableHead>
@@ -462,15 +654,18 @@ defineExpose({
             />
           </YdTableHead>
 
+          <!-- 树形展开列头（仅 treeConfig 开启） -->
+          <YdTableHead v-if="props.treeConfig" class="w-10 px-2" />
+
           <!-- 左固定列头（sticky left） -->
           <YdTableHead
-            v-for="(col, cIdx) in leftFixedColumns"
+            v-for="(col, _cIdx) in leftFixedColumns"
             :key="`fixed-left-${col.key}`"
             :class="cn(
               'whitespace-nowrap font-medium',
               col.fixed === 'left' && 'sticky-cell',
             )"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns])"
+            :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
           >
             <span class="inline-flex items-center gap-1">
               {{ col.key }}
@@ -496,10 +691,13 @@ defineExpose({
               :class="cn(
                 'whitespace-nowrap font-medium',
                 displayMiddleColumns[vItem.index]?.fixed === 'left' && 'sticky-cell',
+                props.resizable && 'relative',
               )"
               :style="{
                 minWidth: `${props.estimateColumnWidth}px`,
-                width: `${props.estimateColumnWidth}px`,
+                width: props.resizable && columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')
+                  ? columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')!
+                  : `${props.estimateColumnWidth}px`,
               }"
             >
               <span class="inline-flex items-center gap-1">
@@ -511,6 +709,13 @@ defineExpose({
                   {{ getSortIcon(displayMiddleColumns[vItem.index]!) }}
                 </span>
               </span>
+              <!-- 列宽拖拽手柄 -->
+              <div
+                v-if="props.resizable"
+                class="yd-resize-handle absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
+                role="separator"
+                @pointerdown="handleResizeStart(displayMiddleColumns[vItem.index]?.key ?? '', $event)"
+              />
             </YdTableHead>
             <!-- spacer cell 占位（隐藏列后的空白） -->
             <YdTableHead
@@ -524,12 +729,17 @@ defineExpose({
           <!-- 中间列头（无虚拟滚动） -->
           <template v-else>
             <YdTableHead
-              v-for="(col, cIdx) in displayMiddleColumns"
+              v-for="(col, cIdx) in effectiveRenderColumns"
               :key="col.key"
+              :data-col-drag="props.reorderable ? cIdx : undefined"
               :class="cn(
                 'whitespace-nowrap font-medium',
                 col.fixed === 'left' && 'sticky-cell',
+                props.resizable && 'relative',
+                props.reorderable && 'cursor-grab select-none',
               )"
+              :style="props.resizable ? columnResizeApi.getColumnWidthStyle(col.key) ? { width: columnResizeApi.getColumnWidthStyle(col.key) } : undefined : undefined"
+              @pointerdown="props.reorderable && columnDragApi.onPointerDown($event, cIdx)"
             >
               <span class="inline-flex items-center gap-1">
                 {{ col.key }}
@@ -537,18 +747,27 @@ defineExpose({
                   {{ getSortIcon(col) }}
                 </span>
               </span>
+              <!-- 列宽拖拽手柄 -->
+              <div
+                v-if="props.resizable"
+                class="yd-resize-handle absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
+                :class="{ 'bg-primary/50': columnResizeApi.resizingProp.value === col.key }"
+                role="separator"
+                :aria-label="`resize-${col.key}`"
+                @pointerdown="handleResizeStart(col.key, $event)"
+              />
             </YdTableHead>
           </template>
 
           <!-- 右固定列头（sticky right） -->
           <YdTableHead
-            v-for="(col, cIdx) in rightFixedColumns"
+            v-for="(col, _cIdx) in rightFixedColumns"
             :key="`fixed-right-${col.key}`"
             :class="cn(
               'whitespace-nowrap font-medium',
               col.fixed === 'right' && 'sticky-cell',
             )"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns])"
+            :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
           >
             <span class="inline-flex items-center gap-1">
               {{ col.key }}
@@ -565,7 +784,7 @@ defineExpose({
       <!-- ====================================================== -->
       <YdTableBody>
         <!-- 空态 -->
-        <YdTableRow v-if="viewRows.length === 0">
+        <YdTableRow v-if="(props.treeConfig ? treeFlatRows.length === 0 : viewRows.length === 0)">
           <YdTableCell
             :colspan="totalCellSpan"
             class="py-12 text-center text-muted-foreground"
@@ -576,29 +795,55 @@ defineExpose({
 
         <!-- 数据行 -->
         <YdTableRow
-          v-for="(row, idx) in viewRows"
-          :key="props.rowKey(row, idx)"
+          v-for="(item, idx) in renderRows"
+          :key="props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)"
           class="border-b transition-colors hover:bg-muted/25"
         >
           <!-- 选择列 -->
           <YdTableCell v-if="props.isSelectable" class="px-2">
             <input
               :type="props.selectType === 'radio' ? 'radio' : 'checkbox'"
-              :checked="table.selection.value.has(props.rowKey(row, idx))"
+              :checked="table.selection.value.has(
+                props.treeConfig
+                  ? (item as TreeFlatRow<T>).key
+                  : props.rowKey(item as T, idx),
+              )"
               class="size-4"
               :aria-label="t('table.selectRow')"
-              @change="handleSelect(props.rowKey(row, idx))"
+              @change="handleSelect(
+                props.treeConfig
+                  ? (item as TreeFlatRow<T>).key
+                  : props.rowKey(item as T, idx),
+              )"
             />
+          </YdTableCell>
+
+          <!-- 树形展开/折叠列（仅 treeConfig 开启时渲染） -->
+          <YdTableCell v-if="props.treeConfig" class="px-2">
+            <span
+              class="inline-flex items-center"
+              :style="{ paddingLeft: `${((item as TreeFlatRow<T>).depth) * 16}px` }"
+            >
+              <button
+                v-if="(item as TreeFlatRow<T>).hasChildren"
+                class="yd-tree-toggle size-4 flex items-center justify-center text-xs hover:text-primary cursor-pointer select-none"
+                :aria-expanded="effectiveExpandedKeys.has((item as TreeFlatRow<T>).key)"
+                @click="toggleExpand((item as TreeFlatRow<T>).key)"
+              >
+                {{ effectiveExpandedKeys.has((item as TreeFlatRow<T>).key) ? '▼' : '▶' }}
+              </button>
+              <span v-else class="inline-block size-4" />
+            </span>
           </YdTableCell>
 
           <!-- 左固定列单元格 -->
           <YdTableCell
             v-for="col in leftFixedColumns"
             :key="`fixed-left-${col.key}`"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns])"
+            :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
             class="sticky-cell"
           >
-            {{ (row as Record<string, unknown>)[col.key] ?? '-' }}
+            {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[col.key] ?? '-' }}
           </YdTableCell>
 
           <!-- 中间列单元格（虚拟 / 全量） -->
@@ -614,10 +859,12 @@ defineExpose({
               :key="`virtual-cell-${vItem.key}`"
               :style="{
                 minWidth: `${props.estimateColumnWidth}px`,
-                width: `${props.estimateColumnWidth}px`,
+                width: props.resizable && columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')
+                  ? columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')!
+                  : `${props.estimateColumnWidth}px`,
               }"
             >
-              {{ (row as Record<string, unknown>)[displayMiddleColumns[vItem.index]?.key] ?? '-' }}
+              {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[displayMiddleColumns[vItem.index]?.key ?? ''] ?? '-' }}
             </YdTableCell>
             <YdTableCell
               v-if="lastVisibleColumnIndex < middleColumnCount - 1"
@@ -630,10 +877,10 @@ defineExpose({
           <!-- 中间列单元格（无虚拟滚动） -->
           <template v-else>
             <YdTableCell
-              v-for="col in displayMiddleColumns"
+              v-for="col in effectiveRenderColumns"
               :key="col.key"
             >
-              {{ (row as Record<string, unknown>)[col.key] ?? '-' }}
+              {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[col.key] ?? '-' }}
             </YdTableCell>
           </template>
 
@@ -641,10 +888,10 @@ defineExpose({
           <YdTableCell
             v-for="col in rightFixedColumns"
             :key="`fixed-right-${col.key}`"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns])"
+            :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
             class="sticky-cell"
           >
-            {{ (row as Record<string, unknown>)[col.key] ?? '-' }}
+            {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[col.key] ?? '-' }}
           </YdTableCell>
         </YdTableRow>
 
@@ -667,5 +914,19 @@ defineExpose({
   position: sticky;
   z-index: 1;
   background: hsl(var(--background, 255 255 255));
+}
+
+/* 列宽拖拽手柄 */
+.yd-resize-handle {
+  touch-action: none;
+  user-select: none;
+}
+
+/* 树形展开按钮 */
+.yd-tree-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
+  line-height: 1;
 }
 </style>

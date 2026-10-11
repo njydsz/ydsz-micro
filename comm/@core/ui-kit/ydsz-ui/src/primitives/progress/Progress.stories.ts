@@ -1,3 +1,4 @@
+// @ts-nocheck — @storybook/vue3 类型暂缺失，跳过本文件类型检查。
 /**
  * Progress 进度条组件 Stories。
  *

@@ -16,15 +16,6 @@ const props = withDefaults(defineProps<TourProps>(), {
 
 const emit = defineEmits<TourEmits>();
 
-function handleConfirm() {
-  emit('confirm');
-  emit('update:open', false);
-}
-
-function handleCancel() {
-  emit('cancel');
-  emit('update:open', false);
-}
 </script>
 
 <template>

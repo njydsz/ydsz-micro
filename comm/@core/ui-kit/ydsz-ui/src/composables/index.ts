@@ -133,6 +133,15 @@ export type {
 export { useTheme, initTheme } from './use-theme';
 export type { ThemeMode } from './use-theme';
 
+// 命令式对话框 —— 基于 Radix Vue Dialog 的命令式封装
+export { useDialog, closeAllDialogs } from '../headless/use-dialog';
+export type {
+  DialogAction,
+  DialogActionVariant,
+  DialogInstance,
+  DialogOptions,
+} from '../headless/use-dialog';
+
 // 从旧 @core/composables 迁移的横向能力 composables（唯一入口收敛）
 export {
   useCrossTabState,

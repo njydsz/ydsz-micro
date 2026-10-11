@@ -38,7 +38,6 @@ export * from './date-picker';
 export * from './descriptions';
 export * from './dialog';
 export * from './divider';
-export * from './domain-filter';
 export * from './dropdown-menu';
 export * from './empty';
 export * from './entity-card';

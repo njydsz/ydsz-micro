@@ -80,6 +80,9 @@ export {
   withSecondaryAuth,
 } from './guards';
 
+// v4.4.1: 注册接口用于打破 shared-auth ↔ shared-business 循环依赖
+export { registerSecondaryAuthModalOpener } from './guards';
+
 export {
   createOpenApiClient,
 } from './create-openapi-client';
