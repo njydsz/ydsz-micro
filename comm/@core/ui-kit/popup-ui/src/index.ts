@@ -11,6 +11,13 @@ export * from './drawer';
 export * from './image-viewer';
 export * from './message';
 export * from './modal';
+// PrimeVue 风格的命令式 composables（对标 useToast / useConfirm）
+export { useToast } from './use-toast';
+export type { UseToastReturn } from './use-toast';
+export { useConfirm } from './use-confirm';
+export type { ConfirmOptions, UseConfirmReturn } from './use-confirm';
+export { usePrompt } from './use-prompt';
+export type { PromptOptions, UsePromptReturn } from './use-prompt';
 export {
   closeTopOverlay,
   getOverlayDepth,

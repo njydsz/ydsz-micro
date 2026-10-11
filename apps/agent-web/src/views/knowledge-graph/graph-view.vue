@@ -15,10 +15,11 @@
  * @author ydsz-team
  * @since 1.0.0
 */
+import { YdAlert, YdButton, YdTag } from '@ydsz-core/ydsz-ui';
 import { useI18n } from '@ydsz/common-ui';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
-import { ElAlert, ElButton, ElIcon, ElMessage, ElSlider, ElTag } from 'element-plus';
-import { Refresh, ZoomIn, ZoomOut } from '@element-plus/icons-vue';
+
+import { RefreshCw, ZoomIn, ZoomOut } from 'lucide-vue-next';
 
 const props = defineProps<{
   /** 节点列表 */
@@ -369,57 +370,56 @@ watch(
     <!-- 工具栏 -->
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <ElTag size="small" type="info">
+        <YdTag size="sm" variant="info">
           {{ graphSummary.nodeCount }} {{ t('knowledgeGraph.graph.nodeCount') || '节点' }}
-        </ElTag>
-        <ElTag size="small" type="info">
+        </YdTag>
+        <YdTag size="sm" variant="info">
           {{ graphSummary.edgeCount }} {{ t('knowledgeGraph.graph.edgeCount') || '关系' }}
-        </ElTag>
-        <ElTag size="small" :type="graphSummary.g6Mode ? 'success' : 'warning'">
+        </YdTag>
+        <YdTag size="sm" :variant="graphSummary.g6Mode ? 'success' : 'warning'">
           {{ graphSummary.g6Mode ? 'G6' : t('knowledgeGraph.graph.svgMode') || 'SVG' }} {{ t('knowledgeGraph.graph.engine') || '引擎' }}
-        </ElTag>
+        </YdTag>
       </div>
       <div class="flex items-center gap-2">
-        <ElButton
+        <YdButton
           v-if="!graphSummary.g6Mode"
-          :icon="ZoomIn"
-          size="small"
+          size="sm"
           @click="handleZoomIn"
         >
+          <ZoomIn :size="14" />
           {{ t('common.zoomIn') || '放大' }}
-        </ElButton>
-        <ElButton
+        </YdButton>
+        <YdButton
           v-if="!graphSummary.g6Mode"
-          :icon="ZoomOut"
-          size="small"
+          size="sm"
           @click="handleZoomOut"
         >
+          <ZoomOut :size="14" />
           {{ t('common.zoomOut') || '缩小' }}
-        </ElButton>
-        <ElButton
+        </YdButton>
+        <YdButton
           v-if="!graphSummary.g6Mode"
-          size="small"
+          size="sm"
           @click="handleResetZoom"
         >
           {{ t('common.reset') || '重置' }}
-        </ElButton>
-        <ElButton
-          :icon="Refresh"
-          size="small"
+        </YdButton>
+        <YdButton
+          size="sm"
           :loading="loading"
           @click="emit('refresh')"
         >
+          <RefreshCw v-if="!loading" :size="14" />
           {{ t('common.refresh') || '刷新' }}
-        </ElButton>
+        </YdButton>
       </div>
     </div>
 
     <!-- 错误提示 -->
-    <ElAlert
+    <YdAlert
       v-if="error"
       :title="error"
       type="error"
-      show-icon
       :closable="false"
     />
 

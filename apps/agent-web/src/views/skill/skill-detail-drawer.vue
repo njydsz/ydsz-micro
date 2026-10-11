@@ -15,20 +15,11 @@
  * @author ydsz-team
  * @since 1.0.0
 */
+import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdTable, YdTableColumn, YdTag } from '@ydsz-core/ydsz-ui';
 import { useI18n } from '@ydsz/common-ui';
 import { computed, ref, watch } from 'vue';
-import {
-  ElAlert,
-  ElButton,
-  ElDescriptions,
-  ElDescriptionsItem,
-  ElDrawer,
-  ElIcon,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-} from 'element-plus';
-import { InfoFilled, Refresh } from '@element-plus/icons-vue';
+
+import { Info, RefreshCw } from 'lucide-vue-next';
 import { getSkillDetail } from '#/api/skill';
 
 const props = defineProps<{
@@ -87,13 +78,6 @@ async function loadDetail(): Promise<void> {
   }
 }
 
-/**
- * 关闭抽屉
- */
-function handleClose(): void {
-  visible.value = false;
-}
-
 /** 监听抽屉打开及 skillCode 变化 */
 watch(
   [visible, () => props.skillCode],
@@ -107,18 +91,16 @@ watch(
 </script>
 
 <template>
-  <ElDrawer
+  <YdDrawer
     v-model="visible"
     :title="t('business.skill.detail.title') || '技能详情'"
-    direction="rtl"
     size="50%"
-    :before-close="handleClose"
   >
     <div class="space-y-6">
       <!-- 基本信息 -->
       <div>
         <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
-          <ElIcon><InfoFilled /></ElIcon>
+          <Info :size="16" class="text-brand-500" />
           {{ t('business.skill.skillName') || '基本信息' }}
         </h3>
 
@@ -127,143 +109,126 @@ watch(
           v-if="detailLoading"
           class="flex h-32 items-center justify-center"
         >
-          <ElIcon class="is-loading" />
+          <RefreshCw class="animate-spin text-brand-500" :size="16" />
           <span class="ml-2 text-sm text-text-secondary">
             {{ t('business.skill.loading') || '加载中...' }}
           </span>
         </div>
 
         <!-- 错误态 -->
-        <ElAlert
+        <YdAlert
           v-else-if="detailError"
           :title="detailError"
           type="error"
-          show-icon
           :closable="false"
         />
 
         <!-- 详情内容 -->
-        <ElDescriptions
+        <YdDescriptions
           v-else
           :column="2"
           border
-          size="small"
+          size="sm"
         >
-          <ElDescriptionsItem :label="t('business.skill.skillCode') || '技能编码'">
+          <YdDescriptionsItem :label="t('business.skill.skillCode') || '技能编码'">
             {{ skillCode }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem :label="t('business.skill.skillName') || '技能名称'">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('business.skill.skillName') || '技能名称'">
             {{ getField('skillName') || '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem :label="t('business.skill.skillType') || '技能类型'">
-            <ElTag
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('business.skill.skillType') || '技能类型'">
+            <YdTag
               v-if="getField('skillType')"
-              size="small"
-              type="primary"
+              size="sm"
+              variant="primary"
             >
               {{ getField('skillType') }}
-            </ElTag>
+            </YdTag>
             <span v-else>-</span>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem :label="t('business.skill.version') || '版本'">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('business.skill.version') || '版本'">
             {{ getField('version') || '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem
+          </YdDescriptionsItem>
+          <YdDescriptionsItem
             :label="t('business.skill.status') || '状态'"
             :span="2"
           >
-            <ElTag
+            <YdTag
               v-if="getField('status')"
-              size="small"
-              :type="getField('status') === 'ACTIVE' ? 'success' : 'info'"
+              size="sm"
+              :variant="getField('status') === 'ACTIVE' ? 'success' : 'info'"
             >
               {{ getField('status') }}
-            </ElTag>
+            </YdTag>
             <span v-else>-</span>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem
+          </YdDescriptionsItem>
+          <YdDescriptionsItem
             :label="t('business.skill.description') || '描述'"
             :span="2"
           >
             {{ getField('description') || '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem
+          </YdDescriptionsItem>
+          <YdDescriptionsItem
             :label="t('business.skill.updatedAt') || '更新时间'"
             :span="2"
           >
             {{ getField('updatedAt') || '-' }}
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
       </div>
 
       <!-- 执行指标（metrics） -->
       <div v-if="isDetailRecord(detailData) && detailData.metrics">
         <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
-          <ElIcon><InfoFilled /></ElIcon>
+          <Info :size="16" class="text-brand-500" />
           {{ t('business.skill.detail.metrics') || '执行指标' }}
         </h3>
-        <ElDescriptions
+        <YdDescriptions
           :column="2"
           border
-          size="small"
+          size="sm"
         >
-          <ElDescriptionsItem
+          <YdDescriptionsItem
             v-for="(value, key) in (detailData.metrics as Record<string, unknown>)"
             :key="key"
             :label="String(key)"
           >
             {{ value != null ? JSON.stringify(value) : '-' }}
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
       </div>
 
       <!-- 产物文件 -->
       <div v-if="isDetailRecord(detailData) && Array.isArray(detailData.outputFiles) && (detailData.outputFiles as unknown[]).length > 0">
         <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
-          <ElIcon><InfoFilled /></ElIcon>
+          <Info :size="16" class="text-brand-500" />
           {{ t('business.skill.detail.outputFiles') || '产物文件' }}
         </h3>
-        <ElTable
+        <YdTable
           :data="(detailData.outputFiles as unknown[]).map((f: unknown) => ({ file: String(f) }))"
-          size="small"
+          size="sm"
+          border
           stripe
         >
-          <ElTableColumn
+          <YdTableColumn
             prop="file"
             :label="t('business.skill.detail.outputFiles') || '文件路径'"
-            minWidth="200"
+            min-width="200"
             show-overflow-tooltip
           />
-        </ElTable>
+        </YdTable>
       </div>
 
       <!-- 底部刷新 -->
       <div class="flex justify-end border-t border-border-subtle pt-4">
-        <ElButton
-          :icon="Refresh"
+        <YdButton
           :loading="detailLoading"
           @click="loadDetail"
         >
+          <RefreshCw v-if="!detailLoading" :size="14" />
           {{ t('business.skill.refresh') || '刷新' }}
-        </ElButton>
+        </YdButton>
       </div>
     </div>
-  </ElDrawer>
+  </YdDrawer>
 </template>
-
-<style scoped>
-:deep(.el-descriptions__cell) {
-  padding: 8px 12px;
-}
-
-:deep(.el-drawer__header) {
-  margin-bottom: 0;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-subtle, #e5e7eb);
-}
-
-:deep(.el-drawer__body) {
-  padding: 20px;
-  overflow-y: auto;
-}
-</style>

@@ -1,8 +1,13 @@
 /**
  * Tree 组件 barrel。
  *
- * @author ydsz-ai
- * @since 1.0.0
+ * @author ydsz-team
+ * @since 26.10.11
  */
 export { default as ydTree } from './tree.vue';
-export type { TreeProps } from './tree-types';
+export type {
+  TreeNodeData,
+  TreeExpandTrigger,
+  YdTreeProps,
+  YdTreeEmits,
+} from './tree-types';

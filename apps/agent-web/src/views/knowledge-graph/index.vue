@@ -15,31 +15,33 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdEmptyState } from '@ydsz-core/ydsz-ui';
-import { Page, useI18n } from '@ydsz/common-ui';
-import { computed, ref } from 'vue';
 import {
-  ElAlert,
-  ElButton,
-  ElCard,
-  ElCol,
-  ElEmpty,
-  ElIcon,
-  ElInput,
-  ElMessage,
-  ElOption,
-  ElProgress,
-  ElRow,
-  ElSelect,
-  ElStatistic,
-  ElTable,
-  ElTableColumn,
-  ElTabPane,
-  ElTabs,
-  ElTag,
-  ElUpload,
-} from 'element-plus';
-import { Refresh, Search, UploadFilled, View } from '@element-plus/icons-vue';
+  YdAlert,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdEmptyState,
+  YdInput,
+  YdProgress,
+  YdSelect,
+  YdSelectContent,
+  YdSelectItem,
+  YdSelectTrigger,
+  YdSelectValue,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
+  YdTable,
+  YdTableColumn,
+  YdTag,
+  YdStatistic,
+} from '@ydsz-core/ydsz-ui';
+import { Page, useI18n } from '@ydsz/common-ui';
+import { showToast } from '@ydsz/notification';
+import { computed, ref } from 'vue';
+
+import { Eye, RefreshCw, Search, Upload } from 'lucide-vue-next';
 import { ingest, querySubgraph, searchEntities, stats } from '#/api/knowledgeGraph';
 import EntityDetailDrawer from './entity-detail-drawer.vue';
 import GraphView from './graph-view.vue';
@@ -95,7 +97,7 @@ const selectedEntityId = ref<string>('');
  */
 async function handleSearch(): Promise<void> {
   if (!searchQuery.value.trim()) {
-    ElMessage.warning(t('knowledgeGraph.search.keywordRequired') || '请输入搜索关键词');
+    showToast.warning(t('knowledgeGraph.search.keywordRequired') || '请输入搜索关键词');
     return;
   }
   searchLoading.value = true;
@@ -108,7 +110,7 @@ async function handleSearch(): Promise<void> {
     searchResults.value = (results ?? []) as Record<string, unknown>[];
   } catch {
     searchResults.value = [];
-    ElMessage.error(t('knowledgeGraph.search.failed') || '搜索失败');
+    showToast.error(t('knowledgeGraph.search.failed') || '搜索失败');
   } finally {
     searchLoading.value = false;
   }
@@ -124,7 +126,7 @@ async function loadStats(): Promise<void> {
     graphStats.value = data ?? {};
   } catch {
     graphStats.value = {};
-    ElMessage.error(t('knowledgeGraph.stats.failed') || '加载统计信息失败');
+    showToast.error(t('knowledgeGraph.stats.failed') || '加载统计信息失败');
   } finally {
     statsLoading.value = false;
   }
@@ -222,16 +224,15 @@ function handleBeforeUpload(file: { name: string }): void {
   ingestResult.value = '';
   ingestError.value = '';
   ingestProgress.value = 0;
-  return true;
 }
 
 /**
  * 文件上传成功
  */
-async function handleUploadSuccess(response: unknown): Promise<void> {
+function handleUploadSuccess(): void {
   ingestProgress.value = 100;
   ingestResult.value = t('knowledgeGraph.ingest.success') || '摄取成功';
-  ElMessage.success(t('knowledgeGraph.ingest.success') || '摄取成功');
+  showToast.success(t('knowledgeGraph.ingest.success') || '摄取成功');
 }
 
 /**
@@ -239,7 +240,7 @@ async function handleUploadSuccess(response: unknown): Promise<void> {
  */
 function handleUploadError(error: unknown): void {
   ingestError.value = (error as Error)?.message || (t('knowledgeGraph.ingest.failed') || '摄取失败');
-  ElMessage.error(ingestError.value);
+  showToast.error(ingestError.value);
 }
 
 /**
@@ -247,7 +248,7 @@ function handleUploadError(error: unknown): void {
  */
 async function handleIngest(): Promise<void> {
   if (!ingestFileName.value) {
-    ElMessage.warning(t('knowledgeGraph.ingest.selectFile') || '请先选择文件');
+    showToast.warning(t('knowledgeGraph.ingest.selectFile') || '请先选择文件');
     return;
   }
   ingestLoading.value = true;
@@ -256,7 +257,7 @@ async function handleIngest(): Promise<void> {
     await ingest({ fileName: ingestFileName.value });
     ingestProgress.value = 100;
     ingestResult.value = t('knowledgeGraph.ingest.success') || '摄取成功';
-    ElMessage.success(t('knowledgeGraph.ingest.success') || '摄取成功');
+    showToast.success(t('knowledgeGraph.ingest.success') || '摄取成功');
   } catch {
     ingestError.value = t('knowledgeGraph.ingest.failed') || '摄取失败';
     ingestProgress.value = 0;
@@ -294,261 +295,263 @@ const typeDistData = computed(() => {
         <h2 class="text-lg font-semibold text-text-primary">
           {{ $t('knowledgeGraph.title') || '知识图谱管理' }}
         </h2>
-        <ElButton
+        <YdButton
           v-if="activeTab === 'stats'"
-          :icon="Refresh"
           @click="loadStats"
         >
+          <RefreshCw :size="14" />
           {{ $t('common.refresh') || '刷新' }}
-        </ElButton>
+        </YdButton>
       </div>
 
       <!-- Tab 切换 -->
-      <ElTabs
+      <YdTabs
         v-model="activeTab"
-        @tab-change="handleTabChange"
+        @update:model-value="handleTabChange"
       >
+        <YdTabsList>
+          <YdTabsTrigger value="search">
+            {{ $t('knowledgeGraph.tab.search') || '实体搜索' }}
+          </YdTabsTrigger>
+          <YdTabsTrigger value="graph">
+            {{ $t('knowledgeGraph.tab.graph') || '图视图' }}
+          </YdTabsTrigger>
+          <YdTabsTrigger value="stats">
+            {{ $t('knowledgeGraph.tab.stats') || '图谱统计' }}
+          </YdTabsTrigger>
+          <YdTabsTrigger value="ingest">
+            {{ $t('knowledgeGraph.tab.ingest') || '图谱摄取' }}
+          </YdTabsTrigger>
+        </YdTabsList>
+
         <!-- 搜索 Tab -->
-        <ElTabPane :label="$t('knowledgeGraph.tab.search') || '实体搜索'" name="search">
+        <YdTabsContent value="search">
           <div class="space-y-4 pt-4">
             <!-- 搜索栏 -->
             <div class="flex items-center gap-3">
-              <ElInput
+              <YdInput
                 v-model="searchQuery"
                 :placeholder="$t('knowledgeGraph.search.placeholder') || '输入关键词搜索实体...'"
-                clearable
-                style="width: 320px;"
+                class="w-80"
+                is-clearable
                 @keyup.enter="handleSearch"
               >
                 <template #prefix>
-                  <ElIcon><Search /></ElIcon>
+                  <Search :size="14" class="text-gray-400" />
                 </template>
-              </ElInput>
-              <ElSelect
+              </YdInput>
+              <YdSelect
                 v-model="selectedType"
-                :placeholder="$t('knowledgeGraph.search.entityType') || '实体类型'"
-                clearable
-                style="width: 180px;"
               >
-                <ElOption
-                  v-for="opt in entityTypeOptions"
-                  :key="opt.value"
-                  :label="opt.label"
-                  :value="opt.value"
-                />
-              </ElSelect>
-              <ElButton
-                type="primary"
+                <YdSelectTrigger class="w-44">
+                  <YdSelectValue :placeholder="$t('knowledgeGraph.search.entityType') || '实体类型'" />
+                </YdSelectTrigger>
+                <YdSelectContent>
+                  <YdSelectItem
+                    v-for="opt in entityTypeOptions"
+                    :key="opt.value"
+                    :value="opt.value"
+                  >
+                    {{ opt.label }}
+                  </YdSelectItem>
+                </YdSelectContent>
+              </YdSelect>
+              <YdButton
                 :loading="searchLoading"
                 @click="handleSearch"
               >
+                <Search v-if="!searchLoading" :size="14" />
                 {{ $t('common.search') || '搜索' }}
-              </ElButton>
+              </YdButton>
             </div>
 
             <!-- 搜索结果表格 -->
-            <ElCard
-              v-loading="searchLoading"
-              shadow="never"
-            >
-              <template v-if="hasSearched && searchResults.length === 0 && !searchLoading">
-                <YdEmptyState
-                  :description="$t('knowledgeGraph.search.noResults') || '未找到匹配的实体'"
-                  preset="search"
-                  title=""
-                />
-              </template>
-              <ElTable
-                v-else
-                :data="searchResults"
-                stripe
-                style="width: 100%;"
-              >
-                <ElTableColumn
-                  prop="entityId"
-                  :label="$t('knowledgeGraph.search.entityId') || 'EntityID'"
-                  width="200"
-                  show-overflow-tooltip
-                />
-                <ElTableColumn
-                  prop="name"
-                  :label="$t('knowledgeGraph.search.name') || '名称'"
-                  min-width="160"
-                  show-overflow-tooltip
-                />
-                <ElTableColumn
-                  prop="type"
-                  :label="$t('knowledgeGraph.search.type') || '类型'"
-                  width="130"
+            <YdCard>
+              <YdCardContent>
+                <template v-if="hasSearched && searchResults.length === 0 && !searchLoading">
+                  <YdEmptyState
+                    :description="$t('knowledgeGraph.search.noResults') || '未找到匹配的实体'"
+                    preset="search"
+                    title=""
+                  />
+                </template>
+                <YdTable
+                  v-else
+                  :data="searchResults"
+                  stripe
                 >
-                  <template #default="{ row }">
-                    <ElTag
-                      size="small"
-                      :type="(row.type || row.entityType) === 'Person' ? 'primary' : 'info'"
-                    >
-                      {{ row.type || row.entityType || '-' }}
-                    </ElTag>
-                  </template>
-                </ElTableColumn>
-                <ElTableColumn
-                  prop="description"
-                  :label="$t('knowledgeGraph.search.description') || '描述'"
-                  min-width="200"
-                  show-overflow-tooltip
-                />
-                <ElTableColumn
-                  :label="$t('common.operation') || '操作'"
-                  width="120"
-                  fixed="right"
-                >
-                  <template #default="{ row }">
-                    <ElButton
-                      type="primary"
-                      link
-                      size="small"
-                      :icon="View"
-                      @click="handleViewDetail(row)"
-                    >
-                      {{ $t('common.view') || '查看' }}
-                    </ElButton>
-                  </template>
-                </ElTableColumn>
-              </ElTable>
-            </ElCard>
+                  <YdTableColumn
+                    prop="entityId"
+                    :label="$t('knowledgeGraph.search.entityId') || 'EntityID'"
+                    width="200"
+                    show-overflow-tooltip
+                  />
+                  <YdTableColumn
+                    prop="name"
+                    :label="$t('knowledgeGraph.search.name') || '名称'"
+                    min-width="160"
+                    show-overflow-tooltip
+                  />
+                  <YdTableColumn
+                    prop="type"
+                    :label="$t('knowledgeGraph.search.type') || '类型'"
+                    width="130"
+                  >
+                    <template #default="{ row }">
+                      <YdTag
+                        size="sm"
+                        :variant="(row.type || row.entityType) === 'Person' ? 'primary' : 'info'"
+                      >
+                        {{ row.type || row.entityType || '-' }}
+                      </YdTag>
+                    </template>
+                  </YdTableColumn>
+                  <YdTableColumn
+                    prop="description"
+                    :label="$t('knowledgeGraph.search.description') || '描述'"
+                    min-width="200"
+                    show-overflow-tooltip
+                  />
+                  <YdTableColumn
+                    :label="$t('common.operation') || '操作'"
+                    width="120"
+                    fixed="right"
+                  >
+                    <template #default="{ row }">
+                      <YdButton
+                        variant="link"
+                        size="sm"
+                        @click="handleViewDetail(row)"
+                      >
+                        <Eye :size="14" />
+                        {{ $t('common.view') || '查看' }}
+                      </YdButton>
+                    </template>
+                  </YdTableColumn>
+                </YdTable>
+              </YdCardContent>
+            </YdCard>
           </div>
-        </ElTabPane>
+        </YdTabsContent>
 
         <!-- 图视图 Tab -->
-        <ElTabPane :label="$t('knowledgeGraph.tab.graph') || '图视图'" name="graph">
+        <YdTabsContent value="graph">
           <div class="space-y-4 pt-4">
-            <ElCard
-              v-loading="graphLoading"
-              shadow="never"
-            >
-              <GraphView
-                :nodes="graphNodes"
-                :relations="graphRelations"
-                :loading="graphLoading"
-                :error="graphError"
-                @refresh="loadDefaultGraph"
-                @node-click="handleGraphNodeClick"
-              />
-            </ElCard>
+            <YdCard>
+              <YdCardContent>
+                <GraphView
+                  :nodes="graphNodes"
+                  :relations="graphRelations"
+                  :loading="graphLoading"
+                  :error="graphError"
+                  @refresh="loadDefaultGraph"
+                  @node-click="handleGraphNodeClick"
+                />
+              </YdCardContent>
+            </YdCard>
           </div>
-        </ElTabPane>
+        </YdTabsContent>
 
         <!-- 统计 Tab -->
-        <ElTabPane :label="$t('knowledgeGraph.tab.stats') || '图谱统计'" name="stats">
+        <YdTabsContent value="stats">
           <div class="space-y-4 pt-4">
             <!-- 统计卡片 -->
-            <ElRow
-              :gutter="16"
-              v-loading="statsLoading"
-            >
-              <ElCol
+            <div class="grid grid-cols-4 gap-4">
+              <YdCard
                 v-for="card in statCards"
                 :key="card.label"
-                :span="6"
               >
-                <ElCard
-                  shadow="never"
-                  class="stat-card"
-                >
-                  <ElStatistic
+                <YdCardContent class="stat-card">
+                  <YdStatistic
                     :value="card.value"
                     :title="card.label"
                   />
-                </ElCard>
-              </ElCol>
-            </ElRow>
+                </YdCardContent>
+              </YdCard>
+            </div>
 
             <!-- 空态 -->
-            <ElCard
+            <YdCard
               v-if="!statsLoading && Object.keys(graphStats).length === 0"
-              shadow="never"
             >
-              <YdEmptyState
-                :description="$t('knowledgeGraph.stats.noData') || '暂无统计数据'"
-                preset="data"
-                title=""
-              />
-            </ElCard>
+              <YdCardContent>
+                <YdEmptyState
+                  :description="$t('knowledgeGraph.stats.noData') || '暂无统计数据'"
+                  preset="data"
+                  title=""
+                />
+              </YdCardContent>
+            </YdCard>
           </div>
-        </ElTabPane>
+        </YdTabsContent>
 
         <!-- 摄取 Tab -->
-        <ElTabPane :label="$t('knowledgeGraph.tab.ingest') || '图谱摄取'" name="ingest">
+        <YdTabsContent value="ingest">
           <div class="space-y-4 pt-4">
-            <ElCard shadow="never">
-              <div class="space-y-4">
-                <!-- 描述文字 -->
-                <p class="text-sm text-text-secondary">
-                  {{ $t('knowledgeGraph.ingest.description') || '上传结构化数据文件（JSON/JSONL/CSV）以导入知识图谱。' }}
-                </p>
-
-                <!-- 文件上传 -->
-                <ElUpload
-                  :before-upload="handleBeforeUpload"
-                  :on-success="handleUploadSuccess"
-                  :on-error="handleUploadError"
-                  :show-file-list="false"
-                  accept=".json,.jsonl,.csv"
-                  drag
-                  action="/api/v1/agent/knowledge/ingest"
-                >
-                  <ElIcon
-                    class="el-icon--upload"
-                    size="48"
-                  >
-                    <UploadFilled />
-                  </ElIcon>
-                  <div class="el-upload__text">
-                    {{ $t('knowledgeGraph.ingest.dragText') || '拖拽文件到此处或' }}
-                    <em>{{ $t('knowledgeGraph.ingest.clickText') || '点击上传' }}</em>
-                  </div>
-                  <template #tip>
-                    <div class="el-upload__tip">
-                      {{ $t('knowledgeGraph.ingest.formats') || '支持 JSON / JSONL / CSV 格式' }}
-                    </div>
-                  </template>
-                </ElUpload>
-
-                <!-- 上传中进度 -->
-                <div
-                  v-if="ingestLoading || ingestProgress > 0"
-                  class="space-y-2"
-                >
+            <YdCard>
+              <YdCardContent>
+                <div class="space-y-4">
+                  <!-- 描述文字 -->
                   <p class="text-sm text-text-secondary">
-                    {{ ingestFileName }}
+                    {{ $t('knowledgeGraph.ingest.description') || '上传结构化数据文件（JSON/JSONL/CSV）以导入知识图谱。' }}
                   </p>
-                  <ElProgress
-                    :percentage="ingestProgress"
-                    :status="ingestProgress === 100 ? 'success' : ''"
+
+                  <!-- 文件上传区域（自定义拖拽） -->
+                  <div
+                    class="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-8 transition-colors hover:border-brand-500"
+                    @dragover.prevent
+                    @drop.prevent="handleBeforeUpload(($event.dataTransfer?.files?.[0] as { name: string }) ?? { name: '' })"
+                  >
+                    <Upload :size="48" class="text-gray-400" />
+                    <p class="mt-2 text-sm text-text-secondary">
+                      {{ $t('knowledgeGraph.ingest.dragText') || '拖拽文件到此处或' }}
+                      <label class="cursor-pointer text-brand-500 hover:text-brand-600">
+                        {{ $t('knowledgeGraph.ingest.clickText') || '点击上传' }}
+                        <input
+                          type="file"
+                          accept=".json,.jsonl,.csv"
+                          class="hidden"
+                          @change="handleBeforeUpload(($event.target as HTMLInputElement)?.files?.[0] ?? { name: '' }); handleIngest()"
+                        />
+                      </label>
+                    </p>
+                    <p class="mt-1 text-xs text-gray-400">
+                      {{ $t('knowledgeGraph.ingest.formats') || '支持 JSON / JSONL / CSV 格式' }}
+                    </p>
+                  </div>
+
+                  <!-- 上传中进度 -->
+                  <div
+                    v-if="ingestLoading || ingestProgress > 0"
+                    class="space-y-2"
+                  >
+                    <p class="text-sm text-text-secondary">
+                      {{ ingestFileName }}
+                    </p>
+                    <YdProgress
+                      :percentage="ingestProgress"
+                    />
+                  </div>
+
+                  <!-- 结果提示 -->
+                  <YdAlert
+                    v-if="ingestResult"
+                    :title="ingestResult"
+                    type="success"
+                    @close="ingestResult = ''"
+                  />
+                  <YdAlert
+                    v-if="ingestError"
+                    :title="ingestError"
+                    type="error"
+                    @close="ingestError = ''"
                   />
                 </div>
-
-                <!-- 结果提示 -->
-                <ElAlert
-                  v-if="ingestResult"
-                  :title="ingestResult"
-                  type="success"
-                  show-icon
-                  :closable="true"
-                  @close="ingestResult = ''"
-                />
-                <ElAlert
-                  v-if="ingestError"
-                  :title="ingestError"
-                  type="error"
-                  show-icon
-                  :closable="true"
-                  @close="ingestError = ''"
-                />
-              </div>
-            </ElCard>
+              </YdCardContent>
+            </YdCard>
           </div>
-        </ElTabPane>
-      </ElTabs>
+        </YdTabsContent>
+      </YdTabs>
 
       <!-- 实体详情抽屉 -->
       <EntityDetailDrawer
@@ -561,21 +564,7 @@ const typeDistData = computed(() => {
 </template>
 
 <style scoped>
-:deep(.el-tabs__nav-wrap) {
-  padding-left: 0;
-}
-
-:deep(.stat-card .el-statistic__content) {
-  font-size: 28px;
-  font-weight: 600;
-}
-
-:deep(.stat-card .el-statistic__title) {
-  font-size: 13px;
-  color: var(--text-tertiary, #6b7280);
-}
-
-:deep(.stat-card) {
+.stat-card {
   text-align: center;
 }
 </style>

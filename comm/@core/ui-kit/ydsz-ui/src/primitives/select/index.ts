@@ -21,6 +21,9 @@ export { default as YdSelectTrigger } from './YdSelectTrigger.vue';
 export { default as YdSelectValue } from './YdSelectValue.vue';
 export { default as YdVSelect } from './YdVSelect.vue';
 export { default as YdVSelectTrigger } from './YdVSelectTrigger.vue';
+
+/** 便利性 alias —— 对齐 EP ElOption 命名惯例 */
+export { default as YdOption } from './YdOption.vue';
 export { default as YdSelectVirtualContent } from './YdSelectVirtualContent.vue';
 export type { VSelectProps } from './YdVSelect.vue';
 export type { VSelectTriggerProps } from './YdVSelectTrigger.vue';

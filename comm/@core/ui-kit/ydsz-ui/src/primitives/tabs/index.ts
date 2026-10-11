@@ -12,4 +12,5 @@ export { default as YdTabs } from './YdTabs.vue';
 export { default as YdTabsContent } from './YdTabsContent.vue';
 export { default as YdTabsList } from './YdTabsList.vue';
 export { default as YdTabsTrigger } from './YdTabsTrigger.vue';
+export { default as YdTabPane } from './YdTabPane.vue';
 export { TabsIndicator } from '@ydsz-core/ydsz-vue';

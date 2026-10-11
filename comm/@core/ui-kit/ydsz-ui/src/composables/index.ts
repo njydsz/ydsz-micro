@@ -29,6 +29,12 @@ export type {
   VisibleItem,
 } from './use-virtual-list';
 
+export { useVirtualForList } from './use-virtual-for-list';
+export type {
+  UseVirtualForListOptions,
+  UseVirtualForListHandle,
+} from './use-virtual-for-list';
+
 export { useColumnDrag } from './use-column-drag';
 export type { ColumnDragState, UseColumnDragOptions } from './use-column-drag';
 
@@ -59,6 +65,28 @@ export type {
 } from './use-drag-sort';
 
 export { useComponentI18n } from './use-component-i18n';
+export type { UseComponentI18nOptions } from './use-component-i18n';
+
+/** 命令式消息确认框 —— 对齐 EP ElMessageBox */
+export { showMessageBox } from './use-message-box';
+export type {
+  MessageBoxAction,
+  MessageBoxAlertOptions,
+  MessageBoxApi,
+  MessageBoxConfirmOptions,
+  MessageBoxPromptOptions,
+  MessageBoxResponseData,
+  MessageBoxType,
+} from './use-message-box';
+export { useGridProvider, useGridContext, useGridItem } from './use-grid-layout';
+export type {
+  GridBreakpoint,
+  GridBreakpoints,
+  GridColumnConfig,
+  GridItemConfig,
+  GridContext,
+  UseGridProviderOptions,
+} from './use-grid-layout';
 export type {
   UseComponentI18nOptions,
   ComponentI18nHandle,

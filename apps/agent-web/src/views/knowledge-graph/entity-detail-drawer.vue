@@ -15,10 +15,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdEmptyState, YdTable, YdTableColumn, YdTag } from '@ydsz-core/ydsz-ui';
 import { useI18n } from '@ydsz/common-ui';
 import { computed, ref, watch } from 'vue';
-import { ElAlert, ElButton, ElDescriptions, ElDescriptionsItem, ElDrawer, ElEmpty, ElIcon, ElTable, ElTableColumn, ElTag } from 'element-plus';
-import { Connection, InfoFilled, Refresh } from '@element-plus/icons-vue';
+
+import { Info, Link, RefreshCw } from 'lucide-vue-next';
 import { querySubgraph, queryRelations } from '#/api/knowledgeGraph';
 
 const props = defineProps<{
@@ -143,13 +144,6 @@ async function loadRelations(): Promise<void> {
 }
 
 /**
- * 关闭抽屉
- */
-function handleClose(): void {
-  visible.value = false;
-}
-
-/**
  * 监听 entityId 变化，加载数据
  */
 watch(
@@ -175,63 +169,61 @@ watch(visible, (val) => {
 </script>
 
 <template>
-  <ElDrawer
+  <YdDrawer
     v-model="visible"
     :title="$t('knowledgeGraph.detail.title') || '实体详情'"
-    direction="rtl"
     size="50%"
-    :before-close="handleClose"
   >
     <div class="space-y-6">
       <!-- 实体基本信息 -->
       <div>
         <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
-          <ElIcon><InfoFilled /></ElIcon>
+          <Info :size="16" class="text-brand-500" />
           {{ $t('knowledgeGraph.detail.basicInfo') || '基本信息' }}
         </h3>
-        <ElDescriptions
+        <YdDescriptions
           :column="2"
           border
-          size="small"
+          size="sm"
         >
-          <ElDescriptionsItem :label="$t('knowledgeGraph.detail.entityId') || 'EntityID'">
+          <YdDescriptionsItem :label="$t('knowledgeGraph.detail.entityId') || 'EntityID'">
             {{ entityId }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem :label="$t('knowledgeGraph.detail.name') || '名称'">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="$t('knowledgeGraph.detail.name') || '名称'">
             {{ centerNode?.name || subgraphNodes[0]?.name || '-' }}
-          </ElDescriptionsItem>
-          <ElDescriptionsItem :label="$t('knowledgeGraph.detail.type') || '类型'">
-            <ElTag
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="$t('knowledgeGraph.detail.type') || '类型'">
+            <YdTag
               v-if="centerNode?.type || subgraphNodes[0]?.type"
-              size="small"
-              type="primary"
+              size="sm"
+              variant="primary"
             >
               {{ centerNode?.type || subgraphNodes[0]?.type }}
-            </ElTag>
+            </YdTag>
             <span v-else>-</span>
-          </ElDescriptionsItem>
-          <ElDescriptionsItem :label="$t('knowledgeGraph.detail.description') || '描述'">
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="$t('knowledgeGraph.detail.description') || '描述'">
             {{ centerNode?.description || subgraphNodes[0]?.description || '-' }}
-          </ElDescriptionsItem>
-        </ElDescriptions>
+          </YdDescriptionsItem>
+        </YdDescriptions>
       </div>
 
       <!-- 子图可视化 -->
       <div>
         <h3 class="mb-3 flex items-center justify-between">
           <span class="flex items-center gap-2 text-base font-medium text-text-primary">
-            <ElIcon><Connection /></ElIcon>
+            <Link :size="16" class="text-brand-500" />
             {{ $t('knowledgeGraph.detail.subgraph') || '子图结构' }}
           </span>
-          <ElButton
-            :icon="Refresh"
-            link
-            size="small"
+          <YdButton
+            size="sm"
+            variant="ghost"
             :loading="subgraphLoading"
             @click="loadSubgraph"
           >
+            <RefreshCw v-if="!subgraphLoading" :size="14" />
             {{ $t('common.refresh') || '刷新' }}
-          </ElButton>
+          </YdButton>
         </h3>
 
         <!-- 加载态 -->
@@ -239,23 +231,22 @@ watch(visible, (val) => {
           v-if="subgraphLoading"
           class="flex h-32 items-center justify-center"
         >
-          <ElIcon class="is-loading" />
+          <RefreshCw class="animate-spin text-brand-500" :size="16" />
           <span class="ml-2 text-sm text-text-secondary">
             {{ $t('common.loading') || '加载中...' }}
           </span>
         </div>
 
         <!-- 错误态 -->
-        <ElAlert
+        <YdAlert
           v-else-if="subgraphError"
           :title="subgraphError"
           type="error"
-          show-icon
           :closable="false"
         />
 
         <!-- 空态 -->
-        <ElEmpty
+        <YdEmptyState
           v-else-if="subgraphNodes.length === 0"
           :description="$t('knowledgeGraph.detail.emptySubgraph') || '暂无子图数据'"
         />
@@ -276,85 +267,87 @@ watch(visible, (val) => {
           </div>
 
           <!-- 节点列表 -->
-          <ElTable
+          <YdTable
             :data="subgraphNodes"
-            size="small"
+            size="sm"
+            border
             stripe
           >
-            <ElTableColumn
+            <YdTableColumn
               prop="entityId"
               :label="$t('knowledgeGraph.detail.nodeId') || '节点ID'"
               width="180"
               show-overflow-tooltip
             />
-            <ElTableColumn
+            <YdTableColumn
               prop="name"
               :label="$t('knowledgeGraph.detail.nodeName') || '节点名称'"
               min-width="140"
               show-overflow-tooltip
             />
-            <ElTableColumn
+            <YdTableColumn
               prop="type"
               :label="$t('knowledgeGraph.detail.nodeType') || '节点类型'"
               width="120"
             >
               <template #default="{ row }">
-                <ElTag
+                <YdTag
                   v-if="row.type"
-                  size="small"
-                  type="info"
+                  size="sm"
+                  variant="info"
                 >
                   {{ row.type }}
-                </ElTag>
+                </YdTag>
                 <span v-else>-</span>
               </template>
-            </ElTableColumn>
-          </ElTable>
+            </YdTableColumn>
+          </YdTable>
 
           <!-- 关系边列表 -->
           <div v-if="subgraphRelations.length > 0">
             <h4 class="mb-2 text-sm font-medium text-text-secondary">
               {{ $t('knowledgeGraph.detail.edges') || '关系边' }}
             </h4>
-            <ElTable
+            <YdTable
               :data="subgraphRelations"
-              size="small"
+              size="sm"
+              border
               stripe
             >
-              <ElTableColumn
+              <YdTableColumn
                 prop="relationType"
                 :label="$t('knowledgeGraph.detail.relationType') || '关系类型'"
                 width="140"
               >
                 <template #default="{ row }">
-                  <ElTag
+                  <YdTag
                     v-if="row.relationType"
-                    size="small"
-                    type="primary"
+                    size="sm"
+                    variant="primary"
                   >
                     {{ row.relationType }}
-                  </ElTag>
+                  </YdTag>
                   <span v-else>-</span>
                 </template>
-              </ElTableColumn>
-              <ElTableColumn
+              </YdTableColumn>
+              <YdTableColumn
                 prop="sourceEntity"
                 :label="$t('knowledgeGraph.detail.sourceEntity') || '源实体'"
                 width="160"
                 show-overflow-tooltip
               />
-              <ElTableColumn
+              <YdTableColumn
                 prop="targetEntity"
                 :label="$t('knowledgeGraph.detail.targetEntity') || '目标实体'"
                 width="160"
                 show-overflow-tooltip
               />
-              <ElTableColumn
+              <YdTableColumn
                 prop="weight"
                 :label="$t('knowledgeGraph.detail.weight') || '权重'"
                 width="100"
               />
-            </ElTable>
+            </YdTable>
           </div>
         </div>
       </div>
@@ -363,18 +356,18 @@ watch(visible, (val) => {
       <div>
         <h3 class="mb-3 flex items-center justify-between">
           <span class="flex items-center gap-2 text-base font-medium text-text-primary">
-            <ElIcon><Connection /></ElIcon>
+            <Link :size="16" class="text-brand-500" />
             {{ $t('knowledgeGraph.detail.allRelations') || '关联关系' }}
           </span>
-          <ElButton
-            :icon="Refresh"
-            link
-            size="small"
+          <YdButton
+            size="sm"
+            variant="ghost"
             :loading="relationsLoading"
             @click="loadRelations"
           >
+            <RefreshCw v-if="!relationsLoading" :size="14" />
             {{ $t('common.refresh') || '刷新' }}
-          </ElButton>
+          </YdButton>
         </h3>
 
         <!-- 加载态 -->
@@ -382,86 +375,69 @@ watch(visible, (val) => {
           v-if="relationsLoading"
           class="flex h-32 items-center justify-center"
         >
-          <ElIcon class="is-loading" />
+          <RefreshCw class="animate-spin text-brand-500" :size="16" />
           <span class="ml-2 text-sm text-text-secondary">
             {{ $t('common.loading') || '加载中...' }}
           </span>
         </div>
 
         <!-- 错误态 -->
-        <ElAlert
+        <YdAlert
           v-else-if="relationsError"
           :title="relationsError"
           type="error"
-          show-icon
           :closable="false"
         />
 
         <!-- 空态 -->
-        <ElEmpty
+        <YdEmptyState
           v-else-if="relationsData.length === 0"
           :description="$t('knowledgeGraph.detail.emptyRelations') || '暂无关联关系'"
         />
 
         <!-- 关系数据表 -->
-        <ElTable
+        <YdTable
           v-else
           :data="relationsData"
-          size="small"
+          size="sm"
+          border
           stripe
         >
-          <ElTableColumn
+          <YdTableColumn
             prop="relationType"
             :label="$t('knowledgeGraph.detail.relationType') || '关系类型'"
             width="140"
           >
             <template #default="{ row }">
-              <ElTag
+              <YdTag
                 v-if="row.relationType"
-                size="small"
-                type="primary"
+                size="sm"
+                variant="primary"
               >
                 {{ row.relationType }}
-              </ElTag>
+              </YdTag>
               <span v-else>-</span>
             </template>
-          </ElTableColumn>
-          <ElTableColumn
+          </YdTableColumn>
+          <YdTableColumn
             prop="sourceEntity"
             :label="$t('knowledgeGraph.detail.sourceEntity') || '源实体'"
             width="160"
             show-overflow-tooltip
           />
-          <ElTableColumn
+          <YdTableColumn
             prop="targetEntity"
             :label="$t('knowledgeGraph.detail.targetEntity') || '目标实体'"
             width="160"
             show-overflow-tooltip
           />
-          <ElTableColumn
+          <YdTableColumn
             prop="weight"
             :label="$t('knowledgeGraph.detail.weight') || '权重'"
             width="100"
           />
-        </ElTable>
+        </YdTable>
       </div>
     </div>
-  </ElDrawer>
+  </YdDrawer>
 </template>
-
-<style scoped>
-:deep(.el-descriptions__cell) {
-  padding: 8px 12px;
-}
-
-:deep(.el-drawer__header) {
-  margin-bottom: 0;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-subtle, #e5e7eb);
-}
-
-:deep(.el-drawer__body) {
-  padding: 20px;
-  overflow-y: auto;
-}
-</style>

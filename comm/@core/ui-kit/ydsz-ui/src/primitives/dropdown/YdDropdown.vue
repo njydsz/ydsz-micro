@@ -1,102 +1,111 @@
-<script lang="ts" setup>
-// @ts-nocheck
-import { cn } from '@ydsz-core/shared/utils';
+<!--
+ * 下拉菜单 —— 便利性封装（Convenience Wrapper）。
+ *
+ * 配置式 options API 包裹 YdDropdownMenu 系列组件，
+ * 对齐 Element Plus ElDropdown 的 options 配置形态。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown\YdDropdown.vue
+ * @author ydsz-team
+ * @since 1.0.0
+ -->
+<script setup lang="ts">
+/**
+ * 下拉菜单便利性封装。
+ * <p>支持配置式 options 参数，简化常见使用场景。
+ *
+ * @author ydsz-team
+ * @since 1.0.0
+ */
+import { YdDropdownMenu, YdDropdownMenuContent, YdDropdownMenuItem, YdDropdownMenuSeparator, YdDropdownMenuTrigger } from '../dropdown-menu';
 
-export type DropdownMenuKey = string | number;
+import type { HTMLAttributes } from 'vue';
 
-export interface DropdownMenuItem {
-  /** 是否危险操作 */
-  danger?: boolean;
+/** 菜单项配置 */
+export interface DropdownMenuItemOption {
+  /** 显示文本 */
+  label: string;
+  /** 唯一值 */
+  value: string;
   /** 是否禁用 */
   disabled?: boolean;
-  /** 唯一 key */
-  key: DropdownMenuKey;
-  /** 显示标签 */
-  label: string;
+  /** 是否显示为分隔线 */
+  divided?: boolean;
+  /** 自定义图标 */
+  icon?: string;
   /** 点击回调 */
   onClick?: () => void;
-  /** 分割线 */
-  divider?: boolean;
-  /** 前置图标 */
-  icon?: any;
 }
 
-interface Props {
-  /** 自定义类名 */
-  class?: any;
-  /** 菜单项列表 */
-  items?: DropdownMenuItem[];
-  /** 对齐位置 */
-  placement?: 'bottom-end' | 'bottom-start' | 'top-end' | 'top-start';
-  /** 是否显示 */
-  open?: boolean;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  items: () => [],
-  open: undefined,
-  placement: 'bottom-start',
+const props = withDefaults(defineProps<{
+  /** 触发按钮文本 */
+  label?: string;
+  /** 配置式菜单项 */
+  options?: DropdownMenuItemOption[];
+  /** 触发方式 */
+  trigger?: 'click' | 'hover' | 'focus';
+  /** 是否禁用 */
+  disabled?: boolean;
+  /** 自定义 class */
+  class?: HTMLAttributes['class'];
+}>(), {
+  trigger: 'click',
+  disabled: false,
 });
-
-const emit = defineEmits<{
-  'update:open': [open: boolean];
-  select: [key: DropdownMenuKey];
-}>();
-
-function handleItemClick(item: DropdownMenuItem): void {
-  if (item.disabled) return;
-  item.onClick?.();
-  emit('select', item.key);
-  emit('update:open', false);
-}
 </script>
 
 <template>
-  <div :class="cn('relative inline-block', props.class)">
-    <!-- 触发器 -->
-    <slot name="trigger">
-      <button
-        type="button"
-        class="hover:bg-muted rounded px-3 py-1.5 text-sm transition-colors"
-        @click="emit('update:open', !props.open)"
-      >
-        操作 ▾
-      </button>
-    </slot>
+  <!--
+    下拉菜单便利性封装 —— 配置式 options 用法。
 
-    <!-- 菜单面板 -->
-    <div
-      v-if="props.open"
-      :class="
-        cn(
-          'bg-background absolute z-50 mt-1 min-w-[180px] rounded-lg border py-1 shadow-xl',
-          props.placement.includes('end') ? 'right-0' : 'left-0',
-          props.placement.includes('top') ? 'bottom-full mb-1' : '',
-        )
-      "
-      role="menu"
-      @click.stop
+    用法一（配置式，快速声明）：
+    ```html
+    <YdDropdown label="操作" :options="[
+      { label: '编辑', value: 'edit', onClick: handleEdit },
+      { label: '删除', value: 'delete', onClick: handleDelete },
+      { label: '分享', value: 'share', divided: true, onClick: handleShare },
+    ]" />
+    ```
+
+    用法二（声明式，精细控制）：
+    ```html
+    <YdDropdown>
+      <YdDropdownMenuTrigger>操作</YdDropdownMenuTrigger>
+      <YdDropdownMenuContent>
+        <YdDropdownMenuItem @click="handleEdit">编辑</YdDropdownMenuItem>
+        <YdDropdownMenuItem @click="handleDelete">删除</YdDropdownMenuItem>
+        <YdDropdownMenuSeparator />
+        <YdDropdownMenuItem @click="handleShare">分享</YdDropdownMenuItem>
+      </YdDropdownMenuContent>
+    </YdDropdown>
+    ```
+  -->
+  <YdDropdownMenu>
+    <!-- 触发器：有 label 时渲染文本按钮，否则使用 slot -->
+    <YdDropdownMenuTrigger
+      v-if="label"
+      :disabled="disabled"
     >
-      <template v-for="(item, i) in props.items" :key="item.key">
-        <div v-if="item.divider" class="my-1 h-px bg-border" :key="`div-${i}`"></div>
-        <button
-          v-else
-          :aria-disabled="item.disabled"
-          :class="
-            cn(
-              'flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors',
-              item.disabled && 'cursor-not-allowed text-muted-foreground opacity-40',
-              item.danger ? 'text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30' : 'hover:bg-muted',
-            )
-          "
-          role="menuitem"
-          type="button"
-          @click="handleItemClick(item)"
+      {{ label }}
+    </YdDropdownMenuTrigger>
+    <slot v-else name="trigger" />
+
+    <!-- 内容：options 配置式 或 声明式 slot -->
+    <YdDropdownMenuContent>
+      <template v-if="options">
+        <template
+          v-for="item in options"
+          :key="item.value"
         >
-          <component :is="item.icon" v-if="item.icon" class="size-4" />
-          {{ item.label }}
-        </button>
+          <YdDropdownMenuSeparator v-if="item.divided" />
+          <YdDropdownMenuItem
+            :disabled="item.disabled"
+            @click="item.onClick"
+          >
+            {{ item.label }}
+          </YdDropdownMenuItem>
+        </template>
       </template>
-    </div>
-  </div>
+      <slot v-else />
+    </YdDropdownMenuContent>
+  </YdDropdownMenu>
 </template>
