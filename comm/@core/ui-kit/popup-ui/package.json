@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/design-tokens": "workspace:*",
     "@ydsz-core/icons": "workspace:*",
     "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz-core/shared": "workspace:*",

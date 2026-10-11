@@ -7,3 +7,7 @@
  */
 
 export { default as YdSkeleton } from './YdSkeleton.vue';
+export { default as YdSkeletonGroup } from './YdSkeletonGroup.vue';
+export { default as YdSkeletonList } from './YdSkeletonList.vue';
+export { default as YdSkeletonCard } from './YdSkeletonCard.vue';
+export { default as YdSkeletonDetail } from './YdSkeletonDetail.vue';

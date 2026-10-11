@@ -78,7 +78,7 @@ export type {
   MessageBoxResponseData,
   MessageBoxType,
 } from './use-message-box';
-export { useGridProvider, useGridContext, useGridItem } from './use-grid-layout';
+export { useGridProvider, useGridContext, useGridItem, GRID_CONTEXT_KEY } from './use-grid-layout';
 export type {
   GridBreakpoint,
   GridBreakpoints,
@@ -111,7 +111,6 @@ export type {
   UseNotificationHubReturn,
 } from './use-notification-hub';
 
-export { useGridContext, useGridItem, useGridProvider, GRID_CONTEXT_KEY } from './use-grid-layout';
 export type {
   GridBreakpoint,
   GridBreakpoints,
@@ -164,3 +163,6 @@ export {
 
 export { useSortable } from './use-sortable';
 export type { Sortable } from './use-sortable';
+
+export { useRangeLink } from './use-range-link';
+export type { UseRangeLinkOptions } from './use-range-link';

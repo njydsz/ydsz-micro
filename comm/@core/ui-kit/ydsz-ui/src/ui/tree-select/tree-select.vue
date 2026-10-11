@@ -318,12 +318,6 @@ watch(
 // 当前所有展开键（响应式）
 const expandedKeys = computed((): string[] => Array.from(searchExpandedKeys.value));
 
-defineExpose({
-  focus: () => searchInputRef.value?.focus(),
-  blur: () => searchInputRef.value?.blur(),
-  clear: handleClear,
-  loadChildren,
-});
 </script>
 
 <template>

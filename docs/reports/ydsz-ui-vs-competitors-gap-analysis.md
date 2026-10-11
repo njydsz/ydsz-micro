@@ -10,16 +10,16 @@
 
 ---
 
-## 实施进度更新（2026-10-12 首轮）
+## 实施进度更新（2026-10-12 首轮 + 二轮）
 
-### ✅ 已完成的首轮改造（ydsz-ui packages 范围内，vue-tsc 零新增错误）
+### ✅ 已完成的改造（vue-tsc 全量零错误）
 
 | # | 差距项 | 优先级 | 完成方式 | 文件路径 |
 |---|---|---|---|---|
 | 1 | **InputGroup / InputAddon** | P0 | 新建 | `src/primitives/input-group/` |
 | 2 | **TreeTable（树形表格）** | P0 | 增强 YdDataTable | `src/components/data-table/YdDataTable.vue` + `src/primitives/table/` |
 | 3 | **Table Column Resize（列宽拖拽）** | P1 | 集成 useColumnResize | `src/components/data-table/YdDataTable.vue` |
-| 4 | **Table Column Reorder（列顺序拖拽）** | P2 | 集成 useColumnDrag | `src/components/data-table/YdDataTable.vue` |
+| 4 | **Table Column Reorder（列顺序拖拽）** | P2 | 集成 useColumnDrag | `src/components/data-table/YdDataSource.vue` |
 | 5 | **Space 间隙组件** | P1 | 补强 ui/ 层 | `src/ui/space/` + `src/primitives/space/` |
 | 6 | **Progress Circle / Dashboard** | P1 | 新建 primitives + ui/ 层封装 | `src/primitives/progress/YdProgressCircle.vue` + `YdProgressDashboard.vue` |
 | 7 | **Avatar max-count + Popover** | P1 | 补强 ui/avatar-group/ | `src/ui/avatar-group/avatar-group.vue` |
@@ -28,19 +28,26 @@
 | 10 | **DynamicDialog（命令式 API）** | P1 | 新建 composable | `src/headless/use-dialog.ts` |
 | 11 | **Stepper 多步骤向导** | P1 | 新建 | `src/primitives/stepper/` |
 | 12 | **Tour 漫游引导** | P2 | 完善增强 | `src/primitives/tour/`（YdTour + YdTourStep + YdTourMask） |
+| 13 | **Nuxt 模块** | P1 | 新建 | `src/nuxt.ts` + `src/runtime/use-directives.ts` |
+| 14 | **Pass Through 工具** | P2 | 新建 | `src/pass-through/index.ts` |
+| 15 | **Ripple + ClickOutside 指令** | P2 | 新建 + resolver 注册 | `src/directives/` |
+| 16 | **PickList 双栏穿梭** | P2 | 新建 | `src/primitives/pick-list/` |
+| 17 | **OrderList 拖拽排序** | P2 | 新建 | `src/primitives/order-list/` |
+| 18 | **Skeleton 预设模板** | P3 | 新建 | `src/primitives/skeleton/` (List/Card/Detail/Group) |
+| 19 | **Typography editable** | P2 | 增强 | `src/primitives/typography/YdText.vue` + `YdParagraph.vue` |
+| 20 | **YdEllipsis 省略+Tooltip** | P2 | 新建 | `src/primitives/typography/YdEllipsis.vue` |
+| 21 | **RangePicker 联动禁用** | P2 | 新建 composable | `src/composables/use-range-link.ts` |
+| 22 | **OrgChart 组织架构图** | P3 | 新建 | `src/components/org-chart/` |
 
-### ⏳ 待后续迭代
+### ⏳ 待后续迭代（大型项目，需独立排期）
 
 | # | 差距项 | 优先级 | 说明 |
 |---|---|---|---|
-| 13 | **Nuxt 模块** | P1 | 需基础设施投入，非纯组件开发 |
-| 14 | **PickList / OrderList** | P2 | 拖拽排序列表 |
-| 15 | **Ellipsis 自适应省略** | P2 | 文本溢出 + Tooltip |
-| 16 | **Pass Through API** | P2 | 组件样式覆盖机制 |
-| 17 | **水波纹 Ripple 指令** | P2 | 交互增强 |
-| 18 | **密度切换 compact/large** | P2 | 全局 token |
-| 19 | **ProTable 业务级高级表格** | P3 | 独立包，工作量大 |
-| 20 | **OrgChart 组织架构图** | P3 | 可视化组件 |
+| 23 | **ProTable 增强（内置 Form/编辑弹窗）** | P3 | 当前已有基础能力，增强需业务侧协作 |
+| 24 | **密度切换 compact/large** | P2 | 全局 token 改造，影响全部组件 |
+| 25 | **CLI 创建项目 + 模板市场** | P3 | 需独立 CLI 工具链 |
+| 26 | **Bundle Analyzer + 首屏 CSS 抽取** | P3 | 构建工具链 |
+| 27 | **CMS/Design 同步工具** | P3 | 第三方集成 |
 
 ---
 

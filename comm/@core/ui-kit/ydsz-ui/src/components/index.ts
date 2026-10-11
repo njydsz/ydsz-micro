@@ -35,6 +35,7 @@ export * from './input-password';
 export * from './logo';
 export * from './pin-input';
 export * from './popover';
+export * from './org-chart';
 export * from './quick-create';
 export * from './qr-code';
 export * from './render-content';

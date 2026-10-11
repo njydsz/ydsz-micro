@@ -23,7 +23,7 @@
     "**/*.css"
   ],
   "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "module": "./src/nuxt.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -299,6 +299,10 @@
       "types": "./src/primitives/notification/index.ts",
       "default": "./src/primitives/notification/index.ts"
     },
+    "./primitives/order-list": {
+      "types": "./src/primitives/order-list/index.ts",
+      "default": "./src/primitives/order-list/index.ts"
+    },
     "./primitives/page-header": {
       "types": "./src/primitives/page-header/index.ts",
       "default": "./src/primitives/page-header/index.ts"
@@ -306,6 +310,10 @@
     "./primitives/pagination": {
       "types": "./src/primitives/pagination/index.ts",
       "default": "./src/primitives/pagination/index.ts"
+    },
+    "./primitives/pick-list": {
+      "types": "./src/primitives/pick-list/index.ts",
+      "default": "./src/primitives/pick-list/index.ts"
     },
     "./primitives/pin-input": {
       "types": "./src/primitives/pin-input/index.ts",
@@ -443,6 +451,10 @@
       "types": "./src/primitives/watermark/index.ts",
       "default": "./src/primitives/watermark/index.ts"
     },
+    "./components/org-chart": {
+      "types": "./src/components/org-chart/index.ts",
+      "default": "./src/components/org-chart/index.ts"
+    },
     "./composables": {
       "types": "./src/composables/index.ts",
       "default": "./src/composables/index.ts"
@@ -455,9 +467,25 @@
       "types": "./src/resolver.ts",
       "default": "./src/resolver.ts"
     },
+    "./directives": {
+      "types": "./src/directives/index.ts",
+      "default": "./src/directives/index.ts"
+    },
     "./css-vars-reference": {
       "types": "./src/css-vars-reference.ts",
       "default": "./src/css-vars-reference.ts"
+    },
+    "./nuxt": {
+      "types": "./src/nuxt.ts",
+      "default": "./src/nuxt.ts"
+    },
+    "./runtime/directives": {
+      "types": "./src/runtime/use-directives.ts",
+      "default": "./src/runtime/use-directives.ts"
+    },
+    "./pass-through": {
+      "types": "./src/pass-through/index.ts",
+      "default": "./src/pass-through/index.ts"
     },
     "./a11y/aria-role-map": {
       "types": "./src/a11y/aria-role-map.ts",

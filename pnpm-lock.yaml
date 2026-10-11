@@ -1861,6 +1861,9 @@ importers:
       '@ydsz-core/composables':
         specifier: workspace:*
         version: link:../../composables
+      '@ydsz-core/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
       '@ydsz-core/icons':
         specifier: workspace:*
         version: link:../../base/icons
@@ -1966,10 +1969,6 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
-    devDependencies:
-      vue-tsc:
-        specifier: ^3.3.13
-        version: 3.3.13(typescript@5.9.3)
 
   comm/@core/ui-kit/ydsz-vue:
     dependencies:
@@ -13366,12 +13365,6 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
-  vue-tsc@3.3.13:
-    resolution: {integrity: sha512-jE4/bXdOMSHVxEGgQCqNllJy+9N3Gx6tfSAsg0yhFK/MAN6eXqISihupnDEKSCt12VVnjN2gI3AqLYcqoh5x/A==}
-    hasBin: true
-    peerDependencies:
-      typescript: '>=5.0.0'
-
   vue@3.5.40:
     resolution: {integrity: sha512-+8PJ4SJXdn/cHGImF4CKdxlWHIN5Dkt7DoufRREM6h6uVCx2m7QxgcEQmmzyOK8A9mcafg7sFbJFYsdFVubTig==}
     peerDependencies:
@@ -17970,6 +17963,7 @@ snapshots:
       muggle-string: 0.4.1
       path-browserify: 1.0.1
       picomatch: 4.0.5
+    optional: true
 
   '@vue/reactivity@3.5.40':
     dependencies:
@@ -26135,12 +26129,6 @@ snapshots:
     dependencies:
       '@volar/typescript': 2.4.28
       '@vue/language-core': 3.3.11
-      typescript: 5.9.3
-
-  vue-tsc@3.3.13(typescript@5.9.3):
-    dependencies:
-      '@volar/typescript': 2.4.28
-      '@vue/language-core': 3.3.13
       typescript: 5.9.3
 
   vue@3.5.40(typescript@5.9.3):

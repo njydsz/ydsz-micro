@@ -19,6 +19,10 @@
  */
 
 import type { ComponentResolver } from 'unplugin-vue-components/types'
+import type { Directive } from 'vue'
+
+import { vRipple } from './directives/v-ripple'
+import { vClickOutside } from './directives/v-click-outside'
 
 export interface YdszUiResolverOptions {
   /**
@@ -26,6 +30,16 @@ export interface YdszUiResolverOptions {
    * @default 'default'
    */
   style?: 'default'
+  /**
+   * 指令名称前缀
+   * @default 'v'
+   */
+  prefix?: string
+  /**
+   * 是否按需自动导入全局自定义指令（v-ripple、v-click-outside）
+   * @default true
+   */
+  directives?: boolean
 }
 
 /** ydsz-ui 组件名称前缀 */
@@ -59,6 +73,7 @@ const COMPONENT_NAMES: string[] = [
   'YdDivider',
   'YdDrawer', 'YdDrawerTrigger', 'YdDrawerContent', 'YdDrawerHeader', 'YdDrawerFooter', 'YdDrawerTitle', 'YdDrawerDescription', 'YdDrawerClose',
   'YdDropdown', 'YdDropdownMenu', 'YdDropdownMenuTrigger', 'YdDropdownMenuContent', 'YdDropdownMenuItem', 'YdDropdownMenuSeparator',
+  'YdEllipsis',
   'YdEmpty', 'YdEmptyDescription', 'YdEmptyImage',
   'YdEntityCard',
   'YdFloatButton',
@@ -81,9 +96,12 @@ const COMPONENT_NAMES: string[] = [
   'YdMessageBox',
   'YdNav',
   'YdNumberField', 'YdNumberFieldInput', 'YdNumberFieldIncrement', 'YdNumberFieldDecrement',
+  'YdOrderList',
   'YdOrganizationChart',
+  'YdOrgChart',
   'YdPageHeader',
   'YdPagination',
+  'YdPickList',
   'YdPinInput',
   'YdPopover', 'YdPopoverTrigger', 'YdPopoverContent',
   'YdProgress', 'YdProgressCircle', 'YdProgressDashboard',
@@ -103,6 +121,7 @@ const COMPONENT_NAMES: string[] = [
   'YdSettingsFloat',
   'YdSheet', 'YdSheetTrigger', 'YdSheetContent', 'YdSheetHeader', 'YdSheetFooter', 'YdSheetTitle', 'YdSheetDescription', 'YdSheetClose',
   'YdSkeleton',
+  'YdSkeletonCard', 'YdSkeletonDetail', 'YdSkeletonGroup', 'YdSkeletonList',
   'YdSlider', 'YdSliderRange', 'YdSliderThumb', 'YdSliderTrack',
   'YdSpace',
   'YdSpin',
@@ -138,8 +157,16 @@ const COMPONENT_NAMES: string[] = [
   'YdPopconfirm',
 ]
 
-export function YdszUiResolver(_options: YdszUiResolverOptions = {}): ComponentResolver[] {
-  return [
+/** 指令名称 → 指令对象的映射 */
+const DIRECTIVE_MAP: Record<string, () => Directive> = {
+  ripple: () => vRipple,
+  clickoutside: () => vClickOutside,
+}
+
+export function YdszUiResolver(options: YdszUiResolverOptions = {}): ComponentResolver[] {
+  const enableDirectives = options.directives !== false
+
+  const resolvers: ComponentResolver[] = [
     {
       type: 'component',
       resolve: (componentName: string) => {
@@ -155,12 +182,25 @@ export function YdszUiResolver(_options: YdszUiResolverOptions = {}): ComponentR
         return undefined
       },
     },
-    {
+  ]
+
+  if (enableDirectives) {
+    const prefix = options.prefix ?? 'v'
+    resolvers.push({
       type: 'directive',
-      resolve: () => {
-        // ydsz-ui 目前无全局自定义指令
+      resolve: (name: string) => {
+        // unplugin-vue-components 传入的名称带 v- 前缀或 V 前缀，如 'v-ripple' 或 'VRipple'
+        const stripped = name.startsWith(prefix) ? name.slice(prefix.length)
+          : name.startsWith(prefix.toUpperCase()) ? name.slice(prefix.length)
+          : name
+        const found = DIRECTIVE_MAP[stripped.toLowerCase()]
+        if (found) {
+          return found()
+        }
         return undefined
       },
-    },
-  ]
+    })
+  }
+
+  return resolvers
 }
