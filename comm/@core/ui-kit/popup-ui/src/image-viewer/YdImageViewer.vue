@@ -17,6 +17,13 @@ import { useImageViewer, useImageViewerState } from './use-image-viewer';
 /** 缩略图最多显示数量 */
 const MAX_THUMBNAILS = 10;
 
+/** SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+
+onMounted(() => {
+  isClient.value = true;
+});
+
 /** 共享状态——与 useImageViewer() 命令式 API 写入的是同一份 */
 const state = useImageViewerState();
 
@@ -217,7 +224,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport v-if="isClient" to="body">
     <Transition
       enter-active-class="transition-opacity"
       leave-active-class="transition-opacity"

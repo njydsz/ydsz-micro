@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from '@ydsz-core/ydsz-vue';
 
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -39,11 +39,17 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
+
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <DialogPortal>
+  <DialogPortal v-if="isClient">
     <DialogOverlay
       :style="{ zIndex }"
       class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 border-border absolute inset-0 grid place-items-center overflow-y-auto border bg-black/80"

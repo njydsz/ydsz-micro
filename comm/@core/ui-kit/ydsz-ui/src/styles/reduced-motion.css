@@ -1,0 +1,37 @@
+/**
+ * prefers-reduced-motion 全局覆盖 ——
+ * 当用户在系统设置中开启 "Reduce motion" 时，
+ * YDSZ 所有组件动画全部禁用。
+ *
+ * @since 26.10.10
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* 关闭 tooltip/popover/dialog 的渐显效果 */
+  [data-ydsz-component] {
+    --ydsz-motion-duration-fast: 0.01ms !important;
+    --ydsz-motion-duration-normal: 0.01ms !important;
+    --ydsz-motion-duration-emphasis: 0.01ms !important;
+  }
+}
+
+/* Windows 高对比度模式适配 */
+@media (forced-colors: active) {
+  /* 在 HC 模式下保留关键边框可见性 */
+  .yd-button,
+  .yd-input,
+  .yd-select__field,
+  .yd-dialog,
+  .yd-sheet {
+    border: 1px solid ButtonText;
+  }
+}

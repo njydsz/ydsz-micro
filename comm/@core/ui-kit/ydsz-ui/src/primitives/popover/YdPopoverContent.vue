@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import type { PopoverContentEmits, PopoverContentProps } from '@ydsz-core/ydsz-vue';
 
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -38,11 +38,17 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
+
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <PopoverPortal>
+  <PopoverPortal v-if="isClient">
     <YdPopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="

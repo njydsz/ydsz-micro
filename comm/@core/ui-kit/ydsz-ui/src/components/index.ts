@@ -46,3 +46,4 @@ export * from './status-badge';
 export * from './theme-editor';
 export * from './tooltip';
 export * from './virtual-table';
+export * from './tour-hint';

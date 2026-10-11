@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import type { DatePickerShortcut, DatePickerType, DatePickerValue } from './types';
 
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { onClickOutside, useElementBounding, useVModel } from '@vueuse/core';
 
@@ -73,6 +73,12 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 });
 
 /** 弹出层是否展开 */
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
+
 const isOpen = ref(false);
 
 /** 触发器引用 —— 用于定位弹出层与 click-outside 排除 */
@@ -400,7 +406,7 @@ const panelWidth = computed(() => {
     </div>
 
     <!-- 弹出层 -->
-    <Teleport to="body">
+    <Teleport v-if="isClient" to="body">
       <Transition
         enter-active-class="transition duration-200 ease-out"
         enter-from-class="opacity-0 scale-95"

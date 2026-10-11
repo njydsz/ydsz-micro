@@ -58,9 +58,15 @@ interface Props {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps<Props>();
+
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
 
 const isOpen = ref(false);
 const currentIndex = ref(0);
@@ -176,7 +182,7 @@ watch(isOpen, (val) => {
   </div>
 
   <!-- 预览弹窗 -->
-  <Teleport to="body">
+  <Teleport v-if="isClient" to="body">
     <div
       v-if="isOpen"
       role="dialog"

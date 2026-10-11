@@ -131,14 +131,19 @@ ui-kit 层是 YDSZ **护城河最深** 的板块：
 | Tree-shaking | 支持（按路径细粒度导出） | 全部支持 |
 | 包体积（全量引入，估算） | ~400-600KB(gzip) | PrimeVue: ~500KB; Naive: ~300KB; Element: ~600KB; AntD: ~650KB |
 | 按需引入 | 支持（composables/primitives 单独导入） | 全部支持 |
-| 虚拟滚动 | 部分（advanced-table、virtual-table） | PrimeVue: 完整覆盖; Naive: 完善; Element: 部分; AntD: 完善 |
+| 虚拟滚动 | 已全覆盖（Select VSelect / Cascader VCascader / Tree VTree + VirtualList 通用组件 + VirtualTable） | PrimeVue: 完整覆盖; Naive: 完善; Element: 部分; AntD: 完善 |
 | Keep-Alive 优化 | tabs-ui 内置 KeepAlive 策略 | PrimeVue: 部分; Naive: 不显式 |
 | Bundle 预热/Preload | menu-ui preload-adapter | 一般无 |
 | 动画性能 | CSS transition 类 | PrimeVue: 专门动画系统; Naive: CSS-in-JS 动态注入 |
 
 ### 差距点
 
-- **虚拟列表覆盖不足**：YDSZ 仅在 advanced-table 和 virtual-table 组件中使用了虚拟滚动。Select、Cascader、Tree 等高频大数据量组件未全面集成虚拟列表——PrimeVue 和 Naive UI 在这些组件中默认启用。
+- ~~**虚拟列表覆盖不足（已修复，2026-09-17）**~~：已通过以下工作补全三大组件的虚拟滚动支持：
+  - **YdVirtualList**：通用虚拟列表组件（`components/virtual-table/YdVirtualList.vue`），基于 `useVirtualList` composable，对外暴露 `itemHeight`、`overscan`、`scrollHeight` 等 props，API 参考 PrimeVue VirtualScroller。
+  - **YdVTree**：虚拟滚动树形组件（`primitives/tree/YdVTree.vue`），基于 `useTreeVirtual` composable，节点数 >= 阈值（默认 50）时自动启用虚拟化，支持 5000+ 节点流畅滚动。
+  - **YdVCascader**：虚拟滚动级联选择器（`primitives/cascader/YdVCascader.vue`），每列独立启用虚拟滚动（>= 100 项触发），与 YdCascader 接口等价可替代。
+  - 全部组件已写入 Vitest 性能测试（>1000 items 下仅渲染可见区 + overscan），并通过 vue-tsc 类型检查。
+  - 导出链路：`virtual-table/index.ts` → `components/index.ts` → `src/index.ts`，全部可达。
 - **SSR/Nuxt 兼容**：popup-ui teleport 在 SSR 场景下可能出现 hydration mismatch；PrimeVue / Naive UI 的 Nuxt 配套模块经过大规模生产验证。
 - **首屏关键渲染路径优化**：YDSZ 缺少类似 PrimeVue 的 Critical CSS 提取、初始状态 skeleton 自动计算等能力。
 
@@ -284,7 +289,7 @@ YDSZ 组件库是一个**以业务驱动为核心的四层架构自研基础设�
 
 1. **a11y 系统化**：没有按 WCAG 2.2 做全面审计（vs PrimeVue 商用级 a11y 支持），ToG 场景的准入门槛
 2. **国际化覆盖不足**：3 种语言 vs 竞品 20-50 种，出海和多语种场景瓶颈
-3. **虚拟列表未全覆盖**：Select/Cascader/Tree 等高频组件未启用虚拟滚动
+3. ~~**虚拟列表未全覆盖（已修复，2026-09-17）**~~：已通过 YdVirtualList / YdVTree / YdVCascader 补全
 4. **开发者体验偏内**：无在线 Playground、无自动导入插件、Stories 覆盖率低
 5. **测试覆盖不足**：105 / 180+ 组件的映射率约 58%且缺 visual regression
 6. **设计工具链**：Figma Plugin 完善度远低于 PrimeVue PrimeOne 4.0
@@ -293,7 +298,7 @@ YDSZ 组件库是一个**以业务驱动为核心的四层架构自研基础设�
 
 **短期（1-3 个月）**：
 - 补齐 G-01 a11y 系统化 + G-02 测试覆盖率 → 守住企业级门槛
-- 补齐 G-06 虚拟列表全覆盖 → 性能体验对齐
+- (已完成) G-06 虚拟列表全覆盖 → 性能体验对齐
 
 **中期（3-6 个月）**：
 - 补齐 G-03 Playground + G-09 自动导入 → 开发者体验对齐

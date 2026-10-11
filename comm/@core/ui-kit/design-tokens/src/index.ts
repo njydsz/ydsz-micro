@@ -88,3 +88,7 @@ export type {
   FigmaTokenGroup,
   FigmaTokenValue,
 } from './figma-sync';
+
+// ===== Figma Variable Collections =====
+export { generateFigmaVariableCollections } from './figma-sync-variable-collections';
+export type { FigmaVariableCollectionsOutput } from './figma-sync-variable-collections';

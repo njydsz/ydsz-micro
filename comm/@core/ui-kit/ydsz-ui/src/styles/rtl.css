@@ -1,0 +1,25 @@
+/**
+ * RTL（从右到左）基础样式 ——
+ * 当 html[dir="rtl"] 时启用，处理通用方向的翻转规则。
+ *
+ * @since 26.10.10
+ */
+
+[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir='rtl'] .yd-tooltip,
+[dir='rtl'] .yd-popover,
+[dir='rtl'] .yd-dropdown-menu,
+[dir='rtl'] .yd-menu {
+  --ydsz-tooltip-transform: scale(-1, 1);
+}
+
+/* 图标方向翻转（在 RTL 下图标应反向） */
+[dir='rtl'] .yd-icon-arrow,
+[dir='rtl'] .yd-icon-chevron,
+[dir='rtl'] .yd-icon-back {
+  transform: scaleX(-1);
+}

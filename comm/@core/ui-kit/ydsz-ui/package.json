@@ -438,12 +438,49 @@
     "./locale": {
       "types": "./src/locale/index.ts",
       "default": "./src/locale/index.ts"
+    },
+    "./resolver": {
+      "types": "./src/resolver.ts",
+      "default": "./src/resolver.ts"
+    },
+    "./css-vars-reference": {
+      "types": "./src/css-vars-reference.ts",
+      "default": "./src/css-vars-reference.ts"
+    },
+    "./a11y/aria-role-map": {
+      "types": "./src/a11y/aria-role-map.ts",
+      "default": "./src/a11y/aria-role-map.ts"
+    },
+    "./a11y/test-utils": {
+      "types": "./src/a11y/a11y-test-utils.ts",
+      "default": "./src/a11y/a11y-test-utils.ts"
+    },
+    "./motion/tokens": {
+      "types": "./src/motion/motion-tokens.ts",
+      "default": "./src/motion/motion-tokens.ts"
+    },
+    "./motion/use-reduced-motion": {
+      "types": "./src/motion/useReducedMotion.ts",
+      "default": "./src/motion/useReducedMotion.ts"
+    },
+    "./ssr/client-only": {
+      "types": "./src/ssr/ClientOnly.vue",
+      "default": "./src/ssr/ClientOnly.vue"
+    },
+    "./styles/reduced-motion": {
+      "default": "./src/styles/reduced-motion.css"
+    },
+    "./styles/rtl": {
+      "default": "./src/styles/rtl.css"
     }
   },
   "publishConfig": {
     "exports": {
       ".": {
         "default": "./src/index.ts"
+      },
+      "./resolver": {
+        "default": "./src/resolver.ts"
       }
     }
   },
@@ -460,5 +497,13 @@
     "sortablejs": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:"
+  },
+  "peerDependencies": {
+    "unplugin-vue-components": ">=27.0.0"
+  },
+  "peerDependenciesMeta": {
+    "unplugin-vue-components": {
+      "optional": true
+    }
   }
 }

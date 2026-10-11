@@ -16,7 +16,7 @@ import type { DialogContentEmits, DialogContentProps } from '@ydsz-core/ydsz-vue
 
 import type { SheetVariants } from './sheet';
 
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -72,6 +72,13 @@ const position = computed(() => {
 });
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
+
 const contentRef = ref<InstanceType<typeof YdDialogContent> | null>(null);
 function onAnimationEnd(event: AnimationEvent) {
   // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
@@ -86,7 +93,7 @@ function onAnimationEnd(event: AnimationEvent) {
 </script>
 
 <template>
-  <DialogPortal :to="appendTo">
+  <DialogPortal v-if="isClient" :to="appendTo">
     <Transition name="fade">
       <SheetOverlay
         v-if="open && modal"

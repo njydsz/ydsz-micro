@@ -18,7 +18,7 @@ import type { DialogContentEmits, DialogContentProps } from '@ydsz-core/ydsz-vue
 
 import type { ClassType } from '@ydsz-core/typings';
 
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -94,6 +94,12 @@ const position = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
+
 const contentRef = ref<InstanceType<typeof YdDialogContent> | null>(null);
 function onAnimationEnd(event: AnimationEvent): void {
   if (event.target === contentRef.value?.$el) {
@@ -128,7 +134,7 @@ defineExpose({
 </script>
 
 <template>
-  <DialogPortal :to="appendTo">
+  <DialogPortal v-if="isClient" :to="appendTo">
     <Transition name="fade">
       <DialogOverlay
         v-if="open && modal"

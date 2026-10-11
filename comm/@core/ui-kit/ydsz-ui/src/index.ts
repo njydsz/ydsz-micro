@@ -9,6 +9,8 @@
  * @author ydsz-team
  * @since 26.09.17
  */
+export * from './a11y/aria-role-map';
+export * from './a11y/a11y-test-utils';
 export * from './components';
 export * from './composables';
 export * from './headless';
@@ -16,3 +18,21 @@ export * from './locale';
 export * from './primitives';
 
 export { createContext, Slot, VisuallyHidden } from '@ydsz-core/ydsz-vue';
+
+// Motion / prefers-reduced-motion
+export { useReducedMotion } from './motion/useReducedMotion'
+export { MotionDurations, MotionEasings, prefersReducedMotion } from './motion/motion-tokens'
+
+// Global styles
+export const ydszReducedMotionCSS = '@ydsz-core/ydsz-ui/reduced-motion.css'
+
+// Resolvers (auto-import)
+export { YdszUiResolver } from './resolver'
+export type { YdszUiResolverOptions } from './resolver'
+
+// CSS Variables Reference
+export { CSS_VARIABLES_REFERENCE, CSS_VARIABLES_BY_CATEGORY, getCssVarsForComponent, getCssVarNamesByCategory } from './css-vars-reference'
+export type { CssVariableReference } from './css-vars-reference'
+
+// SSR utilities
+export { ClientOnly } from './ssr'

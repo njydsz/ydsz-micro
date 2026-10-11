@@ -20,7 +20,7 @@ import type {
 
 import type { ClassType } from '@ydsz-core/typings';
 
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -57,6 +57,12 @@ const delegatedProps = computed(() => {
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
+/* SSR hydration guard: defer Teleport rendering to client only */
+const isClient = ref(false);
+onMounted(() => {
+  isClient.value = true;
+});
+
 const contentRef = ref<InstanceType<typeof YdAlertDialogContent> | null>(null);
 function onAnimationEnd(event: AnimationEvent) {
   // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
@@ -74,7 +80,7 @@ defineExpose({
 </script>
 
 <template>
-  <AlertDialogPortal>
+  <AlertDialogPortal v-if="isClient">
     <Transition name="fade" appear>
       <YdAlertDialogOverlay
         v-if="open && modal"
