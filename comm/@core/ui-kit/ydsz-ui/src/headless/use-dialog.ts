@@ -47,7 +47,7 @@ import {
   DialogPortal,
 } from '@ydsz-core/ydsz-vue';
 
-import { buttonVariants } from '../primitives/button/button';
+import { buttonVariants } from '../button/button';
 
 /* ============================================================ */
 /* 类型定义                                                       */

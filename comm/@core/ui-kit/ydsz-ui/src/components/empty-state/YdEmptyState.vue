@@ -18,7 +18,7 @@
  */
 import { computed } from 'vue';
 
-import { YdButton } from '../../primitives';
+import { YdButton } from '.././button';
 import { cn } from '@ydsz-core/shared/utils';
 import { type CircleOff, FolderOpen, Inbox, SearchX, ShieldAlert } from 'lucide-vue-next';
 import { useLocale } from '../../locale/useLocale';

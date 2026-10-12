@@ -15,8 +15,8 @@
  */
 import { computed } from 'vue';
 
-import { YdBadge } from '../../primitives/badge';
-import type { BadgeVariants } from '../../primitives/badge';
+import { YdBadge } from '../badge';
+import type { BadgeVariants } from '../badge';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({

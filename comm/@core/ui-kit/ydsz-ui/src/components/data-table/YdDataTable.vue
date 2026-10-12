@@ -90,8 +90,8 @@ import {
   YdTableHead,
   YdTableHeader,
   YdTableRow,
-} from '../../primitives/table';
-import { useColumnResize } from '../../primitives/table/useColumnResize';
+} from '.././table';
+import { useColumnResize } from '.././table';
 import { useColumnDrag } from '../../composables/use-column-drag';
 import { fixedColumnStyle, useFixedColumns } from './use-table-fixed-columns';
 import { useTableGroupHeader, type HeaderRow } from './use-table-group-header';

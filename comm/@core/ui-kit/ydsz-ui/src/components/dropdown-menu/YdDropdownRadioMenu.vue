@@ -19,7 +19,7 @@ import {
   YdDropdownMenuGroup,
   YdDropdownMenuItem,
   YdDropdownMenuTrigger,
-} from '../../primitives';
+} from './dropdown-menu.vue';
 
 type Props = DropdownMenuProps;
 

@@ -28,7 +28,7 @@ import {
   YdTableHead,
   YdTableHeader,
   YdTableRow,
-} from '../../primitives/table';
+} from '.././table';
 
 /** 列定义 */
 export interface VirtualTableColumn<T = Record<string, unknown>> {

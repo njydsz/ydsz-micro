@@ -33,33 +33,31 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import type { TableColumnDef } from '../../composables/use-table-data';
 import { useTableData } from '../../composables/use-table-data';
-import { YdDataTable } from '../data-table';
+import { YdDataTable } from '.././data-table';
 import { YdSelectSmart } from '../select';
 
-import { YdButtonSmart } from '../button';
+import { YdButtonSmart } from '.././button';
 
 import {
   YdInput,
-} from '../../primitives/input';
+} from '.././input';
 import {
   YdInputNumber,
-} from '../../primitives/input-number';
+} from '.././input-number';
 import {
   YdDatePicker,
-} from '../../primitives/date-picker';
-import {
-  YdRangePicker,
-} from '../../primitives/range-picker';
+} from '.././date-picker';
+import { YdRangePicker } from '../range-picker';
 import {
   YdDialog,
   YdDialogContent,
   YdDialogHeader,
   YdDialogTitle,
   YdDialogFooter,
-} from '../../primitives/dialog';
+} from '.././dialog';
 import {
   YdFormItem,
-} from '../../primitives/form';
+} from '../form';
 
 import type {
   ProTableProps,

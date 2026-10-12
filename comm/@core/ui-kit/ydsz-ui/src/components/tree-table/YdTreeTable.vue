@@ -36,7 +36,7 @@ import {
   YdTableHead,
   YdTableHeader,
   YdTableRow,
-} from '../../primitives/table';
+} from '.././table';
 
 import { useDragSort } from '../../composables/use-drag-sort';
 </script>

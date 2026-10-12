@@ -18,7 +18,8 @@
  */
 import { computed } from 'vue';
 
-import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckbox } from '../../primitives';
+import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle } from '../card';
+import { YdCheckbox } from '../checkbox';
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({

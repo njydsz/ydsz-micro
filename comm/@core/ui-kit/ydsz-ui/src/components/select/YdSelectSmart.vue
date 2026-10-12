@@ -19,7 +19,7 @@ import {
   YdSelectItem,
   YdSelectTrigger,
   YdSelectValue,
-} from '../../primitives';
+} from './select.vue';
 
 interface Props {
   allowClear?: boolean;

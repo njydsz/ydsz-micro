@@ -43,7 +43,7 @@ import {
 
 import type { ConfirmButtonType, ConfirmOptions, ConfirmPt, UseConfirmReturn } from './types';
 
-import { buttonVariants } from '../../primitives/button/button';
+import { buttonVariants } from '.././button';
 import { extendPt } from '../../pass-through';
 
 /* ============================================================ */

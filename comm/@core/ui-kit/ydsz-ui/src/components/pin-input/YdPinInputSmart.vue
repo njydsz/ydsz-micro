@@ -16,8 +16,8 @@ import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { YdPinInput, YdPinInputGroup, YdPinInputInput } from '../../primitives';
-import { YdButtonSmart } from '../button';
+import { YdPinInput, YdPinInputGroup, YdPinInputInput } from './pin-input.vue';
+import { YdButtonSmart } from '.././button';
 
 // 云顶规范 §14.5：统一日志模块，禁止裸 console
 const logger = createLogger('YdPinInputSmart');

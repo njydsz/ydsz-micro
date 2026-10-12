@@ -9,7 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { YdButtonProps } from './button';
+import type { YdButtonProps } from './button.vue';
 
 import { computed } from 'vue';
 
@@ -18,7 +18,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Primitive } from '@ydsz-core/ydsz-vue';
 
-import { buttonVariants } from '../../primitives';
+import { buttonVariants } from './button.vue';
 
 type Props = YdButtonProps;
 

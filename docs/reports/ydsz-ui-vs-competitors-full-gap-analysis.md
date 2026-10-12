@@ -335,7 +335,7 @@
 1. 🔧 **InputTags**（标签输入）—— `components/input-tags/`
 2. 🔧 **Sidebar**（侧边栏导航组件）—— `components/sidebar/`
 3. 🔧 **DataView**（数据视图列表/网格切换）—— `components/data-view/`
-4. ⚠️ **Stepper**（分步导航）—— `primitives/stepper/` 已存在 primitives，可待业务层封装
+4. ✅ **Stepper**（分步导航）—— `components/step-form/` 提供了完整的分步表单 YdStepForm
 5. ⚠️ **RTL 完整支持**（阿语/希伯来语布局）—— 后续 CSS 变量 + direction 属性补充
 6. ⚠️ **语言扩充**（9 → 30+）—— 按业务需求逐步扩充 locale 文件
 7. ⚠️ **Select 缓存 + 虚拟加载** —— primitives/select/ 已有基础，后续深度集成
@@ -350,18 +350,26 @@
 5. 🔧 **InputOtp**（OTP 验证码输入）—— `components/input-otp/`
 6. 🔧 **SplitButton**（分裂按钮）—— `components/split-button/`
 7. 🔧 **PickList**（列表选择器）—— `components/pick-list/`
-8. ❌ **Theme Designer 应用**（运行时主题可视化编辑）
+8. 🔧 **Theme Designer 应用**（运行时主题可视化编辑）—— `components/theme-designer/`
 
 ### P3 — 锦上添花
 
-1. ❌ **SpeedDial**
-2. ❌ **SplitButton**
-3. ❌ **Compare (图片对比)**
-4. ❌ **Gallery (图片画廊)**
-5. ❌ **Knob (旋钮输入)**
-6. ❌ **Dock (程序坞)**
-7. ❌ **AnimateOnScroll**
-8. ❌ **BlockUI**
+1. 🔧 **SpeedDial** —— `components/speed-dial/`
+2. 🔧 **Compare**（图片对比）—— `components/compare/`
+3. 🔧 **Gallery**（图片画廊）—— `components/gallery/`
+4. 🔧 **Knob**（旋钮输入）—— `components/knob/`
+5. 🔧 **Dock**（程序坞）—— `components/dock/`
+6. 🔧 **AnimateOnScroll** —— `components/animate-on-scroll/`
+7. 🔧 **BlockUI** —— `components/`
+
+### P3+ — 深度能力增强（原报告 §十 组件能力深度差距）
+
+1. ✅ **Table 编辑模式** —— `use-table-editing.ts` + YdDataTable（P0 已完成）
+2. ✅ **Tabs 拖拽排序** —— `components/draggable-tabs/` YdDraggableTabs
+3. ✅ **Form StepForm** —— `components/step-form/` YdStepForm
+4. ✅ **Select 虚拟滚动** —— `primitives/select/` 已使用 flat 虚拟列表 + `@tanstack/vue-virtual`
+5. ✅ **Tree 异步加载** —— `primitives/tree/tree.vue` 已支持 loadData + virtual + search
+6. ✅ **DatePicker shortcuts** —— `primitives/date-picker/YdDatePicker.vue` 已内置 shortcuts prop
 
 ---
 

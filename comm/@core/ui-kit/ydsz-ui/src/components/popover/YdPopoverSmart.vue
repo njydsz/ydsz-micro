@@ -23,11 +23,8 @@ import { computed } from 'vue';
 
 import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-import {
-  YdPopoverContent,
-  YdPopoverSmart as PopoverRoot,
-  YdPopoverTrigger,
-} from '../../primitives';
+import { YdPopoverContent } from './YdPopoverContent.vue';
+import { YdPopoverTrigger } from './YdPopoverTrigger.vue';
 
 interface Props extends PopoverRootProps {
   class?: ClassType;

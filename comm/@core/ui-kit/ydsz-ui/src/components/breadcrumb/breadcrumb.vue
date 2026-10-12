@@ -25,7 +25,7 @@ import {
   YdDropdownMenuContent,
   YdDropdownMenuItem,
   YdDropdownMenuTrigger,
-} from '../../primitives';
+} from '../dropdown-menu';
 import { YdIcon } from '../icon';
 
 type Props = BreadcrumbProps;

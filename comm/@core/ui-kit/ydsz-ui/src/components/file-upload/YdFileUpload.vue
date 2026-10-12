@@ -45,7 +45,7 @@ import {
   useChunkUpload,
 } from '../../composables/use-chunk-upload';
 import { useComponentI18n } from '../../composables/use-component-i18n';
-import { YdProgress } from '../../primitives/progress';
+import { YdProgress } from '.././progress';
 
 import {
   AlertCircle,

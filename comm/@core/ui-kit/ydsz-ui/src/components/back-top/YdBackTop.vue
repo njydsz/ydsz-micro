@@ -17,7 +17,7 @@ import { computed } from 'vue';
 
 import { ArrowUpToLine } from '@ydsz-core/icons';
 
-import { YdButtonSmart } from '../button';
+import { YdButtonSmart } from '.././button';
 import { useBackTop } from './use-backtop';
 
 type Props = BacktopProps;

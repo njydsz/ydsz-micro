@@ -9,14 +9,14 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { ButtonVariants } from '../../primitives';
-import type { YdButtonProps } from './button';
+import type { ButtonVariants } from './button.vue';
+import type { YdButtonProps } from './button.vue';
 
 import { computed, useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdTooltipSmart } from '../tooltip';
+import { YdTooltipSmart } from '.././tooltip';
 import YdButtonSmart from './YdButtonSmart.vue';
 
 interface Props extends YdButtonProps {

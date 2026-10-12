@@ -18,7 +18,7 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdScrollArea, YdScrollBar } from '../../primitives';
+import { YdScrollArea, YdScrollBar } from '../scroll-area';
 
 interface Props {
   class?: ClassType;

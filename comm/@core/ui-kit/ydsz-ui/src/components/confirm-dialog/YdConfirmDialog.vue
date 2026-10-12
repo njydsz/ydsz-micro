@@ -27,8 +27,8 @@ import {
   DialogTitle,
 } from '@ydsz-core/ydsz-vue';
 
-import { buttonVariants } from '../../primitives/button/button';
-import DialogOverlay from '../../primitives/dialog/DialogOverlay.vue';
+import { buttonVariants } from '../button';
+import DialogOverlay from '../dialog/DialogOverlay.vue';
 import { X } from 'lucide-vue-next';
 
 defineOptions({ name: 'YdConfirmDialog' });

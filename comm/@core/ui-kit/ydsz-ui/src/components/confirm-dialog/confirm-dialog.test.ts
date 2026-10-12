@@ -19,7 +19,7 @@ import { describe, expect, it } from 'vitest';
 
 import YdConfirmDialog from './YdConfirmDialog.vue';
 import YdConfirmPopup from './YdConfirmPopup.vue';
-import { useConfirm } from './use-confirm';
+import { useConfirm } from '.././confirm-dialog';
 
 import type { ConfirmOptions, UseConfirmReturn } from './types';
 

@@ -24,7 +24,7 @@ import {
   YdTooltipContent,
   YdTooltipProvider,
   YdTooltipTrigger,
-} from '../../primitives';
+} from './tooltip.vue';
 
 interface Props {
   contentClass?: ClassType;

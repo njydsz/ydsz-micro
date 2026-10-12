@@ -12,7 +12,7 @@
 
 import { computed } from 'vue';
 
-import { YdPagination } from '../../primitives/pagination';
+import { YdPagination } from '.././pagination';
 import type { DataViewLayout, YdDataViewEmits, YdDataViewProps } from './types';
 
 defineOptions({ name: 'YdDataView' });

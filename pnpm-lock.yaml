@@ -340,7 +340,7 @@ catalogs:
       specifier: ^2.5.4
       version: 2.10.8
     typescript:
-      specifier: ^5.8.3
+      specifier: ^5.9.3
       version: 5.9.3
     unbuild:
       specifier: ^3.5.0
@@ -397,7 +397,7 @@ catalogs:
       specifier: ^6.7.1
       version: 6.7.1
     vue-tsc:
-      specifier: ^3.0.7
+      specifier: ^3.3.11
       version: 3.3.11
     vxe-pc-ui:
       specifier: ^4.7.12
@@ -1972,6 +1972,13 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.40(typescript@5.9.3)
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 3.3.11(typescript@5.9.3)
 
   comm/@core/ui-kit/ydsz-vue:
     dependencies:
@@ -17777,14 +17784,14 @@ snapshots:
       msw: 2.15.0(@types/node@22.20.1)(typescript@5.9.3)
       vite: 6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
-  '@vitest/mocker@3.2.7(msw@2.15.0(@types/node@26.1.2)(typescript@5.9.3))(vite@6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))':
+  '@vitest/mocker@3.2.7(msw@2.15.0(@types/node@26.1.2)(typescript@5.9.3))(vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 3.2.7
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
       msw: 2.15.0(@types/node@26.1.2)(typescript@5.9.3)
-      vite: 6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
+      vite: 6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0)
 
   '@vitest/pretty-format@3.2.7':
     dependencies:
@@ -26025,7 +26032,7 @@ snapshots:
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.7
-      '@vitest/mocker': 3.2.7(msw@2.15.0(@types/node@26.1.2)(typescript@5.9.3))(vite@6.4.3(@types/node@26.1.2)(jiti@2.7.0)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))
+      '@vitest/mocker': 3.2.7(msw@2.15.0(@types/node@26.1.2)(typescript@5.9.3))(vite@6.4.3(@types/node@22.20.1)(jiti@1.21.7)(sass@1.102.0)(stylus@0.57.0)(terser@5.49.0)(yaml@2.9.0))
       '@vitest/pretty-format': 3.2.7
       '@vitest/runner': 3.2.7
       '@vitest/snapshot': 3.2.7

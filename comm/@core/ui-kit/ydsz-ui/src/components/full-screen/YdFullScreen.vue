@@ -16,7 +16,7 @@ import { Maximize, Minimize } from '@ydsz-core/icons';
 
 import { useFullscreen } from '@vueuse/core';
 
-import { YdIconButton } from '../button';
+import { YdIconButton } from '.././button';
 
 defineOptions({ name: 'FullScreen' });
 

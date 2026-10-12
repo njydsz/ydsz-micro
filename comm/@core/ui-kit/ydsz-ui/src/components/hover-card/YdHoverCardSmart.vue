@@ -21,7 +21,7 @@ import { computed } from 'vue';
 
 import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-import { YdHoverCard, YdHoverCardContent, YdHoverCardTrigger } from '../../primitives';
+import { YdHoverCard, YdHoverCardContent, YdHoverCardTrigger } from './hover-card.vue';
 
 interface Props extends HoverCardRootProps {
   class?: ClassType;

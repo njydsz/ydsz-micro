@@ -13,7 +13,7 @@
 // @ts-nocheck
 import type { Arrayable } from '@vueuse/core';
 
-import type { YdButtonGroupProps, ValueType } from './button';
+import type { YdButtonGroupProps, ValueType } from './button.vue';
 
 import { computed, ref, watch } from 'vue';
 

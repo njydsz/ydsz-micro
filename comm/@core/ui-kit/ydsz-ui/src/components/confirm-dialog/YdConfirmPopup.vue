@@ -26,7 +26,7 @@ import {
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
 
-import { buttonVariants } from '../../primitives/button/button';
+import { buttonVariants } from '.././button';
 
 defineOptions({ name: 'YdConfirmPopup' });
 

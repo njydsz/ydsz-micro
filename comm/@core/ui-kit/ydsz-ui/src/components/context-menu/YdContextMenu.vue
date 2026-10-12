@@ -31,7 +31,7 @@ import {
   YdContextMenuSeparator,
   YdContextMenuShortcut,
   YdContextMenuTrigger,
-} from '../../primitives/context-menu';
+} from './context-menu.vue';
 
 const props = defineProps<
   ContextMenuRootProps & {

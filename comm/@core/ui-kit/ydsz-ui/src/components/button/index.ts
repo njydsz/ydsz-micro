@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export type * from './button';
+export type * from './button.vue';
 export { default as YdButtonGroup } from './YdButtonGroup.vue';
 export { default as YdButtonSmart } from './YdButtonSmart.vue';
 export { default as YdCheckButtonGroup } from './YdCheckButtonGroup.vue';

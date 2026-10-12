@@ -1,0 +1,47 @@
+<script setup lang="ts">
+/**
+* Resizable（resizable）组件：占位骨架，后续按需深化真实交互。
+* 
+ * @author ydsz-ai
+ * @since 1.0.0
+ */
+import type { ResizableEmits, ResizableProps } from './resizable-types.ts';
+
+defineOptions({ name: 'YdResizable' });
+
+const props = withDefaults(defineProps<ResizableProps>(), {
+  disabled: false,
+  open: false,
+});
+
+const emit = defineEmits<ResizableEmits>();
+
+function handleConfirm() {
+  emit('confirm');
+  emit('update:open', false);
+}
+
+function handleCancel() {
+  emit('cancel');
+  emit('update:open', false);
+}
+</script>
+
+<template>
+  <div :class="[`yd-resizable`, { 'yd-resizable--disabled': disabled }]">
+    <slot />
+  </div>
+</template>
+
+<style scoped>
+.yd-resizable {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.yd-resizable--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+</style>

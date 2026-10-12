@@ -12,11 +12,9 @@
 // @ts-nocheck
 import { ref, watch } from 'vue';
 
-import { getTheme } from '../../primitives/theme/use-theme';
-
-import type { TokenName } from '../../primitives/theme/theme-schema';
-
-import { themeTokens } from '../../primitives/theme/theme-schema';
+import { getTheme } from '../theme/use-theme';
+import type { TokenName } from '../theme/theme-schema';
+import { themeTokens } from '../theme/theme-schema';
 
 /** 可编辑 token 分类 */
 const EDITABLE_TOKENS: Array<{ name: TokenName; label: string; category: string }> = [

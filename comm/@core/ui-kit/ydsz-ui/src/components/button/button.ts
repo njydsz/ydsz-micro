@@ -13,7 +13,7 @@ import type { AsTag } from '@ydsz-core/ydsz-vue';
 
 import type { Component } from 'vue';
 
-import type { ButtonVariants, ButtonVariantSize } from '../../primitives';
+import type { ButtonVariants, ButtonVariantSize } from './button.vue';
 
 /**
  * 基础按钮的 props。

@@ -17,7 +17,7 @@ import { computed } from 'vue';
 
 import { YdTabsTrigger } from '@ydsz-core/ydsz-vue';
 
-import { YdTabs, YdTabsContent, YdTabsList } from '../../primitives';
+import { YdTabs, YdTabsContent, YdTabsList } from '.././tabs';
 import TabsIndicator from './tabs-indicator.vue';
 
 interface Props {
