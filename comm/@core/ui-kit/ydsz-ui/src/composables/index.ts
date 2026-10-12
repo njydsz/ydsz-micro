@@ -101,6 +101,21 @@ export type {
   UseTableDataReturn,
 } from './use-table-data';
 
+export {
+  useTableEditing,
+  composeCellKey,
+  parseCellKey,
+  CELL_KEY_SEPARATOR,
+  getEditingColumns,
+} from './use-table-editing';
+export type {
+  CellEditType,
+  EditValidationResult,
+  TableEditingCallbacks,
+  UseTableEditingOptions,
+  UseTableEditingReturn,
+} from './use-table-editing';
+
 export { useNotificationHub } from './use-notification-hub';
 export type {
   NotificationItem,
@@ -169,3 +184,7 @@ export type { UseRangeLinkOptions } from './use-range-link';
 
 export { useDensity, DENSITY_INJECTION_KEY } from './use-density';
 export type { Density, UseDensityOptions } from './use-density';
+
+// 命令式 Drawer —— 懒加载的内部实现在 src/components/drawer 中维护
+export { useDrawer } from '../components/drawer/use-drawer';
+export type { UseDrawerReturn } from '../components/drawer/use-drawer';

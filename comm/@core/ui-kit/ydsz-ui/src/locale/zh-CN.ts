@@ -62,6 +62,12 @@ export const zhCN = {
   'dialog.deleteConfirm': '确认删除？',
   'dialog.deleteWarning': '此操作不可撤销',
 
+  // ===== Drawer =====
+  'drawer.close': '关闭',
+  'drawer.closeAriaLabel': '关闭抽屉',
+  'drawer.confirm': '确认',
+  'drawer.cancel': '取消',
+
   // ===== Upload =====
   'upload.drag': '点击或拖拽文件到此区域上传',
   'upload.dragging': '释放文件开始上传',

@@ -1,6 +1,6 @@
 <script lang="ts">
 /**
- * * YdDataTable —— 增强数据表格：行选择 / 列排序 / 多选 / 固定列 / 多级表头 / 列虚拟滚动。
+ * * YdDataTable —— 增强数据表格：行选择 / 列排序 / 多选 / 固定列 / 多级表头 / 列虚拟滚动 / 行内编辑。
  * *
  * * @path comm\@core\ui-kit\ydsz-ui\src\components\data-table\YdDataTable.vue
  * * @author ydsz-team
@@ -11,21 +11,46 @@ import type { TableColumnDef } from '../../composables/use-table-data';
 import type { ColumnFixedConfig } from './use-table-fixed-columns';
 import type { TableColumn } from './use-table-group-header';
 
+/** 单元格编辑类型 */
+export type CellEditType = 'input' | 'number' | 'select' | 'date' | 'textarea';
+
+/** 编辑选项（select 类型） */
+export interface CellEditOption {
+  label: string;
+  value: string | number;
+}
+
 /**
- * 数据表格列定义 —— 扩展 base TableColumnDef，支持固定列 / 多级表头。
+ * 数据表格列定义 —— 扩展 base TableColumnDef，支持固定列 / 多级表头 / 行内编辑。
  *
  * <p>仅当启用相应特性时才需传入对应字段：
  * <ul>
  *   <li>{@link TableColumnDef} 基础属性（key / isSortable / sorter / filters / filterMethod）</li>
  *   <li>{@link fixed} / {@link width} —— 列固定定位（传给 useFixedColumns）</li>
  *   <li>{@link label} / {@link children} —— 多级表头分组（传给 useTableGroupHeader）</li>
+ *   <li>{@link editable} / {@link editType} / {@link editOptions} / {@link editValidator} —— 行内编辑</li>
  * </ul>
  *
  * @typeParam T - 行数据类型
  */
 export type DataTableColumnDef<T = Record<string, unknown>> = TableColumnDef<T> &
   ColumnFixedConfig &
-  TableColumn;
+  TableColumn & {
+    /** 该列是否可编辑（editable=true 时生效，默认 false 不参与编辑） */
+    editable?: boolean;
+    /** 编辑类型（默认 'input'） */
+    editType?: CellEditType;
+    /** 编辑选项（仅 select 类型使用） */
+    editOptions?: CellEditOption[];
+    /**
+     * 自定义编辑校验。
+     *
+     * @param value - 当前输入字符串
+     * @param row   - 行数据
+     * @returns null 表示通过，否则返回错误文案
+     */
+    editValidator?: (value: string, row: T) => string | null;
+  };
 
 /**
  * 树形表格配置。
@@ -56,6 +81,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { useTableData, type RowSelectionConfig } from '../../composables/use-table-data';
 import type { SortState } from '../../composables/use-table-data';
+import { useTableEditing, composeCellKey } from '../../composables/use-table-editing';
 import { useLocale } from '../../locale/useLocale';
 import {
   YdTable,
@@ -83,7 +109,7 @@ export type SummaryRowFn<T> = (data: T[]) => Record<string, string | number>;
 interface Props<T extends Record<string, unknown>> {
   /** 数据源 */
   dataSource: T[];
-  /** 列定义（可扩展 fixed / width / children / label） */
+  /** 列定义（可扩展 fixed / width / children / label / editable） */
   columns: DataTableColumnDef<T>[];
   /** 行 key 获取函数 */
   rowKey?: (row: T, index: number) => string;
@@ -113,6 +139,12 @@ interface Props<T extends Record<string, unknown>> {
   reorderable?: boolean;
   /** 树形表格配置（传值即启用树形模式） */
   treeConfig?: TreeConfig;
+  /** 是否开启行内编辑模式（总开关） */
+  editable?: boolean;
+  /** 当前正在编辑的单元格 key 集合（受控；不传则使用组件内部状态）。key = composeCellKey(rowKey, columnKey) */
+  editingKeys?: Set<string>;
+  /** 单元格编辑类型映射：columnKey → editType（优先级高于列 def 上的 editType） */
+  editConfig?: Map<string, CellEditType>;
 }
 
 /* ============================================================ */
@@ -121,6 +153,7 @@ interface Props<T extends Record<string, unknown>> {
 
 const props = withDefaults(defineProps<Props<T>>(), {
   class: '',
+  editable: false,
   enableFixedColumns: false,
   enableGroupHeader: false,
   columnVirtualizer: false,
@@ -139,6 +172,9 @@ const emit = defineEmits<{
   'update:expandedKeys': [keys: string[]];
   'columnResize': [payload: { columnKey: string; newWidth: number }];
   'columnReorder': [payload: { fromIndex: number; toIndex: number; columns: DataTableColumnDef<T>[] }];
+  'cell-edit-start': [rowKey: string, columnKey: string];
+  'cell-edit-end': [rowKey: string, columnKey: string, value: string];
+  'cell-edit': [rowKey: string, columnKey: string, value: string, row: T];
 }>();
 
 const { t } = useLocale();
@@ -211,7 +247,6 @@ const flatLeafColumns: ComputedRef<readonly TableColumn[]> = computed(() =>
 /** 当前作为 cell 渲染的叶列（取决于是否启用 group header / fixed） */
 const displayMiddleColumns = computed<readonly ColumnFixedConfig[]>(() => {
   if (props.enableGroupHeader) {
-    // 多级表头下，叶子列转为 fixed config 以统一访问 .key / .width / .fixed
     return flatLeafColumns.value.map((col) => ({
       key: col.key ?? '',
       width: props.estimateColumnWidth,
@@ -307,6 +342,150 @@ const table = useTableData<T>({
   isRemote: props.isRemote,
   rowSelection: rowSelectionConfig.value,
 });
+
+/* ============================================================ */
+/* 行内编辑（useTableEditing）                                  */
+/* ============================================================ */
+
+/**
+ * 受控 props → ref 桥接。
+ *
+ * <p>editingKeys / editConfig 可能是外部传入的普通 Set/Map，而 useTableEditing
+ * 要求传入 Ref 以便内部用替换模式触发响应式更新。
+ * 因此我们在本地维护一份 ref，并通过 watch 与 prop 双向同步。
+ */
+const internalEditingKeys: Ref<Set<string>> = ref<Set<string>>(
+  props.editingKeys ? new Set(props.editingKeys) : new Set(),
+);
+const internalEditConfig: Ref<Map<string, CellEditType>> = ref<Map<string, CellEditType>>(
+  props.editConfig ? new Map(props.editConfig) : new Map(),
+);
+
+watch(
+  () => props.editingKeys,
+  (val) => {
+    if (val) internalEditingKeys.value = new Set(val);
+  },
+);
+watch(
+  () => props.editConfig,
+  (val) => {
+    if (val) internalEditConfig.value = new Map(val);
+  },
+);
+
+/** 列定义查找表（columnKey → DataTableColumnDef），模板内 O(1) 访问 */
+const columnDefByKey = computed<Map<string, DataTableColumnDef<T>>>(() => {
+  const map = new Map<string, DataTableColumnDef<T>>();
+  const walk = (cols: DataTableColumnDef<T>[]) => {
+    for (const col of cols) {
+      map.set(col.key, col);
+      if (Array.isArray(col.children)) {
+        walk(col.children as DataTableColumnDef<T>[]);
+      }
+    }
+  };
+  walk(props.columns);
+  return map;
+});
+
+/** 行内编辑 composable */
+const tableEditing = useTableEditing<T>({
+  editingKeys: internalEditingKeys,
+  editConfig: internalEditConfig,
+  callbacks: {},
+});
+
+/** 是否处于行内编辑父模式（editable prop 控制） */
+const isEditableMode = computed<boolean>(() => props.editable);
+
+/** 单元格 key 快捷方法 */
+const cellKey = (rowKey: string, columnKey: string): string =>
+  composeCellKey(rowKey, columnKey);
+
+/** 单元格是否正在编辑 */
+const isCellEditing = (rowKey: string, columnKey: string): boolean =>
+  isEditableMode.value && tableEditing.editingCellKeys.value.has(cellKey(rowKey, columnKey));
+
+/** 获取列编辑类型（editConfig prop > 列 def > 默认 input） */
+function resolveEditType(columnKey: string): CellEditType {
+  const fromConfig = internalEditConfig.value.get(columnKey);
+  if (fromConfig) return fromConfig;
+  const def = columnDefByKey.value.get(columnKey);
+  return def?.editType ?? 'input';
+}
+
+/** 获取列编辑选项（仅 select 类型） */
+function resolveEditOptions(columnKey: string): CellEditOption[] {
+  return columnDefByKey.value.get(columnKey)?.editOptions ?? [];
+}
+
+/** 进入单元格编辑（模板 dblclick / 按钮触发） */
+function handleStartCellEdit(rowKey: string, columnKey: string): void {
+  if (!isEditableMode.value) return;
+  const def = columnDefByKey.value.get(columnKey);
+  if (!def?.editable) return;
+  tableEditing.startEdit(rowKey, columnKey);
+  emit('cell-edit-start', rowKey, columnKey);
+}
+
+/** 更新单元格临时值（输入过程中触发，不退出编辑态） */
+function handleDraftCellEdit(rowKey: string, columnKey: string, value: string): void {
+  tableEditing.setDraftValue(rowKey, columnKey, value);
+}
+
+/** 获取单元格当前展示值（draft 优先） */
+function resolveCellValue(row: T, columnKey: string, rowKey: string): unknown {
+  const draft = tableEditing.draftValues.value.get(cellKey(rowKey, columnKey));
+  if (draft !== undefined) return draft;
+  return (row as Record<string, unknown>)[columnKey];
+}
+
+/**
+ * 根据 rowKey 从 viewRows 中反查行数据（cancel 等兜底场景）。
+ */
+function resolveRowByKey(rowKey: string): T {
+  const found = viewRows.value.find((r, idx) => props.rowKey(r, idx) === rowKey);
+  return found ?? ({} as T);
+}
+
+/** 确认保存单元格（校验 + 退出编辑态 + 事件） */
+function handleSaveCell(rowKey: string, columnKey: string, value: string, row: T): void {
+  const def = columnDefByKey.value.get(columnKey);
+  const error = def?.editValidator?.(value, row) ?? null;
+  if (error) {
+    // 校验失败：保持编辑态，触发 cell-edit 让上层处理错误
+    emit('cell-edit', rowKey, columnKey, value, row);
+    return;
+  }
+  tableEditing.saveEdit(rowKey, columnKey, value, row);
+  emit('cell-edit', rowKey, columnKey, value, row);
+  emit('cell-edit-end', rowKey, columnKey, value);
+}
+
+/** 取消单元格编辑：清空 draft、退出编辑集合、触发 cell-edit-end 携带空值 */
+function handleCancelCellEdit(rowKey: string, columnKey: string): void {
+  tableEditing.clearDraft(rowKey, columnKey);
+  tableEditing.saveEdit(rowKey, columnKey, '', resolveRowByKey(rowKey));
+  emit('cell-edit-end', rowKey, columnKey, '');
+}
+
+/** 单元格键盘事件：Enter 提交 / Esc 取消 */
+function handleCellKeydown(
+  event: KeyboardEvent,
+  rowKey: string,
+  columnKey: string,
+  value: string,
+  row: T,
+): void {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    handleSaveCell(rowKey, columnKey, value, row);
+  } else if (event.key === 'Escape') {
+    event.preventDefault();
+    handleCancelCellEdit(rowKey, columnKey);
+  }
+}
 
 /* ============================================================ */
 /* 树形表格（TreeTable）                                        */
@@ -414,9 +593,7 @@ function handleResizeStart(prop: string, event: PointerEvent): void {
 
   resizeMoveHandler = (e: PointerEvent) => {
     columnResizeApi.onResizeMove(e);
-    // 拖拽过程中实时持久化
     persistWidths({ ...columnResizeApi.columnWidths.value });
-    // 实时 emit
     emit('columnResize', {
       columnKey: prop,
       newWidth: columnResizeApi.columnWidths.value[prop] ?? 0,
@@ -539,6 +716,13 @@ defineExpose({
   clearFilters: table.clearFilters,
   selection: table.selection,
   sortState: table.sortState,
+  /** 暴露编辑相关句柄，便于外部调用 startEdit / cancelEdit 等 */
+  editing: {
+    startCellEdit: handleStartCellEdit,
+    cancelCellEdit: handleCancelCellEdit,
+    saveCellEdit: handleSaveCell,
+    cellKeys: tableEditing.editingCellKeys,
+  },
 });
 </script>
 
@@ -601,10 +785,6 @@ defineExpose({
               class="w-10 px-2"
             />
 
-            <!--
-              左 / 右 固定列仅在多级表头的叶行（末行）渲染一次，
-              避免在非叶行重复出现导致 colspan 错位。
-              -->
             <template v-if="hIdx === headerRows.length - 1 && props.enableFixedColumns">
               <YdTableHead
                 v-for="(col, cIdx) in leftFixedColumns"
@@ -841,9 +1021,51 @@ defineExpose({
             v-for="col in leftFixedColumns"
             :key="`fixed-left-${col.key}`"
             :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
-            class="sticky-cell"
+            :class="cn('sticky-cell', isEditableMode && columnDefByKey.get(col.key)?.editable && 'yd-cell-editable')"
+            @dblclick="isEditableMode && columnDefByKey.get(col.key)?.editable && handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)"
           >
-            {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[col.key] ?? '-' }}
+            <template v-if="isCellEditing(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)">
+              <textarea
+                v-if="resolveEditType(col.key) === 'textarea'"
+                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                autofocus
+                rows="2"
+                class="yd-cell-input yd-cell-input--textarea"
+                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value)"
+                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+              />
+              <select
+                v-else-if="resolveEditType(col.key) === 'select'"
+                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                autofocus
+                class="yd-cell-input yd-cell-input--select"
+                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value)"
+                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+              >
+                <option
+                  v-for="opt in resolveEditOptions(col.key)"
+                  :key="String(opt.value)"
+                  :value="opt.value"
+                >
+                  {{ opt.label }}
+                </option>
+              </select>
+              <input
+                v-else
+                :type="resolveEditType(col.key) === 'number' ? 'number' : resolveEditType(col.key) === 'date' ? 'date' : 'text'"
+                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                autofocus
+                class="yd-cell-input"
+                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value)"
+                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+              />
+            </template>
+            <template v-else>
+              {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[col.key] ?? '-' }}
+            </template>
           </YdTableCell>
 
           <!-- 中间列单元格（虚拟 / 全量） -->
@@ -863,8 +1085,10 @@ defineExpose({
                   ? columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')!
                   : `${props.estimateColumnWidth}px`,
               }"
+              :class="cn(isEditableMode && columnDefByKey.get(displayMiddleColumns[vItem.index]?.key ?? '')?.editable && 'yd-cell-editable')"
+              @dblclick="handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), displayMiddleColumns[vItem.index]?.key ?? '')"
             >
-              {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[displayMiddleColumns[vItem.index]?.key ?? ''] ?? '-' }}
+              {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[displayMiddleColumns[vItem.index]?.key ?? ''] ?? '-' }}
             </YdTableCell>
             <YdTableCell
               v-if="lastVisibleColumnIndex < middleColumnCount - 1"
@@ -879,8 +1103,51 @@ defineExpose({
             <YdTableCell
               v-for="col in effectiveRenderColumns"
               :key="col.key"
+              :class="cn(isEditableMode && columnDefByKey.get(col.key)?.editable && 'yd-cell-editable')"
+              @dblclick="isEditableMode && columnDefByKey.get(col.key)?.editable && handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)"
             >
-              {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[col.key] ?? '-' }}
+              <template v-if="isCellEditing(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)">
+                <textarea
+                  v-if="resolveEditType(col.key) === 'textarea'"
+                  :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                  autofocus
+                  rows="2"
+                  class="yd-cell-input yd-cell-input--textarea"
+                  @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value)"
+                  @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                  @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                />
+                <select
+                  v-else-if="resolveEditType(col.key) === 'select'"
+                  :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                  autofocus
+                  class="yd-cell-input yd-cell-input--select"
+                  @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value)"
+                  @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                  @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                >
+                  <option
+                    v-for="opt in resolveEditOptions(col.key)"
+                    :key="String(opt.value)"
+                    :value="opt.value"
+                  >
+                    {{ opt.label }}
+                  </option>
+                </select>
+                <input
+                  v-else
+                  :type="resolveEditType(col.key) === 'number' ? 'number' : resolveEditType(col.key) === 'date' ? 'date' : 'text'"
+                  :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                  autofocus
+                  class="yd-cell-input"
+                  @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value)"
+                  @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                  @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                />
+              </template>
+              <template v-else>
+                {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[col.key] ?? '-' }}
+              </template>
             </YdTableCell>
           </template>
 
@@ -889,9 +1156,51 @@ defineExpose({
             v-for="col in rightFixedColumns"
             :key="`fixed-right-${col.key}`"
             :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
-            class="sticky-cell"
+            :class="cn('sticky-cell', isEditableMode && columnDefByKey.get(col.key)?.editable && 'yd-cell-editable')"
+            @dblclick="isEditableMode && columnDefByKey.get(col.key)?.editable && handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)"
           >
-            {{ ((props.treeConfig ? (item as TreeFlatRow<T>).row : item as T) as Record<string, unknown>)[col.key] ?? '-' }}
+            <template v-if="isCellEditing(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)">
+              <textarea
+                v-if="resolveEditType(col.key) === 'textarea'"
+                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                autofocus
+                rows="2"
+                class="yd-cell-input yd-cell-input--textarea"
+                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value)"
+                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+              />
+              <select
+                v-else-if="resolveEditType(col.key) === 'select'"
+                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                autofocus
+                class="yd-cell-input yd-cell-input--select"
+                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value)"
+                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+              >
+                <option
+                  v-for="opt in resolveEditOptions(col.key)"
+                  :key="String(opt.value)"
+                  :value="opt.value"
+                >
+                  {{ opt.label }}
+                </option>
+              </select>
+              <input
+                v-else
+                :type="resolveEditType(col.key) === 'number' ? 'number' : resolveEditType(col.key) === 'date' ? 'date' : 'text'"
+                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
+                autofocus
+                class="yd-cell-input"
+                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value)"
+                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
+              />
+            </template>
+            <template v-else>
+              {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[col.key] ?? '-' }}
+            </template>
           </YdTableCell>
         </YdTableRow>
 
@@ -928,5 +1237,39 @@ defineExpose({
   border: none;
   padding: 0;
   line-height: 1;
+}
+
+/* 可编辑单元格：hover 提示 */
+.yd-cell-editable {
+  cursor: cell;
+}
+
+/* 编辑模式下输入框融入单元格，不破坏行高 */
+.yd-cell-input {
+  width: 100%;
+  min-height: 28px;
+  padding: 2px 6px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--primary));
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: hsl(var(--foreground));
+}
+
+.yd-cell-input:focus {
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25);
+}
+
+.yd-cell-input--textarea {
+  resize: vertical;
+  min-height: 48px;
+}
+
+.yd-cell-input--select {
+  appearance: auto;
 }
 </style>

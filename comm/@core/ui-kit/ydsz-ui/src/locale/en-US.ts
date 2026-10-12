@@ -61,6 +61,12 @@ export const enUS = {
   'dialog.deleteConfirm': 'Confirm delete?',
   'dialog.deleteWarning': 'This action cannot be undone',
 
+  // ===== Drawer =====
+  'drawer.close': 'Close',
+  'drawer.closeAriaLabel': 'Close drawer',
+  'drawer.confirm': 'Confirm',
+  'drawer.cancel': 'Cancel',
+
   // ===== Upload =====
   'upload.drag': 'Click or drag file to this area to upload',
   'upload.dragging': 'Release to upload',
