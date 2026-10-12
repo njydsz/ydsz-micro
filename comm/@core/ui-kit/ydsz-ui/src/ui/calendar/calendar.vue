@@ -1,11 +1,11 @@
-<!--
- * Calendar 日历：月历面板，支持日期点选、范围选择、禁用、月份切换。
- *
+<script setup lang="ts">
+/**
+* Calendar 日历：月历面板，支持日期点选、范围选择、禁用、月份切换。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\calendar\calendar.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { CalendarEmits, CalendarProps } from './calendar-types';
 
 import { computed, ref } from 'vue';

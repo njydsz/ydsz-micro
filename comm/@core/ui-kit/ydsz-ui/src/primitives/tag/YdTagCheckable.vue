@@ -1,14 +1,14 @@
-<!--
- * 可选标签 —— 便利性封装（Convenience Wrapper）。
- *
+<script setup lang="ts">
+/**
+* 可选标签 —— 便利性封装（Convenience Wrapper）。
+* 
  * 在 YdTag 基础上叠加可选中（checked）态，对齐 Element Plus ElTag checkable 场景
  * —— 如标签云、筛选标签、状态多选等。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tag\YdTagCheckable.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 /**
  * 可选标签便利性封装。
  *

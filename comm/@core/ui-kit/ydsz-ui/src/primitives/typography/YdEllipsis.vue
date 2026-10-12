@@ -1,16 +1,16 @@
-<!--
- * Typography.Ellipsis：文本省略自适应 Tooltip。
- *
+<script lang="ts">
+/**
+* Typography.Ellipsis：文本省略自适应 Tooltip。
+* 
  * 自动检测文字是否溢出容器：溢出时用 Tooltip 包裹显示全文，
  * 不溢出时纯文本展示。支持单行/多行省略与复制按钮。
- *
+* 
  * 使用 ResizeObserver 在容器尺寸变化时重新检测溢出状态。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\typography\YdEllipsis.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts">
+ */
 // @ts-nocheck
 export type EllipsisPlacement = 'top' | 'right' | 'bottom' | 'left';
 </script>

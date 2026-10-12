@@ -1,19 +1,19 @@
-<!--
- * YdDialogContent Vue 组件 - 现代化弹窗样式
- *
+<script setup lang="ts">
+/**
+* YdDialogContent Vue 组件 - 现代化弹窗样式
+* 
  * 相比原版新增三个关闭抑制开关：
  *  - `closeOnOverlayClick`：默认 true；置 false 后点击遮罩不再关闭弹窗
  *  - `closeOnEsc`：默认 true；置 false 后 ESC 不再关闭弹窗
  *  - `showClose`：默认 true；置 false 后隐藏右上角关闭按钮
- *
+* 
  * 这三个开关共同覆盖「二次鉴权 / 强制阅读」等需要强制用户完成操作的交互场景；
  * 关闭行为一律交由调用方通过 v-model:open 显式控制。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogContent.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { DialogContentEmits, DialogContentProps } from '@ydsz-core/ydsz-vue';
 
 import type { ClassType } from '@ydsz-core/typings';

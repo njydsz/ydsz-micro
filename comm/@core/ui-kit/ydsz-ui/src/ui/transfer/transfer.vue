@@ -1,11 +1,11 @@
-<!--
- * Transfer 穿梭框：双栏带搜索，将选项从左栏移到右栏。
- *
+<script setup lang="ts">
+/**
+* Transfer 穿梭框：双栏带搜索，将选项从左栏移到右栏。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\transfer\transfer.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { TransferEmits, TransferItem, TransferProps } from './transfer-types';
 
 import { computed, ref, watch } from 'vue';

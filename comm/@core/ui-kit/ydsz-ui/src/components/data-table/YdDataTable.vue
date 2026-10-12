@@ -1,11 +1,11 @@
-<!--
- * YdDataTable —— 增强数据表格：行选择 / 列排序 / 多选 / 固定列 / 多级表头 / 列虚拟滚动。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\data-table\YdDataTable.vue
- * @author ydsz-team
- * @since 5.6.0
--->
 <script lang="ts">
+/**
+ * * YdDataTable —— 增强数据表格：行选择 / 列排序 / 多选 / 固定列 / 多级表头 / 列虚拟滚动。
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\components\data-table\YdDataTable.vue
+ * * @author ydsz-team
+ * @since 5.6.0
+ */
 // @ts-nocheck
 import type { TableColumnDef } from '../../composables/use-table-data';
 import type { ColumnFixedConfig } from './use-table-fixed-columns';

@@ -1,14 +1,14 @@
-<!--
- * Timeline 时间轴：按时间顺序展示事件流。
- *
+<script lang="ts" setup>
+/**
+* Timeline 时间轴：按时间顺序展示事件流。
+* 
  * 支持 dot、pending、reverse 三种变体。
  * 子组件 YdTimelineItem 渲染单个事件节点，color / dot 支持自定义。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\timeline\YdTimeline.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

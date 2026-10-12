@@ -1,23 +1,23 @@
-<!--
- * YdVCascader —— 带虚拟滚动的级联选择器。
- *
+<script lang="ts" setup>
+/**
+* YdVCascader —— 带虚拟滚动的级联选择器。
+* 
  * <p>与 YdCascader 的功能等价替代（单/多选、hover 触发、远程加载、搜索），
  * 但在每列大数据场景下，通过 useVirtualList 仅渲染可见选项，
  * 避免千级选项全量渲染造成的面板展开慢、滚动卡顿。
- *
+* 
  * <p>与 YdCascader 的边界：
  *  - YdCascader 适合单级 < 200 选项的常规场景；
  *  - YdVCascader 适合任意级存在大量选项的高性能场景。
- *
+* 
  * <p>性能特征（以每列 2000 项为例）：
  *  - 不虚拟：每列 ~2000 个 li DOM 节点，共 ~6000 节点（3 层展开）；
  *  - 虚拟后：每列 ~18 个 DOM 节点（8 visible + 10 overscan），共 ~54 节点。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\cascader\YdVCascader.vue
  * @author ydsz-team
  * @since 26.09.17
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 
@@ -26,8 +26,7 @@ import { ChevronDown, ChevronRight, Loader2, Search, X } from 'lucide-vue-next';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
 
-import type { CascaderOption } from './types';
-import type { CascaderShowSearch } from './types';
+import type { CascaderOption, CascaderProps, CascaderShowSearch } from './types';
 
 /** VCascader props（扩展 CascaderProps 增加虚拟滚动配置） */
 export interface VCascaderProps extends Omit<CascaderProps, 'class'> {

@@ -1,14 +1,14 @@
-<!--
- * Image 图片：增强版图片组件。
- *
+<script lang="ts" setup>
+/**
+* Image 图片：增强版图片组件。
+* 
  * 特性：懒加载（loading="lazy"）、错误占位、圆角裁剪、预览模式（集成到 YdImage.PreviewGroup）。
  * 多图预览通过 YdImageGroup 提供左右切换、缩放等手势。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\image\YdImage.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 

@@ -1,16 +1,16 @@
-<!--
- * Affix 固钉：当滚动偏移量>=阈值时将内容固定在视口（或 target 容器）。
- *
+<script setup lang="ts">
+/**
+* Affix 固钉：当滚动偏移量>=阈值时将内容固定在视口（或 target 容器）。
+* 
  * 实现思路：
  *   - 用 scroll 事件监听 target（默认 window），动态计算当前 offsetTop；
  *   - offset 条件成立后复制占位，内容区定位切换为 fixed；
  *   - 通过 update:change 通知外部固定/释放事件。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\affix\affix.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { AffixEmits, AffixProps } from './affix-types';
 
 import { computed, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';

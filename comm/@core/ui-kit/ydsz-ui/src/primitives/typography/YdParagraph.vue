@@ -1,11 +1,11 @@
-<!--
- * Typography.Paragraph：段落，多行文本容器，支持省略与可编辑。
- *
+<script lang="ts" setup>
+/**
+* Typography.Paragraph：段落，多行文本容器，支持省略与可编辑。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\typography\YdParagraph.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { nextTick, ref } from 'vue';
 

@@ -1,14 +1,14 @@
-<!--
- * 导航菜单 —— 便利性封装（Convenience Wrapper）。
- *
+<script setup lang="ts">
+/**
+* 导航菜单 —— 便利性封装（Convenience Wrapper）。
+* 
  * 侧边栏 / 顶栏导航的配置式菜单封装，对齐 Ant Design Menu / Element Plus ElMenu。
  * 支持嵌套子菜单、分组、禁用、图标等。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\menu\YdMenu.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 /**
  * 导航菜单便利性封装。
  *

@@ -1,18 +1,17 @@
-<!--
- * DiffViewer 文本对比组件。
- *
+<script lang="ts" setup>
+/**
+* DiffViewer 文本对比组件。
+* 
  * 内置 LCS（最长公共子序列）差量算法按行比较两份文本，
  * 支持 split（分栏）/ unified（单栏）两种视图模式，
  * 可选行号显示、上下文折叠与自定义标题。
- *
+* 
  * 对标 react-diff-view / GitHub PR diff 的阅读体验。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\diff-viewer\diff-viewer.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-
-<script lang="ts" setup>
+ */
 import { computed, ref, watch } from 'vue';
 
 import type {

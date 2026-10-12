@@ -1,15 +1,15 @@
-<!--
- * 输入框组合容器：把输入框 / 按钮 / 标签 / 选择器组合成一行。
- *
+<script lang="ts" setup>
+/**
+* 输入框组合容器：把输入框 / 按钮 / 标签 / 选择器组合成一行。
+* 
  * 紧凑模式（compact）下相邻元素共享边框、首尾圆角单独保留，
  * 对齐 Ant Design a-input-group 的 compact 行为。
  * 基于 Primitive 容器，保留 as / asChild 能力，便于无障碍场景复用。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\input-group\YdInputGroup.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import type { YdInputGroupProps } from './input-group-types';
 
 import { computed } from 'vue';

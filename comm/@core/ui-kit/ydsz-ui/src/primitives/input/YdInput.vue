@@ -1,6 +1,7 @@
-<!--
- * YdInput Vue 组件 —— 现代化输入框，对标一线竞品（EP Input / Naive Input）能力矩阵。
- *
+<script setup lang="ts">
+/**
+* YdInput Vue 组件 —— 现代化输入框，对标一线竞品（EP Input / Naive Input）能力矩阵。
+* 
  * <p>增强能力（对标 element-plus / naive-ui / ant-design-vue）：
  * <ul>
  *   <li>clearable：带清空按钮</li>
@@ -8,12 +9,11 @@
  *   <li>showCount + maxlength：字符计数</li>
  *   <li>disabled / readonly：禁用与只读状态</li>
  * </ul>
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\input\YdInput.vue
  * @author ydsz-team
  * @since 1.0.0 (5.6.0 新增 clearable/prefix/suffix/showCount)
--->
-<script setup lang="ts">
+ */
 import { computed, ref, useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

@@ -1,11 +1,11 @@
-<!--
- * 行容器：支持 hover 高亮与 selected 态，实现选中行持久视觉反馈。
- *
+<script setup lang="ts">
+/**
+* 行容器：支持 hover 高亮与 selected 态，实现选中行持久视觉反馈。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableRow.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'YdTableRow' });

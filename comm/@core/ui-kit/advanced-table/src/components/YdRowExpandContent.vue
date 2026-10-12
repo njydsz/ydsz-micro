@@ -1,13 +1,13 @@
-<!--
- * YdRowExpandContent — 行展开内容渲染器。
- *
+<script lang="ts" setup>
+/**
+* YdRowExpandContent — 行展开内容渲染器。
+* 
  * <p>根据加载状态展示：loading spinner / 子表格 / 错误信息。
- *
+* 
  * @path comm\@core\ui-kit\advanced-table\src\components\YdRowExpandContent.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 defineProps<{
   /** 加载状态 */
   state: 'idle' | 'loading' | 'loaded' | 'error';

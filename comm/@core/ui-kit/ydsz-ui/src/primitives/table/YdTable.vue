@@ -1,6 +1,7 @@
-<!--
- * 数据表格组件：语义 HTML 容器 + 列驱动渲染 + 排序支持。
- *
+<script setup lang="ts">
+/**
+* 数据表格组件：语义 HTML 容器 + 列驱动渲染 + 排序支持。
+* 
  * <p>使用方式：
  * <ol>
  *   <li><b>列驱动</b>（推荐）：&lt;YdTable :data="rows"&gt; + &lt;YdTableColumn&gt; 子组件，
@@ -8,17 +9,16 @@
  *   <li><b>语义插槽</b>：直接使用 YdTableHeader/YdTableBody/YdTableRow/YdTableCell 等子组件填充，
  *   此时 YdTable 仅提供 overflow 容器。</li>
  * </ol>
- *
+* 
  * <p>支持列排序（表头点击触发 sort-change 事件，由调用方处理排序逻辑），
  * 列固定(左/右)、列显隐、列宽调整等高级特性通过 YdTableColumn 的属性配置。
- *
+* 
  * a11y：使用原生 &lt;table&gt; 语义，屏幕阅读器自动识别行列关系。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
  * @author ydsz-team
  * @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
- -->
-<script setup lang="ts">
+ */
 import { computed, provide, shallowRef, useSlots } from 'vue';
 
 import type { ColumnDef } from './ColumnDef';

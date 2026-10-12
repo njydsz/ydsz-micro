@@ -1,11 +1,11 @@
-<!--
- * Popconfirm 气泡确认框：在 Popover 中嵌入确认/取消按钮，用于删除等不可逆操作。
- *
+<script setup lang="ts">
+/**
+* Popconfirm 气泡确认框：在 Popover 中嵌入确认/取消按钮，用于删除等不可逆操作。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\popconfirm\popconfirm.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { PopconfirmEmits, PopconfirmProps } from './popconfirm-types';
 
 import { ref, watch } from 'vue';

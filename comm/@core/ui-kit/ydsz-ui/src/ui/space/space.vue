@@ -1,14 +1,14 @@
-<!--
- * Space 组件 —— 受控、等距、可换行的子元素布局容器。
- *
- * 对标 Naive UI n-space：按统一间距在单行（或换行）上排列子元素，
- * 选项控制方向 / 对齐 / 填充，避免每个调用方手写一堆 `class="flex items-center gap-2"`。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\space\space.vue
- * @author ydsz-team
- * @since 1.0.0
--->
 <script lang="ts" setup>
+/**
+ * * Space 组件 —— 受控、等距、可换行的子元素布局容器。
+ * *
+ * * 对标 Naive UI n-space：按统一间距在单行（或换行）上排列子元素，
+ * * 选项控制方向 / 对齐 / 填充，避免每个调用方手写一堆 `class="flex items-center gap-2"`。
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\ui\space\space.vue
+ * * @author ydsz-team
+ * @since 1.0.0
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

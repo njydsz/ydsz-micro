@@ -1,16 +1,16 @@
-<!--
- * Spin 加载中：包裹内容区域表达加载状态。
- *
+<script lang="ts" setup>
+/**
+* Spin 加载中：包裹内容区域表达加载状态。
+* 
  * 设计要点：
  * - wrapper 模式：展示 spinner 并覆盖内容区（透明度降低）
  * - 支持 delay 延迟显示，避免闪烁
  * - 支持 fullscreen 整页加载
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\spin\YdSpin.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 

@@ -1,12 +1,13 @@
-<!-- YdImageViewer.vue —— 全局图片预览器渲染挂载点。
-     通过 useImageViewerState() 订阅模块级共享状态，挂载于 App 根节点。
-     特性：缩放（滚轮/按钮，0.5x–5x，步进 0.25x）、旋转（±90°）、翻页（箭头/键盘）、缩略图导航。
-
-     @path comm\@core\ui-kit\popup-ui\src\image-viewer\YdImageViewer.vue
-     @author ydsz-team
-     @since 26.09.24
--->
 <script setup lang="ts">
+/**
+ * YdImageViewer.vue —— 全局图片预览器渲染挂载点。
+ * 通过 useImageViewerState() 订阅模块级共享状态，挂载于 App 根节点。
+ * 特性：缩放（滚轮/按钮，0.5x–5x，步进 0.25x）、旋转（±90°）、翻页（箭头/键盘）、缩略图导航。
+ * 
+ * @path comm\@core\ui-kit\popup-ui\src\image-viewer\YdImageViewer.vue
+ * @author ydsz-team
+ * @since 26.09.24
+ */
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

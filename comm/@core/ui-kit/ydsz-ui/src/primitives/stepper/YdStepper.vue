@@ -1,17 +1,17 @@
-<!--
- * 多步骤向导容器：步骤条 + 内容面板 + 底部导航按钮。
- *
+<script setup lang="ts">
+/**
+* 多步骤向导容器：步骤条 + 内容面板 + 底部导航按钮。
+* 
  * 控制逻辑：
  * 1. 下一步：调用当前 step.validate()，返回 false 则不前进（支持 sync/async）。
  * 2. 上一步：直接回退。
  * 3. 完成：最后一步显示，触发 finish 事件。
  * 4. 键盘导航：← → 切换步骤。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\stepper\YdStepper.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { StepItem, StepperContext, StepperOrientation, StepperSize, StepperVariant } from './stepper-types';
 
 import { type Component, type VNode, computed, defineComponent, h, provide, ref, useSlots, watch } from 'vue';

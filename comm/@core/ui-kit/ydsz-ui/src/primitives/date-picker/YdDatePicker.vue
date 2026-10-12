@@ -1,9 +1,10 @@
-<!--
- * YdDatePicker Vue 组件 —— 基于 Popover 的日历命令式选择器，全粒度矩阵。
- *
+<script setup lang="ts">
+/**
+* YdDatePicker Vue 组件 —— 基于 Popover 的日历命令式选择器，全粒度矩阵。
+* 
  * 提供对齐业界 DatePicker 的核心 API：v-model 双向绑定、placeholder、disabled，
  * type 支持 date / datetime / week / month / quarter / year 及 range 变体（共 10 种）。
- *
+* 
  * 改进（YDIZ-POPUP-001 + 5.6.0）：
  * - 弹出层使用 Teleport 挂载到 body，避免父级 overflow:hidden 裁切
  * - 添加 click-outside 自动关闭，点击弹出层外部即收起
@@ -13,14 +14,13 @@
  *   结束点未定时随鼠标悬停实时预览区间范围
  * - 5.6.0 新增：week / month / quarter / year 粒度与对应 range 变体，
  *   面板可在日 / 月 / 年视图层级上切换
- *
+* 
  * 样式全部使用 Tailwind 设计系统 Token，暗色模式由 CSS 变量驱动。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdDatePicker.vue
  * @author ydsz-team
  * @since 5.3.0 (5.6.0 支持 week/month/quarter/year 全粒度)
--->
-<script setup lang="ts">
+ */
 import type { DatePickerShortcut, DatePickerType, DatePickerValue } from './types';
 
 import { computed, onMounted, ref } from 'vue';

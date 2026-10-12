@@ -1,11 +1,11 @@
-<!--
- * Typography.Text：文本 / 代码 / 标记 / 复制 / 可编辑等原子组件。
- *
+<script lang="ts" setup>
+/**
+* Typography.Text：文本 / 代码 / 标记 / 复制 / 可编辑等原子组件。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\typography\YdText.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { getCurrentInstance, nextTick, ref } from 'vue';
 

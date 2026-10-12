@@ -1,13 +1,13 @@
-<!--
- * YdDesignerToolbar — 可视化表单设计器顶部工具栏。
- *
+<script lang="ts" setup>
+/**
+* YdDesignerToolbar — 可视化表单设计器顶部工具栏。
+* 
  * <p>提供撤销/重做/预览/提交/清空操作入口。
- *
+* 
  * @path comm\@core\ui-kit\form-designer\src\components\YdDesignerToolbar.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 defineProps<{
   canUndo?: boolean;
   canRedo?: boolean;

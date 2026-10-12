@@ -1,18 +1,18 @@
-<!--
- * YdDesignerCanvas — 可视化表单设计器中央画布。
- *
+<script lang="ts" setup>
+/**
+* YdDesignerCanvas — 可视化表单设计器中央画布。
+* 
  * <p>展示已拖入的字段，支持：
  * <ul>
  *   <li>点击选中编辑</li>
  *   <li>拖拽排序（基于 SortableJS 组合式 API）</li>
  *   <li>右键删除/复制快捷操作</li>
  * </ul>
- *
+* 
  * @path comm\@core\ui-kit\form-designer\src\components\YdDesignerCanvas.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import { ref } from 'vue';
 
 import type { CanvasItem } from '../types';

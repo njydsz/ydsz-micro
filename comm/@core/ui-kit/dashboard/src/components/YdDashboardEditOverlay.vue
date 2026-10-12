@@ -1,13 +1,13 @@
-<!--
- * YdDashboardEditOverlay — 仪表盘编辑模式下的卡片悬浮操作层。
- *
+<script lang="ts" setup>
+/**
+* YdDashboardEditOverlay — 仪表盘编辑模式下的卡片悬浮操作层。
+* 
  * <p>仅在编辑态（config.isEditable = true）时显示，提供删除操作入口。
- *
+* 
  * @path comm\@core\ui-kit\dashboard\src\components\YdDashboardEditOverlay.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 defineProps<{
   cardId: string;
 }>();

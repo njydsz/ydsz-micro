@@ -1,14 +1,14 @@
-<!--
- * YdDesignerPropertyPanel — 可视化表单设计器右侧属性面板。
- *
+<script lang="ts" setup>
+/**
+* YdDesignerPropertyPanel — 可视化表单设计器右侧属性面板。
+* 
  * <p>当选中画布字段时，显示该字段的属性编辑表单（label/fieldName/placeholder/
  * 校验/栅格占位等），修改实时同步到 Schema。
- *
+* 
  * @path comm\@core\ui-kit\form-designer\src\components\YdDesignerPropertyPanel.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import type { CanvasItem } from '../types';
 
 import { useDesignerContext } from './designer-context';

@@ -1,15 +1,15 @@
-<!--
- * 文字提示的容器：转发 radix TooltipRoot 的 props 与 emits。
- *
+<script setup lang="ts">
+/**
+* 文字提示的容器：转发 radix TooltipRoot 的 props 与 emits。
+* 
  * 延迟与方位分别在 YdTooltipProvider 与 YdTooltipContent 上配置，本组件只承载开合状态；
  * 它必须位于 YdTooltipProvider 之内，否则不会显示 ——
  * 这是接入 radix YdTooltip 时最常见的疏漏。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tooltip\YdTooltip.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { TooltipRootEmits, TooltipRootProps } from '@ydsz-core/ydsz-vue';
 
 import { TooltipRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';

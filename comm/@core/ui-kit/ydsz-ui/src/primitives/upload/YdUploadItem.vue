@@ -1,14 +1,14 @@
-<!--
- * YdUploadItem —— 单个上传文件行/卡片。
- *
+<script setup lang="ts">
+/**
+* YdUploadItem —— 单个上传文件行/卡片。
+* 
  * 展示文件名、状态图标、进度条、重试按钮与移除按钮。
  * 支持 text / picture-card 两种呈现模式。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\upload\YdUploadItem.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { UploadFile, UploadStatus as UploadStatusType } from './types';
 
 import { computed } from 'vue';

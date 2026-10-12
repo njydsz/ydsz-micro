@@ -1,24 +1,13 @@
-<!--
+<script lang="ts">
+/**
  * 栅格行 —— 便利性封装（Convenience Wrapper）。
  *
  * 基于 CSS Grid 的 24 栅格系统，对齐 Element Plus ElRow 的 API 形态。
  * 内部调用 useGridProvider 向子 YdCol 暴露栅格上下文。
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\layout\YdRow.vue
- * @author ydsz-team
- * @since 1.0.0
--->
-<script setup lang="ts">
-/**
- * 栅格行组件。
- * <p>基于 CSS Grid 的 24 栅格系统容器。
- *
  * @author ydsz-team
  * @since 1.0.0
  */
-import { computed, provide } from 'vue';
-
-import type { HTMLAttributes } from 'vue';
 
 /** 断点类型（与 use-grid-layout 共享） */
 export type GridBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -50,6 +39,12 @@ export interface GridContext {
 
 /** 注入 key */
 export const GRID_CONTEXT_KEY: symbol = Symbol('ydsz-grid-context');
+</script>
+
+<script lang="ts" setup>
+import { computed, provide } from 'vue';
+
+import type { HTMLAttributes } from 'vue';
 
 const props = withDefaults(defineProps<{
   /** 栅格间隙（像素）—— 同时设置横向和纵向 gutter */
@@ -139,30 +134,6 @@ provide(GRID_CONTEXT_KEY, gridContext);
 </script>
 
 <template>
-  <!--
-    栅格行组件 —— 24 栅格布局容器。
-
-    API 对齐 Element Plus ElRow：
-    - gutter: 栅格间距（支持 [水平, 垂直] 数组格式）
-    - type: 'flex' | 'grid'（默认 'grid'）
-    - justify: flex 模式下主轴对齐
-    - align: flex 模式下交叉轴对齐
-
-    示例：
-    ```html
-    <YdRow :gutter="16">
-      <YdCol :span="6"><YdCard>Col-6</YdCard></YdCol>
-      <YdCol :span="6"><YdCard>Col-6</YdCard></YdCol>
-      <YdCol :span="6"><YdCard>Col-6</YdCard></YdCol>
-      <YdCol :span="6"><YdCard>Col-6</YdCard></YdCol>
-    </YdRow>
-
-    <!-- 响应式布局 -->
-    <YdRow :gutter="[16, 24]">
-      <YdCol :span="8" :md="12" :xs="24"><YdCard>响应式列</YdCol>
-    </YdRow>
-    ```
-  -->
   <div
     :style="rowStyle"
     :class="props.class"

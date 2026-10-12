@@ -1,18 +1,18 @@
-<!--
- * Tag 标签：用于标记和分类的小型语义色块。
- *
- * 提供 6 档语义色（default / primary / successful / warning / destructive / info）
- * 与 3 档尺寸（sm / md / lg），通过 CVA 变体产出样式类，class 透传用于覆盖。
- *
- * 关闭标签场景（closable）通过 named slot #close 提供关闭图标位置，
- * 父组件监听 click 事件自行决定是否销毁 —— Tag 本身不管理可见状态，
- * 保持为纯受控 / 纯展示组件。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tag\YdTag.vue
- * @author ydsz-team
- * @since 1.0.0
--->
 <script setup lang="ts">
+/**
+ * * Tag 标签：用于标记和分类的小型语义色块。
+ * *
+ * * 提供 6 档语义色（default / primary / successful / warning / destructive / info）
+ * * 与 3 档尺寸（sm / md / lg），通过 CVA 变体产出样式类，class 透传用于覆盖。
+ * *
+ * * 关闭标签场景（closable）通过 named slot #close 提供关闭图标位置，
+ * * 父组件监听 click 事件自行决定是否销毁 —— Tag 本身不管理可见状态，
+ * * 保持为纯受控 / 纯展示组件。
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tag\YdTag.vue
+ * * @author ydsz-team
+ * @since 1.0.0
+ */
 import { type TagVariants, tagVariants } from './tag';
 
 import { cn } from '@ydsz-core/shared/utils';

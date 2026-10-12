@@ -1,14 +1,14 @@
-<!--
- * Steps 步骤条：引导用户按流程完成任务。
- *
- * 与 Tabs 不同，Steps 强调流程顺序（wait / process / finish / error 四种状态），
- * 不支持受控切换；步骤跳转由外部通过 `current` prop 控制，click 仅作为可选回调。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\steps\YdSteps.vue
- * @author ydsz-team
- * @since 1.0.0
--->
 <script setup lang="ts">
+/**
+ * * Steps 步骤条：引导用户按流程完成任务。
+ * *
+ * * 与 Tabs 不同，Steps 强调流程顺序（wait / process / finish / error 四种状态），
+ * * 不支持受控切换；步骤跳转由外部通过 `current` prop 控制，click 仅作为可选回调。
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\primitives\steps\YdSteps.vue
+ * * @author ydsz-team
+ * @since 1.0.0
+ */
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

@@ -1,13 +1,14 @@
-<!--
- * YdProTable —— 一体化 CRUD 表格封装（仿 Ant Design ProTable）。
- *
+<script setup lang="ts" generic="T extends Record<string, unknown>
+/**
+* YdProTable —— 一体化 CRUD 表格封装（仿 Ant Design ProTable）。
+* 
  * 设计目标：
  *  - 集成搜索栏（自动生成）+ 工具栏 + 数据表格（YdDataTable）+ 分页；
  *  - 覆盖 80% 后台管理列表页场景：查询/重置/新增/编辑/删除/批量操作/列选择；
  *  - 暴露 columns/dataSource/loading/onChange 等关键接口；
  *  - 支持行选择（checkbox/radio）、服务端分页/排序/筛选；
  *  - 5.7.0 追加：searchFields 自动搜索表单、editable 行内编辑、onCreate 新增弹窗。
- *
+* 
  * 接口契约（对齐 EP ProTable / Arco ProTable）：
  *  - columns：TableColumnDef[]（已内置 sortable/filterable）
  *  - dataSource：T[]（原始数据）
@@ -17,13 +18,11 @@
  *  - searchFields：搜索字段配置（自动渲染搜索表单）
  *  - editable：行内编辑配置
  *  - onCreate / createText：内置新增弹窗
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\pro-table\YdProTable.vue
  * @author ydsz-team
  * @since 5.6.0 (5.7.0 追加行内编辑 / 搜索表单 / 新增弹窗)
- -->
-
-<script setup lang="ts" generic="T extends Record<string, unknown>">
+ */">
 import {
   computed,
   reactive,

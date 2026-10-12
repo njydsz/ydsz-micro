@@ -1,10 +1,10 @@
-<!--
- * Upload（upload）组件：占位骨架，后续按需深化真实交互。
- *
+<script setup lang="ts">
+/**
+* Upload（upload）组件：占位骨架，后续按需深化真实交互。
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { UploadEmits, UploadProps } from './upload-types';
 
 defineOptions({ name: 'YdUpload' });

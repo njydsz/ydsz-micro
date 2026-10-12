@@ -1,14 +1,14 @@
-<!--
- * Statistic 统计数值：突出显示核心指标。
- *
+<script lang="ts" setup>
+/**
+* Statistic 统计数值：突出显示核心指标。
+* 
  * 支持前缀/后缀、精度、千分符分隔。
  * 对于 loading 态使用骨架屏占位。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\statistic\YdStatistic.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

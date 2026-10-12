@@ -1,11 +1,11 @@
-<!--
- * Skeleton.List：列表骨架屏模板，每行带可选头像与操作按钮。
- *
+<script lang="ts" setup>
+/**
+* Skeleton.List：列表骨架屏模板，每行带可选头像与操作按钮。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonList.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import YdSkeleton from './YdSkeleton.vue';
 import { cn } from '@ydsz-core/shared/utils';
 

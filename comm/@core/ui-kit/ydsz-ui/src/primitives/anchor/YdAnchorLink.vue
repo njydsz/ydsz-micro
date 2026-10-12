@@ -1,11 +1,11 @@
-<!--
- * Anchor 锚点链接节点（可嵌套）。
- *
+<script lang="ts" setup>
+/**
+* Anchor 锚点链接节点（可嵌套）。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchorLink.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import type { AnchorLinkItem as _AnchorLinkItem } from './index';
 

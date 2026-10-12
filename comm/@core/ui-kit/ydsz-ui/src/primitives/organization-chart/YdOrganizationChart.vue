@@ -1,12 +1,13 @@
-<!-- YdOrganizationChart.vue —— 组织架构图主组件。
-     对标 PrimeVue OrganizationChart。使用 defineProps 接收 root 数据、options 配置。
-     内置递归渲染（OrgNode）与 CSS 树形连线。
-
-     @path comm\@core\ui-kit\ydsz-ui\src\primitives\organization-chart\YdOrganizationChart.vue
-     @author ydsz-team
-     @since 26.09.24
--->
 <script setup lang="ts">
+/**
+ * YdOrganizationChart.vue —— 组织架构图主组件。
+ * 对标 PrimeVue OrganizationChart。使用 defineProps 接收 root 数据、options 配置。
+ * 内置递归渲染（OrgNode）与 CSS 树形连线。
+ * 
+ * @path comm\@core\ui-kit\ydsz-ui\src\primitives\organization-chart\YdOrganizationChart.vue
+ * @author ydsz-team
+ * @since 26.09.24
+ */
 import { computed, type Ref, type VNode } from 'vue';
 
 import OrgNode from './OrgNode.vue';

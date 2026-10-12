@@ -1,10 +1,10 @@
-<!--
- * Countdown（countdown）组件：倒计时实时展示，对标 Element Plus Statistic.Countdown。
- *
+<script setup lang="ts">
+/**
+* Countdown（countdown）组件：倒计时实时展示，对标 Element Plus Statistic.Countdown。
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import type { CountdownEmits, CountdownProps, CountdownTime } from './countdown-types';
 

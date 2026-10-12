@@ -1,14 +1,14 @@
-<!--
- * Pagination 分页：页码切换控件。
- *
+<script lang="ts" setup>
+/**
+* Pagination 分页：页码切换控件。
+* 
  * 与 Ant Design Pagination 对齐：页码列表 + 上/下一页 + 每页条数跳转。
  * 简化模式（simple）只显示输入框跳转。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\pagination\YdPagination.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

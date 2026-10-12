@@ -1,22 +1,22 @@
-<!--
- * Skeleton 骨架屏：在内容加载前占位展示。
- *
+<script lang="ts" setup>
+/**
+* Skeleton 骨架屏：在内容加载前占位展示。
+* 
  * <p>支持的形态与组合：
  * <ul>
  *   <li><b>基础变体</b>：text / circular / rectangular / rounded —— 单一形状占位</li>
  *   <li><b>段落模式</b>：通过 <code>lines</code> 渲染多行文本骨架，末行宽度可缩减为 60%</li>
  *   <li><b>组合模式</b>：搭配 YdSkeletonGroup 可构造卡片/列表等复杂占位</li>
  * </ul>
- *
+* 
  * <p>开启 shimmer 动画后通过伪元素实现从左到右的反光扫过效果。
- *
+* 
  * <p>组件不渲染子内容，仅作占位骨架。使用 <code>aria-busy</code> 标记加载态。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeleton.vue
  * @author ydsz-team
  * @since 1.0.0 (26.09.17 增强段落模式与可访问性)
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

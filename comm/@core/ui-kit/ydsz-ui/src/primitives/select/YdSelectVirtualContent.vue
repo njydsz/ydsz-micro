@@ -1,17 +1,17 @@
-<!--
- * 带虚拟滚动的选择器下拉面板：基于 useVirtualList 实现千级选项下的流畅滚动。
- *
+<script setup lang="ts" generic="T = Record<string, unknown>
+/**
+* 带虚拟滚动的选择器下拉面板：基于 useVirtualList 实现千级选项下的流畅滚动。
+* 
  * 痛点：传统 YdSelect 在 options > 500 时全量渲染 DOM，导致面板展开慢、滚动卡顿。
  * 与 YdSelectContent 的区别：
  *  - 接收 items 数组而非 slot 注入 YdSelectItem 子项，借此在渲染前拿到总数做切片；
  *  - 仅渲染可视窗口内的 DOM 节点，配合 spacer 撑出总高度保持滚动条比例；
  *  - 点击选项后需要手动关闭浮层（缺少 YdSelectItem 的 rpc 与 Root 通信）。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdSelectVirtualContent.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts" generic="T = Record<string, unknown>">
+ */">
 import { computed } from 'vue';
 
 import { useVirtualList } from '../../composables';

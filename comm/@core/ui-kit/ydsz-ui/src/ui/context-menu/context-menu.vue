@@ -1,15 +1,15 @@
-<!--
- * ContextMenu（context-menu）组件：右键菜单容器，支持 ARIA menu 角色和键盘导航。
- *
+<script setup lang="ts">
+/**
+* ContextMenu（context-menu）组件：右键菜单容器，支持 ARIA menu 角色和键盘导航。
+* 
  * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
  * - 容器 role="menu"；子项 role="menuitem"
  * - 键盘：↑↓/Home-End/Esc 导航与焦点循环
  * - aria-label / aria-labelledby 标签关联
- *
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import { computed, ref } from 'vue';
 
 import type { ContextMenuEmits, ContextMenuProps } from './context-menu-types';

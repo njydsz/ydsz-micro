@@ -1,18 +1,18 @@
-<!--
- * 迷你趋势图（纯 SVG Sparkline，零依赖）。
- *
+<script setup lang="ts">
+/**
+* 迷你趋势图（纯 SVG Sparkline，零依赖）。
+* 
  * 设计目标：
  *  - 替代重量级 ECharts 渲染小型趋势线（指标卡底部、列表统计列等）；
  *  - 平滑曲线 + 渐变填充 + 最小/最大点高亮；
  *  - 纯 SVG 方案，无外部依赖，暗色模式自动适配。
- *
+* 
  * 设计取舍：不做 YdTooltipSmart、不做坐标轴——仅当「一眼扫趋势」的信息密度足够。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdMiniChart.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

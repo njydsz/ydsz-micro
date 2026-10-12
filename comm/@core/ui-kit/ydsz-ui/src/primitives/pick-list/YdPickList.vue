@@ -1,6 +1,7 @@
-<!--
- * PickList 双栏穿梭列表：source / target 两栏 + 中间控制按钮。
- *
+<script lang="ts" setup>
+/**
+* PickList 双栏穿梭列表：source / target 两栏 + 中间控制按钮。
+* 
  * 能力：
  * - 单选 / 多选（Ctrl / Shift + Click）
  * - 双击项在两侧穿梭
@@ -8,12 +9,11 @@
  * - 过滤（filter=true）
  * - 拖拽重排序（dragdrop=true，HTML5 DnD）
  * - 响应式（responsive=true，窄屏上下排列）
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\pick-list\YdPickList.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import {
   computed,
   ref,

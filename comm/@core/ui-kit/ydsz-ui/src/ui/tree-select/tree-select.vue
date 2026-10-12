@@ -1,6 +1,7 @@
-<!--
- * YdTreeSelect —— 树形选择器。
- *
+<script setup lang="ts" generic="T">
+/**
+* YdTreeSelect —— 树形选择器。
+* 
  * <p>对标 Ant Design TreeSelect：
  * <ul>
  *   <li>下拉树形选择（单选/多选）</li>
@@ -8,12 +9,11 @@
  *   <li>关键字搜索过滤</li>
  *   <li>多选标签展示</li>
  * </ul>
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree-select\tree-select.vue
  * @author ydsz-team
  * @since 26.10.11
--->
-<script setup lang="ts" generic="T">
+ */
 import { computed, ref, watch } from 'vue';
 
 import { CheckboxRoot } from '@ydsz-core/ydsz-vue';

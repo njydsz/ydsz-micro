@@ -1,18 +1,18 @@
-<!--
- * ConfigProvider — 全局配置提供者（对齐 radix-vue / reka-ui 同名组件）。
- *
+<script lang="ts">
+/**
+* ConfigProvider — 全局配置提供者（对齐 radix-vue / reka-ui 同名组件）。
+* 
  * vendored 源码中该目录缺失，导致 shared/useId、useDirection、useNonce、
  * useBodyScrollLock 等引用 '@/ConfigProvider/ConfigProvider.vue' 中的
  * injectConfigProviderContext 无法解析。
- *
+* 
  * 职责：向子树 provide dir / locale / nonce / useId 配置；
  * 未包裹时，各 use* 助手通过 fallback 值安全降级。
- *
+* 
  * @path comm/@core/ui-kit/ydsz-vue/src/ConfigProvider/ConfigProvider.vue
  * @author ydsz-team
  * @since 5.1.0
--->
-<script lang="ts">
+ */
 import type { Ref } from 'vue';
 import { ref } from 'vue';
 

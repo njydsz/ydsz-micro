@@ -1,13 +1,13 @@
-<!--
- * 下拉菜单根容器：包装 radix DropdownMenuRoot，持有菜单的开关状态。
- *
+<script setup lang="ts">
+/**
+* 下拉菜单根容器：包装 radix DropdownMenuRoot，持有菜单的开关状态。
+* 
  * 与右键菜单的差别只在触发方式（点击 vs 右键），其余部件可对照使用。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenu.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { DropdownMenuRootEmits, DropdownMenuRootProps } from '@ydsz-core/ydsz-vue';
 
 import { DropdownMenuRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';

@@ -1,10 +1,10 @@
-<!--
- * Popover（popover）组件：占位骨架，后续按需深化真实交互。
- *
+<script setup lang="ts">
+/**
+* Popover（popover）组件：占位骨架，后续按需深化真实交互。
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { PopoverEmits, PopoverProps } from './popover-types';
 
 defineOptions({ name: 'YdPopover' });

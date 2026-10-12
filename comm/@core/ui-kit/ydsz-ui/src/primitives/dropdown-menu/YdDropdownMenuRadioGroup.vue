@@ -1,13 +1,13 @@
-<!--
- * 下拉菜单单选组：为一组单选项提供互斥的选中上下文。
- *
+<script setup lang="ts">
+/**
+* 下拉菜单单选组：为一组单选项提供互斥的选中上下文。
+* 
  * 互斥与键盘导航由 radix 维护，包装层不介入取值逻辑。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuRadioGroup.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type {
   DropdownMenuRadioGroupEmits,
   DropdownMenuRadioGroupProps,

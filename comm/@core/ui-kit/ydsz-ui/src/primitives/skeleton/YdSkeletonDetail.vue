@@ -1,11 +1,11 @@
-<!--
- * Skeleton.Detail：详情骨架屏模板，带可选标题、字段行与操作按钮。
- *
+<script lang="ts" setup>
+/**
+* Skeleton.Detail：详情骨架屏模板，带可选标题、字段行与操作按钮。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonDetail.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import YdSkeleton from './YdSkeleton.vue';
 import { cn } from '@ydsz-core/shared/utils';
 

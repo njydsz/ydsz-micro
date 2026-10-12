@@ -1,13 +1,13 @@
-<!--
- * YdAiBuilderToolbar — AI 生成器顶栏（输入 + 触发按钮）。
- *
+<script lang="ts" setup generic="">
+/**
+* YdAiBuilderToolbar — AI 生成器顶栏（输入 + 触发按钮）。
+* 
  * <p>包含自然语言输入框、页面类型选择、生成按钮。
- *
+* 
  * @path comm\@core\ui-kit\ai-builder\src\components\YdAiBuilderToolbar.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup generic="">
+ */
 import { computed } from 'vue';
 
 import type { PageIntent } from '../types';

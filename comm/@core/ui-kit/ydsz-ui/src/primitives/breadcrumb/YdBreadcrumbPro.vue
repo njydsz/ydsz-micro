@@ -1,14 +1,14 @@
-<!--
- * 面包屑 Pro —— 便利性封装（Convenience Wrapper）。
- *
+<script setup lang="ts">
+/**
+* 面包屑 Pro —— 便利性封装（Convenience Wrapper）。
+* 
  * 配置式 options API，允许通过 items 数组快速声明面包屑，
  * 对齐 Ant Design / Element Plus 的 Breadcrumb 使用习惯。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbPro.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 /**
  * 面包屑 Pro——配置式便利性封装。
  *

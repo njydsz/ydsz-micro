@@ -1,14 +1,14 @@
-<!--
- * 栅格列 —— 便利性封装（Convenience Wrapper）。
- *
+<script setup lang="ts">
+/**
+* 栅格列 —— 便利性封装（Convenience Wrapper）。
+* 
  * 基于 CSS Grid 的栅格列，与 YdRow 配对使用。
  * 对齐 Element Plus ElCol 的 API 形态：span、offset、push、pull。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\layout\YdCol.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 /**
  * 栅格列组件。
  * <p>基于 CSS Grid 的栅格列容器。

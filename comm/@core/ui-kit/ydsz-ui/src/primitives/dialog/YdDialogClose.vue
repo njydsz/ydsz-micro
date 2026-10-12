@@ -1,14 +1,14 @@
-<!--
- * 对话框关闭触发器：包装 radix YdDialogClose，点击即关闭对话框。
- *
+<script setup lang="ts">
+/**
+* 对话框关闭触发器：包装 radix YdDialogClose，点击即关闭对话框。
+* 
  * 以按钮语义渲染，因此键盘与读屏可直接操作；用于「取消」「知道了」这类
  * 不需要额外处理的关闭动作。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogClose.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { DialogCloseProps } from '@ydsz-core/ydsz-vue';
 
 import { YdDialogClose } from '@ydsz-core/ydsz-vue';

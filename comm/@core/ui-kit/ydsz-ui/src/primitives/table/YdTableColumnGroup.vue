@@ -1,9 +1,10 @@
-<!--
- * 表格列组（多级表头容器，无可见渲染）。
- *
+<script setup lang="ts">
+/**
+* 表格列组（多级表头容器，无可见渲染）。
+* 
  * <p>作为 YdTable 的子组件使用：向父级注册一个"组列"，
  * 组的子级 YdTableColumn 自动归属为该组的子列，渲染为两行表头。
- *
+* 
  * <p>示例：
  * <pre>
  *   &lt;YdTable :data="rows"&gt;
@@ -14,12 +15,11 @@
  *     &lt;YdTableColumn prop="remark" label="备注" /&gt;
  *   &lt;/YdTable&gt;
  * </pre>
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableColumnGroup.vue
  * @author ydsz-team
  * @since 4.2.0
- -->
-<script setup lang="ts">
+ */
 import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted } from 'vue';
 
 import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';

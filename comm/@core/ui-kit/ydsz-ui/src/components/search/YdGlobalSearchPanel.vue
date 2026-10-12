@@ -1,21 +1,21 @@
-<!--
-  全局搜索面板 —— 跨模块聚合搜索 UI 组件。
-
-  功能：
-  - 搜索框 + 自动补全建议
-  - 搜索结果按模块分组（YdTabs：全部 / 用户 / 流程 / 消息 / 文件 / ...）
-  - 支持上下键选择、Enter 打开详情
-  - 结果命中关键词高亮（highlight 字段优先）
-
-  依赖的搜索 API：
-  - GET /api/search/unified?keyword=xxx（跨模块聚合搜索）
-  - GET /api/search/suggest?keyword=xxx（输入建议）
-
-@path comm/@core/ui-kit/ydsz-ui/src/components/search/global-search-panel.vue
-@author ydsz-team
-@since 4.1.0 (P2-13)
--->
 <script setup lang="ts">
+/**
+ * 全局搜索面板 —— 跨模块聚合搜索 UI 组件。
+ * 
+ * 功能：
+ * - 搜索框 + 自动补全建议
+ * - 搜索结果按模块分组（YdTabs：全部 / 用户 / 流程 / 消息 / 文件 / ...）
+ * - 支持上下键选择、Enter 打开详情
+ * - 结果命中关键词高亮（highlight 字段优先）
+ * 
+ * 依赖的搜索 API：
+ * - GET /api/search/unified?keyword=xxx（跨模块聚合搜索）
+ * - GET /api/search/suggest?keyword=xxx（输入建议）
+ * 
+ * @path comm/@core/ui-kit/ydsz-ui/src/components/search/global-search-panel.vue
+ * @author ydsz-team
+ * @since 4.1.0 (P2-13)
+ */
 import { ref } from 'vue';
 
 import { onClickOutside } from '@vueuse/core';

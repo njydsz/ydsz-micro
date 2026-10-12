@@ -1,17 +1,17 @@
-<!--
- * YdInlineEditCell — 可编辑单元格组件。
- *
+<script lang="ts" setup>
+/**
+* YdInlineEditCell — 可编辑单元格组件。
+* 
  * <p>点击后切换到编辑态（输入框），回车保存 / Esc 取消。
  * 通过 inject 获取父级 useCellEditor 提供的共享编辑状态。
- *
+* 
  * <p>使用方式：父级组件必须先调用 useCellEditor provide 状态，
  * 然后在本组件上绑定 rowKey / field / value 即可。
- *
+* 
  * @path comm\@core\ui-kit\advanced-table\src\components\YdInlineEditCell.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import { computed } from 'vue';
 
 import {

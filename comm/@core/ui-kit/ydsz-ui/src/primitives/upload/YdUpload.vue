@@ -1,6 +1,7 @@
-<!--
- * YdUpload 组件 - 文件上传封装，提供与 ElUpload 对齐的核心 API。
- *
+<script setup lang="ts">
+/**
+* YdUpload 组件 - 文件上传封装，提供与 ElUpload 对齐的核心 API。
+* 
  * 支持属性：
  * - action: 必填，上传 URL
  * - multiple: 是否允许多选
@@ -25,12 +26,11 @@
  * - max-concurrency: 分片并发数，默认 3
  * - multipart-api-base: 分片上传 API 基础路径
  * - storage-key: 对象存储路径（启用分片上传时必填）
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\upload\YdUpload.vue
  * @author ydsz-team
  * @since 26.09.24
--->
-<script setup lang="ts">
+ */
 import type {
   ChunkHttpRequestOptions,
   ChunkUploadHandle,

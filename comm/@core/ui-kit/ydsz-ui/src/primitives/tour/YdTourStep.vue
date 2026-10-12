@@ -1,19 +1,18 @@
-<!--
- * YdTourStep —— 单一步骤内容面板。
-
+<script lang="ts" setup>
+/**
+* YdTourStep —— 单一步骤内容面板。
+ * 
  * 由 YdTour 内部消费，负责渲染：
  * 1. 步骤标题 + 描述（或自定义 render）
  * 2. 进度指示器（dot 序列）
  * 3. Footer 按钮区（上一步 / 下一步 / 完成 / 跳过）
-
+ * 
  * 本组件不负责定位，定位由 YdTour 控制器传入 CSS left/top。
-
+ * 
  * @module primitives/tour/YdTourStep
  * @author ydsz-team
  * @since 26.10.10
--->
-
-<script lang="ts" setup>
+ */
 import { computed } from 'vue';
 
 import type { TourStep } from './tour-types';

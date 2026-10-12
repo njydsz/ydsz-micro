@@ -1,13 +1,13 @@
-<!--
- * FloatButton 悬浮按钮：固定在页面右下角的操作入口。
- *
+<script setup lang="ts">
+/**
+* FloatButton 悬浮按钮：固定在页面右下角的操作入口。
+* 
  * 支持 tooltip 描述 / 图标 / badge / click 回调。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\float-button\YdFloatButton.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 import { ArrowUp } from 'lucide-vue-next';
 

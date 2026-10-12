@@ -1,15 +1,15 @@
-<!--
- * CalendarPanel —— 日历网格面板。
- *
+<script setup lang="ts">
+/**
+* CalendarPanel —— 日历网格面板。
+* 
  * 渲染指定月份的日历网格，高亮选中日期，支持点击选择。兼顾单日期与范围两种形态：
  * 范围模式通过 rangeStart/rangeEnd/rangeHover 三个 prop 表达「开始点、结束点、悬停预览点」，
  * 面板据此渲染起点/终点实心高亮与区间过渡底色；hover 预览让用户在选择结束点前先看到区间范围。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdCalendarPanel.vue
  * @author ydsz-team
  * @since 5.3.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';

@@ -1,11 +1,11 @@
-<!--
- * YdTag —— 标签组件。
- *
+<script setup lang="ts" generic="T">
+/**
+* YdTag —— 标签组件。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tag\tag.vue
  * @author ydsz-team
  * @since 26.10.11
--->
-<script setup lang="ts" generic="T">
+ */
 import { computed } from 'vue';
 
 import type { TagEmits, TagProps, TagSize, TagVariant } from './tag-types';

@@ -1,21 +1,21 @@
-<!--
- * 左侧域/分类筛选面板：仿 ForgeLab forge-admin 业务域筛选面板。
- *
+<script setup lang="ts">
+/**
+* 左侧域/分类筛选面板：仿 ForgeLab forge-admin 业务域筛选面板。
+* 
  * 设计目标：
  *  - 通用左侧筛选面板，适配业务域、空间、分类、目录等场景；
  *  - 支持全选项 + N 个域选项 + 每项计数徽章；
  *  - 支持可选的搜索框（过滤域列表）和"新建"按钮。
- *
+* 
  * 交互：
  *  - 单击选项选中（single-select）；
  *  - 全选项始终在顶部，选中后其他项取消；
  *  - 支持 v-model 双向绑定选中值（'top-code' 或各项 code）。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\domain-filter\YdDomainFilterPanel.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

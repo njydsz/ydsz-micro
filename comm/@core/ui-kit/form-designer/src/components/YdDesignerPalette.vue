@@ -1,13 +1,13 @@
-<!--
- * YdDesignerPalette — 可视化表单设计器左侧组件面板。
- *
+<script lang="ts" setup>
+/**
+* YdDesignerPalette — 可视化表单设计器左侧组件面板。
+* 
  * <p>分「基础控件 / 高级控件 / 布局控件」三组，每组内组件可拖入画布。
- *
+* 
  * @path comm\@core\ui-kit\form-designer\src\components\YdDesignerPalette.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import type { DesignerComponentMeta } from '../types';
 
 import {

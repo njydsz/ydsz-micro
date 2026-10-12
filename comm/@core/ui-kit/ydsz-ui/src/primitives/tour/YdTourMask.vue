@@ -1,19 +1,18 @@
-<!--
- * YdTourMask —— 遮罩层 + 目标高亮孔洞。
-
+<script lang="ts" setup>
+/**
+* YdTourMask —— 遮罩层 + 目标高亮孔洞。
+ * 
  * 核心实现：全屏半透明蒙版 + spotlight 效果。
  * 高亮区域通过巨大 box-shadow 在蒙版层"挖孔"实现，
  * 避免多层 SVG clip-path 带来的性能开销。
-
+ * 
  * 蒙版背景与 spotlight 阴影颜色保持一致（rgba-black 50%），
  * 视觉上目标元素被"点亮"，周围保持暗色遮罩。
-
+ * 
  * @module primitives/tour/YdTourMask
  * @author ydsz-team
  * @since 26.10.10
--->
-
-<script lang="ts" setup>
+ */
 import { computed } from 'vue';
 
 interface Props {

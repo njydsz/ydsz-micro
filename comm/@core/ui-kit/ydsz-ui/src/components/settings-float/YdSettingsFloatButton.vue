@@ -1,21 +1,21 @@
-<!--
- * 全局设置悬浮按钮：仿 ForgeLab forge-admin 右侧悬浮齿轮。
- *
+<script setup lang="ts">
+/**
+* 全局设置悬浮按钮：仿 ForgeLab forge-admin 右侧悬浮齿轮。
+* 
  * 设计目标：
  *  - 固定悬浮于页面右下角，始终可见；
  *  - 点击展开快捷设置菜单（主题切换、布局偏好、全屏等）；
  *  - 收起状态仅显示设置图标，展开后显示菜单面板；
  *  - 点击外部区域或再次点击按钮自动收起。
- *
+* 
  * 无障碍：
  *  - 按钮带 aria-label；
  *  - 菜单项通过 role="menuitem" 暴露语义。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\settings-float\YdSettingsFloatButton.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { onClickOutside } from '@vueuse/core';

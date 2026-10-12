@@ -1,9 +1,10 @@
-<!--
- * YdAiBuilder — AI 页面骨架生成器组件。
- *
+<script lang="ts">
+/**
+* YdAiBuilder — AI 页面骨架生成器组件。
+* 
  * <p>从自然语言描述自动生成页面骨架（字段列表），支持增量编辑。
  * 整合意图解析、关键词匹配、表单 Schema 输出三大能力。
- *
+* 
  * <p>典型使用场景：
  * <ol>
  *   <li>用户在输入框描述业务需求</li>
@@ -11,7 +12,7 @@
  *   <li>用户微调字段属性后确认，输出 YdFormSchema</li>
  *   <li>将 Schema 传给 YdForm 渲染完整表单</li>
  * </ol>
- *
+* 
  * @usage
  * ```vue
  * <YdAiBuilder
@@ -20,12 +21,11 @@
  *   @submit="handleFormSchema"
  * />
  * ```
- *
+* 
  * @path comm\@core\ui-kit\ai-builder\src\components\YdAiBuilder.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts">
+ */
 /**
  * 事件：生成完成。
  *

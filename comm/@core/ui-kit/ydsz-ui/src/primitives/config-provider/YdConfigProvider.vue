@@ -1,21 +1,21 @@
-<!--
- * YdConfigProvider —— 全局配置容器，对外暴露 theme / size / locale / prefixCls / 渲染空状态等上下文。
- *
+<script lang="ts">
+/**
+* YdConfigProvider —— 全局配置容器，对外暴露 theme / size / locale / prefixCls / 渲染空状态等上下文。
+* 
  * 设计目标：
  *  - 在应用根节点包裹一次，下游组件通过 `useConfigProvider()` 获取统一配置；
  *  - 内嵌 useTheme 桥接：将 size / theme 偏好映射到运行时主题句柄；
  *  - 响应式切换：size / locale / prefixCls / isDisabled 变更后自动 propagate；
  *  - 国际化基座：向 LOCALE_LANG_KEY 注入 { lang, isRTL } 状态，
  *    让 useLocale() 能直接读取当前语种与方向。
- *
+* 
  * 输入契约：
  *  - `config` 对象：包含 size / theme / locale / prefixCls / isDisabled / renderEmpty / wave。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\config-provider\YdConfigProvider.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts">
+ */
 // @ts-nocheck
 /** 配置上下文注入 key */
 import type { InjectionKey } from 'vue';

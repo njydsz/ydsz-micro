@@ -1,10 +1,10 @@
-<!--
- * 空状态组件 — 无数据时的占位展示和操作引导。
- *
+<script lang="ts" setup>
+/**
+* 空状态组件 — 无数据时的占位展示和操作引导。
+* 
  * @author ydsz-team
  * @since 1.1.0
--->
-<script lang="ts" setup>
+ */
 /**
  * YdEmptyState — 空状态占位组件。
  *

@@ -1,6 +1,7 @@
-<!--
- * Calendar 日历：月份视图的日期展示与选择面板。
- *
+<script lang="ts" setup>
+/**
+* Calendar 日历：月份视图的日期展示与选择面板。
+* 
  * 功能覆盖：
  * - 单日期选择 / 范围选择（startDate + endDate）
  * - 禁用日期函数（disabledDate）
@@ -10,12 +11,11 @@
  * - 月份/年份快速跳转下拉
  * - "今天"快捷按钮
  * - 预设快捷选项渲染（today / yesterday / thisWeek 等）
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\calendar\YdCalendar.vue
  * @author ydsz-team
  * @since 26.09.24
--->
-<script lang="ts" setup>
+ */
 import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

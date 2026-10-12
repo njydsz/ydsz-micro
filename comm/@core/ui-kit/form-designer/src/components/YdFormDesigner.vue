@@ -1,13 +1,13 @@
-<!--
- * YdFormDesigner — 可视化表单设计器。
- *
+<script lang="ts">
+/**
+* YdFormDesigner — 可视化表单设计器。
+* 
  * <p>拖拽式表单搭建器，三大区域：左侧组件面板 + 中央画布 + 右侧属性面板。
- *
+* 
  * @path comm\@core\ui-kit\form-designer\src\components\YdFormDesigner.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts">
+ */
 export interface YdFormDesignerProps {
   /** 初始 Schema */
   initialSchema?: import('../types').DesignerSchema;

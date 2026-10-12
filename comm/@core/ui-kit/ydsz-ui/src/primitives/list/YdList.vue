@@ -1,13 +1,13 @@
-<!--
- * List 列表：通用列表容器（ul），支持分页、加载更多、边框等。
- *
+<script lang="ts" setup>
+/**
+* List 列表：通用列表容器（ul），支持分页、加载更多、边框等。
+* 
  * 与 Ant Design List 对齐：分页、边框、大号 / 小号、网格布局。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\list\YdList.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

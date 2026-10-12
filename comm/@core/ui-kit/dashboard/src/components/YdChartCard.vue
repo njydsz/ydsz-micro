@@ -1,13 +1,13 @@
-<!--
- * YdChartCard — ECharts 图表卡片。
- *
+<script lang="ts" setup>
+/**
+* YdChartCard — ECharts 图表卡片。
+* 
  * <p>封装 ECharts 图表的看板卡片，自动处理 resize、dark 主题、loading 态。
- *
+* 
  * @path comm\@core\ui-kit\dashboard\src\components\YdChartCard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import type { EChartsOption } from 'echarts';

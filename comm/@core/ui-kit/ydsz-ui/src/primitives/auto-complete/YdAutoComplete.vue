@@ -1,20 +1,20 @@
-<!--
- * AutoComplete 自动完成：输入框 + 联想下拉。
- *
- * 与 YdSelect 不同，AutoComplete 允许用户输入任意值（不限于 options）。
- * 搜索可由外部 @search 事件处理（远程模式），也可由内置的防抖 + loading 态半自治处理。
- *
- * P0-5 增强：
- *  - `async` prop 启用「远程异步搜索 + 防抖 + loading 态」；
- *  - `debounceMs` 配置防抖延迟；
- *  - `searchFn` 异步搜索回调；
- *  - 内置清空按钮。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\auto-complete\YdAutoComplete.vue
- * @author ydsz-team
- * @since 1.0.0
--->
 <script lang="ts" setup>
+/**
+ * * AutoComplete 自动完成：输入框 + 联想下拉。
+ * *
+ * * 与 YdSelect 不同，AutoComplete 允许用户输入任意值（不限于 options）。
+ * * 搜索可由外部 @search 事件处理（远程模式），也可由内置的防抖 + loading 态半自治处理。
+ * *
+ * * P0-5 增强：
+ * *  - `async` prop 启用「远程异步搜索 + 防抖 + loading 态」；
+ * *  - `debounceMs` 配置防抖延迟；
+ * *  - `searchFn` 异步搜索回调；
+ * *  - 内置清空按钮。
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\primitives\auto-complete\YdAutoComplete.vue
+ * * @author ydsz-team
+ * @since 1.0.0
+ */
 // @ts-nocheck
 import { ref, watch } from 'vue';
 

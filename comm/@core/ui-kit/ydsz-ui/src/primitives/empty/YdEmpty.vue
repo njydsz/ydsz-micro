@@ -1,13 +1,13 @@
-<!--
- * Empty 空状态：列表 / 表格无数据时的占位提示。
- *
+<script lang="ts" setup>
+/**
+* Empty 空状态：列表 / 表格无数据时的占位提示。
+* 
  * 提供统一的无数据图标 + 文案 + 操作位，语义化为 "无内容"。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\empty\YdEmpty.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
 import { Inbox } from 'lucide-vue-next';

@@ -1,17 +1,17 @@
-<!--
- * ColorPicker 颜色选择器：支持 HEX / RGB / HSL 格式输入与预设调色板。
- *
+<script lang="ts" setup>
+/**
+* ColorPicker 颜色选择器：支持 HEX / RGB / HSL 格式输入与预设调色板。
+* 
  * 与 Ant Design ColorPicker 对齐：
  * - 触发器展示当前颜色小方块 + HEX 值
  * - 弹出面板含 HSL 滑块 + 透明度条 + 预设色板
  * - format 支持 hex / rgb / hsl（输出格式可配置）
  * - allowClear + presets（预设渐变色）
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\color-picker\YdColorPicker.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 

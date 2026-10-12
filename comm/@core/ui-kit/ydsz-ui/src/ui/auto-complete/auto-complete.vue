@@ -1,6 +1,7 @@
-<!--
- * YdAutoComplete —— 自动补全输入框。
- *
+<script setup lang="ts" generic="T">
+/**
+* YdAutoComplete —— 自动补全输入框。
+* 
  * <p>对标 Element Plus Autocomplete：
  * <ul>
  *   <li>输入触发远端搜索（带防抖、缓存）</li>
@@ -8,12 +9,11 @@
  *   <li>支持自定义渲染、清空、loading 状态</li>
  *   <li>大数据量下启用虚拟滚动</li>
  * </ul>
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\auto-complete\auto-complete.vue
  * @author ydsz-team
  * @since 26.10.11
--->
-<script setup lang="ts" generic="T">
+ */
 import { computed, ref, toRef, watch } from 'vue';
 
 import { useVirtualForList } from '../../composables/use-virtual-for-list';

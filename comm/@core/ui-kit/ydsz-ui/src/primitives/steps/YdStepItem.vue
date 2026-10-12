@@ -1,17 +1,17 @@
-<!--
- * 单个步骤节点：展示序号 / 图标 / 连接线 / 标题 / 描述。
- *
+<script lang="ts" setup>
+/**
+* 单个步骤节点：展示序号 / 图标 / 连接线 / 标题 / 描述。
+* 
  * 根据 status 自动应用不同样式：
  * - process（高亮蓝色）
  * - finish（绿色勾选）
  * - wait（置灰）
  * - error（红色）
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\steps\YdStepItem.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import type { StepItem } from './YdSteps.vue';
 

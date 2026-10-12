@@ -1,20 +1,20 @@
-<!--
- * VirtualTable 虚拟表格：大数据量场景下仅渲染可见行，保持 DOM 节点数恒定。
- *
+<script lang="ts" setup>
+/**
+* VirtualTable 虚拟表格：大数据量场景下仅渲染可见行，保持 DOM 节点数恒定。
+* 
  * 特性：
  * - 基于 useVirtualList 调度行可见区间
  * - 支持固定表头 + 横向滚动
  * - 支持动态高度（通过 measureHeights 记录已渲染行实测高度）
  * - 支持列配置持久化（通过 storageKey 保存列宽与显隐）
  * - 支持列排序（表头点击事件）
- *
+* 
  * 使用方式：与 YdTable 共享 columns 定义，额外提供 dataSource 行数据。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\virtual-table\YdVirtualTable.vue
  * @author ydsz-team
  * @since 1.0.0 (26.09.17 增强：持久化+排序)
- -->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { onMounted, ref, type Ref } from 'vue';
 

@@ -1,16 +1,16 @@
-<!--
- * Divider 分隔线：区隔内容的分割线。
- *
+<script setup lang="ts">
+/**
+* Divider 分隔线：区隔内容的分割线。
+* 
  * 与 YdSeparator（radix）互补：Divider 是 shadcn 风格，只承担视觉分隔语义，
  * 不声明 role="separator"；需要无障碍分隔时使用 YdSeparator。
- *
+* 
  * 支持横/竖两种方向，以及带文字标签的居中展示；dashed 虚线模式可选。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\divider\YdDivider.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { DividerProps } from './types';
 
 import { computed } from 'vue';

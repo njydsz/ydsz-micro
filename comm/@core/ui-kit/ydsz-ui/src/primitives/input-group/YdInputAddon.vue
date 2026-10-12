@@ -1,15 +1,15 @@
-<!--
- * 输入框前后缀元素：用于包裹标签、按钮、选择器等内嵌内容。
- *
+<script lang="ts" setup>
+/**
+* 输入框前后缀元素：用于包裹标签、按钮、选择器等内嵌内容。
+* 
  * 对齐 Element Plus el-input-group__append / prepend 的视觉语义——
  * 灰色背景、300 边框、与输入框等高。
  * isPlain 模式去除左右内边距，使内容紧贴输入框，无需额外偏移修正。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\input-group\YdInputAddon.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import type { YdInputAddonProps } from './input-group-types';
 
 import { cn } from '@ydsz-core/shared/utils';

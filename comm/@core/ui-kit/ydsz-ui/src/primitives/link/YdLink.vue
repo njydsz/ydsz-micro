@@ -1,15 +1,15 @@
-<!--
- * Link 链接：带下划线与 hover 状态的可点击文本。
- *
+<script setup lang="ts">
+/**
+* Link 链接：带下划线与 hover 状态的可点击文本。
+* 
  * 之所以不直接用 <a> 是为了统一下划线/颜色/禁用态的交互语义：
  * - href 有值时渲染 <a>，支持 cmd+click 新标签等原生习惯
  * - 无 href 时渲染 <button>（由 disabled 状态决定）
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\link\YdLink.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {

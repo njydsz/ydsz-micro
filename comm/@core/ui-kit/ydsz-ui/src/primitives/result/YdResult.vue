@@ -1,17 +1,17 @@
-<!--
- * Result 结果页：用于反馈操作结果。
- *
+<script setup lang="ts">
+/**
+* Result 结果页：用于反馈操作结果。
+* 
  * 提供 success / error / warning / info 四种内置状态，
  * 通过 icon slot 或内置 icon 展示视觉提示，配合 title / description / actions 组装完整结果页。
- *
+* 
  * 业务中配合路由的 navigate 使用：成功提交后跳转至 Result 页，
  * 失败时展示错误原因并提供重试按钮。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\result\YdResult.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 import { CheckCircle2, Info, ShieldAlert, XCircle } from 'lucide-vue-next';
 

@@ -1,10 +1,10 @@
-<!--
- * ToggleGroup（toggle-group）组件：占位骨架，后续按需深化真实交互。
- *
+<script setup lang="ts">
+/**
+* ToggleGroup（toggle-group）组件：占位骨架，后续按需深化真实交互。
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { ToggleGroupEmits, ToggleGroupProps } from './toggle-group-types';
 
 defineOptions({ name: 'YdToggleGroup' });

@@ -1,21 +1,21 @@
-<!--
- * 上下文帮助提示：页面级轻量级帮助信息条。
- *
+<script setup lang="ts">
+/**
+* 上下文帮助提示：页面级轻量级帮助信息条。
+* 
  * 设计目标：
  *  - 仿 ForgeLab forge-admin 底部/侧边 "对象和访问入口已移入应用上下文" 提示条；
  *  - 常驻显示一行简要帮助文字 + 问号图标，带 hover tooltip 显示完整说明；
  *  - 支持点击展开为简短帮助文档（内置 modal 风格展开层）；
  *  - 支持 dismissible（用户关闭后通过 localStorage 记录不再显示）。
- *
+* 
  * 无障碍：
  *  - 按钮带 aria-label；
  *  - 装饰性图标 aria-hidden。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\context-help\YdContextHelp.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

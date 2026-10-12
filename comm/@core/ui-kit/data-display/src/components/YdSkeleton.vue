@@ -1,10 +1,10 @@
-<!--
- * 骨架屏组件 — 数据加载时的占位骨架展示。
- *
+<script lang="ts" setup>
+/**
+* 骨架屏组件 — 数据加载时的占位骨架展示。
+* 
  * @author ydsz-team
  * @since 1.1.0
--->
-<script lang="ts" setup>
+ */
 /**
  * YdSkeleton — 骨架屏加载占位组件。
  *

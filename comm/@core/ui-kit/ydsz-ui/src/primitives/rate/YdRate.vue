@@ -1,17 +1,17 @@
-<!--
- * Rate 评分：通过点击星星进行评级。
- *
+<script lang="ts" setup>
+/**
+* Rate 评分：通过点击星星进行评级。
+* 
  * 受控组件：modelValue 为当前分值（0 ~ count）。
  * 支持半星模式（allowHalf）与只读模式（readonly）。
  * 无障碍：role="radiogroup" + role="radio"，支持键盘箭头调整分值。
- *
+* 
  * 星星填充通过两层层叠实现：底层空星 + 上层按 percentage 宽度裁剪的填充星。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\rate\YdRate.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

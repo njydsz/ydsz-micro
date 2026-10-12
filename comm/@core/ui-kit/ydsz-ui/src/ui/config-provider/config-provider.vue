@@ -1,26 +1,26 @@
-<!--
- * ConfigProvider（config-provider）组件：应用级主题 / 国际化 / 密度 容器。
- *
+<script setup lang="ts">
+/**
+* ConfigProvider（config-provider）组件：应用级主题 / 国际化 / 密度 容器。
+* 
  * 通过 useTheme 单例将 theme prop 写入 document.documentElement.dataset.theme，
  * 配合 variables.css 中的 :root[data-theme='dark'] 覆盖，
  * 实现全局暗色切换。
- *
+* 
  * 通过 provide LOCALE_LANG_KEY 向子组件注入当前语种状态，
  * 子组件使用 useLocale() 即可读取；同时同步更新 document.documentElement.lang。
- *
+* 
  * 通过 useDensity 注入密度档位，同步到 document.documentElement.dataset.density。
- *
+* 
  * 使用方式：
  * &lt;yd-config-provider theme="auto" locale="zh-CN" density="standard"&gt;
  *   &lt;!-- 子组件将自动响应 data-theme / lang / data-density 切换 --&gt;
  *   &lt;yd-button&gt;主题感知&lt;/yd-button&gt;
  * &lt;/yd-config-provider&gt;
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\config-provider\config-provider.vue
  * @author ydsz-team
  * @since 26.09.24
- -->
-<script setup lang="ts">
+ */
 import { provide, ref, watch } from 'vue';
 
 import type { ConfigProviderEmits, ConfigProviderProps } from './config-provider-types';

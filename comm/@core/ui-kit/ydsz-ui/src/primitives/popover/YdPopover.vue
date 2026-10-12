@@ -1,14 +1,14 @@
-<!--
- * 轻量浮层的容器：转发 radix PopoverRoot 的全部 props 与 emits。
- *
+<script setup lang="ts">
+/**
+* 轻量浮层的容器：转发 radix PopoverRoot 的全部 props 与 emits。
+* 
  * 与 YdDialog 的取舍：YdPopover 不锁滚动、不强制焦点，适合筛选器、快捷菜单这类
  * 「打开后仍要与页面其它部分对照」的场景；需要用户必须做出选择时用 YdAlertDialog。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\popover\YdPopover.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { PopoverRootEmits, PopoverRootProps } from '@ydsz-core/ydsz-vue';
 
 import { PopoverRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';

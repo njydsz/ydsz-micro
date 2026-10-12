@@ -1,22 +1,22 @@
-<!--
- * YdVTreeSearch：带搜索过滤的树选择组件，解决深层树中关键字查找难的问题。
- *
+<script lang="ts" setup>
+/**
+* YdVTreeSearch：带搜索过滤的树选择组件，解决深层树中关键字查找难的问题。
+* 
  * 设计目标：
  *  - 内置搜索框，输入关键字即时过滤节点 matched 结果；
  *  - 自动展开匹配节点的祖先链，保证结果可见；
  *  - 匹配文本高亮（mark 标签）；
  *  - 支持 searchPlaceholder、debounceMs 等配置。
- *
+* 
  * 交互：
  *  - 搜索框支持 Esc 清空；
  *  - 搜索结果自动选中首个命中的节点；
  *  - 清空搜索恢复原树视图。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\YdVTreeSearch.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, ref, watch, type Ref } from 'vue';
 

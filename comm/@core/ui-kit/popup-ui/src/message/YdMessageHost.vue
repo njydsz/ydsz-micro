@@ -1,14 +1,14 @@
-<!--
- * 消息提示的宿主席组件：订阅模块级消息列表，按类型优先级堆叠渲染在页面顶部。
- *
+<script lang="ts" setup>
+/**
+* 消息提示的宿主席组件：订阅模块级消息列表，按类型优先级堆叠渲染在页面顶部。
+* 
  * 本组件只在首次调用 ydszMessage 时由 message.ts 惰性挂载到 body，负责全部 toast
  * 的渲染与进出场动画，自身不持有业务状态，纯粹是模块单例的视图投影。
- *
+* 
  * @path comm\@core\ui-kit\popup-ui\src\message\YdMessageHost.vue
  * @author ydsz-team
  * @since 5.3.0
--->
-<script lang="ts" setup>
+ */
 import type { Ref } from 'vue';
 
 import type { MessageItem, MessageType } from './message';

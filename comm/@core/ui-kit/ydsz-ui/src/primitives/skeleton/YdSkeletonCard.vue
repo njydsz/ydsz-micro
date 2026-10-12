@@ -1,11 +1,11 @@
-<!--
- * Skeleton.Card：卡片骨架屏模板，带可选图片、标题、文本行与按钮。
- *
+<script lang="ts" setup>
+/**
+* Skeleton.Card：卡片骨架屏模板，带可选图片、标题、文本行与按钮。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonCard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import YdSkeleton from './YdSkeleton.vue';
 import { cn } from '@ydsz-core/shared/utils';
 

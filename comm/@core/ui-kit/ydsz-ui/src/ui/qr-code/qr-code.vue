@@ -1,13 +1,13 @@
-<!--
- * QRCode（qr-code）组件：基于 Canvas 的二维码生成与渲染。
- *
+<script setup lang="ts">
+/**
+* QRCode（qr-code）组件：基于 Canvas 的二维码生成与渲染。
+* 
  * 伪算法：使用确定性哈希生成 NxN 二值矩阵，支持三角落 finder pattern，
  * Canvas 绘制为方格样式，暴露 download() 方法供父组件调用。
- *
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import { nextTick, onMounted, ref, watch } from 'vue';
 
 import type { QRCodeEmits, QRCodeProps } from './qr-code-types';

@@ -1,19 +1,19 @@
-<!--
- * 仪表盘指标卡：单数值 + 可选趋势迷你图 + 变化率标签。
- *
+<script setup lang="ts">
+/**
+* 仪表盘指标卡：单数值 + 可选趋势迷你图 + 变化率标签。
+* 
  * 设计目标：
  *  - 对标 ForgeLab forge-admin 数据总览页；
  *  - 单数值突出展示（标题 / 值 / 变化率 / 底部迷你图）；
  *  - 变化率颜色语义：正向绿色、负向红色、平稳无色；
  *  - 可选图标槽位 + 迷你趋势线槽位。
- *
+* 
  * 使用场景：各子应用首页仪表盘网格中的指标卡。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdStatCard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

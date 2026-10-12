@@ -1,11 +1,11 @@
-<!--
- * Skeleton.Group：简化显示的 block 组合工具，用于快速拼装多个骨架屏。
- *
+<script lang="ts" setup>
+/**
+* Skeleton.Group：简化显示的 block 组合工具，用于快速拼装多个骨架屏。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonGroup.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {

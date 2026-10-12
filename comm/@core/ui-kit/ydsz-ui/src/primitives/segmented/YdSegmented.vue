@@ -1,14 +1,14 @@
-<!--
- * Segmented 分段控制器：在多个互斥选项间切换。
- *
+<script lang="ts" setup>
+/**
+* Segmented 分段控制器：在多个互斥选项间切换。
+* 
  * 与 Tabs 的区别：Segmented 是更紧凑的按钮组样式，常用于视图切换（列表 / 卡片 / 地图）
  * 或筛选状态切换。不支持	router 集成。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\segmented\YdSegmented.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

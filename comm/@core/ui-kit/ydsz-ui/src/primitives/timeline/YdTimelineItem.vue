@@ -1,14 +1,14 @@
-<!--
- * Timeline 时间轴子节点。
- *
+<script lang="ts" setup>
+/**
+* Timeline 时间轴子节点。
+* 
  * 每个节点由 dot（左侧圆点或自定义图标）+ content（主体）+ 连接线组成。
  * dot color 支持：default / foreground / primary / success / warning / destructive。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\timeline\YdTimelineItem.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
 

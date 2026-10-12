@@ -1,18 +1,18 @@
-<!--
- * AvatarGroup —— 头像组。
- *
- * 展示一组头像；当数量超过 maxCount 时，将溢出的头像折叠到 "+N" 节点，
- * 由 Popover 弹出展示被隐藏的头像列表（avatar + name）。
- *
- * - 底层使用 Radix Vue Popover primitives
- * - maxPopoverTrigger 控制溢出触发方式（click | hover）
- * - overlap 头像横向重叠排列
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\avatar-group\avatar-group.vue
- * @author ydsz-team
- * @since 1.0.0
--->
 <script lang="ts" setup>
+/**
+ * * AvatarGroup —— 头像组。
+ * *
+ * * 展示一组头像；当数量超过 maxCount 时，将溢出的头像折叠到 "+N" 节点，
+ * * 由 Popover 弹出展示被隐藏的头像列表（avatar + name）。
+ * *
+ * * - 底层使用 Radix Vue Popover primitives
+ * * - maxPopoverTrigger 控制溢出触发方式（click | hover）
+ * * - overlap 头像横向重叠排列
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\ui\avatar-group\avatar-group.vue
+ * * @author ydsz-team
+ * @since 1.0.0
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 

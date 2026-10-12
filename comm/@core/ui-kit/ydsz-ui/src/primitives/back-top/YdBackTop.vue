@@ -1,17 +1,17 @@
-<!--
- * BackTop 回到顶部：滚动超过阈值后出现，点击平滑滚回顶部。
- *
+<script lang="ts" setup>
+/**
+* BackTop 回到顶部：滚动超过阈值后出现，点击平滑滚回顶部。
+* 
  * 设计要点：
  * - 监听 scrollY 决定是否显示（带淡入淡出动画）
  * - 点击使用 scrollTo(top, smooth)
  * - 容器可配置（默认 window），通过 getTargetContainer 注入
  * - 滚动节流使用 rAF，避免在 scroll 回调中重排
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\back-top\YdBackTop.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { onBeforeUnmount, onMounted, ref, unref } from 'vue';
 

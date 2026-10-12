@@ -1,14 +1,14 @@
-<!--
- * 时间轴 Pro —— 便利性封装（Convenience Wrapper）。
- *
+<script lang="ts" setup>
+/**
+* 时间轴 Pro —— 便利性封装（Convenience Wrapper）。
+* 
  * 在 YdTimeline 基础上增加 alternate（交替显示）模式和 ghost（幽灵）模式，
  * 对齐 Element Plus ElTimeline 的高级形态。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\timeline\YdTimelinePro.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 /**
  * 时间轴 Pro——便利性封装。
  *

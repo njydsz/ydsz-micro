@@ -1,17 +1,17 @@
-<!--
- * Affix 固钉：滚动到页面某个位置时吸附固定。
- *
+<script lang="ts" setup>
+/**
+* Affix 固钉：滚动到页面某个位置时吸附固定。
+* 
  * 与 Design Affix 对齐：
  * - offsetTop 控制顶部吸附偏移量
  * - offsetBottom 控制底部吸附偏移量
  * - target 可指定容器（默认 window）
  * - 状态变化通过 change 事件通知
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\affix\YdAffix.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 

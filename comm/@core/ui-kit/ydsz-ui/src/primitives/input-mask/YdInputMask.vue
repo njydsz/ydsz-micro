@@ -1,21 +1,21 @@
-<!--
- * YdInputMask Vue 组件 —— 格式化输入框，对标 PrimeVue InputMask。
- *
+<script setup lang="ts">
+/**
+* YdInputMask Vue 组件 —— 格式化输入框，对标 PrimeVue InputMask。
+* 
  * <p>通过 mask 模板约束输入格式：
  * <ul>
  *   <li>9 = 数字（0-9）</li>
  *   <li>a = 字母（A-Z / a-z）</li>
  *   <li>* = 字母数字（A-Z / a-z / 0-9）</li>
  * </ul>
- *
+* 
  * 其余字符视为字面量，自动跳过并插入；Backspace / Delete 正确回退到上一个掩码位；
  * 粘贴时过滤非法字符；modelValue 传出 unmasked 纯值当 unmask=true 时。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\input-mask\YdInputMask.vue
  * @author ydsz-team
  * @since 5.6.0
--->
-<script setup lang="ts">
+ */
 import { computed, nextTick, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

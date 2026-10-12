@@ -1,17 +1,17 @@
-<!--
- * Collapse 折叠面板：点击展开/收起内容区域。
- *
+<script lang="ts" setup>
+/**
+* Collapse 折叠面板：点击展开/收起内容区域。
+* 
  * 受控 + 非受控双模式：
  * - 受控：v-model:activeKeys 完全接管
  * - 非受控：内部维护 Set<string>
- *
+* 
  * accordion 模式限制同时间只展开一个面板。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\collapse\YdCollapse.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, provide, readonly, ref } from 'vue';
 

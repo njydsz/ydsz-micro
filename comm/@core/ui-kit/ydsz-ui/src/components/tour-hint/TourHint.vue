@@ -1,17 +1,17 @@
-<!--
- * TourHint —— 漫游式新手引导组件。
- *
+<script setup lang="ts">
+/**
+* TourHint —— 漫游式新手引导组件。
+* 
  * 业务封装层：将 YdPopover 包装为
  * "步骤式漫游引导"，支持自动定位目标元素、
  * 上一步/下一步/跳过等完整交互。
- *
+* 
  * WAI-ARIA: role="dialog" + aria-label="新手引导"
- *
+* 
  * @path comm/@core/ui-kit/ydsz-ui/src/components/tour-hint/TourHint.vue
  * @author ydsz-team
  * @since 26.10.10
--->
-<script setup lang="ts">
+ */
 import { computed, ref, watch } from 'vue'
 
 import type { TourHintEmits, TourHintProps } from './types'

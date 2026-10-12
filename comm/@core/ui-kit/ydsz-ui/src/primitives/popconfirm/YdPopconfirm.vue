@@ -1,14 +1,14 @@
-<!--
- * Popconfirm 气泡确认框：轻量确认交互，点击触发器后弹出气泡询问用户。
- *
+<script lang="ts" setup>
+/**
+* Popconfirm 气泡确认框：轻量确认交互，点击触发器后弹出气泡询问用户。
+* 
  * 与 Popover 的区别：Popconfirm 强制有取消 / 确认按钮 + 自动关闭，
  * 专用于删除/危险操作的二次确认。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\popconfirm\YdPopconfirm.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '@ydsz-core/ydsz-vue';

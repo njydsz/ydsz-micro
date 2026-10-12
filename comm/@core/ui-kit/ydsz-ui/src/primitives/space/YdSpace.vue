@@ -1,16 +1,16 @@
-<!--
- * Space 间距：控制组件间水平 / 垂直间距。
- *
+<script setup lang="ts">
+/**
+* Space 间距：控制组件间水平 / 垂直间距。
+* 
  * 与 Ant Design Space 对齐：
  * - 默认水平排列，vertical 时切换为 flex-col
  * - 大尺寸不破坏对齐：使用 margin-bottom 负值对齐
  * - wrap 模式下子项自动换行，竖向间距同样生效
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\space\YdSpace.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 type SpaceSize = 'large' | 'middle' | 'small' | number;

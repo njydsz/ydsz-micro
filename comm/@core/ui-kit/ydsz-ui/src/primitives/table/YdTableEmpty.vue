@@ -1,11 +1,11 @@
-<!--
- * 表格空数据占位：在 tbody 内独占一行，跨所有列。
- *
+<script setup lang="ts">
+/**
+* 表格空数据占位：在 tbody 内独占一行，跨所有列。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableEmpty.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 defineOptions({ name: 'YdTableEmpty' });
 
 interface Props {

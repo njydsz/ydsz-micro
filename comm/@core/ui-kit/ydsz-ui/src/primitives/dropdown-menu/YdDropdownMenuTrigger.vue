@@ -1,14 +1,14 @@
-<!--
- * 下拉菜单的触发器：转发 radix 的全部 props（如 disabled、asChild）。
- *
+<script setup lang="ts">
+/**
+* 下拉菜单的触发器：转发 radix 的全部 props（如 disabled、asChild）。
+* 
  * 固定去掉聚焦描边（outline-none）—— 触发器的聚焦状态由菜单项接管，
  * 否则打开菜单后会同时出现两处焦点环；若需要键盘可达的视觉反馈，应在内容区自行实现。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown-menu\YdDropdownMenuTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { DropdownMenuTriggerProps } from '@ydsz-core/ydsz-vue';
 
 import { YdDropdownMenuTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';

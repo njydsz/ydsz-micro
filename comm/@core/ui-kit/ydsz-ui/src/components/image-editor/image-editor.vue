@@ -1,17 +1,16 @@
-<!--
- * ImageEditor 图片裁剪编辑组件。
- *
+<script lang="ts" setup>
+/**
+* ImageEditor 图片裁剪编辑组件。
+* 
  * 使用 Canvas 绘制原图，DOM 叠加层实现可拖拽裁剪框与四角 resize 手柄，
  * 支持宽高比约束、实时预览与 base64 导出。
- *
+* 
  * 对标 react-image-crop 的交互体验。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\image-editor\image-editor.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-
-<script lang="ts" setup>
+ */
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import type {

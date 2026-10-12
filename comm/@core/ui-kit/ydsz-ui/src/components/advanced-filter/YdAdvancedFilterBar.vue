@@ -1,26 +1,26 @@
-<!--
- * 高级筛选工具栏：仿 ForgeLab forge-admin 组合筛选 Chip。
- *
+<script setup lang="ts">
+/**
+* 高级筛选工具栏：仿 ForgeLab forge-admin 组合筛选 Chip。
+* 
  * 设计目标：
  *  - 已选筛选条件以可删除 Chip 形式横向展示，一目了然；
  *  - 点击 Chip × 移除单个筛选条件，一键清空全部；
  *  - 窄屏自动折叠为「+N 个筛选」按钮，点击展开完整 Chip 列表；
  *  - 内置搜索框 + 通道/状态下拉筛选插槽（可按需扩展）。
- *
+* 
  * 交互：
  *  - Chip 与 v-model:filters 双向绑定；
  *  - 每个 Chip 可单独删除；
  *  - 超出容器折行时自动收缩。
- *
+* 
  * 无障碍：
  *  - Chip 按钮带 aria-label 说明移除含义；
  *  - 筛选工具栏整体使用 role="toolbar"。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\advanced-filter\YdAdvancedFilterBar.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

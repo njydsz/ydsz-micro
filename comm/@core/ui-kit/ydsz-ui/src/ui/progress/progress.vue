@@ -1,15 +1,15 @@
-<!--
- * Progress（progress）组件 —— 统一进度入口，按 type 分发到不同原语实现。
- *
- * - type === 'linear'（默认）：线性进度条（YdProgress, 基于 Radix ProgressRoot）
- * - type === 'circle'：圆形进度环（YdProgressCircle, 双 SVG circle）
- * - type === 'dashboard'：仪表盘进度（YdProgressDashboard, 半圆 SVG path）
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\progress\progress.vue
- * @author ydsz-team
- * @since 1.0.0
--->
 <script lang="ts" setup>
+/**
+ * * Progress（progress）组件 —— 统一进度入口，按 type 分发到不同原语实现。
+ * *
+ * * - type === 'linear'（默认）：线性进度条（YdProgress, 基于 Radix ProgressRoot）
+ * * - type === 'circle'：圆形进度环（YdProgressCircle, 双 SVG circle）
+ * * - type === 'dashboard'：仪表盘进度（YdProgressDashboard, 半圆 SVG path）
+ * *
+ * * @path comm\@core\ui-kit\ydsz-ui\src\ui\progress\progress.vue
+ * * @author ydsz-team
+ * @since 1.0.0
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

@@ -1,16 +1,16 @@
-<!--
- * 仪表盘网格：响应式网格布局容器，专为指标卡排列设计。
- *
+<script setup lang="ts">
+/**
+* 仪表盘网格：响应式网格布局容器，专为指标卡排列设计。
+* 
  * 设计目标：
  *  - 1 列（手机）/ 2 列（平板）/ 3-4 列（桌面）自适应；
  *  - 统一卡片间距，与表单区视觉一致；
  *  - 支持空态占位（如仪表盘配置为空时引导用户）。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdDashboardGrid.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({

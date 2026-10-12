@@ -1,14 +1,14 @@
-<!--
- * Card（card）组件：基于 design-tokens 语义化变量的卡片容器基元。
- *
+<script setup lang="ts">
+/**
+* Card（card）组件：基于 design-tokens 语义化变量的卡片容器基元。
+* 
  * <p>通过 CSS 变量引用 `variables.css` 中定义的 token，
  * 支持 `data-theme="dark"` 自动切换。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\card.vue
  * @author ydsz-team
  * @since 26.09.24
- -->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import type { CardEmits, CardProps } from './card-types';

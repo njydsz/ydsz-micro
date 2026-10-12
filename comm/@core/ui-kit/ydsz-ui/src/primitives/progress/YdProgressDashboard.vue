@@ -1,15 +1,15 @@
-<!--
- * Progress Dashboard —— 仪表盘进度（半圆）。
- *
+<script lang="ts" setup>
+/**
+* Progress Dashboard —— 仪表盘进度（半圆）。
+* 
  * 用 SVG <path> 绘制一段 180° 圆弧作为轨道，
  * 再叠一层同路径的指示器 path，通过 stroke-dasharray / stroke-dashoffset
  * 驱动「填充长度」动画。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\progress\YdProgressDashboard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

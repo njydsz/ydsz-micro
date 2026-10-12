@@ -1,14 +1,14 @@
-<!--
- * Slider 滑块：在数值区间内拖拽选择。
- *
+<script setup lang="ts">
+/**
+* Slider 滑块：在数值区间内拖拽选择。
+* 
  * 基于 Radix Slider 封装双值 range 模式；
  * 竖直模式下轨道宽度通过 css 变量控制。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\slider\YdSlider.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { SliderRootEmits, SliderRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';

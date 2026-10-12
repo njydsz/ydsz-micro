@@ -1,13 +1,13 @@
-<!--
- * YdAiFieldList — AI 生成结果字段列表编辑器。
- *
+<script lang="ts" setup>
+/**
+* YdAiFieldList — AI 生成结果字段列表编辑器。
+* 
  * <p>展示 AI 推断的字段清单，支持行内编辑（类型/标签/必填/选项）、拖拽排序和删除。
- *
+* 
  * @path comm\@core\ui-kit\ai-builder\src\components\YdAiFieldList.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import type { FieldSuggestion } from '../types';
 
 const props = withDefaults(defineProps<{

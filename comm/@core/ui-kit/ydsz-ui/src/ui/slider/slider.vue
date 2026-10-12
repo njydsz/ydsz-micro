@@ -1,16 +1,16 @@
-<!--
- * Slider（slider）组件：支持单值与 range 双 thumb 的模式。
- *
+<script setup lang="ts">
+/**
+* Slider（slider）组件：支持单值与 range 双 thumb 的模式。
+* 
  * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
  * - role="slider" + aria-valuemin / aria-valuemax / aria-valuenow / aria-valuetext
  * - range 模式下两个 thumb 分别暴露 aria-valuenow
  * - 键盘：Arrow（±step）/ Arrow + Shift（±step*5）/ Home / End / PageUp / PageDown
  * - aria-label / aria-labelledby 标签关联
- *
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import { computed, ref } from 'vue';
 
 import type { SliderEmits, SliderProps } from './slider-types';

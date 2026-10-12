@@ -1,11 +1,12 @@
-<!-- OrgNode.vue —— 组织架构图单节点渲染组件。
-     根据节点类型（root / branch / leaf）分发样式，含连线、选中态、展开/折叠指示器。
-
-     @path comm\@core\ui-kit\ydsz-ui\src\primitives\organization-chart\OrgNode.vue
-     @author ydsz-team
-     @since 26.09.24
--->
 <script setup lang="ts">
+/**
+ * OrgNode.vue —— 组织架构图单节点渲染组件。
+ * 根据节点类型（root / branch / leaf）分发样式，含连线、选中态、展开/折叠指示器。
+ * 
+ * @path comm\@core\ui-kit\ydsz-ui\src\primitives\organization-chart\OrgNode.vue
+ * @author ydsz-team
+ * @since 26.09.24
+ */
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

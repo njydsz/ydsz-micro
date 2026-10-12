@@ -1,21 +1,21 @@
-<!--
- * YdQrCodePro —— 业务级二维码便捷封装。
- *
+<script setup lang="ts">
+/**
+* YdQrCodePro —— 业务级二维码便捷封装。
+* 
  * 在 YdQrCode 原语之上提供「预设场景 → 自动容错等级」「一键下载」「Logo 安全区」
  * 「i18n 文案」等开箱即用能力，避免业务方重复编写样板代码。
- *
+* 
  * 预设场景说明：
  *   - url    : URL 短文本 → L 级纠错（7%），轻量快速
  *   - text   : 普通短文本 → L 级纠错（7%）
  *   - vcard  : 联系人信息 → M 级纠错（15%），信息量中等
  *   - download : 下载链接 → M 级纠错（15%），因 logo 可能遮挡部分模块
  *   - wifi   : WiFi 配置 → H 级纠错（30%），通常在 logo 遮挡下仍需可靠识别
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\qr-code\YdQrCodePro.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 

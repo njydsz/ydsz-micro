@@ -1,11 +1,11 @@
-<!--
- * Cascader 级联选择器：支持多层级联下拉、搜索、多选、清除。
- *
+<script setup lang="ts">
+/**
+* Cascader 级联选择器：支持多层级联下拉、搜索、多选、清除。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\cascader\cascader.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { CascaderEmits, CascaderOption, CascaderProps } from './cascader-types';
 
 import { computed, ref } from 'vue';

@@ -1,14 +1,14 @@
-<!--
- * Input（input）组件：基于 design-tokens 语义化变量的文本输入基元。
- *
+<script setup lang="ts">
+/**
+* Input（input）组件：基于 design-tokens 语义化变量的文本输入基元。
+* 
  * <p>通过 CSS 变量引用 `variables.css` 中定义的 token，
  * 支持 `data-theme="dark"` 自动切换。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\input\input.vue
  * @author ydsz-team
  * @since 26.09.24
- -->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import type { InputEmits, InputProps } from './input-types';

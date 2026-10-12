@@ -1,14 +1,14 @@
-<!--
- * Progress 进度条：展示操作的当前进度。
- *
+<script lang="ts" setup>
+/**
+* Progress 进度条：展示操作的当前进度。
+* 
  * 两种模式：determinate（有明确 percentage）/ indeterminate（循环动画）。
  * indeterminate 模式下组件通过 aria-valuemin / aria-valuemax 表达「未知进度」语义。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\progress\YdProgress.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed } from 'vue';
 

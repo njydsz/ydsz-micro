@@ -1,14 +1,14 @@
-<!--
- * AlertBanner —— 自研告警横幅组件（替代 EP ElAlert）。
- *
+<script setup lang="ts">
+/**
+* AlertBanner —— 自研告警横幅组件（替代 EP ElAlert）。
+* 
  * 提供 warning / info / error / success 四种语义；默认样式为「警告」(amber)。
  * 图标基于 lucide；可通过 default slot 插入正文（校验提示、帮助说明等）。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\alert\AlertBanner.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { AlertCircle, AlertTriangle, CheckCircle2, Info } from 'lucide-vue-next';

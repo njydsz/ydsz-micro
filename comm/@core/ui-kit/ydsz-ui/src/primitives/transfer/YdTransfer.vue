@@ -1,16 +1,16 @@
-<!--
- * Transfer 穿梭框：在两个列表间移动数据。
- *
+<script lang="ts" setup>
+/**
+* Transfer 穿梭框：在两个列表间移动数据。
+* 
  * 受控组件：value 为右侧已选 key 集合，操作后通过 update:value 回传给父组件。
  * 左侧为可选列表，右侧为已选列表，中间按钮面板支持单/双向移动。
- *
+* 
  * 搜索通过内置 input 实现（本地过滤），不清库外部接口。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\transfer\YdTransfer.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 

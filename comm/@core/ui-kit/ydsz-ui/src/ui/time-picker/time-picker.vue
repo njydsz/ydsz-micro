@@ -1,11 +1,11 @@
-<!--
- * TimePicker 时间选择器：时分秒三列滚轮 + 12/24 小时制切换。
- *
+<script setup lang="ts">
+/**
+* TimePicker 时间选择器：时分秒三列滚轮 + 12/24 小时制切换。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\time-picker\time-picker.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { TimePickerEmits, TimePickerProps, TimePickerState } from './time-picker-types';
 
 import { computed, ref, watch } from 'vue';

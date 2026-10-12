@@ -1,6 +1,7 @@
-<!--
- * Cascader 级联选择器：多级数据折叠展示，逐级选择。
- *
+<script lang="ts" setup>
+/**
+* Cascader 级联选择器：多级数据折叠展示，逐级选择。
+* 
  * 功能覆盖：
  * - 单/多选模式
  * - click / hover 触发展开
@@ -8,17 +9,16 @@
  * - 搜索过滤
  * - 仅显示末级（changeOnSelect 关闭时）
  * - tag 数量限制
- *
+* 
  * 交互细节：
  * - 点击 panel 项展开下一级；叶节点点击即选中
  * - ESC 关闭；Tab 在面板间焦点流转
  * - 搜索模式：搜索结果以面包屑路径展示，非原始树形
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\cascader\YdCascader.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, ref } from 'vue';
 

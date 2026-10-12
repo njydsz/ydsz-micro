@@ -1,18 +1,18 @@
-<!--
- * ThemeProvider —— 在 provide/inject 层暴露 useTheme 句柄。
- *
+<script lang="ts">
+/**
+* ThemeProvider —— 在 provide/inject 层暴露 useTheme 句柄。
+* 
  * 设计目标：
  *  - 在应用根节点包裹一次，下游组件通过 `useThemeContext()` 获取操作入口；
  *  - 自动将当前主题状态 class（dark / light）同步到 document.documentElement；
  *  - 提供响应式 isDark ref，便于 UI 根据主题切换图标 / 文字；
  *  - 可选侦测系统 prefers-color-scheme；
  *  - 支持 density 档位切换（default / compact / loose）。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\theme\ThemeProvider.vue
  * @author ydsz-team
  * @since 5.6.0
--->
-<script lang="ts">
+ */
 // @ts-nocheck
 /** ThemeProvider 注入 key */
 import type { InjectionKey } from 'vue';

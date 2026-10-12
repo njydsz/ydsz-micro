@@ -1,14 +1,14 @@
-<!--
- * YearPanel —— 年份选择面板。
- *
+<script setup lang="ts">
+/**
+* YearPanel —— 年份选择面板。
+* 
  * <p>用于 type='year' / 'yearrange'：显示十年区间，左/右箭头翻十年。
  * 单选：点击年份选中；范围：首末点击选中十年区间。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdYearPanel.vue
  * @author ydsz-team
  * @since 5.6.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

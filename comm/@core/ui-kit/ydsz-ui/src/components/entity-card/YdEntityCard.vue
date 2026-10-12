@@ -1,21 +1,21 @@
-<!--
- * 实体卡片：用于卡片网格视图下的业务实体展示。
- *
+<script setup lang="ts">
+/**
+* 实体卡片：用于卡片网格视图下的业务实体展示。
+* 
  * 设计目标：
  *  - 替代 VxeTable 的表格行，在列表页展示为信息密度更低的卡片；
  *  - 统一 ForgeLab forge-admin 风格：图标 + 标题 + 编码 + 描述 + 状态标签 + 更新时间 + 操作区；
  *  - 通过 slot 注入自定义字段行，不绑定具体业务字段名。
- *
+* 
  * 交互：
  *  - hover 时抬升阴影并浮现快捷操作；
  *  - 卡片主体可点击（@click），clickable 启用后附 cursor-pointer；
  *  - 多选模式下顶部出现 checkbox。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\entity-card\YdEntityCard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle, YdCheckbox } from '../../primitives';

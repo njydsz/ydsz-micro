@@ -1,9 +1,10 @@
-<!--
- * YdThemeScope —— 组件级暗色模式独立开关。
- *
+<script lang="ts" setup>
+/**
+* YdThemeScope —— 组件级暗色模式独立开关。
+* 
  * <p>允许在页面局部区域强制使用 light/dark 模式，与全局主题解耦。
  * 适用于"暗色侧边栏中嵌入一个亮色卡片预览"等场景。
- *
+* 
  * <p>典型用法：
  * <pre>
  * &lt;YdThemeScope mode="dark"&gt;
@@ -11,12 +12,11 @@
  *   &lt;YdCard&gt;...&lt;/YdCard&gt;
  * &lt;/YdThemeScope&gt;
  * </pre>
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\theme\YdThemeScope.vue
  * @author ydsz-team
  * @since 26.09.17
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { computed, onMounted, ref, watch } from 'vue';
 

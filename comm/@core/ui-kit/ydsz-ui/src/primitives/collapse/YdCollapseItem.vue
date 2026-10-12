@@ -1,14 +1,14 @@
-<!--
- * Collapse 折叠面板子项。
- *
+<script lang="ts" setup>
+/**
+* Collapse 折叠面板子项。
+* 
  * 从父级 Collapse 通过 inject 获取 toggle 与 isActive 方法，
  * 保持子项零 prop（除了 key），灵活组合。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\collapse\YdCollapseItem.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { inject, ref, watch } from 'vue';
 

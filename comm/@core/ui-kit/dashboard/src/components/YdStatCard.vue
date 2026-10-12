@@ -1,13 +1,13 @@
-<!--
- * YdStatCard — KPI 单值统计卡片。
- *
+<script lang="ts" setup>
+/**
+* YdStatCard — KPI 单值统计卡片。
+* 
  * <p>展示核心指标（金额/数量/率值）及趋势方向，支持自动前后对比。
- *
+* 
  * @path comm\@core\ui-kit\dashboard\src\components\YdStatCard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import { computed } from 'vue';
 
 import type { StatCard } from '../types';

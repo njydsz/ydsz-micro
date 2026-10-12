@@ -1,6 +1,7 @@
-<!--
- * YdTimePicker 时间选择器：时/分/秒三列滚轮面板。
- *
+<script lang="ts" setup>
+/**
+* YdTimePicker 时间选择器：时/分/秒三列滚轮面板。
+* 
  * 功能覆盖：
  * - 12h / 24h 显示格式（use12Hours）
  * - 可配置格式 HH:mm 或 HH:mm:ss（format）
@@ -9,12 +10,11 @@
  * - AM/PM 时段选择
  * - 表单集成（v-model）
  * - 占位符、清除按钮、禁用状态
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\time-picker\YdTimePicker.vue
  * @author ydsz-team
  * @since 26.09.24
--->
-<script lang="ts" setup>
+ */
 import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

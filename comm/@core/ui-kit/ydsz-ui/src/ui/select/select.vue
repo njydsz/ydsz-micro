@@ -1,9 +1,10 @@
-<!--
- * Select（select）组件：基于 design-tokens 语义化变量的选择器基元。
- *
+<script setup lang="ts">
+/**
+* Select（select）组件：基于 design-tokens 语义化变量的选择器基元。
+* 
  * <p>通过 CSS 变量引用 `variables.css` 中定义的 token，
  * 支持 `data-theme="dark"` 自动切换。
- *
+* 
  * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
  * - role="combobox" + aria-expanded + aria-haspopup="listbox" + aria-controls
  * - aria-activedescendant 指向当前高亮选项
@@ -11,12 +12,11 @@
  * - 选项列表 role="listbox" + role="option" + aria-selected（通过 slot 注入）
  * - 键盘支持：↑↓选择 / Esc关闭 / Home-End跳转 / Typeahead（由原生 select 提供）
  * - aria-label / aria-labelledby 关联标签
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\select.vue
  * @author ydsz-team
  * @since 26.09.24
- -->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import type { SelectEmits, SelectProps } from './select-types';

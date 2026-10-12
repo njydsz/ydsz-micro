@@ -1,14 +1,14 @@
-<!--
- * 下拉菜单：由菜单数据渲染可点击的下拉项。
- *
+<script lang="ts" setup>
+/**
+* 下拉菜单：由菜单数据渲染可点击的下拉项。
+* 
  * 与右键菜单共用同一套数据驱动思路：菜单项在数据中描述，默认插槽承载触发器。
  * 两者分开是因为触发方式（点击 vs 右键）与定位逻辑不同，合并会让配置变复杂。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\dropdown-menu\dropdown-menu.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import type {
   DropdownMenuProps,

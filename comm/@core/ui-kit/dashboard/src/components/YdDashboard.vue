@@ -1,14 +1,14 @@
-<!--
- * YdDashboard — BI 看板的完整布局。
- *
+<script lang="ts" setup>
+/**
+* YdDashboard — BI 看板的完整布局。
+* 
  * <p>以 CSS Grid 布局渲染仪表盘卡片，支持编辑模式和预览模式。
  * 编辑模式下可添加/删除/拖拽排序卡片；预览模式下仅展示。
- *
+* 
  * @path comm\@core\ui-kit\dashboard\src\components\YdDashboard.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 import { computed } from 'vue';
 
 import type { DashboardCard, DashboardConfig } from '../types';

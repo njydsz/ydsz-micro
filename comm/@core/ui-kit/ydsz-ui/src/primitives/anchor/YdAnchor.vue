@@ -1,15 +1,15 @@
-<!--
- * Anchor 锚点：跳转到页面指定位置。
- *
+<script lang="ts" setup>
+/**
+* Anchor 锚点：跳转到页面指定位置。
+* 
  * 受控组件：通过 v-model:active 控制当前激活锚点。
  * offset 定义距离顶部多少像素视为"进入"。
  * YdAnchorLink 子组件递归渲染嵌套目录。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchor.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 

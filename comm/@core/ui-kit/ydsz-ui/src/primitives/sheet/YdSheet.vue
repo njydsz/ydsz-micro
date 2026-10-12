@@ -1,14 +1,14 @@
-<!--
- * 侧边面板的容器：底层复用 DialogRoot，因此打开/关闭、焦点管理、Esc 关闭等行为与 YdDialog 完全一致。
- *
+<script setup lang="ts">
+/**
+* 侧边面板的容器：底层复用 DialogRoot，因此打开/关闭、焦点管理、Esc 关闭等行为与 YdDialog 完全一致。
+* 
  * 复用而非另起一套，是因为抽屉本质上就是「从屏幕边缘出现的对话框」；
  * 差异只体现在内容区的方位动画（见 YdSheetContent）上。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\sheet\YdSheet.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { DialogRootEmits, DialogRootProps } from '@ydsz-core/ydsz-vue';
 
 import { DialogRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';

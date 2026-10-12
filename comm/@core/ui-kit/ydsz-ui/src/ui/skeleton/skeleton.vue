@@ -1,6 +1,7 @@
-<!--
- * Skeleton（骨架屏）组件：在内容加载前展示占位图形。
- *
+<script setup lang="ts">
+/**
+* Skeleton（骨架屏）组件：在内容加载前展示占位图形。
+* 
  * <p>支持的变体形态：
  * <ul>
  *   <li><b>text</b>：单行文本占位符。</li>
@@ -10,13 +11,12 @@
  *   <li><b>button</b>：按钮占位符。</li>
  *   <li><b>image</b>：图片占位符。</li>
  * </ul>
- *
+* 
  * <p>开启 <code>animated</code> 后通过 CSS 渐变 + keyframes 实现从左到右的 shimmer 反光扫过效果。
- *
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import type { SkeletonEmits, SkeletonProps } from './skeleton-types';

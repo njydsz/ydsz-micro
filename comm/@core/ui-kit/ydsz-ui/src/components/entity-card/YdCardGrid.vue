@@ -1,18 +1,18 @@
-<!--
- * 卡片网格：响应式网格容器，用于统一卡片视图的布局间距。
- *
+<script setup lang="ts">
+/**
+* 卡片网格：响应式网格容器，用于统一卡片视图的布局间距。
+* 
  * 设计目标：
  *  - 替代 VxeTable 表格布局，将卡片以等宽网格展示；
  *  - 响应式列数：手机 1 列、平板 2 列、桌面 3-4 列；
  *  - 与 YdEmptyState 配合使用：当 items 为空时展示空状态占位而非留白。
- *
+* 
  * 使用方式：直接包裹 <YdEntityCard>；通过 :min-card-width 可调节卡片最小宽度来微调列数。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\entity-card\YdCardGrid.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({

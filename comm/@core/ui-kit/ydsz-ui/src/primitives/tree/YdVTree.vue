@@ -1,23 +1,23 @@
-<!--
- * YdVTree —— 带虚拟滚动的树形选择组件。
- *
+<script lang="ts" setup>
+/**
+* YdVTree —— 带虚拟滚动的树形选择组件。
+* 
  * <p>基于 useTreeVirtual composable 实现，仅渲染视口可见的树节点 + overscan 缓冲区，
  * 支持 5000+ 节点的深层树流畅滚动。
- *
+* 
  * <p>与 YdTree 的边界：
  *  - YdTree 适合 < 500 节点、需要完整 TransitionGroup 动效的场景；
  *  - YdVTree 适合大数据量、可接受无展开动效的高性能场景。
- *
+* 
  * <p>API 参考 TanStack Virtual 的 estimateSize 模式：
  *  - estimateSize? number  — 每项估算行高（px），默认 28
  *  - overscan? number      — 上下缓冲行数，默认 5
  *  - viewportHeight? number — 滚动容器高度（px），默认 300
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tree\YdVTree.vue
  * @author ydsz-team
  * @since 26.09.17
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import type { FlattenedItem } from '@ydsz-core/ydsz-vue';
 

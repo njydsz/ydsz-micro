@@ -1,18 +1,18 @@
-<!--
- * YdForm —— 表单容器包装器，内置「提交时自动聚焦首个错误字段」能力。
- *
+<script lang="ts" setup>
+/**
+* YdForm —— 表单容器包装器，内置「提交时自动聚焦首个错误字段」能力。
+* 
  * 设计目标：
  *  - 包装 vee-validate 的 Form 组件，统一表单提交行为；
  *  - 表单校验失败时，自动 scrollIntoView + focus 到第一个错误字段
  *    （对齐 EP / Naive UI 的 submitForm 交互）；
  *  - 暴露 `submitWithErrorFocus` 方法，供外部按钮手动调用；
  *  - 支持 `isDisabled` 全局禁用、`isSubmitting` 提交中遮罩。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdForm.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script lang="ts" setup>
+ */
 // @ts-nocheck
 import type { GenericObject } from 'vee-validate';
 

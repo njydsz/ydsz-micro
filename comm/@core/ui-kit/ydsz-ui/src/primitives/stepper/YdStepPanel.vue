@@ -1,14 +1,14 @@
-<!--
- * 步骤面板：与 YdStepper 配对使用，类似 YdTabsContent / YdTabPane 的配对逻辑。
- *
+<script setup lang="ts">
+/**
+* 步骤面板：与 YdStepper 配对使用，类似 YdTabsContent / YdTabPane 的配对逻辑。
+* 
  * 从父级 YdStepper 的 provide/inject 中获取 isActive 标志，
  * 并由父级通过 VNode patch 传入（ydsz-active prop 自动注入）。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\stepper\YdStepPanel.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { StepperContext } from './stepper-types';
 
 import { computed, inject } from 'vue';

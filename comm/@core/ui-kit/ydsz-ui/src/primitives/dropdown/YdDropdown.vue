@@ -1,14 +1,14 @@
-<!--
- * 下拉菜单 —— 便利性封装（Convenience Wrapper）。
- *
+<script setup lang="ts">
+/**
+* 下拉菜单 —— 便利性封装（Convenience Wrapper）。
+* 
  * 配置式 options API 包裹 YdDropdownMenu 系列组件，
  * 对齐 Element Plus ElDropdown 的 options 配置形态。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown\YdDropdown.vue
  * @author ydsz-team
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 /**
  * 下拉菜单便利性封装。
  * <p>支持配置式 options 参数，简化常见使用场景。

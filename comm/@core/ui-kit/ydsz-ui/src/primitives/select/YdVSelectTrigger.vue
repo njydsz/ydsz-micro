@@ -1,18 +1,18 @@
-<!--
- * YdVSelect 触发器：封装 YdSelectTrigger + YdSelectValue，统一触发器外观与可清选择。
- *
+<script setup lang="ts">
+/**
+* YdVSelect 触发器：封装 YdSelectTrigger + YdSelectValue，统一触发器外观与可清选择。
+* 
  * 设计目标：
  *  - 与原生 YdSelectTrigger 保持一致的视觉（圆角、边框、focus ring、disabled 置灰）；
  *  - 右侧集成清除按钮，仅在已选项存在时显示；
  *  - 遵循 @see YdSelect 现有样式约定。
- *
+* 
  * 注意：Trigger 本身不持有值模型，需由父级 @see YdVSelect 显式传入 hasValue 控制清除按钮显隐。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdVSelectTrigger.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 import { CircleX } from '@ydsz-core/icons';

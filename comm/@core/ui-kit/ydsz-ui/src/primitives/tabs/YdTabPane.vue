@@ -1,13 +1,13 @@
-<!--
- * 标签页面板触发器 —— 便利性封装（Convenience Wrapper）。
- *
+<script setup lang="ts">
+/**
+* 标签页面板触发器 —— 便利性封装（Convenience Wrapper）。
+* 
  * 组合 YdTabsTrigger 的便利性封装，常与 YdTabsContent 配对使用。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tabs\YdTabPane.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 /**
  * 标签页面板组件 —— 便利性封装。
  * <p>简化 Tab 面板的一次性声明：label + name 只写一次。

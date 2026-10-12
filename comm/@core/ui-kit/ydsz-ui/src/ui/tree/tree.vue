@@ -1,17 +1,17 @@
-<!--
- * YdTree —— 业务级树组件。
- *
+<script setup lang="ts">
+/**
+* YdTree —— 业务级树组件。
+* 
  * <p>对标 Naive UI 的 Tree 组件，基于 ydz-vue 的 TreeRoot / TreeItem 无头原语：
  * - 通过 slot 注入自定义节点渲染（勾选框 + 图标 + 标题 + 展开箭头）；
  * - 通过拦截 onToggle 注入懒加载逻辑（loadData）；
  * - 通过双向绑定桥接 checkedKeys / expandedKeys / selectedKeys；
  * - 连接线、搜索高亮、默认展开在顶层处理并透传。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\tree.vue
  * @author ydsz-team
  * @since 26.10.11
--->
-<script setup lang="ts">
+ */
 import type { Component, Slots, VNode } from 'vue';
 
 import { computed, h, ref, watch } from 'vue';

@@ -1,11 +1,11 @@
-<!--
- * 表头单元格：th 语义，提供对齐与截断。
- *
+<script setup lang="ts">
+/**
+* 表头单元格：th 语义，提供对齐与截断。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableHead.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'YdTableHead' });

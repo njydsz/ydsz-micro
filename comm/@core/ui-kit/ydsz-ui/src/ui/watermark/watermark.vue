@@ -1,14 +1,14 @@
-<!--
- * Watermark（水印）组件
- *
+<script setup lang="ts">
+/**
+* Watermark（水印）组件
+* 
  * 通过 canvas 将文字/图片绘制为 base64 dataURL，再作为 background-image
  * 平铺覆盖整个容器。可选择性开启 MutationObserver 防篡改监听。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\watermark\watermark.vue
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import {
   nextTick,
   onBeforeUnmount,

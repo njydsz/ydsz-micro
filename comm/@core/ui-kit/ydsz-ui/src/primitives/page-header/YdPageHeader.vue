@@ -1,17 +1,17 @@
-<!--
- * PageHeader 页头：页面顶部标题区域，支持面包屑 / 返回按钮 / 操作区。
- *
+<script setup lang="ts">
+/**
+* PageHeader 页头：页面顶部标题区域，支持面包屑 / 返回按钮 / 操作区。
+* 
  * 与 Ant Design PageHeader 对齐：
  * - title / subtitle 渲染在左
  * - extra 渲染在右
  * - avatar / tags / footer 按需显示
  * - onBack 提供返回按钮
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\page-header\YdPageHeader.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 import { ArrowLeft } from 'lucide-vue-next';
 

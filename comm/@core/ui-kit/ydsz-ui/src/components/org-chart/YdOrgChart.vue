@@ -1,6 +1,7 @@
-<!--
- * YdOrgChart 组织架构图 —— 对标 PrimeVue OrgChart。
- *
+<script setup lang="ts">
+/**
+* YdOrgChart 组织架构图 —— 对标 PrimeVue OrgChart。
+* 
  * 功能：
  * - 纵向 / 横向树形布局
  * - 节点折叠 / 展开
@@ -8,12 +9,11 @@
  * - 过滤（按 label 搜索）
  * - 连接线使用 CSS 伪元素（border-left + border-top），不引入 SVG
  * - 插槽 #node 自定义节点模板
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\org-chart\YdOrgChart.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import type { OrgChartEmits, OrgChartNode, OrgChartProps } from './org-chart-types';
 
 import { computed, ref, watch } from 'vue';

@@ -1,10 +1,10 @@
-<!--
- * Separator（separator）组件：占位骨架，后续按需深化真实交互。
- *
+<script setup lang="ts">
+/**
+* Separator（separator）组件：占位骨架，后续按需深化真实交互。
+* 
  * @author ydsz-ai
  * @since 1.0.0
- -->
-<script setup lang="ts">
+ */
 import type { SeparatorEmits, SeparatorProps } from './separator-types';
 
 defineOptions({ name: 'YdSeparator' });

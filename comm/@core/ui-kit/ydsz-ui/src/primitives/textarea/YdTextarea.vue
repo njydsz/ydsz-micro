@@ -1,17 +1,17 @@
-<!--
- * 多行输入框 —— 对标一线竞品（EP Textarea / Naive Textarea）能力矩阵。
- *
+<script setup lang="ts">
+/**
+* 多行输入框 —— 对标一线竞品（EP Textarea / Naive Textarea）能力矩阵。
+* 
  * <p>增强能力（5.6.0 新增）：
  * <ul>
  *   <li>autosize：基于 scrollHeight 的自动增高（支持 minRows / maxRows 约束）</li>
  *   <li>resize：控制浏览器原生拖拽拉伸方向（none / both / horizontal / vertical）</li>
  * </ul>
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\textarea\YdTextarea.vue
  * @author ydsz-team
  * @since 1.0.0 (5.6.0 新增 autosize / resize)
--->
-<script setup lang="ts">
+ */
 import { ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';

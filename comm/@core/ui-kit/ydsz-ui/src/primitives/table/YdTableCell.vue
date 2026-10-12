@@ -1,11 +1,11 @@
-<!--
- * 表格单元格：td 语义，支持对齐与文本截断。
- *
+<script setup lang="ts">
+/**
+* 表格单元格：td 语义，支持对齐与文本截断。
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableCell.vue
  * @author ydsz-team
  * @since 1.0.0
--->
-<script setup lang="ts">
+ */
 import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'YdTableCell' });

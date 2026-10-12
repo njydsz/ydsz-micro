@@ -1,21 +1,21 @@
-<!--
- * 富空状态：替代原生 "暂无数据" 占位，提供图标 + 标题 + 描述 + 引导操作。
- *
+<script setup lang="ts">
+/**
+* 富空状态：替代原生 "暂无数据" 占位，提供图标 + 标题 + 描述 + 引导操作。
+* 
  * 设计目标：
  *  - 复用 ForgeLab forge-admin 空状态风格：居中面图形图标 + 主说明 + 副说明 + 操作按钮；
  *  - 支持预设场景（created / no-data / no-result / no-permission / error 等），也可自定义图标；
  *  - 垂直水平居中于父容器，故父容器需 h-full/网格布局或其他能撑高的结构。
- *
+* 
  * 无障碍：图标装饰性，aria-hidden=true；按钮通过具名 slot 传入以保证语义正确。
- *
+* 
  * i18n：默认标题通过 useLocale() 读取，预设 key 为 empty.{preset}。
  * 传入 title prop 时直接使用该值（不走 i18n），便于业务覆盖。
- *
+* 
  * @path comm\@core\ui-kit\ydsz-ui\src\components\empty-state\YdEmptyState.vue
  * @author ydsz-team
  * @since 26.09.24
--->
-<script setup lang="ts">
+ */
 import { computed } from 'vue';
 
 import { YdButton } from '../../primitives';
