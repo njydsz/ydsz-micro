@@ -230,29 +230,6 @@ function toggleExpand(key: string): void {
   }
 }
 
-/**
- * Generate data-* attributes for a data row (drag-and-drop hooks).
- */
-function dataAttrsForRow(_row: TreeFlatRow<T>, index: number): Record<string, unknown> {
-  if (!props.draggable) return {};
-  return {
-    dataDragSortItem: _row.depth === 0 ? '' : undefined,
-    dataDragging: dragApi.dragState.value.isDragging && dragApi.dragState.value.fromIndex === index,
-    dataDragOver: dragApi.dragState.value.isDragging && dragApi.dragState.value.toIndex === index && dragApi.dragState.value.fromIndex !== index,
-  };
-}
-
-// 暴露 toggleExpand 供外部使用
-defineExpose({
-  expandAll,
-  collapseAll,
-  expandNode,
-  collapseNode,
-  getCheckedNodes,
-  getHalfCheckedNodes,
-  toggleExpand,
-});
-
 function expandAll(): void {
   const allKeys = new Set<string>();
   function collect(list: T[]): void {
@@ -584,6 +561,7 @@ defineExpose<YdTreeTableRef<T>>({
       .map((k) => nodeMap.value.get(k))
       .filter((n): n is T => n !== undefined);
   },
+  toggleExpand,
 });
 </script>
 
@@ -651,14 +629,14 @@ defineExpose<YdTreeTableRef<T>>({
         </YdTableRow>
 
         <!-- 数据行 -->
+        <!-- @vue-ignore YdTableRow 透传 data-* 拖拽钩子属性 -->
         <YdTableRow
           v-for="(fRow, idx) in flatRows"
           :key="fRow.key"
-          v-bind="dataAttrsForRow(fRow, idx)"
-          class="border-b transition-colors hover:bg-muted/25"
-          :class="{
-            'bg-muted/10': props.draggable && dragApi.dragState.value.isDragging && dragApi.dragState.value.fromIndex === idx,
-          }"
+          :data-drag-sort-item="props.draggable && fRow.depth === 0 ? '' : undefined"
+          :data-dragging="props.draggable && dragApi.dragState.value.isDragging && dragApi.dragState.value.fromIndex === idx ? true : undefined"
+          :data-drag-over="props.draggable && dragApi.dragState.value.isDragging && dragApi.dragState.value.toIndex === idx && dragApi.dragState.value.fromIndex !== idx ? true : undefined"
+          :class="['border-b transition-colors hover:bg-muted/25', props.draggable && dragApi.dragState.value.isDragging && dragApi.dragState.value.fromIndex === idx ? 'bg-muted/10' : '']"
         >
           <!-- === 第一列：展开/折叠 + 树形缩进 + 连接线 === -->
           <YdTableCell class="px-2 py-0">

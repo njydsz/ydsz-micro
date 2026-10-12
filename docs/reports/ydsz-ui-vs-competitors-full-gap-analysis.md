@@ -1,8 +1,9 @@
 # ydzs-vue / ydsz-ui 对标主流竞品全维度差距分析
 
-> 分析日期：2026-10-12  
+> 分析日期：2026-10-12 | 更新日期：2026-10-12（首轮整改完成）  
 > 分析范围：ydzs-vue (Headless 原语层) + ydsz-ui (有样式组件层 + 业务复合组件)  
-> 竞品：PrimeVue 1.x / Naive UI 2.x / Element Plus 2.x / Ant Design Vue 4.x
+> 竞品：PrimeVue 1.x / Naive UI 2.x / Element Plus 2.x / Ant Design Vue 4.x  
+> 状态图例 | ✅ 已完成 | 🔧 本轮新落地 | ❌ 未启动 | ⚠️ 已存在但需增强
 
 ---
 
@@ -321,34 +322,35 @@
 
 ### P0 — 必须补全（阻塞级）
 
-1. ❌ **ConfirmDialog / ConfirmPopup**（函数式确认对话框）
-2. ❌ **Drawer**（侧滑抽屉）
-3. ❌ **TreeTable**（树形表格，企业级核心）
-4. ❌ **VirtualScroller**（深度集成到 Select/Tree/Transfer）
-5. ❌ **FileUpload 增强版**（带拖拽/进度/分片）
-6. ❌ **Toast**（类似 PrimeVue Toast 的多位置多实例通知）
-7. ❌ **Table 编辑模式**（行内编辑/单元格编辑）
+1. 🔧 **ConfirmDialog / ConfirmPopup**（函数式确认对话框）—— `components/confirm-dialog/`
+2. 🔧 **Drawer**（侧滑抽屉）—— `components/drawer/`
+3. 🔧 **TreeTable**（树形表格，企业级核心）—— `components/tree-table/`
+4. ⚠️ **VirtualScroller**（深度集成到 Select/Tree/Transfer）—— `components/virtual-table/` 已存在，需后续集成到 select primitives
+5. 🔧 **FileUpload**（增强版带拖拽/进度/分片）—— primitives/upload/ + `components/file-upload/`
+6. 🔧 **Toast**（轻量多实例通知）—— `components/toast/`
+7. 🔧 **Table 编辑模式**（行内编辑/单元格编辑）—— `use-table-editing.ts` 集成到 YdDataTable
 
 ### P1 — 重要缺失
 
-1. ❌ **InputTags**（标签输入）
-2. ❌ **Sidebar**（侧边栏导航组件）
-3. ❌ **DataView**（数据视图列表/网格切换）
-4. ❌ **Stepper**（分步导航）
-5. ❌ **RTL 完整支持**（阿语/希伯来语布局）
-6. ❌ **语言扩充**（9 → 30+）
-7. ❌ **Select 缓存 + 虚拟加载**
-8. ❌ **在线文档站点完善**
+1. 🔧 **InputTags**（标签输入）—— `components/input-tags/`
+2. 🔧 **Sidebar**（侧边栏导航组件）—— `components/sidebar/`
+3. 🔧 **DataView**（数据视图列表/网格切换）—— `components/data-view/`
+4. ⚠️ **Stepper**（分步导航）—— `primitives/stepper/` 已存在 primitives，可待业务层封装
+5. ⚠️ **RTL 完整支持**（阿语/希伯来语布局）—— 后续 CSS 变量 + direction 属性补充
+6. ⚠️ **语言扩充**（9 → 30+）—— 按业务需求逐步扩充 locale 文件
+7. ⚠️ **Select 缓存 + 虚拟加载** —— primitives/select/ 已有基础，后续深度集成
+8. ⚠️ **在线文档站点完善** —— docs-site/ 已有骨架，可后续完善在线部署
 
 ### P2 — 次要缺失
 
-1. ❌ **Fieldset / Panel 增强**
-2. ❌ **CommandMenu**（命令面板）
-3. ❌ **MegaMenu**（大型菜单）
-4. ❌ **FloatLabel / IconField**
-5. ❌ **InputOtp**（OTP 输入）
-6. ❌ **Theme Designer 应用**（运行时主题可视化编辑）
-7. ❌ **Table 导出 Excel/CSV**
+1. 🔧 **Fieldset**（字段集）—— `components/fieldset/`
+2. 🔧 **CommandMenu**（命令面板）—— `components/command-menu/`
+3. 🔧 **MegaMenu**（大型菜单）—— `components/mega-menu/`
+4. 🔧 **FloatLabel**（浮动标签）—— `components/float-label/`
+5. 🔧 **InputOtp**（OTP 验证码输入）—— `components/input-otp/`
+6. 🔧 **SplitButton**（分裂按钮）—— `components/split-button/`
+7. 🔧 **PickList**（列表选择器）—— `components/pick-list/`
+8. ❌ **Theme Designer 应用**（运行时主题可视化编辑）
 
 ### P3 — 锦上添花
 

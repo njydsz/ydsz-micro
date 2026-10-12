@@ -103,6 +103,8 @@ export interface YdTreeTableRef<T extends Record<string, unknown> = Record<strin
   getCheckedNodes: () => T[];
   /** 获取当前处于半选状态（子节点部分选中）的节点 */
   getHalfCheckedNodes: () => T[];
+  /** 切换指定 key 节点的展开/收起状态 */
+  toggleExpand: (key: string) => void;
 }
 
 /* ============================================================ */
