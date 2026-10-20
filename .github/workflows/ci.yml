@@ -60,9 +60,9 @@ jobs:
       - name: 编码规范合规扫描
         run: pnpm vsh:check-standard
 
-      # 云顶编码规范 §16.10 测试门禁：执行 Vitest 单元测试 + 覆盖率报告
+      # 云顶编码规范 §16.10 测试门禁：执行 Vitest 单元测试 + 覆盖率报告（阈值不达标则失败）
       - name: 单元测试 + 覆盖率（第一阶段：高复用组件 + 工具函数）
-        run: pnpm test:unit
+        run: pnpm test:coverage
 
       # 归档 Vitest 测试报告（JUnit XML + 覆盖率）
       - name: 归档前端测试与覆盖率报告

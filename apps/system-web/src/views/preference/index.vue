@@ -9,7 +9,13 @@
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdButton, YdCard, YdSeparator, YdForm } from '@ydsz-core/ydsz-ui';
+import { usePreferenceIo } from '@ydsz-core/composables';
+import {
+  YdButton,
+  YdCard,
+  YdForm,
+  YdSeparator,
+} from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 
 import { getUserPreferenceApi, saveUserPreferenceApi } from '#/api/core/preference';
@@ -18,10 +24,22 @@ defineOptions({ name: 'UserPreference' });
 
 const logger = createLogger('UserPreference');
 const { t, locale } = useI18n();
+const { exportPreferences, importPreferences } = usePreferenceIo();
 
 /** 保存加载状态 */
 const loading = ref(false);
 const saving = ref(false);
+
+/** 导入 / 导出加载状态 */
+const exporting = ref(false);
+const importing = ref(false);
+
+/** 隐藏的文件选择 input 引用 */
+const fileInputRef = ref<HTMLInputElement | null>(null);
+
+/** 自定义主题色预览（未确认时使用） */
+const customColor = ref('#3b82f6');
+const showCustomColor = ref(false);
 
 /** 轻量偏好（localStorage 即时生效） */
 const localPrefs = reactive({
@@ -64,6 +82,11 @@ const defaultIndexOptions = [
 const languageOptions = [
   { label: 'preferences.zhCN', value: 'zh-CN' },
   { label: 'preferences.enUS', value: 'en-US' },
+  { label: 'preferences.zhTW', value: 'zh-TW' },
+  { label: 'preferences.esES', value: 'es-ES' },
+  { label: 'preferences.frFR', value: 'fr-FR' },
+  { label: 'preferences.jaJP', value: 'ja-JP' },
+  { label: 'preferences.koKR', value: 'ko-KR' },
 ];
 
 /** 主题模式选项 */
@@ -377,8 +400,98 @@ function handleReset(): void {
   showToast.success(t('preferences.resetSuccess'));
 }
 
+/**
+ * 触发导出流程：调用 composable 导出 JSON 文件。
+ */
+async function handleExport(): Promise<void> {
+  exporting.value = true;
+  try {
+    await exportPreferences();
+    showToast.success(t('preferences.exportSuccess'));
+  } catch {
+    showToast.warning(t('preferences.exportFailed'));
+  } finally {
+    exporting.value = false;
+  }
+}
+
+/**
+ * 触发文件选择器。
+ */
+function triggerFileSelect(): void {
+  fileInputRef.value?.click();
+}
+
+/**
+ * 处理导入文件变更。
+ *
+ * @param event - input change 事件
+ */
+async function handleFileChange(event: Event): Promise<void> {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (!file) {
+    return;
+  }
+  if (!file.name.endsWith('.json')) {
+    showToast.warning(t('preferences.importInvalidFile'));
+    target.value = '';
+    return;
+  }
+  importing.value = true;
+  try {
+    await importPreferences(file);
+    showToast.success(t('preferences.importSuccess'));
+    // 重置 input 以便再次选择同一文件
+    target.value = '';
+    // 刷新页面使新配置生效
+    setTimeout(() => {
+      window.location.reload();
+    }, 800);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : '';
+    if ('INVALID_SCHEMA' === message) {
+      showToast.warning(t('preferences.importInvalidSchema'));
+    } else if ('INVALID_JSON' === message) {
+      showToast.warning(t('preferences.importInvalidFile'));
+    } else {
+      showToast.warning(t('preferences.importFailed'));
+    }
+  } finally {
+    importing.value = false;
+    target.value = '';
+  }
+}
+
+/**
+ * 应用自定义颜色（实时生效）。
+ */
+function applyCustomColor(): void {
+  localPrefs.themeColor = customColor.value;
+}
+
+/**
+ * 重置自定义颜色到默认值。
+ */
+function resetCustomColor(): void {
+  customColor.value = '#3b82f6';
+  localPrefs.themeColor = '#3b82f6';
+}
+
+/** 同步 customColor ref 到当前 themeColor（当 themeColor 不支持 color input 格式时） */
+watch(
+  () => localPrefs.themeColor,
+  (val) => {
+    if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+      customColor.value = val;
+    }
+  },
+);
+
 onMounted(() => {
   initFromLocalStorage();
+  // 自定义色预填当前值
+  customColor.value = localPrefs.themeColor;
   // 应用初始化时即时生效
   applyThemeColor(localPrefs.themeColor);
   applyThemeMode(localPrefs.theme);
@@ -426,13 +539,13 @@ onMounted(() => {
               v-for="color in themeColors"
               :key="color.value"
               class="color-swatch"
-              :class="{ 'is-active': localPrefs.themeColor === color.value }"
+              :class="{ 'is-active': localPrefs.themeColor === color.value && !showCustomColor }"
               :style="{ backgroundColor: color.value }"
               :title="t(`preferences.colorLabel.${color.label}`)"
-              @click="localPrefs.themeColor = color.value"
+              @click="showCustomColor = false; localPrefs.themeColor = color.value"
             >
               <el-icon
-                v-if="localPrefs.themeColor === color.value"
+                v-if="localPrefs.themeColor === color.value && !showCustomColor"
                 class="check-icon"
               >
                 <svg
@@ -450,6 +563,53 @@ onMounted(() => {
             </div>
           </div>
         </div>
+
+        <YdSeparator />
+
+        <!-- 自定义颜色选择器 -->
+        <div class="form-row">
+          <div class="form-row-label">{{ t('preferences.customColor') }}</div>
+          <div class="custom-color-picker">
+            <el-switch
+              v-model="showCustomColor"
+              :active-text="t('preferences.on')"
+              :inactive-text="t('preferences.off')"
+            />
+            <template v-if="showCustomColor">
+              <input
+                id="custom-color-input"
+                v-model="customColor"
+                type="color"
+                class="color-input-native"
+                @input="applyCustomColor"
+              />
+              <span
+                class="color-preview-dot"
+                :style="{ backgroundColor: customColor }"
+              />
+              <span class="color-hex-label">{{ customColor }}</span>
+              <YdButton
+                class="color-apply-btn"
+                size="small"
+                type="primary"
+                @click="applyCustomColor"
+              >
+                {{ t('preferences.colorApply') }}
+              </YdButton>
+              <YdButton
+                class="color-reset-btn"
+                size="small"
+                @click="resetCustomColor"
+              >
+                {{ t('preferences.colorReset') }}
+              </YdButton>
+            </template>
+          </div>
+        </div>
+        <span
+          v-if="showCustomColor"
+          class="form-row-desc"
+        >{{ t('preferences.customColorDesc') }}</span>
       </YdCard>
 
       <!-- 布局设置卡片 -->
@@ -575,6 +735,23 @@ onMounted(() => {
         </div>
       </YdCard>
 
+      <!-- 导入/导出按钮 -->
+      <div class="action-bar import-export-bar">
+        <input
+          ref="fileInputRef"
+          type="file"
+          accept=".json"
+          class="hidden-file-input"
+          @change="handleFileChange"
+        />
+        <YdButton :loading="importing" plain @click="triggerFileSelect">
+          {{ t('preferences.import') }}
+        </YdButton>
+        <YdButton :loading="exporting" plain @click="handleExport">
+          {{ t('preferences.export') }}
+        </YdButton>
+      </div>
+
       <!-- 底部操作栏 -->
       <div class="action-bar">
         <YdButton :loading="loading" plain @click="handleLoadFromBackend">
@@ -673,8 +850,67 @@ onMounted(() => {
   padding: 24px 0;
 }
 
+.import-export-bar {
+  justify-content: flex-start;
+  padding: 8px 0;
+}
+
+.hidden-file-input {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.custom-color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.color-input-native {
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid hsl(var(--border-light));
+  border-radius: 6px;
+}
+
+.color-preview-dot {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid hsl(var(--border-light));
+}
+
+.color-hex-label {
+  font-size: 13px;
+  font-family: monospace;
+  color: hsl(var(--txt-tertiary));
+}
+
+.form-row-desc {
+  display: block;
+  margin-top: -8px;
+  margin-bottom: 8px;
+  margin-left: 116px;
+  font-size: 12px;
+  color: hsl(var(--txt-disabled));
+}
+
 @media (width <= 768px) {
   .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row-desc {
+    margin-left: 0;
+  }
+
+  .custom-color-picker {
     flex-direction: column;
     align-items: flex-start;
   }

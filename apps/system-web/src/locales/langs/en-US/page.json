@@ -6,6 +6,7 @@
   "variable": "Variable",
   "lockAdmin": "Distributed Lock Management",
   "appInfo": "App Info",
+  "tenantQuota": "Tenant Quota",
   "common": {
     "seq": "#",
     "deleteConfirm": "Confirm Delete"

@@ -88,6 +88,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/tenant/index.vue'),
         meta: { icon: 'lucide:building', title: '租户列表' },
       },
+      {
+        name: 'TenantQuotaManagement',
+        path: 'quota',
+        component: () => import('#/views/tenant-quota/tenant-quota.vue'),
+        meta: { icon: 'lucide:gauge', title: '租户配额' },
+      },
     ],
   },
   {

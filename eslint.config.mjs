@@ -374,6 +374,23 @@ config.push({
   },
 });
 
+// =====================================================================
+// 测试伴生文件检查（P1-13）
+// --------------------------------------------------------------------
+// 要求 apps/*/src/views 和 apps/*/src/components 下的 .vue 文件
+// 拥有同名 .test.ts 伴生文件；缺失时发 warning（不阻断开发）。
+// =====================================================================
+
+import testCompanionPlugin from './conf/lint-configs/eslint-plugin-test-companion/index.mjs';
+
+config.push({
+  plugins: { 'test-companion': testCompanionPlugin },
+  files: ['apps/**/*.{vue,ts,tsx}'],
+  rules: {
+    'test-companion/require-test-companion': 'warn',
+  },
+});
+
 /**
  * 仓库根 ESLint 扁平配置（默认导出）。
  *

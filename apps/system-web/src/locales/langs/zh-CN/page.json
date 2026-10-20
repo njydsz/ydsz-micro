@@ -7,6 +7,7 @@
   "featureFlag": "特性开关",
   "lockAdmin": "分布式锁管理",
   "appInfo": "应用注册",
+  "tenantQuota": "租户配额",
   "common": {
     "seq": "序号",
     "deleteConfirm": "删除确认"

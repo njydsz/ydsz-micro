@@ -17,8 +17,10 @@ export * from './use-namespace';
 export * from './use-optimistic-update';
 export * from './use-priority-value';
 export * from './use-scroll-lock';
+export * from './use-preference-io';
 export * from './use-simple-locale';
 export * from './use-sortable';
+export * from './use-table-column-preference';
 export {
   useEmitAsProps,
   useForwardExpose,

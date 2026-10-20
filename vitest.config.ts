@@ -47,13 +47,13 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
-      include: ['apps/**/src/**/*.ts', 'comm/**/src/**/*.ts', 'main/src/**/*.ts'],
+      include: ['apps/**/src/**/*.{ts,vue}', 'comm/**/src/**/*.{ts,vue}', 'main/src/**/*.{ts,vue}'],
       exclude: ['**/*.d.ts', '**/*.test.{ts,tsx}', '**/index.ts'],
       thresholds: {
-        lines: 5,
-        branches: 5,
-        functions: 5,
-        statements: 5,
+        lines: 25,
+        branches: 15,
+        functions: 20,
+        statements: 25,
       },
     },
   },

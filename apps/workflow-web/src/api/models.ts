@@ -983,19 +983,19 @@ export interface FlowNodeVO {
   /** ext JSON 懒解析缓存（不参与序列化）。 */
   parsedExt?: Record<string, unknown>;
   /** SLA 配置懒解析缓存（不参与序列化）。 */
-  parsedSlaConfig?: volatile SlaConfigVO;
+  parsedSlaConfig?: Record<string, unknown>;
   /** 服务节点配置懒解析缓存（不参与序列化）。 */
-  parsedServiceNodeConfig?: volatile ServiceNodeConfigVO;
+  parsedServiceNodeConfig?: Record<string, unknown>;
   /** 会签配置懒解析缓存（不参与序列化）。 */
-  parsedCountersignConfig?: volatile CountersignConfigVO;
+  parsedCountersignConfig?: Record<string, unknown>;
   /** 办理人配置懒解析缓存（不参与序列化）。 */
-  parsedAssigneeConfig?: volatile AssigneeConfigVO;
+  parsedAssigneeConfig?: Record<string, unknown>;
   /** AI 审批节点配置懒解析缓存（不参与序列化）。 */
-  parsedAiAgentNodeConfig?: volatile AiAgentNodeConfigVO;
+  parsedAiAgentNodeConfig?: Record<string, unknown>;
   /** 驳回策略配置懒解析缓存（不参与序列化）。 */
-  parsedRejectStrategyConfig?: volatile RejectStrategyConfigVO;
+  parsedRejectStrategyConfig?: Record<string, unknown>;
   /** 催办通道配置懒解析缓存（不参与序列化）。 */
-  parsedUrgeChannelConfig?: volatile UrgeChannelConfigVO;
+  parsedUrgeChannelConfig?: Record<string, unknown>;
   /** 实例级可重入锁，用于懒解析 double-check（不参与序列化）。 */
   parseLock?: Record<string, unknown>;
   extMap?: string;
@@ -1013,76 +1013,6 @@ export interface FlowNodeVO {
   eventType?: string;
   attachedToRef?: string;
   errorRef?: string;
-}
-
-/**
- * volatile SlaConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile SlaConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
- * volatile ServiceNodeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile ServiceNodeConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
- * volatile CountersignConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile CountersignConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
- * volatile AssigneeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile AssigneeConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
- * volatile AiAgentNodeConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile AiAgentNodeConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
- * volatile RejectStrategyConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile RejectStrategyConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
- * volatile UrgeChannelConfigVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface volatile UrgeChannelConfigVO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
 }
 
 /**

@@ -77,27 +77,27 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
           h('div', { class: 'flex gap-1' }, [
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-destructive', onClick: () => handleTerminate(row) },
+              { size: 'sm', variant: 'link' as const, class: 'text-destructive', 'aria-label': `${$t('wf.terminate')} - ${row.flowName ?? ''}`, onClick: () => handleTerminate(row) },
               () => $t('wf.terminate'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleSuspend(row) },
+              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', 'aria-label': `${$t('wf.suspend')} - ${row.flowName ?? ''}`, onClick: () => handleSuspend(row) },
               () => $t('wf.suspend'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-green-600', onClick: () => handleActivate(row) },
+              { size: 'sm', variant: 'link' as const, class: 'text-green-600', 'aria-label': `${$t('wf.activate')} - ${row.flowName ?? ''}`, onClick: () => handleActivate(row) },
               () => $t('wf.activate'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleRecall(row) },
+              { size: 'sm', variant: 'link', 'aria-label': `${$t('wf.recall')} - ${row.flowName ?? ''}`, onClick: () => handleRecall(row) },
               () => $t('wf.recall'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => openTimeline(row) },
+              { size: 'sm', variant: 'link', 'aria-label': `${$t('wf.timeline')} - ${row.flowName ?? ''}`, onClick: () => openTimeline(row) },
               () => $t('wf.timeline'),
             ),
           ]),
@@ -334,16 +334,16 @@ async function openTimeline(row: FlowInstanceVO) {
 </script>
 <template>
   <Page auto-content-height>
-    <Grid :table-title="$t('wf.flowInstances')">
+    <Grid :table-title="$t('wf.flowInstances')" role="grid" :aria-rowcount="gridApi.grid?.getTableData()?.tableData?.length ?? 0" aria-label="$t('wf.flowInstances')">
       <template #toolbar-tools>
-        <YdButton @click="handleAdd">{{ $t('wf.startFlow') }}</YdButton>
-        <YdButton variant="secondary" @click="handleBatchUrge">{{
+        <YdButton aria-label="$t('wf.startFlow')" @click="handleAdd">{{ $t('wf.startFlow') }}</YdButton>
+        <YdButton aria-label="$t('wf.batchUrge')" variant="secondary" @click="handleBatchUrge">{{
           $t('wf.batchUrge')
         }}</YdButton>
       </template>
     </Grid>
     <InstanceFormModal @success="gridApi.query()" />
-    <YdSheet :open="timelineVisible" @update:open="timelineVisible = $event">
+    <YdSheet :open="timelineVisible" @update:open="timelineVisible = $event" aria-live="polite">
       <YdSheetContent class="!max-w-[900px]">
       <div class="drawer-content">
         <!-- 流程图高亮 -->

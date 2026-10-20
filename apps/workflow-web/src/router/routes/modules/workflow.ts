@@ -64,6 +64,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('#/views/form-designer/index.vue'),
         meta: { icon: 'lucide:list-form', title: '表单设计器' },
       },
+      {
+        name: 'BpmnDesigner',
+        path: 'bpmn/:id?',
+        component: () => import('#/views/designer/bpmn-designer.vue'),
+        meta: { icon: 'lucide:workflow', title: 'BPMN 2.0 设计器', hideInMenu: true },
+      },
     ],
   },
   {

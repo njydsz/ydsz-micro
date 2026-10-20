@@ -79,15 +79,15 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
         default: ({ row }) => {
           // 已办列表不提供处理操作
           if (activeTab.value !== 'todo') return h('span', { class: 'text-gray-400 text-xs' }, '-');
-          return h('div', { class: 'flex gap-1' }, [
+          return h('div', { class: 'flex gap-1', role: 'group', 'aria-label': $t('wf.taskActions') }, [
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleProcess(row) },
+              { size: 'sm', variant: 'link', 'aria-label': `${$t('wf.process')} - ${row.title ?? row.flowName ?? ''}`, onClick: () => handleProcess(row) },
               () => $t('wf.process'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', onClick: () => handleOperation(row) },
+              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', 'aria-label': `${$t('wf.moreActions')} - ${row.title ?? row.flowName ?? ''}`, onClick: () => handleOperation(row) },
               () => '更多',
             ),
           ]);
@@ -348,22 +348,22 @@ async function handlePassAll() {
       <YdTabsContent :label="$t('wf.myTodo')" name="todo" />
       <YdTabsContent :label="$t('wf.myDone')" name="done" />
     </YdTabs>
-    <Grid :table-title="$t('wf.todoTasks')">
+    <Grid :table-title="$t('wf.todoTasks')" role="grid" :aria-rowcount="gridApi.grid?.getTableData()?.tableData?.length ?? 0" :aria-label="activeTab === 'todo' ? $t('wf.todoTasks') : $t('wf.doneTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
-          <YdButton variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
+          <YdButton aria-label="$t('wf.batchPass')" variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
             $t('wf.batchPass')
           }}</YdButton>
-          <YdButton variant="destructive" @click="handleBatchReject">{{
+          <YdButton aria-label="$t('wf.batchReject')" variant="destructive" @click="handleBatchReject">{{
             $t('wf.batchReject')
           }}</YdButton>
-          <YdButton variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
+          <YdButton aria-label="$t('wf.batchTransfer')" variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
             $t('wf.batchTransfer')
           }}</YdButton>
-          <YdButton variant="secondary" @click="handleBatchUrge">{{
+          <YdButton aria-label="$t('wf.batchUrge')" variant="secondary" @click="handleBatchUrge">{{
             $t('wf.batchUrge')
           }}</YdButton>
-          <YdButton variant="default" class="bg-orange-500 text-white hover:bg-orange-600" @click="handlePassAll">{{
+          <YdButton aria-label="$t('wf.passAll')" variant="default" class="bg-orange-500 text-white hover:bg-orange-600" @click="handlePassAll">{{
             $t('wf.passAll')
           }}</YdButton>
         </template>
