@@ -13,7 +13,7 @@ import type { DefaultProps, Props } from 'tippy.js';
 import type { App, SetupContext } from 'vue';
 
 import { h, watchEffect } from 'vue';
-import { setDefaultProps, YdTippy as TippyComponent } from 'vue-tippy';
+import { setDefaultProps, Tippy as TippyComponent } from 'vue-tippy';
 
 import { usePreferences } from '@ydsz-core/preferences';
 

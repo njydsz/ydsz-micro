@@ -12,6 +12,7 @@
 -->
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from "vue";
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 import { useNetworkStatus } from "#/hooks/use-network-status";
 
 const { networkStatus } = useNetworkStatus();
@@ -90,7 +91,7 @@ onUnmounted(() => {
       aria-live="assertive"
       :aria-label="text"
     >
-      <LucideIcon :name="iconName" :size="16" class="icon" />
+      <YdIcon :icon="iconName" width="16" height="16" class="icon" />
       <span class="text">{{ text }}</span>
       <button v-if="severity === 'error'" class="retry" @click="handleRetry">
         重试

@@ -15,7 +15,7 @@ import type { SegmentedItem } from './types';
 
 import { computed } from 'vue';
 
-import { YdTabsTrigger } from '@ydsz-core/ydsz-vue';
+import { TabsTrigger } from '@ydsz-core/ydsz-vue';
 
 import { YdTabs, YdTabsContent, YdTabsList } from '.././tabs';
 import TabsIndicator from './tabs-indicator.vue';

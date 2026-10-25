@@ -18,7 +18,7 @@ import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@ydsz/constants';
 import { preferences } from '@ydsz/preferences';
-import { useAccessStore } from '@ydsz/stores';
+import { useAccessStore, useTokenStore } from '@ydsz/stores';
 import { startProgress, stopProgress } from '@ydsz/utils';
 
 /**
@@ -84,13 +84,13 @@ export function setupAuthGuard(
   whiteList: readonly string[] = DEFAULT_WHITE_LIST,
 ): void {
   router.beforeEach((to) => {
-    const accessStore = useAccessStore();
+    const tokenStore = useTokenStore();
 
     if (whiteList.includes(to.path)) {
       return true;
     }
 
-    if (!accessStore.accessToken) {
+    if (!tokenStore.accessToken) {
       return {
         path: LOGIN_PATH,
         query:
@@ -122,8 +122,9 @@ export function setupPermissionGuard(
 
   router.beforeEach(async (to) => {
     const accessStore = useAccessStore();
+    const tokenStore = useTokenStore();
 
-    if (!accessStore.accessToken) {
+    if (!tokenStore.accessToken) {
       return true;
     }
 

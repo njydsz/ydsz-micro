@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { DescriptionsEmits, DescriptionsProps } from './descriptions-types.ts';
+import type { DescriptionsEmits, DescriptionsProps } from './descriptions-types';
 
 defineOptions({ name: 'YdDescriptions' });
 

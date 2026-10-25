@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuSeparator } from '@ydsz-core/ydsz-vue';
+import { ContextMenuSeparator } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuSeparatorProps & { class?: any }>();
 
@@ -27,7 +27,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdContextMenuSeparator
+  <ContextMenuSeparator
     v-bind="delegatedProps"
     :class="cn('bg-border -mx-1 my-1 h-px', props.class)"
   />

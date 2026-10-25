@@ -14,6 +14,7 @@
 -->
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -112,7 +113,7 @@ onUnmounted(() => {
 <template>
   <div class="gs-widget" @click="handleClick">
     <!-- 搜索图标 -->
-    <LucideIcon name="lucide:search" :size="16" class="gs-widget-icon" />
+    <YdIcon icon="lucide:search" width="16" height="16" class="gs-widget-icon" />
 
     <!-- 展示区 -->
     <div class="gs-widget-body">

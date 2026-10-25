@@ -21,7 +21,9 @@ import type { ClassType } from '@ydsz-core/typings';
 
 import { computed } from 'vue';
 
-import { YdAvatar, YdAvatarFallback, YdAvatarImage } from './avatar.vue';
+import YdAvatar from './YdAvatar.vue';
+import YdAvatarFallback from './YdAvatarFallback.vue';
+import YdAvatarImage from './YdAvatarImage.vue';
 
 interface Props extends AvatarFallbackProps, AvatarImageProps, AvatarRootProps {
   alt?: string;

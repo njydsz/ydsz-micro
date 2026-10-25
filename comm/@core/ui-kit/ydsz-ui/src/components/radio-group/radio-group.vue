@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { RadioGroupEmits, RadioGroupProps } from './radio-group-types.ts';
+import type { RadioGroupEmits, RadioGroupProps } from './radio-group-types';
 
 defineOptions({ name: 'YdRadioGroup' });
 

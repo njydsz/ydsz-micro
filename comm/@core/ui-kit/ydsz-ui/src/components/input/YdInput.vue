@@ -20,7 +20,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { useVModel } from '@vueuse/core';
 
-import { useDensity } from '../../composables/use-density.ts';
+import { useDensity } from '../../composables/use-density';
 
 /** 输入框尺寸档位 */
 export type InputSize = 'xs' | 'sm' | 'default' | 'lg';

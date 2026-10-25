@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
-import { YdDropdownMenuSubTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuSubTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuSubTriggerProps & { class?: any }>();
 
@@ -30,7 +30,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDropdownMenuSubTrigger
+  <DropdownMenuSubTrigger
     v-bind="forwardedProps"
     :class="
       cn(
@@ -41,5 +41,5 @@ const forwardedProps = useForwardProps(delegatedProps);
   >
     <slot></slot>
     <ChevronRight class="ml-auto h-4 w-4" />
-  </YdDropdownMenuSubTrigger>
+  </DropdownMenuSubTrigger>
 </template>

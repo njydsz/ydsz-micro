@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { DividerEmits, DividerProps } from './divider-types.ts';
+import type { DividerEmits, DividerProps } from './divider-types';
 
 defineOptions({ name: 'YdDivider' });
 

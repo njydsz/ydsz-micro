@@ -10,3 +10,6 @@
  */
 export { default as YdBackTop } from './YdBackTop.vue';
 
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydBackTop } from './back-top.vue';
+export type { BackTopProps } from './back-top-types';

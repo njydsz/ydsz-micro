@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 /** 进度阶段映射：事件 → 百分比 */
 const STAGE_MAP: Record<string, number> = {
@@ -135,7 +136,7 @@ onUnmounted(() => {
     >
       <div class="bar" :style="{ width: `${progress}%` }" />
       <span v-if="showLabel" class="label">
-        <LucideIcon :name="hasError ? 'lucide:alert-circle' : 'lucide:loader-2'" :size="12" class="icon" :class="{ spinning: !hasError }" />
+        <YdIcon :icon="hasError ? 'lucide:alert-circle' : 'lucide:loader-2'" width="12" height="12" class="icon" :class="{ spinning: !hasError }" />
         {{ labelText }}
       </span>
     </div>

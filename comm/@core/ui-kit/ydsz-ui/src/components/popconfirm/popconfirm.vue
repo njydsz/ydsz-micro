@@ -6,7 +6,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { PopconfirmEmits, PopconfirmProps } from './popconfirm-types.ts';
+import type { PopconfirmEmits, PopconfirmProps } from './popconfirm-types';
 
 import { ref, watch } from 'vue';
 

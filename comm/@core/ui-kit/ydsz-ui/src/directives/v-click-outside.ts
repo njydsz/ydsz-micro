@@ -14,7 +14,7 @@
 
 import type { Directive, DirectiveBinding } from 'vue'
 
-type ClickOutsideHandler = (event: PointerEvent) => void
+export type ClickOutsideHandler = (event: PointerEvent) => void
 
 interface ClickOutsideElement extends HTMLElement {
   __clickOutside__?: {

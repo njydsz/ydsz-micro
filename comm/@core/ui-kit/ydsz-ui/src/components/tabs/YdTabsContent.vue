@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdTabsContent } from '@ydsz-core/ydsz-vue';
+import { TabsContent } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -30,7 +30,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdTabsContent
+  <TabsContent
     :class="
       cn(
         'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
@@ -40,5 +40,5 @@ const delegatedProps = computed(() => {
     v-bind="delegatedProps"
   >
     <slot></slot>
-  </YdTabsContent>
+  </TabsContent>
 </template>

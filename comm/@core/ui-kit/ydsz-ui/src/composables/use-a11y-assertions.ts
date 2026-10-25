@@ -11,7 +11,13 @@
  * @since 1.0.0
  */
 
-import { axe, type AxeResults, type RunOptions } from 'vitest-axe';
+import { axe } from 'vitest-axe';
+
+/** axe-core 运行结果（从 vitest-axe 的返回值推导，避免直接依赖 axe-core 类型） */
+type AxeResults = Awaited<ReturnType<typeof axe>>;
+
+/** axe-core 运行配置 */
+type RunOptions = NonNullable<Parameters<typeof axe>[1]>;
 import { expect } from 'vitest';
 
 /**

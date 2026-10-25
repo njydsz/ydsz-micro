@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdAccordionItem, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { AccordionItem, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -31,7 +31,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdAccordionItem v-bind="forwardedProps" :class="cn('border-b', props.class)">
+  <AccordionItem v-bind="forwardedProps" :class="cn('border-b', props.class)">
     <slot></slot>
-  </YdAccordionItem>
+  </AccordionItem>
 </template>

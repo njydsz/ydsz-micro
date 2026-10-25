@@ -15,7 +15,7 @@
  * @author ydsz-team
  * @since 1.0.0
 */
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButton, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
+import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButton, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltip, YdTooltipContent, YdTooltipTrigger } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from 'lucide-vue-next';
 import { computed, nextTick, ref } from 'vue';
 
@@ -436,26 +436,26 @@ defineExpose({ open, close });
                   </div>
                   <!-- 节点操作按钮 -->
                   <div class="node-actions">
-                    <YdTooltipBase>
-                      <YdTooltipTriggerBase as-child>
+                    <YdTooltip>
+                      <YdTooltipTrigger as-child>
                         <YdButton size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
                           <span class="text-xs">→</span>
                         </YdButton>
-                      </YdTooltipTriggerBase>
-                      <YdTooltipContentBase>
+                      </YdTooltipTrigger>
+                      <YdTooltipContent>
                         <p>连线</p>
-                      </YdTooltipContentBase>
-                    </YdTooltipBase>
-                    <YdTooltipBase>
-                      <YdTooltipTriggerBase as-child>
+                      </YdTooltipContent>
+                    </YdTooltip>
+                    <YdTooltip>
+                      <YdTooltipTrigger as-child>
                         <YdButton size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
                           <span class="text-xs">×</span>
                         </YdButton>
-                      </YdTooltipTriggerBase>
-                      <YdTooltipContentBase>
+                      </YdTooltipTrigger>
+                      <YdTooltipContent>
                         <p>删除</p>
-                      </YdTooltipContentBase>
-                    </YdTooltipBase>
+                      </YdTooltipContent>
+                    </YdTooltip>
                   </div>
                 </div>
 

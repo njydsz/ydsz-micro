@@ -22,6 +22,7 @@ import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import { YdButton, YdCard, YdDialog, YdEmptyState, YdInput, YdSelectItem, YdSelect, YdCountToAnimator, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, h, onMounted, ref } from 'vue';
 
 import { getTrace, listTraces, replayTrace } from '#/api/debug';

@@ -19,7 +19,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltipSmart } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltipSmart } from '@ydsz-core/ydsz-ui';
 import { YdAlert } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 

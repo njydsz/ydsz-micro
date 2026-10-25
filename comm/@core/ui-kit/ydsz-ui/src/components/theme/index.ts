@@ -38,9 +38,13 @@ export type {
 } from './use-theme';
 
 export { useThemeContext } from './use-theme-context';
-export { ThemeProvider, THEME_INJECTION_KEY } from './ThemeProvider.vue';
+export { default as ThemeProvider, THEME_INJECTION_KEY } from './ThemeProvider.vue';
 export { default as YdThemeScope } from './YdThemeScope.vue';
 export type { ThemeMode } from './YdThemeScope.vue';
 
 export { baseTokens } from './tokens-base';
 export type { BaseTokenName } from './tokens-base';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTheme } from './theme.vue';
+export type { ThemeProps } from './theme-types';

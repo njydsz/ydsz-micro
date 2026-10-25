@@ -10,11 +10,11 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { BadgeVariants } from './badge.vue';
+import type { BadgeVariants } from './badge';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { badgeVariants } from './badge.vue';
+import { badgeVariants } from './badge';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

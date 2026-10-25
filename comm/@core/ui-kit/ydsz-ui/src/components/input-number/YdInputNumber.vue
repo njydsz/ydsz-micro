@@ -10,7 +10,7 @@ import {
   inputNumberInputVariants,
   inputNumberBtnVariants,
   type InputNumberSize,
-} from './input-number.vue';
+} from './input-number';
 
 interface Props {
   class?: any;

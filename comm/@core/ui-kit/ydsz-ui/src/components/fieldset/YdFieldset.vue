@@ -3,7 +3,7 @@
  *
  * 提供带 legend 标题的可折叠/可禁用字段集，语义化 fieldset 元素。
  *
- * WAI-ARIA: 使用原生 <fieldset> + <legend>，无障碍语义完整。
+ * WAI-ARIA: 使用原生 fieldset + legend 元素，无障碍语义完整。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\fieldset\YdFieldset.vue
  * @author ydsz-team

@@ -25,7 +25,7 @@ import { computed, onMounted, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdAlertDialogContent,
+  AlertDialogContent,
   AlertDialogPortal,
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
@@ -93,7 +93,7 @@ defineExpose({
         @click="() => emits('close')"
       />
     </Transition>
-    <YdAlertDialogContent
+    <AlertDialogContent
       ref="contentRef"
       :style="{ ...(zIndex ? { zIndex } : {}), position: 'fixed' }"
       @animationend="onAnimationEnd"
@@ -116,6 +116,6 @@ defineExpose({
       "
     >
       <slot></slot>
-    </YdAlertDialogContent>
+    </AlertDialogContent>
   </AlertDialogPortal>
 </template>

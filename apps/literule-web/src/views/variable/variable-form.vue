@@ -20,6 +20,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { save } from '#/api/ruleVariableAdmin';
+import { YdForm, YdFormItem, YdInput, YdSwitch } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('literule-variable');
 const { t } = useI18n();
 const emit = defineEmits<{ success: [] }>();

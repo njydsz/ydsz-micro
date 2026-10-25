@@ -21,7 +21,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Circle } from 'lucide-vue-next';
 import {
   ContextMenuItemIndicator,
-  YdContextMenuRadioItem,
+  ContextMenuRadioItem,
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
 
@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuRadioItem
+  <ContextMenuRadioItem
     v-bind="forwarded"
     :class="
       cn(
@@ -53,5 +53,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       </ContextMenuItemIndicator>
     </span>
     <slot></slot>
-  </YdContextMenuRadioItem>
+  </ContextMenuRadioItem>
 </template>

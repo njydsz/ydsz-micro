@@ -90,8 +90,8 @@ import {
   YdTableHead,
   YdTableHeader,
   YdTableRow,
-} from '.././table';
-import { useColumnResize } from '.././table';
+} from '../table';
+import { useColumnResize } from '../table/useColumnResize';
 import { useColumnDrag } from '../../composables/use-column-drag';
 import { fixedColumnStyle, useFixedColumns } from './use-table-fixed-columns';
 import { useTableGroupHeader, type HeaderRow } from './use-table-group-header';

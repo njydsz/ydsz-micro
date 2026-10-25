@@ -7,3 +7,7 @@
  */
 export { default as YdToggleGroup } from './YdToggleGroup.vue';
 export { default as YdToggleGroupItem } from './YdToggleGroupItem.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydToggleGroup } from './toggle-group.vue';
+export type { ToggleGroupProps } from './toggle-group-types';

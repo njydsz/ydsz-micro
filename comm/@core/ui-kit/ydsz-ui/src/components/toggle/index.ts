@@ -10,3 +10,8 @@
  */
 export * from './toggle.vue';
 export { default as YdToggle } from './YdToggle.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export * from './toggle';
+export { default as ydToggle } from './toggle.vue';
+export type { ToggleProps } from './toggle-types';

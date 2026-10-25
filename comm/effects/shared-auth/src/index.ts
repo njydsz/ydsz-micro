@@ -90,6 +90,7 @@ export {
 export {
   type SseEvent,
   type StreamRequestOptions,
+  checkSseFrameForError,
   parseSseChunk,
   streamRequest,
 } from './sse';

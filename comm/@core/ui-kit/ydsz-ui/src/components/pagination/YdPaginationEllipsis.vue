@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { MoreHorizontal } from 'lucide-vue-next';
-import { YdPaginationEllipsis } from '@ydsz-core/ydsz-vue';
+import { PaginationEllipsis } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PaginationEllipsisProps & { class?: any }>();
 
@@ -28,12 +28,12 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdPaginationEllipsis
+  <PaginationEllipsis
     v-bind="delegatedProps"
     :class="cn('flex size-8 items-center justify-center', props.class)"
   >
     <slot>
       <MoreHorizontal class="size-4" />
     </slot>
-  </YdPaginationEllipsis>
+  </PaginationEllipsis>
 </template>

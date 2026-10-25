@@ -19,7 +19,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Circle } from 'lucide-vue-next';
 import {
   RadioGroupIndicator,
-  YdRadioGroupItem,
+  RadioGroupItem,
   useForwardProps,
 } from '@ydsz-core/ydsz-vue';
 
@@ -37,7 +37,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdRadioGroupItem
+  <RadioGroupItem
     v-bind="forwardedProps"
     :class="
       cn(
@@ -49,5 +49,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     <RadioGroupIndicator class="flex items-center justify-center">
       <Circle class="h-2.5 w-2.5 fill-current text-current" />
     </RadioGroupIndicator>
-  </YdRadioGroupItem>
+  </RadioGroupItem>
 </template>

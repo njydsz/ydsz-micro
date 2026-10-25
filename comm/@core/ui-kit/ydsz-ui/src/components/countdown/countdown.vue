@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import type { CountdownEmits, CountdownProps, CountdownTime } from './countdown-types.ts';
+import type { CountdownEmits, CountdownProps, CountdownTime } from './countdown-types';
 
 defineOptions({ name: 'YdCountdown' });
 

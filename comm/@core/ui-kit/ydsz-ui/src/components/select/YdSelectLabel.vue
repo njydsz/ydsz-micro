@@ -13,13 +13,13 @@ import type { SelectLabelProps } from '@ydsz-core/ydsz-vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectLabel } from '@ydsz-core/ydsz-vue';
+import { SelectLabel } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectLabelProps & { class?: any }>();
 </script>
 
 <template>
-  <YdSelectLabel :class="cn('px-2 py-1.5 text-sm font-semibold', props.class)">
+  <SelectLabel :class="cn('px-2 py-1.5 text-sm font-semibold', props.class)">
     <slot></slot>
-  </YdSelectLabel>
+  </SelectLabel>
 </template>

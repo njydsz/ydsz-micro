@@ -18,9 +18,9 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {
-  YdSelectItem,
+  SelectItem,
   SelectItemIndicator,
-  YdSelectItemText,
+  SelectItemText,
   useForwardProps,
 } from '@ydsz-core/ydsz-vue';
 
@@ -36,7 +36,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdSelectItem
+  <SelectItem
     v-bind="forwardedProps"
     :class="
       cn(
@@ -54,5 +54,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     <YdSelectItemText>
       <slot></slot>
     </YdSelectItemText>
-  </YdSelectItem>
+  </SelectItem>
 </template>

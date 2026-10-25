@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdLabel } from '@ydsz-core/ydsz-vue';
+import { Label } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<LabelProps & { class?: any }>();
 
@@ -27,7 +27,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdLabel
+  <Label
     v-bind="delegatedProps"
     :class="
       cn(
@@ -37,5 +37,5 @@ const delegatedProps = computed(() => {
     "
   >
     <slot></slot>
-  </YdLabel>
+  </Label>
 </template>

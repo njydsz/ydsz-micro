@@ -14,7 +14,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { RequestClient, RequestClientOptions } from './request-client';
+import { RequestClient } from './request-client';
+import type { RequestClientOptions } from './types';
 
 /**
  * 创建请求客户端的配置选项

@@ -29,3 +29,7 @@ export type {
   MessageProviderContext,
   UseMessageHandler,
 } from './useMessage'
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydMessage } from './message.vue';
+export type { MessageProps } from './message-types';

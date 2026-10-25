@@ -33,7 +33,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
-import { h, onMounted, reactive, ref } from 'vue';
+import { computed, h, onMounted, reactive, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 

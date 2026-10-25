@@ -11,13 +11,13 @@
  */
 import type { PopoverTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdPopoverTrigger } from '@ydsz-core/ydsz-vue';
+import { PopoverTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PopoverTriggerProps>();
 </script>
 
 <template>
-  <YdPopoverTrigger v-bind="props">
+  <PopoverTrigger v-bind="props">
     <slot></slot>
-  </YdPopoverTrigger>
+  </PopoverTrigger>
 </template>

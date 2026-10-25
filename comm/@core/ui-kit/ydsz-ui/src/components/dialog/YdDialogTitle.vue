@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogTitle, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { DialogTitle, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -31,12 +31,12 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDialogTitle
+  <DialogTitle
     v-bind="forwardedProps"
     :class="
       cn('text-lg font-semibold leading-none tracking-tight', props.class)
     "
   >
     <slot></slot>
-  </YdDialogTitle>
+  </DialogTitle>
 </template>

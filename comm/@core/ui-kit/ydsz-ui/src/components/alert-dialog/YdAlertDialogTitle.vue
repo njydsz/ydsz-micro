@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdAlertDialogTitle, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { AlertDialogTitle, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -32,12 +32,12 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdAlertDialogTitle
+  <AlertDialogTitle
     v-bind="forwardedProps"
     :class="
       cn('text-lg font-semibold leading-none tracking-tight', props.class)
     "
   >
     <slot></slot>
-  </YdAlertDialogTitle>
+  </AlertDialogTitle>
 </template>

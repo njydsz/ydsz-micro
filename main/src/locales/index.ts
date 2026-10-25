@@ -50,20 +50,19 @@ async function loadMessages(lang: SupportedLanguagesType) {
  * @param lang - 当前激活语种
  */
 async function loadDayjsLocale(lang: SupportedLanguagesType) {
-  const dayjsLocaleMap: Partial<Record<SupportedLanguagesType, string>> = {
-    'en-US': 'en',
-    'zh-CN': 'zh-cn',
-  };
-
-  const dayjsCode = dayjsLocaleMap[lang] ?? 'en';
   try {
-    const locale = await import(/* @vite-ignore */ `dayjs/locale/${dayjsCode}`);
-    dayjs.locale(locale.default ?? locale);
+    // 静态 import 让 Vite 预先重写为可解析的模块 URL；
+    // 模板字符串 + @vite-ignore 会把裸模块名留给浏览器，导致解析失败。
+    const locale =
+      lang === 'zh-CN'
+        ? await import('dayjs/locale/zh-cn')
+        : await import('dayjs/locale/en');
+    dayjs.locale(locale.default);
   } catch (error) {
-    logger.warn(`Failed to load dayjs locale '${dayjsCode}' for ${lang}: ${error}`);
+    logger.warn(`Failed to load dayjs locale for ${lang}: ${error}`);
     // 回退到英文
     const fallback = await import('dayjs/locale/en');
-    dayjs.locale(fallback.default ?? fallback);
+    dayjs.locale(fallback.default);
   }
 }
 

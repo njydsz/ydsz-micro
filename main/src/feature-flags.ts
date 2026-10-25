@@ -58,7 +58,7 @@ async function remoteFeatureFlagsLoader(): Promise<
   Record<string, FeatureFlagValue>
 > {
   const resp = await requestClient.get<Record<string, FeatureFlagValue>>(
-    "/api/feature-flags/me",
+    "/feature-flags/me",
   );
   return resp ?? {};
 }

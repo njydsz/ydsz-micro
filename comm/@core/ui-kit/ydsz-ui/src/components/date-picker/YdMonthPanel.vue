@@ -15,7 +15,7 @@ import { useSimpleLocale } from '@ydsz-core/composables';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { formatMonth } from './date-utils.ts';
+import { formatMonth } from './date-utils';
 
 const props = defineProps<{
   /** 当前显示的年份 */

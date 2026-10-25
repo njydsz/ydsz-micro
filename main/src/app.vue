@@ -27,12 +27,14 @@ import ErrorBoundary from '#/components/error-boundary.vue';
 import GlobalSearch from '#/components/global-search.vue';
 import NetworkAlert from '#/components/network-alert.vue';
 import SubAppProgress from '#/components/subapp-progress.vue';
+import { useGlobalSearch } from '#/hooks/use-global-search';
 import { preferences } from '@ydsz/preferences';
 import { registerKeyboard } from '#/hooks/use-global-shortcut';
 
 defineOptions({ name: 'App' });
 
 const searchVisible = ref(false);
+const { items: searchItems, appNameLabels } = useGlobalSearch();
 
 // v4.0: 通过快捷键中枢注册 cmd+k（统一管理，自动冲突检测）
 let stopSearchShortcut: (() => void) | undefined;
@@ -57,6 +59,10 @@ onUnmounted(() => { stopSearchShortcut?.(); });
     <RouterView />
   </ErrorBoundary>
   <ErrorBoundary name="全局搜索">
-    <GlobalSearch v-model:visible="searchVisible" />
+    <GlobalSearch
+      v-model:visible="searchVisible"
+      :app-name-labels="appNameLabels"
+      :items="searchItems"
+    />
   </ErrorBoundary>
 </template>

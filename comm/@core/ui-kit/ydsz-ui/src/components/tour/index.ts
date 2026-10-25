@@ -20,3 +20,7 @@ export type {
   PopoverPlacement,
   TourPopoverStyle,
 } from './tour-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTour } from './tour.vue';
+export type { YdTourProps } from './tour-types';

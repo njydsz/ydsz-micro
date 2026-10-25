@@ -5,4 +5,9 @@
  * @since 1.0.0
  */
 export { default as ydDescriptions } from './descriptions.vue';
-export type { DescriptionsProps } from './descriptions-types.ts';
+export type { DescriptionsProps } from './descriptions-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdDescriptions } from './YdDescriptions.vue';
+export { default as YdDescriptionsItem } from './YdDescriptionsItem.vue';
+export { DESCRIPTIONS_BORDER, DESCRIPTIONS_COLUMN, DESCRIPTIONS_SIZE, type DescriptionsSize, } from './constants';

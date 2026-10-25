@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuLabel, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuLabel, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   DropdownMenuLabelProps & { class?: any; inset?: boolean }
@@ -30,12 +30,12 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDropdownMenuLabel
+  <DropdownMenuLabel
     v-bind="forwardedProps"
     :class="
       cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', props.class)
     "
   >
     <slot></slot>
-  </YdDropdownMenuLabel>
+  </DropdownMenuLabel>
 </template>

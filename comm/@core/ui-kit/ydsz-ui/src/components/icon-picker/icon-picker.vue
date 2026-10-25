@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { IconPickerEmits, IconPickerProps } from './icon-picker-types.ts';
+import type { IconPickerEmits, IconPickerProps } from './icon-picker-types';
 
 defineOptions({ name: 'YdIconPicker' });
 

@@ -6,7 +6,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { CascaderEmits, CascaderOption, CascaderProps } from './cascader-types.ts';
+import type { CascaderEmits, CascaderOption, CascaderProps } from './cascader-types';
 
 import { computed, ref } from 'vue';
 

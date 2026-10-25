@@ -14,3 +14,7 @@ export { default as YdTabsList } from './YdTabsList.vue';
 export { default as YdTabsTrigger } from './YdTabsTrigger.vue';
 export { default as YdTabPane } from './YdTabPane.vue';
 export { TabsIndicator } from '@ydsz-core/ydsz-vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTabs } from './tabs.vue';
+export type { TabsProps } from './tabs-types';

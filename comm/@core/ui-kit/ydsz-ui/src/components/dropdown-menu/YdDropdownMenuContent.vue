@@ -19,7 +19,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdDropdownMenuContent,
+  DropdownMenuContent,
   DropdownMenuPortal,
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
@@ -43,7 +43,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <DropdownMenuPortal>
-    <YdDropdownMenuContent
+    <DropdownMenuContent
       v-bind="forwarded"
       :class="
         cn(
@@ -53,6 +53,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdDropdownMenuContent>
+    </DropdownMenuContent>
   </DropdownMenuPortal>
 </template>

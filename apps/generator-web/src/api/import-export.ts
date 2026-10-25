@@ -17,7 +17,7 @@ import { requestClient } from '#/api/request';
  * @returns zip 二进制 Blob
  */
 export function exportTemplates(params: { groupId: number }): Promise<Blob> {
-  return requestClient.get<Blob>(`/api/generator/import-export/export`, {
+  return requestClient.get<Blob>(`/generator/import-export/export`, {
     params,
     responseType: 'blob',
   });
@@ -30,5 +30,5 @@ export function exportTemplates(params: { groupId: number }): Promise<Blob> {
  * @returns 导入数量
  */
 export function importTemplates(formData: FormData): Promise<number> {
-  return requestClient.post<number>(`/api/generator/import-export/import`, formData);
+  return requestClient.post<number>(`/generator/import-export/import`, formData);
 }

@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdPinInputInput, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { PinInputInput, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<PinInputInputProps & { class?: any }>();
 
@@ -28,7 +28,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdPinInputInput
+  <PinInputInput
     v-bind="forwardedProps"
     :class="
       cn(

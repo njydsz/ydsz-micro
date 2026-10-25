@@ -1,0 +1,19 @@
+{
+  "action": "操作",
+  "actions": "操作",
+  "add": "追加",
+  "confirmTitle": "操作の確認",
+  "delete.confirmTitle": "削除の確認",
+  "description.label": "説明",
+  "disable": "無効化",
+  "enable": "有効化",
+  "operationSuccess": "操作が完了しました",
+  "refresh": "更新",
+  "remark.label": "備考",
+  "remark.placeholder": "備考を入力してください",
+  "revoke": "取り消し",
+  "revokeTitle": "取り消しの確認",
+  "sort": "並び順",
+  "updateTime": "更新日時",
+  "use": "使用"
+}

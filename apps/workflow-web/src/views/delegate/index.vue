@@ -222,7 +222,7 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revoke.confirmTitle'), {
+    await YdConfirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revokeTitle'), {
       type: 'warning',
     });
   } catch (error) {

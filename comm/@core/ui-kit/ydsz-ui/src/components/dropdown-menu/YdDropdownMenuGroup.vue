@@ -10,13 +10,13 @@
  */
 import type { DropdownMenuGroupProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuGroup } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuGroup } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuGroupProps>();
 </script>
 
 <template>
-  <YdDropdownMenuGroup v-bind="props">
+  <DropdownMenuGroup v-bind="props">
     <slot></slot>
-  </YdDropdownMenuGroup>
+  </DropdownMenuGroup>
 </template>

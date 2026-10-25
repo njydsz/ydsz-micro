@@ -11,13 +11,13 @@
  */
 import type { AlertDialogCancelProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAlertDialogCancel } from '@ydsz-core/ydsz-vue';
+import { AlertDialogCancel } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AlertDialogCancelProps>();
 </script>
 
 <template>
-  <YdAlertDialogCancel v-bind="props">
+  <AlertDialogCancel v-bind="props">
     <slot></slot>
-  </YdAlertDialogCancel>
+  </AlertDialogCancel>
 </template>

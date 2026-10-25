@@ -11,11 +11,11 @@
 <script setup lang="ts">
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdNumberFieldInput } from '@ydsz-core/ydsz-vue';
+import { NumberFieldInput } from '@ydsz-core/ydsz-vue';
 </script>
 
 <template>
-  <YdNumberFieldInput
+  <NumberFieldInput
     :class="
       cn(
         'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent py-1 text-center text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50',

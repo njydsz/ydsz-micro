@@ -37,7 +37,8 @@ import {
   YdTag,
   YdStatistic,
 } from '@ydsz-core/ydsz-ui';
-import { Page, useI18n } from '@ydsz/common-ui';
+import { Page } from '@ydsz/common-ui';
+import { useI18n } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
 import { computed, ref } from 'vue';
 

@@ -20,7 +20,8 @@ import { YdForm, YdFormItem, YdButton, YdCard, YdCardContent, YdInput } from '@y
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { reactive, ref } from 'vue';
-import { publishMessageEvent } from '#/api/messageEvent';
+import { showToast } from '@ydsz/notification';
+import { publish } from '#/api/messageEvent';
 
 defineOptions({ name: 'MessageEventManagement' });
 
@@ -52,7 +53,7 @@ async function handlePublish() {
 
   loading.value = true;
   try {
-    const result = await publishMessageEvent({
+    const result = await publish({
       messageName: form.messageName.trim(),
       correlationKeys: Object.keys(correlationKeys).length > 0 ? correlationKeys : undefined,
     });

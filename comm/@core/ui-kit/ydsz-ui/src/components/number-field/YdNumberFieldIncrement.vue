@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Plus } from 'lucide-vue-next';
-import { YdNumberFieldIncrement, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { NumberFieldIncrement, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<NumberFieldIncrementProps & { class?: any }>();
 
@@ -30,7 +30,7 @@ const forwarded = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdNumberFieldIncrement
+  <NumberFieldIncrement
     data-slot="increment"
     v-bind="forwarded"
     :class="
@@ -43,5 +43,5 @@ const forwarded = useForwardProps(delegatedProps);
     <slot>
       <Plus class="h-4 w-4" />
     </slot>
-  </YdNumberFieldIncrement>
+  </NumberFieldIncrement>
 </template>

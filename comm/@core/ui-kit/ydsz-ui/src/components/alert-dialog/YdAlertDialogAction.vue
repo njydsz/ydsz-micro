@@ -11,13 +11,13 @@
  */
 import type { AlertDialogActionProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAlertDialogAction } from '@ydsz-core/ydsz-vue';
+import { AlertDialogAction } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AlertDialogActionProps>();
 </script>
 
 <template>
-  <YdAlertDialogAction v-bind="props">
+  <AlertDialogAction v-bind="props">
     <slot></slot>
-  </YdAlertDialogAction>
+  </AlertDialogAction>
 </template>

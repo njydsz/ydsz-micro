@@ -12,13 +12,13 @@
  */
 import type { SelectValueProps } from '@ydsz-core/ydsz-vue';
 
-import { YdSelectValue } from '@ydsz-core/ydsz-vue';
+import { SelectValue } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectValueProps>();
 </script>
 
 <template>
-  <YdSelectValue v-bind="props">
+  <SelectValue v-bind="props">
     <slot></slot>
-  </YdSelectValue>
+  </SelectValue>
 </template>

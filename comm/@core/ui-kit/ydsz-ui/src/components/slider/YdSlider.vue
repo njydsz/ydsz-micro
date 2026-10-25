@@ -9,7 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { SliderRootEmits, SliderRootProps } from '@ydsz-core/ydsz-vue';
+import type { SliderRootProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
@@ -17,32 +17,53 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '@ydsz-core/ydsz-vue';
 
-interface Props extends SliderRootProps {
+type SliderValue = number | number[];
+
+interface Props extends Omit<SliderRootProps, 'defaultValue' | 'modelValue'> {
   /** 自定义类名 */
   class?: any;
   /** 双值模式 */
   range?: boolean;
+  /** 支持单值 number 与区间 number[] 两种形态 */
+  modelValue?: SliderValue;
+  defaultValue?: SliderValue;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   range: false,
 });
 
-const emit = defineEmits<SliderRootEmits>();
+const emit = defineEmits<{
+  'update:modelValue': [value: SliderValue];
+  'valueCommit': [value: SliderValue];
+}>();
+
+/** Radix Slider 只接受数组，单值用法在此归一化 */
+const normalizedValue = computed<number[]>(() => {
+  const value = props.modelValue ?? props.defaultValue;
+  if (Array.isArray(value)) return value;
+  if (typeof value === 'number') return [value];
+  return [props.min ?? 0];
+});
+
+const isScalar = computed(() => typeof (props.modelValue ?? props.defaultValue) === 'number');
 
 const delegatedProps = computed(() => {
-  const { class: _, range: _range, ...delegated } = props;
+  const { class: _, defaultValue: _defaultValue, modelValue: _modelValue, range: _range, ...delegated } = props;
   return delegated;
 });
 
-const thumbs = computed(() => {
-  return (props.defaultValue ?? props.modelValue ?? [0]) as number[];
-});
+const thumbs = computed(() => normalizedValue.value);
+
+function toExternal(value: number[]): SliderValue {
+  return isScalar.value ? (value[0] ?? 0) : value;
+}
 </script>
 
 <template>
   <SliderRoot
     v-bind="delegatedProps"
+    :model-value="normalizedValue"
     :class="
       cn(
         'relative flex w-full touch-none select-none items-center',
@@ -50,8 +71,8 @@ const thumbs = computed(() => {
         props.class,
       )
     "
-    @update:model-value="(v) => emit('update:modelValue', v)"
-    @value-commit="(v) => emit('valueCommit', v)"
+    @update:model-value="(v) => emit('update:modelValue', toExternal(v as number[]))"
+    @value-commit="(v) => emit('valueCommit', toExternal(v as number[]))"
   >
     <SliderTrack
       class="bg-slider-track relative h-1.5 w-full grow overflow-hidden rounded-full dark:bg-neutral-700"

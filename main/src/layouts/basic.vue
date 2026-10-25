@@ -22,7 +22,7 @@ import {
   UserDropdown,
 } from "@ydsz/layouts";
 import { preferences } from "@ydsz/preferences";
-import { useAccessStore, useUserStore } from "@ydsz/stores";
+import { useTokenStore, useUserStore } from "@ydsz/stores";
 
 import { useTabbarMicroSync } from "#/hooks/use-tabbar-micro-sync";
 import TenantSwitcher from "#/components/tenant-switcher.vue";
@@ -33,7 +33,7 @@ import LoginForm from "#/views/_core/authentication/login.vue";
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
-const accessStore = useAccessStore();
+const tokenStore = useTokenStore();
 const notificationStore = useNotificationStore();
 const { destroyWatermark, updateWatermark } = useWatermark();
 
@@ -69,7 +69,7 @@ async function handleMakeAll() {
 
 // 登录后连接 WebSocket 并加载通知
 watch(
-  () => accessStore.accessToken,
+  () => tokenStore.accessToken,
   (token) => {
     if (token) {
       notificationStore.loadNotifications();
@@ -102,7 +102,7 @@ onMounted(() => {
   // 标签页-微前端联动：页签关闭时通知内核释放子应用资源
   useTabbarMicroSync();
 
-  if (accessStore.accessToken) {
+  if (tokenStore.accessToken) {
     notificationStore.loadNotifications();
     notificationStore.refreshUnreadCount();
     notificationStore.connectWebSocket();

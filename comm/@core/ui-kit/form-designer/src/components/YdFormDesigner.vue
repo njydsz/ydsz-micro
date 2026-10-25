@@ -22,10 +22,10 @@ export interface YdFormDesignerProps {
 import type { DesignerSchema } from '../types';
 
 import { useDesignerState } from '../composables/use-designer-state';
-import { YdDesignerCanvas } from './YdDesignerCanvas.vue';
-import { YdDesignerPalette } from './YdDesignerPalette.vue';
-import { YdDesignerPropertyPanel } from './YdDesignerPropertyPanel.vue';
-import { YdDesignerToolbar } from './YdDesignerToolbar.vue';
+import YdDesignerCanvas from './YdDesignerCanvas.vue';
+import YdDesignerPalette from './YdDesignerPalette.vue';
+import YdDesignerPropertyPanel from './YdDesignerPropertyPanel.vue';
+import YdDesignerToolbar from './YdDesignerToolbar.vue';
 
 const props = withDefaults(defineProps<YdFormDesignerProps>(), {
   showPreview: true,

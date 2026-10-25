@@ -8,7 +8,7 @@
  * 关闭方式仅限「取消按钮」，遮罩点击与 ESC 已被禁止（closeOnOverlayClick=false / closeOnEsc=false），
  * 防止用户绕过密码输入直接关闭导致 Promise 永不结算。
  *
- * 使用自研 YdDialog + InputPassword + YdAlertBanner + YdButton，零 element-plus 依赖。
+ * 使用自研 YdDialog + YdInputPassword + YdAlertBanner + YdButton，零 element-plus 依赖。
  *
  * @path comm\effects\shared-business\src\components\secondary-auth-modal\index.vue
  * @author ydsz-team
@@ -33,7 +33,7 @@ import {
   YdDialogFooter,
   YdDialogHeader,
   YdDialogTitle,
-  InputPassword,
+  YdInputPassword,
 } from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'YdSecondaryAuthModal' });
@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
           <span class="secondary-auth-modal__label-text">
             {{ t('secondaryAuth.password') }}
           </span>
-          <InputPassword
+          <YdInputPassword
             v-model="password"
             :placeholder="t('secondaryAuth.passwordPlaceholder')"
             class="secondary-auth-modal__input"

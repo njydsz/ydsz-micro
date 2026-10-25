@@ -16,13 +16,15 @@
  */
 import { inject } from 'vue';
 
+import { computed } from 'vue';
+
 import {
   FieldContextKey,
+  FormContextKey,
   useFieldError,
   useIsFieldDirty,
   useIsFieldTouched,
   useIsFieldValid,
-  useIsFieldValidating,
 } from 'vee-validate';
 
 import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
@@ -43,6 +45,7 @@ import { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 export function useFormField() {
   const fieldContext = inject(FieldContextKey);
   const fieldItemContext = inject(FORM_ITEM_INJECTION_KEY);
+  const formContext = inject(FormContextKey, undefined);
 
   if (!fieldContext)
     throw new Error('useFormField should be used within <FormField>');
@@ -53,7 +56,8 @@ export function useFormField() {
   const fieldState = {
     error: useFieldError(name),
     isDirty: useIsFieldDirty(name),
-    isValidating: useIsFieldValidating(name),
+    // vee-validate 4.15 未提供字段级校验中状态，回落到表单级 isValidating
+    isValidating: computed(() => formContext?.isValidating.value ?? false),
     isTouched: useIsFieldTouched(name),
     valid: useIsFieldValid(name),
   };

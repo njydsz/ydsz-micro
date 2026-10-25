@@ -6,3 +6,7 @@
  * @since 1.0.0
  */
 export { default as YdSeparator } from './YdSeparator.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydSeparator } from './separator.vue';
+export type { SeparatorProps } from './separator-types';

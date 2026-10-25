@@ -18,6 +18,7 @@ import type { SearchResultItem } from '#/api/search';
 import type { SearchItem } from '#/hooks/use-global-search';
 
 import { computed, nextTick, ref, watch } from 'vue';
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -356,9 +357,9 @@ watch(activeTab, () => {
 
         <!-- 输入框 -->
         <div class="gs-input-wrap">
-          <LucideIcon
-            :name="inSlashMode ? 'lucide:terminal' : 'lucide:search'"
-            :size="18"
+          <YdIcon
+            :icon="inSlashMode ? 'lucide:terminal' : 'lucide:search'"
+            width="18" height="18"
             class="gs-icon"
           />
           <input
@@ -388,7 +389,7 @@ watch(activeTab, () => {
 
         <!-- Loading -->
         <div v-if="searchStore.loading && activeTab === 'all'" class="gs-loading">
-          <LucideIcon name="lucide:loader-2" :size="16" class="gs-loading-icon" />
+          <YdIcon icon="lucide:loader-2" width="16" height="16" class="gs-loading-icon" />
           {{ $t('main.search.loading') }}
         </div>
 
@@ -398,7 +399,7 @@ watch(activeTab, () => {
           <template v-if="showSlashHint">
             <div class="gs-slash-hint">
               <div class="gs-slash-hint-bar">
-                <LucideIcon name="lucide:terminal" :size="14" class="gs-slash-cmd-icon" />
+                <YdIcon icon="lucide:terminal" width="14" height="14" class="gs-slash-cmd-icon" />
                 <span class="gs-slash-cmd-name">/{{ currentCommandName }}</span>
                 <span class="gs-slash-cmd-desc">
                   {{ slashResult?.description }}
@@ -427,9 +428,9 @@ watch(activeTab, () => {
               @click="goTo(item)"
               @mouseenter="activeIndex = idx"
             >
-              <LucideIcon
-                :name="item.icon || 'lucide:file'"
-                :size="14"
+              <YdIcon
+                :icon="item.icon || 'lucide:file'"
+                width="14" height="14"
                 class="gs-item-icon"
               />
               <div class="gs-item-body">
@@ -451,7 +452,7 @@ watch(activeTab, () => {
           <template v-else-if="showQuickCreate">
             <div class="gs-quick-create">
               <div class="gs-qc-header">
-                <LucideIcon name="lucide:zap" :size="14" class="gs-qc-icon" />
+                <YdIcon icon="lucide:zap" width="14" height="14" class="gs-qc-icon" />
                 <span class="gs-qc-title">{{ $t('main.quickCreate.title') }}</span>
               </div>
               <div class="gs-qc-grid">
@@ -462,7 +463,7 @@ watch(activeTab, () => {
                   @click="executeQuickAction(action)"
                 >
                   <span class="gs-qc-action-num">{{ action.numKey }}</span>
-                  <LucideIcon :name="action.icon" :size="16" class="gs-qc-action-icon" />
+                  <YdIcon :icon="action.icon" width="16" height="16" class="gs-qc-action-icon" />
                   <div class="gs-qc-action-body">
                     <span class="gs-qc-action-title">{{ $t(action.titleKey) }}</span>
                     <span class="gs-qc-action-desc">{{ $t(action.descKey) }}</span>

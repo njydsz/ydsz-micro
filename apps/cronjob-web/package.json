@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@vueuse/core": "catalog:",
+    "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/ydsz-ui": "workspace:*",
     "@ydsz/access": "workspace:*",

@@ -20,6 +20,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import {
   YdBadge,
   YdButton,

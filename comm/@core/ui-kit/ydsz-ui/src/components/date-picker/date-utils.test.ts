@@ -25,7 +25,7 @@ import {
   startOfQuarter,
   startOfWeek,
   startOfYear,
-} from './date-utils.ts';
+} from './date-utils';
 
 describe('date-utils', () => {
   it('isLeapYear 应正确判断闰年', () => {

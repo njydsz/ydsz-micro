@@ -52,7 +52,7 @@ interface Props {
   autofocus?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   modal: false,
   placeholder: '搜索用户、流程、消息、文件...',
   autofocus: false,
@@ -103,7 +103,7 @@ function close() {
 
 // 点击面板外部关闭（仅 modal 模式）
 onClickOutside(panelRef, () => {
-  if (modal) close();
+  if (props.modal) close();
 });
 
 // 键盘导航

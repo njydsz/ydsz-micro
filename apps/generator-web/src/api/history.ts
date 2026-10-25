@@ -18,7 +18,7 @@ import type { GenHistory, GenHistoryFile } from './models';
  * @returns 历史列表
  */
 export function listRecentHistory(params?: { limit?: number }): Promise<GenHistory[]> {
-  return requestClient.get<GenHistory[]>(`/api/generator/history`, { params });
+  return requestClient.get<GenHistory[]>(`/generator/history`, { params });
 }
 
 /**
@@ -28,7 +28,7 @@ export function listRecentHistory(params?: { limit?: number }): Promise<GenHisto
  * @returns 任务实体
  */
 export function getHistoryById({ id }: { id: number }): Promise<GenHistory> {
-  return requestClient.get<GenHistory>(`/api/generator/history/${id}`);
+  return requestClient.get<GenHistory>(`/generator/history/${id}`);
 }
 
 /**
@@ -38,7 +38,7 @@ export function getHistoryById({ id }: { id: number }): Promise<GenHistory> {
  * @returns 文件列表
  */
 export function listHistoryFiles({ id }: { id: number }): Promise<GenHistoryFile[]> {
-  return requestClient.get<GenHistoryFile[]>(`/api/generator/history/${id}/files`);
+  return requestClient.get<GenHistoryFile[]>(`/generator/history/${id}/files`);
 }
 
 /**
@@ -47,7 +47,7 @@ export function listHistoryFiles({ id }: { id: number }): Promise<GenHistoryFile
  * @param id 任务 ID
  */
 export function rollbackHistory({ id }: { id: number }): Promise<void> {
-  return requestClient.post<void>(`/api/generator/history/${id}/rollback`);
+  return requestClient.post<void>(`/generator/history/${id}/rollback`);
 }
 
 /**
@@ -56,5 +56,5 @@ export function rollbackHistory({ id }: { id: number }): Promise<void> {
  * @param id 任务 ID
  */
 export function deleteHistory({ id }: { id: number }): Promise<void> {
-  return requestClient.delete<void>(`/api/generator/history/${id}`);
+  return requestClient.delete<void>(`/generator/history/${id}`);
 }

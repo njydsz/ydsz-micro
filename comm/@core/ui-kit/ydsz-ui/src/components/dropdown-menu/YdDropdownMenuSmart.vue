@@ -15,14 +15,12 @@ import type {
   YdDropdownMenuItem as IDropdownMenuItem,
 } from './interface';
 
-import {
-  YdDropdownMenuSmart,
-  YdDropdownMenuContent,
-  YdDropdownMenuGroup,
-  YdDropdownMenuItem,
-  YdDropdownMenuSeparator,
-  YdDropdownMenuTrigger,
-} from './dropdown-menu.vue';
+import YdDropdownMenu from './YdDropdownMenu.vue';
+import YdDropdownMenuContent from './YdDropdownMenuContent.vue';
+import YdDropdownMenuGroup from './YdDropdownMenuGroup.vue';
+import YdDropdownMenuItem from './YdDropdownMenuItem.vue';
+import YdDropdownMenuSeparator from './YdDropdownMenuSeparator.vue';
+import YdDropdownMenuTrigger from './YdDropdownMenuTrigger.vue';
 
 type Props = DropdownMenuProps;
 

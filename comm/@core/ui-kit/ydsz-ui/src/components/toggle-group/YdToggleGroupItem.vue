@@ -17,7 +17,7 @@ import { computed, inject } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdToggleGroupItem, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { ToggleGroupItem, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 import { toggleVariants } from '../toggle';
 
@@ -44,7 +44,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdToggleGroupItem
+  <ToggleGroupItem
     v-bind="forwardedProps"
     :class="
       cn(
@@ -57,5 +57,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     "
   >
     <slot></slot>
-  </YdToggleGroupItem>
+  </ToggleGroupItem>
 </template>

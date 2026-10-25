@@ -21,13 +21,13 @@
  * @author ydsz-team
  * @since 5.3.0 (5.6.0 支持 week/month/quarter/year 全粒度)
  */
-import type { DatePickerShortcut, DatePickerType, DatePickerValue } from './date-picker.vue';
+import type { DatePickerShortcut, DatePickerType, DatePickerValue } from './types';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { onClickOutside, useElementBounding, useVModel } from '@vueuse/core';
 
-import { useLocale } from '../../locale/useLocale.ts';
+import { useLocale } from '../../locale/useLocale';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -45,7 +45,7 @@ import {
   resolveRangeBase,
   startOfByGrain,
   startOfYear,
-} from './date-utils.ts';
+} from './date-utils';
 
 const props = withDefaults(
   defineProps<{

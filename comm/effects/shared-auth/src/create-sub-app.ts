@@ -285,15 +285,22 @@ export function defineSubApp(config: SubAppConfig) {
 export function createSubApp(config: SubAppConfig) {
   const lifecycle = defineSubApp(config);
 
-  // 独立运行（非微前端环境）时自启动
-  if (!import.meta.env.VITE_APP_NAMESPACE) {
+  // 独立运行（非微前端环境）时自启动。
+  // 被 micro-kernel 动态 import() 加载时宿主窗口已存在 __MICRO_KERNEL__，
+  // 此时只能导出生命周期钩子 —— 否则子应用会把自身挂到主应用的 #app 上，
+  // 并用自己的 router 改写主应用 URL。
+  // 注意：不能以 VITE_APP_NAMESPACE 是否存在判断运行模式，它只用于隔离存储键。
+  const hostedByKernel = Boolean(
+    (window as unknown as { __MICRO_KERNEL__?: unknown }).__MICRO_KERNEL__,
+  );
+  if (!hostedByKernel) {
     (async () => {
       const router = await coreMount(config);
       await router.push(window.location.pathname.replace(config.basename, '') || '/');
 
       const { unmountGlobalLoading } = await import('@ydsz/utils');
       unmountGlobalLoading();
-    })();
+    })().catch((err) => logger.error(`[${config.appName}] Standalone boot failed:`, err));
   }
 
   return lifecycle;

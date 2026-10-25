@@ -28,3 +28,17 @@ export interface FormEmits {
   /** 取消回调 */
   (e: 'cancel'): void;
 }
+
+/**
+ * YdForm 通过 defineExpose 暴露的实例类型，供 `ref<FormInstance>()` 使用。
+ */
+export interface FormInstance {
+  /** 各字段校验错误信息 */
+  errors: Record<string, string | undefined>;
+  /** 当前表单值 */
+  values: Record<string, any>;
+  /** 触发整体校验 */
+  validate: () => Promise<{ errors: Record<string, string | undefined>; valid: boolean }>;
+  /** 提交并在失败时聚焦首个错误字段 */
+  submitWithErrorFocus: (event?: Event) => Promise<void>;
+}

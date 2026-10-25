@@ -6,7 +6,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { CalendarEmits, CalendarProps } from './calendar-types.ts';
+import type { CalendarEmits, CalendarProps } from './calendar-types';
 
 import { computed, ref } from 'vue';
 

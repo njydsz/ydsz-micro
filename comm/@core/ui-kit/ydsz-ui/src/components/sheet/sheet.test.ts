@@ -14,7 +14,7 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
-import { sheetVariants } from './sheet.ts';
+import { sheetVariants } from './sheet';
 import YdSheet from './YdSheet.vue';
 import YdSheetClose from './YdSheetClose.vue';
 import YdSheetContent from './YdSheetContent.vue';

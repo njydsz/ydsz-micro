@@ -70,8 +70,8 @@ import type { FieldSuggestion } from '../types';
 
 import { useAiBuilder } from '../composables/use-ai-builder';
 import { generateFormSchema } from '../form-schema-adapter';
-import { YdAiBuilderToolbar } from './YdAiBuilderToolbar.vue';
-import { YdAiFieldList } from './YdAiFieldList.vue';
+import YdAiBuilderToolbar from './YdAiBuilderToolbar.vue';
+import YdAiFieldList from './YdAiFieldList.vue';
 
 const props = withDefaults(defineProps<YdAiBuilderProps>(), {
   initialDescription: '',

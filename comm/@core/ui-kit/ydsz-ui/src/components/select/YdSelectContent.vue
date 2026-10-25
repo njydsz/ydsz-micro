@@ -17,7 +17,7 @@ import { computed, onMounted, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdSelectContent,
+  SelectContent,
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,
@@ -55,7 +55,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <SelectPortal v-if="isClient">
-    <YdSelectContent
+    <SelectContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -79,6 +79,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         <slot></slot>
       </SelectViewport>
       <YdSelectScrollDownButton />
-    </YdSelectContent>
+    </SelectContent>
   </SelectPortal>
 </template>

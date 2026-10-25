@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { BulkActionsEmits, BulkActionsProps } from './bulk-actions-types.ts';
+import type { BulkActionsEmits, BulkActionsProps } from './bulk-actions-types';
 
 defineOptions({ name: 'YdBulkActions' });
 

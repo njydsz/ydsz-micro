@@ -11,7 +11,7 @@
  */
 import { computed } from 'vue';
 
-import type { CardEmits, CardProps } from './card-types.ts';
+import type { CardEmits, CardProps } from './card-types';
 
 defineOptions({ name: 'YdCard' });
 

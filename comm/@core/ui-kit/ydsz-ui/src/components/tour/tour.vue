@@ -5,16 +5,16 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { TourEmits, TourProps } from './tour-types';
+import type { YdTourEmits, YdTourProps } from './tour-types';
 
 defineOptions({ name: 'YdTour' });
 
-const props = withDefaults(defineProps<TourProps>(), {
+const props = withDefaults(defineProps<YdTourProps>(), {
   disabled: false,
   open: false,
 });
 
-const emit = defineEmits<TourEmits>();
+const emit = defineEmits<YdTourEmits>();
 
 </script>
 

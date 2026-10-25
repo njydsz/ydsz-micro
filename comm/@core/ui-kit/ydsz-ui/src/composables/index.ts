@@ -5,7 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { getRenderPerfSnapshot, resetRenderPerformance, useRenderPerformance } from './use-render-performance';
+export { getRenderPerfSnapshot, resetRenderPerf, useRenderPerformance } from './use-render-performance';
 export type { UseRenderPerformanceOptions } from './use-render-performance';
 
 export { useIdleHydrate, useSimpleIdleHydrate } from './use-idle-hydrate';
@@ -126,14 +126,6 @@ export type {
   UseNotificationHubReturn,
 } from './use-notification-hub';
 
-export type {
-  GridBreakpoint,
-  GridBreakpoints,
-  GridColumnConfig,
-  GridItemConfig,
-  GridContext,
-  UseGridProviderOptions,
-} from './use-grid-layout';
 
 export { useOverlayStack } from './use-overlay-stack';
 export type { OverlayStackHandle } from './use-overlay-stack';

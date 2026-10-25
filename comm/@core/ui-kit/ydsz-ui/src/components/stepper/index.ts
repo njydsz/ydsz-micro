@@ -11,4 +11,4 @@
 
 export { default as YdStepper } from './YdStepper.vue';
 export { default as YdStepPanel } from './YdStepPanel.vue';
-export type { StepItem, YdStepperProps, YdStepPanelProps, StepperContext, StepperVariant, StepperOrientation, StepperSize } from './stepper-types.ts';
+export type { StepItem, YdStepperProps, YdStepPanelProps, StepperContext, StepperVariant, StepperOrientation, StepperSize } from './stepper-types';

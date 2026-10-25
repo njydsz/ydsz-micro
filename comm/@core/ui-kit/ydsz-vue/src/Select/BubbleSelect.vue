@@ -15,6 +15,9 @@ interface BubbleSelectProps {
 }
 
 const props = defineProps<BubbleSelectProps>()
+// 透传的 $attrs 可能包含表单适配器注入的 `options` 数组等组件级参数，
+// 落到原生 <select> 上会触发无效 DOM prop 警告，故禁止自动继承。
+defineOptions({ inheritAttrs: false })
 const { value } = toRefs(props)
 const selectElement = ref<HTMLElement>()
 

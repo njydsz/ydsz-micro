@@ -10,7 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { YdInputAddonProps } from './input-group-types.ts';
+import type { YdInputAddonProps } from './input-group-types';
 
 import { cn } from '@ydsz-core/shared/utils';
 

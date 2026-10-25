@@ -20,8 +20,8 @@ import { ChevronDown } from 'lucide-vue-next';
 
 import {
   SelectIcon,
-  YdSelectTrigger,
-  YdSelectValue,
+  SelectTrigger,
+  SelectValue,
 } from '@ydsz-core/ydsz-vue';
 
 import type { SelectTriggerProps } from '@ydsz-core/ydsz-vue';

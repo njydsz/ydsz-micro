@@ -14,3 +14,9 @@ export { default as YdButtonSmart } from './YdButtonSmart.vue';
 export { default as YdCheckButtonGroup } from './YdCheckButtonGroup.vue';
 export { default as YdIconButton } from './YdIconButton.vue';
 
+// merged from pre-refactor ui/ + primitives/ barrels
+export * from './button';
+export { default as YdButton } from './YdButton.vue';
+export type * from './types';
+export { default as ydButton } from './button.vue';
+export type { ButtonProps } from './button-types';

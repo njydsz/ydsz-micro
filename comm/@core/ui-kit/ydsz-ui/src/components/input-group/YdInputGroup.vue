@@ -10,7 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { YdInputGroupProps } from './input-group-types.ts';
+import type { YdInputGroupProps } from './input-group-types';
 
 import { computed } from 'vue';
 

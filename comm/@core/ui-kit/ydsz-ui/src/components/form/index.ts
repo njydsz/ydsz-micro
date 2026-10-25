@@ -31,3 +31,7 @@ export type {
   UseFormValidationOptions,
   ValidateOnMode,
 } from './useFormValidation';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydForm } from './form.vue';
+export type { FormInstance, FormProps } from './form-types';

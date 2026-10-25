@@ -6,3 +6,7 @@
  * @since 1.0.0
  */
 export { default as YdLabel } from './YdLabel.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydLabel } from './label.vue';
+export type { LabelProps } from './label-types';

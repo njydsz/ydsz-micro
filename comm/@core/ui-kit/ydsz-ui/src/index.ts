@@ -15,8 +15,6 @@ export * from './components';
 export * from './composables';
 export * from './headless';
 export * from './locale';
-export * from './primitives';
-export * from './ui';
 
 export { createContext, Slot, VisuallyHidden } from '@ydsz-core/ydsz-vue';
 

@@ -10,11 +10,11 @@
 import { defineOverridesPreferences } from '@ydsz/preferences';
 
 /**
- * 子应用默认首页 `defaultHomePath: '/ydsz-gen'`，固定侧边栏隐藏 + 固定浅蓝主题。
+ * 子应用默认首页 `defaultHomePath: '/table-meta/list'`，固定侧边栏隐藏 + 固定浅蓝主题。
  */
 export const overridesPreferences = defineOverridesPreferences({
   app: {
-    defaultHomePath: '/ydsz-gen',
+    defaultHomePath: '/table-meta/list',
     name: '代码生成器',
   },
   theme: {

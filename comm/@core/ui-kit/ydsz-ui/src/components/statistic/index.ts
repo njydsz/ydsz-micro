@@ -7,3 +7,7 @@
  */
 
 export { default as YdStatistic } from './YdStatistic.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydStatistic } from './statistic.vue';
+export type { StatisticProps } from './statistic-types';

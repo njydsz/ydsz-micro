@@ -19,6 +19,7 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

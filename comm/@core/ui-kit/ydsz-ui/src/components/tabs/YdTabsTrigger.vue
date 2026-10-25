@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdTabsTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { TabsTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -32,7 +32,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdTabsTrigger
+  <TabsTrigger
     v-bind="forwardedProps"
     :class="
       cn(
@@ -42,5 +42,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     "
   >
     <slot></slot>
-  </YdTabsTrigger>
+  </TabsTrigger>
 </template>

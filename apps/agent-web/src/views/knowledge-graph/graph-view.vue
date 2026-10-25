@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { YdAlert, YdButton, YdTag } from '@ydsz-core/ydsz-ui';
-import { useI18n } from '@ydsz/common-ui';
+import { useI18n } from '@ydsz/locales';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 
 import { RefreshCw, ZoomIn, ZoomOut } from 'lucide-vue-next';

@@ -11,7 +11,7 @@
  */
 import type { DropdownMenuSubEmits, DropdownMenuSubProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuSub, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuSub, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuSubProps>();
 const emits = defineEmits<DropdownMenuSubEmits>();
@@ -20,7 +20,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <YdDropdownMenuSub v-bind="forwarded">
+  <DropdownMenuSub v-bind="forwarded">
     <slot></slot>
-  </YdDropdownMenuSub>
+  </DropdownMenuSub>
 </template>

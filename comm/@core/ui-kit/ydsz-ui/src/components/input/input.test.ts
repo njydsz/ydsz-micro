@@ -17,7 +17,7 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 
 import Input from './input.vue';
-import type { InputProps } from './input-types.ts';
+import type { InputProps } from './input-types';
 
 /**
  * 创建 Input 包裹器。

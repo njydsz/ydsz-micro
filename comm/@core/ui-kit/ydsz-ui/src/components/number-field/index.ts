@@ -13,3 +13,7 @@ export { default as YdNumberFieldContent } from './YdNumberFieldContent.vue';
 export { default as YdNumberFieldDecrement } from './YdNumberFieldDecrement.vue';
 export { default as YdNumberFieldIncrement } from './YdNumberFieldIncrement.vue';
 export { default as YdNumberFieldInput } from './YdNumberFieldInput.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydNumberField } from './number-field.vue';
+export type { NumberFieldProps } from './number-field-types';

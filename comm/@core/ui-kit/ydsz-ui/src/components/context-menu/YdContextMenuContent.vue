@@ -18,8 +18,8 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdContextMenuContent,
-  YdContextMenuPortal,
+  ContextMenuContent,
+  ContextMenuPortal,
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
 
@@ -37,7 +37,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <YdContextMenuPortal>
-    <YdContextMenuContent
+    <ContextMenuContent
       v-bind="forwarded"
       :class="
         cn(
@@ -47,6 +47,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdContextMenuContent>
+    </ContextMenuContent>
   </YdContextMenuPortal>
 </template>

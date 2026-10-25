@@ -1,0 +1,19 @@
+{
+  "action": "操作",
+  "actions": "操作",
+  "add": "新增",
+  "confirmTitle": "操作确认",
+  "delete.confirmTitle": "删除确认",
+  "description.label": "描述",
+  "disable": "禁用",
+  "enable": "启用",
+  "operationSuccess": "操作成功",
+  "refresh": "刷新",
+  "remark.label": "备注",
+  "remark.placeholder": "请输入备注",
+  "revoke": "撤回",
+  "revokeTitle": "撤回确认",
+  "sort": "排序",
+  "updateTime": "更新时间",
+  "use": "使用"
+}

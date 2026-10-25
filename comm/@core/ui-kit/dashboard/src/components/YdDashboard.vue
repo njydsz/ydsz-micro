@@ -14,9 +14,9 @@ import { computed } from 'vue';
 import type { DashboardCard, DashboardConfig } from '../types';
 
 import { createDefaultConfig } from '../types';
-import { YdChartCard } from './YdChartCard.vue';
-import { YdDashboardEditOverlay } from './YdDashboardEditOverlay.vue';
-import { YdStatCard } from './YdStatCard.vue';
+import YdChartCard from './YdChartCard.vue';
+import YdDashboardEditOverlay from './YdDashboardEditOverlay.vue';
+import YdStatCard from './YdStatCard.vue';
 
 const props = withDefaults(defineProps<{
   config?: DashboardConfig;

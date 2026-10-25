@@ -19,7 +19,7 @@ const logger = createLogger("DevToolsBridge");
 
 /** 子应用运行时状态快照 */
 interface AppInstanceSnapshot {
-  config?: { [key: string]: unknown; entry?: string };
+  config?: { [key: string]: unknown; entry?: string; name?: string };
   keepAlive?: boolean;
   loadDuration?: number;
   pinned?: boolean;
@@ -33,7 +33,7 @@ interface KernelDiagnostics {
     hookName: LifecycleHookName,
     hook: (app: MicroAppConfig, err?: unknown) => Promise<void> | void,
   ) => () => void;
-  getAllInstances?: () => Map<string, AppInstanceSnapshot>;
+  getAllInstances?: () => AppInstanceSnapshot[];
   getRegisteredApps?: () => ReadonlyArray<MicroAppConfig>;
   healthCheck?: () => { [key: string]: unknown; kernelVersion: string };
   loadApp?: (config: { name: string }) => Promise<unknown>;
@@ -137,8 +137,9 @@ function collectFullState(opts: DevToolsBridgeOptions) {
   let keepAliveCount = 0;
 
   try {
-    const instances = kernel?.getAllInstances?.() ?? new Map();
-    for (const [name, inst] of instances) {
+    const instances = kernel?.getAllInstances?.() ?? [];
+    for (const inst of instances) {
+      const name = inst?.config?.name ?? "unknown";
       const snap: KernelStateSnapshot = {
         appName: name,
         status: inst?.status || "NOT_LOADED",

@@ -14,15 +14,15 @@
 <script setup lang="ts">
 import type { DialogContentEmits, DialogContentProps } from '@ydsz-core/ydsz-vue';
 
-import type { SheetVariants } from './sheet.ts';
+import type { SheetVariants } from './sheet';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogContent, DialogPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { DialogContent, DialogPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-import { sheetVariants } from './sheet.ts';
+import { sheetVariants } from './sheet';
 import SheetOverlay from './SheetOverlay.vue';
 
 interface SheetContentProps extends DialogContentProps {
@@ -79,7 +79,7 @@ onMounted(() => {
   isClient.value = true;
 });
 
-const contentRef = ref<InstanceType<typeof YdDialogContent> | null>(null);
+const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
 function onAnimationEnd(event: AnimationEvent) {
   // 只有在 contentRef 的动画结束时才触发 opened/closed 事件
   if (event.target === contentRef.value?.$el) {
@@ -105,7 +105,7 @@ function onAnimationEnd(event: AnimationEvent) {
         }"
       />
     </Transition>
-    <YdDialogContent
+    <DialogContent
       ref="contentRef"
       :class="cn('z-popup', sheetVariants({ side }), props.class)"
       :style="{
@@ -122,6 +122,6 @@ function onAnimationEnd(event: AnimationEvent) {
       >
         <Cross2Icon class="h-5 w-" />
       </YdDialogClose> -->
-    </YdDialogContent>
+    </DialogContent>
   </DialogPortal>
 </template>

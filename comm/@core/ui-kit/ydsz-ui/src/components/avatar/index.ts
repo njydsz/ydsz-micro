@@ -10,3 +10,15 @@
  */
 export { default as YdAvatarSmart } from './YdAvatarSmart.vue';
 
+// merged from pre-refactor ui/ + primitives/ barrels
+export * from './avatar';
+export { default as YdAvatar } from './YdAvatar.vue';
+export { default as YdAvatarFallback } from './YdAvatarFallback.vue';
+export { default as YdAvatarImage } from './YdAvatarImage.vue';
+export { default as ydAvatar } from './avatar.vue';
+export type { AvatarProps } from './avatar-types';
+
+// 兼容旧引用名（消费方仍以 *Base 命名引用原子组件）
+export { default as YdAvatarBase } from './YdAvatar.vue';
+export { default as YdAvatarFallbackBase } from './YdAvatarFallback.vue';
+export { default as YdAvatarImageBase } from './YdAvatarImage.vue';

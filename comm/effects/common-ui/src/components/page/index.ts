@@ -6,4 +6,6 @@
  * @since 1.0.0
  */
 export { default as YdPage } from './YdPage.vue';
+// 兼容旧引用名（业务侧大量使用 Page）
+export { default as Page } from './YdPage.vue';
 export * from './types';

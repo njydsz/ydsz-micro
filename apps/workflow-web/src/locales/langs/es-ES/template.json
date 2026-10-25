@@ -1,0 +1,19 @@
+{
+  "flowName": {
+    "label": "Nombre del flujo",
+    "placeholder": "Introduzca el nombre del flujo"
+  },
+  "templateCode": {
+    "label": "Código de plantilla",
+    "placeholder": "Introduzca el código de plantilla",
+    "required": "El código de plantilla es obligatorio"
+  },
+  "import": {
+    "title": "Importar plantilla de flujo",
+    "desc": {
+      "prefix": "Introduzca el código de plantilla de un flujo existente para importar su definición.",
+      "suffix": "El flujo importado se puede reutilizar y publicar como una nueva versión en este inquilino."
+    },
+    "success": "Importado correctamente"
+  }
+}

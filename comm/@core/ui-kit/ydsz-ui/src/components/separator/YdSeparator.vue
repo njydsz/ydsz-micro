@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSeparator } from '@ydsz-core/ydsz-vue';
+import { Separator } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SeparatorProps & { class?: any; label?: string }>();
 
@@ -28,7 +28,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdSeparator
+  <Separator
     v-bind="delegatedProps"
     :class="
       cn(
@@ -51,5 +51,5 @@ const delegatedProps = computed(() => {
     >
       {{ props.label }}
     </span>
-  </YdSeparator>
+  </Separator>
 </template>

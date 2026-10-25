@@ -19,12 +19,10 @@ import type { StyleValue } from 'vue';
 
 import type { ClassType } from '@ydsz-core/typings';
 
-import {
-  YdTooltipSmart,
-  YdTooltipContent,
-  YdTooltipProvider,
-  YdTooltipTrigger,
-} from './tooltip.vue';
+import YdTooltip from './YdTooltip.vue';
+import YdTooltipContent from './YdTooltipContent.vue';
+import YdTooltipProvider from './YdTooltipProvider.vue';
+import YdTooltipTrigger from './YdTooltipTrigger.vue';
 
 interface Props {
   contentClass?: ClassType;

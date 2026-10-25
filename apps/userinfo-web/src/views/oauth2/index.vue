@@ -28,10 +28,10 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import type { OAuth2Application } from '#/api/models';
 import {
-  create,
   deleteApi,
   getById,
   page,
+  register,
   resetSecret,
   update,
 } from '#/api/oAuth2Application';
@@ -290,7 +290,7 @@ const [Modal, modalApi] = useYdModal({
         await update({ id: formData.id }, payload);
         showToast.success('更新成功');
       } else {
-        await create(payload);
+        await register(payload);
         showToast.success('创建成功');
       }
       modalApi.close();

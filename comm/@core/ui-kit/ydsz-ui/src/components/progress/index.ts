@@ -9,3 +9,7 @@
 export { default as YdProgress } from './YdProgress.vue';
 export { default as YdProgressCircle } from './YdProgressCircle.vue';
 export { default as YdProgressDashboard } from './YdProgressDashboard.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydProgress } from './progress.vue';
+export type { ProgressProps, ProgressEmits, ProgressType } from './progress-types';

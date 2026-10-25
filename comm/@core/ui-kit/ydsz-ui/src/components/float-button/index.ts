@@ -7,3 +7,7 @@
  */
 
 export { default as YdFloatButton } from './YdFloatButton.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydFloatButton } from './float-button.vue';
+export type { FloatButtonProps } from './float-button-types';

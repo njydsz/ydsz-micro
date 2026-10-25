@@ -17,8 +17,8 @@ import { describe, expect, it } from 'vitest';
 
 import { nextTick, ref } from 'vue';
 
-import type { CascaderOption } from './types.ts';
-import { useVirtualList } from '../../composables/use-virtual-list.ts';
+import type { CascaderOption } from './types';
+import { useVirtualList } from '../../composables/use-virtual-list';
 
 /** 构造大规模列数据 */
 function makeColumnItems(count: number): CascaderOption[] {

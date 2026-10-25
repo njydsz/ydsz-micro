@@ -14,6 +14,8 @@ import type { TooltipRootEmits, TooltipRootProps } from '@ydsz-core/ydsz-vue';
 
 import { TooltipRoot, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
+import YdTooltipProvider from './YdTooltipProvider.vue';
+
 const props = defineProps<TooltipRootProps>();
 const emits = defineEmits<TooltipRootEmits>();
 
@@ -21,7 +23,9 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <TooltipRoot v-bind="forwarded">
-    <slot></slot>
-  </TooltipRoot>
+  <YdTooltipProvider>
+    <TooltipRoot v-bind="forwarded">
+      <slot></slot>
+    </TooltipRoot>
+  </YdTooltipProvider>
 </template>

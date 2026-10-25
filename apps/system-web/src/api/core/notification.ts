@@ -94,7 +94,7 @@ export async function getNotificationsApi(
   if (params.level) query.level = params.level;
 
   const res = await requestClient.get<PageResponse<MsgNotificationVO[]>>(
-    '/api/message/notifications/inbox',
+    '/message/notifications/inbox',
     { params: query },
   );
   return {
@@ -110,7 +110,7 @@ export async function getNotificationsApi(
  */
 export function getUnreadCountApi(): Promise<number> {
   return requestClient.get<number>(
-    '/api/message/notifications/unreadCount',
+    '/message/notifications/unreadCount',
   );
 }
 
@@ -119,7 +119,7 @@ export function getUnreadCountApi(): Promise<number> {
  */
 export function markAsReadApi(id: string): Promise<boolean> {
   return requestClient.post<boolean>(
-    `/api/message/notifications/${id}/read`,
+    `/message/notifications/${id}/read`,
   );
 }
 
@@ -127,14 +127,14 @@ export function markAsReadApi(id: string): Promise<boolean> {
  * 将当前用户全部通知标记为已读。
  */
 export function markAllAsReadApi(): Promise<number> {
-  return requestClient.post<number>('/api/message/notifications/readAll');
+  return requestClient.post<number>('/message/notifications/readAll');
 }
 
 /**
  * 批量删除当前用户的通知。
  */
 export function deleteNotificationsApi(ids: string[]): Promise<void> {
-  return requestClient.delete<void>('/api/message/notifications', {
+  return requestClient.delete<void>('/message/notifications', {
     data: ids,
   });
 }

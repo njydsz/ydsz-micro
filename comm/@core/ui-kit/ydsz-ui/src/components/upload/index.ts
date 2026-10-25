@@ -24,3 +24,7 @@ export type {
   UploadRequestOptions,
   UploadUserFile,
 } from './types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydUpload } from './upload.vue';
+export type { UploadProps } from './upload-types';

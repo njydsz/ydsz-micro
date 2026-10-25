@@ -348,7 +348,7 @@ async function handlePassAll() {
       <YdTabsContent :label="$t('wf.myTodo')" name="todo" />
       <YdTabsContent :label="$t('wf.myDone')" name="done" />
     </YdTabs>
-    <Grid :table-title="$t('wf.todoTasks')" role="grid" :aria-rowcount="gridApi.grid?.getTableData()?.tableData?.length ?? 0" :aria-label="activeTab === 'todo' ? $t('wf.todoTasks') : $t('wf.doneTasks')">
+    <Grid :table-title="$t('wf.todoTasks')" role="grid" :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0" :aria-label="activeTab === 'todo' ? $t('wf.todoTasks') : $t('wf.doneTasks')">
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
           <YdButton aria-label="$t('wf.batchPass')" variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{

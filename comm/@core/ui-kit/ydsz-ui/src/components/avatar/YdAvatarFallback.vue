@@ -11,13 +11,13 @@
  */
 import type { AvatarFallbackProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAvatarFallback } from '@ydsz-core/ydsz-vue';
+import { AvatarFallback } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AvatarFallbackProps>();
 </script>
 
 <template>
-  <YdAvatarFallback v-bind="props">
+  <AvatarFallback v-bind="props">
     <slot></slot>
-  </YdAvatarFallback>
+  </AvatarFallback>
 </template>

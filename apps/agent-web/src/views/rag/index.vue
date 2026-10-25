@@ -17,6 +17,7 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdNumberFieldInput, YdCountToAnimator, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';

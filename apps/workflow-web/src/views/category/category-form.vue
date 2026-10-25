@@ -178,7 +178,7 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
           clearable
         />
       </YdFormItem>
-      <YdFormItem :label="t('common.sort.label')">
+      <YdFormItem :label="t('common.sort')">
         <YdNumberFieldInput v-model="formData.sortNum" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('category.icon.label')">

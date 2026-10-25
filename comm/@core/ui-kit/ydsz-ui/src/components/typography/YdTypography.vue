@@ -12,7 +12,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// @ts-nocheck
+import { provide } from 'vue';
+
 provide('YdTypographyContext', {});
 </script>
 

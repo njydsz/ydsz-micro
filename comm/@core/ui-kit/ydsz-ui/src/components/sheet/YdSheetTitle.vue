@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogTitle } from '@ydsz-core/ydsz-vue';
+import { DialogTitle } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -30,10 +30,10 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdDialogTitle
+  <DialogTitle
     :class="cn('text-foreground font-medium', props.class)"
     v-bind="delegatedProps"
   >
     <slot></slot>
-  </YdDialogTitle>
+  </DialogTitle>
 </template>

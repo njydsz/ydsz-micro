@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { DialogEmits, DialogProps } from './dialog-types.ts';
+import type { DialogEmits, DialogProps } from './dialog-types';
 
 defineOptions({ name: 'YdDialog' });
 

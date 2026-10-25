@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Minus } from 'lucide-vue-next';
-import { YdNumberFieldDecrement, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { NumberFieldDecrement, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<NumberFieldDecrementProps & { class?: any }>();
 
@@ -30,7 +30,7 @@ const forwarded = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdNumberFieldDecrement
+  <NumberFieldDecrement
     data-slot="decrement"
     v-bind="forwarded"
     :class="
@@ -43,5 +43,5 @@ const forwarded = useForwardProps(delegatedProps);
     <slot>
       <Minus class="h-4 w-4" />
     </slot>
-  </YdNumberFieldDecrement>
+  </NumberFieldDecrement>
 </template>

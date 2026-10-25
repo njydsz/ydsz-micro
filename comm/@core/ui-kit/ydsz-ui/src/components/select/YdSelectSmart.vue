@@ -13,13 +13,11 @@
 // @ts-nocheck
 import { CircleX } from '@ydsz-core/icons';
 
-import {
-  YdSelect,
-  YdSelectContent,
-  YdSelectItem,
-  YdSelectTrigger,
-  YdSelectValue,
-} from './select.vue';
+import YdSelect from './YdSelect.vue';
+import YdSelectContent from './YdSelectContent.vue';
+import YdSelectItem from './YdSelectItem.vue';
+import YdSelectTrigger from './YdSelectTrigger.vue';
+import YdSelectValue from './YdSelectValue.vue';
 
 interface Props {
   allowClear?: boolean;

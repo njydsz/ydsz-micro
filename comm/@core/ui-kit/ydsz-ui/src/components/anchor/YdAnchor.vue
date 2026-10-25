@@ -15,7 +15,9 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdAnchorLink, type AnchorLinkItem } from './YdAnchorLink.vue';
+import type { AnchorLinkItem } from './YdAnchorLink.vue';
+
+import YdAnchorLink from './YdAnchorLink.vue';
 
 interface Props {
   /** 锚点配置 */

@@ -20,7 +20,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Check } from 'lucide-vue-next';
 import {
-  YdContextMenuCheckboxItem,
+  ContextMenuCheckboxItem,
   ContextMenuItemIndicator,
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdContextMenuCheckboxItem
+  <ContextMenuCheckboxItem
     v-bind="forwarded"
     :class="
       cn(
@@ -53,5 +53,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       </ContextMenuItemIndicator>
     </span>
     <slot></slot>
-  </YdContextMenuCheckboxItem>
+  </ContextMenuCheckboxItem>
 </template>

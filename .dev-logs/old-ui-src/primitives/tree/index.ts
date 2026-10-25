@@ -1,0 +1,26 @@
+/**
+ * 树形选择组件的出口，并透出 FlattenedItem 类型。
+ *
+ * <p>提供两套组件：
+ *  - YdTree：全量渲染，适合 < 500 节点场景（带 TransitionGroup 动效）；
+ *  - YdVTree：虚拟滚动版，适合 500+ 节点高性能场景。
+ *
+ * 该类型必须导出：组件对外派发的 select / expand 等事件载荷是扁平化后的行对象，
+ * 调用方若拿不到这个类型就无法为事件处理器标注类型。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\index.ts
+ * @author ydsz-team
+ * @since 1.0.0 (26.09.17 新增 YdVTree 导出)
+ */
+export { default as YdTree } from './tree.vue';
+export { default as YdVTree } from './YdVTree.vue';
+export { default as YdVTreeSearch } from './YdVTreeSearch.vue';
+export { useTreeSearch } from './use-tree-search';
+export type { FlattenedItem } from '@ydsz-core/ydsz-vue';
+export type { VTreeProps } from './YdVTree.vue';
+export type {
+  FilteredTreeNode,
+  TreeSearchHandle,
+  TreeSearchOptions,
+} from './use-tree-search';
+export type { VTreeSearchProps } from './YdVTreeSearch.vue';

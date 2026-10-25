@@ -7,3 +7,7 @@
  */
 
 export { default as YdWatermark } from './YdWatermark.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydWatermark } from './watermark.vue';
+export type { WatermarkProps } from './watermark-types';

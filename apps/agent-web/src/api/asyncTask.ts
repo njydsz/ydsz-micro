@@ -17,7 +17,7 @@ import type { AsyncTaskSubmitDTO, AsyncTaskVO } from './models';
  * submitTask: POST /api/agent/async-task/submit
  */
 export function submitTask(data: AsyncTaskSubmitDTO): Promise<number> {
-  return requestClient.post<number>(`/api/agent/async-task/submit`, data);
+  return requestClient.post<number>(`/agent/async-task/submit`, data);
 }
 
 /**
@@ -26,7 +26,7 @@ export function submitTask(data: AsyncTaskSubmitDTO): Promise<number> {
 export function getTask({ taskId }: {
     taskId: number;
   }): Promise<AsyncTaskVO> {
-  return requestClient.get<AsyncTaskVO>(`/api/agent/async-task/${taskId}`);
+  return requestClient.get<AsyncTaskVO>(`/agent/async-task/${taskId}`);
 }
 
 /**
@@ -35,7 +35,7 @@ export function getTask({ taskId }: {
 export function cancelTask({ taskId }: {
     taskId: number;
   }): Promise<AsyncTaskVO> {
-  return requestClient.post<AsyncTaskVO>(`/api/agent/async-task/${taskId}/cancel`);
+  return requestClient.post<AsyncTaskVO>(`/agent/async-task/${taskId}/cancel`);
 }
 
 /**
@@ -44,5 +44,5 @@ export function cancelTask({ taskId }: {
 export function listActiveTasks(params: {
     tenantCode?: string;
   }): Promise<AsyncTaskVO[]> {
-  return requestClient.get<AsyncTaskVO[]>(`/api/agent/async-task/active`, { params });
+  return requestClient.get<AsyncTaskVO[]>(`/agent/async-task/active`, { params });
 }

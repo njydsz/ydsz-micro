@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdAccordionContent } from '@ydsz-core/ydsz-vue';
+import { AccordionContent } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -30,12 +30,12 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdAccordionContent
+  <AccordionContent
     v-bind="delegatedProps"
     class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
   >
     <div :class="cn('pb-4 pt-0', props.class)">
       <slot></slot>
     </div>
-  </YdAccordionContent>
+  </AccordionContent>
 </template>

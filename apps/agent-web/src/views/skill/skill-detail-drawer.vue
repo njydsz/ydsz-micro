@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdTable, YdTableColumn, YdTag } from '@ydsz-core/ydsz-ui';
-import { useI18n } from '@ydsz/common-ui';
+import { useI18n } from '@ydsz/locales';
 import { computed, ref, watch } from 'vue';
 
 import { Info, RefreshCw } from 'lucide-vue-next';

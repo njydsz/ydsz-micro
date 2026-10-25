@@ -16,14 +16,14 @@ import { computed } from 'vue';
 
 import type { PrimitiveProps } from '@ydsz-core/ydsz-vue';
 
-import type { ButtonVariants, ButtonVariantSize } from './button.vue';
+import type { ButtonVariants, ButtonVariantSize } from './types';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { Loader2 } from 'lucide-vue-next';
 import { Primitive } from '@ydsz-core/ydsz-vue';
 
-import { buttonVariants } from './button.vue';
+import { buttonVariants } from './button';
 import { useDensity } from '../../composables/use-density';
 
 /** CSS class 类型定义 */

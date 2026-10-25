@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { CountTagEmits, CountTagProps } from './count-tag-types.ts';
+import type { CountTagEmits, CountTagProps } from './count-tag-types';
 
 defineOptions({ name: 'YdCountTag' });
 

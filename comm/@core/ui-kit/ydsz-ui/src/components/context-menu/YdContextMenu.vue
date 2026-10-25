@@ -22,16 +22,12 @@ import type { IContextMenuItem } from './interface';
 
 import { computed } from 'vue';
 
-import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
-
-import {
-  YdContextMenu,
-  YdContextMenuContent,
-  YdContextMenuItem,
-  YdContextMenuSeparator,
-  YdContextMenuShortcut,
-  YdContextMenuTrigger,
-} from './context-menu.vue';
+import { ContextMenuRoot as YdContextMenu, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import YdContextMenuContent from './YdContextMenuContent.vue';
+import YdContextMenuItem from './YdContextMenuItem.vue';
+import YdContextMenuSeparator from './YdContextMenuSeparator.vue';
+import YdContextMenuShortcut from './YdContextMenuShortcut.vue';
+import YdContextMenuTrigger from './YdContextMenuTrigger.vue';
 
 const props = defineProps<
   ContextMenuRootProps & {

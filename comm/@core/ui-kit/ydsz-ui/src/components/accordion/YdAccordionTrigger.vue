@@ -17,7 +17,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
-import { AccordionHeader, YdAccordionTrigger } from '@ydsz-core/ydsz-vue';
+import { AccordionHeader, AccordionTrigger } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -32,7 +32,7 @@ const delegatedProps = computed(() => {
 
 <template>
   <AccordionHeader class="flex">
-    <YdAccordionTrigger
+    <AccordionTrigger
       v-bind="delegatedProps"
       :class="
         cn(
@@ -47,6 +47,6 @@ const delegatedProps = computed(() => {
           class="text-muted-foreground h-4 w-4 shrink-0 transition-transform duration-200"
         />
       </slot>
-    </YdAccordionTrigger>
+    </AccordionTrigger>
   </AccordionHeader>
 </template>

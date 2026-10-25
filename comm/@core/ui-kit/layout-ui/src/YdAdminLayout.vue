@@ -13,7 +13,7 @@
 import type { YdLayoutProps } from './YdLayout';
 
 import { SCROLL_FIXED_CLASS } from '@ydsz-core/composables';
-import { YdMenu } from '@ydsz-core/icons';
+import { Menu } from '@ydsz-core/icons';
 import { YdIconButton } from '@ydsz-core/ydsz-ui';
 import { ELEMENT_ID_MAIN_CONTENT } from '@ydsz-core/shared/constants';
 
@@ -200,7 +200,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
               class="my-0 mr-1 rounded-md"
               @click="handleHeaderToggle"
             >
-              <YdMenu class="size-4" />
+              <Menu class="size-4" />
             </YdIconButton>
           </template>
           <slot name="header"></slot>

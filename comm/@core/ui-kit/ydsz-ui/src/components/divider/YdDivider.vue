@@ -11,7 +11,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { DividerProps } from './types.ts';
+import type { DividerProps } from './types';
 
 import { computed } from 'vue';
 

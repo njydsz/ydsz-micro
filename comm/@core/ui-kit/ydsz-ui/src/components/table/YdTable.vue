@@ -26,7 +26,7 @@ import type { ColumnDef } from './ColumnDef';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
-import { useColumnResize } from './table.vue';
+import { useColumnResize } from './useColumnResize';
 import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
 
 defineOptions({ name: 'YdTable' });

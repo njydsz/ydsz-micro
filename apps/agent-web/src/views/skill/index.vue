@@ -20,6 +20,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
 import { YdBadge, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { executeSkill, invalidateSandbox, listSkills } from '#/api/skill';
 import type { SkillExecutionRequestDTO } from '#/api/models';
 import { h, reactive, ref } from 'vue';
@@ -41,6 +42,9 @@ const drawerVisible = ref<boolean>(false);
 const selectedSkillCode = ref<string>('');
 
 /** 执行弹窗表单数据 */
+/** 环境变量输入框占位示例 */
+const envPlaceholder = '{"KEY": "value"}';
+
 const executeFormData = reactive<SkillExecutionRequestDTO>({
   skillCode: '',
   inputParams: undefined,
@@ -376,7 +380,7 @@ void fetchSkillList();
             :model-value="executeFormData.envVariables ? JSON.stringify(executeFormData.envVariables) : ''"
             type="textarea"
             :rows="3"
-            :placeholder="'{\"KEY\": \"value\"}'"
+            :placeholder="envPlaceholder"
             @update:model-value="
               (val: string) => {
                 try {

@@ -17,7 +17,9 @@ import { computed, provide, readonly, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdCollapseItem, type CollapseItemInstance } from './YdCollapseItem.vue';
+import type { CollapseItemInstance } from './YdCollapseItem.vue';
+
+import YdCollapseItem from './YdCollapseItem.vue';
 
 interface Props {
   /** 自定义类名 */

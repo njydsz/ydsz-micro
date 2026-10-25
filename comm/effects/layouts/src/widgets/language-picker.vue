@@ -11,9 +11,9 @@ import { loadLocaleMessages } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 
 import {
+  YdDropdownMenu,
   YdDropdownMenuContent,
   YdDropdownMenuItem,
-  YdDropdownMenuSmart,
   YdDropdownMenuTrigger,
   YdIconButton,
 } from '@ydsz-core/ydsz-ui';
@@ -31,7 +31,7 @@ async function handleSelect(code: string): Promise<void> {
 </script>
 
 <template>
-  <YdDropdownMenuSmart>
+  <YdDropdownMenu>
     <YdDropdownMenuTrigger as-child class="flex items-center gap-1">
       <YdIconButton>
         <Languages class="size-4 text-foreground" />
@@ -48,5 +48,5 @@ async function handleSelect(code: string): Promise<void> {
         {{ item.label }}
       </YdDropdownMenuItem>
     </YdDropdownMenuContent>
-  </YdDropdownMenuSmart>
+  </YdDropdownMenu>
 </template>

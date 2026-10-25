@@ -1,0 +1,19 @@
+{
+  "action": "작업",
+  "actions": "작업",
+  "add": "추가",
+  "confirmTitle": "작업 확인",
+  "delete.confirmTitle": "삭제 확인",
+  "description.label": "설명",
+  "disable": "비활성화",
+  "enable": "활성화",
+  "operationSuccess": "작업이 완료되었습니다",
+  "refresh": "새로고침",
+  "remark.label": "비고",
+  "remark.placeholder": "비고를 입력하세요",
+  "revoke": "취소",
+  "revokeTitle": "취소 확인",
+  "sort": "정렬",
+  "updateTime": "수정 시간",
+  "use": "사용"
+}

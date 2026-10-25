@@ -12,6 +12,7 @@
 import type { SearchItem } from "#/hooks/use-global-search";
 
 import { computed, nextTick, ref, watch } from "vue";
+import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 /** 受控显隐 */
 const props = defineProps<{
@@ -103,7 +104,7 @@ function close() {
       <div class="gs-panel" role="search">
         <!-- 输入框 -->
         <div class="gs-input-wrap">
-          <LucideIcon name="lucide:search" :size="18" class="gs-icon" />
+          <YdIcon icon="lucide:search" width="18" height="18" class="gs-icon" />
           <input
             ref="inputRef"
             v-model="query"
@@ -130,9 +131,9 @@ function close() {
               @click="goTo(item)"
               @mouseenter="activeIndex = idx"
             >
-              <LucideIcon
-                :name="item.icon || 'lucide:file'"
-                :size="14"
+              <YdIcon
+                :icon="item.icon || 'lucide:file'"
+                width="14" height="14"
                 class="gs-item-icon"
               />
               <div class="gs-item-body">

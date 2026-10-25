@@ -12,3 +12,10 @@ export { default as YdPinInputSmart } from './YdPinInputSmart.vue';
 
 export type * from './types';
 
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdPinInput } from './YdPinInput.vue';
+export { default as YdPinInputGroup } from './YdPinInputGroup.vue';
+export { default as YdPinInputInput } from './YdPinInputInput.vue';
+export { default as YdPinInputSeparator } from './YdPinInputSeparator.vue';
+export { default as ydPinInput } from './pin-input.vue';
+export type { PinInputProps } from './pin-input-types';

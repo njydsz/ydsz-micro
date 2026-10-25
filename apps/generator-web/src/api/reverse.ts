@@ -21,7 +21,7 @@ export function analyzeReverse(params: {
   templateGroupId: number;
   outputDir: string;
 }): Promise<string> {
-  return requestClient.post<string>(`/api/generator/reverse/analyze`, { params });
+  return requestClient.post<string>(`/generator/reverse/analyze`, { params });
 }
 
 /**
@@ -35,5 +35,5 @@ export function analyzeBatchReverse(params: {
   templateGroupId: number;
   outputDir: string;
 }): Promise<string[]> {
-  return requestClient.post<string[]>(`/api/generator/reverse/analyze-batch`, { params });
+  return requestClient.post<string[]>(`/generator/reverse/analyze-batch`, { params });
 }

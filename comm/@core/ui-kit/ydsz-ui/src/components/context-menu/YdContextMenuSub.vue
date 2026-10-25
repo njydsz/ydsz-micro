@@ -11,7 +11,7 @@
  */
 import type { ContextMenuSubEmits, ContextMenuSubProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuSub, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { ContextMenuSub, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuSubProps>();
 const emits = defineEmits<ContextMenuSubEmits>();
@@ -20,7 +20,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <YdContextMenuSub v-bind="forwarded">
+  <ContextMenuSub v-bind="forwarded">
     <slot></slot>
-  </YdContextMenuSub>
+  </ContextMenuSub>
 </template>

@@ -10,3 +10,7 @@ export { default as YdImage } from './YdImage.vue';
 export { default as YdImagePreviewGroup } from './YdImagePreviewGroup.vue';
 export { YD_IMAGE_PREVIEW_CONTEXT } from './YdImagePreviewGroup.vue';
 export type { ImagePreviewContext } from './YdImagePreviewGroup.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydImage } from './image.vue';
+export type { ImageProps } from './image-types';

@@ -13,7 +13,7 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 
 import YdCascader from './YdCascader.vue';
-import type { CascaderOption } from './types.ts';
+import type { CascaderOption } from './types';
 
 const sampleOptions: CascaderOption[] = [
   {

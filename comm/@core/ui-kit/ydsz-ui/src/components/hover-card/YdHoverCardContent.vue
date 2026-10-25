@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdHoverCardContent, HoverCardPortal, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { HoverCardContent, HoverCardPortal, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = withDefaults(
   defineProps<HoverCardContentProps & { class?: any }>(),
@@ -36,7 +36,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <HoverCardPortal>
-    <YdHoverCardContent
+    <HoverCardContent
       v-bind="forwardedProps"
       :class="
         cn(
@@ -46,6 +46,6 @@ const forwardedProps = useForwardProps(delegatedProps);
       "
     >
       <slot></slot>
-    </YdHoverCardContent>
+    </HoverCardContent>
   </HoverCardPortal>
 </template>

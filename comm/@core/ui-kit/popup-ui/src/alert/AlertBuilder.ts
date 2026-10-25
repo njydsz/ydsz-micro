@@ -23,7 +23,7 @@ import { useSimpleLocale } from '@ydsz-core/composables';
 import { YdInput, YdRenderContent } from '@ydsz-core/ydsz-ui';
 import { isFunction, isString } from '@ydsz-core/shared/utils';
 
-import YdAlert from './YdAlert.vue';
+import YdAlertComponent from './YdAlert.vue';
 
 const alerts = ref<Array<{ container: HTMLElement; instance: Component }>>([]);
 
@@ -151,7 +151,7 @@ export function YdAlert(
     };
 
     // 创建YdAlert组件的VNode
-    const vnode = h(YdAlert, props);
+    const vnode = h(YdAlertComponent, props);
 
     // 渲染组件到容器
     render(vnode, container);

@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronRight } from 'lucide-vue-next';
-import { YdPaginationNext } from '@ydsz-core/ydsz-vue';
+import { PaginationNext } from '@ydsz-core/ydsz-vue';
 
 import { YdButton } from '.././button';
 
@@ -35,11 +35,11 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdPaginationNext v-bind="delegatedProps">
+  <PaginationNext v-bind="delegatedProps">
     <YdButton :class="cn('size-8 p-0', props.class)" variant="outline">
       <slot>
         <ChevronRight class="size-4" />
       </slot>
     </YdButton>
-  </YdPaginationNext>
+  </PaginationNext>
 </template>

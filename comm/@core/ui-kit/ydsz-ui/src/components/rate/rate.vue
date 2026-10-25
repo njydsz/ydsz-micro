@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { RateEmits, RateProps } from './rate-types.ts';
+import type { RateEmits, RateProps } from './rate-types';
 
 defineOptions({ name: 'YdRate' });
 

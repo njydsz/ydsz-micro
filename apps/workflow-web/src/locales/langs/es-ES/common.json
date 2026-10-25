@@ -1,0 +1,19 @@
+{
+  "action": "Acción",
+  "actions": "Acción",
+  "add": "Añadir",
+  "confirmTitle": "Confirmación",
+  "delete.confirmTitle": "Confirmar eliminación",
+  "description.label": "Descripción",
+  "disable": "Deshabilitar",
+  "enable": "Habilitar",
+  "operationSuccess": "Operación realizada correctamente",
+  "refresh": "Actualizar",
+  "remark.label": "Observaciones",
+  "remark.placeholder": "Introduzca observaciones",
+  "revoke": "Revocar",
+  "revokeTitle": "Confirmar revocación",
+  "sort": "Orden",
+  "updateTime": "Fecha de actualización",
+  "use": "Usar"
+}

@@ -6,7 +6,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { CollapseEmits, CollapseProps } from './collapse-types.ts';
+import type { CollapseEmits, CollapseProps } from './collapse-types';
 
 import { computed, ref, watch } from 'vue';
 

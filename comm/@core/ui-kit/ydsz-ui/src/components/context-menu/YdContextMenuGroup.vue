@@ -11,13 +11,13 @@
  */
 import type { ContextMenuGroupProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuGroup } from '@ydsz-core/ydsz-vue';
+import { ContextMenuGroup } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuGroupProps>();
 </script>
 
 <template>
-  <YdContextMenuGroup v-bind="props">
+  <ContextMenuGroup v-bind="props">
     <slot></slot>
-  </YdContextMenuGroup>
+  </ContextMenuGroup>
 </template>

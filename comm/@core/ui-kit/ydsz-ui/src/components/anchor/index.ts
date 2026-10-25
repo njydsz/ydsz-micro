@@ -9,3 +9,7 @@
 export { default as YdAnchor } from './YdAnchor.vue';
 export { default as YdAnchorLink } from './YdAnchorLink.vue';
 export type { AnchorLinkItem } from './YdAnchorLink.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydAnchor } from './anchor.vue';
+export type { AnchorProps } from './anchor-types';

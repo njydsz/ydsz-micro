@@ -11,13 +11,13 @@
  */
 import type { DialogCloseProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDialogClose } from '@ydsz-core/ydsz-vue';
+import { DialogClose } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogCloseProps>();
 </script>
 
 <template>
-  <YdDialogClose v-bind="props">
+  <DialogClose v-bind="props">
     <slot></slot>
-  </YdDialogClose>
+  </DialogClose>
 </template>

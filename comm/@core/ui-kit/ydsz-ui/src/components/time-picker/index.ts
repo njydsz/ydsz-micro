@@ -16,3 +16,7 @@ export type {
   UseTimePickerOptions,
   UseTimePickerReturn,
 } from './use-time-picker';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTimePicker } from './time-picker.vue';
+export type { TimePickerProps } from './time-picker-types';

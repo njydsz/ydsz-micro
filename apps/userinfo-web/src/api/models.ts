@@ -1089,16 +1089,6 @@ export interface UserProfileUpdateDTO {
 }
 
 /**
- * Valid  ChangePasswordDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
- *
- * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
- * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
- */
-export interface Valid  ChangePasswordDTO {
-  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
-}
-
-/**
  * MFA 动态码操作 DTO。
  *
  * 用于 MFA 绑定激活/解除场景，携带用户输入的一次性动态码（Authenticator 应用生成）。

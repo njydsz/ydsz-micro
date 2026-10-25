@@ -16,7 +16,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronUp } from 'lucide-vue-next';
-import { YdSelectScrollUpButton, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { SelectScrollUpButton, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectScrollUpButtonProps & { class?: any }>();
 
@@ -30,7 +30,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdSelectScrollUpButton
+  <SelectScrollUpButton
     v-bind="forwardedProps"
     :class="
       cn('flex cursor-default items-center justify-center py-1', props.class)
@@ -39,5 +39,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     <slot>
       <ChevronUp class="h-4 w-4" />
     </slot>
-  </YdSelectScrollUpButton>
+  </SelectScrollUpButton>
 </template>

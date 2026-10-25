@@ -17,7 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSlider, YdTooltip } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
 import { type ChainEdgeDTO, type ChainNodeDTO, type RuleChainGraph } from '#/api/models';
 import { dryRunGraph, getChainGraph, saveChainGraph, validateChainGraph } from '#/api/ruleGraph';

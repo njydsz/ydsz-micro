@@ -13,7 +13,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { formatYear } from './date-utils.ts';
+import { formatYear } from './date-utils';
 
 const props = defineProps<{
   /** 当前十年的锚定起点（即 decadeStart 为整十年份） */

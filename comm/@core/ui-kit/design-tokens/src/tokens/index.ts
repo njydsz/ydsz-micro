@@ -43,19 +43,23 @@ export type {
 
 export {
   RADIUS_TOKENS,
-  SHADOW_LEVELS,
-  SHADOW_PRESETS,
   SPACING_TOKENS,
   radiusVar,
-  shadowVar,
   spacingVar,
 } from './spacing';
 
 export type {
   RadiusToken,
-  ShadowLevel,
   SpacingToken,
 } from './spacing';
+
+export {
+  SHADOW_LEVELS,
+  SHADOW_PRESETS,
+  shadowVar,
+} from './shadow';
+
+export type { ShadowLevel } from './shadow';
 
 export {
   FONT_SIZE_TOKENS,

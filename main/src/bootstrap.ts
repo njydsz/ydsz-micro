@@ -43,14 +43,16 @@ async function bootstrap(namespace: string) {
   // localStorage 'YDSZ:debug' 可运行期覆盖调试过滤
   initLogger({ isDev: import.meta.env.DEV });
 
-  // 功能开关：在 Pinia 之前注册定义，保证默认值尽早生效；
-  // init 不阻塞（远程加载在内部异步进行，失败降级到默认值）
+  // 功能开关：先注册定义，保证默认值尽早生效
   registerApplicationFlags();
-  const { initFeatureFlags } = await import("@ydsz-core/feature-flags");
-  await initFeatureFlags(featureFlagsOptions());
 
   // 创建并装配 Vue 应用（不阻塞后续微前端运行时注册）
   const app = await setupApp(namespace);
+
+  // 远程开关依赖请求客户端读取 Pinia 中的登录态，
+  // 必须等 setupApp 安装 Pinia 之后再初始化，否则会因无活跃 Pinia 而失败。
+  const { initFeatureFlags } = await import("@ydsz-core/feature-flags");
+  await initFeatureFlags(featureFlagsOptions());
 
   // 安装前端监控（错误捕获 + Web Vitals）+ Sentry 转发
   setupAppMonitoring(app);

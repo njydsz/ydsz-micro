@@ -5,6 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@ydsz-core/ydsz-ui": ["comm/@core/ui-kit/ydsz-ui/src/index.ts"],
+      "@ydsz-core/ydsz-ui/ui/*": ["comm/@core/ui-kit/ydsz-ui/src/components/*"],
+      "@ydsz-core/ydsz-ui/primitives/*": ["comm/@core/ui-kit/ydsz-ui/src/components/*"],
+      "@ydsz-core/ydsz-ui/components/*": ["comm/@core/ui-kit/ydsz-ui/src/components/*"],
       "@ydsz-core/ydsz-ui/*": ["comm/@core/ui-kit/ydsz-ui/src/*"],
       "@ydsz-core/composables": ["comm/@core/composables/src/index.ts"],
       "@ydsz-core/composables/*": ["comm/@core/composables/src/*"],

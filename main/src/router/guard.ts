@@ -9,7 +9,7 @@ import type { Router } from 'vue-router';
 
 import { LOGIN_PATH } from '@ydsz/constants';
 import { preferences } from '@ydsz/preferences';
-import { useAccessStore, useUserStore } from '@ydsz/stores';
+import { useAccessStore, useTokenStore, useUserStore } from '@ydsz/stores';
 import { setupCommonGuard } from '@ydsz/shared-auth/guards';
 
 import { accessRoutes, coreRouteNames } from '#/router/routes';
@@ -28,12 +28,13 @@ import { generateAccess } from './access';
 function setupAccessGuard(router: Router) {
   router.beforeEach(async (to, from) => {
     const accessStore = useAccessStore();
+    const tokenStore = useTokenStore();
     const userStore = useUserStore();
     const authStore = useAuthStore();
 
     // 基本路由，这些路由不需要进入权限拦截
     if (coreRouteNames.includes(to.name as string)) {
-      if (to.path === LOGIN_PATH && accessStore.accessToken) {
+      if (to.path === LOGIN_PATH && tokenStore.accessToken) {
         return decodeURIComponent(
           (to.query?.redirect as string) ||
             userStore.userInfo?.homePath ||
@@ -44,7 +45,7 @@ function setupAccessGuard(router: Router) {
     }
 
     // accessToken 检查
-    if (!accessStore.accessToken) {
+    if (!tokenStore.accessToken) {
       // 明确声明忽略权限访问权限，则可以访问
       if (to.meta.ignoreAccess) {
         return true;

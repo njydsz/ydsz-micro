@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdStep, YdSteps } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSteps } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -124,6 +124,20 @@ async function handleQuery(): Promise<void> {
 function getStepConfig(step: string): { label: string; type: string; description: string } {
   return STEP_STATUS_MAP[step] ?? { label: step, type: 'info', description: '未知状态' };
 }
+
+/** 步骤条数据（YdSteps 以数组驱动，不接受子节点） */
+const stepItems = computed(() =>
+  traceSteps.value.map((step, index) => ({
+    description: getStepConfig(step).description,
+    status:
+      index === currentStepIndex.value
+        ? ('process' as const)
+        : index < currentStepIndex.value
+          ? ('finish' as const)
+          : ('wait' as const),
+    title: getStepConfig(step).label,
+  })),
+);
 </script>
 
 <template>
@@ -166,28 +180,10 @@ function getStepConfig(step: string): { label: string; type: string; description
       <div v-if="traceSteps.length > 0" class="rounded border bg-white p-6">
         <h3 class="mb-4 text-base font-medium">消息轨迹（共 {{ traceSteps.length }} 个节点）</h3>
         <YdSteps
-          :active="currentStepIndex + 1"
-          direction="vertical"
-          :space="80"
-          finish-status="success"
-        >
-          <YdStep
-            v-for="(step, index) in traceSteps"
-            :key="step.id ?? step.name ?? step"
-            :title="getStepConfig(step).label"
-            :description="getStepConfig(step).description"
-            :status="
-              index === currentStepIndex ? 'process' : index < currentStepIndex ? 'finish' : 'wait'
-            "
-          >
-            <template #icon>
-              <YdBadge v-if="getStepConfig(step).type === 'success'" class="h-5 w-5 rounded-full p-0">✓</YdBadge>
-              <YdBadge v-else-if="getStepConfig(step).type === 'danger'" variant="destructive" class="h-5 w-5 rounded-full p-0">✗</YdBadge>
-              <YdBadge v-else-if="getStepConfig(step).type === 'warning'" variant="outline" class="h-5 w-5 rounded-full p-0">!</YdBadge>
-              <YdBadge v-else variant="secondary" class="h-5 w-5 rounded-full p-0">{{ index + 1 }}</YdBadge>
-            </template>
-          </YdStep>
-        </YdSteps>
+          :current="currentStepIndex"
+          :steps="stepItems"
+          label-placement="vertical"
+        />
       </div>
 
       <!-- 空状态 -->

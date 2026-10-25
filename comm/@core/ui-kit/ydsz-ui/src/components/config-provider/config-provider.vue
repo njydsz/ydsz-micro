@@ -23,10 +23,10 @@
  */
 import { provide, ref, watch } from 'vue';
 
-import type { ConfigProviderEmits, ConfigProviderProps } from './config-provider-types.ts';
+import type { ConfigProviderEmits, ConfigProviderProps } from './config-provider-types';
 
-import { useTheme } from '../../composables/use-theme.ts';
-import { LOCALE_LANG_KEY } from '../../locale/useLocale.ts';
+import { useTheme } from '../../composables/use-theme';
+import { LOCALE_LANG_KEY } from '../../locale/useLocale';
 import { useDensity } from '@ydsz-core/design-tokens/composables';
 
 defineOptions({ name: 'YdConfigProvider' });

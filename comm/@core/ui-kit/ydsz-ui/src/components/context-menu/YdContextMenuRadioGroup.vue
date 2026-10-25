@@ -13,7 +13,7 @@ import type {
   ContextMenuRadioGroupProps,
 } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuRadioGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { ContextMenuRadioGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuRadioGroupProps>();
 const emits = defineEmits<ContextMenuRadioGroupEmits>();
@@ -22,7 +22,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <YdContextMenuRadioGroup v-bind="forwarded">
+  <ContextMenuRadioGroup v-bind="forwarded">
     <slot></slot>
-  </YdContextMenuRadioGroup>
+  </ContextMenuRadioGroup>
 </template>

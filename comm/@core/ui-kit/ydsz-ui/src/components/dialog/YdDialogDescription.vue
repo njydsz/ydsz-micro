@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogDescription, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { DialogDescription, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogDescriptionProps & { class?: any }>();
 
@@ -29,10 +29,10 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdDialogDescription
+  <DialogDescription
     v-bind="forwardedProps"
     :class="cn('text-muted-foreground text-sm', props.class)"
   >
     <slot></slot>
-  </YdDialogDescription>
+  </DialogDescription>
 </template>

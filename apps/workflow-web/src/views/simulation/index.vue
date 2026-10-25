@@ -17,7 +17,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdStep, YdSteps, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSteps, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { runSimulation } from '#/api/flowSimulation';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -56,8 +56,29 @@ const predictedNodes = computed(() => {
   return (simulationResult.value.nodes as Record<string, unknown>[]) ?? [];
 });
 
-/** 预计总耗时（格式化） */
-const estimatedTotalDuration = computed(() => {
+/** 步骤条数据（YdSteps 以数组驱动，不接受子节点） */
+const predictedStepItems = computed(() =>
+  predictedNodes.value.map((node, index) => {
+    const title =
+      (node.nodeName as string) ?? (node.nodeCode as string) ?? `节点 ${index + 1}`;
+    const parts = [
+      `编码: ${(node.nodeCode as string) ?? '--'}`,
+      `预计耗时: ${
+        node.estimatedDurationMs ? `${Math.round((node.estimatedDurationMs as number) / 1000)}s` : '--'
+      }`,
+      `审批人: ${(node.assigneeName as string) ?? (node.assignee as string) ?? '--'}`,
+    ];
+    if (node.condition) parts.push(`条件: ${node.condition as string}`);
+    if (node.branch) parts.push(`分支: ${node.branch as string}`);
+    return {
+      description: parts.join(' · '),
+      status: index === predictedNodes.value.length - 1 ? ('process' as const) : ('finish' as const),
+      title,
+    };
+  }),
+);
+
+/** 预计总耗时（格式化） */const estimatedTotalDuration = computed(() => {
   if (!simulationResult.value) return '--';
   const ms = (simulationResult.value.estimatedDurationMs as number) ?? 0;
   if (ms < 60000) return `${Math.round(ms / 1000)} 秒`;
@@ -210,34 +231,10 @@ function handleReset(): void {
                 <span class="font-semibold text-gray-700">预测执行路径</span>
               </template>
               <YdSteps
-                :active="predictedNodes.length"
-                finish-status="success"
-                align-center
+                :current="predictedStepItems.length - 1"
+                :steps="predictedStepItems"
                 class="mt-4"
-              >
-                <YdStep
-                  v-for="(node, index) in predictedNodes"
-                  :key="(node.nodeName as string) ?? (node.nodeCode as string) ?? `node-${index}`"
-                  :title="(node.nodeName as string) ?? (node.nodeCode as string) ?? `节点 ${index + 1}`"
-                >
-                  <template #description>
-                    <div class="mt-1 text-xs text-gray-500">
-                      <div>编码: {{ (node.nodeCode as string) ?? '--' }}</div>
-                      <div>
-                        预计耗时:
-                        {{ node.estimatedDurationMs ? `${Math.round((node.estimatedDurationMs as number) / 1000)}s` : '--' }}
-                      </div>
-                      <div>审批人: {{ (node.assigneeName as string) ?? (node.assignee as string) ?? '--' }}</div>
-                      <div v-if="node.condition">
-                        条件: <YdBadge size="small" type="warning">{{ node.condition as string }}</YdBadge>
-                      </div>
-                      <div v-if="node.branch">
-                        分支: <YdBadge size="small" type="info">{{ node.branch as string }}</YdBadge>
-                      </div>
-                    </div>
-                  </template>
-                </YdStep>
-              </YdSteps>
+              />
             </YdCard>
 
             <!-- 节点明细表格 -->

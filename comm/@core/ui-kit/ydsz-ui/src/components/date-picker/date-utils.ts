@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 5.6.0
  */
-import type { DatePickerType } from './date-picker.vue';
+import type { DatePickerType } from './types';
 
 /**
  * 是否为范围模式。

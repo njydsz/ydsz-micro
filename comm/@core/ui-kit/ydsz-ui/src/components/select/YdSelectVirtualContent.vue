@@ -19,7 +19,7 @@ import { useVirtualList } from '../../composables';
 import { cn } from '@ydsz-core/shared/utils';
 
 import {
-  YdSelectContent,
+  SelectContent,
   SelectPortal,
   SelectViewport,
   useForwardPropsEmits,

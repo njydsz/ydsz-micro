@@ -15,7 +15,7 @@ import { useId } from 'vue';
 
 import { useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-import { YdCheckbox } from './checkbox.vue';
+import YdCheckbox from './YdCheckbox.vue';
 
 const props = defineProps<CheckboxRootProps & { indeterminate?: boolean }>();
 

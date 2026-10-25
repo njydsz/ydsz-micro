@@ -24,8 +24,8 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { X } from 'lucide-vue-next';
 import {
-  YdDialogClose,
-  YdDialogContent,
+  DialogClose,
+  DialogContent,
   DialogPortal,
   useForwardPropsEmits,
 } from '@ydsz-core/ydsz-vue';
@@ -100,7 +100,7 @@ onMounted(() => {
   isClient.value = true;
 });
 
-const contentRef = ref<InstanceType<typeof YdDialogContent> | null>(null);
+const contentRef = ref<InstanceType<typeof DialogContent> | null>(null);
 function onAnimationEnd(event: AnimationEvent): void {
   if (event.target === contentRef.value?.$el) {
     if (props.open) {
@@ -147,7 +147,7 @@ defineExpose({
         @click="handleOverlayClose"
       />
     </Transition>
-    <YdDialogContent
+    <DialogContent
       ref="contentRef"
       :style="{ ...(zIndex ? { zIndex } : {}), position }"
       @animationend="onAnimationEnd"
@@ -165,7 +165,7 @@ defineExpose({
     >
       <slot></slot>
 
-      <YdDialogClose
+      <DialogClose
         v-if="showClose && closeOnOverlayClick"
         :disabled="closeDisabled"
         :class="
@@ -180,7 +180,7 @@ defineExpose({
         @click="() => emits('close')"
       >
         <X class="size-4" />
-      </YdDialogClose>
-    </YdDialogContent>
+      </DialogClose>
+    </DialogContent>
   </DialogPortal>
 </template>

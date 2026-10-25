@@ -7,3 +7,9 @@
  */
 export type { QrCodePreset } from './YdQrCodePro.vue';
 export { default as YdQrCodePro } from './YdQrCodePro.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdQrCode } from './YdQrCode.vue';
+export { default as ydQrCode } from './qr-code.vue';
+export type { QRCodeProps, QRCodeEmits } from './qr-code-types';
+export type { QRLevel } from './qr-code-utils';

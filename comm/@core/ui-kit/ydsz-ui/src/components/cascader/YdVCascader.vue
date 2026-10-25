@@ -21,12 +21,12 @@
 // @ts-nocheck
 import { computed, ref } from 'vue';
 
-import { cn } from '@yz';
+import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronRight, Loader2, Search, X } from 'lucide-vue-next';
 
-import { useVirtualList } from '../../composables/use-virtual-list.ts';
+import { useVirtualList } from '../../composables/use-virtual-list';
 
-import type { CascaderOption, CascaderProps, CascaderShowSearch } from './types.ts';
+import type { CascaderOption, CascaderProps, CascaderShowSearch } from './types';
 
 /** VCascader props（扩展 CascaderProps 增加虚拟滚动配置） */
 export interface VCascaderProps extends Omit<CascaderProps, 'class'> {

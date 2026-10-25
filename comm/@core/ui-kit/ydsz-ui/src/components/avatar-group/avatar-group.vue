@@ -30,7 +30,7 @@ import {
   YdPopoverTrigger,
 } from '.././popover';
 
-import type { AvatarGroupProps, AvatarItem } from './avatar-group-types.ts';
+import type { AvatarGroupProps, AvatarItem } from './avatar-group-types';
 
 defineOptions({ name: 'YdAvatarGroup' });
 

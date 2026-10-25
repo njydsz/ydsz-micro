@@ -11,13 +11,13 @@
  */
 import type { SelectItemTextProps } from '@ydsz-core/ydsz-vue';
 
-import { YdSelectItemText } from '@ydsz-core/ydsz-vue';
+import { SelectItemText } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectItemTextProps>();
 </script>
 
 <template>
-  <YdSelectItemText v-bind="props">
+  <SelectItemText v-bind="props">
     <slot></slot>
-  </YdSelectItemText>
+  </SelectItemText>
 </template>

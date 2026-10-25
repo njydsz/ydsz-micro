@@ -23,3 +23,7 @@ export type {
 } from './useTableData';
 export type { ColumnRegistry } from './injectionKeys';
 export { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTable } from './table.vue';
+export type { TableProps } from './table-types';

@@ -17,7 +17,7 @@
  */
 import type { Ref } from 'vue';
 
-import { onScopeDispose, ref } from 'vue';
+import { getCurrentScope, onScopeDispose, ref } from 'vue';
 import {
   BroadcastChannelManager,
   type BroadcastListener,
@@ -95,15 +95,17 @@ export function useCrossTabState<T>(
   };
   const unsubscribe = channel.on(stateKey, listener);
 
-  // 组件卸载时清理
-  onScopeDispose(() => {
-    try {
-      unsubscribe();
-    } catch {
-      /* 静默 */
-    }
-    releaseChannel(channelName);
-  });
+  // 组件卸载时清理；bootstrap 等无 active scope 的调用点不注册，避免 Vue dev 警告
+  if (getCurrentScope()) {
+    onScopeDispose(() => {
+      try {
+        unsubscribe();
+      } catch {
+        /* 静默 */
+      }
+      releaseChannel(channelName);
+    });
+  }
 
   /**
    * 通过 ref.value 赋值不会自动广播；显式提供 broadcast 方法。
@@ -142,14 +144,16 @@ export function useCrossTabEvent<T = unknown>(
   };
   const unsubscribe = channel.on(eventType, listener);
 
-  onScopeDispose(() => {
-    try {
-      unsubscribe();
-    } catch {
-      /* 静默 */
-    }
-    releaseChannel(channelName);
-  });
+  if (getCurrentScope()) {
+    onScopeDispose(() => {
+      try {
+        unsubscribe();
+      } catch {
+        /* 静默 */
+      }
+      releaseChannel(channelName);
+    });
+  }
 
   return unsubscribe;
 }

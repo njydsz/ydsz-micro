@@ -11,7 +11,7 @@
  */
 import { computed } from 'vue';
 
-import type { InputEmits, InputProps } from './input-types.ts';
+import type { InputEmits, InputProps } from './input-types';
 
 defineOptions({ name: 'YdInput' });
 

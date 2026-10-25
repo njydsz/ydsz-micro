@@ -17,7 +17,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { ChevronDown } from 'lucide-vue-next';
-import { SelectIcon, YdSelectTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { SelectIcon, SelectTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 import { useDensity } from '../../composables/use-density';
 
@@ -48,7 +48,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <YdSelectTrigger
+  <SelectTrigger
     v-bind="forwardedProps"
     :class="
       cn(
@@ -62,5 +62,5 @@ const forwardedProps = useForwardProps(delegatedProps);
     <SelectIcon as-child>
       <ChevronDown class="h-4 w-4 opacity-50" />
     </SelectIcon>
-  </YdSelectTrigger>
+  </SelectTrigger>
 </template>

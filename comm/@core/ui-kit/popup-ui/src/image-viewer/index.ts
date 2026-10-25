@@ -20,7 +20,7 @@
  * @author ydsz-team
  * @since 26.09.24
  */
-export { useImageViewer, useImageViewerReadonlyState, useImageViewerState } from './use-image-viewer';
+export { useImageViewer, useImageViewerState } from './use-image-viewer';
 export type {
   ImageViewerApi,
   ImageViewerImage,

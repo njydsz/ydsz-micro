@@ -7,3 +7,7 @@
  */
 
 export { default as YdResult } from './YdResult.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydResult } from './result.vue';
+export type { ResultProps } from './result-types';

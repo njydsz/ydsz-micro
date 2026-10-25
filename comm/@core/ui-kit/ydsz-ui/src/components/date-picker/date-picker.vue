@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { DatePickerEmits, DatePickerProps } from './date-picker-types.ts';
+import type { DatePickerEmits, DatePickerProps } from './date-picker-types';
 
 defineOptions({ name: 'YdDatePicker' });
 

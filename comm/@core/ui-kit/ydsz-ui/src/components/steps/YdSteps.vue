@@ -13,7 +13,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdStepItem } from './steps.vue';
+import YdStepItem from './YdStepItem.vue';
 
 /** 单步骤状态 */
 export type StepStatus = 'error' | 'finish' | 'process' | 'wait';

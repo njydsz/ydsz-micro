@@ -17,7 +17,7 @@ import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdPopoverContent, PopoverPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { PopoverContent, PopoverPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 defineOptions({
   inheritAttrs: false,
@@ -49,7 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <PopoverPortal v-if="isClient">
-    <YdPopoverContent
+    <PopoverContent
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
@@ -59,6 +59,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       "
     >
       <slot></slot>
-    </YdPopoverContent>
+    </PopoverContent>
   </PopoverPortal>
 </template>

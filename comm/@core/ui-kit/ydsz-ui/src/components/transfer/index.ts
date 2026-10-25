@@ -8,3 +8,7 @@
 
 export { default as YdTransfer } from './YdTransfer.vue';
 export type { TransferItem } from './YdTransfer.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTransfer } from './transfer.vue';
+export type { TransferProps } from './transfer-types';

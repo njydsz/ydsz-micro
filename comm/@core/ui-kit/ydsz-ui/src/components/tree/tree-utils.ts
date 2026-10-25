@@ -97,3 +97,34 @@ export function computeExpandKeysOnSearch(
   traverse(data);
   return expandKeys;
 }
+
+/**
+ * 递归收集树中所有节点的 key。
+ *
+ * @remarks
+ * 树形选择等场景需要一次性拿到全部 key（用于全选/半选判断），
+ * 因此把子节点与 key 的取值方式交给调用方，避免依赖具体的节点字段名。
+ *
+ * @param nodes - 起始节点列表
+ * @param getChildren - 取子节点列表的函数
+ * @param getKey - 取节点 key 的函数
+ * @returns 按先序遍历排列的 key 数组
+ */
+export function collectAllKeys<T>(
+  nodes: T[],
+  getChildren: (node: T) => T[] | undefined,
+  getKey: (node: T) => string | number,
+): (string | number)[] {
+  const keys: (string | number)[] = [];
+  const walk = (list: T[] | undefined) => {
+    if (!list) {
+      return;
+    }
+    for (const node of list) {
+      keys.push(getKey(node));
+      walk(getChildren(node));
+    }
+  };
+  walk(nodes);
+  return keys;
+}

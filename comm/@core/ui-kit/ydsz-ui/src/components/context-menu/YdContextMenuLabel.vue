@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdContextMenuLabel } from '@ydsz-core/ydsz-vue';
+import { ContextMenuLabel } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<
   ContextMenuLabelProps & { class?: any; inset?: boolean }
@@ -29,7 +29,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdContextMenuLabel
+  <ContextMenuLabel
     v-bind="delegatedProps"
     :class="
       cn(
@@ -40,5 +40,5 @@ const delegatedProps = computed(() => {
     "
   >
     <slot></slot>
-  </YdContextMenuLabel>
+  </ContextMenuLabel>
 </template>

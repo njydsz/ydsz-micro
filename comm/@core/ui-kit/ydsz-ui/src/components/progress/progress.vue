@@ -13,11 +13,9 @@
 // @ts-nocheck
 import { computed } from 'vue';
 
-import {
-  YdProgress,
-  YdProgressCircle,
-  YdProgressDashboard,
-} from './progress.vue';
+import YdProgress from './YdProgress.vue';
+import YdProgressCircle from './YdProgressCircle.vue';
+import YdProgressDashboard from './YdProgressDashboard.vue';
 
 import { useReducedMotion } from '../../motion/useReducedMotion';
 

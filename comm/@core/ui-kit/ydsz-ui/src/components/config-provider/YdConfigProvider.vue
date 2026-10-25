@@ -20,9 +20,9 @@
 /** 配置上下文注入 key */
 import type { InjectionKey } from 'vue';
 
-import { LOCALE_LANG_KEY } from '../../locale/useLocale.ts';
+import { LOCALE_LANG_KEY } from '../../locale/useLocale';
 
-import type { ConfigContext } from './types.ts';
+import type { ConfigContext } from './types';
 
 /** YdConfigProvider 注入 key */
 export const CONFIG_INJECTION_KEY: InjectionKey<ConfigContext> = Symbol('ydsz-config');
@@ -35,16 +35,16 @@ export { LOCALE_LANG_KEY };
 // @ts-nocheck
 import { computed, provide, ref, watch } from 'vue';
 
-import { LOCALE_LANG_KEY } from '../../locale/useLocale.ts';
-import { THEME_INJECTION_KEY } from '../theme/ThemeProvider';
-import { useTheme } from '../theme/use-theme.ts';
+import { LOCALE_LANG_KEY } from '../../locale/useLocale';
+import { THEME_INJECTION_KEY } from '../theme/ThemeProvider.vue';
+import { useTheme } from '../theme/use-theme';
 
-import { DENSITY_INJECTION_KEY } from '../../composables/use-density.ts';
+import { DENSITY_INJECTION_KEY } from '../../composables/use-density';
 
-import type { ThemeHandle } from '../theme/use-theme.ts';
-import type { LocaleLang } from '../../locale/useLocale.ts';
+import type { ThemeHandle } from '../theme/use-theme';
+import type { LocaleLang } from '../../locale/useLocale';
 
-import type { ConfigContext } from './types.ts';
+import type { ConfigContext } from './types';
 
 const props = withDefaults(
   defineProps<{

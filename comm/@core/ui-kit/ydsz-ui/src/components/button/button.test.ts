@@ -13,7 +13,7 @@ import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 
 import YdButton from './YdButton.vue';
-import { buttonVariants } from './button.vue';
+import { buttonVariants } from './button';
 
 describe('YdButton', () => {
   it('默认渲染为 button 标签', () => {

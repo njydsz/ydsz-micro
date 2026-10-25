@@ -11,3 +11,13 @@ export { default as YdBreadcrumbView } from './YdBreadcrumbView.vue';
 
 export type * from './types';
 
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdBreadcrumb } from './YdBreadcrumb.vue';
+export { default as YdBreadcrumbEllipsis } from './YdBreadcrumbEllipsis.vue';
+export { default as YdBreadcrumbItem } from './YdBreadcrumbItem.vue';
+export { default as YdBreadcrumbLink } from './YdBreadcrumbLink.vue';
+export { default as YdBreadcrumbList } from './YdBreadcrumbList.vue';
+export { default as YdBreadcrumbPage } from './YdBreadcrumbPage.vue';
+export { default as YdBreadcrumbSeparator } from './YdBreadcrumbSeparator.vue';
+export { default as ydBreadcrumb } from './breadcrumb.vue';
+export type { BreadcrumbProps } from './breadcrumb-types';

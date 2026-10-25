@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDialogDescription } from '@ydsz-core/ydsz-vue';
+import { DialogDescription } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogDescriptionProps & { class?: any }>();
 
@@ -27,10 +27,10 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdDialogDescription
+  <DialogDescription
     :class="cn('text-muted-foreground text-sm', props.class)"
     v-bind="delegatedProps"
   >
     <slot></slot>
-  </YdDialogDescription>
+  </DialogDescription>
 </template>

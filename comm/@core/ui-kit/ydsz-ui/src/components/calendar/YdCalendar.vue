@@ -21,7 +21,7 @@ import { computed, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
-import type { CalendarShortcut } from './use-calendar-shortcuts.ts';
+import type { CalendarShortcut } from './use-calendar-shortcuts';
 
 interface Props {
   /** 自定义类名 */

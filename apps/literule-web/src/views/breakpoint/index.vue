@@ -15,7 +15,7 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';

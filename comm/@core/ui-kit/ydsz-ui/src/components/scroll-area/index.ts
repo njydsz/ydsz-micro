@@ -10,3 +10,7 @@
  */
 export { default as YdScrollArea } from './YdScrollArea.vue';
 export { default as YdScrollBar } from './YdScrollBar.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydScrollArea } from './scroll-area.vue';
+export type { ScrollAreaProps } from './scroll-area-types';

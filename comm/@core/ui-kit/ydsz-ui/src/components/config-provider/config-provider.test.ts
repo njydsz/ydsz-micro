@@ -22,8 +22,8 @@ import { mount } from '@vue/test-utils';
 import { defineComponent, h, inject, nextTick, ref } from 'vue';
 
 import ConfigProvider from './config-provider.vue';
-import { LOCALE_LANG_KEY } from '../../locale/useLocale.ts';
-import type { ConfigProviderProps } from './config-provider-types.ts';
+import { LOCALE_LANG_KEY } from '../../locale/useLocale';
+import type { ConfigProviderProps } from './config-provider-types';
 
 // ===== mock useDensity =====
 const setDensityMock = vi.fn();

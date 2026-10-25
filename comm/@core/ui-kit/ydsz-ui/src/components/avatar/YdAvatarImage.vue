@@ -11,11 +11,11 @@
  */
 import type { AvatarImageProps } from '@ydsz-core/ydsz-vue';
 
-import { YdAvatarImage } from '@ydsz-core/ydsz-vue';
+import { AvatarImage } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<AvatarImageProps>();
 </script>
 
 <template>
-  <YdAvatarImage v-bind="props" class="h-full w-full object-cover" />
+  <AvatarImage v-bind="props" class="h-full w-full object-cover" />
 </template>

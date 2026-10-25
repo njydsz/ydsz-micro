@@ -15,3 +15,7 @@ export { default as YdAlertDialogContent } from './YdAlertDialogContent.vue';
 export { default as YdAlertDialogDescription } from './YdAlertDialogDescription.vue';
 export { default as YdAlertDialogTitle } from './YdAlertDialogTitle.vue';
 export { default as YdAlertDialogTrigger } from './YdAlertDialogTrigger.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydAlertDialog } from './alert-dialog.vue';
+export type { AlertDialogProps } from './alert-dialog-types';

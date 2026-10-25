@@ -5,4 +5,7 @@
  * @since 1.0.0
  */
 export { default as ydIconPicker } from './icon-picker.vue';
-export type { IconPickerProps } from './icon-picker-types.ts';
+export type { IconPickerProps } from './icon-picker-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdIconPicker } from './YdIconPicker.vue';

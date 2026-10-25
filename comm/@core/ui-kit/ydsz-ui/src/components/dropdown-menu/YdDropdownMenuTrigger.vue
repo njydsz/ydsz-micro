@@ -11,7 +11,7 @@
  */
 import type { DropdownMenuTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuTriggerProps>();
 
@@ -19,7 +19,7 @@ const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <YdDropdownMenuTrigger class="outline-none" v-bind="forwardedProps">
+  <DropdownMenuTrigger class="outline-none" v-bind="forwardedProps">
     <slot></slot>
-  </YdDropdownMenuTrigger>
+  </DropdownMenuTrigger>
 </template>

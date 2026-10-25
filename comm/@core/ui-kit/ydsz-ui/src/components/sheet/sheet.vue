@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { SheetEmits, SheetProps } from './sheet-types.ts';
+import type { SheetEmits, SheetProps } from './sheet-types';
 
 defineOptions({ name: 'YdSheet' });
 

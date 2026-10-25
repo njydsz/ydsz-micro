@@ -14,16 +14,16 @@ import type { BreadcrumbProps } from './types';
 
 import { ChevronDown } from '@ydsz-core/icons';
 
+import YdBreadcrumb from './YdBreadcrumb.vue';
+import YdBreadcrumbItem from './YdBreadcrumbItem.vue';
+import YdBreadcrumbLink from './YdBreadcrumbLink.vue';
+import YdBreadcrumbList from './YdBreadcrumbList.vue';
+import YdBreadcrumbPage from './YdBreadcrumbPage.vue';
+import YdBreadcrumbSeparator from './YdBreadcrumbSeparator.vue';
 import {
-  YdBreadcrumb,
-  YdBreadcrumbItem,
-  YdBreadcrumbLink,
-  YdBreadcrumbList,
-  YdBreadcrumbPage,
-  YdBreadcrumbSeparator,
-  YdDropdownMenuSmart,
   YdDropdownMenuContent,
   YdDropdownMenuItem,
+  YdDropdownMenuSmart,
   YdDropdownMenuTrigger,
 } from '../dropdown-menu';
 import { YdIcon } from '../icon';

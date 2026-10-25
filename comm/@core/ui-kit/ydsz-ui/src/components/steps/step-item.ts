@@ -9,4 +9,4 @@
  * @since 1.0.0
  */
 
-export { YdStepItem } from './YdStepItem.vue';
+export { default as YdStepItem } from './YdStepItem.vue';

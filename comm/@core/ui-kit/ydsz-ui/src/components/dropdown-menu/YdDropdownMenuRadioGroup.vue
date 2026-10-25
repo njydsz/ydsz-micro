@@ -13,7 +13,7 @@ import type {
   DropdownMenuRadioGroupProps,
 } from '@ydsz-core/ydsz-vue';
 
-import { YdDropdownMenuRadioGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuRadioGroup, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DropdownMenuRadioGroupProps>();
 const emits = defineEmits<DropdownMenuRadioGroupEmits>();
@@ -22,7 +22,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <YdDropdownMenuRadioGroup v-bind="forwarded">
+  <DropdownMenuRadioGroup v-bind="forwarded">
     <slot></slot>
-  </YdDropdownMenuRadioGroup>
+  </DropdownMenuRadioGroup>
 </template>

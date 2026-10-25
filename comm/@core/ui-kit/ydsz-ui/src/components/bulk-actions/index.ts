@@ -5,4 +5,7 @@
  * @since 1.0.0
  */
 export { default as ydBulkActions } from './bulk-actions.vue';
-export type { BulkActionsProps } from './bulk-actions-types.ts';
+export type { BulkActionsProps } from './bulk-actions-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdBulkActions } from './YdBulkActions.vue';

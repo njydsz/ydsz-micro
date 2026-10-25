@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { CarouselEmits, CarouselProps } from './carousel-types.ts';
+import type { CarouselEmits, CarouselProps } from './carousel-types';
 
 defineOptions({ name: 'YdCarousel' });
 

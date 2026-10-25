@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuSeparator } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuSeparator } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -32,7 +32,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdDropdownMenuSeparator
+  <DropdownMenuSeparator
     v-bind="delegatedProps"
     :class="cn('bg-border -mx-1 my-1 h-px', props.class)"
   />

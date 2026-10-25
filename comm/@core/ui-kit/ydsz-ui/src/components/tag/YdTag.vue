@@ -13,7 +13,7 @@
  * * @author ydsz-team
  * @since 1.0.0
  */
-import { type TagVariants, tagVariants } from './tag.vue';
+import { type TagVariants, tagVariants } from './tag';
 
 import { cn } from '@ydsz-core/shared/utils';
 

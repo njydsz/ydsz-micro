@@ -17,7 +17,7 @@ import type { GenDatasource, GenDatasourceRespVO } from './models';
  * @returns 数据源列表（不含敏感字段 password）
  */
 export function listDatasources(): Promise<GenDatasourceRespVO[]> {
-  return requestClient.get<GenDatasourceRespVO[]>(`/api/generator/datasources`);
+  return requestClient.get<GenDatasourceRespVO[]>(`/generator/datasources`);
 }
 
 /**
@@ -26,7 +26,7 @@ export function listDatasources(): Promise<GenDatasourceRespVO[]> {
  * @returns 默认数据源
  */
 export function getDefaultDatasource(): Promise<GenDatasourceRespVO> {
-  return requestClient.get<GenDatasourceRespVO>(`/api/generator/datasources/default`);
+  return requestClient.get<GenDatasourceRespVO>(`/generator/datasources/default`);
 }
 
 /**
@@ -36,7 +36,7 @@ export function getDefaultDatasource(): Promise<GenDatasourceRespVO> {
  * @returns 是否连接成功
  */
 export function testConnection(datasource: GenDatasource): Promise<boolean> {
-  return requestClient.post<boolean>(`/api/generator/datasources/test`, datasource);
+  return requestClient.post<boolean>(`/generator/datasources/test`, datasource);
 }
 
 /**
@@ -46,7 +46,7 @@ export function testConnection(datasource: GenDatasource): Promise<boolean> {
  * @returns 持久化后实体
  */
 export function createDatasource(datasource: GenDatasource): Promise<GenDatasource> {
-  return requestClient.post<GenDatasource>(`/api/generator/datasources`, datasource);
+  return requestClient.post<GenDatasource>(`/generator/datasources`, datasource);
 }
 
 /**
@@ -56,7 +56,7 @@ export function createDatasource(datasource: GenDatasource): Promise<GenDatasour
  * @returns 持久化后实体
  */
 export function updateDatasource(datasource: GenDatasource): Promise<GenDatasource> {
-  return requestClient.post<GenDatasource>(`/api/generator/datasources/update`, datasource);
+  return requestClient.post<GenDatasource>(`/generator/datasources/update`, datasource);
 }
 
 /**
@@ -65,5 +65,5 @@ export function updateDatasource(datasource: GenDatasource): Promise<GenDatasour
  * @param id 数据源 ID
  */
 export function deleteDatasource({ id }: { id: number }): Promise<void> {
-  return requestClient.delete<void>(`/api/generator/datasources/${id}`);
+  return requestClient.delete<void>(`/generator/datasources/${id}`);
 }

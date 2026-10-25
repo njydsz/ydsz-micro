@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { DropdownEmits, DropdownProps } from './dropdown-types.ts';
+import type { DropdownEmits, DropdownProps } from './dropdown-types';
 
 defineOptions({ name: 'YdDropdown' });
 

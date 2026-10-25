@@ -19,7 +19,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdDropdownMenuSubContent, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { DropdownMenuSubContent, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -36,7 +36,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdDropdownMenuSubContent
+  <DropdownMenuSubContent
     v-bind="forwarded"
     :class="
       cn(
@@ -46,5 +46,5 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     "
   >
     <slot></slot>
-  </YdDropdownMenuSubContent>
+  </DropdownMenuSubContent>
 </template>

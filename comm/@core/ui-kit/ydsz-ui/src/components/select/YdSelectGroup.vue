@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectGroup } from '@ydsz-core/ydsz-vue';
+import { SelectGroup } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectGroupProps & { class?: any }>();
 
@@ -27,7 +27,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdSelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
+  <SelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
     <slot></slot>
-  </YdSelectGroup>
+  </SelectGroup>
 </template>

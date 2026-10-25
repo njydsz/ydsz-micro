@@ -5,4 +5,7 @@
  * @since 1.0.0
  */
 export { default as ydCarousel } from './carousel.vue';
-export type { CarouselProps } from './carousel-types.ts';
+export type { CarouselProps } from './carousel-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdCarousel } from './YdCarousel.vue';

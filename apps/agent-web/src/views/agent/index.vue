@@ -20,6 +20,7 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButton } from '@ydsz-core/ydsz-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

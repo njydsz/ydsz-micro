@@ -6,3 +6,7 @@
  * @since 1.0.0
  */
 export { default as YdSwitch } from './YdSwitch.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydSwitch } from './switch.vue';
+export type { SwitchProps } from './switch-types';

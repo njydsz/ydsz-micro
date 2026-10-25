@@ -10,13 +10,13 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { AvatarVariants } from './avatar.vue';
+import type { AvatarVariants } from './avatar';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { AvatarRoot } from '@ydsz-core/ydsz-vue';
 
-import { avatarVariant } from './avatar.vue';
+import { avatarVariant } from './avatar';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

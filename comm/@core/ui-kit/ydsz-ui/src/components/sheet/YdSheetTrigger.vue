@@ -11,13 +11,13 @@
  */
 import type { DialogTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdDialogTrigger } from '@ydsz-core/ydsz-vue';
+import { DialogTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<DialogTriggerProps>();
 </script>
 
 <template>
-  <YdDialogTrigger v-bind="props">
+  <DialogTrigger v-bind="props">
     <slot></slot>
-  </YdDialogTrigger>
+  </DialogTrigger>
 </template>

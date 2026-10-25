@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-import type { LocaleLang } from '../../locale/useLocale.ts';
+import type { LocaleLang } from '../../locale/useLocale';
 
 /** 组件密度档位 —— 对标 PrimeVue 三密度 */
 export type Density = 'default' | 'compact' | 'large';

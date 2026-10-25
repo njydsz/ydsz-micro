@@ -25,7 +25,7 @@ import { computed, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronRight, Loader2, Search, X } from 'lucide-vue-next';
 
-import type { CascaderOption, CascaderShowSearch } from './types.ts';
+import type { CascaderOption, CascaderShowSearch } from './types';
 
 interface Props {
   allowClear?: boolean;

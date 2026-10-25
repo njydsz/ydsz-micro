@@ -12,15 +12,15 @@
 <script setup lang="ts">
 import type { ToggleEmits, ToggleProps } from '@ydsz-core/ydsz-vue';
 
-import type { ToggleVariants } from './toggle.vue';
+import type { ToggleVariants } from './toggle';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdToggle, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
+import { Toggle, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-import { toggleVariants } from './toggle.vue';
+import { toggleVariants } from './toggle';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -51,10 +51,10 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <YdToggle
+  <Toggle
     v-bind="forwarded"
     :class="cn(toggleVariants({ variant, size }), props.class)"
   >
     <slot></slot>
-  </YdToggle>
+  </Toggle>
 </template>

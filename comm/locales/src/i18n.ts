@@ -52,6 +52,74 @@ let loadMessages: LoadMessageFn;
 const loadedLocales = new Set<SupportedLanguagesType>();
 
 /**
+ * 将 JSON 中以点号书写的键展开为嵌套对象。
+ *
+ * <p>语言包文件里常出现 `"wf.todoTasks": "待办任务"` 这类扁平写法，
+ * 而 vue-i18n 按 `.` 逐层解析消息路径，扁平键必须展开后才能命中。
+ */
+function expandDottedKeys(source: Record<string, unknown>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(source)) {
+    if (!key.includes('.')) {
+      result[key] = value;
+      continue;
+    }
+
+    const segments = key.split('.');
+    let cursor = result;
+    segments.forEach((segment, index) => {
+      if (index === segments.length - 1) {
+        cursor[segment] = value;
+        return;
+      }
+      const existing = cursor[segment];
+      if (!existing || typeof existing !== 'object' || Array.isArray(existing)) {
+        cursor[segment] = {};
+      }
+      cursor = cursor[segment] as Record<string, unknown>;
+    });
+  }
+
+  return result;
+}
+
+/** 递归合并纯对象，避免不同语言包文件之间的顶层对象互相覆盖 */
+function deepMerge(
+  target: Record<string, unknown>,
+  source: Record<string, unknown>,
+): Record<string, unknown> {
+  for (const [key, value] of Object.entries(source)) {
+    const existing = target[key];
+    if (
+      existing &&
+      typeof existing === 'object' &&
+      !Array.isArray(existing) &&
+      (value === null || typeof value !== 'object' || Array.isArray(value))
+    ) {
+      // 对象结构优先：page.json 的菜单标题（如 "variable": "系统变量"）与
+      // business.json 的同名模块词条（如 variable.valueType）撞名时，
+      // 保留对象，否则 `variable.valueType` 会被字符串覆盖而丢失。
+      // 菜单标题仍可通过 `page.variable` 命名空间访问。
+      continue;
+    }
+    if (
+      existing &&
+      typeof existing === 'object' &&
+      !Array.isArray(existing) &&
+      value &&
+      typeof value === 'object' &&
+      !Array.isArray(value)
+    ) {
+      target[key] = deepMerge({ ...(existing as Record<string, unknown>) }, value as Record<string, unknown>);
+    } else {
+      target[key] = value;
+    }
+  }
+  return target;
+}
+
+/**
  * 构建扁平结构语言包映射表（locale → 异步加载函数）。
  *
  * @param modules - import.meta.glob 产出的模块映射
@@ -102,11 +170,18 @@ function loadLocalesMapFromDir(
   // Convert raw locale data into async import functions
   for (const [locale, files] of Object.entries(localesRaw)) {
     localesMap[locale] = async () => {
-      const messages: Record<string, Record<string, unknown>> = {};
+      const namespaces: Record<string, unknown> = {};
+      const flattened: Record<string, unknown> = {};
       for (const [fileName, importFn] of Object.entries(files)) {
-        messages[fileName] = ((await importFn()) as { default: Record<string, unknown> })?.default;
+        const fileMessages = expandDottedKeys(
+          (((await importFn()) as { default?: Record<string, unknown> })?.default ?? {}),
+        );
+        namespaces[fileName] = fileMessages;
+        // 同时展开到顶层，兼容 `wf.x` / `error.x` 这类跨文件扁平键；
+        // 文件名命名空间最后写入，避免被同名业务键覆盖。
+        deepMerge(flattened, fileMessages);
       }
-      return { default: messages };
+      return { default: { ...flattened, ...namespaces } };
     };
   }
 

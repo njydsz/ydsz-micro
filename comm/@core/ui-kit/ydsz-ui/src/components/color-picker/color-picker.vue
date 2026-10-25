@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { ColorPickerEmits, ColorPickerProps } from './color-picker-types.ts';
+import type { ColorPickerEmits, ColorPickerProps } from './color-picker-types';
 
 defineOptions({ name: 'YdColorPicker' });
 

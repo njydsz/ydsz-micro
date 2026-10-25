@@ -18,7 +18,7 @@ import type { GenColumnMeta, GenTableMeta } from './models';
  * @returns 表元数据列表
  */
 export function listTables(params: { datasourceId: number }): Promise<GenTableMeta[]> {
-  return requestClient.get<GenTableMeta[]>(`/api/generator/tables`, { params });
+  return requestClient.get<GenTableMeta[]>(`/generator/tables`, { params });
 }
 
 /**
@@ -28,7 +28,7 @@ export function listTables(params: { datasourceId: number }): Promise<GenTableMe
  * @returns 刷新后列表
  */
 export function refreshTables(params: { datasourceId: number }): Promise<GenTableMeta[]> {
-  return requestClient.post<GenTableMeta[]>(`/api/generator/tables/refresh`, { params });
+  return requestClient.post<GenTableMeta[]>(`/generator/tables/refresh`, { params });
 }
 
 /**
@@ -38,7 +38,7 @@ export function refreshTables(params: { datasourceId: number }): Promise<GenTabl
  * @returns 列元数据列表
  */
 export function getColumns(params: { tableMetaId: number }): Promise<GenColumnMeta[]> {
-  return requestClient.get<GenColumnMeta[]>(`/api/generator/tables/columns`, { params });
+  return requestClient.get<GenColumnMeta[]>(`/generator/tables/columns`, { params });
 }
 
 /**
@@ -51,5 +51,5 @@ export function refreshColumns(params: {
   datasourceId: number;
   tableName: string;
 }): Promise<GenColumnMeta[]> {
-  return requestClient.post<GenColumnMeta[]>(`/api/generator/tables/columns/refresh`, { params });
+  return requestClient.post<GenColumnMeta[]>(`/generator/tables/columns/refresh`, { params });
 }

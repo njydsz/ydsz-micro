@@ -1,0 +1,19 @@
+{
+  "flowName": {
+    "label": "流程名称",
+    "placeholder": "请输入流程名称"
+  },
+  "templateCode": {
+    "label": "模板编码",
+    "placeholder": "请输入模板编码",
+    "required": "模板编码不能为空"
+  },
+  "import": {
+    "title": "导入流程模板",
+    "desc": {
+      "prefix": "输入已有流程的模板编码即可导入该流程定义。",
+      "suffix": "导入后可在当前租户下复用并发布新版本。"
+    },
+    "success": "导入成功"
+  }
+}

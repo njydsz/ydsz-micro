@@ -19,7 +19,7 @@
 // @ts-nocheck
 import { computed, ref } from 'vue';
 
-import { YdQrCode } from './qr-code.vue';
+import YdQrCode from './YdQrCode.vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { Download } from 'lucide-vue-next';
 import { useLocale } from '../../locale/useLocale';

@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { ResizableEmits, ResizableProps } from './resizable-types.ts';
+import type { ResizableEmits, ResizableProps } from './resizable-types';
 
 defineOptions({ name: 'YdResizable' });
 

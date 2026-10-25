@@ -1,0 +1,19 @@
+{
+  "flowName": {
+    "label": "Nom du flux",
+    "placeholder": "Saisissez le nom du flux"
+  },
+  "templateCode": {
+    "label": "Code du modèle",
+    "placeholder": "Saisissez le code du modèle",
+    "required": "Le code du modèle est obligatoire"
+  },
+  "import": {
+    "title": "Importer un modèle de flux",
+    "desc": {
+      "prefix": "Saisissez le code du modèle d'un flux existant pour importer sa définition.",
+      "suffix": "Le flux importé peut être réutilisé et publié en tant que nouvelle version dans ce tenant."
+    },
+    "success": "Importation réussie"
+  }
+}

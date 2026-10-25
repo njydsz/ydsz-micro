@@ -36,7 +36,7 @@ export interface UserPreferenceDTO {
  * @returns 用户偏好配置
  */
 export async function getUserPreferenceApi(): Promise<UserPreferenceDTO> {
-  return requestClient.get<UserPreferenceDTO>('/api/user/preferences');
+  return requestClient.get<UserPreferenceDTO>('/user/preferences');
 }
 
 /**
@@ -48,7 +48,7 @@ export async function getUserPreferenceApi(): Promise<UserPreferenceDTO> {
 export async function saveUserPreferenceApi(
   preference: UserPreferenceDTO,
 ): Promise<void> {
-  await requestClient.put<void>('/api/user/preferences', preference);
+  await requestClient.put<void>('/user/preferences', preference);
 }
 
 /**
@@ -58,6 +58,6 @@ export async function saveUserPreferenceApi(
  */
 export async function resetUserPreferenceApi(): Promise<UserPreferenceDTO> {
   return requestClient.post<UserPreferenceDTO>(
-    '/api/user/preferences/reset',
+    '/user/preferences/reset',
   );
 }

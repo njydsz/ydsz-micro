@@ -24,3 +24,7 @@ export type {
   TreeSearchOptions,
 } from './use-tree-search';
 export type { VTreeSearchProps } from './YdVTreeSearch.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTree } from './tree.vue';
+export type { TreeNodeData, TreeExpandTrigger, YdTreeProps, YdTreeEmits, } from './tree-types';

@@ -5,4 +5,7 @@
  * @since 1.0.0
  */
 export { default as ydRate } from './rate.vue';
-export type { RateProps } from './rate-types.ts';
+export type { RateProps } from './rate-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdRate } from './YdRate.vue';

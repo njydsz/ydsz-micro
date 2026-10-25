@@ -5,4 +5,8 @@
  * @since 1.0.0
  */
 export { default as ydDivider } from './divider.vue';
-export type { DividerProps } from './divider-types.ts';
+export type { DividerProps } from './divider-types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdDivider } from './YdDivider.vue';
+export type { DividerProps } from './types';

@@ -13,13 +13,11 @@
 // @ts-nocheck
 import type { DropdownMenuProps } from './interface';
 
-import {
-  YdDropdownMenuSmart,
-  YdDropdownMenuContent,
-  YdDropdownMenuGroup,
-  YdDropdownMenuItem,
-  YdDropdownMenuTrigger,
-} from './dropdown-menu.vue';
+import YdDropdownMenuContent from './YdDropdownMenuContent.vue';
+import YdDropdownMenuGroup from './YdDropdownMenuGroup.vue';
+import YdDropdownMenuItem from './YdDropdownMenuItem.vue';
+import YdDropdownMenu from './YdDropdownMenu.vue';
+import YdDropdownMenuTrigger from './YdDropdownMenuTrigger.vue';
 
 type Props = DropdownMenuProps;
 
@@ -33,7 +31,7 @@ function handleItemClick(value: string) {
 }
 </script>
 <template>
-  <YdDropdownMenuSmart>
+  <YdDropdownMenu>
     <YdDropdownMenuTrigger as-child class="flex items-center gap-1">
       <slot></slot>
     </YdDropdownMenuTrigger>
@@ -60,6 +58,6 @@ function handleItemClick(value: string) {
         </template>
       </YdDropdownMenuGroup>
     </YdDropdownMenuContent>
-  </YdDropdownMenuSmart>
+  </YdDropdownMenu>
 </template>
 

@@ -10,5 +10,5 @@
  */
 export { default as YdInputGroup } from './YdInputGroup.vue';
 export { default as YdInputAddon } from './YdInputAddon.vue';
-export type { YdInputGroupProps } from './input-group-types.ts';
-export type { YdInputAddonProps } from './input-group-types.ts';
+export type { YdInputGroupProps } from './input-group-types';
+export type { YdInputAddonProps } from './input-group-types';

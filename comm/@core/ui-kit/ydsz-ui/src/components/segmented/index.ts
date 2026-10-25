@@ -11,3 +11,8 @@
 export { default as YdSegmented } from './YdSegmented.vue';
 
 export type * from './types';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export type { SegmentedOption } from './YdSegmented.vue';
+export { default as ydSegmented } from './segmented.vue';
+export type { SegmentedProps } from './segmented-types';

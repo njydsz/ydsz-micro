@@ -11,3 +11,8 @@
 export * from './badge.vue';
 
 export { default as YdBadge } from './YdBadge.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export * from './badge';
+export { default as ydBadge } from './badge.vue';
+export type { BadgeProps } from './badge-types';

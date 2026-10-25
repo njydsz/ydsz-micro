@@ -5,7 +5,7 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-import type { CardListEmits, CardListProps } from './card-list-types.ts';
+import type { CardListEmits, CardListProps } from './card-list-types';
 
 defineOptions({ name: 'YdCardList' });
 

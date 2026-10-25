@@ -15,7 +15,7 @@ import { inject } from 'vue';
 
 import { CONFIG_INJECTION_KEY } from './YdConfigProvider.vue';
 
-import type { ConfigContext } from './types.ts';
+import type { ConfigContext } from './types';
 
 /**
  * 默认全局配置上下文（无 YdConfigProvider 包裹时的安全回退）。

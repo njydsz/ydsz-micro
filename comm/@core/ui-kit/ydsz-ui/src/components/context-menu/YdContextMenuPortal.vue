@@ -11,13 +11,13 @@
  */
 import type { ContextMenuPortalProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuPortal } from '@ydsz-core/ydsz-vue';
+import { ContextMenuPortal } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuPortalProps>();
 </script>
 
 <template>
-  <YdContextMenuPortal v-bind="props">
+  <ContextMenuPortal v-bind="props">
     <slot></slot>
-  </YdContextMenuPortal>
+  </ContextMenuPortal>
 </template>

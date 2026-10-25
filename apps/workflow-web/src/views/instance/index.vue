@@ -334,7 +334,7 @@ async function openTimeline(row: FlowInstanceVO) {
 </script>
 <template>
   <Page auto-content-height>
-    <Grid :table-title="$t('wf.flowInstances')" role="grid" :aria-rowcount="gridApi.grid?.getTableData()?.tableData?.length ?? 0" aria-label="$t('wf.flowInstances')">
+    <Grid :table-title="$t('wf.flowInstances')" role="grid" :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0" :aria-label="$t('wf.flowInstances')">
       <template #toolbar-tools>
         <YdButton aria-label="$t('wf.startFlow')" @click="handleAdd">{{ $t('wf.startFlow') }}</YdButton>
         <YdButton aria-label="$t('wf.batchUrge')" variant="secondary" @click="handleBatchUrge">{{

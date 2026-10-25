@@ -11,13 +11,13 @@
  */
 import type { HoverCardTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdHoverCardTrigger } from '@ydsz-core/ydsz-vue';
+import { HoverCardTrigger } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<HoverCardTriggerProps>();
 </script>
 
 <template>
-  <YdHoverCardTrigger v-bind="props">
+  <HoverCardTrigger v-bind="props">
     <slot></slot>
-  </YdHoverCardTrigger>
+  </HoverCardTrigger>
 </template>

@@ -15,7 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdSelectSeparator } from '@ydsz-core/ydsz-vue';
+import { SelectSeparator } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<SelectSeparatorProps & { class?: any }>();
 
@@ -27,7 +27,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdSelectSeparator
+  <SelectSeparator
     v-bind="delegatedProps"
     :class="cn('bg-muted -mx-1 my-1 h-px', props.class)"
   />

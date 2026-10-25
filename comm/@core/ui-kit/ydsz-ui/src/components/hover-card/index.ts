@@ -10,3 +10,9 @@
 export { default as YdHoverCardSmart } from './YdHoverCardSmart.vue';
 export type { HoverCardContentProps } from '@ydsz-core/ydsz-vue';
 
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as YdHoverCard } from './YdHoverCard.vue';
+export { default as YdHoverCardContent } from './YdHoverCardContent.vue';
+export { default as YdHoverCardTrigger } from './YdHoverCardTrigger.vue';
+export { default as ydHoverCard } from './hover-card.vue';
+export type { HoverCardProps } from './hover-card-types';

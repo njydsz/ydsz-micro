@@ -12,7 +12,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { StepItem, StepperContext, StepperOrientation, StepperSize, StepperVariant } from './stepper-types.ts';
+import type { StepItem, StepperContext, StepperOrientation, StepperSize, StepperVariant } from './stepper-types';
 
 import { type Component, type VNode, computed, defineComponent, h, provide, ref, useSlots, watch } from 'vue';
 

@@ -17,7 +17,8 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { Page, useYdModal, YdConfirm, showToast } from '@ydsz/common-ui';
+import { Page, useYdModal, YdConfirm } from '@ydsz/common-ui';
+import { showToast } from '@ydsz/notification';
 
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -286,7 +287,7 @@ function handleDragEnd() {
 
 <template>
   <Page auto-content-height>
-    <Grid :table-title="t('config')" role="grid" :aria-rowcount="gridApi.grid?.getTableData()?.tableData?.length ?? 0" :aria-label="t('config')">
+    <Grid :table-title="t('config')" role="grid" :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0" :aria-label="t('config')">
       <template #toolbar-tools>
         <YdBadge v-if="dataScopeLabel" variant="destructive" style="margin-right: 8px" role="status" aria-live="polite">
           {{ dataScopeLabel }}

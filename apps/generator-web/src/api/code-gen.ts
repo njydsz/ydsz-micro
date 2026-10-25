@@ -24,7 +24,7 @@ export function preview(params: {
   templateGroupId: number;
   tableName: string;
 }): Promise<CodePreviewVO[]> {
-  return requestClient.get<CodePreviewVO[]>(`/api/generator/code/preview`, { params });
+  return requestClient.get<CodePreviewVO[]>(`/generator/code/preview`, { params });
 }
 
 /**
@@ -38,7 +38,7 @@ export function downloadPreviewZip(params: {
   templateGroupId: number;
   tableName: string;
 }): Promise<Blob> {
-  return requestClient.get<Blob>(`/api/generator/code/preview/zip`, {
+  return requestClient.get<Blob>(`/generator/code/preview/zip`, {
     params,
     responseType: 'blob',
   });
@@ -51,7 +51,7 @@ export function downloadPreviewZip(params: {
  * @returns 生成结果
  */
 export function generate(data: GenCodeGenerateQuery): Promise<GenResultVO> {
-  return requestClient.post<GenResultVO>(`/api/generator/code/generate`, data);
+  return requestClient.post<GenResultVO>(`/generator/code/generate`, data);
 }
 
 /**
@@ -67,5 +67,5 @@ export function generateAll(params: {
   conflictStrategy?: string;
   triggeredBy?: string;
 }): Promise<GenResultVO> {
-  return requestClient.post<GenResultVO>(`/api/generator/code/generate/all`, { params });
+  return requestClient.post<GenResultVO>(`/generator/code/generate/all`, { params });
 }

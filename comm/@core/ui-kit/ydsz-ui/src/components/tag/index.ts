@@ -6,3 +6,7 @@
  */
 export { default as YdTag } from './YdTag.vue';
 export { default as YdTagCheckable } from './YdTagCheckable.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydTag } from './tag.vue';
+export type { TagProps, TagEmits, TagVariant, TagSize } from './tag-types';

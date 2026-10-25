@@ -11,7 +11,7 @@
  */
 import type { ContextMenuTriggerProps } from '@ydsz-core/ydsz-vue';
 
-import { YdContextMenuTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
+import { ContextMenuTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 const props = defineProps<ContextMenuTriggerProps>();
 
@@ -19,7 +19,7 @@ const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <YdContextMenuTrigger v-bind="forwardedProps">
+  <ContextMenuTrigger v-bind="forwardedProps">
     <slot></slot>
-  </YdContextMenuTrigger>
+  </ContextMenuTrigger>
 </template>

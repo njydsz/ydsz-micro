@@ -1075,6 +1075,10 @@ def build_ts_models(builder: SchemaBuilder) -> str:
     for name, sch in builder.components.items():
         if name in skip_names:
             continue
+        # 生成器偶尔会把注释/占位文本误当成类名（如 "Valid  ChangePasswordDTO"），
+        # 非法 TS 标识符直接跳过，避免产出无法编译的 models.ts。
+        if not re.match(r"^[A-Za-z_$][\w$]*$", name):
+            continue
         props = sch.get("properties", {})
         doc = (sch.get("description") or "").strip()
         if _PLACEHOLDER_DOC.match(doc):

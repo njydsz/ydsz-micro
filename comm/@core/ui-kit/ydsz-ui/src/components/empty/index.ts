@@ -7,3 +7,7 @@
  */
 
 export { default as YdEmpty } from './YdEmpty.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydEmpty } from './empty.vue';
+export type { EmptyProps } from './empty-types';

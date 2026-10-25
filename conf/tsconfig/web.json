@@ -9,6 +9,7 @@
     "useDefineForClassFields": true,
     "moduleResolution": "bundler",
     "types": ["vite/client"],
-    "declaration": false
+    "declaration": false,
+    "allowImportingTsExtensions": true
   }
 }

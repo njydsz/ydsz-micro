@@ -15,5 +15,6 @@
     "trigger": "トリガー",
     "log": "ログ",
     "itemCount": "{count, plural, =0{なし} other{# 件}}"
-  }
+  },
+  "menu": "メニュー"
 }

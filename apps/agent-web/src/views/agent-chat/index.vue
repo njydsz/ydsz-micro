@@ -21,7 +21,8 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdAccordion, YdAccordionItem, YdTooltip, YdButton, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdTooltip, YdButton, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
 import { clearHistory, history as fetchHistory } from '#/api/agent';
@@ -216,9 +217,12 @@ onBeforeUnmount(() => {
       <ConversationShare ref="conversationShareRef" />
       <!-- 输入区 -->
       <div class="mt-3">
-        <YdAccordion class="mb-2">
-          <YdAccordionItem title="高级参数（System Prompt）" name="advanced">
-            <YdTextarea v-model="systemPrompt" placeholder="可选：自定义系统提示词" />
+        <YdAccordion type="single" collapsible class="mb-2">
+          <YdAccordionItem value="advanced">
+            <YdAccordionTrigger>高级参数（System Prompt）</YdAccordionTrigger>
+            <YdAccordionContent>
+              <YdTextarea v-model="systemPrompt" placeholder="可选：自定义系统提示词" />
+            </YdAccordionContent>
           </YdAccordionItem>
         </YdAccordion>
         <div class="flex items-start gap-2">

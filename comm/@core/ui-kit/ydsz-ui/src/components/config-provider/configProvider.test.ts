@@ -12,7 +12,7 @@ import { describe, it, expect } from 'vitest';
 
 import { CONFIG_INJECTION_KEY } from './YdConfigProvider.vue';
 
-import { useConfigProvider } from './useConfigProvider.ts';
+import { useConfigProvider } from './useConfigProvider';
 
 describe('YdConfigProvider exports', () => {
   it('YdConfigProvider 组件应被定义', async () => {

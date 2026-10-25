@@ -22,7 +22,7 @@ import {
   DESCRIPTIONS_BORDER,
   DESCRIPTIONS_COLUMN,
   DESCRIPTIONS_SIZE,
-} from './constants.ts';
+} from './constants';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 

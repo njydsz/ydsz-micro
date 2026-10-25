@@ -16,7 +16,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { YdTabsList } from '@ydsz-core/ydsz-vue';
+import { TabsList } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -30,7 +30,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <YdTabsList
+  <TabsList
     v-bind="delegatedProps"
     :class="
       cn(
@@ -40,5 +40,5 @@ const delegatedProps = computed(() => {
     "
   >
     <slot></slot>
-  </YdTabsList>
+  </TabsList>
 </template>

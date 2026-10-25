@@ -17,7 +17,7 @@
  * @since 1.0.0
 */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, Slider, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSlider, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -252,7 +252,7 @@ function handleNodeNameChange(name: string): void {
         </YdButton>
         <div class="mx-2 h-5 w-px bg-gray-300" />
         <span class="text-sm text-gray-600">缩放：</span>
-        <Slider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
+        <YdSlider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
         <span class="text-xs text-gray-500">{{ zoomPercent }}%</span>
       </div>
 

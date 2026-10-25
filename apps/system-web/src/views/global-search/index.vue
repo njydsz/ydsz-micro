@@ -222,7 +222,7 @@ watch(keyword, () => {
       >
         <div class="mb-1 flex items-center gap-2">
           <span class="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
-            {{ item typeName || item.type || '未知' }}
+            {{ item.typeName || item.type || '未知' }}
           </span>
           <span class="text-sm font-medium">{{ item.title || item.id }}</span>
         </div>

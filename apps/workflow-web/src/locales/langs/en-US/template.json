@@ -1,0 +1,19 @@
+{
+  "flowName": {
+    "label": "Flow Name",
+    "placeholder": "Enter flow name"
+  },
+  "templateCode": {
+    "label": "Template Code",
+    "placeholder": "Enter template code",
+    "required": "Template code is required"
+  },
+  "import": {
+    "title": "Import Flow Template",
+    "desc": {
+      "prefix": "Enter the template code of an existing flow to import its definition.",
+      "suffix": "The imported flow can be reused and published as a new version in this tenant."
+    },
+    "success": "Imported successfully"
+  }
+}

@@ -15,5 +15,6 @@
     "trigger": "Déclencher",
     "log": "Journal",
     "itemCount": "{count, plural, =0{Aucun élément} one{# élément} other{# éléments}}"
-  }
+  },
+  "menu": "Menu"
 }

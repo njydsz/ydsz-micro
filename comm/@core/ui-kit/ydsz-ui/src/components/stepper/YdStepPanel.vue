@@ -9,7 +9,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { StepperContext } from './stepper-types.ts';
+import type { StepperContext } from './stepper-types';
 
 import { computed, inject } from 'vue';
 

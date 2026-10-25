@@ -12,3 +12,7 @@ export { default as YdAccordion } from './YdAccordion.vue';
 export { default as YdAccordionContent } from './YdAccordionContent.vue';
 export { default as YdAccordionItem } from './YdAccordionItem.vue';
 export { default as YdAccordionTrigger } from './YdAccordionTrigger.vue';
+
+// merged from pre-refactor ui/ + primitives/ barrels
+export { default as ydAccordion } from './accordion.vue';
+export type { AccordionProps } from './accordion-types';
