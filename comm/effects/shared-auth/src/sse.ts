@@ -24,6 +24,12 @@
 // @infra-fetch 基础设施层直用，无统一客户端上下文
 import { useTokenStore } from '@ydsz/stores';
 
+/** 与后端 DeviceType.resolve 对齐，网关校验 JWT deviceType 声明时要求请求头一致 */
+function resolveDeviceType() {
+  const ua = typeof navigator === 'undefined' ? '' : navigator.userAgent.toLowerCase();
+  return /mobile|android|iphone|ipad|okhttp|dart/.test(ua) ? 'app' : 'web';
+}
+
 /** SSE 事件回调 */
 export interface SseEvent {
   /** 事件名（默认 message） */
@@ -187,6 +193,7 @@ export async function streamRequest(options: StreamRequestOptions): Promise<void
   const tokenStore = useTokenStore();
   const requestHeaders: Record<string, string> = {
     Accept: 'text/event-stream',
+    'X-Device-Type': resolveDeviceType(),
     ...headers,
   };
   // HttpOnly Cookie 模式下前端无 accessToken，不注入 Authorization 头
@@ -288,6 +295,7 @@ export async function* streamRequestAsync(
   const tokenStore = useTokenStore();
   const requestHeaders: Record<string, string> = {
     Accept: 'text/event-stream',
+    'X-Device-Type': resolveDeviceType(),
     ...headers,
   };
   const token = tokenStore.accessToken;

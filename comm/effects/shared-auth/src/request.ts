@@ -126,6 +126,12 @@ export function createSharedRequestClient(
     return token ? `Bearer ${token}` : null;
   }
 
+  // 与后端 DeviceType.resolve 对齐：JWT 含 deviceType 声明时网关强制要求请求头一致
+  function resolveDeviceType() {
+    const ua = typeof navigator === 'undefined' ? '' : navigator.userAgent.toLowerCase();
+    return /mobile|android|iphone|ipad|okhttp|dart/.test(ua) ? 'app' : 'web';
+  }
+
   // 请求头处理
   client.addRequestInterceptor({
     fulfilled: async (config) => {
@@ -137,6 +143,9 @@ export function createSharedRequestClient(
         config.headers.Authorization = formatToken(tokenStore.accessToken);
       }
       config.headers['Accept-Language'] = preferences.app.locale;
+      if (!config.headers['X-Device-Type']) {
+        config.headers['X-Device-Type'] = resolveDeviceType();
+      }
       // P0-7: 多租户（MULTI 模式）租户头注入；无租户配置时为空串不注入，保持单租户兼容
       const tenantId = resolveTenantId(config.headers['X-Tenant-Id']);
       if (tenantId) {
