@@ -1,21 +1,21 @@
 <script setup lang="ts">
 /**
-* 面包屑 Pro —— 便利性封装（Convenience Wrapper）。
-* 
- * 配置式 options API，允许通过 items 数组快速声明面包屑，
- * 对齐 Ant Design / Element Plus 的 Breadcrumb 使用习惯。
-* 
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\breadcrumb\YdBreadcrumbPro.vue
- * @author ydsz-team
- * @since 1.0.0
- */
-/**
- * 面包屑 Pro——配置式便利性封装。
+ * 面包屑 Pro —— 便利性封装（Convenience Wrapper）。
  *
+ * 配置式 items API，允许通过数组快速声明面包屑，
+ * 对齐 Ant Design / Element Plus 的 Breadcrumb 使用习惯；
+ * 需要精细控制时仍可直接组合 YdBreadcrumb 七件套原子组件。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\breadcrumb\YdBreadcrumbPro.vue
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdBreadcrumb, YdBreadcrumbItem, YdBreadcrumbLink, YdBreadcrumbList, YdBreadcrumbPage, YdBreadcrumbSeparator } from '@ydsz-core/ydsz-ui';
+import YdBreadcrumb from './YdBreadcrumb.vue';
+import YdBreadcrumbItem from './YdBreadcrumbItem.vue';
+import YdBreadcrumbLink from './YdBreadcrumbLink.vue';
+import YdBreadcrumbList from './YdBreadcrumbList.vue';
+import YdBreadcrumbPage from './YdBreadcrumbPage.vue';
+import YdBreadcrumbSeparator from './YdBreadcrumbSeparator.vue';
 
 /** 面包屑项配置 */
 export interface BreadcrumbItemOption {
@@ -29,7 +29,7 @@ export interface BreadcrumbItemOption {
   onClick?: () => void;
 }
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   /** 面包屑项列表 */
   items: BreadcrumbItemOption[];
   /** 分隔符（默认 /） */
@@ -40,34 +40,11 @@ const props = withDefaults(defineProps<{
 </script>
 
 <template>
-  <!--
-    面包屑便利性封装 —— 配置式 options 用法。
-
-    用法一（配置式，快速声明）：
-    ```html
-    <YdBreadcrumbPro :items="[
-      { title: '首页', href: '/' },
-      { title: '知识图谱', href: '/kg' },
-      { title: '实体详情' },
-    ]" />
-    ```
-
-    用法二（声明式，精细控制 —— 直接使用七件套原子组件）：
-    ```html
-    <YdBreadcrumb>
-      <YdBreadcrumbList>
-        <YdBreadcrumbItem><YdBreadcrumbLink href="/">首页</YdBreadcrumbLink></YdBreadcrumbItem>
-        <YdBreadcrumbSeparator />
-        <YdBreadcrumbItem><YdBreadcrumbPage>实体详情</YdBreadcrumbPage></YdBreadcrumbItem>
-      </YdBreadcrumbList>
-    </YdBreadcrumb>
-    ```
-  -->
   <YdBreadcrumb>
     <YdBreadcrumbList>
       <template
         v-for="(item, idx) in items"
-        :key="idx"
+        :key="item.href ?? item.title"
       >
         <YdBreadcrumbItem>
           <YdBreadcrumbLink

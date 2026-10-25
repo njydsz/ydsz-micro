@@ -1,26 +1,24 @@
 /**
  * YdTour（漫游引导）组件入口。
  *
- * 对标 EP Tour / ANT Tour 的完整多步引导能力，包含：
+ * 对标 EP Tour / ANT Tour 的完整多步引导能力，公开出口为：
  * - YdTour 主控制器
- * - YdTourMask 遮罩 + spotlight
- * - YdTourStep 单步面板
+ * - YdTourStep 单步内容面板
  *
- * @module primitives/tour
+ * YdTourMask 只由 YdTour 内部组合，不对外导出。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\tour\index.ts
  * @author ydsz-team
- * @since 1.0.0 (26.10.10 扩展为完整 Tour)
+ * @since 1.0.0
  */
 
 export { default as YdTour } from './YdTour.vue';
+export { default as YdTourStep } from './YdTourStep.vue';
 
 export type {
-  TourStep,
-  YdTourProps,
-  YdTourEmits,
   PopoverPlacement,
   TourPopoverStyle,
+  TourStep,
+  YdTourEmits,
+  YdTourProps,
 } from './tour-types';
-
-// merged from pre-refactor ui/ + primitives/ barrels
-export { default as ydTour } from './tour.vue';
-export type { YdTourProps } from './tour-types';

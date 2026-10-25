@@ -26,10 +26,7 @@
  * @since 4.1.0 (P2-15)
  */
 
-import {
-  streamRequestAsync,
-  type SseEvent,
-} from '@YDSZ/shared-auth/sse';
+import { type SseEvent, streamRequestAsync } from '@ydsz/shared-auth';
 import { useTokenStore } from '@ydsz/stores';
 
 import { createLogger } from '@ydsz-core/shared/utils';

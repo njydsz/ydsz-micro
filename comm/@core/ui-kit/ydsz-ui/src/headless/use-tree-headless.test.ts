@@ -104,4 +104,45 @@ describe('useTreeHeadless', () => {
     await nextTick();
     expect(handle.flattenedNodes.value.length).toBe(5);
   });
+
+  it('cascadeSelect 选中中间层节点应带出其全部子孙', () => {
+    const handle = useTreeHeadless<TestNode>({
+      cascadeSelect: true,
+      multiple: true,
+      treeData: () => [
+        {
+          children: [
+            { children: [{ name: '孙1-1-1', value: '1-1-1' }], name: '子1-1', value: '1-1' },
+          ],
+          name: '根1',
+          value: '1',
+        },
+      ],
+    });
+
+    handle.toggleSelect('1-1');
+
+    expect([...handle.selectedKeys.value].sort()).toEqual(['1-1', '1-1-1']);
+  });
+
+  it('cascadeSelect 取消中间层节点应同步移除子孙', () => {
+    const handle = useTreeHeadless<TestNode>({
+      cascadeSelect: true,
+      defaultSelectedKeys: ['1-1', '1-1-1'],
+      multiple: true,
+      treeData: () => [
+        {
+          children: [
+            { children: [{ name: '孙1-1-1', value: '1-1-1' }], name: '子1-1', value: '1-1' },
+          ],
+          name: '根1',
+          value: '1',
+        },
+      ],
+    });
+
+    handle.toggleSelect('1-1');
+
+    expect([...handle.selectedKeys.value]).toEqual([]);
+  });
 });

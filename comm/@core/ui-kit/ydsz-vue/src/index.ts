@@ -1,5 +1,5 @@
 /**
- * @file ydzs-vue 总入口
+ * @file ydsz-vue 总入口
  * @description YDSZ Headless UI —— 基于 radix-vue@1.9.17 内化的无头组件层。
  *              本包仅包含 ydsz-ui 60 个文件实际引用的组件族与工具函数，
  *              未引用的组件族（Calendar / Combobox / Toast 等）不纳入。

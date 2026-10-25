@@ -50,22 +50,26 @@ jobs:
         run: pnpm build:main
 
       # 检出 main 分支基线（PR 时与 main 对比）
+      # 不再 `|| echo "{}"`：PR 构建检出的是 refs/pull/N/merge，本地 main 分支常常不存在，
+      # 旧的兜底会把"取不到基线"变成"空基线"，下游脚本于是没有任何阈值可比 —— 静默放行。
+      # 现在取不到就让这一步直接红，check-performance-regression.py 也会拒绝空基线。
       - name: 检出 main 分支基线文件
         if: github.event_name == 'pull_request'
         run: |
-          git show main:main/.perf-budget.json > /tmp/main-perf-budget.json 2>/dev/null || echo "{}" > /tmp/main-perf-budget.json
+          git fetch origin main --depth=1
+          git show origin/main:main/.perf-budget.json > /tmp/main-perf-budget.json
           echo "=== main 基线 budget ==="
-          cat /tmp/main-perf-budget.json || echo "(not found)"
+          cat /tmp/main-perf-budget.json
 
       # 运行 Playwright Web Vitals 测试
+      # 必须显式 --config：根目录 playwright.config.ts 是 a11y 配置（testDir=tests/a11y，
+      # webServer 起 4310 的 fixture 页）。不带 --config 时，位置参数 tests/performance/...
+      # 会被那份配置过滤成 0 条用例，或（侥幸命中时）测的是 fixture 而不是 main/dist 产物。
       - name: 运行 Web Vitals 基线测试
         id: vitals-test
         continue-on-error: true  # 允许收集报告后再失败
         run: |
-          pnpm exec playwright test tests/performance/web-vitals.spec.ts \
-            --reporter=html,junit,line \
-            --workers=1 \
-            --timeout=60000
+          pnpm test:perf
 
       # 对比退化检测（> 20% 则失败）
       - name: 性能退化检测（> 20% 失败）

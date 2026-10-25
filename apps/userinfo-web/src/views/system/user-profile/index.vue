@@ -21,7 +21,7 @@
  */
 import { Page } from '@ydsz/common-ui';
 import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdForm, YdFormItem, YdInput, YdSwitch, type FormInstance, type UploadRequestOptions } from '@ydsz-core/ydsz-ui';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2 } from '@ydsz/icons';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import {

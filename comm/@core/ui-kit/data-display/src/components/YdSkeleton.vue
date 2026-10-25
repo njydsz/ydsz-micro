@@ -10,7 +10,7 @@
  *
  * <p>用于表格/列表数据加载时的占位展示，支持行数和列数自定义。
  *
- * @author ydzs-team
+ * @author ydsz-team
  * @since 1.1.0
  */
 

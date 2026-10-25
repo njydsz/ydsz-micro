@@ -13,7 +13,7 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { Bell, Check } from 'lucide-vue-next';
+import { Bell, Check } from '@ydsz/icons';
 import { useToggle } from '@vueuse/core';
 import { showToast } from '@ydsz/notification';
 

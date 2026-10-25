@@ -45,6 +45,10 @@ export const zhCN = {
   'table.expandedRow': '展开行',
   'table.collapseRow': '收起行',
   'table.columnSetting': '列设置',
+  'table.editCell': '编辑单元格',
+  'table.sortHint': '点击排序，Shift+点击追加多列排序',
+  'table.resizeColumn': '拖拽调整列宽',
+  'table.dragColumn': '拖拽调整列顺序',
 
   // ===== Form =====
   'form.validating': '校验中...',
@@ -63,6 +67,7 @@ export const zhCN = {
   'dialog.deleteWarning': '此操作不可撤销',
 
   // ===== Drawer =====
+  'drawer.ariaLabel': '抽屉',
   'drawer.close': '关闭',
   'drawer.closeAriaLabel': '关闭抽屉',
   'drawer.confirm': '确认',
@@ -131,6 +136,7 @@ export const zhCN = {
   'select.loading': '加载中...',
   'select.selectAll': '全选',
   'select.clear': '清空',
+  'select.removeTag': '移除',
   'create.label': '创建 "{value}"',
 
   // ===== Tree =====
@@ -150,6 +156,10 @@ export const zhCN = {
   'notification.empty': '暂无通知',
   'notification.markAllRead': '全部标为已读',
   'notification.viewAll': '查看全部',
+  'notification.closeAriaLabel': '关闭通知',
+
+  // ===== Toast =====
+  'toast.region': '通知',
 
   // ===== Empty / Result =====
   'empty.default': '暂无数据',

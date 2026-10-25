@@ -14,11 +14,6 @@ export type { SwipeDirection } from './composables';
 export type { UseSafeAreaOptions, SafeAreaReturn } from './composables/use-safe-area';
 
 // ===== 断点常量 =====
-export {
-  Breakpoint,
-  BREAKPOINT_CSS_VARS,
-  TOUCH_TARGET,
-  getBreakpointName,
-} from './breakpoints';
+export { Breakpoint, TOUCH_TARGET, getBreakpointName } from './breakpoints';
 
 export type { BreakpointName } from './breakpoints';

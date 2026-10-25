@@ -23,8 +23,8 @@
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
-import 'bpmn-js-properties-panel/dist/assets/properties-panel.css';
-import 'bpmn-js-properties-panel/dist/assets/element-templates.css';
+// bpmn-js-properties-panel v5 起不再自带样式：面板样式实际由 @bpmn-io/properties-panel 提供
+import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
 import type { ModdleElement } from 'bpmn-js/lib/model';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import BpmnModeler from 'bpmn-js/lib/Modeler';

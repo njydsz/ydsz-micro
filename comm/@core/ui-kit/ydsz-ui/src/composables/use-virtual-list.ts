@@ -49,6 +49,12 @@ export interface UseVirtualListOptions {
   getKey?: (item: unknown, index: number) => string | number;
   /** 动态高度测量映射（index -> measured height） */
   measuredHeights?: Ref<Map<number, number>>;
+  /**
+   * 滚动元素取值函数 —— 供 scrollToIndex 在「尚未发生过滚动」时也能定位。
+   *
+   * @returns 滚动容器元素，未挂载时返回 null
+   */
+  getScrollElement?: () => HTMLElement | null;
 }
 
 /** 单条可见项描述 */
@@ -94,6 +100,15 @@ export interface VirtualListHandle<T> {
       width: '100%';
     };
   }>;
+  /** 第 index 项相对列表顶部的偏移（像素） */
+  offsetOf: (index: number) => number;
+  /**
+   * 把第 index 项滚入视口；容器尚未挂载或索引越界时静默返回。
+   *
+   * @param index - 目标项索引
+   * @returns 无
+   */
+  scrollToIndex: (index: number) => void;
 }
 
 /** 默认 itemHeight 32 px（约等于 py-1.5 + text-sm 的选择项高度） */
@@ -259,10 +274,52 @@ export function useVirtualList<T = unknown>(
   /** 偏移量（首个可见项 offsetY） */
   const offsetY = computed(() => getOffsetY(startIndex.value));
 
+  /** 最近一次滚动事件捕获到的容器，作为 getScrollElement 未提供时的回退来源 */
+  let capturedScrollElement: HTMLElement | null = null;
+
   /** 滚动事件处理 */
   function onScroll(event: Event): void {
     const target = event.target as HTMLElement | null;
+    capturedScrollElement = target;
     scrollTop.value = target?.scrollTop ?? 0;
+  }
+
+  /**
+   * 第 index 项相对列表顶部的偏移（像素）。
+   *
+   * @param index - 项索引
+   * @returns 累计偏移
+   */
+  function offsetOf(index: number): number {
+    return getOffsetY(index);
+  }
+
+  /**
+   * 把第 index 项滚入视口。
+   *
+   * <p>只写内部 scrollTop 并不会移动真实滚动条（下一次 scroll 事件就会把它覆盖回去），
+   * 因此这里必须直接操作滚动容器的 scrollTop。
+   *
+   * @param index - 目标项索引
+   * @returns 无
+   */
+  function scrollToIndex(index: number): void {
+    const list = resolvedItems.value;
+    if (index < 0 || index >= list.length) return;
+    const element = options.getScrollElement?.() ?? capturedScrollElement;
+    if (!element) return;
+
+    const itemTop = getOffsetY(index);
+    const itemBottom = itemTop + getItemHeight(index);
+    const viewTop = element.scrollTop;
+    const viewBottom = viewTop + viewportHeight;
+
+    if (itemTop < viewTop) {
+      element.scrollTop = itemTop;
+    } else if (itemBottom > viewBottom) {
+      element.scrollTop = itemBottom - viewportHeight;
+    }
+    scrollTop.value = element.scrollTop;
   }
 
   /** 容器样式 props */
@@ -286,10 +343,12 @@ export function useVirtualList<T = unknown>(
 
   return {
     containerProps,
+    offsetOf,
     offsetY,
     onScroll,
     scrollTop,
     spacerProps,
+    scrollToIndex,
     totalHeight,
     visibleItems,
   };

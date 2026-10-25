@@ -192,8 +192,21 @@
  * - Surface 使用反转后的 neutral 低阶，Text 使用反转后的高阶；
  * - Shadow 不透明度增强：暗色环境下阴影不易察觉，需加码以维持层次感知；
  * - Brand/Success/Warning/Destructive 已是 HSL 分量形式，浏览器渲染无需额外干预。
+ *
+ * 选择器为何是 `.dark` 而非只认 `[data-theme='dark']`：仓库里有两条主题写入链路，
+ * 它们给 `<html>` 打的是不同的标记——
+ *   - `@ydsz-core/preferences` 的 update-css-variables.ts：`classList.toggle('dark')`
+ *     并把 `data-theme` 写成**内置配色预设名**（default/violet/pink/…，其中没有 'dark'）；
+ *   - `micro-kernel` 的 use-theme-sync.ts：`classList.add('dark')` 并把 `data-theme`
+ *     写成**模式名**（auto/light/dark）。
+ * 两者唯一稳定的共同信号是 `.dark` 类；只写 `[data-theme='dark']` 的话，走 preferences
+ * 的用户切到暗色时这一整块覆盖根本不会命中。`auto` 模式下 data-theme 为 'auto'
+ * 同样漏命中，因此类选择器是必需的而不是可选的。
+ * `[data-theme='dark']` 保留是为了 ydsz-ui 独立使用（ThemeProvider 把该属性挂在组件
+ * 子树根节点而非 html 上）。
  */
-:root[data-theme='dark'] {
+:root.dark,
+[data-theme='dark'] {
   /* Neutral 色阶 */
   --ydsz-color-neutral-50: 222 13% 14%;
   --ydsz-color-neutral-100: 222 13% 18%;

@@ -29,6 +29,13 @@ export type {
   VisibleItem,
 } from './use-virtual-list';
 
+export { useListboxKeyboard } from './use-listbox-keyboard';
+export type {
+  ListboxKeyboardItem,
+  UseListboxKeyboardOptions,
+  UseListboxKeyboardReturn,
+} from './use-listbox-keyboard';
+
 export { useVirtualForList } from './use-virtual-for-list';
 export type {
   UseVirtualForListOptions,
@@ -95,6 +102,8 @@ export type {
 export { useTableData } from './use-table-data';
 export type {
   TableColumnDef,
+  SortOrder,
+  SortRule,
   SortState,
   RowSelectionConfig,
   UseTableDataOptions,
@@ -180,3 +189,9 @@ export type { Density, UseDensityOptions } from './use-density';
 // 命令式 Drawer —— 懒加载的内部实现在 src/components/drawer 中维护
 export { useDrawer } from '../components/drawer/use-drawer';
 export type { UseDrawerReturn } from '../components/drawer/use-drawer';
+
+// 浮层交互原语（Dialog / Drawer / Sheet 共用）
+export { useBodyScrollLock } from './use-body-scroll-lock';
+export { useFocusTrap } from './use-focus-trap';
+export type { UseFocusTrapOptions } from './use-focus-trap';
+export { useOverlayEscape, __resetOverlayEscapeStackForTests } from './use-overlay-escape';

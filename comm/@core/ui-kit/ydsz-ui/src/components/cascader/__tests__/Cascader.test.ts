@@ -90,10 +90,16 @@ describe('YdCascader', () => {
 
   it('ESC 键 closePanel（keydown.escape 绑定）', async () => {
     const wrapper = mount(YdCascader, {
-      props: { options: sampleOptions },
+      props: { modelValue: ['beijing', 'chaoyang'], options: sampleOptions },
     })
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.find('[role="listbox"]').exists()).toBe(true)
+
     await wrapper.trigger('keydown.escape')
     await wrapper.vm.$nextTick()
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+
+    // ESC 只负责收起面板：已选值不应被改写
+    expect(wrapper.find('[role="listbox"]').exists()).toBe(false)
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
   })
 })

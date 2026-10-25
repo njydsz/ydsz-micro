@@ -7,7 +7,7 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import { nextTick } from 'vue';
+import { nextTick, ref } from 'vue';
 
 import {
   useTableData,
@@ -108,5 +108,147 @@ describe('useTableData', () => {
     expect(table.viewRows.value).toHaveLength(2);
     table.clearFilters();
     expect(table.viewRows.value).toHaveLength(3);
+  });
+
+  describe('多列排序', () => {
+    /** 同 status 行用于验证次级排序列生效 */
+    const tieData: TestRow[] = [
+      { age: 30, id: 1, name: 'Alice', status: 'active' },
+      { age: 25, id: 2, name: 'Bob', status: 'active' },
+      { age: 35, id: 3, name: 'Carol', status: 'inactive' },
+    ];
+
+    it('additive=true 时应追加到排序链并给出次序', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: true,
+      });
+      table.toggleSort('status');
+      table.toggleSort('status', true);
+      table.toggleSort('age', true);
+
+      expect(table.sortChain.value).toEqual([
+        { order: 'desc', prop: 'status' },
+        { order: 'asc', prop: 'age' },
+      ]);
+      expect(table.getSortRank('status')).toBe(1);
+      expect(table.getSortRank('age')).toBe(2);
+    });
+
+    it('追加列应作为次级比较：status 相同按 age 升序', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: true,
+      });
+      table.toggleSort('status', true);
+      table.toggleSort('age', true);
+
+      expect(table.viewRows.value.map(row => row.name)).toEqual(['Bob', 'Alice', 'Carol']);
+    });
+
+    it('非 additive 点击应重置为单列排序', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: true,
+      });
+      table.toggleSort('status', true);
+      table.toggleSort('age', true);
+      table.toggleSort('name');
+
+      expect(table.sortChain.value).toEqual([{ order: 'asc', prop: 'name' }]);
+      expect(table.getSortRank('name')).toBe(1);
+    });
+
+    it('multipleSort 关闭时 additive 参数被忽略', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+      });
+      table.toggleSort('status', true);
+      table.toggleSort('age', true);
+
+      expect(table.sortChain.value).toEqual([{ order: 'asc', prop: 'age' }]);
+      expect(table.getSortRank('age')).toBeNull();
+    });
+
+    it('multipleSort 支持响应式 getter 切换', () => {
+      const multiple = ref(false);
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: () => multiple.value,
+      });
+      table.toggleSort('status', true);
+      expect(table.sortChain.value).toHaveLength(1);
+
+      multiple.value = true;
+      table.toggleSort('age', true);
+      expect(table.sortChain.value).toHaveLength(2);
+      expect(table.getSortRank('age')).toBe(2);
+    });
+
+    it('setSortChain 应过滤空规则与重复列', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: true,
+      });
+      table.setSortChain([
+        { order: 'asc', prop: 'age' },
+        { order: 'desc', prop: 'age' },
+        { order: 'asc', prop: '' },
+        { order: 'name' as never, prop: 'name' },
+        { order: 'desc', prop: 'status' },
+      ]);
+
+      expect(table.sortChain.value).toEqual([
+        { order: 'asc', prop: 'age' },
+        { order: 'desc', prop: 'status' },
+      ]);
+    });
+
+    it('sortState 写入等价于覆盖排序链', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: true,
+      });
+      table.toggleSort('status', true);
+      table.sortState.value = { order: 'desc', prop: 'age' };
+
+      expect(table.sortChain.value).toEqual([{ order: 'desc', prop: 'age' }]);
+      expect(table.getSortOrder('status')).toBeNull();
+      expect(table.getSortOrder('age')).toBe('desc');
+    });
+
+    it('clearSort 清空排序链后视图恢复原始顺序', async () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        multipleSort: true,
+      });
+      table.toggleSort('age', true);
+      await nextTick();
+      table.clearSort();
+      await nextTick();
+
+      expect(table.sortChain.value).toEqual([]);
+      expect(table.sortState.value).toEqual({ order: null, prop: null });
+      expect(table.viewRows.value.map(row => row.id)).toEqual([1, 2, 3]);
+    });
+
+    it('initialSortChain 应在初始化时生效', () => {
+      const table = useTableData<TestRow>({
+        columns,
+        data: tieData,
+        initialSortChain: [{ order: 'desc', prop: 'age' }],
+        multipleSort: true,
+      });
+
+      expect(table.viewRows.value.map(row => row.age)).toEqual([35, 30, 25]);
+    });
   });
 });

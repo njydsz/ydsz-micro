@@ -44,5 +44,13 @@
   },
   "peerDependencies": {
     "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@iconify/vue": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@testing-library/vue": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "vitest": "catalog:",
+    "vitest-axe": "catalog:"
   }
 }

@@ -209,7 +209,7 @@ describe('given small total value', () => {
   })
 
   it('should have only 2 page button', () => {
-    expect(wrapper.findAll('[data-type="page"').length).toBe(2)
+    expect(wrapper.findAll('[data-type="page"]').length).toBe(2)
   })
 
   describe('after clicking on Next Page trigger', () => {

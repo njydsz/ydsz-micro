@@ -122,6 +122,7 @@ export const jaJP = {
   'select.loading': '読み込み中...',
   'select.selectAll': 'すべて選択',
   'select.clear': 'クリア',
+  'select.removeTag': '削除',
   'create.label': '"{value}" を作成',
 
   // ===== ツリー =====
@@ -141,6 +142,10 @@ export const jaJP = {
   'notification.empty': '通知はありません',
   'notification.markAllRead': 'すべて既読にする',
   'notification.viewAll': 'すべて表示',
+  'notification.closeAriaLabel': '通知を閉じる',
+
+  // ===== Toast =====
+  'toast.region': '通知',
 
   // ===== 空状態 =====
   'empty.default': 'データがありません',

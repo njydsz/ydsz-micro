@@ -410,7 +410,7 @@ onBeforeUnmount(() => {
     </div>
 
     <BatchFormModal @success="handleBatchCreated" />
-    <YdDrawer v-model="progressVisible" title="批次进度" :size="440" v-loading="progressLoading">
+    <YdDrawer v-model:open="progressVisible" header="批次进度" :width="440">
       <template #header>
         <div class="flex w-full items-center justify-between pe-2">
           <span>{{ t('page.batchSend') }}</span>
@@ -424,29 +424,31 @@ onBeforeUnmount(() => {
           </span>
         </div>
       </template>
-      <YdDescriptions v-if="progressData" :column="1" border size="small">
-        <YdDescriptionsItem label="批次ID">{{ progressData.batchId ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="批次名称">{{ progressData.batchName ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="通道">{{ progressData.channel ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('templateCode')">{{ progressData.templateCode ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('common.status')">{{ progressData.status ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="进度">
-          <YdProgress
-            :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"
-            :status="Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status) ? 'success' : undefined"
-            :stroke-width="12"
-            class="w-56"
-          />
-        </YdDescriptionsItem>
-        <YdDescriptionsItem label="总数">{{ progressData.total ?? 0 }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="已处理">{{ progressData.processed ?? 0 }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="成功">{{ progressData.success ?? 0 }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="失败">{{ progressData.failed ?? 0 }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="跳过">{{ progressData.skipped ?? 0 }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="错误信息">{{ progressData.errorMessage ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="开始时间">{{ progressData.startedAt ?? '-' }}</YdDescriptionsItem>
-        <YdDescriptionsItem label="完成时间">{{ progressData.completedAt ?? '-' }}</YdDescriptionsItem>
-      </YdDescriptions>
+      <div v-loading="progressLoading" class="min-h-24">
+        <YdDescriptions v-if="progressData" :column="1" border size="small">
+          <YdDescriptionsItem label="批次ID">{{ progressData.batchId ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="批次名称">{{ progressData.batchName ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="通道">{{ progressData.channel ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('templateCode')">{{ progressData.templateCode ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('common.status')">{{ progressData.status ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="进度">
+            <YdProgress
+              :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"
+              :status="Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status) ? 'success' : undefined"
+              :stroke-width="12"
+              class="w-56"
+            />
+          </YdDescriptionsItem>
+          <YdDescriptionsItem label="总数">{{ progressData.total ?? 0 }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="已处理">{{ progressData.processed ?? 0 }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="成功">{{ progressData.success ?? 0 }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="失败">{{ progressData.failed ?? 0 }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="跳过">{{ progressData.skipped ?? 0 }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="错误信息">{{ progressData.errorMessage ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="开始时间">{{ progressData.startedAt ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="完成时间">{{ progressData.completedAt ?? '-' }}</YdDescriptionsItem>
+        </YdDescriptions>
+      </div>
     </YdDrawer>
   </Page>
 </template>

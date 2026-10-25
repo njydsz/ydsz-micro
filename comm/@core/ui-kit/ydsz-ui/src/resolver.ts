@@ -24,6 +24,8 @@ import type { Directive } from 'vue'
 import { vRipple } from './directives/v-ripple'
 import { vClickOutside } from './directives/v-click-outside'
 
+import { YDSZ_UI_COMPONENT_NAMES } from './component-names'
+
 export interface YdszUiResolverOptions {
   /**
    * 式样版本
@@ -45,122 +47,29 @@ export interface YdszUiResolverOptions {
 /** ydsz-ui 组件名称前缀 */
 const COMPONENT_PREFIX = 'Yd'
 
-/** ydsz-ui 组件全量名册 —— 与 src/index.ts 导出对齐 */
-const COMPONENT_NAMES: string[] = [
-  'YdAccordion', 'YdAccordionContent', 'YdAccordionItem', 'YdAccordionTrigger',
-  'YdAlert', 'YdAlertTitle', 'YdAlertDescription',
-  'YdAvatar', 'YdAvatarImage', 'YdAvatarFallback',
-  'YdBackTop',
-  'YdBadge',
-  'YdBreadcrumb', 'YdBreadcrumbItem', 'YdBreadcrumbLink', 'YdBreadcrumbSeparator',
-  'YdButton',
-  'YdCard', 'YdCardHeader', 'YdCardContent', 'YdCardFooter', 'YdCardTitle', 'YdCardDescription',
-  'YdCarousel', 'YdCarouselContent', 'YdCarouselItem', 'YdCarouselPrevious', 'YdCarouselNext',
-  'YdCheckbox',
-  'YdCheckboxGroup',
-  'YdCol',
-  'YdCollapsible', 'YdCollapsibleContent', 'YdCollapsibleTrigger',
-  'YdColorPicker',
-  'YdCombobox', 'YdComboboxInput', 'YdComboboxList', 'YdComboboxOption',
-  'YdCommand', 'YdCommandEmpty', 'YdCommandGroup', 'YdCommandInput', 'YdCommandItem', 'YdCommandList',
-  'YdConfigProvider',
-  'YdContextMenu', 'YdContextMenuTrigger', 'YdContextMenuContent', 'YdContextMenuItem', 'YdContextMenuSeparator',
-  'YdCountTag', 'YdCountdown',
-  'YdDataTable',
-  'YdDatePicker', 'YdDateRangePicker',
-  'YdDescriptions', 'YdDescriptionsItem',
-  'YdDialog', 'YdDialogTrigger', 'YdDialogContent', 'YdDialogHeader', 'YdDialogFooter', 'YdDialogTitle', 'YdDialogDescription', 'YdDialogClose',
-  'YdDivider',
-  'YdDrawer', 'YdDrawerTrigger', 'YdDrawerContent', 'YdDrawerHeader', 'YdDrawerFooter', 'YdDrawerTitle', 'YdDrawerDescription', 'YdDrawerClose',
-  'YdDropdown', 'YdDropdownMenu', 'YdDropdownMenuTrigger', 'YdDropdownMenuContent', 'YdDropdownMenuItem', 'YdDropdownMenuSeparator',
-  'YdEllipsis',
-  'YdEmpty', 'YdEmptyDescription', 'YdEmptyImage',
-  'YdEntityCard',
-  'YdFloatButton',
-  'YdForm', 'YdFormItem', 'YdFormLabel', 'YdFormControl', 'YdFormDescription', 'YdFormMessage',
-  'YdHoverCard', 'YdHoverCardTrigger', 'YdHoverCardContent',
-  'YdIcon',
-  'YdIconPicker',
-  'YdImage', 'YdImageViewer',
-  'YdInput', 'YdTextarea',
-  'YdInputGroup', 'YdInputAddon',
-  'YdInputMask',
-  'YdInputNumber',
-  'YdInputPassword',
-  'YdLabel',
-  'YdLink',
-  'YdList', 'YdListItem', 'YdListHeader', 'YdListFooter',
-  'YdLogo',
-  'YdMention',
-  'YdMenu', 'YdMenuTrigger', 'YdMenuContent', 'YdMenuItem', 'YdMenuSeparator', 'YdMenuGroup', 'YdMenuLabel', 'YdMenuShortcut',
-  'YdMessageBox',
-  'YdNav',
-  'YdNumberField', 'YdNumberFieldInput', 'YdNumberFieldIncrement', 'YdNumberFieldDecrement',
-  'YdOrderList',
-  'YdOrganizationChart',
-  'YdOrgChart',
-  'YdPageHeader',
-  'YdPagination',
-  'YdPickList',
-  'YdPinInput',
-  'YdPopover', 'YdPopoverTrigger', 'YdPopoverContent',
-  'YdProgress', 'YdProgressCircle', 'YdProgressDashboard',
-  'YdQrCode', 'YdQrCodePro',
-  'YdRadioGroup', 'YdRadioGroupItem',
-  'YdRangePicker',
-  'YdRate',
-  'YdResizable',
-  'YdResult', 'YdResultTitle', 'YdResultSubtitle', 'YdResultExtra', 'YdResultContent', 'YdResultIcon',
-  'YdRow',
-  'YdScrollArea', 'YdScrollBar',
-  'YdSearch',
-  'YdSegmented',
-  'YdSelect', 'YdSelectTrigger', 'YdSelectValue', 'YdSelectContent', 'YdSelectItem', 'YdSelectLabel', 'YdSelectGroup', 'YdSelectSeparator', 'YdSelectScrollUpButton', 'YdSelectScrollDownButton',
-  'YdOption',
-  'YdSeparator',
-  'YdSettingsFloat',
-  'YdSheet', 'YdSheetTrigger', 'YdSheetContent', 'YdSheetHeader', 'YdSheetFooter', 'YdSheetTitle', 'YdSheetDescription', 'YdSheetClose',
-  'YdSkeleton',
-  'YdSkeletonCard', 'YdSkeletonDetail', 'YdSkeletonGroup', 'YdSkeletonList',
-  'YdSlider', 'YdSliderRange', 'YdSliderThumb', 'YdSliderTrack',
-  'YdSpace',
-  'YdSpin',
-  'YdSplitter', 'YdSplitterPanel',
-  'YdStatistic',
-  'YdStatusBadge',
-  'YdSteps', 'YdStep',
-  'YdStepper', 'YdStepPanel',
-  'YdSwitch',
-  'YdTable', 'YdTableBody', 'YdTableCell', 'YdTableHead', 'YdTableHeader', 'YdTableRow', 'YdTableCaption', 'YdTableFooter',
-  'YdTabs', 'YdTabsList', 'YdTabsTrigger', 'YdTabsContent', 'YdTabPane',
-  'YdTag', 'YdTagCheckable',
-  'YdThemeEditor',
-  'YdTimelinePro',
-  'YdBreadcrumbPro',
-  'YdMenu',
-  'YdTimePicker',
-  'YdTimeline', 'YdTimelineItem', 'YdTimelineDot', 'YdTimelineContent', 'YdTimelineConnector',
-  'YdToggle', 'YdToggleGroup',
-  'YdTooltip', 'YdTooltipTrigger', 'YdTooltipContent', 'YdTooltipArrow',
-  'YdTour', 'YdTourStep',
-  'YdTransfer',
-  'YdTree', 'YdTreeItem', 'YdTreeVirtualizer',
-  'YdUpload',
-  'YdWarning',
-  'YdFullscreen',
-  'YdWatermark',
-  'YdFormDesigner',
-  'YdAdvancedFilter',
-  'YdQuickCreate',
-  'YdDashboard',
-  'YdAiBuilder',
-  'YdPopconfirm',
-]
+/** 名册集合化，供 resolve 做 O(1) 命中判断 */
+const COMPONENT_NAME_SET = new Set(YDSZ_UI_COMPONENT_NAMES)
 
 /** 指令名称 → 指令对象的映射 */
 const DIRECTIVE_MAP: Record<string, () => Directive> = {
   ripple: () => vRipple,
   clickoutside: () => vClickOutside,
+}
+
+/**
+ * 把模板里出现的指令写法归一化到 DIRECTIVE_MAP 的键。
+ *
+ * <p>unplugin-vue-components 可能传入 'v-ripple'、'VRipple' 或裸名 'ripple'，
+ * 只剥前缀会留下 '-ripple' 这类带分隔符的结果，因此统一去掉分隔符再小写。
+ *
+ * @param raw - 模板中的指令名
+ * @param prefix - 指令前缀，默认 v
+ * @returns 归一化后的查找键
+ */
+function normalizeDirectiveKey(raw: string, prefix: string): string {
+  const lower = raw.toLowerCase()
+  const body = lower.startsWith(prefix.toLowerCase()) ? lower.slice(prefix.length) : lower
+  return body.replace(/[-_]/g, '')
 }
 
 export function YdszUiResolver(options: YdszUiResolverOptions = {}): ComponentResolver[] {
@@ -170,13 +79,11 @@ export function YdszUiResolver(options: YdszUiResolverOptions = {}): ComponentRe
     {
       type: 'component',
       resolve: (componentName: string) => {
-        if (componentName.startsWith(COMPONENT_PREFIX)) {
-          const matchedName = COMPONENT_NAMES.find(name => name === componentName)
-          if (matchedName) {
-            return {
-              name: matchedName,
-              from: '@ydsz-core/ydsz-ui',
-            }
+        // 名册外的 Yd 前缀名字必须返回 undefined，否则会生成指向不存在导出的 import。
+        if (componentName.startsWith(COMPONENT_PREFIX) && COMPONENT_NAME_SET.has(componentName)) {
+          return {
+            from: '@ydsz-core/ydsz-ui',
+            name: componentName,
           }
         }
         return undefined
@@ -189,11 +96,7 @@ export function YdszUiResolver(options: YdszUiResolverOptions = {}): ComponentRe
     resolvers.push({
       type: 'directive',
       resolve: (name: string) => {
-        // unplugin-vue-components 传入的名称带 v- 前缀或 V 前缀，如 'v-ripple' 或 'VRipple'
-        const stripped = name.startsWith(prefix) ? name.slice(prefix.length)
-          : name.startsWith(prefix.toUpperCase()) ? name.slice(prefix.length)
-          : name
-        const found = DIRECTIVE_MAP[stripped.toLowerCase()]
+        const found = DIRECTIVE_MAP[normalizeDirectiveKey(name, prefix)]
         if (found) {
           return found()
         }

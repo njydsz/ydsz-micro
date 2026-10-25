@@ -98,7 +98,7 @@ onMounted(() => {
       <div class="mb-3 flex justify-end">
         <YdButton size="sm" @click="handleRefreshColumns">刷新列缓存</YdButton>
       </div>
-      <YdTable loading="loading" :data="columns" stripe max-height="400">
+      <YdTable :loading="loading" :data="columns" stripe max-height="400">
         <YdTableColumn prop="columnName" label="列名" width="150" />
         <YdTableColumn prop="dataType" label="数据类型" width="120" />
         <YdTableColumn prop="columnSize" label="长度" width="80" />

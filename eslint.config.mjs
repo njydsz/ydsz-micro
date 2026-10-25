@@ -368,6 +368,7 @@ const noJsPlugin = {
 };
 
 config.push({
+  files: ['apps/**', 'comm/**', 'bash/**', 'main/**'],
   plugins: { 'ts-gate': noJsPlugin },
   rules: {
     'ts-gate/no-js-or-mjs-source': 'error',

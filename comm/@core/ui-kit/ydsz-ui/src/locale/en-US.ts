@@ -44,6 +44,10 @@ export const enUS = {
   'table.expandedRow': 'Expand row',
   'table.collapseRow': 'Collapse row',
   'table.columnSetting': 'Column settings',
+  'table.editCell': 'Edit cell',
+  'table.sortHint': 'Click to sort, Shift+click to add multi-sort',
+  'table.resizeColumn': 'Drag to resize column',
+  'table.dragColumn': 'Drag to reorder column',
 
   // ===== Form =====
   'form.validating': 'Validating...',
@@ -62,6 +66,7 @@ export const enUS = {
   'dialog.deleteWarning': 'This action cannot be undone',
 
   // ===== Drawer =====
+  'drawer.ariaLabel': 'Drawer',
   'drawer.close': 'Close',
   'drawer.closeAriaLabel': 'Close drawer',
   'drawer.confirm': 'Confirm',
@@ -130,6 +135,7 @@ export const enUS = {
   'select.loading': 'Loading...',
   'select.selectAll': 'Select all',
   'select.clear': 'Clear',
+  'select.removeTag': 'Remove',
   'create.label': 'Create "{value}"',
 
   // ===== Tree =====
@@ -149,6 +155,10 @@ export const enUS = {
   'notification.empty': 'No notifications',
   'notification.markAllRead': 'Mark all as read',
   'notification.viewAll': 'View all',
+  'notification.closeAriaLabel': 'Close notification',
+
+  // ===== Toast =====
+  'toast.region': 'Notifications',
 
   // ===== Empty / Result =====
   'empty.default': 'No data',

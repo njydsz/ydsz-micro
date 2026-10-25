@@ -1,23 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
+r"""
 ydsz-micro 静态契约提取器 + API 层生成器。
 
 从 ydsz-cloud 后端源码（Controller/DTO/VO）静态提取 OpenAPI 契约，
 生成：
   1. apps/<app>/src/api/sdk/openapi.json      —— OpenAPI 3.0 契约基线（CI 校验用）
-  2. apps/<app>/src/api/sdk/schema.d.ts       —— openapi-typescript 类型（由 gen-api.mjs 复用）
+  2. apps/<app>/src/api/sdk/schema.d.ts       —— openapi-typescript 类型（由 gen-api 复用）
   3. apps/<app>/src/api/generated/<C>.ts      —— 符合云顶编码规范的类型化 API 封装（自动生成，勿手改）
   4. apps/<app>/src/api/generated/index.ts    —— 统一导出入口
 
 用法:
-  python bash/gen-contract.py                # 生成全部 8 个服务
-  python bash/gen-contract.py workflow        # 仅生成指定服务
+  python bash/gen-contract.py --check          # 只读：比对后端与契约基线是否漂移（CI 用）
+  python bash/gen-contract.py                  # 写盘：生成全部服务
+  python bash/gen-contract.py workflow         # 写盘：仅生成指定服务
+  python bash/gen-contract.py --help
 
-说明: 后端服务未运行时（无法拉取 /v3/api-docs）以此静态提取为契约事实源，
-     服务运行后可无缝切换 gen-api.mjs（其 openapi.json 将被运行时 spec 覆盖）。
+安全约定：本脚本"无 flag 即写盘"，因此未知 flag 一律拒绝（exit 2）。
+此前 `--help` / 拼错的 flag 会被静默丢弃后直接落进写盘分支，一次误操作即改写
+41 个生成文件；写盘是不可逆动作，必须 fail-closed，而不是靠使用者记住加 --check。
+（docstring 用 raw 字符串：`@path bash\gen-contract.py` 里的 \g 在普通字符串下
+会被 Python 判成非法转义并抛 SyntaxWarning，3.12+ 起会升级为错误。）
 
-@path bash\gen-contract.py
+@path bash/gen-contract.py
 @author ydsz-team
 @since 1.0.0
 """
@@ -818,6 +823,25 @@ def split_paren_top(s: str) -> List[str]:
     return parts
 
 
+# 由容器/框架注入、客户端无法（也不应）传入的参数类型。
+# 它们没有 @RequestParam/@RequestBody 注解，早期一律落到默认 kind="query"，
+# 于是生成的 SDK 里出现 servletRequest?: Record<string, never> 这种谁也填不了的形参，
+# 调用方被迫构造一个永远用不上的对象 —— 契约把服务端实现细节当成了接口。
+SERVER_INJECTED_TYPES = {
+    "HttpServletRequest",
+    "HttpServletResponse",
+    "HttpSession",
+    "BindingResult",
+    "Errors",
+    "WebDataBinder",
+    "Model",
+    "ModelMap",
+    "Principal",
+    "Authentication",
+    "MultipartResolver",
+}
+
+
 def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
     """解析一个 Controller，返回 (service, endpoints)"""
     rel = os.path.relpath(path, CLOUD_ROOT).replace("\\", "/")
@@ -881,6 +905,8 @@ def parse_controller(path: str) -> Tuple[Optional[str], List[Dict[str, Any]]]:
             if jt and jt.simple in ("MultipartFile", "CommonsMultipartFile"):
                 kind = "form"
                 is_file = True
+            if jt and jt.simple in SERVER_INJECTED_TYPES:
+                continue
             if jt:
                 params.append({"name": name, "kind": kind, "type": jt, "annot": ann_text, "is_file": is_file})
         # 路径规范化：剥离 base/sub 两侧斜杠后重新拼接，避免 /// 导致的双斜杠 Bug（#YDIZ-GEN-002）
@@ -1238,6 +1264,10 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         # ---- 参数 ----
         path_params, query_params, body_param, form_params = [], [], [], []
         form_file_params: List[Dict[str, Any]] = []
+        # form_params 存的是"渲染好的 TS 字段行"，FormData 组装需要原始参数元信息，
+        # 二者必须并行收集：早前循环直接拿 form_params 里的字符串当 dict 用，
+        # 任何"multipart + 普通表单字段"的接口都会 TypeError 中断整个契约 job。
+        form_param_objs: List[Dict[str, Any]] = []
         for p in ep["params"]:
             pt = java_to_ts(builder.convert(p["type"]), builder)
             used_types.extend(collect_type_names(pt))
@@ -1253,6 +1283,7 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
                     pt = "File | Blob"
                     form_file_params.append(p)
                 form_params.append(f"    {camel(p['name'])}?: {pt};")
+                form_param_objs.append({"name": p["name"], "is_file": bool(p.get("is_file"))})
         # URL 模板：path 参数替换为 ${}；并对解析遗漏的占位符兜底替换
         url = ep["path"]
         path_keys: List[str] = []
@@ -1270,8 +1301,12 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         if path_params:
             sig_parts.append("{{ {keys} }}: {{\n{body}\n  }}".format(
                 keys=", ".join(path_keys), body=chr(10).join(path_params)))
-        if query_params:
-            sig_parts.append(f"params: {{\n{chr(10).join(query_params)}\n  }}")
+        # query 与 form 共用 requestClient 的 params 通道，必须合成同一个对象声明：
+        # 此前只声明 query，multipart 接口生成的函数体里 params?.xxx 引用了一个
+        # 从未出现在签名里的形参，产物直接不可编译。
+        params_fields = query_params + form_params
+        if params_fields:
+            sig_parts.append(f"params: {{\n{chr(10).join(params_fields)}\n  }}")
         if body_param:
             sig_parts.append(f"data: {body_param[1]}")
         sig = ", ".join(sig_parts) if sig_parts else ""
@@ -1317,7 +1352,7 @@ def gen_api_file(svc: str, ctrl_name: str, endpoints: List[Dict[str, Any]], buil
         if is_upload:
             # 文件上传：构建 FormData
             lines.append("  const formData = new FormData();")
-            for p in form_params:
+            for p in form_param_objs:
                 fp_name = camel(p["name"])
                 lines.append(f"  if (params?.{fp_name} != null) {{")
                 if p.get("is_file"):
@@ -1406,24 +1441,94 @@ def resolve_missing_refs(builder: SchemaBuilder) -> int:
 # 主流程
 # ======================================================================
 
+KNOWN_FLAGS = ("--check", "--spec-only", "--help", "-h")
+
+
+def parse_cli(argv):
+    """解析命令行。返回 (targets, is_check, is_spec_only)；未知 flag 直接退出。
+
+    这里不用 argparse：本脚本"不给 flag 就写盘"，一旦参数解析松起来，
+    手滑的代价是 41 个生成文件被改写。所以宁可显式列举合法 flag。
+    """
+    flags = [a for a in argv if a.startswith("-")]
+    positional = [a for a in argv if not a.startswith("-")]
+    unknown = [f for f in flags if f not in KNOWN_FLAGS]
+    if unknown or ("--check" in flags and "--spec-only" in flags):
+        print(f"[gen-contract] 未知或互斥的参数: {' '.join(unknown) or '--check 与 --spec-only 不能同时用'}", file=sys.stderr)
+        print(f"[gen-contract] 可用参数: {', '.join(KNOWN_FLAGS)}；位置参数为服务名（缺省=全部）", file=sys.stderr)
+        print("[gen-contract] 拒绝执行：本脚本默认写盘，参数不确定时绝不猜。", file=sys.stderr)
+        sys.exit(2)
+    if "--help" in flags or "-h" in flags:
+        print(__doc__)
+        sys.exit(0)
+    # --spec-only（P0-1）：仅产出 openapi.json 契约基线，不重写 .ts 封装，供新轨道解耦使用
+    return positional or list(SERVICE_MAP.keys()), "--check" in flags, "--spec-only" in flags
+
+
+def describe_drift(existing_text: str, current_text: str, limit: int = 10) -> List[str]:
+    """把"契约漂移"拆成人能直接处置的差异清单。"""
+    try:
+        old = json.loads(existing_text)
+        new = json.loads(current_text)
+    except json.JSONDecodeError as exc:
+        return [f"基线 openapi.json 无法解析（{exc}）—— 先修复该文件的格式，再谈漂移"]
+
+    def ops(spec):
+        out = set()
+        for path, item in (spec.get("paths") or {}).items():
+            if not isinstance(item, dict):
+                continue
+            for method in item:
+                out.add(f"{method.upper()} {path}")
+        return out
+
+    def fmt(label, added, removed):
+        if not added and not removed:
+            return []
+        lines = [f"{label}：+{len(added)} / -{len(removed)}"]
+        for item in sorted(added)[:limit]:
+            lines.append(f"    + {item}")
+        for item in sorted(removed)[:limit]:
+            lines.append(f"    - {item}")
+        extra = len(added) + len(removed) - min(len(added), limit) - min(len(removed), limit)
+        if extra > 0:
+            lines.append(f"    …另有 {extra} 项未列出")
+        return lines
+
+    msgs = fmt("接口", ops(new) - ops(old), ops(old) - ops(new))
+    msgs += fmt(
+        "数据模型",
+        set((new.get("components") or {}).get("schemas") or {}) - set((old.get("components") or {}).get("schemas") or {}),
+        set((old.get("components") or {}).get("schemas") or {}) - set((new.get("components") or {}).get("schemas") or {}),
+    )
+    if not msgs:
+        # 接口与模型集合都相同，只剩字段级差异 —— 给出定位手段而不是让人逐字节比对
+        old_lines = existing_text.splitlines()
+        new_lines = current_text.splitlines()
+        at = next((i for i, (a, b) in enumerate(zip(old_lines, new_lines)) if a != b), min(len(old_lines), len(new_lines)))
+        msgs = [
+            f"接口与模型集合一致，属字段级差异（首个不同处：第 {at + 1} 行）",
+            f"    基线第 {at + 1} 行: {(old_lines[at] if at < len(old_lines) else '<文件结束>').strip()[:120]}",
+            f"    现算第 {at + 1} 行: {(new_lines[at] if at < len(new_lines) else '<文件结束>').strip()[:120]}",
+        ]
+    return msgs
+
+
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    is_check = "--check" in sys.argv[1:]
-    # P0-1（2026-09-02）：--spec-only 仅产出 openapi.json 契约基线，不重写旧轨 .ts 封装。
-    # 供 unified-contract.mjs 降级链路转换为 schema.d.ts，实现新旧轨道解耦。
-    is_spec_only = "--spec-only" in sys.argv[1:]
-    targets = args if args else list(SERVICE_MAP.keys())
+    targets, is_check, is_spec_only = parse_cli(sys.argv[1:])
     for svc in targets:
         if svc not in SERVICE_MAP:
             print(f"[gen-contract] 未知服务: {svc}，可用: {list(SERVICE_MAP.keys())}")
             sys.exit(1)
     exit_code = 0
+    processed = 0
     for svc in targets:
         app = SERVICE_MAP[svc]
         svc_dir = os.path.join(CLOUD_ROOT, f"ydsz-{svc}")
         if not os.path.isdir(svc_dir):
             print(f"[gen-contract] 跳过 {svc}: 后端目录不存在 {svc_dir}")
             continue
+        processed += 1
         # 每个服务独立解析，清空类型缓存避免跨服务同名类串扰
         JavaSource._cache = {}
         JavaSource._not_found = set()
@@ -1581,15 +1686,30 @@ def main():
                 print(f"[gen-contract] {svc}: 契约基线缺失 {spec_path}，请先执行 pnpm gen:contract")
                 exit_code = 1
                 continue
-            existing = open(spec_path, encoding="utf-8").read()
+            with open(spec_path, encoding="utf-8") as f:
+                existing = f.read()
             current = json.dumps(spec, ensure_ascii=False, indent=1)
             if existing != current:
-                print(f"[gen-contract] {svc}: ✗ 契约漂移！后端接口已变更，请执行 pnpm gen:contract 重新生成")
                 exit_code = 1
+                print(f"[gen-contract] {svc}: ✗ 契约漂移（{app}）")
+                # 只说"漂移了"等于让使用者去猜：这里给出具体差异与定位方法。
+                # 此前消息只有一句"请执行 pnpm gen:contract"，而该命令当时还会在
+                # multipart 接口上 TypeError 中断 —— 门禁把自己的故障转嫁给使用者。
+                for line in describe_drift(existing, current):
+                    print(f"[gen-contract]     {line}")
+                print(f"[gen-contract]     重新生成（仅该服务，会改写 {app} 下的生成文件）："
+                      f"python bash/gen-contract.py {svc}")
             else:
                 print(f"[gen-contract] {svc}: ✓ 契约一致")
     # 5. P1-6: 校验 Feign 路径常量与各服务契约一致（防 /ruleEngine 类路径失配复发）
     exit_code = check_feign_constants(exit_code)
+    # 6. 空跑必须算失败：CLOUD_ROOT 默认值是本机 Windows 路径，CI 忘设 YDSZ_CLOUD_ROOT 时
+    #    所有服务都会被"目录不存在"跳过，--check 于是 0 个比对却退出 0 —— 假绿的契约门禁。
+    if processed == 0:
+        print("[gen-contract] ✗ 0 个服务被检查：契约门禁空跑，判失败。", file=sys.stderr)
+        print(f"[gen-contract]   CLOUD_ROOT={CLOUD_ROOT}", file=sys.stderr)
+        print("[gen-contract]   CI 需先检出后端仓库并设 YDSZ_CLOUD_ROOT；本地则确认路径存在。", file=sys.stderr)
+        sys.exit(1)
     sys.exit(exit_code)
 
 

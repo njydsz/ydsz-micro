@@ -278,7 +278,7 @@ defineExpose({ open, close });
     :show-close="true"
     @close="close"
   >
-    <div loading="loading" class="designer-container">
+    <div v-loading="loading" class="designer-container">
       <!-- 基本信息 -->
       <YdForm label-width="100px" class="mb-4">
         <div class="grid grid-cols-2 gap-5">

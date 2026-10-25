@@ -5,7 +5,7 @@ import Radio from './story/_Radio.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
-import { handleSubmit, sleep } from '@/test'
+import { handleSubmit, sleep } from '../../test'
 
 describe('given a default RadioGroup', () => {
   let wrapper: VueWrapper<InstanceType<typeof RadioGroup>>
@@ -97,7 +97,7 @@ describe('given radio in a form', async () => {
   })
 
   it('should have hidden input field', async () => {
-    expect(wrapper.find('[type="Radio"]').exists()).toBe(true)
+    expect(wrapper.find('[type="radio"]').exists()).toBe(true)
   })
 
   describe('after clicking submit button', () => {

@@ -1,0 +1,84 @@
+/**
+ * YDSZ Design Token — 历史命名兼容层（compat aliases）。
+ *
+ * <p>背景：`variables.css` 是 Figma 同步管线的落盘目标（`figma-cli.mts` /
+ * `figma-sync-variable-collections.ts` 会重写它），因此**不能**把业务侧自造的
+ * 变量名塞进去，否则一次同步就会丢失。本文件独立承载这些历史名，职责单一、
+ * 可整体删除。
+ *
+ * <p>命名约定（与 variables.css 一致，务必看清再用）：
+ * - `--ydsz-color-*` 色阶与 `--ydsz-surface-*` / `--ydsz-text-*` / `--ydsz-border-*`
+ *   语义层存的都是 **HSL 分量**（如 `222 47% 44%`），必须写成 `hsl(var(--x))`；
+ * - 需要"直接可用颜色"的消费方（`color: var(--ydsz-color-text)`）由本层补一层
+ *   `hsl()` 包装；需要分量的消费方（`hsl(var(--ydsz-comp-bg) / .5)`）由本层给出分量。
+ *   搞反会得到 invalid value，属性被整条丢弃——比 undefined 更难排查。
+ *
+ * <p>为什么全部用 `var()` 间接引用而不是复制字面量：暗色覆盖只改 `variables.css`
+ * 里的色阶（`:root.dark` 等），别名自动跟随，避免同一颜色两处真值。
+ *
+ * <p>收敛路径：逐个把组件里的历史名替换为正式 token 后删除本文件对应行；
+ * `pnpm check:tokens` 会列出仍在使用的别名。
+ *
+ * @path comm\@core\ui-kit\design-tokens\src\styles\compat-aliases.css
+ * @author ydsz-team
+ * @since 4.5.0
+ */
+
+:root {
+  /* ==================== 语义色（完整颜色形式）==================== */
+
+  /* primary 系：kit 内 11 个组件用作 background/color/border 的直接颜色值 */
+  --ydsz-color-primary: hsl(var(--ydsz-color-brand-500));
+  --ydsz-color-primary-hover: hsl(var(--ydsz-color-brand-400));
+  --ydsz-color-primary-light: hsl(var(--ydsz-color-brand-50));
+
+  /* 背景系：color-bg 对应一级表面，bg-hover 对应中性 100，bg-secondary 对应二级表面 */
+  --ydsz-color-bg: hsl(var(--ydsz-surface-1));
+  --ydsz-color-bg-hover: hsl(var(--ydsz-color-neutral-100));
+  --ydsz-color-bg-secondary: hsl(var(--ydsz-surface-2));
+
+  /* 边框系 */
+  --ydsz-color-border: hsl(var(--ydsz-border-default));
+  --ydsz-color-border-light: hsl(var(--ydsz-border-subtle));
+
+  /* 文本系 */
+  --ydsz-color-text: hsl(var(--ydsz-text-primary));
+  --ydsz-color-text-secondary: hsl(var(--ydsz-text-secondary));
+  --ydsz-color-text-tertiary: hsl(var(--ydsz-text-tertiary));
+
+  /* 语义状态色 */
+  --ydsz-color-warning: hsl(var(--ydsz-color-warning-500));
+
+  /* ==================== HSL 分量形式（供 hsl() 包裹消费）==================== */
+
+  /*
+   * comp-bg 名字有误导性：9 个组件实际把它当**主色**用
+   * （caret-color / border-color / outline / box-shadow 的强调色），
+   * 因此指向 brand-500，而不是某个背景色阶。
+   */
+  --ydsz-comp-bg: var(--ydsz-color-brand-500);
+
+  /* 遮罩底色：command-menu 的 `hsl(var(--ydsz-overlay-bg) / 0.5)` */
+  --ydsz-overlay-bg: var(--ydsz-color-neutral-700);
+
+  /* 边框 hover 态：比 default 深一档 */
+  --ydsz-border-hover: var(--ydsz-border-strong);
+
+  /* ==================== 阴影（映射到既有 5 档阴影尺度）==================== */
+
+  /* lg / xl 是 Tailwind 习惯命名，本体系的对应档是 high / overlay */
+  --ydsz-shadow-lg: var(--ydsz-shadow-high);
+  --ydsz-shadow-xl: var(--ydsz-shadow-overlay);
+
+  /* ==================== 跨包桥接 ==================== */
+
+  /*
+   * 字体族与 z-index 分层归 `@ydsz-core/design` 的 default.css 管理
+   * （z-* 8 层语义 + 微前端 baseZIndex 偏移，规范 YDIZ-a11y-002）。
+   * 这两条是本文件仅有的跨命名空间引用，删除它们会让组件回退到
+   * `z-index: var(--ydsz-z-popup, 1000)` 的魔法数——700（popover 层）才是
+   * 本体系给浮层的正确层位。
+   */
+  --ydsz-font-mono: var(--font-family-code);
+  --ydsz-z-popup: var(--z-popover);
+}

@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 import { fireEvent, render } from '@testing-library/vue'
 import { useKbd } from '../shared/index.ts'
 import { mount } from '@vue/test-utils'
-import { handleSubmit } from '@/test'
+import { handleSubmit } from '../../test'
 
 function setup(props?: NumberFieldRootProps) {
   const user = userEvent.setup()

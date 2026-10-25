@@ -89,10 +89,12 @@ export {
 
 export {
   type SseEvent,
+  type StreamAsyncOptions,
   type StreamRequestOptions,
   checkSseFrameForError,
   parseSseChunk,
   streamRequest,
+  streamRequestAsync,
 } from './sse';
 
 // v4.4.0: SSE 连接生命周期封装（收敛 agent-web / message-web 的重复骨架）

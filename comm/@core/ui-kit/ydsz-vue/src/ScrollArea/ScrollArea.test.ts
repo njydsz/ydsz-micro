@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import ScrollArea from './story/_ScrollArea.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { sleep } from '@/test'
+import { sleep } from '../../test'
 
 describe('given default ScrollArea', () => {
   let wrapper: VueWrapper<InstanceType<typeof ScrollArea>>

@@ -3,7 +3,7 @@
  *
  * 设计目标：
  *  - 提供响应式的 Toast 消息列表；
- *  - 程序化 add / success / info / warning / error / remove / removeGroup / removeAll；
+ *  - 程序化 add / success / info / warning / error / remove / removeGroup / removeByPosition / removeAll；
  *  - 全局唯一实例（跨组件共享状态），通过 module 级 reactive store 实现。
  *
  * 与 useNotificationHub 的区别：
@@ -13,7 +13,7 @@
  * 用法：
  * ```vue
  * <script setup lang="ts">
- * import { useToast, YdToastContainer, YdToast } from '@ydsz-core/ydsz-ui/toast';
+ * import { useToast } from '@ydsz-core/ydsz-ui';
  *
  * const toast = useToast();
  * toast.success('操作成功');
@@ -21,13 +21,8 @@
  * </script>
  *
  * <template>
- *   <YdToastContainer :messages="toast.messages.value">
- *     <template #default="{ message }">
- *       <YdToast
- *         v-bind="message"
- *       />
- *     </template>
- *   </YdToastContainer>
+ *   <!-- 容器自带默认渲染，无需再手写 YdToast -->
+ *   <YdToastContainer :messages="toast.messages.value" />
  * </template>
  * ```
  *
@@ -38,14 +33,14 @@
 
 import type { ComputedRef } from 'vue';
 
-import { computed, ref } from 'vue';
+import { computed, shallowRef } from 'vue';
 
 import type {
+  ToastConfig,
   ToastHandle,
   ToastMessage,
   ToastOptions,
   ToastPosition,
-  ToastSeverity,
   UseToastReturn,
 } from './types';
 
@@ -53,8 +48,13 @@ import type {
 /* 全局单例 store                                                  */
 /* ============================================================ */
 
-/** 全局 Toast 消息列表 —— 全部调用方共享 */
-const _messages = ref<ToastMessage[]>([]);
+/**
+ * 全局 Toast 消息列表 —— 全部调用方共享。
+ *
+ * <p>必须用 shallowRef：消息项里的 icon 是 Vue 组件对象，深代理会把组件包成
+ * reactive 对象（触发 Vue 警告且丢失引用相等），列表本身按整体替换的方式更新。
+ */
+const _messages = shallowRef<ToastMessage[]>([]);
 
 /** 全局消息列表的只读引用（供模板绑定） */
 const messages: ComputedRef<ToastMessage[]> = computed(() => _messages.value);
@@ -74,11 +74,29 @@ function generateId(): string {
 /* 默认配置                                                        */
 /* ============================================================ */
 
-/** 默认持续时长（毫秒） */
-const DEFAULT_LIFE = 4500;
+/** 兜底默认值（configureToast 未覆盖时生效） */
+const FALLBACK_CONFIG: Required<ToastConfig> = {
+  life: 4500,
+  maxVisible: 0,
+  position: 'top-right',
+};
 
-/** 默认位置 */
-const DEFAULT_POSITION: ToastPosition = 'top-right';
+/** 运行时可覆写的全局配置 */
+const _config = shallowRef<Required<ToastConfig>>({ ...FALLBACK_CONFIG });
+
+/**
+ * 覆写全局 Toast 默认配置（时长 / 位置 / 最大可见数）。
+ *
+ * @param config - 需要覆盖的字段，未传字段保持原值
+ * @returns 无
+ */
+export function configureToast(config: ToastConfig): void {
+  _config.value = {
+    life: config.life ?? _config.value.life,
+    maxVisible: config.maxVisible ?? _config.value.maxVisible,
+    position: config.position ?? _config.value.position,
+  };
+}
 
 /* ============================================================ */
 /* 内部操作                                                        */
@@ -86,6 +104,9 @@ const DEFAULT_POSITION: ToastPosition = 'top-right';
 
 /**
  * 构建一条完整的 ToastMessage（补全默认值）。
+ *
+ * @param options - 调用方传入的配置
+ * @returns 补全后的消息项
  */
 function buildMessage(options: ToastOptions): ToastMessage {
   return {
@@ -95,29 +116,50 @@ function buildMessage(options: ToastOptions): ToastMessage {
     group: options.group,
     icon: options.icon,
     id: generateId(),
-    life: options.life ?? DEFAULT_LIFE,
-    position: options.position ?? DEFAULT_POSITION,
+    life: options.life ?? _config.value.life,
+    position: options.position ?? _config.value.position,
     severity: options.severity ?? 'info',
     summary: options.summary,
   };
 }
 
 /**
- * 将新消息接入全局列表顶部（最新在上）。
+ * 将新消息接入全局列表顶部（最新在上），并按 maxVisible 截断最旧消息。
+ *
+ * @param message - 待插入的消息
+ * @returns 无
  */
 function pushMessage(message: ToastMessage): void {
-  _messages.value = [message, ..._messages.value];
+  const next = [message, ..._messages.value];
+  const max = _config.value.maxVisible;
+  _messages.value = max > 0 ? next.slice(0, max) : next;
 }
 
 /**
  * 按 id 移除一条消息。
+ *
+ * @param id - 消息 id
+ * @returns 无
  */
 function removeById(id: string): void {
   _messages.value = _messages.value.filter((m) => m.id !== id);
 }
 
 /**
+ * 按分组移除一组消息。
+ *
+ * @param group - 分组标识
+ * @returns 无
+ */
+function removeByGroup(group: string): void {
+  _messages.value = _messages.value.filter((m) => m.group !== group);
+}
+
+/**
  * 按位置移除一组消息。
+ *
+ * @param position - 展示位置
+ * @returns 无
  */
 function removeByPosition(position: ToastPosition): void {
   _messages.value = _messages.value.filter((m) => m.position !== position);
@@ -143,6 +185,7 @@ function addToast(options: ToastOptions): ToastHandle {
   pushMessage(message);
   return {
     close: () => removeById(message.id),
+    id: message.id,
   };
 }
 
@@ -220,23 +263,14 @@ export function useToast(): UseToastReturn {
     add: addToast,
     error: errorToast,
     info: infoToast,
+    messages,
     remove: removeById,
+    removeByPosition,
+    removeGroup: removeByGroup,
     removeAll: clearAll,
-    removeGroup: removeByPosition,
     success: successToast,
     warning: warningToast,
   };
 }
 
-/* ============================================================ */
-/* 导出全局状态供 YdToastContainer 消费                              */
-/* ============================================================ */
-
 export { messages };
-
-export type {
-  ToastMessage,
-  ToastOptions,
-  ToastPosition,
-  ToastSeverity,
-};

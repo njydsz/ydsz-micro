@@ -20,7 +20,7 @@
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdInput, YdSelectItem, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
-import { Search } from 'lucide-vue-next';
+import { Search } from '@ydsz/icons';
 import { h, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';

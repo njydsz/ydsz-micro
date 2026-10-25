@@ -12,6 +12,7 @@
  *  - columnDef.sorter(a,b): 本地排序比较函数（缺省按字典序）
  *  - rowSelection: 是否启用行选择 + 当前选中 key 集合
  *  - treeData: 是否启用树形模式
+ *  - multipleSort: 是否允许多列排序（排序链按数组顺序逐位比较）
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\composables\use-table-data.ts
  * @author ydsz-team
@@ -20,7 +21,7 @@
 
 import { computed, ref, watch, toValue } from 'vue';
 
-import type { ComputedRef, MaybeRefOrGetter, Ref } from 'vue';
+import type { ComputedRef, MaybeRefOrGetter, Ref, WritableComputedRef } from 'vue';
 
 import { useTableFilterStorage } from './use-table-filter-storage';
 
@@ -46,10 +47,19 @@ export interface TableColumnDef<T = Record<string, unknown>> {
   filterMethod?: (value: string, row: T) => boolean;
 }
 
+/** 排序方向 */
+export type SortOrder = 'asc' | 'desc';
+
 /** 排序状态 */
 export interface SortState {
   prop: string | null;
-  order: 'asc' | 'desc' | null;
+  order: SortOrder | null;
+}
+
+/** 生效中的排序规则（排序链元素，prop / order 必定有值） */
+export interface SortRule {
+  prop: string;
+  order: SortOrder;
 }
 
 /** 行选择配置 */
@@ -79,6 +89,10 @@ export interface UseTableDataOptions<T> {
   columns?: MaybeRefOrGetter<TableColumnDef<T>[]>;
   /** 是否远程模式（true 时关闭本地排序/筛选） */
   isRemote?: boolean;
+  /** 是否允许多列排序（true 时 toggleSort(prop, true) 追加到排序链） */
+  multipleSort?: MaybeRefOrGetter<boolean>;
+  /** 初始排序链（受控恢复场景使用） */
+  initialSortChain?: SortRule[];
   /** 行选择配置 */
   rowSelection?: RowSelectionConfig<T>;
   /** 默认展开全部 */
@@ -97,10 +111,20 @@ export interface UseTableDataOptions<T> {
 export interface UseTableDataReturn<T> {
   /** 视图数据（排序+筛选后的结果） */
   viewRows: ComputedRef<T[]>;
-  /** 当前排序状态 */
-  sortState: Ref<SortState>;
-  /** 触发排序（列点击） */
-  toggleSort: (prop: string) => void;
+  /** 主排序状态（等价于 sortChain[0]；写入时覆盖整条排序链） */
+  sortState: WritableComputedRef<SortState>;
+  /** 生效中的排序链（按优先级从高到低） */
+  sortChain: Ref<SortRule[]>;
+  /** 触发排序（列点击）；additive=true 时追加/更新排序链中的该列 */
+  toggleSort: (prop: string, additive?: boolean) => void;
+  /** 直接设置排序链（覆盖式） */
+  setSortChain: (chain: SortRule[]) => void;
+  /** 清空排序 */
+  clearSort: () => void;
+  /** 读取某列当前排序方向 */
+  getSortOrder: (prop: string) => SortOrder | null;
+  /** 读取某列在多列排序中的次序（从 1 开始；单列或未参与排序返回 null） */
+  getSortRank: (prop: string) => number | null;
   /** 当前筛选条件 -> 列 key: 已选值集合 */
   filterState: Ref<Map<string, Set<string>>>;
   /** 设置某列筛选条件 */
@@ -144,19 +168,75 @@ export function useTableData<T extends Record<string, unknown>>(
   const isFilterRestored = ref(false);
 
   /* ----- 排序状态 ----- */
-  const sortState = ref<SortState>({ order: null, prop: null });
+  /** 生效排序链（优先级从高到低，元素必定完整） */
+  const sortChain = ref<SortRule[]>([]);
 
-  function toggleSort(prop: string): void {
-    const current = sortState.value;
-    if (current.prop !== prop) {
-      sortState.value = { order: 'asc', prop };
-    } else if (current.order === 'asc') {
-      sortState.value = { order: 'desc', prop };
-    } else if (current.order === 'desc') {
-      sortState.value = { order: null, prop: null };
-    } else {
-      sortState.value = { order: 'asc', prop };
+  /**
+   * 覆盖式写入排序链，过滤掉空规则与重复列。
+   *
+   * @param chain - 目标排序链
+   * @returns 无
+   */
+  function setSortChain(chain: SortRule[]): void {
+    const merged: SortRule[] = [];
+    for (const rule of chain) {
+      // 排序链可能来自外部受控输入（props / localStorage 恢复），只接受完整合法规则
+      if (!rule?.prop || (rule.order !== 'asc' && rule.order !== 'desc')) continue;
+      if (merged.some(item => item.prop === rule.prop)) continue;
+      merged.push({ order: rule.order, prop: rule.prop });
     }
+    sortChain.value = merged;
+  }
+
+  setSortChain(options.initialSortChain ?? []);
+
+  /** 主排序状态：等价于排序链首元素，写入时覆盖整条链 */
+  const sortState = computed<SortState>({
+    get: () => {
+      const primary = sortChain.value[0];
+      return primary ? { order: primary.order, prop: primary.prop } : { order: null, prop: null };
+    },
+    set: (next) => {
+      setSortChain(next.prop && next.order ? [{ order: next.order, prop: next.prop }] : []);
+    },
+  });
+
+  /** 单列在排序链中的下一状态：asc → desc → 移除 */
+  function nextOrderFor(current: SortOrder | undefined): SortOrder | null {
+    if (current === 'asc') return 'desc';
+    if (current === 'desc') return null;
+    return 'asc';
+  }
+
+  function toggleSort(prop: string, additive = false): void {
+    const allowMulti = toValue(options.multipleSort ?? false);
+    // 追加模式保留整条链；否则只保留同列规则，使 asc → desc → 取消 的循环可继续
+    const next = allowMulti && additive
+      ? [...sortChain.value]
+      : sortChain.value.filter(rule => rule.prop === prop);
+    const index = next.findIndex(rule => rule.prop === prop);
+    const order = nextOrderFor(index >= 0 ? next[index]?.order : undefined);
+    if (index >= 0) {
+      if (order) next[index] = { order, prop };
+      else next.splice(index, 1);
+    } else if (order) {
+      next.push({ order, prop });
+    }
+    sortChain.value = next;
+  }
+
+  function clearSort(): void {
+    sortChain.value = [];
+  }
+
+  function getSortOrder(prop: string): SortOrder | null {
+    return sortChain.value.find(rule => rule.prop === prop)?.order ?? null;
+  }
+
+  function getSortRank(prop: string): number | null {
+    if (!toValue(options.multipleSort ?? false)) return null;
+    const index = sortChain.value.findIndex(rule => rule.prop === prop);
+    return index >= 0 ? index + 1 : null;
   }
 
   /* ----- 筛选状态 ----- */
@@ -235,21 +315,39 @@ export function useTableData<T extends Record<string, unknown>>(
   /* ----- 排序后数据 ----- */
   const rawRows = computed(() => toValue(data) ?? []);
 
+  /**
+   * 构造单列比较器：优先使用列自定义 sorter，缺省按字符串字典序。
+   *
+   * @param defs - 列定义集合
+   * @param rule - 排序规则
+   * @returns 比较函数
+   */
+  function buildComparator<TDef extends TableColumnDef<T>>(
+    defs: TDef[],
+    rule: SortRule,
+  ): (a: T, b: T) => number {
+    const dir = rule.order === 'asc' ? 1 : -1;
+    const compare = defs.find(c => c.key === rule.prop)?.sorter;
+    return (a, b) => {
+      if (compare) return compare(a, b) * dir;
+      return String(a[rule.prop] ?? '').localeCompare(String(b[rule.prop] ?? '')) * dir;
+    };
+  }
+
   const sortedRows = computed<T[]>(() => {
     if (options.isRemote) return rawRows.value;
-    const { prop, order } = sortState.value;
-    if (!prop || !order) return rawRows.value;
+    const chain = sortChain.value;
+    if (chain.length === 0) return rawRows.value;
 
     const colDefs = getColumns ? toValue(getColumns) ?? [] : [];
-    const matched = colDefs.find((c) => c.key === prop);
-    const compare = matched?.sorter;
+    const comparators = chain.map(rule => buildComparator(colDefs, rule));
 
-    const dir = order === 'asc' ? 1 : -1;
     return [...rawRows.value].sort((a, b) => {
-      if (compare) return compare(a, b) * dir;
-      const av = String(a[prop] ?? '');
-      const bv = String(b[prop] ?? '');
-      return av.localeCompare(bv) * dir;
+      for (const compare of comparators) {
+        const result = compare(a, b);
+        if (result !== 0) return result;
+      }
+      return 0;
     });
   });
 
@@ -300,13 +398,18 @@ export function useTableData<T extends Record<string, unknown>>(
   return {
     clearFilters,
     clearPersistedFilters,
+    clearSort,
     expandedKeys,
     filterState,
+    getSortOrder,
+    getSortRank,
     isFilterRestored,
     rawRows,
     selection,
     setFilter,
+    setSortChain,
     setSelected,
+    sortChain,
     sortState,
     toggleExpand,
     toggleSelectAll,

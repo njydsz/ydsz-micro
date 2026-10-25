@@ -52,6 +52,12 @@
     "@ydsz-core/menu-ui": "workspace:*",
     "@ydsz-core/tabs-ui": "workspace:*",
     "@ydsz-core/layout-ui": "workspace:*",
-    "@ydsz-core/editor-ui": "workspace:*"
+    "@ydsz-core/editor-ui": "workspace:*",
+    "@ydsz-core/ai-builder": "workspace:*",
+    "@ydsz-core/form-designer": "workspace:*",
+    "@ydsz-core/dashboard": "workspace:*",
+    "@ydsz-core/design-tokens": "workspace:*",
+    "@ydsz-core/advanced-table": "workspace:*",
+    "@ydsz-core/mobile-bridge": "workspace:*"
   }
 }

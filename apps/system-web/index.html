@@ -7,26 +7,25 @@
     <meta name="description" content="A Modern Back-end Management System" />
     <meta name="keywords" content="YDSZ Admin Vue3 Vite" />
     <meta name="author" content="YDSZ" />
+    <!--
+      不得禁用缩放：maximum-scale=1 / user-scalable=0 会让低视力用户无法放大页面，
+      违反 WCAG 2.1 AA 1.4.4（Resize Text）。bash/check-html-head.mts 会拦此类写法。
+    -->
     <meta
       name="viewport"
-      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
+      content="width=device-width, initial-scale=1.0"
     />
     <!-- 由 vite 注入 VITE_APP_TITLE 变量，在 .env 文件内配置 -->
     <title><%= VITE_APP_TITLE %></title>
     <link rel="icon" href="/favicon.ico" />
-    <script>
-      // 生产环境下注入百度统计
-      if (window._YDSZ_ADMIN_PRO_APP_CONF_) {
-        var _hmt = _hmt || [];
-        (function () {
-          var hm = document.createElement('script');
-          hm.src =
-            'https://hm.baidu.com/hm.js?97352b16ed2df8c3860cf5a1a65fb4dd';
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
-      }
-    </script>
+    <!--
+      第三方字体与第三方统计已从本页移除（B0-8）：
+      · 内联 <script> 与跨域 <link rel=stylesheet> 在 CSP（script-src 'self' 'strict-dynamic'、
+        style-src 与 font-src 仅 'self'）下既不会执行也不会加载，即生产上这两段一直是死的；
+      · rel=preconnect 与 dns-prefetch 不受 CSP 约束，仍会向第三方域发起 DNS+TCP+TLS 探测。
+      如需站点统计：由使用方决策后改为第一方外链 JS，并在 bash/deploy/security-headers.conf
+      的 script-src 显式放行分析域。如需指定字体：自托管 woff2（见上方 preload 注释）。
+    -->
   </head>
   <body>
     <div id="app"></div>

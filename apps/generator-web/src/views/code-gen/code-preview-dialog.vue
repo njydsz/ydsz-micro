@@ -19,7 +19,7 @@
 import { computed, ref, watch } from 'vue';
 
 import { YdBadge, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
-import { AlertTriangle as Warning } from 'lucide-vue-next';
+import { AlertTriangle as Warning } from '@ydsz/icons';
 
 import type { CodePreviewVO } from '#/api/models';
 

@@ -18,7 +18,7 @@
 */
 import { useYdModal } from '@ydsz/common-ui';
 import { YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2 } from '@ydsz/icons';
 import { computed, onMounted, ref, watch } from 'vue';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
 import type { GlueCodeVO } from '#/api/models';

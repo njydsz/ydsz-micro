@@ -24,7 +24,7 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYdModal } from '@ydsz/common-ui';
-import { useYDSZVxeGrid, type VxeTableGridOptions } from '#/adapter/vxe-table';
+import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { clearMemory, consolidate, countMessages, loadMemory, saveMemory } from '#/api/memory';
 import type { MemoryVO, SaveMemoryRequest } from '#/api/memory';
 

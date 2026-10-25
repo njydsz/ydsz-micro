@@ -157,10 +157,17 @@ export function useFocusOutside(
         return
 
       await nextTick()
-      if (!element.value || isLayerExist(element.value, event.target as HTMLElement))
+      // 等待 nextTick 期间焦点可能已落到 document 或已卸载的节点上，
+      // 此时 event.target 没有 closest，直接传入会让 isLayerExist 抛错
+      const target = event.target as HTMLElement | null
+      if (
+        !element.value
+        || typeof target?.closest !== 'function'
+        || isLayerExist(element.value, target)
+      )
         return
 
-      if (event.target && !isFocusInsideDOMTree.value) {
+      if (!isFocusInsideDOMTree.value) {
         const eventDetail = { originalEvent: event }
         handleAndDispatchCustomEvent(
           FOCUS_OUTSIDE,

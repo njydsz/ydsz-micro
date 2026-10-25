@@ -45,6 +45,7 @@ COPY --from=builder /app/main/dist /usr/share/nginx/html/main
 # Copy all sub-apps
 COPY --from=builder /app/apps/userinfo-web/dist /usr/share/nginx/html/ydsz-userinfo-web
 COPY --from=builder /app/apps/system-web/dist /usr/share/nginx/html/ydsz-system-web
+COPY --from=builder /app/apps/generator-web/dist /usr/share/nginx/html/ydsz-generator-web
 COPY --from=builder /app/apps/message-web/dist /usr/share/nginx/html/ydsz-message-web
 COPY --from=builder /app/apps/cronjob-web/dist /usr/share/nginx/html/ydsz-cronjob-web
 COPY --from=builder /app/apps/workflow-web/dist /usr/share/nginx/html/ydsz-workflow-web
@@ -53,8 +54,11 @@ COPY --from=builder /app/apps/literule-web/dist /usr/share/nginx/html/ydsz-liter
 COPY --from=builder /app/apps/agent-web/dist /usr/share/nginx/html/ydsz-agent-web
 
 # Copy nginx configuration
+# security-headers.conf 被 nginx.conf（http 层）与 nginx-sub-apps.conf（各 location）
+# include，缺失会导致 nginx 启动失败，因此必须与主配置一同进镜像。
 COPY bash/deploy/nginx.conf /etc/nginx/nginx.conf
 COPY bash/deploy/nginx-sub-apps.conf /etc/nginx/nginx-sub-apps.conf
+COPY bash/deploy/security-headers.conf /etc/nginx/security-headers.conf
 
 EXPOSE 8080
 

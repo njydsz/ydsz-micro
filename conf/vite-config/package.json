@@ -29,6 +29,7 @@
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "catalog:",
     "@jspm/generator": "catalog:",
+    "@ydsz/micro-kernel": "workspace:*",
     "archiver": "catalog:",
     "cheerio": "catalog:",
     "consola": "catalog:",

@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+// 用例断言 FocusScope 自动聚焦到关闭按钮，依赖原生 tabIndex IDL，happy-dom 返回 -1，故本文件走 jsdom
 import { type Mock, type SpyInstance, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'

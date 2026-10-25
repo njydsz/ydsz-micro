@@ -16,28 +16,30 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./dist/index.mjs"
+      "default": "./src/index.ts"
     },
+    "./styles/variables.css": "./src/styles/variables.css",
+    "./styles/compat-aliases.css": "./src/styles/compat-aliases.css",
     "./composables": {
       "types": "./src/composables/index.ts",
       "development": "./src/composables/index.ts",
-      "default": "./dist/composables/index.mjs"
+      "default": "./src/composables/index.ts"
     },
     "./density": {
       "types": "./src/tokens/density.ts",
       "development": "./src/tokens/density.ts",
-      "default": "./dist/tokens/density.mjs"
+      "default": "./src/tokens/density.ts"
     },
     "./transition-utils": {
       "types": "./src/tokens/transition-utils.ts",
       "development": "./src/tokens/transition-utils.ts",
-      "default": "./dist/tokens/transition-utils.mjs"
+      "default": "./src/tokens/transition-utils.ts"
     }
   },
   "publishConfig": {
@@ -47,6 +49,8 @@
       }
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "vue": "catalog:"
+  },
   "devDependencies": {}
 }

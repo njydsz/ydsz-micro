@@ -84,4 +84,86 @@ describe('useColumnDrag', () => {
     const { dragState } = useColumnDrag(() => columns, onReorder);
     expect(dragState.value.isDragging).toBe(false);
   });
+
+  it('水平拖拽命中范围内表头应更新目标索引', () => {
+    const moveHandlers = mockDragEnvironment(6);
+    const onReorder = vi.fn();
+    const { dragState, onPointerDown } = useColumnDrag(columns, onReorder);
+
+    onPointerDown(pointer(10, 20), 0);
+    fire(moveHandlers, pointer(250, 20));
+
+    expect(dragState.value.isDragging).toBe(true);
+    expect(dragState.value.toIndex).toBe(2);
+  });
+
+  it('命中索引超出列数时应被忽略，避免越界重排', () => {
+    // 页面上存在 6 个 [data-col-drag] 节点，但本表只有 3 列
+    const moveHandlers = mockDragEnvironment(6);
+    const onReorder = vi.fn();
+    const { dragState, onPointerDown } = useColumnDrag(columns, onReorder);
+
+    onPointerDown(pointer(10, 20), 0);
+    fire(moveHandlers, pointer(450, 20));
+
+    expect(dragState.value.isDragging).toBe(true);
+    expect(dragState.value.toIndex).toBe(0);
+    expect(onReorder).not.toHaveBeenCalled();
+  });
 });
+
+/**
+ * 造一组 100px 宽的表头节点并拦截 document 事件，返回 pointermove 回调队列。
+ *
+ * @param count - 页面上命中 [data-col-drag] 的节点数量
+ * @returns 捕获到的 pointermove 处理函数列表
+ */
+function mockDragEnvironment(count: number) {
+  const ths = Array.from({ length: count }, (_, i) => ({
+    getBoundingClientRect: () => ({
+      bottom: 40,
+      height: 40,
+      left: i * 100,
+      right: (i + 1) * 100,
+      top: 0,
+      width: 100,
+    }),
+  }));
+  vi.spyOn(document, 'querySelectorAll').mockReturnValue(
+    ths as unknown as NodeListOf<Element>,
+  );
+  const handlers: Array<(event: PointerEvent) => void> = [];
+  vi.spyOn(document, 'addEventListener').mockImplementation(((type: string, listener: unknown) => {
+    if (type === 'pointermove') {
+      handlers.push(listener as (event: PointerEvent) => void);
+    }
+  }) as typeof document.addEventListener);
+  return handlers;
+}
+
+/**
+ * 构造最小可用的 PointerEvent 字段集。
+ *
+ * @param clientX - 指针 X 坐标
+ * @param clientY - 指针 Y 坐标
+ * @returns 可强转为 PointerEvent 的字面量
+ */
+function pointer(clientX: number, clientY: number): PointerEvent {
+  return { clientX, clientY, pointerId: 1 } as PointerEvent;
+}
+
+/**
+ * 依次执行捕获到的 pointermove 回调。
+ *
+ * @param handlers - pointermove 回调队列
+ * @param event - 模拟的 PointerEvent
+ * @returns 无
+ */
+function fire(
+  handlers: Array<(event: PointerEvent) => void>,
+  event: PointerEvent,
+): void {
+  for (const handler of handlers) {
+    handler(event);
+  }
+}

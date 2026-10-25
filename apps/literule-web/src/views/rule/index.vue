@@ -583,7 +583,7 @@ void loadCategoryTree();
       :rule-code="currentRule?.ruleCode"
       @success="handleRefresh()"
     />
-    <YdDrawer v-model="versionsVisible" title="版本历史" :size="540">
+    <YdDrawer v-model:open="versionsVisible" header="版本历史" :width="540">
       <div class="mb-2 flex justify-end">
         <YdButton size="small" @click="loadVersions">刷新</YdButton>
       </div>

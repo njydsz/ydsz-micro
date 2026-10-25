@@ -87,8 +87,11 @@ export function useColumnDrag<T>(
    * @return 命中的列索引或 -1
    */
   function getColumnIndexAt(clientX: number): number {
-    const ths = document.querySelectorAll<HTMLElement('[data-col-drag]');
-    for (let i = 0; i < ths.length; i++) {
+    // 页面上可能存在多张可拖拽表格，命中的 th 数量会超过本表列数，
+    // 以 resolvedColumns 为上限可避免把越界索引交给调用方的 splice。
+    const ths = document.querySelectorAll<HTMLElement>('[data-col-drag]');
+    const limit = Math.min(ths.length, resolvedColumns.value.length);
+    for (let i = 0; i < limit; i++) {
       const rect = ths[i].getBoundingClientRect();
       if (clientX >= rect.left && clientX <= rect.right) {
         return i;

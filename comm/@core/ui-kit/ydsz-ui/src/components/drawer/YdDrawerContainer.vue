@@ -6,115 +6,123 @@
  *   &lt;YdDrawerContainer /&gt;
  * </pre>
  *
- * <p>与 `useDrawer().drawer.open(options)` 配合使用。
+ * <p>与 `useDrawer().drawer.open(options)` 配合使用：条目只由内部注册表驱动，
+ * 关闭原因由 YdDrawer 的 close 事件透传，退场动画结束后才真正出列。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\drawer\YdDrawerContainer.vue
  * @author ydsz-team
  * @since 1.0.0
  -->
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { ref, shallowRef } from 'vue';
+
+import type { DrawerCloseReason, DrawerEntry } from './types';
 
 import YdDrawer from './YdDrawer.vue';
 
-import type { DrawerEntry } from './types';
-
-// 使用 reactive 包裹状态以避免 vue-tsc 对 defineExpose 与 ref 绑定冲突的问题
-const state = reactive({
-  items: [] as DrawerEntry[],
-});
-
-/** 每个抽屉项的 resolve —— Promise 解析回调映射 */
-const resolveMap = ref<Map<string, (data?: unknown) => void>>(new Map());
+/** 容器内的抽屉条目：附带 resolve 回调 */
+interface ContainerEntry extends DrawerEntry {
+  resolve: (payload: { data?: unknown; reason: DrawerCloseReason }) => void;
+}
 
 /**
- * 主动关闭某个抽屉（命令式 close 用）。
+ * 条目列表用 shallowRef：options.component 是用户传入的组件对象，
+ * 深代理会把组件包成 reactive 对象（Vue 运行时会告警且失去引用相等）。
+ * 可见位单独存 Set，改可见位不需要重写整条条目。
+ */
+const items = shallowRef<ContainerEntry[]>([]);
+
+/** 当前可见的抽屉 id */
+const visibleIds = ref<Set<string>>(new Set());
+
+/** 已经解析过的条目 id，防止 close 与 closed 重复 resolve */
+const settled = ref<Set<string>>(new Set());
+
+function findEntry(id: string): ContainerEntry | undefined {
+  return items.value.find((entry) => entry.id === id);
+}
+
+/**
+ * 结算某个抽屉的 Promise（幂等）。
+ */
+function settle(id: string, reason: DrawerCloseReason, data?: unknown): void {
+  if (settled.value.has(id)) return;
+  settled.value.add(id);
+  findEntry(id)?.resolve({ data, reason });
+}
+
+/**
+ * 主动关闭某个抽屉（命令式 close / closeAll 用）。
  */
 function closeDrawer(id: string, data?: unknown): void {
-  const resolve = resolveMap.value.get(id);
-  if (resolve) {
-    resolve(data);
-    resolveMap.value.delete(id);
-  }
-  state.items = state.items.filter((e) => e.id !== id);
+  if (!findEntry(id)) return;
+  settle(id, 'api', data);
+  visibleIds.value.delete(id);
 }
 
 /**
  * 关闭所有抽屉。
  */
 function closeAll(): void {
-  const allItems = [...state.items];
-  allItems.forEach((entry) => {
-    const resolve = resolveMap.value.get(entry.id);
-    if (resolve) {
-      resolve(undefined);
-      resolveMap.value.delete(entry.id);
-    }
-  });
-  state.items = [];
+  for (const entry of [...items.value]) closeDrawer(entry.id);
 }
 
 /**
- * 在 update:open=false 时把 entry 从列表移除。
+ * YdDrawer 抛出关闭请求：记录原因并进入退场动画。
  */
-function onUpdateOpen(entry: DrawerEntry, visible: boolean): void {
-  if (!visible) {
-    const resolve = resolveMap.value.get(entry.id);
-    if (resolve) {
-      resolve(undefined);
-      resolveMap.value.delete(entry.id);
-    }
-    removeItem(entry.id);
-  }
+function onDrawerClose(entry: ContainerEntry, reason: DrawerCloseReason): void {
+  settle(entry.id, reason);
+  visibleIds.value.delete(entry.id);
 }
 
+/**
+ * 退场动画结束后出列。
+ */
 function removeItem(id: string): void {
-  state.items = state.items.filter((e) => e.id !== id);
-  resolveMap.value.delete(id);
+  items.value = items.value.filter((entry) => entry.id !== id);
+  visibleIds.value.delete(id);
+  settled.value.delete(id);
 }
 
 /**
- * 添加抽屉。供 use-drawer-internal 通过 ref 调用。
+ * 添加抽屉。供 use-drawer-internal 通过实例引用调用。
  */
-function _push(entry: DrawerEntry, resolve: (data?: unknown) => void): void {
-  resolveMap.value.set(entry.id, resolve);
-  state.items.push(entry);
+function push(entry: DrawerEntry, resolve: ContainerEntry['resolve']): void {
+  items.value = [...items.value, { ...entry, resolve }];
+  visibleIds.value.add(entry.id);
 }
 
 defineExpose({
-  _push,
   closeAll,
   closeDrawer,
-  items: state.items,
+  push,
 });
 </script>
 
 <template>
   <div class="yd-drawer-container">
     <YdDrawer
-      v-for="entry in state.items"
+      v-for="entry in items"
       :key="entry.id"
-      :open="true"
-      :header="entry.options.header"
-      :position="entry.options.position"
-      :width="entry.options.width"
-      :height="entry.options.height"
-      :mask-closable="entry.options.maskClosable ?? true"
       :close-on-esc="entry.options.closeOnEsc ?? true"
-      :show-close="entry.options.showClose ?? true"
-      :mask="entry.options.mask ?? true"
       :destroy-on-close="entry.options.destroyOnClose ?? false"
-      @update:open="onUpdateOpen(entry, $event)"
+      :header="entry.options.header"
+      :height="entry.options.height"
+      :mask="entry.options.mask ?? true"
+      :mask-closable="entry.options.maskClosable ?? true"
+      :open="visibleIds.has(entry.id)"
+      :position="entry.options.position"
+      :show-close="entry.options.showClose ?? true"
+      :width="entry.options.width"
+      @close="onDrawerClose(entry, $event)"
       @closed="removeItem(entry.id)"
     >
       <!-- 内容组件（命令式） -->
-      <template v-if="entry.options.component">
-        <component :is="entry.options.component" v-bind="entry.options.props || {}" />
-      </template>
+      <component :is="entry.options.component" v-if="entry.options.component" v-bind="entry.options.props || {}" />
       <!-- 简单文本内容 -->
-      <template v-else-if="entry.options.content">
-        <p class="text-sm text-text-secondary">{{ entry.options.content }}</p>
-      </template>
+      <p v-else-if="entry.options.content" class="text-sm text-text-secondary">
+        {{ entry.options.content }}
+      </p>
 
       <!-- 底部（命令式 footer 渲染） -->
       <template v-if="entry.options.footer" #footer>
@@ -125,8 +133,8 @@ defineExpose({
 </template>
 
 <style scoped>
+/* 容器本身不拦截指针事件，抽屉遮罩与面板自行恢复 */
 .yd-drawer-container {
-  position: relative;
   pointer-events: none;
 }
 </style>

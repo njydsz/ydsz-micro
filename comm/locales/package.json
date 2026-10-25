@@ -23,8 +23,8 @@
       "default": "./errors/index.ts"
     },
     "./errors/*": {
-      "types": "./errors/*",
-      "default": "./errors/*"
+      "types": "./errors/*.ts",
+      "default": "./errors/*.ts"
     }
   },
   "dependencies": {

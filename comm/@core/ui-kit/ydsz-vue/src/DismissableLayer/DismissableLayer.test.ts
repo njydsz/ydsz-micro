@@ -1,8 +1,10 @@
+// @vitest-environment jsdom
+// 用例通过真实焦点转移触发 outside focus 关闭，happy-dom 的焦点语义不完整，故本文件走 jsdom
 import { beforeEach, describe, expect, it } from 'vitest'
 import DismissableLayer from './story/_DismissableLayer.vue'
 import { type DOMWrapper, type VueWrapper, mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
-import { sleep } from '@/test'
+import { sleep } from '../../test'
 
 const OPEN_LABEL = 'Open'
 const CLOSE_LABEL = 'Close'

@@ -4,7 +4,7 @@
  * 设计目标：
  *  - 所有业务逻辑（字段解析、阈值判断、单/多选切换、滚动定位）从 SFC 中抽离；
  *  - 不持有任何样式 class 与 DOM 模板，完全可独立测试；
- *  - 上层 @see YdVSelect（styled）消费此 composable 并注入样式 class。
+ *  - 上层 @see YdSelectSmart（styled）消费此 composable 并注入样式 class。
  *
  * 与 styled 组件的边界：
  *  - Headless 计算 "应该显示什么"、"当前选中是什么"、"虚拟滚动跳到哪"；

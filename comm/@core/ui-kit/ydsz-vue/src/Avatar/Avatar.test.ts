@@ -9,6 +9,28 @@ import { findByAltText, findByText, queryByText, waitForElementToBeRemoved } fro
 const FALLBACK = 'CT'
 const DELAY = 350
 
+/**
+ * 延迟触发 onload 的假 Image。
+ *
+ * <p>必须在任何 mount 之前替换 `window.Image`：story 里的 src 是真实外链，
+ * 否则 happy-dom 会发起网络请求并在 teardown 时报未处理的 AbortError。
+ */
+class MockImage {
+  onload: () => void = () => {}
+  src = ''
+
+  constructor() {
+    setTimeout(() => {
+      this.onload()
+    }, DELAY)
+    return this
+  }
+}
+
+beforeAll(() => {
+  (window.Image as unknown) = MockImage
+})
+
 it('should pass axe accessibility tests', async () => {
   const wrapper = mount(Avatar)
   expect(await axe(wrapper.element)).toHaveNoViolations()
@@ -17,16 +39,6 @@ it('should pass axe accessibility tests', async () => {
 describe('given an Avatar with fallback and a working image', async () => {
   let wrapper: VueWrapper<InstanceType<typeof Avatar>>
   beforeAll(async () => {
-    (window.Image as any) = class MockImage {
-      onload: () => void = () => {}
-      src = ''
-      constructor() {
-        setTimeout(() => {
-          this.onload()
-        }, DELAY)
-        return this
-      }
-    }
     wrapper = mount(Avatar)
   })
 
@@ -36,9 +48,12 @@ describe('given an Avatar with fallback and a working image', async () => {
   })
 
   it('should render the image, but show `display:none` initially', () => {
-    const image = wrapper.find('img')
+    // 用新挂载的实例断言：共享 wrapper 可能已被前面的异步用例等到 onload（350ms）
+    const image = mount(Avatar).find('img')
     expect(image.exists()).toBeTruthy()
-    expect(image.element).toHaveStyle({ display: 'none' })
+    // 直接读内联 style：v-show 关闭时写的是 el.style.display，
+    // getComputedStyle 在游离节点上的实现差异会让 toHaveStyle 失真
+    expect(image.element.style.display).toBe('none')
   })
 
   it('should have alt text on the image', async () => {
@@ -60,16 +75,6 @@ describe('given an Avatar with fallback and delayed render', () => {
   let wrapper: VueWrapper<InstanceType<typeof Avatar>>
 
   beforeAll(async () => {
-    (window.Image as any) = class MockImage {
-      onload: () => void = () => {}
-      src = ''
-      constructor() {
-        setTimeout(() => {
-          this.onload()
-        }, DELAY)
-        return this
-      }
-    }
     wrapper = mount(Avatar, {
       props: {
         delay: 300,

@@ -17,7 +17,11 @@
  * @since 1.0.0
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+// 每条用例都在用例体内 dynamic import 整个 SFC，全量并发跑时冷启动 transform
+// 会顶穿默认 5s 超时（单跑 4.2s/9 条），故放宽到 20s。
+vi.setConfig({ testTimeout: 20_000 });
 
 describe('A11y 静态约定', () => {
   it('YdButton 应透传 disabled 属性', async () => {

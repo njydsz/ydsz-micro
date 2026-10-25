@@ -107,7 +107,7 @@ async function handleView(row: AgentDefinitionVO) {
       </YdDescriptionsItem>
     </YdDescriptions>
     <Grid table-title="Agent定义列表" />
-    <YdDrawer v-model="detailVisible" title="Agent定义详情" size="480px">
+    <YdDrawer v-model:open="detailVisible" header="Agent定义详情" width="480px">
       <YdDescriptions v-if="detail" :column="1" border>
         <YdDescriptionsItem label="Agent编码">{{ detail.agentCode }}</YdDescriptionsItem>
         <YdDescriptionsItem label="Agent名称">{{ detail.agentName }}</YdDescriptionsItem>

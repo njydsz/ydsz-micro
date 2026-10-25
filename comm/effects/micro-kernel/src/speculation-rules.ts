@@ -58,7 +58,8 @@ export function buildSpeculationRules(apps: MicroAppEntry[], maxRules = 5): stri
     prefetch: [
       {
         source: 'list',
-        urls: candidates.map((a) => a.entry || `/YDSZ-${a.name}/`),
+        // 回退口径与 registry-adapter / getProdEntry 一致（/ydsz-{name}/），由 CI 断言
+        urls: candidates.map((a) => a.entry || `/ydsz-${a.name}/`),
         where: {
           // 匹配当前域名下的所有子应用路径
           'href_matches': candidates.map((a) => `${a.activeRule}/*`),

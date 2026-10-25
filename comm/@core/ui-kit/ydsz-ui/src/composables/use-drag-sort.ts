@@ -98,11 +98,17 @@ export function useDragSort(options: UseDragSortOptions) {
 
   /**
    * 根据指针坐标计算当前索引。
+   *
+   * @param clientX - 指针 X 坐标
+   * @param clientY - 指针 Y 坐标
+   * @returns 命中的条目索引，未命中返回 -1
    */
   function getIndexAt(clientX: number, clientY: number): number {
     const selector = containerSelector ?? '[data-drag-sort-item]';
     const els = document.querySelectorAll<HTMLElement>(selector);
-    for (let i = 0; i < els.length; i++) {
+    // 同一 selector 可能命中页面上其它拖拽列表，以 items 长度为上限避免越界索引。
+    const limit = Math.min(els.length, resolvedItems.value.length);
+    for (let i = 0; i < limit; i++) {
       const rect = els[i].getBoundingClientRect();
       if (direction === 'vertical') {
         if (clientY >= rect.top && clientY <= rect.bottom) {

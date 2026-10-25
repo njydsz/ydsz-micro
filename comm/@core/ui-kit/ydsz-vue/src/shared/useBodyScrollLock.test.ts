@@ -13,7 +13,7 @@ function createWrapper(initialState: boolean) {
 }
 
 describe('useBodyScrollLock', () => {
-  vi.mock('@/ConfigProvider/ConfigProvider.vue', async () => {
+  vi.mock('../ConfigProvider/ConfigProvider.vue', async () => {
     return {
       injectConfigProviderContext: () => {
         return {

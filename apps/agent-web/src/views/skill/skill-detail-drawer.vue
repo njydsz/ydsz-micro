@@ -19,7 +19,7 @@ import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdTabl
 import { useI18n } from '@ydsz/locales';
 import { computed, ref, watch } from 'vue';
 
-import { Info, RefreshCw } from 'lucide-vue-next';
+import { Info, RefreshCw } from '@ydsz/icons';
 import { getSkillDetail } from '#/api/skill';
 
 const props = defineProps<{
@@ -92,9 +92,9 @@ watch(
 
 <template>
   <YdDrawer
-    v-model="visible"
-    :title="t('business.skill.detail.title') || '技能详情'"
-    size="50%"
+    v-model:open="visible"
+    :header="t('business.skill.detail.title') || '技能详情'"
+    width="50%"
   >
     <div class="space-y-6">
       <!-- 基本信息 -->

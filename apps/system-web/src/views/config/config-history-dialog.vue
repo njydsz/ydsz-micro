@@ -170,15 +170,15 @@ defineExpose({
 
 <template>
   <YdDrawer
-    v-model="drawerVisible"
-    size="65%"
-    :title="t('configVersion.historyTitle', [configKey])"
+    v-model:open="drawerVisible"
+    width="65%"
+    :header="t('configVersion.historyTitle', [configKey])"
     :destroy-on-close="true"
     @close="close"
   >
     <!-- 版本列表表格 -->
     <YdTable
-      loading="loading"
+      :loading="loading"
       :data="versions"
       stripe
       border

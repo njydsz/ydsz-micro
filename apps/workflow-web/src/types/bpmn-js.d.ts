@@ -28,8 +28,7 @@ declare module 'bpmn-js-properties-panel' {
 declare module 'bpmn-js/dist/assets/diagram-js.css' {}
 declare module 'bpmn-js/dist/assets/bpmn-js.css' {}
 declare module 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css' {}
-declare module 'bpmn-js-properties-panel/dist/assets/properties-panel.css' {}
-declare module 'bpmn-js-properties-panel/dist/assets/element-templates.css' {}
+declare module '@bpmn-io/properties-panel/dist/assets/properties-panel.css' {}
 
 declare module 'camunda-bpmn-moddle/resources/camunda.json' {
   const descriptor: Record<string, any>;

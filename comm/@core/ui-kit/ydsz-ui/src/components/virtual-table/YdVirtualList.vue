@@ -9,7 +9,7 @@
  *    通过默认 slot 将可见项与定位信息注入给调用方。
 * 
  * <p>适用场景：
- *  - 大数据下拉面板（见 YdSelectVirtualContent）
+ *  - 大数据下拉面板（见 YdSelectSmart 的虚拟分支）
  *  - 大数据级联列（见 YdVCascader）
  *  - 通用长列表替换 ul > li 结构
 * 

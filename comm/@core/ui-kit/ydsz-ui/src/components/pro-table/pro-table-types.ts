@@ -91,4 +91,12 @@ export interface ProTableProps<T extends Record<string, unknown>> {
   editText?: string;
   /** 删除按钮文字 */
   deleteText?: string;
+  /** 是否允许多列排序（Shift + 点击表头追加到排序链） */
+  multipleSort?: boolean;
+  /** 是否启用行虚拟滚动（超大数据量，需配合 virtualHeight 限定可视区高度） */
+  virtual?: boolean;
+  /** 行虚拟滚动可视区高度（像素） */
+  virtualHeight?: number;
+  /** 导出默认文件名（不含扩展名） */
+  exportFileName?: string;
 }

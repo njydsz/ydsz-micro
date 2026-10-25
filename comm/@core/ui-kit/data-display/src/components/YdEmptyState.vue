@@ -10,7 +10,7 @@
  *
  * <p>用于列表/表格无数据时的友好展示，支持自定义标题、描述和操作按钮。
  *
- * @author ydzs-team
+ * @author ydsz-team
  * @since 1.1.0
  */
 

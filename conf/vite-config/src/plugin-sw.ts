@@ -52,8 +52,9 @@ export async function swPlugin(options: SWPluginOptions): Promise<Plugin[]> {
   try {
     const { VitePWA } = await import('vite-plugin-pwa');
     const pwaOptions: Partial<VitePWAOptions> = {
-      // 子应用注册在 activeRule 子路径下，避免与主应用 SW 冲突
-      scope: scope ?? `/YDSZ-${appName.replace('-web', '')}/`,
+      // 子应用注册在 /ydsz-{name}-web/ 子路径下，避免与主应用 SW 冲突
+      // scope 必须覆盖 SW 自身所在路径，故沿用完整部署前缀（含 -web），不做 replace
+      scope: scope ?? `/ydsz-${appName}/`,
       base: '/',
       // 注意：mode 由 VitePWA 推断
       // 注册策略

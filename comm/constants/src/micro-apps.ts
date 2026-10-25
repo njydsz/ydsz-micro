@@ -49,7 +49,7 @@ export interface MicroAppEntry {
   order: number;
   /** 开发服务器端口 */
   devPort: number;
-  /** 生产环境部署子路径（未配置时回退 `/YDSZ-${name}/`） */
+  /** 生产环境部署子路径（未配置时回退 `defaultProdPath()` 的 `/ydsz-{name}/`） */
   prodPath?: string;
   /**
    * 子应用默认骨架屏类型（可选）。
@@ -190,17 +190,34 @@ export const MICRO_APPS: readonly MicroAppEntry[] = [
   },
 ];
 
+/** 生产环境部署子路径前缀（与 bash/deploy/Dockerfile 的 nginx html 目录名一致） */
+export const SUB_APP_BASE_PREFIX = '/ydsz-';
+
+/**
+ * 未显式声明 `prodPath` 时的默认生产子路径。
+ *
+ * 全仓唯一口径：`/ydsz-{name}-web/`（小写）。nginx location、Docker COPY 目录、
+ * Service Worker scope、基座 entry 推导必须共用此函数或其等价字面量，
+ * 由 `bash/check-subapp-base.mts` 在 CI 断言，避免大小写/前缀漂移导致
+ * 子应用资源 404 后被 SPA 兜底返回 HTML。
+ *
+ * @param name 子应用名（如 'userinfo-web'）
+ */
+export function defaultProdPath(name: string): string {
+  return `${SUB_APP_BASE_PREFIX}${name}/`;
+}
+
 /**
  * 获取子应用生产环境部署子路径（如 '/ydsz-userinfo-web/'）。
  *
- * 优先使用注册表中显式声明的 `prodPath`，未声明时回退到 `/YDSZ-${name}/`。
+ * 优先使用注册表中显式声明的 `prodPath`，未声明时回退到 {@link defaultProdPath}。
  * 基座 bootstrap、nginx.conf 生成、Docker 部署均应消费此函数，确保三端一致。
  *
  * @param app 子应用注册信息
  * @since 1.0.0
  */
 export function getProdEntry(app: MicroAppEntry): string {
-  return app.prodPath ?? `/ydsz-${app.name}/`;
+  return app.prodPath ?? defaultProdPath(app.name);
 }
 
 /** 路由前缀 → 子应用名 映射（供 use-tabbar-micro-sync 等场景快速查找） */

@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import HoverCard from './story/_HoverCard.vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { sleep } from '@/test'
+import { sleep } from '../../test'
 
 describe('given a default HoverCard', () => {
   let wrapper: VueWrapper<InstanceType<typeof HoverCard>>

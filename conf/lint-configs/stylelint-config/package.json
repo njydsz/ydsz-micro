@@ -28,6 +28,9 @@
     "stylelint-prettier": "^5.0.0",
     "stylelint-scss": "^6.0.0"
   },
+  "devDependencies": {
+    "typescript": "catalog:"
+  },
   "peerDependencies": {
     "stylelint": "^16.0.0"
   },

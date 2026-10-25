@@ -1,7 +1,8 @@
 <!--
  * ToastProvider —— 全局 Toast 渲染容器。
  *
- * <p>订阅 useToastState 的 toasts 数组，渲染浮层队列。
+ * <p>订阅 useToastState 的 toasts 数组，渲染浮层队列，并负责生命周期：
+ * duration>0 的条目到点自动出队，鼠标悬停在整个浮层上时暂停计时、移出按剩余时间续算。
  * 必须在 App 根组件挂载整个应用才有生效。
  *
  * <p>定位策略：fixed 覆盖视口顶部/右侧，按 --z-toast 层级悬浮。
@@ -12,7 +13,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { onBeforeUnmount, ref, watch } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';
 
@@ -37,8 +38,109 @@ const getVariantClass = (variant: string): string => {
   return variantClassMap[variant] ?? variantClassMap.default;
 };
 
-/** 可见 toast（有过渡动画） */
-const visibleToasts = computed(() => toasts.value);
+/** 告警级用 role=alert（打断读屏），提示级用 role=status（礼貌播报） */
+const getRole = (variant: string): 'alert' | 'status' => {
+  return variant === 'error' || variant === 'warning' ? 'alert' : 'status';
+};
+
+/* ============================================================ */
+/* 自动关闭计时：按 id 维护剩余时间，支持悬停暂停                    */
+/* ============================================================ */
+
+/** 每条 toast 的待触发定时器 */
+const timers = new Map<number, ReturnType<typeof setTimeout>>();
+
+/** 暂停时记录的剩余毫秒数 */
+const remaining = new Map<number, number>();
+
+/** 本轮计时起始时间戳 */
+const startedAt = new Map<number, number>();
+
+/** 视口悬浮态，仅用于模板可读 */
+const isPaused = ref(false);
+
+/**
+ * 为一条 toast 启动（或按剩余时间续算）自动关闭计时。
+ *
+ * @param id - toast id
+ * @param duration - 总时长毫秒，<=0 表示常驻
+ * @returns 无
+ */
+function schedule(id: number, duration: number): void {
+  if (duration <= 0) return;
+  const wait = remaining.get(id) ?? duration;
+  remaining.set(id, wait);
+  startedAt.set(id, Date.now());
+  clearTimer(id);
+  timers.set(id, setTimeout(() => removeItem(id), wait));
+}
+
+/**
+ * 暂停计时并记住剩余时间。
+ *
+ * @param id - toast id
+ * @returns 无
+ */
+function pause(id: number): void {
+  const timer = timers.get(id);
+  if (timer === undefined) return;
+  remaining.set(id, Math.max(0, (remaining.get(id) ?? 0) - (Date.now() - (startedAt.get(id) ?? Date.now()))));
+  clearTimer(id);
+}
+
+/** 出队并清理该条目的全部计时状态 */
+function removeItem(id: number): void {
+  clearTimer(id);
+  remaining.delete(id);
+  startedAt.delete(id);
+  dismiss(id);
+}
+
+function clearTimer(id: number): void {
+  const timer = timers.get(id);
+  if (timer !== undefined) {
+    clearTimeout(timer);
+    timers.delete(id);
+  }
+}
+
+watch(
+  toasts,
+  (list) => {
+    const alive = new Set(list.map((item) => item.id));
+    for (const id of timers.keys()) {
+      // 队列已被外部 dismiss 的条目不该继续挂着定时器
+      if (!alive.has(id)) {
+        clearTimer(id);
+        remaining.delete(id);
+        startedAt.delete(id);
+      }
+    }
+    for (const item of list) {
+      if (!timers.has(item.id) && !isPaused.value) {
+        schedule(item.id, item.duration ?? 0);
+      }
+    }
+  },
+  { immediate: true },
+);
+
+function pauseAll(): void {
+  isPaused.value = true;
+  for (const item of toasts.value) pause(item.id);
+}
+
+function resumeAll(): void {
+  isPaused.value = false;
+  for (const item of toasts.value) schedule(item.id, item.duration ?? 0);
+}
+
+onBeforeUnmount(() => {
+  for (const id of [...timers.keys()]) clearTimer(id);
+  timers.clear();
+  remaining.clear();
+  startedAt.clear();
+});
 </script>
 
 <template>
@@ -46,16 +148,18 @@ const visibleToasts = computed(() => toasts.value);
   <div
     aria-live="polite"
     class="pointer-events-none fixed top-4 right-4 z-[var(--z-toast)] flex min-w-[320px] flex-col gap-3 outline-none"
+    @mouseenter="pauseAll"
+    @mouseleave="resumeAll"
   >
     <TransitionGroup name="ydsz-toast">
       <div
-        v-for="item in visibleToasts"
+        v-for="item in toasts"
         :key="item.id"
         :class="[
           'pointer-events-auto flex w-full items-start gap-3 rounded-lg border p-4 shadow-lg transition-all',
           getVariantClass(item.variant ?? 'default'),
         ]"
-        role="alert"
+        :role="getRole(item.variant ?? 'default')"
         aria-atomic="true"
       >
         <!-- 文本区 -->
@@ -76,7 +180,7 @@ const visibleToasts = computed(() => toasts.value);
           :aria-label="$t('common.close')"
           class="-mr-1 -mt-1 rounded-md p-1 opacity-50 transition-opacity hover:opacity-100 focus:opacity-100"
           type="button"
-          @click="dismiss(item.id)"
+          @click="removeItem(item.id)"
         >
           <svg
             class="h-4 w-4"

@@ -118,7 +118,7 @@ async function handleDelete(row: MenuTreeVO) {
         </div>
       </div>
       <YdTable
-        loading="loading"
+        :loading="loading"
         :data="tableData"
         row-key="id"
         border

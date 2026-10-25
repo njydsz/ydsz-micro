@@ -46,6 +46,9 @@ const selectElement = ref<HTMLElement>()
  *
  * We use `VisuallyHidden` rather than `display: "none"` because Safari autofill
  * won't work otherwise.
+ *
+ * `aria-hidden` + `tabindex="-1"`：这个 select 只是值与自动填充的镜像，可访问名由
+ * SelectTrigger 承担；不隐藏会把它留在无障碍树与 Tab 序列里（axe `select-name` 违规）。
  */
 </script>
 
@@ -55,6 +58,8 @@ const selectElement = ref<HTMLElement>()
       ref="selectElement"
       v-bind="props"
       v-model="value"
+      aria-hidden="true"
+      tabindex="-1"
       :default-value="value"
     >
       <slot />

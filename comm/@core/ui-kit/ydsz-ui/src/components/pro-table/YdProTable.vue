@@ -1,14 +1,14 @@
-<script setup lang="ts" generic="T extends Record<string, unknown>
+<script setup lang="ts" generic="T extends Record<string, unknown>">
 /**
-* YdProTable —— 一体化 CRUD 表格封装（仿 Ant Design ProTable）。
-* 
+ * YdProTable —— 一体化 CRUD 表格封装（仿 Ant Design ProTable）。
+ *
  * 设计目标：
  *  - 集成搜索栏（自动生成）+ 工具栏 + 数据表格（YdDataTable）+ 分页；
  *  - 覆盖 80% 后台管理列表页场景：查询/重置/新增/编辑/删除/批量操作/列选择；
  *  - 暴露 columns/dataSource/loading/onChange 等关键接口；
  *  - 支持行选择（checkbox/radio）、服务端分页/排序/筛选；
  *  - 5.7.0 追加：searchFields 自动搜索表单、editable 行内编辑、onCreate 新增弹窗。
-* 
+ *
  * 接口契约（对齐 EP ProTable / Arco ProTable）：
  *  - columns：TableColumnDef[]（已内置 sortable/filterable）
  *  - dataSource：T[]（原始数据）
@@ -18,11 +18,11 @@
  *  - searchFields：搜索字段配置（自动渲染搜索表单）
  *  - editable：行内编辑配置
  *  - onCreate / createText：内置新增弹窗
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\pro-table\YdProTable.vue
  * @author ydsz-team
  * @since 5.6.0 (5.7.0 追加行内编辑 / 搜索表单 / 新增弹窗)
- */">
+ */
 import {
   computed,
   reactive,
@@ -31,9 +31,10 @@ import {
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import type { TableColumnDef } from '../../composables/use-table-data';
+import type { SortState, TableColumnDef } from '../../composables/use-table-data';
 import { useTableData } from '../../composables/use-table-data';
-import { YdDataTable } from '.././data-table';
+import type { TableExportApi } from '../data-table';
+import { YdDataTable } from '../data-table';
 import { YdSelectSmart } from '../select';
 
 import { YdButtonSmart } from '.././button';
@@ -101,6 +102,17 @@ const tableData = useTableData<T>({
 });
 
 const sortState = computed(() => tableData.sortState.value);
+
+/**
+ * 表头排序回传：写回本组件的 useTableData，让 dataSource 的排序与表头状态一致，
+ * 同时作为受控值下发给 YdDataTable，避免父子两份排序状态漂移。
+ *
+ * @param next - 子组件当前排序状态
+ * @returns 无
+ */
+function handleSortStateChange(next: SortState): void {
+  tableData.sortState.value = next;
+}
 
 /* ============================================================ */
 /* 分页事件                                                     */
@@ -232,8 +244,20 @@ const renderColumns = computed<TableColumnDef<T>[]>(() => props.columns);
 /* 暴露方法                                                     */
 /* ============================================================ */
 
+/** YdDataTable defineExpose 句柄中被 ProTable 委派的部分 */
+interface DataTableHandle {
+  exporting: TableExportApi;
+}
+
+/** 只读分支下的 YdDataTable 实例（行内编辑分支不挂载，故可能为 null） */
+const dataTableRef = ref<DataTableHandle | null>(null);
+
+/** 内部表格句柄：编辑分支未挂载时为 undefined */
+const exportingApi = computed(() => dataTableRef.value?.exporting);
+
 defineExpose({
   clearFilters: tableData.clearFilters,
+  exporting: exportingApi,
   selection: tableData.selection,
   sortState: tableData.sortState,
   viewRows: tableData.viewRows,
@@ -353,14 +377,21 @@ defineExpose({
     <div v-if="!isEditable">
       <!-- 只读模式：使用 YdDataTable -->
       <YdDataTable
+        ref="dataTableRef"
         :data-source="tableData.viewRows.value"
         :columns="(renderColumns as unknown) as any"
         :row-key="props.rowKey"
         :is-selectable="!!props.rowSelection"
         :select-type="props.rowSelection?.type ?? 'checkbox'"
         :is-remote="props.isRemote"
+        :loading="props.isLoading"
         :sort-state="sortState"
+        :multiple-sort="props.multipleSort"
+        :virtual="props.virtual"
+        :virtual-height="props.virtualHeight"
+        :export-file-name="props.exportFileName"
         :summary="props.summary"
+        @update:sort-state="handleSortStateChange"
       />
     </div>
 

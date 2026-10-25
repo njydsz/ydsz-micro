@@ -109,7 +109,7 @@ async function handleDelete(row: DepartmentTreeVO) {
         </div>
       </div>
       <YdTable
-        loading="loading"
+        :loading="loading"
         :data="tableData"
         row-key="id"
         border

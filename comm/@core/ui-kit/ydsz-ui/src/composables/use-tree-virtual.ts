@@ -31,11 +31,11 @@
 
 import type { MaybeRef } from 'vue';
 
-import { computed, ref, unref, watch, type Ref } from 'vue';
+import { computed, ref, unref, type Ref } from 'vue';
 
 /** 扁平化节点（由 useTreeHeadless 输出结构） */
-export interface FlatTreeNode {
-  data: unknown;
+export interface FlatTreeNode<T = unknown> {
+  data: T;
   hasChildren: boolean;
   isLeaf?: boolean;
   isLoaded?: boolean;
@@ -55,9 +55,9 @@ export interface LazyLoadContext<T = unknown> {
 }
 
 /** 配置项 */
-export interface UseTreeVirtualOptions {
+export interface UseTreeVirtualOptions<T = unknown> {
   /** 扁平化节点 getter（依赖展开态自动重算） */
-  flattenedNodes: MaybeRef<FlatTreeNode[]> | (() => FlatTreeNode[]);
+  flattenedNodes: MaybeRef<FlatTreeNode<T>[]> | (() => FlatTreeNode<T>[]);
   /** 当前展开的 value 集合 */
   expandedKeys: Ref<Set<string | number>> | MaybeRef<Set<string | number>>;
   /** 视口高度（px），默认 300 */
@@ -67,23 +67,25 @@ export interface UseTreeVirtualOptions {
   /** 上下缓冲行数，默认 5 */
   overscan?: number;
   /** 懒加载回调（异步回填子节点） */
-  onLazyLoad?: (ctx: LazyLoadContext) => void | Promise<void>;
+  onLazyLoad?: (ctx: LazyLoadContext<T>) => void | Promise<void>;
+  /** 滚动容器取值函数 —— scrollToIndex 需要真实元素才能定位 */
+  getScrollElement?: () => HTMLElement | null;
 }
 
 /** 可见节点描述 */
-export interface VirtualTreeNode {
-  data: FlatTreeNode;
+export interface VirtualTreeNode<T = unknown> {
+  data: FlatTreeNode<T>;
   index: number;
   key: string | number;
   offsetY: number;
 }
 
 /** composable 返回句柄 */
-export interface TreeVirtualHandle {
+export interface TreeVirtualHandle<T = unknown> {
   /** 过滤后的可见节点（仅展开祖先的节点） */
-  expandedVisibleNodes: Ref<FlatTreeNode[]>;
+  expandedVisibleNodes: Ref<FlatTreeNode<T>[]>;
   /** 当前视口应渲染的节点切片 */
-  visibleSlice: Ref<VirtualTreeNode[]>;
+  visibleSlice: Ref<VirtualTreeNode<T>[]>;
   /** 列表总高度 */
   totalHeight: Ref<number>;
   /** 容器滚动样式 */
@@ -94,7 +96,9 @@ export interface TreeVirtualHandle {
   offsetY: Ref<number>;
   /** 滚动事件处理 */
   onScroll: (event: Event) => void;
-  /** 手动触发节点懒加载 */
+  /** 把指定索引的节点滚入视口（键盘导航用） */
+  scrollToIndex: (index: number) => void;
+  /** 懒加载回调 */
   loadLazyNode: (value: string | number) => Promise<void>;
 }
 
@@ -104,7 +108,9 @@ export interface TreeVirtualHandle {
  * @param options - 配置项
  * @return 虚拟滚动句柄
  */
-export function useTreeVirtual(options: UseTreeVirtualOptions): TreeVirtualHandle {
+export function useTreeVirtual<T = unknown>(
+  options: UseTreeVirtualOptions<T>,
+): TreeVirtualHandle<T> {
   const {
     flattenedNodes,
     expandedKeys,
@@ -115,9 +121,11 @@ export function useTreeVirtual(options: UseTreeVirtualOptions): TreeVirtualHandl
   } = options;
 
   const scrollTop = ref(0);
+  /** 最近一次 onScroll 捕获到的滚动容器，供 scrollToIndex 回写 */
+  let capturedScrollElement: HTMLElement | null = null;
 
   /** 读取扁平化节点数组 */
-  const resolvedNodes = computed((): FlatTreeNode[] => {
+  const resolvedNodes = computed((): FlatTreeNode<T>[] => {
     if (typeof flattenedNodes === 'function') return flattenedNodes();
     return unref(flattenedNodes);
   });
@@ -135,10 +143,10 @@ export function useTreeVirtual(options: UseTreeVirtualOptions): TreeVirtualHandl
    * 过滤出「所有祖先均已展开」的节点。
    * 任一级祖先未展开，则该节点不可见。
    */
-  const expandedVisibleNodes = computed<FlatTreeNode[]>(() => {
+  const expandedVisibleNodes = computed<FlatTreeNode<T>[]>(() => {
     const nodes = resolvedNodes.value;
     const expanded = resolvedExpandedKeys.value;
-    const result: FlatTreeNode[] = [];
+    const result: FlatTreeNode<T>[] = [];
 
     for (const node of nodes) {
       // 根节点（无父级）始终可见
@@ -177,9 +185,9 @@ export function useTreeVirtual(options: UseTreeVirtualOptions): TreeVirtualHandl
   });
 
   /** 可见切片 */
-  const visibleSlice = computed<VirtualTreeNode[]>(() => {
+  const visibleSlice = computed<VirtualTreeNode<T>[]>(() => {
     const nodes = expandedVisibleNodes.value;
-    const slice: VirtualTreeNode[] = [];
+    const slice: VirtualTreeNode<T>[] = [];
     const start = startIndex.value;
     const end = endIndex.value;
 
@@ -216,7 +224,34 @@ export function useTreeVirtual(options: UseTreeVirtualOptions): TreeVirtualHandl
   /** 滚动事件 */
   function onScroll(event: Event): void {
     const target = event.target as HTMLElement | null;
+    capturedScrollElement = target;
     scrollTop.value = target?.scrollTop ?? 0;
+  }
+
+  /**
+   * 把指定索引的节点滚入视口。
+   *
+   * <p>键盘导航跨过虚拟窗口边界时必须先滚动，否则活动项根本不在 DOM 里，
+   * aria-activedescendant 会指向一个不存在的 id。
+   *
+   * @param index - expandedVisibleNodes 中的索引
+   */
+  function scrollToIndex(index: number): void {
+    if (index < 0 || index >= expandedVisibleNodes.value.length) return;
+    const element = options.getScrollElement?.() ?? capturedScrollElement;
+    const itemTop = index * itemHeight;
+    const itemBottom = itemTop + itemHeight;
+    const viewTop = element?.scrollTop ?? scrollTop.value;
+    const viewBottom = viewTop + viewportHeight;
+
+    let next = viewTop;
+    if (itemTop < viewTop) {
+      next = itemTop;
+    } else if (itemBottom > viewBottom) {
+      next = itemBottom - viewportHeight;
+    }
+    if (element) element.scrollTop = next;
+    scrollTop.value = next;
   }
 
   /**
@@ -242,6 +277,7 @@ export function useTreeVirtual(options: UseTreeVirtualOptions): TreeVirtualHandl
     loadLazyNode,
     offsetY,
     onScroll,
+    scrollToIndex,
     spacerStyle,
     totalHeight,
     visibleSlice,

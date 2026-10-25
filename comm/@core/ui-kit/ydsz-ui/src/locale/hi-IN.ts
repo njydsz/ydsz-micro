@@ -122,6 +122,7 @@ export const hiIN = {
   'select.loading': 'लोड हो रहा है...',
   'select.selectAll': 'सभी चुनें',
   'select.clear': 'साफ़ करें',
+  'select.removeTag': 'हटाएं',
   'create.label': '"{value}" बनाएं',
 
   // ===== वृक्ष =====
@@ -141,6 +142,10 @@ export const hiIN = {
   'notification.empty': 'कोई सूचना नहीं',
   'notification.markAllRead': 'सभी को पठित के रूप में चिह्नित करें',
   'notification.viewAll': 'सभी देखें',
+  'notification.closeAriaLabel': 'सूचना बंद करें',
+
+  // ===== Toast =====
+  'toast.region': 'सूचनाएँ',
 
   // ===== खाली स्थिति =====
   'empty.default': 'कोई डेटा नहीं',

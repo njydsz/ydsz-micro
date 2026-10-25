@@ -31,6 +31,8 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    // 全局注册 vitest-axe 的 toHaveNoViolations 匹配器（comm/** 与 apps/** 共用）
+    setupFiles: ['vitest.setup.ts'],
     resolve: {
       dedupe: ['../src/i18n'],
     },

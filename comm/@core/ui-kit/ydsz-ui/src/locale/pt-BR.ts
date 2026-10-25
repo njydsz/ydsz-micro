@@ -122,6 +122,7 @@ export const ptBR = {
   'select.loading': 'Carregando...',
   'select.selectAll': 'Selecionar tudo',
   'select.clear': 'Limpar',
+  'select.removeTag': 'Remover',
   'create.label': 'Criar "{value}"',
 
   // ===== Árvore =====
@@ -141,6 +142,10 @@ export const ptBR = {
   'notification.empty': 'Sem notificações',
   'notification.markAllRead': 'Marcar todas como lidas',
   'notification.viewAll': 'Ver todas',
+  'notification.closeAriaLabel': 'Fechar notificação',
+
+  // ===== Toast =====
+  'toast.region': 'Notificações',
 
   // ===== Estado vazio =====
   'empty.default': 'Sem dados',

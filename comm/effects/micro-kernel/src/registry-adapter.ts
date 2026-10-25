@@ -271,8 +271,12 @@ export function resolveAppEntry(app: MicroAppEntry): string {
     return `//localhost:${app.devPort}`;
   }
 
-  // 生产模式：prodPath 回退到 /YDSZ-{name}/（原 getProdEntry，内联以避免依赖构建配置包）
-  return (app as MicroAppEntry & { prodPath?: string }).prodPath ?? `/YDSZ-${app.name}/`;
+  // 生产模式：prodPath 回退到 /ydsz-{name}/
+  // 口径单一来源 = comm/constants/src/micro-apps.ts 的 defaultProdPath()；
+  // 此处内联以避免 micro-kernel 依赖 constants 包，由 bash/check-subapp-base.mts 断言两端一致。
+  return (
+    (app as MicroAppEntry & { prodPath?: string }).prodPath ?? `/ydsz-${app.name}/`
+  );
 }
 
 /**

@@ -75,7 +75,8 @@ describe('YdCascader', () => {
     const wrapper = mount(YdCascader, {
       props: { options: sampleOptions, modelValue: ['fj', 'fz'] },
     });
-    expect(wrapper.text()).toContain('fj / fz');
+    // 触发器展示逐级 label 路径，而不是原始 value
+    expect(wrapper.text()).toContain('福建 / 福州');
     wrapper.unmount();
   });
 

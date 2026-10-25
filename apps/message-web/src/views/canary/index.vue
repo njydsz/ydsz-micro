@@ -230,7 +230,7 @@ onMounted(() => {
       <!-- 实验列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdTable loading="loading" :data="experimentList" stripe border style="width: 100%">
+          <YdTable :loading="loading" :data="experimentList" stripe border style="width: 100%">
             <YdTableColumn type="index" label="序号" width="60" align="center" />
             <YdTableColumn prop="name" label="实验名称" min-width="160" />
             <YdTableColumn prop="channel" label="通道" width="120">

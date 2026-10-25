@@ -5,7 +5,7 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import { fireEvent } from '@testing-library/vue'
-import { handleSubmit } from '@/test'
+import { handleSubmit } from '../../test'
 
 describe('given default Select', () => {
   let wrapper: VueWrapper<InstanceType<typeof Select>>

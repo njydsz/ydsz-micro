@@ -19,7 +19,7 @@ import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdEmpt
 import { useI18n } from '@ydsz/locales';
 import { computed, ref, watch } from 'vue';
 
-import { Info, Link, RefreshCw } from 'lucide-vue-next';
+import { Info, Link, RefreshCw } from '@ydsz/icons';
 import { querySubgraph, queryRelations } from '#/api/knowledgeGraph';
 
 const props = defineProps<{
@@ -170,9 +170,9 @@ watch(visible, (val) => {
 
 <template>
   <YdDrawer
-    v-model="visible"
-    :title="$t('knowledgeGraph.detail.title') || '实体详情'"
-    size="50%"
+    v-model:open="visible"
+    :header="$t('knowledgeGraph.detail.title') || '实体详情'"
+    width="50%"
   >
     <div class="space-y-6">
       <!-- 实体基本信息 -->

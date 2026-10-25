@@ -48,7 +48,7 @@ const loading = ref(false);
 
 <template>
   <Modal>
-    <div loading="loading">
+    <div v-loading="loading">
       <div class="mb-3 border-b pb-2">
         <span class="text-base font-medium">{{ t('session.userSessions') }}</span>
       </div>

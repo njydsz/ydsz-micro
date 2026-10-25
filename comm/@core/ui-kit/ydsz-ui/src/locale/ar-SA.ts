@@ -123,6 +123,7 @@ export const arSA = {
   'select.loading': 'جارٍ التحميل...',
   'select.selectAll': 'تحديد الكل',
   'select.clear': 'مسح',
+  'select.removeTag': 'إزالة',
   'create.label': 'إنشاء «{value}»',
 
   // ===== شجرة =====
@@ -142,6 +143,10 @@ export const arSA = {
   'notification.empty': 'لا توجد إشعارات',
   'notification.markAllRead': 'تعيين الكل كمقروء',
   'notification.viewAll': 'عرض الكل',
+  'notification.closeAriaLabel': 'إغلاق الإشعار',
+
+  // ===== Toast =====
+  'toast.region': 'الإشعارات',
 
   // ===== الحالة الفارغة =====
   'empty.default': 'لا توجد بيانات',

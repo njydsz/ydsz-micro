@@ -171,7 +171,7 @@ onMounted(() => {
 
 <template>
   <Modal :title="`版本历史 - ${props.fileNode?.name ?? ''}`" width="900px">
-    <div loading="loading">
+    <div v-loading="loading">
       <div class="mb-3 flex justify-between">
         <span class="text-sm text-gray-500">共 {{ versions.length }} 个版本</span>
         <div class="flex gap-2">

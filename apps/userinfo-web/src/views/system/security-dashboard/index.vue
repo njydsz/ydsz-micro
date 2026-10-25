@@ -165,7 +165,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div loading="loading" class="space-y-4">
+    <div v-loading="loading" class="space-y-4">
       <!-- 总览卡片 -->
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         <YdCard shadow="hover">

@@ -18,7 +18,12 @@ import { findMonorepoRoot } from '@ydsz/node-utils';
 import { NodePackageImporter } from 'sass';
 import { defineConfig, loadEnv, mergeConfig } from 'vite';
 
-import { getSharedDeps, isValidStrategy, type ShareStrategy } from '../micro-shared-deps';
+import {
+  getAvailableStrategies,
+  getSharedDeps,
+  isValidStrategy,
+  type ShareStrategy,
+} from '../micro-shared-deps';
 import { getDefaultPwaOptions } from '../options';
 import { loadApplicationPlugins } from '../plugins';
 import { microScopedPostcssPlugin } from '../plugins/micro-scoped-postcss';
@@ -160,8 +165,49 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       await getCommonConfig(),
       applicationConfig,
     );
-    return mergeConfig(mergedCommonConfig, vite);
+    const mergedConfig = mergeConfig(mergedCommonConfig, vite);
+
+    // P0-S5：子应用生产 base 单一来源 = comm/constants 的 defaultProdPath()
+    // （/ydsz-{name}-web/，与 nginx location、Dockerfile COPY 目录同口径）。
+    // 子应用 vite.config 里的 base:'/' 会让产物发出根路径资源，线上落到
+    // location / 的 SPA 兜底从而"HTML 当 JS 执行"，故构建期强制覆盖；
+    // dev 服务与主应用（main-web）不受影响。
+    const prodBase = resolveSubAppProdBase(subAppName, isBuild);
+    if (prodBase && mergedConfig.base !== prodBase) {
+      if (mergedConfig.base && mergedConfig.base !== '/') {
+        logger.warn(
+          `[base] ${subAppName} 显式 base=${mergedConfig.base} 已被注册表口径 ${prodBase} 覆盖`,
+        );
+      }
+      mergedConfig.base = prodBase;
+      logger.info(`[base] ${subAppName} 生产 base = ${prodBase}`);
+    }
+
+    return mergedConfig;
   });
+}
+
+/** 子应用部署前缀，须与 comm/constants 的 SUB_APP_BASE_PREFIX 保持一致 */
+const SUB_APP_BASE_PREFIX = '/ydsz-';
+
+/**
+ * 推导子应用生产部署 base。
+ *
+ * 仅对 `apps/*-web` 子应用的生产构建生效；主应用（main-web）与非注册包
+ * （readSubAppName 返回 undefined）保持原有 base。
+ *
+ * @param appName - readSubAppName() 结果（如 'userinfo-web'）
+ * @param isBuild - 当前命令是否为 build
+ * @returns 生产 base 路径，不适用时返回 undefined
+ */
+function resolveSubAppProdBase(
+  appName: string | undefined,
+  isBuild: boolean,
+): string | undefined {
+  if (!isBuild || !appName || appName === 'main-web') {
+    return undefined;
+  }
+  return `${SUB_APP_BASE_PREFIX}${appName}/`;
 }
 
 /**

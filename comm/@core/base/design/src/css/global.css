@@ -231,7 +231,7 @@
    * 规范：YDIZ-STYLE-002（统一页面布局节奏）
    * ============================================================ */
 
-  /* 页面主标题 —— 用于/views/*/index.vue 第一行标题 */
+  /* 页面主标题 —— 用于 views 各页面目录下的 index.vue 第一行标题 */
   .page-title {
     margin-bottom: var(--space-group, 1rem);
     font-size: var(--text-17, 1.0625rem);

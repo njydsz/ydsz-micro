@@ -51,9 +51,9 @@ export function injectTransition() {
     compose: (props: string[], duration: DurationToken = 'normal', easing: EasingToken = 'standard'): string =>
       props.map((p) => `${p} ${durationVar(duration)} ${easingVar(easing)}`).join(', '),
     /** 引用原始 duration token */
-    duration: (token: DurationToken): string => `var(--ydsz-motion-duration-${token})`,
+    duration: (token: DurationToken): string => durationVar(token),
     /** 引用原始 easing token */
-    easing: (token: EasingToken): string => `var(--ydsz-motion-easing-${token})`,
+    easing: (token: EasingToken): string => easingVar(token),
     /** 原始 token 值（用于 duration 数值提取） */
     raw: {
       duration: DURATION_TOKENS,

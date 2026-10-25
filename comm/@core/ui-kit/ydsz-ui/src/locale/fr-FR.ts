@@ -123,6 +123,7 @@ export const frFR = {
   'select.loading': 'Chargement...',
   'select.selectAll': 'Tout sélectionner',
   'select.clear': 'Effacer',
+  'select.removeTag': 'Retirer',
   'create.label': 'Créer « {value} »',
 
   // ===== Arborescence =====
@@ -142,6 +143,10 @@ export const frFR = {
   'notification.empty': 'Aucune notification',
   'notification.markAllRead': 'Tout marquer comme lu',
   'notification.viewAll': 'Voir tout',
+  'notification.closeAriaLabel': 'Fermer la notification',
+
+  // ===== Toast =====
+  'toast.region': 'Notifications',
 
   // ===== État vide =====
   'empty.default': 'Aucune donnée',

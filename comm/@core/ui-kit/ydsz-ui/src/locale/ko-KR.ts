@@ -122,6 +122,7 @@ export const koKR = {
   'select.loading': '로딩 중...',
   'select.selectAll': '전체 선택',
   'select.clear': '비우기',
+  'select.removeTag': '제거',
   'create.label': '"{value}" 만들기',
 
   // ===== 트리 =====
@@ -141,6 +142,10 @@ export const koKR = {
   'notification.empty': '알림 없음',
   'notification.markAllRead': '모두 읽음으로 표시',
   'notification.viewAll': '모두 보기',
+  'notification.closeAriaLabel': '알림 닫기',
+
+  // ===== Toast =====
+  'toast.region': '알림',
 
   // ===== 빈 상태 =====
   'empty.default': '데이터 없음',

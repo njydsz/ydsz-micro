@@ -1,18 +1,11 @@
 <script setup lang="ts">
 /**
-* 选择器选项 —— 便利性封装（Convenience Wrapper）。
-* 
- * YdSelectItem 的别名，对齐 Element Plus ElOption 的命名惯例。
- * 迁移 EP 项目时避免全文替换带来的心理负担。
-* 
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\select\YdOption.vue
- * @author ydsz-team
- * @since 1.0.0
- */
-/**
- * 选择器选项便利性封装。
- * <p>YdSelectItem 的别名，API 完全等价。
+ * 选择器选项 —— YdSelectItem 的便利性封装（Convenience Wrapper）。
  *
+ * <p>对齐 Element Plus ElOption 的命名惯例，API 完全等价，
+ * 迁移 EP 项目时避免全文替换带来的心理负担。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\select\YdOption.vue
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -27,7 +20,6 @@ type ClassValue = string | Record<string, boolean> | (string | Record<string, bo
 const props = defineProps<SelectItemProps & { class?: ClassValue }>();
 
 const delegatedProps = computed(() => {
-  // eslint-disable-next-line unused-imports/no-unused-vars
   const { class: _cls, ...delegated } = props;
 
   return delegated;

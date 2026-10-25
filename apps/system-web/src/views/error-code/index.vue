@@ -19,10 +19,10 @@
  */
 import { computed, ref } from 'vue';
 
-import type { ErrorCode } from '@YDSZ/locales/errors';
-import { ZH_CN_MESSAGES } from '@YDSZ/locales/errors/zh-CN';
+import type { ErrorCode } from '@ydsz/locales/errors';
+import { ZH_CN_MESSAGES } from '@ydsz/locales/errors/zh-CN';
 import { YdBadge, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
-import { Search } from 'lucide-vue-next';
+import { Search } from '@ydsz/icons';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 

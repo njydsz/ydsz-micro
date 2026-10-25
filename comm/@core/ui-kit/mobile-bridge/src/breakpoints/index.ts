@@ -32,14 +32,16 @@ export enum Breakpoint {
 /** 断点名称 */
 export type BreakpointName = 'mobile' | 'tablet' | 'desktop' | 'wide' | 'ultrawide';
 
-/** 各断点名称对应的 CSS 变量 */
-export const BREAKPOINT_CSS_VARS = {
-  mobile: 'var(--ydsz-bp-mobile)',
-  tablet: 'var(--ydsz-bp-tablet)',
-  desktop: 'var(--ydsz-bp-desktop)',
-  wide: 'var(--ydsz-bp-wide)',
-  ultrawide: 'var(--ydsz-bp-ultrawide)',
-} as const;
+/*
+ * 曾有 `BREAKPOINT_CSS_VARS = { desktop: 'var(--ydsz-bp-desktop)', ... }`，已删除。
+ * 它是不可用的 API：CSS 自定义属性不能出现在 @media 特征里
+ * （`@media (min-width: var(--x))` 整条查询会被浏览器判为 invalid 而丢弃，
+ * matchMedia 同样返回 matches:false），且 `--ydsz-bp-*` 从未被任何令牌文件定义。
+ * 零消费方，留着只会诱导下一个调用者写出永不生效的响应式逻辑。
+ * JS 侧请用本文件的数值枚举拼查询：
+ *   matchMedia(`(min-width: ${Breakpoint.DESKTOP_MIN}px)`)
+ * CSS 侧请用 default.css 的 --bp-sm/md/lg/xl/2xl 字面值（媒体查询里同样不能套 var）。
+ */
 
 /**
  * 根据当前视口宽度获取断点名称。

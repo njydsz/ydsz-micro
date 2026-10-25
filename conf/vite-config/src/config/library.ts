@@ -59,6 +59,12 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
         },
         rollupOptions: {
           external: (id) => {
+            // CSS 一律打进产物样式：workspace 依赖的样式子路径若被标记为 external，
+            // 只会在原包 index.mjs 里留下一条 `import "@scope/pkg/x.css"`，
+            // 而消费方按 exports 取的是构建好的 dist/*.css——
+            // 结果是"样式文件存在、import 语句也在，但产物里就是没有"。
+            // base/design 的 @ydsz-* 令牌正是这样丢掉的（dist/design.css 里 0 个令牌）。
+            if (id.endsWith('.css')) return false;
             return externalPackages.some(
               (pkg) => id === pkg || id.startsWith(`${pkg}/`),
             );

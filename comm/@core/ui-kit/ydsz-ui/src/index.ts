@@ -28,6 +28,7 @@ export const ydszReducedMotionCSS = '@ydsz-core/ydsz-ui/reduced-motion.css'
 // Resolvers (auto-import)
 export { YdszUiResolver } from './resolver'
 export type { YdszUiResolverOptions } from './resolver'
+export { YDSZ_UI_COMPONENT_NAMES } from './component-names'
 
 // CSS Variables Reference
 export { CSS_VARIABLES_REFERENCE, CSS_VARIABLES_BY_CATEGORY, getCssVarsForComponent, getCssVarNamesByCategory } from './css-vars-reference'

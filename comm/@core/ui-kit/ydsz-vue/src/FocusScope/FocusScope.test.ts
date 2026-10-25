@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+// 用例依赖原生 tabIndex IDL（未写属性的可聚焦元素应为 0），happy-dom 返回 -1，故本文件走 jsdom
 import { type RenderResult, render, waitFor } from '@testing-library/vue'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent } from 'vue'

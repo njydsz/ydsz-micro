@@ -122,6 +122,7 @@ export const viVN = {
   'select.loading': 'Đang tải...',
   'select.selectAll': 'Chọn tất cả',
   'select.clear': 'Xóa',
+  'select.removeTag': 'Xóa',
   'create.label': 'Tạo "{value}"',
 
   // ===== Cây =====
@@ -141,6 +142,10 @@ export const viVN = {
   'notification.empty': 'Không có thông báo',
   'notification.markAllRead': 'Đánh dấu tất cả là đã đọc',
   'notification.viewAll': 'Xem tất cả',
+  'notification.closeAriaLabel': 'Đóng thông báo',
+
+  // ===== Toast =====
+  'toast.region': 'Thông báo',
 
   // ===== Trạng thái trống =====
   'empty.default': 'Không có dữ liệu',

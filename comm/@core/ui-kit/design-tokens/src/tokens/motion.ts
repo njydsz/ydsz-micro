@@ -50,13 +50,26 @@ export type EasingToken = keyof typeof EASING_TOKENS;
 const VAR_PREFIX = '--ydsz-motion';
 
 /**
+ * 把 token key 转成 CSS 变量后缀。
+ *
+ * CSS 自定义属性以连字符分词（`--ydsz-motion-easing-ease-in`），而 JS 侧 key 用 camelCase
+ * （`easeIn` / `easeOut`）；直接插值会拼出 CSS 中不存在的变量名，取值为空且运行期不报错。
+ *
+ * @param key EASING_TOKENS / DURATION_TOKENS 的 key
+ * @return kebab-case 的变量后缀
+ */
+function cssVarSuffix(key: string): string {
+  return key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
  * 时长变量引用。
  *
  * @param token 时长 key
  * @return CSS 变量引用表达式
  */
 export function durationVar(token: DurationToken): string {
-  return `var(${VAR_PREFIX}-duration-${token})`;
+  return `var(${VAR_PREFIX}-duration-${cssVarSuffix(token)})`;
 }
 
 /**
@@ -66,7 +79,7 @@ export function durationVar(token: DurationToken): string {
  * @return CSS 变量引用表达式
  */
 export function easingVar(token: EasingToken): string {
-  return `var(${VAR_PREFIX}-easing-${token})`;
+  return `var(${VAR_PREFIX}-easing-${cssVarSuffix(token)})`;
 }
 
 /** Transition 快捷组合 */

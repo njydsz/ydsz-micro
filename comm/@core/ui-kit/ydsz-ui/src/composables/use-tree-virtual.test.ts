@@ -121,7 +121,48 @@ describe('useTreeVirtual', () => {
 
     await handle.loadLazyNode('1');
     expect(onLoad).toHaveBeenCalledWith(
-      expect.objectContaining({ value: '1', level: 0 }),
+      expect.objectContaining({ level: 0, value: '1' }),
     );
+  });
+
+  it('scrollToIndex 应把目标节点滚入视口并推进切片', () => {
+    const nodes = ref(makeFlatNodes());
+    const expandedKeys = ref<Set<string | number>>(new Set(['1', '2']));
+    const element = { scrollTop: 0 } as unknown as HTMLElement;
+
+    const handle = useTreeVirtual({
+      expandedKeys,
+      flattenedNodes: nodes,
+      getScrollElement: () => element,
+      itemHeight: 28,
+      overscan: 0,
+      viewportHeight: 56,
+    });
+
+    // 末项 index=4：top=112，bottom=140，视口 56 → 需滚到 84
+    handle.scrollToIndex(4);
+
+    expect(element.scrollTop).toBe(84);
+    expect(handle.visibleSlice.value.map(node => node.data.value)).toEqual(['2', '2-1']);
+  });
+
+  it('scrollToIndex 越界索引不应改动滚动位置', () => {
+    const nodes = ref(makeFlatNodes());
+    const expandedKeys = ref<Set<string | number>>(new Set(['1', '2']));
+    const element = { scrollTop: 0 } as unknown as HTMLElement;
+
+    const handle = useTreeVirtual({
+      expandedKeys,
+      flattenedNodes: nodes,
+      getScrollElement: () => element,
+      itemHeight: 28,
+      viewportHeight: 56,
+    });
+
+    handle.scrollToIndex(9);
+    handle.scrollToIndex(-1);
+
+    expect(element.scrollTop).toBe(0);
+    expect(handle.offsetY.value).toBe(0);
   });
 });

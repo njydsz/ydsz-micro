@@ -37,5 +37,8 @@
         "default": "./dist/index.mjs"
       }
     }
+  },
+  "dependencies": {
+    "@ydsz-core/design-tokens": "workspace:*"
   }
 }

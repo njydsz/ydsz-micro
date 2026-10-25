@@ -1,8 +1,11 @@
 /**
  * 自定义 ESLint 规则：require-test-companion
  *
- * <p>强制要求 apps/*/src/views/**/*.vue 和 apps/*/src/components/**/*.vue
+ * <p>强制要求 apps 下 src/views 与 src/components 内的 .vue 文件
  * 拥有同名的 .test.ts 伴生文件。未找到伴生文件时发 warning（不阻断开发）。
+ *
+ * 注意：本文件注释内不要出现「任意路径通配」（星号紧跟斜杠的形式），
+ * 该序列会提前闭合块注释并让整个 ESLint 配置解析失败，导致仓库级 lint 瘫痪。
  *
  * @path conf/lint-configs/eslint-plugin-test-companion/rules/require-test-companion.mjs
  * @author ydsz-team

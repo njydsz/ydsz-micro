@@ -121,6 +121,7 @@ export const zhTW = {
   'select.loading': '載入中...',
   'select.selectAll': '全選',
   'select.clear': '清除',
+  'select.removeTag': '移除',
   'create.label': '建立 "{value}"',
 
   // ===== 樹狀 =====
@@ -140,6 +141,10 @@ export const zhTW = {
   'notification.empty': '暫無通知',
   'notification.markAllRead': '全部標為已讀',
   'notification.viewAll': '檢視全部',
+  'notification.closeAriaLabel': '關閉通知',
+
+  // ===== Toast =====
+  'toast.region': '通知',
 
   // ===== 空狀態 =====
   'empty.default': '暫無資料',

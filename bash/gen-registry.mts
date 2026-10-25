@@ -79,7 +79,8 @@ const registry = {
     title: app.title,
     icon: app.icon,
     order: app.order,
-    prodPath: app.prodPath ?? `/YDSZ-${app.name}/`,
+    // 回退口径与 comm/constants defaultProdPath / nginx location 一致（小写 /ydsz-{name}/）
+    prodPath: app.prodPath ?? `/ydsz-${app.name}/`,
     skeletonType: app.skeletonType ?? 'default',
     sandbox: app.sandbox ?? 'snapshot',
   })),

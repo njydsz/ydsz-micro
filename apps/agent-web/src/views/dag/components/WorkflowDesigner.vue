@@ -16,7 +16,7 @@
  * @since 1.0.0
 */
 import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButton, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltip, YdTooltipContent, YdTooltipTrigger } from '@ydsz-core/ydsz-ui';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2 } from '@ydsz/icons';
 import { computed, nextTick, ref } from 'vue';
 
 /** 工作流节点 */

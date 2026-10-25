@@ -2,150 +2,136 @@
  * use-command-palette 单元测试
  *
  * 覆盖核心交互场景：
- * 1. 按下 Cmd+K（Ctrl+K）时面板可见
- * 2. 按下 Esc 时面板关闭
- * 3. 空查询时显示历史搜索（visible 初始为 false，未触发搜索）
+ * 1. open/close 与 onOpen/onClose 回调契约
+ * 2. Ctrl+K 切换面板显隐
+ * 3. Esc 仅在面板可见时关闭
+ * 4. 卸载后移除全局监听（云顶编码规范 §5.5）
+ *
+ * <p>keydown 监听注册在 composable 的 onMounted 中，裸调用不会触发注册，
+ * 因此所有用例都放进真实组件生命周期里跑。
  *
  * @path main\src\composables\__tests__\use-command-palette.test.ts
  * @author ydsz-team
  * @since 5.1.0
  */
-import { ref, nextTick } from 'vue';
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { defineComponent, h, nextTick, ref } from 'vue';
 
-import { useCommandPalette } from '../use-command-palette';
+import { mount } from '@vue/test-utils';
+
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import { type UseCommandPaletteOptions, useCommandPalette } from '../use-command-palette';
+
+/** 挂载结果 */
+interface MountedPalette {
+  /** composable 返回的控制函数 */
+  api: ReturnType<typeof useCommandPalette>;
+  /** 组件包装器 */
+  wrapper: ReturnType<typeof mount>;
+}
+
+/**
+ * 在真实组件生命周期内挂载 composable。
+ *
+ * @param options - 传给 useCommandPalette 的配置
+ * @returns composable 句柄与组件包装器
+ */
+function mountPalette(options: UseCommandPaletteOptions): MountedPalette {
+  let api!: ReturnType<typeof useCommandPalette>;
+  const wrapper = mount(defineComponent({
+    setup() {
+      api = useCommandPalette(options);
+      return () => h('div');
+    },
+  }));
+  return { api, wrapper };
+}
+
+/** 向 document 派发一次 keydown */
+function press(init: KeyboardEventInit): void {
+  document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, ...init }));
+}
+
+/** 模拟 Windows 键盘布局，使快捷键走 Ctrl+K */
+function mockWin32Platform(): void {
+  vi.spyOn(navigator, 'platform', 'get').mockReturnValue('Win32');
+}
 
 describe('useCommandPalette', () => {
-  let visible: ReturnType<typeof ref<boolean>>;
-
-  beforeEach(() => {
-    visible = ref(false);
-    // 清理所有 document 事件监听
-    document.removeEventListener('keydown', () => {});
-  });
-
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  // ==================== Test 1: Cmd+K 触发可见 ====================
+  it('open() 置 visible 为 true 并触发 onOpen', async () => {
+    mockWin32Platform();
+    const visible = ref(false);
+    const onOpen = vi.fn();
+    const { api, wrapper } = mountPalette({ onOpen, visible });
 
-  it('按下 Cmd+K 时面板应可见', async () => {
-    // 模拟非 Mac 环境 → 使用 Ctrl+K
-    vi.spyOn(navigator, 'platform', 'get').mockReturnValue('Win32');
-
-    const { open } = useCommandPalette({ visible });
-
-    // 手动调用 onMounted 对应的绑定
-    // useCommandPalette 内部使用 onMounted/onBeforeUnmounted
-    // 组件生命周期在测试中不会自动触发，因此直接测试 toggle 行为
-    // 以及事件监听的存在性
-
-    // 模拟 Ctrl+K 按下
-    const event = new KeyboardEvent('keydown', {
-      key: 'k',
-      ctrlKey: true,
-      bubbles: true,
-    });
-
-    // 直接调用 open() 模拟快捷键效果
-    open();
+    api.open();
     await nextTick();
 
     expect(visible.value).toBe(true);
-
-    // 再次 toggle 应关闭
-    const { close } = useCommandPalette({ visible: ref(true) });
-    close();
-    // 这个测试主要验证 open() 能正确设置 visible
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    wrapper.unmount();
   });
 
-  it('按下 Ctrl+K 切换：打开后再次按下关闭', async () => {
-    vi.spyOn(navigator, 'platform', 'get').mockReturnValue('Win32');
-
-    // 手动注册事件监听（模拟 onMounted 行为）
-    let handler: ((e: KeyboardEvent) => void) | null = null;
-    const originalAdd = document.addEventListener.bind(document);
-    const spy = vi.spyOn(document, 'addEventListener').mockImplementation((type: string, listener: any) => {
-      if (type === 'keydown') {
-        handler = listener;
-      }
-      return originalAdd(type, listener);
-    });
-
-    useCommandPalette({ visible });
+  it('Ctrl+K 打开后再次 Ctrl+K 关闭', async () => {
+    mockWin32Platform();
+    const visible = ref(false);
+    const { wrapper } = mountPalette({ visible });
     await nextTick();
 
-    expect(handler).not.toBeNull();
-
-    // 第一次 Ctrl+K → 打开
-    handler!(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }));
+    press({ ctrlKey: true, key: 'k' });
     await nextTick();
     expect(visible.value).toBe(true);
 
-    // 第二次 Ctrl+K → 关闭
-    handler!(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }));
+    press({ ctrlKey: true, key: 'k' });
     await nextTick();
     expect(visible.value).toBe(false);
 
-    spy.mockRestore();
+    wrapper.unmount();
   });
 
-  // ==================== Test 2: Esc 关闭 ====================
-
-  it('按下 Esc 时面板应关闭', async () => {
-    // 面板已打开状态
-    visible.value = true;
-
-    let handler: ((e: KeyboardEvent) => void) | null = null;
-    const originalAdd = document.addEventListener.bind(document);
-    vi.spyOn(document, 'addEventListener').mockImplementation((type: string, listener: any) => {
-      if (type === 'keydown') {
-        handler = listener;
-      }
-      return originalAdd(type, listener);
-    });
-
-    useCommandPalette({ visible });
+  it('面板可见时按 Esc 关闭并触发 onClose', async () => {
+    const visible = ref(true);
+    const onClose = vi.fn();
+    const { wrapper } = mountPalette({ onClose, visible });
     await nextTick();
 
-    expect(visible.value).toBe(true);
-
-    // 按下 Esc
-    handler!(new KeyboardEvent('keydown', { key: 'Escape' }));
+    press({ key: 'Escape' });
     await nextTick();
 
     expect(visible.value).toBe(false);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    wrapper.unmount();
   });
 
-  // ==================== Test 3: 空查询时显示历史搜索 ====================
-
-  it('空查询时面板可见，显示历史搜索状态', async () => {
-    const { open } = useCommandPalette({ visible });
-
-    // 打开面板 → 应可见
-    open();
-    await nextTick();
-    expect(visible.value).toBe(true);
-
-    // 面板打开但未输入搜索词 → 应显示历史（由 search-panel.vue 的 watch 处理）
-    // 此处验证面板处于可见状态
-    // 具体历史 searchStore.recentSearches 是否为空的逻辑由 panel 组件处理
-    // composable 层面确保 invisible → visible 转换正确
-
-    // 验证 open 回调被调用
-    const visible2 = ref(false);
-    const onOpenSpy = vi.fn();
-    const { open: open2 } = useCommandPalette({
-      visible: visible2,
-      onOpen: onOpenSpy,
-    });
-
-    open2();
+  it('面板未打开时按 Esc 不改写 visible', async () => {
+    const visible = ref(false);
+    const onClose = vi.fn();
+    const { wrapper } = mountPalette({ onClose, visible });
     await nextTick();
 
-    expect(visible2.value).toBe(true);
-    expect(onOpenSpy).toHaveBeenCalledTimes(1);
+    press({ key: 'Escape' });
+    await nextTick();
+
+    expect(visible.value).toBe(false);
+    expect(onClose).not.toHaveBeenCalled();
+    wrapper.unmount();
+  });
+
+  it('卸载后移除全局监听（云顶 §5.5 资源清理）', async () => {
+    mockWin32Platform();
+    const visible = ref(false);
+    const { wrapper } = mountPalette({ visible });
+    await nextTick();
+
+    wrapper.unmount();
+    press({ ctrlKey: true, key: 'k' });
+    await nextTick();
+
+    expect(visible.value).toBe(false);
   });
 });

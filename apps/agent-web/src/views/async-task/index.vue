@@ -357,7 +357,7 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- 任务详情抽屉 -->
-    <YdDrawer v-model="detailVisible" title="任务详情" size="520px">
+    <YdDrawer v-model:open="detailVisible" header="任务详情" width="520px">
       <div v-if="detailLoading" class="flex items-center justify-center py-8">
         <span class="text-sm text-gray-500">加载中...</span>
       </div>

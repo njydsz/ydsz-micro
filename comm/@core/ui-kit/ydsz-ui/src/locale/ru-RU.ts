@@ -122,6 +122,7 @@ export const ruRU = {
   'select.loading': 'Загрузка...',
   'select.selectAll': 'Выбрать все',
   'select.clear': 'Очистить',
+  'select.removeTag': 'Удалить',
   'create.label': 'Создать «{value}»',
 
   // ===== Дерево =====
@@ -141,6 +142,10 @@ export const ruRU = {
   'notification.empty': 'Нет уведомлений',
   'notification.markAllRead': 'Отметить все как прочитанные',
   'notification.viewAll': 'Показать все',
+  'notification.closeAriaLabel': 'Закрыть уведомление',
+
+  // ===== Toast =====
+  'toast.region': 'Уведомления',
 
   // ===== Пустое состояние =====
   'empty.default': 'Нет данных',

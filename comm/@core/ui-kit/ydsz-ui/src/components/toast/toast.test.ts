@@ -1,8 +1,8 @@
 /**
  * Toast composable 单元测试 —— 验证 useToast 消息队列管理。
  *
- * <p>测试范围：add / success / info / warning / error / remove / removeGroup / removeAll，
- * 以及 messages 引用同步。
+ * <p>测试范围：add / 快捷方法 / remove / removeGroup / removeByPosition / removeAll、
+ * messages 引用同步、configureToast 默认值与 maxVisible 截断。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\toast\toast.test.ts
  * @author ydsz-team
@@ -10,12 +10,15 @@
  */
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { messages, useToast } from './use-toast';
+import { defineComponent, h } from 'vue';
+
+import { configureToast, messages, useToast } from './use-toast';
 import type { ToastMessage } from './types';
 
+/** 走公开 API 清空单例，避免直接改动只读 computed 背后的数组 */
 function resetStore(): void {
-  // 直接清空模块级 ref
-  messages.value.splice(0, messages.value.length);
+  useToast().removeAll();
+  configureToast({ life: 4500, maxVisible: 0, position: 'top-right' });
 }
 
 describe('useToast', () => {
@@ -105,15 +108,24 @@ describe('useToast', () => {
     expect(messages.value[0]?.detail).toBe('第一条');
   });
 
-  /* ---------- removeGroup --------- */
+  /* ---------- removeByPosition / removeGroup --------- */
 
-  it('removeGroup 应移除指定位置的全部消息', () => {
+  it('removeByPosition 应移除指定位置的全部消息', () => {
     toast.add({ detail: '右上角1', position: 'top-right' });
     toast.add({ detail: '右上角2', position: 'top-right' });
     toast.add({ detail: '左上角1', position: 'top-left' });
-    toast.removeGroup('top-right');
+    toast.removeByPosition('top-right');
     expect(messages.value).toHaveLength(1);
     expect(messages.value[0]?.detail).toBe('左上角1');
+  });
+
+  it('removeGroup 应同位置共存但只移除同组消息', () => {
+    toast.add({ detail: '导入1', group: 'import', position: 'top-right' });
+    toast.add({ detail: '导入2', group: 'import', position: 'bottom-right' });
+    toast.add({ detail: '其他', group: 'export', position: 'top-right' });
+    toast.removeGroup('import');
+    expect(messages.value).toHaveLength(1);
+    expect(messages.value[0]?.detail).toBe('其他');
   });
 
   /* ---------- removeAll --------- */
@@ -140,19 +152,69 @@ describe('useToast', () => {
   /* ---------- summary / icon / group / closable --------- */
 
   it('add 应保留 summary / icon / group / closable 字段', () => {
+    const CustomIcon = defineComponent({ render: () => h('i') });
     toast.add({
       closable: false,
       detail: '完整字段',
       group: 'my-group',
-      icon: '<svg/>',
+      icon: CustomIcon,
       severity: 'warning',
       summary: '标题',
     });
     const msg = messages.value[0] as ToastMessage;
     expect(msg.summary).toBe('标题');
-    expect(msg.icon).toBe('<svg/>');
+    expect(msg.icon).toBe(CustomIcon);
     expect(msg.group).toBe('my-group');
     expect(msg.closable).toBe(false);
+  });
+
+  it('add 返回的 handle 应携带该条消息的 id', () => {
+    const handle = toast.add({ detail: '带 id' });
+    expect(handle.id).toBe(messages.value[0]?.id);
+  });
+
+  /* ---------- configureToast --------- */
+
+  it('configureToast 应改写后续 add 的默认 life 与 position', () => {
+    configureToast({ life: 1200, position: 'bottom-left' });
+    toast.add({ detail: '继承全局配置' });
+    const msg = messages.value[0] as ToastMessage;
+    expect(msg.life).toBe(1200);
+    expect(msg.position).toBe('bottom-left');
+  });
+
+  it('configureToast 应支持只覆盖单个字段', () => {
+    configureToast({ life: 800 });
+    toast.add({ detail: '部分覆盖' });
+    const msg = messages.value[0] as ToastMessage;
+    expect(msg.life).toBe(800);
+    expect(msg.position).toBe('top-right');
+  });
+
+  it('显式传入的 life / position 应优先于全局配置', () => {
+    configureToast({ life: 800, position: 'bottom-left' });
+    toast.add({ detail: '显式覆盖', life: 0, position: 'top-center' });
+    const msg = messages.value[0] as ToastMessage;
+    expect(msg.life).toBe(0);
+    expect(msg.position).toBe('top-center');
+  });
+
+  it('maxVisible 应截断最旧的消息', () => {
+    configureToast({ maxVisible: 2 });
+    toast.add({ detail: '最早' });
+    toast.add({ detail: '中间' });
+    toast.add({ detail: '最新' });
+    expect(messages.value).toHaveLength(2);
+    expect(messages.value.map((m) => m.detail)).toEqual(['最新', '中间']);
+  });
+
+  it('maxVisible=0 表示不限制条数', () => {
+    configureToast({ maxVisible: 1 });
+    configureToast({ maxVisible: 0 });
+    toast.add({ detail: 'A' });
+    toast.add({ detail: 'B' });
+    toast.add({ detail: 'C' });
+    expect(messages.value).toHaveLength(3);
   });
 
   /* --------- 多位并发 --------- */

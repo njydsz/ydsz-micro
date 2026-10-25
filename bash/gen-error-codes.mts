@@ -65,15 +65,38 @@ const HTTP_STATUS_PATTERN = /^[1-5]\d{2}$/;
  */
 
 /** 递归收集 .java 文件（跳过 target 构建产物目录） */
-function collectJavaFiles(dir, acc = []) {
-  for (const name of readdirSync(dir)) {
+/**
+ * 收集参与契约扫描的 Java 源文件
+ *
+ * 三条收窄规则，都是为了"同一仓库任何机器上算出同一个 hash"：
+ *  1. 顶层只进 ydsz-/ydzs- 模块目录。data/scripts/backup_logs/ 下存着整棵旧树快照，
+ *     其中的 MessageExceptionCode.java 一样带 @YdszExceptionCode —— 旧实现把它和活代码
+ *     一起扫，去重又是"先扫到者胜"，于是 readdir 顺序决定产物内容，前端错误码可能
+ *     是从备份里生成的，而 --check 仍然自洽通过（错得没人看得见）。
+ *  2. 跳过 src/test：测试夹具里的枚举不是对外契约。
+ *  3. readdirSync 结果排序：跨平台/跨文件系统顺序稳定。
+ *
+ * @param {string} dir 当前目录
+ * @param {string[]} acc 累积结果
+ * @param {string} rel 相对 CLOUD_ROOT 的 posix 风格路径
+ * @returns {string[]} Java 文件绝对路径
+ */
+function collectJavaFiles(dir, acc = [], rel = '') {
+  for (const name of readdirSync(dir).sort()) {
     if (name === 'target' || name === '.git' || name === 'node_modules') {
+      continue;
+    }
+    const childRel = rel ? `${rel}/${name}` : name;
+    if (rel === '' && !/^(ydsz|ydzs)-/.test(name)) {
+      continue;
+    }
+    if (childRel.endsWith('/src/test') || childRel.includes('/src/test/')) {
       continue;
     }
     const full = join(dir, name);
     const st = statSync(full);
     if (st.isDirectory()) {
-      collectJavaFiles(full, acc);
+      collectJavaFiles(full, acc, childRel);
     } else if (name.endsWith('.java')) {
       acc.push(full);
     }
@@ -202,8 +225,18 @@ function resolveConflicts(entries) {
   /** @type {Map<string, CodeEntry>} code → 首个条目 */
   const byCode = new Map();
   for (const entry of entries) {
-    if (!byCode.has(entry.code)) {
+    const prev = byCode.get(entry.code);
+    if (!prev) {
       byCode.set(entry.code, entry);
+      continue;
+    }
+    // 同一 code 两处定义：先扫描者胜是静默行为，消息/模块却可能不同。
+    // 现在把它说出来 —— 否则产物取自哪一份只有文件系统知道。
+    if (prev.message !== entry.message || prev.module !== entry.module) {
+      console.warn(
+        `[gen-error-codes] 重复错误码 ${entry.code}：保留 ${prev.source}，忽略 ${entry.source}` +
+          `（消息 "${prev.message}" ≠ "${entry.message}"）`,
+      );
     }
   }
 
@@ -324,6 +357,10 @@ function main() {
   }
 
   const resolved = resolveConflicts(entries);
+  // 扫描口径写进日志：漂移时先能看出"少扫/多扫了哪个模块"，而不是只看到一个 hash 不同
+  console.log(
+    `[gen-error-codes] 扫描 ${files} 个定义文件 → ${entries.length} 条定义 → ${resolved.length} 个错误码（${modules.size} 个模块）`,
+  );
   const ts = renderTypeScript(resolved, modules);
   const hash = hashContent(ts);
 

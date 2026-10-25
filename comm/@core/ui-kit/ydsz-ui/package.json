@@ -27,7 +27,7 @@
     "**/*.css"
   ],
   "main": "./src/index.ts",
-  "module": "./src/nuxt.ts",
+  "module": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -140,10 +140,19 @@
     "vee-validate": "catalog:",
     "vue": "catalog:"
   },
+  "devDependencies": {
+    "axe-core": "catalog:",
+    "vitest": "catalog:",
+    "vitest-axe": "catalog:"
+  },
   "peerDependencies": {
+    "@nuxt/kit": "catalog:",
     "unplugin-vue-components": ">=27.0.0"
   },
   "peerDependenciesMeta": {
+    "@nuxt/kit": {
+      "optional": true
+    },
     "unplugin-vue-components": {
       "optional": true
     }

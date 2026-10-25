@@ -4,7 +4,7 @@ import Slider from './story/_Slider.vue'
 import type SliderImpl from './SliderImpl.vue'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { handleSubmit } from '@/test'
+import { handleSubmit } from '../../test'
 
 describe('given default Slider', () => {
   globalThis.ResizeObserver = class ResizeObserver {

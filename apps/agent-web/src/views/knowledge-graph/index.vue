@@ -42,7 +42,7 @@ import { useI18n } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
 import { computed, ref } from 'vue';
 
-import { Eye, RefreshCw, Search, Upload } from 'lucide-vue-next';
+import { Eye, RefreshCw, Search, Upload } from '@ydsz/icons';
 import { ingest, querySubgraph, searchEntities, stats } from '#/api/knowledgeGraph';
 import EntityDetailDrawer from './entity-detail-drawer.vue';
 import GraphView from './graph-view.vue';

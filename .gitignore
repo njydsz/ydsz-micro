@@ -60,3 +60,6 @@ __pycache__/
 
 # ---- 归档的自动生成 API 文件（已被根目录 api/ 下的新生成文件取代） ----
 .generated-archived/
+
+# ---- pnpm gen:registry 产物（含时间戳，随构建生成，不入库） ----
+main/public/registry.json

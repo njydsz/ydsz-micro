@@ -26,6 +26,11 @@ export type DrawerPosition = 'left' | 'right' | 'top' | 'bottom';
 
 /** YdDrawer 声明式 props */
 export interface YdDrawerProps {
+  /**
+   * 挂载目标（Teleport to）。
+   * <p>默认挂到 body 以免被祖先 transform / overflow 裁切；传 false 原地渲染。
+   */
+  appendTo?: 'body' | string | false;
   /** 受控开关状态（v-model:open） */
   open?: boolean;
   /** 抽屉滑入方向 */
@@ -61,7 +66,8 @@ export interface YdDrawerProps {
 /** YdDrawer emits */
 export interface YdDrawerEmits {
   (e: 'update:open', value: boolean): void;
-  (e: 'close'): void;
+  /** 关闭请求，携带触发来源，便于命令式 API 与业务侧区分处理 */
+  (e: 'close', reason: DrawerCloseReason): void;
   (e: 'opened'): void;
   (e: 'closed'): void;
 }
@@ -145,14 +151,18 @@ export type DrawerCloseReason =
 
 /** 命令式打开返回的句柄 */
 export interface DrawerInstance {
-  /** 关闭当前抽屉 */
-  close: () => void;
+  /**
+   * 关闭当前抽屉。
+   *
+   * <p>可选 data 会随 Promise 一起返回，用于把表单结果交回调用方。
+   */
+  close: (data?: unknown) => void;
   /**
    * Promise：抽屉关闭时 resolve，携带关闭原因。
    *
    * <p>`await drawer.open(...)` 会阻塞直到用户关闭抽屉业务流。
    */
-  promise: Promise<{ reason: DrawerCloseReason; data?: unknown }>;
+  promise: Promise<{ data?: unknown; reason: DrawerCloseReason }>;
 }
 
 /* ============================================================ */

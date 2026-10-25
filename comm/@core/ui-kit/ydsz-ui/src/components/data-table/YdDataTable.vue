@@ -1,87 +1,35 @@
 <script lang="ts">
 /**
- * * YdDataTable —— 增强数据表格：行选择 / 列排序 / 多选 / 固定列 / 多级表头 / 列虚拟滚动 / 行内编辑。
- * *
- * * @path comm\@core\ui-kit\ydsz-ui\src\components\data-table\YdDataTable.vue
- * * @author ydsz-team
+ * YdDataTable —— 增强数据表格：行选择 / 单列与多列排序 / 固定列 / 多级表头 /
+ * 列虚拟滚动 / 行虚拟滚动 / 行内编辑 / 单元格与表头插槽 / CSV·TSV 导出 / loading 态。
+ *
+ * <p>渲染序列由三个 composable 装配：useTableColumnLayout（列）、useTableRowView（行）、
+ * useTableCellEdit（单元格编辑）；本文件只保留 props / 事件契约与模板编排。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\data-table\YdDataTable.vue
+ * @author ydsz-team
  * @since 5.6.0
  */
 // @ts-nocheck
-import type { TableColumnDef } from '../../composables/use-table-data';
-import type { ColumnFixedConfig } from './use-table-fixed-columns';
-import type { TableColumn } from './use-table-group-header';
-
-/** 单元格编辑类型 */
-export type CellEditType = 'input' | 'number' | 'select' | 'date' | 'textarea';
-
-/** 编辑选项（select 类型） */
-export interface CellEditOption {
-  label: string;
-  value: string | number;
-}
-
-/**
- * 数据表格列定义 —— 扩展 base TableColumnDef，支持固定列 / 多级表头 / 行内编辑。
- *
- * <p>仅当启用相应特性时才需传入对应字段：
- * <ul>
- *   <li>{@link TableColumnDef} 基础属性（key / isSortable / sorter / filters / filterMethod）</li>
- *   <li>{@link fixed} / {@link width} —— 列固定定位（传给 useFixedColumns）</li>
- *   <li>{@link label} / {@link children} —— 多级表头分组（传给 useTableGroupHeader）</li>
- *   <li>{@link editable} / {@link editType} / {@link editOptions} / {@link editValidator} —— 行内编辑</li>
- * </ul>
- *
- * @typeParam T - 行数据类型
- */
-export type DataTableColumnDef<T = Record<string, unknown>> = TableColumnDef<T> &
-  ColumnFixedConfig &
-  TableColumn & {
-    /** 该列是否可编辑（editable=true 时生效，默认 false 不参与编辑） */
-    editable?: boolean;
-    /** 编辑类型（默认 'input'） */
-    editType?: CellEditType;
-    /** 编辑选项（仅 select 类型使用） */
-    editOptions?: CellEditOption[];
-    /**
-     * 自定义编辑校验。
-     *
-     * @param value - 当前输入字符串
-     * @param row   - 行数据
-     * @returns null 表示通过，否则返回错误文案
-     */
-    editValidator?: (value: string, row: T) => string | null;
-  };
-
-/**
- * 树形表格配置。
- */
-export interface TreeConfig {
-  /** 子节点的 key 字段名（默认 'children'） */
-  childrenKey?: string;
-  /** 默认展开的 key 列表 */
-  defaultExpandedKeys?: string[];
-  /** 展开行的 key（受控模式） */
-  expandedKeys?: string[];
-  /** 是否有子节点的判断字段（可选） */
-  hasChildrenKey?: string;
-}
+export type {
+  CellEditOption,
+  CellEditType,
+  ColumnView,
+  DataTableColumnDef,
+  RowView,
+  SummaryRowFn,
+  TreeConfig,
+  TreeFlatRow,
+} from './types';
 </script>
 
 <script lang="ts" setup generic="T extends Record<string, unknown>">
-import {
-  computed,
-  ref,
-  useTemplateRef,
-  watch,
-} from 'vue';
-
-import { useVirtualizer } from '@tanstack/vue-virtual';
+import { computed, onScopeDispose, ref, useTemplateRef, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useTableData, type RowSelectionConfig } from '../../composables/use-table-data';
-import type { SortState } from '../../composables/use-table-data';
-import { useTableEditing, composeCellKey } from '../../composables/use-table-editing';
+import type { SortOrder, SortRule, SortState } from '../../composables/use-table-data';
 import { useLocale } from '../../locale/useLocale';
 import {
   YdTable,
@@ -92,24 +40,31 @@ import {
   YdTableRow,
 } from '../table';
 import { useColumnResize } from '../table/useColumnResize';
-import { useColumnDrag } from '../../composables/use-column-drag';
-import { fixedColumnStyle, useFixedColumns } from './use-table-fixed-columns';
-import { useTableGroupHeader, type HeaderRow } from './use-table-group-header';
+import { useTableCellEdit } from './use-table-cell-edit';
+import { useTableColumnLayout } from './use-table-column-layout';
+import { useTableExport } from './use-table-export';
+import { useTableRowView } from './use-table-row-view';
+import YdDataTableCell from './YdDataTableCell.vue';
+import YdDataTableHeadCell from './YdDataTableHeadCell.vue';
 
-import type { CSSProperties, ComputedRef, Ref } from 'vue';
+import type {
+  CellEditType,
+  CellSlotProps,
+  ColumnView,
+  DataTableColumnDef,
+  HeaderSlotProps,
+  SummaryRowFn,
+  TreeConfig,
+} from './types';
 
 /* ============================================================ */
-/* 类型                                                          */
+/* props / emit / slots                                          */
 /* ============================================================ */
 
-/** 汇总行函数类型 */
-export type SummaryRowFn<T> = (data: T[]) => Record<string, string | number>;
-
-/** 组件 props */
 interface Props<T extends Record<string, unknown>> {
   /** 数据源 */
   dataSource: T[];
-  /** 列定义（可扩展 fixed / width / children / label / editable） */
+  /** 列定义（可扩展 fixed / width / children / label / editable / formatter） */
   columns: DataTableColumnDef<T>[];
   /** 行 key 获取函数 */
   rowKey?: (row: T, index: number) => string;
@@ -121,6 +76,10 @@ interface Props<T extends Record<string, unknown>> {
   isRemote?: boolean;
   /** 当前排序状态（受控） */
   sortState?: SortState;
+  /** 是否允许多列排序（表头 Shift+点击追加到排序链） */
+  multipleSort?: boolean;
+  /** 是否处于加载中（覆盖层 + aria-busy，并隐藏空态行） */
+  loading?: boolean;
   /** 汇总行计算函数 */
   summary?: SummaryRowFn<T>;
   /** 自定义类名 */
@@ -133,199 +92,126 @@ interface Props<T extends Record<string, unknown>> {
   columnVirtualizer?: boolean;
   /** 列虚拟估算宽度（像素），默认 120 */
   estimateColumnWidth?: number;
+  /** 是否启用行虚拟滚动（vertical，需配合 virtualHeight 限定容器高度） */
+  virtual?: boolean;
+  /** 行虚拟滚动可视区高度（像素），默认 480 */
+  virtualHeight?: number;
+  /** 行高估算值（像素），默认 40 */
+  estimateRowHeight?: number;
+  /** 行虚拟滚动视口外预渲染行数，默认 8 */
+  virtualOverscan?: number;
   /** 是否启用列宽拖拽 */
   resizable?: boolean;
   /** 是否启用列顺序拖拽 */
   reorderable?: boolean;
+  /** 导出默认文件名（不含扩展名） */
+  exportFileName?: string;
   /** 树形表格配置（传值即启用树形模式） */
   treeConfig?: TreeConfig;
   /** 是否开启行内编辑模式（总开关） */
   editable?: boolean;
-  /** 当前正在编辑的单元格 key 集合（受控；不传则使用组件内部状态）。key = composeCellKey(rowKey, columnKey) */
+  /** 当前正在编辑的单元格 key 集合（受控）。key = composeCellKey(rowKey, columnKey) */
   editingKeys?: Set<string>;
   /** 单元格编辑类型映射：columnKey → editType（优先级高于列 def 上的 editType） */
   editConfig?: Map<string, CellEditType>;
 }
 
-/* ============================================================ */
-/* props / emit                                                  */
-/* ============================================================ */
-
 const props = withDefaults(defineProps<Props<T>>(), {
   class: '',
+  columnVirtualizer: false,
   editable: false,
   enableFixedColumns: false,
   enableGroupHeader: false,
-  columnVirtualizer: false,
   estimateColumnWidth: 120,
+  estimateRowHeight: 40,
+  exportFileName: 'table-export',
   isRemote: false,
   isSelectable: false,
-  resizable: false,
+  loading: false,
+  multipleSort: false,
   reorderable: false,
+  resizable: false,
   rowKey: (_row: T, idx: number) => String(idx),
   selectType: 'checkbox',
+  virtual: false,
+  virtualHeight: 480,
+  virtualOverscan: 8,
 });
 
 const emit = defineEmits<{
-  'sort-change': [prop: string, order: 'asc' | 'desc' | null];
+  'sort-change': [prop: string, order: SortOrder | null];
+  'sort-chain-change': [chain: SortRule[]];
   'selection-change': [keys: string[]];
+  'update:sortState': [state: SortState];
   'update:expandedKeys': [keys: string[]];
   'columnResize': [payload: { columnKey: string; newWidth: number }];
-  'columnReorder': [payload: { fromIndex: number; toIndex: number; columns: DataTableColumnDef<T>[] }];
+  'columnReorder': [payload: {
+    columns: DataTableColumnDef<T>[];
+    fromIndex: number;
+    toIndex: number;
+  }];
   'cell-edit-start': [rowKey: string, columnKey: string];
   'cell-edit-end': [rowKey: string, columnKey: string, value: string];
   'cell-edit': [rowKey: string, columnKey: string, value: string, row: T];
 }>();
 
+defineSlots<{
+  [key: `cell-${string}`]: (props: CellSlotProps<T>) => unknown;
+  cell: (props: CellSlotProps<T> & { column: ColumnView }) => unknown;
+  [key: `header-${string}`]: (props: HeaderSlotProps) => unknown;
+  header: (props: HeaderSlotProps) => unknown;
+  [key: `summary-${string}`]: (props: { value: string | number | undefined }) => unknown;
+  empty: () => unknown;
+  loading: () => unknown;
+}>();
+
 const { t } = useLocale();
 
-/* ============================================================ */
-/* 固定列（useFixedColumns）                                     */
-/* ============================================================ */
-
-/** 列作为 ColumnFixedConfig 使用（固定列功能） */
-const columnsAsFixedConfig = computed<ColumnFixedConfig[]>(() =>
-  props.columns.map((col) => ({
-    fixed: col.fixed,
-    key: col.key,
-    width: col.width,
-  })),
-);
-
-const fixedColumnsApi = useFixedColumns(columnsAsFixedConfig);
-
-/** 左固定列 */
-const leftFixedColumns: ComputedRef<readonly ColumnFixedConfig[]> = computed(() =>
-  props.enableFixedColumns ? fixedColumnsApi.leftFixedColumns.value : [],
-);
-
-/** 右固定列 */
-const rightFixedColumns: ComputedRef<readonly ColumnFixedConfig[]> = computed(() =>
-  props.enableFixedColumns ? fixedColumnsApi.rightFixedColumns.value : [],
-);
-
-/** 未固定列（中间区域，可能被虚拟滚动） */
-const unfixedColumns: ComputedRef<readonly ColumnFixedConfig[]> = computed(() =>
-  props.enableFixedColumns
-    ? fixedColumnsApi.unfixedColumns.value
-    : columnsAsFixedConfig.value,
-);
-
-/** 左固定列总宽度（px）—— 用于虚拟器 scrollPaddingStart */
-const leftFixedTotalWidth = computed<number>(() =>
-  leftFixedColumns.value.reduce((sum, col) => sum + (col.width ?? 120), 0),
-);
-
-/* ============================================================ */
-/* 多级表头（useTableGroupHeader）                               */
-/* ============================================================ */
-
-/** 列作为 TableColumn 使用（多级表头功能） */
-const columnsAsGroup = computed<TableColumn[]>(() =>
-  props.columns.map((col) => ({
-    children: col.children as TableColumn[] | undefined,
-    key: col.key,
-    label: col.label ?? col.key,
-    ...(col.children ? { children: col.children as TableColumn[] } : {}),
-  })),
-);
-
-const groupHeaderApi = useTableGroupHeader(
-  () => (props.enableGroupHeader ? columnsAsGroup.value : []),
-);
-
-/** 多级表头分层行（二维数组） */
-const headerRows: ComputedRef<readonly HeaderRow[]> = computed(() =>
-  props.enableGroupHeader ? groupHeaderApi.headerRows.value : [],
-);
-
-/** 多级表头叶子列 */
-const flatLeafColumns: ComputedRef<readonly TableColumn[]> = computed(() =>
-  props.enableGroupHeader ? groupHeaderApi.flatColumnsLeaf.value : [],
-);
-
-/** 当前作为 cell 渲染的叶列（取决于是否启用 group header / fixed） */
-const displayMiddleColumns = computed<readonly ColumnFixedConfig[]>(() => {
-  if (props.enableGroupHeader) {
-    return flatLeafColumns.value.map((col) => ({
-      key: col.key ?? '',
-      width: props.estimateColumnWidth,
-    }));
-  }
-  return unfixedColumns.value;
-});
-
-/** 叶子列实际数量（用于虚拟器 count / shadow 判定 */
-const middleColumnCount = computed<number>(() => displayMiddleColumns.value.length);
-
-/* ============================================================ */
-/* 列虚拟滚动（@tanstack/vue-virtual – horizontal）            */
-/* ============================================================ */
-
-/** 是否应启用虚拟滚动（列数超过阈值） */
-const shouldVirtualizeColumns = computed<boolean>(() =>
-  props.columnVirtualizer && middleColumnCount.value > 50,
-);
-
-/** 模板 ref：滚动容器 */
+/** 模板 ref：滚动容器（列向、行向虚拟滚动共用） */
 const tableScrollContainerRef = useTemplateRef<HTMLElement>('tableScrollContainer');
 
-/** 虚拟列项（当前可见列区间） */
-const middleVirtualItems = computed(() => {
-  if (!shouldVirtualizeColumns.value) return [];
-  return columnVirtualizer.value?.getVirtualItems() ?? [];
-});
-
-/** 虚拟列总宽度（用于设置 table 宽度） */
-const totalMiddleVirtualWidth = computed<number>(() =>
-  middleColumnCount.value * props.estimateColumnWidth,
-);
-
-/** 右固定列总宽度（px）—— 用于 spacer colspan */
-const rightFixedTotalWidth = computed<number>(() =>
-  rightFixedColumns.value.reduce((sum, col) => sum + (col.width ?? 120), 0),
-);
-
-/** 水平列虚拟器 */
-const columnVirtualizer = useVirtualizer({
-  count: () => middleColumnCount.value,
-  estimateSize: () => props.estimateColumnWidth,
-  getScrollElement: () => tableScrollContainerRef.value,
-  get horizontal() {
-    return shouldVirtualizeColumns.value;
-  },
-  overscan: 5,
-  get scrollPaddingStart() {
-    return leftFixedTotalWidth.value;
-  },
-});
-
-/** 首个可见列索引（用于计算 spacer colspan） */
-const firstVisibleColumnIndex = computed<number>(() =>
-  middleVirtualItems.value[0]?.index ?? 0,
-);
-
-/** 末个可见列索引（用于计算 spacer colspan） */
-const lastVisibleColumnIndex = computed<number>(() => {
-  const items = middleVirtualItems.value;
-  return items.length > 0 ? items[items.length - 1].index : middleColumnCount.value - 1;
-});
-
-/** 是否显示左 shadow（还有未渲染列在左方） */
-const showColumnLeftShadow = computed<boolean>(() =>
-  shouldVirtualizeColumns.value && firstVisibleColumnIndex.value > 0,
-);
-
-/** 是否显示右 shadow（还有未渲染列在右方） */
-const showColumnRightShadow = computed<boolean>(() =>
-  shouldVirtualizeColumns.value && lastVisibleColumnIndex.value < middleColumnCount.value - 1,
-);
-
 /* ============================================================ */
-/* 表格数据层（useTableData）                                   */
+/* 列定义查找                                                    */
 /* ============================================================ */
 
-const selectedKeysRef: Ref<Set<string>> = ref<Set<string>>(new Set());
+/** 列定义查找表（columnKey → 定义），覆盖多级表头的分组子列 */
+const columnDefByKey = computed<Map<string, DataTableColumnDef<T>>>(() => {
+  const map = new Map<string, DataTableColumnDef<T>>();
+
+  /**
+   * 递归收集分组子列。
+   *
+   * @param cols - 当前层列定义
+   * @returns 无
+   */
+  function collect(cols: DataTableColumnDef<T>[]): void {
+    for (const col of cols) {
+      map.set(col.key, col);
+      if (Array.isArray(col.children)) {
+        collect(col.children as DataTableColumnDef<T>[]);
+      }
+    }
+  }
+
+  collect(props.columns);
+  return map;
+});
+
+/**
+ * 按 key 取列定义。
+ *
+ * @param columnKey - 列 key
+ * @returns 列定义或 undefined
+ */
+function findColumn(columnKey: string): DataTableColumnDef<T> | undefined {
+  return columnDefByKey.value.get(columnKey);
+}
+
+/* ============================================================ */
+/* 表格数据层（useTableData）                                    */
+/* ============================================================ */
+
+const selectedKeysRef = ref<Set<string>>(new Set());
 
 const rowSelectionConfig = computed<RowSelectionConfig<T> | undefined>(() => {
   if (!props.isSelectable) return undefined;
@@ -337,229 +223,71 @@ const rowSelectionConfig = computed<RowSelectionConfig<T> | undefined>(() => {
 });
 
 const table = useTableData<T>({
-  data: () => props.dataSource,
   columns: () => props.columns,
+  data: () => props.dataSource,
   isRemote: props.isRemote,
+  multipleSort: () => props.multipleSort,
   rowSelection: rowSelectionConfig.value,
 });
 
+/** 受控排序：外部 sortState 变化时覆盖内部排序链 */
+watch(
+  () => props.sortState,
+  (next) => {
+    if (!next) return;
+    table.sortState.value = { order: next.order, prop: next.prop };
+  },
+  { immediate: true },
+);
+
 /* ============================================================ */
-/* 行内编辑（useTableEditing）                                  */
+/* 排序交互                                                      */
 /* ============================================================ */
 
 /**
- * 受控 props → ref 桥接。
+ * 表头点击排序：修饰键表示追加到多列排序链，否则替换当前排序。
  *
- * <p>editingKeys / editConfig 可能是外部传入的普通 Set/Map，而 useTableEditing
- * 要求传入 Ref 以便内部用替换模式触发响应式更新。
- * 因此我们在本地维护一份 ref，并通过 watch 与 prop 双向同步。
+ * @param columnKey - 被点击的列 key
+ * @param additive - 是否携带 Shift / Ctrl / Meta
+ * @returns 无
  */
-const internalEditingKeys: Ref<Set<string>> = ref<Set<string>>(
-  props.editingKeys ? new Set(props.editingKeys) : new Set(),
-);
-const internalEditConfig: Ref<Map<string, CellEditType>> = ref<Map<string, CellEditType>>(
-  props.editConfig ? new Map(props.editConfig) : new Map(),
-);
-
-watch(
-  () => props.editingKeys,
-  (val) => {
-    if (val) internalEditingKeys.value = new Set(val);
-  },
-);
-watch(
-  () => props.editConfig,
-  (val) => {
-    if (val) internalEditConfig.value = new Map(val);
-  },
-);
-
-/** 列定义查找表（columnKey → DataTableColumnDef），模板内 O(1) 访问 */
-const columnDefByKey = computed<Map<string, DataTableColumnDef<T>>>(() => {
-  const map = new Map<string, DataTableColumnDef<T>>();
-  const walk = (cols: DataTableColumnDef<T>[]) => {
-    for (const col of cols) {
-      map.set(col.key, col);
-      if (Array.isArray(col.children)) {
-        walk(col.children as DataTableColumnDef<T>[]);
-      }
-    }
-  };
-  walk(props.columns);
-  return map;
-});
-
-/** 行内编辑 composable */
-const tableEditing = useTableEditing<T>({
-  editingKeys: internalEditingKeys,
-  editConfig: internalEditConfig,
-  callbacks: {},
-});
-
-/** 是否处于行内编辑父模式（editable prop 控制） */
-const isEditableMode = computed<boolean>(() => props.editable);
-
-/** 单元格 key 快捷方法 */
-const cellKey = (rowKey: string, columnKey: string): string =>
-  composeCellKey(rowKey, columnKey);
-
-/** 单元格是否正在编辑 */
-const isCellEditing = (rowKey: string, columnKey: string): boolean =>
-  isEditableMode.value && tableEditing.editingCellKeys.value.has(cellKey(rowKey, columnKey));
-
-/** 获取列编辑类型（editConfig prop > 列 def > 默认 input） */
-function resolveEditType(columnKey: string): CellEditType {
-  const fromConfig = internalEditConfig.value.get(columnKey);
-  if (fromConfig) return fromConfig;
-  const def = columnDefByKey.value.get(columnKey);
-  return def?.editType ?? 'input';
-}
-
-/** 获取列编辑选项（仅 select 类型） */
-function resolveEditOptions(columnKey: string): CellEditOption[] {
-  return columnDefByKey.value.get(columnKey)?.editOptions ?? [];
-}
-
-/** 进入单元格编辑（模板 dblclick / 按钮触发） */
-function handleStartCellEdit(rowKey: string, columnKey: string): void {
-  if (!isEditableMode.value) return;
-  const def = columnDefByKey.value.get(columnKey);
-  if (!def?.editable) return;
-  tableEditing.startEdit(rowKey, columnKey);
-  emit('cell-edit-start', rowKey, columnKey);
-}
-
-/** 更新单元格临时值（输入过程中触发，不退出编辑态） */
-function handleDraftCellEdit(rowKey: string, columnKey: string, value: string): void {
-  tableEditing.setDraftValue(rowKey, columnKey, value);
-}
-
-/** 获取单元格当前展示值（draft 优先） */
-function resolveCellValue(row: T, columnKey: string, rowKey: string): unknown {
-  const draft = tableEditing.draftValues.value.get(cellKey(rowKey, columnKey));
-  if (draft !== undefined) return draft;
-  return (row as Record<string, unknown>)[columnKey];
+function handleSort(columnKey: string, additive: boolean): void {
+  table.toggleSort(columnKey, additive);
+  emitSortState();
 }
 
 /**
- * 根据 rowKey 从 viewRows 中反查行数据（cancel 等兜底场景）。
+ * 清空排序并同步受控事件。
+ *
+ * @returns 无
  */
-function resolveRowByKey(rowKey: string): T {
-  const found = viewRows.value.find((r, idx) => props.rowKey(r, idx) === rowKey);
-  return found ?? ({} as T);
+function clearSort(): void {
+  table.clearSort();
+  emitSortState();
 }
 
-/** 确认保存单元格（校验 + 退出编辑态 + 事件） */
-function handleSaveCell(rowKey: string, columnKey: string, value: string, row: T): void {
-  const def = columnDefByKey.value.get(columnKey);
-  const error = def?.editValidator?.(value, row) ?? null;
-  if (error) {
-    // 校验失败：保持编辑态，触发 cell-edit 让上层处理错误
-    emit('cell-edit', rowKey, columnKey, value, row);
-    return;
-  }
-  tableEditing.saveEdit(rowKey, columnKey, value, row);
-  emit('cell-edit', rowKey, columnKey, value, row);
-  emit('cell-edit-end', rowKey, columnKey, value);
-}
-
-/** 取消单元格编辑：清空 draft、退出编辑集合、触发 cell-edit-end 携带空值 */
-function handleCancelCellEdit(rowKey: string, columnKey: string): void {
-  tableEditing.clearDraft(rowKey, columnKey);
-  tableEditing.saveEdit(rowKey, columnKey, '', resolveRowByKey(rowKey));
-  emit('cell-edit-end', rowKey, columnKey, '');
-}
-
-/** 单元格键盘事件：Enter 提交 / Esc 取消 */
-function handleCellKeydown(
-  event: KeyboardEvent,
-  rowKey: string,
-  columnKey: string,
-  value: string,
-  row: T,
-): void {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    handleSaveCell(rowKey, columnKey, value, row);
-  } else if (event.key === 'Escape') {
-    event.preventDefault();
-    handleCancelCellEdit(rowKey, columnKey);
-  }
+/** 把内部排序链变化广播给受控调用方 */
+function emitSortState(): void {
+  const chain = table.sortChain.value;
+  const primary = chain[0];
+  emit('sort-change', primary?.prop ?? '', primary?.order ?? null);
+  emit('sort-chain-change', [...chain]);
+  emit('update:sortState', primary
+    ? { order: primary.order, prop: primary.prop }
+    : { order: null, prop: null });
 }
 
 /* ============================================================ */
-/* 树形表格（TreeTable）                                        */
-/* ============================================================ */
-
-/** 树形扁平化行：附带深度与是否有子节点信息 */
-interface TreeFlatRow<T> {
-  row: T;
-  depth: number;
-  hasChildren: boolean;
-  key: string;
-}
-
-/** 内部维护的展开 keys（非受控模式使用） */
-const internalExpandedKeys = ref<Set<string>>(
-  new Set(props.treeConfig?.defaultExpandedKeys ?? []),
-);
-
-/** 当前生效展开 keys（受控优先） */
-const effectiveExpandedKeys = computed<Set<string>>(() => {
-  if (props.treeConfig?.expandedKeys) {
-    return new Set(props.treeConfig.expandedKeys);
-  }
-  return internalExpandedKeys.value;
-});
-
-/** 切换展开/收起 */
-function toggleExpand(key: string): void {
-  const next = new Set(internalExpandedKeys.value);
-  if (next.has(key)) {
-    next.delete(key);
-  } else {
-    next.add(key);
-  }
-  internalExpandedKeys.value = next;
-  emit('update:expandedKeys', Array.from(next));
-}
-
-/** 树形扁平化计算 */
-const treeFlatRows = computed<TreeFlatRow<T>[]>(() => {
-  if (!props.treeConfig) return [];
-  const result: TreeFlatRow<T>[] = [];
-  const rows = viewRows.value;
-  const childrenKey = props.treeConfig.childrenKey ?? 'children';
-
-  function flatten(list: T[], depth: number): void {
-    for (let i = 0; i < list.length; i++) {
-      const r = list[i]!;
-      const key = props.rowKey(r, result.length);
-      const kids = (r as Record<string, unknown>)[childrenKey] as T[] | undefined;
-      const hasChild = Array.isArray(kids) && kids.length > 0;
-      result.push({ row: r, depth, hasChildren: hasChild, key });
-      if (hasChild && effectiveExpandedKeys.value.has(key)) {
-        flatten(kids!, depth + 1);
-      }
-    }
-  }
-
-  flatten(rows, 0);
-  return result;
-});
-
-/** 实际渲染行（树形模式下为扁平化列表） */
-const renderRows = computed<TreeFlatRow<T>[] | T[]>(() =>
-  props.treeConfig ? treeFlatRows.value : viewRows.value,
-);
-
-/* ============================================================ */
-/* 列宽拖拽（Column Resize）                                    */
+/* 列宽拖拽（Column Resize）                                     */
 /* ============================================================ */
 
 const RESIZE_STORAGE_KEY = 'yd-datatable-col-widths';
 
-/** 加载持久化列宽 */
+/**
+ * 读取持久化列宽（localStorage 不可用或数据损坏时返回空表）。
+ *
+ * @returns 列 key → 宽度
+ */
 function loadPersistedWidths(): Record<string, number> {
   try {
     const raw = localStorage.getItem(RESIZE_STORAGE_KEY);
@@ -569,94 +297,197 @@ function loadPersistedWidths(): Record<string, number> {
   }
 }
 
-/** 持久化列宽 */
+/**
+ * 写回持久化列宽。
+ *
+ * @param widths - 列 key → 宽度
+ * @returns 无
+ */
 function persistWidths(widths: Record<string, number>): void {
   try {
     localStorage.setItem(RESIZE_STORAGE_KEY, JSON.stringify(widths));
   } catch {
-    // noop
+    // 隐私模式 / 配额溢出时静默降级，不影响拖拽本身
   }
 }
 
 const columnResizeApi = useColumnResize({
-  initialWidths: loadPersistedWidths(),
   defaultMinWidth: 60,
+  initialWidths: loadPersistedWidths(),
 });
 
-/** 列宽拖拽：move handler 需要在组件内声明以便后续移除 */
-let resizeMoveHandler: ((e: PointerEvent) => void) | null = null;
+/** 列宽拖拽的 document 监听句柄，pointerup 与组件卸载都要回收 */
+let resizeMoveHandler: ((event: PointerEvent) => void) | null = null;
 let resizeUpHandler: (() => void) | null = null;
 
-function handleResizeStart(prop: string, event: PointerEvent): void {
-  if (!props.resizable) return;
-  columnResizeApi.onResizeStart(prop, event);
+/** 回收列宽拖拽的 document 监听（pointerup 与组件卸载共用） */
+function detachResizeListeners(): void {
+  if (resizeMoveHandler) document.removeEventListener('pointermove', resizeMoveHandler);
+  if (resizeUpHandler) document.removeEventListener('pointerup', resizeUpHandler);
+  resizeMoveHandler = null;
+  resizeUpHandler = null;
+}
 
-  resizeMoveHandler = (e: PointerEvent) => {
-    columnResizeApi.onResizeMove(e);
+/**
+ * 开始列宽拖拽，并在 pointerup 时回收 document 监听。
+ *
+ * @param columnKey - 列 key
+ * @param event - 原生指针事件
+ * @returns 无
+ */
+function handleResizeStart(columnKey: string, event: PointerEvent): void {
+  if (!props.resizable) return;
+  columnResizeApi.onResizeStart(columnKey, event);
+
+  resizeMoveHandler = (moveEvent: PointerEvent) => {
+    columnResizeApi.onResizeMove(moveEvent);
     persistWidths({ ...columnResizeApi.columnWidths.value });
     emit('columnResize', {
-      columnKey: prop,
-      newWidth: columnResizeApi.columnWidths.value[prop] ?? 0,
+      columnKey,
+      newWidth: columnResizeApi.columnWidths.value[columnKey] ?? 0,
     });
   };
   resizeUpHandler = () => {
     columnResizeApi.onResizeEnd();
-    document.removeEventListener('pointermove', resizeMoveHandler!);
-    document.removeEventListener('pointerup', resizeUpHandler!);
-    resizeMoveHandler = null;
-    resizeUpHandler = null;
+    detachResizeListeners();
   };
   document.addEventListener('pointermove', resizeMoveHandler);
   document.addEventListener('pointerup', resizeUpHandler, { once: true });
 }
 
+onScopeDispose(detachResizeListeners);
+
 /* ============================================================ */
-/* 列顺序拖拽（Column Reorder）                                 */
+/* 列渲染序列（useTableColumnLayout）                            */
 /* ============================================================ */
 
-/** 当前列顺序（支持拖拽重排时的本地副本） */
-const reorderedColumns = ref<DataTableColumnDef<T>[]>([...props.columns]);
+const layout = useTableColumnLayout<T>({
+  columnVirtualizer: () => props.columnVirtualizer,
+  columns: () => props.columns,
+  editable: () => props.editable,
+  enableFixedColumns: () => props.enableFixedColumns,
+  enableGroupHeader: () => props.enableGroupHeader,
+  estimateColumnWidth: () => props.estimateColumnWidth,
+  findColumn,
+  onReorder: payload => emit('columnReorder', payload),
+  resizable: () => props.resizable,
+  resizedWidth: columnKey => columnResizeApi.getColumnWidthStyle(columnKey),
+  reorderable: () => props.reorderable,
+  scrollElement: () => tableScrollContainerRef.value ?? null,
+  selectable: () => props.isSelectable,
+  sortMeta: columnKey => ({
+    order: table.getSortOrder(columnKey),
+    rank: table.getSortRank(columnKey),
+  }),
+  treeMode: () => props.treeConfig !== undefined,
+});
 
-watch(
-  () => props.columns,
-  (cols) => {
-    reorderedColumns.value = [...cols];
-  },
-  { deep: true },
-);
+const {
+  columnViews,
+  headerRows,
+  leftFixedViews,
+  onHeadPointerDown,
+  rightFixedViews,
+  showColumnLeftShadow,
+  showColumnRightShadow,
+  tableMinWidth,
+  totalCellSpan,
+} = layout;
 
-const columnDragApi = useColumnDrag<DataTableColumnDef<T>>(
-  () => reorderedColumns.value,
-  (fromIndex, toIndex) => {
-    const newCols = [...reorderedColumns.value];
-    const [moved] = newCols.splice(fromIndex, 1);
-    newCols.splice(toIndex, 0, moved!);
-    reorderedColumns.value = newCols;
-    emit('columnReorder', { fromIndex, toIndex, columns: newCols });
-  },
-);
+/* ============================================================ */
+/* 行渲染序列（useTableRowView）                                 */
+/* ============================================================ */
 
-/** 实际渲染列（支持拖拽重排） */
-const effectiveRenderColumns = computed<readonly ColumnFixedConfig[]>(() => {
-  if (props.reorderable) {
-    return reorderedColumns.value.map((col) => ({
-      key: col.key,
-      width: col.width,
-      fixed: col.fixed,
-    }));
-  }
-  return renderColumns.value;
+const rowView = useTableRowView<T>({
+  estimateRowHeight: () => props.estimateRowHeight,
+  expandedKeys: () => props.treeConfig?.expandedKeys,
+  onExpandedKeysChange: keys => emit('update:expandedKeys', keys),
+  overscan: () => props.virtualOverscan,
+  rowKey: props.rowKey,
+  rows: () => table.viewRows.value,
+  scrollElement: () => tableScrollContainerRef.value ?? null,
+  treeConfig: () => props.treeConfig,
+  virtual: () => props.virtual,
+});
+
+const {
+  bottomSpacerHeight,
+  dataRows,
+  expandedKeys,
+  rowCount,
+  rowViews,
+  toggleExpand,
+  topSpacerHeight,
+  virtualized,
+} = rowView;
+
+/**
+ * 按 rowKey 反查行数据（取消编辑等兜底场景）。
+ *
+ * @param targetRowKey - 行 key
+ * @returns 行数据，未命中时返回空对象
+ */
+function resolveRowByKey(targetRowKey: string): T {
+  const found = dataRows.value.find((row, idx) => props.rowKey(row, idx) === targetRowKey);
+  return found ?? ({} as T);
+}
+
+/* ============================================================ */
+/* 行内编辑（useTableCellEdit）                                  */
+/* ============================================================ */
+
+const cellEdit = useTableCellEdit<T>({
+  editConfig: () => props.editConfig,
+  editable: () => props.editable,
+  editingKeys: () => props.editingKeys,
+  findColumn,
+  onEdit: (rowKey, columnKey, value, row) => emit('cell-edit', rowKey, columnKey, value, row),
+  onEditEnd: (rowKey, columnKey, value) => emit('cell-edit-end', rowKey, columnKey, value),
+  onEditStart: (rowKey, columnKey) => emit('cell-edit-start', rowKey, columnKey),
+  resolveRow: resolveRowByKey,
 });
 
 /* ============================================================ */
-/* 事件处理                                                     */
+/* 行选择 / 汇总行                                               */
 /* ============================================================ */
 
+/** 视图行 key 列表 */
+const rowKeys = computed<string[]>(() =>
+  dataRows.value.map((row, idx) => props.rowKey(row, idx)),
+);
+
+/** 是否全选 */
+const isAllSelected = computed<boolean>(
+  () => rowKeys.value.length > 0
+    && rowKeys.value.every(key => table.selection.value.has(key)),
+);
+
+/** 是否部分选中 */
+const someSelected = computed<boolean>(
+  () => rowKeys.value.some(key => table.selection.value.has(key)) && !isAllSelected.value,
+);
+
+/** 汇总行取值（按列 key 索引） */
+const summaryValues = computed<Record<string, string | number>>(() =>
+  props.summary && dataRows.value.length > 0 ? props.summary(dataRows.value) : {},
+);
+
+/**
+ * 全选 / 取消全选。
+ *
+ * @returns 无
+ */
 function handleSelectAll(): void {
   table.toggleSelectAll();
   emit('selection-change', Array.from(table.selection.value));
 }
 
+/**
+ * 切换单行选中态。
+ *
+ * @param key - 行 key
+ * @returns 无
+ */
 function handleSelect(key: string): void {
   const set = table.selection.value;
   if (set.has(key)) {
@@ -668,99 +499,97 @@ function handleSelect(key: string): void {
 }
 
 /* ============================================================ */
-/* 视图计算                                                     */
+/* 数据导出                                                      */
 /* ============================================================ */
 
-/** 渲染用叶列（多级表头模式下统一通过 displayMiddleColumns 访问） */
-const renderColumns = computed<readonly ColumnFixedConfig[]>(() => {
-  if (props.enableFixedColumns) return displayMiddleColumns.value;
-  if (props.enableGroupHeader) return displayMiddleColumns.value;
-  return columnsAsFixedConfig.value;
+const exportApi = useTableExport<T>({
+  columns: () => columnViews.value
+    .filter(view => !view.isSpacer)
+    .map(view => ({ key: view.key, label: view.label })),
+  fileName: () => props.exportFileName,
+  rows: () => dataRows.value,
+  valueResolver: (row, column, index) =>
+    findColumn(column.key)?.formatter?.(row, row[column.key], index),
 });
-
-/** 视图行 */
-const viewRows = computed<T[]>(() => table.viewRows.value);
-
-/** 全量 keys */
-const allKeys = computed<string[]>(() =>
-  viewRows.value.map((row, idx) => props.rowKey(row, idx)),
-);
-
-/** 是否全选 */
-const isAllSelected = computed<boolean>(() => {
-  if (allKeys.value.length === 0) return false;
-  return allKeys.value.every((k) => table.selection.value.has(k));
-});
-
-/** 是否部分选中 */
-const someSelected = computed<boolean>(
-  () => allKeys.value.some((k) => table.selection.value.has(k)) && !isAllSelected.value,
-);
-
-/** 当前列 cell-span（空态 / 汇总行使用） */
-const totalCellSpan = computed<number>(() => {
-  let total = effectiveRenderColumns.value.length;
-  if (props.isSelectable) total += 1;
-  if (props.treeConfig) total += 1;
-  return total;
-});
-
-/** 获取列排序状态图标 */
-function getSortIcon(col: Readonly<ColumnFixedConfig>): string {
-  if (!table.sortState.value || table.sortState.value.prop !== col.key) return '';
-  const order = table.sortState.value.order;
-  return order === 'asc' ? '↑' : order === 'desc' ? '↓' : '';
-}
 
 defineExpose({
   clearFilters: table.clearFilters,
+  clearSort,
   selection: table.selection,
+  setSelected: table.setSelected,
+  sortChain: table.sortChain,
   sortState: table.sortState,
-  /** 暴露编辑相关句柄，便于外部调用 startEdit / cancelEdit 等 */
+  /** 编辑句柄：外部可直接 startEdit / save / cancel 某个单元格 */
   editing: {
-    startCellEdit: handleStartCellEdit,
-    cancelCellEdit: handleCancelCellEdit,
-    saveCellEdit: handleSaveCell,
-    cellKeys: tableEditing.editingCellKeys,
+    cancelCellEdit: cellEdit.cancel,
+    cellKeys: cellEdit.editingCellKeys,
+    saveCellEdit: cellEdit.save,
+    startCellEdit: cellEdit.startEdit,
   },
+  /** 排序句柄 */
+  sorting: {
+    clearSort,
+    getSortOrder: table.getSortOrder,
+    getSortRank: table.getSortRank,
+    toggleSort: handleSort,
+  },
+  /** 导出句柄（CSV / TSV / 纯文本） */
+  exporting: exportApi,
 });
 </script>
 
 <template>
   <div
     ref="tableScrollContainer"
-    :class="cn('relative w-full overflow-x-auto border rounded-md', props.class)"
+    :class="cn(
+      'relative w-full overflow-x-auto border rounded-md',
+      virtualized && 'overflow-y-auto yd-body-virtual',
+      props.class,
+    )"
+    :style="virtualized ? { height: `${props.virtualHeight}px` } : undefined"
     role="grid"
+    :aria-busy="props.loading"
+    :aria-rowcount="rowCount"
   >
-    <!-- 列阴影哨兵：左侧 shadow -->
+    <!-- 列阴影哨兵：左侧仍有未渲染列 -->
     <div
       v-if="showColumnLeftShadow"
       aria-hidden="true"
       class="pointer-events-none absolute inset-y-0 start-0 top-0 z-10 w-3"
-      style="background: linear-gradient(to right, hsl(var(--foreground) / 0.08), transparent);"
+      style="background: linear-gradient(to right, hsl(var(--foreground) / 8%), transparent);"
     />
 
-    <!-- 列阴影哨兵：右侧 shadow -->
+    <!-- 列阴影哨兵：右侧仍有未渲染列 -->
     <div
       v-if="showColumnRightShadow"
       aria-hidden="true"
       class="pointer-events-none absolute inset-y-0 end-0 top-0 z-10 w-3"
-      style="background: linear-gradient(to left, hsl(var(--foreground) / 0.08), transparent);"
+      style="background: linear-gradient(to left, hsl(var(--foreground) / 8%), transparent);"
     />
+
+    <!-- 加载覆盖层 -->
+    <div
+      v-if="props.loading"
+      class="absolute inset-0 z-20 flex items-center justify-center bg-background/60"
+      role="status"
+      aria-live="polite"
+    >
+      <slot name="loading">
+        <span class="yd-loading-spinner" aria-hidden="true" />
+        <span class="ms-2 text-sm text-muted-foreground">{{ t('table.loading') }}</span>
+      </slot>
+    </div>
 
     <YdTable
       class="w-full border-collapse"
-      :style="{ minWidth: `${totalMiddleVirtualWidth + leftFixedTotalWidth + rightFixedTotalWidth}px` }"
+      :style="{ minWidth: `${tableMinWidth}px` }"
     >
-      <!-- ====================================================== -->
-      <!-- 表头                                                    -->
-      <!-- ====================================================== -->
       <YdTableHeader>
         <!-- 多级表头模式 -->
         <template v-if="props.enableGroupHeader && headerRows.length > 0">
           <YdTableRow
             v-for="(hRow, hIdx) in headerRows"
-            :key="hIdx"
+            :key="`group-head-${hIdx}`"
             class="bg-muted/50"
           >
             <YdTableHead
@@ -778,51 +607,69 @@ defineExpose({
               />
             </YdTableHead>
 
-            <!-- 树形展开列头（多级表头模式，仅首行 rowspan） -->
             <YdTableHead
               v-if="props.treeConfig && hIdx === 0"
               :rowspan="headerRows.length"
               class="w-10 px-2"
             />
 
-            <template v-if="hIdx === headerRows.length - 1 && props.enableFixedColumns">
-              <YdTableHead
-                v-for="(col, cIdx) in leftFixedColumns"
-                :key="`fixed-left-${col.key}`"
-                :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
-                :class="cn('sticky-cell', { 'border-e': cIdx === leftFixedColumns.length - 1 })"
-              >
-                {{ col.key }}
-              </YdTableHead>
+            <!-- 固定列跨全部表头行，与表体列视图序列同位 -->
+            <template v-if="hIdx === 0">
+              <YdDataTableHeadCell
+                v-for="view in leftFixedViews"
+                :key="`group-fixed-left-${view.key}`"
+                :column-key="view.key"
+                :label="view.label"
+                :align="view.align"
+                :head-class="view.headClass"
+                :head-style="view.style"
+                :rowspan="view.rowspan"
+              />
             </template>
 
-            <!-- 分层表头列 -->
             <YdTableHead
               v-for="(cell, cellIdx) in hRow"
-              :key="cell.key ?? `${hIdx}-${cellIdx}`"
+              :key="`group-cell-${cell.key ?? `${hIdx}-${cellIdx}`}`"
               :colspan="cell.colspan"
               :rowspan="cell.rowspan"
               class="whitespace-nowrap font-medium text-start"
             >
-              {{ cell.label }}
+              <slot
+                :name="`header-${cell.key}`"
+                :column-key="cell.key ?? ''"
+                :label="cell.label"
+                :order="null"
+                :rank="null"
+              >
+                <slot
+                  name="header"
+                  :column-key="cell.key ?? ''"
+                  :label="cell.label"
+                  :order="null"
+                  :rank="null"
+                >
+                  {{ cell.label }}
+                </slot>
+              </slot>
             </YdTableHead>
 
-            <template v-if="hIdx === headerRows.length - 1 && props.enableFixedColumns">
-              <YdTableHead
-                v-for="(col, cIdx) in rightFixedColumns"
-                :key="`fixed-right-${col.key}`"
-                :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
-                :class="cn('sticky-cell', { 'border-s': cIdx === 0 })"
-              >
-                {{ col.key }}
-              </YdTableHead>
+            <template v-if="hIdx === 0">
+              <YdDataTableHeadCell
+                v-for="view in rightFixedViews"
+                :key="`group-fixed-right-${view.key}`"
+                :column-key="view.key"
+                :label="view.label"
+                :align="view.align"
+                :head-class="view.headClass"
+                :head-style="view.style"
+                :rowspan="view.rowspan"
+              />
             </template>
           </YdTableRow>
         </template>
 
-        <!-- 普通单行表头 -->
+        <!-- 单行表头：与表体共用列视图序列（含列虚拟占位列） -->
         <YdTableRow v-else class="bg-muted/50 border-b">
-          <!-- 选择列 -->
           <YdTableHead v-if="props.isSelectable" class="w-10 px-2">
             <input
               type="checkbox"
@@ -834,384 +681,178 @@ defineExpose({
             />
           </YdTableHead>
 
-          <!-- 树形展开列头（仅 treeConfig 开启） -->
           <YdTableHead v-if="props.treeConfig" class="w-10 px-2" />
 
-          <!-- 左固定列头（sticky left） -->
-          <YdTableHead
-            v-for="(col, _cIdx) in leftFixedColumns"
-            :key="`fixed-left-${col.key}`"
-            :class="cn(
-              'whitespace-nowrap font-medium',
-              col.fixed === 'left' && 'sticky-cell',
-            )"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
-          >
-            <span class="inline-flex items-center gap-1">
-              {{ col.key }}
-              <span v-if="getSortIcon(col)" class="text-xs text-muted-foreground/50">
-                {{ getSortIcon(col) }}
-              </span>
-            </span>
-          </YdTableHead>
-
-          <!-- 中间列头（虚拟滚动 / 全量显示） -->
-          <template v-if="shouldVirtualizeColumns">
-            <!-- spacer cell 占位（隐藏列前的空白） -->
+          <template v-for="view in columnViews" :key="`head-${view.key}`">
             <YdTableHead
-              v-if="firstVisibleColumnIndex > 0"
-              :colspan="firstVisibleColumnIndex"
+              v-if="view.isSpacer"
+              :colspan="view.colspan"
               aria-hidden="true"
               class="p-0"
             />
-            <!-- 可见虚拟列 -->
-            <YdTableHead
-              v-for="vItem in middleVirtualItems"
-              :key="`virtual-col-${vItem.key}`"
-              :class="cn(
-                'whitespace-nowrap font-medium',
-                displayMiddleColumns[vItem.index]?.fixed === 'left' && 'sticky-cell',
-                props.resizable && 'relative',
-              )"
-              :style="{
-                minWidth: `${props.estimateColumnWidth}px`,
-                width: props.resizable && columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')
-                  ? columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')!
-                  : `${props.estimateColumnWidth}px`,
-              }"
+            <YdDataTableHeadCell
+              v-else
+              :column-key="view.key"
+              :label="view.label"
+              :align="view.align"
+              :sortable="view.sortable"
+              :order="view.order"
+              :rank="view.rank"
+              :resizable="props.resizable"
+              :reorderable="props.reorderable"
+              :drag-index="view.dragIndex"
+              :resizing="columnResizeApi.resizingProp.value === view.key"
+              :head-class="view.headClass"
+              :head-style="view.style"
+              :rowspan="view.rowspan"
+              @sort="handleSort"
+              @resize-start="handleResizeStart"
+              @drag-start="onHeadPointerDown"
             >
-              <span class="inline-flex items-center gap-1">
-                {{ displayMiddleColumns[vItem.index]?.key }}
-                <span
-                  v-if="getSortIcon(displayMiddleColumns[vItem.index]!)"
-                  class="text-xs text-muted-foreground/50"
-                >
-                  {{ getSortIcon(displayMiddleColumns[vItem.index]!) }}
-                </span>
-              </span>
-              <!-- 列宽拖拽手柄 -->
-              <div
-                v-if="props.resizable"
-                class="yd-resize-handle absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
-                role="separator"
-                @pointerdown="handleResizeStart(displayMiddleColumns[vItem.index]?.key ?? '', $event)"
-              />
-            </YdTableHead>
-            <!-- spacer cell 占位（隐藏列后的空白） -->
-            <YdTableHead
-              v-if="lastVisibleColumnIndex < middleColumnCount - 1"
-              :colspan="middleColumnCount - 1 - lastVisibleColumnIndex"
-              aria-hidden="true"
-              class="p-0"
-            />
+              <template #default="headScope">
+                <slot :name="`header-${view.key}`" v-bind="headScope">
+                  <slot name="header" v-bind="{ ...headScope, column: view }">
+                    {{ headScope.label }}
+                  </slot>
+                </slot>
+              </template>
+            </YdDataTableHeadCell>
           </template>
-
-          <!-- 中间列头（无虚拟滚动） -->
-          <template v-else>
-            <YdTableHead
-              v-for="(col, cIdx) in effectiveRenderColumns"
-              :key="col.key"
-              :data-col-drag="props.reorderable ? cIdx : undefined"
-              :class="cn(
-                'whitespace-nowrap font-medium',
-                col.fixed === 'left' && 'sticky-cell',
-                props.resizable && 'relative',
-                props.reorderable && 'cursor-grab select-none',
-              )"
-              :style="props.resizable ? columnResizeApi.getColumnWidthStyle(col.key) ? { width: columnResizeApi.getColumnWidthStyle(col.key) } : undefined : undefined"
-              @pointerdown="props.reorderable && columnDragApi.onPointerDown($event, cIdx)"
-            >
-              <span class="inline-flex items-center gap-1">
-                {{ col.key }}
-                <span v-if="getSortIcon(col)" class="text-xs text-muted-foreground/50">
-                  {{ getSortIcon(col) }}
-                </span>
-              </span>
-              <!-- 列宽拖拽手柄 -->
-              <div
-                v-if="props.resizable"
-                class="yd-resize-handle absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
-                :class="{ 'bg-primary/50': columnResizeApi.resizingProp.value === col.key }"
-                role="separator"
-                :aria-label="`resize-${col.key}`"
-                @pointerdown="handleResizeStart(col.key, $event)"
-              />
-            </YdTableHead>
-          </template>
-
-          <!-- 右固定列头（sticky right） -->
-          <YdTableHead
-            v-for="(col, _cIdx) in rightFixedColumns"
-            :key="`fixed-right-${col.key}`"
-            :class="cn(
-              'whitespace-nowrap font-medium',
-              col.fixed === 'right' && 'sticky-cell',
-            )"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
-          >
-            <span class="inline-flex items-center gap-1">
-              {{ col.key }}
-              <span v-if="getSortIcon(col)" class="text-xs text-muted-foreground/50">
-                {{ getSortIcon(col) }}
-              </span>
-            </span>
-          </YdTableHead>
         </YdTableRow>
       </YdTableHeader>
 
-      <!-- ====================================================== -->
-      <!-- 表体                                                    -->
-      <!-- ====================================================== -->
       <YdTableBody>
-        <!-- 空态 -->
-        <YdTableRow v-if="(props.treeConfig ? treeFlatRows.length === 0 : viewRows.length === 0)">
+        <!-- 空态（加载中不展示，避免与覆盖层重复） -->
+        <YdTableRow v-if="rowCount === 0 && !props.loading">
           <YdTableCell
             :colspan="totalCellSpan"
             class="py-12 text-center text-muted-foreground"
           >
-            {{ t('table.empty') }}
+            <slot name="empty">{{ t('table.empty') }}</slot>
           </YdTableCell>
+        </YdTableRow>
+
+        <!-- 行虚拟滚动：顶部占位 -->
+        <YdTableRow
+          v-if="topSpacerHeight > 0"
+          :style="{ height: `${topSpacerHeight}px` }"
+          aria-hidden="true"
+          class="border-0"
+        >
+          <YdTableCell :colspan="totalCellSpan" class="p-0" />
         </YdTableRow>
 
         <!-- 数据行 -->
         <YdTableRow
-          v-for="(item, idx) in renderRows"
-          :key="props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)"
+          v-for="{ index, key, row, node } in rowViews"
+          :key="key"
           class="border-b transition-colors hover:bg-muted/25"
+          :selected="props.isSelectable && table.selection.value.has(key)"
         >
-          <!-- 选择列 -->
           <YdTableCell v-if="props.isSelectable" class="px-2">
             <input
               :type="props.selectType === 'radio' ? 'radio' : 'checkbox'"
-              :checked="table.selection.value.has(
-                props.treeConfig
-                  ? (item as TreeFlatRow<T>).key
-                  : props.rowKey(item as T, idx),
-              )"
+              :checked="table.selection.value.has(key)"
               class="size-4"
               :aria-label="t('table.selectRow')"
-              @change="handleSelect(
-                props.treeConfig
-                  ? (item as TreeFlatRow<T>).key
-                  : props.rowKey(item as T, idx),
-              )"
+              @change="handleSelect(key)"
             />
           </YdTableCell>
 
-          <!-- 树形展开/折叠列（仅 treeConfig 开启时渲染） -->
+          <!-- 树形展开/折叠列 -->
           <YdTableCell v-if="props.treeConfig" class="px-2">
             <span
               class="inline-flex items-center"
-              :style="{ paddingLeft: `${((item as TreeFlatRow<T>).depth) * 16}px` }"
+              :style="{ paddingLeft: `${(node?.depth ?? 0) * 16}px` }"
             >
               <button
-                v-if="(item as TreeFlatRow<T>).hasChildren"
+                v-if="node?.hasChildren"
+                type="button"
                 class="yd-tree-toggle size-4 flex items-center justify-center text-xs hover:text-primary cursor-pointer select-none"
-                :aria-expanded="effectiveExpandedKeys.has((item as TreeFlatRow<T>).key)"
-                @click="toggleExpand((item as TreeFlatRow<T>).key)"
+                :aria-expanded="expandedKeys.has(key)"
+                :aria-label="expandedKeys.has(key)
+                  ? t('table.collapseRow')
+                  : t('table.expandedRow')"
+                @click="toggleExpand(key)"
               >
-                {{ effectiveExpandedKeys.has((item as TreeFlatRow<T>).key) ? '▼' : '▶' }}
+                {{ expandedKeys.has(key) ? '▼' : '▶' }}
               </button>
               <span v-else class="inline-block size-4" />
             </span>
           </YdTableCell>
 
-          <!-- 左固定列单元格 -->
-          <YdTableCell
-            v-for="col in leftFixedColumns"
-            :key="`fixed-left-${col.key}`"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'left', [...leftFixedColumns]) as CSSProperties"
-            :class="cn('sticky-cell', isEditableMode && columnDefByKey.get(col.key)?.editable && 'yd-cell-editable')"
-            @dblclick="isEditableMode && columnDefByKey.get(col.key)?.editable && handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)"
-          >
-            <template v-if="isCellEditing(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)">
-              <textarea
-                v-if="resolveEditType(col.key) === 'textarea'"
-                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                autofocus
-                rows="2"
-                class="yd-cell-input yd-cell-input--textarea"
-                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value)"
-                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-              />
-              <select
-                v-else-if="resolveEditType(col.key) === 'select'"
-                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                autofocus
-                class="yd-cell-input yd-cell-input--select"
-                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value)"
-                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-              >
-                <option
-                  v-for="opt in resolveEditOptions(col.key)"
-                  :key="String(opt.value)"
-                  :value="opt.value"
-                >
-                  {{ opt.label }}
-                </option>
-              </select>
-              <input
-                v-else
-                :type="resolveEditType(col.key) === 'number' ? 'number' : resolveEditType(col.key) === 'date' ? 'date' : 'text'"
-                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                autofocus
-                class="yd-cell-input"
-                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value)"
-                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-              />
-            </template>
-            <template v-else>
-              {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[col.key] ?? '-' }}
-            </template>
-          </YdTableCell>
-
-          <!-- 中间列单元格（虚拟 / 全量） -->
-          <template v-if="shouldVirtualizeColumns">
+          <template v-for="view in columnViews" :key="`cell-${view.key}-${key}`">
             <YdTableCell
-              v-if="firstVisibleColumnIndex > 0"
-              :colspan="firstVisibleColumnIndex"
+              v-if="view.isSpacer"
+              :colspan="view.colspan"
               aria-hidden="true"
               class="p-0"
             />
-            <YdTableCell
-              v-for="vItem in middleVirtualItems"
-              :key="`virtual-cell-${vItem.key}`"
-              :style="{
-                minWidth: `${props.estimateColumnWidth}px`,
-                width: props.resizable && columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')
-                  ? columnResizeApi.getColumnWidthStyle(displayMiddleColumns[vItem.index]?.key ?? '')!
-                  : `${props.estimateColumnWidth}px`,
-              }"
-              :class="cn(isEditableMode && columnDefByKey.get(displayMiddleColumns[vItem.index]?.key ?? '')?.editable && 'yd-cell-editable')"
-              @dblclick="handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), displayMiddleColumns[vItem.index]?.key ?? '')"
+            <YdDataTableCell
+              v-else
+              :row="row"
+              :row-key="key"
+              :row-index="index"
+              :column-key="view.key"
+              :align="view.align"
+              :editable="view.editable"
+              :editing="cellEdit.isCellEditing(key, view.key)"
+              :edit-type="cellEdit.resolveEditType(view.key)"
+              :edit-options="cellEdit.resolveEditOptions(view.key)"
+              :value="cellEdit.resolveCellValue(row, view.key, key, index)"
+              :cell-class="cn(view.cellClass, view.editable && 'yd-cell-editable')"
+              :cell-style="view.style"
+              @edit-start="cellEdit.startEdit"
+              @edit-draft="cellEdit.setDraft"
+              @edit-save="cellEdit.save"
+              @edit-cancel="cellEdit.cancel"
             >
-              {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[displayMiddleColumns[vItem.index]?.key ?? ''] ?? '-' }}
-            </YdTableCell>
-            <YdTableCell
-              v-if="lastVisibleColumnIndex < middleColumnCount - 1"
-              :colspan="middleColumnCount - 1 - lastVisibleColumnIndex"
-              aria-hidden="true"
-              class="p-0"
-            />
-          </template>
-
-          <!-- 中间列单元格（无虚拟滚动） -->
-          <template v-else>
-            <YdTableCell
-              v-for="col in effectiveRenderColumns"
-              :key="col.key"
-              :class="cn(isEditableMode && columnDefByKey.get(col.key)?.editable && 'yd-cell-editable')"
-              @dblclick="isEditableMode && columnDefByKey.get(col.key)?.editable && handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)"
-            >
-              <template v-if="isCellEditing(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)">
-                <textarea
-                  v-if="resolveEditType(col.key) === 'textarea'"
-                  :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                  autofocus
-                  rows="2"
-                  class="yd-cell-input yd-cell-input--textarea"
-                  @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value)"
-                  @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                  @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                />
-                <select
-                  v-else-if="resolveEditType(col.key) === 'select'"
-                  :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                  autofocus
-                  class="yd-cell-input yd-cell-input--select"
-                  @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value)"
-                  @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                  @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                >
-                  <option
-                    v-for="opt in resolveEditOptions(col.key)"
-                    :key="String(opt.value)"
-                    :value="opt.value"
-                  >
-                    {{ opt.label }}
-                  </option>
-                </select>
-                <input
-                  v-else
-                  :type="resolveEditType(col.key) === 'number' ? 'number' : resolveEditType(col.key) === 'date' ? 'date' : 'text'"
-                  :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                  autofocus
-                  class="yd-cell-input"
-                  @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value)"
-                  @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                  @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                />
+              <template #default="cellScope">
+                <slot :name="`cell-${view.key}`" v-bind="cellScope">
+                  <slot name="cell" v-bind="{ ...cellScope, column: view }">
+                    {{ cellScope.text }}
+                  </slot>
+                </slot>
               </template>
-              <template v-else>
-                {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[col.key] ?? '-' }}
-              </template>
-            </YdTableCell>
+            </YdDataTableCell>
           </template>
-
-          <!-- 右固定列单元格 -->
-          <YdTableCell
-            v-for="col in rightFixedColumns"
-            :key="`fixed-right-${col.key}`"
-            :style="fixedColumnStyle(col as ColumnFixedConfig, 'right', [...rightFixedColumns]) as CSSProperties"
-            :class="cn('sticky-cell', isEditableMode && columnDefByKey.get(col.key)?.editable && 'yd-cell-editable')"
-            @dblclick="isEditableMode && columnDefByKey.get(col.key)?.editable && handleStartCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)"
-          >
-            <template v-if="isCellEditing(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key)">
-              <textarea
-                v-if="resolveEditType(col.key) === 'textarea'"
-                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                autofocus
-                rows="2"
-                class="yd-cell-input yd-cell-input--textarea"
-                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value)"
-                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLTextAreaElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-              />
-              <select
-                v-else-if="resolveEditType(col.key) === 'select'"
-                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                autofocus
-                class="yd-cell-input yd-cell-input--select"
-                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value)"
-                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLSelectElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-              >
-                <option
-                  v-for="opt in resolveEditOptions(col.key)"
-                  :key="String(opt.value)"
-                  :value="opt.value"
-                >
-                  {{ opt.label }}
-                </option>
-              </select>
-              <input
-                v-else
-                :type="resolveEditType(col.key) === 'number' ? 'number' : resolveEditType(col.key) === 'date' ? 'date' : 'text'"
-                :value="String(resolveCellValue(props.treeConfig ? (item as TreeFlatRow<T>).row : item as T, col.key, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx)) ?? '')"
-                autofocus
-                class="yd-cell-input"
-                @input="handleDraftCellEdit(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value)"
-                @keydown="handleCellKeydown($event, props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-                @blur="handleSaveCell(props.treeConfig ? (item as TreeFlatRow<T>).key : props.rowKey(item as T, idx), col.key, ($event.target as HTMLInputElement).value, props.treeConfig ? (item as TreeFlatRow<T>).row : item as T)"
-              />
-            </template>
-            <template v-else>
-              {{ (props.treeConfig ? (item as TreeFlatRow<T>).row : item as T as Record<string, unknown>)[col.key] ?? '-' }}
-            </template>
-          </YdTableCell>
         </YdTableRow>
 
-        <!-- 汇总行 -->
+        <!-- 行虚拟滚动：底部占位 -->
         <YdTableRow
-          v-if="props.summary && viewRows.length > 0"
+          v-if="bottomSpacerHeight > 0"
+          :style="{ height: `${bottomSpacerHeight}px` }"
+          aria-hidden="true"
+          class="border-0"
+        >
+          <YdTableCell :colspan="totalCellSpan" class="p-0" />
+        </YdTableRow>
+
+        <!-- 汇总行：按列展开，与表体列视图同序 -->
+        <YdTableRow
+          v-if="props.summary && dataRows.length > 0"
           class="border-t-2 font-medium bg-muted/30"
         >
-          <YdTableCell :colspan="totalCellSpan">
-            {{ JSON.stringify(props.summary(viewRows)) }}
-          </YdTableCell>
+          <YdTableCell v-if="props.isSelectable" class="px-2" />
+          <YdTableCell v-if="props.treeConfig" class="px-2" />
+          <template v-for="view in columnViews" :key="`summary-${view.key}`">
+            <YdTableCell
+              v-if="view.isSpacer"
+              :colspan="view.colspan"
+              aria-hidden="true"
+              class="p-0"
+            />
+            <YdTableCell
+              v-else
+              :align="view.align"
+              :class="view.cellClass"
+              :style="view.style"
+            >
+              <slot :name="`summary-${view.key}`" :value="summaryValues[view.key]">
+                {{ summaryValues[view.key] ?? '' }}
+              </slot>
+            </YdTableCell>
+          </template>
         </YdTableRow>
       </YdTableBody>
     </YdTable>
@@ -1225,12 +866,6 @@ defineExpose({
   background: hsl(var(--background, 255 255 255));
 }
 
-/* 列宽拖拽手柄 */
-.yd-resize-handle {
-  touch-action: none;
-  user-select: none;
-}
-
 /* 树形展开按钮 */
 .yd-tree-toggle {
   background: transparent;
@@ -1239,37 +874,31 @@ defineExpose({
   line-height: 1;
 }
 
-/* 可编辑单元格：hover 提示 */
+/* 可编辑单元格：光标提示可进入编辑 */
 .yd-cell-editable {
   cursor: cell;
 }
 
-/* 编辑模式下输入框融入单元格，不破坏行高 */
-.yd-cell-input {
-  width: 100%;
-  min-height: 28px;
-  padding: 2px 6px;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  background: hsl(var(--background));
-  border: 1px solid hsl(var(--primary));
-  border-radius: 4px;
-  outline: none;
-  box-sizing: border-box;
-  font-family: inherit;
-  color: hsl(var(--foreground));
+/* 行虚拟滚动时列头吸顶，保证滚动过程中列语义不丢失 */
+.yd-body-virtual :deep(thead th) {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: hsl(var(--background, 255 255 255));
 }
 
-.yd-cell-input:focus {
-  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25);
+.yd-loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid hsl(var(--primary) / 30%);
+  border-top-color: hsl(var(--primary));
+  border-radius: 50%;
+  animation: yd-spin 0.8s linear infinite;
 }
 
-.yd-cell-input--textarea {
-  resize: vertical;
-  min-height: 48px;
-}
-
-.yd-cell-input--select {
-  appearance: auto;
+@keyframes yd-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

@@ -18,7 +18,7 @@
  * @since 1.0.0
  */
 import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdAlertBanner, YdForm, YdFormItem, YdInput, YdNumberFieldInput, type FormInstance } from '@ydsz-core/ydsz-ui';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2 } from '@ydsz/icons';
 import { cn } from '@ydsz-core/shared/utils';
 import { reactive, ref } from 'vue';
 import { createKey } from '#/api/apiKey';

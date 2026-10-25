@@ -122,6 +122,7 @@ export const esES = {
   'select.loading': 'Cargando...',
   'select.selectAll': 'Seleccionar todo',
   'select.clear': 'Limpiar',
+  'select.removeTag': 'Quitar',
   'create.label': 'Crear «{value}»',
 
     // ===== Árbol =====
@@ -141,6 +142,10 @@ export const esES = {
   'notification.empty': 'Sin notificaciones',
   'notification.markAllRead': 'Marcar todo como leído',
   'notification.viewAll': 'Ver todo',
+  'notification.closeAriaLabel': 'Cerrar notificación',
+
+  // ===== Toast =====
+  'toast.region': 'Notificaciones',
 
   // ===== Estado vacío =====
   'empty.default': 'No hay datos',

@@ -104,7 +104,7 @@ onMounted(() => {
       <div class="mb-2 text-sm text-gray-500">
         任务 #{{ historyId }} 共 {{ files.length }} 个文件
       </div>
-      <YdTable loading="loading" :data="files" stripe max-height="400">
+      <YdTable :loading="loading" :data="files" stripe max-height="400">
         <YdTableColumn type="index" label="#" width="50" />
         <YdTableColumn prop="filePath" label="文件路径" min-width="300" show-overflow-tooltip />
         <YdTableColumn label="操作" width="100">

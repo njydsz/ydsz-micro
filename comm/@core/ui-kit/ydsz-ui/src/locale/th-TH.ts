@@ -122,6 +122,7 @@ export const thTH = {
   'select.loading': 'กำลังโหลด...',
   'select.selectAll': 'เลือกทั้งหมด',
   'select.clear': 'ล้าง',
+  'select.removeTag': 'ลบ',
   'create.label': 'สร้าง "{value}"',
 
   // ===== ต้นไม้ =====
@@ -141,6 +142,10 @@ export const thTH = {
   'notification.empty': 'ไม่มีการแจ้งเตือน',
   'notification.markAllRead': 'ทำเครื่องหมายทั้งหมดว่าอ่านแล้ว',
   'notification.viewAll': 'ดูทั้งหมด',
+  'notification.closeAriaLabel': 'ปิดการแจ้งเตือน',
+
+  // ===== Toast =====
+  'toast.region': 'การแจ้งเตือน',
 
   // ===== สถานะว่างเปล่า =====
   'empty.default': 'ไม่มีข้อมูล',

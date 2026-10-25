@@ -170,7 +170,7 @@ async function handleRevoke(row: ShareLinkVO) {
     </Grid>
     <ReceivedGrid table-title="收到的分享" />
     <ShareFormModal @success="gridApi.query()" />
-    <YdDrawer v-model="logsVisible" title="访问日志" :size="640">
+    <YdDrawer v-model:open="logsVisible" header="访问日志" :width="640">
       <div class="mb-2 flex justify-end">
         <YdButton size="small" :loading="logsLoading" @click="loadLogs">刷新</YdButton>
       </div>
@@ -183,7 +183,7 @@ async function handleRevoke(row: ShareLinkVO) {
         <YdTableColumn prop="failReason" label="失败原因" min-width="120" />
       </YdTable>
     </YdDrawer>
-    <YdDrawer v-model="recipientsVisible" title="接收人" :size="640">
+    <YdDrawer v-model:open="recipientsVisible" header="接收人" :width="640">
       <div class="mb-2 flex justify-end">
         <YdButton size="small" :loading="recipientsLoading" @click="loadRecipients">刷新</YdButton>
       </div>

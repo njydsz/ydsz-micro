@@ -15,6 +15,8 @@
  * @since 1.0.0
  */
 
+import type { ComputedRef, Ref } from 'vue';
+
 import { computed, ref } from 'vue';
 
 /**
@@ -47,14 +49,28 @@ export interface UseTreeHeadlessOptions<T extends TreeNodeLike> {
   defaultSelectedKeys?: (string | number)[];
 }
 
+/** 扁平化后的树节点：level 表示层级，parents 表示祖先 value 链 */
+export interface TreeFlatNode<T extends TreeNodeLike> {
+  /** 原始节点数据 */
+  data: T;
+  /** 是否存在子节点 */
+  hasChildren: boolean;
+  /** 层级（根为 0） */
+  level: number;
+  /** 祖先 value 数组，由根到父 */
+  parents: Array<string | number>;
+  /** 节点 value */
+  value: string | number;
+}
+
 /**
  * Headless Tree 返回的句柄。
  */
 export interface TreeHeadlessHandle<T extends TreeNodeLike> {
   /** 当前展开的 value 集合（响应式） */
-  expandedKeys: Set<string | number>;
+  expandedKeys: Ref<Set<string | number>>;
   /** 当前选中的 value 集合（响应式） */
-  selectedKeys: Set<string | number>;
+  selectedKeys: Ref<Set<string | number>>;
   /** 切换展开/折叠 */
   toggleExpand: (value: string | number) => void;
   /** 切换选中态 */
@@ -70,7 +86,7 @@ export interface TreeHeadlessHandle<T extends TreeNodeLike> {
   /** 清空所有选中 */
   clearSelection: () => void;
   /** 扁平化节点（含 level / parents），供虚拟滚动使用 */
-  flattenedNodes: { data: T; level: number; hasChildren: boolean; parents: Array<string | number> }[];
+  flattenedNodes: ComputedRef<TreeFlatNode<T>[]>;
 }
 
 /**
@@ -113,20 +129,8 @@ export function useTreeHeadless<T extends TreeNodeLike>(
     items: T[],
     level: number,
     parents: Array<string | number>,
-  ): {
-    data: T;
-    hasChildren: boolean;
-    level: number;
-    parents: Array<string | number>;
-    value: string | number;
-  }[] {
-    const result: {
-      data: T;
-      hasChildren: boolean;
-      level: number;
-      parents: Array<string | number>;
-      value: string | number;
-    }[] = [];
+  ): TreeFlatNode<T>[] {
+    const result: TreeFlatNode<T>[] = [];
 
     for (const item of items) {
       const value = getValue(item);
@@ -268,13 +272,13 @@ export function useTreeHeadless<T extends TreeNodeLike>(
   /**
    * 查找第一个匹配 value 的节点。
    *
+   * <p>走扁平化结果做全树查找：只扫顶层会让非根节点的级联选中静默失效。
+   *
    * @param value - 目标 value
    * @return 找到的节点或 undefined
    */
   function findNode(value: string | number): T | undefined {
-    const raw = typeof treeData === 'function' ? treeData() : treeData;
-    const nodes = (raw ?? []) as T[];
-    return nodes.find((n) => getValue(n) === value);
+    return flattenedNodes.value.find(node => node.value === value)?.data;
   }
 
   /**
@@ -285,7 +289,8 @@ export function useTreeHeadless<T extends TreeNodeLike>(
     const keys = new Set<string | number>();
     function walk(nodes: T[]): void {
       for (const node of nodes) {
-        const children = getChildren(node);        if (Array.isArray(children) && children.length > 0) {
+        const children = getChildren(node);
+        if (Array.isArray(children) && children.length > 0) {
           keys.add(getValue(node));
           walk(children);
         }

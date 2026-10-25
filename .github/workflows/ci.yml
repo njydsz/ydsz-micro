@@ -84,6 +84,66 @@ jobs:
       - name: importmap 版本锁与 vendor 产物一致性校验
         run: pnpm sync:shared-deps:check
 
+  # 接线一致性门禁（B0-7）：base 路径 / nginx 生成物 / 设计令牌 / CI 自身引用的脚本存在性。
+  # 单独成 job 而不是塞进 verify：verify 目前卡在 pnpm lint 的存量错误上（1360 error），
+  # 若把这些步骤排在 lint 之后，它们一次也不会被执行——这正是"门禁写了却没人跑"的成因。
+  # 每项都附带 --self-test 反例自检：自检红说明检查空转，同样阻断合并。
+  wiring:
+    name: 接线一致性（base / nginx / 令牌 / HTML 头部 / CI 引用）
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: CI 引用的脚本与文件必须存在
+        run: pnpm check:ci
+
+      - name: CI 引用检查自检
+        run: pnpm check:ci:self-test
+
+      - name: 子应用 base 路径单一来源（配置级）
+        run: pnpm check:base
+
+      - name: nginx 生成物与子应用注册一致
+        run: pnpm gen:nginx:check
+
+      - name: nginx 缓存分层与安全头 include
+        run: pnpm check:nginx
+
+      - name: nginx 门禁自检
+        run: pnpm check:nginx:self-test
+
+      # viewport 禁缩放（WCAG 1.4.4）与"CSP 自己拦掉的第三方引用"都属于结构性缺陷，
+      # 但改前它们同时出现在主应用与 8 个子应用的 index.html 里 —— 只有门禁能防复发。
+      - name: index.html 头部（viewport 缩放 / CSP 自堵引用 / 脚手架模板）
+        run: pnpm check:head
+
+      - name: index.html 头部门禁自检
+        run: pnpm check:head:self-test
+
+      - name: 设计令牌接线（含产物级需先构建，此处校验源码接线）
+        run: pnpm check:tokens
+
+      - name: 设计令牌门禁自检
+        run: pnpm check:tokens:self-test
+
+      # 性能退化判定的自检：该脚本由 performance.yml 调用，必须"基线缺失/指标名漂移就红"，
+      # 但性能 job 本身是独立工作流，所以把它的不失败能力放进必跑的 PR 门禁里验证。
+      - name: 性能退化门禁自检
+        run: |
+          python3 bash/check-performance-regression.py --self-test
+
   accessibility:
     name: 无障碍冒烟（axe WCAG 2.1 AA）
     runs-on: ubuntu-latest
@@ -181,7 +241,7 @@ jobs:
         env:
           YDSZ_CLOUD_ROOT: ${{ github.workspace }}/ydsz-cloud
         run: |
-          node bash/gen-error-codes.mjs --check
+          node bash/gen-error-codes.mts --check
 
   security:
     name: 安全扫描（依赖 + 密钥）
@@ -234,7 +294,7 @@ jobs:
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          node bash/contract-notify.mjs
+          node bash/contract-notify.mts
 
   # 视觉回归门禁（P0-3）：Playwright toHaveScreenshot() 像素级基线对比。
   # 基线截图随仓库提交，CI 自动对比；差异超阈值（maxDiffPixelRatio ≤ 0.01）则失败。

@@ -217,7 +217,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div loading="loading" class=" p-5">
+    <div v-loading="loading" class=" p-5">
       <!-- 搜索区 -->
       <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between">
@@ -430,7 +430,7 @@ onMounted(() => {
           </p>
           <div class="flex flex-wrap gap-2">
             <YdBadge
-              v-for="(code, idx) in cascadingPreview"
+              v-for="code in cascadingPreview"
               :key="code"
               type="warning"
               effect="dark"

@@ -223,7 +223,7 @@ onMounted(() => {
       <!-- 反馈列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdTable loading="loading" :data="feedbackList" stripe border style="width: 100%">
+          <YdTable :loading="loading" :data="feedbackList" stripe border style="width: 100%">
             <YdTableColumn type="index" label="序号" width="60" align="center" />
             <YdTableColumn prop="userId" label="用户ID" width="140" />
             <YdTableColumn prop="msgId" label="消息ID" width="180" />

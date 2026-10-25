@@ -122,6 +122,7 @@ export const deDE = {
   'select.loading': 'Wird geladen...',
   'select.selectAll': 'Alle auswählen',
   'select.clear': 'Leeren',
+  'select.removeTag': 'Entfernen',
   'create.label': '"{value}" erstellen',
 
   // ===== Baum =====
@@ -141,6 +142,10 @@ export const deDE = {
   'notification.empty': 'Keine Benachrichtigungen',
   'notification.markAllRead': 'Alle als gelesen markieren',
   'notification.viewAll': 'Alle anzeigen',
+  'notification.closeAriaLabel': 'Benachrichtigung schließen',
+
+  // ===== Toast =====
+  'toast.region': 'Benachrichtigungen',
 
   // ===== Leerer Zustand =====
   'empty.default': 'Keine Daten',

@@ -6,6 +6,8 @@
  * @since 26.10.11
  */
 
+import type { Component, ComputedRef } from 'vue';
+
 /* ============================================================ */
 /* 基础类型                                                       */
 /* ============================================================ */
@@ -36,8 +38,8 @@ export interface ToastMessage {
   summary?: string;
   /** 内容详情 */
   detail?: string;
-  /** 自定义图标（Lucide 组件名或 SVG 字符串） */
-  icon?: string;
+  /** 自定义图标组件（不传则按 severity 取默认图标） */
+  icon?: Component;
   /** 展示位置 */
   position: ToastPosition;
   /** 持续时长（毫秒），0 表示常驻 */
@@ -62,8 +64,8 @@ export interface ToastOptions {
   summary?: string;
   /** 内容详情 */
   detail?: string;
-  /** 自定义图标 */
-  icon?: string;
+  /** 自定义图标组件 */
+  icon?: Component;
   /** 展示位置，默认 top-right */
   position?: ToastPosition;
   /** 持续时长（毫秒），0 表示常驻 */
@@ -74,12 +76,24 @@ export interface ToastOptions {
   group?: string;
 }
 
+/** 全局默认配置（configureToast 写入，后续 add 生效） */
+export interface ToastConfig {
+  /** 默认可见时长（毫秒），0 表示常驻 */
+  life?: number;
+  /** 同时可见的最大条数，0 表示不限制（超出时丢弃最旧的一条） */
+  maxVisible?: number;
+  /** 默认展示位置 */
+  position?: ToastPosition;
+}
+
 /* ============================================================ */
 /* 返回值                                                         */
 /* ============================================================ */
 
 /** 单条 Toast 操作句柄 */
 export interface ToastHandle {
+  /** 此条消息的 id，可用于 remove(id) */
+  id: string;
   /** 关闭此条 Toast */
   close: () => void;
 }
@@ -90,6 +104,8 @@ export interface ToastHandle {
 
 /** useToast composable 返回句柄 */
 export interface UseToastReturn {
+  /** 当前消息列表（只读，直接绑定 YdToastContainer） */
+  messages: ComputedRef<ToastMessage[]>;
   /** 程序化添加 Toast */
   add: (options: ToastOptions) => ToastHandle;
   /** 快捷：弹出成功 Toast */
@@ -102,8 +118,10 @@ export interface UseToastReturn {
   error: (message: string, options?: Partial<ToastOptions>) => ToastHandle;
   /** 关闭指定 id 的 Toast */
   remove: (id: string) => void;
-  /** 关闭某一位置的所有 Toast */
-  removeGroup: (position: ToastPosition) => void;
+  /** 关闭某一分组的全部 Toast */
+  removeGroup: (group: string) => void;
+  /** 关闭某一位置的全部 Toast */
+  removeByPosition: (position: ToastPosition) => void;
   /** 关闭全部 Toast */
   removeAll: () => void;
 }

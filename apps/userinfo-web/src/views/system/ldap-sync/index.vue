@@ -54,7 +54,7 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
 */
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2 } from '@ydsz/icons';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
