@@ -103,6 +103,27 @@ const DEFAULT_ITEM_HEIGHT = 32;
 const DEFAULT_OVERSCAN = 5;
 
 /**
+ * 在高度前缀和数组中定位像素偏移所属的项索引。
+ *
+ * @param offsets - 前缀和数组，`offsets[i]` 为第 i 项之前的累计高度，长度为 n + 1
+ * @param px - 目标像素偏移
+ * @returns 满足 `offsets[index] <= px` 的最大索引（px 超出总高度时返回 n）
+ */
+function findIndexAtOffset(offsets: number[], px: number): number {
+  let low = 0;
+  let high = offsets.length - 1;
+  while (low < high) {
+    const mid = (low + high + 1) >> 1;
+    if ((offsets[mid] ?? 0) <= px) {
+      low = mid;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return low;
+}
+
+/**
  * useVirtualList —— 根据 items 与滚动位置返回可见项切片。
  *
  * @param items - 原始列表（ref / reactive / getter 均可）
@@ -156,71 +177,63 @@ export function useVirtualList<T = unknown>(
     return unref(items as MaybeRef<T[]>);
   });
 
+  /** 动态高度模式开关：实测映射为空时走等高的 O(1) 计算，避免空 Map 触发逐项扫描 */
+  const isMeasured = computed(() => (measuredHeights?.value?.size ?? 0) > 0);
+
   /** 计算单项实际高度 */
   const getItemHeight = (index: number): number => {
-    if (measuredHeights?.value) {
-      const measured = measuredHeights.value.get(index);
-      if (measured !== undefined) return measured;
-    }
-    return itemHeight;
+    return measuredHeights?.value?.get(index) ?? itemHeight;
   };
+
+  /**
+   * 高度前缀和：`offsets[i]` 为第 i 项之前的累计高度，长度 n + 1。
+   *
+   * 重建成本 O(n)，只在数据量或实测高度变化时发生；滚动帧内的定位改用二分，
+   * 每帧成本由 O(n·k) 降至 O(log n + k)（k 为可见项数）。
+   */
+  const offsets = computed<number[]>(() => {
+    const list = resolvedItems.value;
+    const measured = measuredHeights?.value;
+    const cache = new Array<number>(list.length + 1);
+    cache[0] = 0;
+    for (let i = 0; i < list.length; i++) {
+      cache[i + 1] = (cache[i] ?? 0) + (measured?.get(i) ?? itemHeight);
+    }
+    return cache;
+  });
 
   /** 计算 index 之前所有项的累计 offsetY */
   const getOffsetY = (index: number): number => {
-    let offset = 0;
-    for (let i = 0; i < index; i++) {
-      offset += getItemHeight(i);
-    }
-    return offset;
+    if (!isMeasured.value) return index * itemHeight;
+    return offsets.value[index] ?? 0;
   };
 
   /** 总高度 */
   const totalHeight = computed(() => {
     const list = resolvedItems.value;
-    if (!measuredHeights?.value) {
-      return list.length * itemHeight;
-    }
-    let total = 0;
-    for (let i = 0; i < list.length; i++) {
-      total += getItemHeight(i);
-    }
-    return total;
+    if (!isMeasured.value) return list.length * itemHeight;
+    return offsets.value[list.length] ?? 0;
   });
 
   /** 可见起始索引（考虑 overscan） */
   const startIndex = computed(() => {
-    if (!measuredHeights?.value) {
+    if (!isMeasured.value) {
       const raw = Math.floor(scrollTop.value / itemHeight);
       return Math.max(0, raw - overscan);
     }
-    // 动态高度：累加找到首个累计 offset > scrollTop - overscanHeight 的索引
-    let accumulated = 0;
-    const overscanHeight = overscan * itemHeight;
-    const target = Math.max(0, scrollTop.value - overscanHeight);
-    for (let i = 0; i < resolvedItems.value.length; i++) {
-      if (accumulated >= target) {
-        return Math.max(0, i - 1);
-      }
-      accumulated += getItemHeight(i);
-    }
-    return 0;
+    const target = Math.max(0, scrollTop.value - overscan * itemHeight);
+    return Math.max(0, findIndexAtOffset(offsets.value, target) - overscan);
   });
 
   /** 可见结束索引 */
   const endIndex = computed(() => {
     const list = resolvedItems.value;
-    if (!measuredHeights?.value) {
+    if (!isMeasured.value) {
       const visibleCount = Math.ceil(viewportHeight / itemHeight);
       return Math.min(list.length, startIndex.value + visibleCount + overscan * 2);
     }
-    let accumulated = getOffsetY(startIndex.value);
     const targetEnd = scrollTop.value + viewportHeight + overscan * itemHeight;
-    let i = startIndex.value;
-    for (; i < list.length; i++) {
-      if (accumulated >= targetEnd) break;
-      accumulated += getItemHeight(i);
-    }
-    return Math.min(list.length, i);
+    return Math.min(list.length, findIndexAtOffset(offsets.value, targetEnd) + 1);
   });
 
   /** 可见项切片 */

@@ -95,6 +95,27 @@ const panelColumns = computed(() => {
   return columns;
 });
 
+/** 逐级回查 modelValue 对应的 label；任一级查不到即视为路径失效 */
+const displayLabels = computed<string[]>(() => {
+  const labels: string[] = [];
+  let level: CascaderOption[] = props.options;
+  for (const val of props.modelValue) {
+    const matched = level.find((opt) => opt.value === val);
+    if (!matched) break;
+    labels.push(matched.label);
+    level = matched.children ?? [];
+  }
+  return labels;
+});
+
+/** 触发器展示文本：优先 label 路径，回退原始 value 路径 */
+const displayText = computed<string>(() => {
+  if (!props.modelValue.length) return '';
+  return displayLabels.value.length === props.modelValue.length
+    ? displayLabels.value.join(' / ')
+    : props.modelValue.join(' / ');
+});
+
 function handleSelect(option: CascaderOption, level: number, isLeaf: boolean): void {
   if (option.disabled) return;
 
@@ -161,8 +182,8 @@ const sizeMap: Record<string, string> = {
       @click="togglePanel"
     >
       <!-- 已选项标签 -->
-      <span v-if="props.modelValue.length" class="truncate text-foreground">
-        {{ props.modelValue.join(' / ') }}
+      <span v-if="displayText" class="truncate text-foreground">
+        {{ displayText }}
       </span>
       <span v-else>{{ props.placeholder }}</span>
 

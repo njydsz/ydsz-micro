@@ -16,7 +16,7 @@
  * @since 1.0.0 (26.09.17 增强：持久化+排序)
  */
 // @ts-nocheck
-import { onMounted, ref, type Ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -103,22 +103,44 @@ const {
   },
 );
 
+/** 行高量测观察器：随组件卸载显式断开，避免观察器持有已销毁 DOM */
+let rowObserver: null | ResizeObserver = null;
+
+/** 为当前处于视口内的行补登记量测（虚拟滚动会不断替换行 DOM） */
+function observeVisibleRows(): void {
+  const viewport = viewportRef.value;
+  if (!rowObserver || !viewport) return;
+  viewport
+    .querySelectorAll('[data-index]')
+    .forEach((row) => rowObserver?.observe(row));
+}
+
 onMounted(() => {
-  if (viewportRef.value) {
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { height } = entry.contentRect;
-        const index = Number.parseInt(entry.target.getAttribute('data-index') ?? '-1', 10);
-        if (!Number.isNaN(index) && index >= 0) {
-          measured.value.set(index, height);
-        }
+  rowObserver = new ResizeObserver((entries) => {
+    // 单次回调内合并写入并整体替换 Map：让前缀和每帧只重建一次，而非逐行触发
+    const next = new Map(measured.value);
+    let changed = false;
+    for (const entry of entries) {
+      const index = Number.parseInt(
+        entry.target.getAttribute('data-index') ?? '-1',
+        10,
+      );
+      const { height } = entry.contentRect;
+      if (!Number.isNaN(index) && index >= 0 && next.get(index) !== height) {
+        next.set(index, height);
+        changed = true;
       }
-    });
-    const rows = viewportRef.value.querySelectorAll('[data-index]');
-    rows.forEach((row) => ro.observe(row));
-    return () => ro.disconnect();
-  }
-  return undefined;
+    }
+    if (changed) measured.value = next;
+  });
+  observeVisibleRows();
+});
+
+watch(visibleItems, () => observeVisibleRows(), { flush: 'post' });
+
+onBeforeUnmount(() => {
+  rowObserver?.disconnect();
+  rowObserver = null;
 });
 
 function getColumnClass(col: VirtualTableColumn): string {

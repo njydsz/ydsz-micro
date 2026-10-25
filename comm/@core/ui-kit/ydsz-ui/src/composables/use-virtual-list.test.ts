@@ -131,6 +131,74 @@ describe('useVirtualList', () => {
     expect(scrollTop.value).toBe(500);
   });
 
+  it('空 measuredHeights 映射应与不传时结果一致（等高速率路径不被空 Map 拖入逐项扫描）', () => {
+    const items = ref(Array.from({ length: 500 }, (_, i) => ({ id: i })));
+
+    const plain = useVirtualList(items, {
+      itemHeight: 32,
+      viewportHeight: 256,
+    });
+    const emptyMeasured = useVirtualList(items, {
+      itemHeight: 32,
+      measuredHeights: ref(new Map<number, number>()),
+      viewportHeight: 256,
+    });
+
+    expect(emptyMeasured.totalHeight.value).toBe(plain.totalHeight.value);
+    expect(emptyMeasured.visibleItems.value.map((item) => item.index)).toEqual(
+      plain.visibleItems.value.map((item) => item.index),
+    );
+    expect(emptyMeasured.offsetY.value).toBe(plain.offsetY.value);
+  });
+
+  it('动态高度下 offsetY 应按前缀和定位，滚动到底部不回卷', () => {
+    const items = ref(Array.from({ length: 10 }, (_, i) => ({ id: i })));
+    // 首项实测 100px，其余按 itemHeight=32 估算 → offsets = [0,100,132,...,388]
+    const measured = ref(new Map<number, number>([[0, 100]]));
+
+    const { offsetY, onScroll, visibleItems } = useVirtualList(items, {
+      itemHeight: 32,
+      measuredHeights: measured,
+      overscan: 0,
+      viewportHeight: 100,
+    });
+
+    // 滚到第 3 项起点（132 = 100 + 32），可见区间应从此处开始
+    onScroll({ target: { scrollTop: 132 } } as unknown as Event);
+    expect(visibleItems.value[0]?.index).toBe(2);
+    expect(visibleItems.value[0]?.offsetY).toBe(132);
+    expect(offsetY.value).toBe(132);
+
+    // 滚到底部（288 + 100 = 388 恰为总高度），旧实现的线性扫描会错误回到 0
+    onScroll({ target: { scrollTop: 288 } } as unknown as Event);
+    expect(visibleItems.value[0]?.index).toBe(6);
+    expect(visibleItems.value.map((item) => item.index)).toEqual([6, 7, 8, 9]);
+  });
+
+  it('实测高度变化后总高度与区间应随之更新', () => {
+    const items = ref(Array.from({ length: 5 }, (_, i) => ({ id: i })));
+    const measured = ref(new Map<number, number>());
+
+    const { onScroll, totalHeight, visibleItems } = useVirtualList(items, {
+      itemHeight: 32,
+      measuredHeights: measured,
+      overscan: 0,
+      viewportHeight: 40,
+    });
+
+    expect(totalHeight.value).toBe(5 * 32);
+
+    measured.value = new Map([
+      [0, 200],
+      [1, 200],
+    ]);
+    expect(totalHeight.value).toBe(200 + 200 + 3 * 32);
+
+    onScroll({ target: { scrollTop: 200 } } as unknown as Event);
+    expect(visibleItems.value[0]?.index).toBe(1);
+    expect(visibleItems.value[0]?.offsetY).toBe(200);
+  });
+
   it('空列表应安全返回空结果', () => {
     const items = ref<unknown[]>([]);
 

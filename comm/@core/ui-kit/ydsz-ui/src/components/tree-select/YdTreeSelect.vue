@@ -57,6 +57,15 @@ const flattenOptions = computed(() => {
   return result;
 });
 
+/** 触发器展示文本：按 modelValue 在树中回查节点 label，查不到时退回原值 */
+const displayLabel = computed(() => {
+  if (props.modelValue === undefined || props.modelValue === null || props.modelValue === '') {
+    return props.placeholder;
+  }
+  const matched = flattenOptions.value.find((opt) => opt.value === props.modelValue);
+  return matched?.label ?? String(props.modelValue);
+});
+
 const filteredOptions = computed(() => {
   if (!query.value) return props.options;
   const q = query.value.toLowerCase();
@@ -93,7 +102,7 @@ function isSelected(val: string | number): boolean {
       @click="isOpen = !isOpen"
     >
       <span :class="cn(!props.modelValue && 'text-muted-foreground')">
-        {{ String(props.modelValue ?? props.placeholder) }}
+        {{ displayLabel }}
       </span>
       <ChevronDown :class="cn('size-4 text-muted-foreground transition-transform', isOpen && 'rotate-180')" />
     </button>

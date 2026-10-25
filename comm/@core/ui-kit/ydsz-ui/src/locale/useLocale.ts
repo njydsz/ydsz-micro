@@ -19,6 +19,8 @@ import type { InjectionKey, Ref } from 'vue';
 
 import { computed, inject, readonly, ref } from 'vue';
 
+import { useSimpleLocale } from '@ydsz-core/composables';
+
 import { enUS } from './en-US';
 import { jaJP } from './ja-JP';
 import { koKR } from './ko-KR';
@@ -74,6 +76,24 @@ const LOCALE_LANG_KEY: InjectionKey<Ref<LocaleLangState | undefined>>
 
 /** RTL 语言列表（预留扩展） */
 const rtlLanguages: LocaleLang[] = ['ar-SA'];
+
+/** 已内置词典的语种白名单，用于校验外部传入值 */
+const SUPPORTED_LOCALES: ReadonlySet<string> = new Set<LocaleLang>([
+  'ar-SA',
+  'de-DE',
+  'en-US',
+  'es-ES',
+  'fr-FR',
+  'hi-IN',
+  'ja-JP',
+  'ko-KR',
+  'pt-BR',
+  'ru-RU',
+  'th-TH',
+  'vi-VN',
+  'zh-CN',
+  'zh-TW',
+]);
 
 /** 内置默认语言包 —— 14 种语言 */
 const BUILTIN_MESSAGES: LocaleRegistry = {
@@ -136,30 +156,27 @@ export function useLocale(options: UseLocaleOptions = {}): {
 
   // 读取 ConfigProvider 注入的语言偏好（如有）
   const injectedState = inject(LOCALE_LANG_KEY, ref<LocaleLangState | undefined>(undefined));
+  /** 应用级语言偏好（Preferences 里切换的全站语言） */
+  const appLocale = useSimpleLocale();
 
   /** 是否启用自定义覆写词典（优先级最高） */
   const hasCustomMessages = !!(messages && Object.keys(messages).length > 0);
 
-  /** 当前激活语种 */
+  /**
+   * 当前激活语种。
+   *
+   * <p>优先级：ConfigProvider 注入 → 应用级 useSimpleLocale（偏好设置里切换的
+   * 全站语言）→ 'zh-CN'。此前只认注入值，导致业务方 setSimpleLocale('en-US')
+   * 后组件词典仍是中文，两套 locale 各说各话。
+   */
   const lang = computed<LocaleLang>(() => {
-    const current = injectedState?.value?.lang;
-    if (
-      current === 'zh-CN'
-      || current === 'en-US'
-      || current === 'ja-JP'
-      || current === 'zh-TW'
-      || current === 'ko-KR'
-      || current === 'fr-FR'
-      || current === 'de-DE'
-      || current === 'es-ES'
-      || current === 'pt-BR'
-      || current === 'ru-RU'
-      || current === 'ar-SA'
-      || current === 'hi-IN'
-      || current === 'th-TH'
-      || current === 'vi-VN'
-    ) {
-      return current;
+    const fromProvider = injectedState?.value?.lang;
+    if (fromProvider && SUPPORTED_LOCALES.has(fromProvider)) {
+      return fromProvider;
+    }
+    const fromApp = appLocale.currentLocale.value;
+    if (SUPPORTED_LOCALES.has(fromApp)) {
+      return fromApp as LocaleLang;
     }
     return 'zh-CN';
   });
@@ -174,82 +191,34 @@ export function useLocale(options: UseLocaleOptions = {}): {
     return rtlLanguages.includes(lang.value);
   });
 
-  /** 合并后的消息表（外部覆写优先） */
+  /** 合并后的消息表（外部覆写优先于内置词典） */
   const resolvedMessages = computed<LocaleRegistry>(() => {
-    if (hasCustomMessages && messages) {
-      const merged: LocaleRegistry = {
-        'en-US': {
-          ...BUILTIN_MESSAGES['en-US'],
-          ...(messages['en-US'] ?? {}),
-        } as LocaleMessages,
-        'ja-JP': {
-          ...BUILTIN_MESSAGES['ja-JP'],
-          ...(messages['ja-JP'] ?? {}),
-        } as LocaleMessages,
-        'ko-KR': {
-          ...BUILTIN_MESSAGES['ko-KR'],
-          ...(messages['ko-KR'] ?? {}),
-        } as LocaleMessages,
-        'zh-CN': {
-          ...BUILTIN_MESSAGES['zh-CN'],
-          ...(messages['zh-CN'] ?? {}),
-        } as LocaleMessages,
-        'zh-TW': {
-          ...BUILTIN_MESSAGES['zh-TW'],
-          ...(messages['zh-TW'] ?? {}),
-        } as LocaleMessages,
-        'fr-FR': {
-          ...BUILTIN_MESSAGES['fr-FR'],
-          ...(messages['fr-FR'] ?? {}),
-        } as LocaleMessages,
-        'de-DE': {
-          ...BUILTIN_MESSAGES['de-DE'],
-          ...(messages['de-DE'] ?? {}),
-        } as LocaleMessages,
-        'es-ES': {
-          ...BUILTIN_MESSAGES['es-ES'],
-          ...(messages['es-ES'] ?? {}),
-        } as LocaleMessages,
-        'pt-BR': {
-          ...BUILTIN_MESSAGES['pt-BR'],
-          ...(messages['pt-BR'] ?? {}),
-        } as LocaleMessages,
-        'ru-RU': {
-          ...BUILTIN_MESSAGES['ru-RU'],
-          ...(messages['ru-RU'] ?? {}),
-        } as LocaleMessages,
-        'ar-SA': {
-          ...BUILTIN_MESSAGES['ar-SA'],
-          ...(messages['ar-SA'] ?? {}),
-        } as LocaleMessages,
-        'hi-IN': {
-          ...BUILTIN_MESSAGES['hi-IN'],
-          ...(messages['hi-IN'] ?? {}),
-        } as LocaleMessages,
-        'th-TH': {
-          ...BUILTIN_MESSAGES['th-TH'],
-          ...(messages['th-TH'] ?? {}),
-        } as LocaleMessages,
-        'vi-VN': {
-          ...BUILTIN_MESSAGES['vi-VN'],
-          ...(messages['vi-VN'] ?? {}),
-        } as LocaleMessages,
-      };
-      return merged;
-    }
-    return BUILTIN_MESSAGES;
+    if (!hasCustomMessages || !messages) return BUILTIN_MESSAGES;
+    return Object.fromEntries(
+      Object.entries(BUILTIN_MESSAGES).map(([locale, builtin]) => [
+        locale,
+        { ...builtin, ...(messages[locale as LocaleLang] ?? {}) },
+      ]),
+    ) as LocaleRegistry;
   });
 
   /**
    * 翻译函数。
    *
+   * <p>词条按「当前语种 → zh-CN → en-US → 显式 fallback → key」逐级回退。
+   * 小语种词典只覆盖高频文案，缺词条时回落到中文而非把 `selectDate` 这类
+   * key 字面量渲染到界面上。
+   *
    * @param key - 文案键名（如 'table.empty'）
-   * @param fallback - 未找到时的回退文案
+   * @param fallback - 全部词典均未命中时的回退文案
    * @returns 对应语种的文案；未找到时返回 fallback 或 key 本身
    */
   function t(key: string, fallback?: string): string {
     const table = resolvedMessages.value[lang.value] ?? {};
-    return table[key] ?? fallback ?? key;
+    const hit = table[key]
+      ?? (lang.value === 'zh-CN' ? undefined : resolvedMessages.value['zh-CN']?.[key])
+      ?? (lang.value === 'en-US' ? undefined : resolvedMessages.value['en-US']?.[key]);
+    return hit ?? fallback ?? key;
   }
 
   return {

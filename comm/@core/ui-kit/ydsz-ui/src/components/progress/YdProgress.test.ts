@@ -48,7 +48,10 @@ describe('YdProgress', () => {
     const wrapper = mount(YdProgress, {
       props: { indeterminate: true },
     });
-    const indicator = wrapper.find('[data-radix-progress-indicator]');
-    expect(indicator.exists()).toBe(true);
+    // ydsz-vue Progress 用 data-state 表达不确定进度，并省略 aria-valuenow
+    const root = wrapper.find('[role="progressbar"]');
+    expect(root.exists()).toBe(true);
+    expect(root.attributes('data-state')).toBe('indeterminate');
+    expect(root.attributes('aria-valuenow')).toBeUndefined();
   });
 });

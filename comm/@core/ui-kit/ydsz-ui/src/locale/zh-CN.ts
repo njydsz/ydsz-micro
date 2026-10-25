@@ -101,6 +101,9 @@ export const zhCN = {
   'datepicker.thisYear': '今年',
   'datepicker.clear': '清除',
   'datepicker.confirm': '确认',
+  'datepicker.openCalendar': '打开日历',
+  'datepicker.previousMonth': '上个月',
+  'datepicker.nextMonth': '下个月',
   'datepicker.mon': '一',
   'datepicker.tue': '二',
   'datepicker.wed': '三',
@@ -158,6 +161,39 @@ export const zhCN = {
   'empty.no-data': '暂无数据',
   'empty.no-permission': '暂无权限',
   'empty.no-result': '未找到匹配结果',
+
+  // ===== AutoComplete =====
+  'autoComplete.placeholder': '请输入关键词',
+  'autoComplete.emptyText': '暂无匹配项',
+  'autoComplete.loadingText': '加载中...',
+  'autoComplete.clearAriaLabel': '清空输入',
+
+  // ===== Upload / FileUpload =====
+  'upload.clickToUpload': '点击上传',
+  'upload.dragTipPrefix': '将文件拖到此处，或',
+  'fileUpload.clickToUpload': '点击或拖拽上传',
+  'fileUpload.dragAndDrop': '拖拽文件到此区域',
+  'fileUpload.fileSize': '大小',
+
+  // ===== OrderList =====
+  'orderList.moveToTop': '移到顶部',
+  'orderList.moveUp': '上移',
+  'orderList.moveDown': '下移',
+  'orderList.moveToBottom': '移到底部',
+  'orderList.filterPlaceholder': '搜索',
+
+  // ===== PickList =====
+  'pickList.sourceLabel': '源列表',
+  'pickList.targetLabel': '目标列表',
+  'pickList.moveToTarget': '移动到目标',
+  'pickList.moveToSource': '移回源列表',
+  'pickList.moveAllToTarget': '全部移动到目标',
+  'pickList.moveAllToSource': '全部移回源列表',
+  'pickList.filterPlaceholder': '搜索',
+
+  // ===== QrCode / SplitButton =====
+  'qrCode.download': '下载二维码',
+  'splitButton.toggleDropdown': '展开更多操作',
 } as const satisfies Record<string, string>;
 
 export default zhCN;

@@ -844,7 +844,7 @@ function isFileReady(item: UploadFileItem): boolean {
             class="mt-0.5 flex items-center gap-1 text-xs text-red-500"
           >
             <AlertCircle class="h-3 w-3" />
-            <span>{{ item.error ?? t('fileUpload.uploadFailed') }}</span>
+            <span>{{ item.error ?? t('upload.error') }}</span>
           </div>
 
           <!-- ready 状态提示 -->
@@ -875,7 +875,7 @@ function isFileReady(item: UploadFileItem): boolean {
           <!-- 预览（仅图片 + preview=true） -->
           <button
             v-if="preview && isImage(item.type)"
-            :title="t('fileUpload.preview')"
+            :title="t('upload.preview')"
             class="hover:bg-accent rounded p-1"
             type="button"
             @click="handlePreview(item)"
@@ -886,7 +886,7 @@ function isFileReady(item: UploadFileItem): boolean {
           <!-- 重试（失败时） -->
           <button
             v-if="isFileError(item)"
-            :title="t('fileUpload.retry')"
+            :title="t('upload.retry')"
             class="hover:bg-accent rounded p-1"
             type="button"
             @click="retryFile(item)"
@@ -896,7 +896,7 @@ function isFileReady(item: UploadFileItem): boolean {
 
           <!-- 移除 -->
           <button
-            :title="t('fileUpload.remove')"
+            :title="t('upload.remove')"
             class="hover:bg-accent rounded p-1"
             type="button"
             @click="removeFile(item)"
@@ -966,7 +966,7 @@ function isFileReady(item: UploadFileItem): boolean {
         >
           <AlertCircle class="h-5 w-5 text-red-500" />
           <span class="mt-0.5 text-[10px] text-red-600">
-            {{ item.error ?? t('fileUpload.uploadFailed') }}
+            {{ item.error ?? t('upload.error') }}
           </span>
         </div>
 
@@ -976,7 +976,7 @@ function isFileReady(item: UploadFileItem): boolean {
         >
           <button
             v-if="preview && isImage(item.type)"
-            :title="t('fileUpload.preview')"
+            :title="t('upload.preview')"
             class="rounded-full bg-white/90 p-1.5"
             type="button"
             @click="handlePreview(item)"
@@ -985,7 +985,7 @@ function isFileReady(item: UploadFileItem): boolean {
           </button>
           <button
             v-if="isFileError(item)"
-            :title="t('fileUpload.retry')"
+            :title="t('upload.retry')"
             class="rounded-full bg-white/90 p-1.5"
             type="button"
             @click="retryFile(item)"
@@ -993,7 +993,7 @@ function isFileReady(item: UploadFileItem): boolean {
             <RefreshCw class="text-foreground h-4 w-4" />
           </button>
           <button
-            :title="t('fileUpload.remove')"
+            :title="t('upload.remove')"
             class="rounded-full bg-white/90 p-1.5"
             type="button"
             @click="removeFile(item)"

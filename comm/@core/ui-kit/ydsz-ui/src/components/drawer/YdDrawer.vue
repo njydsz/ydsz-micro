@@ -18,7 +18,7 @@
  * @since 1.0.0
  -->
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -62,9 +62,6 @@ const { t } = useComponentI18n({
 
 /* ----- 覆盖层栈（z-index 自动管理） ----- */
 const overlayHandle = useOverlayStack({ baseZIndex: 1100 });
-
-/* ----- SSR hydration guard ----- */
-const isReady = ref(false);
 
 /* ----- 响应式样式 ----- */
 const isHorizontal = computed(
@@ -195,7 +192,6 @@ const parsedFooterPt = computed(() =>
 );
 
 onMounted(() => {
-  isReady.value = true;
   if (props.open) {
     overlayHandle.register();
   }
@@ -205,7 +201,7 @@ onMounted(() => {
 <template>
   <!-- 根容器 -->
   <div
-    v-if="isReady && open"
+    v-if="open"
     class="yd-drawer fixed inset-0"
     :style="{ zIndex: overlayHandle.zIndex }"
     @keydown="onRootKeydown"

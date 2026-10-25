@@ -100,6 +100,9 @@ export const enUS = {
   'datepicker.thisYear': 'This year',
   'datepicker.clear': 'Clear',
   'datepicker.confirm': 'Confirm',
+  'datepicker.openCalendar': 'Open calendar',
+  'datepicker.previousMonth': 'Previous month',
+  'datepicker.nextMonth': 'Next month',
   'datepicker.mon': 'Mon',
   'datepicker.tue': 'Tue',
   'datepicker.wed': 'Wed',
@@ -157,6 +160,39 @@ export const enUS = {
   'empty.no-data': 'No data',
   'empty.no-permission': 'No permission',
   'empty.no-result': 'No matching results',
+
+  // ===== AutoComplete =====
+  'autoComplete.placeholder': 'Type a keyword',
+  'autoComplete.emptyText': 'No matching items',
+  'autoComplete.loadingText': 'Loading...',
+  'autoComplete.clearAriaLabel': 'Clear input',
+
+  // ===== Upload / FileUpload =====
+  'upload.clickToUpload': 'Click to upload',
+  'upload.dragTipPrefix': 'Drag a file here, or ',
+  'fileUpload.clickToUpload': 'Click or drag to upload',
+  'fileUpload.dragAndDrop': 'Drag files to this area',
+  'fileUpload.fileSize': 'Size',
+
+  // ===== OrderList =====
+  'orderList.moveToTop': 'Move to top',
+  'orderList.moveUp': 'Move up',
+  'orderList.moveDown': 'Move down',
+  'orderList.moveToBottom': 'Move to bottom',
+  'orderList.filterPlaceholder': 'Search',
+
+  // ===== PickList =====
+  'pickList.sourceLabel': 'Source list',
+  'pickList.targetLabel': 'Target list',
+  'pickList.moveToTarget': 'Move to target',
+  'pickList.moveToSource': 'Move back to source',
+  'pickList.moveAllToTarget': 'Move all to target',
+  'pickList.moveAllToSource': 'Move all back to source',
+  'pickList.filterPlaceholder': 'Search',
+
+  // ===== QrCode / SplitButton =====
+  'qrCode.download': 'Download QR code',
+  'splitButton.toggleDropdown': 'Toggle dropdown',
 } as const satisfies Record<string, string>;
 
 export default enUS;

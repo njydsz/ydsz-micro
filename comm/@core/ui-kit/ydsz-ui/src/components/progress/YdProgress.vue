@@ -10,7 +10,7 @@
  * @since 1.0.0
  */
 // @ts-nocheck
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -41,15 +41,18 @@ const emit = defineEmits<{
   done: [];
 }>();
 
-/** 有效百分比值 */
+/** 有效百分比值；indeterminate 时置空，由 ProgressRoot 输出 data-state="indeterminate" */
 const safePercentage = computed(() => {
   if (props.indeterminate) return undefined;
-  const val = Math.min(100, Math.max(0, props.percentage ?? 0));
-  if (val >= 100) {
+  return Math.min(100, Math.max(0, props.percentage ?? 0));
+});
+
+// done 必须在 watch 中发出：computed 里 emit 会让副作用随每次重算重复触发
+watch(safePercentage, (val) => {
+  if (val === 100) {
     emit('done');
   }
-  return val;
-});
+}, { immediate: true });
 </script>
 
 <template>

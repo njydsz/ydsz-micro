@@ -213,7 +213,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
         v-else-if="isFailed"
         class="mt-0.5 text-xs text-red-500"
       >
-        {{ t('uploadItem.fail') }}
+        {{ t('upload.error') }}
       </div>
     </div>
 
@@ -234,9 +234,9 @@ const thumbnailUrl = computed<string | undefined>(() => {
     <!-- 重试按钮（仅失败时） -->
     <button
       v-if="isFailed && showRetry"
-      :aria-label="t('uploadItem.retryAriaLabel')"
+      :aria-label="t('upload.retry')"
       class="hover:bg-accent rounded p-0.5"
-      :title="t('uploadItem.retry')"
+      :title="t('upload.retry')"
       type="button"
       @click="emit('retry', file)"
     >
@@ -245,7 +245,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
 
     <!-- 移除按钮 -->
     <button
-      :aria-label="t('uploadItem.removeAriaLabel')"
+      :aria-label="t('upload.remove')"
       class="hover:bg-accent rounded p-0.5"
       type="button"
       @click="emit('remove', file)"
@@ -310,7 +310,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
         type="button"
         @click="emit('retry', file)"
       >
-        {{ t('uploadItem.retry') }}
+        {{ t('upload.retry') }}
       </button>
     </div>
 
@@ -319,7 +319,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
       class="absolute inset-0 hidden items-center justify-center gap-1 bg-black/50 group-hover:flex"
     >
       <button
-        :aria-label="t('uploadItem.removeAriaLabel')"
+        :aria-label="t('upload.remove')"
         class="rounded-full bg-white/90 p-1"
         type="button"
         @click="emit('remove', file)"

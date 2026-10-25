@@ -11,7 +11,7 @@ import { mount } from '@vue/test-utils'
 
 import { describe, expect, it } from 'vitest'
 
-import YdTreeSelect from '../YdTreeSelect'
+import YdTreeSelect from '../YdTreeSelect.vue'
 
 const sampleTree = [
   {

@@ -8,7 +8,11 @@
  * @since 1.0.0
  */
 
-import { describe, it, expect } from 'vitest';
+import { mount } from '@vue/test-utils';
+
+import { describe, expect, it } from 'vitest';
+
+import { nextTick } from 'vue';
 
 import YdAutoComplete from './YdAutoComplete.vue';
 
@@ -53,8 +57,31 @@ describe('YdAutoComplete props', () => {
     expect(YdAutoComplete.props).toHaveProperty('emptyText');
   });
 
-  it('emptyText 默认值应为「暂无匹配项」', () => {
-    expect(YdAutoComplete.props.emptyText.default).toBe('暂无匹配项');
+  it('未传 emptyText 时空态文案应取自 i18n 词典', async () => {
+    const wrapper = mount(YdAutoComplete, {
+      props: { options: [] },
+      attachTo: document.body,
+    });
+    await wrapper.find('input').trigger('focus');
+    await nextTick();
+
+    expect(document.body.textContent).toContain('暂无匹配项');
+    wrapper.unmount();
+    document.body.innerHTML = '';
+  });
+
+  it('显式传入 emptyText 应覆盖词典文案', async () => {
+    const wrapper = mount(YdAutoComplete, {
+      props: { emptyText: '没有匹配的城市', options: [] },
+      attachTo: document.body,
+    });
+    await wrapper.find('input').trigger('focus');
+    await nextTick();
+
+    expect(document.body.textContent).toContain('没有匹配的城市');
+    expect(document.body.textContent).not.toContain('暂无匹配项');
+    wrapper.unmount();
+    document.body.innerHTML = '';
   });
 });
 

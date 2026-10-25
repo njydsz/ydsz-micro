@@ -19,13 +19,14 @@
  * @since 26.09.17
  */
 // @ts-nocheck
-import { computed, ref } from 'vue';
+import { computed, ref, shallowRef, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronRight, Loader2, Search, X } from 'lucide-vue-next';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
 
+import type { VirtualListHandle } from '../../composables/use-virtual-list';
 import type { CascaderOption, CascaderProps, CascaderShowSearch } from './types';
 
 /** VCascader props（扩展 CascaderProps 增加虚拟滚动配置） */
@@ -141,29 +142,40 @@ function clearValue(event: MouseEvent): void {
   emit('change', [], []);
 }
 
-/** 是否为某列构建虚拟列表 composable */
-function useColumnVirtual(columnItems: ReturnType<typeof computed<CascaderOption[]>>) {
-  const {
-    visibleItems,
-    totalHeight,
-    containerProps,
-    spacerProps,
-  } = useVirtualList(columnItems, {
+/** 为单列创建虚拟滚动句柄：items 走 getter，列数据变化时自动重算可见区间 */
+function createColumnVirtual(level: number): VirtualListHandle<CascaderOption> {
+  return useVirtualList(() => panelColumns.value[level] ?? [], {
     itemHeight: props.itemHeight,
     overscan: props.overscan,
     viewportHeight: props.columnHeight,
     getKey: (_item, idx) => idx,
   });
-  return { containerProps, spacerProps, totalHeight, visibleItems };
 }
 
-/** 为每一列数据构建响应式引用 + 虚拟列表 */
-const columnVirtuals = computed(() => {
-  return panelColumns.value.map((column) => {
-    const columnRef = computed(() => column);
-    return useColumnVirtual(columnRef);
-  });
-});
+/**
+ * 列级虚拟滚动句柄池。
+ *
+ * 早期实现把 useVirtualList 放在 computed 里，面板每次重算都会新建一组 computed，
+ * 既让滚动位置随重算丢失，也遗留无人回收的响应式副作用；改为按 level 稳定持有，
+ * 仅在列数增长时补建。
+ *
+ * 用 shallowRef 而非 ref：句柄内部自带 Ref，深 reactive 会在访问时解包，
+ * 使模板拿不到 containerProps 这类 Ref 对象。
+ */
+const columnVirtuals = shallowRef<VirtualListHandle<CascaderOption>[]>([]);
+
+watch(
+  () => panelColumns.value.length,
+  (count) => {
+    if (count <= columnVirtuals.value.length) return;
+    const handles = [...columnVirtuals.value];
+    for (let level = handles.length; level < count; level++) {
+      handles.push(createColumnVirtual(level));
+    }
+    columnVirtuals.value = handles;
+  },
+  { immediate: true },
+);
 
 /** 控制每列启用虚拟滚动 or 全量渲染 */
 const columnVirtualEnabled = computed(() =>

@@ -29,6 +29,9 @@ describe('YdDatePicker', () => {
   afterEach(() => {
     // 复位语言，避免影响其他用例的中文断言
     setSimpleLocale('zh-CN');
+    // Teleport 到 body 的面板在 happy-dom 下不会随 unmount 清理干净，
+    // 残留面板会让后续用例 querySelector 命中上一轮的失效按钮。
+    document.body.innerHTML = '';
   });
 
   it('en-US 语言下默认 placeholder 应为英文词条', async () => {

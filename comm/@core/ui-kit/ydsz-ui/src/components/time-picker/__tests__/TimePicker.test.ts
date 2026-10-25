@@ -11,7 +11,7 @@ import { mount } from '@vue/test-utils'
 
 import { describe, expect, it } from 'vitest'
 
-import YdTimePicker from '../YdTimePicker'
+import YdTimePicker from '../YdTimePicker.vue'
 
 describe('YdTimePicker', () => {
   it('渲染时显示 placeholder', () => {

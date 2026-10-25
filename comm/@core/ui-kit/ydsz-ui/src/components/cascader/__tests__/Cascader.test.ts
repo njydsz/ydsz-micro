@@ -40,14 +40,16 @@ describe('YdCascader', () => {
     expect(wrapper.text()).toContain('请选择城市')
   })
 
-  it('modelValue 受控更新触发 change 事件', async () => {
+  it('modelValue 受控更新时触发器回显 label 路径，且不抛 change', async () => {
     const wrapper = mount(YdCascader, {
       props: { options: sampleOptions },
     })
     await wrapper.setProps({ modelValue: ['beijing', 'chaoyang'] })
     await wrapper.vm.$nextTick()
-    const emitted = wrapper.emitted('change')
-    expect(emitted).toBeTruthy()
+
+    expect(wrapper.text()).toContain('北京 / 朝阳区')
+    // change 只表示用户选择，父级回写不应再次触发，否则形成受控回环
+    expect(wrapper.emitted('change')).toBeUndefined()
   })
 
   it('disabled=true 时禁止触发点击', async () => {

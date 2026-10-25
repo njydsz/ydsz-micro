@@ -16,7 +16,7 @@
  * @since 1.0.0
  */
 // @ts-nocheck
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -95,8 +95,10 @@ const { t } = useComponentI18n({
   messages: autoCompleteMessages,
 });
 
-const resolvedEmptyText = props.emptyText ?? t('autoComplete.emptyText');
-const resolvedPlaceholder = props.placeholder ?? t('autoComplete.placeholder');
+/** 空态文案：props 显式传入优先，否则取词典（切换 locale / emptyText 后需同步刷新） */
+const resolvedEmptyText = computed(() => props.emptyText ?? t('autoComplete.emptyText'));
+/** 输入框占位文案 */
+const resolvedPlaceholder = computed(() => props.placeholder ?? t('autoComplete.placeholder'));
 
 const emit = defineEmits<{
   'update:value': [value: string];

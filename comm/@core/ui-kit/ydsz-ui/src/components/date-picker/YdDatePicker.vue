@@ -359,6 +359,18 @@ const daySelected = computed(() => {
   return (modelValue.value as string | undefined) ?? undefined;
 });
 
+/**
+ * 输入框占位文案。
+ *
+ * <p>range 粒度下用「开始 ~ 结束」双词条，单值粒度用单词条，
+ * 否则区间模式下用户看到的仍是「选择日期」。
+ */
+const resolvedPlaceholder = computed(() => {
+  if (props.placeholder) return props.placeholder;
+  if (!isRange.value) return t('datepicker.placeholder');
+  return `${t('datepicker.startPlaceholder')} ~ ${t('datepicker.endPlaceholder')}`;
+});
+
 /* ----- 视图宽度（按粒度） ----- */
 const panelWidth = computed(() => {
   switch (baseGrain.value) {
@@ -389,13 +401,13 @@ const panelWidth = computed(() => {
           )
         "
         :disabled="disabled"
-        :placeholder="placeholder ?? t('selectDate')"
+        :placeholder="resolvedPlaceholder"
         readonly
         type="text"
         @click="toggle"
       />
       <button
-        :aria-label="t('openCalendar')"
+        :aria-label="t('datepicker.openCalendar')"
         :disabled="disabled"
         class="text-muted-foreground hover:text-foreground absolute inset-y-0 right-0 flex items-center pr-3 disabled:opacity-50"
         type="button"
@@ -470,7 +482,7 @@ const panelWidth = computed(() => {
             <!-- 月份导航 -->
             <div class="mb-2 flex items-center justify-between">
               <button
-                :aria-label="t('previousMonth')"
+                :aria-label="t('datepicker.previousMonth')"
                 class="hover:bg-accent hover:text-accent-foreground rounded-md p-1"
                 type="button"
                 @click="prevMonth"
@@ -481,7 +493,7 @@ const panelWidth = computed(() => {
               </button>
               <span class="text-sm font-medium">{{ monthLabel }}</span>
               <button
-                :aria-label="t('nextMonth')"
+                :aria-label="t('datepicker.nextMonth')"
                 class="hover:bg-accent hover:text-accent-foreground rounded-md p-1"
                 type="button"
                 @click="nextMonth"
