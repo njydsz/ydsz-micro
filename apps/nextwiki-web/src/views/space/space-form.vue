@@ -20,6 +20,7 @@ import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGro
 const logger = createLogger('nextwiki-space');
 const { t } = useI18n();
 import { computed, onMounted, reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { createSpace } from '#/api/space';
 import { listTemplates, useTemplate } from '#/api/spaceTemplate';
 import type { SpaceTemplateDTO } from '#/api/models';

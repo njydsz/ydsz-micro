@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "login": "ログイン",
+    "register": "新規登録",
+    "codeLogin": "コードでログイン",
+    "qrcodeLogin": "QRコードでログイン",
+    "forgetPassword": "パスワードを忘れた場合"
+  },
+  "dashboard": {
+    "title": "YDSZ プロジェクト管理プラットフォーム",
+    "analytics": "データ分析",
+    "workspace": "ワークスペース",
+    "notifications": "通知センター",
+    "performance": "パフォーマンス監視"
+  },
+  "operations": "運用",
+  "audit": {
+    "title": "操作監査",
+    "filter": {
+      "operatorName": "操作者",
+      "module": "モジュール",
+      "actionType": "種別",
+      "result": "操作結果",
+      "dateRange": "期間",
+      "keyword": "キーワード",
+      "search": "検索",
+      "reset": "リセット",
+      "export": "エクスポート"
+    },
+    "table": {
+      "actionTime": "時刻",
+      "operatorName": "操作者",
+      "module": "モジュール",
+      "actionType": "種別",
+      "description": "概要説明",
+      "clientIp": "IP",
+      "operation": "操作",
+      "viewDetail": "詳細表示",
+      "empty": "監査記録がありません",
+      "total": "合計 {count} 件の記録"
+    },
+    "detail": {
+      "title": "監査ログ詳細",
+      "basicInfo": "基本情報",
+      "clientInfo": "クライアント情報",
+      "diffTitle": "変更比較",
+      "errorMessage": "エラーメッセージ",
+      "noDiff": "変更データがありません",
+      "session": "Session ID",
+      "browser": "ブラウザ",
+      "os": "OS",
+      "oldValue": "旧値",
+      "newValue": "新値",
+      "loading": "読み込み中..."
+    },
+    "actionType": {
+      "CREATE": "新規追加",
+      "UPDATE": "修正",
+      "DELETE": "削除",
+      "LOGIN": "ログイン",
+      "EXPORT": "エクスポート"
+    },
+    "exportConfirm": "機微データの出力は二次認証が必要です"
+  },
+  "notification": {
+    "summary": {
+      "total": "総数",
+      "unread": "未読",
+      "today": "本日",
+      "connection": "接続状態"
+    },
+    "sse": {
+      "connected": "リアルタイム接続済み",
+      "disconnected": "未接続"
+    },
+    "col": {
+      "title": "タイトル",
+      "level": "レベル",
+      "time": "時刻",
+      "status": "状態"
+    },
+    "level": {
+      "info": "通知",
+      "success": "成功",
+      "warning": "警告",
+      "error": "エラー"
+    },
+    "status": {
+      "read": "既読",
+      "unread": "未読"
+    },
+    "filter": {
+      "allLevels": "すべてのレベル",
+      "allStatus": "すべての状態"
+    },
+    "markRead": "既読にする",
+    "markAllRead": "すべて既読",
+    "clearAll": "すべてクリア",
+    "viewDetail": "詳細表示"
+  },
+  "microKernel": {
+    "containerLabel": "マイクロフロントエンド子アプリコンテナ",
+    "phase": {
+      "loading": "モジュールを読み込み中...",
+      "loaded": "モジュール読み込み完了",
+      "mounting": "アプリをマウント中...",
+      "mounted": "読み込み完了",
+      "unmounting": "アプリを切り替え中...",
+      "error": "読み込みに失敗しました"
+    },
+    "announcements": {
+      "loading": "{{appName}} 子アプリを読み込み中です",
+      "loaded": "{{appName}} モジュールの読み込みが完了しました。マウントを準備しています",
+      "mounting": "{{appName}} 子アプリをマウントしています",
+      "mounted": "{{appName}} 子アプリの読み込みが完了しました",
+      "unmounting": "{{appName}} から切り替えています",
+      "error": "{{appName}} 子アプリの読み込みに失敗しました"
+    },
+    "errorMask": {
+      "title": "アプリの読み込みに失敗しました",
+      "hint": "ページ全体表示に切り替えました。後ほど再試行してください"
+    }
+  }
+}

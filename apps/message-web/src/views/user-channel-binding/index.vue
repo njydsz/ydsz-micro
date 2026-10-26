@@ -26,6 +26,9 @@ import { h, ref } from 'vue';
 
 import { YdBadge, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, listMine, upsert } from '#/api/userChannelBinding';
 import type { MsgUserChannelVO, UserChannelBindingDTO } from '#/api/models';

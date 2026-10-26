@@ -40,6 +40,8 @@ import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('userinfo-user');
 const { t } = useI18n();
 
+import { showToast } from '@ydsz/notification';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { list as companyList } from '#/api/company';
 import type { CompanyVO } from '#/api/models';

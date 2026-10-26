@@ -148,19 +148,6 @@ export function useMessage(): UseMessageHandler {
 
   const messages = computed<MessageInstance[]>((): MessageInstance[] => container.messages.value)
 
-  function normalizeConfig(config: MessageConfig | string, type: MessageType): MessageInstance {
-    const base: MessageConfig = typeof config === 'string' ? { content: config, type } : { ...config, type }
-    return {
-      id: generateId(),
-      content: base.content,
-      type,
-      duration: base.duration ?? 3000,
-      isClosable: base.isClosable ?? true,
-      onClose: base.onClose,
-      createdAt: Date.now(),
-    }
-  }
-
   function pushByType(config: MessageConfig | string, type: MessageType): MessageHandle {
     if (typeof config === 'string')
       return container.push({ content: config, type })

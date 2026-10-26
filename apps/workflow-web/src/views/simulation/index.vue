@@ -19,6 +19,7 @@
 import { Page } from '@ydsz/common-ui';
 import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSteps, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { runSimulation } from '#/api/flowSimulation';
 import { createLogger } from '@ydsz-core/shared/utils';
 

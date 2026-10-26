@@ -10,5 +10,6 @@
   "common": {
     "seq": "#",
     "deleteConfirm": "Confirm Delete"
-  }
+  },
+  "featureFlag": "Feature Flag"
 }

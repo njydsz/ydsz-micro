@@ -18,6 +18,8 @@ import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { save, update } from '#/api/appInfo';
 import type { AppInfoVO } from '#/api/models';
 

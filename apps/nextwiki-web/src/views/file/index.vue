@@ -20,6 +20,8 @@ import { YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, 
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();

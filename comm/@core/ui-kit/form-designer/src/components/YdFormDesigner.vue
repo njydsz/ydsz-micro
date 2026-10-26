@@ -8,9 +8,11 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import type { DesignerSchema } from '../types';
+
 export interface YdFormDesignerProps {
   /** 初始 Schema */
-  initialSchema?: import('../types').DesignerSchema;
+  initialSchema?: DesignerSchema;
   /** 是否显示预览按钮 */
   showPreview?: boolean;
   /** 是否只读模式 */

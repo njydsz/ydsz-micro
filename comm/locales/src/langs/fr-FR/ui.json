@@ -32,10 +32,16 @@
     "sliderDefaultText": "Slide and drag",
     "alt": "Supports img tag src attribute value",
     "refreshAriaLabel": "Actualiser captcha",
-    "confirmAriaLabel": "Confirmer selection",
+    "confirmAriaLabel": "Confirmer sélection",
     "confirm": "Confirmer",
     "pointAriaLabel": "Click point",
-    "clickInOrder": "Please click in order"
+    "clickInOrder": "Please click in order",
+    "sliderRotateDefaultTip": "Cliquez sur l'image pour l'actualiser",
+    "sliderTranslateDefaultTip": "Cliquez sur l'image pour l'actualiser",
+    "sliderRotateFailTip": "Échec de la vérification",
+    "sliderTranslateFailTip": "Échec de la vérification",
+    "sliderRotateSuccessTip": "Vérification réussie en {0} s",
+    "sliderTranslateSuccessTip": "Vérification réussie en {0} s"
   },
   "iconPicker": {
     "placeholder": "Selectionner an icon",
@@ -115,7 +121,7 @@
       "error": "Erreur"
     },
     "result": {
-      "successTitle": "Succes",
+      "successTitle": "Succès",
       "errorTitle": "Echoue",
       "warningTitle": "Avertissement",
       "infoTitle": "Info"

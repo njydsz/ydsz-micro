@@ -113,9 +113,9 @@ export default defineConfig(async () => {
         // 允许跨域，微前端子应用需要
         cors: true,
         proxy: {
+          // /api 必须原样转发：剥掉 /api 由网关 StripPrefix=1 负责，代理再剥一次会全量 404
           '/api': {
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
             // 开发环境通过 Gateway 9000 端口统一路由到各后端服务
             target: 'http://localhost:9000',
             ws: true,

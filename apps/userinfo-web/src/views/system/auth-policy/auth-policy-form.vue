@@ -21,6 +21,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import type { AuthPolicyDTO, AuthPolicyVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();

@@ -19,6 +19,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { YdDatePicker, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { advancedSearch } from '#/api/search';
 import { listTags } from '#/api/tag';
 import type { SearchResultVO, TagVO } from '#/api/models';

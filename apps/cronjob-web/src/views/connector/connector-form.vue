@@ -19,6 +19,8 @@ import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectT
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { testConnection } from '#/api/connector';
 import type { ConnectorConfigPostDTO } from '#/api/models';
 

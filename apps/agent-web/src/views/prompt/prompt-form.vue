@@ -22,6 +22,8 @@ import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge,
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 const logger = createLogger('agent-prompt');
 
 defineOptions({ name: 'PromptForm' });

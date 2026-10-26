@@ -22,7 +22,7 @@
  */
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import type { PropertyElement } from './bpmn-property-panel.vue';
+import type { BpmnElementDescriptor, BpmnPropertyChanges } from './types';
 import BpmnCanvas from './bpmn-canvas.vue';
 import BpmnPropertyPanel from './bpmn-property-panel.vue';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -40,7 +40,7 @@ const route = useRoute();
 /** 画布组件 ref（调用 getXML / loadXml 等） */
 const canvasRef = ref<InstanceType<typeof BpmnCanvas> | null>(null);
 /** 当前选中元素 */
-const selectedElement = ref<PropertyElement | null>(null);
+const selectedElement = ref<BpmnElementDescriptor | null>(null);
 /** 当前流程定义 ID（来自路由 /:id） */
 const definitionId = ref<string>('');
 const isLoading = ref(false);
@@ -121,7 +121,7 @@ async function handleSave(): Promise<void> {
  *
  * @param element - 当前选中的元素（null 表示取消选中）
  */
-function handleSelectionChange(element: PropertyElement | null): void {
+function handleSelectionChange(element: BpmnElementDescriptor | null): void {
   selectedElement.value = element;
 }
 
@@ -134,17 +134,13 @@ function handleSelectionChange(element: PropertyElement | null): void {
  * @param elementId - 节点 ID
  * @param properties - 变更后的属性
  */
-function handlePropertyChange(elementId: string, properties: Record<string, any>): void {
-  const modeler = (canvasRef.value as any)?.modeler;
-  if (!modeler) {
+function handlePropertyChange(elementId: string, properties: BpmnPropertyChanges): void {
+  const canvas = canvasRef.value;
+  if (!canvas) {
     return;
   }
-  const modeling = modeler.get('modeling');
-  const elementRegistry = modeler.get('elementRegistry');
-  const element = elementRegistry.get(elementId);
-  if (!element || !modeling) return;
   try {
-    modeling.updateProperties(element, properties);
+    canvas.updateElementProperties(elementId, properties);
   } catch (error) {
     logger.warn('更新节点属性失败', error);
   }
@@ -219,18 +215,14 @@ async function handleExportSvg(): Promise<void> {
  * 撤销（通过 bpmn-js commandStack）
  */
 function handleUndo(): void {
-  const modeler = (canvasRef.value as any)?.modeler;
-  const commandStack = modeler?.get?.('commandStack');
-  commandStack?.undo?.();
+  canvasRef.value?.undo();
 }
 
 /**
  * 重做
  */
 function handleRedo(): void {
-  const modeler = (canvasRef.value as any)?.modeler;
-  const commandStack = modeler?.get?.('commandStack');
-  commandStack?.redo?.();
+  canvasRef.value?.redo();
 }
 
 /**

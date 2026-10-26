@@ -45,6 +45,10 @@ export const koKR = {
   'table.expandedRow': '행 펼치기',
   'table.collapseRow': '행 접기',
   'table.columnSetting': '열 설정',
+  'table.editCell': '셀 편집',
+  'table.sortHint': '클릭으로 정렬, Shift+클릭으로 다중 정렬 추가',
+  'table.resizeColumn': '드래그로 열 너비 조정',
+  'table.dragColumn': '드래그로 열 순서 변경',
 
   // ===== 폼 =====
   'form.validating': '검증 중...',
@@ -73,6 +77,8 @@ export const koKR = {
   'upload.maxSize': '파일 크기 제한 초과',
   'upload.maxCount': '파일 수 제한 초과',
   'upload.invalidFormat': '지원되지 않는 파일 형식',
+  'upload.clickToUpload': '클릭하여 업로드',
+  'upload.dragTipPrefix': '여기로 파일을 끌어오거나',
 
   // ===== 페이지네이션 =====
   'pagination.page': '페이지',
@@ -114,6 +120,9 @@ export const koKR = {
   'datepicker.oct': '10월',
   'datepicker.nov': '11월',
   'datepicker.dec': '12월',
+  'datepicker.openCalendar': '캘린더 열기',
+  'datepicker.previousMonth': '이전 달',
+  'datepicker.nextMonth': '다음 달',
 
   // ===== 선택기 =====
   'select.placeholder': '선택해 주세요',
@@ -132,6 +141,9 @@ export const koKR = {
   'tree.collapseAll': '모두 접기',
   'tree.checkedAll': '모두 선택',
   'tree.uncheckedAll': '선택 해제',
+  'tree.search': '노드 검색...',
+  'tree.clearSearch': '검색 지우기',
+  'tree.searchResults': '검색 결과',
 
   // ===== 알림 =====
   'message.success': '성공',
@@ -159,13 +171,35 @@ export const koKR = {
   'empty.no-result': '일치하는 결과 없음',
 
   // ===== 테마 =====
-  'theme.light': '밝은',
-  'theme.dark': '어두운',
-  'theme.system': '시스템',
 
   // ===== 로케일 =====
-  'locale.switchLanguage': '언어 전환',
-  'locale.currentLanguage': '현재 언어',
+  'drawer.ariaLabel': '서랍',
+  'drawer.close': '닫기',
+  'drawer.closeAriaLabel': '서랍 닫기',
+  'drawer.confirm': '확인',
+  'drawer.cancel': '취소',
+  'autoComplete.placeholder': '키워드를 입력하세요',
+  'autoComplete.emptyText': '일치하는 항목이 없습니다',
+  'autoComplete.loadingText': '로딩 중...',
+  'autoComplete.clearAriaLabel': '입력 지우기',
+  'fileUpload.clickToUpload': '클릭 또는 드래그로 업로드',
+  'fileUpload.dragAndDrop': '이 영역으로 파일을 끌어오세요',
+  'fileUpload.fileSize': '크기',
+  'orderList.moveToTop': '맨 위로 이동',
+  'orderList.moveUp': '위로 이동',
+  'orderList.moveDown': '아래로 이동',
+  'orderList.moveToBottom': '맨 아래로 이동',
+  'orderList.filterPlaceholder': '검색',
+  'pickList.sourceLabel': '원본 목록',
+  'pickList.targetLabel': '대상 목록',
+  'pickList.moveToTarget': '대상으로 이동',
+  'pickList.moveToSource': '원본으로 되돌리기',
+  'pickList.moveAllToTarget': '모두 대상으로 이동',
+  'pickList.moveAllToSource': '모두 원본으로 되돌리기',
+  'pickList.filterPlaceholder': '검색',
+  'qrCode.download': 'QR 코드 다운로드',
+  'splitButton.toggleDropdown': '드롭다운 토글',
+  'orgChart.search': '{field} 검색...',
 } as const satisfies Record<string, string>;
 
 export default koKR;

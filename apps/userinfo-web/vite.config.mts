@@ -24,9 +24,9 @@ export default defineConfig(async () => {
           'Access-Control-Allow-Origin': '*',
         },
         proxy: {
+          // /api 必须原样转发：剥掉 /api 由网关 StripPrefix=1 负责，代理再剥一次会全量 404
           '/api': {
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
             target: 'http://localhost:9000',
             ws: true,
           },

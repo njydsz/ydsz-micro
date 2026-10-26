@@ -23,6 +23,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 import { YdButton, YdEmptyState, YdInput, YdSelectItem, YdPagination, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import {
   clearSearchHistory,
   didYouMean,

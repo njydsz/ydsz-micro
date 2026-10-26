@@ -5,10 +5,9 @@
 import type { DateValue } from '@internationalized/date'
 import type { DATE_SEGMENT_PARTS, EDITABLE_SEGMENT_PARTS, NON_EDITABLE_SEGMENT_PARTS, TIME_SEGMENT_PARTS } from './parts'
 
-// Days of the week, starting with Sunday
-const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const
+/** 一周中的星期（0=周日 起算，与 Intl 的 `getDay()` 一致）；仅作文档/类型取值域，无运行时数组 */
 export type DayOfWeek = {
-  daysOfWeek: (typeof daysOfWeek)[number][]
+  daysOfWeek: (0 | 1 | 2 | 3 | 4 | 5 | 6)[]
 }
 
 export type CalendarIncrement = 'month' | 'year'

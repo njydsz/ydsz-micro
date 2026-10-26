@@ -10,7 +10,7 @@
  * @since 4.4.0
  */
 
-import { computed, ref, type Ref } from 'vue';
+import { computed, type Ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 

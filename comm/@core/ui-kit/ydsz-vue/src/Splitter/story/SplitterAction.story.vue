@@ -5,8 +5,6 @@ import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from '../'
 const panelRef = ref<InstanceType<typeof SplitterPanel>>()
 
 onMounted(() => {
-  // eslint-disable-next-line no-console
-  // eslint-disable-next-line no-console
 })
 </script>
 

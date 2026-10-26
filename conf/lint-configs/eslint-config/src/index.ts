@@ -118,6 +118,9 @@ function tsConfig(): Linter.Config {
 function vueConfig(): Linter.Config {
   return {
     files: ['**/*.vue'],
+    // flat/base 的 processor 负责把模板里的 <!-- eslint-disable --> 注释交给
+    // vue/comment-directive 处理；缺它时该规则会解析错位并产出无意义报错。
+    processor: 'vue/vue',
     languageOptions: {
       parser: vueParser,
       parserOptions: {
@@ -134,6 +137,9 @@ function vueConfig(): Linter.Config {
     rules: {
       ...pluginVue.configs['flat/recommended'].rules,
       ...ydszRules,
+      // 仅展开 flat/recommended 的 rules 会丢掉 flat/base 里的 comment-directive，
+      // 导致模板里的 <!-- eslint-disable vue/xxx --> 静默失效，故显式启用。
+      'vue/comment-directive': 'error',
       // core 规则不识别内嵌 TS 语义，交由 @typescript-eslint 规则接管
       'no-undef': 'off',
       'no-unused-vars': 'off',
@@ -227,10 +233,11 @@ export function defineConfig(): Linter.Config[] {
     {
       files: [
         'bash/**/*.{ts,mjs,cts,mts}',
+        'scripts/**/*.{ts,mjs,cts,mts}',
         'conf/vite-config/src/**/*.ts',
         'conf/node-utils/src/**/*.ts',
         'conf/tailwind-config/src/**/*.ts',
-        'conf/lint-configs/**/*.ts',
+        'conf/lint-configs/**/*.{ts,mts}',
         'comm/effects/micro-kernel/src/vite-plugin-manifest.ts',
       ],
       rules: {
@@ -253,6 +260,14 @@ export function defineConfig(): Linter.Config[] {
     // 与 Node 工具同属「非业务路径」，豁免 no-console（§14.5 面向业务代码）
     {
       files: ['**/service-worker.ts'],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+    // Playwright E2E / 性能基线用例：Node 侧 runner，stdout 是测试报告的一部分
+    // （指标采集结果需被 CI 日志消费），同样属于「非浏览器业务路径」
+    {
+      files: ['tests/e2e/**/*.ts', 'tests/performance/**/*.ts'],
       rules: {
         'no-console': 'off',
       },

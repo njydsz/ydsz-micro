@@ -21,6 +21,7 @@ import { YdForm, YdFormItem, YdProgress, YdUpload, YdButton, YdInput } from '@yd
 const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { initChunkUpload, uploadChunk, completeChunkUpload, abortChunkUpload, getUploadedChunks } from '#/api/fileChunk';
 import { upload } from '#/api/file';
 import type { FileNodeVO } from '#/api/models';

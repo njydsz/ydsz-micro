@@ -22,6 +22,8 @@ import { createLogger } from '@ydsz/utils';
 import { YdEmptyState, YdTimeline, YdTimelineItem, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdLabel, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { openSseStream } from '#/utils/sse-client';
 import { healthCheck, publishEvent, type ReactiveEventVO, type ReactiveHealthVO, type ReactiveEventLevel } from '#/api/reactive';
 

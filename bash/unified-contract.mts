@@ -259,8 +259,9 @@ import type { paths } from './schema';
  * \`\`\`
  */
 export const apiClient = createOpenApiClient<paths>({
-  // P0-1 修复：spec 中 paths 为完整路径（/api/v1/**），baseUrl 必须为空串；
-  // 此前 '/api/${serviceName}' 会拼出 /api/system/api/v1/** 错误地址
+  // P0-1 修复：schema 里 paths 是 Controller 相对路径（如 /users/{id}），网关前缀 /api 由
+  // requestClient 的 baseURL 注入，baseUrl 必须为空串；此前 '/api/${serviceName}' 会拼出
+  // /api/system/api/** 之类网关根本不路由的地址
   baseUrl: '',
 });
 

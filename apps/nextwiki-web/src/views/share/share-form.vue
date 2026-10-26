@@ -16,6 +16,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { createShare } from '#/api/share';
 
 const emit = defineEmits<{ success: [] }>();

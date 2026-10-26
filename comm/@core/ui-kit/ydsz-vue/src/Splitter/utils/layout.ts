@@ -1,4 +1,3 @@
-/* eslint-disable no-lone-blocks */
 import type { PanelConstraints } from '../SplitterPanel.vue'
 import { assert } from './assert'
 import { fuzzyCompareNumbers, fuzzyNumbersEqual } from './compare'

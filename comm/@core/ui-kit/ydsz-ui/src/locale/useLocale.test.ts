@@ -12,7 +12,6 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h, provide, ref } from 'vue';
 
-import { enUS } from './en-US';
 import { LOCALE_LANG_KEY, useLocale } from './useLocale';
 import { zhCN } from './zh-CN';
 
@@ -117,6 +116,42 @@ describe('useLocale', () => {
     });
     const wrapper = mount(Comp);
     expect(wrapper.text()).toBe('暂无数据（自定义）');
+    wrapper.unmount();
+  });
+
+  it('应填充词条里的命名占位', () => {
+    const Comp = defineComponent({
+      setup() {
+        provide(LOCALE_LANG_KEY, ref({ isRTL: false, lang: 'zh-CN' as const }));
+        const { t } = useLocale({
+          messages: { 'zh-CN': { 'demo.search': '搜索 {field}...' } },
+        });
+        return { t };
+      },
+      render() {
+        return h('span', this.t('demo.search', { field: '姓名' }));
+      },
+    });
+    const wrapper = mount(Comp);
+    expect(wrapper.text()).toBe('搜索 姓名...');
+    wrapper.unmount();
+  });
+
+  it('漏传的占位应保留原文而非静默变空串', () => {
+    const Comp = defineComponent({
+      setup() {
+        provide(LOCALE_LANG_KEY, ref({ isRTL: false, lang: 'zh-CN' as const }));
+        const { t } = useLocale({
+          messages: { 'zh-CN': { 'demo.search': '搜索 {field}...' } },
+        });
+        return { t };
+      },
+      render() {
+        return h('span', this.t('demo.search', { other: 1 }));
+      },
+    });
+    const wrapper = mount(Comp);
+    expect(wrapper.text()).toBe('搜索 {field}...');
     wrapper.unmount();
   });
 });

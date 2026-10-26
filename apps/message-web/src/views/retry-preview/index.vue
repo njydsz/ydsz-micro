@@ -174,7 +174,7 @@ onMounted(() => {
         <!-- 重试计划列表 -->
         <YdCard shadow="never">
           <YdTable
-            loading="scheduleLoading"
+            :loading="scheduleLoading"
             :data="retryScheduleList"
             stripe
             border
@@ -224,7 +224,7 @@ onMounted(() => {
         <!-- 预设列表 -->
         <YdCard shadow="never">
           <YdTable
-            loading="presetLoading"
+            :loading="presetLoading"
             :data="presetList"
             stripe
             border

@@ -18,6 +18,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { importTemplate } from '#/api/flowTemplate';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';

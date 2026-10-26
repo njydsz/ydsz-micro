@@ -20,6 +20,7 @@ import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+import { showToast } from '@ydsz/notification';
 import { save, update } from '#/api/config';
 import type { ConfigVO } from '#/api/models';
 

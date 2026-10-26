@@ -49,6 +49,3 @@ export interface SkeletonProps {
   /** 行内样式覆盖。 */
   style?: Record<string, string>;
 }
-
-/** Skeleton 组件事件（纯展示组件，无 emit）。 */
-export interface SkeletonEmits {}

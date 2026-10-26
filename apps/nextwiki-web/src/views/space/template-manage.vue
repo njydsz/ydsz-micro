@@ -21,6 +21,9 @@
 import { YdForm, YdFormItem, YdInput, YdTable, YdTableColumn, YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import type { SpaceTemplateDTO } from '#/api/models';
 import {
   createTemplate,

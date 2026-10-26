@@ -77,7 +77,9 @@ function loadSerializedPanelGroupState(
         return parsed as SerializedPanelGroupState
     }
   }
-  catch (error) {}
+  catch {
+    // storage 不可用（隐私模式 / quota）或历史数据损坏时按「无历史布局」处理
+  }
 
   return null
 }

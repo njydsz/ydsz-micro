@@ -8,5 +8,8 @@
   "common": {
     "seq": "#",
     "deleteConfirm": "Confirmer Supprimer"
-  }
+  },
+  "featureFlag": "Feature flag",
+  "lockAdmin": "Gestion des verrous distribués",
+  "tenantQuota": "Quota de locataire"
 }

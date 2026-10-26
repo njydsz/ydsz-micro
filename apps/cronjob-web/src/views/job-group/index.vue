@@ -23,6 +23,9 @@ import { Page } from '@ydsz/common-ui';
 import { YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { groupStats, pageByGroup, pauseByGroup, resumeByGroup, triggerByGroup } from '#/api/jobGroup';
 import type { JobVO } from '#/api/models';

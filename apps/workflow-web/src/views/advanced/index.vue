@@ -20,6 +20,8 @@
 import { Page } from '@ydsz/common-ui';
 import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSpace, YdCountToAnimator, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import {
   approvedUsers,
   autoForward,

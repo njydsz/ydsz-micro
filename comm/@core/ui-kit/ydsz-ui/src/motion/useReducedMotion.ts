@@ -5,7 +5,7 @@
  * @since 26.10.10
  */
 
-import { onBeforeUnmount, readonly, ref } from 'vue'
+import { onBeforeUnmount, readonly, ref, type Ref } from 'vue'
 
 import { prefersReducedMotion } from './motion-tokens'
 
@@ -24,7 +24,7 @@ import { prefersReducedMotion } from './motion-tokens'
  * ```
  */
 export function useReducedMotion(): {
-  reduced: Readonly<import('vue').Ref<boolean>>
+  reduced: Readonly<Ref<boolean>>
 } {
   const reduced = ref(prefersReducedMotion())
 

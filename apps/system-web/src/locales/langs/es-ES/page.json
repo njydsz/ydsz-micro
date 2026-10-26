@@ -1,12 +1,15 @@
 {
   "system": "Sistema",
-  "config": "Configuracion",
+  "config": "Configuración",
   "dictType": "Tipo de diccionario",
   "dictItem": "Elemento de diccionario",
   "variable": "Variable",
-  "appInfo": "Informacion de la aplicacion",
+  "appInfo": "Información de la aplicación",
   "common": {
     "seq": "#",
-    "deleteConfirm": "Confirmar eliminacion"
-  }
+    "deleteConfirm": "Confirmar eliminación"
+  },
+  "featureFlag": "Feature flag",
+  "lockAdmin": "Gestión de bloqueos distribuidos",
+  "tenantQuota": "Cuota de inquilino"
 }

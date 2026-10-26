@@ -44,6 +44,10 @@ export const zhTW = {
   'table.expandedRow': '展開列',
   'table.collapseRow': '收合列',
   'table.columnSetting': '欄位設定',
+  'table.editCell': '儲存格編輯',
+  'table.sortHint': '點擊排序，Shift+點擊追加多欄排序',
+  'table.resizeColumn': '拖曳調整欄寬',
+  'table.dragColumn': '拖曳調整欄順序',
 
   // ===== 表單 =====
   'form.validating': '驗證中...',
@@ -72,6 +76,8 @@ export const zhTW = {
   'upload.maxSize': '檔案大小超過限制',
   'upload.maxCount': '檔案數量超過限制',
   'upload.invalidFormat': '檔案格式不支援',
+  'upload.clickToUpload': '點擊上傳',
+  'upload.dragTipPrefix': '將檔案拖到此處，或',
 
   // ===== 分頁 =====
   'pagination.page': '頁',
@@ -113,6 +119,9 @@ export const zhTW = {
   'datepicker.oct': '10月',
   'datepicker.nov': '11月',
   'datepicker.dec': '12月',
+  'datepicker.openCalendar': '開啟日曆',
+  'datepicker.previousMonth': '上個月',
+  'datepicker.nextMonth': '下個月',
 
   // ===== 選擇器 =====
   'select.placeholder': '請選擇',
@@ -131,6 +140,9 @@ export const zhTW = {
   'tree.collapseAll': '收合全部',
   'tree.checkedAll': '全選',
   'tree.uncheckedAll': '取消全選',
+  'tree.search': '搜尋節點...',
+  'tree.clearSearch': '清除搜尋',
+  'tree.searchResults': '搜尋結果',
 
   // ===== 通知 =====
   'message.success': '操作成功',
@@ -156,6 +168,33 @@ export const zhTW = {
   'empty.no-data': '暫無資料',
   'empty.no-permission': '暫無權限',
   'empty.no-result': '未找到符合的結果',
+  'drawer.ariaLabel': '抽屜',
+  'drawer.close': '關閉',
+  'drawer.closeAriaLabel': '關閉抽屜',
+  'drawer.confirm': '確認',
+  'drawer.cancel': '取消',
+  'autoComplete.placeholder': '請輸入關鍵詞',
+  'autoComplete.emptyText': '沒有匹配項目',
+  'autoComplete.loadingText': '載入中...',
+  'autoComplete.clearAriaLabel': '清空輸入',
+  'fileUpload.clickToUpload': '點擊或拖曳上傳',
+  'fileUpload.dragAndDrop': '將檔案拖到此區域',
+  'fileUpload.fileSize': '大小',
+  'orderList.moveToTop': '移到頂部',
+  'orderList.moveUp': '上移',
+  'orderList.moveDown': '下移',
+  'orderList.moveToBottom': '移到底部',
+  'orderList.filterPlaceholder': '搜尋',
+  'pickList.sourceLabel': '來源清單',
+  'pickList.targetLabel': '目標清單',
+  'pickList.moveToTarget': '移至目標',
+  'pickList.moveToSource': '移回來源',
+  'pickList.moveAllToTarget': '全部移至目標',
+  'pickList.moveAllToSource': '全部移回來源',
+  'pickList.filterPlaceholder': '搜尋',
+  'qrCode.download': '下載 QR Code',
+  'splitButton.toggleDropdown': '展開更多操作',
+  'orgChart.search': '搜尋 {field}...',
 } as const satisfies Record<string, string>;
 
 export default zhTW;

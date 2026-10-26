@@ -33,7 +33,8 @@ const useBodyLockStackCount = createSharedComposable(() => {
     document.body.style.pointerEvents = ''
     document.body.style.removeProperty('--scrollbar-width')
     document.body.style.overflow = initialOverflow.value ?? ''
-    isIOS && stopTouchMoveListener?.()
+    if (isIOS)
+      stopTouchMoveListener?.()
 
     initialOverflow.value = undefined
   }

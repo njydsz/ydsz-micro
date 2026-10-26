@@ -22,6 +22,9 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { compare, detail, rollback, versions } from '#/api/jobHistory';
 import type { JobHistoryVO } from '#/api/models';

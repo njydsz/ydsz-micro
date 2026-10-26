@@ -88,5 +88,75 @@
     "exportingHtml": "Loading HTML report…",
     "exportHtmlFailed": "Failed to export HTML report",
     "delete": "Delete"
+  },
+  "knowledgeGraph": {
+    "title": "Knowledge Graph",
+    "tab": {
+      "search": "Entity Search",
+      "graph": "Graph View",
+      "stats": "Graph Statistics",
+      "ingest": "Graph Ingest"
+    },
+    "search": {
+      "placeholder": "Search entities by keyword...",
+      "entityType": "Entity Type",
+      "keywordRequired": "Please enter a search keyword",
+      "failed": "Search failed",
+      "noResults": "No matching entities found",
+      "entityId": "EntityID",
+      "name": "Name",
+      "type": "Type",
+      "description": "Description"
+    },
+    "stats": {
+      "totalEntities": "Total Entities",
+      "totalRelations": "Total Relations",
+      "entityTypes": "Entity Types",
+      "ingestJobs": "Ingest Jobs",
+      "failed": "Failed to load statistics",
+      "noData": "No statistics available"
+    },
+    "ingest": {
+      "description": "Upload structured data files (JSON/JSONL/CSV) to import into the knowledge graph.",
+      "dragText": "Drag a file here or",
+      "clickText": "click to upload",
+      "formats": "Supports JSON / JSONL / CSV formats",
+      "success": "Ingest successful",
+      "failed": "Ingest failed",
+      "selectFile": "Please select a file first"
+    },
+    "graph": {
+      "nodeCount": "Nodes",
+      "edgeCount": "Relations",
+      "engine": "Engine",
+      "svgMode": "SVG",
+      "noData": "No graph data, search entities first",
+      "loadFailed": "Failed to load graph data",
+      "otherType": "Other"
+    },
+    "detail": {
+      "title": "Entity Details",
+      "basicInfo": "Basic Information",
+      "entityId": "EntityID",
+      "name": "Name",
+      "type": "Type",
+      "description": "Description",
+      "subgraph": "Subgraph Structure",
+      "emptySubgraph": "No subgraph data",
+      "nodeCount": "Node Count",
+      "relationCount": "Relation Count",
+      "nodeId": "Node ID",
+      "nodeName": "Node Name",
+      "nodeType": "Node Type",
+      "edges": "Relation Edges",
+      "relationType": "Relation Type",
+      "sourceEntity": "Source Entity",
+      "targetEntity": "Target Entity",
+      "weight": "Weight",
+      "allRelations": "Related Relations",
+      "emptyRelations": "No related relations",
+      "subgraphFailed": "Failed to load subgraph",
+      "relationsFailed": "Failed to load relation list"
+    }
   }
 }

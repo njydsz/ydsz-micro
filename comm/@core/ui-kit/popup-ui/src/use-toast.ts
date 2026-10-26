@@ -18,9 +18,9 @@
 
 import type { ComputedRef, Ref } from 'vue';
 
-import { computed, getCurrentScope, onScopeDispose, ref } from 'vue';
+import { getCurrentScope, onScopeDispose, ref } from 'vue';
 
-import type { MessageItem, MessageOptions, MessageType } from './message/message';
+import type { MessageItem, MessageOptions } from './message/message';
 
 import {
   closeAllMessages,

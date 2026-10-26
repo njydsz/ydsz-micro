@@ -22,6 +22,9 @@ import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/variable';
 import type { PageQuery, VariablePageQuery, VariableVO } from '#/api/models';

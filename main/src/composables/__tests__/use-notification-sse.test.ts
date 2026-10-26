@@ -2,17 +2,24 @@
  * use-notification-sse 单元测试
  *
  * 覆盖核心交互场景：
- * 1. SSE 消息到达时调用 store.addItem
+ * 1. SSE 消息到达时调用 store.handleSseMessage
  * 2. 离线时不会尝试连接
  * 3. 重连使用指数退避（mock 计时器验证）
+ *
+ * <p>composable 的连接在 onMounted 中建立，且底层连接是模块级单例，
+ * 因此用例统一挂载宿主组件触发生命周期，并在每例前 resetModules 重置单例。
  *
  * @path main\src\composables\__tests__\use-notification-sse.test.ts
  * @author ydsz-team
  * @since 1.0.0
  */
-import { nextTick } from 'vue';
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+
+import type * as ydszUtils from '@ydsz/utils';
+
+import { defineComponent, h } from 'vue';
+import { mount } from '@vue/test-utils';
 
 // ===== Mock streamRequest（before import to ensure hoisting works）=====
 const mockStreamRequest = vi.fn();
@@ -42,18 +49,42 @@ vi.mock('#/store/notification', () => ({
 }));
 
 // ===== Mock calculateRetryDelay to return deterministic values =====
+// createLogger 一并替换：重连用例会故意抛错，真实 logger 会把堆栈打到 stderr
+// 退避延迟用 vi.fn(impl) 而非 mockReturnValue：afterEach 的 restoreAllMocks 会清掉
+// mockReturnValue，但不会清掉构造时传入的实现
+const { mockCalculateRetryDelay } = vi.hoisted(() => ({
+  mockCalculateRetryDelay: vi.fn(() => 100), // deterministic 100ms for testing
+}));
+
 vi.mock('@ydsz/utils', async (importActual) => {
-  const actual = await importActual<typeof import('@ydsz/utils')>();
+  const actual = await importActual<typeof ydszUtils>();
   return {
     ...actual,
-    calculateRetryDelay: vi.fn().mockReturnValue(100), // deterministic 100ms for testing
+    calculateRetryDelay: mockCalculateRetryDelay,
+    createLogger: () => ({ debug: vi.fn(), error: vi.fn(), info: vi.fn(), warn: vi.fn() }),
   };
 });
 
 describe('useNotificationSse', () => {
+  /** 挂载调用 composable 的宿主组件，使 onMounted / onUnmounted 真实生效 */
+  async function mountSseHost() {
+    const { useNotificationSse } = await import('../use-notification-sse');
+    let api: { stop: () => void } | undefined;
+    const wrapper = mount(
+      defineComponent({
+        setup() {
+          api = useNotificationSse();
+          return () => h('div', { id: 'sse-host' });
+        },
+      }),
+    );
+    return { getApi: () => api!, wrapper };
+  }
+
   beforeEach(() => {
     vi.useFakeTimers();
     vi.clearAllTimers();
+    vi.resetModules();
     mockStreamRequest.mockReset();
     mockStore.handleSseMessage.mockReset();
     mockStore.setSseConnected.mockReset();
@@ -92,17 +123,18 @@ describe('useNotificationSse', () => {
       });
     });
 
-    const { useNotificationSse } = await import('../use-notification-sse');
-    useNotificationSse();
-    await nextTick();
-
-    // 等待微任务完成（mockImplementation 内的异步调用）
+    const { getApi, wrapper } = await mountSseHost();
     await vi.advanceTimersByTimeAsync(0);
 
     // store.handleSseMessage 应被调用
     expect(mockStore.handleSseMessage).toHaveBeenCalledTimes(1);
-    const callArg = mockStore.handleSseMessage.mock.calls[0][0];
+    const callArg = mockStore.handleSseMessage.mock.calls[0]![0] as { event: string };
     expect(callArg.event).toBe('new_notification');
+    // 首帧应把连接状态回报给 store
+    expect(mockStore.setSseConnected).toHaveBeenCalledWith(true);
+
+    getApi().stop();
+    wrapper.unmount();
   });
 
   // ==================== Test 2: 离线时不会尝试连接 ====================
@@ -113,12 +145,12 @@ describe('useNotificationSse', () => {
       configurable: true,
     });
 
-    const { useNotificationSse } = await import('../use-notification-sse');
-    useNotificationSse();
-    await nextTick();
+    const { wrapper } = await mountSseHost();
+    await vi.advanceTimersByTimeAsync(0);
 
     // 离线状态不发起连接
     expect(mockStreamRequest).not.toHaveBeenCalled();
+    wrapper.unmount();
   });
 
   // ==================== Test 3: 重连使用指数退避（mock 计时器验证） ====================
@@ -136,11 +168,7 @@ describe('useNotificationSse', () => {
       return new Promise(() => {});
     });
 
-    const { useNotificationSse } = await import('../use-notification-sse');
-    useNotificationSse();
-    await nextTick();
-
-    // 等待首次调用 + 错误抛出
+    const { getApi, wrapper } = await mountSseHost();
     await vi.advanceTimersByTimeAsync(10);
 
     // 首次调用
@@ -151,5 +179,8 @@ describe('useNotificationSse', () => {
 
     // 第 2 次重连调用已发生
     expect(callCount).toBe(2);
+
+    getApi().stop();
+    wrapper.unmount();
   });
 });

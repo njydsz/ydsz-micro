@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-﻿/**
+/**
  * SSE 通知客户端 Composable —— 基于 EventSource API 订阅后端 SSE 端点
  *
  * <p>功能：

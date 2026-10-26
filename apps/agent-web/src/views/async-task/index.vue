@@ -35,6 +35,7 @@ import {
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz/utils';
+import { showToast } from '@ydsz/notification';
 import { cancelTask, getTask, listActiveTasks } from '#/api/asyncTask';
 import type { AsyncTaskVO } from '#/api/models';
 

@@ -21,6 +21,8 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/tenant';
 import type { TenantVO } from '#/api/models';

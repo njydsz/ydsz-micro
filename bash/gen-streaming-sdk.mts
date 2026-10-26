@@ -26,7 +26,7 @@
  * endpoints:
  *   - name: agentChat
  *     method: POST
- *     path: /api/v1/agent/chat/stream
+ *     path: /api/agent/chat/stream
  *     description: Agent 对话流式返回
  *     chunkType: schemas.agent.ChatChunk               # 引用 OpenAPI schema
  *     chunkShape:                                     # 可选：内联类型描述（chunkType 优先）
@@ -37,7 +37,7 @@
  *
  *   - name: authEvents
  *     method: GET
- *     path: /api/v1/auth/events
+ *     path: /api/auth/events/stream
  *     chunkType: schemas.auth.AuthEvent
  * </pre>
  *
@@ -226,7 +226,7 @@ async function main() {
  * <pre>
  * export const stream = {
  *   agentChat(req: ChatRequest): AsyncGenerator&lt;TypedSseEvent&lt;ChatChunk&gt;&gt; {
- *     return streamRequestAsync({ url: '/api/v1/agent/chat/stream', method: 'POST', data: req });
+ *     return streamRequestAsync({ url: '/api/agent/chat/stream', method: 'POST', data: req });
  *   },
  * };
  * </pre>

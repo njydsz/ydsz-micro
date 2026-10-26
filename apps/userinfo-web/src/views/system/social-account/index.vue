@@ -23,6 +23,9 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import {
   getAvailablePlatforms,
   getBindings,
@@ -136,7 +139,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page loading="isLoading" auto-content-height>
+  <Page v-loading="isLoading" auto-content-height>
     <!-- 已绑定列表 -->
     <YdCard class="mb-4">
       <YdCardHeader>

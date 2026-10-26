@@ -10,7 +10,7 @@
  * 收藏夹（列表页）
  * <p>消费后端契约 UserFavoriteController（apps/nextwiki-web/src/api/userFavorite.ts）：
  * listFavorites() 展示用户收藏列表 + getFavoriteCount() 展示总数，
- * 行操作：移除收藏 removeFavorite、调整排序 updateSortOrder。
+ * 行操作：移除收藏 removeFavorite、调整排序 updatesort（契约生成件命名，别名 updateSort）。
  *
  * @author ydsz-team
  * @since 1.0.0
@@ -21,10 +21,12 @@ import { YdNumberField, YdNumberFieldInput, YdButton, YdBadge } from '@ydsz-core
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-favorites');
 const { t } = useI18n();
-import { getFavoriteCount, listFavorites, removeFavorite, updateSortOrder }
+import { getFavoriteCount, listFavorites, removeFavorite, updatesort as updateSort }
   from '#/api/userFavorite';
 import type { UserFavoriteVO } from '#/api/models';
 

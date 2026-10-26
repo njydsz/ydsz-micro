@@ -20,15 +20,19 @@ import { requestClient } from './request-setup';
  * <p>封装 openapi-fetch，复用现有 requestClient 的拦截器链（Token 注入、TraceId、错误处理），
  * 提供类型安全的 API 调用（基于 openapi-typescript 生成的 schema.d.ts）。
  *
+ * <p>baseUrl 必须为空串：底层走 requestClient，其 baseURL 已是网关命名空间 /api
+ * （VITE_GLOB_API_URL），这里再拼一次会得出 /api/api/... 或 /api/system/api/... 之类
+ * 网关根本不路由的地址。生成的 schema 里 paths 就是 Controller 相对路径（如 /users/{id}）。
+ *
  * @example
  * ```ts
  * // 在 system-web 中使用
  * import { createOpenApiClient } from '@ydsz/shared-auth';
  * import type { paths } from '#/api/sdk/schema';
  *
- * const apiClient = createOpenApiClient<paths>({ baseUrl: '/api/system' });
+ * const apiClient = createOpenApiClient<paths>({ baseUrl: '' });
  *
- * // 类型安全的 API 调用
+ * // 类型安全的 API 调用（实际请求 /api/users/{id}）
  * const { data, error } = await apiClient.GET('/users/{id}', {
  *   params: { path: { id: '123' } },
  * });

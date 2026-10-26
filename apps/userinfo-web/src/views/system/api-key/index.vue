@@ -21,8 +21,11 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdButton, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { h } from 'vue';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { pageKeys, revokeKeys, updateEnabled, type ApiKeyVO } from '#/api/apiKey';
+import { pageKeys, revokeKeys, updateEnabled } from '#/api/apiKey';
+import type { ApiKeyVO } from '#/api/models';
 import ApiKeyForm from './api-key-form.vue';
 
 defineOptions({ name: 'ApiKeyManagement' });

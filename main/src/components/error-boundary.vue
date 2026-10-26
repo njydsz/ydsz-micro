@@ -15,8 +15,11 @@
 -->
 <script lang="ts" setup>
 import { onErrorCaptured, ref } from 'vue';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'ErrorBoundary' });
+
+const logger = createLogger('ErrorBoundary');
 
 const props = withDefaults(defineProps<{
   /** 边界标识（用于日志） */
@@ -34,7 +37,7 @@ const isDev = import.meta.env.DEV;
 onErrorCaptured((err: unknown) => {
   hasError.value = true;
   errorInfo.value = err instanceof Error ? err : new Error(String(err));
-  console.error(`[ErrorBoundary:${props.name}]`, err);
+  logger.error(`[${props.name}]`, err);
   return false; // 阻止错误继续向上传播
 });
 

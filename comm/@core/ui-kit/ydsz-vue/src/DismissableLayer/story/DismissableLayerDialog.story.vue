@@ -5,7 +5,6 @@ import { DismissableLayer } from '../'
 import { ref } from 'vue'
 
 function handleAlert() {
-  // eslint-disable-next-line no-alert
   alert('Alert')
 }
 

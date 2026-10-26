@@ -2,7 +2,6 @@
 import DummyPopover from './_DummyPopover.vue'
 
 function handleAlert() {
-  // eslint-disable-next-line no-alert
   alert('Alert')
 }
 </script>

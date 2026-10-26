@@ -27,6 +27,8 @@ import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { showToast } from '@ydsz/notification';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { ccMarkAllRead, ccMarkRead, ccUnreadCount, pageCc } from '#/api/flowCc';
 import type { FlowCcQuery, FlowCcVO } from '#/api/models';

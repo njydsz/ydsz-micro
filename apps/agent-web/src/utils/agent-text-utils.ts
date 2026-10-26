@@ -9,8 +9,13 @@
  * @since 26.09.17
  */
 
-/** 非打印字符正则（控制字符 + 零宽字符） */
-const NON_PRINTABLE_PATTERN = /[\u0000-\u001F\u007F\u200B-\u200D\uFEFF]/g;
+/**
+ * 非打印字符正则（控制字符 + 零宽字符）
+ *
+ * <p>控制字符用 Unicode 属性类 `\p{Cc}`（覆盖 C0/C1 与 DEL）而非 `\x00-\x1F` 字面区间，
+ * 既满足 no-control-regex，也不会漏掉 U+0080-U+009F。
+ */
+const NON_PRINTABLE_PATTERN = /[\p{Cc}\u200B-\u200D\uFEFF]/gu;
 
 /** Markdown 代码块语言标签 */
 const CODE_BLOCK_LANG_PATTERN = /^```[a-zA-Z0-9_+-]*\n/;

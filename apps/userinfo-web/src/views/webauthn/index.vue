@@ -25,6 +25,9 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { deleteCredential, listCredentials } from '#/api/webAuthn';
 import type { WebAuthnCredentialVO } from '#/api/models';
 

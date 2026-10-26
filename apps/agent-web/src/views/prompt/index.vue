@@ -24,6 +24,7 @@ import { YdBadge, YdButton, YdEmptyState } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
+import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 
 const logger = createLogger('agent-prompt');

@@ -88,7 +88,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page loading="isLoading" auto-content-height>
+  <Page v-loading="isLoading" auto-content-height>
     <!-- 指标概览卡片 -->
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
       <YdCard shadow="hover">

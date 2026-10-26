@@ -34,7 +34,7 @@ describe('useChunkUpload', () => {
 
   it('应导出默认常量', () => {
     expect(DEFAULT_CHUNK_SIZE).toBe(5 * 1024 * 1024);
-    expect(DEFAULT_MULTIPART_BASE).toBe('/api/v1/system/file/multipart');
+    expect(DEFAULT_MULTIPART_BASE).toBe('/api/file/multipart');
     expect(DEFAULT_MAX_RETRIES).toBe(3);
     expect(DEFAULT_CHUNK_TIMEOUT).toBe(30_000);
   });

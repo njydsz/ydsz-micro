@@ -15,6 +15,7 @@
  * @since 5.6.0
  */
 import { mergeAttributes, Node } from '@tiptap/core';
+import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import { PluginKey } from '@tiptap/pm/state';
 
 /** 提及节点属性 */
@@ -81,7 +82,13 @@ export function createMentionExtension(
       return [{ tag: 'span[data-mention-id]' }];
     },
 
-    renderHTML({ node, HTMLAttributes }: { node: any; HTMLAttributes: Record<string, string> }) {
+    renderHTML({
+      node,
+      HTMLAttributes,
+    }: {
+      node: ProseMirrorNode;
+      HTMLAttributes: Record<string, string>;
+    }) {
       return [
         'span',
         mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {

@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "codeLogin": "Entrar con código",
+    "qrcodeLogin": "Entrar con código QR",
+    "forgetPassword": "Olvidé mi contraseña"
+  },
+  "dashboard": {
+    "title": "Plataforma YDSZ",
+    "analytics": "Análisis de datos",
+    "workspace": "Espacio de travail",
+    "notifications": "Centro de notificaciones",
+    "performance": "Monitor de rendimiento"
+  },
+  "operations": "Operaciones",
+  "audit": {
+    "title": "Registro de auditoría",
+    "filter": {
+      "operatorName": "Operador",
+      "module": "Módulo",
+      "actionType": "Tipo",
+      "result": "Resultado de la operación",
+      "dateRange": "Rango de fechas",
+      "keyword": "Palabra clave",
+      "search": "Consultar",
+      "reset": "Restablecer",
+      "export": "Exportar"
+    },
+    "table": {
+      "actionTime": "Hora",
+      "operatorName": "Operador",
+      "module": "Módulo",
+      "actionType": "Tipo",
+      "description": "Descripción breve",
+      "clientIp": "IP",
+      "operation": "Acción",
+      "viewDetail": "Ver detalle",
+      "empty": "Sin registros de auditoría",
+      "total": "{count} registros en total"
+    },
+    "detail": {
+      "title": "Detalle del registro de auditoría",
+      "basicInfo": "Información básica",
+      "clientInfo": "Información del cliente",
+      "diffTitle": "Comparación de cambios",
+      "errorMessage": "Mensaje de error",
+      "noDiff": "Sin datos de cambios",
+      "session": "Session ID",
+      "browser": "Navegador",
+      "os": "Sistema operativo",
+      "oldValue": "Valor anterior",
+      "newValue": "Valor nuevo",
+      "loading": "Cargando..."
+    },
+    "actionType": {
+      "CREATE": "Crear",
+      "UPDATE": "Modificar",
+      "DELETE": "Eliminar",
+      "LOGIN": "Iniciar sesión",
+      "EXPORT": "Exportar"
+    },
+    "exportConfirm": "La exportación de datos sensibles requiere doble verificación"
+  },
+  "notification": {
+    "summary": {
+      "total": "Total",
+      "unread": "No leídas",
+      "today": "Hoy",
+      "connection": "Estado de la connexion"
+    },
+    "sse": {
+      "connected": "En directo",
+      "disconnected": "Desconecté"
+    },
+    "col": {
+      "title": "Título",
+      "level": "Nivel",
+      "time": "Hora",
+      "status": "Estado"
+    },
+    "level": {
+      "info": "Aviso",
+      "success": "Éxito",
+      "warning": "Advertencia",
+      "error": "Error"
+    },
+    "status": {
+      "read": "Leída",
+      "unread": "No leída"
+    },
+    "filter": {
+      "allLevels": "Todos los niveles",
+      "allStatus": "Todos los estados"
+    },
+    "markRead": "Marcar como leída",
+    "markAllRead": "Marcar todo como leído",
+    "clearAll": "Vaciar todo",
+    "viewDetail": "Ver detalle"
+  },
+  "microKernel": {
+    "containerLabel": "Contenedor de subaplicación",
+    "phase": {
+      "loading": "Cargando módulos...",
+      "loaded": "Módulos cargados",
+      "mounting": "Montando la aplicación...",
+      "mounted": "Carga completada",
+      "unmounting": "Cambiando de aplicación...",
+      "error": "Error de carga"
+    },
+    "announcements": {
+      "loading": "Cargando la subaplicación {{appName}}",
+      "loaded": "Módulos de {{appName}} cargados, preparando el montaje",
+      "mounting": "Montando la subaplicación {{appName}}",
+      "mounted": "Subaplicación {{appName}} cargada correctamente",
+      "unmounting": "Saliendo de {{appName}}",
+      "error": "Error al cargar la subaplicación {{appName}}"
+    },
+    "errorMask": {
+      "title": "Error al cargar la aplicación",
+      "hint": "Se degradó a navegación de página completa; reinténtelo más tarde"
+    }
+  }
+}

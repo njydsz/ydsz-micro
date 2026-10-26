@@ -45,6 +45,10 @@ export const ptBR = {
   'table.expandedRow': 'Expandir linha',
   'table.collapseRow': 'Recolher linha',
   'table.columnSetting': 'Configurações de coluna',
+  'table.editCell': 'Editar célula',
+  'table.sortHint': 'Clique para ordenar; Shift+clique para ordenação múltipla',
+  'table.resizeColumn': 'Arraste para redimensionar a coluna',
+  'table.dragColumn': 'Arraste para reordenar a coluna',
 
   // ===== Formulário =====
   'form.validating': 'Validando...',
@@ -73,6 +77,8 @@ export const ptBR = {
   'upload.maxSize': 'O tamanho do arquivo excede o limite',
   'upload.maxCount': 'A quantidade de arquivos excede o limite',
   'upload.invalidFormat': 'Formato de arquivo não suportado',
+  'upload.clickToUpload': 'Clique para enviar',
+  'upload.dragTipPrefix': 'Arraste um arquivo aqui ou ',
 
   // ===== Paginação =====
   'pagination.page': '',
@@ -114,6 +120,9 @@ export const ptBR = {
   'datepicker.oct': 'Out',
   'datepicker.nov': 'Nov',
   'datepicker.dec': 'Dez',
+  'datepicker.openCalendar': 'Abrir calendário',
+  'datepicker.previousMonth': 'Mês anterior',
+  'datepicker.nextMonth': 'Próximo mês',
 
   // ===== Seletor =====
   'select.placeholder': 'Selecione',
@@ -132,6 +141,9 @@ export const ptBR = {
   'tree.collapseAll': 'Recolher tudo',
   'tree.checkedAll': 'Marcar tudo',
   'tree.uncheckedAll': 'Desmarcar tudo',
+  'tree.search': 'Buscar nós...',
+  'tree.clearSearch': 'Limpar a busca',
+  'tree.searchResults': 'Resultados da pesquisa',
 
   // ===== Notificação =====
   'message.success': 'Sucesso',
@@ -159,13 +171,35 @@ export const ptBR = {
   'empty.no-result': 'Nenhum resultado correspondente',
 
   // ===== Tema =====
-  'theme.light': 'Claro',
-  'theme.dark': 'Escuro',
-  'theme.system': 'Sistema',
 
   // ===== Idioma =====
-  'locale.switchLanguage': 'Alterar idioma',
-  'locale.currentLanguage': 'Idioma atual',
+  'drawer.ariaLabel': 'Painel lateral',
+  'drawer.close': 'Fechar',
+  'drawer.closeAriaLabel': 'Fechar painel lateral',
+  'drawer.confirm': 'Confirmar',
+  'drawer.cancel': 'Cancelar',
+  'autoComplete.placeholder': 'Digite uma palavra-chave',
+  'autoComplete.emptyText': 'Nenhum item correspondente',
+  'autoComplete.loadingText': 'Carregando...',
+  'autoComplete.clearAriaLabel': 'Limpar entrada',
+  'fileUpload.clickToUpload': 'Clique ou arraste para enviar',
+  'fileUpload.dragAndDrop': 'Arraste arquivos para esta área',
+  'fileUpload.fileSize': 'Tamanho',
+  'orderList.moveToTop': 'Mover para o topo',
+  'orderList.moveUp': 'Mover para cima',
+  'orderList.moveDown': 'Mover para baixo',
+  'orderList.moveToBottom': 'Mover para o final',
+  'orderList.filterPlaceholder': 'Buscar',
+  'pickList.sourceLabel': 'Lista de origem',
+  'pickList.targetLabel': 'Lista de destino',
+  'pickList.moveToTarget': 'Mover para o destino',
+  'pickList.moveToSource': 'Mover de volta à origem',
+  'pickList.moveAllToTarget': 'Mover tudo para o destino',
+  'pickList.moveAllToSource': 'Mover tudo de volta à origem',
+  'pickList.filterPlaceholder': 'Buscar',
+  'qrCode.download': 'Baixar código QR',
+  'splitButton.toggleDropdown': 'Alternar menu suspenso',
+  'orgChart.search': 'Buscar {field}...',
 } as const satisfies Record<string, string>;
 
 export default ptBR;

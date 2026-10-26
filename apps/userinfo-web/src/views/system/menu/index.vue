@@ -26,6 +26,9 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { remove, tree } from '#/api/menu';
 import type { MenuTreeVO } from '#/api/models';
 

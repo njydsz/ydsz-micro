@@ -13,7 +13,7 @@
  * <ol>
  *   <li>复用 @ydsz/monitor/web-vitals 的 PerformanceObserver 采集能力</li>
  *   <li>指标到达后写入响应式 store，供性能看板消费</li>
- *   <li>POST /api/v1/metrics/web-vitals（若端点可用）或本地打印</li>
+ *   <li>POST /api/monitor/web-vitals（若端点可用）或本地打印</li>
  *   <li>异常指标（超 budget 阈值）调用 error-monitor 上报 WARN</li>
  * </ol>
  *
@@ -34,7 +34,6 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import type { WebVitalName, WebVitalReport } from '@ydsz/monitor';
 import {
   customizeAlertThresholds,
-  reportWebVital,
   getAlertThresholds,
 } from '@ydsz/monitor';
 import { reportError } from '@ydsz/monitor';
@@ -81,8 +80,8 @@ let installed = false;
 /** 采样率（meta 覆盖，默认 5%） */
 let sampleRate = 0.05;
 
-/** 上报端点 */
-const METRICS_ENDPOINT = '/api/v1/metrics/web-vitals';
+/** 上报端点：sendBeacon/fetch 原生调用，需写网关注册的完整路径（MonitorReportController） */
+const METRICS_ENDPOINT = '/api/monitor/web-vitals';
 
 /** 会话上报去重集合 */
 const sentReportIds = new Set<string>();
@@ -320,7 +319,7 @@ function collectExistingVitals(
  * <p>由于 monitor 模块的 setupWebVitals 已通过 PerformanceObserver 采集并内部
  * enqueueVital，本函数作为二次处理路径，确保：
  * 1. 指标写入本模块的响应式 store
- * 2. POST 到 /api/v1/metrics/web-vitals
+ * 2. POST 到 /api/monitor/web-vitals
  * 3. 超 budget 触发 WARN 告警
  *
  * @param callback - 外部消费回调

@@ -20,7 +20,7 @@
 import { Page } from '@ydsz/common-ui';
 
 import { YdAlertBanner, YdBadge, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelect, YdSelectItem, YdSwitch, YdTable, YdTableColumn, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
-import { YdAlert } from '@ydsz-core/popup-ui';
+import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';

@@ -2,9 +2,9 @@
   "title": "Gestion des Codes d Erreur",
   "createTitle": "Creer une Config de Code d Erreur",
   "editTitle": "Modifier la Config de Code d Erreur",
-  "createSuccess": "Cree avec succes",
-  "editSuccess": "Mis a jour avec succes",
-  "toggleSuccess": "Statut modifie avec succes",
+  "createSuccess": "Cree avec succès",
+  "editSuccess": "Mis a jour avec succès",
+  "toggleSuccess": "Statut modifie avec succès",
   "confirmDelete": "Etes-vous sur de vouloir supprimer la configuration du code d erreur \"{errorCode}\" ?",
   "columns": {
     "errorCode": "Code d Erreur",

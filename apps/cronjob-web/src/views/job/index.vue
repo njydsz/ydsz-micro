@@ -25,6 +25,8 @@ import { h, onMounted, onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import { showToast } from '@ydsz/notification';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
   batchDelete,

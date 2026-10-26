@@ -20,6 +20,8 @@ import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentB
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { create, update } from '#/api/jobWebhook';
 import type { JobWebhookVO } from '#/api/models';
 

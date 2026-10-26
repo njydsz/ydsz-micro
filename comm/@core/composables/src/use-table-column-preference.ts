@@ -61,7 +61,7 @@ function readFromStorage(tableId: string): null | ColumnPreferenceState {
     if (!raw) return null;
     return JSON.parse(raw) as ColumnPreferenceState;
   } catch (error) {
-    logger.warn('读取表格列配置失败，tableId: {}', tableId);
+    logger.warn('读取表格列配置失败', { tableId, error });
     return null;
   }
 }
@@ -79,7 +79,7 @@ function writeToStorage(tableId: string, state: ColumnPreferenceState): void {
       JSON.stringify(state),
     );
   } catch (error) {
-    logger.warn('保存表格列配置失败，tableId: {}', tableId);
+    logger.warn('保存表格列配置失败', { tableId, error });
   }
 }
 
@@ -235,7 +235,7 @@ export function useTableColumnPreference(
       try {
         localStorage.removeItem(`${STORAGE_KEY_PREFIX}${tableId}`);
       } catch (error) {
-        logger.warn('清除表格列配置失败，tableId: {}', tableId);
+        logger.warn('清除表格列配置失败', { tableId, error });
       }
     }
 

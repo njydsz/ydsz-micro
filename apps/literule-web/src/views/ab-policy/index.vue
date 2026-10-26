@@ -14,6 +14,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
@@ -340,7 +342,7 @@ async function handleManualRollback(): Promise<void> {
       width="640px"
       top="8vh"
     >
-      <div loading="evaluateLoading">
+      <div v-loading="evaluateLoading">
         <div v-if="evaluateResult">
           <div
             v-for="(value, key) in evaluateResult"

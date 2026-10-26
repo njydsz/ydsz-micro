@@ -46,6 +46,10 @@ export const frFR = {
   'table.expandedRow': 'Développer la ligne',
   'table.collapseRow': 'Réduire la ligne',
   'table.columnSetting': 'Paramètres des colonnes',
+  'table.editCell': 'Modifier la cellule',
+  'table.sortHint': 'Cliquez pour trier, Maj+clic pour tri multiple',
+  'table.resizeColumn': 'Glissez pour redimensionner la colonne',
+  'table.dragColumn': 'Glissez pour réordonner la colonne',
 
   // ===== Formulaire =====
   'form.validating': 'Validation en cours...',
@@ -74,6 +78,8 @@ export const frFR = {
   'upload.maxSize': 'La taille du fichier dépasse la limite',
   'upload.maxCount': 'Le nombre de fichiers dépasse la limite',
   'upload.invalidFormat': 'Format de fichier non pris en charge',
+  'upload.clickToUpload': 'Cliquez pour téléverser',
+  'upload.dragTipPrefix': 'Glissez un fichier ici ou ',
 
   // ===== Pagination =====
   'pagination.page': '',
@@ -115,6 +121,9 @@ export const frFR = {
   'datepicker.oct': 'Oct',
   'datepicker.nov': 'Nov',
   'datepicker.dec': 'Déc',
+  'datepicker.openCalendar': 'Ouvrir le calendrier',
+  'datepicker.previousMonth': 'Mois précédent',
+  'datepicker.nextMonth': 'Mois suivant',
 
   // ===== Sélecteur =====
   'select.placeholder': 'Veuillez sélectionner',
@@ -133,6 +142,9 @@ export const frFR = {
   'tree.collapseAll': 'Tout réduire',
   'tree.checkedAll': 'Tout cocher',
   'tree.uncheckedAll': 'Tout décocher',
+  'tree.search': 'Rechercher des nœuds...',
+  'tree.clearSearch': 'Effacer la recherche',
+  'tree.searchResults': 'Résultats de recherche',
 
   // ===== Notification =====
   'message.success': 'Succès',
@@ -160,13 +172,35 @@ export const frFR = {
   'empty.no-result': 'Aucun résultat correspondant',
 
   // ===== Thème =====
-  'theme.light': 'Clair',
-  'theme.dark': 'Sombre',
-  'theme.system': 'Système',
 
   // ===== Langue =====
-  'locale.switchLanguage': 'Changer de langue',
-  'locale.currentLanguage': 'Langue actuelle',
+  'drawer.ariaLabel': 'Tiroir',
+  'drawer.close': 'Fermer',
+  'drawer.closeAriaLabel': 'Fermer le tiroir',
+  'drawer.confirm': 'Confirmer',
+  'drawer.cancel': 'Annuler',
+  'autoComplete.placeholder': 'Saisissez un mot-clé',
+  'autoComplete.emptyText': 'Aucun élément correspondant',
+  'autoComplete.loadingText': 'Chargement...',
+  'autoComplete.clearAriaLabel': 'Effacer la saisie',
+  'fileUpload.clickToUpload': 'Cliquez ou glissez pour téléverser',
+  'fileUpload.dragAndDrop': 'Glissez des fichiers dans cette zone',
+  'fileUpload.fileSize': 'Taille',
+  'orderList.moveToTop': 'Déplacer en haut',
+  'orderList.moveUp': 'Monter',
+  'orderList.moveDown': 'Descendre',
+  'orderList.moveToBottom': 'Déplacer en bas',
+  'orderList.filterPlaceholder': 'Rechercher',
+  'pickList.sourceLabel': 'Liste source',
+  'pickList.targetLabel': 'Liste cible',
+  'pickList.moveToTarget': 'Déplacer vers la cible',
+  'pickList.moveToSource': 'Revenir à la source',
+  'pickList.moveAllToTarget': 'Tout déplacer vers la cible',
+  'pickList.moveAllToSource': 'Tout renvoyer à la source',
+  'pickList.filterPlaceholder': 'Rechercher',
+  'qrCode.download': 'Télécharger le QR code',
+  'splitButton.toggleDropdown': 'Basculer le menu déroulant',
+  'orgChart.search': 'Rechercher {field}...',
 } as const satisfies Record<string, string>;
 
 export default frFR;

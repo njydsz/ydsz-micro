@@ -85,8 +85,10 @@ jobs:
         run: pnpm sync:shared-deps:check
 
   # 接线一致性门禁（B0-7）：base 路径 / nginx 生成物 / 设计令牌 / CI 自身引用的脚本存在性。
-  # 单独成 job 而不是塞进 verify：verify 目前卡在 pnpm lint 的存量错误上（1360 error），
-  # 若把这些步骤排在 lint 之后，它们一次也不会被执行——这正是"门禁写了却没人跑"的成因。
+  # 单独成 job 而不是塞进 verify：历史成因是 verify 曾长期卡在 pnpm lint 的存量错误上
+  # （1360 error，2026-10-26 P0-8 已清零并恢复 --max-warnings=0 阻断），
+  # 排在 lint 之后的步骤一次也不会被执行——这正是"门禁写了却没人跑"的成因。
+  # 现在保留独立 job 的理由是并行与信号独立：接线检查不依赖 lint/类型结果，10 分钟内即可给出结论。
   # 每项都附带 --self-test 反例自检：自检红说明检查空转，同样阻断合并。
   wiring:
     name: 接线一致性（base / nginx / 令牌 / HTML 头部 / CI 引用）
@@ -137,6 +139,57 @@ jobs:
 
       - name: 设计令牌门禁自检
         run: pnpm check:tokens:self-test
+
+      # 依赖声明 + 入口可达性（B0-10 的静态前置）：pnpm 隔离 node_modules 下，
+      # "import 了未声明的依赖"与"入口指向永远不会生成的 dist"都只在
+      # vite build --mode production 才炸；本地 dev 走 development/types 条件命中 src，
+      # 于是 9 个子应用的生产构建可以集体红着没人发现。
+      - name: 依赖声明与入口可达性
+        run: pnpm check:deps
+
+      - name: 依赖门禁自检
+        run: pnpm check:deps:self-test
+
+      # 全局助手导入门禁：本仓没有 unplugin-auto-import，也没有 globalThis 注入，
+      # `showToast.*()` / `YdConfirm()` 少一句 import 就是运行时 ReferenceError。
+      # 这类调用大多裹在 try/catch 里，异常被吞后成功提示与紧随其后的列表刷新一起失效，
+      # 表现为"删除成功但列表没变"，比白屏更难归因 —— 一次审计即命中 195 个文件 661 处。
+      - name: 全局助手导入
+        run: pnpm check:helpers
+
+      - name: 全局助手门禁自检
+        run: pnpm check:helpers:self-test
+
+      # 具名导入一致性门禁：`import { X } from './m'` 里 m 没导出 X 时，Rollup 只报 WARN、
+      # 构建照旧 exit 0，运行时 X 是 undefined —— 调用即 TypeError，且常被外层 try/catch 吞掉。
+      # 首轮实跑就是全仓 `pnpm build` 里唯一的一条这类告警（nextwiki 收藏夹把生成契约里的
+      # `updatesort` 写成了 `updateSortOrder`，同文件调用点还用了第三个名字）。
+      # 高发的根因是 src/api/*.ts 由 bash/gen-contract.py 从后端契约生成，后端改名不会带动视图。
+      - name: 具名导入一致性
+        run: pnpm check:exports
+
+      - name: 具名导入门禁自检
+        run: pnpm check:exports:self-test
+
+      # i18n 词典门禁自检：搜索根清单（comm / main / apps/* / 组件库内置词典）一旦与
+      # 真实词典布局脱节——新增子应用、语种改名或 langs 目录迁移——检查会静默扫不到目录
+      # 并永远报"通过"。反例夹具逐项验证缺目录/缺文件/缺 key/多余 key 四类缺陷确能命中。
+      - name: i18n 词典门禁自检
+        run: pnpm check:i18n:self-test
+
+      # 模板绑定门禁：`loading="isLoading"` 这类漏冒号的写法把变量名当字符串传给组件——
+      # 布尔 prop 变成常驻真值（遮罩永不消失）或彻底空写（加载态从不出现），
+      # dev/build/单测全绿，只有用户"等半天没反应"才暴露。首轮实跑命中 14 处。
+      - name: 模板布尔属性绑定校验
+        run: pnpm check:tpl
+
+      - name: 模板绑定门禁自检
+        run: pnpm check:tpl:self-test
+
+      # 体积门禁自身的反例自检：它的扫描目录一旦与真实产物布局脱节，就会永远报"通过"
+      # （CI 侧此前正是扫 dist/assets，而产物在 dist/js、dist/css、dist/jse）。
+      - name: 体积预算门禁自检
+        run: pnpm check:size:self-test
 
       # 性能退化判定的自检：该脚本由 performance.yml 调用，必须"基线缺失/指标名漂移就红"，
       # 但性能 job 本身是独立工作流，所以把它的不失败能力放进必跑的 PR 门禁里验证。
@@ -337,12 +390,13 @@ jobs:
 
   # 产物体积门禁（P0-3 修复）：由原 e2e-smoke job 中与测试无关的门禁提取而来，
   # 从"仅手动触发"升级为 PR 必跑，门禁强度不降反升。
-  # 构建期 bundle-budget 插件与 CI 期 check-size.mjs 共享 conf/budget.config.json
-  # 单一预算源，两者同口径（gzip），杜绝此前 5MB/15MB 与 512KB/384KB 的双轨矛盾。
+  # 构建期 YDSZ:bundle-budget 插件与 CI 期 bash/check-size.mts 共用
+  # conf/vite-config/src/plugins/budget-config.ts：同一份阈值、同一套判据、同一个产物目录口径，
+  # 杜绝此前 5MB/15MB 与 512KB/384KB 的双轨矛盾，以及"CI 扫 dist/assets 而产物在 dist/js"的空转。
   bundle:
     name: 产物体积预算
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -356,15 +410,19 @@ jobs:
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
-      # 内存说明：main-web 生产构建（6022 模块 + Brotli/Gzip 预压缩）峰值内存较高。
+      # 内存说明：main-web 生产构建（6000+ 模块 + Brotli/Gzip 预压缩）峰值内存较高。
       # 仓库根 build 脚本默认 --max-old-space-size=8192，在 GHA 标准 runner（约 7GB RAM）
       # 上会因内存不足被系统终止（本地已复现：EXIT=-1 且无错误栈）。
       # 此处显式下调堆上限以适配 runner；若该步骤仍不稳定，应改由 nightly 或
       # 自托管 runner 承接，而不是把门禁降级为手动触发。
-      - name: 构建 main-web
+      #
+      # 构建范围从"只建 main-web"改为"建全部 10 个 web 应用"：B0-10 之所以能带着
+      # 9 个子应用的生产构建红着合进 dev，就是因为 CI 从没构建过它们。
+      # 体积门禁（下一步）也要求每个应用的 dist 都在，否则它又在检查空气。
+      - name: 构建全部 web 应用（主子应用 + 9 个子应用）
         env:
           NODE_OPTIONS: --max-old-space-size=4096
-        run: pnpm build:main
+        run: pnpm build
 
       - name: 产物体积预算（gzip 口径，共享 budget.config.json）
         run: pnpm check:size

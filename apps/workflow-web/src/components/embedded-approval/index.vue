@@ -25,6 +25,7 @@
  */
 import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
 import type { EmbeddedApprovalActionDTO, EmbeddedApprovalViewDTO } from '#/api/models';
 import { $t } from '#/locales';

@@ -25,13 +25,15 @@ import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('message-template');
 import { audit, deleteApi, page } from '#/api/template';
 import { listVersions, preview, rollback, testSend } from '#/api/templateVersion';
-import type { MsgTemplateVO, MsgTemplateVersion } from '#/api/models';
+import type { MsgTemplateVO, MsgTemplateVersionVO } from '#/api/models';
 
 import TemplateForm from './template-form.vue';
 
@@ -229,7 +231,7 @@ async function handleDelete(row: MsgTemplateVO) {
 /** 版本管理抽屉状态 */
 const versionVisible = ref(false);
 const versionLoading = ref(false);
-const versionList = ref<MsgTemplateVersion[]>([]);
+const versionList = ref<MsgTemplateVersionVO[]>([]);
 const currentTemplateCode = ref('');
 
 /** 打开版本管理 */
@@ -249,7 +251,7 @@ async function handleVersion(row: MsgTemplateVO) {
 }
 
 /** 版本回滚 */
-async function handleRollback(version: MsgTemplateVersion) {
+async function handleRollback(version: MsgTemplateVersionVO) {
   if (!version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {

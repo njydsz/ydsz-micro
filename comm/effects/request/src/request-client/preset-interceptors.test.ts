@@ -15,6 +15,8 @@
  */
 
 import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import type * as axiosModule from 'axios';
+import type * as ydszUtils from '@ydsz/utils';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // ---------------------------------------------------------------------------
@@ -22,7 +24,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 // ---------------------------------------------------------------------------
 
 vi.mock('axios', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('axios')>();
+  const actual = await importOriginal<typeof axiosModule>();
   return {
     ...actual,
     default: {
@@ -50,7 +52,7 @@ vi.mock('@ydsz/locales', () => ({
 
 // 关键：defaultResponseInterceptor 从 @ydsz/utils 导入 isFunction
 vi.mock('@ydsz/utils', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@ydsz/utils')>();
+  const actual = await importOriginal<typeof ydszUtils>();
   return {
     ...actual,
     isFunction: (value: unknown): value is (...args: unknown[]) => unknown =>

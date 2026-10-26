@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ydsz-core/composables": "workspace:*",
+    "@ydsz-core/popup-ui": "workspace:*",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/ydsz-ui": "workspace:*",
     "@vueuse/core": "catalog:",

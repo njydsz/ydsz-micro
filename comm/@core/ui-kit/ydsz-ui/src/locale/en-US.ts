@@ -145,6 +145,9 @@ export const enUS = {
   'tree.collapseAll': 'Collapse all',
   'tree.checkedAll': 'Check all',
   'tree.uncheckedAll': 'Uncheck all',
+  'tree.search': 'Search nodes...',
+  'tree.clearSearch': 'Clear search',
+  'tree.searchResults': 'Search results',
 
   // ===== Notification / Message =====
   'message.success': 'Success',
@@ -203,6 +206,7 @@ export const enUS = {
   // ===== QrCode / SplitButton =====
   'qrCode.download': 'Download QR code',
   'splitButton.toggleDropdown': 'Toggle dropdown',
+  'orgChart.search': 'Search {field}...',
 } as const satisfies Record<string, string>;
 
 export default enUS;

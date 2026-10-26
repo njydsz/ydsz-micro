@@ -42,7 +42,7 @@
   "delete": "Supprimer",
   "confirmDelete": "Confirmer la suppression ?",
   "confirmDeleteName": "Supprimer \"{0}\" ?",
-  "operationSuccess": "Succes",
+  "operationSuccess": "Succès",
   "status": "Statut",
   "createTime": "Cree le",
   "action": "Actions",
@@ -84,7 +84,7 @@
     "rollback": "Restauration",
     "rollbackTitle": "Restauration Confirmer",
     "rollbackConfirm": "Restauration to version \"{version}\"?\nChange: {changeLog}\nCurrent config will be overwritten.",
-    "compareVersions": "Comparer la selection",
+    "compareVersions": "Comparer la sélection",
     "diffTitle": "Version Diff: {versionA} vs {versionB}",
     "leftVersion": "Version A: {0}",
     "rightVersion": "Version B: {0}",
@@ -99,7 +99,7 @@
     "approve": "Approuver",
     "reject": "Reject",
     "withdraw": "Withdraw",
-    "viewDetail": "Voir Detail",
+    "viewDetail": "Voir Détail",
     "detail": "Detail",
     "reasonLabel": "Raison",
     "rejectionReasonLabel": "Rejection Raison",
@@ -113,7 +113,16 @@
       "reset": "Reinitialiser",
       "refresh": "Actualiser",
       "export": "Exporter"
-    }
+    },
+    "enabled": "Activé",
+    "disabled": "Désactivé",
+    "status": "Statut",
+    "actions": "Actions",
+    "create": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleteConfirm": "Confirmation de suppression",
+    "deleteConfirmTitle": "Confirmation de suppression"
   },
   "audit": {
     "title": "Journal d'audit",
@@ -123,7 +132,7 @@
       "action": "Type d'action",
       "operator": "Operateur",
       "operatorId": "Operateur ID",
-      "time": "Operation Heure",
+      "time": "Opération Heure",
       "ip": "Adresse IP",
       "traceId": "ID de trace",
       "detail": "Detail",
@@ -141,15 +150,15 @@
       "logout": "Deconnexion"
     },
     "buttons": {
-      "viewDetail": "Voir Detail"
+      "viewDetail": "Voir Détail"
     },
     "detail": {
-      "title": "Detail d'audit",
+      "title": "Détail d'audit",
       "before": "Avant",
       "after": "Apres"
     },
     "status": {
-      "success": "Succes",
+      "success": "Succès",
       "failed": "Echoue"
     },
     "placeholder": {
@@ -289,9 +298,22 @@
       "pink": "Rose",
       "cyan": "Cyan",
       "gray": "Gris"
-    }
+    },
+    "export": "Exporter les paramètres",
+    "import": "Importer les paramètres",
+    "customColor": "Couleur personnalisée",
+    "customColorDesc": "Usez le sélecteur de couleurs pour personnaliser la couleur du thème",
+    "colorReset": "Réinitialiser",
+    "colorApply": "Appliquer la couleur personnalisée",
+    "exportSuccess": "Préférences exportées",
+    "exportFailed": "Échec de l'exportation des préférences",
+    "importSuccess": "Préférences importées ; rechargez la page pour les appliquer",
+    "importFailed": "Échec de l'importation des préférences",
+    "importInvalidFile": "Fichier invalide ; veuillez sélectionner un fichier JSON",
+    "importInvalidSchema": "Contenu du fichier invalide",
+    "importSelectFile": "Sélectionner un fichier JSON"
   },
-"system":   {
+  "system": {
     "search": {
       "tabAll": "Tout",
       "tabTask": "Tâches",
@@ -319,5 +341,85 @@
       "btnStart": "Démarrer le téléversement",
       "btnCancel": "Annuler"
     }
-  }
+  },
+  "featureFlag": {
+    "title": "Drapeaux de fonctionnalité",
+    "flagKey": "Clé du drapeau",
+    "flagName": "Nom du drapeau",
+    "flagType": "Type de drapeau",
+    "defaultValue": "Valeur par défaut",
+    "currentValue": "Valeur actuelle",
+    "status": "Statut",
+    "description": "Description",
+    "action": "Actions",
+    "typeBoolean": "Booléen",
+    "typeString": "Chaîne",
+    "typeJson": "JSON",
+    "create": "Créer un drapeau",
+    "edit": "Modifier le drapeau",
+    "deleteConfirm": "Voulez-vous vraiment supprimer le drapeau « {0} » ?",
+    "enableConfirm": "Voulez-vous vraiment activer le drapeau « {0} » ?",
+    "disableConfirm": "Voulez-vous vraiment désactiver le drapeau « {0} » ?",
+    "toggleSuccess": "Statut mis à jour",
+    "flagKeyPlaceholder": "Saisissez la clé du drapeau",
+    "flagNamePlaceholder": "Saisissez le nom du drapeau",
+    "defaultValuePlaceholder": "Saisissez la valeur par défaut",
+    "currentValuePlaceholder": "Saisissez la valeur actuelle",
+    "descriptionPlaceholder": "Saisissez la description"
+  },
+  "lockAdmin": {
+    "title": "Gestion des verrous distribués",
+    "activeLockCount": "Verrous actifs",
+    "expiredCount": "Expirés",
+    "aboutToExpire": "Bientôt expiré",
+    "realTime": "Statistiques en temps réel",
+    "ownerDistribution": "Répartition par détenteur",
+    "lockKey": "Clé du verrou",
+    "lockKeyPlaceholder": "Saisissez la clé du verrou",
+    "owner": "Détenteur",
+    "ownerPlaceholder": "Saisissez le détenteur",
+    "acquiredAt": "Date d'acquisition",
+    "expiresAt": "Date d'expiration",
+    "remainingTtl": "TTL restant",
+    "reentrantCount": "Compteur réentrant",
+    "release": "Libération forcée",
+    "releaseTitle": "Confirmer la libération du verrou",
+    "releaseConfirm": "Voulez-vous vraiment libérer par force le verrou « {0} » ?\n\nCette opération interrompra le processus normal du détenteur. Réservé au dépannage urgent.",
+    "ttlExpired": "Expiré",
+    "emptyText": "Aucun verrou actif ; tous ont été libérés normalement"
+  },
+  "tenantQuota": {
+    "title": "Quota du locataire",
+    "desc": "Consulter l'utilisation du quota de ressources du locataire",
+    "knowledgeBaseCount": "Bases de connaissances",
+    "agentCount": "Agents",
+    "storageGb": "Stockage (Go)",
+    "apiCallsMonthly": "Appels API mensuels",
+    "used": "Utilisé",
+    "limit": "Limite",
+    "unlimited": "Illimité",
+    "expired": "Expiré",
+    "applyUpgrade": "Demander une augmentation",
+    "applyUpgradeDesc": "Pour augmenter le quota, contactez l'administrateur ou ouvrez un ticket",
+    "loadFailed": "Échec du chargement du quota",
+    "unit": "unité"
+  },
+  "columnConfig": "Configuration des colonnes",
+  "dragToSort": "Glisser pour réorganiser",
+  "columnWidth": "Largeur",
+  "resetToDefault": "Réinitialiser par défaut",
+  "done": "Terminer",
+  "close": "Fermer",
+  "dataScopeLimited": "Périmètre de données : limité à {count} éléments",
+  "dataScopeCustom": "Périmètre de données : restriction personnalisée",
+  "dataScopeValue": "Périmètre de données : {scope}",
+  "dictTypePlaceholder": "Veuillez sélectionner un type de dictionnaire",
+  "editDictItem": "Modifier l'élément de dictionnaire",
+  "createDictItem": "Créer un élément de dictionnaire",
+  "editDictType": "Modifier le type de dictionnaire",
+  "createDictType": "Créer un type de dictionnaire",
+  "editVariable": "Modifier la variable système",
+  "createVariable": "Créer une variable système",
+  "updateSuccess": "Mise à jour réussie",
+  "createSuccess": "Création réussie"
 }

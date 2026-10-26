@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { DismissableLayer } from '../'
 
-// eslint-disable-next-line import/no-self-import
+// 递归自引用：逐层嵌套的浮层示例，Vue SFC 支持该写法
 import DismissableBox from './_DismissableBox.vue'
 
 const open = ref(false)

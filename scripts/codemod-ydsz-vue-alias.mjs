@@ -11,7 +11,7 @@
  *  - 其余（.ts 模块）→ 不带扩展名（vite / tsc bundler 解析均可）
  */
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { join, dirname, relative, resolve, posix } from 'node:path';
+import { join, dirname, relative, resolve } from 'node:path';
 
 const SRC = resolve(process.cwd(), 'comm/@core/ui-kit/ydsz-vue/src');
 

@@ -1,20 +1,59 @@
 {
-  "common": {
-    "language": "Idioma",
-    "ok": "Aceptar",
-    "cancel": "Cancelar",
-    "close": "Cerrar",
-    "save": "Guardar",
-    "delete": "Eliminar",
-    "edit": "Editar",
-    "search": "Buscar",
-    "loading": "Cargando...",
-    "refresh": "Actualizar",
-    "pause": "Pausar",
-    "resume": "Reanudar",
-    "trigger": "Activar",
-    "log": "Registro",
-    "itemCount": "{count, plural, =0{Sin elementos} one{# elemento} other{# elementos}}"
+  "menu": "Menú",
+  "back": "Volver",
+  "backToHome": "Volver al inicio",
+  "login": "Iniciar sesión",
+  "logout": "Cerrar sesión",
+  "prompt": "Aviso",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "reset": "Restablecer",
+  "noData": "Sin datos",
+  "refresh": "Actualizar",
+  "loadingMenu": "Cargando menú",
+  "query": "Consultar",
+  "search": "Buscar",
+  "enabled": "Habilitado",
+  "disabled": "Deshabilitado",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "create": "Añadir",
+  "pause": "Pausar",
+  "resume": "Reanudar",
+  "trigger": "Activar",
+  "log": "Registro",
+  "yes": "Sí",
+  "no": "No",
+  "showSearchPanel": "Mostrar panel de búsqueda",
+  "hideSearchPanel": "Ocultar panel de búsqueda",
+  "seq": "#",
+  "status": "Estado",
+  "createTime": "Fecha de création",
+  "actions": "Acciones",
+  "validation": {
+    "required": "Introduzca {field}"
   },
-  "menu": "Menú"
+  "error": {
+    "pageLoadFailed": "Error al cargar la página, inténtelo de nuevo más tarde"
+  },
+  "crud": {
+    "confirmDeleteDefault": "¿Seguro que desea eliminar este registro? Esta acción no se puede deshacer.",
+    "deleteConfirmTitle": "Confirmación de eliminación",
+    "deleteButton": "Eliminar",
+    "deleteSuccess": "Eliminado correctamente",
+    "deleteFailed": "Error al eliminar",
+    "batchDeleteConfirm": "¿Seguro que desea eliminar los {count} registros seleccionados?",
+    "batchDeleteTitle": "Confirmación de eliminación por lotes",
+    "batchDeleteSuccess": "Eliminación por lotes correcta"
+  },
+  "secondaryAuth": {
+    "title": "Verificación en dos pasos",
+    "password": "Contraseña de inicio de sesión",
+    "passwordPlaceholder": "Introduzca su contraseña de inicio de sesión actual",
+    "hint": "Introduzca su contraseña para confirmar esta operación",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "errorInvalid": "Error de verificación de contraseña, inténtelo de nuevo",
+    "errorEmpty": "La contraseña no puede estar vacía"
+  }
 }

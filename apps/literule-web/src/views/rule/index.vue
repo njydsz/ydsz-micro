@@ -18,6 +18,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import type { CategoryNodeVO, RuleDefinitionVO, RuleVersionVO } from '#/api/models';
 import type { DomainItem } from '@ydsz-core/ydsz-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
@@ -591,7 +593,7 @@ void loadCategoryTree();
         :data="versionRows"
         border
         size="small"
-        loading="versionsLoading"
+        :loading="versionsLoading"
       >
         <YdTableColumn
           prop="version"

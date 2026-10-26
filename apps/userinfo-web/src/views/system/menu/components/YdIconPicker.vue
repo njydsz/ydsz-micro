@@ -18,6 +18,8 @@
 import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 defineOptions({ name: 'YdIconPicker' });
 
 const emit = defineEmits<{

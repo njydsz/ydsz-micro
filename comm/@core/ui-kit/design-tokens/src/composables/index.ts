@@ -14,12 +14,6 @@ import type { DensityMode } from '../tokens/density';
 
 import { DENSITY_MODES, densityCSSVars } from '../tokens/density';
 
-/** 无法在纯函数中读文件，由调用方拼接；此处占位符需替换为实际 CSS 内容 */
-const LIGHT_CSS_PLACEHOLDER = '/* :root light variables — see styles/variables.css */';
-
-/** 暗色覆盖块中 :root[data-theme="dark"] 对应的变量声明（节选自 styles/variables.css） */
-const DARK_CSS_PLACEHOLDER = '/* :root[data-theme="dark"] overrides — see styles/variables.css */';
-
 /**
  * 拼接完整的主题 + 密度 CSS 字符串。
  *

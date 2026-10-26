@@ -5,7 +5,7 @@
  * 对应后端 {@code FlowDefinitionController} + {@code FlowDesignerController} 的
  * 流程定义 BPMN 读写接口。
  *
- * <p>路径规范: /api/v1/workflow/**（kebab-case），成功码统一为 code === 'A00000'。
+ * <p>路径规范: /api/workflow/**（kebab-case），成功码统一为 code === 'A00000'。
  *
  * @path apps\workflow-web\src\api\bpmnDesigner.ts
  * @author ydsz-team

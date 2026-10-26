@@ -31,7 +31,7 @@
   "copyPreferences": "Copiar Preferencias",
   "copyPreferencesSuccessTitle": "Copiar successful",
   "copyPreferencesSuccess": "Copiar successful, please override in `src/preferences.ts` under app",
-  "clearAndLogout": "Limpiar cache y cerrar sesion",
+  "clearAndLogout": "Limpiar cache y cerrar sesión",
   "mode": "Mode",
   "general": "General",
   "language": "Idioma",
@@ -172,7 +172,7 @@
     "title": "Shortcut Keys",
     "global": "Global",
     "search": "Global Buscar",
-    "logout": "Cerrar sesion",
+    "logout": "Cerrar sesión",
     "preferences": "Preferencias"
   },
   "widget": {
@@ -184,38 +184,6 @@
     "notification": "Habilitar Notificacion",
     "sidebarToggle": "Habilitar Sidebar Toggle",
     "lockScreen": "Habilitar Lock Screen",
-    "refresh": "Habilitar Actualizar",
-    "height": {
-      "label": "Altura",
-      "value": "Tall"
-    },
-    "width": {
-      "label": "Ancho",
-      "value": "Amplio"
-    },
-    "minWidth": {
-      "label": "Ancho minimo",
-      "value": "Ancho minimo"
-    },
-    "complexity": {
-      "label": "Complejidad",
-      "value": "Complejo"
-    },
-    "light": {
-      "label": "Claro",
-      "value": "Claro Mode"
-    },
-    "dark": {
-      "label": "Oscuro",
-      "value": "Oscuro Mode"
-    },
-    "system": {
-      "label": "Follow Sistema",
-      "value": "Follow Sistema"
-    },
-    "auto": {
-      "label": "Automatico",
-      "value": "Automatico"
-    }
+    "refresh": "Habilitar Actualizar"
   }
 }

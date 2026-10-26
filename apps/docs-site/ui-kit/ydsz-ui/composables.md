@@ -393,7 +393,7 @@ function useChunkUpload(options?: ChunkUploadOptions): ChunkUploadHandle
 
 | 字段 | 类型 | 说明 |
 |------|------|------|
-| `baseURL` | `string` | 分片上传控制器 URL（如 <code>/api/v1/system/file/multipart</code>） |
+| `baseURL` | `string` | 分片上传控制器 URL（如 <code>/api/file/multipart</code>） |
 | `headers` | `Record<string, string>` | 注入到每个请求的额外头部 |
 | `withCredentials` | `boolean` | 覆盖全局 withCredentials 设置 |
 
@@ -416,7 +416,7 @@ function useChunkUpload(options?: ChunkUploadOptions): ChunkUploadHandle
 | 常量 | 默认值 |
 |------|--------|
 | `DEFAULT_CHUNK_SIZE` | `5 * 1024 * 1024` |
-| `DEFAULT_MULTIPART_BASE` | `/api/v1/system/file/multipart` |
+| `DEFAULT_MULTIPART_BASE` | `/api/file/multipart` |
 | `DEFAULT_MAX_RETRIES` | `3` |
 | `DEFAULT_CHUNK_TIMEOUT` | `30000` |
 

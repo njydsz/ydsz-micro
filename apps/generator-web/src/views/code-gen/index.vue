@@ -25,6 +25,8 @@ import { useRoute } from 'vue-router';
 import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
 import { Clock, FileText as Document } from '@ydsz/icons';
 
+import { showToast } from '@ydsz/notification';
+
 import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
 import { listDatasources } from '#/api/datasource';
 import type { GenDatasourceRespVO, GenHistory } from '#/api/models';

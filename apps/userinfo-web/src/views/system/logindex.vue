@@ -5,7 +5,7 @@
  * <p>数据来源：后端登录日志接口（/api/userinfo/login-log/page）。
  * <p>与"在线用户"互补：在线用户看当前会话，登录日志看历史记录。
  *
- * @path apps/userinfo-web/src/views/system/login-log/index.vue
+ * @path apps/userinfo-web/src/views/system/logindex.vue
  * @author ydsz-team
  * @since 26.09.13
 -->
@@ -21,10 +21,12 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton, YdDatePicker, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { pageLoginLog } from '#/api/loginLog';
-import type { LoginLogPageQuery, LoginLogVO } from '#/api/models';
+import { showToast } from '@ydsz/notification';
+import { page } from '#/api/loginLog';
+import type { LoginLogPageQuery, UserLoginHistoryVO } from '#/api/models';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 
@@ -32,6 +34,8 @@ defineOptions({ name: 'LoginLogManagement' });
 
 /** 模块级日志器 */
 const logger = createLogger('userinfo-login-log');
+
+const { t } = useI18n();
 
 const searchKeyword = ref('');
 const statusFilter = ref<string>('all');
@@ -43,7 +47,7 @@ const pageSize = ref<number>(20);
 const isLoading = ref<boolean>(false);
 
 /** 登录记录列表 */
-const logList = ref<LoginLogVO[]>([]);
+const logList = ref<UserLoginHistoryVO[]>([]);
 
 /** 状态标签类型映射 */
 function statusTagType(status: string): 'success' | 'danger' {
@@ -67,7 +71,9 @@ function hYdBadge(text: string, type: 'success' | 'danger' | 'warning' | 'info')
 async function loadLogList(): Promise<void> {
   isLoading.value = true;
   try {
-    const query: LoginLogPageQuery = {
+    // 契约的 LoginLogPageQuery 不含分页字段（后端 DTO 继承 PageBase，未导出进 OpenAPI），
+    // 按接口实际入参补上 pageNum/pageSize，否则永远只拿到第一页。
+    const query: LoginLogPageQuery & { pageNum: number; pageSize: number } = {
       pageNum: pageNum.value,
       pageSize: pageSize.value,
       username: searchKeyword.value || undefined,
@@ -75,13 +81,13 @@ async function loadLogList(): Promise<void> {
       startTime: startTime.value || undefined,
       endTime: endTime.value || undefined,
     };
-    const response = await pageLoginLog(query);
+    const response = await page(query);
     logList.value = response.data ?? [];
     totalCount.value = response.total ?? 0;
     logger.debug('加载登录日志: total={}', totalCount.value);
   } catch (error) {
     logger.error('加载登录日志失败: {}', error);
-    showToast.error('加载登录日志失败，请稍后重试');
+    showToast.error(t('loginLog.loadFailed'));
   } finally {
     isLoading.value = false;
   }
@@ -117,31 +123,34 @@ function handlePageChange(newPageNum: number): void {
   void loadLogList();
 }
 
-const gridOptions: VxeGridProps<LoginLogVO> = {
+const gridOptions: VxeGridProps<UserLoginHistoryVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'username', title: '用户名', width: 120 },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
+    { field: 'username', title: t('page.username'), width: 120 },
     {
       field: 'loginResult',
-      title: '状态',
+      title: t('page.status'),
       width: 100,
       slots: {
-        default: ({ row }: { row: LoginLogVO }) =>
-          hYdBadge(row.loginResult === 'SUCCESS' ? '成功' : '失败', statusTagType(row.loginResult)),
+        default: ({ row }: { row: UserLoginHistoryVO }) =>
+          hYdBadge(
+            row.loginResult === 'SUCCESS' ? t('security.success') : t('security.fail'),
+            statusTagType(row.loginResult),
+          ),
       },
     },
-    { field: 'loginIp', title: '登录IP', width: 140 },
-    { field: 'location', title: '归属地', width: 100 },
-    { field: 'browser', title: '浏览器', width: 140 },
-    { field: 'os', title: '操作系统', width: 120 },
-    { field: 'userAgent', title: 'User-Agent', minWidth: 200 },
+    { field: 'loginIp', title: t('session.loginIp'), width: 140 },
+    { field: 'location', title: t('device.location'), width: 100 },
+    { field: 'browser', title: t('loginLog.browser'), width: 140 },
+    { field: 'os', title: t('loginLog.os'), width: 120 },
+    { field: 'userAgent', title: t('session.userAgent'), minWidth: 200 },
     {
       field: 'failReason',
-      title: '失败原因',
+      title: t('loginLog.failReason'),
       width: 160,
       formatter: ({ cellValue }: { cellValue?: string }) => cellValue || '-',
     },
-    { field: 'loginTime', title: '登录时间', width: 170 },
+    { field: 'createdAt', title: t('session.loginTime'), width: 170 },
   ],
   height: 'auto',
   toolbarConfig: {
@@ -176,26 +185,27 @@ onMounted(() => {
     <div class="mb-3 flex flex-wrap items-center gap-3 px-4 pt-3">
       <YdInput
         v-model="searchKeyword"
-        placeholder="搜索用户名/IP"
+        :placeholder="t('loginLog.searchPlaceholder')"
+        :aria-label="t('loginLog.searchPlaceholder')"
         class="w-[200px]"
         @change="applyFilter"
       />
       <YdSelectBase v-model="statusFilter" @update:model-value="applyFilter">
         <YdSelectTriggerBase class="w-[120px]">
-          <YdSelectValueBase placeholder="状态" />
+          <YdSelectValueBase :placeholder="t('page.status')" />
         </YdSelectTriggerBase>
         <YdSelectContentBase>
-          <YdSelectItemBase value="all">全部状态</YdSelectItemBase>
-          <YdSelectItemBase value="SUCCESS">成功</YdSelectItemBase>
-          <YdSelectItemBase value="FAILED">失败</YdSelectItemBase>
+          <YdSelectItemBase value="all">{{ t('loginLog.allStatus') }}</YdSelectItemBase>
+          <YdSelectItemBase value="SUCCESS">{{ t('security.success') }}</YdSelectItemBase>
+          <YdSelectItemBase value="FAILED">{{ t('security.fail') }}</YdSelectItemBase>
         </YdSelectContentBase>
       </YdSelectBase>
-      <YdDatePicker v-model="startTime" placeholder="起始时间" class="w-[180px]" @update:model-value="applyFilter" />
-      <YdDatePicker v-model="endTime" placeholder="结束时间" class="w-[180px]" @update:model-value="applyFilter" />
-      <YdButton variant="ghost" @click="resetFilter">重置</YdButton>
+      <YdDatePicker v-model="startTime" :placeholder="t('loginLog.startTime')" class="w-[180px]" @update:model-value="applyFilter" />
+      <YdDatePicker v-model="endTime" :placeholder="t('loginLog.endTime')" class="w-[180px]" @update:model-value="applyFilter" />
+      <YdButton variant="ghost" @click="resetFilter">{{ t('page.reset') }}</YdButton>
       <div class="ml-auto text-sm text-gray-400">
-        共 {{ totalCount }} 条记录
-        <span v-if="isLoading" class="ml-2 text-blue-500">加载中...</span>
+        {{ t('loginLog.totalRecords', { total: totalCount }) }}
+        <span v-if="isLoading" class="ml-2 text-blue-500">{{ t('loginLog.loading') }}</span>
       </div>
     </div>
 

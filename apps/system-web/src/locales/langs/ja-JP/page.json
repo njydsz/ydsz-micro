@@ -8,5 +8,8 @@
   "common": {
     "seq": "#",
     "deleteConfirm": "削除の確認"
-  }
+  },
+  "featureFlag": "機能フラグ",
+  "lockAdmin": "分散ロック管理",
+  "tenantQuota": "テナントクォータ"
 }

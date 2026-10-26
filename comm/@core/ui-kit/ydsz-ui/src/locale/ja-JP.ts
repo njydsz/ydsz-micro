@@ -45,6 +45,10 @@ export const jaJP = {
   'table.expandedRow': '行を展開',
   'table.collapseRow': '行を折りたたむ',
   'table.columnSetting': '列の設定',
+  'table.editCell': 'セルを編集',
+  'table.sortHint': 'クリックでソート、Shift+クリックで複数ソート追加',
+  'table.resizeColumn': 'ドラッグで列幅を変更',
+  'table.dragColumn': 'ドラッグで列順を変更',
 
   // ===== フォーム =====
   'form.validating': '検証中...',
@@ -73,6 +77,8 @@ export const jaJP = {
   'upload.maxSize': 'ファイルサイズが上限を超えています',
   'upload.maxCount': 'ファイル数が上限を超えています',
   'upload.invalidFormat': 'サポートされていないファイル形式です',
+  'upload.clickToUpload': 'クリックしてアップロード',
+  'upload.dragTipPrefix': 'ファイルをここにドラッグ、または',
 
   // ===== ページネーション =====
   'pagination.page': 'ページ',
@@ -114,6 +120,9 @@ export const jaJP = {
   'datepicker.oct': '10月',
   'datepicker.nov': '11月',
   'datepicker.dec': '12月',
+  'datepicker.openCalendar': 'カレンダーを開く',
+  'datepicker.previousMonth': '前月',
+  'datepicker.nextMonth': '翌月',
 
   // ===== セレクト =====
   'select.placeholder': '選択してください',
@@ -132,6 +141,9 @@ export const jaJP = {
   'tree.collapseAll': 'すべて折りたたむ',
   'tree.checkedAll': 'すべてチェック',
   'tree.uncheckedAll': 'チェックを外す',
+  'tree.search': 'ノードを検索...',
+  'tree.clearSearch': '検索をクリア',
+  'tree.searchResults': '検索結果',
 
   // ===== 通知 =====
   'message.success': '成功',
@@ -157,6 +169,33 @@ export const jaJP = {
   'empty.no-data': 'データがありません',
   'empty.no-permission': '権限がありません',
   'empty.no-result': '一致する結果がありません',
+  'drawer.ariaLabel': 'ドロワー',
+  'drawer.close': '閉じる',
+  'drawer.closeAriaLabel': 'ドロワーを閉じる',
+  'drawer.confirm': '確認',
+  'drawer.cancel': 'キャンセル',
+  'autoComplete.placeholder': 'キーワードを入力',
+  'autoComplete.emptyText': '一致する項目がありません',
+  'autoComplete.loadingText': '読み込み中...',
+  'autoComplete.clearAriaLabel': '入力をクリア',
+  'fileUpload.clickToUpload': 'クリックまたはドラッグでアップロード',
+  'fileUpload.dragAndDrop': 'このエリアにファイルをドラッグ',
+  'fileUpload.fileSize': 'サイズ',
+  'orderList.moveToTop': '先頭へ移動',
+  'orderList.moveUp': '上へ移動',
+  'orderList.moveDown': '下へ移動',
+  'orderList.moveToBottom': '末尾へ移動',
+  'orderList.filterPlaceholder': '検索',
+  'pickList.sourceLabel': '元の一覧',
+  'pickList.targetLabel': '先の一覧',
+  'pickList.moveToTarget': '先の一覧へ移動',
+  'pickList.moveToSource': '元の一覧へ戻す',
+  'pickList.moveAllToTarget': 'すべて先の一覧へ',
+  'pickList.moveAllToSource': 'すべて元の一覧へ戻す',
+  'pickList.filterPlaceholder': '検索',
+  'qrCode.download': 'QRコードをダウンロード',
+  'splitButton.toggleDropdown': '追加メニューを開く',
+  'orgChart.search': '{field}を検索...',
 } as const satisfies Record<string, string>;
 
 export default jaJP;

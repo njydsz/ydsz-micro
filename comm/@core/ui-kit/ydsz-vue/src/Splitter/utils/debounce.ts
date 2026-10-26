@@ -1,4 +1,5 @@
-export default function debounce<T extends Function>(
+// `Function` 会丢失入参/返回类型（no-unsafe-function-type），改为显式可调用签名
+export default function debounce<T extends (...args: any[]) => any>(
   callback: T,
   durationMs = 10,
 ) {

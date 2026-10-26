@@ -372,7 +372,7 @@ function collectEntryTargets(json) {
 /**
  * 入口目标是否真实存在。
  *
- * 通配目标（`./src/components/*/index.ts`）无法逐文件校验，只校验 `*` 之前的目录前缀：
+ * 通配目标（路径中段含 `*`）无法逐文件校验，只校验 `*` 之前的目录前缀：
  * 前缀目录不存在才是真断了（消费方任何子路径都解析不到）。
  *
  * @param {string} pkgDir 包目录绝对路径
@@ -575,11 +575,14 @@ function scan(root, options = {}) {
 // ---------- 自检夹具 ----------
 
 /**
- * 构造一个最小 workspace：
- *   good  —— 说明符全部已声明（含 workspace 包、scoped 子路径、node: 内置、相对/别名）
- *   bad   —— 未声明的第三方 + 未声明的 workspace 包，另附一段模板字符串里的 import
- *            （必须不被计入，否则脚手架生成器会变成噪声源）
+ * 构造一个最小 workspace 夹具（包数量由返回值推导，避免手改计数造成自检失真）：
+ *   good —— 说明符全部已声明（含 workspace 包、scoped 子路径、node: 内置、相对/别名）
+ *   bad  —— 未声明的第三方 + 未声明的 workspace 包，另附一段模板字符串里的 import
+ *           （必须不被计入，否则脚手架生成器会变成噪声源）
+ *   entry-* —— 规则 B（入口可达性）的正反例
+ *
  * @param {string} root 临时根目录
+ * @returns {Record<string, string>} 夹具文件表（相对路径 → 内容）
  */
 function writeFixture(root) {
   const files = {
@@ -690,6 +693,7 @@ function writeFixture(root) {
     mkdirSync(dirname(abs), { recursive: true });
     writeFileSync(abs, content, 'utf8');
   }
+  return files;
 }
 
 /** 夹具必须命中的未声明依赖 / 不可达入口（每种形态各一条，缺任意一条说明该检查已空转） */
@@ -721,11 +725,14 @@ const REQUIRED_FIXTURE_WARNINGS = [
 function selfTest() {
   const dir = mkdtempSync(join(tmpdir(), 'ydsz-declared-deps-selftest-'));
   try {
-    writeFixture(dir);
+    const fixture = writeFixture(dir);
+    const fixturePackageCount = new Set(
+      Object.keys(fixture).filter((rel) => /^pkgs\/[^/]+\/package\.json$/.test(rel)),
+    ).size;
     const { violations, warnings, packages: pkgCount } = scan(dir);
-    if (pkgCount !== FIXTURE_PACKAGE_COUNT) {
+    if (pkgCount !== fixturePackageCount) {
       console.error(
-        `❌ 门禁自检失败：夹具应有 ${FIXTURE_PACKAGE_COUNT} 个包，实际 ${pkgCount} 个（workspace 解析失效）`,
+        `❌ 门禁自检失败：夹具应有 ${fixturePackageCount} 个包，实际 ${pkgCount} 个（workspace 解析失效）`,
       );
       process.exit(1);
     }

@@ -20,12 +20,7 @@
  * @since 1.0.0
  */
 import { reactive, ref, watch } from 'vue';
-
-export interface PropertyElement {
-  id: string;
-  type: string;
-  businessObject?: Record<string, any> | null;
-}
+import type { BpmnElementDescriptor, BpmnPropertyChanges } from './types';
 
 /** 内部表单数据结构 */
 interface FormData {
@@ -46,13 +41,13 @@ const SEPARATORS = /[,，;；\s]+/;
 
 interface Props {
   /** 当前选中的元素对象 */
-  element: PropertyElement | null;
+  element: BpmnElementDescriptor | null;
 }
 
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  propertyChange: [elementId: string, properties: Record<string, any>];
+  propertyChange: [elementId: string, properties: BpmnPropertyChanges];
 }>();
 
 const form = reactive<FormData>({
@@ -91,7 +86,7 @@ function classifyElement(type: string | undefined): void {
 }
 
 /** 从 businessObject 回填表单 */
-function fillFormFromElement(element: PropertyElement): void {
+function fillFormFromElement(element: BpmnElementDescriptor): void {
   const bo = element.businessObject;
   if (!bo) {
     disabled.value = true;
@@ -127,7 +122,7 @@ function normalizeList(value: unknown): string {
 /** 提交属性变更（发射到父组件，由父组件调用 modeling.updateProperties） */
 function handlePropertyChange(): void {
   if (!props.element) return;
-  const changed: Record<string, any> = {
+  const changed: BpmnPropertyChanges = {
     name: form.name,
     documentation: form.documentation ? [{ text: form.documentation }] : undefined,
     'camunda:candidateGroups': form.candidateGroups.split(SEPARATORS).filter(Boolean).join(','),

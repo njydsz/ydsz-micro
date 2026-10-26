@@ -20,6 +20,7 @@ import { YdForm, YdFormItem, YdInput } from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-tag');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { createTag } from '#/api/tag';
 
 const emit = defineEmits<{ success: [] }>();

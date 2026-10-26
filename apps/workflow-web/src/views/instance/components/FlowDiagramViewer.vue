@@ -23,6 +23,7 @@
  */
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO, FlowInstanceVO } from '#/api/models';
 
@@ -33,6 +34,12 @@ interface RichDiagramNodeVO {
   nodeName?: string;
   nodeState?: string;
   isActive?: boolean;
+}
+
+/** 后端 diagram 接口另返回 svgContent（生成契约未覆盖该字段），视图侧显式补类型 */
+interface RichFlowDiagramVO extends FlowDiagramVO {
+  svgContent?: string;
+  nodes?: RichDiagramNodeVO[];
 }
 
 interface Props {
@@ -48,7 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 /** 流程图数据 */
-const diagramData = ref<FlowDiagramVO | null>(null);
+const diagramData = ref<RichFlowDiagramVO | null>(null);
 const loading = ref(false);
 const error = ref(false);
 
@@ -57,18 +64,18 @@ const resolvedInstanceId = computed(() => props.instanceId || props.instance?.id
 
 /** 是否包含 SVG 内容 */
 const hasSvg = computed(() => {
-  const content = (diagramData.value as any)?.svgContent;
+  const content = diagramData.value?.svgContent;
   return typeof content === 'string' && content.trim().length > 0;
 });
 
 /** SVG 渲染内容 */
-const svgContent = computed(() => ((diagramData.value as any)?.svgContent as string) || '');
+const svgContent = computed(() => diagramData.value?.svgContent ?? '');
 
 /** 节点列表 */
 const nodeList = computed<RichDiagramNodeVO[]>(() => {
   const raw = diagramData.value?.nodes;
   if (!raw) return [];
-  return raw.map((n: any) => ({
+  return raw.map((n) => ({
     id: n?.id ?? n?.nodeCode,
     nodeCode: n?.nodeCode,
     nodeName: n?.nodeName ?? n?.nodeCode,
@@ -102,7 +109,8 @@ async function loadDiagram(): Promise<void> {
   error.value = false;
   try {
     const data = await diagram({ id: resolvedInstanceId.value });
-    diagramData.value = data ?? null;
+    // 契约类型未覆盖 svgContent，在唯一的接口出口处收敛为视图侧类型
+    diagramData.value = (data ?? null) as RichFlowDiagramVO | null;
   } catch {
     error.value = true;
     diagramData.value = null;

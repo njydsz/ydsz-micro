@@ -15,19 +15,27 @@
 
 import type { Directive } from 'vue';
 
-/** 允许的白名单标签 */
-const ALLOWED_TAGS = new Set([
-  // 文本格式化标签
-  'b', 'i', 'em', 'strong', 'a', 'br', 'p', 'span', 'ul', 'ol', 'li',
-  'h1', 'h2', 'h3', 'h4', 'div', 'code', 'pre',
-  // mark：搜索高亮语义标签（global-search/command-palette 高亮关键词）
-  'mark',
-  // SVG 标签：流程图渲染场景
-  'svg', 'g', 'path', 'rect', 'circle', 'ellipse', 'line', 'polyline',
-  'polygon', 'text', 'tspan', 'defs', 'use', 'symbol', 'clipPath',
-  'linearGradient', 'radialGradient', 'stop', 'image', 'title', 'desc',
-  'textPath', 'marker', 'pattern', 'mask', 'filter', 'switch', 'foreignObject',
-]);
+/**
+ * 允许的白名单标签。
+ *
+ * <p>统一转小写：HTML 解析器会把 SVG 元素名还原成驼峰（clipPath / foreignObject 等），
+ * 而 sanitizeNode 按 tagName.toLowerCase() 比对，原样存驼峰会让这些标签被误判为
+ * 非白名单并降级成纯文本，流程图渲染随之残缺。
+ */
+const ALLOWED_TAGS = new Set(
+  [
+    // 文本格式化标签
+    'b', 'i', 'em', 'strong', 'a', 'br', 'p', 'span', 'ul', 'ol', 'li',
+    'h1', 'h2', 'h3', 'h4', 'div', 'code', 'pre',
+    // mark：搜索高亮语义标签（global-search/command-palette 高亮关键词）
+    'mark',
+    // SVG 标签：流程图渲染场景
+    'svg', 'g', 'path', 'rect', 'circle', 'ellipse', 'line', 'polyline',
+    'polygon', 'text', 'tspan', 'defs', 'use', 'symbol', 'clipPath',
+    'linearGradient', 'radialGradient', 'stop', 'image', 'title', 'desc',
+    'textPath', 'marker', 'pattern', 'mask', 'filter', 'switch', 'foreignObject',
+  ].map((tag) => tag.toLowerCase()),
+);
 
 /** 允许的 http 协议 */
 const ALLOWED_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
@@ -102,16 +110,18 @@ function sanitize(html: string): string {
   const template = document.createElement('template');
   template.innerHTML = html;
   document.body.appendChild(template);
-  const root = template.content;
 
-  const children = [...root.childNodes];
-  for (const child of children) {
+  // DOM 规范只在 Element 上定义 innerHTML，template.content（DocumentFragment）没有，
+  // 直接读会得到 undefined 并把它写进界面。这里把解析结果搬进宿主元素后再消毒、再序列化。
+  const host = document.createElement('div');
+  host.append(...Array.from(template.content.childNodes));
+  document.body.removeChild(template);
+
+  for (const child of Array.from(host.childNodes)) {
     sanitizeNode(child);
   }
 
-  const result = root.innerHTML;
-  document.body.removeChild(template);
-  return result;
+  return host.innerHTML;
 }
 
 /**

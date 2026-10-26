@@ -78,7 +78,7 @@ function generateMockMetrics(): PerformanceMetric[] {
 /**
  * 加载性能数据
  *
- * <p>TODO: 替换为真实 API 调用（/api/v1/metrics/web-vitals/summary）
+ * <p>TODO: 替换为真实 API 调用（后端暂无汇总端点；明细上报为 POST /api/monitor/web-vitals）
  */
 async function loadMetrics(): Promise<void> {
   loading.value = true;

@@ -11,9 +11,7 @@
  * @since 26.10.11
  */
 
-import { ref } from 'vue';
-
-import type { YdPromptProps } from './alert/alert';
+import { ref, type Ref } from 'vue';
 
 import { YdPrompt } from './alert/AlertBuilder';
 
@@ -36,7 +34,7 @@ export interface PromptOptions<T = unknown> {
 /** usePrompt 返回的控制器句柄 */
 export interface UsePromptReturn {
   /** 是否有一个输入确认框正处于打开且等待用户决策的状态 */
-  isPrompting: Readonly<import('vue').Ref<boolean>>;
+  isPrompting: Readonly<Ref<boolean>>;
   /**
    * 弹出输入确认框并等待用户决策。
    *
@@ -102,7 +100,7 @@ export function usePrompt(): UsePromptReturn {
   }
 
   return {
-    isPrompting: isPrompting as Readonly<import('vue').Ref<boolean>>,
+    isPrompting: isPrompting as Readonly<Ref<boolean>>,
     prompt: promptFn,
     promptText,
   };

@@ -183,7 +183,7 @@ onMounted(handleQuery);
           <YdCardTitle>日报明细</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <YdTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" loading="isLoading">
+          <YdTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" :loading="isLoading">
           <YdTableColumn prop="statsDate" label="日期" width="110" />
           <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
           <YdTableColumn prop="fireCount" label="触发" width="70" />

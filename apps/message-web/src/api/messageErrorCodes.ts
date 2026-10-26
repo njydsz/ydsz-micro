@@ -2,7 +2,7 @@
  * MessageErrorCodesController API 封装
  *
  * <p>对应后端 {@code MessageErrorCodesController}，提供消息通道错误码的配置管理（CRUD）。
- * <p>路径规范: /api/v1/message/error-code/**（kebab-case），成功码统一为 code === 'A00000'。
+ * <p>路径规范: /api/message/error-code/**（kebab-case），成功码统一为 code === 'A00000'。
  *
  * @path apps\message-web\src\api\messageErrorCodes.ts
  * @author ydsz-team

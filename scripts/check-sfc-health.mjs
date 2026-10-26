@@ -1,8 +1,8 @@
 /**
  * 一次性体检脚本：解析全仓库 .vue 文件，报告模板/脚本语法损坏的文件。
  */
-import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);

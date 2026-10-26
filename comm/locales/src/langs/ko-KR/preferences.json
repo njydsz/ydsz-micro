@@ -184,38 +184,6 @@
     "notification": "활성화 알림",
     "sidebarToggle": "활성화 Sidebar Toggle",
     "lockScreen": "활성화 Lock Screen",
-    "refresh": "활성화 새로 고침",
-    "height": {
-      "label": "Height",
-      "value": "Tall"
-    },
-    "width": {
-      "label": "너비",
-      "value": "넓은"
-    },
-    "minWidth": {
-      "label": "최소 너비",
-      "value": "최소 너비"
-    },
-    "complexity": {
-      "label": "복잡성",
-      "value": "복잡"
-    },
-    "light": {
-      "label": "밝은 테마",
-      "value": "밝은 테마 Mode"
-    },
-    "dark": {
-      "label": "어두운 테마",
-      "value": "어두운 테마 Mode"
-    },
-    "system": {
-      "label": "Follow 시스템",
-      "value": "Follow 시스템"
-    },
-    "auto": {
-      "label": "자동",
-      "value": "자동"
-    }
+    "refresh": "활성화 새로 고침"
   }
 }

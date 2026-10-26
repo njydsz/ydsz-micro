@@ -1,20 +1,59 @@
 {
-  "common": {
-    "language": "언어",
-    "ok": "확인",
-    "cancel": "취소",
-    "close": "닫기",
-    "save": "저장",
-    "delete": "삭제",
-    "edit": "편집",
-    "search": "검색",
-    "loading": "로딩 중...",
-    "refresh": "새로고침",
-    "pause": "일시정지",
-    "resume": "재개",
-    "trigger": "트리거",
-    "log": "로그",
-    "itemCount": "{count, plural, =0{없음} other{# 개}}"
+  "menu": "메뉴",
+  "back": "돌아가기",
+  "backToHome": "홈으로 돌아가기",
+  "login": "로그인",
+  "logout": "로그아웃",
+  "prompt": "안내",
+  "cancel": "취소",
+  "confirm": "확인",
+  "reset": "초기화",
+  "noData": "데이터 없음",
+  "refresh": "새로고침",
+  "loadingMenu": "메뉴 불러오는 중",
+  "query": "조회",
+  "search": "검색",
+  "enabled": "활성화됨",
+  "disabled": "비활성화됨",
+  "edit": "수정",
+  "delete": "삭제",
+  "create": "추가",
+  "pause": "일시 정지",
+  "resume": "재개",
+  "trigger": "트리거",
+  "log": "로그",
+  "yes": "예",
+  "no": "아니오",
+  "showSearchPanel": "검색 패널 표시",
+  "hideSearchPanel": "검색 패널 숨김",
+  "seq": "#",
+  "status": "상태",
+  "createTime": "생성 시간",
+  "actions": "작업",
+  "validation": {
+    "required": "{field}을(를) 입력하세요"
   },
-  "menu": "메뉴"
+  "error": {
+    "pageLoadFailed": "페이지 로드 중 오류가 발생했습니다. 잠시 후 다시 시도하세요"
+  },
+  "crud": {
+    "confirmDeleteDefault": "이 기록을 삭제하시겠습니까? 삭제 후 복원할 수 없습니다.",
+    "deleteConfirmTitle": "삭제 확인",
+    "deleteButton": "삭제",
+    "deleteSuccess": "삭제 성공",
+    "deleteFailed": "삭제 실패",
+    "batchDeleteConfirm": "선택한 {count}개 기록을 삭제하시겠습니까?",
+    "batchDeleteTitle": "일괄 삭제 확인",
+    "batchDeleteSuccess": "일괄 삭제 성공"
+  },
+  "secondaryAuth": {
+    "title": "2단계 인증",
+    "password": "로그인 비밀번호",
+    "passwordPlaceholder": "현재 로그인 비밀번호를 입력하세요",
+    "hint": "이 작업을 확인하려면 비밀번호를 입력하세요",
+    "cancel": "취소",
+    "confirm": "확인",
+    "errorInvalid": "비밀번호 인증에 실패했습니다. 다시 입력하세요",
+    "errorEmpty": "비밀번호를 입력해야 합니다"
+  }
 }

@@ -117,3 +117,93 @@ export interface LfGraphNode {
   type?: string;
   text?: string;
 }
+
+// =====================================================================
+// bpmn-js 类型面
+// --------------------------------------------------------------------
+// bpmn-js 17 自带的 `ModdleElement` / `businessObject` 实际声明为 `any`
+// （见 bpmn-js/lib/model/Types.d.ts），对业务代码没有约束力；
+// 这里按设计器真实读写的字段显式收窄，避免各处散落 `as any`。
+// 官方 didi 的 ModuleDeclaration 未随包导出，故注入模块用本地形状描述。
+// =====================================================================
+
+/** bpmn-js moddle 业务对象（属性面板读写用到的字段子集） */
+export interface BpmnBusinessObject {
+  /** 元素 ID（bpmn:id） */
+  id?: string;
+  /** 元素名称 */
+  name?: string;
+  /** moddle 类型名，形如 `bpmn:UserTask` */
+  $type?: string;
+  /** 非结构化扩展属性（camunda:* 等命名空间属性落在此处） */
+  $attrs?: Record<string, unknown>;
+  /** 父元素业务对象（sequenceFlow 的条件表达式挂载点之一） */
+  $parent?: BpmnBusinessObject;
+  /** 文档注释元素集合 */
+  documentation?: Array<{ text?: string }>;
+  /** 条件表达式（bpmn:FormalExpression） */
+  conditionExpression?: { body?: string };
+  /** 是否为补偿事件 */
+  isForCompensation?: boolean;
+  [key: string]: unknown;
+}
+
+/** 画布元素描述符：selectionChange 事件负载与属性面板入参共用 */
+export interface BpmnElementDescriptor {
+  id: string;
+  type: string;
+  businessObject?: BpmnBusinessObject | null;
+}
+
+/** 属性变更负载（modeling.updateProperties 第二参） */
+export type BpmnPropertyChanges = Record<string, unknown>;
+
+/** bpmn-js 注入模块描述符（additionalModules 数组元素） */
+export type BpmnModule = Record<string, unknown>;
+
+/** moddle 扩展描述符集合（moddleExtensions 选项） */
+export type BpmnModdleExtensions = Record<string, unknown>;
+
+/** `selection.changed` 事件负载 */
+export interface BpmnSelectionChangedEvent {
+  newSelection: BpmnElementDescriptor[];
+  added: BpmnElementDescriptor[];
+  removed: BpmnElementDescriptor[];
+}
+
+/** diagram-js EventBus（仅声明设计器用到的订阅签名） */
+export interface BpmnEventBus {
+  on(
+    event: 'selection.changed',
+    callback: (payload: BpmnSelectionChangedEvent) => void,
+  ): void;
+}
+
+/** diagram-js Selection 服务 */
+export interface BpmnSelectionService {
+  get(): BpmnElementDescriptor[];
+}
+
+/** diagram-js Canvas 服务 */
+export interface BpmnCanvasService {
+  zoom(scale: 'fit-viewport' | number): void;
+}
+
+/** diagram-js ElementRegistry 服务 */
+export interface BpmnElementRegistryService {
+  get(id: string): BpmnElementDescriptor | undefined;
+}
+
+/** diagram-js CommandStack 服务 */
+export interface BpmnCommandStackService {
+  undo(): void;
+  redo(): void;
+}
+
+/** bpmn-js Modeling 服务 */
+export interface BpmnModelingService {
+  updateProperties(
+    element: BpmnElementDescriptor,
+    properties: BpmnPropertyChanges,
+  ): void;
+}

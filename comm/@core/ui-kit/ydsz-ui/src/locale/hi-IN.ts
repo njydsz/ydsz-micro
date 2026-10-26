@@ -45,6 +45,10 @@ export const hiIN = {
   'table.expandedRow': 'पंक्ति का विस्तार करें',
   'table.collapseRow': 'पंक्ति संक्षिप्त करें',
   'table.columnSetting': 'कॉलम सेटिंग्स',
+  'table.editCell': 'सेल संपादित करें',
+  'table.sortHint': 'क्रमबद्ध करने के लिए क्लिक करें, मल्टी-सॉर्ट हेतु Shift+क्लिक',
+  'table.resizeColumn': 'कॉलम आकार हेतु ड्रैग करें',
+  'table.dragColumn': 'कॉलम क्रम बदलने हेतु ड्रैग करें',
 
   // ===== फॉर्म =====
   'form.validating': 'सत्यापन जारी है...',
@@ -73,6 +77,8 @@ export const hiIN = {
   'upload.maxSize': 'फ़ाइल का आकार सीमा से अधिक है',
   'upload.maxCount': 'फ़ाइलों की संख्या सीमा से अधिक है',
   'upload.invalidFormat': 'असमर्थित फ़ाइल प्रारूप',
+  'upload.clickToUpload': 'अपलोड हेतु क्लिक करें',
+  'upload.dragTipPrefix': 'फ़ाइल यहाँ ड्रैग करें, या ',
 
   // ===== पृष्ठांकन =====
   'pagination.page': '',
@@ -114,6 +120,9 @@ export const hiIN = {
   'datepicker.oct': 'अक्टू',
   'datepicker.nov': 'नवं',
   'datepicker.dec': 'दिसं',
+  'datepicker.openCalendar': 'कैलेंडर खोलें',
+  'datepicker.previousMonth': 'पिछला माह',
+  'datepicker.nextMonth': 'अगला माह',
 
   // ===== चयनकर्ता =====
   'select.placeholder': 'कृपया चुनें',
@@ -132,6 +141,9 @@ export const hiIN = {
   'tree.collapseAll': 'सभी को संक्षिप्त करें',
   'tree.checkedAll': 'सभी को चिह्नित करें',
   'tree.uncheckedAll': 'सभी को अचिह्नित करें',
+  'tree.search': 'नोड खोजें...',
+  'tree.clearSearch': 'खोज साफ़ करें',
+  'tree.searchResults': 'खोज परिणाम',
 
   // ===== अधिसूचना =====
   'message.success': 'सफल',
@@ -159,13 +171,35 @@ export const hiIN = {
   'empty.no-result': 'कोई मिलान परिणाम नहीं',
 
   // ===== थीम =====
-  'theme.light': 'हल्का',
-  'theme.dark': 'गहरा',
-  'theme.system': 'सिस्टम',
 
   // ===== भाषा =====
-  'locale.switchLanguage': 'भाषा बदलें',
-  'locale.currentLanguage': 'वर्तमान भाषा',
+  'drawer.ariaLabel': 'ड्रॉवर',
+  'drawer.close': 'बंद करें',
+  'drawer.closeAriaLabel': 'ड्रॉवर बंद करें',
+  'drawer.confirm': 'पुष्टि करें',
+  'drawer.cancel': 'रद्द करें',
+  'autoComplete.placeholder': 'कीवर्ड टाइप करें',
+  'autoComplete.emptyText': 'कोई मेल खाता आइटम नहीं',
+  'autoComplete.loadingText': 'लोड हो रहा है...',
+  'autoComplete.clearAriaLabel': 'इनपुट साफ़ करें',
+  'fileUpload.clickToUpload': 'अपलोड हेतु क्लिक या ड्रैग करें',
+  'fileUpload.dragAndDrop': 'फ़ाइलें इस क्षेत्र में ड्रैग करें',
+  'fileUpload.fileSize': 'आकार',
+  'orderList.moveToTop': 'शीर्ष पर ले जाएँ',
+  'orderList.moveUp': 'ऊपर ले जाएँ',
+  'orderList.moveDown': 'नीचे ले जाएँ',
+  'orderList.moveToBottom': 'अंत में ले जाएँ',
+  'orderList.filterPlaceholder': 'खोजें',
+  'pickList.sourceLabel': 'स्रोत सूची',
+  'pickList.targetLabel': 'लक्ष्य सूची',
+  'pickList.moveToTarget': 'लक्ष्य में ले जाएँ',
+  'pickList.moveToSource': 'स्रोत में वापस ले जाएँ',
+  'pickList.moveAllToTarget': 'सभी को लक्ष्य में ले जाएँ',
+  'pickList.moveAllToSource': 'सभी को स्रोत में वापस ले जाएँ',
+  'pickList.filterPlaceholder': 'खोजें',
+  'qrCode.download': 'QR कोड डाउनलोड करें',
+  'splitButton.toggleDropdown': 'ड्रॉपडाउन टॉगल करें',
+  'orgChart.search': '{field} खोजें...',
 } as const satisfies Record<string, string>;
 
 export default hiIN;

@@ -21,6 +21,9 @@ import type { YdBaseFormComponentType, YdFormProps } from '@ydsz-core/form-ui';
 
 import { type useYdForm } from '@ydsz-core/form-ui';
 
+// 仅取类型：api.ts 反向依赖本文件的 VxeGridProps，`import type` 会在编译期擦除，不产生运行时循环
+import type { VxeGridApi } from './api';
+
 /**
  * 表格分页信息，用于在自定义 `proxyConfig.ajax.query` 中接收分页参数。
  */
@@ -100,6 +103,32 @@ export interface VxeGridProps<
   showSearchForm?: boolean;
   /** 搜索表单与表格主体之间的分隔条（bool 控制显隐，对象可设背景色） */
   separator?: boolean | SeparatorOptions;
+}
+
+/**
+ * `useYDSZVxeGrid` 返回的操作句柄：在 {@link VxeGridApi} 之上补一个 `useStore`。
+ *
+ * @remarks
+ * `useStore` 由 `use-vxe-grid.ts` 在创建实例时挂上（闭包捕获内部 store），
+ * 让组件能在 setup 里订阅配置变化；不传 selector 时返回整份状态。
+ * 之所以是"扩展"而不是类成员：store 实例是私有的，类本身不暴露订阅能力。
+ *
+ * @template T - 行数据类型
+ * @template D - 搜索表单使用的组件类型标识
+ */
+export interface ExtendedVxeGridApi<
+  T extends Record<string, unknown> = Record<string, unknown>,
+  D extends YdBaseFormComponentType = YdBaseFormComponentType,
+> extends VxeGridApi<T> {
+  /**
+   * 订阅表格配置状态。
+   *
+   * @param selector - 可选派生函数，省略时返回完整状态
+   * @returns 响应式的只读状态或派生值
+   */
+  useStore: <S = VxeGridProps<T, D>>(
+    selector?: (state: VxeGridProps<T, D>) => S,
+  ) => Readonly<S>;
 }
 
 /**

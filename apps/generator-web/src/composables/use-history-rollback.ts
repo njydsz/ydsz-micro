@@ -11,6 +11,9 @@ import { ref } from 'vue';
 
 ;
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { deleteHistory, listHistoryFiles, listRecentHistory } from '#/api/history';
 
 import type { GenHistory, GenHistoryFile } from '#/api/models';

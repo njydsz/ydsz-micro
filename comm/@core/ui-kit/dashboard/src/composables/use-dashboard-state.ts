@@ -9,6 +9,8 @@
  */
 import { computed, ref } from 'vue';
 
+import type { EChartsOption } from 'echarts';
+
 import type { DashboardCard, DashboardConfig, StatCard } from '../types';
 
 import { createDefaultConfig } from '../types';
@@ -68,7 +70,7 @@ export function useDashboardState(initialConfig?: Partial<DashboardConfig>) {
   function addChartCard(params: {
     title: string;
     type: 'chart-line' | 'chart-bar' | 'chart-pie' | 'chart-area';
-    option: import('echarts').EChartsOption;
+    option: EChartsOption;
     span?: number;
     subtitle?: string;
   }): DashboardCard {

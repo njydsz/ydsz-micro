@@ -22,6 +22,8 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 import { createLogger } from '@ydsz/utils';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteApi, page } from '#/api/authPolicy';
 import type { AuthPolicyVO } from '#/api/models';

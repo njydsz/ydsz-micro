@@ -303,8 +303,11 @@ function createManualChunks(): (id: string) => string | undefined {
       case '@popperjs/core':
         return 'vendor-ui-base';
       default:
-        // 其他所有 node_modules 依赖统一归入 vendor
-        return 'vendor';
+        // 不再把剩余 node_modules 一律压成单个 vendor chunk：那会让 bpmn-js / 编辑器等
+        // 只被懒加载路由使用的重库进入首屏必下 chunk（workflow-web 实测 vendor 单块
+        // gzip 1.37MB），并使 Rollup 无法按动态 import 切分。交回默认分组，
+        // 只保留上面几组"跨路由稳定共享"的显式分组。
+        return undefined;
     }
   };
 }

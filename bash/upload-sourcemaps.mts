@@ -35,7 +35,8 @@ function getArg(name, fallback) {
 const distDir = path.resolve(root, getArg('dist', 'main/dist'));
 const release =
   getArg('release', '') || process.env.VITE_APP_RELEASE || process.env.VITE_APP_VERSION || '';
-const endpoint = getArg('endpoint', '/api/v1/monitor/sourcemaps');
+// Node 的 fetch 不接受相对路径，端点必须是绝对 URL；--endpoint= 可覆盖指向
+const endpoint = getArg('endpoint', 'http://localhost:9000/api/monitor/sourcemaps');
 const keep = args.includes('--keep'); // 调试：不删除已上传的 .map
 
 // ==================== 重试配置 ====================

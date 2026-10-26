@@ -22,12 +22,15 @@ import type { YdButtonProps } from '@ydsz-core/ydsz-ui';
 
 import type {
   ArrayToStringFields,
-  YdBaseFormComponentType,
   FieldMappingTime,
-  FormLayout,
   FormSchema,
-  WrapperClassType,
 } from './types-schema';
+
+import type {
+  YdBaseFormComponentType,
+  FormLayout,
+  WrapperClassType,
+} from './types-core';
 
 // 重新导出依赖类型以保持向后兼容性
 export type {

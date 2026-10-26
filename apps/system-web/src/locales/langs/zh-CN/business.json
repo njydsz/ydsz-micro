@@ -375,7 +375,7 @@
     "loadFailed": "配额加载失败",
     "unit": "个"
   },
-"system":   {
+  "system": {
     "search": {
       "tabAll": "全部",
       "tabTask": "任务",
@@ -403,5 +403,23 @@
       "btnStart": "开始上传",
       "btnCancel": "取消"
     }
-  }
+  },
+  "columnConfig": "列配置",
+  "dragToSort": "拖拽排序",
+  "columnWidth": "宽度",
+  "resetToDefault": "重置为默认",
+  "done": "完成",
+  "close": "关闭",
+  "dataScopeLimited": "数据范围: 限定 {count} 项",
+  "dataScopeCustom": "数据范围: 自定义约束",
+  "dataScopeValue": "数据范围: {scope}",
+  "dictTypePlaceholder": "请选择字典类型",
+  "editDictItem": "编辑字典项",
+  "createDictItem": "新增字典项",
+  "editDictType": "编辑字典类型",
+  "createDictType": "新增字典类型",
+  "editVariable": "编辑系统变量",
+  "createVariable": "新增系统变量",
+  "updateSuccess": "更新成功",
+  "createSuccess": "创建成功"
 }

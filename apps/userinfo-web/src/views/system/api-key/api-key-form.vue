@@ -21,6 +21,7 @@ import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFoote
 import { Loader2 } from '@ydsz/icons';
 import { cn } from '@ydsz-core/shared/utils';
 import { reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { createKey } from '#/api/apiKey';
 
 defineOptions({ name: 'ApiKeyForm' });

@@ -95,7 +95,7 @@ const props = withDefaults(defineProps<YdFileUploadProps>(), {
   maxCount: undefined,
   maxSize: undefined,
   method: 'POST',
-  multipartApiBase: '/api/v1/system/file/multipart',
+  multipartApiBase: '/api/file/multipart',
   multiple: false,
   name: 'file',
   preview: false,
@@ -197,7 +197,7 @@ const chunkUploader: ChunkUploadHandle | null = props.chunked
   ? useChunkUpload({
       chunkSize: DEFAULT_CHUNK_BYTES,
       multipart: {
-        baseURL: props.multipartApiBase ?? '/api/v1/system/file/multipart',
+        baseURL: props.multipartApiBase ?? '/api/file/multipart',
         withCredentials: props.withCredentials,
       },
       withCredentials: props.withCredentials,

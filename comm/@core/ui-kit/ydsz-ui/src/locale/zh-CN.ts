@@ -146,6 +146,9 @@ export const zhCN = {
   'tree.collapseAll': '收起全部',
   'tree.checkedAll': '全选',
   'tree.uncheckedAll': '取消全选',
+  'tree.search': '搜索节点...',
+  'tree.clearSearch': '清空搜索',
+  'tree.searchResults': '搜索结果',
 
   // ===== Notification / Message =====
   'message.success': '操作成功',
@@ -204,6 +207,7 @@ export const zhCN = {
   // ===== QrCode / SplitButton =====
   'qrCode.download': '下载二维码',
   'splitButton.toggleDropdown': '展开更多操作',
+  'orgChart.search': '搜索 {field}...',
 } as const satisfies Record<string, string>;
 
 export default zhCN;

@@ -23,6 +23,7 @@ import { createLogger } from '@ydsz/utils';
 import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('agent-rag');
+import { showToast } from '@ydsz/notification';
 import { deleteDocument, search, stats } from '#/api/rag';
 import type { RagQueryDTO } from '#/api/models';
 import RagForm from './rag-form.vue';

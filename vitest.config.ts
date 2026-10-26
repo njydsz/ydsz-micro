@@ -20,9 +20,9 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url));
 export default defineConfig({
   plugins: [vue(), vueJsx()],
   resolve: {
+    // 不定义 '@' / '#'：`#/*` 由各包 package.json 的 imports 映射（Node/Vite subpath imports）
+    // 解析到本包 src，全局别名会把 apps/* 的 '#/xxx' 误指向 main/src，导致按目录收集用例时解析漂移。
     alias: {
-      '@': resolve(rootDir, 'main/src'),
-      '#': resolve(rootDir, 'main/src'),
       '@ydsz/request': resolve(rootDir, 'comm/effects/request/src/index.ts'),
       '@ydsz-core/design-tokens/composables': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/composables/index.ts'),
       '@ydsz-core/design-tokens/density': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/tokens/density.ts'),

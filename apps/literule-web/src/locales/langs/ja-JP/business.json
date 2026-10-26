@@ -181,7 +181,6 @@
   "cepHitStatistics": "Hit Statistics",
   "cepHitRecords": "Hit Records",
   "cepTestEvent": "Test Event",
-  "cepPushPush": "Push Test",
   "cepViewStats": "表示 Statistics",
   "cepStatisticsTitle": "パターン Hit Statistics",
   "cepActiveTab": "パターン 設定",
@@ -213,5 +212,6 @@
   "rulePackStartStress": "Start Test",
   "rulePackQualityScore": "品質スコア",
   "rulePackScoreTitle": "品質スコア",
-  "rulePackNoScoreData": "いいえ score data"
+  "rulePackNoScoreData": "いいえ score data",
+  "cepPushTest": "プッシュテスト"
 }

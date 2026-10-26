@@ -34,6 +34,7 @@ import {
   YdUpload,
 } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { batchUpload, importZip } from '#/api/batchImport';
 import { listFiles } from '#/api/file';
 import type { FileNodeVO } from '#/api/models';

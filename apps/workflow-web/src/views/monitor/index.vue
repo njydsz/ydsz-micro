@@ -20,6 +20,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdCountToAnimator, YdBadge, YdButton, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
+import { showToast } from '@ydsz/notification';
 import {
   bottleneckRanking,
   healthScore,
@@ -28,7 +29,6 @@ import {
   monitorInstanceTrend,
   monitorOverview,
 } from '#/api/flowMonitorDashboard';
-import type { FlowMonitorOverviewVO } from '#/api/models';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
 
@@ -37,8 +37,25 @@ const { t } = useI18n();
 
 defineOptions({ name: 'WorkflowMonitor' });
 
+/**
+ * 监控概览。
+ *
+ * @remarks
+ * 后端 `GET /workflow/engine/monitor/overview` 在 OpenAPI 里只声明了未参数化的
+ * `YdszResponse`，生成件因此退化成 `Record<string, Record<string, unknown>>`，
+ * 这里按真实响应体（三个计数）声明本视图需要的形状；契约补齐 schema 后应改回生成类型。
+ */
+interface MonitorOverview {
+  /** 待办任务数 */
+  pendingTaskCount?: number;
+  /** 运行中实例数 */
+  runningInstanceCount?: number;
+  /** 今日新增实例数 */
+  todayInstanceCount?: number;
+}
+
 /** 概览数据 */
-const overview = ref<FlowMonitorOverviewVO>({});
+const overview = ref<MonitorOverview>({});
 const loading = ref(false);
 
 /** 时间范围 */
@@ -69,7 +86,8 @@ const timeRangeOptions = [
 /** 加载概览数据 */
 async function loadOverview(): Promise<void> {
   try {
-    overview.value = await monitorOverview();
+    // 生成件把未参数化的 YdszResponse 推成了嵌套 Record，此处按上面的真实响应形状收口
+    overview.value = (await monitorOverview()) as unknown as MonitorOverview;
   } catch (error) {
     logger.warn('加载监控概览数据失败', error);
     showToast.warning(t('monitor.loadOverviewFailed'));

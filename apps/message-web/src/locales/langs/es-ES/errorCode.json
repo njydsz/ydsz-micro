@@ -1,11 +1,11 @@
 {
   "title": "Gestion de Codigos de Error",
-  "createTitle": "Crear Configuracion de Codigo de Error",
-  "editTitle": "Editar Configuracion de Codigo de Error",
+  "createTitle": "Crear Configuración de Codigo de Error",
+  "editTitle": "Editar Configuración de Codigo de Error",
   "createSuccess": "Creado exitosamente",
   "editSuccess": "Actualizado exitosamente",
   "toggleSuccess": "Estado cambiado exitosamente",
-  "confirmDelete": "Esta seguro de eliminar la configuracion del codigo de error \"{errorCode}\"?",
+  "confirmDelete": "Esta seguro de eliminar la configuración del codigo de error \"{errorCode}\"?",
   "columns": {
     "errorCode": "Codigo de Error",
     "errorMessage": "Plantilla de Mensaje de Error",

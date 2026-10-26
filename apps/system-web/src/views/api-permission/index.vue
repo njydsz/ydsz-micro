@@ -25,6 +25,9 @@ import { useI18n } from 'vue-i18n';
 
 import { useAccess } from '@ydsz/access';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { disable, enable, page, remove, scan } from '#/api/api-permission';
 import type { ApiPermissionPageQuery, ApiPermissionVO } from '#/api/api-permission';

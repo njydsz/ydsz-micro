@@ -25,6 +25,8 @@ import { computed, reactive, ref, watch } from 'vue';
 
 import { YdBadge, YdButton, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 
+import { showToast } from '@ydsz/notification';
+
 import { requestClient } from '#/api/request';
 
 /** 数据源 */

@@ -24,6 +24,9 @@ import { YdBadge, YdButton, YdInput, YdSwitch } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { enabled, listClusters, migrate } from '#/api/clusterMigration';
 import { page as listJobs } from '#/api/job';

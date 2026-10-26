@@ -20,6 +20,8 @@ import { YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogH
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import {
   create as createWebhook,
   deleteApi as deleteWebhook,

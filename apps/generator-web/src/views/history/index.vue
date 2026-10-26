@@ -24,6 +24,9 @@ import { YdBadge, YdButton, YdInput, YdTooltipBase, YdTooltipContentBase, YdTool
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import {
   deleteHistory,
   listRecentHistory,

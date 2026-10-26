@@ -16,7 +16,12 @@
  * @since 1.0.0
  */
 
+import {
+  BpmnPropertiesProviderModule,
+  CamundaPlatformPropertiesProviderModule,
+} from 'bpmn-js-properties-panel';
 import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda.json';
+import type { BpmnModdleExtensions, BpmnModule } from './types';
 
 /** 业务扩展字段 ID（由节点 property 承载，保存在 extensionElements 中） */
 export const CUSTOM_EXTENSION_PREFIX = 'ydsz';
@@ -36,18 +41,19 @@ export const BUSINESS_TABS = {
 } as const;
 
 /** 获取 moddle 扩展描述符集合（传入 BpmnModeler 构造） */
-export function getModdleExtensions(): Record<string, any> {
+export function getModdleExtensions(): BpmnModdleExtensions {
   return {
     camunda: CamundaBpmnModdle,
   };
 }
 
 /** 自定义属性 provider 数组（传递到 Modeler 的 additionalModules） */
-export function getPropertiesProvider(): any[] {
-  // bpmn-js-properties-panel 已涵盖 camunda 官方字段
+export function getPropertiesProvider(): BpmnModule[] {
+  // v5 起 bpmn-js-properties-panel 不再用 default 导出打包 provider：
+  // 面板骨架（BpmnPropertiesPanelModule）与 provider 分离，camunda 字段必须显式注册 provider 才会出现在面板里。
   // 若后续需要自定义 provider，可在此追加并实现 PropertiesProvider 接口
   // 例：CustomPropertiesProvider 模块（关注 group/general、assignee、form、sla、listener）
-  return [];
+  return [BpmnPropertiesProviderModule, CamundaPlatformPropertiesProviderModule];
 }
 
 /**

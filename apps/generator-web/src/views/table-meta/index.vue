@@ -26,6 +26,8 @@ import { YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelect
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
+import { showToast } from '@ydsz/notification';
+
 import {
   listTables,
   refreshTables,

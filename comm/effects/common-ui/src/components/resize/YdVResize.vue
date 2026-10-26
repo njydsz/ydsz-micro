@@ -287,7 +287,7 @@ useResizeWatchers(
       <slot></slot>
     </div>
     <div
-      v-for="(stick, index) of sticks"
+      v-for="stick of sticks"
       :key="`stick-${stick}`"
       :class="[`resize-stick-${stick}`, isResizable ? '' : 'not-resizable']"
       :style="stickStyles(stick)"

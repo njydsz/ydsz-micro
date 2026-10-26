@@ -25,8 +25,11 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import type { OAuth2Application } from '#/api/models';
+import type { PageResponse } from '#/api/models';
 import {
   deleteApi,
   getById,
@@ -37,6 +40,36 @@ import {
 } from '#/api/oAuth2Application';
 
 defineOptions({ name: 'OAuth2Management' });
+
+/**
+ * OAuth2 客户端应用。
+ *
+ * @remarks
+ * 后端 `OAuth2ApplicationController` 的响应在 OpenAPI 里只声明为未参数化的
+ * `YdszResponse`，生成件（`#/api/oAuth2Application.ts`）因此把返回类型退化成了
+ * `'CONFIDENTIAL' | 'PUBLIC'` 这种枚举联合，拿不到真实字段。这里按接口实际响应体
+ * 声明本视图需要的形状，并在调用点做一次边界转换；契约补上 schema 后应改用生成类型。
+ */
+interface OAuth2Application {
+  /** 允许的 audience 列表 */
+  allowedAudiences?: string[];
+  /** 允许的 scope 列表 */
+  allowedScopes?: string[];
+  /** 客户端标识，同时用作记录主键 */
+  clientId?: string;
+  /** 客户端密钥（列表接口可能不返回） */
+  clientSecret?: string;
+  /** 应用名称 */
+  clientName?: string;
+  /** 客户端类型 */
+  clientType?: 'CONFIDENTIAL' | 'PUBLIC';
+  /** 备注说明 */
+  description?: string;
+  /** 回调地址列表 */
+  redirectUris?: string[];
+  /** ENABLED / DISABLED */
+  status?: string;
+}
 
 const logger = createLogger('userinfo-oauth2');
 const { t } = useI18n();
@@ -55,12 +88,12 @@ function maskSecret(secret?: string): string {
 // ========== VxeTable 配置 ==========
 const gridOptions: VxeTableGridOptions<OAuth2Application> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('page.rowIndex') },
     { field: 'clientId', title: 'Client ID', width: 200 },
-    { field: 'clientName', title: '应用名称', minWidth: 140 },
+    { field: 'clientName', title: t('oauth2.clientName'), minWidth: 140 },
     {
       field: 'clientType',
-      title: '客户端类型',
+      title: t('oauth2.clientType'),
       width: 100,
       slots: {
         default: ({ row }) => {
@@ -68,14 +101,14 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
           return h(
             YdBadge,
             { variant: isConfidential ? 'default' : 'secondary', class: 'text-xs' },
-            () => (isConfidential ? '机密' : '公开'),
+            () => (isConfidential ? t('oauth2.confidential') : t('oauth2.public')),
           );
         },
       },
     },
     {
       field: 'redirectUris',
-      title: '回调地址',
+      title: t('oauth2.redirectUris'),
       minWidth: 180,
       formatter: ({ row }) => {
         const uris = row.redirectUris;
@@ -85,7 +118,7 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
     },
     {
       field: 'allowedScopes',
-      title: '授权范围',
+      title: t('oauth2.scopes'),
       width: 140,
       formatter: ({ row }) => {
         const scopes = row.allowedScopes;
@@ -95,13 +128,13 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
     },
     {
       field: 'clientSecret',
-      title: '密钥（脱敏）',
+      title: t('oauth2.secretMasked'),
       width: 140,
       formatter: ({ row }) => maskSecret(row.clientSecret),
     },
     {
       field: 'status',
-      title: '状态',
+      title: t('page.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -116,7 +149,7 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.operation'),
       width: 220,
       fixed: 'right',
       slots: {
@@ -130,7 +163,7 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
             h(
               YdButton,
               { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleResetSecret(row) },
-              () => '重置密钥',
+              () => t('oauth2.resetSecret'),
             ),
             h(
               YdButton,
@@ -146,12 +179,12 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
   proxyConfig: {
     ajax: {
       query: async (_page, formValues) => {
-        const res = await page({
+        const res = (await page({
           status: formValues?.status || undefined,
           keyword: formValues?.keyword || undefined,
           pageNum: _page?.currentPage,
           pageSize: _page?.pageSize,
-        });
+        })) as unknown as PageResponse<OAuth2Application[]>;
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },
@@ -165,17 +198,20 @@ const [Grid, gridApi] = useYDSZVxeGrid({
     schema: [
       {
         component: 'YdInput',
-        componentProps: { placeholder: '应用名称/Client ID' },
+        componentProps: {
+          placeholder: t('oauth2.keywordPlaceholder'),
+          'aria-label': t('oauth2.keyword'),
+        },
         fieldName: 'keyword',
-        label: '关键词',
+        label: t('oauth2.keyword'),
       },
       {
         component: 'YdSelectBase',
         componentProps: {
           placeholder: t('page.status'),
           options: [
-            { label: '已启用', value: 'ENABLED' },
-            { label: '已停用', value: 'DISABLED' },
+            { label: t('page.enabled'), value: 'ENABLED' },
+            { label: t('page.disabled'), value: 'DISABLED' },
           ],
         },
         fieldName: 'status',
@@ -220,9 +256,9 @@ const formData = reactive<OAuth2FormState>({
 });
 
 const rules = {
-  clientId: [{ required: true, message: '请输入 Client ID', trigger: 'blur' }],
-  clientName: [{ required: true, message: '请输入应用名称', trigger: 'blur' }],
-  redirectUrisText: [{ required: true, message: '请输入回调地址（每行一个）', trigger: 'blur' }],
+  clientId: [{ required: true, message: t('oauth2.clientIdRequired'), trigger: 'blur' }],
+  clientName: [{ required: true, message: t('oauth2.clientNameRequired'), trigger: 'blur' }],
+  redirectUrisText: [{ required: true, message: t('oauth2.redirectUrisRequired'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -232,7 +268,7 @@ const [Modal, modalApi] = useYdModal({
     if (data?.record?.clientId) {
       isEdit.value = true;
       try {
-        const detail = await getById({ id: data.record.clientId });
+        const detail = (await getById({ id: data.record.clientId })) as unknown as OAuth2Application;
         Object.assign(formData, {
           id: detail.clientId ?? '',
           clientId: detail.clientId ?? '',
@@ -288,10 +324,10 @@ const [Modal, modalApi] = useYdModal({
       };
       if (isEdit.value) {
         await update({ id: formData.id }, payload);
-        showToast.success('更新成功');
+        showToast.success(t('page.updateSuccess'));
       } else {
         await register(payload);
-        showToast.success('创建成功');
+        showToast.success(t('page.createSuccess'));
       }
       modalApi.close();
       gridApi.query();
@@ -303,7 +339,7 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const modalTitle = computed(() => (isEdit.value ? '编辑 OAuth2 应用' : '创建 OAuth2 应用'));
+const modalTitle = computed(() => (isEdit.value ? t('oauth2.editTitle') : t('oauth2.createTitle')));
 
 function handleAdd() {
   modalApi.setData({});
@@ -317,18 +353,19 @@ function handleEdit(row: OAuth2Application) {
 
 async function handleResetSecret(row: OAuth2Application) {
   if (!row.clientId) return;
+  const appName = row.clientName ?? row.clientId;
   try {
     await YdConfirm(
-      `确认重置应用 "${row.clientName ?? row.clientId}" 的密钥？旧密钥将立即失效。`,
-      '重置密钥',
+      t('oauth2.resetSecretConfirm', { name: appName }),
+      t('oauth2.resetSecret'),
       { type: 'warning' },
     );
   } catch {
     return;
   }
   try {
-    const result = await resetSecret({ id: row.clientId });
-    showToast.success(`新密钥：${result.clientSecret}（请立即保存）`);
+    const result = (await resetSecret({ id: row.clientId })) as unknown as Pick<OAuth2Application, 'clientSecret'>;
+    showToast.success(t('oauth2.newSecretHint', { secret: result.clientSecret ?? '' }));
     gridApi.query();
   } catch (error) {
     logger.warn('重置密钥失败: {}', error);
@@ -337,10 +374,11 @@ async function handleResetSecret(row: OAuth2Application) {
 
 async function handleDelete(row: OAuth2Application) {
   if (!row.clientId) return;
+  const appName = row.clientName ?? row.clientId;
   try {
     await YdConfirm(
-      `确认删除应用 "${row.clientName ?? row.clientId}"？此操作不可恢复。`,
-      '确认删除',
+      t('oauth2.deleteConfirm', { name: appName }),
+      t('oauth2.deleteTitle'),
       { type: 'warning' },
     );
   } catch {
@@ -358,9 +396,9 @@ async function handleDelete(row: OAuth2Application) {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="OAuth2 应用管理">
+    <Grid :table-title="t('oauth2.title')">
       <template #toolbar-tools>
-        <YdButton variant="default" @click="handleAdd">创建应用</YdButton>
+        <YdButton variant="default" @click="handleAdd">{{ t('oauth2.create') }}</YdButton>
       </template>
     </Grid>
 
@@ -374,50 +412,54 @@ async function handleDelete(row: OAuth2Application) {
         label-position="right"
       >
         <YdFormItem label="Client ID" prop="clientId">
-          <YdInput v-model="formData.clientId" placeholder="唯一标识，如 my-app-client" :disabled="isEdit" />
+          <YdInput
+            v-model="formData.clientId"
+            :placeholder="t('oauth2.clientIdPlaceholder')"
+            :disabled="isEdit"
+          />
         </YdFormItem>
-        <YdFormItem label="应用名称" prop="clientName">
-          <YdInput v-model="formData.clientName" placeholder="请输入应用名称" />
+        <YdFormItem :label="t('oauth2.clientName')" prop="clientName">
+          <YdInput v-model="formData.clientName" :placeholder="t('oauth2.clientNameRequired')" />
         </YdFormItem>
-        <YdFormItem label="客户端类型">
+        <YdFormItem :label="t('oauth2.clientType')">
           <YdRadioGroup v-model="formData.clientType">
-            <YdRadioGroupItem value="CONFIDENTIAL">机密</YdRadioGroupItem>
-            <YdRadioGroupItem value="PUBLIC">公开</YdRadioGroupItem>
+            <YdRadioGroupItem value="CONFIDENTIAL">{{ t('oauth2.confidential') }}</YdRadioGroupItem>
+            <YdRadioGroupItem value="PUBLIC">{{ t('oauth2.public') }}</YdRadioGroupItem>
           </YdRadioGroup>
         </YdFormItem>
-        <YdFormItem label="回调地址" prop="redirectUrisText">
+        <YdFormItem :label="t('oauth2.redirectUris')" prop="redirectUrisText">
           <YdInput
             v-model="formData.redirectUrisText"
             type="textarea"
             :rows="3"
-            placeholder="每行一个地址，如 https://example.com/callback"
+            :placeholder="t('oauth2.redirectUrisPlaceholder')"
           />
         </YdFormItem>
-        <YdFormItem label="授权范围">
+        <YdFormItem :label="t('oauth2.scopes')">
           <YdInput
             v-model="formData.allowedScopesText"
             type="textarea"
             :rows="2"
-            placeholder="每行一个 scope，如 read:profile"
+            :placeholder="t('oauth2.scopesPlaceholder')"
           />
         </YdFormItem>
-        <YdFormItem label="允许受众">
+        <YdFormItem :label="t('oauth2.audiences')">
           <YdInput
             v-model="formData.allowedAudiencesText"
             type="textarea"
             :rows="2"
-            placeholder="每行一个 audience，如 https://api.example.com"
+            :placeholder="t('oauth2.audiencesPlaceholder')"
           />
         </YdFormItem>
-        <YdFormItem label="排序">
+        <YdFormItem :label="t('page.sort')">
           <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
         </YdFormItem>
-        <YdFormItem label="描述">
+        <YdFormItem :label="t('page.description')">
           <YdInput
             v-model="formData.description"
             type="textarea"
             :rows="2"
-            placeholder="应用描述"
+            :placeholder="t('oauth2.descriptionPlaceholder')"
           />
         </YdFormItem>
       </YdForm>

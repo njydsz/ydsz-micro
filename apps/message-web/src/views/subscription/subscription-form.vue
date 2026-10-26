@@ -21,6 +21,8 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { upsert } from '#/api/subscription';
 
 defineOptions({ name: 'SubscriptionForm' });

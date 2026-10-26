@@ -14,7 +14,7 @@
  */
 import type { StepItem, StepperContext, StepperOrientation, StepperSize, StepperVariant } from './stepper-types';
 
-import { type Component, type VNode, computed, defineComponent, h, provide, ref, useSlots, watch } from 'vue';
+import { type Component, type PropType, type VNode, computed, defineComponent, provide, ref, useSlots, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -26,10 +26,10 @@ import { cn } from '@ydsz-core/shared/utils';
 const VNodeProxy = defineComponent({
   name: 'VNodeProxy',
   props: {
-    vnode: { type: Object, required: true },
+    vnode: { type: Object as PropType<VNode>, required: true },
   },
   setup(props) {
-    return () => props.vnode as ReturnType<typeof h>;
+    return () => props.vnode;
   },
 });
 

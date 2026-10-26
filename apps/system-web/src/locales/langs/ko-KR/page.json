@@ -8,5 +8,8 @@
   "common": {
     "seq": "#",
     "deleteConfirm": "삭제 확인"
-  }
+  },
+  "featureFlag": "기능 플래그",
+  "lockAdmin": "분산 락 관리",
+  "tenantQuota": "테넌트 할당량"
 }

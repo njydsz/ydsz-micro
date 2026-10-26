@@ -12,5 +12,30 @@
   "monitor": "Monitor",
   "analytics": "Analytique",
   "design": "Conception",
-  "designer": "Designer"
+  "designer": "Designer",
+  "workflowDesigner": {
+    "title": "Concepteur visuel BPMN",
+    "palette": "Panneau de nœuds",
+    "paletteHint": "Faites glisser les nœuds depuis la barre d'actions de gauche",
+    "save": "Enregistrer",
+    "deploy": "Déployer",
+    "import": "Importer",
+    "exportXml": "Exporter XML",
+    "exportSvg": "Exporter SVG",
+    "exportSuccess": "Exportation réussie",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "zoomToFit": "Ajuster à la vue",
+    "clear": "Vider le canevas",
+    "loading": "Chargement...",
+    "saving": "Enregistrement...",
+    "loadSuccess": "Définition de processus chargée",
+    "loadFailed": "Échec du chargement de la définition du processus",
+    "saveSuccess": "Définition de processus enregistrée",
+    "saveFailed": "Échec de l'enregistrement de la définition du processus",
+    "deploySuccess": "Processus déployé",
+    "importSuccess": "Fichier importé",
+    "importFailed": "Échec de l'importation ; vérifiez le format XML BPMN 2.0",
+    "idHint": "ID de la définition du processus"
+  }
 }

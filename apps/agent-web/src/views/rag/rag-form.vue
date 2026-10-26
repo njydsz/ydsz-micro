@@ -20,6 +20,7 @@ import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 
 const logger = createLogger('agent-rag');
+import { showToast } from '@ydsz/notification';
 import { ingest } from '#/api/rag';
 import type { DocumentIngestDTO } from '#/api/models';
 /** 导入成功后触发，通知父级刷新统计 */

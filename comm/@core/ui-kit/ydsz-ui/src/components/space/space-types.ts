@@ -32,10 +32,3 @@ export interface SpaceProps {
   /** 自定义 CSS class */
   class?: any;
 }
-
-/**
- * Space 组件事件。
- *
- * 当前版本无事件。
- */
-export interface SpaceEmits {}

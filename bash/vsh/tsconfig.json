@@ -10,6 +10,6 @@
     "moduleResolution": "node",
     "verbatimModuleSyntax": false
   },
-  "include": ["src"],
+  "include": ["src", "bin"],
   "exclude": ["node_modules"]
 }

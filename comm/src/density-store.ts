@@ -11,10 +11,14 @@
 
 import type { DensityMode } from '@ydsz-core/design-tokens/density';
 
+import { createLogger } from '@ydsz-core/shared/utils';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
 
 import { DENSITY_MODES } from '@ydsz-core/design-tokens/density';
+
+/** 模块级日志器 */
+const logger = createLogger('density-store');
 
 /**
  * 密度模式 Pinia store。
@@ -34,7 +38,7 @@ export const useDensityStore = defineStore('density', () => {
    */
   function setMode(newMode: DensityMode): void {
     if (!DENSITY_MODES.includes(newMode)) {
-      console.warn(`[DensityStore] 无效密度模式: ${newMode}`);
+      logger.warn('无效密度模式: {}', newMode);
       return;
     }
     mode.value = newMode;

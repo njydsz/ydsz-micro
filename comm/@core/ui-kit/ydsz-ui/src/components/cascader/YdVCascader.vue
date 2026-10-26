@@ -41,9 +41,7 @@ export interface VCascaderProps extends Omit<CascaderProps, 'class'> {
   virtualThreshold?: number;
 }
 
-interface Props extends VCascaderProps {}
-
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<VCascaderProps>(), {
   allowClear: true,
   disabled: false,
   expandTrigger: 'click',

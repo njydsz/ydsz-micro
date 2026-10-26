@@ -9,7 +9,7 @@
  * @since 26.09.19
  */
 
-import { existsSync, readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BASE = 'comm/@core/ui-kit/ydsz-ui/src/ui';

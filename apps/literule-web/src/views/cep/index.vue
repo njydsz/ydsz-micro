@@ -13,6 +13,8 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import type { CEPPatternVO, CEPHitVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
@@ -472,7 +474,7 @@ onMounted(() => {
       width="780px"
       top="5vh"
     >
-      <div loading="detailLoading">
+      <div v-loading="detailLoading">
         <YdTabs v-model="detailActiveTab">
           <!-- 基本信息：输入序列 / 输出条件 / 动作配置 -->
           <YdTabsContent label="模式配置" name="info">
@@ -503,7 +505,7 @@ onMounted(() => {
 
           <!-- 命中统计面板 -->
           <YdTabsContent label="命中统计" name="statistics">
-            <div loading="statisticsLoading" class="p-2">
+            <div v-loading="statisticsLoading" class="p-2">
               <div v-if="statisticsData" class="grid grid-cols-3 gap-3">
                 <div
                   v-for="(value, key) in statisticsData"

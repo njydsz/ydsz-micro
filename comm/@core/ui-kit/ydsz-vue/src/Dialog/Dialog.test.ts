@@ -68,7 +68,7 @@ describe('given a default Dialog', () => {
 
   afterEach(() => {
     consoleWarnMock.mockRestore()
-    consoleWarnMockFunction.mockClear
+    consoleWarnMockFunction.mockClear()
   })
 
   it('should pass axe accessibility tests', async () => {

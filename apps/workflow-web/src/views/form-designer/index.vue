@@ -19,6 +19,7 @@
 import { Page } from '@ydsz/common-ui';
 import { YdButton, YdCard, YdForm, YdFormItem, YdInput, YdSwitch, YdBadge } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { getFormConfig, saveFormConfig } from '#/api/flowDesigner';
 
 defineOptions({ name: 'WorkflowFormDesigner' });

@@ -145,7 +145,8 @@ function generatePackageJson(name: string, ts: boolean, icon: 'lucide' | 'heroic
   )
 }
 
-function generateViteConfig(ts: boolean): string {
+/** vite 配置模板：内容为纯 ESM 语法，`.ts` / `.js` 两种扩展名均可直接使用 */
+function generateViteConfig(): string {
   return `import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
@@ -410,7 +411,7 @@ function main(): void {
   writeProjectFile(resolve(projectDir, 'package.json'), generatePackageJson(name, ts, icon))
 
   // vite.config
-  writeProjectFile(resolve(projectDir, `vite.config.${ts ? 'ts' : 'js'}`), generateViteConfig(ts))
+  writeProjectFile(resolve(projectDir, `vite.config.${ts ? 'ts' : 'js'}`), generateViteConfig())
 
   // tsconfig.json + env.d.ts
   if (ts) {

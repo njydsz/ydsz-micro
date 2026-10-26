@@ -35,7 +35,7 @@ const STORAGE_KEY_THEME = `${STORAGE_KEY}-theme`;
  *
  * @since 1.2.0
  */
-interface PreferencesScope {
+export interface PreferencesScope {
   /** 用户 ID；为空时不含用户维度，所有用户共享同份偏好 */
   userId?: string | number;
 }

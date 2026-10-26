@@ -26,6 +26,8 @@ import { createLogger } from '@ydsz-core/shared/utils';
 const { t } = useI18n();
 const logger = createLogger('userinfo-role');
 
+import { showToast } from '@ydsz/notification';
+
 import { create, update } from '#/api/role';
 import type { RoleDTO, RoleVO } from '#/api/models';
 

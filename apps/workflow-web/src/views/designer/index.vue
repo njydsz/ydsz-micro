@@ -36,6 +36,7 @@ import DesignerPalette from './components/DesignerPalette.vue';
 import DesignerPropertyPanel from './components/DesignerPropertyPanel.vue';
 import DesignerToolbar from './components/DesignerToolbar.vue';
 import type { DesignerNodeConfig, DesignerState } from './types';
+import { showToast } from '@ydsz/notification';
 import {
   getDesignerData,
   lockDefinition,

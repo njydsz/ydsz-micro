@@ -23,6 +23,9 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { listMyDevices, revokeDevice } from '#/api/deviceSession';
 import type { DeviceSessionVO } from '#/api/models';
 
@@ -94,7 +97,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page loading="isLoading" auto-content-height>
+  <Page v-loading="isLoading" auto-content-height>
     <!-- 统计概览 -->
     <div class="mb-4 grid grid-cols-1 gap-5 md:grid-cols-3">
       <YdCard class="shadow-sm hover:shadow-md transition-shadow">

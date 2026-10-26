@@ -35,7 +35,13 @@
     "confirmAriaLabel": "확인 selection",
     "confirm": "확인",
     "pointAriaLabel": "Click point",
-    "clickInOrder": "Please click in order"
+    "clickInOrder": "Please click in order",
+    "sliderRotateDefaultTip": "이미지를 클릭하면 새로고침됩니다",
+    "sliderTranslateDefaultTip": "이미지를 클릭하면 새로고침됩니다",
+    "sliderRotateFailTip": "인증에 실패했습니다",
+    "sliderTranslateFailTip": "인증에 실패했습니다",
+    "sliderRotateSuccessTip": "인증에 성공했습니다. 소요 시간 {0}초",
+    "sliderTranslateSuccessTip": "인증에 성공했습니다. 소요 시간 {0}초"
   },
   "iconPicker": {
     "placeholder": "선택 an icon",

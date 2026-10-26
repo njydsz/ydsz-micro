@@ -20,6 +20,8 @@ import { computed, reactive, ref } from 'vue';
 
 import { emitDictChange } from '@ydsz/shared-business';
 
+import { showToast } from '@ydsz/notification';
+
 import { save, update } from '#/api/dict';
 import type { DictTypeVO } from '#/api/models';
 

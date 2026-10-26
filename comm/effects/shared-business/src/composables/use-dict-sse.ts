@@ -25,7 +25,7 @@
  * @since 1.0.0
  */
 
-import { onMounted, onUnmounted, readonly, ref } from 'vue';
+import { onMounted, onUnmounted, readonly, ref, type Ref } from 'vue';
 
 import { calculateRetryDelay, createLogger } from '@ydsz/utils';
 import { streamRequest, type SseEvent } from '@ydsz/shared-auth';
@@ -35,8 +35,8 @@ import { emitDictChange } from './use-dict-event';
 /** 模块级日志器 */
 const logger = createLogger('DictSSE');
 
-/** SSE 端点（环境变量覆盖，默认 /api/v1/dict/sse 对齐后端 DictSseEmitterController） */
-const SSE_URL = import.meta.env.VITE_DICT_SSE_URL ?? '/api/v1/dict/sse';
+/** SSE 端点：streamRequest 走原生 fetch，需写网关注册的完整路径（/api/dict/** → DictSseEmitterController） */
+const SSE_URL = import.meta.env.VITE_DICT_SSE_URL ?? '/api/dict/sse';
 
 /** 最大重连次数 */
 const MAX_RECONNECT_ATTEMPTS = 5;
@@ -311,7 +311,7 @@ function createDictSseConnection(): {
  *   - {@code stop}: 手动断开 SSE 连接
  */
 export function useDictSse(): {
-  connectionStatus: Readonly<import('vue').Ref<ConnectionStatus>>;
+  connectionStatus: Readonly<Ref<ConnectionStatus>>;
   subscribe: (callback: DictSseCallback) => void;
   unsubscribe: (callback: DictSseCallback) => void;
   stop: () => void;

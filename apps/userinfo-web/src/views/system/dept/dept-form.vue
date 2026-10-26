@@ -23,6 +23,8 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+
 import { create, update } from '#/api/department';
 import type { DepartmentDTO, DepartmentTreeVO } from '#/api/models';
 

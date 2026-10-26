@@ -23,6 +23,8 @@ import { YdButton, YdDrawer, YdTable, YdBadge, YdTableColumn } from '@ydsz-core/
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-share');
 const { t } = useI18n();

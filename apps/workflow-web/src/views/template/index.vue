@@ -41,6 +41,7 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
+import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 
 const logger = createLogger('workflow-template');
@@ -592,7 +593,7 @@ void loadCardData();
         :data="versionRows"
         border
         size="small"
-        loading="versionsLoading"
+        :loading="versionsLoading"
       >
         <YdTableColumn
           prop="version"

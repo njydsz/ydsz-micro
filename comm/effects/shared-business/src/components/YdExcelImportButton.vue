@@ -22,7 +22,7 @@ import { YdButton } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import {
   useExcelImport,
-  type ExcelImportColumn,
+  type ExcelColumn,
   type ExcelImportResult,
 } from '../composables/use-excel-import';
 
@@ -32,7 +32,7 @@ const logger = createLogger('excel-import-button');
 
 interface Props<T = Record<string, unknown>> {
   /** 列映射配置 */
-  columns: ExcelImportColumn[];
+  columns: ExcelColumn[];
   /** 解析成功回调 */
   onSuccess: (result: ExcelImportResult<T>) => void | Promise<void>;
   /** 支持的文件类型 */

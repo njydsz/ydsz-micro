@@ -21,6 +21,9 @@ import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { page, remove } from '#/api/appInfo';
 import type { AppInfoPageQuery, AppInfoVO, PageQuery } from '#/api/models';

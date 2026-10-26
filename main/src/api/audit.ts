@@ -2,7 +2,8 @@
  * 操作审计 API —— 审计日志分页查询与详情接口定义
  *
  * <p>对接 ydz-audit 模块提供的操作日志 API，支持多维度过滤与详情 diff。
- * API 前缀由 VITE_AUDIT_API_URL 环境变量控制，默认 /api/v1/audit。
+ * API 前缀由 VITE_AUDIT_API_URL 环境变量控制，默认 /admin/audit
+ * （requestClient 的 baseURL=/api 会拼成网关路由 /api/admin/audit/**）。
  *
  * @path main\src\api\audit.ts
  * @author ydsz-team
@@ -100,9 +101,9 @@ export interface AuditLogQueryParams {
   result?: string;
 }
 
-/** 审计 API 基础路径（由环境变量控制）。 */
+/** 审计 API 基础路径（由环境变量控制；相对 requestClient 的 baseURL=/api）。 */
 const AUDIT_API_URL =
-  (import.meta.env.VITE_AUDIT_API_URL as string | undefined) ?? '/api/v1/audit';
+  (import.meta.env.VITE_AUDIT_API_URL as string | undefined) ?? '/admin/audit';
 
 /**
  * 分页查询审计日志。

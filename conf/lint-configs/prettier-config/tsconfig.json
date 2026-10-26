@@ -14,6 +14,6 @@
     "verbatimModuleSyntax": false,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "build.mts"],
   "exclude": ["node_modules", "dist"]
 }

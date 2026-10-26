@@ -10,7 +10,7 @@
  * 自动绑定/解绑；导航跳转统一走 router.push。与 use-global-shortcut.ts
  * 共享事件机制但独立注册，避免冲突。
  */
-import { onBeforeUnmount, onMounted, ref, type Ref } from 'vue';
+import { onBeforeUnmount, onMounted, type Ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 

@@ -1,20 +1,59 @@
 {
-  "common": {
-    "language": "Langue",
-    "ok": "OK",
-    "cancel": "Annuler",
-    "close": "Fermer",
-    "save": "Enregistrer",
-    "delete": "Supprimer",
-    "edit": "Modifier",
-    "search": "Rechercher",
-    "loading": "Chargement...",
-    "refresh": "Actualiser",
-    "pause": "Mettre en pause",
-    "resume": "Reprendre",
-    "trigger": "Déclencher",
-    "log": "Journal",
-    "itemCount": "{count, plural, =0{Aucun élément} one{# élément} other{# éléments}}"
+  "menu": "Menu",
+  "back": "Retour",
+  "backToHome": "Retour à l'accueil",
+  "login": "Se connecter",
+  "logout": "Se déconnecter",
+  "prompt": "Information",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "reset": "Réinitialiser",
+  "noData": "Aucune donnée",
+  "refresh": "Actualiser",
+  "loadingMenu": "Chargement du menu",
+  "query": "Rechercher",
+  "search": "Rechercher",
+  "enabled": "Activé",
+  "disabled": "Désactivé",
+  "edit": "Modifier",
+  "delete": "Supprimer",
+  "create": "Ajouter",
+  "pause": "Suspendre",
+  "resume": "Reprendre",
+  "trigger": "Déclencher",
+  "log": "Journal",
+  "yes": "Oui",
+  "no": "Non",
+  "showSearchPanel": "Afficher le panneau de recherche",
+  "hideSearchPanel": "Masquer le panneau de recherche",
+  "seq": "#",
+  "status": "Statut",
+  "createTime": "Date de création",
+  "actions": "Actions",
+  "validation": {
+    "required": "Saisissez {field}"
   },
-  "menu": "Menu"
+  "error": {
+    "pageLoadFailed": "Erreur de chargement de la page, réessayez plus tard"
+  },
+  "crud": {
+    "confirmDeleteDefault": "Voulez-vous vraiment supprimer cet enregistrement ? Cette action est irréversible.",
+    "deleteConfirmTitle": "Confirmation de suppression",
+    "deleteButton": "Supprimer",
+    "deleteSuccess": "Suppression réussie",
+    "deleteFailed": "Échec de la suppression",
+    "batchDeleteConfirm": "Voulez-vous vraiment supprimer les {count} enregistrements sélectionnés ?",
+    "batchDeleteTitle": "Confirmation de suppression par lot",
+    "batchDeleteSuccess": "Suppression par lot réussie"
+  },
+  "secondaryAuth": {
+    "title": "Authentification à deux facteurs",
+    "password": "Mot de passe de connexion",
+    "passwordPlaceholder": "Saisissez votre mot de passe de connexion actuel",
+    "hint": "Saisissez votre mot de passe pour confirmer cette opération",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "errorInvalid": "Échec de la vérification du mot de passe, réessayez",
+    "errorEmpty": "Le mot de passe ne peut pas être vide"
+  }
 }

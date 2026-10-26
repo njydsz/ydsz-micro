@@ -184,38 +184,6 @@
     "notification": "Activer Notification",
     "sidebarToggle": "Activer Sidebar Toggle",
     "lockScreen": "Activer Lock Screen",
-    "refresh": "Activer Actualiser",
-    "height": {
-      "label": "Height",
-      "value": "Tall"
-    },
-    "width": {
-      "label": "Largeur",
-      "value": "Large"
-    },
-    "minWidth": {
-      "label": "Largeur minimale",
-      "value": "Largeur minimale"
-    },
-    "complexity": {
-      "label": "Complexite",
-      "value": "Complexe"
-    },
-    "light": {
-      "label": "Light",
-      "value": "Light Mode"
-    },
-    "dark": {
-      "label": "Dark",
-      "value": "Dark Mode"
-    },
-    "system": {
-      "label": "Follow Systeme",
-      "value": "Follow Systeme"
-    },
-    "auto": {
-      "label": "Automatique",
-      "value": "Automatique"
-    }
+    "refresh": "Activer Actualiser"
   }
 }

@@ -7,6 +7,6 @@
       "@ydsz-core/ydsz-ui/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "playground", "postcss.config.mts", "tailwind.config.mts"],
   "exclude": ["node_modules"]
 }

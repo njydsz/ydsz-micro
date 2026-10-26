@@ -23,6 +23,8 @@ import { YdBadge, YdButton, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-
 import { onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { exportTasks, importTasks, listRemoteTasks, types } from '#/api/connector';
 import type { ConnectorConfigPostDTO, ConnectorTaskInfo } from '#/api/models';

@@ -23,8 +23,10 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import { createLogger } from '@ydsz/utils';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { deleteReport, exportHtml, listRecentReports, type InsightReportResultVO } from '#/api/insightReport';
+import { deleteReport, exportHtml, listRecentReports } from '#/api/insightReport';
+import type { InsightReportResult } from '#/api/models';
 
 defineOptions({ name: 'InsightReportManagement' });
 
@@ -35,7 +37,7 @@ const { t } = useI18n();
 /** 当前用户 ID（实际应从 store / auth 获取） */
 const currentUserId = ref('current-user');
 
-const gridOptions: VxeTableGridOptions<InsightReportResultVO> = {
+const gridOptions: VxeTableGridOptions<InsightReportResult> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     { field: 'reportId', title: '报告 ID', width: 200 },
@@ -98,7 +100,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
  *
  * @param row - 报告行数据
  */
-async function handleViewHtml(row: InsightReportResultVO) {
+async function handleViewHtml(row: InsightReportResult) {
   if (!row.reportId) {
     return;
   }
@@ -126,7 +128,7 @@ async function handleViewHtml(row: InsightReportResultVO) {
  *
  * @param row - 报告行数据
  */
-async function handleDelete(row: InsightReportResultVO) {
+async function handleDelete(row: InsightReportResult) {
   if (!row.reportId) {
     return;
   }

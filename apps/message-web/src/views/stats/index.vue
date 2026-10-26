@@ -23,13 +23,14 @@ import { computed, onMounted, ref, watch } from 'vue';
 
 const logger = createLogger('message-stats');
 import * as echarts from 'echarts';
+import { showToast } from '@ydsz/notification';
 import { channelStats, cost, funnel, overview } from '#/api/messageStats';
-import type { MessageStatsVO } from '#/api/models';
+import type { MessageStatsDTO } from '#/api/models';
 
 defineOptions({ name: 'MessageStats' });
 
 /** 概览数据 */
-const overviewData = ref<MessageStatsVO>({});
+const overviewData = ref<MessageStatsDTO>({});
 const loading = ref(false);
 
 /** 时间范围 */

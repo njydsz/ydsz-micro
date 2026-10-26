@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@ydsz/tsconfig/web.json",
+  "include": ["src", "notification-bell"],
+  "exclude": ["node_modules"]
+}

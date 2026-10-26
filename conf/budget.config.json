@@ -1,25 +1,194 @@
 {
-  "$comment": "产物性能预算单一事实源 —— 构建期 bundle-budget 插件与 CI bash/check-size.mjs 共同消费，消除此前 5MB/15MB 与 512KB/384KB 的双轨矛盾。口径统一为 gzip（与 nginx Brotli/Gzip 实际传输对齐）。",
-  "version": "26.09.14",
+  "$comment": "产物性能预算单一事实源 —— 构建期 YDSZ:bundle-budget 插件与 CI 期 bash/check-size.mts 共同读取 conf/vite-config/src/plugins/budget-config.ts，口径统一为 gzip，判据统一为 budgetViolations()，不再有双轨。",
+  "$policy": {
+    "口径": "阈值是棘轮：max* = 上一次 baseline 实测 × 头寸（总体积 +8%、单 chunk +10%、单 CSS +25%、JS 文件数 +15%），由 pnpm check:size --report 生成，不手改数字。",
+    "为什么不是理想值": "旧阈值（子应用总 384KB / 单 chunk 256KB）远低于实测（792–1858KB / 254–428KB），构建期门禁把每个应用都判红，结果是所有人绕开它；同时 CI 侧扫的是根本不存在的 dist/assets，永远报通过。先让门禁可信（今天全绿、回退即红），再用 aspirationGzipKB 追平目标。",
+    "新增应用": "apps/* 兜底目标保留原理想值，新应用若未显式登记就会被判红——体积预算必须经一次显式评审。",
+    "重新基线": "pnpm check:size --report > 新 targets 片段，连同瘦身说明一起提交；只允许下调，上调需在 PR 里给出原因。"
+  },
+  "version": "26.10.25",
   "gzip": true,
   "targets": [
     {
       "name": "main-web",
       "scope": "main",
-      "assetsDirPattern": "main/dist/assets",
-      "maxTotalGzipKB": 512,
-      "maxFiles": 50,
-      "maxChunkGzipKB": 384,
-      "maxCssGzipKB": 128
+      "appDir": "main",
+      "maxTotalGzipKB": 1139,
+      "maxFiles": 165,
+      "maxChunkGzipKB": 340,
+      "maxCssGzipKB": 13,
+      "aspirationGzipKB": 512,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 1053.9,
+        "maxChunkGzipKB": 308.2,
+        "maxCssGzipKB": 10.3,
+        "jsFiles": 143
+      }
     },
     {
-      "name": "sub-app",
+      "name": "agent-web",
       "scope": "apps",
-      "assetsDirPattern": "apps/*/dist/assets",
+      "appDir": "apps/agent-web",
+      "maxTotalGzipKB": 1393,
+      "maxFiles": 121,
+      "maxChunkGzipKB": 441,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 1289.7,
+        "maxChunkGzipKB": 400.1,
+        "maxCssGzipKB": 68.5,
+        "jsFiles": 105
+      }
+    },
+    {
+      "name": "cronjob-web",
+      "scope": "apps",
+      "appDir": "apps/cronjob-web",
+      "maxTotalGzipKB": 983,
+      "maxFiles": 117,
+      "maxChunkGzipKB": 386,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 909.6,
+        "maxChunkGzipKB": 350.7,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 101
+      }
+    },
+    {
+      "name": "generator-web",
+      "scope": "apps",
+      "appDir": "apps/generator-web",
+      "maxTotalGzipKB": 857,
+      "maxFiles": 92,
+      "maxChunkGzipKB": 280,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 792.7,
+        "maxChunkGzipKB": 254.1,
+        "maxCssGzipKB": 68.7,
+        "jsFiles": 80
+      }
+    },
+    {
+      "name": "literule-web",
+      "scope": "apps",
+      "appDir": "apps/literule-web",
+      "maxTotalGzipKB": 1176,
+      "maxFiles": 105,
+      "maxChunkGzipKB": 386,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 1088.5,
+        "maxChunkGzipKB": 350.4,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 91
+      }
+    },
+    {
+      "name": "message-web",
+      "scope": "apps",
+      "appDir": "apps/message-web",
+      "maxTotalGzipKB": 1301,
+      "maxFiles": 122,
+      "maxChunkGzipKB": 385,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 1204.0,
+        "maxChunkGzipKB": 349.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 106
+      }
+    },
+    {
+      "name": "nextwiki-web",
+      "scope": "apps",
+      "appDir": "apps/nextwiki-web",
+      "maxTotalGzipKB": 937,
+      "maxFiles": 96,
+      "maxChunkGzipKB": 384,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 866.8,
+        "maxChunkGzipKB": 348.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 83
+      }
+    },
+    {
+      "name": "system-web",
+      "scope": "apps",
+      "appDir": "apps/system-web",
+      "maxTotalGzipKB": 941,
+      "maxFiles": 98,
+      "maxChunkGzipKB": 392,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 870.4,
+        "maxChunkGzipKB": 356.0,
+        "maxCssGzipKB": 68.5,
+        "jsFiles": 85
+      }
+    },
+    {
+      "name": "userinfo-web",
+      "scope": "apps",
+      "appDir": "apps/userinfo-web",
+      "maxTotalGzipKB": 979,
+      "maxFiles": 120,
+      "maxChunkGzipKB": 385,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 906.5,
+        "maxChunkGzipKB": 349.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 104
+      }
+    },
+    {
+      "name": "workflow-web",
+      "scope": "apps",
+      "appDir": "apps/workflow-web",
+      "maxTotalGzipKB": 2007,
+      "maxFiles": 122,
+      "maxChunkGzipKB": 471,
+      "maxCssGzipKB": 86,
+      "aspirationGzipKB": 384,
+      "baseline": {
+        "measuredAt": "2026-10-25",
+        "totalGzipKB": 1857.9,
+        "maxChunkGzipKB": 427.6,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 106
+      }
+    },
+    {
+      "name": "sub-app-default",
+      "scope": "apps",
+      "appDir": "apps/*",
       "maxTotalGzipKB": 384,
       "maxFiles": 60,
       "maxChunkGzipKB": 256,
-      "maxCssGzipKB": 96
+      "maxCssGzipKB": 96,
+      "aspirationGzipKB": 384,
+      "$comment": "未登记应用的兜底红线（沿用原理想值）：新应用必须显式评审自己的预算才能通过。"
     }
   ]
 }

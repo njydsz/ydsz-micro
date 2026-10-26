@@ -21,6 +21,7 @@ import { YdDialog, YdTable, YdTableColumn, YdButton, YdInput, YdBadge } from '@y
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-tag');
 const { t } = useI18n();

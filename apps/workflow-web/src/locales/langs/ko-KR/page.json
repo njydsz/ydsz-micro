@@ -12,5 +12,30 @@
   "monitor": "Monitor",
   "analytics": "분석",
   "design": "디자인",
-  "designer": "Designer"
+  "designer": "Designer",
+  "workflowDesigner": {
+    "title": "BPMN 시각 설계기",
+    "palette": "노드 패널",
+    "paletteHint": "왼쪽 작업 막대에서 노드를 끌어오세요",
+    "save": "저장",
+    "deploy": "배포",
+    "import": "가져오기",
+    "exportXml": "XML 내보내기",
+    "exportSvg": "SVG 내보내기",
+    "exportSuccess": "내보내기 성공",
+    "undo": "되돌리기",
+    "redo": "다시 실행",
+    "zoomToFit": "화면에 맞추기",
+    "clear": "캔버스 비우기",
+    "loading": "로딩 중...",
+    "saving": "저장 중...",
+    "loadSuccess": "프로세스 정의 로드 성공",
+    "loadFailed": "프로세스 정의 로드 실패",
+    "saveSuccess": "프로세스 정의 저장 성공",
+    "saveFailed": "프로세스 정의 저장 실패",
+    "deploySuccess": "프로세스 배포 성공",
+    "importSuccess": "파일 가져오기 성공",
+    "importFailed": "가져오기 실패. BPMN 2.0 XML 형식이 올바른지 확인하세요",
+    "idHint": "프로세스 정의 ID"
+  }
 }

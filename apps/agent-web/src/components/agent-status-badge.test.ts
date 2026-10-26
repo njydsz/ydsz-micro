@@ -19,13 +19,21 @@ import type { AgentStatus } from './agent-status-badge.vue';
 
 /**
  * 状态 → 期望显示的中文标签
+ *
+ * <p>`satisfies Record<AgentStatus, string>` 保证新增状态时此处必然报错，
+ * 用例表也直接由它展开，避免状态清单与断言表两处各写一遍。
  */
-const STATUS_LABEL_MAP: Record<AgentStatus, string> = {
+const STATUS_LABEL_MAP = {
   idle: '空闲',
   running: '运行中',
   paused: '已暂停',
   error: '异常',
-};
+} satisfies Record<AgentStatus, string>;
+
+const STATUS_LABEL_ENTRIES = Object.entries(STATUS_LABEL_MAP) as [
+  AgentStatus,
+  string,
+][];
 
 describe('AgentStatusBadge', () => {
   it('running 状态应显示「运行中」文字', () => {
@@ -34,12 +42,7 @@ describe('AgentStatusBadge', () => {
     expect(wrapper.find('[data-testid="agent-status-badge"]').exists()).toBe(true);
   });
 
-  it.each([
-    ['idle', '空闲'],
-    ['running', '运行中'],
-    ['paused', '已暂停'],
-    ['error', '异常'],
-  ] as const)('%s 状态应显示「%s」', (status, expectedLabel) => {
+  it.each(STATUS_LABEL_ENTRIES)('%s 状态应显示「%s」', (status, expectedLabel) => {
     const wrapper = mount(AgentStatusBadge, { props: { status } });
     expect(wrapper.text()).toContain(expectedLabel);
   });

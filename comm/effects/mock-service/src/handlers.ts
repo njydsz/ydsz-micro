@@ -14,7 +14,6 @@ import { http, HttpResponse, delay } from 'msw';
 import type { RequestHandler } from 'msw';
 import { createMockDataFactory } from './factory';
 import type {
-  HandlerGeneratorOptions,
   MockFactoryOptions,
   OpenAPIOperation,
   OpenAPIPathItem,

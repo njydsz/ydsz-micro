@@ -59,6 +59,8 @@ import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 
 import { getLogs, getStatus, triggerSync } from '#/api/ldapSync';
 
@@ -114,18 +116,16 @@ async function loadAll(): Promise<void> {
 /** 触发同步 */
 async function handleTriggerSync(): Promise<void> {
   try {
-    await YdConfirm(
-      '确认触发 LDAP 立即同步？同步过程可能需要几分钟，请耐心等待。',
-      '触发同步',
-      { type: 'warning' },
-    );
+    await YdConfirm(t('ldap.triggerConfirm'), t('ldap.triggerTitle'), {
+      type: 'warning',
+    });
   } catch {
     return;
   }
   isSyncing.value = true;
   try {
     await triggerSync();
-    showToast.success('同步任务已触发');
+    showToast.success(t('ldap.triggerSuccess'));
     // 延迟刷新状态（给后端一些时间启动同步）
     window.setTimeout(() => {
       loadAll();
@@ -145,20 +145,24 @@ function getStatusTagType(status?: string): 'success' | 'danger' | 'warning' | '
   return 'info';
 }
 
+/** 状态文本映射（后端枚举值 → 词典 key） */
+const STATUS_TEXT_KEYS: Record<string, string> = {
+  COMPLETED: 'ldap.status.completed',
+  ERROR: 'ldap.status.error',
+  FAILED: 'ldap.status.failed',
+  IDLE: 'ldap.status.idle',
+  PENDING: 'ldap.status.pending',
+  RUNNING: 'ldap.status.running',
+  SUCCESS: 'ldap.status.success',
+  SYNCING: 'ldap.status.syncing',
+};
+
 /** 状态文本映射 */
 function getStatusText(status?: string): string {
   const upper = (status ?? '').toUpperCase();
-  const statusMap: Record<string, string> = {
-    SUCCESS: '同步成功',
-    COMPLETED: '已完成',
-    FAILED: '同步失败',
-    ERROR: '错误',
-    RUNNING: '同步中',
-    SYNCING: '同步中',
-    IDLE: '空闲',
-    PENDING: '等待中',
-  };
-  return statusMap[upper] ?? status ?? '未知';
+  const key = STATUS_TEXT_KEYS[upper];
+  if (key) return t(key);
+  return status || t('ldap.status.unknown');
 }
 
 onMounted(() => {
@@ -167,11 +171,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Page loading="isLoading" auto-content-height>
+  <Page v-loading="isLoading" auto-content-height>
     <!-- 操作面板：触发同步 -->
     <YdCard class="mb-4">
       <YdCardHeader>
-        <YdCardTitle>LDAP 同步操作</YdCardTitle>
+        <YdCardTitle>{{ t('ldap.ldapSyncTitle') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent class="flex items-center gap-5">
         <YdButton
@@ -180,13 +184,13 @@ onMounted(() => {
           @click="handleTriggerSync"
         >
           <Loader2 v-if="isSyncing" class="mr-2 h-4 w-4 animate-spin" />
-          {{ isSyncing ? '同步进行中...' : '立即触发同步' }}
+          {{ isSyncing ? t('ldap.syncing') : t('ldap.triggerSync') }}
         </YdButton>
         <YdButton variant="outline" @click="loadAll">
-          刷新状态
+          {{ t('ldap.refreshStatus') }}
         </YdButton>
         <span class="text-sm text-muted-foreground">
-          上次同步时间：{{ syncStatus.lastSyncTime ?? '-' }}
+          {{ t('ldap.lastSyncTime', { time: syncStatus.lastSyncTime ?? '-' }) }}
         </span>
       </YdCardContent>
     </YdCard>
@@ -194,34 +198,34 @@ onMounted(() => {
     <!-- 同步状态 -->
     <YdCard class="mb-4">
       <YdCardHeader class="flex flex-row items-center justify-between pb-2">
-        <YdCardTitle>同步状态</YdCardTitle>
+        <YdCardTitle>{{ t('ldap.syncStatus') }}</YdCardTitle>
         <YdBadge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
           {{ getStatusText(syncStatus.status) }}
         </YdBadge>
       </YdCardHeader>
       <YdCardContent>
       <YdDescriptions :column="3" border>
-        <YdDescriptionsItem label="当前状态">
+        <YdDescriptionsItem :label="t('ldap.currentStatus')">
           <YdBadge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
             {{ getStatusText(syncStatus.status) }}
           </YdBadge>
         </YdDescriptionsItem>
-        <YdDescriptionsItem label="上次同步时间">
+        <YdDescriptionsItem :label="t('ldap.lastSyncTimeLabel')">
           {{ syncStatus.lastSyncTime ?? '-' }}
         </YdDescriptionsItem>
-        <YdDescriptionsItem label="下次同步时间">
+        <YdDescriptionsItem :label="t('ldap.nextSyncTime')">
           {{ syncStatus.nextSyncTime ?? '-' }}
         </YdDescriptionsItem>
-        <YdDescriptionsItem label="累计同步用户">
+        <YdDescriptionsItem :label="t('ldap.totalSynced')">
           {{ syncStatus.totalSynced ?? 0 }}
         </YdDescriptionsItem>
-        <YdDescriptionsItem label="成功数量">
+        <YdDescriptionsItem :label="t('ldap.successCount')">
           <span class="text-green-600">{{ syncStatus.successCount ?? 0 }}</span>
         </YdDescriptionsItem>
-        <YdDescriptionsItem label="失败数量">
+        <YdDescriptionsItem :label="t('ldap.failCount')">
           <span class="text-red-600">{{ syncStatus.failCount ?? 0 }}</span>
         </YdDescriptionsItem>
-        <YdDescriptionsItem v-if="syncStatus.errorMessage" label="错误信息" :span="3">
+        <YdDescriptionsItem v-if="syncStatus.errorMessage" :label="t('ldap.errorMessage')" :span="3">
           <span class="text-red-600">{{ syncStatus.errorMessage }}</span>
         </YdDescriptionsItem>
       </YdDescriptions>
@@ -231,35 +235,35 @@ onMounted(() => {
     <!-- 同步日志 -->
     <YdCard>
       <YdCardHeader>
-        <YdCardTitle>同步日志</YdCardTitle>
+        <YdCardTitle>{{ t('ldap.syncLogs') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
       <YdTable :data="syncLogs" border max-height="400">
-        <YdTableColumn type="index" label="序号" width="60" />
-        <YdTableColumn prop="syncTime" label="同步时间" width="170" />
-        <YdTableColumn label="状态" width="100">
+        <YdTableColumn type="index" :label="t('page.rowIndex')" width="60" />
+        <YdTableColumn prop="syncTime" :label="t('ldap.syncTime')" width="170" />
+        <YdTableColumn :label="t('page.status')" width="100">
           <template #default="{ row }">
             <YdBadge :variant="getStatusTagType(row.status) === 'success' ? 'default' : getStatusTagType(row.status) === 'danger' ? 'destructive' : getStatusTagType(row.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(row.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(row.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
               {{ getStatusText(row.status) }}
             </YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="totalCount" label="总数" width="80" />
-        <YdTableColumn prop="successCount" label="成功" width="80">
+        <YdTableColumn prop="totalCount" :label="t('ldap.total')" width="80" />
+        <YdTableColumn prop="successCount" :label="t('security.success')" width="80">
           <template #default="{ row }">
             <span class="text-green-600">{{ row.successCount ?? 0 }}</span>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="failCount" label="失败" width="80">
+        <YdTableColumn prop="failCount" :label="t('security.fail')" width="80">
           <template #default="{ row }">
             <span class="text-red-600">{{ row.failCount ?? 0 }}</span>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="duration" label="耗时(ms)" width="100" />
-        <YdTableColumn prop="operator" label="操作人" width="120" />
-        <YdTableColumn prop="errorMessage" label="错误信息" minWidth="150" show-overflow-tooltip />
+        <YdTableColumn prop="duration" :label="t('ldap.duration')" width="100" />
+        <YdTableColumn prop="operator" :label="t('ldap.operator')" width="120" />
+        <YdTableColumn prop="errorMessage" :label="t('ldap.errorMessage')" minWidth="150" show-overflow-tooltip />
       </YdTable>
-      <YdEmptyState v-if="syncLogs.length === 0" description="暂无同步日志" :image-size="60" />
+      <YdEmptyState v-if="syncLogs.length === 0" :description="t('ldap.noLogs')" :image-size="60" />
       </YdCardContent>
     </YdCard>
   </Page>

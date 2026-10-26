@@ -20,6 +20,19 @@ import type { Ref } from 'vue';
 /** 单元格编辑类型 */
 export type CellEditType = 'input' | 'number' | 'select' | 'date' | 'textarea';
 
+/**
+ * `select` 型可编辑单元格的候选项。
+ *
+ * <p>由列配置 `editOptions` 提供，YdDataTableCell 渲染为
+ * `<option :value="opt.value">{{ opt.label }}</option>`。
+ */
+export interface CellEditOption {
+  /** 下拉展示文案 */
+  label: string;
+  /** 提交回单元格的真实值 */
+  value: boolean | number | string;
+}
+
 /** 校验结果：null 表示通过，否则为错误文案 */
 export type EditValidationResult = string | null;
 

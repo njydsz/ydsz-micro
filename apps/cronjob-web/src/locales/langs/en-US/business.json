@@ -111,7 +111,8 @@
     "confirmTrigger": "Are you sure you want to manually trigger job \"{name}\"?",
     "pauseSuccess": "Job paused",
     "resumeSuccess": "Job resumed",
-    "triggerSuccess": "Trigger successful"
+    "triggerSuccess": "Trigger successful",
+    "textInputPlaceholder": "Enter cron expression manually"
   },
   "job.sse.connecting": "Connecting...",
   "job.sse.connected": "Connected",

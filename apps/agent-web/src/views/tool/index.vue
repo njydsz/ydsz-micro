@@ -18,11 +18,12 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, type BadgeVariants } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 
 const logger = createLogger('agent-tool');
+import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { useI18n } from 'vue-i18n';
 
@@ -32,11 +33,18 @@ defineOptions({ name: 'ToolManagement' });
 
 const { t } = useI18n();
 
-/** 工具类型标签颜色 */
-function getToolTypeTagType(type?: string): 'success' | 'warning' | 'info' | 'danger' | 'primary' {
+/**
+ * 工具类型标签颜色
+ *
+ * <p>取值即 YdBadge 的 variant（`BadgeVariants` 约束），HTTP 用中性 default 而非 primary，
+ * 避免与「启用状态」的高亮色混淆。
+ */
+function getToolTypeTagType(
+  type?: string,
+): NonNullable<BadgeVariants['variant']> {
   switch ((type ?? '').toUpperCase()) {
     case 'HTTP':
-      return 'primary';
+      return 'default';
     case 'FUNCTION':
       return 'success';
     case 'DATABASE':
@@ -44,7 +52,7 @@ function getToolTypeTagType(type?: string): 'success' | 'warning' | 'info' | 'da
     case 'CODE':
       return 'info';
     default:
-      return 'danger';
+      return 'destructive';
   }
 }
 
@@ -127,7 +135,7 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: getToolTypeTagType(row.toolType) === 'primary' ? 'default' : getToolTypeTagType(row.toolType) as any }, () => getToolTypeLabel(row.toolType)),
+          h(YdBadge, { variant: getToolTypeTagType(row.toolType) }, () => getToolTypeLabel(row.toolType)),
       },
     },
     { field: 'description', title: '描述', minWidth: 180 },

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* eslint-disable vue/component-api-style -- OrgTreeNode 必须递归引用自身，<script setup> 无法表达，故保留下方第二个 script 块的 defineComponent 写法 */
 /**
 * YdOrgChart 组织架构图 —— 对标 PrimeVue OrgChart。
 * 
@@ -17,6 +18,10 @@
 import type { OrgChartEmits, OrgChartNode, OrgChartProps } from './org-chart-types';
 
 import { computed, ref, watch } from 'vue';
+
+import { safeIconHtml } from './org-chart-icon';
+
+import { useLocale } from '../../locale/useLocale';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Search } from 'lucide-vue-next';
@@ -37,6 +42,9 @@ const props = withDefaults(defineProps<OrgChartProps>(), {
 });
 
 const emit = defineEmits<OrgChartEmits>();
+
+/** 内置词典：过滤框占位与折叠按钮 a11y 文案随当前语种取值 */
+const { t } = useLocale();
 
 // ---------------------------------------------------------------------------
 // 工具函数
@@ -205,6 +213,8 @@ defineExpose({
 </script>
 
 <template>
+  <!-- 节点图标只接受 safeIconHtml 白名单内的单根 svg/i/span/em 标记，
+       事件属性与危险协议已在守卫中拒绝，故下方 v-html 注入面由白名单收敛 -->
   <div :class="cn('org-chart', props.class)">
     <!-- 过滤输入框 -->
     <div v-if="props.filter" class="relative mb-4">
@@ -212,7 +222,7 @@ defineExpose({
       <input
         v-model="filterText"
         type="text"
-        :placeholder="`搜索 ${props.filterBy}...`"
+        :placeholder="t('orgChart.search', { field: props.filterBy })"
         class="w-full rounded-md border border-input bg-white py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
       />
     </div>
@@ -240,7 +250,8 @@ defineExpose({
                   :alt="node.label"
                   class="size-10 rounded-full object-cover"
                 />
-                <div v-if="node.icon" class="text-base" v-html="node.icon" />
+                <!-- eslint-disable-next-line vue/no-v-html -- 图标 markup 已由 safeIconHtml 白名单收敛 -->
+                <div v-if="node.icon" class="text-base" v-html="safeIconHtml(node.icon)" />
                 <span class="text-sm font-semibold text-foreground">{{ node.label }}</span>
                 <span
                   v-if="node.type"
@@ -256,7 +267,7 @@ defineExpose({
             v-if="props.collapsible && hasChildren(node)"
             type="button"
             class="absolute -bottom-2.5 left-1/2 z-10 flex size-5 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary bg-white text-xs transition-transform hover:scale-110"
-            :aria-label="isExpanded(node) ? '折叠' : '展开'"
+            :aria-label="isExpanded(node) ? t('common.collapse') : t('common.expand')"
             @click.stop="toggleExpand(node)"
           >
             <ChevronDown v-if="isExpanded(node)" class="size-3" />
@@ -320,7 +331,8 @@ defineExpose({
                         :alt="child.label"
                         class="size-10 rounded-full object-cover"
                       />
-                      <div v-if="child.icon" class="text-base" v-html="child.icon" />
+                      <!-- eslint-disable-next-line vue/no-v-html -- 图标 markup 已由 safeIconHtml 白名单收敛 -->
+                      <div v-if="child.icon" class="text-base" v-html="safeIconHtml(child.icon)" />
                       <span class="text-sm font-semibold text-foreground">{{ child.label }}</span>
                       <span
                         v-if="child.type"
@@ -359,7 +371,8 @@ defineExpose({
                   :alt="node.label"
                   class="size-10 rounded-full object-cover"
                 />
-                <div v-if="node.icon" class="text-base" v-html="node.icon" />
+                <!-- eslint-disable-next-line vue/no-v-html -- 图标 markup 已由 safeIconHtml 白名单收敛 -->
+                <div v-if="node.icon" class="text-base" v-html="safeIconHtml(node.icon)" />
                 <span class="text-sm font-semibold text-foreground">{{ node.label }}</span>
                 <span
                   v-if="node.type"
@@ -375,7 +388,7 @@ defineExpose({
             v-if="props.collapsible && hasChildren(node)"
             type="button"
             class="absolute -right-2.5 top-1/2 z-10 flex size-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary bg-white text-xs transition-transform hover:scale-110"
-            :aria-label="isExpanded(node) ? '折叠' : '展开'"
+            :aria-label="isExpanded(node) ? t('common.collapse') : t('common.expand')"
             @click.stop="toggleExpand(node)"
           >
             <ChevronLeft v-if="isExpanded(node)" class="size-3" />
@@ -434,7 +447,8 @@ defineExpose({
                         :alt="child.label"
                         class="size-10 rounded-full object-cover"
                       />
-                      <div v-if="child.icon" class="text-base" v-html="child.icon" />
+                      <!-- eslint-disable-next-line vue/no-v-html -- 图标 markup 已由 safeIconHtml 白名单收敛 -->
+                      <div v-if="child.icon" class="text-base" v-html="safeIconHtml(child.icon)" />
                       <span class="text-sm font-semibold text-foreground">{{ child.label }}</span>
                       <span
                         v-if="child.type"
@@ -459,7 +473,11 @@ defineExpose({
   放在 <script setup> 之后作为第二个 <script> 块（无 setup）。
 -->
 <script lang="ts">
+import type { OrgChartNode } from './org-chart-types';
+
 import { defineComponent, h, type PropType } from 'vue';
+
+import { safeIconHtml } from './org-chart-icon';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-vue-next';
@@ -474,7 +492,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-vue-ne
 export default defineComponent({
   name: 'OrgTreeNode',
   props: {
-    node: { type: Object as PropType<import('./org-chart-types').OrgChartNode>, required: true },
+    node: { type: Object as PropType<OrgChartNode>, required: true },
     nodeClasses: { type: String, required: true },
     horizontal: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
@@ -511,7 +529,7 @@ export default defineComponent({
         [
           h('div', { class: 'flex flex-col items-center gap-1 text-center' }, [
             node.image ? h('img', { src: node.image, alt: node.label, class: 'size-10 rounded-full object-cover' }) : null,
-            node.icon ? h('div', { class: 'text-base', innerHTML: node.icon }) : null,
+            node.icon ? h('div', { class: 'text-base', innerHTML: safeIconHtml(node.icon) }) : null,
             h('span', { class: 'text-sm font-semibold text-foreground' }, node.label),
             node.type ? h('span', { class: 'text-xs text-muted-foreground' }, node.type) : null,
           ]),
@@ -572,7 +590,7 @@ export default defineComponent({
               },
               horizontal
                 ? // 横向模式：每个子节点占一行，左侧有一条竖线连接
-                (node.children ?? []).map((child: import('./org-chart-types').OrgChartNode) => {
+                (node.children ?? []).map((child: OrgChartNode) => {
                   return h(
                     'div',
                     {
@@ -600,7 +618,7 @@ export default defineComponent({
                   );
                 })
                 : // 纵向模式：每个子节点占一列，顶部有一条横线连接
-                (node.children ?? []).map((child: import('./org-chart-types').OrgChartNode) => {
+                (node.children ?? []).map((child: OrgChartNode) => {
                   return h(
                     'div',
                     {

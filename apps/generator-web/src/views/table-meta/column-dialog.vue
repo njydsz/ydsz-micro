@@ -20,6 +20,8 @@ import { onMounted, ref, watch } from 'vue';
 
 import { YdBadge, YdButton, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 
+import { showToast } from '@ydsz/notification';
+
 import { getColumns, refreshColumns } from '#/api/table-meta';
 import type { GenColumnMeta } from '#/api/models';
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { TreeItem } from '../'
-// eslint-disable-next-line import/no-self-import
+// 递归自引用：树节点按层级渲染自身子树，Vue SFC 支持该写法
 import Tree from './_TreeNested.vue'
 
 interface TreeNode {

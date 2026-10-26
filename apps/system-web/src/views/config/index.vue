@@ -58,9 +58,9 @@ const dataScope = ref<unknown>(getDataScope('system:config'));
 const dataScopeLabel = computed(() => {
   const scope = dataScope.value;
   if (scope === undefined || scope === null) return '';
-  if (Array.isArray(scope)) return `数据范围: 限定 ${scope.length} 项`;
-  if (typeof scope === 'object') return '数据范围: 自定义约束';
-  return `数据范围: ${String(scope)}`;
+  if (Array.isArray(scope)) return t('dataScopeLimited', { count: scope.length });
+  if (typeof scope === 'object') return t('dataScopeCustom');
+  return t('dataScopeValue', { scope: String(scope) });
 });
 
 /** 行类型：真实契约 ConfigVO（字段以 models.ts 为准） */
@@ -292,10 +292,10 @@ function handleDragEnd() {
         <YdBadge v-if="dataScopeLabel" variant="destructive" style="margin-right: 8px" role="status" aria-live="polite">
           {{ dataScopeLabel }}
         </YdBadge>
-        <YdButton aria-label="t('create')" v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</YdButton>
-        <YdButton variant="outline" size="sm" class="ml-1" @click="columnConfigOpen = true" :aria-label="t('config')">
-          <span class="mr-1">&#9881;</span>
-          <span class="hidden sm:inline">列配置</span>
+        <YdButton :aria-label="t('create')" v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</YdButton>
+        <YdButton variant="outline" size="sm" class="ml-1" @click="columnConfigOpen = true" :aria-label="t('columnConfig')">
+          <span class="mr-1" aria-hidden="true">&#9881;</span>
+          <span class="hidden sm:inline">{{ t('columnConfig') }}</span>
         </YdButton>
       </template>
     </Grid>
@@ -309,7 +309,7 @@ function handleDragEnd() {
         class="fixed inset-0 z-[60] flex items-center justify-center"
         role="dialog"
         aria-modal="true"
-        :aria-label="t('config')"
+        :aria-label="t('columnConfig')"
       >
         <!-- 遮罩层 -->
         <div
@@ -319,8 +319,8 @@ function handleDragEnd() {
         <!-- 面板 -->
         <div class="relative z-10 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
           <div class="mb-4 flex items-center justify-between">
-            <h2 class="text-lg font-semibold">列配置</h2>
-            <YdButton variant="ghost" size="sm" @click="columnConfigOpen = false" aria-label="close">
+            <h2 class="text-lg font-semibold">{{ t('columnConfig') }}</h2>
+            <YdButton variant="ghost" size="sm" @click="columnConfigOpen = false" :aria-label="t('close')">
               &times;
             </YdButton>
           </div>
@@ -336,7 +336,7 @@ function handleDragEnd() {
               @dragend="handleDragEnd"
             >
               <!-- 拖拽手柄 -->
-              <span class="cursor-grab select-none text-gray-400" title="拖拽排序">&#9776;</span>
+              <span class="cursor-grab select-none text-gray-400" :title="t('dragToSort')">&#9776;</span>
 
               <!-- 可见性 checkbox -->
               <label class="flex flex-1 cursor-pointer items-center gap-2">
@@ -351,13 +351,14 @@ function handleDragEnd() {
 
               <!-- 列宽 slider -->
               <div class="flex items-center gap-2">
-                <span class="text-xs text-gray-500">宽度</span>
+                <span class="text-xs text-gray-500">{{ t('columnWidth') }}</span>
                 <input
                   type="range"
                   min="60"
                   max="400"
                   :value="columnWidth[field] ?? 150"
                   class="w-24"
+                  :aria-label="`${t('columnWidth')} - ${field}`"
                   @input="setColumnWidth(field, Number(($event.target as HTMLInputElement).value))"
                 />
                 <span class="w-10 text-right text-xs text-gray-500">{{ columnWidth[field] ?? 150 }}px</span>
@@ -366,8 +367,8 @@ function handleDragEnd() {
           </div>
 
           <div class="flex justify-end gap-2">
-            <YdButton variant="outline" size="sm" @click="handleResetColumns">重置为默认</YdButton>
-            <YdButton size="sm" @click="columnConfigOpen = false">完成</YdButton>
+            <YdButton variant="outline" size="sm" @click="handleResetColumns">{{ t('resetToDefault') }}</YdButton>
+            <YdButton size="sm" @click="columnConfigOpen = false">{{ t('done') }}</YdButton>
           </div>
         </div>
       </div>

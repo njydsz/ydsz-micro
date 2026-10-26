@@ -78,7 +78,6 @@ export const Default: Story = {
     setup() {
       const treeData = ref(sampleTree);
       function onSelect(value: string | number): void {
-        // eslint-disable-next-line no-console
         console.log('选中:', value);
       }
       return { onSelect, treeData };

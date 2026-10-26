@@ -19,6 +19,8 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { listByResourceKey, rollback } from '#/api/configVersion';
 import type { EntityVersionVO } from '#/api/models';
 

@@ -14,5 +14,5 @@ export { default as YdSkeletonDetail } from './YdSkeletonDetail.vue';
 
 // merged from pre-refactor ui/ + primitives/ barrels
 export { default as ydSkeleton } from './skeleton.vue';
-export type { SkeletonEmits, SkeletonProps } from './skeleton-types';
+export type { SkeletonProps } from './skeleton-types';
 export type { SkeletonSize, SkeletonVariant } from './skeleton-types';

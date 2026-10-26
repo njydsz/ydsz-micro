@@ -13,6 +13,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { showToast } from '@ydsz/notification';
 import type { RuleDefinitionVO } from '#/api/models';
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';

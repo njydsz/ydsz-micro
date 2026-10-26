@@ -19,6 +19,7 @@
  */
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdTooltip } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { type ChainEdgeDTO, type ChainNodeDTO, type RuleChainGraph } from '#/api/models';
 import { dryRunGraph, getChainGraph, saveChainGraph, validateChainGraph } from '#/api/ruleGraph';
 

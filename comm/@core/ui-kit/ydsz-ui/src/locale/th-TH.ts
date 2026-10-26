@@ -45,6 +45,10 @@ export const thTH = {
   'table.expandedRow': 'ขยายแถว',
   'table.collapseRow': 'ยุบแถว',
   'table.columnSetting': 'ตั้งค่าคอลัมน์',
+  'table.editCell': 'แก้ไขเซลล์',
+  'table.sortHint': 'คลิกเพื่อจัดเรียง Shift+คลิกเพื่อจัดเรียงหลายคอลัมน์',
+  'table.resizeColumn': 'ลากเพื่อปรับความกว้างคอลัมน์',
+  'table.dragColumn': 'ลากเพื่อเรียงลำดับคอลัมน์ใหม่',
 
   // ===== ฟอร์ม =====
   'form.validating': 'กำลังตรวจสอบ...',
@@ -73,6 +77,8 @@ export const thTH = {
   'upload.maxSize': 'ขนาดไฟล์เกินขีดจำกัด',
   'upload.maxCount': 'จำนวนไฟล์เกินขีดจำกัด',
   'upload.invalidFormat': 'รูปแบบไฟล์ไม่รองรับ',
+  'upload.clickToUpload': 'คลิกเพื่ออัปโหลด',
+  'upload.dragTipPrefix': 'ลากไฟล์มาที่นี่ หรือ ',
 
   // ===== การแบ่งหน้า =====
   'pagination.page': '',
@@ -114,6 +120,9 @@ export const thTH = {
   'datepicker.oct': 'ต.ค.',
   'datepicker.nov': 'พ.ย.',
   'datepicker.dec': 'ธ.ค.',
+  'datepicker.openCalendar': 'เปิดปฏิทิน',
+  'datepicker.previousMonth': 'เดือนก่อนหน้า',
+  'datepicker.nextMonth': 'เดือนถัดไป',
 
   // ===== ตัวเลือก =====
   'select.placeholder': 'กรุณาเลือก',
@@ -132,6 +141,9 @@ export const thTH = {
   'tree.collapseAll': 'ยุบทั้งหมด',
   'tree.checkedAll': 'เลือกทั้งหมด',
   'tree.uncheckedAll': 'ยกเลิกการเลือกทั้งหมด',
+  'tree.search': 'ค้นหาโหนด...',
+  'tree.clearSearch': 'ล้างการค้นหา',
+  'tree.searchResults': 'ผลการค้นหา',
 
   // ===== การแจ้งเตือน =====
   'message.success': 'สำเร็จ',
@@ -159,13 +171,35 @@ export const thTH = {
   'empty.no-result': 'ไม่พบผลลัพธ์ที่ตรงกัน',
 
   // ===== ธีม =====
-  'theme.light': 'สว่าง',
-  'theme.dark': 'มืด',
-  'theme.system': 'ระบบ',
 
   // ===== ภาษา =====
-  'locale.switchLanguage': 'เปลี่ยนภาษา',
-  'locale.currentLanguage': 'ภาษาปัจจุบัน',
+  'drawer.ariaLabel': 'ลิ้นชัก',
+  'drawer.close': 'ปิด',
+  'drawer.closeAriaLabel': 'ปิดลิ้นชัก',
+  'drawer.confirm': 'ยืนยัน',
+  'drawer.cancel': 'ยกเลิก',
+  'autoComplete.placeholder': 'พิมพ์คำสำคัญ',
+  'autoComplete.emptyText': 'ไม่มีรายการที่ตรงกัน',
+  'autoComplete.loadingText': 'กำลังโหลด...',
+  'autoComplete.clearAriaLabel': 'ล้างข้อมูลป้อนเข้า',
+  'fileUpload.clickToUpload': 'คลิกหรือลากเพื่ออัปโหลด',
+  'fileUpload.dragAndDrop': 'ลากไฟล์มายังพื้นที่นี้',
+  'fileUpload.fileSize': 'ขนาด',
+  'orderList.moveToTop': 'ย้ายไปด้านบนสุด',
+  'orderList.moveUp': 'ย้ายขึ้น',
+  'orderList.moveDown': 'ย้ายลง',
+  'orderList.moveToBottom': 'ย้ายไปด้านล่างสุด',
+  'orderList.filterPlaceholder': 'ค้นหา',
+  'pickList.sourceLabel': 'รายการต้นทาง',
+  'pickList.targetLabel': 'รายการปลายทาง',
+  'pickList.moveToTarget': 'ย้ายไปยังปลายทาง',
+  'pickList.moveToSource': 'ย้ายกลับต้นทาง',
+  'pickList.moveAllToTarget': 'ย้ายทั้งหมดไปยังปลายทาง',
+  'pickList.moveAllToSource': 'ย้ายทั้งหมดกลับต้นทาง',
+  'pickList.filterPlaceholder': 'ค้นหา',
+  'qrCode.download': 'ดาวน์โหลดคิวอาร์โค้ด',
+  'splitButton.toggleDropdown': 'สลับเมนูเลื่อนลง',
+  'orgChart.search': 'ค้นหา {field}...',
 } as const satisfies Record<string, string>;
 
 export default thTH;

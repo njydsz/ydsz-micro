@@ -1,0 +1,9 @@
+{
+  "budgets": {
+    "es-ES": 409,
+    "fr-FR": 556,
+    "ja-JP": 424,
+    "ko-KR": 443
+  },
+  "hint": "机翻痕迹预算：由 `node ./bash/check-locales.mts --update-quality-baseline` 生成，只允许下调"
+}

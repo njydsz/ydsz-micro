@@ -18,6 +18,8 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdDialog, YdTable, YdTableColumn, YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { download } from '#/api/download';
 import type { FileNodeVO } from '#/api/models';
 

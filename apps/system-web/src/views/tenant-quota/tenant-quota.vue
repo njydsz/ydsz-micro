@@ -14,6 +14,8 @@ import { onMounted, ref } from 'vue';
 import { YdButton, YdCard } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { requestClient } from '#/api/request';
 
 defineOptions({ name: 'TenantQuota' });

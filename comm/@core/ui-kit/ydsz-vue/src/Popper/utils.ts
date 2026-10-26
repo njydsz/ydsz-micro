@@ -1,10 +1,8 @@
 import type { Middleware, Placement } from '@floating-ui/vue'
 
-const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
-const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
-
-export type Side = (typeof SIDE_OPTIONS)[number]
-export type Align = (typeof ALIGN_OPTIONS)[number]
+// 与 floating-ui 的 placement 词表对齐；只作类型使用，故不再保留运行时数组
+export type Side = 'top' | 'right' | 'bottom' | 'left'
+export type Align = 'start' | 'center' | 'end'
 
 export function isNotNull<T>(value: T | null): value is T {
   return value !== null

@@ -256,11 +256,11 @@ export function generatePage(
   const title: string = titleMap[pageType] ?? '新建页面';
   const description = `${title} — 由 AI 生成器自动创建，可根据实际需求调整字段。`;
 
-  // 7. 生成 API 路径
+  // 7. 生成 API 路径（模板占位，版本由 X-Api-Version 头协商，不写 /v1 段）
   const apiSegment = moduleName
     ? toModuleName(moduleName)
     : 'generated';
-  const apiPath = `/api/v1/${apiSegment}`;
+  const apiPath = `/api/${apiSegment}`;
 
   // 8. 生成辅助建议
   const suggestions: string[] = [];

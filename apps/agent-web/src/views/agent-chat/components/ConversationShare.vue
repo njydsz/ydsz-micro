@@ -18,6 +18,8 @@
 import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 defineOptions({ name: 'ConversationShare' });
 
 /** 弹窗可见性 */

@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "codeLogin": "Connexion par code",
+    "qrcodeLogin": "Connexion par QR code",
+    "forgetPassword": "Mot de passe oublié"
+  },
+  "dashboard": {
+    "title": "Plateforme YDSZ",
+    "analytics": "Analytique",
+    "workspace": "Espace de travail",
+    "notifications": "Centre de notifications",
+    "performance": "Suivi des performances"
+  },
+  "operations": "Exploitation",
+  "audit": {
+    "title": "Journal d'audit",
+    "filter": {
+      "operatorName": "Opérateur",
+      "module": "Module",
+      "actionType": "Type",
+      "result": "Résultat de l'opération",
+      "dateRange": "Période",
+      "keyword": "Mot-clé",
+      "search": "Rechercher",
+      "reset": "Réinitialiser",
+      "export": "Exporter"
+    },
+    "table": {
+      "actionTime": "Heure",
+      "operatorName": "Opérateur",
+      "module": "Module",
+      "actionType": "Type",
+      "description": "Description",
+      "clientIp": "IP",
+      "operation": "Action",
+      "viewDetail": "Voir le détail",
+      "empty": "Aucun enregistrement d'audit",
+      "total": "{count} enregistrements au total"
+    },
+    "detail": {
+      "title": "Détail du journal d'audit",
+      "basicInfo": "Informations de base",
+      "clientInfo": "Informations client",
+      "diffTitle": "Comparaison des modifications",
+      "errorMessage": "Message d'erreur",
+      "noDiff": "Aucune donnée de modification",
+      "session": "ID de session",
+      "browser": "Navigateur",
+      "os": "Système d'exploitation",
+      "oldValue": "Valeur précédente",
+      "newValue": "Valeur nouvelle",
+      "loading": "Chargement..."
+    },
+    "actionType": {
+      "CREATE": "Créer",
+      "UPDATE": "Modifier",
+      "DELETE": "Supprimer",
+      "LOGIN": "Connexion",
+      "EXPORT": "Exporter"
+    },
+    "exportConfirm": "L'exportation de données sensibles exige une double vérification"
+  },
+  "notification": {
+    "summary": {
+      "total": "Total",
+      "unread": "Non lues",
+      "today": "Aujourd'hui",
+      "connection": "État de la connexion"
+    },
+    "sse": {
+      "connected": "En direct",
+      "disconnected": "Déconnecté"
+    },
+    "col": {
+      "title": "Titre",
+      "level": "Niveau",
+      "time": "Heure",
+      "status": "Statut"
+    },
+    "level": {
+      "info": "Info",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "error": "Erreur"
+    },
+    "status": {
+      "read": "Lue",
+      "unread": "Non lue"
+    },
+    "filter": {
+      "allLevels": "Tous les niveaux",
+      "allStatus": "Tous les états"
+    },
+    "markRead": "Marquer comme lue",
+    "markAllRead": "Tout marquer comme lu",
+    "clearAll": "Tout effacer",
+    "viewDetail": "Voir le détail"
+  },
+  "microKernel": {
+    "containerLabel": "Conteneur de sous-application",
+    "phase": {
+      "loading": "Chargement des modules...",
+      "loaded": "Modules chargés",
+      "mounting": "Montage de l'application...",
+      "mounted": "Chargement terminé",
+      "unmounting": "Changement d'application...",
+      "error": "Échec du chargement"
+    },
+    "announcements": {
+      "loading": "Chargement de la sous-application {{appName}}",
+      "loaded": "Modules de {{appName}} chargés, préparation du montage",
+      "mounting": "Montage de la sous-application {{appName}}",
+      "mounted": "Sous-application {{appName}} chargée avec succès",
+      "unmounting": "Sortie de {{appName}}",
+      "error": "Échec du chargement de la sous-application {{appName}}"
+    },
+    "errorMask": {
+      "title": "Échec du chargement de l'application",
+      "hint": "Régression vers une navigation pleine page, réessayez plus tard"
+    }
+  }
+}

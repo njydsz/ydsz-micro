@@ -181,7 +181,6 @@
   "cepHitStatistics": "Hit Statistics",
   "cepHitRecords": "Hit Records",
   "cepTestEvent": "Test Event",
-  "cepPushPush": "Push Test",
   "cepViewStats": "View Statistics",
   "cepStatisticsTitle": "Pattern Hit Statistics",
   "cepActiveTab": "Pattern Config",
@@ -213,5 +212,6 @@
   "rulePackStartStress": "Start Test",
   "rulePackQualityScore": "Quality Score",
   "rulePackScoreTitle": "Quality Score",
-  "rulePackNoScoreData": "No score data"
+  "rulePackNoScoreData": "No score data",
+  "cepPushTest": "Push Test"
 }

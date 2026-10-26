@@ -32,7 +32,7 @@ const logger = createLogger('ChunkUpload');
 export const DEFAULT_CHUNK_SIZE = 5 * 1024 * 1024;
 
 /** 默认分片上传基础路径（对应 FileMultipartController 的 @RequestMapping） */
-export const DEFAULT_MULTIPART_BASE = '/api/v1/system/file/multipart';
+export const DEFAULT_MULTIPART_BASE = '/api/file/multipart';
 
 /** 默认重试次数 */
 export const DEFAULT_MAX_RETRIES = 3;
@@ -48,10 +48,10 @@ export const DEFAULT_CHUNK_TIMEOUT = 30_000;
  * 分片上传 REST API 端点配置。
  *
  * <p>调用方应传入与后端 {@code FileMultipartController} 对齐的 baseURL，
- * 例如 {@code /api/v1/system/file/multipart}。
+ * 例如 {@code /api/file/multipart}。
  */
 export interface MultipartApiConfig {
-  /** 分片上传控制器基础 URL（如 /api/v1/system/file/multipart） */
+  /** 分片上传控制器基础 URL（如 /api/file/multipart） */
   baseURL: string;
   /** 自定义请求头（如 X-Tenant-Id 等），合并到每个请求中 */
   headers?: Record<string, string>;
@@ -501,7 +501,7 @@ async function uploadChunksSingleEndpoint(
  *   chunkSize: 5 * 1024 * 1024,
  *   maxConcurrency: 3,
  *   multipart: {
- *     baseURL: '/api/v1/system/file/multipart',
+ *     baseURL: '/api/file/multipart',
  *     withCredentials: true,
  *   },
  *   onHashCalculated: async (hash) => {
@@ -738,7 +738,7 @@ export interface ChunkHttpOptions {
  *   chunkSize: 5 * 1024 * 1024,
  *   maxConcurrency: 3,
  *   maxRetries: 3,
- *   multipart: { baseURL: '/api/v1/system/file/multipart' },
+ *   multipart: { baseURL: '/api/file/multipart' },
  * });
  *
  * <YdUpload :httpRequest="chunkRequest" action="/api/upload" />

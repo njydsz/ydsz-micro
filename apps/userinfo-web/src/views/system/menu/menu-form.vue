@@ -27,6 +27,8 @@ const { t } = useI18n();
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('userinfo-menu');
 
+import { showToast } from '@ydsz/notification';
+
 import { create, update } from '#/api/menu';
 import type { MenuDTO, MenuTreeVO } from '#/api/models';
 

@@ -17,6 +17,7 @@
 */
 import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { evaluate } from '#/api/prompt';
 
 defineOptions({ name: 'PromptTest' });

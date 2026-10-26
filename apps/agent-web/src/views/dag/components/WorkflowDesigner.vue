@@ -19,6 +19,8 @@ import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect
 import { Loader2 } from '@ydsz/icons';
 import { computed, nextTick, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 /** 工作流节点 */
 interface WorkflowNode {
   id: string;

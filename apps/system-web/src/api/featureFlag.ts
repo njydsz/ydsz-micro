@@ -2,7 +2,7 @@
  * FeatureFlagController API 封装
  *
  * <p>对应后端 {@code FeatureFlagController}。
- * <p>路径规范: /api/v1/system/**（kebab-case），成功码统一为 code === 'A00000'。
+ * <p>路径规范: /api/system/**（kebab-case），成功码统一为 code === 'A00000'。
  *
  * @author ydsz-team
  * @since 1.0.0

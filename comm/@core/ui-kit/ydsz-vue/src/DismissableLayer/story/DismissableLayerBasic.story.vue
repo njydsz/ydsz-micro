@@ -7,7 +7,6 @@ import { FocusScope } from '../../FocusScope/index.ts'
 const open = ref(false)
 
 function handleClick() {
-  // eslint-disable-next-line no-console
 }
 
 const state = reactive({

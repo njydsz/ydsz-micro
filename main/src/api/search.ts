@@ -5,8 +5,8 @@
  * @author ydsz-team
  * @since 5.1.0
  *
- * 通过 VITE_SEARCH_API_URL（默认 /api/v1/search）调用后端全文索引服务，
- * 支持类别过滤与请求超时/取消控制。多个类别并发请求后合并为统一结果集。
+ * 通过 VITE_SEARCH_API_URL（默认 /search，经 requestClient baseURL=/api 拼成 /api/search）
+ * 调用后端全文索引服务，支持类别过滤与请求超时/取消控制。多个类别并发请求后合并为统一结果集。
  */
 import { requestClient } from '#/api/request';
 
@@ -67,8 +67,8 @@ export interface SearchAllParams {
   limit?: number;
 }
 
-/** 搜索 API 端点（可通过环境变量覆盖） */
-const SEARCH_API_URL = import.meta.env.VITE_SEARCH_API_URL || '/api/v1/search';
+/** 搜索 API 端点（可通过环境变量覆盖；requestClient 的 baseURL=/api 会自动前置） */
+const SEARCH_API_URL = import.meta.env.VITE_SEARCH_API_URL || '/search';
 
 /** 请求超时时长（毫秒） */
 const REQUEST_TIMEOUT_MS = 8000;
@@ -122,13 +122,19 @@ export async function searchAll(
  *
  * @since 5.1.0
  */
+/** 后端 /search/analytics/hot 的返回元素（SearchAnalyticsService.HotKeyword） */
+interface HotKeyword {
+  count: number;
+  keyword: string;
+}
+
 export async function getHotSearches(limit = 5): Promise<string[]> {
   try {
-    const response = await requestClient.get<string[]>(
-      `${SEARCH_API_URL}/hot`,
+    const response = await requestClient.get<HotKeyword[]>(
+      `${SEARCH_API_URL}/analytics/hot`,
       { params: { limit }, timeout: REQUEST_TIMEOUT_MS },
     );
-    return response;
+    return response.map((item) => item.keyword);
   } catch {
     return [];
   }

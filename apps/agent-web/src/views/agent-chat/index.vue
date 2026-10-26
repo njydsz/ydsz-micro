@@ -25,6 +25,8 @@ import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, Y
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { clearHistory, history as fetchHistory } from '#/api/agent';
 import { openAgentStream } from '#/utils/sse-client';
 

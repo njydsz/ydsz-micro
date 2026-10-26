@@ -25,6 +25,8 @@ import { YdButton, YdCard, YdDialog, YdEmptyState, YdInput, YdSelectItem, YdSele
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, h, onMounted, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { getTrace, listTraces, replayTrace } from '#/api/debug';
 import type { AgentTraceDetailDTO, AgentTraceListDTO } from '#/api/models';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';

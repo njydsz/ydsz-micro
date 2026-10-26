@@ -20,19 +20,20 @@ import { onMounted, ref } from 'vue';
 
 import { YdButton, YdBadge, YdInput, YdEmptyState } from '@ydsz-core/ydsz-ui';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import {
   activateGroup,
   createGroup,
   deleteGroup,
-  listGroups,
-} from '#/api/template';
-import type { GenTemplate, GenTemplateGroup } from '#/api/models';
-import {
   getActiveGroup,
+  listGroups,
   listTemplates,
   searchTemplates,
   updateTemplate,
 } from '#/api/template';
+import type { GenTemplate, GenTemplateGroup } from '#/api/models';
 
 import TemplateGroupForm from './template-group-form.vue';
 import TemplateForm from './template-form.vue';

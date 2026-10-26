@@ -2,7 +2,7 @@
  * LockAdminController API 封装
  *
  * <p>对应后端 {@code LockAdminController}，共 3 个端点。
- * <p>路径规范: /api/v1/system/**（kebab-case），成功码统一为 code === 'A00000'。
+ * <p>路径规范: /api/system/**（kebab-case），成功码统一为 code === 'A00000'。
  *
  * @path apps\system-web\src\api\lock-admin.ts
  * @author ydsz-team

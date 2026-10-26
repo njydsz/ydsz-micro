@@ -7,7 +7,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 import { useWindowSize } from '@vueuse/core';
 

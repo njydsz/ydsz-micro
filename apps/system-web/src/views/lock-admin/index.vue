@@ -27,9 +27,13 @@ import { useI18n } from 'vue-i18n';
 
 import { useAccess } from '@ydsz/access';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getLockStats, listLocks, releaseLock } from '#/api/lock-admin';
-import type { LockPageQuery, LockStatsVO, LockVO, PageQuery } from '#/api/lock-admin';
+import type { LockPageQuery, LockStatsVO, LockVO } from '#/api/lock-admin';
+import type { PageQuery } from '#/api/models';
 
 defineOptions({ name: 'LockAdminManagement' });
 

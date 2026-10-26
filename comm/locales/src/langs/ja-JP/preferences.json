@@ -184,38 +184,6 @@
     "notification": "有効化 通知",
     "sidebarToggle": "有効化 Sidebar Toggle",
     "lockScreen": "有効化 Lock Screen",
-    "refresh": "有効化 更新",
-    "height": {
-      "label": "Height",
-      "value": "Tall"
-    },
-    "width": {
-      "label": "幅",
-      "value": "ワイド"
-    },
-    "minWidth": {
-      "label": "最小幅",
-      "value": "最小幅"
-    },
-    "complexity": {
-      "label": "複雑さ",
-      "value": "複雑"
-    },
-    "light": {
-      "label": "ライト",
-      "value": "ライト Mode"
-    },
-    "dark": {
-      "label": "ダーク",
-      "value": "ダーク Mode"
-    },
-    "system": {
-      "label": "Follow システム",
-      "value": "Follow システム"
-    },
-    "auto": {
-      "label": "自動",
-      "value": "自動"
-    }
+    "refresh": "有効化 更新"
   }
 }

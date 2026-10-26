@@ -56,7 +56,10 @@ globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
 }) as typeof fetch;
 
 declare module 'vitest' {
-  interface Assertion<T = any> {
+  // 声明合并要求类型参数与原 `Assertion<T = any>` 完全一致，无法收窄为 unknown；
+  // 形参加下划线前缀仅为满足 no-unused-vars（本增强不消费该参数）。
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  interface Assertion<_T = any> {
     /** 断言 axe-core 结果不含任何 violation */
     toHaveNoViolations: () => void;
   }

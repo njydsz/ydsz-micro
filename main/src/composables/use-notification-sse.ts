@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 
-import { onMounted, onUnmounted, readonly, ref } from 'vue';
+import { onMounted, onUnmounted, readonly, ref, type Ref } from 'vue';
 
 import { calculateRetryDelay, createLogger } from '@ydsz/utils';
 import { streamRequest, type SseEvent } from '@ydsz/shared-auth';
@@ -25,8 +25,8 @@ import { useNotificationStore } from '#/store/notification';
 /** 模块级日志器 */
 const logger = createLogger('NotificationSSE');
 
-/** SSE 端点（环境变量覆盖，默认 /api/v1/notifications/sse） */
-const SSE_URL = import.meta.env.VITE_NOTIFICATION_SSE_URL ?? '/api/v1/notifications/sse';
+/** SSE 端点（streamRequest 走原生 fetch，不经 requestClient baseURL，需写网关注册的完整路径） */
+const SSE_URL = import.meta.env.VITE_NOTIFICATION_SSE_URL ?? '/api/message/reactive/stream';
 
 /** 最大重试次数 */
 const MAX_RECONNECT_ATTEMPTS = 10;
@@ -238,7 +238,7 @@ function createSseConnection(
  *   - {@code stop}: 手动断开连接
  */
 export function useNotificationSse(): {
-  connected: Readonly<import('vue').Ref<boolean>>;
+  connected: Readonly<Ref<boolean>>;
   stop: () => void;
 } {
   const store = useNotificationStore();

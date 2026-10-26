@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "login": "로그인",
+    "register": "회원가입",
+    "codeLogin": "코드로 로그인",
+    "qrcodeLogin": "QR 코드로 로그인",
+    "forgetPassword": "비밀번호 찾기"
+  },
+  "dashboard": {
+    "title": "YDSZ 프로젝트 관리 플랫폼",
+    "analytics": "데이터 분석",
+    "workspace": "작업 공간",
+    "notifications": "알림 센터",
+    "performance": "성능 모니터링"
+  },
+  "operations": "운영",
+  "audit": {
+    "title": "작업 감사",
+    "filter": {
+      "operatorName": "작업자",
+      "module": "모듈",
+      "actionType": "유형",
+      "result": "작업 결과",
+      "dateRange": "기간",
+      "keyword": "키워드",
+      "search": "검색",
+      "reset": "초기화",
+      "export": "내보내기"
+    },
+    "table": {
+      "actionTime": "시간",
+      "operatorName": "작업자",
+      "module": "모듈",
+      "actionType": "유형",
+      "description": "요약 설명",
+      "clientIp": "IP",
+      "operation": "작업",
+      "viewDetail": "상세 보기",
+      "empty": "감사 기록이 없습니다",
+      "total": "총 {count}개 기록"
+    },
+    "detail": {
+      "title": "감사 로그 상세",
+      "basicInfo": "기본 정보",
+      "clientInfo": "클라이언트 정보",
+      "diffTitle": "변경 비교",
+      "errorMessage": "오류 메시지",
+      "noDiff": "변경 데이터가 없습니다",
+      "session": "세션 ID",
+      "browser": "브라우저",
+      "os": "OS",
+      "oldValue": "옛값",
+      "newValue": "새값",
+      "loading": "로딩 중..."
+    },
+    "actionType": {
+      "CREATE": "추가",
+      "UPDATE": "수정",
+      "DELETE": "삭제",
+      "LOGIN": "로그인",
+      "EXPORT": "내보내기"
+    },
+    "exportConfirm": "민감 데이터 내보내기에는 2단계 인증이 필요합니다"
+  },
+  "notification": {
+    "summary": {
+      "total": "총계",
+      "unread": "미읽음",
+      "today": "오늘",
+      "connection": "연결 상태"
+    },
+    "sse": {
+      "connected": "실시간 연결됨",
+      "disconnected": "미연결"
+    },
+    "col": {
+      "title": "제목",
+      "level": "레벨",
+      "time": "시간",
+      "status": "상태"
+    },
+    "level": {
+      "info": "안내",
+      "success": "성공",
+      "warning": "경고",
+      "error": "오류"
+    },
+    "status": {
+      "read": "읽음",
+      "unread": "미읽음"
+    },
+    "filter": {
+      "allLevels": "모든 레벨",
+      "allStatus": "모든 상태"
+    },
+    "markRead": "읽음 표시",
+    "markAllRead": "모두 읽음 표시",
+    "clearAll": "모두 비우기",
+    "viewDetail": "상세 보기"
+  },
+  "microKernel": {
+    "containerLabel": "마이크로 프론트엔드 서브앱 컨테이너",
+    "phase": {
+      "loading": "모듈 로드 중...",
+      "loaded": "모듈 로드 완료",
+      "mounting": "앱 마운트 중...",
+      "mounted": "로드 완료",
+      "unmounting": "앱 전환 중...",
+      "error": "로드 실패"
+    },
+    "announcements": {
+      "loading": "{{appName}} 서브앱 로드 중",
+      "loaded": "{{appName}} 모듈 로드 완료. 마운트 준비 중",
+      "mounting": "{{appName}} 서브앱 마운트 중",
+      "mounted": "{{appName}} 서브앱 로드 완료",
+      "unmounting": "{{appName}}에서 전환 중",
+      "error": "{{appName}} 서브앱 로드 실패"
+    },
+    "errorMask": {
+      "title": "앱 로드 실패",
+      "hint": "전체 페이지 탐색으로 전환되었습니다. 잠시 후 다시 시도하세요"
+    }
+  }
+}

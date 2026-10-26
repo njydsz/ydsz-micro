@@ -25,6 +25,7 @@ import { Search, X } from 'lucide-vue-next';
 
 import { cn } from '@ydsz-core/shared/utils';
 
+import { useLocale } from '../../locale/useLocale';
 import { useTreeSearch } from './use-tree-search';
 
 defineOptions({
@@ -47,7 +48,7 @@ export interface VTreeSearchProps<T extends Record<string, unknown>> {
   childrenField?: string;
   /** 节点 disabled 字段名，默认 'disabled' */
   disabledField?: string;
-  /** 搜索框占位符，默认 '搜索节点...' */
+  /** 搜索框占位符，默认取内置词典 `tree.search`（随语种切换） */
   searchPlaceholder?: string;
   /** 搜索防抖毫秒数，默认 200 */
   debounceMs?: number;
@@ -66,9 +67,15 @@ const props = withDefaults(defineProps<VTreeSearchProps<Record<string, unknown>>
   disabledField: 'disabled',
   highlightMatch: true,
   labelField: 'label',
-  searchPlaceholder: '搜索节点...',
+  searchPlaceholder: undefined,
   valueField: 'value',
 });
+
+/** 内置词典：占位符与 a11y 文案随当前语种取值 */
+const { t } = useLocale();
+
+/** 搜索框占位符：外部 prop 优先，缺省回落词典文案 */
+const placeholder = computed(() => props.searchPlaceholder || t('tree.search'));
 
 const emit = defineEmits<{
   search: [keyword: string];
@@ -124,18 +131,41 @@ const treeSearch = useTreeSearch(
   },
 );
 
-/** 搜索高亮：将匹配区间内的文本包上 mark 标签 */
-function highlightLabel(
+/** 标签分段：matched 段渲染为 <mark>，其余段保持纯文本插值 */
+interface LabelSegment {
+  matched: boolean;
+  text: string;
+}
+
+/**
+ * 按匹配区间把标签切成纯文本片段。
+ *
+ * <p>返回结构化分段而非 HTML 字符串，模板用插值渲染，
+ * 因此标签内容（可能来自服务端）不会被当作标记解析。
+ *
+ * @param label - 节点标签
+ * @param matchRange - 匹配区间；为 null 或关闭高亮时整段返回
+ * @returns 至多三段（前缀 / 命中 / 后缀）有序片段
+ */
+function splitHighlightLabel(
   label: string,
   matchRange: { start: number; end: number } | null,
-): string {
+): LabelSegment[] {
   if (!matchRange || !props.highlightMatch) {
-    return label;
+    return [{ matched: false, text: label }];
   }
-  const before = label.slice(0, matchRange.start);
-  const matched = label.slice(matchRange.start, matchRange.end);
-  const after = label.slice(matchRange.end);
-  return `${before}<mark class="bg-primary/20 text-primary rounded-sm px-0.5">${matched}</mark>${after}`;
+  const segments: LabelSegment[] = [];
+  if (matchRange.start > 0) {
+    segments.push({ matched: false, text: label.slice(0, matchRange.start) });
+  }
+  segments.push({
+    matched: true,
+    text: label.slice(matchRange.start, matchRange.end),
+  });
+  if (matchRange.end < label.length) {
+    segments.push({ matched: false, text: label.slice(matchRange.end) });
+  }
+  return segments;
 }
 
 /**
@@ -181,8 +211,8 @@ defineExpose({
       <input
         :value="searchInput"
         type="text"
-        :placeholder="searchPlaceholder"
-        :aria-label="searchPlaceholder"
+        :placeholder="placeholder"
+        :aria-label="placeholder"
         class="h-8 w-full rounded-md border border-input bg-transparent ps-8 pe-8 text-sm shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary/50"
         @input="handleSearchInput"
         @keydown="handleSearchKeydown"
@@ -191,7 +221,7 @@ defineExpose({
         v-if="searchInput"
         type="button"
         class="absolute end-2 rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground"
-        aria-label="清空搜索"
+        :aria-label="t('tree.clearSearch')"
         @click="handleClearSearch"
       >
         <X :size="12" />
@@ -202,7 +232,7 @@ defineExpose({
     <div
       v-if="showResults"
       role="listbox"
-      aria-label="搜索结果"
+      :aria-label="t('tree.searchResults')"
       class="max-h-64 overflow-y-auto rounded-md border border-border bg-popover py-1"
     >
       <!-- 无匹配结果 -->
@@ -210,7 +240,7 @@ defineExpose({
         v-if="searchResults.length === 0"
         class="px-3 py-6 text-center text-sm text-muted-foreground"
       >
-        无匹配结果
+        {{ t('empty.search') }}
       </div>
       <!-- 匹配结果列表 -->
       <button
@@ -223,10 +253,18 @@ defineExpose({
         :style="{ paddingLeft: `${(result.level + 1) * 12 + 8}px` }"
         @click="handleResultClick(result.data, result.value)"
       >
-        <span
-          class="flex-1 truncate text-start"
-          v-html="highlightLabel(result.label, result.matchRange)"
-        />
+        <span class="flex-1 truncate text-start">
+          <template
+            v-for="(segment, segmentIndex) in splitHighlightLabel(result.label, result.matchRange)"
+            :key="segmentIndex"
+          >
+            <mark
+              v-if="segment.matched"
+              class="bg-primary/20 text-primary rounded-sm px-0.5"
+            >{{ segment.text }}</mark>
+            <template v-else>{{ segment.text }}</template>
+          </template>
+        </span>
       </button>
     </div>
 

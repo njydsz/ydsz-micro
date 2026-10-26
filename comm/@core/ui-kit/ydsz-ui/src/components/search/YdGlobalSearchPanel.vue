@@ -169,7 +169,7 @@ defineExpose({ open, close });
     <!-- 搜索建议（keyword 非空但尚未触发搜索时） -->
     <ul v-if="suggestions.length > 0 && !results" class="global-search__suggestions">
       <li
-        v-for="(item, idx) in suggestions"
+        v-for="item in suggestions"
         :key="`${item.type ?? 'history'}-${item.text}`"
         class="global-search__suggestion-item"
         @click="selectSuggestion(item)"

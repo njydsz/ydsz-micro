@@ -21,6 +21,8 @@ import { YdForm, YdFormItem, YdButton, YdInput, YdRadioGroup, YdRadioGroupItem, 
 import { reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { showToast } from '@ydsz/notification';
+
 import { submitBatch } from '#/api/batch';
 import type { BatchSendRequestDTO, MsgBatchVO } from '#/api/models';
 

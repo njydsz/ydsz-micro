@@ -19,6 +19,8 @@ import { Page } from '@ydsz/common-ui';
 import { YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { listByResourceKey, rollback } from '#/api/configVersion';
 import type { EntityVersionVO } from '#/api/models';

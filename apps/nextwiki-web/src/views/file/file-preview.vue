@@ -19,6 +19,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
+import { showToast } from '@ydsz/notification';
 import { generateSummary, getStatus } from '#/api/ai';
 import { download, generateSignedUrl } from '#/api/download';
 import { generatePreview, getPreviewType, isSupported } from '#/api/preview';

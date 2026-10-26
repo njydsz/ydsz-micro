@@ -20,6 +20,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { checkFileInfo, lockFile, unlockFile } from '#/api/wopi';
 import type { FileNodeVO } from '#/api/models';
 

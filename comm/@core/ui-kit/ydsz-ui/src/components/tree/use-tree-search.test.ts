@@ -100,7 +100,7 @@ describe('useTreeSearch', () => {
 
   it('clear 应清空关键字和结果', () => {
     const treeData = ref(createTestTree());
-    const { results, expandKeys, search, hasResults, keyword } = useTreeSearch(
+    const { search, hasResults, keyword } = useTreeSearch(
       treeData,
       {
         getChildren: (n) => n.children,

@@ -181,7 +181,6 @@
   "cepHitStatistics": "Hit Statistics",
   "cepHitRecords": "Hit Records",
   "cepTestEvent": "Test Event",
-  "cepPushPush": "Push Test",
   "cepViewStats": "보기 Statistics",
   "cepStatisticsTitle": "패턴 Hit Statistics",
   "cepActiveTab": "패턴 구성",
@@ -213,5 +212,6 @@
   "rulePackStartStress": "Start Test",
   "rulePackQualityScore": "품질 점수",
   "rulePackScoreTitle": "품질 점수",
-  "rulePackNoScoreData": "아니요 score data"
+  "rulePackNoScoreData": "아니요 score data",
+  "cepPushTest": "푸시 테스트"
 }

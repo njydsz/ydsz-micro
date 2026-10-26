@@ -64,23 +64,8 @@ function dedupFile(filePath) {
     }
   }
 
-  // 删除所有旧的 import 行，在首次出现位置插入合并行
+  // 策略：合并后的 import 就地替换第一条 import，其余 import 整行删除
   let content = original;
-  let firstMatchIndex = matches[0].index;
-  // 计算第一个匹配之前的换行情况（避免留空行）
-  let insertOffset = 0;
-  for (const m of matches) {
-    content = content.replace(m[0], '');
-    insertOffset = m.index;
-  }
-  // 重新计算索引（内容已变化；重新搜出第一个位置）
-  const firstOccurrence = original.indexOf(matches[0][0]);
-  const beforeFirst = original.lastIndexOf('\n', firstOccurrence - 1);
-  const lineStart = beforeFirst + 1;
-  const lineIndent = original.slice(lineStart, firstOccurrence).match(/^\s*/)?.[0] ?? '';
-
-  // 先撤销上次替换，采用更简单的策略：替换第一行删除其余
-  content = original;
   // 替换第一行
   content = content.replace(matches[0][0], `import { ${merged.join(', ')} } from ${matches[0][2]}@ydsz-core/ydsz-ui${matches[0][2]};\n`);
   // 删除其余行

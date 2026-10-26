@@ -32,10 +32,16 @@
     "sliderDefaultText": "Slide and drag",
     "alt": "Supports img tag src attribute value",
     "refreshAriaLabel": "Actualizar captcha",
-    "confirmAriaLabel": "Confirmar seleccion",
+    "confirmAriaLabel": "Confirmar selección",
     "confirm": "Confirmar",
     "pointAriaLabel": "Haga clic en el punto",
-    "clickInOrder": "Please click in order"
+    "clickInOrder": "Please click in order",
+    "sliderRotateDefaultTip": "Haz clic en la imagen para actualizarla",
+    "sliderTranslateDefaultTip": "Haz clic en la imagen para actualizarla",
+    "sliderRotateFailTip": "Verificación fallida",
+    "sliderTranslateFailTip": "Verificación fallida",
+    "sliderRotateSuccessTip": "Verificación correcta en {0} s",
+    "sliderTranslateSuccessTip": "Verificación correcta en {0} s"
   },
   "iconPicker": {
     "placeholder": "Seleccionar an icon",
@@ -72,7 +78,7 @@
   "widgets": {
     "document": "Documento",
     "qa": "Q&A",
-    "setting": "Configuracion",
+    "setting": "Configuración",
     "logoutTip": "Do you want to logout?",
     "viewAll": "Ver Todo Messages",
     "notifications": "Notificaciones",
@@ -93,11 +99,11 @@
     "lockScreen": {
       "title": "Lock Screen",
       "screenButton": "Locking",
-      "password": "Contrasena",
-      "placeholder": "Por favor, introduzca la contrasena",
+      "password": "Contraseña",
+      "placeholder": "Por favor, introduzca la contraseña",
       "unlock": "Haga clic para desbloquear",
-      "errorPasswordTip": "Contrasena error, please re-enter",
-      "backToLogin": "Volver al inicio de sesion",
+      "errorPasswordTip": "Contraseña error, please re-enter",
+      "backToLogin": "Volver al inicio de sesión",
       "entry": "Enter the system"
     }
   },
@@ -115,10 +121,10 @@
       "error": "Error"
     },
     "result": {
-      "successTitle": "Exito",
+      "successTitle": "Éxito",
       "errorTitle": "Fallido",
       "warningTitle": "Advertencia",
-      "infoTitle": "Informacion"
+      "infoTitle": "Información"
     },
     "empty": {
       "description": "Sin datos"

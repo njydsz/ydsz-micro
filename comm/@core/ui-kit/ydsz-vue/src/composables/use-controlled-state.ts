@@ -171,7 +171,7 @@ export function useControlledState<T>(
   /** 外部 modelValue 变化时：同步内部状态（非脏） */
   watch(
     () => (props.modelValue ?? props.model_value),
-    (newExternal: unknown) => {
+    () => {
       if (!computeDirty(localValue.value))
         sync()
     },

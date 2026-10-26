@@ -7,7 +7,7 @@
 -->
 <script lang="ts" setup name="LanguagePicker">
 import { SUPPORT_LANGUAGES } from '@ydsz/constants';
-import { loadLocaleMessages } from '@ydsz/locales';
+import { loadLocaleMessages, type SupportedLanguagesType } from '@ydsz/locales';
 import { preferences, updatePreferences } from '@ydsz/preferences';
 
 import {
@@ -20,13 +20,13 @@ import {
 
 import { Languages } from '@ydsz/icons';
 
-function isSelected(code: string): boolean {
+function isSelected(code: SupportedLanguagesType): boolean {
   return preferences.app.locale === code;
 }
 
-async function handleSelect(code: string): Promise<void> {
+async function handleSelect(code: SupportedLanguagesType): Promise<void> {
   updatePreferences({ app: { locale: code } });
-  await loadLocaleMessages(code as any);
+  await loadLocaleMessages(code);
 }
 </script>
 

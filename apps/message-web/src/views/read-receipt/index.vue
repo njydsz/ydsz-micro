@@ -23,6 +23,8 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { YdBadge, YdButton, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { shortLinkRedirect } from '#/api/readReceipt';
 
 defineOptions({ name: 'ReadReceiptManagement' });

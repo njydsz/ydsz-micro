@@ -26,13 +26,15 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import type { FieldSuggestion, GeneratedPage, PageIntent } from '../types';
+
 /**
  * 事件：生成完成。
  *
  * @property page — 生成的页面骨架
  */
 export interface YdAiGeneratedEvent {
-  page: import('../types').GeneratedPage;
+  page: GeneratedPage;
 }
 
 /**
@@ -42,8 +44,8 @@ export interface YdAiGeneratedEvent {
  * @property page — 原始页面骨架
  */
 export interface YdAiSubmitEvent {
-  schema: import('../types').FieldSuggestion[];
-  page: import('../types').GeneratedPage;
+  schema: FieldSuggestion[];
+  page: GeneratedPage;
 }
 
 /**
@@ -53,7 +55,7 @@ export interface YdAiBuilderProps {
   /** 初始描述文字 */
   initialDescription?: string;
   /** 页面类型预设 */
-  pageType?: import('../types').PageIntent['pageType'];
+  pageType?: PageIntent['pageType'];
   /** 生成按钮文字 */
   generateButtonText?: string;
   /** 是否显示字段编辑区 */

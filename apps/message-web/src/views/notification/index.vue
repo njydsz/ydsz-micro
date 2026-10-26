@@ -25,6 +25,9 @@ import { h, onMounted, ref } from 'vue';
 
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { countUnread, deleteApi, inbox, markAllRead, markRead, recall } from '#/api/notification';
 import type { MsgNotificationVO } from '#/api/models';

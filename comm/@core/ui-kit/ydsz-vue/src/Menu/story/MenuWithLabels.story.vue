@@ -3,7 +3,6 @@ import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..'
 import MenuWithAnchor from './_MenuWithAnchor.vue'
 
 function handleSelect(text: string) {
-  // eslint-disable-next-line no-console
 }
 
 const foodGroups: Array<{

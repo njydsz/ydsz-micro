@@ -31,15 +31,38 @@ config.unshift({
     // Chrome 扩展（4.1.0 起 .ts 化），由 chrome-shim.d.ts + chrome/tsconfig.json 独立 type-check，
     // 不再通过主仓 ESLint 项目 lint（避免 chrome.* no-undef 误报与 any 禁令冲突）。
     'chrome/**/*.ts',
+    'chrome/**/*.mts',
     'chrome/dist/**',
+    // chrome/ 的清单与页面（.json / .html）：ESLint 未注册 JSON/HTML parser，
+    // 一旦被 files 匹配就会按 espree(JS) 解析并必然报「Unexpected token」。
+    // 此前用 languageOptions 块「放行」的写法无效（见 2026-10-26 P0-8 修复），改为不扫描。
+    'chrome/**/*.json',
+    'chrome/**/*.html',
+    // 构建产物：VitePress 依赖预打包缓存与站点产物，非本仓源码
+    '**/.vitepress/cache/**',
+    '**/.vitepress/dist/**',
+    // 历史一次性草稿目录（批量翻译分片脚本、旧组件源码快照、调试日志）：
+    // 已被 git 跟踪但无任何源码引用，属规范「待清理存量」，见任务 P0-8 收尾清单
+    '.dev-logs/**',
+    't-i18n/**',
+    '.qoder-tmp/**',
+    // literule-web 词典目录里的批量翻译生成器（_*.cjs，无引用，同上待清理）
+    'apps/literule-web/src/locales/_*.cjs',
+    // 根级一次性 locale / 探针脚本（4 个）：硬编码绝对路径，且根 package.json 为
+    // type:module，其中的 require 已不可运行；已跟踪但无引用，同属「待清理存量」，
+    // 删除需人工确认，先按存量豁免（否则 28 条 no-undef/no-unused-vars 会常驻红线）
+    '_probe_missing_entry.mjs',
+    'batch-write.cjs',
+    'gen-final.js',
+    'generate-i18n.js',
     // Mock Service Worker（npm msw 库产物，不可转 TS）
     '**/public/mockServiceWorker.js',
   ],
 });
 
-// bash/ 运维脚本（.mjs/.js）运行于 Node 环境：
+// Node 侧工具脚本（bash/ 门禁、scripts/ 一次性工具、conf/ 本地 ESLint 插件）运行于 Node 环境：
 // 共享配置仅对 TS/Vue 关闭 no-undef，纯 JS 脚本需显式注入 Node 全局量，
-// 否则 console/process/fetch 等被误报（v4.4.0 修复存量 lint 债务）。
+// 否则 console/process/fetch/__dirname 等被误报（v4.4.0 修复存量 lint 债务）。
 // 显式枚举而非引入 globals 依赖，契合「最小化外部依赖」原则。
 const nodeGlobals = {
   AbortController: 'readonly',
@@ -71,7 +94,11 @@ const nodeGlobals = {
 };
 
 config.unshift({
-  files: ['bash/**/*.{mjs,js}'],
+  files: [
+    'bash/**/*.{mjs,js,cjs}',
+    'scripts/**/*.{mjs,js,cjs}',
+    'conf/lint-configs/**/*.mjs',
+  ],
   languageOptions: {
     globals: nodeGlobals,
   },
@@ -79,16 +106,8 @@ config.unshift({
 
 // chrome/ DevTools 扩展（MV3）已迁移至 TypeScript（chrome/*.ts），
 // 不再纳入主仓 ESLint 项目（类型由 chrome-shim.d.ts 承载，不经过主 tsconfig）。
-// 仅对残留静态资源（.json / .html）放行；所有 .ts 文件通过 chrome/tsconfig.json 独立 type-check。
-config.push({
-  files: ['chrome/**/*.{json,html}'],
-  languageOptions: {
-    globals: {},
-  },
-  rules: {
-    '@typescript-eslint/no-unused-vars': 'off',
-  },
-});
+// 残留静态资源（.json / .html）已改由顶部 ignores 排除：ESLint 无 JSON/HTML parser，
+// 用 files 匹配它们只会得到「Unexpected token」假错误（2026-10-26 P0-8 修正）。
 
 // chrome/ DevTools 扩展（MV3）运行于扩展宿主与页面环境，与 bash/ 同理：
 // 显式枚举 chrome.* API 与浏览器全局量而非引入 globals 依赖，契合「最小化外部依赖」原则。
@@ -280,6 +299,22 @@ config.push({
 });
 
 // =====================================================================
+// 契约生成件豁免（bash/gen-contract.py 产出，文件头标注 DO NOT EDIT）
+// --------------------------------------------------------------------
+// 生成器扫描不到 Java 源文件时会兜底产出空 interface（占位类型，
+// 语义为「后端字段未知」），触发 no-empty-object-type。
+// 这类文件由脚本整包覆盖，逐处内联豁免会在下次生成时消失，
+// 故在此按文件形态统一关闭该规则；其余规则（含 EP 退场门禁）照常生效。
+// =====================================================================
+
+config.push({
+  files: ['**/src/api/models.ts'],
+  rules: {
+    '@typescript-eslint/no-empty-object-type': 'off',
+  },
+});
+
+// =====================================================================
 // EP 退场门禁（v5.0.0 闭环）
 // --------------------------------------------------------------------
 // apps/ 与 main/ 禁止新增 from 'element-plus' import（error 级硬阻断）。
@@ -376,10 +411,42 @@ config.push({
 });
 
 // =====================================================================
+// ydsz-vue（radix-vue 1.9 分叉）vendored 层风格豁免
+// --------------------------------------------------------------------
+// 该层是上游 headless 组件的整包分叉：文件内保留 `// @ts-nocheck`（消除计划见
+// 任务 P1-2），类型工具依赖 any 透传与 `interface X extends Y {}` 空别名下放，
+// prop 校验告警沿用 Vue 自身的 console.warn/error 约定。
+// 逐条改写会与上游同步产生大面积冲突，且在 @ts-nocheck 下类型改动并不参与检查，
+// 故仅豁免这三类「上游风格」规则；真实缺陷（未使用变量、空 catch、常量条件、
+// 表达式语句、Function 类型等）不在豁免范围，本轮已逐条修复。
+// =====================================================================
+config.push({
+  files: ['comm/@core/ui-kit/ydsz-vue/src/**/*.{ts,tsx,vue}'],
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-empty-object-type': 'off',
+    'no-console': 'off',
+  },
+});
+
+// 设计令牌 Figma CLI（Node 侧一次性同步工具）：console 是 CLI 的唯一输出通道，
+// 与 bash/ 门禁同类，不适用面向浏览器业务代码的规范 §14.5。
+config.push({
+  files: ['comm/@core/ui-kit/design-tokens/src/figma-cli.mts'],
+  rules: {
+    'no-console': 'off',
+  },
+});
+
+// =====================================================================
 // 测试伴生文件检查（P1-13）
 // --------------------------------------------------------------------
 // 要求 apps/*/src/views 和 apps/*/src/components 下的 .vue 文件
-// 拥有同名 .test.ts 伴生文件；缺失时发 warning（不阻断开发）。
+// 拥有同名 .test.ts 伴生文件；缺失时发 warning。
+//
+// pnpm lint 带 --max-warnings=0，warning 即阻断，因此插件读取 baseline.json
+// 作为「存量债务名单」：名单内文件跳过检查，新增视图/组件一律强制要求伴生测试；
+// 每补一个 .test.ts 就从名单删掉对应条目，使债务只减不增。
 // =====================================================================
 
 import testCompanionPlugin from './conf/lint-configs/eslint-plugin-test-companion/index.mjs';

@@ -24,6 +24,8 @@ import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTabs, YdT
 import { Loader2 } from '@ydsz/icons';
 import { reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
+import { showToast } from '@ydsz/notification';
+import { YdConfirm } from '@ydsz-core/popup-ui';
 import {
   activateMfa,
   changePassword,

@@ -100,8 +100,7 @@ export function parseISOWeek(input: string): Date | null {
   // ISO 年的 1 月 4 日一定在第一周
   const jan4 = new Date(year, 0, 4);
   const jan4Day = (jan4.getDay() + 6) % 7; // 周一为 0
-  const mondayWeek1 = new Date(jan4);
-  jan4.setDate(jan4.getDate() - jan4Day);
+  jan4.setDate(jan4.getDate() - jan4Day); // jan4 变为第 1 周的周一
 
   const result = new Date(jan4);
   result.setDate(result.getDate() + (week - 1) * 7);

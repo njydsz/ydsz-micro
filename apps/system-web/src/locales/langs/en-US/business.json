@@ -375,7 +375,7 @@
     "loadFailed": "Failed to load quota",
     "unit": ""
   },
-"system":   {
+  "system": {
     "search": {
       "tabAll": "All",
       "tabTask": "Tasks",
@@ -403,5 +403,23 @@
       "btnStart": "Start Upload",
       "btnCancel": "Cancel"
     }
-  }
+  },
+  "columnConfig": "Column Settings",
+  "dragToSort": "Drag to reorder",
+  "columnWidth": "Width",
+  "resetToDefault": "Reset to defaults",
+  "done": "Done",
+  "close": "Close",
+  "dataScopeLimited": "Data scope: limited to {count} entries",
+  "dataScopeCustom": "Data scope: custom restriction",
+  "dataScopeValue": "Data scope: {scope}",
+  "dictTypePlaceholder": "Please select a dictionary type",
+  "editDictItem": "Edit Dictionary Item",
+  "createDictItem": "Create Dictionary Item",
+  "editDictType": "Edit Dictionary Type",
+  "createDictType": "Create Dictionary Type",
+  "editVariable": "Edit System Variable",
+  "createVariable": "Create System Variable",
+  "updateSuccess": "Updated successfully",
+  "createSuccess": "Created successfully"
 }

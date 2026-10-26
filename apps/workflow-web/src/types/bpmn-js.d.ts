@@ -21,8 +21,13 @@ declare module 'bpmn-js/lib/model' {
 }
 
 declare module 'bpmn-js-properties-panel' {
-  const PropertiesPanelModule: any;
-  export default PropertiesPanelModule;
+  export const BpmnPropertiesPanelModule: any;
+  export const BpmnPropertiesProviderModule: any;
+  export const CamundaPlatformPropertiesProviderModule: any;
+  export const ZeebePropertiesProviderModule: any;
+  export const CamundaPlatformTooltipProvider: any;
+  export const ZeebeTooltipProvider: any;
+  export function useService(...args: any[]): any;
 }
 
 declare module 'bpmn-js/dist/assets/diagram-js.css' {}

@@ -46,6 +46,10 @@ export const arSA = {
   'table.expandedRow': 'توسيع الصف',
   'table.collapseRow': 'طي الصف',
   'table.columnSetting': 'إعدادات العمود',
+  'table.editCell': 'تحرير الخلية',
+  'table.sortHint': 'انقر للترتيب، Shift+نقر لإضافة ترتيب متعدد',
+  'table.resizeColumn': 'اسحب لتغيير عرض العمود',
+  'table.dragColumn': 'اسحب لإعادة ترتيب الأعمدة',
 
   // ===== نموذج =====
   'form.validating': 'جارٍ التحقق...',
@@ -74,6 +78,8 @@ export const arSA = {
   'upload.maxSize': 'حجم الملف يتجاوز الحد',
   'upload.maxCount': 'عدد الملفات يتجاوز الحد',
   'upload.invalidFormat': 'تنسيق الملف غير مدعوم',
+  'upload.clickToUpload': 'انقر للتحميل',
+  'upload.dragTipPrefix': 'اسحب ملفًا إلى هنا، أو ',
 
   // ===== ترقيم الصفحات =====
   'pagination.page': '',
@@ -115,6 +121,9 @@ export const arSA = {
   'datepicker.oct': 'أكتوبر',
   'datepicker.nov': 'نوفمبر',
   'datepicker.dec': 'ديسمبر',
+  'datepicker.openCalendar': 'فتح التقويم',
+  'datepicker.previousMonth': 'الشهر السابق',
+  'datepicker.nextMonth': 'الشهر التالي',
 
   // ===== منتقي =====
   'select.placeholder': 'يرجى الاختيار',
@@ -133,6 +142,9 @@ export const arSA = {
   'tree.collapseAll': 'طي الكل',
   'tree.checkedAll': 'تحديد الكل',
   'tree.uncheckedAll': 'إلغاء تحديد الكل',
+  'tree.search': 'البحث في العقد...',
+  'tree.clearSearch': 'مسح البحث',
+  'tree.searchResults': 'نتائج البحث',
 
   // ===== إعلام =====
   'message.success': 'نجح',
@@ -160,13 +172,35 @@ export const arSA = {
   'empty.no-result': 'لا توجد نتائج مطابقة',
 
   // ===== السمة =====
-  'theme.light': 'فاتح',
-  'theme.dark': 'داكن',
-  'theme.system': 'النظام',
 
   // ===== اللغة =====
-  'locale.switchLanguage': 'تغيير اللغة',
-  'locale.currentLanguage': 'اللغة الحالية',
+  'drawer.ariaLabel': 'الدرج',
+  'drawer.close': 'إغلاق',
+  'drawer.closeAriaLabel': 'إغلاق الدرج',
+  'drawer.confirm': 'تأكيد',
+  'drawer.cancel': 'إلغاء',
+  'autoComplete.placeholder': 'أدخل كلمة أساسية',
+  'autoComplete.emptyText': 'لا توجد عناصر مطابقة',
+  'autoComplete.loadingText': 'جارٍ التحميل...',
+  'autoComplete.clearAriaLabel': 'مسح الإدخال',
+  'fileUpload.clickToUpload': 'انقر أو اسحب للتحميل',
+  'fileUpload.dragAndDrop': 'اسحب الملفات إلى هذه المنطقة',
+  'fileUpload.fileSize': 'الحجم',
+  'orderList.moveToTop': 'نقل إلى الأعلى',
+  'orderList.moveUp': 'نقل لأعلى',
+  'orderList.moveDown': 'نقل لأسفل',
+  'orderList.moveToBottom': 'نقل إلى الأسفل',
+  'orderList.filterPlaceholder': 'بحث',
+  'pickList.sourceLabel': 'القائمة المصدر',
+  'pickList.targetLabel': 'القائمة الهدف',
+  'pickList.moveToTarget': 'نقل إلى الهدف',
+  'pickList.moveToSource': 'إعادة إلى المصدر',
+  'pickList.moveAllToTarget': 'نقل الكل إلى الهدف',
+  'pickList.moveAllToSource': 'إعادة الكل إلى المصدر',
+  'pickList.filterPlaceholder': 'بحث',
+  'qrCode.download': 'تنزيل رمز QR',
+  'splitButton.toggleDropdown': 'إظهار القائمة المنسدلة أو إخفاؤها',
+  'orgChart.search': 'البحث في {field}...',
 } as const satisfies Record<string, string>;
 
 export default arSA;

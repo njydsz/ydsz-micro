@@ -56,6 +56,25 @@ export type LocaleLang =
 /** 文案表类型 */
 export type LocaleMessages = Record<string, string>;
 
+/** 词条命名占位参数（对应文案里的 `{name}`） */
+export type LocaleParams = Record<string, string | number>;
+
+/**
+ * 填充词条里的命名占位。
+ *
+ * <p>未提供对应参数的占位保持原样，避免把 `{field}` 静默吞成空串——
+ * 漏传参数应当在界面上可见，而不是渲染出一句读不通的文案。
+ *
+ * @param text - 已取到的词条原文
+ * @param params - 占位名到值的映射
+ * @returns 占位替换后的文本
+ */
+function interpolate(text: string, params: LocaleParams): string {
+  return text.replaceAll(/\{(\w+)\}/g, (placeholder, name: string) =>
+    name in params ? String(params[name]) : placeholder,
+  );
+}
+
 /** useLocale 配置 */
 export interface UseLocaleOptions {
   /** 内置消息表（便于测试或自定义组件使用） */
@@ -144,11 +163,12 @@ export function getDirection(lang: LocaleLang): 'ltr' | 'rtl' {
  * </script>
  * <template>
  *   <span>{{ t('table.empty') }}</span>
+ *   <input :placeholder="t('orgChart.search', { field: filterBy })" />
  * </template>
  * ```
  */
 export function useLocale(options: UseLocaleOptions = {}): {
-  t: (key: string, fallback?: string) => string;
+  t: (key: string, fallbackOrParams?: string | LocaleParams) => string;
   lang: Readonly<Ref<LocaleLang>>;
   isRTL: Readonly<Ref<boolean>>;
 } {
@@ -210,15 +230,19 @@ export function useLocale(options: UseLocaleOptions = {}): {
    * key 字面量渲染到界面上。
    *
    * @param key - 文案键名（如 'table.empty'）
-   * @param fallback - 全部词典均未命中时的回退文案
+   * @param fallbackOrParams - 字符串视为未命中时的回退文案；对象用于填充词条里的
+   *   `{name}` 占位（组件文案含「搜索 {field}...」这类插值，词典本身不能存拼接逻辑）
    * @returns 对应语种的文案；未找到时返回 fallback 或 key 本身
    */
-  function t(key: string, fallback?: string): string {
+  function t(key: string, fallbackOrParams?: string | LocaleParams): string {
+    const fallback = typeof fallbackOrParams === 'string' ? fallbackOrParams : undefined;
+    const params = typeof fallbackOrParams === 'string' ? undefined : fallbackOrParams;
     const table = resolvedMessages.value[lang.value] ?? {};
     const hit = table[key]
       ?? (lang.value === 'zh-CN' ? undefined : resolvedMessages.value['zh-CN']?.[key])
       ?? (lang.value === 'en-US' ? undefined : resolvedMessages.value['en-US']?.[key]);
-    return hit ?? fallback ?? key;
+    const text = hit ?? fallback ?? key;
+    return params ? interpolate(text, params) : text;
   }
 
   return {

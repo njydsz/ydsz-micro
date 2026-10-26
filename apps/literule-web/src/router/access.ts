@@ -15,6 +15,8 @@ import { preferences } from '@ydsz/preferences';
 
 ;
 
+import { showToast } from '@ydsz/notification';
+
 import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
@@ -32,10 +34,7 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
   return await generateAccessible(preferences.app.accessMode, {
     ...options,
     fetchMenuListAsync: async () => {
-      showToast({
-        duration: 1500,
-        message: `${$t('common.loadingMenu')}...`,
-      });
+      showToast(`${$t('common.loadingMenu')}...`, { duration: 1500 });
       return await getAllMenusApi();
     },
     forbiddenComponent,

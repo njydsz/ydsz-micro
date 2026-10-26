@@ -19,7 +19,7 @@
  */
 import { computed } from 'vue';
 
-import type { SkeletonEmits, SkeletonProps } from './skeleton-types';
+import type { SkeletonProps } from './skeleton-types';
 import type { SkeletonSize, SkeletonVariant } from './skeleton-types';
 
 defineOptions({ name: 'YdSkeleton' });
@@ -36,8 +36,6 @@ const props = withDefaults(defineProps<SkeletonProps>(), {
   variant: 'text',
   width: undefined,
 });
-
-const emit = defineEmits<SkeletonEmits>();
 
 /** 尺寸预设到高度的映射（像素）。 */
 const sizeHeightMap: Record<SkeletonSize, number> = {

@@ -4,7 +4,9 @@
  * <p>基于 bpmn-js (Modeler) 提供标准 BPMN 2.0 流程编辑能力：
  * 加载 BPMN XML、编辑节点与连线、属性面板、导出 XML/SVG、缩放适配。
  *
- * <p>暴露 API：getXML / getSVG / zoomToFit / clearDiagram / loadXml。
+ * <p>暴露 API：getXML / getSVG / zoomToFit / clearDiagram / loadXml /
+ * undo / redo / updateElementProperties。Modeler 实例本身不外泄，
+ * 撤销重做与属性写入均由画布内部服务完成。
  *
  * <p>v-on 事件：selection-change （选中元素变化时触发，用于同步属性面板属性）。
  *
@@ -25,17 +27,20 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 // bpmn-js-properties-panel v5 起不再自带样式：面板样式实际由 @bpmn-io/properties-panel 提供
 import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
-import type { ModdleElement } from 'bpmn-js/lib/model';
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
-import bpmnPropertiesPanelModule from 'bpmn-js-properties-panel';
+import { onBeforeUnmount, onMounted, shallowRef, watch } from 'vue';
+import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
 import { getModdleExtensions, getPropertiesProvider } from './bpmn-customizations';
-
-type ElementLike = {
-  id: string;
-  type: string;
-  businessObject?: ModdleElement;
-};
+import type {
+  BpmnCanvasService,
+  BpmnCommandStackService,
+  BpmnElementDescriptor,
+  BpmnElementRegistryService,
+  BpmnEventBus,
+  BpmnModelingService,
+  BpmnPropertyChanges,
+  BpmnSelectionService,
+} from './types';
 
 interface Props {
   /** 初始 BPMN 2.0 XML（空字符串时使用空骨架） */
@@ -51,14 +56,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   /** 当前选中元素变化时触发（null 表示取消选中） */
-  selectionChange: [element: ElementLike | null];
+  selectionChange: [element: BpmnElementDescriptor | null];
   /** 画布模型加载完成时触发 */
   ready: [];
 }>();
 
-const containerRef = ref<HTMLDivElement>();
-const propertiesPanelRef = ref<HTMLDivElement>();
-const modelerRef = ref<any>(null);
+const containerRef = shallowRef<HTMLDivElement>();
+const propertiesPanelRef = shallowRef<HTMLDivElement>();
+/**
+ * Modeler 实例用 shallowRef 持有：bpmn-js 内部是自建的对象图，
+ * 深响应式代理会破坏其节点身份判断并拖慢画布。
+ */
+const modelerRef = shallowRef<BpmnModeler | null>(null);
 
 const EMPTY_BPMN_XML = `<?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
@@ -92,7 +101,7 @@ function initModeler() {
       : undefined,
     keyboard: { bindTo: window },
     additionalModules: [
-      bpmnPropertiesPanelModule,
+      BpmnPropertiesPanelModule,
       ...getPropertiesProvider(),
     ],
     moddleExtensions: getModdleExtensions(),
@@ -101,23 +110,13 @@ function initModeler() {
   modelerRef.value = modeler;
 
   // 绑定元素选中事件
-  const eventBus = modeler.get('eventBus') as any;
-  eventBus.on('selection.changed', (_event: any) => {
-    const selection = (modeler as any).getSelection ? (modeler as any).getSelection() : null;
-    const elements = selection?.get?.() ?? [];
-    if (!elements || elements.length === 0) {
+  modeler.get<BpmnEventBus>('eventBus').on('selection.changed', () => {
+    const [element] = modeler.get<BpmnSelectionService>('selection').get();
+    if (!element) {
       emit('selectionChange', null);
       return;
     }
-    // 触发选中
-    const elm = elements[0];
-    const businessObject = elm.businessObject;
-    emit('selectionChange', businessObject ? { id: businessObject.id ?? elm.id, type: elm.type, businessObject } : null);
-  });
-
-  // 绑定空白点击（取消选中）
-  eventBus.on('element.click', () => {
-    // 通过 selection.changed 直接覆盖
+    emit('selectionChange', element);
   });
 
   emit('ready');
@@ -134,7 +133,7 @@ async function loadXml(xml: string): Promise<void> {
   const content = xml?.trim() ? xml : EMPTY_BPMN_XML;
   try {
     await modeler.importXML(content);
-  } catch (error) {
+  } catch {
     // 首次加载失败时使用空骨架兜底
     await modeler.importXML(EMPTY_BPMN_XML);
   }
@@ -178,12 +177,38 @@ async function getSVG(): Promise<string> {
  * <p>使整张流程图完整显示在当前视口内。
  */
 function zoomToFit(): void {
+  modelerRef.value?.get<BpmnCanvasService>('canvas').zoom('fit-viewport');
+}
+
+/** 撤销上一步建模操作（bpmn-js commandStack）。 */
+function undo(): void {
+  modelerRef.value?.get<BpmnCommandStackService>('commandStack').undo();
+}
+
+/** 重做被撤销的建模操作。 */
+function redo(): void {
+  modelerRef.value?.get<BpmnCommandStackService>('commandStack').redo();
+}
+
+/**
+ * 更新指定元素的 BPMN 属性。
+ *
+ * <p>属性写入由 bpmn-js Modeling 服务负责，调用方无需持有 Modeler 实例。
+ *
+ * @param elementId - 元素 ID（bpmn 中的 id 属性）
+ * @param properties - 属性键值（camunda:* 使用完整命名空间键）
+ */
+function updateElementProperties(
+  elementId: string,
+  properties: BpmnPropertyChanges,
+): void {
   const modeler = modelerRef.value;
   if (!modeler) return;
-  const canvas = (modeler as any).get('canvas') as any;
-  if (canvas && typeof canvas.zoom === 'function') {
-    canvas.zoom('fit-viewport');
-  }
+  const element = modeler
+    .get<BpmnElementRegistryService>('elementRegistry')
+    .get(elementId);
+  if (!element) return;
+  modeler.get<BpmnModelingService>('modeling').updateProperties(element, properties);
 }
 
 /**
@@ -232,6 +257,9 @@ defineExpose({
   zoomToFit,
   clearDiagram,
   loadXml,
+  undo,
+  redo,
+  updateElementProperties,
 });
 </script>
 

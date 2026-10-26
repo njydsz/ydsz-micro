@@ -45,6 +45,10 @@ export const ruRU = {
   'table.expandedRow': 'Развернуть строку',
   'table.collapseRow': 'Свернуть строку',
   'table.columnSetting': 'Настройки столбцов',
+  'table.editCell': 'Редактировать ячейку',
+  'table.sortHint': 'Нажмите для сортировки, Shift+нажатие — для многоколоночной',
+  'table.resizeColumn': 'Перетащите, чтобы изменить ширину столбца',
+  'table.dragColumn': 'Перетащите, чтобы изменить порядок столбцов',
 
   // ===== Форма =====
   'form.validating': 'Проверка...',
@@ -73,6 +77,8 @@ export const ruRU = {
   'upload.maxSize': 'Размер файла превышает лимит',
   'upload.maxCount': 'Количество файлов превышает лимит',
   'upload.invalidFormat': 'Неподдерживаемый формат файла',
+  'upload.clickToUpload': 'Нажмите, чтобы загрузить',
+  'upload.dragTipPrefix': 'Перетащите файл сюда или ',
 
   // ===== Пагинация =====
   'pagination.page': '',
@@ -114,6 +120,9 @@ export const ruRU = {
   'datepicker.oct': 'Окт',
   'datepicker.nov': 'Ноя',
   'datepicker.dec': 'Дек',
+  'datepicker.openCalendar': 'Открыть календарь',
+  'datepicker.previousMonth': 'Предыдущий месяц',
+  'datepicker.nextMonth': 'Следующий месяц',
 
   // ===== Выбор =====
   'select.placeholder': 'Выберите',
@@ -132,6 +141,9 @@ export const ruRU = {
   'tree.collapseAll': 'Свернуть все',
   'tree.checkedAll': 'Отметить все',
   'tree.uncheckedAll': 'Снять все',
+  'tree.search': 'Поиск узлов...',
+  'tree.clearSearch': 'Очистить поиск',
+  'tree.searchResults': 'Результаты поиска',
 
   // ===== Уведомление =====
   'message.success': 'Успешно',
@@ -159,13 +171,35 @@ export const ruRU = {
   'empty.no-result': 'Нет совпадений',
 
   // ===== Тема =====
-  'theme.light': 'Светлая',
-  'theme.dark': 'Тёмная',
-  'theme.system': 'Системная',
 
   // ===== Язык =====
-  'locale.switchLanguage': 'Сменить язык',
-  'locale.currentLanguage': 'Текущий язык',
+  'drawer.ariaLabel': 'Выдвижная панель',
+  'drawer.close': 'Закрыть',
+  'drawer.closeAriaLabel': 'Закрыть выдвижную панель',
+  'drawer.confirm': 'Подтвердить',
+  'drawer.cancel': 'Отмена',
+  'autoComplete.placeholder': 'Введите ключевое слово',
+  'autoComplete.emptyText': 'Совпадений нет',
+  'autoComplete.loadingText': 'Загрузка...',
+  'autoComplete.clearAriaLabel': 'Очистить ввод',
+  'fileUpload.clickToUpload': 'Нажмите или перетащите для загрузки',
+  'fileUpload.dragAndDrop': 'Перетащите файлы в эту область',
+  'fileUpload.fileSize': 'Размер',
+  'orderList.moveToTop': 'Переместить наверх',
+  'orderList.moveUp': 'Вверх',
+  'orderList.moveDown': 'Вниз',
+  'orderList.moveToBottom': 'Переместить вниз',
+  'orderList.filterPlaceholder': 'Поиск',
+  'pickList.sourceLabel': 'Исходный список',
+  'pickList.targetLabel': 'Целевой список',
+  'pickList.moveToTarget': 'Переместить в целевой',
+  'pickList.moveToSource': 'Вернуть в исходный',
+  'pickList.moveAllToTarget': 'Переместить всё в целевой',
+  'pickList.moveAllToSource': 'Вернуть всё в исходный',
+  'pickList.filterPlaceholder': 'Поиск',
+  'qrCode.download': 'Скачать QR-код',
+  'splitButton.toggleDropdown': 'Показать или скрыть выпадающий список',
+  'orgChart.search': 'Поиск {field}...',
 } as const satisfies Record<string, string>;
 
 export default ruRU;

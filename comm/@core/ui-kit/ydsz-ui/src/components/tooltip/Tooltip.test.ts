@@ -20,30 +20,6 @@ import YdTooltipContentBase from './YdTooltipContent.vue';
 import YdTooltipProviderBase from './YdTooltipProvider.vue';
 import YdTooltipTriggerBase from './YdTooltipTrigger.vue';
 
-/**
- * 包裹器：为需要 YdTooltipProviderBase context 的组件提供注入环境。
- *
- * @param component - 要测试的组件
- * @param props - 组件 props
- * @param slots - 组件插槽
- */
-function mountWithProvider(
-  component: any,
-  props: Record<string, unknown> = {},
-  slots: Record<string, unknown> = {},
-) {
-  return mount(YdTooltipProviderBase, {
-    props: { delayDuration: 0 },
-    slots: {
-      default: {
-        template: `<YdTooltipBase><TPL /></YdTooltipBase>`,
-        components: { YdTooltipBase, TPL: component },
-      },
-    },
-    attachTo: document.body,
-  });
-}
-
 describe('YdTooltipBase (TooltipRoot wrapper)', () => {
   it('应能挂载并渲染默认 slot', () => {
     const wrapper = mount(YdTooltipProviderBase, {
@@ -143,7 +119,7 @@ describe('YdTooltipTriggerBase', () => {
       attachTo: document.body,
     });
     // asChild=true 时内部直接渲染 <a> 标签
-    expect(wrapper.find('a').exists()).toBe(true || undefined);
+    expect(wrapper.find('a').exists()).toBe(true);
     wrapper.unmount();
   });
 });
@@ -202,9 +178,8 @@ describe('YdTooltipContentBase', () => {
       },
       attachTo: document.body,
     });
-    // 验证组件挂载时不报错；class 合并由 cn() 工具保证（与 YdButton 等共享逻辑）
-    const contentEl = document.body.querySelector('.custom-tooltip-content');
-    // Teleport 后的内容在 body 上查找
+    // 仅验证挂载不报错：Content 未处于 open 状态时不会渲染到 body（radix 受控浮层），
+    // class 合并由 cn() 工具保证（与 YdButton 等共享逻辑）
     expect(wrapper.exists()).toBe(true);
     wrapper.unmount();
   });

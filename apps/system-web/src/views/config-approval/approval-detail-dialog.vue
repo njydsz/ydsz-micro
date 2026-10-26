@@ -26,6 +26,8 @@ import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFoote
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
+import { showToast } from '@ydsz/notification';
+
 import type {
   ConfigApprovalChangeType,
   ConfigApprovalRecord,

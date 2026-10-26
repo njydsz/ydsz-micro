@@ -35,7 +35,13 @@
     "confirmAriaLabel": "確認 selection",
     "confirm": "確認",
     "pointAriaLabel": "Click point",
-    "clickInOrder": "Please click in order"
+    "clickInOrder": "Please click in order",
+    "sliderRotateDefaultTip": "画像をクリックすると更新されます",
+    "sliderTranslateDefaultTip": "画像をクリックすると更新されます",
+    "sliderRotateFailTip": "認証に失敗しました",
+    "sliderTranslateFailTip": "認証に失敗しました",
+    "sliderRotateSuccessTip": "認証に成功しました（{0}秒）",
+    "sliderTranslateSuccessTip": "認証に成功しました（{0}秒）"
   },
   "iconPicker": {
     "placeholder": "選択 an icon",

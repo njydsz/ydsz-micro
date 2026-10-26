@@ -19,6 +19,7 @@
  */
 import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
+import { showToast } from '@ydsz/notification';
 import type { DecisionTableVO } from '#/api/models';
 import {
   evaluateDecisionTable,
@@ -433,7 +434,7 @@ defineExpose({ open, close });
           />
         </YdFormItem>
       </YdForm>
-      <div loading="evaluating" class="mt-4">
+      <div v-loading="evaluating" class="mt-4">
         <p class="mb-2 text-sm font-medium">评估结果：</p>
         <div v-if="evaluateResults.length === 0" class="py-4 text-center text-gray-400">
           暂无结果

@@ -78,7 +78,6 @@ function createPresetRegistry(): PresetRegistry {
   };
 }
 
-/* eslint-disable @typescript-eslint/typedef */
 /**
  * useTheme —— 创建运行时主题句柄。
  *
@@ -233,4 +232,3 @@ export function registerPreset(name: string, preset: ThemePreset): void {
   handle.applyPreset(name, preset);
 }
 
-/* eslint-enable @typescript-eslint/typedef */

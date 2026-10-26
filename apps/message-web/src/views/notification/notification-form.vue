@@ -23,6 +23,8 @@ import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { send } from '#/api/notification';
 
 const emit = defineEmits<{ success: [] }>();

@@ -19,8 +19,9 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { YdBadge, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
+import { YdBadge, YdButton, YdInput, type BadgeVariants } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
+import { showToast } from '@ydsz/notification';
 import { executeSkill, invalidateSandbox, listSkills } from '#/api/skill';
 import type { SkillExecutionRequestDTO } from '#/api/models';
 import { h, reactive, ref } from 'vue';
@@ -66,10 +67,12 @@ function safeStringField(record: Record<string, unknown>, field: string): string
 
 /**
  * 获取技能类型标签样式
+ *
+ * <p>返回值为 YdBadge 的 variant，用 `BadgeVariants` 约束以避免调用处 `as any`。
  */
 function getSkillTypeTagType(
   type?: string,
-): 'success' | 'warning' | 'info' | 'danger' | 'primary' {
+): NonNullable<BadgeVariants['variant']> {
   switch ((type ?? '').toUpperCase()) {
     case 'SANDBOX':
       return 'primary';
@@ -80,7 +83,7 @@ function getSkillTypeTagType(
     case 'HTTP':
       return 'info';
     default:
-      return 'danger';
+      return 'destructive';
   }
 }
 
@@ -106,7 +109,7 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) =>
           h(
             YdBadge,
-            { variant: getSkillTypeTagType(safeStringField(row, 'skillType')) as any },
+            { variant: getSkillTypeTagType(safeStringField(row, 'skillType')) },
             () => safeStringField(row, 'skillType') || '-',
           ),
       },

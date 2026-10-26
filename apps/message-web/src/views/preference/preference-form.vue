@@ -21,6 +21,8 @@ import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdNumberFieldInput, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { upsert } from '#/api/preference';
 import type { MsgPreferenceVO } from '#/api/models';
 

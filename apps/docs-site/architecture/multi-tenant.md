@@ -13,7 +13,7 @@ YDSZ 系统引擎支持三种多租户隔离策略：
 ## 多租户 API
 
 ```
-GET /api/v1/tenant/accessible
+GET /api/tenant/accessible
 ```
 
 返回当前用户可访问的租户列表。前端通过 Pinia store + composable 维护租户上下文。

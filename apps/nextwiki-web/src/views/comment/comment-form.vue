@@ -21,6 +21,7 @@ import { YdForm, YdFormItem, YdSelectItem, YdSelect, YdInput } from '@ydsz-core/
 const logger = createLogger('nextwiki-comment');
 const { t } = useI18n();
 import { reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { addComment } from '#/api/fileComment';
 import { searchUsers } from '#/api/userSearch';
 import type { UserSearchHit } from '#/api/userSearch';

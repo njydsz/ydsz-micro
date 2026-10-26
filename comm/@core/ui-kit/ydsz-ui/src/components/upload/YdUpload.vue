@@ -151,7 +151,7 @@ const props = withDefaults(
     locale: 'zh',
     maxConcurrency: 3,
     maxRetries: 3,
-    multipartApiBase: '/api/v1/system/file/multipart',
+    multipartApiBase: '/api/file/multipart',
     name: 'file',
     showFileList: true,
     withCredentials: false,

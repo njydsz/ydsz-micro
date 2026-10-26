@@ -18,6 +18,8 @@ import { useI18n } from 'vue-i18n';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { ref } from 'vue';
 
+import { showToast } from '@ydsz/notification';
+
 import { parse, preview, validate } from '#/api/ruleDsl';
 import { formatJsonResult } from '#/utils/format';
 

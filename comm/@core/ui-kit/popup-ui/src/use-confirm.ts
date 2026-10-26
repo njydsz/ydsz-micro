@@ -11,7 +11,7 @@
  * @since 26.10.11
  */
 
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 
 import type { YdAlertProps } from './alert/alert';
 
@@ -43,7 +43,7 @@ export interface UseConfirmReturn {
    * 同一时刻只允许弹一个确认框，避免叠出多层的 UX 灾难；
    * 确认打开后该值变 true，结算（confirm/cancel）后重置为 false。
    */
-  isConfirming: Readonly<import('vue').Ref<boolean>>;
+  isConfirming: Readonly<Ref<boolean>>;
   /**
    * 弹出确认框并等待用户决策。
    *
@@ -114,7 +114,7 @@ export function useConfirm(): UseConfirmReturn {
   }
 
   return {
-    isConfirming: isConfirming as Readonly<import('vue').Ref<boolean>>,
+    isConfirming: isConfirming as Readonly<Ref<boolean>>,
     confirm,
     confirmDelete,
   };

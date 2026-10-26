@@ -4,5 +4,5 @@
   "compilerOptions": {
     "composite": true
   },
-  "include": ["vite.config.mts"]
+  "include": ["vite.config.mts", "postcss.config.mts", "tailwind.config.mts"]
 }

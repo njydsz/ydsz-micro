@@ -45,6 +45,10 @@ export const deDE = {
   'table.expandedRow': 'Zeile erweitern',
   'table.collapseRow': 'Zeile reduzieren',
   'table.columnSetting': 'Spalteneinstellungen',
+  'table.editCell': 'Zelle bearbeiten',
+  'table.sortHint': 'Klicken zum Sortieren, Umschalt+Klick für Mehrfachsortierung',
+  'table.resizeColumn': 'Spaltenbreite per Drag anpassen',
+  'table.dragColumn': 'Spaltenreihenfolge per Drag ändern',
 
   // ===== Formular =====
   'form.validating': 'Validierung läuft...',
@@ -73,6 +77,8 @@ export const deDE = {
   'upload.maxSize': 'Dateigröße überschreitet das Limit',
   'upload.maxCount': 'Dateianzahl überschreitet das Limit',
   'upload.invalidFormat': 'Nicht unterstütztes Dateiformat',
+  'upload.clickToUpload': 'Klicken zum Hochladen',
+  'upload.dragTipPrefix': 'Datei hierher ziehen oder ',
 
   // ===== Paginierung =====
   'pagination.page': '',
@@ -114,6 +120,9 @@ export const deDE = {
   'datepicker.oct': 'Okt',
   'datepicker.nov': 'Nov',
   'datepicker.dec': 'Dez',
+  'datepicker.openCalendar': 'Kalender öffnen',
+  'datepicker.previousMonth': 'Vorheriger Monat',
+  'datepicker.nextMonth': 'Nächster Monat',
 
   // ===== Auswahl =====
   'select.placeholder': 'Bitte auswählen',
@@ -132,6 +141,9 @@ export const deDE = {
   'tree.collapseAll': 'Alle reduzieren',
   'tree.checkedAll': 'Alle markieren',
   'tree.uncheckedAll': 'Alle demarkieren',
+  'tree.search': 'Knoten durchsuchen...',
+  'tree.clearSearch': 'Suche löschen',
+  'tree.searchResults': 'Suchergebnisse',
 
   // ===== Benachrichtigung =====
   'message.success': 'Erfolg',
@@ -159,13 +171,35 @@ export const deDE = {
   'empty.no-result': 'Keine übereinstimmenden Ergebnisse',
 
   // ===== Thema =====
-  'theme.light': 'Hell',
-  'theme.dark': 'Dunkel',
-  'theme.system': 'System',
 
   // ===== Sprache =====
-  'locale.switchLanguage': 'Sprache wechseln',
-  'locale.currentLanguage': 'Aktuelle Sprache',
+  'drawer.ariaLabel': 'Einblendung',
+  'drawer.close': 'Schließen',
+  'drawer.closeAriaLabel': 'Einblendung schließen',
+  'drawer.confirm': 'Bestätigen',
+  'drawer.cancel': 'Abbrechen',
+  'autoComplete.placeholder': 'Schlüsselwort eingeben',
+  'autoComplete.emptyText': 'Keine passenden Einträge',
+  'autoComplete.loadingText': 'Wird geladen...',
+  'autoComplete.clearAriaLabel': 'Eingabe leeren',
+  'fileUpload.clickToUpload': 'Klicken oder ziehen zum Hochladen',
+  'fileUpload.dragAndDrop': 'Dateien in diesen Bereich ziehen',
+  'fileUpload.fileSize': 'Größe',
+  'orderList.moveToTop': 'Nach oben verschieben',
+  'orderList.moveUp': 'Höher',
+  'orderList.moveDown': 'Tiefer',
+  'orderList.moveToBottom': 'Nach unten verschieben',
+  'orderList.filterPlaceholder': 'Suchen',
+  'pickList.sourceLabel': 'Quellliste',
+  'pickList.targetLabel': 'Zielliste',
+  'pickList.moveToTarget': 'In Zielliste verschieben',
+  'pickList.moveToSource': 'Zurück in Quellliste',
+  'pickList.moveAllToTarget': 'Alle in Zielliste verschieben',
+  'pickList.moveAllToSource': 'Alle zurück in Quellliste',
+  'pickList.filterPlaceholder': 'Suchen',
+  'qrCode.download': 'QR-Code herunterladen',
+  'splitButton.toggleDropdown': 'Dropdown umschalten',
+  'orgChart.search': '{field} durchsuchen...',
 } as const satisfies Record<string, string>;
 
 export default deDE;

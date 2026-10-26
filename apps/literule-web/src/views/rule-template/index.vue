@@ -22,6 +22,8 @@ import { Page } from '@ydsz/common-ui';
 import { YdButton, YdCard, YdCol, YdDialog, YdEmptyState, YdInput, YdRow, YdTabsContent, YdTabs, YdBadge, YdTree, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
+import { YdConfirm } from '@ydsz-core/popup-ui';
+
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
 

@@ -16,6 +16,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdNumberFieldInput, YdInput } from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { setQuota } from '#/api/quota';
 
 const emit = defineEmits<{ success: [] }>();

@@ -18,8 +18,9 @@
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButton, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
-import { YdPrompt } from '@ydsz-core/popup-ui';
+import { YdPrompt, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
+import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { activate, instanceMy, recall, suspend, terminate, timeline } from '#/api/flowInstance';
 import { batchUrge } from '#/api/flowTask';
@@ -349,7 +350,7 @@ async function openTimeline(row: FlowInstanceVO) {
         <!-- 流程图高亮 -->
         <FlowDiagramViewer :instance="timelineInstance" :instance-id="timelineInstance?.id ?? ''" />
         <!-- 轨迹表格 -->
-        <YdTable :data="timelineRows" border size="small" loading="timelineLoading" class="mt-4">
+        <YdTable :data="timelineRows" border size="small" :loading="timelineLoading" class="mt-4">
           <YdTableColumn prop="type" :label="$t('wf.type')" width="100" />
           <YdTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
           <YdTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />

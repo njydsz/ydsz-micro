@@ -14,7 +14,7 @@
 
 import { computed, provide, inject, ref } from 'vue';
 
-import type { ComputedRef, InjectionKey, Ref } from 'vue';
+import type { ComputedRef, InjectionKey } from 'vue';
 
 /* ============================================================ */
 /* 类型                                                          */
