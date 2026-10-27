@@ -20,7 +20,7 @@
  *   &lt;/YdImagePreviewGroup&gt;
  * </pre>
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\image\YdImagePreviewGroup.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\image\YdImagePreviewGroup.vue
  * @author ydsz-team
  * @since 26.09.17
  */
@@ -60,7 +60,11 @@ interface Props {
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
+import { useLocale } from '../../locale/useLocale';
+
 const props = defineProps<Props>();
+
+const { t } = useLocale();
 
 /* SSR hydration guard: defer Teleport rendering to client only */
 const isClient = ref(false);
@@ -187,7 +191,7 @@ watch(isOpen, (val) => {
       v-if="isOpen"
       role="dialog"
       aria-modal="true"
-      aria-label="图片预览"
+      :aria-label="t('image.previewAriaLabel')"
       :class="cn('fixed inset-0 z-50 flex items-center justify-center bg-black/80', $props.class)"
       @wheel="handleWheel"
       @pointermove="handlePointerMove"
@@ -195,7 +199,7 @@ watch(isOpen, (val) => {
       <!-- 关闭按钮 -->
       <button
         type="button"
-        aria-label="关闭预览"
+        :aria-label="t('image.closeAriaLabel')"
         class="absolute end-4 top-4 z-10 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
         @click="close"
       >
@@ -208,7 +212,7 @@ watch(isOpen, (val) => {
       <button
         v-show="currentIndex > 0"
         type="button"
-        aria-label="上一张"
+        :aria-label="t('image.prevAriaLabel')"
         class="absolute start-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-colors hover:bg-black/70"
         @click="prev"
       >
@@ -220,7 +224,7 @@ watch(isOpen, (val) => {
       <!-- 当前图片 -->
       <img
         :src="currentImage"
-        :alt="`预览图 ${currentIndex + 1}`"
+        :alt="t('image.previewAlt', { index: currentIndex + 1 })"
         class="max-h-[85vh] max-w-[90vw] select-none object-contain transition-transform duration-200"
         :style="{
           transform: isZoomed ? `scale(2) translate(${dragOffset.x / 2}px, ${dragOffset.y / 2}px)` : 'scale(1)',
@@ -234,7 +238,7 @@ watch(isOpen, (val) => {
       <button
         v-show="currentIndex < images.length - 1"
         type="button"
-        aria-label="下一张"
+        :aria-label="t('image.nextAriaLabel')"
         class="absolute end-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-colors hover:bg-black/70"
         @click="next"
       >
@@ -248,7 +252,7 @@ watch(isOpen, (val) => {
         v-if="images.length > 1"
         class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-lg bg-black/50 p-2"
         role="tablist"
-        aria-label="图片切换"
+        :aria-label="t('image.switchAriaLabel')"
       >
         <button
           v-for="(img, idx) in images"
@@ -256,7 +260,7 @@ watch(isOpen, (val) => {
           type="button"
           role="tab"
           :aria-selected="idx === currentIndex"
-          :aria-label="`第 ${idx + 1} 张`"
+          :aria-label="t('image.itemAriaLabel', { index: idx + 1 })"
           class="h-12 w-16 overflow-hidden rounded border-2 transition-all"
           :class="idx === currentIndex ? 'border-white opacity-100' : 'border-transparent opacity-50 hover:opacity-80'"
           @click="open(idx)"

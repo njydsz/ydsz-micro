@@ -15,6 +15,8 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import { useLocale } from '@ydsz-core/ydsz-ui';
+
 import type { MentionItem } from './extensions/mention';
 
 interface Props {
@@ -38,6 +40,8 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   select: [index: number];
 }>();
+
+const { t } = useLocale();
 
 const rootRef = ref<HTMLElement>();
 
@@ -93,7 +97,7 @@ onBeforeUnmount(() => {
       role="option"
       aria-selected="false"
     >
-      无匹配用户
+      {{ t('editor.mentionEmpty') }}
     </div>
 
     <!-- 候选列表 -->

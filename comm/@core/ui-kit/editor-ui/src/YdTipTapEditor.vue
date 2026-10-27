@@ -17,7 +17,7 @@
  * <YdTipTapEditor v-model="html" placeholder="请输入内容..." :max-length="5000" />
  * }</pre>
  *
- * @path comm/@core/ui-kit/tiptap/src/YDSZ-tiptap-editor.vue
+ * @path comm/@core/ui-kit/editor-ui/src/YdTipTapEditor.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -27,6 +27,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import Placeholder from '@tiptap/extension-placeholder';
 import { showToast } from '@ydsz/notification';
+import { useLocale } from '@ydsz-core/ydsz-ui';
 
 import { getYdDefaultExtensions } from './extensions';
 import { YdTipTapToolbar } from './toolbar';
@@ -48,12 +49,17 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  placeholder: '请输入内容...',
+  placeholder: undefined,
   maxLength: 0,
   disabled: false,
   minHeight: 200,
   maxHeight: 600,
 });
+
+const { t } = useLocale();
+
+/** 占位文案：props 未显式传入时取当前语种词典 */
+const resolvedPlaceholder = computed(() => props.placeholder ?? t('editor.placeholder'));
 
 const emit = defineEmits<{
   'update:modelValue': [value: string];
@@ -71,7 +77,7 @@ const editor = useEditor({
   content: props.modelValue,
   editable: !props.disabled,
   extensions: [
-    Placeholder.configure({ placeholder: props.placeholder }),
+    Placeholder.configure({ placeholder: resolvedPlaceholder.value }),
     ...getYdDefaultExtensions(),
   ],
   onUpdate: ({ editor: ed }) => {
@@ -108,7 +114,7 @@ onMounted(() => {
   // 字符数超限警告
   editor.value?.on('update', ({ editor: ed }) => {
     if (props.maxLength > 0 && ed.getText().length > props.maxLength) {
-      showToast.warning(`内容已超过最大字符数限制（${props.maxLength}）`);
+      showToast.warning(t('editor.exceedMaxLength', { max: props.maxLength }));
     }
   });
 });

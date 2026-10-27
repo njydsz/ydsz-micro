@@ -1,0 +1,18 @@
+{
+  "budgets": {
+    "agent-web": 747,
+    "message-web": 680,
+    "cronjob-web": 639,
+    "literule-web": 617,
+    "userinfo-web": 382,
+    "nextwiki-web": 297,
+    "workflow-web": 253,
+    "comm/@core": 203,
+    "generator-web": 196,
+    "main/src": 190,
+    "system-web": 145,
+    "comm/effects": 65,
+    "docs-site": 19
+  },
+  "hint": "界面硬编码中文预算：由 `node ./bash/check-hardcoded-text.mts --update-baseline` 生成，只允许下调"
+}

@@ -135,7 +135,14 @@
     "leftVersion": "版本 A: {0}",
     "rightVersion": "版本 B: {0}",
     "diffRemoved": "删除行",
-    "diffAdded": "新增行"
+    "diffAdded": "新增行",
+    "resourceType": "资源类型",
+    "resourceKey": "资源Key",
+    "resourceGroup": "资源分组",
+    "resourceKeyRequired": "请输入资源Key",
+    "resourceKeyPlaceholder": "请输入资源Key（如：system.mail.smtp）",
+    "queryHistory": "查询版本历史",
+    "tableTitle": "配置版本历史"
   },
   "common": {
     "close": "关闭",

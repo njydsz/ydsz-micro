@@ -18,6 +18,10 @@ import { type Component, type PropType, type VNode, computed, defineComponent, p
 
 import { cn } from '@ydsz-core/shared/utils';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 /**
  * 渲染代理：将 VNode 作为 render 函数输出。
  * Vue 的 <component :is> 不能直接引用 VNode 对象，
@@ -276,7 +280,7 @@ const headerDirection = computed(() =>
   <div
     :class="cn('stepper flex flex-col overflow-hidden rounded-lg border bg-card', stepTextClass)"
     role="navigation"
-    aria-label="步骤向导"
+    :aria-label="t('stepper.ariaLabel')"
     tabindex="0"
     @keydown="handleKeydown"
   >
@@ -395,7 +399,7 @@ const headerDirection = computed(() =>
           type="button"
           @click="prev"
         >
-          上一步
+          {{ t('stepper.prev') }}
         </button>
 
         <!-- 下一步 -->
@@ -424,7 +428,7 @@ const headerDirection = computed(() =>
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
             ></path>
           </svg>
-          下一步
+          {{ t('stepper.next') }}
         </button>
 
         <!-- 完成 -->
@@ -453,7 +457,7 @@ const headerDirection = computed(() =>
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
             ></path>
           </svg>
-          完成
+          {{ t('stepper.finish') }}
         </button>
       </div>
     </div>

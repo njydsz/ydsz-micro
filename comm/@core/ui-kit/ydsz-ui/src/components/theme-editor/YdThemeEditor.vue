@@ -10,23 +10,31 @@
  */
 <script lang="ts" setup>
 // @ts-nocheck
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
+import { useLocale } from '../../locale/useLocale';
 import { getTheme } from '../theme/use-theme';
 import type { TokenName } from '../theme/theme-schema';
 import { themeTokens } from '../theme/theme-schema';
 
+const { t } = useLocale();
+
 /** 可编辑 token 分类 */
-const EDITABLE_TOKENS: Array<{ name: TokenName; label: string; category: string }> = [
-  { category: 'color', label: '主色', name: 'primary' },
-  { category: 'color', label: '危险色', name: 'destructive' },
-  { category: 'color', label: '成功色', name: 'success' },
-  { category: 'color', label: '背景色', name: 'background' },
-  { category: 'color', label: '文字色', name: 'foreground' },
-  { category: 'size', label: '基础圆角', name: 'radius' },
-  { category: 'typography', label: '正文字号', name: 'text-14' },
-  { category: 'shadow', label: '低阴影', name: 'shadow-raised-100' },
+const EDITABLE_TOKENS: Array<{ name: TokenName; labelKey: string; category: string }> = [
+  { category: 'color', labelKey: 'themeEditor.primary', name: 'primary' },
+  { category: 'color', labelKey: 'themeEditor.destructive', name: 'destructive' },
+  { category: 'color', labelKey: 'themeEditor.success', name: 'success' },
+  { category: 'color', labelKey: 'themeEditor.background', name: 'background' },
+  { category: 'color', labelKey: 'themeEditor.foreground', name: 'foreground' },
+  { category: 'size', labelKey: 'themeEditor.radius', name: 'radius' },
+  { category: 'typography', labelKey: 'themeEditor.bodySize', name: 'text-14' },
+  { category: 'shadow', labelKey: 'themeEditor.lowShadow', name: 'shadow-raised-100' },
 ];
+
+/** 标签走词典而非写死中文，否则切语种后 token 名称仍是中文 */
+const editableTokens = computed(() =>
+  EDITABLE_TOKENS.map((token) => ({ ...token, label: t(token.labelKey) })),
+);
 
 const theme = getTheme();
 
@@ -78,10 +86,10 @@ watch([overrides, exportFormat], () => {
 
 <template>
   <div class="space-y-4 p-4">
-    <h3 class="text-lg font-medium">主题编辑器</h3>
+    <h3 class="text-lg font-medium">{{ t('themeEditor.title') }}</h3>
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
       <div
-        v-for="token in EDITABLE_TOKENS"
+        v-for="token in editableTokens"
         :key="token.name"
         class="flex items-center justify-between gap-2"
       >
@@ -100,7 +108,7 @@ watch([overrides, exportFormat], () => {
         type="button"
         @click="resetAll"
       >
-        重置
+        {{ t('common.reset') }}
       </button>
       <select
         v-model="exportFormat"

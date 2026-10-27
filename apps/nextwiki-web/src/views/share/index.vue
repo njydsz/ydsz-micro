@@ -36,7 +36,7 @@ defineOptions({ name: 'ShareManagement' });
 /** 我的分享列表 */
 const gridOptions: VxeGridProps<ShareLinkVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'id', title: '分享ID', width: 200 },
     { field: 'title', title: '标题', minWidth: 140 },
     { field: 'fileName', title: '文件名称', minWidth: 160 },
@@ -80,7 +80,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 收到的分享列表 */
 const receivedGridOptions: VxeGridProps<ShareRecipientVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'id', title: '接收记录ID', width: 200 },
     { field: 'shareId', title: '分享ID', width: 200 },
     { field: 'recipientName', title: '分享人', width: 140 },

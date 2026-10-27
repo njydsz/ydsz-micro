@@ -17,6 +17,7 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { showToast } from '@ydsz/notification';
 
@@ -24,6 +25,8 @@ import { save, update } from '#/api/variable';
 import type { VariableVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
+
+const { t } = useI18n();
 
 const formRef = ref();
 const isEdit = ref(false);
@@ -48,7 +51,7 @@ const formData = reactive<VariableFormState>({
 });
 
 const rules = {
-  variableKey: [{ required: true, message: '请输入变量键', trigger: 'blur' }],
+  variableKey: [{ required: true, message: t('common.placeholder', [t('variable.key')]), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -87,10 +90,10 @@ const [Modal, modalApi] = useYdModal({
     try {
       if (isEdit.value) {
         await update(formData);
-        showToast.success('更新成功');
+        showToast.success(t('updateSuccess'));
       } else {
         await save(formData);
-        showToast.success('创建成功');
+        showToast.success(t('createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -100,28 +103,28 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑系统变量' : '新增系统变量'));
+const title = computed(() => (isEdit.value ? t('editVariable') : t('createVariable')));
 </script>
 
 <template>
   <Modal :title="title">
     <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <YdFormItem label="变量键" prop="variableKey">
-        <YdInput v-model="formData.variableKey" placeholder="请输入变量键" :disabled="isEdit" />
+      <YdFormItem :label="t('variable.key')" prop="variableKey">
+        <YdInput v-model="formData.variableKey" :placeholder="t('common.placeholder', [t('variable.key')])" :disabled="isEdit" />
       </YdFormItem>
-      <YdFormItem label="值类型" prop="valueType">
-        <YdInput v-model="formData.valueType" placeholder="请输入值类型（String/Number/Boolean）" />
+      <YdFormItem :label="t('variable.valueType')" prop="valueType">
+        <YdInput v-model="formData.valueType" :placeholder="t('valueTypePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="变量值" prop="variableValue">
-        <YdInput v-model="formData.variableValue" type="textarea" :rows="2" placeholder="请输入变量值" />
+      <YdFormItem :label="t('variable.value')" prop="variableValue">
+        <YdInput v-model="formData.variableValue" type="textarea" :rows="2" :placeholder="t('common.placeholder', [t('variable.value')])" />
       </YdFormItem>
-      <YdFormItem label="描述">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      <YdFormItem :label="t('description')">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="状态" prop="status">
+      <YdFormItem :label="t('status')" prop="status">
         <YdRadioGroup v-model="formData.status">
-          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
-          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+          <YdRadioGroupItem value="1">{{ t('enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('disabled') }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
     </YdForm>

@@ -5,13 +5,17 @@
  * 与 Popover 的区别：Popconfirm 强制有取消 / 确认按钮 + 自动关闭，
  * 专用于删除/危险操作的二次确认。
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\popconfirm\YdPopconfirm.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\popconfirm\YdPopconfirm.vue
  * @author ydsz-team
  * @since 1.0.0
  */
 // @ts-nocheck
+import { computed } from 'vue';
+
 import { cn } from '@ydsz-core/shared/utils';
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '@ydsz-core/ydsz-vue';
+
+import { useLocale } from '../../locale/useLocale';
 
 import { YdButton } from '.././button';
 
@@ -42,15 +46,21 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   align: 'end',
-  cancelText: '取消',
+  cancelText: undefined,
   confirmButtonProps: () => ({ variant: 'default' as const }),
-  confirmText: '确定',
+  confirmText: undefined,
   description: '',
   disabled: false,
   open: undefined,
   side: 'top',
-  title: '确认操作？',
+  title: undefined,
 });
+
+const { t } = useLocale();
+/** 文案默认值走词典而非 withDefaults：默认值工厂在 props 初始化阶段执行，拿不到 inject 的语言状态 */
+const resolvedTitle = computed(() => props.title ?? t('popconfirm.defaultTitle'));
+const resolvedConfirmText = computed(() => props.confirmText ?? t('dialog.confirm'));
+const resolvedCancelText = computed(() => props.cancelText ?? t('common.cancel'));
 
 const emit = defineEmits<{
   cancel: [];
@@ -74,7 +84,7 @@ function handleCancel(): void {
     <PopoverTrigger as-child>
       <slot>
         <slot name="trigger">
-          <YdButton size="sm" variant="destructive">删除</YdButton>
+          <YdButton size="sm" variant="destructive">{{ t('common.delete') }}</YdButton>
         </slot>
       </slot>
     </PopoverTrigger>
@@ -111,7 +121,7 @@ function handleCancel(): void {
 
           <!-- 内容 -->
           <div class="flex-1">
-            <p class="text-sm font-semibold">{{ props.title }}</p>
+            <p class="text-sm font-semibold">{{ resolvedTitle }}</p>
             <p v-if="props.description" class="text-muted-foreground mt-1 text-xs">
               {{ props.description }}
             </p>
@@ -120,14 +130,14 @@ function handleCancel(): void {
 
         <!-- 操作按钮 -->
         <div class="mt-4 flex justify-end gap-2">
-          <YdButton size="sm" variant="ghost" @click="handleCancel">{{ props.cancelText }}</YdButton>
+          <YdButton size="sm" variant="ghost" @click="handleCancel">{{ resolvedCancelText }}</YdButton>
           <YdButton
             size="sm"
             :variant="props.confirmButtonProps?.variant ?? 'default'"
             :loading="props.confirmButtonProps?.loading"
             @click="handleConfirm"
           >
-            {{ props.confirmText }}
+            {{ resolvedConfirmText }}
           </YdButton>
         </div>
       </PopoverContent>

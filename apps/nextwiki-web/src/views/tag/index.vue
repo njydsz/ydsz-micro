@@ -32,7 +32,7 @@ defineOptions({ name: 'TagManagement' });
 
 const gridOptions: VxeGridProps<TagVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'id', title: '标签ID', width: 200 },
     { field: 'name', title: '标签名称', minWidth: 160 },
     {

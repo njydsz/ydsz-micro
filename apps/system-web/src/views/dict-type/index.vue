@@ -57,7 +57,7 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<DictTypeRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'typeCode', title: t('typeCode'), width: 150 },
     { field: 'typeName', title: t('typeName'), width: 150 },
     { field: 'description', title: t('description'), width: 220 },
@@ -71,7 +71,7 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
           return h(
             YdBadge,
             { variant: isEnabled(dictType.status) ? undefined : 'secondary' },
-            () => (isEnabled(dictType.status) ? '启用' : '禁用'),
+            () => (isEnabled(dictType.status) ? t('enabled') : t('disabled')),
           );
         },
       },
@@ -158,7 +158,10 @@ function handleEdit(row: DictTypeRow) {
 async function handleDelete(row: DictTypeRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除「${row.typeName ?? row.typeCode ?? ''}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(t('confirmDeleteName', [row.typeName ?? row.typeCode ?? '']), {
+      title: t('common.deleteConfirm'),
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消删除操作
   }
@@ -182,7 +185,7 @@ onUnmounted(() => {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="字典类型">
+    <Grid :table-title="t('dictType')">
       <template #toolbar-tools>
         <YdButton v-permission="'sys:dict:add'" @click="handleAdd">{{ t('create') }}</YdButton>
       </template>

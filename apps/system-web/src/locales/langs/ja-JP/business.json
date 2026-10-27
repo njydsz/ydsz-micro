@@ -89,7 +89,14 @@
     "leftVersion": "バージョン A: {0}",
     "rightVersion": "バージョン B: {0}",
     "diffRemoved": "削除済み",
-    "diffAdded": "追加済み"
+    "diffAdded": "追加済み",
+    "resourceType": "リソースタイプ",
+    "resourceKey": "リソースKey",
+    "resourceGroup": "リソースグループ",
+    "resourceKeyRequired": "リソースKey を入力してください",
+    "resourceKeyPlaceholder": "リソースKey（例: system.mail.smtp）",
+    "queryHistory": "バージョン履歴を照会",
+    "tableTitle": "設定のバージョン履歴"
   },
   "common": {
     "close": "閉じる",

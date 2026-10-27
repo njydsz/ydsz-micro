@@ -54,7 +54,7 @@ function formatSize(size?: number): string {
 
 const gridOptions: VxeGridProps<FileNodeVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'name', title: '名称', minWidth: 240 },
     {
       field: 'nodeType',

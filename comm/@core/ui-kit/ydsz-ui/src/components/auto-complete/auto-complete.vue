@@ -171,7 +171,7 @@ defineExpose({
       type="text"
       class="yd-auto-complete__input"
       :value="queryInner"
-      :placeholder="props.placeholder ?? (t('placeholder') ?? '请输入关键词')"
+      :placeholder="props.placeholder ?? t('autoComplete.placeholder')"
       :disabled="props.disabled"
       :autofocus="props.autofocus"
       autocomplete="off"
@@ -188,7 +188,7 @@ defineExpose({
       v-if="props.clearable && queryInner && !props.disabled"
       type="button"
       class="yd-auto-complete__clear-btn"
-      :aria-label="t('clear') ?? '清空'"
+      :aria-label="t('autoComplete.clearAriaLabel')"
       @click.stop="handleClear"
     >
       <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -210,12 +210,12 @@ defineExpose({
         <!-- Loading 状态 -->
         <div v-if="isLoading" class="yd-auto-complete__loading">
           <span class="yd-auto-complete__spinner" aria-hidden="true" />
-          <span class="yd-auto-complete__loading-text">{{ t('loading') ?? '加载中...' }}</span>
+          <span class="yd-auto-complete__loading-text">{{ t('autoComplete.loadingText') }}</span>
         </div>
 
         <!-- 空数据 -->
         <div v-else-if="suggestions.length === 0" class="yd-auto-complete__empty">
-          {{ t('noData') ?? '无匹配结果' }}
+          {{ t('autoComplete.emptyText') }}
         </div>
 
         <!-- 候选项列表 -->

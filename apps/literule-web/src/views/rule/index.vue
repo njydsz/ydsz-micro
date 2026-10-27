@@ -78,7 +78,7 @@ const filteredRules = computed<RuleDefinitionVO[]>(() => {
 
 const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'ruleCode', title: '规则编码', width: 150 },
     { field: 'ruleName', title: '规则名称', width: 180 },
     { field: 'category', title: '分类', width: 110 },

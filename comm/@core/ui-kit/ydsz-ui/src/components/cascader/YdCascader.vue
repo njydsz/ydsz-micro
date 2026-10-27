@@ -15,7 +15,7 @@
  * - ESC 关闭；Tab 在面板间焦点流转
  * - 搜索模式：搜索结果以面包屑路径展示，非原始树形
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\cascader\YdCascader.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\cascader\YdCascader.vue
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -26,6 +26,8 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronRight, Loader2, Search, X } from 'lucide-vue-next';
 
 import type { CascaderOption, CascaderShowSearch } from './types';
+
+import { useLocale } from '../../locale/useLocale';
 
 interface Props {
   allowClear?: boolean;
@@ -45,10 +47,14 @@ const props = withDefaults(defineProps<Props>(), {
   expandTrigger: 'click',
   modelValue: () => [],
   options: () => [],
-  placeholder: '请选择',
+  placeholder: undefined,
   showSearch: false,
   size: 'default',
 });
+
+const { t } = useLocale();
+/** 占位文案：props 未显式传入时取当前语种词典 */
+const resolvedPlaceholder = computed(() => props.placeholder ?? t('select.placeholder'));
 
 const emit = defineEmits<{
   'update:modelValue': [value: (string | number)[]];
@@ -168,7 +174,7 @@ const sizeMap: Record<string, string> = {
     <!-- 触发器 -->
     <button
       :aria-expanded="isOpen"
-      :aria-label="'级联选择器'"
+      :aria-label="t('cascader.ariaLabel')"
       :class="
         cn(
           'flex w-full items-center justify-between gap-2 rounded-md border bg-background px-3 text-left transition-colors',
@@ -185,7 +191,7 @@ const sizeMap: Record<string, string> = {
       <span v-if="displayText" class="truncate text-foreground">
         {{ displayText }}
       </span>
-      <span v-else>{{ props.placeholder }}</span>
+      <span v-else>{{ resolvedPlaceholder }}</span>
 
       <span class="flex shrink-0 items-center gap-1">
         <X
@@ -209,9 +215,9 @@ const sizeMap: Record<string, string> = {
           <Search class="text-muted-foreground absolute left-2 top-1/2 size-3.5 -translate-y-1/2" />
           <input
             v-model="searchQuery"
-            :aria-label="'搜索选项'"
+            :aria-label="t('select.search')"
             class="w-full rounded border bg-transparent py-1.5 pl-7 pr-2 text-sm outline-none focus:border-primary"
-            placeholder="搜索..."
+            :placeholder="t('cascader.searchPlaceholder')"
             type="text"
           />
         </div>
@@ -230,7 +236,7 @@ const sizeMap: Record<string, string> = {
             <span class="text-muted-foreground text-xs">{{ result.path.map(p => p.label).join(' / ') }}</span>
           </li>
           <li v-if="!filteredOptions.length" class="text-muted-foreground px-3 py-2 text-center text-sm">
-            无匹配结果
+            {{ t('select.empty') }}
           </li>
         </ul>
       </template>

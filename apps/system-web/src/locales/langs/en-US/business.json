@@ -135,7 +135,14 @@
     "leftVersion": "Version A: {0}",
     "rightVersion": "Version B: {0}",
     "diffRemoved": "Removed",
-    "diffAdded": "Added"
+    "diffAdded": "Added",
+    "resourceType": "Resource Type",
+    "resourceKey": "Resource Key",
+    "resourceGroup": "Resource Group",
+    "resourceKeyRequired": "Please enter the resource key",
+    "resourceKeyPlaceholder": "Resource key, e.g. system.mail.smtp",
+    "queryHistory": "Query Version History",
+    "tableTitle": "Configuration Version History"
   },
   "common": {
     "close": "Close",

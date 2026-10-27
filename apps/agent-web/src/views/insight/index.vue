@@ -39,7 +39,7 @@ const currentUserId = ref('current-user');
 
 const gridOptions: VxeTableGridOptions<InsightReportResult> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'reportId', title: '报告 ID', width: 200 },
     { field: 'title', title: '报告标题', width: 200, showOverflow: true },
     {

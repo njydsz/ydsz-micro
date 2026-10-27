@@ -45,7 +45,7 @@ function isEnabled(status?: string): boolean {
 // ========== VxeTable 配置 ==========
 const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'entityId', title: 'Entity ID', minWidth: 220 },
     { field: 'name', title: 'IdP 名称', width: 160 },
     { field: 'ssoUrl', title: 'SSO 端点', minWidth: 200 },

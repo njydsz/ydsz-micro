@@ -36,7 +36,7 @@ const fileNodeId = ref('');
 
 const gridOptions: VxeGridProps<FileCommentVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'id', title: '评论ID', width: 220 },
     { field: 'fileNodeId', title: '文件节点ID', width: 220 },
     { field: 'content', title: '评论内容', minWidth: 260 },

@@ -5,7 +5,7 @@
  * 与 Ant Design Pagination 对齐：页码列表 + 上/下一页 + 每页条数跳转。
  * 简化模式（simple）只显示输入框跳转。
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\pagination\YdPagination.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\pagination\YdPagination.vue
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -15,6 +15,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
 import { YdSelect } from '.././select';
 
 interface Props {
@@ -58,7 +59,17 @@ const emit = defineEmits<{
   'update:pageSize': [pageSize: number];
 }>();
 
+const { t } = useLocale();
+
 const totalPages = computed(() => Math.max(1, Math.ceil((props.total ?? 0) / props.pageSize)));
+
+/** 每页条数选项：词序交给词典，不用字符串拼接（不同语言「条/页」位置不同） */
+const sizeOptions = computed(() =>
+  props.pageSizeOptions.map((size) => ({
+    label: t('pagination.sizeOption', { size }),
+    value: String(size),
+  })),
+);
 
 /** 页码列表生成 */
 const pageList = computed(() => {
@@ -109,7 +120,7 @@ function handlePageSizeChange(size: number): void {
   <div :class="cn('flex items-center gap-2', props.class)">
     <!-- 总数 -->
     <span v-if="props.showTotal" class="text-sm text-muted-foreground">
-      共 {{ props.total }} 条
+      {{ t('pagination.total', { count: props.total }) }}
     </span>
 
     <!-- 上一页 -->
@@ -123,7 +134,7 @@ function handlePageSizeChange(size: number): void {
         )
       "
       :disabled="props.current <= 1 || props.disabled"
-      aria-label="上一页"
+      :aria-label="t('pagination.prev')"
       type="button"
       @click="handlePageChange((props.current ?? 1) - 1)"
     >
@@ -147,7 +158,7 @@ function handlePageSizeChange(size: number): void {
             )
           "
           :aria-current="p === props.current ? 'page' : undefined"
-          :aria-label="`第 ${p} 页`"
+          :aria-label="t('table.page', { page: p })"
           type="button"
           @click="handlePageChange(p)"
         >
@@ -167,7 +178,7 @@ function handlePageSizeChange(size: number): void {
         )
       "
       :disabled="(props.current ?? 1) >= totalPages || props.disabled"
-      aria-label="下一页"
+      :aria-label="t('pagination.next')"
       type="button"
       @click="handlePageChange((props.current ?? 1) + 1)"
     >
@@ -179,7 +190,7 @@ function handlePageSizeChange(size: number): void {
       v-if="props.showSizeChanger"
       :disabled="props.disabled"
       :model-value="String(props.pageSize)"
-      :options="props.pageSizeOptions.map((s) => ({ label: `${s} 条/页`, value: String(s) }))"
+      :options="sizeOptions"
       size="sm"
       class="w-24"
       @update:model-value="(v) => handlePageSizeChange(Number(v))"

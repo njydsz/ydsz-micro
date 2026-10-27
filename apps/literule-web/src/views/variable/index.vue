@@ -32,7 +32,7 @@ import VariableForm from './variable-form.vue';
 defineOptions({ name: 'VariableManagement' });
 const gridOptions: VxeGridProps<VariableDefinitionVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'name', title: '变量名称', width: 180 },
     {
       field: 'type',

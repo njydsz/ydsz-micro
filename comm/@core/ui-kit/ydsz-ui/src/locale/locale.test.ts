@@ -10,6 +10,18 @@
 
 import { describe, it, expect } from 'vitest';
 
+import arSA from './ar-SA';
+import deDE from './de-DE';
+import esES from './es-ES';
+import frFR from './fr-FR';
+import hiIN from './hi-IN';
+import jaJP from './ja-JP';
+import koKR from './ko-KR';
+import ptBR from './pt-BR';
+import ruRU from './ru-RU';
+import thTH from './th-TH';
+import viVN from './vi-VN';
+import zhTW from './zh-TW';
 import { enUS } from './en-US';
 import { zhCN } from './zh-CN';
 import { useLocale } from './useLocale';
@@ -95,5 +107,59 @@ describe('useLocale composable', () => {
       },
     });
     expect(t('table.empty')).toBe('自定义空');
+  });
+});
+
+/**
+ * 14 语种词典一致性。
+ *
+ * <p>组件写 `t('x.y', { count })` 时并不检查目标语种是否写了 `{count}`；某语种漏掉占位，
+ * 界面就渲染出 `共 条` 这类读不通的文案，且只有切到那个语种才看得见。词典又分散在 14 个
+ * 文件里，加键时漏更某一个语种是高频事故 —— 这三条断言把「缺 key / 空文案 / 占位漂移」
+ * 变成一次 `pnpm test` 就能拦住的错误。
+ */
+const ALL_LOCALES: Array<[string, Record<string, string>]> = [
+  ['ar-SA', arSA],
+  ['de-DE', deDE],
+  ['en-US', enUS],
+  ['es-ES', esES],
+  ['fr-FR', frFR],
+  ['hi-IN', hiIN],
+  ['ja-JP', jaJP],
+  ['ko-KR', koKR],
+  ['pt-BR', ptBR],
+  ['ru-RU', ruRU],
+  ['th-TH', thTH],
+  ['vi-VN', viVN],
+  ['zh-CN', zhCN],
+  ['zh-TW', zhTW],
+];
+
+const PLACEHOLDER = /\{(\w+)\}/g;
+
+describe('14 语种词典与 zh-CN 一致', () => {
+  const referenceKeys = Object.keys(zhCN).sort();
+
+  it.each(ALL_LOCALES)('%s 的 key 集合与 zh-CN 完全一致', (locale, dict) => {
+    expect(Object.keys(dict).sort()).toEqual(referenceKeys);
+  });
+
+  it.each(ALL_LOCALES)('%s 不应有空文案', (locale, dict) => {
+    for (const key of Object.keys(dict)) {
+      expect(String(dict[key]).trim(), `${locale} 的 ${key} 文案为空`).not.toBe('');
+    }
+  });
+
+  it.each(ALL_LOCALES)('%s 的命名占位与 zh-CN 一一对应', (locale, dict) => {
+    for (const key of referenceKeys) {
+      const expected = [...zhCN[key].matchAll(PLACEHOLDER)].map((m) => m[1]).sort();
+      const actual = [...dict[key].matchAll(PLACEHOLDER)].map((m) => m[1]).sort();
+      expect(actual, `${locale} 的 ${key} 占位应为 ${expected.join(',')}`).toEqual(expected);
+    }
+  });
+
+  it('词典应有内容（空表会让上面三条断言全部空转）', () => {
+    expect(referenceKeys.length).toBeGreaterThan(100);
+    expect(ALL_LOCALES).toHaveLength(14);
   });
 });

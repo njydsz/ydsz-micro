@@ -22,6 +22,8 @@ import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-vue-
 import type { CalendarShortcut } from '../calendar/use-calendar-shortcuts';
 import YdTimePicker from '../time-picker/YdTimePicker.vue';
 
+import { useLocale } from '../../locale/useLocale';
+
 interface Props {
   /** 自定义类名 */
   class?: string;
@@ -46,11 +48,18 @@ const props = withDefaults(defineProps<Props>(), {
   disabledDate: undefined,
   format: 'YYYY-MM-DD',
   modelValue: null,
-  placeholder: () => ['开始日期', '结束日期'] as const,
+  placeholder: undefined,
   shortcuts: () => [],
   showTime: false,
   separator: ' ~ ',
 });
+
+const { t } = useLocale();
+
+/** 占位文案 [起始, 结束]：props 未显式传入时取当前语种词典 */
+const resolvedPlaceholder = computed<readonly [string, string]>(
+  () => props.placeholder ?? [t('datepicker.startPlaceholder'), t('datepicker.endPlaceholder')],
+);
 
 const emit = defineEmits<{
   'update:modelValue': [value: readonly [Date, Date] | null];
@@ -256,7 +265,21 @@ function applyShortcut(shortcut: CalendarShortcut): void {
   isOpen.value = false;
 }
 
-const weekLabels = ['日', '一', '二', '三', '四', '五', '六'];
+/** 星期表头：周日开头，标签取自当前语种词典 */
+const weekLabels = computed(() => [
+  t('datepicker.sun'),
+  t('datepicker.mon'),
+  t('datepicker.tue'),
+  t('datepicker.wed'),
+  t('datepicker.thu'),
+  t('datepicker.fri'),
+  t('datepicker.sat'),
+]);
+
+/** 触发器空值态展示：占位对与分隔符的拼接留在脚本里，模板只做绑定 */
+const placeholderText = computed(
+  () => `${resolvedPlaceholder.value[0]}${props.separator}${resolvedPlaceholder.value[1]}`,
+);
 
 const disabled = computed(() => false);
 </script>
@@ -266,7 +289,7 @@ const disabled = computed(() => false);
     <!-- 触发器 -->
     <button
       :aria-expanded="isOpen"
-      aria-label="日期范围选择器"
+      :aria-label="t('rangePicker.ariaLabel')"
       :class="
         cn(
           'border-input bg-input-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 items-center gap-2 rounded-md border px-3 text-sm transition-colors',
@@ -281,7 +304,7 @@ const disabled = computed(() => false);
     >
       <CalendarIcon class="text-muted-foreground size-4" />
       <span :class="cn(!displayValue && 'text-muted-foreground')">
-        {{ displayValue || `${props.placeholder?.[0]}${props.separator}${props.placeholder?.[1]}` }}
+        {{ displayValue || placeholderText }}
       </span>
     </button>
 
@@ -310,13 +333,13 @@ const disabled = computed(() => false);
         <div class="flex flex-col">
           <!-- 月份导航 -->
           <div class="mb-2 flex items-center justify-between">
-            <button class="hover:bg-muted rounded p-1" type="button" aria-label="上一月" @click="leftPrevMonth">
+            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.previousMonth')" @click="leftPrevMonth">
               <ChevronLeft class="size-4" />
             </button>
             <span class="text-xs font-semibold">
-              {{ leftDisplayDate.getFullYear() }}年 {{ leftDisplayDate.getMonth() + 1 }}月
+              {{ t('datepicker.yearMonth', { year: leftDisplayDate.getFullYear(), month: leftDisplayDate.getMonth() + 1 }) }}
             </span>
-            <button class="hover:bg-muted rounded p-1" type="button" aria-label="下一月" @click="leftNextMonth">
+            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.nextMonth')" @click="leftNextMonth">
               <ChevronRight class="size-4" />
             </button>
           </div>
@@ -362,13 +385,13 @@ const disabled = computed(() => false);
         <div class="flex flex-col">
           <!-- 月份导航 -->
           <div class="mb-2 flex items-center justify-between">
-            <button class="hover:bg-muted rounded p-1" type="button" aria-label="上一月" @click="rightPrevMonth">
+            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.previousMonth')" @click="rightPrevMonth">
               <ChevronLeft class="size-4" />
             </button>
             <span class="text-xs font-semibold">
-              {{ rightDisplayDate.getFullYear() }}年 {{ rightDisplayDate.getMonth() + 1 }}月
+              {{ t('datepicker.yearMonth', { year: rightDisplayDate.getFullYear(), month: rightDisplayDate.getMonth() + 1 }) }}
             </span>
-            <button class="hover:bg-muted rounded p-1" type="button" aria-label="下一月" @click="rightNextMonth">
+            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.nextMonth')" @click="rightNextMonth">
               <ChevronRight class="size-4" />
             </button>
           </div>
@@ -413,9 +436,9 @@ const disabled = computed(() => false);
 
       <!-- 时间选择（showTime 模式） -->
       <div v-if="props.showTime" class="mt-3 flex items-center gap-2 border-t pt-2">
-        <YdTimePicker v-model="startTime" format="HH:mm:ss" size="small" placeholder="开始时间" />
-        <span class="text-muted-foreground text-xs">至</span>
-        <YdTimePicker v-model="endTime" format="HH:mm:ss" size="small" placeholder="结束时间" />
+        <YdTimePicker v-model="startTime" format="HH:mm:ss" size="small" :placeholder="t('rangePicker.startTimePlaceholder')" />
+        <span class="text-muted-foreground text-xs">{{ t('rangePicker.to') }}</span>
+        <YdTimePicker v-model="endTime" format="HH:mm:ss" size="small" :placeholder="t('rangePicker.endTimePlaceholder')" />
       </div>
 
       <!-- 确认/取消按钮 -->
@@ -425,14 +448,14 @@ const disabled = computed(() => false);
           class="hover:bg-muted rounded px-3 py-1 text-xs transition-colors"
           @click="cancel"
         >
-          取消
+          {{ t('common.cancel') }}
         </button>
         <button
           type="button"
           class="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-3 py-1 text-xs font-medium transition-colors"
           @click="confirm"
         >
-          确认
+          {{ t('datepicker.confirm') }}
         </button>
       </div>
     </div>

@@ -22,7 +22,11 @@ import type {
 
 import type { DiffViewerProps } from './diff-viewer-types';
 
+import { useLocale } from '../../locale/useLocale';
+
 defineOptions({ name: 'YdDiffViewer' });
+
+const { t } = useLocale();
 
 const props = withDefaults(defineProps<DiffViewerProps>(), {
   mode: 'unified',
@@ -216,15 +220,15 @@ function isLineVisible(chunkIndex: number): boolean {
       props.class,
     ]"
     role="region"
-    aria-label="文本差异对比"
+    :aria-label="t('diffViewer.ariaLabel')"
   >
     <!-- header -->
     <header
       v-if="props.oldTitle || props.newTitle"
       class="yd-diff-header flex items-center justify-between border-b border-border bg-muted/40 px-4 py-2 text-xs font-sans"
     >
-      <span class="text-muted-foreground">{{ props.oldTitle ?? '旧版本' }}</span>
-      <span class="text-muted-foreground">{{ props.newTitle ?? '新版本' }}</span>
+      <span class="text-muted-foreground">{{ props.oldTitle ?? t('diffViewer.oldVersion') }}</span>
+      <span class="text-muted-foreground">{{ props.newTitle ?? t('diffViewer.newVersion') }}</span>
     </header>
 
     <!-- diff content -->
@@ -247,7 +251,7 @@ function isLineVisible(chunkIndex: number): boolean {
             type="button"
             @click="toggleChunk(chunkIndex)"
           >
-            展开 {{ chunk.lines.length }} 行
+            {{ t('diffViewer.expandLines', { count: chunk.lines.length }) }}
           </button>
 
           <!-- 分栏行渲染 -->
@@ -339,7 +343,7 @@ function isLineVisible(chunkIndex: number): boolean {
             type="button"
             @click="toggleChunk(chunkIndex)"
           >
-            展开 {{ chunk.lines.length }} 行
+            {{ t('diffViewer.expandLines', { count: chunk.lines.length }) }}
           </button>
 
           <!-- 单栏行渲染 -->

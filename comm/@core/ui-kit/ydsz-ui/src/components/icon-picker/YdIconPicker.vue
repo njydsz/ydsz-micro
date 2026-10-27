@@ -43,6 +43,10 @@ import {
   X,
 } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 interface Props {
   class?: any;
   disabled?: boolean;
@@ -52,7 +56,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  placeholder: '选择图标',
 });
 
 const emit = defineEmits<{
@@ -121,7 +124,7 @@ function select(name: string): void {
   <div :class="cn('relative inline-block', props.class)">
     <!-- 触发器 -->
     <button
-      :aria-label="'图标选择器'"
+      :aria-label="t('iconPicker.ariaLabel')"
       :class="
         cn(
           'flex h-9 w-full items-center justify-between gap-2 rounded-md border bg-background px-3 text-sm transition-colors hover:border-muted-foreground/50',
@@ -134,7 +137,7 @@ function select(name: string): void {
       <span class="flex items-center gap-2">
         <component :is="selectedIconObj?.Icon" v-if="selectedIconObj" class="size-4" />
         <span :class="cn(!props.modelValue && 'text-muted-foreground')">
-          {{ selectedIconObj?.name ?? props.placeholder }}
+          {{ selectedIconObj?.name ?? (props.placeholder ?? t('iconPicker.placeholder')) }}
         </span>
       </span>
       <ChevronDown :class="cn('size-4 text-muted-foreground transition-transform', isOpen && 'rotate-180')" />
@@ -150,9 +153,9 @@ function select(name: string): void {
           <Search class="text-muted-foreground absolute left-2 top-1/2 size-3.5 -translate-y-1/2" />
           <input
             v-model="query"
-            :aria-label="'搜索图标'"
+            :aria-label="t('common.search')"
             class="w-full rounded border bg-transparent py-1 pl-7 pr-2 text-sm outline-none focus:border-primary"
-            placeholder="搜索图标..."
+            :placeholder="t('iconPicker.searchPlaceholder')"
             type="text"
           />
         </div>

@@ -29,6 +29,8 @@ import type { DictItemVO, DictTypeVO } from '#/api/models';
 
 const emit = defineEmits<{ success: [] }>();
 
+const { t } = useI18n();
+
 const formRef = ref();
 const isEdit = ref(false);
 
@@ -57,8 +59,8 @@ const formData = reactive<DictItemFormState>({
 });
 
 const rules = {
-  typeCode: [{ required: true, message: '请选择字典类型', trigger: 'change' }],
-  itemCode: [{ required: true, message: '请输入字典项编码', trigger: 'blur' }],
+  typeCode: [{ required: true, message: t('dictTypePlaceholder'), trigger: 'change' }],
+  itemCode: [{ required: true, message: t('common.placeholder', [t('itemCode')]), trigger: 'blur' }],
 };
 
 /** 加载字典类型下拉数据（DictController#listAll） */
@@ -109,10 +111,10 @@ const [Modal, modalApi] = useYdModal({
     try {
       if (isEdit.value) {
         await update(formData);
-        showToast.success('更新成功');
+        showToast.success(t('updateSuccess'));
       } else {
         await save(formData);
-        showToast.success('创建成功');
+        showToast.success(t('createSuccess'));
       }
       // 广播字典项变更事件，通知 YdDictSelect/YdDictTag 等组件自动刷新
       if (formData.typeCode) {
@@ -126,14 +128,14 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑字典项' : '新增字典项'));
+const title = computed(() => (isEdit.value ? t('editDictItem') : t('createDictItem')));
 </script>
 
 <template>
   <Modal :title="title">
     <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <YdFormItem label="字典类型" prop="typeCode">
-        <YdSelect v-model="formData.typeCode" placeholder="请选择字典类型" :disabled="isEdit">
+      <YdFormItem :label="t('dictType')" prop="typeCode">
+        <YdSelect v-model="formData.typeCode" :placeholder="t('dictTypePlaceholder')" :disabled="isEdit">
           <YdSelectItem
             v-for="item in dictTypes"
             :key="item.typeCode ?? item.id ?? ''"
@@ -142,22 +144,22 @@ const title = computed(() => (isEdit.value ? '编辑字典项' : '新增字典�
           />
         </YdSelect>
       </YdFormItem>
-      <YdFormItem label="字典项编码" prop="itemCode">
-        <YdInput v-model="formData.itemCode" placeholder="请输入字典项编码" :disabled="isEdit" />
+      <YdFormItem :label="t('itemCode')" prop="itemCode">
+        <YdInput v-model="formData.itemCode" :placeholder="t('common.placeholder', [t('itemCode')])" :disabled="isEdit" />
       </YdFormItem>
-      <YdFormItem label="字典值" prop="itemValue">
-        <YdInput v-model="formData.itemValue" placeholder="请输入字典值" />
+      <YdFormItem :label="t('itemValue')" prop="itemValue">
+        <YdInput v-model="formData.itemValue" :placeholder="t('common.placeholder', [t('itemValue')])" />
       </YdFormItem>
-      <YdFormItem label="排序" prop="sort">
+      <YdFormItem :label="t('sort')" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
-      <YdFormItem label="描述">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      <YdFormItem :label="t('description')">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="状态" prop="status">
+      <YdFormItem :label="t('status')" prop="status">
         <YdRadioGroup v-model="formData.status">
-          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
-          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+          <YdRadioGroupItem value="1">{{ t('enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('disabled') }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
     </YdForm>

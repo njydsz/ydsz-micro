@@ -24,7 +24,11 @@ import type {
   ImageEditorProps,
 } from './image-editor-types';
 
+import { useLocale } from '../../locale/useLocale';
+
 defineOptions({ name: 'YdImageEditor' });
+
+const { t } = useLocale();
 
 const props = withDefaults(defineProps<ImageEditorProps>(), {
   aspectRatio: 'free',
@@ -481,25 +485,25 @@ defineExpose<ImageEditorExpose>({
       props.class,
     ]"
     role="region"
-    aria-label="图片裁剪编辑"
+    :aria-label="t('imageEditor.ariaLabel')"
   >
     <!-- header -->
     <header class="flex items-center justify-between">
-      <span class="text-sm font-medium">图片裁剪</span>
+      <span class="text-sm font-medium">{{ t('imageEditor.title') }}</span>
       <div class="flex items-center gap-2">
         <button
           class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
           type="button"
           @click="reset"
         >
-          重置
+          {{ t('common.reset') }}
         </button>
         <button
           class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
           type="button"
           @click="emit('cancel')"
         >
-          取消
+          {{ t('common.cancel') }}
         </button>
       </div>
     </header>
@@ -592,7 +596,7 @@ defineExpose<ImageEditorExpose>({
           v-if="!imageObj"
           class="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground"
         >
-          请加载图片
+          {{ t('imageEditor.loadHint') }}
         </div>
       </div>
 
@@ -601,7 +605,7 @@ defineExpose<ImageEditorExpose>({
         v-if="props.showPreview"
         class="yd-preview-sidebar flex flex-col items-center gap-2"
       >
-        <span class="text-xs text-muted-foreground">预览</span>
+        <span class="text-xs text-muted-foreground">{{ t('imageEditor.preview') }}</span>
         <div
           class="overflow-hidden rounded border border-border bg-muted"
           :style="{
@@ -612,7 +616,7 @@ defineExpose<ImageEditorExpose>({
           <img
             v-if="previewSrc"
             :src="previewSrc"
-            alt="裁剪预览"
+            :alt="t('imageEditor.previewAlt')"
             class="h-full w-full object-contain"
           />
         </div>

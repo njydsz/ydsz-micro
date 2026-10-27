@@ -89,7 +89,14 @@
     "leftVersion": "버전 A: {0}",
     "rightVersion": "버전 B: {0}",
     "diffRemoved": "삭제됨",
-    "diffAdded": "추가됨"
+    "diffAdded": "추가됨",
+    "resourceType": "리소스 유형",
+    "resourceKey": "리소스 Key",
+    "resourceGroup": "리소스 그룹",
+    "resourceKeyRequired": "리소스 Key를 입력해 주세요",
+    "resourceKeyPlaceholder": "리소스 Key(예: system.mail.smtp)",
+    "queryHistory": "버전 기록 조회",
+    "tableTitle": "설정 버전 기록"
   },
   "common": {
     "close": "닫기",

@@ -12,7 +12,7 @@
  * - "今天"快捷按钮
  * - 预设快捷选项渲染（today / yesterday / thisWeek 等）
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\calendar\YdCalendar.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\calendar\YdCalendar.vue
  * @author ydsz-team
  * @since 26.09.24
  */
@@ -22,6 +22,8 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 import type { CalendarShortcut } from './use-calendar-shortcuts';
+
+import { useLocale } from '../../locale/useLocale';
 
 interface Props {
   /** 自定义类名 */
@@ -128,7 +130,18 @@ const calendarDays = computed(() => {
   return days;
 });
 
-const weekLabels = ['日', '一', '二', '三', '四', '五', '六'];
+const { t } = useLocale();
+
+/** 星期表头：周日开头，标签取自当前语种词典（组件文档承诺的 locale 注入即此路径） */
+const weekLabels = computed(() => [
+  t('datepicker.sun'),
+  t('datepicker.mon'),
+  t('datepicker.tue'),
+  t('datepicker.wed'),
+  t('datepicker.thu'),
+  t('datepicker.fri'),
+  t('datepicker.sat'),
+]);
 
 /* ----- 月份/年份跳转 ----- */
 
@@ -239,7 +252,7 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
     <!-- 头部：年份/月份跳转 + 月份导航 -->
     <div class="mb-3 flex items-center justify-between gap-2">
       <div class="flex items-center gap-1">
-        <button class="hover:bg-muted rounded p-1" type="button" aria-label="上一月" @click="prevMonth">
+        <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.previousMonth')" @click="prevMonth">
           <ChevronLeft class="size-4" />
         </button>
 
@@ -247,24 +260,24 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
         <select
           :value="currentYear"
           class="hover:bg-muted rounded px-1 py-0.5 text-xs"
-          aria-label="选择年份"
+          :aria-label="t('calendar.selectYearAriaLabel')"
           @change="onYearChange(Number(($event.target as HTMLSelectElement).value))"
         >
-          <option v-for="y in yearOptions" :key="y" :value="y">{{ y }}年</option>
+          <option v-for="y in yearOptions" :key="y" :value="y">{{ t('calendar.yearOption', { year: y }) }}</option>
         </select>
 
         <!-- 月份下拉 -->
         <select
           :value="currentMonth"
           class="hover:bg-muted rounded px-1 py-0.5 text-xs"
-          aria-label="选择月份"
+          :aria-label="t('calendar.selectMonthAriaLabel')"
           @change="onMonthChange(Number(($event.target as HTMLSelectElement).value))"
         >
-          <option v-for="m in monthOptions" :key="m" :value="m">{{ m + 1 }}月</option>
+          <option v-for="m in monthOptions" :key="m" :value="m">{{ t('calendar.monthOption', { month: m + 1 }) }}</option>
         </select>
 
         <!-- 上一月/下一月导航 -->
-        <button class="hover:bg-muted rounded p-1" type="button" aria-label="下一月" @click="nextMonth">
+        <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.nextMonth')" @click="nextMonth">
           <ChevronRight class="size-4" />
         </button>
       </div>
@@ -275,7 +288,7 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
         class="hover:bg-muted text-primary rounded px-2 py-0.5 text-xs font-medium transition-colors"
         @click="goToToday"
       >
-        今天
+        {{ t('datepicker.today') }}
       </button>
     </div>
 

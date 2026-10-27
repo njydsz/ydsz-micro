@@ -58,7 +58,7 @@ function loadMore(): void {
 
 const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'agentCode', title: 'Agent编码', width: 140 },
     { field: 'agentName', title: 'Agent名称', width: 160 },
     { field: 'agentType', title: '类型', width: 120 },

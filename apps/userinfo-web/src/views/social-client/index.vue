@@ -72,7 +72,7 @@ function getPlatformTagType(platform?: string): string {
 // ========== VxeTable 配置 ==========
 const gridOptions: VxeTableGridOptions<SocialClientVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     {
       field: 'platform',
       title: '平台标识',

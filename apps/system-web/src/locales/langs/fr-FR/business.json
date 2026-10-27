@@ -89,7 +89,14 @@
     "leftVersion": "Version A: {0}",
     "rightVersion": "Version B: {0}",
     "diffRemoved": "Supprime",
-    "diffAdded": "Ajoute"
+    "diffAdded": "Ajoute",
+    "resourceType": "Type de ressource",
+    "resourceKey": "Clé de la ressource",
+    "resourceGroup": "Groupe de la ressource",
+    "resourceKeyRequired": "Veuillez saisir la clé de la ressource",
+    "resourceKeyPlaceholder": "Clé de la ressource, par ex. system.mail.smtp",
+    "queryHistory": "Consulter l'historique des versions",
+    "tableTitle": "Historique des versions de configuration"
   },
   "common": {
     "close": "Fermer",

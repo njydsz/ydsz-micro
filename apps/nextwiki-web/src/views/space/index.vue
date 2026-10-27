@@ -58,7 +58,7 @@ function formatSize(size?: number): string {
 
 const gridOptions: VxeGridProps<SpaceVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'name', title: '空间名称', minWidth: 160 },
     { field: 'description', title: '描述', minWidth: 200 },
     {

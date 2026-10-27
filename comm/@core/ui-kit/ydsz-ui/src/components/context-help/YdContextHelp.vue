@@ -21,9 +21,13 @@ import { computed, onMounted, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { HelpCircle, Info, X } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
 defineOptions({
   name: 'YdContextHelp',
 });
+
+const { t } = useLocale();
 
 interface Props {
   /** 是否可被用户关闭（显示 ✕ 按钮） */
@@ -110,7 +114,7 @@ function toggleDetail(): void {
           type="button"
           @click="toggleDetail"
         >
-          了解更多
+          {{ t('contextHelp.more') }}
           <HelpCircle :size="12" />
         </button>
       </div>
@@ -118,7 +122,7 @@ function toggleDetail(): void {
         v-if="dismissible"
         class="ms-2 shrink-0 text-info-400 transition-colors hover:text-info-600"
         type="button"
-        aria-label="关闭帮助"
+        :aria-label="t('contextHelp.closeAriaLabel')"
         @click="handleDismiss"
       >
         <X :size="14" />
@@ -141,7 +145,7 @@ function toggleDetail(): void {
         type="button"
         @click="toggleDetail"
       >
-        详情
+        {{ t('contextHelp.detail') }}
       </button>
     </div>
 
@@ -156,7 +160,7 @@ function toggleDetail(): void {
         type="button"
         @click="toggleDetail"
       >
-        收起
+        {{ t('common.collapse') }}
       </button>
     </div>
   </div>

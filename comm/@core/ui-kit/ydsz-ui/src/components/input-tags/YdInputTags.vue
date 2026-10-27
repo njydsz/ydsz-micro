@@ -19,6 +19,8 @@ import { X } from 'lucide-vue-next';
 
 import type { YdInputTagsEmits, YdInputTagsProps } from './types';
 
+import { useLocale } from '../../locale/useLocale';
+
 defineOptions({ name: 'YdInputTags' });
 
 const props = withDefaults(defineProps<YdInputTagsProps>(), {
@@ -35,6 +37,8 @@ const props = withDefaults(defineProps<YdInputTagsProps>(), {
 
 const emit = defineEmits<YdInputTagsEmits>();
 
+const { t } = useLocale();
+
 /** 内部标签列表（与 props.modelValue 双向同步） */
 const tags = ref<string[]>([...props.modelValue]);
 
@@ -50,6 +54,12 @@ const isInvalidVisible = ref(false);
 /* ============================================================ */
 /* 计算                                                           */
 /* ============================================================ */
+
+/**
+ * 输入框可访问名。
+ * placeholder 默认值是空串，直接复用会让读屏器拿到空名称，因此空串时回退词典。
+ */
+const inputAriaLabel = computed(() => props.placeholder || t('inputTags.placeholder'));
 
 /** 是否已达上限 */
 const isMaxReached = computed(() =>
@@ -218,7 +228,7 @@ defineExpose({
       )
     "
     role="list"
-    :aria-label="`标签输入（${tags.length} 个标签）`"
+    :aria-label="t('inputTags.ariaLabel', { count: tags.length })"
     @click="focusInput"
   >
     <!-- Tag 列表 -->
@@ -232,13 +242,13 @@ defineExpose({
         )
       "
       role="listitem"
-      :aria-label="`标签：${tag}`"
+      :aria-label="t('inputTags.tagAriaLabel', { tag })"
     >
       <span class="truncate max-w-[160px]">{{ tag }}</span>
       <button
         v-if="!props.readonly && !props.disabled"
         type="button"
-        :aria-label="`删除标签 ${tag}`"
+        :aria-label="t('inputTags.removeAriaLabel', { tag })"
         :class="
           cn(
             'inline-flex shrink-0 items-center justify-center rounded-full',
@@ -260,7 +270,7 @@ defineExpose({
       :disabled="isInputDisabled"
       :placeholder="tags.length === 0 ? props.placeholder : ''"
       :aria-invalid="isInvalidVisible"
-      :aria-label="props.placeholder ?? '输入标签'"
+      :aria-label="inputAriaLabel"
       :class="
         cn(
           'flex-1 min-w-[80px] border-none bg-transparent outline-none',

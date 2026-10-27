@@ -5,7 +5,7 @@
  * 且能自动处理粘贴整串验证码的拆分。
  * 完成与变更分别以事件抛出，便于上层区分「填满」与「正在输入」两种时机。
  *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\pin-input\input.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\pin-input\YdPinInputSmart.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
@@ -15,6 +15,8 @@ import type { PinInputProps } from './types';
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
+
+import { useLocale } from '../../locale/useLocale';
 
 import YdPinInput from './YdPinInput.vue';
 import YdPinInputGroup from './YdPinInputGroup.vue';
@@ -41,6 +43,8 @@ const emit = defineEmits<{
   complete: [];
   sendError: [error: any];
 }>();
+
+const { t } = useLocale();
 
 const timer = ref<ReturnType<typeof setTimeout>>();
 
@@ -113,16 +117,16 @@ const id = useId();
     otp
     placeholder="○"
     type="number"
-    aria-label="验证码输入"
+    :aria-label="t('pinInput.ariaLabel')"
     @complete="handleComplete"
   >
     <div class="relative flex w-full">
-      <YdPinInputGroup class="mr-2" aria-label="验证码数字输入框">
+      <YdPinInputGroup class="mr-2" :aria-label="t('pinInput.groupAriaLabel')">
         <YdPinInputInput
           v-for="(item, index) in codeLength"
           :key="item"
           :index="index"
-          :aria-label="`第 ${index + 1} 位验证码`"
+          :aria-label="t('pinInput.itemAriaLabel', { index: index + 1 })"
         />
       </YdPinInputGroup>
       <YdButtonSmart
@@ -131,7 +135,7 @@ const id = useId();
         class="flex-grow"
         size="lg"
         variant="outline"
-        :aria-label="btnLoading ? '正在发送验证码' : '发送验证码'"
+        :aria-label="btnLoading ? t('pinInput.sendingAriaLabel') : t('pinInput.sendAriaLabel')"
         @click="handleSend"
       >
         {{ btnText }}

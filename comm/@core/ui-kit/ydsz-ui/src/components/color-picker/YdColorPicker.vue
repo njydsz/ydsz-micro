@@ -8,7 +8,7 @@
  * - format 支持 hex / rgb / hsl（输出格式可配置）
  * - allowClear + presets（预设渐变色）
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\color-picker\YdColorPicker.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\color-picker\YdColorPicker.vue
  * @author ydsz-team
  * @since 1.0.0
  */
@@ -17,6 +17,8 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { Check, Pipette } from 'lucide-vue-next';
+
+import { useLocale } from '../../locale/useLocale';
 
 interface PresetColor {
   color: string;
@@ -115,13 +117,21 @@ const sizeClass: Record<string, string> = {
   default: 'h-8 w-8',
   small: 'h-6 w-6',
 };
+
+const { t } = useLocale();
+
+/** Tab 标签取自词典而非模板内联字面量：内联数组等于把中文写死在组件里 */
+const tabItems = computed(() => [
+  { key: 'presets' as const, label: t('colorPicker.presets') },
+  { key: 'custom' as const, label: t('colorPicker.custom') },
+]);
 </script>
 
 <template>
   <div :class="cn('relative inline-flex', props.class)">
     <!-- 触发器 -->
     <button
-      :aria-label="'颜色选择器'"
+      :aria-label="t('colorPicker.ariaLabel')"
       :class="
         cn(
           'flex items-center gap-2 rounded-md border transition-colors',
@@ -144,7 +154,7 @@ const sizeClass: Record<string, string> = {
 
     <!-- 色值文本 -->
     <span v-if="props.showInput" class="text-muted-foreground max-w-[80px] truncate px-2 text-sm">
-      {{ props.modelValue || '未选择' }}
+      {{ props.modelValue || t('colorPicker.unselected') }}
     </span>
 
     <!-- 弹出面板 -->
@@ -156,7 +166,7 @@ const sizeClass: Record<string, string> = {
       <!-- Tab 切换 -->
       <div class="mb-3 flex gap-2">
         <button
-          v-for="tab in [{ key: 'presets', label: '预设' }, { key: 'custom', label: '自定义' }] as const"
+          v-for="tab in tabItems"
           :key="tab.key"
           :class="
             cn(
@@ -194,7 +204,7 @@ const sizeClass: Record<string, string> = {
           type="button"
           @click="clearColor"
         >
-          清除颜色
+          {{ t('colorPicker.clear') }}
         </button>
       </div>
 
@@ -212,7 +222,7 @@ const sizeClass: Record<string, string> = {
             @change="handleInputChange"
           />
           <button
-            :aria-label="'取色器'"
+            :aria-label="t('colorPicker.saturationAriaLabel')"
             class="hover:bg-muted rounded border p-1"
             type="button"
             @click="

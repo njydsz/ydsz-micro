@@ -46,7 +46,7 @@ const currentEditTable = ref<DecisionTableVO | null>(null);
 
 const gridOptions: VxeTableGridOptions<DecisionTableVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('seq') },
     { field: 'tableCode', tableCode: '编码', width: 150 },
     { field: 'tableName', title: '名称', width: 180 },
     { field: 'category', title: '分类', width: 110 },

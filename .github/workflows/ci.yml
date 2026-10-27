@@ -186,6 +186,17 @@ jobs:
       - name: 模板绑定门禁自检
         run: pnpm check:tpl:self-test
 
+      # 界面硬编码文案预算门禁：i18n 侧此前只有 key parity 与翻译质量两类校验，
+      # 「视图根本没调 t()」的中文写死既不缺 key 也不是坏翻译，CI 永远绿——
+      # 中文界面下看不出，切到 en-US 后列标题/按钮/校验提示仍是中文混排。
+      # 首轮实跑 1270 个 .vue 命中 4210 处 / 333 个文件 / 13 个 scope，
+      # 故按 scope 固化预算、只许下降（--update-baseline 拒绝上调，防止先写死再洗白）。
+      - name: 界面硬编码文案预算
+        run: pnpm check:ui-text
+
+      - name: 硬编码文案门禁自检
+        run: pnpm check:ui-text:self-test
+
       # 体积门禁自身的反例自检：它的扫描目录一旦与真实产物布局脱节，就会永远报"通过"
       # （CI 侧此前正是扫 dist/assets，而产物在 dist/js、dist/css、dist/jse）。
       - name: 体积预算门禁自检

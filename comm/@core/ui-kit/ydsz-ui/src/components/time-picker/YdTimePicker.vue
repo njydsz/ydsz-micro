@@ -11,7 +11,7 @@
  * - 表单集成（v-model）
  * - 占位符、清除按钮、禁用状态
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\time-picker\YdTimePicker.vue
+ * @path comm\@core\ui-kit\ydsz-ui\src\components\time-picker\YdTimePicker.vue
  * @author ydsz-team
  * @since 26.09.24
  */
@@ -21,6 +21,8 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Clock, X } from 'lucide-vue-next';
 
 import type { TimeFormat } from './use-time-picker';
+
+import { useLocale } from '../../locale/useLocale';
 
 interface Props {
   /** 自定义类名 */
@@ -64,7 +66,7 @@ const props = withDefaults(defineProps<Props>(), {
   hourStep: 1,
   minuteStep: 1,
   modelValue: undefined,
-  placeholder: '选择时间',
+  placeholder: undefined,
   secondStep: 1,
   size: 'middle',
   use12Hours: false,
@@ -76,6 +78,11 @@ const emit = defineEmits<{
 }>();
 
 const isOpen = ref<boolean>(false);
+
+const { t } = useLocale();
+
+/** 占位文案：props 未显式传入时取当前语种词典 */
+const resolvedPlaceholder = computed(() => props.placeholder ?? t('timepicker.placeholder'));
 
 /** 解析当前值 → { hour, minute, second, period } */
 const parsedTime = computed(() => {
@@ -208,7 +215,7 @@ const sizeClass: Record<string, string> = {
     <!-- 触发器 -->
     <button
       :aria-expanded="isOpen"
-      :aria-label="'时间选择器'"
+      :aria-label="t('timepicker.ariaLabel')"
       :class="
         cn(
           'flex w-full items-center justify-between gap-2 rounded-md border transition-colors',
@@ -223,13 +230,13 @@ const sizeClass: Record<string, string> = {
     >
       <span class="flex items-center gap-1.5">
         <Clock class="text-muted-foreground size-4" />
-        <span>{{ props.modelValue || props.placeholder }}</span>
+        <span>{{ props.modelValue || resolvedPlaceholder }}</span>
       </span>
       <span
         v-if="props.allowClear && props.modelValue"
         role="button"
         tabindex="0"
-        aria-label="清除时间"
+        :aria-label="t('timepicker.clearAriaLabel')"
         class="text-muted-foreground hover:text-foreground"
         @click="clearValue"
         @keydown.enter.prevent="clearValue($event)"
@@ -246,7 +253,7 @@ const sizeClass: Record<string, string> = {
       @keydown.escape="isOpen = false"
     >
       <!-- 小时列 -->
-      <ul class="h-52 w-16 overflow-y-auto border-r py-1" role="listbox" aria-label="小时">
+      <ul class="h-52 w-16 overflow-y-auto border-r py-1" role="listbox" :aria-label="t('timepicker.hourAriaLabel')">
         <li
           v-for="opt in hourOptions"
           :key="opt.value"
@@ -267,7 +274,7 @@ const sizeClass: Record<string, string> = {
       </ul>
 
       <!-- 分钟列 -->
-      <ul class="h-52 w-16 overflow-y-auto border-r py-1" role="listbox" aria-label="分钟">
+      <ul class="h-52 w-16 overflow-y-auto border-r py-1" role="listbox" :aria-label="t('timepicker.minuteAriaLabel')">
         <li
           v-for="opt in minuteOptions"
           :key="opt.value"
@@ -288,7 +295,7 @@ const sizeClass: Record<string, string> = {
       </ul>
 
       <!-- 秒列（format=HH:mm:ss 时显示） -->
-      <ul v-if="showSeconds" class="h-52 w-16 overflow-y-auto py-1" role="listbox" aria-label="秒">
+      <ul v-if="showSeconds" class="h-52 w-16 overflow-y-auto py-1" role="listbox" :aria-label="t('timepicker.secondAriaLabel')">
         <li
           v-for="opt in secondOptions"
           :key="opt.value"
@@ -309,7 +316,7 @@ const sizeClass: Record<string, string> = {
       </ul>
 
       <!-- AM/PM 列（12 小时模式） -->
-      <ul v-if="props.use12Hours" class="h-52 w-14 overflow-y-auto border-l py-1" role="listbox" aria-label="上午/下午">
+      <ul v-if="props.use12Hours" class="h-52 w-14 overflow-y-auto border-l py-1" role="listbox" :aria-label="t('timepicker.meridiemAriaLabel')">
         <li
           v-for="p in (['AM', 'PM'] as const)"
           :key="p"

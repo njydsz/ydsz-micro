@@ -21,6 +21,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { useVModel } from '@vueuse/core';
 
 import { useDensity } from '../../composables/use-density';
+import { useLocale } from '../../locale/useLocale';
 
 /** 输入框尺寸档位 */
 export type InputSize = 'xs' | 'sm' | 'default' | 'lg';
@@ -67,6 +68,7 @@ const emits = defineEmits<{
 }>();
 
 const slots = useSlots();
+const { t } = useLocale();
 const isFocused = ref(false);
 
 const modelValue = useVModel(props, 'modelValue', emits, {
@@ -221,7 +223,7 @@ const affixSizeClasses: Record<InputSize, string> = {
         v-if="showClearBtn"
         type="button"
         class="text-muted-foreground/60 hover:text-foreground rounded-full p-0.5 transition-colors"
-        aria-label="清空输入"
+        :aria-label="t('common.clearAriaLabel')"
         tabindex="-1"
         @click="handleClear"
       >

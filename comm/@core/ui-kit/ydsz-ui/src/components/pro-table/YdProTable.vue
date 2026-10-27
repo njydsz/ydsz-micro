@@ -60,6 +60,8 @@ import {
   YdFormItem,
 } from '../form';
 
+import { useLocale } from '../../locale/useLocale';
+
 import type {
   ProTableProps,
   EditableConfig,
@@ -81,6 +83,8 @@ const emit = defineEmits<{
   (e: 'rowSelectionChange', selectedKeys: string[]): void;
   (e: 'pageChange', page: number, pageSize: number): void;
 }>();
+
+const { t } = useLocale();
 
 /* ============================================================ */
 /* 行选择 + useTableData                                        */
@@ -178,9 +182,11 @@ const editableConfig = computed<EditableConfig>(() => {
 });
 
 /** 编辑按钮文字 */
-const editBtnText = computed(() => props.editText ?? '编辑');
+const editBtnText = computed(() => props.editText ?? t('common.edit'));
 /** 删除按钮文字 */
-const deleteBtnText = computed(() => props.deleteText ?? '删除');
+const deleteBtnText = computed(() => props.deleteText ?? t('common.delete'));
+/** 新建按钮/弹窗标题文字 */
+const createBtnText = computed(() => props.createText ?? t('proTable.create'));
 
 /** 进入编辑模式 */
 function startEdit(row: T, index: number): void {
@@ -293,7 +299,7 @@ defineExpose({
           <YdInput
             v-if="!field.type || field.type === 'text'"
             v-model="searchValues[field.key]"
-            :placeholder="field.placeholder ?? `请输入${field.label}`"
+            :placeholder="field.placeholder ?? t('proTable.searchField', { label: field.label })"
             size="sm"
             class="h-8"
           />
@@ -303,7 +309,7 @@ defineExpose({
             v-else-if="field.type === 'select'"
             v-model="searchValues[field.key]"
             :options="field.options ?? []"
-            :placeholder="field.placeholder ?? `请选择${field.label}`"
+            :placeholder="field.placeholder ?? t('proTable.selectField', { label: field.label })"
             class="h-8"
           />
 
@@ -311,7 +317,7 @@ defineExpose({
           <YdInputNumber
             v-else-if="field.type === 'number'"
             v-model="searchValues[field.key]"
-            :placeholder="field.placeholder ?? `请输入${field.label}`"
+            :placeholder="field.placeholder ?? t('proTable.searchField', { label: field.label })"
             size="small"
             class="h-8"
           />
@@ -320,7 +326,7 @@ defineExpose({
           <YdDatePicker
             v-else-if="field.type === 'date'"
             v-model="searchValues[field.key]"
-            :placeholder="field.placeholder ?? `请选择${field.label}`"
+            :placeholder="field.placeholder ?? t('proTable.selectField', { label: field.label })"
           />
 
           <!-- dateRange -->
@@ -333,10 +339,10 @@ defineExpose({
         <!-- 操作按钮 -->
         <div class="flex gap-2 ml-auto">
           <YdButtonSmart variant="default" size="sm" @click="handleSearch">
-            搜索
+            {{ t('common.search') }}
           </YdButtonSmart>
           <YdButtonSmart variant="outline" size="sm" @click="handleResetSearch">
-            重置
+            {{ t('common.reset') }}
           </YdButtonSmart>
         </div>
       </div>
@@ -357,7 +363,7 @@ defineExpose({
           size="sm"
           @click="handleOpenCreate"
         >
-          {{ props.createText ?? '新建' }}
+          {{ createBtnText }}
         </YdButtonSmart>
         <!-- 工具栏左侧 slot -->
         <slot name="toolbar-left" />
@@ -420,7 +426,7 @@ defineExpose({
 
             <!-- 操作列表头 -->
             <th class="whitespace-nowrap font-medium text-start px-3 py-2 w-[140px]">
-              操作
+              {{ t('proTable.actionColumn') }}
             </th>
           </tr>
         </thead>
@@ -432,7 +438,7 @@ defineExpose({
               :colspan="props.columns.length + (props.rowSelection ? 2 : 1)"
               class="py-12 text-center text-muted-foreground"
             >
-              暂无数据
+              {{ t('table.empty') }}
             </td>
           </tr>
 
@@ -484,14 +490,14 @@ defineExpose({
                     class="text-xs text-primary hover:underline px-1"
                     @click="saveEdit(rowIdx)"
                   >
-                    保存
+                    {{ t('common.save') }}
                   </button>
                   <button
                     type="button"
                     class="text-xs text-muted-foreground hover:underline px-1"
                     @click="cancelEdit(row as T, rowIdx)"
                   >
-                    取消
+                    {{ t('common.cancel') }}
                   </button>
                 </template>
                 <template v-else>
@@ -534,16 +540,17 @@ defineExpose({
       class="flex items-center justify-end gap-2"
     >
       <span class="text-sm text-muted-foreground">
-        共 {{ props.pagination.total }} 条
+        {{ t('table.total', { count: props.pagination.total }) }}
       </span>
       <div class="flex gap-1">
         <button
           type="button"
           class="rounded border px-2 py-1 text-sm disabled:opacity-50"
           :disabled="props.pagination.current <= 1"
+          :aria-label="t('pagination.prev')"
           @click="handlePageChange(props.pagination.current - 1, props.pagination.pageSize)"
         >
-          上一页
+          {{ t('pagination.prev') }}
         </button>
         <span class="rounded border px-3 py-1 text-sm">
           {{ props.pagination.current }}
@@ -551,9 +558,10 @@ defineExpose({
         <button
           type="button"
           class="rounded border px-2 py-1 text-sm disabled:opacity-50"
+          :aria-label="t('pagination.next')"
           @click="handlePageChange(props.pagination.current + 1, props.pagination.pageSize)"
         >
-          下一页
+          {{ t('pagination.next') }}
         </button>
       </div>
     </div>
@@ -564,7 +572,7 @@ defineExpose({
     <YdDialog v-if="props.onCreate" v-model:open="createDialogOpen">
       <YdDialogContent class="sm:max-w-[480px]">
         <YdDialogHeader>
-          <YdDialogTitle>{{ props.createText ?? '新建' }}</YdDialogTitle>
+          <YdDialogTitle>{{ createBtnText }}</YdDialogTitle>
         </YdDialogHeader>
 
         <div class="grid gap-4 py-4">
@@ -582,7 +590,7 @@ defineExpose({
               <YdInput
                 v-if="!field.type || field.type === 'text'"
                 v-model="createFormValues[field.key]"
-                :placeholder="field.placeholder ?? `请输入${field.label}`"
+                :placeholder="field.placeholder ?? t('proTable.searchField', { label: field.label })"
                 size="sm"
               />
 
@@ -591,7 +599,7 @@ defineExpose({
                 v-else-if="field.type === 'select'"
                 :model-value="createFormValues[field.key]"
                 :options="field.options ?? []"
-                :placeholder="field.placeholder ?? `请选择${field.label}`"
+                :placeholder="field.placeholder ?? t('proTable.selectField', { label: field.label })"
                 @update:model-value="createFormValues[field.key] = $event"
               />
 
@@ -599,7 +607,7 @@ defineExpose({
               <YdInputNumber
                 v-else-if="field.type === 'number'"
                 :model-value="createFormValues[field.key]"
-                :placeholder="field.placeholder ?? `请输入${field.label}`"
+                :placeholder="field.placeholder ?? t('proTable.searchField', { label: field.label })"
                 size="small"
                 @update:model-value="createFormValues[field.key] = $event"
               />
@@ -608,7 +616,7 @@ defineExpose({
               <YdDatePicker
                 v-else-if="field.type === 'date'"
                 :model-value="createFormValues[field.key]"
-                :placeholder="field.placeholder ?? `请选择${field.label}`"
+                :placeholder="field.placeholder ?? t('proTable.selectField', { label: field.label })"
                 @update:model-value="createFormValues[field.key] = $event"
               />
 
@@ -623,10 +631,10 @@ defineExpose({
 
         <YdDialogFooter>
           <YdButtonSmart variant="outline" size="sm" @click="createDialogOpen = false">
-            取消
+            {{ t('common.cancel') }}
           </YdButtonSmart>
           <YdButtonSmart variant="default" size="sm" @click="handleCreateSubmit">
-            确定
+            {{ t('common.confirm') }}
           </YdButtonSmart>
         </YdDialogFooter>
       </YdDialogContent>

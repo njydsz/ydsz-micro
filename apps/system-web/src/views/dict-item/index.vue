@@ -55,11 +55,11 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<DictItemRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'typeCode', title: '字典类型', width: 130 },
-    { field: 'itemCode', title: '字典项编码', width: 130 },
-    { field: 'itemValue', title: '字典值', width: 150 },
-    { field: 'sort', title: '排序', width: 80 },
+    { type: 'seq', width: 50, title: t('seq') },
+    { field: 'typeCode', title: t('dictType'), width: 130 },
+    { field: 'itemCode', title: t('itemCode'), width: 130 },
+    { field: 'itemValue', title: t('itemValue'), width: 150 },
+    { field: 'sort', title: t('sort'), width: 80 },
     {
       field: 'status',
       title: t('status'),
@@ -107,8 +107,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'typeCode', title: '字典类型', itemRender: { name: 'YdInput', props: { placeholder: '字典类型编码' } } },
-      { field: 'itemCode', title: '字典项编码', itemRender: { name: 'YdInput', props: { placeholder: '字典项编码' } } },
+      { field: 'typeCode', title: t('dictType'), itemRender: { name: 'YdInput', props: { placeholder: t('dictTypePlaceholder') } } },
+      { field: 'itemCode', title: t('itemCode'), itemRender: { name: 'YdInput', props: { placeholder: t('common.placeholder', [t('itemCode')]) } } },
     ],
   },
 };

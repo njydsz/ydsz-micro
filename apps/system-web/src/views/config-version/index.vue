@@ -38,19 +38,19 @@ const loading = ref(false);
 
 const gridOptions: VxeGridProps<EntityVersionVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'version', title: '版本号', width: 100 },
-    { field: 'resourceType', title: '资源类型', width: 120 },
-    { field: 'resourceKey', title: '资源Key', minWidth: 160 },
-    { field: 'resourceGroup', title: '资源分组', width: 120 },
-    { field: 'changeLog', title: '变更说明', minWidth: 200 },
-    { field: 'effectiveDate', title: '生效时间', width: 170 },
+    { type: 'seq', width: 50, title: t('seq') },
+    { field: 'version', title: t('configVersion.version'), width: 100 },
+    { field: 'resourceType', title: t('configVersion.resourceType'), width: 120 },
+    { field: 'resourceKey', title: t('configVersion.resourceKey'), minWidth: 160 },
+    { field: 'resourceGroup', title: t('configVersion.resourceGroup'), width: 120 },
+    { field: 'changeLog', title: t('configVersion.changeLog'), minWidth: 200 },
+    { field: 'effectiveDate', title: t('configVersion.effectiveDate'), width: 170 },
     {
       field: 'action', title: t('action'), width: 120, fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleRollback(row) }, () => '回滚'),
+            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleRollback(row) }, () => t('configVersion.rollback')),
           ]),
       },
     },
@@ -70,7 +70,7 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 查询版本历史 */
 async function handleQuery(): Promise<void> {
   if (!resourceKey.value.trim()) {
-    showToast.warning('请输入资源Key');
+    showToast.warning(t('configVersion.resourceKeyRequired'));
     return;
   }
   loading.value = true;
@@ -89,8 +89,11 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
   if (!resourceKey.value || !row.version) return;
   try {
     await YdConfirm(
-      `确定回滚到版本 ${row.version} 吗？回滚后当前配置将被覆盖。`,
-      '回滚确认',
+      t('configVersion.rollbackConfirm', {
+        version: row.version ?? '',
+        changeLog: row.changeLog ?? '-',
+      }),
+      t('configVersion.rollbackTitle'),
       { type: 'warning' },
     );
     await rollback({ resourceKey: resourceKey.value }, { targetVersion: row.version });
@@ -106,14 +109,14 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
     <div class="mb-4 flex items-center gap-3 px-4 pt-3">
       <YdInput
         v-model="resourceKey"
-        placeholder="请输入资源Key（如：system.mail.smtp）"
+        :placeholder="t('configVersion.resourceKeyPlaceholder')"
         class="w-80"
         @keyup.enter="handleQuery"
       />
-        <YdButton :loading="loading" @click="handleQuery">查询版本历史</YdButton>
+        <YdButton :loading="loading" @click="handleQuery">{{ t('configVersion.queryHistory') }}</YdButton>
     </div>
 
-    <Grid table-title="配置版本历史">
+    <Grid :table-title="t('configVersion.tableTitle')">
       <template #toolbar-tools>
         <YdButton @click="handleQuery">{{ t('refresh') }}</YdButton>
       </template>
