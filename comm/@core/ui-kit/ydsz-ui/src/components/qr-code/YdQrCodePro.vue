@@ -106,31 +106,30 @@ const resolvedLevel = computed<'L' | 'M' | 'Q' | 'H'>(() => {
 /**
  * 根据预设场景给出默认辅助说明文案。
  * 业务方可通过 description prop 覆盖。
+ *
+ * <p>逐型显式 t('...')，不走「preset → key」映射表：映射表的键值对没有键名属性，
+ * 门禁看不清，缺键时会把键名字面量渲染到界面（原先这里靠中文 fallback 兜着，非中文语种全都显示中文）。
  */
 const presetHint = computed<string>(() => {
   if (props.description) return props.description;
-
-  const keyMap: Record<NonNullable<Props['preset']>, string> = {
-    url: 'qrCode.hint.url',
-    text: 'qrCode.hint.text',
-    vcard: 'qrCode.hint.vcard',
-    download: 'qrCode.hint.download',
-    wifi: 'qrCode.hint.wifi',
-  };
-  return t(keyMap[props.preset], getDefaultHint(props.preset));
+  switch (props.preset) {
+    case 'url': {
+      return t('qrCode.hint.url');
+    }
+    case 'vcard': {
+      return t('qrCode.hint.vcard');
+    }
+    case 'download': {
+      return t('qrCode.hint.download');
+    }
+    case 'wifi': {
+      return t('qrCode.hint.wifi');
+    }
+    default: {
+      return t('qrCode.hint.text');
+    }
+  }
 });
-
-/** 当 i18n 无对应 key 时的回退文案 */
-function getDefaultHint(preset: Props['preset']): string {
-  const defaults: Record<NonNullable<Props['preset']>, string> = {
-    url: '扫一扫访问链接',
-    text: '扫描二维码',
-    vcard: '扫一扫添加联系人',
-    download: '扫一扫下载文件',
-    wifi: '扫一扫连接 WiFi',
-  };
-  return defaults[preset ?? 'text'];
-}
 
 /**
  * Logo 安全区：白色底板尺寸（含边距）。
@@ -301,7 +300,7 @@ function handleRendered(): void {
       @click="downloadQrCode"
     >
       <Download :size="12" aria-hidden="true" />
-      <span>{{ t('qrCode.download', '下载') }}</span>
+      <span>{{ t('qrCode.download') }}</span>
     </button>
 
     <!-- 自定义底部内容插槽 -->

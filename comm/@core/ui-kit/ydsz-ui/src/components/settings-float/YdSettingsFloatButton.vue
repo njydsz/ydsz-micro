@@ -21,6 +21,9 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { cn } from '@ydsz-core/shared/utils';
 import { Maximize, Moon, Settings, Sun, X } from 'lucide-vue-next';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({
   name: 'YdSettingsFloatButton',
@@ -157,13 +160,13 @@ onBeforeUnmount(() => {
           :size="16"
           class="hidden shrink-0 dark:block"
         />
-        <span>切换主题</span>
+        <span>{{ t('settingsFloat.toggleTheme') }}</span>
       </button>
     </div>
 
     <!-- 悬浮按钮本体 -->
     <button
-      :aria-label="expanded ? '收起设置菜单' : '展开设置菜单'"
+      :aria-label="expanded ? t('settingsFloat.collapse') : t('settingsFloat.expand')"
       class="flex h-11 w-11 items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
       :class="cn(buttonClass, expanded && 'rotate-90')"
       type="button"

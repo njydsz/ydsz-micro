@@ -16,6 +16,7 @@ import {
   YdAvatarImageBase,
 } from '@ydsz-core/ydsz-ui';
 import { cn } from '@ydsz-core/shared/utils';
+import { $t } from '@ydsz/locales';
 
 interface Props {
   name?: string;
@@ -59,7 +60,7 @@ const displayName = computed(() => {
     <span
       v-if="online"
       class="online-dot"
-      aria-label="在线"
+      :aria-label="$t('ui.userAvatar.online')"
     />
   </div>
 </template>

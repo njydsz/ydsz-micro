@@ -1,0 +1,13 @@
+{
+  "contactEmailPlaceholder": "連絡先メールを入力してください",
+  "contactNamePlaceholder": "連絡先を入力してください",
+  "contactPhonePlaceholder": "連絡先電話番号を入力してください",
+  "createTitle": "テナントを追加",
+  "datasource": "データソース",
+  "datasourcePlaceholder": "データソース識別子を入力してください",
+  "editTitle": "テナントを編集",
+  "expireAtPlaceholder": "有効期限を選択",
+  "planId": "プラン ID",
+  "planIdPlaceholder": "プラン ID を入力してください",
+  "statusPlaceholder": "ステータスを選択してください"
+}

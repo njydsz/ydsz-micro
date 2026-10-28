@@ -22,6 +22,7 @@
  * @since 26.09.08
  */
 import { computed, reactive, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { YdBadge, YdButton, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
 
@@ -61,6 +62,8 @@ interface GenerateResult {
   /** 生成的文件相对路径列表 */
   generatedFiles?: string[];
 }
+
+const { t } = useI18n();
 
 const datasources = ref<Datasource[]>([]);
 const tables = ref<TableMeta[]>([]);
@@ -150,7 +153,7 @@ async function onTableSelect(tableId: number) {
  */
 async function handleGenerate() {
   if (!selectedDatasourceId.value || !selectedTableName.value.trim()) {
-    showToast.warning('请先选择数据源和表名');
+    showToast.warning(t('devPlatform.selectDsAndTableFirst'));
     return;
   }
   generating.value = true;
@@ -169,13 +172,13 @@ async function handleGenerate() {
     );
     if (result) {
       resultFiles.value = result.generatedFiles ?? [];
-      showToast.success(`代码生成完成，共 ${resultFiles.value.length} 个文件`);
+      showToast.success(t('devPlatform.generateSuccess', { count: resultFiles.value.length }));
       activeTab.value = 'result';
     } else {
-      showToast.error('代码生成失败');
+      showToast.error(t('devPlatform.generateFailed'));
     }
   } catch (error) {
-    const msg = error instanceof Error ? error.message : '代码生成请求失败';
+    const msg = error instanceof Error ? error.message : t('devPlatform.requestFailed');
     showToast.error(msg);
   } finally {
     generating.value = false;
@@ -199,18 +202,18 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
     <YdCard>
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-medium">数据源 & 表选择</span>
+          <span class="font-medium">{{ t('devPlatform.datasourceSection') }}</span>
           <YdBadge v-if="selectedDatasourceId" variant="secondary">
-            数据源 #{{ selectedDatasourceId }}
+            {{ t('devPlatform.datasourceBadge', { id: selectedDatasourceId }) }}
           </YdBadge>
         </div>
       </template>
 
       <YdForm label-width="100px">
-        <YdFormItem label="数据源">
+        <YdFormItem :label="t('devPlatform.datasourceLabel')">
           <YdSelect
             v-model="selectedDatasourceId"
-            placeholder="请选择数据源"
+            :placeholder="t('devPlatform.datasourcePlaceholder')"
             :loading="tablesLoading"
             style="width: 100%"
           >
@@ -218,14 +221,14 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
               v-for="ds in datasources"
               :key="ds.id"
               :value="ds.id"
-              :label="ds.name + (ds.isDefault ? '（默认）' : '')"
+              :label="ds.name + (ds.isDefault ? t('devPlatform.defaultSuffix') : '')"
             />
           </YdSelect>
         </YdFormItem>
-        <YdFormItem label="选择表">
+        <YdFormItem :label="t('devPlatform.selectTableLabel')">
           <YdSelect
             v-model="selectedTableId"
-            placeholder="请先选择数据源，再选择表"
+            :placeholder="t('devPlatform.selectTablePlaceholder')"
             :disabled="!selectedDatasourceId"
             :loading="tablesLoading"
             @change="onTableSelect"
@@ -246,44 +249,44 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
     <YdCard v-if="columns.length > 0">
       <template #header>
         <span class="font-medium">
-          字段预览 — {{ selectedTableName }} ({{ columns.length }} 列)
+          {{ t('devPlatform.columnsPreview', { table: selectedTableName, count: columns.length }) }}
         </span>
       </template>
       <YdTable :data="columns" size="small" stripe max-height="300">
-        <YdTableColumn prop="columnName" label="列名" min-width="140" />
-        <YdTableColumn prop="columnType" label="类型" width="120" />
-        <YdTableColumn label="主键" width="60">
+        <YdTableColumn prop="columnName" :label="t('devPlatform.colColumnName')" min-width="140" />
+        <YdTableColumn prop="columnType" :label="t('devPlatform.colColumnType')" width="120" />
+        <YdTableColumn :label="t('devPlatform.colPrimaryKey')" width="60">
           <template #default="{ row }">
             <YdBadge v-if="row.pk" variant="destructive">PK</YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn label="可空" width="60">
+        <YdTableColumn :label="t('devPlatform.colNullable')" width="60">
           <template #default="{ row }">
             <YdBadge v-if="row.nullable" variant="secondary">NULL</YdBadge>
             <YdBadge v-else>NOT NULL</YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="columnComment" label="注释" min-width="160" />
+        <YdTableColumn prop="columnComment" :label="t('devPlatform.colComment')" min-width="160" />
       </YdTable>
     </YdCard>
 
     <!-- 生成配置 & 操作 -->
     <YdCard>
       <template #header>
-        <span class="font-medium">生成配置</span>
+        <span class="font-medium">{{ t('devPlatform.generateConfig') }}</span>
       </template>
       <YdForm label-width="100px">
-        <YdFormItem label="输出目录">
-          <YdInput v-model="configForm.outputDir" placeholder="生成代码的目标目录绝对路径" />
+        <YdFormItem :label="t('devPlatform.outputDirLabel')">
+          <YdInput v-model="configForm.outputDir" :placeholder="t('devPlatform.outputDirPlaceholder')" />
         </YdFormItem>
-        <YdFormItem label="作者">
-          <YdInput v-model="configForm.author" placeholder="Javadoc 作者" />
+        <YdFormItem :label="t('devPlatform.authorLabel')">
+          <YdInput v-model="configForm.author" :placeholder="t('devPlatform.authorPlaceholder')" />
         </YdFormItem>
-        <YdFormItem label="冲突策略">
+        <YdFormItem :label="t('devPlatform.conflictPolicy')">
           <YdSelect v-model="configForm.conflictStrategy" style="width: 200px">
-            <YdSelectItem value="SKIP" label="跳过已存在" />
-            <YdSelectItem value="OVERRIDE" label="覆盖" />
-            <YdSelectItem value="MERGE" label="合并" />
+            <YdSelectItem value="SKIP" :label="t('devPlatform.policySkip')" />
+            <YdSelectItem value="OVERRIDE" :label="t('devPlatform.policyOverride')" />
+            <YdSelectItem value="MERGE" :label="t('devPlatform.policyMerge')" />
           </YdSelect>
         </YdFormItem>
         <YdFormItem>
@@ -292,10 +295,10 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
             :disabled="!hasSelectedTable"
             @click="handleGenerate"
           >
-            生成代码
+        {{ t('devPlatform.generateCode') }}
           </YdButton>
           <span v-if="!hasSelectedTable" class="ml-3 text-sm text-gray-400">
-            请先选择数据源和表
+        {{ t('devPlatform.selectDsAndTableFirst') }}
           </span>
         </YdFormItem>
       </YdForm>
@@ -304,7 +307,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
     <!-- 生成结果 -->
     <YdCard v-if="resultFiles.length > 0">
       <template #header>
-        <span class="font-medium">生成结果 ({{ resultFiles.length }} 个文件)</span>
+        <span class="font-medium">{{ t('devPlatform.resultSection', { count: resultFiles.length }) }}</span>
       </template>
       <div class="space-y-1 max-h-96 overflow-y-auto">
         <div
@@ -321,7 +324,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
     <!-- 空态提示 -->
     <YdEmptyState
       v-if="!hasSelectedTable && columns.length === 0 && !generating"
-      description="请选择数据源和表开始代码生成"
+      :description="t('devPlatform.emptyHint')"
       :image-size="80"
     />
   </div>

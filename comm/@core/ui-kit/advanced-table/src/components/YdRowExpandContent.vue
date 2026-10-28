@@ -8,6 +8,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
+
 defineProps<{
   /** 加载状态 */
   state: 'idle' | 'loading' | 'loaded' | 'error';
@@ -28,7 +32,7 @@ const emit = defineEmits<{
       class="flex items-center justify-center py-4 text-sm text-muted-foreground"
     >
       <div class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-      加载中...
+      {{ t('common.loading') }}
     </div>
 
     <!-- Error -->
@@ -36,19 +40,19 @@ const emit = defineEmits<{
       v-else-if="state === 'error'"
       class="flex items-center justify-center py-4 text-sm text-destructive"
     >
-      <span>子数据加载失败</span>
+      <span>{{ t('rowExpand.loadFailed') }}</span>
       <button
         type="button"
         class="ml-2 text-xs text-primary hover:underline"
         @click="emit('retry')"
       >
-        重试
+        {{ t('common.retry') }}
       </button>
     </div>
 
     <!-- Children data -->
     <div v-else-if="state === 'loaded' && children?.length" class="py-2">
-      <div class="mb-2 text-xs font-medium text-muted-foreground">关联数据</div>
+      <div class="mb-2 text-xs font-medium text-muted-foreground">{{ t('rowExpand.relatedData') }}</div>
       <div class="grid gap-2">
         <div
           v-for="(child, idx) in children"
@@ -68,7 +72,7 @@ const emit = defineEmits<{
       v-else
       class="py-4 text-center text-xs text-muted-foreground"
     >
-      暂无数据
+      {{ t('table.empty') }}
     </div>
   </div>
 </template>

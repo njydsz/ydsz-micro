@@ -1,0 +1,16 @@
+{
+  "app/agent-web": 844,
+  "app/cronjob-web": 759,
+  "app/docs-site": 5,
+  "app/generator-web": 645,
+  "app/literule-web": 855,
+  "app/message-web": 788,
+  "app/nextwiki-web": 731,
+  "app/system-web": 766,
+  "app/userinfo-web": 773,
+  "app/workflow-web": 829,
+  "pkg/comm/constants": 216,
+  "pkg/comm/effects/micro-kernel": 214,
+  "pkg/comm/effects/micro-runtime": 0,
+  "pkg/comm/effects/monitor": 0
+}

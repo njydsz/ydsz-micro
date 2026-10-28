@@ -19,6 +19,9 @@ import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { save, update } from '#/api/tenant';
 import type { TenantDTO, TenantVO } from '#/api/models';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineOptions({ name: 'TenantForm' });
 
@@ -53,8 +56,8 @@ const formData = reactive<TenantFormData>({
 });
 
 const rules = {
-  tenantCode: [{ required: true, message: '请输入租户编码', trigger: 'blur' }],
-  tenantName: [{ required: true, message: '请输入租户名称', trigger: 'blur' }],
+  tenantCode: [{ required: true, message: t('business.tenantCodePlaceholder'), trigger: 'blur' }],
+  tenantName: [{ required: true, message: t('business.tenantNamePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -100,10 +103,10 @@ const [Modal, modalApi] = useYdModal({
       const dto: TenantDTO = { ...formData };
       if (formData.id) {
         await update(dto);
-        showToast.success('更新成功');
+        showToast.success(t('business.updateSuccess'));
       } else {
         await save(dto);
-        showToast.success('创建成功');
+        showToast.success(t('business.createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -117,36 +120,36 @@ const isEdit = computed(() => !!formData.id);
 </script>
 
 <template>
-  <Modal :title="isEdit ? '编辑租户' : '新增租户'">
+  <Modal :title="isEdit ? t('tenantForm.editTitle') : t('tenantForm.createTitle')">
     <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <YdFormItem label="租户编码" prop="tenantCode">
-        <YdInput v-model="formData.tenantCode" placeholder="请输入租户编码" :disabled="isEdit" />
+      <YdFormItem :label="t('business.tenantCode')" prop="tenantCode">
+        <YdInput v-model="formData.tenantCode" :placeholder="t('business.tenantCodePlaceholder')" :disabled="isEdit" />
       </YdFormItem>
-      <YdFormItem label="租户名称" prop="tenantName">
-        <YdInput v-model="formData.tenantName" placeholder="请输入租户名称" />
+      <YdFormItem :label="t('business.tenantName')" prop="tenantName">
+        <YdInput v-model="formData.tenantName" :placeholder="t('business.tenantNamePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="联系人" prop="contactName">
-        <YdInput v-model="formData.contactName" placeholder="请输入联系人" />
+      <YdFormItem :label="t('business.contactName')" prop="contactName">
+        <YdInput v-model="formData.contactName" :placeholder="t('tenantForm.contactNamePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="联系电话" prop="contactPhone">
-        <YdInput v-model="formData.contactPhone" placeholder="请输入联系电话" />
+      <YdFormItem :label="t('business.contactPhone')" prop="contactPhone">
+        <YdInput v-model="formData.contactPhone" :placeholder="t('tenantForm.contactPhonePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="联系邮箱" prop="contactEmail">
-        <YdInput v-model="formData.contactEmail" placeholder="请输入联系邮箱" />
+      <YdFormItem :label="t('business.contactEmail')" prop="contactEmail">
+        <YdInput v-model="formData.contactEmail" :placeholder="t('tenantForm.contactEmailPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="套餐ID" prop="planId">
-        <YdInput v-model="formData.planId" placeholder="请输入套餐ID" />
+      <YdFormItem :label="t('tenantForm.planId')" prop="planId">
+        <YdInput v-model="formData.planId" :placeholder="t('tenantForm.planIdPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="过期时间" prop="expireAt">
-        <YdDatePicker v-model="formData.expireAt" type="datetime" placeholder="选择过期时间" class="w-full" />
+      <YdFormItem :label="t('business.expireAt')" prop="expireAt">
+        <YdDatePicker v-model="formData.expireAt" type="datetime" :placeholder="t('tenantForm.expireAtPlaceholder')" class="w-full" />
       </YdFormItem>
-      <YdFormItem label="数据源" prop="datasourceKey">
-        <YdInput v-model="formData.datasourceKey" placeholder="请输入数据源标识" />
+      <YdFormItem :label="t('tenantForm.datasource')" prop="datasourceKey">
+        <YdInput v-model="formData.datasourceKey" :placeholder="t('tenantForm.datasourcePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="状态" prop="status">
-        <YdSelect v-model="formData.status" placeholder="请选择状态">
-          <YdSelectItem label="启用" value="ACTIVE" />
-          <YdSelectItem label="禁用" value="INACTIVE" />
+      <YdFormItem :label="t('business.status')" prop="status">
+        <YdSelect v-model="formData.status" :placeholder="t('tenantForm.statusPlaceholder')">
+          <YdSelectItem :label="t('business.enabled')" value="ACTIVE" />
+          <YdSelectItem :label="t('business.disabled')" value="INACTIVE" />
         </YdSelect>
       </YdFormItem>
     </YdForm>

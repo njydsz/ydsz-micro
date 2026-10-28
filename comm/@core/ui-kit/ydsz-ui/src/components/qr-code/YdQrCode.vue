@@ -3,6 +3,9 @@
 import { onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 二维码值 */
@@ -58,7 +61,7 @@ onMounted(() => {
       }
     }
   } catch (e) {
-    error.value = e instanceof Error ? e.message : '二维码生成失败';
+    error.value = e instanceof Error ? e.message : t('qrCode.generateFailed');
   }
 });
 
@@ -102,7 +105,7 @@ function generateSimpleQR(text: string): number[][] {
     <canvas
       v-if="props.renderAs === 'canvas' && !error"
       ref="canvasRef"
-      :aria-label="`二维码 ${props.value}`"
+      :aria-label="t('qrCode.ariaLabel', { value: props.value })"
       :height="props.size"
       :width="props.size"
       class="rounded bg-white"

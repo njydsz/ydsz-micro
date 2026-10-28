@@ -23,6 +23,7 @@ import {
 
 import { onDictChange } from '../composables/use-dict-event';
 import { useDictStore } from '@ydsz/stores';
+import { $t } from '@ydsz/locales';
 
 interface Props {
   /** 字典类型编码，如 system_status */
@@ -39,7 +40,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  placeholder: '请选择',
+  placeholder: undefined,
   disabled: false,
   clearable: true,
   multiple: false,
@@ -109,7 +110,7 @@ function handleChange(value: string | number): void {
     @update:model-value="handleChange"
   >
     <YdSelectTriggerBase class="w-full">
-      <YdSelectValueBase :placeholder="placeholder" />
+      <YdSelectValueBase :placeholder="placeholder ?? $t('ui.commonAction.pleaseSelect')" />
     </YdSelectTriggerBase>
     <YdSelectContentBase>
       <YdSelectItemBase

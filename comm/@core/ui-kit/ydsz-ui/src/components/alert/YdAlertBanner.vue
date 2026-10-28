@@ -14,6 +14,9 @@ import { computed } from 'vue';
 import { AlertCircle, AlertTriangle, CheckCircle2, Info } from 'lucide-vue-next';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdAlertBanner' });
 
@@ -131,7 +134,7 @@ function handleClose(): void {
       v-if="closable"
       type="button"
       class="alert-banner__close"
-      aria-label="关闭"
+      :aria-label="t('common.close')"
       @click="handleClose"
     >
       <span aria-hidden="true">&times;</span>

@@ -3,6 +3,9 @@
 import { cn } from '@ydsz-core/shared/utils';
 
 import { YdSkeleton } from '.././skeleton';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 自定义类名 */
@@ -51,7 +54,7 @@ const emit = defineEmits<{
 
     <!-- 空数据 -->
     <div v-if="!props.loading && !$slots.default" class="py-12 text-center text-sm text-muted-foreground">
-      <slot name="empty">暂无数据</slot>
+      <slot name="empty">{{ t('empty.default') }}</slot>
     </div>
   </div>
 </template>

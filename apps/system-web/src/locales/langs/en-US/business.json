@@ -398,7 +398,8 @@
       "emptyHint": "Type a keyword to search",
       "noResult": "No results found",
       "totalSearches": "Total searches: ",
-      "zeroResultRate": "Zero-result rate"
+      "zeroResultRate": "Zero-result rate",
+      "unknown": "Unknown"
     },
     "fileUpload": {
       "statusInitializing": "Initializing...",
@@ -428,5 +429,7 @@
   "editVariable": "Edit System Variable",
   "createVariable": "Create System Variable",
   "updateSuccess": "Updated successfully",
-  "createSuccess": "Created successfully"
+  "createSuccess": "Created successfully",
+  "noData": "No data",
+  "tenantDeleteConfirm": "Delete tenant \"{0}\"? This cannot be undone."
 }

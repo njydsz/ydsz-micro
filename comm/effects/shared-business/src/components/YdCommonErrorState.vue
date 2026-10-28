@@ -20,6 +20,7 @@ import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { YdButton } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 interface Props {
   /** 错误标题 */
@@ -35,8 +36,9 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: '页面出错了',
-  description: '请求失败，请稍后重试',
+  // 默认文案留 undefined：静态串不随语种切换，模板处用 $t 兜底
+  title: undefined,
+  description: undefined,
   showRetry: true,
   showBack: false,
   type: 'error',
@@ -97,12 +99,12 @@ function handleBack(): void {
     >
       <component :is="IconComponent" :size="28" />
     </div>
-    <h3 class="error-state__title">{{ title }}</h3>
+    <h3 class="error-state__title">{{ title ?? $t('ui.errorState.title') }}</h3>
     <p
-      v-if="description"
+      v-if="description !== ''"
       class="error-state__desc"
     >
-      {{ description }}
+      {{ description ?? $t('ui.errorState.description') }}
     </p>
     <div class="error-state__actions">
       <YdButton
@@ -110,7 +112,7 @@ function handleBack(): void {
         size="sm"
         @click="emit('retry')"
       >
-        重试
+        {{ $t('ui.errorState.retry') }}
       </YdButton>
       <YdButton
         v-if="showBack"
@@ -118,7 +120,7 @@ function handleBack(): void {
         variant="outline"
         @click="handleBack"
       >
-        返回
+        {{ $t('ui.commonAction.back') }}
       </YdButton>
     </div>
     <div

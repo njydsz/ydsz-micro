@@ -336,7 +336,8 @@
       "emptyHint": "Saisissez un mot-clé pour rechercher",
       "noResult": "Aucun résultat trouvé",
       "totalSearches": "Recherches totales : ",
-      "zeroResultRate": "Taux de résultats nuls"
+      "zeroResultRate": "Taux de résultats nuls",
+      "unknown": "Inconnu"
     },
     "fileUpload": {
       "statusInitializing": "Initialisation...",
@@ -428,5 +429,7 @@
   "editVariable": "Modifier la variable système",
   "createVariable": "Créer une variable système",
   "updateSuccess": "Mise à jour réussie",
-  "createSuccess": "Création réussie"
+  "createSuccess": "Création réussie",
+  "noData": "Aucune donnée",
+  "tenantDeleteConfirm": "Supprimer le locataire « {0} » ? Cette action est irréversible."
 }

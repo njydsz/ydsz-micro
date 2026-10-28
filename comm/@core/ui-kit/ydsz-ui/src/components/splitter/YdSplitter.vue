@@ -3,6 +3,9 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: any;
@@ -102,7 +105,7 @@ onBeforeUnmount(() => handleMouseUp());
       </div>
       <div
         v-if="i < innerSizes.length - 1"
-        :aria-label="`调整面板大小`"
+        :aria-label="t('splitter.ariaLabel')"
         :class="
           cn(
             'relative z-10 flex shrink-0 items-center justify-center bg-border transition-colors hover:bg-primary/20',

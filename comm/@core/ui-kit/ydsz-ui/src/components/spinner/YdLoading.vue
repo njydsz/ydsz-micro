@@ -15,6 +15,9 @@
 import { ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: string;
@@ -93,7 +96,7 @@ function onTransitionEnd() {
   >
     <slot name="icon" v-if="renderSpinner">
       <span
-        aria-label="加载中"
+        :aria-label="t('common.loading')"
         class="dot relative inline-block size-9 text-3xl"
         role="status"
       >

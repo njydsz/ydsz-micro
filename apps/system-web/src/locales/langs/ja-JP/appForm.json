@@ -1,0 +1,14 @@
+{
+  "appCode": "アプリコード",
+  "appCodePlaceholder": "アプリコードを入力してください",
+  "appKeyLabel": "アプリキー",
+  "appNamePlaceholder": "アプリ名を入力してください",
+  "boundIps": "バインド IP",
+  "boundIpsPlaceholder": "バインド IP を入力してください（カンマ区切り）",
+  "createTitle": "アプリを追加",
+  "editTitle": "アプリを編集",
+  "redirectUrl": "コールバック URL",
+  "redirectUrlPlaceholder": "コールバック URL を入力してください",
+  "scopes": "スコープ",
+  "scopesPlaceholder": "スコープを入力してください（カンマ区切り）"
+}

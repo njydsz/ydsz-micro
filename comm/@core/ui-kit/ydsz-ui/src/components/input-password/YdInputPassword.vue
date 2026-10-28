@@ -15,8 +15,12 @@ import { ref, useSlots } from 'vue';
 import { Eye, EyeOff } from '@ydsz-core/icons';
 import { cn } from '@ydsz-core/shared/utils';
 
+import { useLocale } from '../../locale/useLocale';
+
 import { YdInput } from '.././input';
 import PasswordStrength from './password-strength.vue';
+
+const { t } = useLocale();
 
 interface Props {
   class?: any;
@@ -46,10 +50,10 @@ const show = ref(false);
       v-model="modelValue"
       :class="cn(props.class)"
       :type="show ? 'text' : 'password'"
-      :aria-label="$attrs.placeholder || '密码输入框'"
+      :aria-label="$attrs.placeholder || t('inputPassword.ariaLabel')"
     />
     <template v-if="passwordStrength">
-      <PasswordStrength :password="modelValue" aria-label="密码强度指示器" />
+      <PasswordStrength :password="modelValue" :aria-label="t('inputPassword.strengthAriaLabel')" />
       <p v-if="slots.strengthText" class="text-muted-foreground mt-1.5 text-xs" aria-live="polite">
         <slot name="strengthText"> </slot>
       </p>
@@ -61,7 +65,7 @@ const show = ref(false);
       }"
       class="hover:text-foreground text-foreground/60 absolute inset-y-0 right-0 flex cursor-pointer pr-3 text-lg leading-5"
       role="button"
-      :aria-label="show ? '隐藏密码' : '显示密码'"
+      :aria-label="show ? t('inputPassword.hide') : t('inputPassword.show')"
       :aria-pressed="show"
       tabindex="0"
       @click="show = !show"

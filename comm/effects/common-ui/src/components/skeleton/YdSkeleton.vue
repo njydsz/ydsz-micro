@@ -18,6 +18,7 @@
 -->
 <script setup lang="ts">
 import { computed } from 'vue';
+import { $t } from '@ydsz/locales';
 
 /**
  * 骨架屏类型
@@ -56,7 +57,7 @@ const skeletonClasses = computed(() => {
 </script>
 
 <template>
-  <div :class="skeletonClasses" role="status" aria-label="加载中" aria-live="polite">
+  <div :class="skeletonClasses" role="status" :aria-label="$t('ui.commonAction.loading')" aria-live="polite">
     <!-- Dashboard 骨架屏 -->
     <div v-if="type === 'dashboard'" class="skeleton-dashboard">
       <div class="skeleton-row">

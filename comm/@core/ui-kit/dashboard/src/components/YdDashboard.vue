@@ -18,11 +18,25 @@ import YdChartCard from './YdChartCard.vue';
 import YdDashboardEditOverlay from './YdDashboardEditOverlay.vue';
 import YdStatCard from './YdStatCard.vue';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
+
 const props = withDefaults(defineProps<{
   config?: DashboardConfig;
 }>(), {
-  config: () => createDefaultConfig('新仪表盘'),
+  config: undefined,
 });
+
+/**
+ * 实际渲染用的看板配置。
+ *
+ * <p>默认配置不能写在 prop 默认值里：那里只能拿到静态字符串（原为中文「新仪表盘」），
+ * 切语种不会跟着变，故留 undefined 在此按当前语种兜底。
+ */
+const resolvedConfig = computed<DashboardConfig>(
+  () => props.config ?? createDefaultConfig(t('dashboard.defaultTitle')),
+);
 
 const emit = defineEmits<{
   'config-change': [config: DashboardConfig];
@@ -39,7 +53,7 @@ const gridClass = computed<string>(() => {
     6: 'grid-cols-6',
     12: 'grid-cols-12',
   };
-  return map[props.config.columns] ?? 'grid-cols-4';
+  return map[resolvedConfig.value.columns] ?? 'grid-cols-4';
 });
 
 /**
@@ -61,8 +75,8 @@ function spanClass(span: number): string {
  * 删除卡片。
  */
 function handleRemoveCard(id: string): void {
-  const items = props.config.cards.filter((c) => c.id !== id);
-  emit('config-change', { ...props.config, cards: items });
+  const items = resolvedConfig.value.cards.filter((c) => c.id !== id);
+  emit('config-change', { ...resolvedConfig.value, cards: items });
 }
 </script>
 
@@ -70,16 +84,16 @@ function handleRemoveCard(id: string): void {
   <div class="ds-dashboard flex flex-col gap-3">
     <!-- 仪表盘标题 -->
     <div class="flex items-center justify-between">
-      <h2 class="text-base font-semibold">{{ config.title }}</h2>
-      <div v-if="config.isEditable" class="text-xs text-muted-foreground">
-        {{ config.cards.length }} 张卡片
+      <h2 class="text-base font-semibold">{{ resolvedConfig.title }}</h2>
+      <div v-if="resolvedConfig.isEditable" class="text-xs text-muted-foreground">
+        {{ t('dashboard.cardCount', { count: resolvedConfig.cards.length }) }}
       </div>
     </div>
 
     <!-- 卡片栅格 -->
     <div :class="['grid gap-3', gridClass]">
       <div
-        v-for="card in config.cards"
+        v-for="card in resolvedConfig.cards"
         :key="card.id"
         :class="['relative', spanClass(card.span)]"
       >
@@ -94,7 +108,7 @@ function handleRemoveCard(id: string): void {
           @click="emit('card-click', card)"
         />
         <YdDashboardEditOverlay
-          v-if="config.isEditable"
+          v-if="resolvedConfig.isEditable"
           :card-id="card.id"
           @remove="handleRemoveCard"
         />
@@ -103,11 +117,11 @@ function handleRemoveCard(id: string): void {
 
     <!-- 空状态提示 -->
     <div
-      v-if="config.cards.length === 0"
+      v-if="resolvedConfig.cards.length === 0"
       class="flex h-64 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground"
     >
-      <span v-if="config.isEditable">点击「添加卡片」开始构建仪表盘</span>
-      <span v-else>暂无卡片数据</span>
+      <span v-if="resolvedConfig.isEditable">{{ t('dashboard.emptyEditable') }}</span>
+      <span v-else>{{ t('dashboard.empty') }}</span>
     </div>
   </div>
 </template>

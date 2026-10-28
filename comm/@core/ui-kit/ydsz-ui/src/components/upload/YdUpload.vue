@@ -53,7 +53,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { CloudUpload, Plus } from 'lucide-vue-next';
 
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 
 import YdUploadItem from './YdUploadItem.vue';
 
@@ -81,8 +81,6 @@ const props = withDefaults(
     headers?: Record<string, string>;
     /** 最大上传数量 */
     limit?: number;
-    /** 当前语言，默认 'zh' */
-    locale?: string;
     /** 分片并发数，默认 3 */
     maxConcurrency?: number;
     /** 分片最大重试次数，默认 3 */
@@ -122,7 +120,6 @@ const props = withDefaults(
     isDrag: false,
     isMultiple: false,
     listType: 'text',
-    locale: 'zh',
     maxConcurrency: 3,
     maxRetries: 3,
     multipartApiBase: '/api/file/multipart',
@@ -132,10 +129,7 @@ const props = withDefaults(
   },
 );
 
-const { t } = useComponentI18n({
-  defaultLocale: props.locale,
-  messages: uploadMessages,
-});
+const { t } = useLocale();
 
 const emit = defineEmits<{
   (e: 'update:fileList', value: UploadUserFile[]): void;
@@ -540,7 +534,6 @@ defineExpose({
         :key="file.id ?? file.name"
         :file="file"
         :list-type="listType"
-        :locale="locale"
         @remove="removeFile"
         @retry="retryFile"
       />

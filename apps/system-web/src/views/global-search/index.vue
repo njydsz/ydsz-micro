@@ -58,11 +58,11 @@ const searchSummary = ref<SearchSummary>({});
 // ======================== 分类选项 ========================
 
 const tabs = computed(() => [
-  { key: 'all', label: t('system.search.tabAll') || '全部' },
-  { key: 'task', label: t('system.search.tabTask') || '任务' },
-  { key: 'message', label: t('system.search.tabMessage') || '消息' },
-  { key: 'rule', label: t('system.search.tabRule') || '规则' },
-  { key: 'doc', label: t('system.search.tabDoc') || '文档' },
+  { key: 'all', label: t('system.search.tabAll') },
+  { key: 'task', label: t('system.search.tabTask') },
+  { key: 'message', label: t('system.search.tabMessage') },
+  { key: 'rule', label: t('system.search.tabRule') },
+  { key: 'doc', label: t('system.search.tabDoc') },
 ]);
 
 // ======================== 方法 ========================
@@ -144,7 +144,7 @@ watch(keyword, () => {
         <input
           v-model="keyword"
           class="search-input flex-1 rounded-md border px-4 py-2 text-base outline-none focus:border-blue-500"
-          :placeholder="t('system.search.placeholder') || '搜索任务、消息、规则、文档...'"
+          :placeholder="t('system.search.placeholder')"
           @keyup.enter="handleEnterSearch"
         />
         <button
@@ -152,13 +152,13 @@ watch(keyword, () => {
           :disabled="loading"
           @click="handleEnterSearch"
         >
-          {{ t('system.search.btnSearch') || '搜索' }}
+          {{ t('system.search.btnSearch') }}
         </button>
       </div>
 
       <!-- 热门词推荐 -->
       <div v-if="hotWords.length && !keyword" class="mt-3 flex flex-wrap gap-2 text-sm text-gray-500">
-        <span>{{ t('system.search.hot') || '热门搜索' }}:</span>
+        <span>{{ t('system.search.hot') }}:</span>
         <span
           v-for="word in hotWords"
           :key="word.keyword"
@@ -185,29 +185,29 @@ watch(keyword, () => {
 
     <!-- 结果统计 -->
     <div v-if="keyword && searchResult.total !== undefined" class="mb-3 text-sm text-gray-500">
-      {{ t('system.search.resultCount') || '找到' }}
+      {{ t('system.search.resultCount') }}
       <span class="font-semibold text-gray-700">{{ searchResult.total }}</span>
-      {{ t('system.search.resultUnit') || '条结果' }}
+      {{ t('system.search.resultUnit') }}
       <span v-if="searchResult.took" class="text-gray-400">({{ searchResult.took }}ms)</span>
     </div>
 
     <!-- 结果列表 -->
     <div v-if="loading" class="flex justify-center py-12 text-gray-400">
-      {{ t('system.search.loading') || '搜索中...' }}
+      {{ t('system.search.loading') }}
     </div>
 
     <div v-else-if="!keyword" class="flex flex-col items-center justify-center py-16 text-gray-400">
       <i class="lucide-search mb-4 text-4xl" />
-      <p>{{ t('system.search.emptyHint') || '输入关键词开始搜索' }}</p>
+      <p>{{ t('system.search.emptyHint') }}</p>
       <div v-if="searchSummary.totalSearches" class="mt-4 text-xs">
-        {{ t('system.search.totalSearches') || '累计搜索' }}: {{ searchSummary.totalSearches }}
+        {{ t('system.search.totalSearches') }}: {{ searchSummary.totalSearches }}
       </div>
     </div>
 
     <div v-else-if="!searchResult.items?.length" class="py-12 text-center text-gray-400">
-      {{ t('system.search.noResult') || '未找到匹配结果' }}
+      {{ t('system.search.noResult') }}
       <div v-if="(searchSummary.zeroResultRate || 0) > 0" class="mt-2 text-xs">
-        {{ t('system.search.zeroResultRate') || '零结果率' }}:
+        {{ t('system.search.zeroResultRate') }}:
         {{ ((searchSummary.zeroResultRate || 0) * 100).toFixed(1) }}%
       </div>
     </div>
@@ -222,7 +222,7 @@ watch(keyword, () => {
       >
         <div class="mb-1 flex items-center gap-2">
           <span class="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
-            {{ item.typeName || item.type || '未知' }}
+            {{ item.typeName || item.type || t('system.search.unknown') }}
           </span>
           <span class="text-sm font-medium">{{ item.title || item.id }}</span>
         </div>

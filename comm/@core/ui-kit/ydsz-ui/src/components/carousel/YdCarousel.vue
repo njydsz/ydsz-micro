@@ -5,6 +5,10 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 type Effect = 'fade' | 'slide';
 
 interface Props {
@@ -113,7 +117,7 @@ defineExpose({ next, prev, switchTo });
     <!-- 切换箭头 -->
     <button
       v-if="props.arrows"
-      :aria-label="'上一项'"
+      :aria-label="t('carousel.prev')"
       class="absolute left-2 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white transition-colors hover:bg-black/50"
       type="button"
       @click="prev"
@@ -122,7 +126,7 @@ defineExpose({ next, prev, switchTo });
     </button>
     <button
       v-if="props.arrows"
-      :aria-label="'下一项'"
+      :aria-label="t('carousel.next')"
       class="absolute right-2 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white transition-colors hover:bg-black/50"
       type="button"
       @click="next"
@@ -135,7 +139,7 @@ defineExpose({ next, prev, switchTo });
       <button
         v-for="i in totalItems"
         :key="i - 1"
-        :aria-label="`第 ${i} 项`"
+        :aria-label="t('carousel.goToSlide', { index: i })"
         :class="cn('size-2 rounded-full transition-colors', activeIndex === i - 1 ? 'bg-white' : 'bg-white/50 hover:bg-white/80')"
         type="button"
         @click="switchTo(i - 1)"

@@ -30,6 +30,9 @@ import {
 import { buttonVariants } from '../button';
 import DialogOverlay from '../dialog/DialogOverlay.vue';
 import { X } from 'lucide-vue-next';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdConfirmDialog' });
 
@@ -160,7 +163,7 @@ defineExpose({
           v-if="closeOnOverlayClick"
           class="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full text-text-tertiary opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           @click="handleCancel"
-          aria-label="关闭"
+          :aria-label="t('common.close')"
         >
           <X class="size-4" />
         </DialogClose>
@@ -207,14 +210,14 @@ defineExpose({
             :class="cn(buttonVariants({ variant: rejectVariant, size: 'sm' }))"
             @click="handleCancel"
           >
-            {{ rejectLabel ?? '取消' }}
+            {{ rejectLabel ?? t('common.cancel') }}
           </button>
           <button
             type="button"
             :class="cn(buttonVariants({ variant: confirmVariant, size: 'sm' }))"
             @click="handleConfirm"
           >
-            {{ confirmLabel ?? '确认' }}
+            {{ confirmLabel ?? t('common.confirm') }}
           </button>
         </div>
       </DialogContent>

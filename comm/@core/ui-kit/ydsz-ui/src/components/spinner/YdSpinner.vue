@@ -16,6 +16,9 @@
 import { ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: string;
@@ -86,7 +89,7 @@ function onTransitionEnd() {
     "
     role="status"
     aria-live="polite"
-    aria-label="加载中"
+    :aria-label="t('common.loading')"
     @transitionend="onTransitionEnd"
   >
     <div

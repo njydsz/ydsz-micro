@@ -11,6 +11,9 @@ import type { CascaderEmits, CascaderOption, CascaderProps } from './cascader-ty
 import { computed, ref } from 'vue';
 
 import { Check, ChevronDown, ChevronRight, CircleX } from '@ydsz-core/icons';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdCascader' });
 
@@ -108,7 +111,7 @@ function isSelected(option: CascaderOption): boolean {
 
 /** 显示文本 */
 const displayText = computed(() => {
-  if (selectedValues.value.length === 0) return props.placeholder ?? '请选择';
+  if (selectedValues.value.length === 0) return props.placeholder ?? t('select.placeholder');
   return selectedValues.value.join(props.separator);
 });
 </script>
@@ -126,14 +129,14 @@ const displayText = computed(() => {
     >
       <span class="yd-cascader__value">{{ displayText }}</span>
       <ChevronDown v-if="!allowClear || selectedValues.length === 0" class="yd-cascader__icon" />
-      <CircleX v-else class="yd-cascader__clear" role="button" aria-label="清除" @click="handleClear" />
+      <CircleX v-else class="yd-cascader__clear" role="button" :aria-label="t('common.clear')" @click="handleClear" />
     </button>
 
     <!-- 面板 -->
     <div v-if="isOpen" class="yd-cascader__panel" role="listbox">
       <!-- 搜索框 -->
       <div v-if="searchable" class="yd-cascader__search">
-        <input v-model="searchText" type="text" placeholder="搜索..." class="yd-cascader__search-input" />
+        <input v-model="searchText" type="text" :placeholder="t('cascader.searchPlaceholder')" class="yd-cascader__search-input" />
       </div>
 
       <!-- 级联列 -->

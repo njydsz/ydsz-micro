@@ -13,6 +13,9 @@ import { ArrowUp } from 'lucide-vue-next';
 
 import { YdBadge } from '../badge';
 import { YdTooltip, YdTooltipContent, YdTooltipProvider, YdTooltipTrigger } from '.././tooltip';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 自定义类名 */
@@ -57,7 +60,7 @@ function handleClick(event: MouseEvent): void {
       <YdTooltipTrigger as-child>
         <button
           v-show="props.visible"
-          :aria-label="props.description ?? '悬浮按钮'"
+          :aria-label="props.description ?? t('floatButton.ariaLabel')"
           :aria-disabled="props.disabled"
           :class="
             cn(

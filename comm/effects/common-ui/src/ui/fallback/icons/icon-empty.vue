@@ -6,6 +6,8 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
+import { $t } from '@ydsz/locales';
+
 defineOptions({
   name: 'IconEmpty',
 });
@@ -17,10 +19,10 @@ defineOptions({
     xmlns="http://www.w3.org/2000/svg"
     class="empty-state-icon"
     role="img"
-    aria-label="暂无数据"
+    :aria-label="$t('ui.emptyState.label')"
   >
-    <title>暂无数据</title>
-    <desc>空状态图标，表示当前没有可显示的数据内容</desc>
+    <title>{{ $t('ui.emptyState.label') }}</title>
+    <desc>{{ $t('ui.emptyState.description') }}</desc>
     <!-- 背景圆形 -->
     <circle cx="100" cy="100" r="90" fill="#f5f7fa" />
     
@@ -85,7 +87,7 @@ defineOptions({
       fill="#909399"
       font-family="system-ui, -apple-system, sans-serif"
     >
-      暂无数据
+      {{ $t('ui.emptyState.label') }}
     </text>
   </svg>
 </template>

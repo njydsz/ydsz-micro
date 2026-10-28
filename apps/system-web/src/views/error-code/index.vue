@@ -18,6 +18,7 @@
  * @since 1.0.0
  */
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import type { ErrorCode } from '@ydsz/locales/errors';
 import { ZH_CN_MESSAGES } from '@ydsz/locales/errors/zh-CN';
@@ -55,44 +56,62 @@ const LEVEL_TAG_TYPE: Record<ErrorCodeItem['level'], 'info' | 'warning' | 'dange
  * @param code - 错误码
  * @returns 模块中文名
  */
+/**
+ * 错误码前缀 → 模块名。
+ *
+ * <p>用 { prefix, labelKey } 清单而不是 if-return 链：键名写在 labelKey 属性上，
+ * 缺键能被动静态门禁抓到；协议名（SCIM/SAML/OIDC/WebAuthn/AI Agent）是专有名词，
+ * 各语种一致，直接给 label。
+ */
+const MODULE_BY_PREFIX: Array<{ prefix: string; labelKey?: string; label?: string }> = [
+  { prefix: 'A00', labelKey: 'errorCode.moduleGeneric' },
+  { prefix: 'A01', labelKey: 'errorCode.moduleParam' },
+  { prefix: 'A02', labelKey: 'errorCode.moduleAuthn' },
+  { prefix: 'A03', labelKey: 'errorCode.moduleAuthz' },
+  { prefix: 'A04', labelKey: 'errorCode.moduleData' },
+  { prefix: 'A05', labelKey: 'errorCode.moduleBatch' },
+  { prefix: 'A07', labelKey: 'errorCode.moduleIdempotent' },
+  { prefix: 'B01', labelKey: 'errorCode.moduleInternal' },
+  { prefix: 'B02', labelKey: 'errorCode.moduleExternal' },
+  { prefix: 'B30', labelKey: 'errorCode.moduleUserAccount' },
+  { prefix: 'A20', labelKey: 'errorCode.moduleOauth' },
+  { prefix: 'B31', labelKey: 'errorCode.moduleUserMgmt' },
+  { prefix: 'B32', labelKey: 'errorCode.moduleRole' },
+  { prefix: 'B33', labelKey: 'errorCode.moduleRegister' },
+  { prefix: 'B34', labelKey: 'errorCode.moduleSocial' },
+  { prefix: 'B35', labelKey: 'errorCode.moduleLdap' },
+  { prefix: 'B36', label: 'SCIM' },
+  { prefix: 'B37', label: 'SAML' },
+  { prefix: 'B38', label: 'OIDC' },
+  { prefix: 'B39', label: 'WebAuthn' },
+  { prefix: 'B70', labelKey: 'errorCode.moduleWfTemplate' },
+  { prefix: 'B71', labelKey: 'errorCode.moduleWfInstance' },
+  { prefix: 'B72', labelKey: 'errorCode.moduleWfTask' },
+  { prefix: 'B73', labelKey: 'errorCode.moduleWfDelegation' },
+  { prefix: 'B74', labelKey: 'errorCode.moduleWfCategory' },
+  { prefix: 'B75', labelKey: 'errorCode.moduleWfSla' },
+  { prefix: 'B76', labelKey: 'errorCode.moduleWfAgent' },
+  { prefix: 'B90', labelKey: 'errorCode.moduleSystemConfig' },
+  { prefix: 'B91', labelKey: 'errorCode.moduleMessage' },
+  { prefix: 'B92', labelKey: 'errorCode.moduleCronjob' },
+  { prefix: 'B93', labelKey: 'errorCode.moduleRule' },
+  { prefix: 'B94', label: 'AI Agent' },
+  { prefix: 'B95', labelKey: 'errorCode.moduleTenant' },
+  { prefix: 'B96', labelKey: 'errorCode.moduleEntityVersion' },
+  { prefix: 'C01', labelKey: 'errorCode.moduleSecurityAuthz' },
+  { prefix: 'C99', labelKey: 'errorCode.moduleUnknown' },
+];
+
+/**
+ * 根据错误码推断模块分类。
+ *
+ * @param code - 错误码
+ * @returns 模块显示名（按当前语种）
+ */
 function inferModule(code: string): string {
-  if (code.startsWith('A00')) return '通用/成功';
-  if (code.startsWith('A01')) return '参数校验';
-  if (code.startsWith('A02')) return '认证';
-  if (code.startsWith('A03')) return '授权';
-  if (code.startsWith('A04')) return '数据资源';
-  if (code.startsWith('A05')) return '批量操作';
-  if (code.startsWith('A07')) return '幂等';
-  if (code.startsWith('B01')) return '系统内部';
-  if (code.startsWith('B02')) return '外部服务';
-  if (code.startsWith('B30')) return '用户账号';
-  if (code.startsWith('A20')) return 'OAuth/令牌';
-  if (code.startsWith('B31')) return '用户管理';
-  if (code.startsWith('B32')) return '角色权限';
-  if (code.startsWith('B33')) return '注册/密码';
-  if (code.startsWith('B34')) return '社交登录';
-  if (code.startsWith('B35')) return 'LDAP同步';
-  if (code.startsWith('B36')) return 'SCIM';
-  if (code.startsWith('B37')) return 'SAML';
-  if (code.startsWith('B38')) return 'OIDC';
-  if (code.startsWith('B39')) return 'WebAuthn';
-  if (code.startsWith('B70')) return '工作流-模板';
-  if (code.startsWith('B71')) return '工作流-实例';
-  if (code.startsWith('B72')) return '工作流-任务';
-  if (code.startsWith('B73')) return '工作流-委托';
-  if (code.startsWith('B74')) return '工作流-分类';
-  if (code.startsWith('B75')) return '工作流-SLA';
-  if (code.startsWith('B76')) return '工作流-Agent';
-  if (code.startsWith('B90')) return '系统配置';
-  if (code.startsWith('B91')) return '消息通道';
-  if (code.startsWith('B92')) return '定时任务';
-  if (code.startsWith('B93')) return '规则引擎';
-  if (code.startsWith('B94')) return 'AI Agent';
-  if (code.startsWith('B95')) return '多租户';
-  if (code.startsWith('B96')) return '实体版本';
-  if (code.startsWith('C01')) return '安全鉴权';
-  if (code.startsWith('C99')) return '未知';
-  return '其他';
+  const hit = MODULE_BY_PREFIX.find((item) => code.startsWith(item.prefix));
+  if (!hit) return t('errorCode.moduleOther');
+  return hit.labelKey ? t(hit.labelKey) : (hit.label ?? '');
 }
 
 /**
@@ -122,6 +141,8 @@ const allErrorCodes = computed<ErrorCodeItem[]>(() =>
 );
 
 /** 搜索关键词 */
+const { t } = useI18n();
+
 const searchKeyword = ref('');
 
 /** 模块过滤 */
@@ -134,7 +155,7 @@ const levelFilter = ref<string>('all');
 const moduleOptions = computed(() => {
   const modules = new Set(allErrorCodes.value.map((item) => item.module));
   return [
-    { label: '全部模块', value: 'all' },
+    { label: t('errorCode.allModules'), value: 'all' },
     ...Array.from(modules)
       .sort()
       .map((m) => ({ label: m, value: m })),
@@ -172,10 +193,10 @@ if (import.meta.env.DEV) {
         <!-- TODO: prefix-icon 与 clearable 需手动组合 slot（shadcn YdInput 不内置） -->
         <YdInput
           v-model="searchKeyword"
-          placeholder="搜索错误码 / 关键词"
+          :placeholder="t('errorCode.searchPlaceholder')"
           class="w-[260px]"
         />
-        <YdSelect v-model="moduleFilter" placeholder="选择模块" style="width: 180px">
+        <YdSelect v-model="moduleFilter" :placeholder="t('errorCode.selectModule')" style="width: 180px">
           <YdSelectItem
             v-for="opt in moduleOptions"
             :key="opt.value"
@@ -183,15 +204,15 @@ if (import.meta.env.DEV) {
             :value="opt.value"
           />
         </YdSelect>
-        <YdSelect v-model="levelFilter" placeholder="选择等级" style="width: 140px">
-          <YdSelectItem label="全部等级" value="all" />
+        <YdSelect v-model="levelFilter" :placeholder="t('errorCode.selectLevel')" style="width: 140px">
+          <YdSelectItem :label="t('errorCode.allLevels')" value="all" />
           <YdSelectItem label="INFO" value="INFO" />
           <YdSelectItem label="WARN" value="WARN" />
           <YdSelectItem label="ERROR" value="ERROR" />
           <YdSelectItem label="FATAL" value="FATAL" />
         </YdSelect>
         <div class="ml-auto text-sm text-gray-400">
-          共 {{ filteredErrorCodes.length }} / {{ allErrorCodes.length }} 条
+          {{ t('errorCode.countSummary', { filtered: filteredErrorCodes.length, total: allErrorCodes.length }) }}
         </div>
       </div>
     </YdCard>
@@ -199,24 +220,24 @@ if (import.meta.env.DEV) {
     <!-- 错误码表格 -->
     <YdCard shadow="never">
       <YdTable :data="filteredErrorCodes" stripe style="width: 100%">
-        <YdTableColumn prop="code" label="错误码" width="120">
+        <YdTableColumn prop="code" :label="t('errorCode.colCode')" width="120">
           <template #default="{ row }">
             <span class="font-mono text-sm">{{ row.code }}</span>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="module" label="模块" width="140">
+        <YdTableColumn prop="module" :label="t('errorCode.colModule')" width="140">
           <template #default="{ row }">
             <YdBadge variant="secondary">{{ row.module }}</YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="level" label="等级" width="100">
+        <YdTableColumn prop="level" :label="t('errorCode.colLevel')" width="100">
           <template #default="{ row }">
             <YdBadge :variant="LEVEL_TAG_TYPE[row.level] === 'info' ? 'secondary' : 'destructive'">{{ row.level }}</YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="message" label="错误描述" min-width="300" />
+        <YdTableColumn prop="message" :label="t('errorCode.colMessage')" min-width="300" />
       </YdTable>
-      <YdEmptyState v-if="filteredErrorCodes.length === 0" description="暂无匹配的错误码" />
+      <YdEmptyState v-if="filteredErrorCodes.length === 0" :description="t('errorCode.noMatch')" />
     </YdCard>
   </div>
 </template>

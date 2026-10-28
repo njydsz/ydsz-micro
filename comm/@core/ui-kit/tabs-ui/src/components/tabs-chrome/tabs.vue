@@ -19,6 +19,9 @@ import { computed, ref } from 'vue';
 
 import { Pin, X } from '@ydsz-core/icons';
 import { YdContextMenu, YdIcon } from '@ydsz-core/ydsz-ui';
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
 
 type Props = TabsProps;
 
@@ -118,7 +121,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
     ref="contentRef"
     :class="contentClass"
     :style="style"
-    aria-label="标签页"
+    :aria-label="t('tabs.ariaLabel')"
     class="tabs-chrome !flex h-full w-full overflow-y-hidden"
     role="tablist"
   >

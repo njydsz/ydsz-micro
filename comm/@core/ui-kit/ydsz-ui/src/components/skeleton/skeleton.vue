@@ -21,6 +21,9 @@ import { computed } from 'vue';
 
 import type { SkeletonProps } from './skeleton-types';
 import type { SkeletonSize, SkeletonVariant } from './skeleton-types';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdSkeleton' });
 
@@ -198,7 +201,7 @@ const paragraphRowHeight = computed<string>(
   <div
     role="status"
     aria-busy="true"
-    aria-label="加载中"
+    :aria-label="t('skeleton.loading')"
     class="yd-skeleton"
   >
     <!-- avatar 占位 -->

@@ -1,0 +1,14 @@
+{
+  "appCode": "Code de l'application",
+  "appCodePlaceholder": "Saisissez le code de l'application",
+  "appKeyLabel": "Clé de l'application",
+  "appNamePlaceholder": "Saisissez le nom de l'application",
+  "boundIps": "IP liées",
+  "boundIpsPlaceholder": "Saisissez les IP liées (séparées par des virgules)",
+  "createTitle": "Nouvelle application",
+  "editTitle": "Modifier l'application",
+  "redirectUrl": "URL de rappel",
+  "redirectUrlPlaceholder": "Saisissez l'URL de rappel",
+  "scopes": "Portées",
+  "scopesPlaceholder": "Saisissez les portées (séparées par des virgules)"
+}

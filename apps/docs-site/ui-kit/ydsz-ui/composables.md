@@ -482,32 +482,18 @@ function resetRenderPerf(componentName?: string): void;
 
 ---
 
-## useComponentI18n
-
-组件级国际化。
-
-```typescript
-function useComponentI18n(options: {
-  defaultLocale?: string;   // 默认 'zh'
-  messages: Record<string, Record<string, string>>;
-}): {
-  setLocale: (locale: string) => void;
-  locale: () => string;
-  t: (key: string, params?: Record<string, string | number>) => string;
-}
-```
-
----
-
 ## useLocale
 
-全局 locale 读写（内置 zh-CN / en-US、支持 RTL）。
+全局 locale 读写：内置 14 种语种（zh-CN / zh-TW / en-US / ja-JP / ko-KR / fr-FR / de-DE / es-ES / pt-BR / ru-RU / ar-SA / hi-IN / th-TH / vi-VN），RTL 自动识别。
+
+> 组件内文案统一走它：词条按「当前语种 → zh-CN → en-US → 显式 fallback → 键名」逐级回退。
+> 不要再在组件里自建 zh/en 消息表——切全站语种时那些文案不会跟着变。
 
 ```typescript
 function useLocale(options?: {
   messages?: Partial<Record<LocaleLang, Partial<LocaleMessages>>>;
 }): {
-  t: (key: string, fallback?: string) => string;
+  t: (key: string, fallbackOrParams?: string | LocaleParams) => string;
   lang: Readonly<Ref<LocaleLang>>;
   isRTL: Readonly<Ref<boolean>>;
 }

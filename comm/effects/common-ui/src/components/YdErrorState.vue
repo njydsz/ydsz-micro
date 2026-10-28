@@ -21,6 +21,7 @@
 defineOptions({ name: 'YdErrorState' });
 
 import { YdButton } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 withDefaults(
   defineProps<{
@@ -29,7 +30,8 @@ withDefaults(
     showRetry?: boolean;
   }>(),
   {
-    message: '数据加载失败，请稍后再试',
+    // 默认文案留 undefined：静态串不随语种切换，模板处用 $t 兜底
+    message: undefined,
     showBack: false,
     showRetry: true,
   },
@@ -48,13 +50,13 @@ const emit = defineEmits<{
         <path d="M32 20v16M32 44v2" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6" />
       </svg>
     </div>
-    <p class="error-message">{{ message }}</p>
+    <p class="error-message">{{ message ?? $t('ui.errorState.description') }}</p>
     <div class="error-actions">
       <YdButton v-if="showRetry" variant="default" @click="emit('retry')">
-        重新加载
+        {{ $t('ui.commonAction.reload') }}
       </YdButton>
       <YdButton v-if="showBack" variant="secondary" @click="$router.back()">
-        返回上一页
+        {{ $t('ui.commonAction.backToPrev') }}
       </YdButton>
     </div>
   </div>

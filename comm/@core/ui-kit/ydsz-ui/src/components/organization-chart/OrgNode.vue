@@ -16,6 +16,9 @@ import {
   isBranchNode,
   resolveNodeType,
 } from './use-organization-chart';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 当前节点数据 */
@@ -123,7 +126,7 @@ function handleExpandClick(): void {
       <button
         v-if="hasChildren && collapsible"
         type="button"
-        :aria-label="isExpanded ? '收起' : '展开'"
+        :aria-label="isExpanded ? t('common.collapse') : t('common.expand')"
         aria-keyshortcuts="Enter"
         :class="cn(
           'absolute -bottom-3 left-1/2 z-20 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border border-slate-300 bg-white text-xs font-bold text-slate-600 transition-transform hover:bg-slate-100',

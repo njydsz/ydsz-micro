@@ -26,6 +26,10 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { Search, X } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 defineOptions({
   name: 'YdAdvancedFilterBar',
 });
@@ -57,10 +61,15 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   className: '',
   filters: () => [],
-  searchPlaceholder: '搜索...',
+  searchPlaceholder: undefined,
   searchQuery: '',
   showSearch: true,
 });
+
+/** 搜索占位文案：prop 默认值只能是静态串，切语种不跟着变，故按当前语种兜底 */
+const resolvedSearchPlaceholder = computed<string>(
+  () => props.searchPlaceholder ?? t('common.searchPlaceholder'),
+);
 
 const emit = defineEmits<{
   (e: 'removeFilter', field: string, rawValue: string | number | boolean): void;
@@ -91,7 +100,7 @@ function handleSearchInput(event: Event): void {
   <div
     :class="cn('flex flex-wrap items-center gap-2 rounded-xl border border-border-subtle bg-surface-2 p-3', className)"
     role="toolbar"
-    aria-label="筛选工具栏"
+    :aria-label="t('advancedFilter.toolbarAriaLabel')"
   >
     <!-- 搜索框 -->
     <div
@@ -105,7 +114,7 @@ function handleSearchInput(event: Event): void {
       <input
         :value="searchQuery"
         class="h-8 w-44 rounded-lg border border-border-subtle bg-accent/50 ps-8 text-xs text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none"
-        :placeholder="searchPlaceholder"
+        :placeholder="resolvedSearchPlaceholder"
         type="text"
         @input="handleSearchInput"
       />
@@ -124,7 +133,7 @@ function handleSearchInput(event: Event): void {
         :key="`${filter.field}-${filter.value}`"
         class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
         type="button"
-        :aria-label="`移除筛选条件 ${filter.label}: ${filter.value}`"
+        :aria-label="t('advancedFilter.removeFilter', { label: filter.label, value: filter.value })"
         @click="handleRemoveFilter(filter)"
       >
         <span class="text-primary/50">{{ filter.label }}:</span>
@@ -143,7 +152,7 @@ function handleSearchInput(event: Event): void {
         type="button"
         @click="handleClearAll"
       >
-        清空
+        {{ t('common.clear') }}
       </button>
     </div>
 

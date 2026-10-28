@@ -17,6 +17,9 @@ import { computed } from 'vue';
 
 import type { TourStep } from './tour-types';
 import { YdButton } from '.././button';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 当前步骤数据 */
@@ -70,7 +73,7 @@ const finishText = computed(() => props.step.finishText ?? props.globalFinishTex
     class="yd-tour-step fixed w-72 rounded-lg border bg-white p-4 shadow-xl transition-all"
     :style="{ left: style.left, top: style.top, zIndex: `${zIndex}` }"
     role="dialog"
-    :aria-label="`引导步骤 ${currentIndex + 1}/${totalSteps}`"
+    :aria-label="t('tour.stepProgress', { current: currentIndex + 1, total: totalSteps })"
     aria-modal="true"
   >
     <!-- 右上角关闭按钮 -->
@@ -113,7 +116,7 @@ const finishText = computed(() => props.step.finishText ?? props.globalFinishTex
       :aria-valuenow="currentIndex + 1"
       :aria-valuemin="1"
       :aria-valuemax="totalSteps"
-      aria-label="引导进度"
+      :aria-label="t('tour.progress')"
     >
       <span
         v-for="(_, i) in totalSteps"

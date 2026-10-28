@@ -18,6 +18,9 @@ import {
   injectCellEditor,
   type EditorType,
 } from '../composables/use-cell-editor';
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
 
 const props = defineProps<{
   /** 行唯一标识 */
@@ -153,7 +156,7 @@ function handleInput(value: unknown): void {
       class="flex h-full w-full cursor-pointer items-center px-2 py-1 text-sm hover:bg-muted/40"
       tabindex="0"
       role="button"
-      :aria-label="`双击编辑: ${String(value)}`"
+      :aria-label="t('inlineEdit.ariaLabel', { value: String(value) })"
       @dblclick="handleStartEdit"
       @keydown.enter="handleStartEdit"
     >

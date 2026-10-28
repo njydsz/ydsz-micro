@@ -2,6 +2,9 @@
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: any;
@@ -67,7 +70,7 @@ const statusClass = computed(() => {
         )
       "
       :style="props.color ? { backgroundColor: props.color } : undefined"
-      aria-label="`${displayCount} 条`"
+      :aria-label="t('countTag.ariaLabel', { count: displayCount })"
     >
       {{ displayCount }}
       <span v-if="props.text" class="ml-0.5">{{ props.text }}</span>

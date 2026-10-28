@@ -140,8 +140,7 @@ YDSZ UI 是在 YDSZ Vue 无头组件层之上封装的**有样式组件库**，�
 | **无障碍** | `useA11yChecker` | axe-core 检查 |
 | **无障碍** | `useA11yAssertions` | Vitest 断言 |
 | **性能** | `useRenderPerformance` | 渲染性能监控 |
-| **国际化** | `useComponentI18n` | 组件级国际化 |
-| **国际化** | `useLocale` | 全局 locale |
+| **国际化** | `useLocale` | 全局 locale（14 种语种 + RTL） |
 | **回顶** | `useBacktop` | 回到顶部 |
 
 ## 业务组件概览

@@ -8,13 +8,14 @@
 <script setup lang="ts">
 import type { AboutProps, DescriptionItem } from './about';
 
-import { h } from 'vue';
+import { computed, h } from 'vue';
 
 import {
   YDSZ_DOC_URL,
   YDSZ_GITHUB_URL,
   YDSZ_PREVIEW_URL,
 } from '@ydsz/constants';
+import { $t } from '@ydsz/locales';
 
 import { YdRenderContent } from '@ydsz-core/ydsz-ui';
 
@@ -27,10 +28,9 @@ defineOptions({
 });
 
 withDefaults(defineProps<Props>(), {
-  description:
-    '是一个现代化开箱即用的中后台解决方案，采用最新的技术栈，包括 Vue 3.0、Vite、TailwindCSS 和 TypeScript 等前沿技术，代码规范严谨，提供丰富的配置选项，旨在为中大型项目的开发提供现成的开箱即用解决方案及丰富的示例，同时，它也是学习和深入前端技术的一个极佳示例。',
+  description: undefined,
   name: 'YDSZ Admin',
-  title: '关于项目',
+  title: undefined,
 });
 
 declare global {
@@ -69,33 +69,34 @@ const {
   // vite inject-metadata 插件注入的全局变量
 } = __YDSZ_ADMIN_METADATA__ || {};
 
-const ydszDescriptionItems: DescriptionItem[] = [
+// computed 而非一次性数组：文案随语种切换要重算，直接建数组会把首次渲染的语种焊死
+const ydszDescriptionItems = computed<DescriptionItem[]>(() => [
   {
     content: version,
-    title: '版本号',
+    title: $t('ui.about.version'),
   },
   {
     content: license,
-    title: '开源许可协议',
+    title: $t('ui.about.license'),
   },
   {
     content: buildTime,
-    title: '最后构建时间',
+    title: $t('ui.about.buildTime'),
   },
   {
-    content: renderLink(homepage, '点击查看'),
-    title: '主页',
+    content: renderLink(homepage, $t('ui.commonAction.view')),
+    title: $t('ui.about.homepage'),
   },
   {
-    content: renderLink(YDSZ_DOC_URL, '点击查看'),
-    title: '文档地址',
+    content: renderLink(YDSZ_DOC_URL, $t('ui.commonAction.view')),
+    title: $t('ui.about.docs'),
   },
   {
-    content: renderLink(YDSZ_PREVIEW_URL, '点击查看'),
-    title: '预览地址',
+    content: renderLink(YDSZ_PREVIEW_URL, $t('ui.commonAction.view')),
+    title: $t('ui.about.preview'),
   },
   {
-    content: renderLink(YDSZ_GITHUB_URL, '点击查看'),
+    content: renderLink(YDSZ_GITHUB_URL, $t('ui.commonAction.view')),
     title: 'Github',
   },
   {
@@ -103,9 +104,9 @@ const ydszDescriptionItems: DescriptionItem[] = [
       renderLink(authorUrl, `${authorName}  `),
       renderLink(`mailto:${authorEmail}`, authorEmail),
     ]),
-    title: '作者',
+    title: $t('ui.about.author'),
   },
-];
+]);
 
 const dependenciesItems = Object.keys(dependencies).map((key) => ({
   content: dependencies[key],
@@ -119,18 +120,18 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
 </script>
 
 <template>
-  <Page :title="title">
+  <Page :title="title ?? $t('ui.about.title')">
     <template #description>
       <p class="text-foreground mt-3 text-sm leading-6">
         <a :href="YDSZ_GITHUB_URL" class="yd-link" target="_blank">
           {{ name }}
         </a>
-        {{ description }}
+        {{ description ?? $t('ui.about.description') }}
       </p>
     </template>
     <div class="card-box p-5">
       <div>
-        <h5 class="text-foreground text-lg">基本信息</h5>
+        <h5 class="text-foreground text-lg">{{ $t('ui.about.basicInfo') }}</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -150,7 +151,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
 
     <div class="card-box mt-6 p-5">
       <div>
-        <h5 class="text-foreground text-lg">生产环境依赖</h5>
+        <h5 class="text-foreground text-lg">{{ $t('ui.about.prodDeps') }}</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -169,7 +170,7 @@ const devDependenciesItems = Object.keys(devDependencies).map((key) => ({
     </div>
     <div class="card-box mt-6 p-5">
       <div>
-        <h5 class="text-foreground text-lg">开发环境依赖</h5>
+        <h5 class="text-foreground text-lg">{{ $t('ui.about.devDeps') }}</h5>
       </div>
       <div class="mt-4">
         <dl class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

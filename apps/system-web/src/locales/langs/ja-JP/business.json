@@ -336,7 +336,8 @@
       "emptyHint": "キーワードを入力して検索を開始",
       "noResult": "一致する結果が見つかりません",
       "totalSearches": "累計検索: ",
-      "zeroResultRate": "ゼロ結果率"
+      "zeroResultRate": "ゼロ結果率",
+      "unknown": "不明"
     },
     "fileUpload": {
       "statusInitializing": "初期化中...",
@@ -428,5 +429,7 @@
   "editVariable": "システム変数を編集",
   "createVariable": "システム変数を追加",
   "updateSuccess": "更新しました",
-  "createSuccess": "作成しました"
+  "createSuccess": "作成しました",
+  "noData": "データがありません",
+  "tenantDeleteConfirm": "テナント「{0}」を削除しますか？この操作は元に戻せません。"
 }

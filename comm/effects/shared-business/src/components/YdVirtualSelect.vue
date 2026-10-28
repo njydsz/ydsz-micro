@@ -23,6 +23,7 @@ import {
   YdSelectTriggerBase,
   YdSelectValueBase,
 } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 interface Option {
   label: string;
@@ -45,7 +46,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  placeholder: '请选择',
+  placeholder: undefined,
   disabled: false,
   clearable: true,
   multiple: false,
@@ -105,14 +106,14 @@ watch(
         <input
           v-if="filterable"
           :value="searchKeyword"
-          :placeholder="placeholder"
+          :placeholder="placeholder ?? $t('ui.commonAction.pleaseSelect')"
           class="virtual-select__input flex-1 border-none bg-transparent text-sm outline-none"
           type="text"
           @input="handleSearchInput"
         />
         <YdSelectValueBase
           v-else
-          :placeholder="placeholder"
+          :placeholder="placeholder ?? $t('ui.commonAction.pleaseSelect')"
           class="flex-1"
         />
       </div>

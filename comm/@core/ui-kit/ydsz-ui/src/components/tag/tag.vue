@@ -9,6 +9,9 @@
 import { computed } from 'vue';
 
 import type { TagEmits, TagProps, TagSize, TagVariant } from './tag-types';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdTag' });
 
@@ -70,7 +73,7 @@ function handleClose(event: MouseEvent): void {
       v-if="props.closable"
       type="button"
       class="yd-tag__close"
-      :aria-label="'关闭标签'"
+      :aria-label="t('tag.close')"
       @click="handleClose"
     >
       <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor" aria-hidden="true">

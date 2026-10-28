@@ -12,8 +12,12 @@
 
 import { computed } from 'vue';
 
+import { useLocale } from '../../locale/useLocale';
+
 import { YdPagination } from '.././pagination';
 import type { DataViewLayout, YdDataViewEmits, YdDataViewProps } from './types';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdDataView' });
 
@@ -76,7 +80,7 @@ function handlePageChange(newPage: number, newPageSize: number): void {
         class="flex items-center justify-center py-12 text-sm text-[hsl(var(--ydsz-text-tertiary))]"
       >
         <slot name="empty">
-          暂无数据
+          {{ t('table.empty') }}
         </slot>
       </div>
 
@@ -85,7 +89,7 @@ function handlePageChange(newPage: number, newPageSize: number): void {
         v-else-if="gridClasses === 'list'"
         class="flex flex-col gap-1"
         role="list"
-        aria-label="数据列表"
+        :aria-label="t('dataView.listAriaLabel')"
       >
         <li
           v-for="(item, idx) in currentPageData"
@@ -101,7 +105,7 @@ function handlePageChange(newPage: number, newPageSize: number): void {
         v-else
         class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         role="list"
-        aria-label="数据网格"
+        :aria-label="t('dataView.gridAriaLabel')"
       >
         <div
           v-for="(item, idx) in currentPageData"

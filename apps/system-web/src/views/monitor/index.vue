@@ -18,6 +18,7 @@
  * @since 26.09.08
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { YdBadge, YdButton, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
 
@@ -75,6 +76,8 @@ interface DashboardData {
   collectedAt: string;
 }
 
+const { t } = useI18n();
+
 const loading = ref(false);
 const loadError = ref<string | null>(null);
 const dashboardData = ref<DashboardData | null>(null);
@@ -95,7 +98,7 @@ async function loadDashboard() {
       '/system/metrics/dashboard',
     );
   } catch (error) {
-    const msg = error instanceof Error ? error.message : '运维指标接口请求失败';
+    const msg = error instanceof Error ? error.message : t('monitor.requestFailed');
     loadError.value = msg;
     // 请求失败时清空数据，前端展示错误提示
     dashboardData.value = null;
@@ -176,27 +179,27 @@ const formatNumber = (value: number | undefined): string => {
     <div class="grid grid-cols-1 gap-5 md:grid-cols-4">
       <YdCard shadow="hover">
         <div class="text-center p-2">
-          <div class="text-sm text-gray-500">注册服务数</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.registeredServices') }}</div>
           <div class="text-2xl font-bold mt-1">{{ summary.totalServices }}</div>
-          <div class="text-xs text-gray-400 mt-1">Nacos 实时</div>
+          <div class="text-xs text-gray-400 mt-1">{{ t('monitor.nacosRealtime') }}</div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
         <div class="text-center p-2">
-          <div class="text-sm text-gray-500">服务健康度</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.serviceHealth') }}</div>
           <YdProgress
             :percentage="healthRatio"
             :status="healthRatio >= 90 ? 'success' : healthRatio >= 70 ? 'warning' : 'exception'"
             class="mt-2"
           />
           <div class="text-xs text-gray-400 mt-1">
-            {{ summary.upServices }}/{{ summary.totalServices }} 正常
+            {{ t('monitor.healthyRatio', { up: summary.upServices, total: summary.totalServices }) }}
           </div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
         <div class="text-center p-2">
-          <div class="text-sm text-gray-500">Redis 命中率</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.redisHitRate') }}</div>
           <div
             v-if="redisMetrics?.available"
             class="text-2xl font-bold mt-1"
@@ -204,16 +207,15 @@ const formatNumber = (value: number | undefined): string => {
           >
             {{ redisMetrics.hitRate }}%
           </div>
-          <YdBadge v-else variant="secondary" class="mt-2">Redis 未装配</YdBadge>
+          <YdBadge v-else variant="secondary" class="mt-2">{{ t('monitor.redisNotReady') }}</YdBadge>
           <div v-if="redisMetrics?.available" class="text-xs text-gray-400 mt-1">
-            {{ formatNumber(redisMetrics.keyspaceHits) }} 命中 /
-            {{ formatNumber(redisMetrics.keyspaceMisses) }} 未命中
+            {{ t('monitor.hitsAndMisses', { hits: formatNumber(redisMetrics.keyspaceHits), misses: formatNumber(redisMetrics.keyspaceMisses) }) }}
           </div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
         <div class="text-center p-2">
-          <div class="text-sm text-gray-500">JVM 内存使用</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.jvmMemoryUsage') }}</div>
           <YdProgress
             v-if="memory"
             :percentage="Math.round(memory.usagePercent)"
@@ -234,12 +236,12 @@ const formatNumber = (value: number | undefined): string => {
       <YdCard>
         <template #header>
           <div class="flex items-center justify-between">
-            <span class="font-medium">服务注册状态</span>
+            <span class="font-medium">{{ t('monitor.serviceRegistry') }}</span>
             <YdBadge
               v-if="services.length > 0"
               :variant="summary.downServices === 0 ? undefined : 'destructive'"
             >
-              {{ summary.upServices }}/{{ summary.totalServices }} 正常
+              {{ t('monitor.healthyRatio', { up: summary.upServices, total: summary.totalServices }) }}
             </YdBadge>
           </div>
         </template>
@@ -250,14 +252,14 @@ const formatNumber = (value: number | undefined): string => {
           stripe
           max-height="400"
         >
-          <YdTableColumn prop="serviceId" label="服务 ID" min-width="180" />
-          <YdTableColumn label="状态" width="90">
+          <YdTableColumn prop="serviceId" :label="t('monitor.colServiceId')" min-width="180" />
+          <YdTableColumn :label="t('monitor.colStatus')" width="90">
             <template #default="{ row }">
               <YdBadge :variant="statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary'">{{ row.status }}</YdBadge>
             </template>
           </YdTableColumn>
-          <YdTableColumn prop="instanceCount" label="实例数" width="80" />
-          <YdTableColumn label="地址" min-width="160">
+          <YdTableColumn prop="instanceCount" :label="t('monitor.colInstanceCount')" width="80" />
+          <YdTableColumn :label="t('monitor.colAddress')" min-width="160">
             <template #default="{ row }">
               <span class="text-xs font-mono">
                 {{ row.host ?? '-' }}:{{ row.port ?? '-' }}
@@ -267,54 +269,54 @@ const formatNumber = (value: number | undefined): string => {
         </YdTable>
         <YdEmptyState
           v-else-if="!loading && loadError"
-          :description="'加载失败：' + loadError"
+          :description="t('monitor.loadFailed', { message: loadError })"
         />
-        <YdEmptyState v-else-if="!loading" description="暂无注册服务数据" />
+        <YdEmptyState v-else-if="!loading" :description="t('monitor.noServices')" />
       </YdCard>
 
       <!-- JVM 运行时信息 -->
       <YdCard>
         <template #header>
-          <span class="font-medium">运行时信息</span>
+          <span class="font-medium">{{ t('monitor.runtimeInfo') }}</span>
         </template>
         <div v-if="runtimeInfo" class="space-y-3">
           <div class="grid grid-cols-2 gap-3 text-sm">
             <div>
-              <span class="text-gray-500">应用名：</span>
+              <span class="text-gray-500">{{ t('monitor.appName') }}</span>
               <span>{{ runtimeInfo.applicationName }}</span>
             </div>
             <div>
-              <span class="text-gray-500">端口：</span>
+              <span class="text-gray-500">{{ t('monitor.port') }}</span>
               <span>{{ runtimeInfo.serverPort }}</span>
             </div>
             <div>
-              <span class="text-gray-500">Spring Boot：</span>
+              <span class="text-gray-500">{{ t('monitor.springBootVersion') }}</span>
               <span>{{ runtimeInfo.springBootVersion }}</span>
             </div>
             <div>
-              <span class="text-gray-500">Java 版本：</span>
+              <span class="text-gray-500">{{ t('monitor.javaVersion') }}</span>
               <span>{{ runtimeInfo.javaVersion }}</span>
             </div>
             <div>
-              <span class="text-gray-500">Java 厂商：</span>
+              <span class="text-gray-500">{{ t('monitor.javaVendor') }}</span>
               <span>{{ runtimeInfo.javaVendor }}</span>
             </div>
             <div>
-              <span class="text-gray-500">操作系统：</span>
+              <span class="text-gray-500">{{ t('monitor.osName') }}</span>
               <span>{{ runtimeInfo.osName }}</span>
             </div>
             <div>
-              <span class="text-gray-500">可用核心：</span>
-              <span>{{ runtimeInfo.availableCores }} 核</span>
+              <span class="text-gray-500">{{ t('monitor.availableCores') }}</span>
+              <span>{{ t('monitor.coresCount', { count: runtimeInfo.availableCores }) }}</span>
             </div>
           </div>
           <!-- JVM 内存详情 -->
           <div class="border-t pt-3">
-            <div class="text-xs text-gray-500 mb-2">JVM 堆内存</div>
+            <div class="text-xs text-gray-500 mb-2">{{ t('monitor.jvmHeap') }}</div>
             <div v-if="memory" class="text-sm">
               <div class="flex justify-between mb-1">
-                <span>已用 {{ memory.usedMb }}MB / 提交 {{ memory.totalMb }}MB</span>
-                <span class="text-gray-500">最大 {{ memory.maxMb }}MB</span>
+                <span>{{ t('monitor.heapUsage', { used: memory.usedMb, total: memory.totalMb }) }}</span>
+                <span class="text-gray-500">{{ t('monitor.heapMax', { max: memory.maxMb }) }}</span>
               </div>
               <YdProgress
                 :percentage="Math.round(memory.usagePercent)"
@@ -324,30 +326,30 @@ const formatNumber = (value: number | undefined): string => {
             </div>
           </div>
         </div>
-        <YdEmptyState v-else description="运行时信息加载中..." />
+        <YdEmptyState v-else :description="t('monitor.runtimeLoading')" />
       </YdCard>
     </div>
 
     <!-- Redis 指标详情（仅当 Redis 可用时展示） -->
     <YdCard v-if="redisMetrics?.available">
       <template #header>
-        <span class="font-medium">Redis 缓存指标</span>
+        <span class="font-medium">{{ t('monitor.redisMetricsTitle') }}</span>
       </template>
       <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
         <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800">
-          <div class="text-sm text-gray-500">总命令数</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.totalCommands') }}</div>
           <div class="text-xl font-bold mt-1">{{ formatNumber(redisMetrics.totalCommands) }}</div>
           <div class="text-xs text-gray-400 mt-1">total_commands_processed</div>
         </div>
         <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800">
-          <div class="text-sm text-gray-500">命中次数</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.hitCount') }}</div>
           <div class="text-xl font-bold mt-1" style="color: #67c23a">
             {{ formatNumber(redisMetrics.keyspaceHits) }}
           </div>
           <div class="text-xs text-gray-400 mt-1">keyspace_hits</div>
         </div>
         <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800">
-          <div class="text-sm text-gray-500">未命中数</div>
+          <div class="text-sm text-gray-500">{{ t('monitor.missCount') }}</div>
           <div class="text-xl font-bold mt-1" style="color: #f56c6c">
             {{ formatNumber(redisMetrics.keyspaceMisses) }}
           </div>
@@ -359,11 +361,11 @@ const formatNumber = (value: number | undefined): string => {
     <!-- 底部：采集时间 & 操作 -->
     <div class="flex items-center justify-between text-xs text-gray-400 px-1">
       <div>
-        最后采集时间：<span class="font-mono">{{ collectedAt }}</span>
-        <span class="ml-4">每 30s 自动刷新</span>
+        {{ t('monitor.lastCollected') }}<span class="font-mono">{{ collectedAt }}</span>
+        <span class="ml-4">{{ t('monitor.autoRefreshInterval') }}</span>
       </div>
       <YdButton size="sm" :loading="loading" @click="loadDashboard">
-        手动刷新
+        {{ t('monitor.manualRefresh') }}
       </YdButton>
     </div>
   </div>

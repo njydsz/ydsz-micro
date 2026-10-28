@@ -19,6 +19,9 @@ import { computed, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { YdScrollArea, YdScrollBar } from '../scroll-area';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: ClassType;
@@ -109,7 +112,7 @@ function handleScroll(event: Event) {
     :on-scroll="handleScroll"
     class="yd-scrollbar relative"
     role="region"
-    aria-label="可滚动区域"
+    :aria-label="t('scrollbar.ariaLabel')"
   >
     <div
       v-if="showShadowTop"

@@ -1,0 +1,13 @@
+{
+  "contactEmailPlaceholder": "请输入联系邮箱",
+  "contactNamePlaceholder": "请输入联系人",
+  "contactPhonePlaceholder": "请输入联系电话",
+  "createTitle": "新增租户",
+  "datasource": "数据源",
+  "datasourcePlaceholder": "请输入数据源标识",
+  "editTitle": "编辑租户",
+  "expireAtPlaceholder": "选择过期时间",
+  "planId": "套餐ID",
+  "planIdPlaceholder": "请输入套餐ID",
+  "statusPlaceholder": "请选择状态"
+}

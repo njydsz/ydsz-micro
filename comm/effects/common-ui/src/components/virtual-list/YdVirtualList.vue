@@ -33,6 +33,7 @@ import {
 } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { $t } from '@ydsz/locales';
 
 // === Props ===
 
@@ -53,7 +54,7 @@ const props = withDefaults(
     itemHeight: 56,
     bufferSize: 5,
     containerClass: '',
-    emptyText: '暂无数据',
+    emptyText: undefined,
   },
 );
 
@@ -149,7 +150,7 @@ onBeforeUnmount(() => {
     v-if="items.length === 0"
     :class="cn('flex size-full items-center justify-center text-sm text-text-secondary', containerClass)"
   >
-    {{ emptyText }}
+    {{ emptyText ?? $t('ui.commonAction.empty') }}
   </div>
 
   <!-- 滚动容器 -->

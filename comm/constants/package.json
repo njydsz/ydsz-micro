@@ -23,7 +23,8 @@
     }
   },
   "dependencies": {
-    "@ydsz-core/shared": "workspace:*"
+    "@ydsz-core/shared": "workspace:*",
+    "@ydsz/locales": "workspace:*"
   },
   "devDependencies": {
     "@ydsz/tsconfig": "workspace:*"

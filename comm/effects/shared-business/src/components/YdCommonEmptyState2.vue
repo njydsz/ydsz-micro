@@ -6,6 +6,7 @@
  * @since 1.1.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 统一空状态组件 — 替代散落的「暂无数据」文案
  */
@@ -17,7 +18,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  text: '暂无数据',
+  text: undefined,
   showIcon: true,
 });
 </script>
@@ -35,7 +36,7 @@ withDefaults(defineProps<Props>(), {
       <line x1="20" y1="30" x2="44" y2="30" stroke="#a8abb2" stroke-width="2" stroke-linecap="round" />
       <line x1="20" y1="38" x2="38" y2="38" stroke="#a8abb2" stroke-width="2" stroke-linecap="round" />
     </svg>
-    <p class="empty-state__text">{{ text }}</p>
+    <p class="empty-state__text">{{ text ?? $t('ui.commonAction.empty') }}</p>
     <div v-if="$slots.default" class="empty-state__action">
       <slot />
     </div>

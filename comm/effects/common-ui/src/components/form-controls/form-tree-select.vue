@@ -19,6 +19,7 @@ import {
   YdTree,
 } from '@ydsz-core/ydsz-ui';
 import { ChevronDown, CircleX } from 'lucide-vue-next';
+import { $t } from '@ydsz/locales';
 
 interface TreeNode {
   [key: string]: unknown;
@@ -130,7 +131,7 @@ function handleUpdate(value: string | number | Array<string | number>): void {
         <span class="flex items-center gap-1">
           <CircleX
             v-if="props.allowClear && selectedLabel && !props.disabled"
-            aria-label="清除选择"
+            :aria-label="$t('ui.commonAction.clearSelection')"
             class="size-4 cursor-pointer opacity-50 hover:opacity-100"
             role="button"
             tabindex="0"

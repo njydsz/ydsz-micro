@@ -1,0 +1,13 @@
+{
+  "contactEmailPlaceholder": "Enter contact email",
+  "contactNamePlaceholder": "Enter contact name",
+  "contactPhonePlaceholder": "Enter contact phone",
+  "createTitle": "New tenant",
+  "datasource": "Datasource",
+  "datasourcePlaceholder": "Enter datasource key",
+  "editTitle": "Edit tenant",
+  "expireAtPlaceholder": "Select expiry time",
+  "planId": "Plan ID",
+  "planIdPlaceholder": "Enter plan ID",
+  "statusPlaceholder": "Select status"
+}

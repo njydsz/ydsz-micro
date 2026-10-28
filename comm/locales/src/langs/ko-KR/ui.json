@@ -174,5 +174,100 @@
     "statistic": {
       "loading": "로딩 중..."
     }
+  },
+  "commonAction": {
+    "back": "뒤로",
+    "backToPrev": "이전 페이지로",
+    "close": "닫기",
+    "empty": "데이터 없음",
+    "loading": "불러오는 중",
+    "reload": "다시 불러오기",
+    "retry": "다시 시도",
+    "view": "보기",
+    "clearSelection": "선택 지우기",
+    "export": "내보내기",
+    "pleaseSelect": "선택하세요"
+  },
+  "about": {
+    "author": "작성자",
+    "basicInfo": "기본 정보",
+    "buildTime": "마지막 빌드 시각",
+    "description": "Vue 3.0, Vite, TailwindCSS, TypeScript 등 최신 기술 스택을 사용한 현대적이고 바로 사용 가능한 관리자 솔루션입니다. 엄격한 코드 규칙과 다양한 설정 옵션을 제공하여 중대형 프로젝트에 즉시 적용할 수 있는 솔루션과 풍부한 예제를 제공하며, 프런트엔드 기술을 배우고 심화하는 데에도 좋은 예제입니다.",
+    "devDeps": "개발 환경 의존성",
+    "docs": "문서",
+    "homepage": "홈페이지",
+    "license": "라이선스",
+    "preview": "미리보기",
+    "prodDeps": "운영 환경 의존성",
+    "title": "프로젝트 정보",
+    "version": "버전"
+  },
+  "bizStatus": {
+    "approved": "승인됨",
+    "disabled": "중지됨",
+    "draft": "초안",
+    "enabled": "사용 중",
+    "failed": "실패",
+    "pending": "대기 중",
+    "rejected": "반려됨",
+    "running": "진행 중",
+    "success": "성공"
+  },
+  "approval": {
+    "approve": "승인",
+    "empty": "승인 기록이 없습니다",
+    "reject": "반려",
+    "return": "반송",
+    "submit": "제출",
+    "transfer": "이관"
+  },
+  "pageStatus": {
+    "empty": "데이터 없음",
+    "error": "데이터를 불러오지 못했습니다. 잠시 후 다시 시도하세요",
+    "loading": "불러오는 중...",
+    "retry": "다시 불러오기"
+  },
+  "emptyState": {
+    "description": "표시할 데이터가 없음을 나타내는 빈 상태 아이콘",
+    "label": "데이터 없음"
+  },
+  "errorState": {
+    "back": "뒤로",
+    "description": "요청이 실패했습니다. 잠시 후 다시 시도하세요",
+    "retry": "다시 시도",
+    "title": "문제가 발생했습니다"
+  },
+  "errorBoundary": {
+    "back": "이전 페이지로",
+    "details": "오류 상세",
+    "message": "페이지를 불러오지 못했습니다. 잠시 후 다시 시도하세요",
+    "retry": "다시 시도"
+  },
+  "workbench": {
+    "project": "프로젝트",
+    "team": "팀",
+    "todo": "할 일"
+  },
+  "asyncState": {
+    "emptyText": "데이터 없음",
+    "errorTitle": "불러오기 실패"
+  },
+  "networkStatus": {
+    "hint": "네트워크 연결을 확인한 후 다시 시도하세요.",
+    "offline": "네트워크 연결이 끊어졌습니다. 네트워크 설정을 확인하세요",
+    "reconnect": "다시 연결",
+    "retrying": "다시 연결하는 중…"
+  },
+  "excelImport": {
+    "import": "가져오기",
+    "parseFailed": "파일을 분석하지 못했습니다. 형식을 확인하세요",
+    "result": "총 {total}행, {errorCount}행에 오류가 있습니다: {firstError}"
+  },
+  "keyboardHelp": {
+    "empty": "설정된 단축키가 없습니다",
+    "title": "키보드 단축키"
+  },
+  "userAvatar": {
+    "online": "온라인"
   }
 }

@@ -21,6 +21,9 @@
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 type SkeletonVariant = 'circular' | 'rectangular' | 'rounded' | 'text';
 
@@ -69,7 +72,7 @@ const lineWidths = computed(() => {
     v-if="lines > 1"
     role="status"
     aria-busy="true"
-    :aria-label="`加载中，${lines} 行`"
+    :aria-label="t('skeleton.loadingLines', { lines })"
     class="flex w-full flex-col gap-2"
   >
     <div
@@ -93,7 +96,7 @@ const lineWidths = computed(() => {
     v-else
     role="status"
     aria-busy="true"
-    aria-label="加载中"
+    :aria-label="t('skeleton.loading')"
     :class="
       cn(
         'relative overflow-hidden bg-neutral-200 dark:bg-neutral-700',

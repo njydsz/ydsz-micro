@@ -18,6 +18,9 @@ import { cn } from '@ydsz-core/shared/utils';
 import type { AnchorLinkItem } from './YdAnchorLink.vue';
 
 import YdAnchorLink from './YdAnchorLink.vue';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 锚点配置 */
@@ -104,7 +107,7 @@ onBeforeUnmount(() => {
   <nav
     ref="wrapperRef"
     :class="cn('relative border-l-2 border-border pl-4', props.class)"
-    :aria-label="'锚点导航'"
+    :aria-label="t('anchor.ariaLabel')"
     role="navigation"
   >
     <YdAnchorLink

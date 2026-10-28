@@ -22,6 +22,9 @@ import { showToast } from '@ydsz/notification';
 
 import { save, update } from '#/api/appInfo';
 import type { AppInfoVO } from '#/api/models';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -54,8 +57,8 @@ const formData = reactive<AppFormState>({
 });
 
 const rules = {
-  appCode: [{ required: true, message: '请输入应用编码', trigger: 'blur' }],
-  appName: [{ required: true, message: '请输入应用名称', trigger: 'blur' }],
+  appCode: [{ required: true, message: t('appForm.appCodePlaceholder'), trigger: 'blur' }],
+  appName: [{ required: true, message: t('appForm.appNamePlaceholder'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -100,10 +103,10 @@ const [Modal, modalApi] = useYdModal({
     try {
       if (isEdit.value) {
         await update(formData);
-        showToast.success('更新成功');
+        showToast.success(t('business.updateSuccess'));
       } else {
         await save(formData);
-        showToast.success('创建成功');
+        showToast.success(t('business.createSuccess'));
       }
       emit('success');
       modalApi.close();
@@ -113,37 +116,37 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑应用' : '新增应用'));
+const title = computed(() => (isEdit.value ? t('appForm.editTitle') : t('appForm.createTitle')));
 </script>
 
 <template>
   <Modal :title="title">
     <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
-      <YdFormItem label="应用编码" prop="appCode">
-        <YdInput v-model="formData.appCode" placeholder="请输入应用编码" :disabled="isEdit" />
+      <YdFormItem :label="t('appForm.appCode')" prop="appCode">
+        <YdInput v-model="formData.appCode" :placeholder="t('appForm.appCodePlaceholder')" :disabled="isEdit" />
       </YdFormItem>
-      <YdFormItem label="应用名称" prop="appName">
-        <YdInput v-model="formData.appName" placeholder="请输入应用名称" />
+      <YdFormItem :label="t('business.appName')" prop="appName">
+        <YdInput v-model="formData.appName" :placeholder="t('appForm.appNamePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="应用 Key" prop="appKey">
-        <YdInput v-model="formData.appKey" placeholder="请输入应用 Key" />
+      <YdFormItem :label="t('appForm.appKeyLabel')" prop="appKey">
+        <YdInput v-model="formData.appKey" :placeholder="t('appForm.appKeyLabel')" />
       </YdFormItem>
-      <YdFormItem label="回调地址" prop="redirectUrl">
-        <YdInput v-model="formData.redirectUrl" placeholder="请输入回调地址" />
+      <YdFormItem :label="t('appForm.redirectUrl')" prop="redirectUrl">
+        <YdInput v-model="formData.redirectUrl" :placeholder="t('appForm.redirectUrlPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="授权范围" prop="scopes">
-        <YdInput v-model="formData.scopes" placeholder="请输入授权范围（逗号分隔）" />
+      <YdFormItem :label="t('appForm.scopes')" prop="scopes">
+        <YdInput v-model="formData.scopes" :placeholder="t('appForm.scopesPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="绑定 IP" prop="boundIps">
-        <YdInput v-model="formData.boundIps" placeholder="请输入绑定 IP（逗号分隔）" />
+      <YdFormItem :label="t('appForm.boundIps')" prop="boundIps">
+        <YdInput v-model="formData.boundIps" :placeholder="t('appForm.boundIpsPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="描述">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+      <YdFormItem :label="t('business.description')">
+        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('business.descriptionPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="状态" prop="status">
+      <YdFormItem :label="t('business.status')" prop="status">
         <YdRadioGroup v-model="formData.status">
-          <YdRadioGroupItem value="1">启用</YdRadioGroupItem>
-          <YdRadioGroupItem value="0">禁用</YdRadioGroupItem>
+          <YdRadioGroupItem value="1">{{ t('business.enabled') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="0">{{ t('business.disabled') }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
     </YdForm>

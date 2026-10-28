@@ -31,6 +31,9 @@ import {
 } from '.././popover';
 
 import type { AvatarGroupProps, AvatarItem } from './avatar-group-types';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdAvatarGroup' });
 
@@ -129,7 +132,7 @@ function handleOverflowClick() {
           @mouseenter="handleOverflowMouseEnter"
           @mouseleave="handleOverflowMouseLeave"
           @click="handleOverflowClick"
-          aria-label="查看更多成员"
+          :aria-label="t('avatarGroup.more')"
         >
           +{{ overflowCount }}
         </button>

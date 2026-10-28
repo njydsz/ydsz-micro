@@ -1,0 +1,14 @@
+{
+  "appCode": "앱 코드",
+  "appCodePlaceholder": "앱 코드를 입력하세요",
+  "appKeyLabel": "앱 키",
+  "appNamePlaceholder": "앱 이름을 입력하세요",
+  "boundIps": "바인딩 IP",
+  "boundIpsPlaceholder": "바인딩 IP를 입력하세요(쉼표 구분)",
+  "createTitle": "앱 추가",
+  "editTitle": "앱 편집",
+  "redirectUrl": "콜백 URL",
+  "redirectUrlPlaceholder": "콜백 URL을 입력하세요",
+  "scopes": "범위",
+  "scopesPlaceholder": "범위를 입력하세요(쉼표 구분)"
+}

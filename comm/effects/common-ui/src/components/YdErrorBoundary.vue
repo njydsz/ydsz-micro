@@ -24,6 +24,7 @@ import { computed, onErrorCaptured, ref } from 'vue';
 import { AlertCircle, AlertTriangle, Info } from 'lucide-vue-next';
 
 import { YdButton, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 import { reportError } from '@ydsz/monitor';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -46,7 +47,8 @@ const props = withDefaults(
     showDetails?: boolean;
   }>(),
   {
-    errorMessage: '页面加载出错，请稍后重试',
+    // 默认文案留 undefined：静态串不随语种切换，取用时用 $t 兜底
+    errorMessage: undefined,
     showBack: false,
     showRetry: true,
     showDetails: false,
@@ -94,7 +96,7 @@ const showError = computed(() => hasError.value);
  */
 onErrorCaptured((err: Error, _instance, info: ErrorInfo) => {
   hasError.value = true;
-  errorMessage.value = err.message || props.errorMessage;
+  errorMessage.value = err.message || props.errorMessage || $t('ui.errorBoundary.message');
   errorStack.value = err.stack ?? null;
 
   // 上报错误到监控系统
@@ -157,7 +159,7 @@ function handleBack(): void {
               size="sm"
               @click="handleRetry"
             >
-              重试
+              {{ $t('ui.errorBoundary.retry') }}
             </YdButton>
             <YdButton
               v-if="showBack"
@@ -165,7 +167,7 @@ function handleBack(): void {
               variant="outline"
               @click="handleBack"
             >
-              返回上一页
+              {{ $t('ui.errorBoundary.back') }}
             </YdButton>
           </div>
         </template>
@@ -176,7 +178,7 @@ function handleBack(): void {
         v-if="showDetails && errorStack"
         class="error-boundary__details"
       >
-        <summary>错误详情</summary>
+        <summary>{{ $t('ui.errorBoundary.details') }}</summary>
         <pre class="error-boundary__stack">{{ errorStack }}</pre>
       </details>
     </div>

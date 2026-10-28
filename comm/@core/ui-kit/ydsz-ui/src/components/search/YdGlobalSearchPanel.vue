@@ -16,13 +16,17 @@
  * @author ydsz-team
  * @since 4.1.0 (P2-13)
  */
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { onClickOutside } from '@vueuse/core';
+
+import { useLocale } from '../../locale/useLocale';
 
 import type { SearchHit } from './search-types';
 import { MODULE_ICONS, MODULE_LABELS } from './search-types';
 import { useGlobalSearch } from './use-global-search';
+
+const { t } = useLocale();
 
 // =====================================================================
 // 辅助函数
@@ -54,9 +58,14 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   modal: false,
-  placeholder: '搜索用户、流程、消息、文件...',
+  placeholder: undefined,
   autofocus: false,
 });
+
+/** 占位文案：prop 默认值只能是静态串，切语种不跟着变，故按当前语种兜底 */
+const resolvedPlaceholder = computed<string>(
+  () => props.placeholder ?? t('globalSearch.placeholder'),
+);
 
 const emit = defineEmits<{
   (e: 'select', hit: SearchHit): void;
@@ -160,7 +169,7 @@ defineExpose({ open, close });
         v-model="keyword"
         type="text"
         class="global-search__input"
-        :placeholder="placeholder"
+        :placeholder="resolvedPlaceholder"
         autocomplete="off"
         @input="executeSearch"
       />
@@ -188,7 +197,7 @@ defineExpose({ open, close });
           :class="{ 'global-search__tab--active': activeTab === '_all' }"
           @click="setActiveTab('_all')"
         >
-          全部 (<span>{{ totalHits }}</span>)
+          {{ t('globalSearch.allTab') }} (<span>{{ totalHits }}</span>)
         </button>
         <button
           v-for="(hits, moduleKey) in results.moduleHits"
@@ -233,7 +242,7 @@ defineExpose({ open, close });
       <!-- 空结果 -->
       <div v-else class="global-search__empty">
         <VbenIcon icon="lucide:search-x" />
-        <p>未找到与「{{ keyword }}」相关的结果</p>
+        <p>{{ t('globalSearch.noResult', { keyword }) }}</p>
       </div>
     </div>
   </div>

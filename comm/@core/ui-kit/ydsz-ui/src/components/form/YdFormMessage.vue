@@ -16,7 +16,11 @@ import { ErrorMessage } from 'vee-validate';
 
 import { Loader2 } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
 import { useFormField } from './useFormField';
+
+const { t } = useLocale();
 
 const { error, formMessageId, isValidating, name } = useFormField();
 </script>
@@ -31,7 +35,7 @@ const { error, formMessageId, isValidating, name } = useFormField();
     role="status"
   >
     <Loader2 class="size-3 animate-spin" aria-hidden="true" />
-    <span>校验中...</span>
+    <span>{{ t('form.validating') }}</span>
   </p>
   <!-- 错误消息 -->
   <ErrorMessage

@@ -18,6 +18,7 @@ import { Upload } from 'lucide-vue-next';
 
 import { showToast } from '@ydsz/notification';
 import { YdButton } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import {
@@ -43,7 +44,8 @@ interface Props<T = Record<string, unknown>> {
 
 const props = withDefaults(defineProps<Props>(), {
   accept: '.xlsx,.xls,.csv',
-  text: '导入',
+  // 默认文案留 undefined：静态串不随语种切换，模板处用 $t 兜底
+  text: undefined,
 });
 
 const inputRef = ref<HTMLInputElement>();
@@ -65,12 +67,16 @@ async function handleFileChange(event: Event): Promise<void> {
     const result = await parseExcel(file, { columns: props.columns });
     if (result.errors.length > 0) {
       showToast.warning(
-        `共 ${result.total} 行，${result.errors.length} 行有误：${result.errors[0].message}`,
+        $t('ui.excelImport.result', {
+          total: result.total,
+          errorCount: result.errors.length,
+          firstError: result.errors[0].message,
+        }),
       );
     }
     await props.onSuccess(result);
   } catch (error) {
-    showToast.error('文件解析失败，请检查格式');
+    showToast.error($t('ui.excelImport.parseFailed'));
     logger.error('[excel-import]', error);
   } finally {
     loading.value = false;
@@ -88,7 +94,7 @@ async function handleFileChange(event: Event): Promise<void> {
     @click="handleChoose"
   >
     <Upload :size="14" class="mr-1" />
-    {{ text }}
+    {{ text ?? $t('ui.excelImport.import') }}
   </YdButton>
   <input
     ref="inputRef"

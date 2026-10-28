@@ -25,6 +25,9 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { cn } from '@ydsz-core/shared/utils';
 import { Plus, X } from 'lucide-vue-next';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({
   name: 'YdQuickCreateButton',
@@ -158,7 +161,7 @@ onBeforeUnmount(() => {
           class="flex h-9 w-9 items-center justify-center rounded-full bg-surface-2 text-text-primary shadow-lg transition-transform hover:scale-110 active:scale-95"
           role="menuitem"
           type="button"
-          :aria-label="`创建${item.label}`"
+          :aria-label="t('quickCreate.createItem', { label: item.label })"
           @click="handleItemClick(item)"
         >
           <slot :name="item.key">
@@ -174,7 +177,7 @@ onBeforeUnmount(() => {
     <!-- 主按钮 -->
     <button
       :aria-expanded="expanded"
-      aria-label="快捷创建"
+      :aria-label="t('quickCreate.ariaLabel')"
       class="flex h-12 w-12 items-center justify-center rounded-full text-white shadow-xl transition-transform hover:scale-105 active:scale-95"
       type="button"
       :class="cn(buttonClass, expanded && 'rotate-45')"

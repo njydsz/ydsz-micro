@@ -17,6 +17,9 @@ import { Maximize, Minimize } from '@ydsz-core/icons';
 import { useFullscreen } from '@vueuse/core';
 
 import { YdIconButton } from '.././button';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'FullScreen' });
 
@@ -35,7 +38,7 @@ isFullscreen.value = !!(
 </script>
 <template>
   <YdIconButton
-    :aria-label="isFullscreen ? '退出全屏' : '进入全屏'"
+    :aria-label="isFullscreen ? t('fullScreen.exit') : t('fullScreen.enter')"
     :aria-pressed="isFullscreen"
     @click="toggle"
   >

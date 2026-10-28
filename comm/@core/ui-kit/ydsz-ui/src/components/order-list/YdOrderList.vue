@@ -19,31 +19,9 @@ import {
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronUp, GripVertical, Search } from 'lucide-vue-next';
 
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 
 import type { OrderListEmits, OrderListProps } from './order-list-types';
-
-/** i18n 消息表 */
-const orderListMessages = {
-  zh: {
-    orderList: {
-      filterPlaceholder: '搜索',
-      moveDown: '下移',
-      moveToBottom: '置底',
-      moveToTop: '置顶',
-      moveUp: '上移',
-    },
-  },
-  en: {
-    orderList: {
-      filterPlaceholder: 'Search',
-      moveDown: 'Move down',
-      moveToBottom: 'Move to bottom',
-      moveToTop: 'Move to top',
-      moveUp: 'Move up',
-    },
-  },
-};
 
 defineOptions({ name: 'YdOrderList' });
 
@@ -56,9 +34,7 @@ const props = withDefaults(defineProps<OrderListProps>(), {
 
 const emit = defineEmits<OrderListEmits>();
 
-const { t } = useComponentI18n({
-  messages: orderListMessages,
-});
+const { t } = useLocale();
 
 // ---------------------------------------------------------------------------
 // 内部状态
@@ -215,7 +191,7 @@ const isLastSelected = computed(
       )
     "
     role="group"
-    aria-label="拖拽排序列表"
+    :aria-label="t('orderList.ariaLabel')"
   >
     <!-- 控制栏 -->
     <div class="flex flex-wrap items-center gap-1">
@@ -227,7 +203,7 @@ const isLastSelected = computed(
         class="order-btn"
         @click="moveToTop"
       >
-        置顶
+        {{ t('orderList.moveToTop') }}
       </button>
       <button
         type="button"
@@ -257,7 +233,7 @@ const isLastSelected = computed(
         class="order-btn"
         @click="moveToBottom"
       >
-        置底
+        {{ t('orderList.moveToBottom') }}
       </button>
 
       <!-- 搜索（filter 模式） -->
@@ -279,7 +255,7 @@ const isLastSelected = computed(
     <ul
       class="max-h-80 flex flex-col gap-0.5 overflow-y-auto"
       role="listbox"
-      :aria-label="'排序列表'"
+      :aria-label="t('orderList.listAriaLabel')"
     >
       <li
         v-for="(item, index) in filteredItems"

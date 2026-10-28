@@ -24,6 +24,7 @@ import { computed } from 'vue';
 import { AlertCircle } from 'lucide-vue-next';
 
 import { YdButton } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 interface Props {
   /** 是否加载中 */
@@ -44,8 +45,9 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   error: null,
   empty: false,
-  emptyText: '暂无数据',
-  errorTitle: '加载失败',
+  // 默认文案留 undefined：静态串不随语种切换，模板处用 $t 兜底
+  emptyText: undefined,
+  errorTitle: undefined,
   skeletonRows: 6,
 });
 
@@ -64,7 +66,7 @@ const skeletonRowArray = computed<number[]>(() =>
     v-if="loading"
     class="async-state__skeleton"
     aria-busy="true"
-    aria-label="加载中"
+    :aria-label="$t('ui.commonAction.loading')"
     role="status"
   >
     <div
@@ -80,7 +82,7 @@ const skeletonRowArray = computed<number[]>(() =>
       <div class="async-state__icon" aria-hidden="true">
         <AlertCircle :size="28" />
       </div>
-      <p class="async-state__error-title">{{ errorTitle }}</p>
+      <p class="async-state__error-title">{{ errorTitle ?? $t('ui.asyncState.errorTitle') }}</p>
       <p
         v-if="typeof error === 'string'"
         class="async-state__msg"
@@ -91,7 +93,7 @@ const skeletonRowArray = computed<number[]>(() =>
         size="sm"
         @click="$emit('retry')"
       >
-        重试
+        {{ $t('ui.commonAction.retry') }}
       </YdButton>
     </div>
   </div>
@@ -99,7 +101,7 @@ const skeletonRowArray = computed<number[]>(() =>
   <!-- 空态 -->
   <div v-else-if="empty" class="async-state">
     <div class="async-state__empty">
-      <p class="async-state__empty-text">{{ emptyText }}</p>
+      <p class="async-state__empty-text">{{ emptyText ?? $t('ui.asyncState.emptyText') }}</p>
       <slot name="empty" />
     </div>
   </div>

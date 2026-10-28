@@ -19,6 +19,9 @@ export type EllipsisPlacement = 'top' | 'right' | 'bottom' | 'left';
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 要显示的文本内容 */
@@ -166,7 +169,7 @@ function resolveWidth(): string | undefined {
     <!-- 复制按钮 -->
     <button
       v-if="props.copyable"
-      :aria-label="'复制文本'"
+      :aria-label="t('common.copy')"
       class="text-muted-foreground hover:text-foreground ml-1 align-baseline text-xs"
       type="button"
       @click="handleCopy"
@@ -202,7 +205,7 @@ function resolveWidth(): string | undefined {
     <!-- 复制按钮 -->
     <button
       v-if="props.copyable"
-      :aria-label="'复制文本'"
+      :aria-label="t('common.copy')"
       class="text-muted-foreground hover:text-foreground ml-1 align-baseline text-xs"
       type="button"
       @click="handleCopy"

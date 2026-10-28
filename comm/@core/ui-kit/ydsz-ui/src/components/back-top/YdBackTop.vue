@@ -19,6 +19,9 @@ import { ArrowUpToLine } from '@ydsz-core/icons';
 
 import { YdButtonSmart } from '.././button';
 import { useBackTop } from './use-backtop';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 type Props = BacktopProps;
 
@@ -47,7 +50,7 @@ const { handleClick, visible } = useBackTop(props);
       class="dark:bg-accent dark:hover:bg-heavy bg-background hover:bg-heavy data shadow-float z-popup fixed bottom-10 size-10 rounded-full duration-500"
       size="icon"
       variant="icon"
-      aria-label="返回顶部"
+      :aria-label="t('backTop.ariaLabel')"
       @click="handleClick"
     >
       <ArrowUpToLine class="size-4" aria-hidden="true" />

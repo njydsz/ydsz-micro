@@ -110,7 +110,7 @@ onMounted(() => {
         </div>
       </template>
 
-      <el-empty v-if="!loading && quotas.length === 0" description="暂无数据" />
+      <el-empty v-if="!loading && quotas.length === 0" :description="t('business.noData')" />
 
       <div
         v-for="item in quotas"

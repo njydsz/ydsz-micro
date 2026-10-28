@@ -19,6 +19,7 @@ import {
   useExcelExport,
   type ExcelExportColumn,
 } from '../composables/use-excel-export';
+import { $t } from '@ydsz/locales';
 
 defineOptions({ name: 'YdExcelExportButton' });
 
@@ -37,7 +38,7 @@ interface Props<T = unknown> {
 
 const props = withDefaults(defineProps<Props>(), {
   fileName: 'export',
-  text: '导出',
+  text: undefined,
   beforeExport: undefined,
 });
 
@@ -63,6 +64,6 @@ async function handleClick(): Promise<void> {
     @click="handleClick"
   >
     <Download :size="14" class="mr-1" />
-    {{ text }}
+    {{ text ?? $t('ui.commonAction.export') }}
   </YdButton>
 </template>

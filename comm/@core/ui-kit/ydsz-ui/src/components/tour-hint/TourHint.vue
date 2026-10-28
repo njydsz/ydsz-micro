@@ -14,7 +14,11 @@
  */
 import { computed, ref, watch } from 'vue'
 
+import { useLocale } from '../../locale/useLocale'
+
 import type { TourHintEmits, TourHintProps } from './types'
+
+const { t } = useLocale()
 
 defineOptions({ name: 'YdTourHint' })
 
@@ -69,7 +73,7 @@ function skip() {
   <div
     v-if="isVisible && activeStep"
     role="dialog"
-    aria-label="新手引导"
+    :aria-label="t('tourHint.ariaLabel')"
     class="yd-tour-hint-wrapper"
   >
     <div
@@ -90,7 +94,7 @@ function skip() {
           type="button"
           @click="skip"
         >
-          跳过
+          {{ t('tourHint.skip') }}
         </button>
         <button
           v-if="!isFirstStep"
@@ -98,14 +102,14 @@ function skip() {
           type="button"
           @click="prev"
         >
-          上一步
+          {{ t('tourHint.prev') }}
         </button>
         <button
           class="yd-tour-hint__next"
           type="button"
           @click="next"
         >
-          {{ isLastStep ? '完成' : '下一步' }}
+          {{ isLastStep ? t('tourHint.finish') : t('tourHint.next') }}
         </button>
       </div>
     </div>

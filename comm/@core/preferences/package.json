@@ -29,9 +29,10 @@
     }
   },
   "dependencies": {
+    "@vueuse/core": "catalog:",
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/typings": "workspace:*",
-    "@vueuse/core": "catalog:",
+    "@ydsz/locales": "workspace:*",
     "vue": "catalog:"
   }
 }

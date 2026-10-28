@@ -745,7 +745,7 @@ function isFileReady(item: UploadFileItem): boolean {
       v-if="showFileList && !isPictureCard && currentFileList.length > 0"
       class="flex flex-col gap-2"
       role="list"
-      aria-label="上传文件列表"
+      :aria-label="t('upload.fileListAriaLabel')"
     >
       <div
         v-for="item in currentFileList"
@@ -875,7 +875,7 @@ function isFileReady(item: UploadFileItem): boolean {
       v-if="showFileList && isPictureCard && currentFileList.length > 0"
       class="flex flex-wrap gap-3"
       role="list"
-      aria-label="上传文件列表"
+      :aria-label="t('upload.fileListAriaLabel')"
     >
       <div
         v-for="item in currentFileList"
@@ -981,7 +981,7 @@ function isFileReady(item: UploadFileItem): boolean {
         v-if="previewVisible && previewFile"
         class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
         role="dialog"
-        aria-label="图片预览"
+        :aria-label="t('common.preview')"
         @click="previewVisible = false"
       >
         <div

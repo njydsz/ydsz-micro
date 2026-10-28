@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
 /**
 * YdDashboardEditOverlay — 仪表盘编辑模式下的卡片悬浮操作层。
 * 
@@ -23,7 +26,7 @@ const emit = defineEmits<{
       <button
         type="button"
         class="rounded p-1 text-destructive hover:bg-destructive/10"
-        aria-label="删除卡片"
+        :aria-label="t('dashboard.removeCard')"
         @click.stop="emit('remove', cardId)"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

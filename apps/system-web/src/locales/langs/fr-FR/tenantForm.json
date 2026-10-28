@@ -1,0 +1,13 @@
+{
+  "contactEmailPlaceholder": "Saisissez l'e-mail de contact",
+  "contactNamePlaceholder": "Saisissez le contact",
+  "contactPhonePlaceholder": "Saisissez le téléphone de contact",
+  "createTitle": "Nouveau locataire",
+  "datasource": "Source de données",
+  "datasourcePlaceholder": "Saisissez la clé de la source",
+  "editTitle": "Modifier le locataire",
+  "expireAtPlaceholder": "Sélectionnez l'expiration",
+  "planId": "ID du forfait",
+  "planIdPlaceholder": "Saisissez l'ID du forfait",
+  "statusPlaceholder": "Sélectionnez l'état"
+}

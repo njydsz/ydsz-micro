@@ -13,6 +13,7 @@
 import { CheckCircle2, Clock, RefreshCw, Send, XCircle } from 'lucide-vue-next';
 
 import { YdBadge } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 /** 审批记录 */
 export interface ApprovalRecord {
@@ -43,11 +44,11 @@ interface ActionMeta {
 /** 动作 -> 标签样式 + 图标 */
 function actionMeta(action: string): ActionMeta {
   const map: Record<string, ActionMeta> = {
-    APPROVE: { variant: 'default', text: '通过', icon: CheckCircle2 },
-    REJECT: { variant: 'destructive', text: '驳回', icon: XCircle },
-    SUBMIT: { variant: 'outline', text: '提交', icon: Send },
-    RETURN: { variant: 'outline', text: '退回', icon: RefreshCw },
-    TRANSFER: { variant: 'secondary', text: '转办', icon: Clock },
+    APPROVE: { variant: 'default', text: $t('ui.approval.approve'), icon: CheckCircle2 },
+    REJECT: { variant: 'destructive', text: $t('ui.approval.reject'), icon: XCircle },
+    SUBMIT: { variant: 'outline', text: $t('ui.approval.submit'), icon: Send },
+    RETURN: { variant: 'outline', text: $t('ui.approval.return'), icon: RefreshCw },
+    TRANSFER: { variant: 'secondary', text: $t('ui.approval.transfer'), icon: Clock },
   };
   return map[action] || { variant: 'secondary', text: action, icon: Clock };
 }
@@ -104,7 +105,7 @@ function actionMeta(action: string): ActionMeta {
     v-else
     class="approval-timeline__empty py-4 text-center text-sm text-txt-tertiary"
   >
-    暂无审批记录
+    {{ $t('ui.approval.empty') }}
   </p>
 </template>
 

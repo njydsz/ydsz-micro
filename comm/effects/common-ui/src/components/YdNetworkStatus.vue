@@ -26,6 +26,7 @@ import { AlertCircle, CheckCircle2, Info, Loader2 } from 'lucide-vue-next';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { YdButton } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 defineOptions({ name: 'YdNetworkStatus' });
 
@@ -39,7 +40,8 @@ const props = withDefaults(
     type?: 'error' | 'warning' | 'info';
   }>(),
   {
-    offlineMessage: '网络连接已断开，请检查网络设置',
+    // 默认文案留 undefined：静态串不随语种切换，模板处用 $t 兜底
+    offlineMessage: undefined,
     showRetry: true,
     type: 'error',
   },
@@ -177,13 +179,13 @@ onUnmounted(() => {
             <span
               :class="cn('text-sm font-medium', tone.text)"
             >
-              {{ offlineMessage }}
+              {{ offlineMessage ?? $t('ui.networkStatus.offline') }}
             </span>
             <span
               v-if="showRetry"
               class="text-xs text-text-secondary"
             >
-              请检查您的网络连接后重试。
+              {{ $t('ui.networkStatus.hint') }}
             </span>
           </div>
 
@@ -201,13 +203,13 @@ onUnmounted(() => {
                 :size="14"
                 class="mr-1 animate-spin"
               />
-              {{ isRetrying ? '重试中…' : '重试连接' }}
+              {{ isRetrying ? $t('ui.networkStatus.retrying') : $t('ui.networkStatus.reconnect') }}
             </YdButton>
             <YdButton
               size="sm"
               variant="ghost"
               class="text-text-secondary"
-              aria-label="关闭"
+              :aria-label="$t('ui.commonAction.close')"
               @click="handleClose"
             >
               <CheckCircle2 :size="14" />

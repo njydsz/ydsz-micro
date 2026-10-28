@@ -1,0 +1,14 @@
+{
+  "appCode": "App code",
+  "appCodePlaceholder": "Enter app code",
+  "appKeyLabel": "App key",
+  "appNamePlaceholder": "Enter app name",
+  "boundIps": "Bound IPs",
+  "boundIpsPlaceholder": "Enter bound IPs (comma separated)",
+  "createTitle": "New app",
+  "editTitle": "Edit app",
+  "redirectUrl": "Redirect URL",
+  "redirectUrlPlaceholder": "Enter redirect URL",
+  "scopes": "Scopes",
+  "scopesPlaceholder": "Enter scopes (comma separated)"
+}

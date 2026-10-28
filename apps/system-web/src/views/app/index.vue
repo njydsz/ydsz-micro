@@ -29,6 +29,9 @@ import { page, remove } from '#/api/appInfo';
 import type { AppInfoPageQuery, AppInfoVO, PageQuery } from '#/api/models';
 
 import AppForm from './app-form.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineOptions({ name: 'AppManagement' });
 
@@ -45,14 +48,14 @@ function isEnabled(status?: string): boolean {
 
 const gridOptions: VxeTableGridOptions<AppRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'appCode', title: '应用编码', width: 140 },
-    { field: 'appName', title: '应用名称', width: 160 },
-    { field: 'appKey', title: '应用 Key', width: 180 },
-    { field: 'redirectUrl', title: '回调地址', width: 200 },
+    { type: 'seq', width: 50, title: t('page.common.seq') },
+    { field: 'appCode', title: t('appForm.appCode'), width: 140 },
+    { field: 'appName', title: t('business.appName'), width: 160 },
+    { field: 'appKey', title: t('appForm.appKeyLabel'), width: 180 },
+    { field: 'redirectUrl', title: t('appForm.redirectUrl'), width: 200 },
     {
       field: 'status',
-      title: '状态',
+      title: t('business.status'),
       width: 80,
       slots: {
         default: ({ row }) => {
@@ -60,23 +63,23 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
           return h(
             YdBadge,
             { variant: isEnabled(app.status) ? undefined : 'secondary' },
-            () => (isEnabled(app.status) ? '启用' : '禁用'),
+            () => (isEnabled(app.status) ? t('business.enabled') : t('business.disabled')),
           );
         },
       },
     },
-    { field: 'description', title: '描述', width: 180 },
+    { field: 'description', title: t('business.description'), width: 180 },
     {
       field: 'action',
-      title: '操作',
+      title: t('appList.action'),
       width: 140,
       fixed: 'right',
       slots: {
         default: ({ row }) => {
           const app = row as AppRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', onClick: () => handleEdit(app) }, () => '编辑'),
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => '删除'),
+            h(YdButton, { size: 'sm', onClick: () => handleEdit(app) }, () => t('business.edit')),
+            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => t('business.delete')),
           ]);
         },
       },
@@ -101,8 +104,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'appName', title: '应用名称', itemRender: { name: 'YdInput', props: { placeholder: '应用名称' } } },
-      { field: 'status', title: '状态', itemRender: { name: 'YdInput', props: { placeholder: '状态（1/0）' } } },
+      { field: 'appName', title: t('business.appName'), itemRender: { name: 'YdInput', props: { placeholder: t('business.appName') } } },
+      { field: 'status', title: t('business.status'), itemRender: { name: 'YdInput', props: { placeholder: t('appList.statusFilterPlaceholder') } } },
     ],
   },
 };
@@ -123,14 +126,14 @@ function handleEdit(row: AppRow) {
 async function handleDelete(row: AppRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除「${row.appName ?? row.appCode ?? ''}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(t('business.confirmDeleteName', [row.appName ?? row.appCode ?? '']), { title: t('page.common.deleteConfirm'), type: 'warning' });
   } catch {
     return; // 用户主动取消删除操作
   }
   // 步骤2：执行删除 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     if (row.id) await remove({ id: row.id });
-    showToast.success('删除成功');
+    showToast.success(t('appList.deleteSuccess'));
     gridApi.query();
   } catch {
     // 错误已由请求拦截器展示，无需重复处理
@@ -140,9 +143,9 @@ async function handleDelete(row: AppRow) {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="应用注册">
+    <Grid :table-title="t('page.appInfo')">
       <template #toolbar-tools>
-        <YdButton @click="handleAdd">新增</YdButton>
+        <YdButton @click="handleAdd">{{ t('business.create') }}</YdButton>
       </template>
     </Grid>
     <AppFormModal @success="gridApi.query()" />

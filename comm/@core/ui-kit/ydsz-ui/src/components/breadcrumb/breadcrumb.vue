@@ -27,6 +27,9 @@ import {
   YdDropdownMenuTrigger,
 } from '../dropdown-menu';
 import { YdIcon } from '../icon';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 type Props = BreadcrumbProps;
 
@@ -45,7 +48,7 @@ function handleClick(path?: string) {
 }
 </script>
 <template>
-  <YdBreadcrumb aria-label="面包屑导航">
+  <YdBreadcrumb :aria-label="t('breadcrumb.ariaLabel')">
     <YdBreadcrumbList>
       <TransitionGroup name="breadcrumb-transition">
         <template
@@ -75,7 +78,7 @@ function handleClick(path?: string) {
             <YdBreadcrumbLink
               v-else-if="index !== breadcrumbs.length - 1"
               href="javascript:void 0"
-              :aria-label="`导航到 ${item.title}`"
+              :aria-label="t('breadcrumb.navigateTo', { title: item.title })"
               @click.stop="handleClick(item.path)"
             >
               <div class="flex-center">

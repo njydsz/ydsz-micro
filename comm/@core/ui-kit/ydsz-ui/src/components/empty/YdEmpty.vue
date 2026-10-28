@@ -12,6 +12,10 @@
 import { cn } from '@ydsz-core/shared/utils';
 import { Inbox } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 interface Props {
   /** 自定义类名 */
   class?: any;
@@ -21,8 +25,10 @@ interface Props {
   showIcon?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
-  description: '暂无数据',
+// 必须接住 defineProps 的返回值：模板里用的是 props.xxx，此前漏了赋值，
+// 导致 description / showIcon 全是 undefined（空态只剩个空 <p>）。
+const props = withDefaults(defineProps<Props>(), {
+  description: undefined,
   showIcon: true,
 });
 </script>
@@ -47,7 +53,7 @@ withDefaults(defineProps<Props>(), {
       </div>
     </slot>
     <p class="text-muted-foreground mb-4 text-sm">
-      {{ props.description }}
+      {{ props.description ?? t('empty.default') }}
     </p>
     <slot></slot>
   </div>

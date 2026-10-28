@@ -1,0 +1,14 @@
+{
+  "appCode": "应用编码",
+  "appCodePlaceholder": "请输入应用编码",
+  "appKeyLabel": "应用 Key",
+  "appNamePlaceholder": "请输入应用名称",
+  "boundIps": "绑定 IP",
+  "boundIpsPlaceholder": "请输入绑定 IP（逗号分隔）",
+  "createTitle": "新增应用",
+  "editTitle": "编辑应用",
+  "redirectUrl": "回调地址",
+  "redirectUrlPlaceholder": "请输入回调地址",
+  "scopes": "授权范围",
+  "scopesPlaceholder": "请输入授权范围（逗号分隔）"
+}

@@ -336,7 +336,8 @@
       "emptyHint": "Escriba una palabra clave para buscar",
       "noResult": "No se encontraron resultados",
       "totalSearches": "Búsquedas totales: ",
-      "zeroResultRate": "Tasa de resultados cero"
+      "zeroResultRate": "Tasa de resultados cero",
+      "unknown": "Desconocido"
     },
     "fileUpload": {
       "statusInitializing": "Inicializando...",
@@ -428,5 +429,7 @@
   "editVariable": "Editar variable del sistema",
   "createVariable": "Crear variable del sistema",
   "updateSuccess": "Actualizado correctamente",
-  "createSuccess": "Creado correctamente"
+  "createSuccess": "Creado correctamente",
+  "noData": "Sin datos",
+  "tenantDeleteConfirm": "¿Eliminar el inquilino \"{0}\"? Esta acción no se puede deshacer."
 }

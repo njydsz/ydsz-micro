@@ -21,6 +21,9 @@ import { onMounted, watch } from 'vue';
 import { useForm } from 'vee-validate';
 
 import { useFormDraft } from '../../composables/use-form-draft';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 初始值 */
@@ -141,7 +144,7 @@ if (draft) {
         <div
           class="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"
         />
-        <span class="text-sm text-muted-foreground">提交中...</span>
+        <span class="text-sm text-muted-foreground">{{ t('form.submitting') }}</span>
       </div>
     </div>
   </form>

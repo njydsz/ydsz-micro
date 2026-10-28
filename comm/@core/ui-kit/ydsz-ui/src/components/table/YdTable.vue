@@ -28,6 +28,9 @@ import { cn } from '@ydsz-core/shared/utils';
 import { useVirtualList } from '../../composables/use-virtual-list';
 import { useColumnResize } from './useColumnResize';
 import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 defineOptions({ name: 'YdTable' });
 
@@ -187,7 +190,7 @@ const wrapperStyle = computed(() => {
 const borderClass = computed(() => (props.border ? 'border border-collapse' : ''));
 
 const dataHasItems = computed(() => (props.data?.length ?? 0) > 0);
-const displayEmptyText = computed(() => props.emptyTextCompat ?? props.emptyText ?? '暂无数据');
+const displayEmptyText = computed(() => props.emptyTextCompat ?? props.emptyText ?? t('empty.default'));
 
 // ========== 虚拟滚动 ==========
 /**
@@ -346,7 +349,7 @@ defineExpose({
                 class="absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
                 :class="{ 'bg-primary/50': columnResize.resizingProp.value === (col.prop ?? String(idx)) }"
                 role="separator"
-                :aria-label="`调整列宽: ${col.label || col.prop || idx}`"
+                :aria-label="t('table.resizeColumn', { column: col.label || col.prop || idx })"
                 @pointerdown="startColumnResize(col.prop ?? String(idx), $event)"
               />
             </th>

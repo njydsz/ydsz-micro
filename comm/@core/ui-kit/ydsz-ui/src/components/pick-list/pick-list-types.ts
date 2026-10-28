@@ -45,7 +45,7 @@ export interface PickListProps {
 /**
  * PickList 组件 emits。
  *
- * 所有事件载荷文案均通过 useComponentI18n 国际化处理。
+ * 所有事件载荷文案均通过 useLocale 词典国际化处理。
  */
 export interface PickListEmits {
   /** v-model 更新 */

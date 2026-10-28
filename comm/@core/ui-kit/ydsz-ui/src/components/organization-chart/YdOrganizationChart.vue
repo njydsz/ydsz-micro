@@ -19,6 +19,9 @@ import type {
   OrgChartOptions,
   OrgNode as OrgNodeType,
 } from './use-organization-chart';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 根节点数据
@@ -129,7 +132,7 @@ const isSelectable = computed(() => props.selectionMode !== null);
       props.class,
     ]"
     role="tree"
-    :aria-label="root.label || '组织架构'"
+    :aria-label="root.label || t('organizationChart.ariaLabel')"
     aria-orientation="vertical"
   >
     <!-- 根节点 -->

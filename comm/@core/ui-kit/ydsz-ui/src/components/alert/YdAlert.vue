@@ -9,6 +9,9 @@ import {
   type LucideIcon,
   X,
 } from 'lucide-vue-next';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 自定义类名 */
@@ -70,7 +73,7 @@ const typeStyles: Record<string, string> = {
       v-if="props.closable"
       type="button"
       class="ml-2 shrink-0 rounded p-1 opacity-60 hover:opacity-100 transition-opacity"
-      aria-label="关闭"
+      :aria-label="t('common.close')"
       @click="emit('close')"
     >
       <X class="size-3.5" />

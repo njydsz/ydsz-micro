@@ -71,9 +71,6 @@ export type {
   ReorderPayload,
 } from './use-drag-sort';
 
-export { useComponentI18n } from './use-component-i18n';
-export type { UseComponentI18nOptions } from './use-component-i18n';
-
 /** 命令式消息确认框 —— 对齐 EP ElMessageBox */
 export { showMessageBox } from './use-message-box';
 export type {
@@ -94,10 +91,6 @@ export type {
   GridContext,
   UseGridProviderOptions,
 } from './use-grid-layout';
-export type {
-  UseComponentI18nOptions,
-  ComponentI18nHandle,
-} from './use-component-i18n';
 
 export { useTableData } from './use-table-data';
 export type {

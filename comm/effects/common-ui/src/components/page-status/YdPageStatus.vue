@@ -31,6 +31,7 @@
 defineOptions({ name: 'PageStatus' });
 
 import { YdButton } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 type Status = 'idle' | 'loading' | 'empty' | 'error' | 'success';
 
@@ -54,9 +55,10 @@ withDefaults(
   {
     status: 'idle',
     actionText: undefined,
-    description: '暂无数据',
-    loadingText: '加载中...',
-    message: '数据加载失败，请稍后再试',
+    // 文案默认值留 undefined：prop 默认值里只能放静态串，切语种不会跟着变，模板处用 $t 兜底
+    description: undefined,
+    loadingText: undefined,
+    message: undefined,
     showBack: false,
     showRetry: true,
   },
@@ -75,7 +77,7 @@ const emit = defineEmits<{
     <!-- loading -->
     <div v-if="status === 'loading'" class="status-panel">
       <div class="spinner" />
-      <p class="status-text">{{ loadingText }}</p>
+      <p class="status-text">{{ loadingText ?? $t('ui.pageStatus.loading') }}</p>
     </div>
 
     <!-- empty -->
@@ -88,7 +90,7 @@ const emit = defineEmits<{
           <line x1="20" y1="46" x2="40" y2="46" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.1" />
         </svg>
       </div>
-      <p class="status-text">{{ description }}</p>
+      <p class="status-text">{{ description ?? $t('ui.commonAction.empty') }}</p>
       <YdButton v-if="actionText" variant="default" @click="emit('action')">
         {{ actionText }}
       </YdButton>
@@ -102,13 +104,13 @@ const emit = defineEmits<{
           <path d="M32 20v16M32 44v2" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6" />
         </svg>
       </div>
-      <p class="status-text">{{ message }}</p>
+      <p class="status-text">{{ message ?? $t('ui.pageStatus.error') }}</p>
       <div class="status-actions">
         <YdButton v-if="showRetry" variant="default" @click="emit('retry')">
-          重新加载
+          {{ $t('ui.pageStatus.retry') }}
         </YdButton>
         <YdButton v-if="showBack" variant="secondary" @click="$router.back()">
-          返回上一页
+          {{ $t('ui.commonAction.backToPrev') }}
         </YdButton>
       </div>
     </div>

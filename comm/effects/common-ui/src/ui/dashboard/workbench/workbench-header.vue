@@ -7,6 +7,7 @@
 -->
 <script lang="ts" setup>
 import { YdAvatar } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 interface Props {
   avatar?: string;
@@ -36,16 +37,16 @@ withDefaults(defineProps<Props>(), {
     </div>
     <div class="mt-4 flex flex-1 justify-end md:mt-0">
       <div class="flex flex-col justify-center text-right">
-        <span class="text-foreground/80"> 待办 </span>
+        <span class="text-foreground/80"> {{ $t('ui.workbench.todo') }} </span>
         <span class="text-2xl">2/10</span>
       </div>
 
       <div class="mx-12 flex flex-col justify-center text-right md:mx-16">
-        <span class="text-foreground/80"> 项目 </span>
+        <span class="text-foreground/80"> {{ $t('ui.workbench.project') }} </span>
         <span class="text-2xl">8</span>
       </div>
       <div class="mr-4 flex flex-col justify-center text-right md:mr-10">
-        <span class="text-foreground/80"> 团队 </span>
+        <span class="text-foreground/80"> {{ $t('ui.workbench.team') }} </span>
         <span class="text-2xl">300</span>
       </div>
     </div>

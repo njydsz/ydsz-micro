@@ -24,14 +24,12 @@ import {
   X,
 } from 'lucide-vue-next';
 
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 
 const props = withDefaults(
   defineProps<{
     /** 文件对象 */
     file: UploadFile;
-    /** 当前语言，默认 'zh' */
-    locale?: string;
     /** 上传进度（0-100），覆盖 file.percentage */
     progress?: number;
     /** 是否显示重试按钮 */
@@ -41,7 +39,6 @@ const props = withDefaults(
   }>(),
   {
     listType: 'text',
-    locale: 'zh',
     progress: undefined,
     showRetry: true,
   },
@@ -52,34 +49,7 @@ const emit = defineEmits<{
   (e: 'retry', file: UploadFile): void;
 }>();
 
-/** i18n 消息 */
-const uploadItemMessages = {
-  en: {
-    uploadItem: {
-      fail: 'Upload failed',
-      removeAriaLabel: 'Remove file',
-      retry: 'Retry',
-      retryAriaLabel: 'Retry upload',
-      size: 'Size',
-      uploading: 'Uploading',
-    },
-  },
-  zh: {
-    uploadItem: {
-      fail: '上传失败',
-      removeAriaLabel: '移除文件',
-      retry: '重试',
-      retryAriaLabel: '重试上传',
-      size: '大小',
-      uploading: '上传中',
-    },
-  },
-};
-
-const { t } = useComponentI18n({
-  defaultLocale: props.locale,
-  messages: uploadItemMessages,
-});
+const { t } = useLocale();
 
 /**
  * 状态分类。

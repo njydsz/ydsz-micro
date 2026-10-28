@@ -3,6 +3,9 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: any;
@@ -80,7 +83,7 @@ onBeforeUnmount(() => {
   <span
     :class="cn('inline-flex items-center gap-1 font-mono text-sm tabular-nums', props.class)"
     role="timer"
-    :aria-label="`倒计时 ${displayText}`"
+    :aria-label="t('countdown.ariaLabel', { time: displayText })"
   >
     <span v-if="props.prefix" class="text-muted-foreground">{{ props.prefix }}</span>
     <span :style="props.valueStyle" class="font-semibold">

@@ -18,6 +18,9 @@
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 const props = withDefaults(defineProps<{
   /** 自定义类名 */
@@ -81,7 +84,7 @@ const dotClass = computed(() => {
   <ol
     :class="cn('flex flex-col', itemsClass, props.class)"
     role="list"
-    aria-label="时间轴"
+    :aria-label="t('timeline.ariaLabel')"
   >
     <!-- @default -->
     <slot></slot>

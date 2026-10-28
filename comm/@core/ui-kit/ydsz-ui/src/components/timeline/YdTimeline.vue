@@ -13,6 +13,9 @@
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 自定义类名 */
@@ -36,7 +39,7 @@ const itemsClass = computed(() => {
 </script>
 
 <template>
-  <ol :class="cn('flex flex-col', itemsClass, props.class)" role="list" aria-label="时间轴">
+  <ol :class="cn('flex flex-col', itemsClass, props.class)" role="list" :aria-label="t('timeline.ariaLabel')">
     <slot></slot>
     <!-- pending 占位 -->
     <li v-if="props.pending" class="flex items-start gap-3">

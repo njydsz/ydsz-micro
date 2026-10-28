@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { cn } from '@ydsz-core/shared/utils';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 interface Props {
   class?: any;
   /** 选中数量 */
@@ -36,7 +40,7 @@ const emit = defineEmits<{
   >
     <label class="flex items-center gap-1.5">
       <input
-        :aria-label="`全选 ${props.count} 项`"
+        :aria-label="t('bulkActions.selectAll', { count: props.count })"
         :checked="props.checked"
         :indeterminate="props.indeterminate"
         class="size-4 rounded border-primary text-primary focus:ring-primary"
@@ -44,13 +48,13 @@ const emit = defineEmits<{
         @change="emit('check', ($event.target as HTMLInputElement).checked)"
       />
       <span class="font-medium">
-        已选 <span class="text-primary">{{ props.count }}</span> 项
+        {{ t('bulkActions.selected', { count: props.count }) }}
       </span>
     </label>
     <span class="text-muted-foreground">|</span>
     <slot>
       <button class="text-muted-foreground hover:text-foreground transition-colors" type="button" @click="emit('cancel')">
-        取消选择
+        {{ t('bulkActions.clearSelection') }}
       </button>
     </slot>
   </div>

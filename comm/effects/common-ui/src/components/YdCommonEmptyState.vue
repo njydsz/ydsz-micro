@@ -22,13 +22,16 @@
  */
 defineOptions({ name: 'YdEmptyState' });
 
+import { $t } from '@ydsz/locales';
+
 withDefaults(
   defineProps<{
     description?: string;
     image?: string;
   }>(),
   {
-    description: '暂无数据',
+    // 默认文案留 undefined：静态串不随语种切换，模板处用 $t 兜底
+    description: undefined,
   },
 );
 </script>
@@ -43,7 +46,7 @@ withDefaults(
         <line x1="20" y1="46" x2="40" y2="46" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.1" />
       </svg>
     </div>
-    <p class="empty-description">{{ description }}</p>
+    <p class="empty-description">{{ description ?? $t('ui.commonAction.empty') }}</p>
     <div v-if="$slots.default" class="empty-actions">
       <slot />
     </div>

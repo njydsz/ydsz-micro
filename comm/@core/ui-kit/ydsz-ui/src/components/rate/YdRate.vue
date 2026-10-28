@@ -17,6 +17,9 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { Star } from 'lucide-vue-next';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 是否允许半星 */
@@ -87,7 +90,7 @@ function handleKeydown(event: KeyboardEvent, index: number): void {
     :class="cn('inline-flex gap-0.5', props.class)"
     :aria-disabled="props.disabled"
     :aria-readonly="props.readonly"
-    :aria-label="`评分 ${props.modelValue} / ${props.count}`"
+    :aria-label="t('rate.ariaLabel', { value: props.modelValue, count: props.count })"
     role="radiogroup"
     tabindex="0"
   >
@@ -95,7 +98,7 @@ function handleKeydown(event: KeyboardEvent, index: number): void {
       v-for="(_, i) in count"
       :key="i"
       :aria-checked="modelValue !== undefined && modelValue >= i + 1"
-      :aria-label="`${i + 1} 星`"
+      :aria-label="t('rate.star', { index: i + 1 })"
       :class="
         cn(
           'relative',

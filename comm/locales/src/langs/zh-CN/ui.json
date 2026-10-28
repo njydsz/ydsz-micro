@@ -174,5 +174,100 @@
     "statistic": {
       "loading": "加载中"
     }
+  },
+  "commonAction": {
+    "back": "返回",
+    "backToPrev": "返回上一页",
+    "close": "关闭",
+    "empty": "暂无数据",
+    "loading": "加载中",
+    "reload": "重新加载",
+    "retry": "重试",
+    "view": "点击查看",
+    "clearSelection": "清除选择",
+    "export": "导出",
+    "pleaseSelect": "请选择"
+  },
+  "about": {
+    "author": "作者",
+    "basicInfo": "基本信息",
+    "buildTime": "最后构建时间",
+    "description": "是一个现代化开箱即用的中后台解决方案，采用最新的技术栈，包括 Vue 3.0、Vite、TailwindCSS 和 TypeScript 等前沿技术，代码规范严谨，提供丰富的配置选项，旨在为中大型项目的开发提供现成的开箱即用解决方案及丰富的示例，同时，它也是学习和深入前端技术的一个极佳示例。",
+    "devDeps": "开发环境依赖",
+    "docs": "文档地址",
+    "homepage": "主页",
+    "license": "开源许可协议",
+    "preview": "预览地址",
+    "prodDeps": "生产环境依赖",
+    "title": "关于项目",
+    "version": "版本号"
+  },
+  "bizStatus": {
+    "approved": "已通过",
+    "disabled": "禁用",
+    "draft": "草稿",
+    "enabled": "启用",
+    "failed": "失败",
+    "pending": "待处理",
+    "rejected": "已驳回",
+    "running": "进行中",
+    "success": "成功"
+  },
+  "approval": {
+    "approve": "通过",
+    "empty": "暂无审批记录",
+    "reject": "驳回",
+    "return": "退回",
+    "submit": "提交",
+    "transfer": "转办"
+  },
+  "pageStatus": {
+    "empty": "暂无数据",
+    "error": "数据加载失败，请稍后再试",
+    "loading": "加载中...",
+    "retry": "重新加载"
+  },
+  "emptyState": {
+    "description": "空状态图标，表示当前没有可显示的数据内容",
+    "label": "暂无数据"
+  },
+  "errorState": {
+    "back": "返回",
+    "description": "请求失败，请稍后重试",
+    "retry": "重试",
+    "title": "页面出错了"
+  },
+  "errorBoundary": {
+    "back": "返回上一页",
+    "details": "错误详情",
+    "message": "页面加载出错，请稍后重试",
+    "retry": "重试"
+  },
+  "workbench": {
+    "project": "项目",
+    "team": "团队",
+    "todo": "待办"
+  },
+  "asyncState": {
+    "emptyText": "暂无数据",
+    "errorTitle": "加载失败"
+  },
+  "networkStatus": {
+    "hint": "请检查您的网络连接后重试。",
+    "offline": "网络连接已断开，请检查网络设置",
+    "reconnect": "重试连接",
+    "retrying": "重试中…"
+  },
+  "excelImport": {
+    "import": "导入",
+    "parseFailed": "文件解析失败，请检查格式",
+    "result": "共 {total} 行，{errorCount} 行有误：{firstError}"
+  },
+  "keyboardHelp": {
+    "empty": "暂无快捷键配置",
+    "title": "键盘快捷键"
+  },
+  "userAvatar": {
+    "online": "在线"
   }
 }

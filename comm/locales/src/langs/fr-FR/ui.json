@@ -174,5 +174,100 @@
     "statistic": {
       "loading": "Chargement..."
     }
+  },
+  "commonAction": {
+    "back": "Retour",
+    "backToPrev": "Revenir à la page précédente",
+    "close": "Fermer",
+    "empty": "Aucune donnée",
+    "loading": "Chargement",
+    "reload": "Recharger",
+    "retry": "Réessayer",
+    "view": "Voir",
+    "clearSelection": "Effacer la sélection",
+    "export": "Exporter",
+    "pleaseSelect": "Veuillez sélectionner"
+  },
+  "about": {
+    "author": "Auteur",
+    "basicInfo": "Informations de base",
+    "buildTime": "Dernière compilation",
+    "description": "Une solution d'administration moderne et prête à l'emploi, bâtie sur une pile technique actuelle : Vue 3.0, Vite, TailwindCSS et TypeScript, avec des conventions de code strictes et de nombreuses options de configuration. Elle vise à fournir aux projets de taille moyenne et grande une solution immédiatement exploitable, riche en exemples, et sert aussi d'excellent support pour apprendre et approfondir le développement front-end.",
+    "devDeps": "Dépendances de développement",
+    "docs": "Documentation",
+    "homepage": "Page d'accueil",
+    "license": "Licence",
+    "preview": "Aperçu",
+    "prodDeps": "Dépendances de production",
+    "title": "À propos du projet",
+    "version": "Version"
+  },
+  "bizStatus": {
+    "approved": "Approuvé",
+    "disabled": "Désactivé",
+    "draft": "Brouillon",
+    "enabled": "Activé",
+    "failed": "Échec",
+    "pending": "En attente",
+    "rejected": "Rejeté",
+    "running": "En cours",
+    "success": "Succès"
+  },
+  "approval": {
+    "approve": "Approuver",
+    "empty": "Aucun historique d'approbation",
+    "reject": "Rejeter",
+    "return": "Renvoyer",
+    "submit": "Soumettre",
+    "transfer": "Déléguer"
+  },
+  "pageStatus": {
+    "empty": "Aucune donnée",
+    "error": "Échec du chargement des données, réessayez plus tard",
+    "loading": "Chargement...",
+    "retry": "Recharger"
+  },
+  "emptyState": {
+    "description": "Icône d'état vide : aucun contenu à afficher",
+    "label": "Aucune donnée"
+  },
+  "errorState": {
+    "back": "Retour",
+    "description": "La requête a échoué, réessayez plus tard",
+    "retry": "Réessayer",
+    "title": "Une erreur est survenue"
+  },
+  "errorBoundary": {
+    "back": "Revenir à la page précédente",
+    "details": "Détails de l'erreur",
+    "message": "Échec du chargement de la page, réessayez plus tard",
+    "retry": "Réessayer"
+  },
+  "workbench": {
+    "project": "Projets",
+    "team": "Équipes",
+    "todo": "À faire"
+  },
+  "asyncState": {
+    "emptyText": "Aucune donnée",
+    "errorTitle": "Échec du chargement"
+  },
+  "networkStatus": {
+    "hint": "Vérifiez votre connexion réseau puis réessayez.",
+    "offline": "Connexion réseau perdue, vérifiez vos paramètres réseau",
+    "reconnect": "Reconnecter",
+    "retrying": "Reconnexion…"
+  },
+  "excelImport": {
+    "import": "Importer",
+    "parseFailed": "Échec de l'analyse du fichier, vérifiez le format",
+    "result": "{total} lignes au total, {errorCount} avec des erreurs : {firstError}"
+  },
+  "keyboardHelp": {
+    "empty": "Aucun raccourci configuré",
+    "title": "Raccourcis clavier"
+  },
+  "userAvatar": {
+    "online": "En ligne"
   }
 }

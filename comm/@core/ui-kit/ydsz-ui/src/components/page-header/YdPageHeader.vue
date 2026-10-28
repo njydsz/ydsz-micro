@@ -16,6 +16,9 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ArrowLeft } from 'lucide-vue-next';
 
 import { YdBreadcrumb } from '.././breadcrumb';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 自定义类名 */
@@ -53,7 +56,7 @@ const emit = defineEmits<{
       <div class="flex items-center gap-3">
         <button
           v-if="props.backIcon"
-          :aria-label="'返回上级'"
+          :aria-label="t('pageHeader.back')"
           class="hover:bg-muted flex size-7 items-center justify-center rounded-md transition-colors"
           type="button"
           @click="emit('back')"

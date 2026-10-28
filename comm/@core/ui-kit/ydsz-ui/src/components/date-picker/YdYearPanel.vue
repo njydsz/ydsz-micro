@@ -14,6 +14,9 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { formatYear } from './date-utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 const props = defineProps<{
   /** 当前十年的锚定起点（即 decadeStart 为整十年份） */
@@ -81,7 +84,7 @@ function handleClick(date: Date): void {
       <button
         type="button"
         class="hover:bg-accent rounded-md p-1"
-        aria-label="上一个十年"
+        :aria-label="t('datepicker.previousDecade')"
         @click="emit('prev-decade')"
       >
         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -92,7 +95,7 @@ function handleClick(date: Date): void {
       <button
         type="button"
         class="hover:bg-accent rounded-md p-1"
-        aria-label="下一个十年"
+        :aria-label="t('datepicker.nextDecade')"
         @click="emit('next-decade')"
       >
         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

@@ -16,6 +16,9 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '@ydsz-core/ydsz-vue';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 type SliderValue = number | number[];
 
@@ -86,7 +89,7 @@ function toExternal(value: number[]): SliderValue {
       v-for="(_, i) in thumbs"
       :key="i"
       class="ring-slider-thumb-ring block size-4 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
-      :aria-label="'滑块值'"
+      :aria-label="t('slider.ariaLabel')"
     />
   </SliderRoot>
 </template>

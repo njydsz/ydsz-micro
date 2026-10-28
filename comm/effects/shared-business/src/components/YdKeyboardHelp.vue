@@ -20,6 +20,7 @@ import {
   YdDialogHeader,
   YdDialogTitle,
 } from '@ydsz-core/ydsz-ui';
+import { $t } from '@ydsz/locales';
 
 import { bindGlobalShortcut, type ShortcutDescriptor } from '../composables/use-keyboard-shortcut';
 
@@ -76,7 +77,7 @@ onBeforeUnmount(() => {
   <YdDialog v-model:open="visible">
     <YdDialogContent class="keyboard-help-modal sm:max-w-md">
       <YdDialogHeader>
-        <YdDialogTitle>键盘快捷键</YdDialogTitle>
+        <YdDialogTitle>{{ $t('ui.keyboardHelp.title') }}</YdDialogTitle>
       </YdDialogHeader>
 
       <div
@@ -98,7 +99,7 @@ onBeforeUnmount(() => {
         v-else
         class="keyboard-help__empty"
       >
-        暂无快捷键配置
+        {{ $t('ui.keyboardHelp.empty') }}
       </div>
     </YdDialogContent>
   </YdDialog>

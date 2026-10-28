@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 /**
 * 表格空数据占位：在 tbody 内独占一行，跨所有列。
 * 
@@ -17,7 +20,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   colspan: 1,
-  description: '暂无数据',
+  description: undefined,
 });
 </script>
 
@@ -29,7 +32,7 @@ withDefaults(defineProps<Props>(), {
     >
       <slot>
         <div class="flex flex-col items-center justify-center gap-1">
-          <span class="text-sm">{{ description }}</span>
+          <span class="text-sm">{{ description ?? t('empty.default') }}</span>
         </div>
       </slot>
     </td>

@@ -1,0 +1,13 @@
+{
+  "contactEmailPlaceholder": "이메일을 입력하세요",
+  "contactNamePlaceholder": "담당자를 입력하세요",
+  "contactPhonePlaceholder": "연락처를 입력하세요",
+  "createTitle": "테넌트 추가",
+  "datasource": "데이터 소스",
+  "datasourcePlaceholder": "데이터 소스 키를 입력하세요",
+  "editTitle": "테넌트 편집",
+  "expireAtPlaceholder": "만료 시각 선택",
+  "planId": "요금제 ID",
+  "planIdPlaceholder": "요금제 ID를 입력하세요",
+  "statusPlaceholder": "상태를 선택하세요"
+}

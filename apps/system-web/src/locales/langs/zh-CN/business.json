@@ -398,7 +398,8 @@
       "emptyHint": "输入关键词开始搜索",
       "noResult": "未找到匹配结果",
       "totalSearches": "累计搜索：",
-      "zeroResultRate": "零结果率"
+      "zeroResultRate": "零结果率",
+      "unknown": "未知"
     },
     "fileUpload": {
       "statusInitializing": "初始化中...",
@@ -428,5 +429,7 @@
   "editVariable": "编辑系统变量",
   "createVariable": "新增系统变量",
   "updateSuccess": "更新成功",
-  "createSuccess": "创建成功"
+  "createSuccess": "创建成功",
+  "noData": "暂无数据",
+  "tenantDeleteConfirm": "确定删除租户「{0}」吗？删除后不可恢复。"
 }

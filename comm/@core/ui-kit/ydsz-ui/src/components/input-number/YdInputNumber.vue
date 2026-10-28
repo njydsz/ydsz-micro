@@ -11,6 +11,9 @@ import {
   inputNumberBtnVariants,
   type InputNumberSize,
 } from './input-number';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   class?: any;
@@ -112,7 +115,7 @@ const btnClass = computed(() =>
 <template>
   <div :class="cn(inputNumberVariants({ size }), props.class)">
     <button
-      :aria-label="'减少'"
+      :aria-label="t('inputNumber.decrease')"
       :class="cn(btnClass, 'rounded-l-md border-r-0')"
       :disabled="props.disabled || (props.modelValue ?? props.min) <= props.min"
       type="button"
@@ -132,7 +135,7 @@ const btnClass = computed(() =>
       @blur="emit('update:modelValue', modelValue !== undefined ? Number(displayValue) || 0 : undefined)"
     />
     <button
-      :aria-label="'增加'"
+      :aria-label="t('inputNumber.increase')"
       :class="cn(btnClass, 'rounded-r-md border-l-0')"
       :disabled="props.disabled || (props.modelValue ?? props.max) >= props.max"
       type="button"

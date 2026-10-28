@@ -1,0 +1,13 @@
+{
+  "contactEmailPlaceholder": "Introduzca el correo de contacto",
+  "contactNamePlaceholder": "Introduzca el contacto",
+  "contactPhonePlaceholder": "Introduzca el teléfono de contacto",
+  "createTitle": "Nuevo inquilino",
+  "datasource": "Origen de datos",
+  "datasourcePlaceholder": "Introduzca la clave del origen",
+  "editTitle": "Editar inquilino",
+  "expireAtPlaceholder": "Seleccione la caducidad",
+  "planId": "ID del plan",
+  "planIdPlaceholder": "Introduzca el ID del plan",
+  "statusPlaceholder": "Seleccione el estado"
+}

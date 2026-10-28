@@ -20,6 +20,9 @@ import { ChevronLeft, ChevronRight, Search } from 'lucide-vue-next';
 import { YdButton } from '.././button';
 import { YdCheckbox } from '.././checkbox';
 import { YdInput } from '.././input';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 /** Transfer 数据项 */
 export interface TransferItem {
@@ -162,7 +165,7 @@ function moveAllToLeft(): void {
           :indeterminate="leftChecked.size > 0 && leftChecked.size < leftItems.length"
           @change="selectAllLeft"
         >
-          <slot name="title">{{ props.title ?? '可选' }}</slot>
+          <slot name="title">{{ props.title ?? t('transfer.available') }}</slot>
           <span class="ml-1 text-xs text-muted-foreground">
             ({{ leftChecked.size }}/{{ leftItems.length }})
           </span>
@@ -171,7 +174,7 @@ function moveAllToLeft(): void {
 
       <div class="relative">
         <Search class="text-muted-foreground absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2" />
-        <YdInput v-model="leftQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? '搜索'" />
+        <YdInput v-model="leftQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? t('common.search')" />
       </div>
 
       <ul class="flex max-h-72 flex-1 flex-col gap-1 overflow-y-auto rounded border p-2">
@@ -204,7 +207,7 @@ function moveAllToLeft(): void {
           v-if="leftItems.length === 0"
           class="text-muted-foreground py-4 text-center text-sm"
         >
-          {{ props.notFoundContent ?? '无数据' }}
+          {{ props.notFoundContent ?? t('transfer.notFound') }}
         </li>
       </ul>
     </div>
@@ -234,7 +237,7 @@ function moveAllToLeft(): void {
           :indeterminate="rightChecked.size > 0 && rightChecked.size < rightItems.length"
           @change="selectAllRight"
         >
-          <slot name="selected-title">{{ props.selectedTitle ?? '已选' }}</slot>
+          <slot name="selected-title">{{ props.selectedTitle ?? t('transfer.selected') }}</slot>
           <span class="ml-1 text-xs text-muted-foreground">
             ({{ rightChecked.size }}/{{ rightItems.length }})
           </span>
@@ -243,7 +246,7 @@ function moveAllToLeft(): void {
 
       <div class="relative">
         <Search class="text-muted-foreground absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2" />
-        <YdInput v-model="rightQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? '搜索'" />
+        <YdInput v-model="rightQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? t('common.search')" />
       </div>
 
       <ul class="flex max-h-72 flex-1 flex-col gap-1 overflow-y-auto rounded border p-2">
@@ -276,7 +279,7 @@ function moveAllToLeft(): void {
           v-if="rightItems.length === 0"
           class="text-muted-foreground py-4 text-center text-sm"
         >
-          {{ props.notFoundContent ?? '无数据' }}
+          {{ props.notFoundContent ?? t('transfer.notFound') }}
         </li>
       </ul>
     </div>

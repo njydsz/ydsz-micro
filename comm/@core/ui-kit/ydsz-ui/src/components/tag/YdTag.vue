@@ -16,6 +16,9 @@
 import { type TagVariants, tagVariants } from './tag';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface Props {
   /** 自定义类名 */
@@ -50,7 +53,7 @@ function handleClose(event: MouseEvent): void {
     <slot></slot>
     <button
       v-if="props.closable"
-      :aria-label="'关闭标签'"
+      :aria-label="t('tag.close')"
       type="button"
       class="ml-0.5 rounded-full p-0.5 transition-colors hover:bg-black/10 dark:hover:bg-white/20"
       @click="handleClose"

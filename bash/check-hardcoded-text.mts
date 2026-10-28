@@ -66,6 +66,23 @@ const DATA_CATALOG: { file: string; reason: string }[] = [
   },
 ];
 
+/**
+ * 不参与预算的路径前缀（逐条给理由）。
+ *
+ * <p>前缀匹配（不是子串）——`apps/x/views/playground/` 这类业务页面照常计入预算。
+ * 自检里有正反例夹具保证这条豁免不会把业务目录一起放过。
+ */
+const EXEMPT_PREFIXES: { prefix: string; reason: string }[] = [
+  {
+    prefix: 'comm/@core/ui-kit/ydsz-ui/playground/',
+    reason: '组件库本地演练场（vite playground；package.json files 只发布 dist），文案是手测演示素材，绑 t() 后看不出中文效果',
+  },
+  {
+    prefix: 'apps/docs-site/.vitepress/theme/',
+    reason: '文档站主题组件：站点本身是中文单语（正文全是中文文档），主题里的统计面板/拓扑图文案没有多语种需求',
+  },
+];
+
 /** 文案字段（脚本对象字面量侧） */
 const TEXT_FIELDS = [
   'ariaLabel',
@@ -277,6 +294,7 @@ function scan(root: string): Report {
     scanned += 1;
     scopesSeen.add(scopeOf(rel));
     if (excluded.has(rel)) continue;
+    if (EXEMPT_PREFIXES.some((e) => rel.startsWith(e.prefix))) continue;
     let source: string;
     try {
       source = readFileSync(abs, 'utf8');
@@ -514,6 +532,25 @@ function selfTestFn(): void {
     }
     if (countFileHits(readFileSync(join(dir, `${FIXTURE_DIR}/attr-text.vue`), 'utf8')) === 0) {
       problems.push('夹具未被计入，扫描范围过滤可能失效');
+    }
+    // 不发货路径：同文案在演练场里不计入、在业务目录里照常计入（前缀匹配，不是子串匹配）
+    const exemptProbes: [string, number][] = [
+      ['comm/@core/ui-kit/ydsz-ui/playground/App.vue', 0],
+      ['apps/demo-web/src/views/playground/index.vue', 1],
+    ];
+    for (const [rel, want] of exemptProbes) {
+      const probe = mkdtempSync(join(tmpdir(), 'ui-text-scope-probe-'));
+      try {
+        const abs = join(probe, rel);
+        mkdirSync(dirname(abs), { recursive: true });
+        writeFileSync(abs, '<template><div>演练场演示文案</div></template>', 'utf8');
+        const probed = scan(probe).total;
+        if (probed !== want) {
+          problems.push(`路径 ${rel} 期望计入 ${want} 处，实际 ${probed}`);
+        }
+      } finally {
+        rmSync(probe, { recursive: true, force: true });
+      }
     }
     // 棘轮：超预算/未认领/基线失效各自报错，下降与持平放行
     for (const [label, countsCase, budgets, wantFail] of RATCHET_CASES) {

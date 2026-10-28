@@ -21,6 +21,10 @@ import { computed, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronRight, FolderOpen, Search } from 'lucide-vue-next';
 
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
+
 defineOptions({
   name: 'YdDomainFilterPanel',
 });
@@ -50,12 +54,12 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  addText: '新建',
+  addText: undefined,
   bottomHint: '',
   items: () => [],
   showAdd: false,
   showSearch: true,
-  title: '业务域',
+  title: undefined,
 });
 
 const emit = defineEmits<{
@@ -64,6 +68,10 @@ const emit = defineEmits<{
 }>();
 
 const selected = defineModel<string>({ default: 'all' });
+
+/** 标题与新建文案：props 默认值只能是静态串，切语种不跟着变，故由此处按当前语种兜底 */
+const resolvedTitle = computed<string>(() => props.title ?? t('domainFilter.defaultTitle'));
+const resolvedAddText = computed<string>(() => props.addText ?? t('common.add'));
 
 /** 计算总数 */
 const totalCount = computed<number>(() => {
@@ -110,7 +118,7 @@ function handleAdd(): void {
     <!-- 头部：标题 + 计数 -->
     <div class="mb-3 flex items-center justify-between">
       <h3 class="text-sm font-medium text-text-primary">
-        {{ title }}
+        {{ resolvedTitle }}
         <span class="ms-1 text-xs text-text-tertiary">· {{ items.length }}</span>
       </h3>
       <button
@@ -120,7 +128,7 @@ function handleAdd(): void {
         @click="handleAdd"
       >
         +
-        {{ addText }}
+        {{ resolvedAddText }}
       </button>
     </div>
 
@@ -136,7 +144,7 @@ function handleAdd(): void {
       <input
         v-model="searchKeyword"
         class="h-8 w-full rounded-lg border border-border-subtle bg-accent/50 ps-8 text-xs text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none"
-        placeholder="搜索{{ title }}"
+        :placeholder="t('domainFilter.searchPlaceholder', { title: resolvedTitle })"
         type="text"
       />
     </div>
@@ -152,7 +160,7 @@ function handleAdd(): void {
         :size="16"
         :class="selected === 'all' ? 'text-primary' : 'text-text-tertiary'"
       />
-      <span class="flex-1 truncate">全部{{ title }}</span>
+      <span class="flex-1 truncate">{{ t('domainFilter.allItems', { title: resolvedTitle }) }}</span>
       <span
         class="rounded-md px-1.5 py-0.5 text-xs"
         :class="selected === 'all' ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'"
@@ -180,7 +188,7 @@ function handleAdd(): void {
           class="inline-flex h-5 min-w-[20px] shrink-0 items-center justify-center rounded-md text-xs font-medium"
           :class="selected === item.code ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'"
         >
-          域
+          {{ t('domainFilter.badge') }}
         </span>
         <span class="flex-1 truncate">{{ item.name }}</span>
         <span

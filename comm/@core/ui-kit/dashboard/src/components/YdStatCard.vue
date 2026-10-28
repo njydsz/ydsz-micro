@@ -11,6 +11,9 @@
 import { computed } from 'vue';
 
 import type { StatCard } from '../types';
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
 
 const props = defineProps<{
   card: StatCard;
@@ -25,7 +28,7 @@ const trend = computed<{
 }>(() => {
   const { compareValue, value } = props.card;
   if (!compareValue || Number(value) === compareValue) {
-    return { isUp: false, isDown: false, isFlat: true, text: '持平' };
+    return { isUp: false, isDown: false, isFlat: true, text: t('dashboard.flat') };
   }
   const diff = (Number(value) - compareValue) / compareValue * 100;
   return {

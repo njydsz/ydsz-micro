@@ -1,0 +1,14 @@
+{
+  "appCode": "Código de la app",
+  "appCodePlaceholder": "Introduzca el código de la app",
+  "appKeyLabel": "Clave de la app",
+  "appNamePlaceholder": "Introduzca el nombre de la app",
+  "boundIps": "IP vinculadas",
+  "boundIpsPlaceholder": "Introduzca las IP vinculadas (separadas por comas)",
+  "createTitle": "Nueva app",
+  "editTitle": "Editar app",
+  "redirectUrl": "URL de retorno",
+  "redirectUrlPlaceholder": "Introduzca la URL de retorno",
+  "scopes": "Ámbitos",
+  "scopesPlaceholder": "Introduzca los ámbitos (separados por comas)"
+}

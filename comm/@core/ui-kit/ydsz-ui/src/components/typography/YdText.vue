@@ -10,6 +10,9 @@
 import { getCurrentInstance, nextTick, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
+import { useLocale } from '../../locale/useLocale';
+
+const { t } = useLocale();
 
 interface EditableConfig {
   /** 失焦/回车后是否自动保存（触发 change 事件） */
@@ -181,7 +184,7 @@ function handleKeydown(e: KeyboardEvent): void {
       <span
         v-if="props.editable"
         class="text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
-        :aria-label="'编辑文本'"
+        :aria-label="t('common.edit')"
       >
         <svg aria-hidden="true" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
@@ -192,7 +195,7 @@ function handleKeydown(e: KeyboardEvent): void {
       <!-- 复制按钮 -->
       <button
         v-if="props.copyable"
-        :aria-label="'复制文本'"
+        :aria-label="t('common.copy')"
         class="text-muted-foreground hover:text-foreground ml-1 inline align-baseline text-xs"
         type="button"
         @click="handleCopy"

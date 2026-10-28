@@ -174,5 +174,100 @@
     "statistic": {
       "loading": "Cargando..."
     }
+  },
+  "commonAction": {
+    "back": "Volver",
+    "backToPrev": "Volver a la página anterior",
+    "close": "Cerrar",
+    "empty": "Sin datos",
+    "loading": "Cargando",
+    "reload": "Recargar",
+    "retry": "Reintentar",
+    "view": "Ver",
+    "clearSelection": "Borrar selección",
+    "export": "Exportar",
+    "pleaseSelect": "Seleccione una opción"
+  },
+  "about": {
+    "author": "Autor",
+    "basicInfo": "Información básica",
+    "buildTime": "Última compilación",
+    "description": "Es una solución de administración moderna y lista para usar, construida con un stack actual: Vue 3.0, Vite, TailwindCSS y TypeScript, con convenciones de código estrictas y numerosas opciones de configuración. Busca ofrecer a los proyectos medianos y grandes una solución lista para producción con abundantes ejemplos, y también sirve como excelente muestra para aprender y profundizar en el desarrollo front-end.",
+    "devDeps": "Dependencias de desarrollo",
+    "docs": "Documentación",
+    "homepage": "Página principal",
+    "license": "Licencia",
+    "preview": "Vista previa",
+    "prodDeps": "Dependencias de producción",
+    "title": "Acerca del proyecto",
+    "version": "Versión"
+  },
+  "bizStatus": {
+    "approved": "Aprobado",
+    "disabled": "Deshabilitado",
+    "draft": "Borrador",
+    "enabled": "Habilitado",
+    "failed": "Fallido",
+    "pending": "Pendiente",
+    "rejected": "Rechazado",
+    "running": "En curso",
+    "success": "Correcto"
+  },
+  "approval": {
+    "approve": "Aprobar",
+    "empty": "Sin registros de aprobación",
+    "reject": "Rechazar",
+    "return": "Devolver",
+    "submit": "Enviar",
+    "transfer": "Delegar"
+  },
+  "pageStatus": {
+    "empty": "Sin datos",
+    "error": "No se pudieron cargar los datos, inténtalo más tarde",
+    "loading": "Cargando...",
+    "retry": "Recargar"
+  },
+  "emptyState": {
+    "description": "Icono de estado vacío: no hay contenido que mostrar",
+    "label": "Sin datos"
+  },
+  "errorState": {
+    "back": "Volver",
+    "description": "La solicitud falló, inténtalo más tarde",
+    "retry": "Reintentar",
+    "title": "Algo salió mal"
+  },
+  "errorBoundary": {
+    "back": "Volver a la página anterior",
+    "details": "Detalles del error",
+    "message": "La página no se pudo cargar, inténtalo más tarde",
+    "retry": "Reintentar"
+  },
+  "workbench": {
+    "project": "Proyectos",
+    "team": "Equipos",
+    "todo": "Tareas"
+  },
+  "asyncState": {
+    "emptyText": "Sin datos",
+    "errorTitle": "Error al cargar"
+  },
+  "networkStatus": {
+    "hint": "Revisa tu conexión de red y vuelve a intentarlo.",
+    "offline": "Se perdió la conexión de red, revisa la configuración",
+    "reconnect": "Reconectar",
+    "retrying": "Reconectando…"
+  },
+  "excelImport": {
+    "import": "Importar",
+    "parseFailed": "No se pudo analizar el archivo, revisa el formato",
+    "result": "{total} filas en total, {errorCount} con errores: {firstError}"
+  },
+  "keyboardHelp": {
+    "empty": "No hay atajos configurados",
+    "title": "Atajos de teclado"
+  },
+  "userAvatar": {
+    "online": "En línea"
   }
 }
