@@ -12,11 +12,14 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { DURATION_TOKENS, EASING_TOKENS } from '@ydsz-core/design-tokens';
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
 
 import { useImageViewer, useImageViewerState } from './use-image-viewer';
 
 /** 缩略图最多显示数量 */
 const MAX_THUMBNAILS = 10;
+
+const { t } = useLocale();
 
 /** SSR hydration guard: defer Teleport rendering to client only */
 const isClient = ref(false);
@@ -240,7 +243,7 @@ onBeforeUnmount(() => {
         class="fixed inset-0 z-[1000] flex flex-col bg-black/85"
         role="dialog"
         aria-modal="true"
-        :aria-label="currentImage?.alt || `预览图 ${state.currentIndex + 1}`"
+        :aria-label="currentImage?.alt || t('image.previewAlt', { index: state.currentIndex + 1 })"
         aria-keyshortcuts="ArrowLeft ArrowRight Escape +-"
       >
         <!-- 顶部工具栏 -->
@@ -252,7 +255,7 @@ onBeforeUnmount(() => {
           <div class="flex items-center gap-1">
             <button
               type="button"
-              aria-label="放大"
+              :aria-label="t('image.zoomInAriaLabel')"
               class="rounded-full p-2 text-white/90 transition-colors hover:bg-white/15"
               @click="zoomIn"
             >
@@ -264,7 +267,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              aria-label="缩小"
+              :aria-label="t('image.zoomOutAriaLabel')"
               class="rounded-full p-2 text-white/90 transition-colors hover:bg-white/15"
               @click="zoomOut"
             >
@@ -276,7 +279,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              aria-label="向左旋转"
+              :aria-label="t('image.rotateLeftAriaLabel')"
               class="rounded-full p-2 text-white/90 transition-colors hover:bg-white/15"
               @click="rotateLeft"
             >
@@ -287,7 +290,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              aria-label="向右旋转"
+              :aria-label="t('image.rotateRightAriaLabel')"
               class="rounded-full p-2 text-white/90 transition-colors hover:bg-white/15"
               @click="rotateRight"
             >
@@ -298,7 +301,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              aria-label="重置变换"
+              :aria-label="t('image.resetTransformAriaLabel')"
               class="rounded-full p-2 text-white/90 transition-colors hover:bg-white/15"
               @click="resetTransformations"
             >
@@ -310,7 +313,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              aria-label="关闭预览"
+              :aria-label="t('image.closeAriaLabel')"
               class="rounded-full p-2 text-white/90 transition-colors hover:bg-white/15"
               @click="closeViewer"
             >
@@ -327,7 +330,7 @@ onBeforeUnmount(() => {
           <button
             v-show="state.currentIndex > 0"
             type="button"
-            aria-label="上一张"
+            :aria-label="t('image.prevAriaLabel')"
             class="absolute start-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white transition-transform hover:scale-110 hover:bg-black/60"
             @click="goPrev"
           >
@@ -341,7 +344,7 @@ onBeforeUnmount(() => {
             v-if="currentImage"
             :key="currentImage.src + state.currentIndex"
             :src="currentImage.src"
-            :alt="currentImage.alt || `预览图 ${state.currentIndex + 1}`"
+            :alt="currentImage.alt || t('image.previewAlt', { index: state.currentIndex + 1 })"
             role="img"
             class="max-h-[80vh] max-w-[90vw] select-none object-contain transition-transform"
             :style="{
@@ -360,7 +363,7 @@ onBeforeUnmount(() => {
           <button
             v-show="state.currentIndex < state.images.length - 1"
             type="button"
-            aria-label="下一张"
+            :aria-label="t('image.nextAriaLabel')"
             class="absolute end-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white transition-transform hover:scale-110 hover:bg-black/60"
             @click="goNext"
           >
@@ -375,7 +378,7 @@ onBeforeUnmount(() => {
           v-if="state.images.length > 1"
           class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-lg bg-black/50 p-2"
           role="tablist"
-          aria-label="图片切换"
+          :aria-label="t('image.switchAriaLabel')"
         >
           <button
             v-for="(img, idx) in thumbnailSlice"
@@ -383,7 +386,7 @@ onBeforeUnmount(() => {
             type="button"
             role="tab"
             :aria-selected="(idx + thumbnailOffset) === state.currentIndex"
-            :aria-label="`第 ${idx + thumbnailOffset + 1} 张`"
+            :aria-label="t('image.itemAriaLabel', { index: idx + thumbnailOffset + 1 })"
             :class="cn(
               'h-14 w-20 shrink-0 overflow-hidden rounded border-2 transition-all duration-200',
               (idx + thumbnailOffset) === state.currentIndex

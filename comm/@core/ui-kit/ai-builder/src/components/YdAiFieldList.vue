@@ -10,6 +10,8 @@
  */
 import type { FieldSuggestion } from '../types';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 const props = withDefaults(defineProps<{
   /** 字段列表 */
   fields: FieldSuggestion[];
@@ -25,6 +27,8 @@ const props = withDefaults(defineProps<{
   fieldCount: 0,
 });
 
+const { t } = useLocale();
+
 const emit = defineEmits<{
   'add-field': [field: FieldSuggestion];
   'remove-field': [fieldName: string];
@@ -39,24 +43,35 @@ const sortedFields = (): FieldSuggestion[] => {
 };
 
 /**
- * 推断字段类型的中文标签。
+ * 推断类型 → 标签词典键。
+ *
+ * <p>写成 { type, labelKey } 清单而不是 Record<string, string>：门禁只认得出带键名属性的
+ * 字面量（{@code labelKey: 'a.b'}），裸值 {@code string: 'a.b'} 会漏检，缺键时界面直接渲染
+ * "aiBuilder.typeString" 字面量。未收录的类型原样显示，便于暴露新增类型缺词典。
+ */
+const FIELD_TYPE_LABELS: Array<{ type: string; labelKey: string }> = [
+  { type: 'string', labelKey: 'aiBuilder.typeString' },
+  { type: 'number', labelKey: 'aiBuilder.typeNumber' },
+  { type: 'boolean', labelKey: 'aiBuilder.typeBoolean' },
+  { type: 'date', labelKey: 'aiBuilder.typeDate' },
+  { type: 'datetime', labelKey: 'aiBuilder.typeDatetime' },
+  { type: 'enum', labelKey: 'aiBuilder.typeEnum' },
+  { type: 'text', labelKey: 'aiBuilder.typeLongText' },
+  { type: 'email', labelKey: 'aiBuilder.typeEmail' },
+  { type: 'phone', labelKey: 'aiBuilder.typePhone' },
+  { type: 'url', labelKey: 'aiBuilder.typeUrl' },
+  { type: 'money', labelKey: 'aiBuilder.typeMoney' },
+  { type: 'percent', labelKey: 'aiBuilder.typePercent' },
+];
+
+const FIELD_TYPE_LABEL_KEY_MAP = new Map(FIELD_TYPE_LABELS.map((item) => [item.type, item.labelKey]));
+
+/**
+ * 推断字段的显示标签。
  */
 function fieldTypeLabel(type: string): string {
-  const map: Record<string, string> = {
-    string: '文本',
-    number: '数字',
-    boolean: '布尔',
-    date: '日期',
-    datetime: '时间',
-    enum: '枚举',
-    text: '长文本',
-    email: '邮箱',
-    phone: '电话',
-    url: '链接',
-    money: '金额',
-    percent: '百分比',
-  };
-  return map[type] ?? type;
+  const key = FIELD_TYPE_LABEL_KEY_MAP.get(type);
+  return key ? t(key) : type;
 }
 
 /**
@@ -93,11 +108,11 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
     <!-- 标题栏 -->
     <div class="flex items-center justify-between">
       <h3 class="text-sm font-medium">
-        生成字段
+        {{ t('aiBuilder.fieldListTitle') }}
         <span class="text-muted-foreground">({{ fieldCount }})</span>
       </h3>
       <span :class="['text-xs', confidenceColor(confidence)]">
-        置信度: {{ (confidence * 100).toFixed(0) }}%
+        {{ t('aiBuilder.confidence', { value: (confidence * 100).toFixed(0) }) }}
       </span>
     </div>
 
@@ -109,12 +124,12 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
         class="flex items-center gap-2 rounded-md border bg-muted/30 px-3 py-2"
       >
         <!-- 排序按钮 -->
-        <div class="flex flex-col" aria-label="排序控制">
+        <div class="flex flex-col" :aria-label="t('aiBuilder.sortControlsAriaLabel')">
           <button
             type="button"
             :disabled="!isEditable"
             class="text-muted-foreground disabled:opacity-50"
-            aria-label="上移"
+            :aria-label="t('aiBuilder.moveUpAriaLabel')"
             @click="emit('move-up', field.name)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
@@ -125,7 +140,7 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
             type="button"
             :disabled="!isEditable"
             class="text-muted-foreground disabled:opacity-50"
-            aria-label="下移"
+            :aria-label="t('aiBuilder.moveDownAriaLabel')"
             @click="emit('move-down', field.name)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
@@ -172,14 +187,14 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
             class="rounded border-input"
             @change="emit('update-field', field.name, { isRequired: ($event.target as HTMLInputElement).checked })"
           />
-          必填
+          {{ t('common.required') }}
         </label>
 
         <!-- 校验提示 -->
         <input
           v-if="isEditable"
           :value="field.tooltip ?? field.validationHint ?? ''"
-          placeholder="校验提示（可选）"
+          :placeholder="t('aiBuilder.hintPlaceholder')"
           class="flex-1 rounded border border-input bg-background px-2 py-1 text-xs"
           @input="emit('update-field', field.name, { tooltip: ($event.target as HTMLInputElement).value })"
         />
@@ -192,7 +207,7 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
           v-if="isEditable"
           type="button"
           class="text-destructive hover:text-destructive/80"
-          aria-label="删除字段"
+          :aria-label="t('aiBuilder.deleteFieldAriaLabel')"
           @click="emit('remove-field', field.name)"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -210,13 +225,13 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
         class="text-xs text-primary hover:text-primary/80"
         @click="emit('add-field', {
           name: `field_${Date.now()}`,
-          label: '新字段',
+          label: t('aiBuilder.newField'),
           fieldType: 'string',
           isRequired: false,
           sort: 999,
         })"
       >
-        + 添加字段
+        + {{ t('aiBuilder.addField') }}
       </button>
       <button
         type="button"
@@ -224,7 +239,7 @@ const typeOptions: FieldSuggestion['fieldType'][] = [
         class="ml-auto inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         @click="emit('submit')"
       >
-        确认生成表单
+        {{ t('aiBuilder.confirmGenerate') }}
       </button>
     </div>
   </div>

@@ -70,14 +70,17 @@ import { computed, ref } from 'vue';
 
 import type { FieldSuggestion } from '../types';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 import { useAiBuilder } from '../composables/use-ai-builder';
 import { generateFormSchema } from '../form-schema-adapter';
 import YdAiBuilderToolbar from './YdAiBuilderToolbar.vue';
 import YdAiFieldList from './YdAiFieldList.vue';
 
+const { t } = useLocale();
+
 const props = withDefaults(defineProps<YdAiBuilderProps>(), {
   initialDescription: '',
-  generateButtonText: '生成页面',
   isFieldEditable: true,
   maxFields: 32,
 });
@@ -127,7 +130,7 @@ const fieldCount = computed<number>(() => fields.value.length);
 async function handleGenerate(): Promise<void> {
   const page = await generate();
   if (!page && description.value.trim()) {
-    emit('error', '生成失败，请检查描述内容');
+    emit('error', t('aiBuilder.generateFailed'));
   }
 }
 

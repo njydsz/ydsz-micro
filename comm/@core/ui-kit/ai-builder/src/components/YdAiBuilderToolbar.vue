@@ -12,6 +12,8 @@ import { computed } from 'vue';
 
 import type { PageIntent } from '../types';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 const description = defineModel<string>('description', { required: true });
 const props = withDefaults(defineProps<{
   /** 是否正在生成 */
@@ -25,8 +27,9 @@ const props = withDefaults(defineProps<{
 }>(), {
   isGenerating: false,
   isDescriptionEmpty: true,
-  generateButtonText: '生成页面',
 });
+
+const { t } = useLocale();
 
 const emit = defineEmits<{
   generate: [];
@@ -34,13 +37,37 @@ const emit = defineEmits<{
 }>();
 
 const placeholder = computed<string>(() => {
-  const typeMap: Record<string, string> = {
-    form: '例如：创建一个新建用户表单，需要姓名、年龄、邮箱字段',
-    table: '例如：创建一个订单列表，支持按状态筛选和导出功能',
-    dashboard: '例如：创建一个销售数据看板，展示每日营收、订单量、转化率',
-    detail: '例如：创建一个客户详情页，展示基本信息和关联订单',
-  };
-  return props.pageType ? typeMap[props.pageType] ?? typeMap.form : '自然语言描述您要创建的页面（支持中英文混合）';
+  if (!props.pageType) {
+    return t('aiBuilder.defaultPromptPlaceholder');
+  }
+  // 逐型显式 t()：「类型 → 键」映射表的裸值对门禁不可见，缺键会把键名渲染到界面
+  switch (props.pageType) {
+    case 'table': {
+      return t('aiBuilder.exampleTable');
+    }
+    case 'detail': {
+      return t('aiBuilder.exampleDetail');
+    }
+    case 'dashboard': {
+      return t('aiBuilder.exampleDashboard');
+    }
+    default: {
+      return t('aiBuilder.exampleForm');
+    }
+  }
+});
+
+/**
+ * 生成按钮文案。
+ *
+ * <p>默认值不写在 withDefaults 里：props 默认值在模块求值时定型，之后切换语种不会跟着变，
+ * 只能留成 undefined 由渲染处的 t() 兜底。
+ */
+const generateLabel = computed<string>(() => {
+  if (props.isGenerating) {
+    return t('aiBuilder.generating');
+  }
+  return props.generateButtonText ?? t('aiBuilder.generatePage');
 });
 </script>
 
@@ -49,7 +76,7 @@ const placeholder = computed<string>(() => {
     <!-- 输入框区域 -->
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-foreground">
-        页面描述
+        {{ t('aiBuilder.pageDescription') }}
       </label>
       <textarea
         v-model="description"
@@ -63,7 +90,7 @@ const placeholder = computed<string>(() => {
     <!-- 工具栏按钮 -->
     <div class="flex items-center justify-between">
       <span class="text-xs text-muted-foreground">
-        AI 将根据描述的字段和业务关键词自动推断页面结构
+        {{ t('aiBuilder.autoHint') }}
       </span>
       <div class="flex gap-2">
         <button
@@ -72,7 +99,7 @@ const placeholder = computed<string>(() => {
           class="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
           @click="emit('reset')"
         >
-          重置
+          {{ t('common.reset') }}
         </button>
         <button
           type="button"
@@ -91,7 +118,7 @@ const placeholder = computed<string>(() => {
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          {{ isGenerating ? '生成中...' : generateButtonText }}
+          {{ generateLabel }}
         </button>
       </div>
     </div>

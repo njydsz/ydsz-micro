@@ -7,10 +7,10 @@
     "userinfo-web": 382,
     "nextwiki-web": 297,
     "workflow-web": 253,
-    "comm/@core": 203,
     "generator-web": 196,
     "main/src": 190,
     "system-web": 145,
+    "comm/@core": 143,
     "comm/effects": 65,
     "docs-site": 19
   },

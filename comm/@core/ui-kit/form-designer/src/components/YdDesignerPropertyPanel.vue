@@ -11,6 +11,10 @@
  */
 import type { CanvasItem } from '../types';
 
+import { computed } from 'vue';
+
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 import { useDesignerContext } from './designer-context';
 
 defineProps<{
@@ -24,6 +28,7 @@ const emit = defineEmits<{
 }>();
 
 const { isReadonly } = useDesignerContext();
+const { t } = useLocale();
 
 /**
  * 推送字段属性更新。
@@ -35,31 +40,61 @@ function updateField(updates: Partial<CanvasItem>): void {
   emit('update-item', item.value.id, updates);
 }
 
-/** 常用校验规则快捷配置 */
-const quickRules = [
-  { label: '必填', type: 'required' as const },
-  { label: '手机号', type: 'pattern' as const, value: '^1[3-9]\\d{9}$' },
-  { label: '邮箱', type: 'pattern' as const, value: '^[\\w.-]+@[\\w.-]+\\.\\w+$' },
-  { label: '身份证号', type: 'pattern' as const, value: '^\\d{17}[\\dX]$' },
+/** 常用校验规则快捷配置（labelKey 走词典，type/value 是写入 Schema 的数据） */
+const QUICK_RULES: Array<{ labelKey: string; type: 'required' | 'pattern'; value?: string }> = [
+  { labelKey: 'common.required', type: 'required' },
+  { labelKey: 'designer.rulePhone', type: 'pattern', value: '^1[3-9]\\d{9}$' },
+  { labelKey: 'designer.ruleEmail', type: 'pattern', value: '^[\\w.-]+@[\\w.-]+\\.\\w+$' },
+  { labelKey: 'designer.ruleIdCard', type: 'pattern', value: '^\\d{17}[\\dX]$' },
 ];
+
+const quickRules = computed(() =>
+  QUICK_RULES.map((rule) => ({ ...rule, label: t(rule.labelKey) })),
+);
+
+/**
+ * 追加一条快捷校验规则。
+ *
+ * <p>提示文案按 {@code rule.type} 而非渲染出的 label 文本分支：label 已被 t() 本地化，
+ * 拿它当分支条件时切到任何非中文语种都会让 required 规则落到「请输入有效的…」模板上。
+ */
+function applyQuickRule(rule: (typeof QUICK_RULES)[number]): void {
+  if (!item.value) {
+    return;
+  }
+  updateField({
+    isRequired: rule.type === 'required' ? true : item.value.isRequired,
+    rules: [
+      ...item.value.rules,
+      {
+        type: rule.type,
+        value: rule.value,
+        trigger: 'blur',
+        message: rule.type === 'required'
+          ? t('designer.ruleRequiredMessage')
+          : t('designer.rulePatternMessage', { label: t(rule.labelKey) }),
+      },
+    ],
+  });
+}
 </script>
 
 <template>
   <div class="yfd-property flex w-64 flex-shrink-0 flex-col gap-3 overflow-y-auto border-l bg-muted/20 p-3">
-    <h3 class="text-xs font-semibold text-muted-foreground uppercase">属性面板</h3>
+    <h3 class="text-xs font-semibold text-muted-foreground uppercase">{{ t('designer.panelTitle') }}</h3>
 
     <!-- 未选中提示 -->
     <div
       v-if="!item"
       class="text-xs text-muted-foreground"
     >
-      在画布上点击字段进行编辑
+      {{ t('designer.panelEmptyHint') }}
     </div>
 
     <!-- 字段属性编辑 -->
     <div v-else class="flex flex-col gap-3">
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-muted-foreground">字段名</label>
+        <label class="text-xs text-muted-foreground">{{ t('designer.fieldName') }}</label>
         <input
           :value="item.fieldName"
           :disabled="isReadonly"
@@ -69,7 +104,7 @@ const quickRules = [
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-muted-foreground">标签</label>
+        <label class="text-xs text-muted-foreground">{{ t('designer.fieldLabel') }}</label>
         <input
           :value="item.label"
           :disabled="isReadonly"
@@ -79,7 +114,7 @@ const quickRules = [
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-muted-foreground">Placeholder</label>
+        <label class="text-xs text-muted-foreground">{{ t('designer.placeholderField') }}</label>
         <input
           :value="item.placeholder ?? ''"
           :disabled="isReadonly"
@@ -97,12 +132,12 @@ const quickRules = [
             class="rounded border-input"
             @change="updateField({ isRequired: ($event.target as HTMLInputElement).checked })"
           />
-          必填
+          {{ t('common.required') }}
         </label>
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-muted-foreground">栅格占位 (1-12)</label>
+        <label class="text-xs text-muted-foreground">{{ t('designer.gridSpan') }}</label>
         <input
           type="number"
           :value="item.span"
@@ -115,7 +150,7 @@ const quickRules = [
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-muted-foreground">快捷校验</label>
+        <label class="text-xs text-muted-foreground">{{ t('designer.quickRules') }}</label>
         <div class="flex flex-wrap gap-1">
           <button
             v-for="rule in quickRules"
@@ -123,18 +158,7 @@ const quickRules = [
             type="button"
             :disabled="isReadonly"
             class="rounded border border-input px-2 py-0.5 text-[10px] hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
-            @click="updateField({
-              isRequired: rule.type === 'required' ? true : item.isRequired,
-              rules: [
-                ...item.rules,
-                {
-                  type: rule.type,
-                  value: rule.value,
-                  trigger: 'blur',
-                  message: rule.label === '必填' ? '此字段必填' : `请输入有效的${rule.label}`,
-                },
-              ],
-            })"
+            @click="applyQuickRule(rule)"
           >
             + {{ rule.label }}
           </button>
@@ -143,13 +167,13 @@ const quickRules = [
 
       <!-- 已配置规则 -->
       <div v-if="item.rules.length > 0" class="flex flex-col gap-1">
-        <label class="text-xs text-muted-foreground">校验规则 ({{ item.rules.length }})</label>
+        <label class="text-xs text-muted-foreground">{{ t('designer.rulesHeader', { count: item.rules.length }) }}</label>
         <div
           v-for="(rule, idx) in item.rules"
           :key="idx"
           class="flex items-center justify-between rounded bg-muted/40 px-2 py-1 text-[10px]"
         >
-          <span>{{ rule.label }}: {{ rule.message }}</span>
+          <span>{{ rule.message }}</span>
           <button
             v-if="!isReadonly"
             type="button"

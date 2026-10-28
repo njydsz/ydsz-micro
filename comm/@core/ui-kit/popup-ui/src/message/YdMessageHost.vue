@@ -17,6 +17,10 @@ import { computed } from 'vue';
 
 import { CircleAlert, CircleCheckBig, CircleX, Info, LoaderCircle, X } from '@ydsz-core/icons';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
+
 /** 宿主席持有的消息列表（模块级 ref），由 message.ts 注入 */
 const props = defineProps<{ messages: Ref<MessageItem[]> }>();
 
@@ -75,7 +79,7 @@ const visibleMessages = computed(() => props.messages.value.filter((item) => !it
         <button
           v-if="item.closable || item.duration === 0"
           type="button"
-          aria-label="关闭消息"
+          :aria-label="t('message.closeAriaLabel')"
           class="text-muted-foreground ml-1 shrink-0 opacity-60 transition hover:opacity-100"
           @click="emit('closeMessage', item.id)"
         >

@@ -17,7 +17,11 @@ import { ref } from 'vue';
 
 import type { CanvasItem } from '../types';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 import { useDesignerContext } from './designer-context';
+
+const { t } = useLocale();
 
 const props = defineProps<{
   isReadonly?: boolean;
@@ -90,7 +94,7 @@ function handleKeyDelete(event: KeyboardEvent): void {
       v-if="items.length === 0"
       class="flex h-full items-center justify-center text-sm text-muted-foreground"
     >
-      从左侧拖入或点击组件，开始设计表单
+      {{ t('designer.canvasEmptyHint') }}
     </div>
 
     <!-- 字段列表 -->

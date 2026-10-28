@@ -57,32 +57,6 @@ import { useComponentI18n } from '../../composables/use-component-i18n';
 
 import YdUploadItem from './YdUploadItem.vue';
 
-/** Upload 组件 i18n 消息定义 */
-const uploadMessages = {
-  zh: {
-    upload: {
-      chunkUploading: '分片上传中 ({percent}%)',
-      clickToUpload: '点击上传',
-      dragTipPrefix: '将文件拖到此处，或',
-      retry: '重试',
-      uploadError: '上传失败',
-      uploadSuccess: '上传成功',
-      uploading: '上传中',
-    },
-  },
-  en: {
-    upload: {
-      chunkUploading: 'Chunk uploading ({percent}%)',
-      clickToUpload: 'Click to upload',
-      dragTipPrefix: 'Drag files here, or ',
-      retry: 'Retry',
-      uploadError: 'Upload failed',
-      uploadSuccess: 'Upload success',
-      uploading: 'Uploading',
-    },
-  },
-};
-
 const props = withDefaults(
   defineProps<{
     /** 上传地址 */

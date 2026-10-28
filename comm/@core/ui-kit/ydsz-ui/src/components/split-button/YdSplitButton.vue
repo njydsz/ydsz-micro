@@ -13,22 +13,9 @@
  */
 import { computed, ref } from 'vue';
 
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 
 import type { SplitButtonEmits, SplitButtonAction, YdSplitButtonProps } from './types';
-
-const splitButtonMessages = {
-  en: {
-    splitButton: {
-      'toggleDropdown': 'Toggle action menu',
-    },
-  },
-  zh: {
-    splitButton: {
-      'toggleDropdown': '展开动作菜单',
-    },
-  },
-};
 
 defineOptions({ name: 'YdSplitButton' });
 
@@ -43,7 +30,7 @@ const props = withDefaults(defineProps<YdSplitButtonProps>(), {
 
 const emit = defineEmits<SplitButtonEmits>();
 
-const { t } = useComponentI18n({ messages: splitButtonMessages });
+const { t } = useLocale();
 
 /** dropdown 是否打开 */
 const isDropdownOpen = ref(false);

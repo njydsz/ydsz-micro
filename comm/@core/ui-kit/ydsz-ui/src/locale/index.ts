@@ -25,4 +25,4 @@ export { default as thTH } from './th-TH';
 export { default as viVN } from './vi-VN';
 
 export { useLocale, LOCALE_LANG_KEY, getDirection } from './useLocale';
-export type { LocaleMessages, LocaleLang, UseLocaleOptions } from './useLocale';
+export type { LocaleMessages, LocaleParams, LocaleLang, UseLocaleOptions } from './useLocale';

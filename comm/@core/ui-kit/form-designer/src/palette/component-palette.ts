@@ -4,6 +4,9 @@
  * <p>定义左侧组件面板全部可用组件，包含默认 props 和分组信息。
  * 业务方可通过 props 扩展 react-natively 注册自定义组件。
  *
+ * <p>显示文案只存词典键（labelKey / placeholderKey），由渲染侧的 t() 解析，
+ * 因此切换语种时面板与新建字段会同步变化。
+ *
  * @path comm\@core\ui-kit\form-designer\src\palette\component-palette.ts
  * @author ydsz-team
  * @since 1.0.0
@@ -17,39 +20,43 @@ import type { DesignerComponentMeta } from '../types';
 export const BASIC_COMPONENTS: DesignerComponentMeta[] = [
   {
     componentType: 'YDSZInput',
-    label: '单行文本',
+    labelKey: 'designer.item.singleLine',
+    placeholderKey: 'designer.placeholder.input',
     icon: 'input',
     group: 'basic',
-    defaultProps: { placeholder: '请输入' },
+    defaultProps: {},
     isContainer: false,
   },
   {
     componentType: 'YdTextarea',
-    label: '多行文本',
+    labelKey: 'designer.item.multiLine',
+    placeholderKey: 'designer.placeholder.input',
     icon: 'textarea',
     group: 'basic',
-    defaultProps: { placeholder: '请输入', rows: 3 },
+    defaultProps: { rows: 3 },
     isContainer: false,
   },
   {
     componentType: 'InputNumber',
-    label: '数字输入',
+    labelKey: 'designer.item.numberInput',
+    placeholderKey: 'designer.placeholder.number',
     icon: 'number',
     group: 'basic',
-    defaultProps: { placeholder: '请输入数字' },
+    defaultProps: {},
     isContainer: false,
   },
   {
     componentType: 'YdSelect',
-    label: '下拉选择',
+    labelKey: 'designer.item.select',
+    placeholderKey: 'designer.placeholder.select',
     icon: 'select',
     group: 'basic',
-    defaultProps: { placeholder: '请选择', options: [] },
+    defaultProps: { options: [] },
     isContainer: false,
   },
   {
     componentType: 'YdRadioGroup',
-    label: '单选框组',
+    labelKey: 'designer.item.radioGroup',
     icon: 'radio',
     group: 'basic',
     defaultProps: { options: [] },
@@ -57,7 +64,7 @@ export const BASIC_COMPONENTS: DesignerComponentMeta[] = [
   },
   {
     componentType: 'YdCheckbox',
-    label: '复选框',
+    labelKey: 'designer.item.checkbox',
     icon: 'checkbox',
     group: 'basic',
     defaultProps: {},
@@ -65,7 +72,7 @@ export const BASIC_COMPONENTS: DesignerComponentMeta[] = [
   },
   {
     componentType: 'YdSwitch',
-    label: '开关',
+    labelKey: 'designer.item.switch',
     icon: 'switch',
     group: 'basic',
     defaultProps: {},
@@ -73,23 +80,25 @@ export const BASIC_COMPONENTS: DesignerComponentMeta[] = [
   },
   {
     componentType: 'YdDatePicker',
-    label: '日期选择',
+    labelKey: 'designer.item.datePicker',
+    placeholderKey: 'designer.placeholder.date',
     icon: 'date',
     group: 'basic',
-    defaultProps: { placeholder: '请选择日期' },
+    defaultProps: {},
     isContainer: false,
   },
   {
     componentType: 'TimePicker',
-    label: '时间选择',
+    labelKey: 'designer.item.timePicker',
+    placeholderKey: 'designer.placeholder.time',
     icon: 'time',
     group: 'basic',
-    defaultProps: { placeholder: '请选择时间' },
+    defaultProps: {},
     isContainer: false,
   },
   {
     componentType: 'YdUpload',
-    label: '文件上传',
+    labelKey: 'designer.item.fileUpload',
     icon: 'upload',
     group: 'basic',
     defaultProps: { action: '/api/upload', limit: 5 },
@@ -103,7 +112,7 @@ export const BASIC_COMPONENTS: DesignerComponentMeta[] = [
 export const ADVANCED_COMPONENTS: DesignerComponentMeta[] = [
   {
     componentType: 'YdRichText',
-    label: '富文本编辑器',
+    labelKey: 'designer.item.richEditor',
     icon: 'richtext',
     group: 'advanced',
     defaultProps: { height: 300 },
@@ -111,15 +120,16 @@ export const ADVANCED_COMPONENTS: DesignerComponentMeta[] = [
   },
   {
     componentType: 'YdUserSelect',
-    label: '人员选择',
+    labelKey: 'designer.item.userSelect',
+    placeholderKey: 'designer.placeholder.user',
     icon: 'user',
     group: 'advanced',
-    defaultProps: { placeholder: '请选择人员' },
+    defaultProps: {},
     isContainer: false,
   },
   {
     componentType: 'YdDeptSelect',
-    label: '部门选择',
+    labelKey: 'designer.item.deptSelect',
     icon: 'dept',
     group: 'advanced',
     defaultProps: {},
@@ -133,7 +143,7 @@ export const ADVANCED_COMPONENTS: DesignerComponentMeta[] = [
 export const LAYOUT_COMPONENTS: DesignerComponentMeta[] = [
   {
     componentType: 'YdGrid',
-    label: '栅格布局',
+    labelKey: 'designer.item.gridLayout',
     icon: 'grid',
     group: 'layout',
     defaultProps: { columns: 2, gutter: 16 },
@@ -141,7 +151,7 @@ export const LAYOUT_COMPONENTS: DesignerComponentMeta[] = [
   },
   {
     componentType: 'YdDivider',
-    label: '分割线',
+    labelKey: 'designer.item.divider',
     icon: 'divider',
     group: 'layout',
     defaultProps: {},
@@ -158,7 +168,7 @@ export const ALL_PALETTE_COMPONENTS: DesignerComponentMeta[] = [
 
 /** 分组信息 */
 export const COMPONENT_GROUPS = [
-  { key: 'basic', label: '基础控件' },
-  { key: 'advanced', label: '高级控件' },
-  { key: 'layout', label: '布局控件' },
+  { key: 'basic', labelKey: 'designer.groupBasic' },
+  { key: 'advanced', labelKey: 'designer.groupAdvanced' },
+  { key: 'layout', labelKey: 'designer.groupLayout' },
 ] as const;

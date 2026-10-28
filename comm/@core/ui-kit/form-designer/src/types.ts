@@ -20,8 +20,10 @@
 export interface DesignerComponentMeta {
   /** 组件类型标识（与 YdForm 组件名对齐） */
   componentType: string;
-  /** 显示名称 */
-  label: string;
+  /** 显示名称的词典键（面板渲染与新建字段的默认标签都由 t() 解析，切语种才会跟着变） */
+  labelKey: string;
+  /** 占位提示的词典键；不占提示的组件（开关、分割线等）省略 */
+  placeholderKey?: string;
   /** 图标标识（icon name） */
   icon: string;
   /** 所属分组 */

@@ -10,10 +10,14 @@
  */
 import type { DesignerComponentMeta } from '../types';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 import {
   ALL_PALETTE_COMPONENTS,
   COMPONENT_GROUPS,
 } from '../palette';
+
+const { t } = useLocale();
 
 defineProps<{
   /** 是否只读模式（只读时禁用拖拽添加） */
@@ -34,7 +38,7 @@ function handleItemClick(meta: DesignerComponentMeta): void {
 
 <template>
   <div class="yfd-palette flex w-56 flex-shrink-0 flex-col gap-2 overflow-y-auto border-r bg-muted/20 p-3">
-    <h3 class="text-xs font-semibold text-muted-foreground uppercase">组件面板</h3>
+    <h3 class="text-xs font-semibold text-muted-foreground uppercase">{{ t('designer.paletteTitle') }}</h3>
 
     <div
       v-for="group in COMPONENT_GROUPS"
@@ -42,7 +46,7 @@ function handleItemClick(meta: DesignerComponentMeta): void {
       class="flex flex-col gap-1"
     >
       <h4 class="mb-1 text-xs font-medium text-foreground">
-        {{ group.label }}
+        {{ t(group.labelKey) }}
       </h4>
 
       <div class="grid grid-cols-2 gap-1">
@@ -57,7 +61,7 @@ function handleItemClick(meta: DesignerComponentMeta): void {
           <svg class="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" aria-hidden="true">
             <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5" />
           </svg>
-          <span class="truncate">{{ comp.label }}</span>
+          <span class="truncate">{{ t(comp.labelKey) }}</span>
         </button>
       </div>
     </div>

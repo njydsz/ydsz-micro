@@ -30,7 +30,7 @@ import {
   Search,
 } from 'lucide-vue-next';
 
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 
 import type { PickListEmits, PickListMoveEvent, YdPickListProps } from './types';
 
@@ -53,32 +53,7 @@ const props = withDefaults(
 
 const emit = defineEmits<PickListEmits<Record<string, unknown>>>();
 
-const pickListMessages = {
-  en: {
-    pickList: {
-      filterPlaceholder: 'Search',
-      moveAllToSource: 'Move All to Available',
-      moveAllToTarget: 'Move All to Selected',
-      moveToSource: 'Move to Available',
-      moveToTarget: 'Move to Selected',
-      sourceLabel: 'Available',
-      targetLabel: 'Selected',
-    },
-  },
-  zh: {
-    pickList: {
-      filterPlaceholder: '搜索',
-      moveAllToSource: '全部移回来源',
-      moveAllToTarget: '全部移到目标',
-      moveToSource: '移到来源',
-      moveToTarget: '移到目标',
-      sourceLabel: 'Available',
-      targetLabel: 'Selected',
-    },
-  },
-};
-
-const { t } = useComponentI18n({ messages: pickListMessages });
+const { t } = useLocale();
 
 // ---------------------------------------------------------------------------
 // 内部状态

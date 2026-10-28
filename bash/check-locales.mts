@@ -11,6 +11,7 @@
  * </ol>
  *
  * <p>校验维度：语种目录缺失/未知、模块文件缺失/多余、叶子 key 集合不一致、解析失败、
+ * 组件库源码<b>引用了词典里不存在的键</b>（见 {@link checkUikitKeyUsage}），
  * 以及<b>翻译质量预算棘轮</b>（机翻痕迹，见 {@link checkTranslationQuality}）。
  * 任一项不通过即退出码 1，供 {@code pnpm check:i18n} 与 CI 门禁消费。
  *
@@ -53,6 +54,89 @@ const TARGET_LANGUAGES = ALL_LANGUAGES.filter((lang) => lang !== BASELINE_LANG);
 
 /** 组件库内置词典目录 — 扁平点号 key 的 TS 常量，语种数量独立于应用层 */
 const UIKIT_LOCALE_DIR = 'comm/@core/ui-kit/ydsz-ui/src/locale';
+
+/** 组件库包根 — 词典本体所在包 */
+const UIKIT_PKG_DIR = 'comm/@core/ui-kit/ydsz-ui';
+
+/** ui-kit 包根目录 — 词典键引用点的搜索范围 */
+const UIKIT_DIR = 'comm/@core/ui-kit';
+
+/**
+ * 引用组件库词典键的包：自动枚举 ui-kit 下声明 {@code @ydsz-core/ydsz-ui} 依赖的包。
+ *
+ * <p>这些包复用 ydsz-ui 的内置词典（{@code useLocale} 是公共导出、自带 BUILTIN_MESSAGES，
+ * 宿主无需注入），它们的 {@code t('...')} 与 ydsz-ui 共用一份键集合，必须同批扫描。
+ * 按 package.json 依赖枚举而不是手写清单：新增消费包零登记即被覆盖，清单漏登记时缺键引用
+ * 会静默溜过门禁（此前 popup-ui/form-designer/ai-builder 就是靠人记得才扫到）。
+ *
+ * @param root - 仓库根（自检夹具根同样适用）
+ * @returns 待扫描包目录（相对仓库根，正斜杠）
+ */
+function discoverKeyRefPkgDirs(root: string): string[] {
+  const base = join(root, UIKIT_DIR);
+  if (!existsSync(base)) {
+    return [UIKIT_PKG_DIR];
+  }
+  const dirs = [UIKIT_PKG_DIR];
+  for (const name of readdirSync(base)) {
+    const manifestPath = join(base, name, 'package.json');
+    if (!existsSync(manifestPath)) {
+      continue;
+    }
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8')) as {
+      dependencies?: Record<string, string>;
+      peerDependencies?: Record<string, string>;
+    };
+    const dependsOnLocale = manifest.dependencies?.['@ydsz-core/ydsz-ui']
+      ?? manifest.peerDependencies?.['@ydsz-core/ydsz-ui'];
+    if (dependsOnLocale) {
+      dirs.push(`${UIKIT_DIR}/${name}`);
+    }
+  }
+  return dirs;
+}
+
+/** 自检夹具用的兄弟包：声明了 ydsz-ui 依赖，夹具落进它才证明按依赖枚举真的生效 */
+const SIBLING_REF_PKG_DIR = `${UIKIT_DIR}/popup-ui`;
+
+/** 自检夹具用的第二个兄弟包：advanced-table 的词典键存在 .ts 数据里 */
+const SIBLING_DATA_PKG_DIR = `${UIKIT_DIR}/advanced-table`;
+
+/** 自检夹具用的包清单（只有声明 ydsz-ui 依赖的包才会被枚举进扫描范围） */
+function dependentPkgManifest(name: string): string {
+  return `${JSON.stringify({
+    name: `@ydsz-core/${name}`,
+    dependencies: { '@ydsz-core/ydsz-ui': 'workspace:*' },
+  }, null, 2)}\n`;
+}
+
+/**
+ * 组件里引用词典键的写法：{@code t('a.b')}；第二参是插值对象还是 fallback 都同样命中。
+ *
+ * <p>前置断言要排掉 {@code $t('cancel')} 这类调用：popup-ui 的 Alert/Drawer/Modal 用的是
+ * useSimpleLocale 的极简兜底词典（无点号键 cancel/confirm/reset…），与组件库词典无关，
+ * 按「引用缺键」报出来等于冤枉正确写法。
+ */
+const UIKIT_KEY_REF_RE = /(?<![\w$.])t\(\s*'([^']+)'/gu;
+
+/**
+ * 数据侧的键持有属性：{@code labelKey: 'a.b'} / {@code placeholderKey: 'a.b'}。
+ *
+ * <p>组件面板、快捷规则这类「数据驱动的文案」把词典键存进 .ts/.vue 的数据结构，渲染时才
+ * {@code t(item.labelKey)} 取值——静态正则看不到 {@code t()} 调用，缺键会在界面上渲染成
+ * {@code designer.item.xxx} 字面量。按属性名白名单收（不用通用 {@code \w+Key:}）：
+ * {@code rowKey: 'id'}、{@code childrenKey: 'children'} 是字段名，不是词典键。
+ */
+const UIKIT_KEY_PROP_RE = /\b(?:labelKey|placeholderKey):\s*'([^']+)'/gu;
+
+/**
+ * 引用扫描跳过的路径片段。
+ *
+ * <p>{@code __tests__} 与 {@code *.test.ts} 必须排除：useLocale.test.ts 里
+ * {@code t('nonexistent.key', 'fallback text')} 是故意引用缺键来验证回退链路，
+ * 按缺陷报出来等于让门禁冤枉正确写法。
+ */
+const KEY_REF_SKIP = ['node_modules', '/dist/', '/__tests__/', '.test.ts', '/src/locale/'];
 
 /** 语种文件命名形如 zh-CN.ts / zh-CN.json，用于排除 index、useLocale、测试文件 */
 const LOCALE_FILE_RE = /^[a-z]{2}-[A-Z]{2}\.[a-z]+$/;
@@ -307,11 +391,107 @@ function checkUikitLocale(report: Report, root: string): void {
   }
 }
 
+/**
+ * 收集组件库源码里对词典键的字面量引用（{@code t('a.b')} 与 {@code labelKey: 'a.b'}）。
+ *
+ * <p>逐行剔除注释行：本仓注释按规范一律中文，JSDoc 里常拿 {@code t('table.empty')} 举例，
+ * 那类文本不是引用点。
+ *
+ * @param root - 仓库根
+ * @returns 引用到的键及其「相对路径:行号」
+ */
+function collectKeyRefs(root: string): Array<{ key: string; at: string }> {
+  const refs: Array<{ key: string; at: string }> = [];
+  const scan = (dir: string): void => {
+    for (const name of readdirSync(dir)) {
+      const abs = join(dir, name);
+      const rel = abs.slice(root.length + 1).replaceAll('\\', '/');
+      if (KEY_REF_SKIP.some((skip) => rel.includes(skip))) {
+        continue;
+      }
+      if (statSync(abs).isDirectory()) {
+        scan(abs);
+        continue;
+      }
+      if (!/\.(?:ts|vue)$/u.test(name)) {
+        continue;
+      }
+      readFileSync(abs, 'utf-8')
+        .split(/\r?\n/u)
+        .forEach((line, idx) => {
+          if (/^\s*(?:\/\/|\*|\/\*)/u.test(line)) {
+            return;
+          }
+          for (const re of [UIKIT_KEY_REF_RE, UIKIT_KEY_PROP_RE]) {
+            for (const match of line.matchAll(re)) {
+              refs.push({ key: match[1], at: `${rel}:${idx + 1}` });
+            }
+          }
+        });
+    }
+  };
+  for (const pkgDir of discoverKeyRefPkgDirs(root)) {
+    const base = join(root, pkgDir);
+    if (existsSync(base)) {
+      scan(base);
+    }
+  }
+  return refs;
+}
+
+/**
+ * 校验组件引用的词典键在各语种里真实存在。
+ *
+ * <p>key parity 只保证「各语种键集合一致」，不保证「组件引用的键收录在词典里」；而
+ * {@code useLocale.t()} 逐级回退的最终兜底是<b>键名本身</b>。实测 auto-complete.vue 曾写
+ * {@code t('noData') ?? '无匹配结果'}——t() 返回 'noData' 恒为真值，中文兜底永远走不到，
+ * 界面直接渲染出 "noData" 字面量。该缺陷在中文界面下完全隐形，只能按引用点显式拦截。
+ *
+ * @param report - 共享报告累加器
+ * @param root - 仓库根
+ */
+function checkUikitKeyUsage(report: Report, root: string): void {
+  const dir = join(root, UIKIT_LOCALE_DIR);
+  // 词典目录缺失已由 checkUikitLocale 报出，此处不重复计
+  if (!existsSync(dir)) {
+    return;
+  }
+  const langFiles = readdirSync(dir).filter((f) => LOCALE_FILE_RE.test(f) && f.endsWith('.ts'));
+  if (langFiles.length === 0) {
+    return;
+  }
+  const keySets = langFiles.map((file) => [
+    file.replace(/\.ts$/u, ''),
+    new Set(collectFlatKeys(readFileSync(join(dir, file), 'utf-8'))),
+  ] as const);
+
+  const reported = new Set<string>();
+  for (const { key, at } of collectKeyRefs(root)) {
+    // 同一缺键只报首处引用，避免词典缺一项时刷屏掩盖其它缺陷
+    if (reported.has(key)) {
+      continue;
+    }
+    const missingLangs = keySets.filter(([, set]) => !set.has(key)).map(([lang]) => lang);
+    if (missingLangs.length === 0) {
+      continue;
+    }
+    reported.add(key);
+    report.push(
+      `[引用缺键] ${at} 引用词典键 '${key}'，` +
+        (missingLangs.length === keySets.length
+          ? `全部 ${keySets.length} 个语种词典均无此键`
+          : `语种 ${missingLangs.join('/')} 无此键`) +
+        '（t() 未命中回退成键名字面量，会直接渲染到界面）',
+    );
+  }
+}
+
 /** 汇总校验，返回报告（--self-test 用夹具根调用） */
 function collectReport(root: string): Report {
   const report = makeReport();
   checkJsonLocales(report, root);
   checkUikitLocale(report, root);
+  checkUikitKeyUsage(report, root);
   checkLanguageListDrift(report, root);
   return report;
 }
@@ -607,6 +787,19 @@ const REQUIRED_DETECTIONS: [string, string][] = [
   ['JSON 叶子 key 多余', '缺失: extra.key'],
   ['JSON 解析失败', '[解析失败]'],
   ['组件库词典 key 缺失', '缺失: table.confirm'],
+  ['组件引用词典里不存在的键', '[引用缺键]'],
+  [
+    '兄弟包（复用同一词典）的引用点也在扫描范围',
+    `${SIBLING_REF_PKG_DIR}/src/image-viewer/Ghost.vue`,
+  ],
+  [
+    '数据侧 labelKey/placeholderKey 字面量也按引用校验',
+    `${SIBLING_REF_PKG_DIR}/src/palette/GhostPalette.ts`,
+  ],
+  [
+    '新增消费包按 package.json 依赖自动纳入扫描范围',
+    `${SIBLING_DATA_PKG_DIR}/src/components/ghost/Ghost.ts`,
+  ],
   ['语种清单漂移', '[语种清单漂移]'],
 ];
 
@@ -681,6 +874,12 @@ function uikitFixtureFiles(dirs: Record<string, string>): Record<string, string>
     files[`${UIKIT_LOCALE_DIR}/${name}`] = content;
   }
   return files;
+}
+
+/** 组件库引用夹具：一个 .vue，在 setup 里以 {@code t('key')} 字面量引用词典键 */
+function uikitRefFixture(keys: string[]): string {
+  const body = keys.map((key) => `  const label = t('${key}');`).join('\n');
+  return `<script setup lang="ts">\n${body}\n</script>\n\n<template>\n  <span>{{ label }}</span>\n</template>\n`;
 }
 
 /** 把扁平「相对路径 → 内容」映射落盘到 dir */
@@ -810,6 +1009,27 @@ function selfTest(): void {
     writeFileSync(join(unknownLangDir, 'common.json'), json({ back: 'zh-TW' }), 'utf-8');
     writeLangDirs(join(dir, 'apps/demo-web/src/locales/langs'), alignedJsonDirs());
     writeFixture(dir, uikitFixtureFiles(BROKEN_UIKIT_DIR));
+    // 组件引用了词典里不存在的键 → [引用缺键]
+    writeFixture(dir, {
+      [`${UIKIT_PKG_DIR}/src/components/ghost/Ghost.vue`]: uikitRefFixture(['table.ghost']),
+    });
+    // 按 package.json 依赖自动纳入的兄弟包：.vue 的 t() 与 .ts 数据里的 labelKey 都要命中
+    writeFixture(dir, {
+      [`${SIBLING_REF_PKG_DIR}/package.json`]: dependentPkgManifest('popup-ui'),
+      [`${SIBLING_REF_PKG_DIR}/src/image-viewer/Ghost.vue`]: uikitRefFixture([
+        'imageViewer.ghost',
+      ]),
+      [`${SIBLING_REF_PKG_DIR}/src/palette/GhostPalette.ts`]:
+        'export const GHOST_META = [\n'
+        + "  { labelKey: 'imageViewer.ghostLabel', placeholderKey: 'imageViewer.ghostPlaceholder' },\n"
+        + '] as const;\n',
+    });
+    // 第二个消费包同样零登记即被扫到（证明扫描范围不是靠人记得）→ [引用缺键]
+    writeFixture(dir, {
+      [`${SIBLING_DATA_PKG_DIR}/package.json`]: dependentPkgManifest('advanced-table'),
+      [`${SIBLING_DATA_PKG_DIR}/src/components/ghost/Ghost.ts`]:
+        "export const GHOST_LABEL = { labelKey: 'rowExpand.ghost' };\n",
+    });
     // 语种清单多出一个 ALL_LANGUAGES 未纳入的语种 → [语种清单漂移]
     writeFixture(dir, {
       'comm/constants/src/core.ts': supportLanguagesFixture([...ALL_LANGUAGES, 'zh-TW']),
@@ -843,6 +1063,25 @@ function selfTest(): void {
         'en-US.ts': uikitEntryLine('Confirm', 'Cancel'),
       }),
     );
+    // 正例：引用已存在的键不得被拦（否则门禁会冤枉正确写法）
+    writeFixture(clean, {
+      [`${UIKIT_PKG_DIR}/src/components/ok/Ok.vue`]: uikitRefFixture([
+        'table.confirm',
+        'table.cancel',
+      ]),
+    });
+    // 正例：$t()/i18n.t() 走宿主/极简兜底词典（无点号键），不属于组件库词典引用点
+    writeFixture(clean, {
+      [`${SIBLING_REF_PKG_DIR}/package.json`]: dependentPkgManifest('popup-ui'),
+      [`${SIBLING_DATA_PKG_DIR}/package.json`]: dependentPkgManifest('advanced-table'),
+      [`${SIBLING_REF_PKG_DIR}/src/alert/Alert.vue`]:
+        '<script setup lang="ts">\nconst hint = i18n.t(\'prompt\');\n</script>\n\n'
+        + '<template>\n  <span>{{ cancelText || $t(\'cancel\') }}</span>\n</template>\n',
+    });
+    writeFixture(clean, {
+      [`${SIBLING_REF_PKG_DIR}/src/table/useGhostTable.ts`]:
+        "export const TABLE_CONF = { rowKey: 'id', childrenKey: 'children' };\n",
+    });
     writeFixture(clean, {
       'comm/constants/src/core.ts': supportLanguagesFixture(ALL_LANGUAGES),
     });

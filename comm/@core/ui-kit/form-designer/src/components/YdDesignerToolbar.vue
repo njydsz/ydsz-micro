@@ -8,6 +8,10 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+const { t } = useLocale();
+
 defineProps<{
   canUndo?: boolean;
   canRedo?: boolean;
@@ -33,7 +37,7 @@ const emit = defineEmits<{
         type="button"
         :disabled="!canUndo"
         class="rounded p-1.5 text-sm text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
-        aria-label="撤销"
+        :aria-label="t('designer.undoAriaLabel')"
         @click="emit('undo')"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -44,7 +48,7 @@ const emit = defineEmits<{
         type="button"
         :disabled="!canRedo"
         class="rounded p-1.5 text-sm text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
-        aria-label="重做"
+        :aria-label="t('designer.redoAriaLabel')"
         @click="emit('redo')"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -52,7 +56,7 @@ const emit = defineEmits<{
         </svg>
       </button>
 
-      <span class="ml-2 text-xs text-muted-foreground">{{ itemCount }} 个字段</span>
+      <span class="ml-2 text-xs text-muted-foreground">{{ t('designer.fieldCount', { count: itemCount }) }}</span>
     </div>
 
     <div class="flex items-center gap-2">
@@ -62,7 +66,7 @@ const emit = defineEmits<{
         class="rounded px-3 py-1.5 text-xs hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
         @click="emit('clear')"
       >
-        清空
+        {{ t('common.clear') }}
       </button>
 
       <button
@@ -71,7 +75,7 @@ const emit = defineEmits<{
         class="rounded px-3 py-1.5 text-xs hover:bg-muted"
         @click="emit('preview')"
       >
-        预览
+        {{ t('common.preview') }}
       </button>
 
       <button
@@ -80,7 +84,7 @@ const emit = defineEmits<{
         class="rounded bg-primary px-3 py-1.5 text-xs text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
         @click="emit('submit')"
       >
-        生成 Schema
+        {{ t('designer.generateSchema') }}
       </button>
     </div>
   </div>

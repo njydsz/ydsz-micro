@@ -25,6 +25,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronRight, Loader2, Search, X } from 'lucide-vue-next';
 
 import { useVirtualList } from '../../composables/use-virtual-list';
+import { useLocale } from '../../locale/useLocale';
 
 import type { VirtualListHandle } from '../../composables/use-virtual-list';
 import type { CascaderOption, CascaderProps, CascaderShowSearch } from './types';
@@ -49,7 +50,7 @@ const props = withDefaults(defineProps<VCascaderProps>(), {
   columnHeight: 256,
   modelValue: () => [],
   options: () => [],
-  placeholder: '请选择',
+  placeholder: undefined,
   showSearch: false,
   size: 'default',
   overscan: 5,
@@ -60,6 +61,11 @@ const emit = defineEmits<{
   'update:modelValue': [value: (string | number)[]];
   change: [value: (string | number)[], selectedOptions: CascaderOption[]];
 }>();
+
+const { t } = useLocale();
+
+/** 占位文案：prop 默认值只能是静态串，切换语种不跟着变，所以留 undefined 由此处按当前语种兜底 */
+const resolvedPlaceholder = computed<string>(() => props.placeholder ?? t('select.placeholder'));
 
 const isOpen = ref(false);
 const searchQuery = ref('');
@@ -192,7 +198,7 @@ const sizeMap: Record<string, string> = {
     <!-- 触发器 -->
     <button
       :aria-expanded="isOpen"
-      :aria-label="'级联选择器'"
+      :aria-label="t('cascader.ariaLabel')"
       :class="
         cn(
           'flex w-full items-center justify-between gap-2 rounded-md border bg-background px-3 text-left transition-colors',
@@ -208,7 +214,7 @@ const sizeMap: Record<string, string> = {
       <span v-if="props.modelValue.length" class="truncate text-foreground">
         {{ props.modelValue.join(' / ') }}
       </span>
-      <span v-else>{{ props.placeholder }}</span>
+      <span v-else>{{ resolvedPlaceholder }}</span>
 
       <span class="flex shrink-0 items-center gap-1">
         <X
@@ -232,9 +238,9 @@ const sizeMap: Record<string, string> = {
           <Search class="text-muted-foreground absolute left-2 top-1/2 size-3.5 -translate-y-1/2" />
           <input
             v-model="searchQuery"
-            :aria-label="'搜索选项'"
+            :aria-label="t('select.search')"
             class="w-full rounded border bg-transparent py-1.5 pl-7 pr-2 text-sm outline-none focus:border-primary"
-            placeholder="搜索..."
+            :placeholder="t('cascader.searchPlaceholder')"
             type="text"
           />
         </div>
@@ -253,7 +259,7 @@ const sizeMap: Record<string, string> = {
             <span class="text-muted-foreground text-xs">{{ result.path.map(p => p.label).join(' / ') }}</span>
           </li>
           <li v-if="!filteredOptions.length" class="text-muted-foreground px-3 py-2 text-center text-sm">
-            无匹配结果
+            {{ t('select.empty') }}
           </li>
         </ul>
       </template>

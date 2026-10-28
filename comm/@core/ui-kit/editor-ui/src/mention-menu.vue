@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-import { useLocale } from '@ydsz-core/ydsz-ui';
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
 
 import type { MentionItem } from './extensions/mention';
 

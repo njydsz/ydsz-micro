@@ -22,30 +22,10 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { Loader2, X } from 'lucide-vue-next';
 
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 
 import { YdInput } from '.././input';
 import { YdPopover, YdPopoverContent, YdPopoverTrigger } from '.././popover';
-
-/** AutoComplete 组件 i18n 消息定义 */
-const autoCompleteMessages = {
-  zh: {
-    autoComplete: {
-      clearAriaLabel: '清空',
-      emptyText: '暂无匹配项',
-      loadingText: '搜索中...',
-      placeholder: '请输入',
-    },
-  },
-  en: {
-    autoComplete: {
-      clearAriaLabel: 'Clear',
-      emptyText: 'No matching items',
-      loadingText: 'Searching...',
-      placeholder: 'Please input',
-    },
-  },
-};
 
 /** 选项条目 */
 export interface AutoCompleteOption {
@@ -76,8 +56,6 @@ interface Props<T extends AutoCompleteOption = AutoCompleteOption> {
   clearable?: boolean;
   /** 空数据文本 */
   emptyText?: string;
-  /** 当前语言，默认 'zh' */
-  locale?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -85,17 +63,13 @@ const props = withDefaults(defineProps<Props>(), {
   debounceMs: 300,
   isAsync: false,
   isDisabled: false,
-  locale: 'zh',
   options: () => [],
   value: '',
 });
 
-const { t } = useComponentI18n({
-  defaultLocale: props.locale,
-  messages: autoCompleteMessages,
-});
+const { t } = useLocale();
 
-/** 空态文案：props 显式传入优先，否则取词典（切换 locale / emptyText 后需同步刷新） */
+/** 空态文案：props 显式传入优先，否则取词典（切换语种 / emptyText 后需同步刷新） */
 const resolvedEmptyText = computed(() => props.emptyText ?? t('autoComplete.emptyText'));
 /** 输入框占位文案 */
 const resolvedPlaceholder = computed(() => props.placeholder ?? t('autoComplete.placeholder'));

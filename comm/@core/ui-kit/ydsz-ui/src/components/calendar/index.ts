@@ -4,7 +4,6 @@
  * @author ydsz-ai
  * @since 1.0.0
  */
-export { default as ydCalendar } from './calendar.vue';
 export type { CalendarProps } from './calendar-types';
 
 // merged from pre-refactor ui/ + primitives/ barrels

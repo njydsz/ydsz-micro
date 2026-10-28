@@ -44,7 +44,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import {
   useChunkUpload,
 } from '../../composables/use-chunk-upload';
-import { useComponentI18n } from '../../composables/use-component-i18n';
+import { useLocale } from '../../locale/useLocale';
 import { YdProgress } from '.././progress';
 
 import {
@@ -91,7 +91,6 @@ const props = withDefaults(defineProps<YdFileUploadProps>(), {
   fileList: () => [],
   headers: () => ({}),
   listType: 'text',
-  locale: 'zh',
   maxCount: undefined,
   maxSize: undefined,
   method: 'POST',
@@ -110,43 +109,7 @@ const emit = defineEmits<YdFileUploadEmits>();
 /* i18n                                                            */
 /* ============================================================ */
 
-const fileUploadMessages = {
-  en: {
-    fileUpload: {
-      clickToUpload: 'Click to upload',
-      dragAndDrop: 'Drag and drop files here',
-      exceedCount: 'Maximum {maxCount} files allowed',
-      exceedSize: 'File size exceeds {maxSize} limit',
-      fileSize: 'Size',
-      preview: 'Preview',
-      remove: 'Remove',
-      retry: 'Retry',
-      submit: 'Upload all',
-      uploadFailed: 'Upload failed',
-      uploading: 'Uploading',
-    },
-  },
-  zh: {
-    fileUpload: {
-      clickToUpload: '点击上传',
-      dragAndDrop: '将文件拖拽至此处',
-      exceedCount: '最多允许上传 {maxCount} 个文件',
-      exceedSize: '文件大小超过 {maxSize} 限制',
-      fileSize: '大小',
-      preview: '预览',
-      remove: '移除',
-      retry: '重试',
-      submit: '全部上传',
-      uploadFailed: '上传失败',
-      uploading: '上传中',
-    },
-  },
-};
-
-const { t } = useComponentI18n({
-  defaultLocale: props.locale,
-  messages: fileUploadMessages,
-});
+const { t } = useLocale();
 
 /* ============================================================ */
 /* 内部状态                                                         */

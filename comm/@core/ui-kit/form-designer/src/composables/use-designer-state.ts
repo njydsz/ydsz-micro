@@ -15,9 +15,14 @@ import type {
   DesignerSchema,
 } from '../types';
 
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
 import {
   DEFAULT_DESIGNER_SCHEMA,
 } from '../types';
+
+/** 词典文案解析函数类型（跟随 useLocale 的返回值，避免签名漂移） */
+type Translate = ReturnType<typeof useLocale>['t'];
 
 /** 字段类型计数器，用于自动生成唯一 fieldName */
 let fieldCounter = 0;
@@ -31,9 +36,12 @@ function generateId(): string {
 
 /**
  * 从组件元数据创建画布字段实例。
+ *
+ * <p>label / placeholder 是「落到 Schema 里的字段数据」（用户可继续编辑），
+ * 因此在创建时用 t() 取当前语种的字面量存盘；面板文案则始终存 key，切语种才跟着变。
  */
-function createCanvasItem(meta: DesignerComponentMeta): CanvasItem {
-  const cleanLabel = meta.label.replace(/[（(].*?[)）]/, '').trim();
+function createCanvasItem(meta: DesignerComponentMeta, t: Translate): CanvasItem {
+  const cleanLabel = t(meta.labelKey).replace(/[（(].*?[)）]/, '').trim();
   return {
     id: generateId(),
     fieldName: `field_${fieldCounter}`,
@@ -45,7 +53,9 @@ function createCanvasItem(meta: DesignerComponentMeta): CanvasItem {
     span: 12,
     sort: Date.now(),
     isDisabled: false,
-    placeholder: (meta.defaultProps.placeholder as string) ?? `请输入${cleanLabel}`,
+    placeholder: meta.placeholderKey
+      ? t(meta.placeholderKey)
+      : t('designer.placeholder.byField', { label: cleanLabel }),
   };
 }
 
@@ -56,6 +66,8 @@ function createCanvasItem(meta: DesignerComponentMeta): CanvasItem {
  * @return 设计器状态和操作方法
  */
 export function useDesignerState(initialSchema?: Partial<DesignerSchema>) {
+  const { t } = useLocale();
+
   const schema = ref<DesignerSchema>({
     ...DEFAULT_DESIGNER_SCHEMA,
     ...initialSchema,
@@ -108,7 +120,7 @@ export function useDesignerState(initialSchema?: Partial<DesignerSchema>) {
    */
   function addItem(meta: DesignerComponentMeta): CanvasItem {
     pushHistory();
-    const item = createCanvasItem(meta);
+    const item = createCanvasItem(meta, t);
     schema.value.items = [...schema.value.items, item];
     selectedId.value = item.id;
     return item;
@@ -127,7 +139,7 @@ export function useDesignerState(initialSchema?: Partial<DesignerSchema>) {
       ...JSON.parse(JSON.stringify(source)),
       id: generateId(),
       fieldName: `${source.fieldName}_copy`,
-      label: `${source.label}_副本`,
+      label: t('designer.copySuffix', { label: source.label }),
       sort: Date.now(),
     };
     schema.value.items = [...schema.value.items, newItem];
