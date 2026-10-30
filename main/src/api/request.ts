@@ -16,7 +16,7 @@
 import type { RequestClientOptions } from '@ydsz/request';
 
 import { preferences } from '@ydsz/preferences';
-import { useAccessStore, useTokenStore } from '@ydsz/stores';
+import { useAccessStore, useLoadingStore, useTokenStore } from '@ydsz/stores';
 import {
   CROSS_TAB_EVENTS,
   createSharedBaseClient,
@@ -97,7 +97,7 @@ async function doRefreshToken() {
   return newToken || null;
 }
 
-/** 主应用共享请求客户端：携带鉴权拦截器，响应统一只返回 data 字段。 */
+/** 主应用共享请求客户端：携带鉴权拦截器，响应统一只返回数据字段。 */
 export const requestClient = createSharedRequestClient(
   doReAuthenticate,
   doRefreshToken,
@@ -106,3 +106,30 @@ export const requestClient = createSharedRequestClient(
 
 /** 基础请求客户端：不含鉴权拦截器，用于登录、刷新令牌等公共接口。 */
 export const baseRequestClient = createSharedBaseClient();
+
+/** loading 拦截器是否已注册 */
+let loadingInterceptorRegistered = false;
+
+/**
+ * 注册全局 loading 拦截器。
+ *
+ * 将 requestClient 的每个 HTTP 请求与 useLoadingStore 联动：
+ * 请求开始时计数器 +1，响应/错误时 -1，驱动全局 LoadingProvider 显隐。
+ *
+ * 必须在 Pinia 初始化之后调用（即 initStores 之后），否则 useLoadingStore() 会报错。
+ * 幂等：重复调用无副作用。
+ */
+export async function initRequestLoading() {
+  if (loadingInterceptorRegistered) return;
+  loadingInterceptorRegistered = true;
+
+  const { createLoadingInterceptors } = await import('@ydsz/request');
+  const [loadingReqInterceptor, loadingResInterceptor] = createLoadingInterceptors({
+    startLoading: (key: string) => useLoadingStore().startLoading(key),
+    stopLoading: (key: string) => useLoadingStore().stopLoading(key),
+  });
+  requestClient.addRequestInterceptor(loadingReqInterceptor);
+  requestClient.addResponseInterceptor(loadingResInterceptor);
+
+  logger.debug('Loading 拦截器已注册');
+}

@@ -328,6 +328,7 @@ export const errorMessageResponseInterceptor = (
  * <ol>
  *   <li>错误为 {@link BusinessError} 且 {@link BusinessError.retryable} = true（后端显式标记可重试）</li>
  *   <li>HTTP 状态码为 5xx（服务端瞬时故障）</li>
+ *   <li>网络错误（无响应）且请求方法幂等（GET / HEAD / OPTIONS）</li>
  * </ol>
  *
  * <p>退避策略：指数退避 + 随机抖动，公式：{@code delay = min(baseDelay * 2^retryCount + jitter, maxDelay)}。
@@ -336,33 +337,12 @@ export const errorMessageResponseInterceptor = (
  * - 本拦截器必须在 {@link errorMessageResponseInterceptor} **之前**注册，避免重试过程触发冗余错误提示。
  * - 401 / 认证错误由 {@link authenticateResponseInterceptor} 接管，不参与本拦截器重试。
  * - 最大重试次数默认 3 次，超过后抛出原始错误。
- * - GET/HEAD/OPTIONS 请求默认启用重试；写请求（POST/PUT/PATCH/DELETE）需显式配置 {@code retryable: true}。
+ * - 重入方式为 axios 实例级 re-dispatch（{@link axiosInstance}.request），不经过 {@link RequestClient.request} 的内置重试逻辑。
  *
- * @param options - 重试配置
- * @param options.client - 请求客户端实例（用于重新发起请求）
- * @param options.maxRetries - 最大重试次数，默认 3
- * @param options.baseDelay - 基础延迟（毫秒），默认 1000
- * @param options.maxDelay - 最大延迟（毫秒），默认 10000
- * @param options.jitter - 随机抖动范围（毫秒），默认 300
- * @param options.onRetry - 重试命中回调（可选，用于监控上报）
- * @returns 可注册到请求客户端的响应拦截器配置（仅含 `rejected` 分支）
- */
-/**
- * 创建「自动重试」响应拦截器 —— 基于错误码元信息 (retryable) 和 HTTP 5xx 状态码执行退避重试。
- *
- * <p>重试判定逻辑（满足任一即触发）：
- * <ol>
- *   <li>错误为 {@link BusinessError} 且 {@link BusinessError.retryable} = true（后端显式标记可重试）</li>
- *   <li>HTTP 状态码为 5xx（服务端瞬时故障）</li>
- * </ol>
- *
- * <p>退避策略：指数退避 + 随机抖动，公式：{@code delay = min(baseDelay * 2^retryCount + jitter, maxDelay)}。
- *
- * <p>注意事项：
- * - 本拦截器必须在 {@link errorMessageResponseInterceptor} **之前**注册，避免重试过程触发冗余错误提示。
- * - 401 / 认证错误由 {@link authenticateResponseInterceptor} 接管，不参与本拦截器重试。
- * - 最大重试次数默认 3 次，超过后抛出原始错误。
- * - 重入方式为 axios 实例级 re-dispatch（instance.request），不经过 RequestClient.request() 的内置重试逻辑。
+ * <p>⚠️ <strong>双重重试警告</strong>：
+ * 如果通过构造函数同时启用了内置重试（{@link RequestClientOptions.retry} 中 `retryCount > 0`），
+ * 拦截器重试结束后抛出的错误仍可能被内置重试的 catch 块捕获，导致<strong>重试次数相乘</strong>。
+ * <strong>推荐做法</strong>：使用本拦截器时，<strong>不要同时</strong>配置内置重试（保持默认 `retryCount = 0`）。
  *
  * @param options - 重试配置
  * @param options.axiosInstance - 客户端内部的 axios 实例（用于 re-dispatch，避免进入 RequestClient.request 的内置重试）
@@ -372,6 +352,8 @@ export const errorMessageResponseInterceptor = (
  * @param options.jitter - 随机抖动范围（毫秒），默认 300
  * @param options.onRetry - 重试命中回调（可选，用于监控上报）
  * @returns 可注册到请求客户端的响应拦截器配置（仅含 `rejected` 分支）
+ *
+ * @see {@link RequestClientOptions.retry} — 内置重试配置（互斥）
  */
 export const retryResponseInterceptor = ({
   axiosInstance,

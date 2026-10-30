@@ -152,4 +152,9 @@ export function handleBusinessError(message: string, level: ExceptionSeverity = 
 export {
   useWebSocket,
 } from './use-websocket';
-export type { WebSocketStatus, UseWebSocketOptions, UseWebSocketReturn } from './use-websocket';
+export type {
+  WebSocketStatus,
+  ConnectionStatus,
+  UseWebSocketOptions,
+  UseWebSocketReturn,
+} from './use-websocket';

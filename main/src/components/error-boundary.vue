@@ -15,6 +15,7 @@
 -->
 <script lang="ts" setup>
 import { onErrorCaptured, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'ErrorBoundary' });
@@ -51,16 +52,16 @@ function handleRetry(): void {
   <div v-if="hasError" class="flex flex-col items-center justify-center rounded-lg p-8">
     <div class="i-lucide-alert-circle mb-4 text-4xl text-red-500" />
     <p class="text-base-content/60 mb-4 text-sm">
-      此区域加载异常，请重试
+      {{ $t('page.errorBoundary.message') }}
     </p>
     <button
       type="button"
       class="btn btn-outline btn-sm"
-      aria-label="重试加载"
+      :aria-label="$t('page.errorBoundary.retryAriaLabel')"
       @click="handleRetry"
     >
       <span class="i-lucide-refresh-cw mr-1" />
-      重试
+      {{ $t('ui.commonAction.retry') }}
     </button>
     <p v-if="errorInfo && isDev" class="text-base-content/40 mt-4 max-w-md break-all text-xs">
       {{ errorInfo.message }}

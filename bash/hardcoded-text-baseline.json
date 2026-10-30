@@ -7,8 +7,7 @@
     "userinfo-web": 382,
     "nextwiki-web": 297,
     "workflow-web": 253,
-    "generator-web": 196,
-    "main/src": 190,
+    "generator-web": 132,
     "comm/@core": 7
   },
   "hint": "界面硬编码中文预算：由 `node ./bash/check-hardcoded-text.mts --update-baseline` 生成，只允许下调"

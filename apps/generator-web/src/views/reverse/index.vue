@@ -19,6 +19,7 @@
  * @since 1.0.0
  */
 import { reactive, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
 
@@ -81,21 +82,21 @@ void loadGroups();
 function validateForm(): boolean {
   if (mode.value === 'single') {
     if (!reverseForm.sourceFilePath.trim()) {
-      showToast.warning('请输入源文件路径');
+      showToast.warning($t('page.reverse.sourceRequired'));
       return false;
     }
   } else {
     if (!reverseForm.sourceDirPath.trim()) {
-      showToast.warning('请输入源目录路径');
+      showToast.warning($t('page.reverse.sourceDirRequired'));
       return false;
     }
   }
   if (!selectedGroupId.value) {
-    showToast.warning('请选择模板分组');
+    showToast.warning($t('page.codeGen.selectTemplateGroup'));
     return false;
   }
   if (!reverseForm.outputDir.trim()) {
-    showToast.warning('请配置输出目录');
+    showToast.warning($t('page.codeGen.outputDirRequired'));
     return false;
   }
   return true;
@@ -115,7 +116,7 @@ async function handleAnalyze() {
         outputDir: reverseForm.outputDir,
       });
       resultContent.value = result;
-      showToast.success('分析完成');
+      showToast.success($t('page.reverse.analyzeDone'));
     } else {
       const results = await analyzeBatchReverse({
         sourceDirPath: reverseForm.sourceDirPath,
@@ -123,11 +124,11 @@ async function handleAnalyze() {
         outputDir: reverseForm.outputDir,
       });
       batchResults.value = results;
-      showToast.success(`批量分析完成，共 ${results.length} 条结果`);
+      showToast.success($t('page.reverse.batchDone', { count: results.length }));
     }
   } catch (error: unknown) {
     const msg =
-      error instanceof Error ? error.message : '分析失败，请检查参数与网络';
+      error instanceof Error ? error.message : $t('page.reverse.analyzeFailed');
     showToast.error(msg);
   } finally {
     isAnalyzing.value = false;
@@ -139,43 +140,43 @@ async function handleAnalyze() {
   <div class="reverse-gen p-5">
     <YdCard>
       <YdCardHeader>
-        <YdCardTitle>反向生成配置</YdCardTitle>
+        <YdCardTitle>{{ $t('page.reverse.cardConfig') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <YdForm label-width="120px">
-          <YdFormItem label="分析模式">
+          <YdFormItem :label="$t('page.reverse.modeLabel')">
             <YdRadioGroup v-model="mode">
               <div class="flex items-center gap-5">
                 <div class="flex items-center gap-2">
                   <YdRadioGroupItem id="mode-single" value="single" />
-                  <label for="mode-single" class="cursor-pointer text-sm">单文件分析</label>
+                  <label for="mode-single" class="cursor-pointer text-sm">{{ $t('page.reverse.modeSingle') }}</label>
                 </div>
                 <div class="flex items-center gap-2">
                   <YdRadioGroupItem id="mode-batch" value="batch" />
-                  <label for="mode-batch" class="cursor-pointer text-sm">批量目录分析</label>
+                  <label for="mode-batch" class="cursor-pointer text-sm">{{ $t('page.reverse.modeBatch') }}</label>
                 </div>
               </div>
             </YdRadioGroup>
           </YdFormItem>
 
-          <YdFormItem v-if="mode === 'single'" label="源文件路径">
+          <YdFormItem v-if="mode === 'single'" :label="$t('page.reverse.sourceFileLabel')">
             <YdInput
               v-model="reverseForm.sourceFilePath"
-              placeholder="Java 源文件绝对路径，如 D:/src/User.java"
+              :placeholder="$t('page.reverse.sourceFilePlaceholder')"
             />
           </YdFormItem>
 
-          <YdFormItem v-else label="源目录路径">
+          <YdFormItem v-else :label="$t('page.reverse.sourceDirLabel')">
             <YdInput
               v-model="reverseForm.sourceDirPath"
-              placeholder="待分析目录绝对路径，如 D:/src/entity"
+              :placeholder="$t('page.reverse.sourceDirPlaceholder')"
             />
           </YdFormItem>
 
-          <YdFormItem label="模板分组">
+          <YdFormItem :label="$t('business.templateGroup')">
             <YdSelectBase v-model="selectedGroupId">
               <YdSelectTriggerBase>
-                <YdSelectValueBase placeholder="选择模板分组" />
+                <YdSelectValueBase :placeholder="$t('page.codeGen.selectTemplateGroupPlaceholder')" />
               </YdSelectTriggerBase>
               <YdSelectContentBase>
                 <YdSelectItemBase
@@ -183,16 +184,16 @@ async function handleAnalyze() {
                   :key="group.id"
                   :value="String(group.id)"
                 >
-                  {{ group.name }}{{ group.isActive ? ' (当前激活)' : '' }}
+                  {{ group.name }}{{ group.isActive ? $t('page.codeGen.currentActive') : '' }}
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
 
-          <YdFormItem label="输出目录">
+          <YdFormItem :label="$t('page.codeGen.outputDir')">
             <YdInput
               v-model="reverseForm.outputDir"
-              placeholder="分析结果输出目录绝对路径"
+              :placeholder="$t('page.reverse.outputDirPlaceholder')"
             />
           </YdFormItem>
 
@@ -201,7 +202,7 @@ async function handleAnalyze() {
               :loading="isAnalyzing"
               @click="handleAnalyze"
             >
-              开始分析
+              {{ $t('page.reverse.startAnalyze') }}
             </YdButton>
           </YdFormItem>
         </YdForm>
@@ -211,7 +212,7 @@ async function handleAnalyze() {
     <!-- 分析结果 -->
     <YdCard class="mt-4">
       <YdCardHeader>
-        <YdCardTitle>分析结果</YdCardTitle>
+        <YdCardTitle>{{ $t('page.reverse.cardResult') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <!-- 单文件结果 -->
@@ -221,7 +222,7 @@ async function handleAnalyze() {
           :rows="20"
           readonly
           type="textarea"
-          placeholder="分析结果将在此展示"
+          :placeholder="$t('page.reverse.resultPlaceholder')"
         />
 
         <!-- 批量结果列表 -->
@@ -232,7 +233,7 @@ async function handleAnalyze() {
             class="batch-result-card"
           >
             <YdCardHeader>
-              <span class="text-sm font-medium">结果 #{{ idx + 1 }}</span>
+              <span class="text-sm font-medium">{{ $t('page.reverse.resultItem', { index: idx + 1 }) }}</span>
             </YdCardHeader>
             <YdCardContent>
               <YdInput
@@ -252,7 +253,7 @@ async function handleAnalyze() {
             && ((mode === 'single' && !resultContent)
               || (mode === 'batch' && batchResults.length === 0))
           "
-          description="暂无分析结果"
+          :description="$t('page.reverse.noResult')"
         />
       </YdCardContent>
     </YdCard>

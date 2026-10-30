@@ -31,6 +31,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { useTableData, type RowSelectionConfig } from '../../composables/use-table-data';
 import type { SortOrder, SortRule, SortState } from '../../composables/use-table-data';
 import { useLocale } from '../../locale/useLocale';
+import { useTableColumnStorage } from '../../composables/use-table-column-storage';
 import {
   YdTable,
   YdTableBody,
@@ -114,6 +115,14 @@ interface Props<T extends Record<string, unknown>> {
   editingKeys?: Set<string>;
   /** 单元格编辑类型映射：columnKey → editType（优先级高于列 def 上的 editType） */
   editConfig?: Map<string, CellEditType>;
+  /** 是否显示工具栏（含列选择器 / 导出按钮）；默认 false */
+  showToolbar?: boolean;
+  /** 是否启用列选择器（仅在 showToolbar 为 true 时生效）；默认 false */
+  enableColumnChooser?: boolean;
+  /** 列配置持久化 key；传入则启用列宽/顺序/显隐的 localStorage 持久化 */
+  storageKey?: string;
+  /** 列初始可见性 map（受控模式）；不传则由组件内部管理 */
+  columnVisibility?: Record<string, boolean>;
 }
 
 const props = withDefaults(defineProps<Props<T>>(), {
@@ -122,6 +131,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
   editable: false,
   enableFixedColumns: false,
   enableGroupHeader: false,
+  enableColumnChooser: false,
   estimateColumnWidth: 120,
   estimateRowHeight: 40,
   exportFileName: 'table-export',
@@ -133,6 +143,8 @@ const props = withDefaults(defineProps<Props<T>>(), {
   resizable: false,
   rowKey: (_row: T, idx: number) => String(idx),
   selectType: 'checkbox',
+  showToolbar: false,
+  storageKey: undefined,
   virtual: false,
   virtualHeight: 480,
   virtualOverscan: 8,
@@ -144,6 +156,7 @@ const emit = defineEmits<{
   'selection-change': [keys: string[]];
   'update:sortState': [state: SortState];
   'update:expandedKeys': [keys: string[]];
+  'update:columnVisibility': [visibility: Record<string, boolean>];
   'columnResize': [payload: { columnKey: string; newWidth: number }];
   'columnReorder': [payload: {
     columns: DataTableColumnDef<T>[];
@@ -163,6 +176,8 @@ defineSlots<{
   [key: `summary-${string}`]: (props: { value: string | number | undefined }) => unknown;
   empty: () => unknown;
   loading: () => unknown;
+  'toolbar-left': () => unknown;
+  'toolbar-right': () => unknown;
 }>();
 
 const { t } = useLocale();
@@ -278,9 +293,19 @@ function emitSortState(): void {
 }
 
 /* ============================================================ */
-/* 列宽拖拽（Column Resize）                                     */
+/* 列宽持久化（统一 useTableColumnStorage）                        */
 /* ============================================================ */
 
+/**
+ * 是否启用列配置持久化（列宽 / 顺序 / 显隐 / 固定位置）。
+ * <p>开启后通过 useTableColumnStorage 将用户调整写入 localStorage，
+ * 下次打开页面自动恢复。
+ */
+const columnStorage = props.storageKey
+  ? useTableColumnStorage(props.storageKey)
+  : null;
+
+/** 旧 fallback 存储 key */
 const RESIZE_STORAGE_KEY = 'yd-datatable-col-widths';
 
 /**
@@ -289,6 +314,20 @@ const RESIZE_STORAGE_KEY = 'yd-datatable-col-widths';
  * @returns 列 key → 宽度
  */
 function loadPersistedWidths(): Record<string, number> {
+  if (columnStorage) {
+    // 统一存储路径：从 useTableColumnStorage 加载
+    const configs = columnStorage.loadColumnConfig();
+    const result: Record<string, number> = {};
+    for (const cfg of configs) {
+      if (cfg.width) {
+        const parsed = parseInt(cfg.width, 10);
+        if (!Number.isNaN(parsed))
+          result[cfg.key] = parsed;
+      }
+    }
+    return result;
+  }
+  // 兼容旧行为（无 storageKey 时降级到旧 key）
   try {
     const raw = localStorage.getItem(RESIZE_STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
@@ -299,11 +338,31 @@ function loadPersistedWidths(): Record<string, number> {
 
 /**
  * 写回持久化列宽。
- *
- * @param widths - 列 key → 宽度
- * @returns 无
  */
 function persistWidths(widths: Record<string, number>): void {
+  if (columnStorage) {
+    // 统一存储路径：合并到 useTableColumnStorage
+    const existing = columnStorage.loadColumnConfig();
+    const existingMap = new Map(existing.map((c) => [c.key, c]));
+    const merged = Object.entries(widths).map(([key, width]) => {
+      const prev = existingMap.get(key);
+      return {
+        fixed: prev?.fixed,
+        isHidden: prev?.isHidden,
+        key,
+        sort: prev?.sort,
+        width: String(width),
+      };
+    });
+    // 补充未在 widths 中的列
+    for (const cfg of existing) {
+      if (!widths[cfg.key])
+        merged.push(cfg);
+    }
+    columnStorage.saveColumnConfig(merged);
+    return;
+  }
+  // 兼容旧行为
   try {
     localStorage.setItem(RESIZE_STORAGE_KEY, JSON.stringify(widths));
   } catch {
@@ -490,12 +549,48 @@ function handleSelectAll(): void {
  */
 function handleSelect(key: string): void {
   const set = table.selection.value;
-  if (set.has(key)) {
-    set.delete(key);
-  } else {
-    set.add(key);
-  }
-  emit('selection-change', Array.from(set));
+  const next = new Set(set);
+  if (next.has(key))
+    next.delete(key);
+  else
+    next.add(key);
+  table.setSelected(next);
+  emit('selection-change', Array.from(next));
+}
+
+/* ============================================================ */
+/* 列选择器                                                       */
+/* ============================================================ */
+
+/** 列选择器 popover 开关 */
+const columnChooserOpen = ref(false);
+
+/** 列选择器所需的列定义 */
+const columnChooserColumns = computed(() =>
+  props.columns.map((col) => ({
+    hideable: col.fixed !== 'left' && col.fixed !== 'right',
+    key: col.key,
+    label: col.label ?? col.key,
+  })),
+);
+
+function onColumnVisibilityChange(visibleKeys: string[]): void {
+  const vis: Record<string, boolean> = {};
+  for (const col of props.columns)
+    vis[col.key] = visibleKeys.includes(col.key);
+  emit('update:columnVisibility', vis);
+}
+
+function onColumnVisibilityReset(): void {
+  emit('update:columnVisibility', {});
+}
+
+/** 导出仅选中行 */
+function exportSelected(): void {
+  if (!exportApi.exportSelectedCsv) return;
+  exportApi.exportSelectedCsv(table.selection.value, (row: T) =>
+    String(props.rowKey ? props.rowKey(row, 0) : ''),
+  );
 }
 
 /* ============================================================ */
@@ -507,6 +602,7 @@ const exportApi = useTableExport<T>({
     .filter(view => !view.isSpacer)
     .map(view => ({ key: view.key, label: view.label })),
   fileName: () => props.exportFileName,
+  rowKeyExtractor: (row: T) => String(props.rowKey ? props.rowKey(row, 0) : ''),
   rows: () => dataRows.value,
   valueResolver: (row, column, index) =>
     findColumn(column.key)?.formatter?.(row, row[column.key], index),
@@ -539,11 +635,67 @@ defineExpose({
 </script>
 
 <template>
+  <!-- 工具栏：列选择器 / Excel 导出 / 已选行导出（showToolbar=true 时显示） -->
+  <div
+    v-if="props.showToolbar"
+    class="flex items-center justify-between gap-2 rounded-t-md border border-b-0 bg-muted/20 px-3 py-2"
+  >
+    <slot name="toolbar-left">
+      <span class="text-sm text-muted-foreground">
+        {{ dataRows.length }} {{ t('table.columns') }}
+      </span>
+    </slot>
+    <div class="flex items-center gap-1">
+      <slot name="toolbar-right">
+        <!-- 列选择器 Popover 触发器 -->
+        <button
+          v-if="props.enableColumnChooser"
+          type="button"
+          class="inline-flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-accent"
+          :aria-label="t('table.columnSetting')"
+          @click="columnChooserOpen = !columnChooserOpen"
+        >
+          ⚙ {{ t('table.columnSetting') }}
+        </button>
+        <!-- Excel 导出 -->
+        <button
+          type="button"
+          class="inline-flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-accent"
+          @click="exportApi.exportExcel()"
+        >
+          {{ t('table.exportExcel') }}
+        </button>
+        <!-- 已选行导出 -->
+        <button
+          v-if="props.isSelectable"
+          type="button"
+          class="inline-flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-accent"
+          @click="exportSelected()"
+        >
+          {{ t('table.exportSelected') }}
+        </button>
+      </slot>
+    </div>
+  </div>
+
+  <!-- 列选择器 Popover -->
+  <div
+    v-if="columnChooserOpen && props.enableColumnChooser"
+    class="absolute right-2 top-12 z-30 rounded-md border bg-popover p-1 shadow-md"
+  >
+    <YdColumnChooser
+      :columns="columnChooserColumns"
+      @change="onColumnVisibilityChange"
+      @reset="onColumnVisibilityReset"
+    />
+  </div>
+
   <div
     ref="tableScrollContainer"
     :class="cn(
       'relative w-full overflow-x-auto border rounded-md',
       virtualized && 'overflow-y-auto yd-body-virtual',
+      !(props.showToolbar) && 'rounded-t-md',
       props.class,
     )"
     :style="virtualized ? { height: `${props.virtualHeight}px` } : undefined"
@@ -551,7 +703,6 @@ defineExpose({
     :aria-busy="props.loading"
     :aria-rowcount="rowCount"
   >
-    <!-- 列阴影哨兵：左侧仍有未渲染列 -->
     <div
       v-if="showColumnLeftShadow"
       aria-hidden="true"

@@ -20,7 +20,14 @@ export { default as YdFormMessage } from './YdFormMessage.vue';
 export { default as YdForm } from './YdForm.vue';
 export { FORM_ITEM_INJECTION_KEY } from './injectionKeys';
 export { useFormField } from './useFormField';
+export { useFormList } from './use-form-list';
 export { useFormValidation } from './useFormValidation';
+export { default as YdFormList } from './YdFormList.vue';
+export type {
+  FormListFieldEntry,
+  UseFormListOptions,
+  UseFormListReturn,
+} from './use-form-list';
 export {
   Field as FormField,
   FieldArray as FormFieldArray,

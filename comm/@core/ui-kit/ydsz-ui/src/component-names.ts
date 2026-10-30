@@ -5,6 +5,13 @@
  * 与 barrels 的一致性由 component-names.test.ts 在单测中校验：
  * 新增或删除组件出口而未同步名册时，该用例会直接失败。
  *
+ * <p>@deprecated 标记的组件保留为兼容别名，新代码请使用推荐的替代组件：
+ * <ul>
+ *   <li>YdEmpty → 使用 YdEmptyState（预设场景 + 操作按钮）</li>
+ *   <li>YdOrgChart → 使用 YdOrganizationChart（composable API，PrimeVue 兼容）</li>
+ *   <li>YdLink → 暂未在业务中启用，可作为轻量链接使用</li>
+ * </ul>
+ *
  * @path comm/@core/ui-kit/ydsz-ui/src/component-names.ts
  * @author ydsz-team
  * @since 5.7.0
@@ -29,7 +36,7 @@ export const YDSZ_UI_COMPONENT_NAMES: readonly string[] = [
   'YdContextMenuItem', 'YdContextMenuLabel', 'YdContextMenuRadioGroup', 'YdContextMenuRadioItem', 'YdContextMenuSeparator',
   'YdContextMenuShortcut', 'YdContextMenuSub', 'YdContextMenuSubContent', 'YdContextMenuSubTrigger', 'YdContextMenuTrigger',
   'YdCountTag', 'YdCountToAnimator', 'YdCountdown', 'YdDashboardGrid', 'YdDataTable',
-  'YdDataTableCell', 'YdDataTableHeadCell', 'YdDataView', 'YdDatePicker', 'YdDescriptions',
+  'YdColumnChooser', 'YdDataTableCell', 'YdDataTableHeadCell', 'YdDataView', 'YdDatePicker', 'YdDescriptions',
   'YdDescriptionsItem', 'YdDialog', 'YdDialogClose', 'YdDialogContent', 'YdDialogDescription',
   'YdDialogFooter', 'YdDialogHeader', 'YdDialogScrollContent', 'YdDialogTitle', 'YdDialogTrigger',
   'YdDiffViewer', 'YdDivider', 'YdDomainFilterPanel', 'YdDrawer', 'YdDrawerContainer',
@@ -38,7 +45,9 @@ export const YDSZ_UI_COMPONENT_NAMES: readonly string[] = [
   'YdDropdownMenuLabel', 'YdDropdownMenuLabelBase', 'YdDropdownMenuRadioGroup', 'YdDropdownMenuRadioItem', 'YdDropdownMenuSeparator',
   'YdDropdownMenuSeparatorBase', 'YdDropdownMenuShortcut', 'YdDropdownMenuShortcutBase', 'YdDropdownMenuSmart', 'YdDropdownMenuSub',
   'YdDropdownMenuSubBase', 'YdDropdownMenuSubContent', 'YdDropdownMenuSubContentBase', 'YdDropdownMenuSubTrigger', 'YdDropdownMenuSubTriggerBase',
-  'YdDropdownMenuTrigger', 'YdDropdownMenuTriggerBase', 'YdDropdownRadioMenu', 'YdEllipsis', 'YdEmpty',
+  'YdDropdownMenuTrigger', 'YdDropdownMenuTriggerBase', 'YdDropdownRadioMenu', 'YdEllipsis',
+  // @deprecated 使用 YdEmptyState 替代
+  'YdEmpty',
   'YdEmptyState', 'YdEntityCard', 'YdExpandableArrow', 'YdFieldset', 'YdFileUpload',
   'YdFloatButton', 'YdFloatLabel', 'YdForm', 'YdFormControl', 'YdFormDescription',
   'YdFormItem', 'YdFormLabel', 'YdFormMessage', 'YdFullScreen', 'YdGlobalSearchPanel',
@@ -46,10 +55,13 @@ export const YDSZ_UI_COMPONENT_NAMES: readonly string[] = [
   'YdIcon', 'YdIconButton', 'YdIconPicker', 'YdImage', 'YdImageEditor',
   'YdImagePreviewGroup', 'YdInput', 'YdInputAddon', 'YdInputGroup', 'YdInputMask',
   'YdInputNumber', 'YdInputOtp', 'YdInputPassword', 'YdInputTags', 'YdLabel',
+  // @experimental 暂未在业务中广泛使用
   'YdLink', 'YdList', 'YdLoading', 'YdLogo', 'YdMegaMenu',
   'YdMention', 'YdMenu', 'YdMessage', 'YdMiniChart', 'YdMonthPanel',
-  'YdNotification', 'YdNumberField', 'YdNumberFieldContent', 'YdNumberFieldDecrement', 'YdNumberFieldIncrement',
-  'YdNumberFieldInput', 'YdOption', 'YdOrderList', 'YdOrgChart', 'YdOrganizationChart',
+  'YdNotification', 'YdNotificationContainer', 'YdNumberField', 'YdNumberFieldContent', 'YdNumberFieldDecrement', 'YdNumberFieldIncrement',
+  'YdNumberFieldInput', 'YdOption', 'YdOrderList',
+  // @deprecated 使用 YdOrganizationChart 替代
+  'YdOrgChart', 'YdOrganizationChart',
   'YdPageHeader', 'YdPagination', 'YdPaginationEllipsis', 'YdPaginationFirst', 'YdPaginationLast',
   'YdPaginationNext', 'YdPaginationPrev', 'YdParagraph', 'YdPickList', 'YdPinInput',
   'YdPinInputGroup', 'YdPinInputInput', 'YdPinInputSeparator', 'YdPinInputSmart', 'YdPopconfirm',

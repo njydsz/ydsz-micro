@@ -1,4 +1,9 @@
 /**
+ * @deprecated Barrel import — prefer direct widget imports for better tree-shaking:
+ *   import { YdBreadcrumb } from '@ydsz/layouts/widgets/breadcrumb'
+ * This barrel will be removed in a future minor version.
+ */
+/**
  * 布局挂件统一出口 — 聚合顶栏全部工具型小组件
  *
  * 集中导出面包屑、全局搜索、主题切换、语言切换、锁屏、通知、租户切换、用户下拉等挂件，

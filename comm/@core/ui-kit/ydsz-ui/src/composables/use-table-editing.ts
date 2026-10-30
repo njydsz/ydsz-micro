@@ -68,8 +68,19 @@ export interface UseTableEditingReturn<T> {
   editingCellKeys: Ref<Set<string>>;
   /** 判断指定单元格是否正在编辑 */
   isEditing: (rowKey: string, columnKey: string) => boolean;
-  /** 进入编辑模式（行维粗粒度：启用该行所有可编辑列） */
+  /** 进入编辑模式 */
   startEdit: (rowKey: string, columnKey: string) => void;
+  /**
+   * Tab 键导航：从当前单元格移至同行下一个可编辑单元格（或按方向跳到相邻行）。
+   * @returns 目标单元格 coordinate 或 null（已达边界）
+   */
+  focusNextCell: (
+    currentRowKey: string,
+    currentColumnKey: string,
+    direction: 'next' | 'prev',
+    sortedRowKeys: string[],
+    editableColumns: string[],
+  ) => { rowKey: string; columnKey: string } | null;
   /** 取消当前所有编辑 */
   cancelEdit: () => void;
   /** 保存并退出编辑（含校验） */
@@ -205,10 +216,65 @@ export function useTableEditing<T extends Record<string, unknown>>(
     draftValues.value = next;
   }
 
+  /* ============================================================ */
+  /* Tab 键单元格导航                                               */
+  /* ============================================================ */
+
+  /**
+   * 计算 Tab / Shift+Tab 导航的下一个可编辑单元格。
+   *
+   * <p>规则：
+   * <ul>
+   *   <li>同方向顺序遍历 editableColumns，到边界时跳到相邻行的第一个/最后一个可编辑列。</li>
+   *   <li>'next'：同行下一列 → 下一行第一列 → 返回 null（已达最后单元格）。</li>
+   *   <li>'prev'：同行上一列 → 上一行最后一列 → 返回 null（已达第一单元格）。</li>
+   * </ul>
+   */
+  function focusNextCell(
+    currentRowKey: string,
+    currentColumnKey: string,
+    direction: 'next' | 'prev',
+    sortedRowKeys: string[],
+    editableColumns: string[],
+  ): { rowKey: string; columnKey: string } | null {
+    if (editableColumns.length === 0 || sortedRowKeys.length === 0) return null;
+
+    const currentRowIndex = sortedRowKeys.indexOf(currentRowKey);
+    if (currentRowIndex === -1) return null;
+
+    const currentColIndex = editableColumns.indexOf(currentColumnKey);
+
+    if (direction === 'next') {
+      // 同行找下一列
+      if (currentColIndex !== -1 && currentColIndex < editableColumns.length - 1) {
+        return { columnKey: editableColumns[currentColIndex + 1]!, rowKey: currentRowKey };
+      }
+      // 下一行第一列
+      if (currentRowIndex < sortedRowKeys.length - 1) {
+        return { columnKey: editableColumns[0]!, rowKey: sortedRowKeys[currentRowIndex + 1]! };
+      }
+    } else {
+      // prev: 同行找上一列
+      if (currentColIndex !== -1 && currentColIndex > 0) {
+        return { columnKey: editableColumns[currentColIndex - 1]!, rowKey: currentRowKey };
+      }
+      // 上一行最后一列
+      if (currentRowIndex > 0) {
+        return {
+          columnKey: editableColumns[editableColumns.length - 1]!,
+          rowKey: sortedRowKeys[currentRowIndex - 1]!,
+        };
+      }
+    }
+
+    return null; // 已达边界
+  }
+
   return {
     editingCellKeys,
     isEditing,
     startEdit,
+    focusNextCell,
     cancelEdit,
     saveEdit,
     draftValues,

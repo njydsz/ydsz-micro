@@ -328,7 +328,7 @@ watch(activeTab, () => {
       class="gs-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="全局搜索面板"
+      :aria-label="$t('page.globalSearch.panelAriaLabel')"
       @click.self="close"
       @keydown.esc="close"
     >
@@ -371,7 +371,7 @@ watch(activeTab, () => {
                 ? $t('main.search.slashModePlaceholder')
                 : $t('main.search.placeholder')
             "
-            aria-label="搜索"
+            :aria-label="$t('page.commandPalette.search')"
             @keydown.enter="handleEnter"
             @keydown.up.prevent="navigate(-1)"
             @keydown.down.prevent="navigate(1)"

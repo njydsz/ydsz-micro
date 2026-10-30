@@ -16,4 +16,18 @@ export * from './use-pagination';
 export * from './use-refresh';
 export * from './use-tabs';
 export * from './use-watermark';
+
+/**
+ * @deprecated
+ * 本 re-export 来自 `@ydsz-core/composables`，该包已废弃并整体迁移至
+ * `@ydsz-core/ydsz-ui`。请使用 `@ydsz-core/ydsz-ui` 作为统一入口，
+ * 或按需直接从原始包（如 `@ydsz-core/ydsz-vue`）导入，避免经由
+ * 已废弃的 composables 中转造成理解成本。
+ *
+ * 迁移路径：
+ * - 曾通过本行导出的 useCrossTabState / usePriorityValue /
+ *   useOptimisticUpdate 等横向能力 → @ydsz-core/ydsz-ui
+ * - useEmitAsProps / useForwardExpose / useForwardProps /
+ *   useForwardPropsEmits → @ydsz-core/ydsz-vue
+ */
 export * from '@ydsz-core/composables';

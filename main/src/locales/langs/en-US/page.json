@@ -4,7 +4,14 @@
     "register": "Register",
     "codeLogin": "Code Login",
     "qrcodeLogin": "Qr Code Login",
-    "forgetPassword": "Forget Password"
+    "forgetPassword": "Forget Password",
+    "accountPlaceholder": "Enter account",
+    "passwordPlaceholder": "Enter password",
+    "tenant": "Tenant",
+    "tenantPlaceholder": "Select a tenant",
+    "tenantPlatform": "YDSZ Open Source",
+    "tenantTestA": "Test tenant A",
+    "tenantTestB": "Test tenant B"
   },
   "dashboard": {
     "title": "YDSZ Platform",
@@ -37,7 +44,8 @@
       "operation": "Action",
       "viewDetail": "View Detail",
       "empty": "No audit records",
-      "total": "{count} records in total"
+      "total": "{count} records in total",
+      "result": "Result"
     },
     "detail": {
       "title": "Audit Log Detail",
@@ -51,7 +59,19 @@
       "os": "OS",
       "oldValue": "Old",
       "newValue": "New",
-      "loading": "Loading..."
+      "loading": "Loading...",
+      "actionTime": "Action time",
+      "actionType": "Type",
+      "changedFields": "({count} fields)",
+      "clientIp": "IP address",
+      "description": "Description",
+      "emptyValue": "(empty)",
+      "field": "Field",
+      "module": "Module",
+      "notFound": "Log detail not found",
+      "operator": "Operator",
+      "result": "Result",
+      "unknown": "Unknown"
     },
     "actionType": {
       "CREATE": "Create",
@@ -60,7 +80,33 @@
       "LOGIN": "Login",
       "EXPORT": "Export"
     },
-    "exportConfirm": "Sensitive data export requires secondary authentication"
+    "exportConfirm": "Sensitive data export requires secondary authentication",
+    "all": "All",
+    "dateRange": {
+      "last30": "Last 30 days",
+      "last7": "Last 7 days",
+      "today": "Today"
+    },
+    "exportFailed": "Export failed",
+    "exporting": "Exporting...",
+    "exportSheet": "Audit log",
+    "exportSuccess": "Export succeeded",
+    "exportSuccessDesc": "Exported {count} audit records",
+    "keywordPlaceholder": "Search description/IP",
+    "module": {
+      "data": "Data management",
+      "permission": "Permission management",
+      "system": "System config",
+      "user": "User management"
+    },
+    "operatorNamePlaceholder": "Enter operator name",
+    "result": {
+      "FAILED": "Failed",
+      "SUCCESS": "Success"
+    },
+    "retryLater": "Please try again later",
+    "startTime": "Start time",
+    "endTime": "End time"
   },
   "notification": {
     "summary": {
@@ -120,5 +166,101 @@
       "title": "Failed to load application",
       "hint": "Degraded to full-page navigation, please retry later"
     }
+  },
+  "common": {
+    "nextPage": "Next",
+    "page": "Page {page}",
+    "pageSize": "{size} per page",
+    "prevPage": "Previous"
+  },
+  "commandPalette": {
+    "ariaLabel": "Command palette",
+    "availableCommands": "Available commands",
+    "command": "Command",
+    "noCommand": "No matching commands",
+    "noMenu": "No matching menu or page",
+    "other": "Other",
+    "providerTitle": "Registered search providers: {names}",
+    "recent": "Recently visited",
+    "registeredCount": "{count} commands registered",
+    "results": "Search results",
+    "search": "Search",
+    "shortcutBar": "⌘K search · ⌘⇧P commands · ↵ confirm · Esc close",
+    "tipsClose": "Esc to close",
+    "tipsConfirm": "↵ confirm",
+    "tipsNav": "↑↓ select",
+    "toggleMode": "Switch mode",
+    "tryOtherKeywords": "Try another keyword"
+  },
+  "performance": {
+    "browser": "Browser:",
+    "browserAll": "All browsers",
+    "clsTitle": "Layout stability (CLS)",
+    "dateRange": "Date range:",
+    "deviceAll": "All devices",
+    "deviceDesktop": "Desktop",
+    "deviceMobile": "Mobile",
+    "deviceType": "Device type:",
+    "empty": "No data",
+    "loading": "Loading...",
+    "renderTitle": "Rendering performance (LCP / FCP / TTFB) ms"
+  },
+  "analytics": {
+    "downloads": "Downloads",
+    "monthlyVisits": "Monthly visits",
+    "totalDownloads": "Total downloads",
+    "totalUsage": "Total usage",
+    "totalUsers": "Total users",
+    "totalVisits": "Total visits",
+    "trafficTrend": "Traffic trend",
+    "usage": "Usage",
+    "users": "Users",
+    "visitCount": "Visit count",
+    "visitSource": "Traffic sources",
+    "visits": "Visits"
+  },
+  "tenantSwitcher": {
+    "empty": "No accessible tenants",
+    "loadFailed": "Failed to load tenants: {error}",
+    "loading": "Loading tenants...",
+    "loadingTooltip": "Loading tenant list...",
+    "noTenantFound": "Target tenant not found",
+    "retry": "Failed to load tenants: {error}. Click to retry",
+    "switchAriaLabel": "Switch tenant",
+    "switchFailed": "Failed to switch to \"{tenant}\", please try again later",
+    "switched": "Switched to \"{tenant}\" ({code}), refreshing..."
+  },
+  "globalSearch": {
+    "ariaLabel": "Global search",
+    "empty": "No matches",
+    "panelAriaLabel": "Global search panel",
+    "placeholder": "Search menus, features, actions... (⌘K)",
+    "tipsJump": "↵ to open"
+  },
+  "fallback": {
+    "backHome": "Back to home",
+    "contactAdmin": "Contact administrator",
+    "internalError": "Page failed to load",
+    "mailBody": "Please describe the problem...",
+    "mailSubject": "Error report",
+    "refresh": "Refresh and retry"
+  },
+  "errorBoundary": {
+    "message": "This section failed to load, please retry",
+    "retryAriaLabel": "Retry loading"
+  },
+  "networkAlert": {
+    "dataSaver": "Data saver is on; some animations and prefetching are disabled",
+    "offline": "Network lost; some actions may fail",
+    "recovered": "Network restored",
+    "slow": "Network is slow; loading may be delayed"
+  },
+  "subapp": {
+    "ariaLoading": "Loading {app} {progress}%",
+    "failed": "{app} failed to load",
+    "initializing": "Initializing...",
+    "loading": "Loading {app}...",
+    "mounted": "Mounted",
+    "ready": "Loaded, preparing to mount..."
   }
 }

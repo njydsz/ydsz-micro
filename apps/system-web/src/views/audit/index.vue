@@ -1,5 +1,5 @@
 <!--
- * 审计日志（列表页）
+ * 审计日志（列表页）— 多维度筛选分页列表 + 详情抽屉
  *
  * @path apps\system-web\src\views\audit\index.vue
  * @author ydsz-team
@@ -9,21 +9,31 @@
 /**
  * 审计日志（列表页）
  * <p>消费后端契约 AuditAdminController（apps/system-web/src/api/auditAdmin.ts）：
- * queryByTimeRange() 按时间范围查询，queryByOperator() 按操作人查询，
- * queryByAction() 按操作类型查询，queryByTraceId() 按链路追踪ID查询。
+ * queryByTimeRange() 按时间范围分页查询审计日志。
+ * <p>筛选维度：时间范围、操作人、操作类型、模块；操作列可打开详情抽屉查看完整审计记录。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
+
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdDatePicker, YdInput, YdSelectItem, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
-import { h, reactive } from 'vue';
+import {
+  YdBadge,
+  YdButton,
+  YdDatePicker,
+  YdInput,
+  YdSelect,
+  YdSelectItem,
+} from '@ydsz-core/ydsz-ui';
+import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import type { AuditLog } from '#/api/models';
 import { queryByTimeRange } from '#/api/auditAdmin';
+
+import AuditDetailDrawer from './audit-detail-drawer.vue';
 
 defineOptions({ name: 'AuditLogManagement' });
 
@@ -35,7 +45,7 @@ const searchForm = reactive({
   endTime: '',
   operatorId: '',
   action: '',
-  keyword: '',
+  module: '',
 });
 
 /** 操作类型选项 */
@@ -50,6 +60,17 @@ const actionOptions = [
   { label: t('audit.action.logout'), value: '7' },
 ];
 
+/** 模块选项（当前为静态枚举，后续可改为字典动态加载） */
+const moduleOptions = [
+  { label: t('common.allTab'), value: '' },
+  { label: 'userinfo', value: 'userinfo' },
+  { label: 'system', value: 'system' },
+  { label: 'workflow', value: 'workflow' },
+  { label: 'config', value: 'config' },
+  { label: 'dict', value: 'dict' },
+  { label: 'tenant', value: 'tenant' },
+];
+
 /** 操作类型标签映射（tagName 仅做样式标记，label 由 i18n 在模板层处理） */
 const actionTagMap: Record<number, { i18nKey: string; type: string }> = {
   1: { i18nKey: 'audit.action.create', type: 'success' },
@@ -60,6 +81,9 @@ const actionTagMap: Record<number, { i18nKey: string; type: string }> = {
   6: { i18nKey: 'audit.action.login', type: 'success' },
   7: { i18nKey: 'audit.action.logout', type: 'info' },
 };
+
+/** 详情抽屉引用 */
+const detailDrawerRef = ref<InstanceType<typeof AuditDetailDrawer>>();
 
 const gridOptions = reactive<VxeGridProps<AuditLog>>({
   columns: [
@@ -80,7 +104,6 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
     },
     { field: 'content', title: t('audit.columns.content'), minWidth: 200 },
     { field: 'operatorName', title: t('audit.columns.operator'), width: 120 },
-    { field: 'operatorId', title: t('audit.columns.operatorId'), width: 120 },
     {
       field: 'status',
       title: t('audit.columns.status'),
@@ -92,8 +115,26 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
           ),
       },
     },
-    { field: 'businessNo', title: t('audit.columns.businessNo'), width: 160 },
-    { field: 'createdAt', title: t('audit.columns.time'), width: 170 },
+    { field: 'operationTime', title: t('audit.columns.time'), width: 170 },
+    {
+      field: 'detail',
+      title: t('audit.columns.detail'),
+      width: 100,
+      fixed: 'right',
+      slots: {
+        default: ({ row }) =>
+          h(
+            YdButton,
+            {
+              size: 'sm',
+              variant: 'outline',
+              'aria-label': `${t('audit.buttons.viewDetail')} - ${row.id ?? ''}`,
+              onClick: () => handleViewDetail(row),
+            },
+            () => t('audit.buttons.viewDetail'),
+          ),
+      },
+    },
   ],
   height: 'auto',
   pagerConfig: {
@@ -111,6 +152,7 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
         if (searchForm.endTime) params.endTime = searchForm.endTime;
         if (searchForm.operatorId) params.operatorId = searchForm.operatorId;
         if (searchForm.action) params.action = searchForm.action;
+        if (searchForm.module) params.module = searchForm.module;
         /** 后端返回 YdszResponse<PageResult<AuditLogVO>>，response 拦截器已解包至 .data */
         const res = (await queryByTimeRange(params)) as unknown as { items: AuditLog[]; total: number };
         return { items: res.items ?? [], total: res.total ?? 0 };
@@ -120,6 +162,11 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
   toolbarConfig: { custom: true, refresh: { code: 'query' }, zoom: true },
 });
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
+
+/** 打开详情抽屉 */
+function handleViewDetail(row: AuditLog): void {
+  detailDrawerRef.value?.open(row);
+}
 
 /** 搜索 */
 function handleSearch(): void {
@@ -132,7 +179,7 @@ function handleReset(): void {
   searchForm.endTime = '';
   searchForm.operatorId = '';
   searchForm.action = '';
-  searchForm.keyword = '';
+  searchForm.module = '';
   gridApi.query();
 }
 </script>
@@ -157,6 +204,9 @@ function handleReset(): void {
       <YdSelect v-model="searchForm.action" :placeholder="t('audit.placeholder.actionType')" clearable class="w-32">
         <YdSelectItem v-for="opt in actionOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
       </YdSelect>
+      <YdSelect v-model="searchForm.module" :placeholder="t('audit.columns.module')" clearable class="w-32">
+        <YdSelectItem v-for="opt in moduleOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+      </YdSelect>
       <YdButton type="primary" @click="handleSearch">{{ t('common.buttons.search') }}</YdButton>
       <YdButton @click="handleReset">{{ t('common.buttons.reset') }}</YdButton>
     </div>
@@ -166,5 +216,8 @@ function handleReset(): void {
         <YdButton @click="gridApi.query()">{{ t('common.buttons.refresh') }}</YdButton>
       </template>
     </Grid>
+
+    <!-- 审计详情抽屉 -->
+    <AuditDetailDrawer ref="detailDrawerRef" />
   </Page>
 </template>

@@ -5,9 +5,29 @@
  * @author ydsz-team
  * @since 1.0.0
  *
- * @deprecated 本包 composables 已迁移收敛至 @ydsz-core/ydsz-ui，
- * 后续横向能力（useCrossTabState、usePriorityValue 等）请使用新入口。
- * 本文件仅保留向后兼容导出，存量业务可继续使用，新增需求请切到新入口。
+ * @deprecated
+ * 本包 composables 已整体迁移至 `@ydsz-core/ydsz-ui`，后续横向能力
+ * （useCrossTabState、usePriorityValue、useOptimisticUpdate 等）请使用新入口。
+ * 本文件仅保留向后兼容导出，存量业务可继续使用，新增需求请切换到
+ * `@ydsz-core/ydsz-ui`。
+ *
+ * 迁移路径：
+ * - useCrossTabState          → @ydsz-core/ydsz-ui
+ * - useFormDraft              → @ydsz-core/ydsz-ui
+ * - useIsMobile               → @ydsz-core/ydsz-ui
+ * - useLayoutStyle            → @ydsz-core/ydsz-ui
+ * - useNamespace              → @ydsz-core/ydsz-ui
+ * - useOptimisticUpdate       → @ydsz-core/ydsz-ui
+ * - usePriorityValue          → @ydsz-core/ydsz-ui
+ * - useScrollLock             → @ydsz-core/ydsz-ui
+ * - usePreferenceIo           → @ydsz-core/ydsz-ui
+ * - useSimpleLocale           → @ydsz-core/ydsz-ui
+ * - useSortable               → @ydsz-core/ydsz-ui
+ * - useTableColumnPreference  → @ydsz-core/ydsz-ui
+ * - useEmitAsProps            → @ydsz-core/ydsz-vue
+ * - useForwardExpose          → @ydsz-core/ydsz-vue
+ * - useForwardProps           → @ydsz-core/ydsz-vue
+ * - useForwardPropsEmits      → @ydsz-core/ydsz-vue
  */
 export * from './use-cross-tab-state';
 export * from './use-form-draft';

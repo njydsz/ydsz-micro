@@ -7,6 +7,7 @@
 -->
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import { Fallback } from '@ydsz/common-ui';
 
@@ -21,7 +22,7 @@ const feedbackRef = ref<InstanceType<typeof YdErrorFeedback> | null>(null);
 /** 错误上下文信息，将在反馈时附带 */
 const errorContext = computed(() => ({
   traceId: '',
-  message: '页面加载异常',
+  message: $t('page.fallback.internalError'),
   breadcrumbs: getBreadcrumbs(),
   timestamp: Date.now(),
 }));
@@ -46,7 +47,7 @@ onMounted(() => {
           to="/"
           class="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
-          返回首页
+          {{ $t('page.fallback.backHome') }}
         </router-link>
 
         <!-- 刷新重试 -->
@@ -54,7 +55,7 @@ onMounted(() => {
           class="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
           @click="() => location.reload()"
         >
-          刷新重试
+          {{ $t('page.fallback.refresh') }}
         </button>
 
         <!-- 错误反馈（仅在 Sentry 启用时显示） -->
@@ -67,10 +68,10 @@ onMounted(() => {
         <!-- 未启用 Sentry 时的降级反馈 -->
         <a
           v-else
-          href="mailto:support@example.com?subject=错误反馈&body=请描述您遇到的问题..."
+          :href="`mailto:support@example.com?subject=${encodeURIComponent($t('page.fallback.mailSubject'))}&body=${encodeURIComponent($t('page.fallback.mailBody'))}`"
           class="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
         >
-          联系管理员
+          {{ $t('page.fallback.contactAdmin') }}
         </a>
       </div>
     </template>

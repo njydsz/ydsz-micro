@@ -26,6 +26,7 @@
 -->
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
+import { $t } from '@ydsz/locales';
 import { useRoute } from "vue-router";
 
 import type { MicroAppConfig } from "@ydsz/micro-runtime";
@@ -285,7 +286,7 @@ onUnmounted(() => {
             class="retry-button"
             @click="handleRetry"
           >
-            重新加载
+            {{ $t('ui.commonAction.reload') }}
           </button>
         </div>
       </div>

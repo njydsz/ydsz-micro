@@ -4,7 +4,14 @@
     "register": "S'inscrire",
     "codeLogin": "Connexion par code",
     "qrcodeLogin": "Connexion par QR code",
-    "forgetPassword": "Mot de passe oublié"
+    "forgetPassword": "Mot de passe oublié",
+    "accountPlaceholder": "Saisissez le compte",
+    "passwordPlaceholder": "Saisissez le mot de passe",
+    "tenant": "Locataire",
+    "tenantPlaceholder": "Sélectionnez un locataire",
+    "tenantPlatform": "YDSZ Logiciel libre",
+    "tenantTestA": "Locataire de test A",
+    "tenantTestB": "Locataire de test B"
   },
   "dashboard": {
     "title": "Plateforme YDSZ",
@@ -37,7 +44,8 @@
       "operation": "Action",
       "viewDetail": "Voir le détail",
       "empty": "Aucun enregistrement d'audit",
-      "total": "{count} enregistrements au total"
+      "total": "{count} enregistrements au total",
+      "result": "Résultat"
     },
     "detail": {
       "title": "Détail du journal d'audit",
@@ -51,7 +59,19 @@
       "os": "Système d'exploitation",
       "oldValue": "Valeur précédente",
       "newValue": "Valeur nouvelle",
-      "loading": "Chargement..."
+      "loading": "Chargement...",
+      "actionTime": "Heure de l'action",
+      "actionType": "Type",
+      "changedFields": "({count} champs)",
+      "clientIp": "Adresse IP",
+      "description": "Description",
+      "emptyValue": "(vide)",
+      "field": "Champ",
+      "module": "Module",
+      "notFound": "Détail du journal introuvable",
+      "operator": "Opérateur",
+      "result": "Résultat",
+      "unknown": "Inconnu"
     },
     "actionType": {
       "CREATE": "Créer",
@@ -60,7 +80,33 @@
       "LOGIN": "Connexion",
       "EXPORT": "Exporter"
     },
-    "exportConfirm": "L'exportation de données sensibles exige une double vérification"
+    "exportConfirm": "L'exportation de données sensibles exige une double vérification",
+    "all": "Tous",
+    "dateRange": {
+      "last30": "30 derniers jours",
+      "last7": "7 derniers jours",
+      "today": "Aujourd'hui"
+    },
+    "exportFailed": "Échec de l'export",
+    "exporting": "Export en cours...",
+    "exportSheet": "Journal d'audit",
+    "exportSuccess": "Export réussi",
+    "exportSuccessDesc": "{count} entrées d'audit exportées",
+    "keywordPlaceholder": "Rechercher description/IP",
+    "module": {
+      "data": "Gestion des données",
+      "permission": "Gestion des permissions",
+      "system": "Configuration système",
+      "user": "Gestion des utilisateurs"
+    },
+    "operatorNamePlaceholder": "Saisissez l'opérateur",
+    "result": {
+      "FAILED": "Échec",
+      "SUCCESS": "Succès"
+    },
+    "retryLater": "Réessayez plus tard",
+    "startTime": "Heure de début",
+    "endTime": "Heure de fin"
   },
   "notification": {
     "summary": {
@@ -120,5 +166,101 @@
       "title": "Échec du chargement de l'application",
       "hint": "Régression vers une navigation pleine page, réessayez plus tard"
     }
+  },
+  "common": {
+    "nextPage": "Suivant",
+    "page": "Page n° {page}",
+    "pageSize": "{size} par page",
+    "prevPage": "Précédent"
+  },
+  "commandPalette": {
+    "ariaLabel": "Palette de commandes",
+    "availableCommands": "Commandes disponibles",
+    "command": "Commande",
+    "noCommand": "Aucune commande correspondante",
+    "noMenu": "Aucun menu ni page correspondant",
+    "other": "Autres",
+    "providerTitle": "Sources de recherche enregistrées : {names}",
+    "recent": "Consulté récemment",
+    "registeredCount": "{count} commandes enregistrées",
+    "results": "Résultats de recherche",
+    "search": "Rechercher",
+    "shortcutBar": "⌘K rechercher · ⌘⇧P commandes · ↵ confirmer · Esc fermer",
+    "tipsClose": "Esc fermer",
+    "tipsConfirm": "↵ confirmer",
+    "tipsNav": "↑↓ sélectionner",
+    "toggleMode": "Changer de mode",
+    "tryOtherKeywords": "Essayez un autre mot-clé"
+  },
+  "performance": {
+    "browser": "Navigateur :",
+    "browserAll": "Tous les navigateurs",
+    "clsTitle": "Stabilité de mise en page (CLS)",
+    "dateRange": "Période :",
+    "deviceAll": "Tous les appareils",
+    "deviceDesktop": "Ordinateur",
+    "deviceMobile": "Mobile",
+    "deviceType": "Type d'appareil :",
+    "empty": "Aucune donnée",
+    "loading": "Chargement...",
+    "renderTitle": "Performances de rendu (LCP / FCP / TTFB) ms"
+  },
+  "analytics": {
+    "downloads": "Téléchargements",
+    "monthlyVisits": "Visites mensuelles",
+    "totalDownloads": "Téléchargements totaux",
+    "totalUsage": "Utilisation totale",
+    "totalUsers": "Utilisateurs totaux",
+    "totalVisits": "Visites totales",
+    "trafficTrend": "Tendance du trafic",
+    "usage": "Utilisation",
+    "users": "Utilisateurs",
+    "visitCount": "Nombre de visites",
+    "visitSource": "Sources de trafic",
+    "visits": "Visites"
+  },
+  "tenantSwitcher": {
+    "empty": "Aucun locataire accessible",
+    "loadFailed": "Échec du chargement des locataires : {error}",
+    "loading": "Chargement des locataires...",
+    "loadingTooltip": "Chargement de la liste des locataires...",
+    "noTenantFound": "Locataire cible introuvable",
+    "retry": "Échec du chargement : {error}. Cliquez pour réessayer",
+    "switchAriaLabel": "Changer de locataire",
+    "switchFailed": "Échec du passage à « {tenant} », réessayez plus tard",
+    "switched": "Passage à « {tenant} » ({code}), actualisation..."
+  },
+  "globalSearch": {
+    "ariaLabel": "Recherche globale",
+    "empty": "Aucun résultat",
+    "panelAriaLabel": "Panneau de recherche globale",
+    "placeholder": "Rechercher menus, fonctions, actions... (⌘K)",
+    "tipsJump": "↵ ouvrir"
+  },
+  "fallback": {
+    "backHome": "Retour à l'accueil",
+    "contactAdmin": "Contacter l'administrateur",
+    "internalError": "Échec du chargement de la page",
+    "mailBody": "Décrivez le problème...",
+    "mailSubject": "Signalement d'erreur",
+    "refresh": "Rafraîchir et réessayer"
+  },
+  "errorBoundary": {
+    "message": "Cette zone n’a pas pu se charger, réessayez",
+    "retryAriaLabel": "Réessayer le chargement"
+  },
+  "networkAlert": {
+    "dataSaver": "Économiseur de données actif ; certaines animations et préchargements sont désactivés",
+    "offline": "Réseau perdu ; certaines actions peuvent échouer",
+    "recovered": "Réseau rétabli",
+    "slow": "Le réseau est lent ; le chargement peut être retardé"
+  },
+  "subapp": {
+    "ariaLoading": "Chargement de {app} {progress}%",
+    "failed": "Échec du chargement de {app}",
+    "initializing": "Initialisation...",
+    "loading": "Chargement de {app}...",
+    "mounted": "Monté",
+    "ready": "Chargé, préparation du montage..."
   }
 }

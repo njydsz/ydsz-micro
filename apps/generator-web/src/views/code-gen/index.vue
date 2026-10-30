@@ -19,6 +19,7 @@
  * @since 1.0.0
  */
 import { onMounted, reactive, ref, watch } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import { useRoute } from 'vue-router';
 
@@ -193,9 +194,9 @@ async function handleDownloadZip() {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    showToast.success('ZIP 下载已开始');
+    showToast.success($t('page.codeGen.zipStarted'));
   } catch {
-    showToast.error('下载 ZIP 失败');
+    showToast.error($t('page.codeGen.zipFailed'));
   } finally {
     zipDownloading.value = false;
   }
@@ -205,7 +206,7 @@ async function handleDownloadZip() {
 async function handleGenerate() {
   if (!validateSelection()) return;
   if (!genForm.outputDir.trim()) {
-    showToast.warning('请配置输出目录');
+    showToast.warning($t('page.codeGen.outputDirRequired'));
     return;
   }
   generating.value = true;
@@ -220,7 +221,11 @@ async function handleGenerate() {
       triggeredBy: genForm.triggeredBy || undefined,
     });
     showToast.success(
-      `生成完成！成功 ${genResult.value.successCount ?? 0} 个，跳过 ${genResult.value.skipCount ?? 0} 个，失败 ${genResult.value.failCount ?? 0} 个`,
+      $t('page.codeGen.generateDone', {
+        success: genResult.value.successCount ?? 0,
+        skip: genResult.value.skipCount ?? 0,
+        fail: genResult.value.failCount ?? 0,
+      }),
     );
   } finally {
     generating.value = false;
@@ -230,11 +235,11 @@ async function handleGenerate() {
 /** 全量生成 */
 async function handleGenerateAll() {
   if (!selectedDatasourceId.value || !selectedGroupId.value) {
-    showToast.warning('请选择数据源和模板分组');
+    showToast.warning($t('page.codeGen.selectDsAndGroup'));
     return;
   }
   if (!genForm.outputDir.trim()) {
-    showToast.warning('请配置输出目录');
+    showToast.warning($t('page.codeGen.outputDirRequired'));
     return;
   }
   batchGenerating.value = true;
@@ -248,7 +253,11 @@ async function handleGenerateAll() {
       triggeredBy: genForm.triggeredBy || undefined,
     });
     showToast.success(
-      `全量生成完成！成功 ${batchResult.value.successCount ?? 0} 个，跳过 ${batchResult.value.skipCount ?? 0} 个，失败 ${batchResult.value.failCount ?? 0} 个`,
+      $t('page.codeGen.generateAllDone', {
+        success: batchResult.value.successCount ?? 0,
+        skip: batchResult.value.skipCount ?? 0,
+        fail: batchResult.value.failCount ?? 0,
+      }),
     );
   } finally {
     batchGenerating.value = false;
@@ -258,15 +267,15 @@ async function handleGenerateAll() {
 /** 校验必要选择 */
 function validateSelection(): boolean {
   if (!selectedDatasourceId.value) {
-    showToast.warning('请选择数据源');
+    showToast.warning($t('page.codeGen.selectDatasource'));
     return false;
   }
   if (!selectedGroupId.value) {
-    showToast.warning('请选择模板分组');
+    showToast.warning($t('page.codeGen.selectTemplateGroup'));
     return false;
   }
   if (!selectedTableName.value.trim()) {
-    showToast.warning('请选择或输入表名');
+    showToast.warning($t('page.codeGen.selectTable'));
     return false;
   }
   return true;
@@ -308,13 +317,13 @@ function handleDiffFileSelect(fileName: string, oldCode: string, newCode: string
 function getStatusLabel(status: string): string {
   switch (status) {
     case 'SUCCESS':
-      return '成功';
+      return $t('page.codeGen.statusSuccess');
     case 'PARTIAL':
-      return '部分成功';
+      return $t('page.codeGen.statusPartial');
     case 'FAILED':
-      return '失败';
+      return $t('page.codeGen.statusFailed');
     case 'RUNNING':
-      return '执行中';
+      return $t('page.codeGen.statusRunning');
     default:
       return status;
   }
@@ -339,14 +348,14 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
   <div class="code-gen p-5">
     <YdTabs v-model="activeTab">
       <YdTabsList>
-        <YdTabsTrigger value="config">生成配置</YdTabsTrigger>
+        <YdTabsTrigger value="config">{{ $t('page.codeGen.tabConfig') }}</YdTabsTrigger>
       </YdTabsList>
       <!-- ═══ 生成配置 Tab ═══ -->
       <YdTabsContent value="config">
         <YdCard class="mt-4">
           <YdCardHeader>
             <div class="flex items-center justify-between">
-              <YdCardTitle>数据源与模板</YdCardTitle>
+              <YdCardTitle>{{ $t('page.codeGen.cardDatasourceTemplate') }}</YdCardTitle>
               <YdButton
                 size="sm"
                 variant="link"
@@ -355,16 +364,16 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 <YdIcon class="mr-1">
                   <Clock />
                 </YdIcon>
-                历史记录
+                {{ $t('page.codeGen.history') }}
               </YdButton>
             </div>
           </YdCardHeader>
           <YdCardContent>
             <YdForm label-width="120px">
-              <YdFormItem label="数据源">
+              <YdFormItem :label="$t('page.codeGen.datasourceLabel')">
                 <YdSelectBase v-model="selectedDatasourceId">
                   <YdSelectTriggerBase>
-                    <YdSelectValueBase placeholder="选择数据源" />
+                    <YdSelectValueBase :placeholder="$t('page.codeGen.selectDatasourcePlaceholder')" />
                   </YdSelectTriggerBase>
                   <YdSelectContentBase>
                     <YdSelectItemBase
@@ -377,10 +386,10 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                   </YdSelectContentBase>
                 </YdSelectBase>
               </YdFormItem>
-              <YdFormItem label="模板分组">
+              <YdFormItem :label="$t('business.templateGroup')">
                 <YdSelectBase v-model="selectedGroupId">
                   <YdSelectTriggerBase>
-                    <YdSelectValueBase placeholder="选择模板分组" />
+                    <YdSelectValueBase :placeholder="$t('page.codeGen.selectTemplateGroupPlaceholder')" />
                   </YdSelectTriggerBase>
                   <YdSelectContentBase>
                     <YdSelectItemBase
@@ -388,15 +397,15 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                       :key="group.id"
                       :value="String(group.id)"
                     >
-                      {{ group.name }}{{ group.isActive ? ' (当前激活)' : '' }}
+                      {{ group.name }}{{ group.isActive ? $t('page.codeGen.currentActive') : '' }}
                     </YdSelectItemBase>
                   </YdSelectContentBase>
                 </YdSelectBase>
               </YdFormItem>
-              <YdFormItem label="目标表名">
+              <YdFormItem :label="$t('page.codeGen.targetTable')">
                 <YdSelectBase v-model="selectedTableName">
                   <YdSelectTriggerBase>
-                    <YdSelectValueBase placeholder="选择或输入表名" />
+                    <YdSelectValueBase :placeholder="$t('page.codeGen.selectTablePlaceholder')" />
                   </YdSelectTriggerBase>
                   <YdSelectContentBase>
                     <YdSelectItemBase
@@ -415,38 +424,38 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 
         <YdCard class="mt-4">
           <YdCardHeader>
-            <YdCardTitle>生成参数</YdCardTitle>
+            <YdCardTitle>{{ $t('page.codeGen.cardParams') }}</YdCardTitle>
           </YdCardHeader>
           <YdCardContent>
             <YdForm label-width="120px">
-              <YdFormItem label="输出目录">
+              <YdFormItem :label="$t('page.codeGen.outputDir')">
                 <YdInput
                   v-model="genForm.outputDir"
-                  placeholder="生成代码的目标目录绝对路径"
+                  :placeholder="$t('page.codeGen.outputDirPlaceholder')"
                 />
               </YdFormItem>
-              <YdFormItem label="冲突策略">
+              <YdFormItem :label="$t('page.codeGen.conflictPolicy')">
                 <YdRadioGroup v-model="genForm.conflictStrategy">
                   <div class="flex items-center gap-5">
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-skip" value="SKIP" />
-                      <label for="conflict-skip" class="cursor-pointer text-sm">跳过（推荐）</label>
+                      <label for="conflict-skip" class="cursor-pointer text-sm">{{ $t('page.codeGen.conflictSkip') }}</label>
                     </div>
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-override" value="OVERRIDE" />
-                      <label for="conflict-override" class="cursor-pointer text-sm">覆盖并备份</label>
+                      <label for="conflict-override" class="cursor-pointer text-sm">{{ $t('page.codeGen.conflictOverride') }}</label>
                     </div>
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-merge" value="MERGE" />
-                      <label for="conflict-merge" class="cursor-pointer text-sm">智能合并</label>
+                      <label for="conflict-merge" class="cursor-pointer text-sm">{{ $t('page.codeGen.conflictMerge') }}</label>
                     </div>
                   </div>
                 </YdRadioGroup>
               </YdFormItem>
-              <YdFormItem label="触发人">
+              <YdFormItem :label="$t('page.codeGen.triggeredBy')">
                 <YdInput
                   v-model="genForm.triggeredBy"
-                  placeholder="可选，记录在生成历史中"
+                  :placeholder="$t('page.codeGen.triggeredByPlaceholder')"
                 />
               </YdFormItem>
               <YdFormItem>
@@ -456,26 +465,26 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     :loading="previewLoading"
                     @click="handlePreview"
                   >
-                    预览代码
+                    {{ $t('business.preview') }}
                   </YdButton>
                   <YdButton
                     variant="destructive"
                     :loading="zipDownloading"
                     @click="handleDownloadZip"
                   >
-                    下载代码 ZIP
+                    {{ $t('page.codeGen.downloadZip') }}
                   </YdButton>
                   <YdButton
                     :loading="generating"
                     @click="handleGenerate"
                   >
-                    生成当前表
+                    {{ $t('page.codeGen.generateCurrent') }}
                   </YdButton>
                   <YdButton
                     :loading="batchGenerating"
                     @click="handleGenerateAll"
                   >
-                    全量生成（全部表）
+                    {{ $t('page.codeGen.generateAllTables') }}
                   </YdButton>
                 </div>
               </YdFormItem>
@@ -486,7 +495,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
         <!-- 生成结果展示 -->
         <YdCard v-if="genResult || batchResult" class="mt-4">
           <YdCardHeader>
-            <YdCardTitle>生成结果</YdCardTitle>
+            <YdCardTitle>{{ $t('page.codeGen.cardResult') }}</YdCardTitle>
           </YdCardHeader>
           <YdCardContent>
             <div class="grid grid-cols-4 gap-5 text-center">
@@ -494,25 +503,25 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                 <div class="text-2xl font-bold text-blue-500">
                   {{ (genResult ?? batchResult)?.fileCount ?? 0 }}
                 </div>
-                <div class="text-sm text-gray-500">总文件数</div>
+                <div class="text-sm text-gray-500">{{ $t('page.codeGen.totalFiles') }}</div>
               </div>
               <div class="p-3 bg-gray-50 rounded">
                 <div class="text-2xl font-bold text-green-500">
                   {{ (genResult ?? batchResult)?.successCount ?? 0 }}
                 </div>
-                <div class="text-sm text-gray-500">成功</div>
+                <div class="text-sm text-gray-500">{{ $t('page.codeGen.statusSuccess') }}</div>
               </div>
               <div class="p-3 bg-gray-50 rounded">
                 <div class="text-2xl font-bold text-yellow-500">
                   {{ (genResult ?? batchResult)?.skipCount ?? 0 }}
                 </div>
-                <div class="text-sm text-gray-500">跳过</div>
+                <div class="text-sm text-gray-500">{{ $t('page.codeGen.skipped') }}</div>
               </div>
               <div class="p-3 bg-gray-50 rounded">
                 <div class="text-2xl font-bold text-red-500">
                   {{ (genResult ?? batchResult)?.failCount ?? 0 }}
                 </div>
-                <div class="text-sm text-gray-500">失败</div>
+                <div class="text-sm text-gray-500">{{ $t('page.codeGen.statusFailed') }}</div>
               </div>
             </div>
           </YdCardContent>
@@ -541,16 +550,16 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             >
               <div class="flex items-center justify-between mb-2">
                 <span class="font-medium text-sm">
-                  #{{ record.id }} {{ record.moduleName ?? '生成任务' }}
+                  #{{ record.id }} {{ record.moduleName ?? $t('page.codeGen.taskFallback') }}
                 </span>
                 <YdBadge :variant="getStatusBadgeVariant(record.status ?? '')">
                   {{ getStatusLabel(record.status ?? '') }}
                 </YdBadge>
               </div>
               <div class="text-xs text-gray-500 flex gap-3 flex-wrap">
-                <span v-if="record.triggeredBy">操作者: {{ record.triggeredBy }}</span>
-                <span v-if="record.fileCount">{{ record.fileCount }} 个文件</span>
-                <span v-if="record.tableCount">{{ record.tableCount }} 张表</span>
+                <span v-if="record.triggeredBy">{{ $t('page.codeGen.operator', { name: record.triggeredBy }) }}</span>
+                <span v-if="record.fileCount">{{ $t('page.codeGen.fileCount', { count: record.fileCount }) }}</span>
+                <span v-if="record.tableCount">{{ $t('page.codeGen.tableCount', { count: record.tableCount }) }}</span>
               </div>
               <div class="text-xs text-gray-400 mt-1">
                 {{ record.startedAt ? String(record.startedAt).replace('T', ' ') : '-' }}
@@ -560,7 +569,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 
           <!-- Diff 文件列表（选中历史后） -->
           <div v-if="diffFiles.length > 0" class="mt-4">
-            <div class="text-sm font-medium text-gray-700 mb-2">变更文件列表</div>
+            <div class="text-sm font-medium text-gray-700 mb-2">{{ $t('page.codeGen.changedFiles') }}</div>
             <div class="space-y-1">
               <div
                 v-for="(file, idx) in diffFiles"
@@ -577,7 +586,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             </div>
           </div>
 
-          <YdEmptyState v-if="histories.length === 0 && !historyLoading" description="暂无历史记录" />
+          <YdEmptyState v-if="histories.length === 0 && !historyLoading" :description="$t('page.codeGen.noHistory')" />
         </div>
       </YdSheetContent>
     </YdSheet>

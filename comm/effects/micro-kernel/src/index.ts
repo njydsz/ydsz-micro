@@ -74,20 +74,6 @@ export type {
   KernelHealthReport,
   MemoryEstimate,
 } from "./health-check";
-// v4.1 P3-1: 预加载 hover 视觉反馈（配合 kernel.prefetchApp 使用）
-export {
-  attachHoverPreloadFeedback,
-  attachHoverPreloadFeedbackAll,
-} from "./hover-feedback";
-export type { PrefetchFeedbackState } from "./hover-feedback";
-// v4.2.2 P4-2: CSS Containment 样式隔离增强 + CSS 变量透传
-export {
-  copyRootCssVariables,
-  disableCssContainment,
-  enableCssContainment,
-  hasCssContainment,
-} from "./css-containment";
-export type { ContainmentConfig, ContainmentLevel } from "./css-containment";
 export { createKernel } from "./kernel";
 export {
   createCanaryManager,

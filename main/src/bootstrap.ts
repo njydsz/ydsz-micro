@@ -51,6 +51,10 @@ async function bootstrap(namespace: string) {
   // 创建并装配 Vue 应用（不阻塞后续微前端运行时注册）
   const app = await setupApp(namespace);
 
+  // 注册 loading 拦截器（必须在 initStores 之后，setupApp 内部已初始化 Pinia）
+  const { initRequestLoading } = await import('#/api/request');
+  await initRequestLoading();
+
   // 远程开关依赖请求客户端读取 Pinia 中的登录态，
   // 必须等 setupApp 安装 Pinia 之后再初始化，否则会因无活跃 Pinia 而失败。
   const { initFeatureFlags } = await import("@ydsz-core/feature-flags");

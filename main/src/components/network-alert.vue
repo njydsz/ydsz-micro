@@ -12,6 +12,7 @@
 -->
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from "vue";
+import { $t } from '@ydsz/locales';
 import { YdIcon } from '@ydsz-core/ydsz-ui';
 import { useNetworkStatus } from "#/hooks/use-network-status";
 
@@ -35,14 +36,14 @@ const visible = computed(
 );
 
 const text = computed(() => {
-  if (justRecovered.value) return "网络已恢复";
+  if (justRecovered.value) return $t('page.networkAlert.recovered');
   switch (severity.value) {
     case "error":
-      return "网络已断开，部分操作可能失败";
+      return $t('page.networkAlert.offline');
     case "warning":
       return networkStatus.value.isSaveData
-        ? "已开启省流量模式，部分动画与预加载已禁用"
-        : "当前网络较慢，加载可能延迟";
+        ? $t('page.networkAlert.dataSaver')
+        : $t('page.networkAlert.slow');
     default:
       return "";
   }
@@ -94,12 +95,12 @@ onUnmounted(() => {
       <YdIcon :icon="iconName" width="16" height="16" class="icon" />
       <span class="text">{{ text }}</span>
       <button v-if="severity === 'error'" class="retry" @click="handleRetry">
-        重试
+        {{ $t('ui.commonAction.retry') }}
       </button>
       <button
         v-else
         class="close"
-        aria-label="关闭"
+        :aria-label="$t('ui.commonAction.close')"
         @click="justRecovered = false"
       >
         ×

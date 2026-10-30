@@ -12,6 +12,7 @@
 import type { SearchItem } from "#/hooks/use-global-search";
 
 import { computed, nextTick, ref, watch } from "vue";
+import { $t } from '@ydsz/locales';
 import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 /** 受控显隐 */
@@ -24,7 +25,7 @@ const visible = defineModel<boolean>("visible", { required: true });
 const query = ref("");
 const activeIndex = ref(0);
 const inputRef = ref<HTMLInputElement | null>(null);
-const placeholder = "搜索菜单、功能、操作... (⌘K)";
+const placeholder = $t('page.globalSearch.placeholder');
 
 /** 搜索结果过滤 */
 const results = computed(() => {
@@ -97,7 +98,7 @@ function close() {
       class="gs-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="全局搜索"
+      :aria-label="$t('page.globalSearch.ariaLabel')"
       @click.self="close"
       @keydown.esc="close"
     >
@@ -110,7 +111,7 @@ function close() {
             v-model="query"
             class="gs-input"
             :placeholder="placeholder"
-            aria-label="搜索"
+            :aria-label="$t('page.commandPalette.search')"
             @keydown.enter="handleEnter"
             @keydown.up.prevent="navigate(-1)"
             @keydown.down.prevent="navigate(1)"
@@ -150,9 +151,9 @@ function close() {
               }}</span>
             </button>
           </template>
-          <div v-else-if="query.length > 0" class="gs-empty">未找到匹配项</div>
+          <div v-else-if="query.length > 0" class="gs-empty">{{ $t('page.globalSearch.empty') }}</div>
           <div v-else class="gs-tips">
-            <span>↑↓ 选择</span><span>↵ 跳转</span><span>Esc 关闭</span>
+            <span>{{ $t('page.commandPalette.tipsNav') }}</span><span>{{ $t('page.globalSearch.tipsJump') }}</span><span>{{ $t('page.commandPalette.tipsClose') }}</span>
           </div>
         </div>
       </div>

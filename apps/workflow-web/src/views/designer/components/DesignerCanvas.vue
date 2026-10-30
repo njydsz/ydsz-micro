@@ -19,9 +19,10 @@
  * @since 1.0.0
  */
 import '@logicflow/core/dist/style/index.css';
-import { LogicFlow } from '@logicflow/core';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import { YdSpinner } from '@ydsz-core/ydsz-ui';
+import type { LogicFlow } from '@logicflow/core';
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
 import { useCanvasAlignment } from '../use-canvas-alignment';
@@ -47,6 +48,11 @@ const containerRef = ref<HTMLDivElement>();
 const lfRef = ref<LogicFlow | null>(null);
 let lf: LogicFlow | null = null;
 
+/** 画布引擎是否就绪（动态加载完成后置 true） */
+const isReady = ref(false);
+/** 动态导入 LogicFlow 失败时的错误信息 */
+const loadError = ref('');
+
 /** 对齐/分布操作（从 composable 获取） */
 const alignment = useCanvasAlignment(() => lfRef.value);
 
@@ -55,10 +61,10 @@ const alignment = useCanvasAlignment(() => lfRef.value);
  *
  * 配置网格、键盘交互、样式；注册自定义节点并绑定事件后执行首帧渲染。
  */
-function initLogicFlow() {
+async function initLogicFlow(LogicFlowClass: typeof LogicFlow) {
   if (!containerRef.value) return;
 
-  lf = new LogicFlow({
+  lf = new LogicFlowClass({
     container: containerRef.value,
     grid: {
       size: 20,
@@ -386,8 +392,26 @@ watch(
 );
 
 onMounted(() => {
-  initLogicFlow();
+  isReady.value = false;
+  loadError.value = '';
+  doInitCanvas();
 });
+
+/**
+ * 动态加载 LogicFlow 并初始化画布实例。
+ *
+ * 失败时写入 loadError，供上层展示友好提示。
+ */
+async function doInitCanvas(): Promise<void> {
+  try {
+    const { LogicFlow: LogicFlowClass } = await import('@logicflow/core');
+    await initLogicFlow(LogicFlowClass);
+    isReady.value = true;
+  } catch (err) {
+    loadError.value = (err as Error)?.message || '画布引擎加载失败，请刷新页面重试';
+    console.error('[DesignerCanvas] 动态导入 LogicFlow 失败:', err);
+  }
+}
 
 onBeforeUnmount(() => {
   lf?.destroy();
@@ -420,13 +444,51 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="containerRef" class="designer-canvas" />
+  <div class="designer-canvas-wrapper">
+    <div ref="containerRef" class="designer-canvas" />
+    <YdSpinner :spinning="!isReady && !loadError" />
+    <div v-if="loadError" class="designer-canvas-error">
+      <span class="designer-canvas-error__icon">⚠</span>
+      <p class="designer-canvas-error__msg">{{ loadError }}</p>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.designer-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .designer-canvas {
   width: 100%;
   height: 100%;
   background: #fafafa;
+}
+
+.designer-canvas-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #fafafa;
+  z-index: 10;
+}
+
+.designer-canvas-error__icon {
+  font-size: 32px;
+  color: #f56c6c;
+}
+
+.designer-canvas-error__msg {
+  margin: 0;
+  font-size: 14px;
+  color: #606266;
+  text-align: center;
+  max-width: 320px;
 }
 </style>

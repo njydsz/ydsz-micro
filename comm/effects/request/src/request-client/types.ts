@@ -35,17 +35,51 @@ type ExtendOptions<T = unknown> = {
   responseReturn?: 'body' | 'data' | 'raw';
   /** 请求去重控制（P1-7：in-flight request dedup） */
   dedup?: boolean;
-  /** 重试配置 */
+  /**
+   * 内置重试配置。
+   *
+   * @default undefined（即 retryCount = 0，内置重试关闭）
+   *
+   * @remarks
+   * 内置重试在 {@link RequestClient.request} 的 for 循环内执行，
+   * 由 `retryCondition(error)` 决定是否触发。默认 `retryCondition` 恒返回 `false`，
+   * 因此<strong>仅当显式配置 `retryCondition`</strong> 时才会有重试行为。
+   *
+   * @warning 请确保与 {@link retryResponseInterceptor}（拦截器级重试）<strong>不会同时启用</strong>。
+   *          若同时启用，拦截器在 axios 实例层级的重试结束后抛出的错误，
+   *          仍可能被本内置重试再次捕获，导致<strong>重试策略叠加</strong>（实际重试次数 = 二者之积）。
+   *
+   * @example 推荐做法
+   * ```ts
+   * // ✅ 只用拦截器重试（推荐）
+   * const client = new RequestClient(); // 不传 retry
+   * client.addResponseInterceptor(retryResponseInterceptor({ axiosInstance: client.instance }));
+   *
+   * // ✅ 只用内置重试（简单场景，无拦截器）
+   * const client = new RequestClient({
+   *   retry: { retryCount: 3, retryCondition: () => true }
+   * });
+   *
+   * // ❌ 双重重试：同时配置两者
+   * const client = new RequestClient({
+   *   retry: { retryCount: 3, retryCondition: () => true }
+   * });
+   * client.addResponseInterceptor(retryResponseInterceptor({ axiosInstance: client.instance }));
+   * ```
+   */
   retry?: {
     /** 最大重试次数，默认 0（不重试） */
     retryCount?: number;
     /** 重试延迟（毫秒），默认 1000 */
     retryDelay?: number;
-    /** 重试条件判断函数，返回 true 时触发重试 */
+    /**
+     * 重试条件判断函数，返回 true 时触发重试。
+     * 默认 `() => false`（永不错失重试），需显式配置才有重试行为。
+     */
     retryCondition?: (error: unknown) => boolean;
     /** 退避策略：'fixed'（固定延迟）| 'exponential'（指数退避），默认 fixed */
     retryBackoff?: 'exponential' | 'fixed';
-    /** 随机抖动因子（毫秒），仅 exponential 模式生效，默认 0 */
+    /** 随机抖动范围（毫秒），仅 exponential 模式生效，默认 0 */
     retryJitter?: number;
   };
 };

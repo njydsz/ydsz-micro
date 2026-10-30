@@ -10,6 +10,33 @@
  * 不在这里处理后端信封（code/data 解包）——那是 `preset-interceptor` 的职责，
  * 二者以拦截器形式组合，便于后端契约变更时只改一处。
  *
+ * ## 重试机制说明
+ *
+ * <p>本客户端存在**两套**独立的重试机制，二者不可同时启用：
+ *
+ * <ol>
+ *   <li><strong>内置重试</strong>（本类 {@link RequestClient.request} 内）：
+ *       由构造函数 `options.retry` 中的 `retryCount` 与 `retryCondition` 驱动。
+ *       默认 `retryCount = 0`（关闭），且 `retryCondition` 默认恒返回 `false`，
+ *       因此<strong>仅当调用方显式配置 {@code retryCondition}</strong> 时才会生效。
+ *       适用于简单的计数重试场景。</li>
+ *
+ *   <li><strong>拦截器重试</strong>（{@link retryResponseInterceptor}）：
+ *       通过 {@link ResponseInterceptorConfig} 注册到 axios 实例，基于
+ *       {@link BusinessError.retryable}、HTTP 5xx、幂等方法的网络错误触发。
+ *       支持独立的最大重试次数、退避策略与抖动上限，是更完整的重试方案。</li>
+ *
+ * </ol>
+ *
+ * <p>⚠️ <strong>警告</strong>：若同时启用两套机制，拦截器重试会在 axios 实例层级
+ * 重入（不经过 {@link RequestClient.request}），其抛出的错误再被内置重试的 `catch`
+ * 捕获后可能再次触发重试循环，导致<strong>重试策略叠加</strong>。
+ *
+ * <p>推荐做法：
+ * - 大多数场景使用 {@link retryResponseInterceptor}（更灵活），并<strong>不传</strong>
+ *   构造函数的 `retry` 配置（保持 `retryCount = 0`）；
+ * - 仅在无拦截器注册、且仅需简单计数重试时，启用内置重试。
+ *
  * @path comm\effects\request\src\request-client\request-client.ts
  * @author ydsz-team
  * @since 1.0.0
@@ -84,12 +111,18 @@ class RequestClient {
   /**
    * 内部 axios 实例。
    *
-   * <p>响应拦截器（如 retryResponseInterceptor）需要通过本实例执行请求重入，
-   * 以绕过 RequestClient.request() 内置的旧版重试逻辑，避免重试策略叠加冲突。
+   * <p>响应拦截器（如 {@link retryResponseInterceptor}）需要通过本实例执行请求重入，
+   * 以绕过 {@link RequestClient.request} 的内置重试逻辑，避免重试策略叠加冲突。
    */
   public readonly instance: AxiosInstance;
 
-  /** 重试配置 */
+  /**
+   * 内置重试配置。
+   *
+   * @see {@link retryResponseInterceptor} — 替代的拦截器级重试方案。
+   * @warning 请确保与拦截器重试<strong>不会同时启用</strong>，否则会产生双重重试。
+   *          推荐在使用拦截器重试时保持 `retryCount = 0`（默认值）。
+   */
   private retryConfig: {
     /** 重试条件判断函数 */
     retryCondition?: (error: unknown) => boolean;
@@ -99,7 +132,7 @@ class RequestClient {
     retryCount?: number;
     /** 退避策略：'fixed' | 'exponential' */
     retryBackoff?: 'exponential' | 'fixed';
-    /** 随机抖动因子（0~1），仅 exponential 模式下生效 */
+    /** 随机抖动因子（毫秒），仅 exponential 模式生效，默认 0 */
     retryJitter?: number;
   } = {};
 
@@ -120,6 +153,15 @@ class RequestClient {
 
     if (retry) {
       this.retryConfig = retry;
+      // 运行时警告：内置重试已启用，若同时注册 retryResponseInterceptor 将产生双重重试
+      const effectiveRetryCount = retry.retryCount ?? 0;
+      if (effectiveRetryCount > 0) {
+        console.warn(
+          `[RequestClient] 内置重试已启用 (retryCount=${effectiveRetryCount})。` +
+          '请确保未注册 retryResponseInterceptor，否则两套重试机制会叠加导致非预期行为。' +
+          '推荐做法：仅在无拦截器重试时使用内置重试；否则请将 retryCount 设为 0。'
+        );
+      }
     }
 
     bindMethods(this);
@@ -214,6 +256,13 @@ class RequestClient {
    * v3.1 修复：为每次请求创建 AbortController 并注入 axios signal，
    * 使 cancelRequest/cancelAllRequests 真正生效；请求完成（成功/失败）后从 map 清理。
    * 若调用方在 config 中自带 signal，则不创建内部 controller，由调用方自行管理。
+   *
+   * @remarks 重试行为
+   * <ul>
+   *   <li>若 `retryConfig.retryCount > 0` 且 `retryCondition(error)` 返回 true，本方法循环重试；</li>
+   *   <li>若注册了 {@link retryResponseInterceptor}，其内部 re-dispatch via {@link instance}（本方法不嵌套重试）；</li>
+   *   <li>二者同时启用时，拦截器阶段的重试结束后抛出的错误可能被内置重试再次捕获 → 重试次数相乘。</li>
+   * </ul>
    */
   public async request<T>(
     url: string,

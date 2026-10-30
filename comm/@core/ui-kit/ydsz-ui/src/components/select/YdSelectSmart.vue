@@ -25,6 +25,7 @@ import { cn } from '@ydsz-core/shared/utils';
 import { Check, ChevronDown, CircleX } from '@ydsz-core/icons';
 
 import { useListboxKeyboard } from '../../composables/use-listbox-keyboard';
+import { useVirtualScrollItems } from '../../composables/use-virtual-scroll-items';
 import { useVirtualList } from '../../composables/use-virtual-list';
 import { useSelectHeadless } from '../../headless/use-select-headless';
 import { useLocale } from '../../locale/useLocale';
@@ -129,10 +130,20 @@ const filteredOptions = computed<SelectSmartOption<V>[]>(() => {
   return props.options.filter(item => item.label.toLowerCase().includes(keyword));
 });
 
-/** 是否处于虚拟滚动模式 */
+/**
+ * 是否处于虚拟滚动模式。
+ *
+ * 由 useVirtualScrollItems 基于数据量与阈值做出判定，
+ * `virtual` 属性仍然可以强制覆盖。
+ */
+const { enableVirtual: virtualItemsActive } = useVirtualScrollItems(
+  () => filteredOptions.value,
+  { threshold: props.virtualThreshold },
+);
+
 const isVirtualActive = computed(() => {
   if (props.virtual !== undefined) return props.virtual && filteredOptions.value.length > 0;
-  return filteredOptions.value.length >= props.virtualThreshold;
+  return virtualItemsActive.value;
 });
 
 const virtualList = useVirtualList<SelectSmartOption<V>>(

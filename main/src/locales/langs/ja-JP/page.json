@@ -4,7 +4,14 @@
     "register": "新規登録",
     "codeLogin": "コードでログイン",
     "qrcodeLogin": "QRコードでログイン",
-    "forgetPassword": "パスワードを忘れた場合"
+    "forgetPassword": "パスワードを忘れた場合",
+    "accountPlaceholder": "アカウントを入力してください",
+    "passwordPlaceholder": "パスワードを入力してください",
+    "tenant": "テナント",
+    "tenantPlaceholder": "テナントを選択してください",
+    "tenantPlatform": "雲頂オープンソース",
+    "tenantTestA": "テストテナント A",
+    "tenantTestB": "テストテナント B"
   },
   "dashboard": {
     "title": "YDSZ プロジェクト管理プラットフォーム",
@@ -37,7 +44,8 @@
       "operation": "操作",
       "viewDetail": "詳細表示",
       "empty": "監査記録がありません",
-      "total": "合計 {count} 件の記録"
+      "total": "合計 {count} 件の記録",
+      "result": "結果"
     },
     "detail": {
       "title": "監査ログ詳細",
@@ -51,7 +59,19 @@
       "os": "OS",
       "oldValue": "旧値",
       "newValue": "新値",
-      "loading": "読み込み中..."
+      "loading": "読み込み中...",
+      "actionTime": "操作時刻",
+      "actionType": "種別",
+      "changedFields": "（{count} 項目）",
+      "clientIp": "IP アドレス",
+      "description": "説明",
+      "emptyValue": "（空）",
+      "field": "項目",
+      "module": "モジュール",
+      "notFound": "ログ詳細が見つかりません",
+      "operator": "操作者",
+      "result": "操作結果",
+      "unknown": "不明"
     },
     "actionType": {
       "CREATE": "新規追加",
@@ -60,7 +80,33 @@
       "LOGIN": "ログイン",
       "EXPORT": "エクスポート"
     },
-    "exportConfirm": "機微データの出力は二次認証が必要です"
+    "exportConfirm": "機微データの出力は二次認証が必要です",
+    "all": "すべて",
+    "dateRange": {
+      "last30": "過去30日",
+      "last7": "過去7日",
+      "today": "今日"
+    },
+    "exportFailed": "エクスポートに失敗しました",
+    "exporting": "エクスポート中...",
+    "exportSheet": "監査ログ",
+    "exportSuccess": "エクスポートしました",
+    "exportSuccessDesc": "監査記録を {count} 件エクスポートしました",
+    "keywordPlaceholder": "説明/IP を検索",
+    "module": {
+      "data": "データ管理",
+      "permission": "権限管理",
+      "system": "システム設定",
+      "user": "ユーザー管理"
+    },
+    "operatorNamePlaceholder": "操作者を入力してください",
+    "result": {
+      "FAILED": "失敗",
+      "SUCCESS": "成功"
+    },
+    "retryLater": "後でもう一度お試しください",
+    "startTime": "開始時刻",
+    "endTime": "終了時刻"
   },
   "notification": {
     "summary": {
@@ -120,5 +166,101 @@
       "title": "アプリの読み込みに失敗しました",
       "hint": "ページ全体表示に切り替えました。後ほど再試行してください"
     }
+  },
+  "common": {
+    "nextPage": "次へ",
+    "page": "{page} ページ",
+    "pageSize": "{size} 件/ページ",
+    "prevPage": "前へ"
+  },
+  "commandPalette": {
+    "ariaLabel": "コマンドパレット",
+    "availableCommands": "利用可能なコマンド",
+    "command": "コマンド",
+    "noCommand": "一致するコマンドがありません",
+    "noMenu": "一致するメニューやページがありません",
+    "other": "その他",
+    "providerTitle": "登録済み検索ソース: {names}",
+    "recent": "最近のアクセス",
+    "registeredCount": "{count} 件のコマンドを登録済み",
+    "results": "検索結果",
+    "search": "検索",
+    "shortcutBar": "⌘K 検索 · ⌘⇧P コマンド · ↵ 確定 · Esc 閉じる",
+    "tipsClose": "Esc で閉じる",
+    "tipsConfirm": "↵ 確定",
+    "tipsNav": "↑↓ 選択",
+    "toggleMode": "モード切替",
+    "tryOtherKeywords": "別のキーワードをお試しください"
+  },
+  "performance": {
+    "browser": "ブラウザ：",
+    "browserAll": "すべてのブラウザ",
+    "clsTitle": "レイアウト安定性（CLS）",
+    "dateRange": "期間：",
+    "deviceAll": "すべてのデバイス",
+    "deviceDesktop": "デスクトップ",
+    "deviceMobile": "モバイル",
+    "deviceType": "デバイス種別：",
+    "empty": "データがありません",
+    "loading": "読み込み中...",
+    "renderTitle": "描画性能（LCP / FCP / TTFB）ms"
+  },
+  "analytics": {
+    "downloads": "ダウンロード数",
+    "monthlyVisits": "月間訪問数",
+    "totalDownloads": "総ダウンロード数",
+    "totalUsage": "総使用量",
+    "totalUsers": "総ユーザー数",
+    "totalVisits": "総訪問数",
+    "trafficTrend": "トラフィック推移",
+    "usage": "使用量",
+    "users": "ユーザー数",
+    "visitCount": "訪問件数",
+    "visitSource": "参照元",
+    "visits": "訪問数"
+  },
+  "tenantSwitcher": {
+    "empty": "アクセス可能なテナントがありません",
+    "loadFailed": "テナント一覧の読み込みに失敗しました：{error}",
+    "loading": "テナントを読み込み中...",
+    "loadingTooltip": "テナント一覧を読み込み中...",
+    "noTenantFound": "対象テナントが見つかりません",
+    "retry": "テナントの読み込みに失敗しました：{error}。クリックで再試行",
+    "switchAriaLabel": "テナント切替",
+    "switchFailed": "「{tenant}」への切り替えに失敗しました。後でもう一度お試しください",
+    "switched": "「{tenant}」({code}) に切り替えました。更新中..."
+  },
+  "globalSearch": {
+    "ariaLabel": "グローバル検索",
+    "empty": "一致する項目がありません",
+    "panelAriaLabel": "グローバル検索パネル",
+    "placeholder": "メニュー、機能、操作を検索...（⌘K）",
+    "tipsJump": "↵ で移動"
+  },
+  "fallback": {
+    "backHome": "ホームへ戻る",
+    "contactAdmin": "管理者に連絡",
+    "internalError": "ページの読み込みに失敗しました",
+    "mailBody": "発生している問題をご記入ください...",
+    "mailSubject": "エラー報告",
+    "refresh": "再読み込み"
+  },
+  "errorBoundary": {
+    "message": "この領域の読み込みに失敗しました。再試行してください",
+    "retryAriaLabel": "再読み込み"
+  },
+  "networkAlert": {
+    "dataSaver": "データセーバーが有効です。一部のアニメーションと先読みは無効です",
+    "offline": "ネットワークが切断されました。一部の操作は失敗する可能性があります",
+    "recovered": "ネットワークが復旧しました",
+    "slow": "ネットワークが遅いため、読み込みが遅れる可能性があります"
+  },
+  "subapp": {
+    "ariaLoading": "{app} を読み込み中 {progress}%",
+    "failed": "{app} の読み込みに失敗しました",
+    "initializing": "初期化中...",
+    "loading": " {app} を読み込み中...",
+    "mounted": "マウント完了",
+    "ready": "読み込み完了、マウント準備中..."
   }
 }

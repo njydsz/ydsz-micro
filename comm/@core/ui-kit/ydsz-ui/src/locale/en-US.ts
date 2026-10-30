@@ -44,6 +44,11 @@ export const enUS = {
   'table.expandedRow': 'Expand row',
   'table.collapseRow': 'Collapse row',
   'table.columnSetting': 'Column settings',
+  'table.columnChooser': 'Column chooser',
+  'table.showAll': 'Show all',
+  'table.columns': 'columns',
+  'table.exportExcel': 'Export Excel',
+  'table.exportSelected': 'Export selected',
   'table.editCell': 'Edit cell',
   'table.sortHint': 'Click to sort, Shift+click to add multi-sort',
   'table.resizeColumn': 'Drag to resize column',
@@ -159,6 +164,7 @@ export const enUS = {
   'notification.markAllRead': 'Mark all as read',
   'notification.viewAll': 'View all',
   'notification.closeAriaLabel': 'Close notification',
+  'notification.region': 'Notifications',
 
   // ===== Toast =====
   'toast.region': 'Notifications',

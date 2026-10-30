@@ -22,15 +22,15 @@ const authStore = useAuthStore();
 
 const MOCK_TENANT_OPTIONS: BasicOption[] = [
   {
-    label: '云顶开源',
+    label: $t('page.auth.tenantPlatform'),
     value: 'YDSZ',
   },
   {
-    label: '测试租户 A',
+    label: $t('page.auth.tenantTestA'),
     value: 'tenant-a',
   },
   {
-    label: '测试租户 B',
+    label: $t('page.auth.tenantTestB'),
     value: 'tenant-b',
   },
 ];
@@ -41,33 +41,33 @@ const formSchema = computed((): YdFormSchema[] => {
       component: 'YdSelect',
       componentProps: {
         options: MOCK_TENANT_OPTIONS,
-        placeholder: '请选择租户',
+        placeholder: $t('page.auth.tenantPlaceholder'),
       },
       fieldName: 'tenant',
-      label: '租户',
+      label: $t('page.auth.tenant'),
       rules: z
         .string()
-        .min(1, { message: '请选择租户' })
+        .min(1, { message: $t('page.auth.tenantPlaceholder') })
         .optional()
         .default('YDSZ'),
     },
     {
       component: 'YDSZInput',
       componentProps: {
-        placeholder: '请输入账号',
+        placeholder: $t('page.auth.accountPlaceholder'),
       },
       fieldName: 'username',
       label: $t('authentication.username'),
-      rules: z.string().min(1, { message: '请输入账号' }),
+      rules: z.string().min(1, { message: $t('page.auth.accountPlaceholder') }),
     },
     {
       component: 'YdInputPassword',
       componentProps: {
-        placeholder: '请输入密码',
+        placeholder: $t('page.auth.passwordPlaceholder'),
       },
       fieldName: 'password',
       label: $t('authentication.password'),
-      rules: z.string().min(1, { message: '请输入密码' }),
+      rules: z.string().min(1, { message: $t('page.auth.passwordPlaceholder') }),
     },
     {
       component: markRaw(YdSliderCaptcha),

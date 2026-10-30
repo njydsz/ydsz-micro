@@ -4,7 +4,14 @@
     "register": "注册",
     "codeLogin": "验证码登录",
     "qrcodeLogin": "二维码登录",
-    "forgetPassword": "忘记密码"
+    "forgetPassword": "忘记密码",
+    "accountPlaceholder": "请输入账号",
+    "passwordPlaceholder": "请输入密码",
+    "tenant": "租户",
+    "tenantPlaceholder": "请选择租户",
+    "tenantPlatform": "云顶开源",
+    "tenantTestA": "测试租户 A",
+    "tenantTestB": "测试租户 B"
   },
   "dashboard": {
     "title": "YDSZ 项目管理平台",
@@ -37,7 +44,8 @@
       "operation": "操作",
       "viewDetail": "查看详情",
       "empty": "暂无审计记录",
-      "total": "共 {count} 条记录"
+      "total": "共 {count} 条记录",
+      "result": "结果"
     },
     "detail": {
       "title": "审计日志详情",
@@ -51,7 +59,19 @@
       "os": "操作系统",
       "oldValue": "原值",
       "newValue": "新值",
-      "loading": "加载中..."
+      "loading": "加载中...",
+      "actionTime": "操作时间",
+      "actionType": "类型",
+      "changedFields": "（{count} 个字段）",
+      "clientIp": "IP 地址",
+      "description": "描述",
+      "emptyValue": "（空）",
+      "field": "字段",
+      "module": "模块",
+      "notFound": "未找到日志详情",
+      "operator": "操作人",
+      "result": "操作结果",
+      "unknown": "未知"
     },
     "actionType": {
       "CREATE": "新增",
@@ -60,7 +80,33 @@
       "LOGIN": "登录",
       "EXPORT": "导出"
     },
-    "exportConfirm": "敏感数据导出需要二次认证"
+    "exportConfirm": "敏感数据导出需要二次认证",
+    "all": "全部",
+    "dateRange": {
+      "last30": "近30天",
+      "last7": "近7天",
+      "today": "今天"
+    },
+    "exportFailed": "导出失败",
+    "exporting": "导出中...",
+    "exportSheet": "审计日志",
+    "exportSuccess": "导出成功",
+    "exportSuccessDesc": "共导出 {count} 条审计记录",
+    "keywordPlaceholder": "搜索描述/IP",
+    "module": {
+      "data": "数据管理",
+      "permission": "权限管理",
+      "system": "系统配置",
+      "user": "用户管理"
+    },
+    "operatorNamePlaceholder": "请输入操作人",
+    "result": {
+      "FAILED": "失败",
+      "SUCCESS": "成功"
+    },
+    "retryLater": "请稍后重试",
+    "startTime": "开始时间",
+    "endTime": "结束时间"
   },
   "notification": {
     "summary": {
@@ -120,5 +166,101 @@
       "title": "应用加载失败",
       "hint": "已降级为整页访问，请稍后重试"
     }
+  },
+  "common": {
+    "nextPage": "下一页",
+    "page": "第 {page} 页",
+    "pageSize": "{size} 条/页",
+    "prevPage": "上一页"
+  },
+  "commandPalette": {
+    "ariaLabel": "命令面板",
+    "availableCommands": "可用命令",
+    "command": "命令",
+    "noCommand": "未找到匹配的命令",
+    "noMenu": "未找到匹配的菜单或页面",
+    "other": "其他",
+    "providerTitle": "已注册搜索数据源: {names}",
+    "recent": "最近访问",
+    "registeredCount": "已注册 {count} 个命令",
+    "results": "搜索结果",
+    "search": "搜索",
+    "shortcutBar": "⌘K 搜索 · ⌘⇧P 命令 · ↵ 确认 · Esc 关闭",
+    "tipsClose": "Esc 关闭",
+    "tipsConfirm": "↵ 确认",
+    "tipsNav": "↑↓ 选择",
+    "toggleMode": "切换模式",
+    "tryOtherKeywords": "试试其他关键词"
+  },
+  "performance": {
+    "browser": "浏览器：",
+    "browserAll": "全部浏览器",
+    "clsTitle": "布局稳定性（CLS）",
+    "dateRange": "日期范围：",
+    "deviceAll": "全部设备",
+    "deviceDesktop": "桌面端",
+    "deviceMobile": "移动端",
+    "deviceType": "设备类型：",
+    "empty": "暂无数据",
+    "loading": "加载中...",
+    "renderTitle": "渲染性能（LCP / FCP / TTFB）ms"
+  },
+  "analytics": {
+    "downloads": "下载量",
+    "monthlyVisits": "月访问量",
+    "totalDownloads": "总下载量",
+    "totalUsage": "总使用量",
+    "totalUsers": "总用户量",
+    "totalVisits": "总访问量",
+    "trafficTrend": "流量趋势",
+    "usage": "使用量",
+    "users": "用户量",
+    "visitCount": "访问数量",
+    "visitSource": "访问来源",
+    "visits": "访问量"
+  },
+  "tenantSwitcher": {
+    "empty": "暂无可访问租户",
+    "loadFailed": "租户列表加载失败：{error}",
+    "loading": "加载租户...",
+    "loadingTooltip": "正在加载租户列表...",
+    "noTenantFound": "未找到目标租户信息",
+    "retry": "租户加载失败：{error}，点击重试",
+    "switchAriaLabel": "切换租户",
+    "switchFailed": "切换至「{tenant}」失败，请稍后重试",
+    "switched": "已切换至「{tenant}」({code})，正在刷新..."
+  },
+  "globalSearch": {
+    "ariaLabel": "全局搜索",
+    "empty": "未找到匹配项",
+    "panelAriaLabel": "全局搜索面板",
+    "placeholder": "搜索菜单、功能、操作... (⌘K)",
+    "tipsJump": "↵ 跳转"
+  },
+  "fallback": {
+    "backHome": "返回首页",
+    "contactAdmin": "联系管理员",
+    "internalError": "页面加载异常",
+    "mailBody": "请描述您遇到的问题...",
+    "mailSubject": "错误反馈",
+    "refresh": "刷新重试"
+  },
+  "errorBoundary": {
+    "message": "此区域加载异常，请重试",
+    "retryAriaLabel": "重试加载"
+  },
+  "networkAlert": {
+    "dataSaver": "已开启省流量模式，部分动画与预加载已禁用",
+    "offline": "网络已断开，部分操作可能失败",
+    "recovered": "网络已恢复",
+    "slow": "当前网络较慢，加载可能延迟"
+  },
+  "subapp": {
+    "ariaLoading": "{app} 加载中 {progress}%",
+    "failed": "{app} 加载失败",
+    "initializing": "正在初始化...",
+    "loading": "正在加载 {app}...",
+    "mounted": "挂载完成",
+    "ready": "加载完成，准备挂载..."
   }
 }

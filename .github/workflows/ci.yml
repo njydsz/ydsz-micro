@@ -307,6 +307,27 @@ jobs:
         run: |
           node bash/gen-error-codes.mts --check
 
+      # 破坏性变更检测：将后端生成的 openapi.json 与基线进行 diff，
+      # 阻断删除端点 / 字段类型变更 / 必填字段新增 / Schema 删除等破坏性变更。
+      # 仅当 gen-contract --check 新增端点或字段时才会触发破坏性变更判定（增量无感）。
+      - name: 生成当前基线 openapi.json（用于 breaking change diff）
+        env:
+          YDSZ_CLOUD_ROOT: ${{ github.workspace }}/ydsz-cloud
+        run: |
+          # 仅生成 system-web 的 openapi.json 到 /tmp（示例，其余模块按需扩展）
+          python3 bash/gen-contract.py --output /tmp/openapi-current.json system-web || true
+
+      - name: 运行 OpenAPI 破坏性变更检测
+        run: |
+          # 如果基线文件不存在（首次运行），跳过；否则执行 diff
+          if [ -f apps/system-web/src/api/sdk/openapi.json ]; then
+            node bash/detect-breaking-changes.mjs \
+              --baseline apps/system-web/src/api/sdk/openapi.json \
+              --current   /tmp/openapi-current.json
+          else
+            echo "基线 openapi.json 不存在，跳过 breaking change 检测"
+          fi
+
   security:
     name: 安全扫描（依赖 + 密钥）
     runs-on: ubuntu-latest
@@ -386,6 +407,36 @@ jobs:
 
       - name: 运行视觉回归测试（ydsz-ui 关键组件基线对比）
         run: pnpm test:visual
+
+      # 视觉回归失败时输出基线更新指引（便于 PR 作者自助处理）
+      - name: 视觉回归失败指引
+        if: failure()
+        run: |
+          echo "## 📸 Visual Regression — 基线更新指引" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "视觉回归测试检测到组件截图与已提交基线不一致。" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**如果本次 PR 是刻意修改了 UI**，请按以下步骤更新基线：" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo "# 1. 拉取最新代码并安装依赖" >> $GITHUB_STEP_SUMMARY
+          echo "git pull && pnpm install --frozen-lockfile" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "# 2. 安装 Playwright 浏览器（如未安装）" >> $GITHUB_STEP_SUMMARY
+          echo "pnpm exec playwright install chromium" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "# 3. 更新基线截图" >> $GITHUB_STEP_SUMMARY
+          echo "pnpm test:visual:update" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "# 4. 审查差异后提交" >> $GITHUB_STEP_SUMMARY
+          echo "git add tests/visual/__screenshots__/" >> $GITHUB_STEP_SUMMARY
+          echo 'git commit -m "chore: update visual baselines"' >> $GITHUB_STEP_SUMMARY
+          echo 'git push' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "> 或者使用一键脚本：\`bash bash/update-visual-baselines.sh\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**如果 UI 变更是无意的**，请修复组件代码使其回退到与基线一致的状态。" >> $GITHUB_STEP_SUMMARY
 
       # 视觉测试失败时归档差异截图供人工判断
       - name: 归档视觉回归报告

@@ -16,6 +16,7 @@
 -->
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import { dayjs } from '@ydsz-core/shared/utils';
 
@@ -32,19 +33,20 @@ interface PerformanceMetric {
   ttfb: number;
 }
 
-const DEVICE_OPTIONS = [
-  { label: '全部设备', value: 'all' },
-  { label: '桌面端', value: 'desktop' },
-  { label: '移动端', value: 'mobile' },
-];
+// computed：选项文案要跟随语种切换，模块求值只会把首次语种焊死
+const deviceOptions = computed(() => [
+  { label: $t('page.performance.deviceAll'), value: 'all' },
+  { label: $t('page.performance.deviceDesktop'), value: 'desktop' },
+  { label: $t('page.performance.deviceMobile'), value: 'mobile' },
+]);
 
-const BROWSER_OPTIONS = [
-  { label: '全部浏览器', value: 'all' },
+const browserOptions = computed(() => [
+  { label: $t('page.performance.browserAll'), value: 'all' },
   { label: 'Chrome', value: 'Chrome' },
   { label: 'Firefox', value: 'Firefox' },
   { label: 'Safari', value: 'Safari' },
   { label: 'Edge', value: 'Edge' },
-];
+]);
 
 // 响应式筛选条件
 const selectedDevice = ref('all');
@@ -119,13 +121,13 @@ onMounted(() => {
     <!-- 筛选条件 -->
     <div class="mb-4 flex flex-wrap gap-4">
       <label class="flex items-center gap-2">
-        <span class="text-sm text-gray-600">设备类型：</span>
+        <span class="text-sm text-gray-600">{{ $t('page.performance.deviceType') }}</span>
         <select
           v-model="selectedDevice"
           class="rounded border border-gray-300 px-2 py-1 text-sm"
         >
           <option
-            v-for="opt in DEVICE_OPTIONS"
+            v-for="opt in deviceOptions"
             :key="opt.value"
             :value="opt.value"
           >
@@ -135,13 +137,13 @@ onMounted(() => {
       </label>
 
       <label class="flex items-center gap-2">
-        <span class="text-sm text-gray-600">浏览器：</span>
+        <span class="text-sm text-gray-600">{{ $t('page.performance.browser') }}</span>
         <select
           v-model="selectedBrowser"
           class="rounded border border-gray-300 px-2 py-1 text-sm"
         >
           <option
-            v-for="opt in BROWSER_OPTIONS"
+            v-for="opt in browserOptions"
             :key="opt.value"
             :value="opt.value"
           >
@@ -151,7 +153,7 @@ onMounted(() => {
       </label>
 
       <label class="flex items-center gap-2">
-        <span class="text-sm text-gray-600">日期范围：</span>
+        <span class="text-sm text-gray-600">{{ $t('page.performance.dateRange') }}</span>
         <input
           v-model="dateRange[0]"
           type="date"
@@ -168,7 +170,7 @@ onMounted(() => {
 
     <!-- 加载状态 -->
     <div v-if="loading" class="flex items-center justify-center py-12">
-      <span class="text-sm text-gray-500">加载中...</span>
+      <span class="text-sm text-gray-500">{{ $t('page.performance.loading') }}</span>
     </div>
 
     <!-- 数据展示 -->
@@ -176,7 +178,7 @@ onMounted(() => {
       <!-- LCP / FCP 均值柱状图 -->
       <div class="rounded-lg border border-gray-200 p-4">
         <h3 class="mb-3 text-sm font-medium text-gray-700">
-          渲染性能（LCP / FCP / TTFB）ms
+          {{ $t('page.performance.renderTitle') }}
         </h3>
         <div class="space-y-2">
           <!-- LCP 行 -->
@@ -233,7 +235,7 @@ onMounted(() => {
       <!-- CLS 均值柱状图 -->
       <div class="rounded-lg border border-gray-200 p-4">
         <h3 class="mb-3 text-sm font-medium text-gray-700">
-          布局稳定性（CLS）
+          {{ $t('page.performance.clsTitle') }}
         </h3>
         <div class="space-y-2">
           <div
@@ -268,7 +270,7 @@ onMounted(() => {
       v-else
       class="flex items-center justify-center py-12 text-sm text-gray-400"
     >
-      暂无数据
+      {{ $t('page.performance.empty') }}
     </div>
   </div>
 </template>

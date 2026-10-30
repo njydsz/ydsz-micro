@@ -20,6 +20,7 @@
 -->
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { $t } from "@ydsz/locales";
 
 import { useSearchProviderStatus } from "#/hooks/use-global-search";
 import type { SearchItem } from "#/hooks/use-global-search";
@@ -163,7 +164,7 @@ defineExpose({
       class="cp-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="命令面板"
+      :aria-label="$t('page.commandPalette.ariaLabel')"
       @click.self="close"
       @keydown.esc="close"
     >
@@ -181,7 +182,7 @@ defineExpose({
             "
           >
             <span class="cp-tab-icon">🔍</span>
-            <span>搜索</span>
+            <span>{{ $t('page.commandPalette.search') }}</span>
             <kbd>⌘K</kbd>
           </button>
           <button
@@ -195,7 +196,7 @@ defineExpose({
             "
           >
             <span class="cp-tab-icon">⚡</span>
-            <span>命令</span>
+            <span>{{ $t('page.commandPalette.command') }}</span>
             <kbd>⌘⇧P</kbd>
           </button>
         </div>
@@ -213,7 +214,7 @@ defineExpose({
             @keydown.up.prevent="navigate(-1)"
             @keydown.down.prevent="navigate(1)"
           />
-          <button class="cp-mode-btn" @click="toggleMode" title="切换模式">
+          <button class="cp-mode-btn" @click="toggleMode" :title="$t('page.commandPalette.toggleMode')">
             {{ mode === "search" ? "⌘⇧P" : "⌘K" }}
           </button>
         </div>
@@ -226,7 +227,7 @@ defineExpose({
               mode === 'search' && recentResults.length > 0 && !query.trim()
             "
           >
-            <div class="cp-section-title" role="presentation">最近访问</div>
+            <div class="cp-section-title" role="presentation">{{ $t('page.commandPalette.recent') }}</div>
             <button
               v-for="(item, idx) in recentResults"
               :key="`recent-${item.id}`"
@@ -253,14 +254,14 @@ defineExpose({
             </button>
           </template>
 
-          <!-- 搜索结果 -->
+          <!-- {{ $t('page.commandPalette.results') }} -->
           <template v-if="mode === 'search'">
             <div
               v-if="query.trim() && searchResults.length > 0"
               class="cp-section-title"
               role="presentation"
             >
-              搜索结果
+              {{ $t('page.commandPalette.results') }}
             </div>
             <button
               v-for="(item, idx) in searchResults"
@@ -311,8 +312,8 @@ defineExpose({
               v-if="query.trim() && searchResults.length === 0"
               class="cp-empty"
             >
-              <span>未找到匹配的菜单或页面</span>
-              <span class="cp-empty-hint">试试其他关键词</span>
+              <span>{{ $t('page.commandPalette.noMenu') }}</span>
+              <span class="cp-empty-hint">{{ $t('page.commandPalette.tryOtherKeywords') }}</span>
             </div>
           </template>
 
@@ -321,7 +322,7 @@ defineExpose({
             <template v-if="commandResults.length > 0">
               <div
                 v-for="category in [
-                  ...new Set(commandResults.map((c) => c.category || '其他')),
+                  ...new Set(commandResults.map((c) => c.category || $t('page.commandPalette.other'))),
                 ]"
                 :key="category"
               >
@@ -330,7 +331,7 @@ defineExpose({
                 </div>
                 <button
                   v-for="cmd in commandResults.filter(
-                    (c) => (c.category || '其他') === category,
+                    (c) => (c.category || $t('page.commandPalette.other')) === category,
                   )"
                   :key="`cmd-${cmd.id}`"
                   class="cp-item"
@@ -356,11 +357,11 @@ defineExpose({
               </div>
             </template>
             <div v-else-if="query.trim()" class="cp-empty">
-              未找到匹配的命令
+              {{ $t('page.commandPalette.noCommand') }}
             </div>
             <div v-else class="cp-empty">
-              <span>可用命令</span>
-              <span class="cp-empty-hint">已注册 {{ commandResults.length }} 个命令</span>
+              <span>{{ $t('page.commandPalette.availableCommands') }}</span>
+              <span class="cp-empty-hint">{{ $t('page.commandPalette.registeredCount', { count: commandResults.length }) }}</span>
             </div>
           </template>
 
@@ -369,20 +370,20 @@ defineExpose({
             v-if="results.length === 0 && !query.trim() && mode === 'search'"
             class="cp-tips"
           >
-            <span>↑↓ 选择</span><span>↵ 确认</span><span>Esc 关闭</span><span class="cp-tips-sep">|</span> <span><kbd>⌘K</kbd> 搜索</span><span><kbd>⌘⇧P</kbd> 命令</span>
+            <span>{{ $t('page.commandPalette.tipsNav') }}</span><span>{{ $t('page.commandPalette.tipsConfirm') }}</span><span>{{ $t('page.commandPalette.tipsClose') }}</span><span class="cp-tips-sep">|</span> <span><kbd>⌘K</kbd> {{ $t('page.commandPalette.search') }}</span><span><kbd>⌘⇧P</kbd> {{ $t('page.commandPalette.command') }}</span>
           </div>
         </div>
 
         <!-- 底部工具栏 -->
         <div class="cp-footer">
           <span class="cp-footer-hint">
-            ⌘K 搜索 · ⌘⇧P 命令 · ↵ 确认 · Esc 关闭
+            {{ $t('page.commandPalette.shortcutBar') }}
           </span>
           <span
             v-if="mode === 'search'"
             class="cp-footer-provider-status"
             :class="{ 'is-ready': searchProviderCount > 0 }"
-            :title="`已注册搜索数据源: ${searchProviderNames.join(', ')}`"
+            :title="$t('page.commandPalette.providerTitle', { names: searchProviderNames.join(', ') })"
           >
             <span class="cp-footer-dot"></span>
             {{ searchProviderStatus }}

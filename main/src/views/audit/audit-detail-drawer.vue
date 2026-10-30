@@ -12,6 +12,9 @@ import { computed } from 'vue';
 
 import { formatDateTime } from '@ydsz-core/shared/utils';
 import { createLogger } from '@ydsz-core/shared/utils';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 /** 模块级日志器 */
 const logger = createLogger('AuditDetailDrawer');
@@ -41,20 +44,20 @@ function handleClose(): void {
 
 /** 操作类型标签文字 */
 const actionTypeLabels: Record<string, string> = {
-  CREATE: '新增',
-  UPDATE: '修改',
-  DELETE: '删除',
-  LOGIN: '登录',
-  EXPORT: '导出',
+  CREATE: t('page.audit.actionType.CREATE'),
+  UPDATE: t('page.audit.actionType.UPDATE'),
+  DELETE: t('page.audit.actionType.DELETE'),
+  LOGIN: t('page.audit.actionType.LOGIN'),
+  EXPORT: t('page.audit.actionType.EXPORT'),
 };
 
 /** User-Agent 解析结果（简化版） */
 const parsedUA = computed(() => {
   const ua = props.detail?.userAgent ?? '';
-  if (!ua) return { browser: '未知', os: '未知', raw: ua };
+  if (!ua) return { browser: t('page.audit.detail.unknown'), os: t('page.audit.detail.unknown'), raw: ua };
 
-  let browser = '未知';
-  let os = '未知';
+  let browser = t('page.audit.detail.unknown');
+  let os = t('page.audit.detail.unknown');
 
   // 简单 UA 解析
   if (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Chrome';
@@ -75,7 +78,7 @@ const parsedUA = computed(() => {
 
 /** 格式化 diff 值用于展示 */
 function formatDiffValue(value: string | null): string {
-  if (value === null || value === '') return '（空）';
+  if (value === null || value === '') return t('page.audit.detail.emptyValue');
   return value;
 }
 
@@ -108,7 +111,7 @@ const diffStats = computed(() => {
         >
           <!-- 头部 -->
           <div class="flex items-center justify-between border-b border-gray-200 px-6 py-4">
-            <h2 class="text-lg font-semibold text-gray-800">审计日志详情</h2>
+            <h2 class="text-lg font-semibold text-gray-800">{{ t('page.audit.detail.title') }}</h2>
             <button
               class="text-gray-400 hover:text-gray-600"
               @click="handleClose"
@@ -136,7 +139,7 @@ const diffStats = computed(() => {
             <div v-if="loading" class="flex h-full items-center justify-center">
               <div class="text-center text-gray-400">
                 <div class="mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500"></div>
-                <p class="text-sm">加载中...</p>
+                <p class="text-sm">{{ t('page.audit.detail.loading') }}</p>
               </div>
             </div>
 
@@ -144,22 +147,22 @@ const diffStats = computed(() => {
             <template v-else-if="detail">
               <!-- 基本信息 -->
               <section class="mb-6">
-                <h3 class="mb-3 text-sm font-semibold text-gray-700">基本信息</h3>
+                <h3 class="mb-3 text-sm font-semibold text-gray-700">{{ t('page.audit.detail.basicInfo') }}</h3>
                 <div class="grid grid-cols-2 gap-3 rounded-lg bg-gray-50 p-4 text-sm">
                   <div>
-                    <span class="text-gray-500">操作人：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.operator') }}：</span>
                     <span class="font-medium">{{ detail.operatorName }}</span>
                   </div>
                   <div>
-                    <span class="text-gray-500">操作时间：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.actionTime') }}：</span>
                     <span>{{ formatDateTime(detail.actionTime) }}</span>
                   </div>
                   <div>
-                    <span class="text-gray-500">模块：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.module') }}：</span>
                     <span>{{ detail.module }}</span>
                   </div>
                   <div>
-                    <span class="text-gray-500">类型：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.actionType') }}：</span>
                     <span
                       class="rounded-full px-2 py-0.5 text-xs font-medium"
                       :class="{
@@ -174,18 +177,18 @@ const diffStats = computed(() => {
                     </span>
                   </div>
                   <div class="col-span-2">
-                    <span class="text-gray-500">描述：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.description') }}：</span>
                     <span>{{ detail.description }}</span>
                   </div>
                   <div>
-                    <span class="text-gray-500">操作结果：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.result') }}：</span>
                     <span
                       :class="{
                         'text-green-600': detail.result === 'SUCCESS',
                         'text-red-600': detail.result === 'FAILED',
                       }"
                     >
-                      {{ detail.result === 'SUCCESS' ? '成功' : detail.result === 'FAILED' ? '失败' : '-' }}
+                      {{ detail.result === 'SUCCESS' ? t('page.audit.result.SUCCESS') : detail.result === 'FAILED' ? t('page.audit.result.FAILED') : '-' }}
                     </span>
                   </div>
                 </div>
@@ -193,18 +196,18 @@ const diffStats = computed(() => {
 
               <!-- 客户端信息 -->
               <section class="mb-6">
-                <h3 class="mb-3 text-sm font-semibold text-gray-700">客户端信息</h3>
+                <h3 class="mb-3 text-sm font-semibold text-gray-700">{{ t('page.audit.detail.clientInfo') }}</h3>
                 <div class="grid grid-cols-2 gap-3 rounded-lg bg-gray-50 p-4 text-sm">
                   <div>
-                    <span class="text-gray-500">IP 地址：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.clientIp') }}：</span>
                     <span>{{ detail.clientIp }}</span>
                   </div>
                   <div>
-                    <span class="text-gray-500">浏览器：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.browser') }}：</span>
                     <span>{{ parsedUA.browser }}</span>
                   </div>
                   <div>
-                    <span class="text-gray-500">操作系统：</span>
+                    <span class="text-gray-500">{{ t('page.audit.detail.os') }}：</span>
                     <span>{{ parsedUA.os }}</span>
                   </div>
                   <div>
@@ -221,9 +224,9 @@ const diffStats = computed(() => {
               <!-- 变更对比 -->
               <section class="mb-6">
                 <h3 class="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  变更对比
+                  {{ t('page.audit.detail.diffTitle') }}
                   <span class="text-xs font-normal text-gray-400">
-                    （{{ diffStats.changed }} 个字段）
+                    {{ t('page.audit.detail.changedFields', { count: diffStats.changed }) }}
                   </span>
                 </h3>
 
@@ -234,30 +237,30 @@ const diffStats = computed(() => {
                     class="overflow-hidden rounded-lg border border-gray-200"
                   >
                     <div class="border-b border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-600">
-                      字段：{{ diff.field }}
+                      {{ t('page.audit.detail.field') }}: {{ diff.field }}
                     </div>
                     <div class="grid grid-cols-2 divide-x divide-gray-200 text-sm">
                       <!-- 原值 -->
                       <div class="p-3">
-                        <div class="mb-1 text-xs font-medium text-red-500">原值</div>
+                        <div class="mb-1 text-xs font-medium text-red-500">{{ t('page.audit.detail.oldValue') }}</div>
                         <pre class="whitespace-pre-wrap break-all rounded bg-red-50 p-2 text-xs">{{ formatDiffValue(diff.oldValue) }}</pre>
                       </div>
                       <!-- 新值 -->
                       <div class="p-3">
-                        <div class="mb-1 text-xs font-medium text-green-500">新值</div>
+                        <div class="mb-1 text-xs font-medium text-green-500">{{ t('page.audit.detail.newValue') }}</div>
                         <pre class="whitespace-pre-wrap break-all rounded bg-green-50 p-2 text-xs">{{ formatDiffValue(diff.newValue) }}</pre>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div v-else class="rounded-lg bg-gray-50 p-4 text-center text-sm text-gray-400">
-                  无变更字段数据
+                  {{ t('page.audit.detail.noDiff') }}
                 </div>
               </section>
 
               <!-- 错误信息（失败时） -->
               <section v-if="detail.errorMessage" class="mb-6">
-                <h3 class="mb-3 text-sm font-semibold text-red-600">错误信息</h3>
+                <h3 class="mb-3 text-sm font-semibold text-red-600">{{ t('page.audit.detail.errorMessage') }}</h3>
                 <div class="rounded-lg bg-red-50 p-4 text-sm text-red-700">
                   {{ detail.errorMessage }}
                 </div>
@@ -266,7 +269,7 @@ const diffStats = computed(() => {
 
             <!-- 空状态 -->
             <div v-else class="flex h-full items-center justify-center text-gray-400">
-              未找到日志详情
+              {{ t('page.audit.detail.notFound') }}
             </div>
           </div>
         </div>

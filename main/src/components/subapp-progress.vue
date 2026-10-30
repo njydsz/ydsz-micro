@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 import { YdIcon } from '@ydsz-core/ydsz-ui';
 
 /** 进度阶段映射：事件 → 百分比 */
@@ -37,11 +38,11 @@ const hasError = ref(false);
 
 /** 加载中提示文案 */
 const labelText = computed(() => {
-  if (hasError.value) return `${appName.value} 加载失败`;
-  if (progress.value < 40) return `正在加载 ${appName.value}...`;
-  if (progress.value < 70) return `加载完成，准备挂载...`;
-  if (progress.value < 100) return `正在初始化...`;
-  return `挂载完成`;
+  if (hasError.value) return $t('page.subapp.failed', { app: appName.value });
+  if (progress.value < 40) return $t('page.subapp.loading', { app: appName.value });
+  if (progress.value < 70) return $t('page.subapp.ready');
+  if (progress.value < 100) return $t('page.subapp.initializing');
+  return $t('page.subapp.mounted');
 });
 
 /** 是否显示标签文案（加载时间 > 800ms 时让用户看到提示） */
@@ -132,7 +133,7 @@ onUnmounted(() => {
       :aria-valuenow="progress"
       aria-valuemin="0"
       aria-valuemax="100"
-      :aria-label="`${appName} 加载中 ${progress}%`"
+      :aria-label="$t('page.subapp.ariaLoading', { app: appName, progress })"
     >
       <div class="bar" :style="{ width: `${progress}%` }" />
       <span v-if="showLabel" class="label">

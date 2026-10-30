@@ -17,9 +17,12 @@ import { computed, ref } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-vue-next';
 
+import { useVirtualScrollItems } from '../../composables/use-virtual-scroll-items';
+
 import { YdButton } from '.././button';
 import { YdCheckbox } from '.././checkbox';
 import { YdInput } from '.././input';
+import { YdVirtualList } from '../virtual-table';
 import { useLocale } from '../../locale/useLocale';
 
 const { t } = useLocale();
@@ -52,11 +55,20 @@ const props = withDefaults(
     title?: string;
     /** 已选 key 集合（受控） */
     value?: string[];
+    /**
+     * 启用虚拟滚动的条目数阈值。
+     *
+     * 当左侧或右侧列表的条目数超过此值时，自动用 YdVirtualList 替代普通 v-for，
+     * 仅渲染视口可见项以保障大数据量下的滚动性能。
+     * 设为 0 时恒不启用虚拟化（默认 100）。
+     */
+    virtualThreshold?: number;
   }>(),
   {
     dataSource: () => [],
     disabled: false,
     value: () => [],
+    virtualThreshold: 100,
   },
 );
 
@@ -95,6 +107,21 @@ const rightItems = computed(() => {
     return true;
   });
 });
+
+/**
+ * 虚拟滚动启用判定：基于各自的过滤后列表长度与阈值，独立决定是否虚拟化。
+ *
+ * 使用 useVirtualScrollItems 阈值判定逻辑，组件内部保持原有渲染与事件处理不变；
+ * 仅当列表数据量超过 virtualThreshold 时使用 YdVirtualList 替代 v-for。
+ */
+const leftList = useVirtualScrollItems(
+  () => leftItems.value,
+  { threshold: props.virtualThreshold },
+);
+const rightList = useVirtualScrollItems(
+  () => rightItems.value,
+  { threshold: props.virtualThreshold },
+);
 
 /** 全选左侧（排除 disabled） */
 function selectAllLeft(): void {
@@ -177,39 +204,82 @@ function moveAllToLeft(): void {
         <YdInput v-model="leftQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? t('common.search')" />
       </div>
 
-      <ul class="flex max-h-72 flex-1 flex-col gap-1 overflow-y-auto rounded border p-2">
-        <li
-          v-for="item in leftItems"
-          :key="item.key"
-          :class="
-            cn(
-              'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
-              leftChecked.has(item.key)
-                ? 'bg-primary/10 font-medium'
-                : 'hover:bg-muted',
-              item.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
-            )
-          "
-          @click="
-            () => {
-              if (item.disabled) return;
-              const next = new Set(leftChecked);
-              if (next.has(item.key)) next.delete(item.key);
-              else next.add(item.key);
-              leftChecked = next;
-            }
-          "
-        >
-          <YdCheckbox :checked="leftChecked.has(item.key)" :disabled="item.disabled" size="sm"></YdCheckbox>
-          <span class="truncate">{{ item.label }}</span>
-        </li>
-        <li
+      <div class="flex max-h-72 flex-1 flex-col gap-1 rounded border p-2">
+        <!-- 空数据态 -->
+        <div
           v-if="leftItems.length === 0"
           class="text-muted-foreground py-4 text-center text-sm"
         >
           {{ props.notFoundContent ?? t('transfer.notFound') }}
-        </li>
-      </ul>
+        </div>
+
+        <!-- 虚拟滚动模式：数据量超阈值时 YdVisibleList 仅渲染可见项 -->
+        <YdVirtualList
+          v-else-if="leftList.enableVirtual.value"
+          :items="leftItems"
+          :item-height="36"
+          :scroll-height="288"
+          class="flex-1"
+        >
+          <template #default="{ items: vItems }">
+            <div
+              v-for="vItem in vItems"
+              :key="vItem.key"
+              :style="{ height: '36px' }"
+              :class="
+                cn(
+                  'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
+                  leftChecked.has(vItem.data.key)
+                    ? 'bg-primary/10 font-medium'
+                    : 'hover:bg-muted',
+                  vItem.data.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+                )
+              "
+              @click="
+                () => {
+                  if (vItem.data.disabled) return;
+                  const next = new Set(leftChecked);
+                  if (next.has(vItem.data.key)) next.delete(vItem.data.key);
+                  else next.add(vItem.data.key);
+                  leftChecked = next;
+                }
+              "
+            >
+              <YdCheckbox :checked="leftChecked.has(vItem.data.key)" :disabled="vItem.data.disabled" size="sm"></YdCheckbox>
+              <span class="truncate">{{ vItem.data.label }}</span>
+            </div>
+          </template>
+        </YdVirtualList>
+
+        <!-- 普通模式：数据量未达阈值时全量渲染（保持原有 DOM 结构与交互语义） -->
+        <template v-else>
+          <div
+            v-for="item in leftItems"
+            :key="item.key"
+            :class="
+              cn(
+                'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
+                leftChecked.has(item.key)
+                  ? 'bg-primary/10 font-medium'
+                  : 'hover:bg-muted',
+                item.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+              )
+            "
+            @click="
+              () => {
+                if (item.disabled) return;
+                const next = new Set(leftChecked);
+                if (next.has(item.key)) next.delete(item.key);
+                else next.add(item.key);
+                leftChecked = next;
+              }
+            "
+          >
+            <YdCheckbox :checked="leftChecked.has(item.key)" :disabled="item.disabled" size="sm"></YdCheckbox>
+            <span class="truncate">{{ item.label }}</span>
+          </div>
+        </template>
+      </div>
     </div>
 
     <!-- 中间：操作按钮 -->
@@ -249,39 +319,82 @@ function moveAllToLeft(): void {
         <YdInput v-model="rightQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? t('common.search')" />
       </div>
 
-      <ul class="flex max-h-72 flex-1 flex-col gap-1 overflow-y-auto rounded border p-2">
-        <li
-          v-for="item in rightItems"
-          :key="item.key"
-          :class="
-            cn(
-              'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
-              rightChecked.has(item.key)
-                ? 'bg-primary/10 font-medium'
-                : 'hover:bg-muted',
-              item.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
-            )
-          "
-          @click="
-            () => {
-              if (item.disabled) return;
-              const next = new Set(rightChecked);
-              if (next.has(item.key)) next.delete(item.key);
-              else next.add(item.key);
-              rightChecked = next;
-            }
-          "
-        >
-          <YdCheckbox :checked="rightChecked.has(item.key)" :disabled="item.disabled" size="sm"></YdCheckbox>
-          <span class="truncate">{{ item.label }}</span>
-        </li>
-        <li
+      <div class="flex max-h-72 flex-1 flex-col gap-1 rounded border p-2">
+        <!-- 空数据态 -->
+        <div
           v-if="rightItems.length === 0"
           class="text-muted-foreground py-4 text-center text-sm"
         >
           {{ props.notFoundContent ?? t('transfer.notFound') }}
-        </li>
-      </ul>
+        </div>
+
+        <!-- 虚拟滚动模式：数据量超阈值时 YdVisibleList 仅渲染可见项 -->
+        <YdVirtualList
+          v-else-if="rightList.enableVirtual.value"
+          :items="rightItems"
+          :item-height="36"
+          :scroll-height="288"
+          class="flex-1"
+        >
+          <template #default="{ items: vItems }">
+            <div
+              v-for="vItem in vItems"
+              :key="vItem.key"
+              :style="{ height: '36px' }"
+              :class="
+                cn(
+                  'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
+                  rightChecked.has(vItem.data.key)
+                    ? 'bg-primary/10 font-medium'
+                    : 'hover:bg-muted',
+                  vItem.data.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+                )
+              "
+              @click="
+                () => {
+                  if (vItem.data.disabled) return;
+                  const next = new Set(rightChecked);
+                  if (next.has(vItem.data.key)) next.delete(vItem.data.key);
+                  else next.add(vItem.data.key);
+                  rightChecked = next;
+                }
+              "
+            >
+              <YdCheckbox :checked="rightChecked.has(vItem.data.key)" :disabled="vItem.data.disabled" size="sm"></YdCheckbox>
+              <span class="truncate">{{ vItem.data.label }}</span>
+            </div>
+          </template>
+        </YdVirtualList>
+
+        <!-- 普通模式：数据量未达阈值时全量渲染（保持原有 DOM 结构与交互语义） -->
+        <template v-else>
+          <div
+            v-for="item in rightItems"
+            :key="item.key"
+            :class="
+              cn(
+                'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
+                rightChecked.has(item.key)
+                  ? 'bg-primary/10 font-medium'
+                  : 'hover:bg-muted',
+                item.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+              )
+            "
+            @click="
+              () => {
+                if (item.disabled) return;
+                const next = new Set(rightChecked);
+                if (next.has(item.key)) next.delete(item.key);
+                else next.add(item.key);
+                rightChecked = next;
+              }
+            "
+          >
+            <YdCheckbox :checked="rightChecked.has(item.key)" :disabled="item.disabled" size="sm"></YdCheckbox>
+            <span class="truncate">{{ item.label }}</span>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>

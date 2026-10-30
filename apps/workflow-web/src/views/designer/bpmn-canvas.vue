@@ -27,10 +27,11 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 // bpmn-js-properties-panel v5 起不再自带样式：面板样式实际由 @bpmn-io/properties-panel 提供
 import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
-import BpmnModeler from 'bpmn-js/lib/Modeler';
-import { onBeforeUnmount, onMounted, shallowRef, watch } from 'vue';
-import { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
+import { onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
+import { YdSpinner } from '@ydsz-core/ydsz-ui';
 import { getModdleExtensions, getPropertiesProvider } from './bpmn-customizations';
+import type BpmnModeler from 'bpmn-js/lib/Modeler';
+import type { BpmnPropertiesPanelModule } from 'bpmn-js-properties-panel';
 import type {
   BpmnCanvasService,
   BpmnCommandStackService,
@@ -69,6 +70,11 @@ const propertiesPanelRef = shallowRef<HTMLDivElement>();
  */
 const modelerRef = shallowRef<BpmnModeler | null>(null);
 
+/** 画布引擎是否就绪（动态加载完成后置 true） */
+const isReady = ref(false);
+/** 动态导入 bpmn-js 失败时的错误信息 */
+const loadError = ref('');
+
 const EMPTY_BPMN_XML = `<?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
                   xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
@@ -91,17 +97,20 @@ const EMPTY_BPMN_XML = `<?xml version="1.0" encoding="UTF-8"?>
  * - 自定义属性 provider（业务扩展字段）
  * - Moddle extensions（Camunda 描述符）
  */
-function initModeler() {
+async function initModeler(
+  BpmnModelerClass: typeof BpmnModeler,
+  PanelModule: typeof BpmnPropertiesPanelModule,
+) {
   if (!containerRef.value) return;
 
-  const modeler = new BpmnModeler({
+  const modeler = new BpmnModelerClass({
     container: containerRef.value,
     propertiesPanel: propertiesPanelRef.value
       ? { parent: propertiesPanelRef.value }
       : undefined,
     keyboard: { bindTo: window },
     additionalModules: [
-      BpmnPropertiesPanelModule,
+      PanelModule,
       ...getPropertiesProvider(),
     ],
     moddleExtensions: getModdleExtensions(),
@@ -242,10 +251,32 @@ watch(
   },
 );
 
-onMounted(async () => {
-  initModeler();
-  await loadXml(props.xml || EMPTY_BPMN_XML);
+onMounted(() => {
+  isReady.value = false;
+  loadError.value = '';
+  doInitModeler();
 });
+
+/**
+ * 动态加载 bpmn-js 并初始化 Modeler 实例。
+ *
+ * 两阶段并行加载 Modeler + PropertiesPanel 依赖后组装实例；
+ * 失败时写入 loadError，供上层展示友好提示。
+ */
+async function doInitModeler(): Promise<void> {
+  try {
+    const [{ default: BpmnModelerClass }, panelModule] = await Promise.all([
+      import('bpmn-js/lib/Modeler'),
+      import('bpmn-js-properties-panel'),
+    ]);
+    await initModeler(BpmnModelerClass as typeof BpmnModeler, panelModule.BpmnPropertiesPanelModule);
+    isReady.value = true;
+    await loadXml(props.xml || EMPTY_BPMN_XML);
+  } catch (err) {
+    loadError.value = (err as Error)?.message || 'BPMN 引擎加载失败，请刷新页面重试';
+    console.error('[BpmnCanvas] 动态导入 bpmn-js 失败:', err);
+  }
+}
 
 onBeforeUnmount(() => {
   destroyModeler();
@@ -269,6 +300,12 @@ defineExpose({
     <div ref="containerRef" class="bpmn-canvas" :class="{ 'is-disabled': disabled }" />
     <!-- 属性面板容器（与 bpmn-js-properties-panel 对接） -->
     <div ref="propertiesPanelRef" class="bpmn-properties-panel" />
+    <!-- 动态加载期间的遮罩 -->
+    <YdSpinner :spinning="!isReady && !loadError" />
+    <div v-if="loadError" class="bpmn-canvas-error">
+      <span class="bpmn-canvas-error__icon">⚠</span>
+      <p class="bpmn-canvas-error__msg">{{ loadError }}</p>
+    </div>
   </div>
 </template>
 
@@ -303,5 +340,30 @@ defineExpose({
   background: #fff;
   position: relative;
   z-index: 2;
+}
+
+.bpmn-canvas-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #fafafa;
+  z-index: 10;
+}
+
+.bpmn-canvas-error__icon {
+  font-size: 32px;
+  color: #f56c6c;
+}
+
+.bpmn-canvas-error__msg {
+  margin: 0;
+  font-size: 14px;
+  color: #606266;
+  text-align: center;
+  max-width: 320px;
 }
 </style>

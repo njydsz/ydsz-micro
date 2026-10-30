@@ -42,6 +42,13 @@ export type {
   UseVirtualForListHandle,
 } from './use-virtual-for-list';
 
+export { useVirtualScrollItems } from './use-virtual-scroll-items';
+export type {
+  UseVirtualScrollItemsOptions,
+  UseVirtualScrollItemsReturn,
+  VisibleItem,
+} from './use-virtual-scroll-items';
+
 export { useColumnDrag } from './use-column-drag';
 export type { ColumnDragState, UseColumnDragOptions } from './use-column-drag';
 

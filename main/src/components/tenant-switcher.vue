@@ -11,6 +11,7 @@
 -->
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import type { TenantInfo } from '@ydsz/shared-business';
 
@@ -100,17 +101,17 @@ async function handleTenantChange(tenantId: string): Promise<void> {
   }
   const target = accessibleTenants.value.find((t) => t.id === tenantId);
   if (!target) {
-    showToast.warning('未找到目标租户信息');
+    showToast.warning($t('page.tenantSwitcher.noTenantFound'));
     return;
   }
   try {
     await switchTenant(target.id, target.tenantName);
   } catch {
-    showToast.error(`切换至「${target.tenantName}」失败，请稍后重试`);
+    showToast.error($t('page.tenantSwitcher.switchFailed', { tenant: target.tenantName }));
     return;
   }
   showToast.success(
-    `已切换至「${target.tenantName}」(${target.tenantCode})，正在刷新...`,
+    $t('page.tenantSwitcher.switched', { tenant: target.tenantName, code: target.tenantCode }),
   );
   // 延迟刷新，让用户看到提示
   setTimeout(() => {
@@ -139,7 +140,7 @@ onMounted(async () => {
 
   // 如果有错误，弹出提示
   if (error.value) {
-    showToast.error(`租户列表加载失败：${error.value}`);
+    showToast.error($t('page.tenantSwitcher.loadFailed', { error: error.value }));
   }
 
   initialized.value = true;
@@ -175,10 +176,10 @@ onMounted(async () => {
                 d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"
               />
             </svg>
-            <span>加载租户...</span>
+            <span>{{ $t('page.tenantSwitcher.loading') }}</span>
           </span>
         </YdTooltipTriggerBase>
-        <YdTooltipContentBase side="bottom">正在加载租户列表...</YdTooltipContentBase>
+        <YdTooltipContentBase side="bottom">{{ $t('page.tenantSwitcher.loadingTooltip') }}</YdTooltipContentBase>
       </YdTooltipBase>
 
       <!-- 切换器主体 -->
@@ -192,7 +193,7 @@ onMounted(async () => {
           <YdTooltipTriggerBase as-child>
             <YdSelectTriggerBase
               class="tenant-switcher__select w-[200px]"
-              aria-label="切换租户"
+              :aria-label="$t('page.tenantSwitcher.switchAriaLabel')"
             >
               <span class="tenant-switcher__icon mr-1 flex items-center">
                 <svg
@@ -222,7 +223,7 @@ onMounted(async () => {
               <YdSelectValueBase :placeholder="displayName" />
             </YdSelectTriggerBase>
           </YdTooltipTriggerBase>
-          <YdTooltipContentBase side="bottom">切换租户</YdTooltipContentBase>
+          <YdTooltipContentBase side="bottom">{{ $t('page.tenantSwitcher.switchAriaLabel') }}</YdTooltipContentBase>
         </YdTooltipBase>
 
         <!-- 租户选项列表 -->
@@ -254,7 +255,7 @@ onMounted(async () => {
             </span>
           </YdSelectItemBase>
           <template v-if="accessibleTenants.length === 0">
-            <div class="px-3 py-2 text-sm text-gray-400">暂无可访问租户</div>
+            <div class="px-3 py-2 text-sm text-gray-400">{{ $t('page.tenantSwitcher.empty') }}</div>
           </template>
         </YdSelectContentBase>
       </YdSelectBase>
@@ -270,7 +271,7 @@ onMounted(async () => {
           </span>
         </YdTooltipTriggerBase>
         <YdTooltipContentBase side="bottom">
-          {{ `租户加载失败：${error}，点击重试` }}
+          {{ $t('page.tenantSwitcher.retry', { error }) }}
         </YdTooltipContentBase>
       </YdTooltipBase>
     </div>

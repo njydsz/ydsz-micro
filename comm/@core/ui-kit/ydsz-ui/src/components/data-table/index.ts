@@ -45,11 +45,20 @@ export type {
 } from './use-table-row-view';
 export { useFixedColumns, fixedColumnStyle } from './use-table-fixed-columns';
 export { useTableGroupHeader } from './use-table-group-header';
+export { default as YdColumnChooser } from './YdColumnChooser.vue';
+export { useColumnChooser } from './use-column-chooser';
+export type {
+  ColumnVisibilityState,
+  UseColumnChooserOptions,
+  UseColumnChooserReturn,
+} from './column-chooser-types';
 export {
+  buildHtmlExcel,
   downloadTextFile,
   escapeCsvField,
   serializeTable,
   toCsvContent,
+  toSelectedCsvContent,
   useTableExport,
 } from './use-table-export';
 export type {

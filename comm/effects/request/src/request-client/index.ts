@@ -15,6 +15,7 @@
 export * from './business-error';
 export * from './create-request-client';
 export { clearDedupCache, dedupRequest, getDedupCacheSize } from './request-dedup';
+export * from './loading-interceptor';
 export * from './preset-interceptors';
 export * from './request-client';
 export type * from './types';

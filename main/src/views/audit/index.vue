@@ -18,6 +18,9 @@ import { showToast } from '@ydsz/notification';
 
 import { useAuditStore } from '#/store/audit';
 import AuditDetailDrawer from './audit-detail-drawer.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 /** 模块级日志器 */
 const logger = createLogger('AuditListPage');
@@ -31,35 +34,35 @@ const detailVisible = ref(false);
 const selectedLogId = ref<string | null>(null);
 
 /** 操作类型下拉选项 */
-const actionTypeOptions: SelectOption[] = [
-  { label: '全部', value: '' },
-  { label: '新增', value: 'CREATE' },
-  { label: '修改', value: 'UPDATE' },
-  { label: '删除', value: 'DELETE' },
-  { label: '登录', value: 'LOGIN' },
-  { label: '导出', value: 'EXPORT' },
-];
+const actionTypeOptions = computed<SelectOption[]>(() => [
+  { label: t('page.audit.all'), value: '' },
+  { label: t('page.audit.actionType.CREATE'), value: 'CREATE' },
+  { label: t('page.audit.actionType.UPDATE'), value: 'UPDATE' },
+  { label: t('page.audit.actionType.DELETE'), value: 'DELETE' },
+  { label: t('page.audit.actionType.LOGIN'), value: 'LOGIN' },
+  { label: t('page.audit.actionType.EXPORT'), value: 'EXPORT' },
+]);
 
 /** 模块下拉选项（可由后端字典动态获取，这里先静态） */
-const moduleOptions: SelectOption[] = [
-  { label: '全部', value: '' },
-  { label: '用户管理', value: 'user' },
-  { label: '系统配置', value: 'system' },
-  { label: '权限管理', value: 'permission' },
-  { label: '数据管理', value: 'data' },
-];
+const moduleOptions = computed<SelectOption[]>(() => [
+  { label: t('page.audit.all'), value: '' },
+  { label: t('page.audit.module.user'), value: 'user' },
+  { label: t('page.audit.module.system'), value: 'system' },
+  { label: t('page.audit.module.permission'), value: 'permission' },
+  { label: t('page.audit.module.data'), value: 'data' },
+]);
 
 /** 操作结果选项 */
-const resultOptions: SelectOption[] = [
-  { label: '全部', value: '' },
-  { label: '成功', value: 'SUCCESS' },
-  { label: '失败', value: 'FAILED' },
-];
+const resultOptions = computed<SelectOption[]>(() => [
+  { label: t('page.audit.all'), value: '' },
+  { label: t('page.audit.result.SUCCESS'), value: 'SUCCESS' },
+  { label: t('page.audit.result.FAILED'), value: 'FAILED' },
+]);
 
 /** 时间范围快捷选项 */
-const dateRangeShortcuts = [
+const dateRangeShortcuts = computed(() => [
   {
-    text: '今天',
+    text: t('page.audit.dateRange.today'),
     value: () => {
       const now = new Date();
       const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -67,7 +70,7 @@ const dateRangeShortcuts = [
     },
   },
   {
-    text: '近7天',
+    text: t('page.audit.dateRange.last7'),
     value: () => {
       const end = new Date();
       const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -75,39 +78,39 @@ const dateRangeShortcuts = [
     },
   },
   {
-    text: '近30天',
+    text: t('page.audit.dateRange.last30'),
     value: () => {
       const end = new Date();
       const start = new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000);
       return [start.toISOString(), end.toISOString()];
     },
   },
-];
+]);
 
 /** 当前日期范围值（用于日期选择器双向绑定） */
 const dateRange = ref<[string, string] | null>(null);
 
 // Excel 导出列定义
-const excelColumns = [
-  { key: 'actionTime', label: '操作时间', width: 20 },
-  { key: 'operatorName', label: '操作人', width: 15 },
-  { key: 'module', label: '模块', width: 12 },
-  { key: 'actionType', label: '类型', width: 10 },
-  { key: 'description', label: '描述', width: 30 },
+const excelColumns = computed(() => [
+  { key: 'actionTime', label: t('page.audit.table.actionTime'), width: 20 },
+  { key: 'operatorName', label: t('page.audit.table.operatorName'), width: 15 },
+  { key: 'module', label: t('page.audit.table.module'), width: 12 },
+  { key: 'actionType', label: t('page.audit.table.actionType'), width: 10 },
+  { key: 'description', label: t('page.audit.table.description'), width: 30 },
   { key: 'clientIp', label: 'IP', width: 18 },
-  { key: 'result', label: '结果', width: 10 },
-];
+  { key: 'result', label: t('page.audit.table.result'), width: 10 },
+]);
 
 /**
  * 操作类型中文映射
  */
-const actionTypeLabels: Record<string, string> = {
-  CREATE: '新增',
-  UPDATE: '修改',
-  DELETE: '删除',
-  LOGIN: '登录',
-  EXPORT: '导出',
-};
+const actionTypeLabels = computed<Record<string, string>>(() => ({
+  CREATE: t('page.audit.actionType.CREATE'),
+  UPDATE: t('page.audit.actionType.UPDATE'),
+  DELETE: t('page.audit.actionType.DELETE'),
+  LOGIN: t('page.audit.actionType.LOGIN'),
+  EXPORT: t('page.audit.actionType.EXPORT'),
+}));
 
 /** IP 地址脱敏：仅显示末段 '*'。 */
 function maskIp(ip: string): string {
@@ -186,18 +189,18 @@ async function handleExport(): Promise<void> {
     }));
 
     await exportExcel({
-      columns: excelColumns,
+      columns: excelColumns.value,
       data: exportData,
       filename: `audit_logs_${formatDate(Date.now(), 'YYYYMMDD_HHmmss')}`,
-      sheetName: '审计日志',
+      sheetName: t('page.audit.exportSheet'),
       onComplete: () => {
-        showToast.success('导出成功', {
-          description: `共导出 ${exportData.length} 条审计记录`,
+        showToast.success(t('page.audit.exportSuccess'), {
+          description: t('page.audit.exportSuccessDesc', { count: exportData.length }),
         });
       },
       onError: (err) => {
-        showToast.error('导出失败', {
-          description: err?.message ?? '请稍后重试',
+        showToast.error(t('page.audit.exportFailed'), {
+          description: err?.message ?? t('page.audit.retryLater'),
         });
       },
     });
@@ -213,7 +216,7 @@ async function handleExport(): Promise<void> {
  */
 function openConfirmDialog(): Promise<boolean> {
   return new Promise<boolean>((resolve) => {
-    showToast.warning('敏感数据导出需要二次认证，请留意后续弹窗提示。', {
+    showToast.warning(t('page.audit.exportConfirm'), {
       duration: 3000,
     });
     // 简化：用户确认后 resolve(true)
@@ -234,18 +237,18 @@ onMounted(() => {
       <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
         <!-- 操作人 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">操作人</label>
+          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.operatorName') }}</label>
           <input
             v-model="auditStore.filters.operatorName"
             type="text"
-            placeholder="请输入操作人"
+            :placeholder="t('page.audit.operatorNamePlaceholder')"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
           />
         </div>
 
         <!-- 模块 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">模块</label>
+          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.module') }}</label>
           <select
             v-model="auditStore.filters.module"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
@@ -258,7 +261,7 @@ onMounted(() => {
 
         <!-- 类型 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">类型</label>
+          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.actionType') }}</label>
           <select
             v-model="auditStore.filters.actionType"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
@@ -275,7 +278,7 @@ onMounted(() => {
 
         <!-- 操作结果 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">操作结果</label>
+          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.result') }}</label>
           <select
             v-model="auditStore.filters.result"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
@@ -294,7 +297,7 @@ onMounted(() => {
       <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-4">
         <!-- 时间范围 -->
         <div class="filter-item md:col-span-2">
-          <label class="mb-1 block text-sm text-gray-600">时间范围</label>
+          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.dateRange') }}</label>
           <div class="flex flex-wrap gap-2">
             <button
               v-for="shortcut in dateRangeShortcuts"
@@ -311,7 +314,7 @@ onMounted(() => {
               :model-value="auditStore.filters.startTime"
               type="datetime-local"
               class="rounded border border-gray-300 px-2 py-1.5 text-sm"
-              placeholder="开始时间"
+              :placeholder="t('page.audit.startTime')"
               @change="
                 auditStore.filters.startTime = ($event.target as HTMLInputElement).value;
                 handleDateChange([auditStore.filters.startTime, auditStore.filters.endTime]);
@@ -322,7 +325,7 @@ onMounted(() => {
               :model-value="auditStore.filters.endTime"
               type="datetime-local"
               class="rounded border border-gray-300 px-2 py-1.5 text-sm"
-              placeholder="结束时间"
+              :placeholder="t('page.audit.endTime')"
               @change="
                 auditStore.filters.endTime = ($event.target as HTMLInputElement).value;
                 handleDateChange([auditStore.filters.startTime, auditStore.filters.endTime]);
@@ -333,11 +336,11 @@ onMounted(() => {
 
         <!-- 关键词搜索 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">关键词</label>
+          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.keyword') }}</label>
           <input
             v-model="auditStore.filters.keyword"
             type="text"
-            placeholder="搜索描述/IP"
+            :placeholder="t('page.audit.keywordPlaceholder')"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
           />
         </div>
@@ -349,20 +352,20 @@ onMounted(() => {
           class="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
           @click="handleSearch"
         >
-          查询
+          {{ t('page.audit.filter.search') }}
         </button>
         <button
           class="rounded border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50"
           @click="handleReset"
         >
-          重置
+          {{ t('page.audit.filter.reset') }}
         </button>
         <button
           :disabled="exporting"
           class="rounded border border-green-500 px-4 py-2 text-sm text-green-600 hover:bg-green-50 disabled:opacity-50"
           @click="handleExport"
         >
-          {{ exporting ? '导出中...' : '导出' }}
+          {{ exporting ? t('page.audit.exporting') : t('page.audit.filter.export') }}
         </button>
       </div>
     </div>
@@ -370,7 +373,7 @@ onMounted(() => {
     <!-- 表格区域 -->
     <div class="audit-table-card rounded-lg bg-white p-4 shadow-sm">
       <div class="mb-3 flex items-center justify-between">
-        <span class="text-sm text-gray-500">共 {{ auditStore.total }} 条记录</span>
+        <span class="text-sm text-gray-500">{{ t('page.audit.table.total', { count: auditStore.total }) }}</span>
       </div>
 
       <!-- 表格 -->
@@ -378,25 +381,25 @@ onMounted(() => {
         <thead>
           <tr class="border-b border-gray-200 bg-gray-50">
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              时间
+              {{ t('page.audit.table.actionTime') }}
             </th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              操作人
+              {{ t('page.audit.table.operatorName') }}
             </th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              模块
+              {{ t('page.audit.table.module') }}
             </th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              类型
+              {{ t('page.audit.table.actionType') }}
             </th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              简要描述
+              {{ t('page.audit.table.description') }}
             </th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               IP
             </th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              操作
+              {{ t('page.audit.table.operation') }}
             </th>
           </tr>
         </thead>
@@ -431,13 +434,13 @@ onMounted(() => {
                 class="text-blue-600 hover:underline"
                 @click.stop="handleRowClick(log)"
               >
-                查看详情
+                {{ t('page.audit.table.viewDetail') }}
               </button>
             </td>
           </tr>
           <tr v-if="auditStore.list.length === 0 && !auditStore.loading">
             <td colspan="7" class="px-4 py-8 text-center text-sm text-gray-400">
-              暂无审计记录
+              {{ t('page.audit.table.empty') }}
             </td>
           </tr>
         </tbody>
@@ -447,31 +450,31 @@ onMounted(() => {
       <div class="mt-4 flex items-center justify-end">
         <div class="flex items-center gap-2">
           <span class="text-sm text-gray-500">
-            第 {{ auditStore.filters.pageNum }} 页
+            {{ t('page.common.page', { page: auditStore.filters.pageNum }) }}
           </span>
           <button
             :disabled="auditStore.filters.pageNum <= 1"
             class="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
             @click="handlePageChange(auditStore.filters.pageNum - 1)"
           >
-            上一页
+            {{ t('page.common.prevPage') }}
           </button>
           <button
             :disabled="auditStore.filters.pageNum * auditStore.filters.pageSize >= auditStore.total"
             class="rounded border border-gray-300 px-3 py-1 text-sm disabled:opacity-50"
             @click="handlePageChange(auditStore.filters.pageNum + 1)"
           >
-            下一页
+            {{ t('page.common.nextPage') }}
           </button>
           <select
             :model-value="auditStore.filters.pageSize"
             class="rounded border border-gray-300 px-2 py-1 text-sm"
             @change="handleSizeChange(Number(($event.target as HTMLSelectElement).value))"
           >
-            <option :value="10">10 条/页</option>
-            <option :value="20">20 条/页</option>
-            <option :value="50">50 条/页</option>
-            <option :value="100">100 条/页</option>
+            <option :value="10">{{ t('page.common.pageSize', { size: 10 }) }}</option>
+            <option :value="20">{{ t('page.common.pageSize', { size: 20 }) }}</option>
+            <option :value="50">{{ t('page.common.pageSize', { size: 50 }) }}</option>
+            <option :value="100">{{ t('page.common.pageSize', { size: 100 }) }}</option>
           </select>
         </div>
       </div>

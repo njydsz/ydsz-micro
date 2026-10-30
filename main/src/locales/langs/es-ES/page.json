@@ -4,7 +4,14 @@
     "register": "Registrarse",
     "codeLogin": "Entrar con código",
     "qrcodeLogin": "Entrar con código QR",
-    "forgetPassword": "Olvidé mi contraseña"
+    "forgetPassword": "Olvidé mi contraseña",
+    "accountPlaceholder": "Introduzca la cuenta",
+    "passwordPlaceholder": "Introduzca la contraseña",
+    "tenant": "Inquilino",
+    "tenantPlaceholder": "Seleccione un inquilino",
+    "tenantPlatform": "YDSZ Código abierto",
+    "tenantTestA": "Inquilino de prueba A",
+    "tenantTestB": "Inquilino de prueba B"
   },
   "dashboard": {
     "title": "Plataforma YDSZ",
@@ -37,7 +44,8 @@
       "operation": "Acción",
       "viewDetail": "Ver detalle",
       "empty": "Sin registros de auditoría",
-      "total": "{count} registros en total"
+      "total": "{count} registros en total",
+      "result": "Resultado"
     },
     "detail": {
       "title": "Detalle del registro de auditoría",
@@ -51,7 +59,19 @@
       "os": "Sistema operativo",
       "oldValue": "Valor anterior",
       "newValue": "Valor nuevo",
-      "loading": "Cargando..."
+      "loading": "Cargando...",
+      "actionTime": "Hora de la acción",
+      "actionType": "Tipo",
+      "changedFields": "({count} campos)",
+      "clientIp": "Dirección IP",
+      "description": "Descripción",
+      "emptyValue": "(vacío)",
+      "field": "Campo",
+      "module": "Módulo",
+      "notFound": "No se encontró el detalle del registro",
+      "operator": "Operador",
+      "result": "Resultado",
+      "unknown": "Desconocido"
     },
     "actionType": {
       "CREATE": "Crear",
@@ -60,7 +80,33 @@
       "LOGIN": "Iniciar sesión",
       "EXPORT": "Exportar"
     },
-    "exportConfirm": "La exportación de datos sensibles requiere doble verificación"
+    "exportConfirm": "La exportación de datos sensibles requiere doble verificación",
+    "all": "Todos",
+    "dateRange": {
+      "last30": "Últimos 30 días",
+      "last7": "Últimos 7 días",
+      "today": "Hoy"
+    },
+    "exportFailed": "Error al exportar",
+    "exporting": "Exportando...",
+    "exportSheet": "Registro de auditoría",
+    "exportSuccess": "Exportación correcta",
+    "exportSuccessDesc": "Se exportaron {count} registros de auditoría",
+    "keywordPlaceholder": "Buscar descripción/IP",
+    "module": {
+      "data": "Gestión de datos",
+      "permission": "Gestión de permisos",
+      "system": "Configuración del sistema",
+      "user": "Gestión de usuarios"
+    },
+    "operatorNamePlaceholder": "Introduzca el operador",
+    "result": {
+      "FAILED": "Fallido",
+      "SUCCESS": "Correcto"
+    },
+    "retryLater": "Inténtalo más tarde",
+    "startTime": "Hora de inicio",
+    "endTime": "Hora de fin"
   },
   "notification": {
     "summary": {
@@ -120,5 +166,101 @@
       "title": "Error al cargar la aplicación",
       "hint": "Se degradó a navegación de página completa; reinténtelo más tarde"
     }
+  },
+  "common": {
+    "nextPage": "Siguiente",
+    "page": "Página {page}",
+    "pageSize": "{size} por página",
+    "prevPage": "Anterior"
+  },
+  "commandPalette": {
+    "ariaLabel": "Paleta de comandos",
+    "availableCommands": "Comandos disponibles",
+    "command": "Comando",
+    "noCommand": "No hay comandos coincidentes",
+    "noMenu": "No hay menús ni páginas coincidentes",
+    "other": "Otros",
+    "providerTitle": "Fuentes de búsqueda registradas: {names}",
+    "recent": "Visitado recientemente",
+    "registeredCount": "{count} comandos registrados",
+    "results": "Resultados de búsqueda",
+    "search": "Buscar",
+    "shortcutBar": "⌘K buscar · ⌘⇧P comandos · ↵ confirmar · Esc cerrar",
+    "tipsClose": "Esc cerrar",
+    "tipsConfirm": "↵ confirmar",
+    "tipsNav": "↑↓ seleccionar",
+    "toggleMode": "Cambiar modo",
+    "tryOtherKeywords": "Prueba otra palabra clave"
+  },
+  "performance": {
+    "browser": "Navegador:",
+    "browserAll": "Todos los navegadores",
+    "clsTitle": "Estabilidad del diseño (CLS)",
+    "dateRange": "Rango de fechas:",
+    "deviceAll": "Todos los dispositivos",
+    "deviceDesktop": "Escritorio",
+    "deviceMobile": "Móvil",
+    "deviceType": "Tipo de dispositivo:",
+    "empty": "Sin datos",
+    "loading": "Cargando...",
+    "renderTitle": "Rendimiento de renderizado (LCP / FCP / TTFB) ms"
+  },
+  "analytics": {
+    "downloads": "Descargas",
+    "monthlyVisits": "Visitas mensuales",
+    "totalDownloads": "Descargas totales",
+    "totalUsage": "Uso total",
+    "totalUsers": "Usuarios totales",
+    "totalVisits": "Visitas totales",
+    "trafficTrend": "Tendencia de tráfico",
+    "usage": "Uso",
+    "users": "Usuarios",
+    "visitCount": "Cantidad de visitas",
+    "visitSource": "Fuentes de tráfico",
+    "visits": "Visitas"
+  },
+  "tenantSwitcher": {
+    "empty": "No hay inquilinos accesibles",
+    "loadFailed": "Error al cargar los inquilinos: {error}",
+    "loading": "Cargando inquilinos...",
+    "loadingTooltip": "Cargando la lista de inquilinos...",
+    "noTenantFound": "No se encontró el inquilino de destino",
+    "retry": "Error al cargar los inquilinos: {error}. Haz clic para reintentar",
+    "switchAriaLabel": "Cambiar de inquilino",
+    "switchFailed": "No se pudo cambiar a \"{tenant}\", inténtalo más tarde",
+    "switched": "Cambiado a \"{tenant}\" ({code}), actualizando..."
+  },
+  "globalSearch": {
+    "ariaLabel": "Búsqueda global",
+    "empty": "No hay coincidencias",
+    "panelAriaLabel": "Panel de búsqueda global",
+    "placeholder": "Buscar menús, funciones, acciones... (⌘K)",
+    "tipsJump": "↵ abrir"
+  },
+  "fallback": {
+    "backHome": "Volver al inicio",
+    "contactAdmin": "Contactar al administrador",
+    "internalError": "La página no se pudo cargar",
+    "mailBody": "Describa el problema...",
+    "mailSubject": "Informe de error",
+    "refresh": "Recargar y reintentar"
+  },
+  "errorBoundary": {
+    "message": "Esta sección no se pudo cargar, reinténtalo",
+    "retryAriaLabel": "Reintentar carga"
+  },
+  "networkAlert": {
+    "dataSaver": "El ahorro de datos está activo; algunas animaciones y precargas están desactivadas",
+    "offline": "Sin conexión; algunas acciones pueden fallar",
+    "recovered": "Conexión restablecida",
+    "slow": "La red va lenta; la carga puede retrasarse"
+  },
+  "subapp": {
+    "ariaLoading": "Cargando {app} {progress}%",
+    "failed": "{app} no se pudo cargar",
+    "initializing": "Inicializando...",
+    "loading": "Cargando {app}...",
+    "mounted": "Montado",
+    "ready": "Cargado, preparando el montaje..."
   }
 }

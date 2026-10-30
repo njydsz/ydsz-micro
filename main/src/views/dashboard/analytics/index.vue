@@ -10,6 +10,7 @@ import type { AnalysisOverviewItem } from '@ydsz/common-ui';
 import type { TabOption } from '@ydsz/types';
 
 import { onMounted } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import {
   AnalysisChartCard,
@@ -32,51 +33,51 @@ import AnalyticsVisitsSource from './analytics-visits-source.vue';
 import AnalyticsVisits from './analytics-visits.vue';
 
 // 本地默认数据（后端统计接口就绪前兜底展示，接口可用后自动切换为真实数据）
-const DEFAULT_OVERVIEW: AnalysisOverviewItem[] = [
+const defaultOverview = (): AnalysisOverviewItem[] => [
   {
     icon: SvgCardIcon,
-    title: '用户量',
-    totalTitle: '总用户量',
+    title: $t('page.analytics.users'),
+    totalTitle: $t('page.analytics.totalUsers'),
     totalValue: 120_000,
     value: 2000,
   },
   {
     icon: SvgCakeIcon,
-    title: '访问量',
-    totalTitle: '总访问量',
+    title: $t('page.analytics.visits'),
+    totalTitle: $t('page.analytics.totalVisits'),
     totalValue: 500_000,
     value: 20_000,
   },
   {
     icon: SvgDownloadIcon,
-    title: '下载量',
-    totalTitle: '总下载量',
+    title: $t('page.analytics.downloads'),
+    totalTitle: $t('page.analytics.totalDownloads'),
     totalValue: 120_000,
     value: 8000,
   },
   {
     icon: SvgBellIcon,
-    title: '使用量',
-    totalTitle: '总使用量',
+    title: $t('page.analytics.usage'),
+    totalTitle: $t('page.analytics.totalUsage'),
     totalValue: 50_000,
     value: 5000,
   },
 ];
 
 const { items: overviewItems, load: loadOverview } = useOverviewStats(
-  DEFAULT_OVERVIEW,
+  defaultOverview(),
 );
 
-const chartTabs: TabOption[] = [
+const chartTabs = computed<TabOption[]>(() => [
   {
-    label: '流量趋势',
+    label: $t('page.analytics.trafficTrend'),
     value: 'trends',
   },
   {
-    label: '月访问量',
+    label: $t('page.analytics.monthlyVisits'),
     value: 'visits',
   },
-];
+]);
 
 onMounted(() => {
   // API 优先：后端就绪时自动替换为真实统计数据
@@ -97,13 +98,13 @@ onMounted(() => {
     </AnalysisChartsTabs>
 
     <div class="mt-5 w-full md:flex">
-      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" title="访问数量">
+      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" :title="$t('page.analytics.visitCount')">
         <AnalyticsVisitsData />
       </AnalysisChartCard>
-      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" title="访问来源">
+      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" :title="$t('page.analytics.visitSource')">
         <AnalyticsVisitsSource />
       </AnalysisChartCard>
-      <AnalysisChartCard class="mt-5 md:mt-0 md:w-1/3" title="访问来源">
+      <AnalysisChartCard class="mt-5 md:mt-0 md:w-1/3" :title="$t('page.analytics.visitSource')">
         <AnalyticsVisitsSales />
       </AnalysisChartCard>
     </div>

@@ -45,6 +45,11 @@ export const zhCN = {
   'table.expandedRow': '展开行',
   'table.collapseRow': '收起行',
   'table.columnSetting': '列设置',
+  'table.columnChooser': '列选择',
+  'table.showAll': '全部显示',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
   'table.editCell': '编辑单元格',
   'table.sortHint': '点击排序，Shift+点击追加多列排序',
   'table.resizeColumn': '拖拽调整列宽',
@@ -160,6 +165,7 @@ export const zhCN = {
   'notification.markAllRead': '全部标为已读',
   'notification.viewAll': '查看全部',
   'notification.closeAriaLabel': '关闭通知',
+  'notification.region': '通知',
 
   // ===== Toast =====
   'toast.region': '通知',
