@@ -1,42 +1,14 @@
 <!--
- * 基础布局组件（顶部导航 + 侧边栏 + 内容区）
+ * 知识库基础布局入口
  *
  * @path apps\nextwiki-web\src\layouts\basic.vue
- * @author ydsz-team
+ * @author ydzs-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import { watch } from 'vue';
-
-import { YdErrorBoundary, useWatermark } from '@ydsz/common-ui';
-import { useI18n } from 'vue-i18n';
-import { preferences } from '@ydsz/preferences';
-import { useUserStore } from '@ydsz/stores';
-
-const { t } = useI18n();
-const userStore = useUserStore();
-const { destroyWatermark, updateWatermark } = useWatermark();
-
-watch(
-  () => preferences.app.watermark,
-  async (enable) => {
-    if (enable) {
-      await updateWatermark({
-        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
-      });
-    } else {
-      destroyWatermark();
-    }
-  },
-  {
-    immediate: true,
-  },
-);
+import { YdSubAppLayout } from '@ydsz/shared-business';
 </script>
 
 <template>
-  <!-- YdErrorBoundary 防止业务组件渲染异常导致白屏 -->
-  <YdErrorBoundary :show-retry="true" :error-message="t('error.pageLoadFailed')">
-    <RouterView />
-  </YdErrorBoundary>
+  <YdSubAppLayout />
 </template>

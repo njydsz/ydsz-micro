@@ -58,8 +58,15 @@ export interface StartupContext {
  * 4. 启动全局消息监听
  * 5. Speculation Rules API 预加载增强
  * 6. 初始预加载（受网络条件感知控制）
- * 7. 注册 idle 预加载策略
- * 8. 注册路由预测预加载策略（v4.2.1 N9）
+ * 7. 注册 idle 预加载策略（默认启用）
+ * 8. 注册路由预测预加载策略（v4.5 P2-13 改为 opt-in）
+ *
+ * v4.5 P2-13: 预加载策略简化
+ * - idle 预加载：默认启用，空闲 2 秒后预加载所有已注册应用
+ * - route prediction 预加载：改为 opt-in（VITE_ROUTE_PRELOAD=true 或 options.routePreload=true）
+ *   预测模型需要足够历史样本才能产生收益，默认关闭以避免复杂度与收益不匹配
+ * - 固定预加载：main 壳通过 options.prefetchApps 指定（如 userinfo-web）
+ * - 所有预加载策略通过 loader.ts 的 in-flight 去重机制避免重复加载
  *
  * @param ctx - 启动上下文
  * @returns start 函数
@@ -135,8 +142,13 @@ export function createStartFunction(ctx: StartupContext) {
       });
     }
 
-    // === v4.2.1 N9: 内核内置路由预测预加载 ===
-    if (options?.routePreload !== false) {
+    // === v4.5 P0-3: 路由预测预加载改为 opt-in ===
+    // 预测模型需要足够历史样本才能产生收益，默认关闭以避免复杂度与收益不匹配。
+    // 启用方式：VITE_ROUTE_PRELOAD=true 或 StartOptions.routePreload === true
+    const routePreloadEnabled =
+      options?.routePreload === true ||
+      (import.meta.env.VITE_ROUTE_PRELOAD as string | undefined) === 'true';
+    if (routePreloadEnabled) {
       try {
         ctx.preloadManager.registerStrategy(
           "__route_prediction__",
@@ -156,7 +168,7 @@ export function createStartFunction(ctx: StartupContext) {
           if (shouldSkipPrefetchDueToNetwork()) return;
           void ctx.preloadManager.triggerPreload("__route_prediction__");
         });
-        logger.debug("Route prediction preload strategy registered (kernel-builtin)");
+        logger.debug("Route prediction preload strategy registered (opt-in)");
       } catch (error) {
         logger.warn(`Route prediction strategy registration skipped: ${String(error)}`);
       }

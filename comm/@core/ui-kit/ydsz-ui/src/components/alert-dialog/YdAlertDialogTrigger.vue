@@ -9,7 +9,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-// @ts-nocheck
 import type { AlertDialogTriggerProps } from '@ydsz-core/ydsz-vue';
 
 import { AlertDialogTrigger, useForwardProps } from '@ydsz-core/ydsz-vue';

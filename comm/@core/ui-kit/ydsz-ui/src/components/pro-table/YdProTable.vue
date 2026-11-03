@@ -19,21 +19,17 @@
  *  - editable：行内编辑配置
  *  - onCreate / createText：内置新增弹窗
  *
+ * 脚本逻辑已下沉至 useProTable composable（行选择 / 分页 / 搜索 / 编辑 / 新增）。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\pro-table\YdProTable.vue
  * @author ydsz-team
  * @since 5.6.0 (5.7.0 追加行内编辑 / 搜索表单 / 新增弹窗)
  */
-import {
-  computed,
-  reactive,
-  ref,
-} from 'vue';
-
 import { cn } from '@ydsz-core/shared/utils';
 
-import type { SortState, TableColumnDef } from '../../composables/use-table-data';
-import { useTableData } from '../../composables/use-table-data';
-import type { TableExportApi } from '../data-table';
+import type { ProTableProps } from './pro-table-types';
+import { useProTable } from './use-pro-table';
+
 import { YdDataTable } from '../data-table';
 import { YdSelectSmart } from '../select';
 
@@ -62,10 +58,11 @@ import {
 
 import { useLocale } from '../../locale/useLocale';
 
-import type {
-  ProTableProps,
-  EditableConfig,
-} from './pro-table-types';
+/* ============================================================ */
+/* 组件名（NAM-002：Router KeepAlive / DevTools 依赖）         */
+/* ============================================================ */
+
+defineOptions({ name: 'YdProTable' });
 
 /* ============================================================ */
 /* props / emit                                                  */
@@ -87,179 +84,43 @@ const emit = defineEmits<{
 const { t } = useLocale();
 
 /* ============================================================ */
-/* 行选择 + useTableData                                        */
+/* 核心逻辑（composable）                                        */
 /* ============================================================ */
 
-const selectedKeysRef = ref(new Set(props.rowSelection?.selectedKeys ?? []));
+const {
+  cancelEdit,
+  createBtnText,
+  createDialogOpen,
+  createFormValues,
+  dataTableRef,
+  deleteBtnText,
+  editBtnText,
+  editRowData,
+  editingRowIdx,
+  exportingApi,
+  handleCreateSubmit,
+  handleOpenCreate,
+  handlePageChange,
+  handleResetSearch,
+  handleSearch,
+  handleSortStateChange,
+  isEditable,
+  renderColumns,
+  saveEdit,
+  searchValues,
+  showAutoSearch,
+  sortState,
+  startEdit,
+  tableData,
+} = useProTable<T>({ emit, props });
 
-const tableData = useTableData<T>({
-  data: () => props.dataSource,
-  columns: () => props.columns,
-  isRemote: props.isRemote,
-  rowSelection: props.rowSelection
-    ? {
-        rowKey: props.rowKey,
-        selectedKeys: selectedKeysRef,
-        type: props.rowSelection.type ?? 'checkbox',
-      }
-    : undefined,
-});
-
-const sortState = computed(() => tableData.sortState.value);
-
-/**
- * 表头排序回传：写回本组件的 useTableData，让 dataSource 的排序与表头状态一致，
- * 同时作为受控值下发给 YdDataTable，避免父子两份排序状态漂移。
- *
- * @param next - 子组件当前排序状态
- * @returns 无
- */
-function handleSortStateChange(next: SortState): void {
-  tableData.sortState.value = next;
-}
-
-/* ============================================================ */
-/* 分页事件                                                     */
-/* ============================================================ */
-
-function handlePageChange(page: number, pageSize: number): void {
-  emit('pageChange', page, pageSize);
-  emit('change',
-    { ...(props.pagination ?? { current: 1, pageSize: 10, total: 0 }), current: page, pageSize },
-    {},
-    { prop: sortState.value.prop ?? '', order: sortState.value.order },
-  );
-}
-
-/* ============================================================ */
-/* 搜索表单（自动生成）                                         */
-/* ============================================================ */
-
-/** 搜索表单内部值 */
-const searchValues = reactive<Record<string, any>>(
-  Object.fromEntries((props.searchFields ?? []).map((f) => [f.key, undefined])),
-);
-
-/** 搜索 */
-function handleSearch(): void {
-  const values = { ...searchValues };
-  emit('change',
-    props.pagination ?? { current: 1, pageSize: 10, total: 0 },
-    values as Record<string, unknown>,
-    { prop: sortState.value.prop ?? '', order: sortState.value.order },
-  );
-  props.onSearch?.(values);
-}
-
-/** 重置 */
-function handleResetSearch(): void {
-  for (const key of Object.keys(searchValues)) {
-    searchValues[key] = undefined;
-  }
-  handleSearch();
-}
-
-/** 是否显示自动搜索表单（searchFields 传入且未提供 search slot） */
-const showAutoSearch = computed(() => !!props.searchFields?.length);
-
-/* ============================================================ */
-/* 行内编辑                                                     */
-/* ============================================================ */
-
-/** 是否启用行内编辑 */
-const isEditable = computed(() => !!props.editable);
-
-/** 当前编辑行索引 */
-const editingRowIdx = ref(-1);
-
-/** 编辑行临时数据 */
-const editRowData = reactive<Record<string, any>>({});
-
-/** 编辑配置对象 */
-const editableConfig = computed<EditableConfig>(() => {
-  if (typeof props.editable === 'object') return props.editable;
-  return {};
-});
-
-/** 编辑按钮文字 */
-const editBtnText = computed(() => props.editText ?? t('common.edit'));
-/** 删除按钮文字 */
-const deleteBtnText = computed(() => props.deleteText ?? t('common.delete'));
-/** 新建按钮/弹窗标题文字 */
-const createBtnText = computed(() => props.createText ?? t('proTable.create'));
-
-/** 进入编辑模式 */
-function startEdit(row: T, index: number): void {
-  editingRowIdx.value = index;
-  Object.assign(editRowData, { ...row });
-  editableConfig.value.onEdit?.(row, index);
-}
-
-/** 保存编辑 */
-async function saveEdit(index: number): Promise<void> {
-  const ok = await editableConfig.value.onSave?.({ ...editRowData }, index);
-  if (ok !== false) {
-    editingRowIdx.value = -1;
-  }
-}
-
-/** 取消编辑 */
-function cancelEdit(row?: T, index?: number): void {
-  editingRowIdx.value = -1;
-  Object.keys(editRowData).forEach((k) => delete editRowData[k]);
-  const r = row ?? editingRowIdx.value;
-  const i = index ?? editingRowIdx.value;
-  editableConfig.value.onCancel?.(r as T, i);
-}
-
-/* ============================================================ */
-/* 新增弹窗                                                     */
-/* ============================================================ */
-
-const createDialogOpen = ref(false);
-const createFormValues = reactive<Record<string, any>>(
-  Object.fromEntries((props.searchFields ?? []).map((f) => [f.key, undefined])),
-);
-
-function handleOpenCreate(): void {
-  if (props.onCreate) {
-    // 使用内置弹窗
-    for (const key of Object.keys(createFormValues)) {
-      createFormValues[key] = undefined;
-    }
-    createDialogOpen.value = true;
-  } else {
-    // 无 onCreate 回调，触发外部 slot/toolbar
-    emit('pageChange', 1, props.pagination?.pageSize ?? 10);
-  }
-}
-
-function handleCreateSubmit(): void {
-  props.onCreate?.({ ...createFormValues });
-  createDialogOpen.value = false;
-}
-
-/* ============================================================ */
-/* 列定义：追加操作列                                           */
-/* ============================================================ */
-
-/** 渲染用的列（只读模式直接透传；编辑模式下由自定义表格自行渲染操作列） */
-const renderColumns = computed<TableColumnDef<T>[]>(() => props.columns);
+// dataTableRef 被模板 `ref="dataTableRef"` 绑定消费（vue-tsc 不将模板字符串
+// 识别为 TS 引用，故在此显式消费以通过 noUnusedLocals）。
+void dataTableRef;
 
 /* ============================================================ */
 /* 暴露方法                                                     */
 /* ============================================================ */
-
-/** YdDataTable defineExpose 句柄中被 ProTable 委派的部分 */
-interface DataTableHandle {
-  exporting: TableExportApi;
-}
-
-/** 只读分支下的 YdDataTable 实例（行内编辑分支不挂载，故可能为 null） */
-const dataTableRef = ref<DataTableHandle | null>(null);
-
-/** 内部表格句柄：编辑分支未挂载时为 undefined */
-const exportingApi = computed(() => dataTableRef.value?.exporting);
 
 defineExpose({
   clearFilters: tableData.clearFilters,

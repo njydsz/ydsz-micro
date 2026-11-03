@@ -1,0 +1,442 @@
+/**
+ * 暗色主题 CSS 变量定义 —— 为所有 Tailwind 语义化类名提供 light/dark 双套值。
+ *
+ * 通过 :root 定义亮色默认值，.dark 类定义暗色覆盖值。
+ * Tailwind 配置使用 darkMode: 'selector'，配合 document.documentElement 上的 .dark 类生效。
+ *
+ * 命名规范：统一使用 --ydsz-* 前缀，与 Tailwind config 的 HSL(var(--xxx)) 引用对应。
+ *
+ * @path comm/@core/ui-kit/ydsz-ui/src/styles/dark-mode.css
+ * @author ydsz-team
+ * @since 26.10.16
+ */
+
+/* ========== 亮色主题（默认）========== */
+:root {
+  /* --- 主色 --- */
+  --ydsz-primary: 222.2 47.4% 11.2%;
+  --ydsz-primary-foreground: 210 40% 98%;
+  --ydsz-primary-hover: 217.2 32.6% 17.5%;
+  --ydsz-primary-active: 222.2 47.4% 8%;
+  --ydsz-primary-subtle: 222.2 47.4% 93.5%;
+  --ydsz-primary-subtle-foreground: 222.2 47.4% 33%;
+
+  /* --- 次级色 --- */
+  --ydsz-secondary: 210 40% 96.1%;
+  --ydsz-secondary-foreground: 222.2 47.4% 11.2%;
+
+  /* --- 强调色 --- */
+  --ydsz-accent: 210 40% 96.1%;
+  --ydsz-accent-foreground: 222.2 47.4% 11.2%;
+
+  /* --- 危险色 --- */
+  --ydsz-destructive: 0 84.2% 60.2%;
+  --ydsz-destructive-foreground: 210 40% 98%;
+  --ydsz-destructive-hover: 0 62.8% 30.6%;
+
+  /* --- 背景色 --- */
+  --ydsz-background: 0 0% 100%;
+  --ydsz-background-deep: 222.2 14% 97%;
+
+  /* --- 前景色（文本） --- */
+  --ydsz-foreground: 222.2 84% 4.9%;
+
+  /* --- 卡片/浮层 --- */
+  --ydsz-card: 0 0% 100%;
+  --ydsz-card-foreground: 222.2 84% 4.9%;
+  --ydsz-popover: 0 0% 100%;
+  --ydsz-popover-foreground: 222.2 84% 4.9%;
+
+  /* --- 弱化色 --- */
+  --ydsz-muted: 210 40% 96.1%;
+  --ydsz-muted-foreground: 215.4 16.3% 46.9%;
+
+  /* --- 边框色 --- */
+  --ydsz-border: 214.3 31.8% 91.4%;
+  --ydsz-input: 214.3 31.8% 91.4%;
+
+  /* --- 焦点环 --- */
+  --ydsz-ring: 222.2 84% 4.9%;
+
+  /* --- 语义色 --- */
+  --ydsz-success: 142.1 76.2% 36.3%;
+  --ydsz-success-foreground: 210 40% 98%;
+  --ydsz-warning: 38 92.2% 50.2%;
+  --ydsz-warning-foreground: 210 40% 98%;
+  --ydsz-info: 221.2 83.2% 53.3%;
+  --ydsz-info-foreground: 210 40% 98%;
+
+  /* --- 侧边栏 --- */
+  --ydsz-sidebar: 222.2 14% 97%;
+  --ydsz-sidebar-deep: 222.2 14% 93%;
+
+  /* --- 画布底色 / 语义化背景 --- */
+  --ydsz-bg-canvas: 222.2 14% 97%;
+  --ydsz-bg-surface-1: 0 0% 100%;
+  --ydsz-bg-surface-2: 222.2 14% 97%;
+  --ydsz-bg-surface-3: 222.2 14% 93%;
+
+  /* --- 语义化文本 --- */
+  --ydsz-txt-primary: 222.2 84% 4.9%;
+  --ydsz-txt-secondary: 215.4 16.3% 46.9%;
+  --ydsz-txt-tertiary: 215.4 16.3% 60%;
+  --ydsz-txt-disabled: 215.4 16.3% 72%;
+  --ydsz-txt-inverse: 0 0% 100%;
+
+  /* --- 语义化边框 --- */
+  --ydsz-border-default: 214.3 31.8% 91.4%;
+  --ydsz-border-strong: 214.3 31.8% 78%;
+  --ydsz-border-subtle: 210 40% 96.1%;
+
+  /* --- 重色（heavy variant） --- */
+  --ydsz-heavy: 222.2 47.4% 11.2%;
+  --ydsz-heavy-foreground: 210 40% 98%;
+
+  /* --- 主色调 --- */
+  --ydsz-main: 210 40% 96.1%;
+
+  /* --- 遮罩 --- */
+  --ydsz-overlay: 222.2 84% 4.9%;
+  --ydsz-overlay-content: 0 0% 100%;
+
+  /* --- 表头 --- */
+  --ydsz-header: 222.2 14% 97%;
+}
+
+/* ========== 暗色主题（.dark 类）========== */
+.dark {
+  /* --- 主色 --- */
+  --ydsz-primary: 210 40% 98%;
+  --ydsz-primary-foreground: 222.2 47.4% 11.2%;
+  --ydsz-primary-hover: 210 40% 92%;
+  --ydsz-primary-active: 210 40% 86%;
+  --ydsz-primary-subtle: 222.2 47.4% 17%;
+  --ydsz-primary-subtle-foreground: 210 40% 92%;
+
+  /* --- 次级色 --- */
+  --ydsz-secondary: 217.2 32.6% 17.5%;
+  --ydsz-secondary-foreground: 210 40% 98%;
+
+  /* --- 强调色 --- */
+  --ydsz-accent: 217.2 32.6% 17.5%;
+  --ydsz-accent-foreground: 210 40% 98%;
+
+  /* --- 危险色 --- */
+  --ydsz-destructive: 0 62.8% 30.6%;
+  --ydsz-destructive-foreground: 210 40% 98%;
+  --ydsz-destructive-hover: 0 72.8% 40%;
+
+  /* --- 背景色 --- */
+  --ydsz-background: 222.2 84% 4.9%;
+  --ydsz-background-deep: 222.2 84% 3%;
+
+  /* --- 前景色（文本） --- */
+  --ydsz-foreground: 210 40% 98%;
+
+  /* --- 卡片/浮层 --- */
+  --ydsz-card: 222.2 84% 4.9%;
+  --ydsz-card-foreground: 210 40% 98%;
+  --ydsz-popover: 222.2 84% 4.9%;
+  --ydsz-popover-foreground: 210 40% 98%;
+
+  /* --- 弱化色 --- */
+  --ydsz-muted: 217.2 32.6% 17.5%;
+  --ydsz-muted-foreground: 215 20.2% 65.1%;
+
+  /* --- 边框色 --- */
+  --ydsz-border: 217.2 32.6% 17.5%;
+  --ydsz-input: 217.2 32.6% 17.5%;
+
+  /* --- 焦点环 --- */
+  --ydsz-ring: 212.7 26.8% 83.9%;
+
+  /* --- 语义色（暗色下更柔和） --- */
+  --ydsz-success: 142 70.6% 45.3%;
+  --ydsz-success-foreground: 210 40% 98%;
+  --ydsz-warning: 43 96% 56.1%;
+  --ydsz-warning-foreground: 210 40% 98%;
+  --ydsz-info: 217.2 91.2% 59.8%;
+  --ydsz-info-foreground: 210 40% 98%;
+
+  /* --- 侧边栏 --- */
+  --ydsz-sidebar: 222.2 84% 4.9%;
+  --ydsz-sidebar-deep: 222.2 84% 3%;
+
+  /* --- 画布底色 / 语义化背景 --- */
+  --ydsz-bg-canvas: 222.2 84% 4.9%;
+  --ydsz-bg-surface-1: 222.2 84% 4.9%;
+  --ydsz-bg-surface-2: 217.2 32.6% 17.5%;
+  --ydsz-bg-surface-3: 215 25% 26.7%;
+
+  /* --- 语义化文本 --- */
+  --ydsz-txt-primary: 210 40% 98%;
+  --ydsz-txt-secondary: 215 20.2% 65.1%;
+  --ydsz-txt-tertiary: 215.4 16.3% 46.9%;
+  --ydsz-txt-disabled: 217.2 32.6% 28%;
+  --ydsz-txt-inverse: 222.2 84% 4.9%;
+
+  /* --- 语义化边框 --- */
+  --ydsz-border-default: 217.2 32.6% 17.5%;
+  --ydsz-border-strong: 215 25% 26.7%;
+  --ydsz-border-subtle: 217.2 32.6% 17.5%;
+
+  /* --- 重色（暗色下反转） --- */
+  --ydsz-heavy: 210 40% 98%;
+  --ydsz-heavy-foreground: 222.2 47.4% 11.2%;
+
+  /* --- 主色调 --- */
+  --ydsz-main: 217.2 32.6% 17.5%;
+
+  /* --- 遮罩（暗色下更不透明） --- */
+  --ydsz-overlay: 222.2 84% 12%;
+  --ydsz-overlay-content: 222.2 84% 4.9%;
+
+  /* --- 表头 --- */
+  --ydsz-header: 222.2 84% 4.9%;
+}
+
+/* ========== Shadcn UI 兼容变量（Tailwind config 使用）========== */
+:root {
+  --background: var(--ydsz-background);
+  --foreground: var(--ydsz-foreground);
+  --card: var(--ydsz-card);
+  --card-foreground: var(--ydsz-card-foreground);
+  --popover: var(--ydsz-popover);
+  --popover-foreground: var(--ydsz-popover-foreground);
+  --primary: var(--ydsz-primary);
+  --primary-foreground: var(--ydsz-primary-foreground);
+  --secondary: var(--ydsz-secondary);
+  --secondary-foreground: var(--ydsz-secondary-foreground);
+  --muted: var(--ydsz-muted);
+  --muted-foreground: var(--ydsz-muted-foreground);
+  --accent: var(--ydsz-accent);
+  --accent-foreground: var(--ydsz-accent-foreground);
+  --destructive: var(--ydsz-destructive);
+  --destructive-foreground: var(--ydsz-destructive-foreground);
+  --border: var(--ydsz-border);
+  --input: var(--ydsz-input);
+  --ring: var(--ydsz-ring);
+  --radius: 0.5rem;
+  --success: var(--ydsz-success);
+  --success-foreground: var(--ydsz-success-foreground);
+  --warning: var(--ydsz-warning);
+  --warning-foreground: var(--ydsz-warning-foreground);
+  --sidebar: var(--ydsz-sidebar);
+  /* 语义化背景/文本/边框 → 桥接 Tailwind config 中 surface/text/border */
+  --bg-canvas: var(--ydsz-bg-canvas);
+  --bg-surface-1: var(--ydsz-bg-surface-1);
+  --bg-surface-2: var(--ydsz-bg-surface-2);
+  --bg-surface-3: var(--ydsz-bg-surface-3);
+  --txt-primary: var(--ydsz-txt-primary);
+  --txt-secondary: var(--ydsz-txt-secondary);
+  --txt-tertiary: var(--ydsz-txt-tertiary);
+  --txt-disabled: var(--ydsz-txt-disabled);
+  --txt-inverse: var(--ydsz-txt-inverse);
+  --border-default: var(--ydsz-border-default);
+  --border-strong: var(--ydsz-border-strong);
+  --border-subtle: var(--ydsz-border-subtle);
+  /* 其他 */
+  --header: var(--ydsz-header);
+  --main: var(--ydsz-main);
+  --overlay: var(--ydsz-overlay);
+  --overlay-content: var(--ydsz-overlay-content);
+  --heavy: var(--ydsz-heavy);
+  --heavy-foreground: var(--ydsz-heavy-foreground);
+  --success-50: 142 71% 97%;
+  --success-100: 142 71% 93%;
+  --success-200: 142 71% 84%;
+  --success-300: 142 71% 70%;
+  --success-400: 142 71% 56%;
+  --success-600: 142 71% 36%;
+  --success-700: 142 71% 28%;
+  --warning-50: 38 92% 97%;
+  --warning-100: 38 92% 93%;
+  --warning-200: 38 92% 84%;
+  --warning-300: 38 92% 72%;
+  --warning-400: 38 92% 60%;
+  --warning-600: 38 92% 40%;
+  --warning-700: 38 92% 32%;
+  --destructive-50: 0 84% 97%;
+  --destructive-100: 0 84% 94%;
+  --destructive-200: 0 84% 86%;
+  --destructive-300: 0 84% 74%;
+  --destructive-400: 0 84% 64%;
+  --destructive-600: 0 84% 48%;
+  --destructive-700: 0 84% 36%;
+  --primary-50: 222 47% 97%;
+  --primary-100: 222 47% 93%;
+  --primary-200: 222 47% 84%;
+  --primary-300: 222 47% 72%;
+  --primary-400: 222 47% 56%;
+  --primary-600: 222 47% 31%;
+  --primary-700: 222 47% 22%;
+  --accent-hover: 210 40% 92%;
+  --accent-lighter: 210 40% 96%;
+  --secondary-desc: 215.4 16.3% 46.9%;
+  --background-deep: var(--ydsz-background-deep);
+  --sidebar-deep: var(--ydsz-sidebar-deep);
+  /* 字号系统 */
+  --text-10: 0.625rem;
+  --text-12: 0.75rem;
+  --text-13: 0.8125rem;
+  --text-14: 0.875rem;
+  --text-15: 0.9375rem;
+  --text-16: 1rem;
+  --text-17: 1.0625rem;
+  --text-18: 1.125rem;
+  --text-20: 1.25rem;
+  --text-24: 1.5rem;
+  --text-28: 1.75rem;
+  --text-32: 2rem;
+  --h1-size: 2.25rem;
+  --h2-size: 1.5rem;
+  --h3-size: 1.25rem;
+  --h4-size: 1.125rem;
+  --h5-size: 1rem;
+  --h6-size: 0.875rem;
+  /* 行高 */
+  --text-line-height-tight: 1.25;
+  --text-line-height-default: 1.5;
+  --text-line-height-relaxed: 1.625;
+  /* 字间距 */
+  --tracking-tight: -0.025em;
+  --tracking-default: 0;
+  --tracking-wide: 0.025em;
+  /* 排版 */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
+  --font-family-code: 'Fira Code', 'JetBrains Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  /* 间距 */
+  --height-header: 3.5rem;
+  --width-sidebar: 16rem;
+  --width-sidebar-collapsed: 3.5rem;
+  --padding-card: 1.5rem;
+  --space-section: 2rem;
+  --space-group: 1rem;
+  --space-inline: 0.75rem;
+  --space-tight: 0.25rem;
+  /* 阴影 */
+  --shadow-raised-100: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-raised-200: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-raised-300: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-overlay-100: 0 25px 50px -12px rgb(0 0 0 / 0.25), 0 0 0 1px rgb(0 0 0 / 0.05);
+  --shadow-overlay-200: 0 35px 60px -15px rgb(0 0 0 / 0.3), 0 0 0 1px rgb(0 0 0 / 0.05);
+  --shadow-direction-left: -10px 0 30px rgb(0 0 0 / 0.12);
+  --shadow-direction-right: 10px 0 30px rgb(0 0 0 / 0.12);
+  /* 圆角 */
+  --radius-sm: calc(0.5rem - 4px);
+  --radius-md: calc(0.5rem - 2px);
+  --radius-lg: 0.5rem;
+  --radius-xl: calc(0.5rem + 4px);
+  --radius-2xl: calc(0.5rem + 8px);
+  --radius-full: 9999px;
+  /* 动效 */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 过渡时长 */
+  --duration-fast: 150ms;
+  --duration-default: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+  /* z-index 系统 */
+  --z-base: 0;
+  --z-sticky: 100;
+  --z-fixed: 200;
+  --z-sidebar: 300;
+  --z-dropdown: 400;
+  --z-backdrop: 500;
+  --z-overlay: 600;
+  --z-popover: 700;
+  --z-tooltip: 800;
+  --z-toast: 1000;
+  --z-devtools: 9999;
+}
+
+/* 暗色模式桥接变量覆盖 */
+.dark {
+  --background: var(--ydsz-background);
+  --foreground: var(--ydsz-foreground);
+  --card: var(--ydsz-card);
+  --card-foreground: var(--ydsz-card-foreground);
+  --popover: var(--ydsz-popover);
+  --popover-foreground: var(--ydsz-popover-foreground);
+  --primary: var(--ydsz-primary);
+  --primary-foreground: var(--ydsz-primary-foreground);
+  --secondary: var(--ydsz-secondary);
+  --secondary-foreground: var(--ydsz-secondary-foreground);
+  --muted: var(--ydsz-muted);
+  --muted-foreground: var(--ydsz-muted-foreground);
+  --accent: var(--ydsz-accent);
+  --accent-foreground: var(--ydsz-accent-foreground);
+  --destructive: var(--ydsz-destructive);
+  --destructive-foreground: var(--ydsz-destructive-foreground);
+  --border: var(--ydsz-border);
+  --input: var(--ydsz-input);
+  --ring: var(--ydsz-ring);
+  --success: var(--ydsz-success);
+  --success-foreground: var(--ydsz-success-foreground);
+  --warning: var(--ydsz-warning);
+  --warning-foreground: var(--ydsz-warning-foreground);
+  --sidebar: var(--ydsz-sidebar);
+  --bg-canvas: var(--ydsz-bg-canvas);
+  --bg-surface-1: var(--ydsz-bg-surface-1);
+  --bg-surface-2: var(--ydsz-bg-surface-2);
+  --bg-surface-3: var(--ydsz-bg-surface-3);
+  --txt-primary: var(--ydsz-txt-primary);
+  --txt-secondary: var(--ydsz-txt-secondary);
+  --txt-tertiary: var(--ydsz-txt-tertiary);
+  --txt-disabled: var(--ydsz-txt-disabled);
+  --txt-inverse: var(--ydsz-txt-inverse);
+  --border-default: var(--ydsz-border-default);
+  --border-strong: var(--ydsz-border-strong);
+  --border-subtle: var(--ydsz-border-subtle);
+  --header: var(--ydsz-header);
+  --main: var(--ydsz-main);
+  --overlay: var(--ydsz-overlay);
+  --overlay-content: var(--ydsz-overlay-content);
+  --heavy: var(--ydsz-heavy);
+  --heavy-foreground: var(--ydsz-heavy-foreground);
+  --background-deep: var(--ydsz-background-deep);
+  --sidebar-deep: var(--ydsz-sidebar-deep);
+  /* 暗色下阴影更柔和 */
+  --shadow-raised-100: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-raised-200: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-raised-300: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-overlay-100: 0 25px 50px -12px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(0 0 0 / 0.1);
+  --shadow-overlay-200: 0 35px 60px -15px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(0 0 0 / 0.1);
+  --shadow-direction-left: -10px 0 30px rgb(0 0 0 / 0.4);
+  --shadow-direction-right: 10px 0 30px rgb(0 0 0 / 0.4);
+  /* 品牌色色阶（暗色下调整亮度） */
+  --primary-50: 222 47% 17%;
+  --primary-100: 222 47% 22%;
+  --primary-200: 222 47% 28%;
+  --primary-300: 222 47% 38%;
+  --primary-400: 222 47% 52%;
+  --primary-600: 222 47% 72%;
+  --primary-700: 222 47% 84%;
+  --success-50: 142 71% 10%;
+  --success-100: 142 71% 16%;
+  --success-200: 142 71% 28%;
+  --success-300: 142 71% 40%;
+  --success-400: 142 71% 52%;
+  --success-600: 142 71% 64%;
+  --success-700: 142 71% 72%;
+  --warning-50: 38 92% 12%;
+  --warning-100: 38 92% 20%;
+  --warning-200: 38 92% 32%;
+  --warning-300: 38 92% 44%;
+  --warning-400: 38 92% 56%;
+  --warning-600: 38 92% 68%;
+  --warning-700: 38 92% 76%;
+  --destructive-50: 0 84% 10%;
+  --destructive-100: 0 84% 18%;
+  --destructive-200: 0 84% 30%;
+  --destructive-300: 0 84% 44%;
+  --destructive-400: 0 84% 56%;
+  --destructive-600: 0 84% 70%;
+  --destructive-700: 0 84% 80%;
+  --accent-hover: 217.2 32.6% 25%;
+  --accent-lighter: 217.2 32.6% 22%;
+  --secondary-desc: 215 20.2% 55%;
+}

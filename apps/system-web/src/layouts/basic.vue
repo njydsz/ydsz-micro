@@ -10,19 +10,16 @@
  * </ul>
  *
  * @path apps\system-web\src\layouts\basic.vue
- * @author ydsz-team
+ * @author ydzs-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 import type { RouteLocationRaw } from 'vue-router';
 
-import { watch } from 'vue';
-
-import { YdErrorBoundary, useWatermark } from '@ydsz/common-ui';
-import { useAccessStore, useUserStore } from '@ydsz/stores';
-import { useBreakpoints } from '@vueuse/core';
-import { breakpointsTailwind } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { YdSubAppLayout } from '@ydsz/shared-business';
+import { useAccessStore } from '@ydsz/stores';
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -31,11 +28,9 @@ import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('basic-layout');
 
 const { t } = useI18n();
-const userStore = useUserStore();
 const accessStore = useAccessStore();
 const router = useRouter();
 const route = useRoute();
-const { destroyWatermark, updateWatermark } = useWatermark();
 
 /* ===================== 移动端断点判断 ===================== */
 const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -118,28 +113,10 @@ function handleMenuClick(to: RouteLocationRaw): void {
   // 关闭抽屉
   drawerOpen.value = false;
 }
-
-/* ===================== 水印保持兼容 ===================== */
-watch(
-  () => (userStore.userInfo?.username, userStore.userInfo?.realName),
-  async () => {
-    const { preferences } = await import('@ydsz/preferences');
-    if (preferences.app.watermark) {
-      await updateWatermark({
-        content: `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
-      });
-    } else {
-      destroyWatermark();
-    }
-  },
-);
 </script>
 
 <template>
-  <!-- YdErrorBoundary 防止业务组件渲染异常导致白屏 -->
-  <YdErrorBoundary :show-retry="true" :error-message="t('error.pageLoadFailed')">
-    <RouterView />
-
+  <YdSubAppLayout>
     <!-- ===================== 移动端抽屉菜单 ===================== -->
     <Teleport to="body">
       <!-- 浮动汉堡按钮：仅 &lt; 768px 可见 -->
@@ -225,7 +202,7 @@ watch(
         </div>
       </Transition>
     </Teleport>
-  </YdErrorBoundary>
+  </YdSubAppLayout>
 </template>
 
 <style lang="scss" scoped>

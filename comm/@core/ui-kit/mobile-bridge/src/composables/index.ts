@@ -9,4 +9,5 @@
 export { useResponsive } from './use-responsive';
 export { useTouch } from './use-touch';
 export { useSafeArea } from './use-safe-area';
+export { useMobileAdaptive } from './use-mobile-adaptive';
 export type { SwipeDirection } from './use-touch';

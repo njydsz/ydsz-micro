@@ -24,6 +24,7 @@
     "@ydsz/stores": "workspace:*",
     "@ydsz/types": "workspace:*",
     "@ydsz/utils": "workspace:*",
+    "pinia": "catalog:",
     "vue": "catalog:"
   }
 }

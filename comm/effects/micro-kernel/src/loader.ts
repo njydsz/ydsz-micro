@@ -127,6 +127,15 @@ const manifestCache = new Map<string, Manifest>();
 const MAX_MANIFEST_CACHE_SIZE = 50;
 
 /**
+ * v4.5 P0-3: in-flight 加载去重表。
+ *
+ * 多个预加载策略（idle / route prediction / fixed prefetch）可能同时触发同一应用的 loadApp，
+ * 此 Map 确保同一应用同时只有一个加载流程在执行，后续调用复用同一 Promise，
+ * 避免重复的 manifest fetch、CSS 注入与 dynamic import。
+ */
+const inFlightLoads = new Map<string, Promise<LoadResult>>();
+
+/**
  * P2-3: 设置 manifestCache 条目（带 LRU 淘汰）。
  *
  * Map 在 V8 中保留插入顺序，通过 delete + set 可将条目标记为最新。
@@ -210,6 +219,27 @@ export async function fetchManifest(
  * @returns 标准 LifecycleExports + manifest + 耗时
  */
 export async function loadApp(
+  config: MicroAppConfig,
+  options: LoadOptions = {},
+): Promise<LoadResult> {
+  // v4.5 P0-3: in-flight 去重 — 同一应用同时只执行一个加载流程
+  const cacheKey = `${config.name}:${config.entry}`;
+  const existing = inFlightLoads.get(cacheKey);
+  if (existing) {
+    logger.debug(`[${config.name}] Reusing in-flight load`);
+    return existing;
+  }
+
+  const loadPromise = performLoadApp(config, options).finally(() => {
+    // 加载完成（成功或失败）后清理 in-flight 记录
+    inFlightLoads.delete(cacheKey);
+  });
+  inFlightLoads.set(cacheKey, loadPromise);
+  return loadPromise;
+}
+
+/** 实际执行加载流程（manifest → CSS → dynamic import）。 */
+async function performLoadApp(
   config: MicroAppConfig,
   options: LoadOptions = {},
 ): Promise<LoadResult> {

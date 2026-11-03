@@ -11,7 +11,7 @@
  * @since 5.6.0
  */
 
-import type { TokenDefinition } from './theme-schema';
+import type { TokenDefinition } from './theme-schema-types';
 
 /**
  * base 层 token 注册表：cssVar → TokenDefinition。

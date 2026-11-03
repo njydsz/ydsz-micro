@@ -23,7 +23,21 @@ import { computed, ref, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { requestClient } from '@ydsz/request';
+
+// v4.5 P2-16: 动态 import 打破 L0 → L2 静态依赖，保持层级约束
+type RequestClient = {
+  get: <T>(url: string, config?: unknown) => Promise<T>;
+};
+
+let requestClientPromise: Promise<RequestClient> | null = null;
+function getRequestClient(): Promise<RequestClient> {
+  if (!requestClientPromise) {
+    requestClientPromise = import(/* @vite-ignore */ '@ydsz/request').then((mod: {
+      requestClient: RequestClient;
+    }) => mod.requestClient);
+  }
+  return requestClientPromise;
+}
 
 /** 模块级日志器 */
 const logger = createLogger('GlobalSearch');
@@ -91,19 +105,20 @@ const doSearch = useDebounceFn(async (kw: string) => {
     return;
   }
 
-  loading.value = true;
-  try {
-    const data = await requestClient.get<GlobalSearchResponse>(SEARCH_API, {
-      params: { keyword: kw.trim(), pageSize: 20 },
-    });
-    results.value = data;
+    loading.value = true;
+    try {
+      const requestClient = await getRequestClient();
+      const data = await requestClient.get<GlobalSearchResponse>(SEARCH_API, {
+        params: { keyword: kw.trim(), pageSize: 20 },
+      });
+      results.value = data;
     saveSearchHistory(kw.trim());
     // 默认切到全部
     activeTab.value = '_all';
   } catch (err) {
     // 失败时清空搜索结果并保留上一次（避免界面闪烁）
     logger.warn('全局搜索失败: {}', err);
-    results.value = [];
+    results.value = null;
   } finally {
     loading.value = false;
   }
@@ -117,11 +132,12 @@ const doSuggest = useDebounceFn(async (kw: string) => {
     suggestions.value = getSearchHistory();
     return;
   }
-  try {
-    const data = await requestClient.get<SearchSuggestion[]>(SUGGEST_API, {
-      params: { keyword: kw.trim(), limit: 8 },
-    });
-    suggestions.value = data;
+    try {
+      const requestClient = await getRequestClient();
+      const data = await requestClient.get<SearchSuggestion[]>(SUGGEST_API, {
+        params: { keyword: kw.trim(), limit: 8 },
+      });
+      suggestions.value = data;
   } catch {
     // 建议失败时降级为历史记录
     suggestions.value = getSearchHistory();

@@ -120,6 +120,13 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
 
 <template>
   <div class="relative flex min-h-full w-full">
+    <!-- 跳转到主内容区：键盘用户首屏可见，满足 WCAG 2.4.1 -->
+    <a
+      :href="`#${idMainContent}`"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[9999] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
+    >
+      跳转到主内容
+    </a>
     <LayoutSidebar
       v-if="sidebarEnableState"
       v-model:collapse="sidebarCollapse"

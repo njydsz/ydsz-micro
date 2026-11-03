@@ -24,14 +24,13 @@ export type {
 </script>
 
 <script lang="ts" setup generic="T extends Record<string, unknown>">
-import { computed, onScopeDispose, ref, useTemplateRef, watch } from 'vue';
+import { computed, ref, useTemplateRef, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { useTableData, type RowSelectionConfig } from '../../composables/use-table-data';
 import type { SortOrder, SortRule, SortState } from '../../composables/use-table-data';
 import { useLocale } from '../../locale/useLocale';
-import { useTableColumnStorage } from '../../composables/use-table-column-storage';
 import {
   YdTable,
   YdTableBody,
@@ -40,11 +39,11 @@ import {
   YdTableHeader,
   YdTableRow,
 } from '../table';
-import { useColumnResize } from '../table/useColumnResize';
 import { useTableCellEdit } from './use-table-cell-edit';
 import { useTableColumnLayout } from './use-table-column-layout';
 import { useTableExport } from './use-table-export';
 import { useTableRowView } from './use-table-row-view';
+import { useTableResizePersistence } from './use-table-resize-persistence';
 import YdDataTableCell from './YdDataTableCell.vue';
 import YdDataTableHeadCell from './YdDataTableHeadCell.vue';
 
@@ -293,99 +292,13 @@ function emitSortState(): void {
 }
 
 /* ============================================================ */
-/* 列宽持久化（统一 useTableColumnStorage）                        */
+/* 列宽持久化（统一 useTableResizePersistence）                    */
 /* ============================================================ */
 
 /**
- * 是否启用列配置持久化（列宽 / 顺序 / 显隐 / 固定位置）。
- * <p>开启后通过 useTableColumnStorage 将用户调整写入 localStorage，
- * 下次打开页面自动恢复。
+ * 列宽拖拽与持久化：统一走 useTableResizePersistence。
  */
-const columnStorage = props.storageKey
-  ? useTableColumnStorage(props.storageKey)
-  : null;
-
-/** 旧 fallback 存储 key */
-const RESIZE_STORAGE_KEY = 'yd-datatable-col-widths';
-
-/**
- * 读取持久化列宽（localStorage 不可用或数据损坏时返回空表）。
- *
- * @returns 列 key → 宽度
- */
-function loadPersistedWidths(): Record<string, number> {
-  if (columnStorage) {
-    // 统一存储路径：从 useTableColumnStorage 加载
-    const configs = columnStorage.loadColumnConfig();
-    const result: Record<string, number> = {};
-    for (const cfg of configs) {
-      if (cfg.width) {
-        const parsed = parseInt(cfg.width, 10);
-        if (!Number.isNaN(parsed))
-          result[cfg.key] = parsed;
-      }
-    }
-    return result;
-  }
-  // 兼容旧行为（无 storageKey 时降级到旧 key）
-  try {
-    const raw = localStorage.getItem(RESIZE_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-/**
- * 写回持久化列宽。
- */
-function persistWidths(widths: Record<string, number>): void {
-  if (columnStorage) {
-    // 统一存储路径：合并到 useTableColumnStorage
-    const existing = columnStorage.loadColumnConfig();
-    const existingMap = new Map(existing.map((c) => [c.key, c]));
-    const merged = Object.entries(widths).map(([key, width]) => {
-      const prev = existingMap.get(key);
-      return {
-        fixed: prev?.fixed,
-        isHidden: prev?.isHidden,
-        key,
-        sort: prev?.sort,
-        width: String(width),
-      };
-    });
-    // 补充未在 widths 中的列
-    for (const cfg of existing) {
-      if (!widths[cfg.key])
-        merged.push(cfg);
-    }
-    columnStorage.saveColumnConfig(merged);
-    return;
-  }
-  // 兼容旧行为
-  try {
-    localStorage.setItem(RESIZE_STORAGE_KEY, JSON.stringify(widths));
-  } catch {
-    // 隐私模式 / 配额溢出时静默降级，不影响拖拽本身
-  }
-}
-
-const columnResizeApi = useColumnResize({
-  defaultMinWidth: 60,
-  initialWidths: loadPersistedWidths(),
-});
-
-/** 列宽拖拽的 document 监听句柄，pointerup 与组件卸载都要回收 */
-let resizeMoveHandler: ((event: PointerEvent) => void) | null = null;
-let resizeUpHandler: (() => void) | null = null;
-
-/** 回收列宽拖拽的 document 监听（pointerup 与组件卸载共用） */
-function detachResizeListeners(): void {
-  if (resizeMoveHandler) document.removeEventListener('pointermove', resizeMoveHandler);
-  if (resizeUpHandler) document.removeEventListener('pointerup', resizeUpHandler);
-  resizeMoveHandler = null;
-  resizeUpHandler = null;
-}
+const resizePersistence = useTableResizePersistence<T>(props.storageKey);
 
 /**
  * 开始列宽拖拽，并在 pointerup 时回收 document 监听。
@@ -396,25 +309,10 @@ function detachResizeListeners(): void {
  */
 function handleResizeStart(columnKey: string, event: PointerEvent): void {
   if (!props.resizable) return;
-  columnResizeApi.onResizeStart(columnKey, event);
-
-  resizeMoveHandler = (moveEvent: PointerEvent) => {
-    columnResizeApi.onResizeMove(moveEvent);
-    persistWidths({ ...columnResizeApi.columnWidths.value });
-    emit('columnResize', {
-      columnKey,
-      newWidth: columnResizeApi.columnWidths.value[columnKey] ?? 0,
-    });
-  };
-  resizeUpHandler = () => {
-    columnResizeApi.onResizeEnd();
-    detachResizeListeners();
-  };
-  document.addEventListener('pointermove', resizeMoveHandler);
-  document.addEventListener('pointerup', resizeUpHandler, { once: true });
+  resizePersistence.handleResizeStart(columnKey, event, (key, newWidth) => {
+    emit('columnResize', { columnKey: key, newWidth });
+  });
 }
-
-onScopeDispose(detachResizeListeners);
 
 /* ============================================================ */
 /* 列渲染序列（useTableColumnLayout）                            */
@@ -430,7 +328,7 @@ const layout = useTableColumnLayout<T>({
   findColumn,
   onReorder: payload => emit('columnReorder', payload),
   resizable: () => props.resizable,
-  resizedWidth: columnKey => columnResizeApi.getColumnWidthStyle(columnKey),
+  resizedWidth: columnKey => resizePersistence.columnResizeApi.getColumnWidthStyle(columnKey),
   reorderable: () => props.reorderable,
   scrollElement: () => tableScrollContainerRef.value ?? null,
   selectable: () => props.isSelectable,
@@ -852,7 +750,7 @@ defineExpose({
               :resizable="props.resizable"
               :reorderable="props.reorderable"
               :drag-index="view.dragIndex"
-              :resizing="columnResizeApi.resizingProp.value === view.key"
+              :resizing="resizePersistence.columnResizeApi.resizingProp.value === view.key"
               :head-class="view.headClass"
               :head-style="view.style"
               :rowspan="view.rowspan"

@@ -298,6 +298,36 @@
     }
    }
   },
+  "/agent/definitions/page": {
+   "get": {
+    "operationId": "listPage",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PageResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/PageQuery"
+      }
+     }
+    ]
+   }
+  },
   "/agent/definitions/{id}": {
    "get": {
     "operationId": "getById",
@@ -384,6 +414,27 @@
       }
      }
     ]
+   }
+  },
+  "/agent/definitions/export": {
+   "get": {
+    "operationId": "exportAgentDefinitions",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    }
    }
   },
   "/agent/models": {
@@ -617,6 +668,37 @@
        "application/json": {
         "schema": {
          "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "category",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/agent/dag-workflow/export": {
+   "get": {
+    "operationId": "exportDagWorkflows",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
         }
        }
       }
@@ -1530,6 +1612,96 @@
     }
    }
   },
+  "/agent/prompt/playground/invoke": {
+   "post": {
+    "operationId": "invoke",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PromptInvokeRequest"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/prompt/playground/stream": {
+   "post": {
+    "operationId": "invokeStream",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/agent/prompt/playground/compare": {
+   "post": {
+    "operationId": "compare",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PromptCompareRequest"
+       }
+      }
+     }
+    }
+   }
+  },
   "/agent/rag/ingest": {
    "post": {
     "operationId": "ingest",
@@ -1928,7 +2100,7 @@
     }
    }
   },
-  "/api/agent/async-task/submit": {
+  "/agent/async-task/submit": {
    "post": {
     "operationId": "submitTask",
     "tags": [
@@ -1958,7 +2130,7 @@
     }
    }
   },
-  "/api/agent/async-task/{taskId}": {
+  "/agent/async-task/{taskId}": {
    "get": {
     "operationId": "getTask",
     "tags": [
@@ -1982,14 +2154,13 @@
       "in": "path",
       "required": true,
       "schema": {
-       "type": "integer",
-       "format": "int64"
+       "type": "string"
       }
      }
     ]
    }
   },
-  "/api/agent/async-task/{taskId}/cancel": {
+  "/agent/async-task/{taskId}/cancel": {
    "post": {
     "operationId": "cancelTask",
     "tags": [
@@ -2013,14 +2184,13 @@
       "in": "path",
       "required": true,
       "schema": {
-       "type": "integer",
-       "format": "int64"
+       "type": "string"
       }
      }
     ]
    }
   },
-  "/api/agent/async-task/active": {
+  "/agent/async-task/active": {
    "get": {
     "operationId": "listActiveTasks",
     "tags": [
@@ -2328,6 +2498,27 @@
     ]
    }
   },
+  "/agent/teamruns/export": {
+   "get": {
+    "operationId": "exportTeamRuns",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    }
+   }
+  },
   "/agent/triggers": {
    "post": {
     "operationId": "createTrigger",
@@ -2531,6 +2722,27 @@
      }
     ]
    }
+  },
+  "/agent/triggers/export": {
+   "get": {
+    "operationId": "exportTriggers",
+    "tags": [
+     "agent"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "nullable": true
+        }
+       }
+      }
+     }
+    }
+   }
   }
  },
  "components": {
@@ -2611,10 +2823,6 @@
    "AgentExecutionRequestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "agentCode": {
       "type": "string",
       "description": "Agent 编码（指定使用哪个 Agent 执行）"
@@ -2670,10 +2878,6 @@
    "ChatRequestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "conversationId": {
       "type": "string",
       "description": "对话 ID（null 表示新建对话，非 null 表示续接已有对话）"
@@ -2744,10 +2948,6 @@
    "ContentPartDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "type": {
       "type": "string",
       "description": "内容类型（text / image_url）"
@@ -2771,10 +2971,6 @@
    "BatchChatRequestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "requestId": {
       "type": "string",
       "description": "请求幂等键（防重，建议每条请求唯一）"
@@ -2845,10 +3041,6 @@
    "BatchChatItem": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "itemId": {
       "type": "string",
       "description": "条目唯一标识（用于响应中对应结果，由调用方保证唯一）"
@@ -2882,13 +3074,104 @@
      "systemPrompt": "系统提示词（可选，覆盖外层共享 systemPrompt）"
     }
    },
-   "AgentDefinitionDTO": {
+   "PageResponse": {
+    "type": "object",
+    "properties": {
+     "total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "总记录数。"
+     },
+     "pageNum": {
+      "type": "integer",
+      "format": "int64",
+      "description": "当前页码（从 1 开始）。"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int64",
+      "description": "每页记录数。"
+     },
+     "nextCursor": {
+      "type": "string",
+      "description": "下一页游标（null 表示已无更多数据）。\n\n仅游标分页模式有效，偏移量模式下为 null。"
+     },
+     "isMore": {
+      "type": "boolean",
+      "description": "是否有下一页。\n\n仅游标分页模式有效，偏移量模式下参考 #getPages() 与当前 pageNum 判断。"
+     },
+     "pages": {
+      "type": "string"
+     }
+    },
+    "description": "分页响应信封（YdszResponse 的子类型）。\n\n将分页元信息（total / pageNum / pageSize）收口到专用的分页响应类型中， 使 YdszResponse\n不再承担分页职责，同时提供类型明确的返回对象， 便于 Controller 声明 `PageResponse<UserVO>` 或 {@code\nYdszResponse<PageResponse<UserVO>>}。\n\n本类是 API 响应信封，用于 Controller 层返回分页数据。 新代码请直接返回 `PageResponse<T>`。\n\n迁移提示：YdszResponse 上的分页字段与 `successPage()/emptyPage()` 方法已于 26.10.01\n移除。新代码请直接返回 `PageResponse<T>`。\n\n@param <T> 数据元素的类型",
+    "x-field-docs": {
+     "total": "总记录数。",
+     "pageNum": "当前页码（从 1 开始）。",
+     "pageSize": "每页记录数。",
+     "nextCursor": "下一页游标（null 表示已无更多数据）。\n\n仅游标分页模式有效，偏移量模式下为 null。",
+     "isMore": "是否有下一页。\n\n仅游标分页模式有效，偏移量模式下参考 #getPages() 与当前 pageNum 判断。"
+    }
+   },
+   "PageQuery": {
     "type": "object",
     "properties": {
      "serialVersionUID": {
       "type": "integer",
       "format": "int64"
      },
+     "SAFE_COLUMN_PATTERN": {
+      "type": "object",
+      "description": "排序列名安全校验正则：仅允许字母、数字、下划线，以及 table.column 点号格式。\n\n此正则用于防御 SQL 注入：排序列名来自前端参数时，若直接拼接到 ORDER BY 子句可能导致注入攻击。\n白名单策略拒绝一切非预期字符（包括空格、引号、分号、注释符等）。\n\n示例：`user_name` ✅、`t.user_name` ✅、`user name` ❌、`name;DELETE` ❌。"
+     },
+     "pageNum": {
+      "type": "integer",
+      "format": "int32",
+      "description": "当前页码（从1开始）。"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32",
+      "description": "每页显示条数。"
+     },
+     "orderItems": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "ASC",
+        "DESC"
+       ],
+       "description": "排序项（结构化，替代字符串拼接）。\n\n将「排序列 + 方向」二元组封装为不可变对象，避免 PageQuery 以 `List<String>` 存储排序项并在每次读取时重新解析字符串。\n\nSQL 片段在构造时预计算（#sql），#toSql() 直接返回缓存值，\n避免 MyBatis-Plus Wrapper 多次读取排序条件时重复字符串拼接。\n\n<pre>{@code\nOrderItem.of(\"created_at\", true)          // ASC\nOrderItem.desc(\"updated_at\")              // DESC\norderItem.toSql()                         // \"created_at ASC\"\n}</pre>"
+      },
+      "description": "排序项列表（结构化 OrderItem）。"
+     },
+     "offset": {
+      "type": "string"
+     },
+     "offsetLong": {
+      "type": "string"
+     },
+     "limit": {
+      "type": "string"
+     }
+    },
+    "description": "分页查询参数封装类。\n\n承载分页查询的请求参数（页码、页大小、排序项），提供偏移量计算、 排序操作、游标模式判定等基础能力。深度分页风险评估已解耦至 PageQueryRiskAssessor。",
+    "x-field-docs": {
+     "SAFE_COLUMN_PATTERN": "排序列名安全校验正则：仅允许字母、数字、下划线，以及 table.column 点号格式。\n\n此正则用于防御 SQL 注入：排序列名来自前端参数时，若直接拼接到 ORDER BY 子句可能导致注入攻击。\n白名单策略拒绝一切非预期字符（包括空格、引号、分号、注释符等）。\n\n示例：`user_name` ✅、`t.user_name` ✅、`user name` ❌、`name;DELETE` ❌。",
+     "MAX_SEARCH_KEY_LENGTH": "搜索关键字最大长度（仅做截断，不做转义）",
+     "pageNum": "当前页码（从1开始）。",
+     "pageSize": "每页显示条数。",
+     "orderItems": "排序项列表（结构化 OrderItem）。"
+    },
+    "required": [
+     "pageNum",
+     "pageSize"
+    ]
+   },
+   "AgentDefinitionDTO": {
+    "type": "object",
+    "properties": {
      "id": {
       "type": "string",
       "description": "主键 ID。\n\n创建场景不传；更新场景必须传入。"
@@ -2948,10 +3231,6 @@
    "DagExecutionDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "dsl": {
       "type": "string",
       "description": "YAML DSL 内容，定义 DAG 节点和边（必填）"
@@ -2978,10 +3257,6 @@
    "DagWorkflowDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "workflowCode": {
       "type": "string",
       "description": "工作流编码（唯一，更新时必填）"
@@ -3073,10 +3348,6 @@
    "SaveMemoryRequest": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "role": {
       "type": "string",
       "description": "消息角色（SYSTEM/USER/ASSISTANT/TOOL）"
@@ -3103,10 +3374,6 @@
    "ConsolidateMemoryRequest": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "tenantId": {
       "type": "string",
       "description": "租户 ID（可选，缺省使用当前租户）"
@@ -3127,13 +3394,19 @@
     "x-placeholder": true,
     "description": "CompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
+   "PromptInvokeRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PromptInvokeRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "PromptCompareRequest": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PromptCompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
    "DocumentIngestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "documentId": {
       "type": "string",
       "description": "文档 ID（必填，唯一标识待摄入的文档）"
@@ -3166,10 +3439,6 @@
    "RagQueryDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "query": {
       "type": "string",
       "description": "查询文本（必填，将向量化后进行相似度检索）"
@@ -3202,10 +3471,6 @@
    "ScannedPdfIngestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "fileName": {
       "type": "string",
       "description": "文件名（含后缀，用于格式检测和索引标识）"
@@ -3233,10 +3498,6 @@
    "ImageIngestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "base64Content": {
       "type": "string",
       "description": "图片文件内容的 Base64 编码"
@@ -3264,10 +3525,6 @@
    "HybridSearchDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "query": {
       "type": "string",
       "description": "查询文本（必填）"
@@ -3295,10 +3552,6 @@
    "AsyncTaskSubmitDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "taskType": {
       "type": "string",
       "description": "任务类型编码（REPORT_GENERATE / DOC_INGEST / BATCH_CHAT / CODE_EXECUTION）"
@@ -3336,10 +3589,6 @@
    "SkillExecutionRequestDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "skillCode": {
       "type": "string",
       "description": "Skill 编码"
@@ -3398,10 +3647,6 @@
    "ChatResponseDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "conversationId": {
       "type": "string",
       "description": "对话 ID"
@@ -3453,10 +3698,6 @@
    "TokenUsageDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "promptTokens": {
       "type": "integer",
       "format": "int32",
@@ -3483,10 +3724,6 @@
    "BatchChatResponseDTO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "results": {
       "type": "array",
       "items": {
@@ -3556,10 +3793,6 @@
    "BatchResultItem": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "itemId": {
       "type": "string",
       "description": "条目标识（与请求中 itemId 对应）"
@@ -3603,10 +3836,6 @@
    "AgentDefinitionVO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "id": {
       "type": "string",
       "description": "主键 ID"
@@ -3752,22 +3981,22 @@
      "snapshotTime": "快照时间（最后更新时间）"
     }
    },
-   "DagWorkflow": {
+   "DagWorkflowVO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
+     "id": {
+      "type": "string",
+      "description": "主键 ID"
      },
      "workflowCode": {
       "type": "string",
       "description": "工作流编码（业务唯一标识）"
      },
-     "name": {
+     "workflowName": {
       "type": "string",
       "description": "工作流名称"
      },
-     "dsl": {
+     "dslContent": {
       "type": "string",
       "description": "DAG 定义（YAML DSL）"
      },
@@ -3778,15 +4007,32 @@
      "category": {
       "type": "string",
       "description": "分类（用于分组检索）"
+     },
+     "isPublished": {
+      "type": "boolean",
+      "description": "是否已发布"
+     },
+     "createdBy": {
+      "type": "string",
+      "description": "创建人"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间"
      }
     },
-    "description": "DAG 工作流（domain 层持久化实体，YDIZ-DDD-007 单包模式）\n\nYDIZ-DDD-007：domain Entity 直接携带 MyBatis-Plus ORM 注解，\ninfra 层通过依赖 domain 模块引用本类，禁止自建 PO/DO 副本。",
+    "description": "DAG 工作流视图对象。\n\n用于 Controller 层返回 DAG 工作流的展示数据（DDD-007：禁止将 Entity 泄露到 Web 层）。",
     "x-field-docs": {
+     "id": "主键 ID",
      "workflowCode": "工作流编码（业务唯一标识）",
-     "name": "工作流名称",
-     "dsl": "DAG 定义（YAML DSL）",
+     "workflowName": "工作流名称",
+     "dslContent": "DAG 定义（YAML DSL）",
      "description": "工作流描述",
-     "category": "分类（用于分组检索）"
+     "category": "分类（用于分组检索）",
+     "isPublished": "是否已发布",
+     "createdBy": "创建人",
+     "createdAt": "创建时间"
     }
    },
    "AgentTraceListDTO": {
@@ -3955,10 +4201,6 @@
    "MemoryVO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "id": {
       "type": "string",
       "description": "消息唯一 ID"
@@ -4014,6 +4256,11 @@
     "type": "object",
     "x-placeholder": true,
     "description": "PromptComparisonResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "PromptInvokeResult": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "PromptInvokeResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
    },
    "RuntimeSession": {
     "type": "object",
@@ -4084,13 +4331,8 @@
    "AsyncTaskVO": {
     "type": "object",
     "properties": {
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
-     },
      "id": {
-      "type": "integer",
-      "format": "int64",
+      "type": "string",
       "description": "任务唯一 ID"
      },
      "taskType": {
@@ -4208,10 +4450,6 @@
     "properties": {
      "success": {
       "type": "boolean"
-     },
-     "serialVersionUID": {
-      "type": "integer",
-      "format": "int64"
      },
      "skillCode": {
       "type": "string",

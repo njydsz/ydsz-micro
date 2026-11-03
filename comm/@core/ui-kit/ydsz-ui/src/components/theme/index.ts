@@ -37,6 +37,17 @@ export type {
   PresetRegistry,
 } from './use-theme';
 
+export {
+  themePresets,
+  themePresetMeta,
+  oceanBluePreset,
+  forestGreenPreset,
+  sunsetOrangePreset,
+  royalPurplePreset,
+  graphitePreset,
+} from './theme-presets';
+export type { ThemePresetMeta } from './theme-presets';
+
 export { useThemeContext } from './use-theme-context';
 export { default as ThemeProvider, THEME_INJECTION_KEY } from './ThemeProvider.vue';
 export { default as YdThemeScope } from './YdThemeScope.vue';

@@ -94,5 +94,18 @@ export { YdInlineEditCell, useInlineEdit, useRowExpand } from '@ydsz-core/advanc
 export { useResponsive, useTouch, Breakpoint, getBreakpointName } from '@ydsz-core/mobile-bridge';
 export type { SwipeDirection } from '@ydsz-core/mobile-bridge';
 
+// ===== 图表组件 =====
+export { YdChart, YdLineChart, YdBarChart, YdPieChart, YdRadarChart, YdGaugeChart } from '@ydsz-core/chart-ui';
+export { useChartTheme, withChartTheme } from '@ydsz-core/chart-ui';
+export type {
+  ChartOption,
+  LineSeries,
+  BarSeries,
+  PieDataItem,
+  RadarIndicator,
+  RadarSeries,
+  GaugeSeries,
+} from '@ydsz-core/chart-ui';
+
 // ===== 全局 CSS 令牌（可选引入）=====
 import '@ydsz-core/ydsz-ui/src/assets/index.css';

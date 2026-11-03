@@ -65,6 +65,9 @@ export { default as YdEmptyState } from './components/YdCommonEmptyState2.vue';
 // 统一错误状态组件
 export { default as YdErrorState } from './components/YdCommonErrorState.vue';
 
+// 子应用基础布局（水印同步 + Vue 错误边界）
+export { default as YdSubAppLayout } from './components/YdSubAppLayout.vue';
+
 // 异步状态容器组件（loading/error/empty/data 自动切换）
 export { default as YdAsyncState } from './components/YdAsyncState.vue';
 

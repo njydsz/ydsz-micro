@@ -26,6 +26,8 @@
   "no": "Non",
   "showSearchPanel": "Afficher le panneau de recherche",
   "hideSearchPanel": "Masquer le panneau de recherche",
+  "previousPage": "Page précédente",
+  "nextPage": "Page suivante",
   "seq": "#",
   "status": "Statut",
   "createTime": "Date de création",

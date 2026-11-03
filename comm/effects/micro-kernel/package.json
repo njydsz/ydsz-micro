@@ -8,6 +8,10 @@
       "types": "./src/index.ts",
       "default": "./src/index.ts"
     },
+    "./composables": {
+      "types": "./src/composables/index.ts",
+      "default": "./src/composables/index.ts"
+    },
     "./iframe-sandbox": {
       "types": "./src/iframe-sandbox.ts",
       "default": "./src/iframe-sandbox.ts"

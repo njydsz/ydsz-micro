@@ -43,6 +43,10 @@
     "./editor": {
       "types": "./src/editor.ts",
       "default": "./src/editor.ts"
+    },
+    "./chart": {
+      "types": "./src/chart.ts",
+      "default": "./src/chart.ts"
     }
   },
   "dependencies": {
@@ -58,6 +62,7 @@
     "@ydsz-core/dashboard": "workspace:*",
     "@ydsz-core/design-tokens": "workspace:*",
     "@ydsz-core/advanced-table": "workspace:*",
-    "@ydsz-core/mobile-bridge": "workspace:*"
+    "@ydsz-core/mobile-bridge": "workspace:*",
+    "@ydsz-core/chart-ui": "workspace:*"
   }
 }

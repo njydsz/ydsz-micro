@@ -277,6 +277,44 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+  e2e:
+    name: E2E 冒烟（Playwright 关键旅程）
+    runs-on: ubuntu-latest
+    # §16.10 第三阶段：页面级集成测试，验证核心用户旅程端到端可用。
+    # 使用独立 webServer 启动前端服务，无需后端鉴权即可验证渲染与导航链路。
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 安装 Playwright Chromium 浏览器
+        run: pnpm exec playwright install chromium
+
+      - name: 运行 E2E 冒烟测试（关键旅程端到端验证）
+        run: pnpm test:e2e:smoke
+
+      # 归档 E2E 测试报告（JUnit XML + HTML）
+      - name: 归档 E2E 测试报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-reports-${{ github.run_number }}
+          path: |
+            test-results/e2e-html/**
+            test-results/e2e-junit.xml
+          if-no-files-found: warn
+          retention-days: 30
+
   contract:
     name: API 契约漂移检查
     runs-on: ubuntu-latest

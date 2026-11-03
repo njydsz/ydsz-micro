@@ -1,161 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="74" failures="0" errors="0" time="0.4195599">
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" timestamp="2026-10-30T06:03:16.749Z" hostname="DESKTOP-FIC0TQ3" tests="14" failures="0" errors="0" skipped="0" time="0.034664">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialog 根容器 &gt; 应能挂载并透传 slot 内容" time="0.0200337">
+<testsuites name="vitest tests" tests="71" failures="0" errors="0" time="0.0339213">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" timestamp="2026-11-03T08:02:24.628Z" hostname="DESKTOP-FIC0TQ3" tests="15" failures="0" errors="0" skipped="0" time="0.0026486">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="alignClass &gt; center 返回 text-center" time="0.000652">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialog 根容器 &gt; open prop 应被接受并转发给 DialogRoot" time="0.0023501">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="alignClass &gt; right 返回 text-right" time="0.0000858">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogContent prop 默认值 &gt; 默认 showClose=true" time="0.0005177">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="alignClass &gt; left / undefined 返回 text-left" time="0.0000885">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogContent prop 默认值 &gt; 默认 closeOnOverlayClick=true" time="0.0001293">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="getCellValue &gt; 无 formatter 时返回原始字段值" time="0.0001006">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogContent prop 默认值 &gt; 默认 closeOnEsc=true" time="0.0000738">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="getCellValue &gt; 有 formatter 时调用 formatter 并返回结果" time="0.000069">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogContent prop 默认值 &gt; 默认 animationType=scale" time="0.0001562">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="getCellValue &gt; 字段不存在时返回 undefined" time="0.000074">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogContent prop 默认值 &gt; 默认 appendTo=body" time="0.0000946">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="formatCellValue &gt; null / undefined 返回空串" time="0.0000878">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogContent prop 默认值 &gt; 默认 closeDisabled=false" time="0.0000598">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="formatCellValue &gt; 正常值转为字符串" time="0.0000656">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogHeader / Footer（纯样式壳，不依赖根注入） &gt; YdDialogHeader 应渲染 slot 内容" time="0.0053249">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="formatCellValue &gt; formatter 返回值也走格式化" time="0.0000568">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogHeader / Footer（纯样式壳，不依赖根注入） &gt; YdDialogHeader 应支持 class 透传" time="0.0020691">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="indentStyle &gt; depth=0 时 paddingLeft 为 0px" time="0.0000788">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogHeader / Footer（纯样式壳，不依赖根注入） &gt; YdDialogFooter 应渲染 slot 内容" time="0.0015315">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="indentStyle &gt; depth=2, indentSize=24 时 paddingLeft 为 48px" time="0.0000378">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogHeader / Footer（纯样式壳，不依赖根注入） &gt; YdDialogFooter 应支持 class 透传" time="0.0009915">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="indentStyle &gt; indentSize 可自定义" time="0.0000286">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogTitle / Description 导出验证 &gt; YdDialogTitle 应导出为函数或对象" time="0.0001027">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="toRenderColumns &gt; 列定义转换为渲染视图" time="0.0003896">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/dialog/YdDialog.test.ts" name="YdDialogTitle / Description 导出验证 &gt; YdDialogDescription 应导出为函数或对象" time="0.0000695">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="toRenderColumns &gt; label 缺省时回退为 key" time="0.0000491">
         </testcase>
-    </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" timestamp="2026-10-30T06:03:16.751Z" hostname="DESKTOP-FIC0TQ3" tests="21" failures="0" errors="0" skipped="0" time="0.0907607">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 开关行为 &gt; open=false（初始）时不渲染抽屉" time="0.0138933">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 开关行为 &gt; open=true 时渲染 role=&quot;dialog&quot; + aria-modal=&quot;true&quot;" time="0.0145415">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 开关行为 &gt; 从 open=false 切到 open=true 后应出现抽屉" time="0.0044606">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 定位 &gt; 默认 position=right 时内容靠右" time="0.0042401">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 定位 &gt; position=left 时内容靠左" time="0.0037155">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 定位 &gt; position=top 时内容靠顶" time="0.003605">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 定位 &gt; position=bottom 时内容靠底" time="0.0028278">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 尺寸 &gt; width 传数字时内容区有正确宽度样式" time="0.0026225">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 尺寸 &gt; width 传字符串时直接使用" time="0.0029087">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 尺寸 &gt; height 传数字时内容区有正确高度样式" time="0.0069095">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 关闭行为 &gt; showClose=true 时渲染关闭按钮" time="0.0026542">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 关闭行为 &gt; showClose=false 时不渲染关闭按钮" time="0.0017347">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 关闭行为 &gt; 点击关闭按钮触发 update:open=false + close" time="0.0029752">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 关闭行为 &gt; maskClosable=true 时点击遮罩触发关闭" time="0.0020234">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 关闭行为 &gt; maskClosable=false 时不响应遮罩点击" time="0.0018481">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 关闭行为 &gt; mask=false 时不渲染遮罩层" time="0.0015949">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 插槽 &gt; header 属性显示为标题文本" time="0.0022858">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 插槽 &gt; 默认插槽渲染主体内容" time="0.0072368">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 插槽 &gt; footer 插槽渲染在底部区域" time="0.0025787">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer 插槽 &gt; header 插槽覆盖 header prop" time="0.0026968">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/drawer/YdDrawer.test.ts" name="YdDrawer ARIA &gt; aria-label 使用 header 文本" time="0.0019448">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/tree-table-utils.test.ts" name="toRenderColumns &gt; formatter 字段透传" time="0.0000386">
         </testcase>
     </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/popover/YdPopover.test.ts" timestamp="2026-10-30T06:03:16.755Z" hostname="DESKTOP-FIC0TQ3" tests="5" failures="0" errors="0" skipped="0" time="0.0305696">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/popover/YdPopover.test.ts" name="YdPopover 容器 &gt; 应能挂载并渲染 slot 内容" time="0.0197082">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-drag.test.ts" timestamp="2026-11-03T08:02:24.631Z" hostname="DESKTOP-FIC0TQ3" tests="4" failures="0" errors="0" skipped="0" time="0.0029743">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-drag.test.ts" name="useTreeDrag &gt; 初始状态 isDragging 为 false" time="0.0014414">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/popover/YdPopover.test.ts" name="YdPopover 容器 &gt; open prop 应被接受并转发给 PopoverRoot" time="0.0032257">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-drag.test.ts" name="useTreeDrag &gt; 初始状态 fromIndex / toIndex 为 -1" time="0.0002106">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/popover/YdPopover.test.ts" name="YdPopover 容器 &gt; defaultOpen prop 应被接受" time="0.0027005">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-drag.test.ts" name="useTreeDrag &gt; draggable=false 时 onCellPointerDown 不触发拖拽" time="0.0002668">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/popover/YdPopover.test.ts" name="YdPopover 集成组装 &gt; Popover + Trigger + Content 三级结构完整组装（无 PopoverRootContext 错误）" time="0.0020494">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/popover/YdPopover.test.ts" name="YdPopover 集成组装 &gt; 应能渲染嵌套多级 slot 内容" time="0.001895">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-drag.test.ts" name="useTreeDrag &gt; draggable=true 时 onCellPointerDown 对 root 行可触发" time="0.0004686">
         </testcase>
     </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" timestamp="2026-10-30T06:03:16.756Z" hostname="DESKTOP-FIC0TQ3" tests="18" failures="0" errors="0" skipped="0" time="0.1883522">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 基础渲染 &gt; 应渲染触发器（combobox role）" time="0.0265386">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" timestamp="2026-11-03T08:02:24.632Z" hostname="DESKTOP-FIC0TQ3" tests="11" failures="0" errors="0" skipped="0" time="0.0074567">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 展开 / 收起 &gt; expandKey 触发 update:expandedKeys 与 expand 事件" time="0.0036393">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 基础渲染 &gt; 无选中时应显示 placeholder" time="0.0038524">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 展开 / 收起 &gt; collapseKey 触发 update:expandedKeys 与 collapse 事件" time="0.0005068">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 基础渲染 &gt; 有选中值时应显示对应 label" time="0.003224">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 展开 / 收起 &gt; toggleExpand 在展开与收起间切换" time="0.0003429">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 基础渲染 &gt; 默认 aria-expanded=false" time="0.0031095">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 展开 / 收起 &gt; expandAll 展开所有有子节点的 key" time="0.0002435">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 基础渲染 &gt; 展开后 aria-expanded=true" time="0.0291104">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 展开 / 收起 &gt; collapseAll 清空展开态" time="0.0001839">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart disabled 状态 &gt; disabled=true 时应设置 aria-disabled" time="0.0041183">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 展开 / 收起 &gt; expandNode / collapseNode 是 expandKey / collapseKey 别名" time="0.000223">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart disabled 状态 &gt; disabled=true 时应有禁用样式" time="0.0041935">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 懒加载 &gt; 已有子节点时直接展开不调用 loadData" time="0.000281">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选项面板 &gt; 展开后应渲染 listbox role" time="0.0160568">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 懒加载 &gt; lazy=false 时不触发加载" time="0.000217">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选项面板 &gt; 选项应渲染 role=&quot;option&quot;（含 disabled 项的视觉降级）" time="0.0116184">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 懒加载 &gt; loadData 返回空数组时不写入 lazyChildrenMap" time="0.0003375">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选项面板 &gt; search=true 时应渲染搜索框" time="0.012688">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 懒加载 &gt; 加载完成后触发 load-success 并展开" time="0.0006346">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选项面板 &gt; loading=true 时应显示加载态而非列表" time="0.0101757">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选中与事件 &gt; 点击选项应更新 v-model 并触发 change 事件" time="0.0134724">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选中与事件 &gt; 单选模式下选择后应收起面板" time="0.0123008">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选中与事件 &gt; allowClear=true 且已选择时应显示清除按钮" time="0.0040182">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 选中与事件 &gt; 点击清除按钮应清空选择" time="0.0044906">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 多选模式 &gt; multiple=true 时应渲染标签" time="0.0087841">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 多选模式 &gt; multiple=true 时 listbox 应设置 aria-multiselectable" time="0.0077072">
-        </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/select/YdSelect.test.ts" name="YdSelectSmart 多选模式 &gt; 多选模式下选择后应保持展开" time="0.0100631">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-expand.test.ts" name="useTreeExpand 懒加载 &gt; isNodeLoading 返回正确的加载态" time="0.0001389">
         </testcase>
     </testsuite>
-    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" timestamp="2026-10-30T06:03:16.758Z" hostname="DESKTOP-FIC0TQ3" tests="16" failures="0" errors="0" skipped="0" time="0.0752134">
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipProvider &gt; 应能挂载并渲染 slot 内容" time="0.0167311">
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" timestamp="2026-11-03T08:02:24.633Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0041398">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; 默认全部收起时 flatRows 仅含 root 节点" time="0.0020383">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipProvider &gt; delayDuration prop 应被接受" time="0.0029134">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; hasChildren 标记正确" time="0.0002594">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipProvider &gt; disableHoverableContent prop 应被接受" time="0.0018028">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; 展开后子节点进入 flatRows 且携带 depth / ancestorKeys" time="0.0003159">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltip 容器 &gt; 在 Provider 内应能挂载并渲染默认 slot" time="0.0059005">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; 懒加载追加子节点后子节点进入 flatRows" time="0.0003193">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltip 容器 &gt; open prop 应被接受并转发给 TooltipRoot" time="0.0030445">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; getEffectiveChildren 合并原始与懒加载子节点" time="0.000189">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltip 容器 &gt; defaultOpen prop 应被接受" time="0.0025482">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; nodeMap 包含所有节点（含嵌套）" time="0.0002189">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipTrigger &gt; 应渲染 slot 内容" time="0.0081001">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-flatten.test.ts" name="useTreeFlatten &gt; nodeMap 包含懒加载追加的节点" time="0.0001264">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipTrigger &gt; asChild=true 时应渲染子元素为原生标签" time="0.004551">
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" timestamp="2026-11-03T08:02:24.634Z" hostname="DESKTOP-FIC0TQ3" tests="7" failures="0" errors="0" skipped="0" time="0.0056868">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; 选中父节点应级联选中所有子孙" time="0.0024258">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipContent &gt; 在 open=true 状态下应能挂载" time="0.0028961">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; 取消父节点应级联取消所有子孙" time="0.0003582">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipContent &gt; side=bottom 时应被接受" time="0.0030054">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; 子节点部分选中时父节点进入半选态" time="0.0002531">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipContent &gt; 自定义 class 应被应用" time="0.0026774">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; 所有子节点选中时父节点自动选中" time="0.0002398">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipSmart 组合封装 &gt; 应能挂载并渲染 trigger 与默认 slot" time="0.0041229">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; checkStrictly=true 时父子互不影响" time="0.0002222">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipSmart 组合封装 &gt; delayDuration prop 应被接受并传给 Provider" time="0.0045398">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; getCheckedNodes / getHalfCheckedNodes 返回原始节点" time="0.0010155">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipSmart 组合封装 &gt; side prop 应被接受" time="0.004811">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-selection.test.ts" name="useTreeSelection 级联选择 &gt; check-change 事件携带正确参数" time="0.0005134">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltipSmart 组合封装 &gt; contentClass 应被接受" time="0.0027767">
+    </testsuite>
+    <testsuite name="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" timestamp="2026-11-03T08:02:24.635Z" hostname="DESKTOP-FIC0TQ3" tests="27" failures="0" errors="0" skipped="0" time="0.0110151">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="alignClass 纯函数 &gt; center 返回 text-center" time="0.000647">
         </testcase>
-        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tooltip/YdTooltip.test.ts" name="YdTooltip 集成 &gt; Provider + Tooltip + Trigger + Content 四级结构完整组装" time="0.0030491">
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="alignClass 纯函数 &gt; right 返回 text-right" time="0.0000921">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="alignClass 纯函数 &gt; left / undefined 返回 text-left" time="0.0000861">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 扁平化 &gt; 默认全部收起时 flatRows 仅含 root 节点" time="0.0025235">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 扁平化 &gt; hasChildren 标记正确" time="0.0003053">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 扁平化 &gt; 展开后子节点进入 flatRows 且携带 depth / ancestorKeys" time="0.0006179">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 扁平化 &gt; 懒加载追加子节点后子节点进入 flatRows" time="0.0007468">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 展开 / 收起 &gt; expandKey 触发 update:expandedKeys 与 expand 事件" time="0.0012479">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 展开 / 收起 &gt; collapseKey 触发 update:expandedKeys 与 collapse 事件" time="0.0003926">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 展开 / 收起 &gt; toggleExpand 在展开与收起间切换" time="0.0002649">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 展开 / 收起 &gt; expandAll 展开所有有子节点的 key" time="0.0002007">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 展开 / 收起 &gt; collapseAll 清空展开态" time="0.0001716">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 复选框级联 &gt; 选中父节点应级联选中所有子孙" time="0.0003822">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 复选框级联 &gt; 取消父节点应级联取消所有子孙" time="0.0001696">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 复选框级联 &gt; 子节点部分选中时父节点进入半选态" time="0.0001819">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 复选框级联 &gt; 所有子节点选中时父节点自动选中" time="0.0001857">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 复选框级联 &gt; checkStrictly=true 时父子互不影响" time="0.000142">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 复选框级联 &gt; getCheckedNodes / getHalfCheckedNodes 返回原始节点" time="0.0002707">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 懒加载 &gt; 已有子节点时直接展开不调用 loadData" time="0.0002291">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 懒加载 &gt; lazy=false 时不触发加载" time="0.0001061">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 懒加载 &gt; loadData 返回空数组时不写入 lazyChildrenMap" time="0.0001636">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 懒加载 &gt; 加载完成后触发 load-success 并展开" time="0.0003843">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 渲染辅助 &gt; indentStyle 按 depth 计算 paddingLeft" time="0.0001339">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 渲染辅助 &gt; hasAncestorSibling 判断祖先是否有后续兄弟" time="0.000162">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 渲染辅助 &gt; getCellValue 优先使用 formatter" time="0.0001084">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 渲染辅助 &gt; formatCellValue 对 null / undefined 返回空串" time="0.0000973">
+        </testcase>
+        <testcase classname="comm/@core/ui-kit/ydsz-ui/src/components/tree-table/use-tree-table-core.test.ts" name="useTreeTableCore 渲染辅助 &gt; renderColumns 将列定义转换为渲染视图" time="0.0001289">
         </testcase>
     </testsuite>
 </testsuites>

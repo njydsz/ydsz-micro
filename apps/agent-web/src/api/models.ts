@@ -44,7 +44,6 @@ export interface PageQuery {
  * 封装通过指定 Agent 执行任务的请求参数， 支持 ReAct、Plan-Execute、Router 等多种 Agent 模式。
  */
 export interface AgentExecutionRequestDTO {
-  serialVersionUID?: number;
   /** Agent 编码（指定使用哪个 Agent 执行） */
   agentCode?: string;
   /** 对话 ID（null 表示新建对话） */
@@ -73,7 +72,6 @@ export interface AgentExecutionRequestDTO {
  * 当 `multimodalContent` 非空时，优先使用多模态格式，`message` 忽略。
  */
 export interface ChatRequestDTO {
-  serialVersionUID?: number;
   /** 对话 ID（null 表示新建对话，非 null 表示续接已有对话） */
   conversationId?: string;
   /** 请求幂等键（可选，防止重复调用 LLM 扣费） */
@@ -107,7 +105,6 @@ export interface ChatRequestDTO {
  * 每个段落可以是文本或图片之一，类型由 #type 标识。
  */
 export interface ContentPartDTO {
-  serialVersionUID?: number;
   /** 内容类型（text / image_url） */
   type?: string;
   /** 文本内容（type=text 时有效） */
@@ -130,7 +127,6 @@ export interface ContentPartDTO {
  * 每条请求独立对话 ID，互不干扰
  */
 export interface BatchChatRequestDTO {
-  serialVersionUID?: number;
   /** 请求幂等键（防重，建议每条请求唯一） */
   requestId?: string;
   /** 批量对话条目列表（至少 1 条，最多 50 条） */
@@ -159,7 +155,6 @@ export interface BatchChatRequestDTO {
  * 每条包含独立的用户消息和对话 ID，共享外层模型配置。
  */
 export interface BatchChatItem {
-  serialVersionUID?: number;
   /** 条目唯一标识（用于响应中对应结果，由调用方保证唯一） */
   itemId?: string;
   /** 对话 ID（null 则新建） */
@@ -181,7 +176,6 @@ export interface BatchChatItem {
  * 线程安全：由 @Data 生成 setter，属可变入参载体；仅在单次请求绑定期间使用，框架按请求单线程处理，勿跨线程共享。
  */
 export interface AgentDefinitionDTO {
-  serialVersionUID?: number;
   /**
    * 主键 ID。
    * 创建场景不传；更新场景必须传入。
@@ -213,7 +207,6 @@ export interface AgentDefinitionDTO {
  * 封装基于 YAML DSL 的多 Agent DAG 编排执行请求， 支持定义节点间的依赖关系和数据流转。
  */
 export interface DagExecutionDTO {
-  serialVersionUID?: number;
   /** YAML DSL 内容，定义 DAG 节点和边（必填） */
   dsl?: string;
   /** 用户输入内容（必填） */
@@ -229,7 +222,6 @@ export interface DagExecutionDTO {
  * DAG 工作流保存 DTO。
  */
 export interface DagWorkflowDTO {
-  serialVersionUID?: number;
   /** 工作流编码（唯一，更新时必填） */
   workflowCode?: string;
   /** 工作流名称（必填） */
@@ -285,7 +277,6 @@ export interface ResponseEntity {
  * 封装写入单条对话记忆的消息数据。
  */
 export interface SaveMemoryRequest {
-  serialVersionUID?: number;
   /** 消息角色（SYSTEM/USER/ASSISTANT/TOOL） */
   role?: string;
   /** 消息内容 */
@@ -300,7 +291,6 @@ export interface SaveMemoryRequest {
  * 用于触发对指定对话的历史记忆执行整合（提取事实 + 画像刷新）。
  */
 export interface ConsolidateMemoryRequest {
-  serialVersionUID?: number;
   /** 租户 ID（可选，缺省使用当前租户） */
   tenantId?: string;
 }
@@ -326,12 +316,31 @@ export interface CompareRequest {
 }
 
 /**
+ * PromptInvokeRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PromptInvokeRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
+ * PromptCompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PromptCompareRequest {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * 文档摄入请求 DTO
  *
  * 封装将文档内容写入 RAG 知识库的请求参数， 支持来自 nextwiki、project、contract 等不同来源的文档。
  */
 export interface DocumentIngestDTO {
-  serialVersionUID?: number;
   /** 文档 ID（必填，唯一标识待摄入的文档） */
   documentId?: string;
   /** 文档文本内容（必填，将被分块、向量化和索引） */
@@ -348,7 +357,6 @@ export interface DocumentIngestDTO {
  * 封装对 RAG 知识库的检索请求参数， 包括查询文本、返回数量、相似度阈值等。
  */
 export interface RagQueryDTO {
-  serialVersionUID?: number;
   /** 查询文本（必填，将向量化后进行相似度检索） */
   query?: string;
   /** 返回前 K 条结果（默认 5） */
@@ -366,7 +374,6 @@ export interface RagQueryDTO {
  * 服务端调用 OCR 引擎逐页提取文字后走正常 ingestion 流程。
  */
 export interface ScannedPdfIngestDTO {
-  serialVersionUID?: number;
   /** 文件名（含后缀，用于格式检测和索引标识） */
   fileName?: string;
   /** PDF 文件内容的 Base64 编码 */
@@ -381,7 +388,6 @@ export interface ScannedPdfIngestDTO {
  * 封装图片文件的摄入请求，图片经 OCR 提取文字后存入向量库。
  */
 export interface ImageIngestDTO {
-  serialVersionUID?: number;
   /** 图片文件内容的 Base64 编码 */
   base64Content?: string;
   /** 图片格式（PNG/JPEG/BMP/TIFF） */
@@ -396,7 +402,6 @@ export interface ImageIngestDTO {
  * 封装融合知识库 RAG 检索和 Web 搜索的请求参数。
  */
 export interface HybridSearchDTO {
-  serialVersionUID?: number;
   /** 查询文本（必填） */
   query?: string;
   /** 数据集 ID（可选，为 null 时仅执行 web 搜索） */
@@ -411,7 +416,6 @@ export interface HybridSearchDTO {
  * 封装提交异步任务时客户端需要提供的参数：任务类型、输入参数 JSON 以及可选自定义超时秒数。
  */
 export interface AsyncTaskSubmitDTO {
-  serialVersionUID?: number;
   /** 任务类型编码（REPORT_GENERATE / DOC_INGEST / BATCH_CHAT / CODE_EXECUTION） */
   taskType?: string;
   /** 任务输入参数 JSON（可选，null 表示无输入） */
@@ -430,7 +434,6 @@ export interface AsyncTaskSubmitDTO {
  * 封装通过编码执行 Skill 的请求参数，支持输入参数、超时配置和环境变量注入。
  */
 export interface SkillExecutionRequestDTO {
-  serialVersionUID?: number;
   /** Skill 编码 */
   skillCode?: string;
   /** 输入参数（key→value） */
@@ -487,7 +490,6 @@ export interface UpdateTriggerRequest {
  * 封装 Agent 对话的响应结果，包括回复内容、 实际使用的模型、Token 用量统计和响应时间。
  */
 export interface ChatResponseDTO {
-  serialVersionUID?: number;
   /** 对话 ID */
   conversationId?: string;
   /** 助手回复内容 */
@@ -512,7 +514,6 @@ export interface ChatResponseDTO {
  * 记录单次 LLM 调用的 Token 消耗明细，用于成本分析和用量监控。
  */
 export interface TokenUsageDTO {
-  serialVersionUID?: number;
   /** 输入 Token 数量（prompt 消耗） */
   promptTokens?: number;
   /** 输出 Token 数量（completion 消耗） */
@@ -529,7 +530,6 @@ export interface TokenUsageDTO {
  * 调用方可通过 BatchResultItem#success 字段快速判断每条结果状态。
  */
 export interface BatchChatResponseDTO {
-  serialVersionUID?: number;
   /** 批量结果列表（与请求 items 顺序一致） */
   results?: BatchResultItem[];
   /** 总耗时（毫秒） */
@@ -560,7 +560,6 @@ export interface BatchChatResponseDTO {
  * 每条结果与请求中的 BatchChatRequestDTO.BatchChatItem 通过 #itemId 对应。
  */
 export interface BatchResultItem {
-  serialVersionUID?: number;
   /** 条目标识（与请求中 itemId 对应） */
   itemId?: string;
   /** 是否成功 */
@@ -584,7 +583,6 @@ export interface BatchResultItem {
  * 线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。
  */
 export interface AgentDefinitionVO {
-  serialVersionUID?: number;
   /** 主键 ID */
   id?: string;
   /** Agent 编码 */
@@ -652,23 +650,29 @@ export interface DagCheckpoint {
 }
 
 /**
- * DAG 工作流（domain 层持久化实体，YDIZ-DDD-007 单包模式）
+ * DAG 工作流视图对象。
  *
- * YDIZ-DDD-007：domain Entity 直接携带 MyBatis-Plus ORM 注解，
- * infra 层通过依赖 domain 模块引用本类，禁止自建 PO/DO 副本。
+ * 用于 Controller 层返回 DAG 工作流的展示数据（DDD-007：禁止将 Entity 泄露到 Web 层）。
  */
-export interface DagWorkflow {
-  serialVersionUID?: number;
+export interface DagWorkflowVO {
+  /** 主键 ID */
+  id?: string;
   /** 工作流编码（业务唯一标识） */
   workflowCode?: string;
   /** 工作流名称 */
-  name?: string;
+  workflowName?: string;
   /** DAG 定义（YAML DSL） */
-  dsl?: string;
+  dslContent?: string;
   /** 工作流描述 */
   description?: string;
   /** 分类（用于分组检索） */
   category?: string;
+  /** 是否已发布 */
+  isPublished?: boolean;
+  /** 创建人 */
+  createdBy?: string;
+  /** 创建时间 */
+  createdAt?: string;
 }
 
 /**
@@ -809,7 +813,6 @@ export interface RelationVO {
  * 线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。
  */
 export interface MemoryVO {
-  serialVersionUID?: number;
   /** 消息唯一 ID */
   id?: string;
   /** 消息角色（SYSTEM/USER/ASSISTANT/TOOL） */
@@ -865,6 +868,16 @@ export interface PromptComparisonResult {
 }
 
 /**
+ * PromptInvokeResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）
+ *
+ * 此 interface 为生成器兜底产出，建议在 Java 侧将此类提取为独立文件
+ * 或在父类中确保内部类可被扫描识别，以便生成完整字段信息。
+ */
+export interface PromptInvokeResult {
+  // TODO: 占位 interface，字段信息缺失。请在 Java 侧补充源文件定义。
+}
+
+/**
  * Agent 运行时会话值对象。
  *
  * 记录一次 Agent 执行会话的完整生命周期状态，包括执行元数据、进度信息、资源消耗。
@@ -898,9 +911,8 @@ export interface RuntimeSession {
  * 由 AsyncTask 实体转换而来，仅暴露前端必要字段。
  */
 export interface AsyncTaskVO {
-  serialVersionUID?: number;
   /** 任务唯一 ID */
-  id?: number;
+  id?: string;
   /** 任务类型编码 */
   taskType?: string;
   /** 任务类型描述 */
@@ -956,7 +968,6 @@ export interface SkillDescriptorVO {
  */
 export interface SkillExecutionResponseVO {
   success?: boolean;
-  serialVersionUID?: number;
   /** Skill 编码 */
   skillCode?: string;
   /** 执行是否成功 */

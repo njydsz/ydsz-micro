@@ -20,7 +20,7 @@ import { registerAccessDirective } from '@ydsz/access';
 import { registerLoadingDirective, registerSafeHtmlDirective } from '@ydsz/common-ui';
 import { setupMonitor } from '@ydsz/monitor';
 import { initPreferences } from '@ydsz/preferences';
-import { initStores } from '@ydsz/stores';
+import { initStores, useUserStore } from '@ydsz/stores';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -142,7 +142,21 @@ async function coreMount(
   await setupSharedAuth(appName);
 
   app = createApp(RootComponent);
-  setupMonitor(app);
+  // v4.5 P0-1: 子应用监控注入生产配置（release + 采样率 + Sentry）
+  const sentryDsn = import.meta.env.VITE_SENTRY_DSN as string | undefined;
+  setupMonitor(app, {
+    release:
+      import.meta.env.VITE_APP_RELEASE || import.meta.env.VITE_APP_VERSION,
+    sampleRate: import.meta.env.PROD ? 0.8 : 1,
+    getUserId: () => {
+      try {
+        return useUserStore().userInfo?.userId;
+      } catch {
+        return undefined;
+      }
+    },
+    ...(sentryDsn ? { sentryDsn } : {}),
+  });
 
   // v4.0 P1-2: 将标准化 mountProps 注入子应用组件树
   // 子组件可通过 useMicroProps() / useGlobalState() / useMessageBus() 类型化访问

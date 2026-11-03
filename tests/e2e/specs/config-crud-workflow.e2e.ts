@@ -21,30 +21,18 @@
  */
 
 import { test, expect, type Page } from '@playwright/test';
+import { APP_SELECTOR, SELECTORS } from '../support/selectors';
 
 /** 选择器集中管理（UI 变更时统一调整） */
-const SELECTORS = {
-  /** 应用主容器 — Vue 挂载完成的标志 */
-  appContainer: '.app-container',
-  /** 数据表格 */
-  dataTable: '.el-table',
+const LOCAL_SELECTORS = {
   /** 新增按钮 */
   createButton: 'button:has-text("新增"), button:has-text("新建"), button:has-text("添加")',
-  /** 对话框 */
-  dialog: '.el-dialog',
-  /** 对话框中的保存/提交按钮 */
-  dialogSave: '.el-dialog__footer button:has-text("保存"), .el-dialog__footer button:has-text("提交"), .el-dialog__footer button:has-text("确定")',
-  /** 表单校验错误提示 */
-  formError: '.el-form-item__error',
-  /** 表格行 */
-  tableRow: '.el-table__row',
   /** 行操作编辑按钮 */
   rowEdit: 'button:has-text("编辑"), a:has-text("编辑")',
   /** 行操作删除按钮 */
   rowDelete: 'button:has-text("删除"), a:has-text("删除")',
   /** 确认删除对话框 */
-  confirmDialog: '.el-message-box, .el-popconfirm',
-  confirmOk: '.el-message-box__btns button:has-text("确定"), .el-popconfirm__action button:has-text("确定"), .el-button--primary',
+  confirmDialog: '[role="alertdialog"], [role="dialog"]',
 } as const;
 
 /** 测试数据 */
@@ -60,7 +48,7 @@ const TEST_CONFIG = {
  * 等待应用完成 SPA 渲染。
  */
 async function waitForAppReady(page: Page): Promise<void> {
-  await page.waitForSelector(SELECTORS.appContainer, { state: 'visible', timeout: 15_000 });
+  await page.waitForSelector(APP_SELECTOR, { state: 'visible', timeout: 15_000 });
 }
 
 /**
@@ -97,7 +85,7 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
 
   test('TC-CONFIG-001: 新增配置项 → 断言表格中出现新项', async ({ page }) => {
     // 点击新增按钮
-    const createBtn = page.locator(SELECTORS.createButton).first();
+    const createBtn = page.locator(LOCAL_SELECTORS.createButton).first();
     await expect(createBtn).toBeVisible({ timeout: 5_000 });
     await createBtn.click();
 
@@ -106,21 +94,21 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
 
     // 填写配置项信息
     const configKeyInput = page.locator(
-      'input[placeholder*="key"], input[placeholder*="编码"], input[placeholder*="标识"], .el-form-item:has(label:has-text("编码")) input, .el-form-item:has(label:has-text("Key")) input',
+      'input[placeholder*="key"], input[placeholder*="编码"], input[placeholder*="标识"], label:has-text("编码") + input, label:has-text("编码") ~ input, label:has-text("Key") + input, label:has-text("Key") ~ input',
     ).first();
     if (await configKeyInput.isVisible({ timeout: 3_000 })) {
       await configKeyInput.fill(TEST_CONFIG.key);
     }
 
     const configValueInput = page.locator(
-      'input[placeholder*="value"], input[placeholder*="值"], .el-form-item:has(label:has-text("值")) input',
+      'input[placeholder*="value"], input[placeholder*="值"], label:has-text("值") + input, label:has-text("值") ~ input',
     ).first();
     if (await configValueInput.isVisible({ timeout: 3_000 })) {
       await configValueInput.fill(TEST_CONFIG.value);
     }
 
     const configLabelInput = page.locator(
-      'input[placeholder*="名称"], input[placeholder*="label"], .el-form-item:has(label:has-text("名称")) input',
+      'input[placeholder*="名称"], input[placeholder*="label"], label:has-text("名称") + input, label:has-text("名称") ~ input',
     ).first();
     if (await configLabelInput.isVisible({ timeout: 3_000 })) {
       await configLabelInput.fill(TEST_CONFIG.label);
@@ -147,7 +135,7 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     }
 
     // 表格中包含新增的配置项
-    const tableCell = page.locator(`td:has-text("${TEST_CONFIG.key}"), .el-table__row:has-text("${TEST_CONFIG.key}")`).first();
+    const tableCell = page.locator(`td:has-text("${TEST_CONFIG.key}"), tbody tr:has-text("${TEST_CONFIG.key}")`).first();
     await expect(tableCell).toBeVisible({ timeout: 10_000 });
   });
 
@@ -177,7 +165,7 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
 
     // 修改值
     const configValueInput = page.locator(
-      'input[placeholder*="value"], input[placeholder*="值"], .el-form-item:has(label:has-text("值")) input',
+      'input[placeholder*="value"], input[placeholder*="值"], label:has-text("值") + input, label:has-text("值") ~ input',
     ).first();
     if (await configValueInput.isVisible({ timeout: 3_000 })) {
       await configValueInput.fill(TEST_CONFIG.updatedValue);
@@ -194,7 +182,7 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     await page.waitForTimeout(500);
 
     // 断言表格中包含更新后的值
-    const updatedCell = page.locator(`td:has-text("${TEST_CONFIG.updatedValue}"), .el-table__row:has-text("${TEST_CONFIG.updatedValue}")`).first();
+    const updatedCell = page.locator(`td:has-text("${TEST_CONFIG.updatedValue}"), tbody tr:has-text("${TEST_CONFIG.updatedValue}")`).first();
     await expect(updatedCell).toBeVisible({ timeout: 10_000 });
   });
 

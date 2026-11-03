@@ -2,15 +2,16 @@
 /**
 * Anchor 锚点：跳转到页面指定位置。
 * 
- * 受控组件：通过 v-model:active 控制当前激活锚点。
- * offset 定义距离顶部多少像素视为"进入"。
- * YdAnchorLink 子组件递归渲染嵌套目录。
+* 受控组件：通过 v-model:active 控制当前激活锚点。
+* offset 定义距离顶部多少像素视为"进入"。
+* YdAnchorLink 子组件递归渲染嵌套目录。
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchor.vue
- * @author ydsz-team
- * @since 1.0.0
+* @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchor.vue
+* @author ydsz-team
+* @since 1.0.0
  */
-// @ts-nocheck
+import type { ClassValue } from 'clsx';
+
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -26,7 +27,7 @@ interface Props {
   /** 锚点配置 */
   items: AnchorLinkItem[];
   /** 自定义类名 */
-  class?: any;
+  class?: ClassValue;
   /** 滚动容器 CSS 选择器（默认 window） */
   container?: string;
   /** 距离顶部的偏移量 */

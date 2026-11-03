@@ -121,6 +121,7 @@
     "vsh:publint": "node --experimental-strip-types ./bash/vsh/bin/vsh.mts publint",
     "test:unit": "vitest run --config vitest.config.ts",
     "test:unit:watch": "vitest --config vitest.config.ts",
+    "test:unit:coverage": "vitest run --config vitest.config.ts --coverage",
     "test:coverage": "vitest run --config vitest.config.ts --coverage",
     "test:e2e": "playwright test",
     "test:e2e:all": "cross-env E2E_APP_CMD=\"pnpm turbo run dev --filter=@ydsz/main-web\" playwright test --config=tests/e2e/playwright.config.ts --project=chromium --project=firefox --project=webkit",
@@ -130,7 +131,13 @@
     "test:a11y:install": "playwright install chromium",
     "test:visual": "playwright test --config=playwright.visual.config.ts",
     "test:visual:update": "playwright test --config=playwright.visual.config.ts --update-snapshots",
-    "test:visual:install": "playwright install chromium"
+    "test:visual:install": "playwright install chromium",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build:storybook": "storybook build",
+    "preview-storybook": "serve storybook-static",
+    "gen:component-docs": "node --experimental-strip-types ./bash/gen-component-docs.mts",
+    "check:component-budget": "node --experimental-strip-types ./bash/check-component-budget.mts",
+    "figma:sync": "node --experimental-strip-types ./bash/figma-api-sync.mts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
@@ -179,7 +186,14 @@
     "vitest-axe": "catalog:",
     "vue": "catalog:",
     "vue-sfc-transformer": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue-tsc": "catalog:",
+    "@storybook/vue3": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/addon-interactions": "catalog:",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/test": "catalog:",
+    "storybook": "catalog:"
   },
   "prettier": "@ydsz/prettier-config",
   "engines": {

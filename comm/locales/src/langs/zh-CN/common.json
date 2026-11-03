@@ -26,6 +26,8 @@
   "no": "否",
   "showSearchPanel": "显示搜索面板",
   "hideSearchPanel": "隐藏搜索面板",
+  "previousPage": "上一页",
+  "nextPage": "下一页",
   "seq": "序号",
   "status": "状态",
   "createTime": "创建时间",

@@ -28,6 +28,12 @@ setupYDSZVxeTable({
           resizable: true,
         },
         minHeight: 180,
+        // 大数据列表默认启用纵向虚拟滚动，避免 height:auto 时全量渲染 DOM。
+        scrollY: {
+          enabled: true,
+          gt: 50,
+          rowHeight: 42,
+        },
         formConfig: {
           // 全局禁用vxe-table的表单配置，使用formOptions
           enabled: false,

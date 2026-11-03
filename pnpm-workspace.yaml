@@ -176,3 +176,10 @@ catalog:
   # 焦点顺序相关用例（tabIndex IDL）happy-dom 未实现，按需通过 @vitest-environment jsdom 启用
   "jsdom": ^26.1.0
   "@playwright/test": ^1.49.0
+  "@storybook/vue3": ^8.6.0
+  "@storybook/vue3-vite": ^8.6.0
+  "@storybook/addon-essentials": ^8.6.0
+  "@storybook/addon-interactions": ^8.6.0
+  "@storybook/addon-a11y": ^8.6.0
+  "@storybook/test": ^8.6.0
+  "storybook": ^8.6.0

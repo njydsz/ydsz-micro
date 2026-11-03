@@ -29,8 +29,11 @@ const runtimeLogger = createLogger("MicroRuntime");
  * 安装前端监控（错误捕获 + Web Vitals）。
  * v3.1: 注入 release 版本（sourcemap 关联）+ getUserId（全链路追踪）+ 生产采样
  * v4.0 P0-3: 可选 Sentry 转发（设置 VITE_SENTRY_DSN 时启用）
+ * v4.5 P0-1: 返回监控安装的 errorHandler，供 bootstrap 组合使用，避免被后续覆盖
  */
-export function setupAppMonitoring(app: Parameters<typeof setupMonitor>[0]) {
+export function setupAppMonitoring(
+  app: Parameters<typeof setupMonitor>[0],
+): (err: unknown, instance: unknown, info: string) => void {
   const sentryDsn = import.meta.env.VITE_SENTRY_DSN as string | undefined;
   setupMonitor(app, {
     getUserId: () => {
@@ -46,6 +49,21 @@ export function setupAppMonitoring(app: Parameters<typeof setupMonitor>[0]) {
     sampleRate: import.meta.env.PROD ? 0.8 : 1,
     ...(sentryDsn ? { sentryDsn } : {}),
   });
+
+  // 保存 setupMonitor 内部设置的 errorHandler（真正的监控上报逻辑）
+  const monitorHandler = (
+    app as {
+      config: {
+        errorHandler?: (err: unknown, instance: unknown, info: string) => void;
+      };
+    }
+  ).config.errorHandler;
+
+  // 返回包装后的 handler，确保监控上报不被覆盖
+  return (err: unknown, instance: unknown, info: string): void => {
+    monitorHandler?.(err, instance, info);
+    runtimeLogger.error(info, err, instance);
+  };
 }
 
 /**

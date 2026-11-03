@@ -1,8 +1,6 @@
 {
   "name": "@ydsz-core/ydsz-ui",
   "version": "5.5.9",
-  "#main": "./dist/index.mjs",
-  "#module": "./dist/index.mjs",
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "bugs": "https://github.com/ydsz/vue-ydsz-admin/issues",
   "repository": {
@@ -17,8 +15,8 @@
     "ydsz-analyze": "./src/cli/analyze-bundle.ts"
   },
   "scripts": {
-    "#build": "pnpm unbuild",
-    "#prepublishOnly": "npm run build"
+    "build": "pnpm unbuild",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
@@ -26,101 +24,118 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./src/index.ts",
-      "//default": "./dist/index.mjs"
+      "default": "./dist/index.mjs"
     },
     "./components/*": {
       "types": "./src/components/*/index.ts",
-      "default": "./src/components/*/index.ts"
+      "development": "./src/components/*/index.ts",
+      "default": "./dist/components/*/index.mjs"
     },
     "./ui/*": {
       "types": "./src/components/*/index.ts",
-      "default": "./src/components/*/index.ts"
+      "development": "./src/components/*/index.ts",
+      "default": "./dist/components/*/index.mjs"
     },
     "./primitives/*": {
       "types": "./src/components/*/index.ts",
-      "default": "./src/components/*/index.ts"
+      "development": "./src/components/*/index.ts",
+      "default": "./dist/components/*/index.mjs"
     },
     "./composables": {
       "types": "./src/composables/index.ts",
-      "default": "./src/composables/index.ts"
+      "development": "./src/composables/index.ts",
+      "default": "./dist/composables/index.mjs"
     },
     "./locale": {
       "types": "./src/locale/index.ts",
-      "default": "./src/locale/index.ts"
+      "development": "./src/locale/index.ts",
+      "default": "./dist/locale/index.mjs"
     },
     "./resolver": {
       "types": "./src/resolver.ts",
-      "default": "./src/resolver.ts"
+      "development": "./src/resolver.ts",
+      "default": "./dist/resolver.mjs"
     },
     "./directives": {
       "types": "./src/directives/index.ts",
-      "default": "./src/directives/index.ts"
+      "development": "./src/directives/index.ts",
+      "default": "./dist/directives/index.mjs"
     },
     "./css-vars-reference": {
       "types": "./src/css-vars-reference.ts",
-      "default": "./src/css-vars-reference.ts"
+      "development": "./src/css-vars-reference.ts",
+      "default": "./dist/css-vars-reference.mjs"
     },
     "./nuxt": {
       "types": "./src/nuxt.ts",
-      "default": "./src/nuxt.ts"
+      "development": "./src/nuxt.ts",
+      "default": "./dist/nuxt.mjs"
     },
     "./runtime/directives": {
       "types": "./src/runtime/use-directives.ts",
-      "default": "./src/runtime/use-directives.ts"
+      "development": "./src/runtime/use-directives.ts",
+      "default": "./dist/runtime/use-directives.mjs"
     },
     "./pass-through": {
       "types": "./src/pass-through/index.ts",
-      "default": "./src/pass-through/index.ts"
+      "development": "./src/pass-through/index.ts",
+      "default": "./dist/pass-through/index.mjs"
     },
     "./a11y/aria-role-map": {
       "types": "./src/a11y/aria-role-map.ts",
-      "default": "./src/a11y/aria-role-map.ts"
+      "development": "./src/a11y/aria-role-map.ts",
+      "default": "./dist/a11y/aria-role-map.mjs"
     },
     "./a11y/test-utils": {
       "types": "./src/a11y/a11y-test-utils.ts",
-      "default": "./src/a11y/a11y-test-utils.ts"
+      "development": "./src/a11y/a11y-test-utils.ts",
+      "default": "./dist/a11y/a11y-test-utils.mjs"
     },
     "./motion/tokens": {
       "types": "./src/motion/motion-tokens.ts",
-      "default": "./src/motion/motion-tokens.ts"
+      "development": "./src/motion/motion-tokens.ts",
+      "default": "./dist/motion/motion-tokens.mjs"
     },
     "./cli": {
       "types": "./src/cli/index.ts",
-      "default": "./src/cli/index.ts"
+      "development": "./src/cli/index.ts",
+      "default": "./dist/cli/index.mjs"
     },
     "./cli/analyze": {
       "types": "./src/cli/analyze-bundle.ts",
-      "default": "./src/cli/analyze-bundle.ts"
+      "development": "./src/cli/analyze-bundle.ts",
+      "default": "./dist/cli/analyze-bundle.mjs"
     },
     "./motion/use-reduced-motion": {
       "types": "./src/motion/useReducedMotion.ts",
-      "default": "./src/motion/useReducedMotion.ts"
+      "development": "./src/motion/useReducedMotion.ts",
+      "default": "./dist/motion/useReducedMotion.mjs"
     },
     "./ssr/client-only": {
       "types": "./src/ssr/ClientOnly.vue",
-      "default": "./src/ssr/ClientOnly.vue"
+      "development": "./src/ssr/ClientOnly.vue",
+      "default": "./dist/ssr/ClientOnly.vue"
     },
     "./styles/reduced-motion": {
-      "default": "./src/styles/reduced-motion.css"
+      "default": "./dist/styles/reduced-motion.css"
     },
     "./styles/rtl": {
-      "default": "./src/styles/rtl.css"
+      "default": "./dist/styles/rtl.css"
     }
   },
   "publishConfig": {
     "exports": {
       ".": {
-        "default": "./src/index.ts"
+        "default": "./dist/index.mjs"
       },
       "./resolver": {
-        "default": "./src/resolver.ts"
+        "default": "./dist/resolver.mjs"
       }
     }
   },
@@ -133,12 +148,14 @@
     "@ydsz-core/shared": "workspace:*",
     "@ydsz-core/typings": "workspace:*",
     "@ydsz-core/ydsz-vue": "workspace:*",
-    "@ydsz/request": "workspace:*",
     "class-variance-authority": "catalog:",
     "lucide-vue-next": "catalog:",
     "sortablejs": "catalog:",
     "vee-validate": "catalog:",
     "vue": "catalog:"
+  },
+  "peerDependencies": {
+    "@ydsz/request": "workspace:*"
   },
   "devDependencies": {
     "axe-core": "catalog:",

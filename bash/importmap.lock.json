@@ -7,12 +7,12 @@
       "version": "3.5.42"
     },
     "vue-router": {
-      "url": "https://esm.sh/*vue-router@5.3.0/dist/vue-router.js",
-      "version": "5.3.0"
+      "url": "https://esm.sh/*vue-router@4.5.1/dist/vue-router.js",
+      "version": "4.5.1"
     },
     "pinia": {
-      "url": "https://esm.sh/*pinia@4.0.3/dist/pinia.js",
-      "version": "4.0.3"
+      "url": "https://esm.sh/*pinia@3.0.3/dist/pinia.js",
+      "version": "3.0.3"
     },
     "vxe-table": {
       "url": "https://esm.sh/*vxe-table@4.21.3/es/index.esm.js",
@@ -23,8 +23,8 @@
       "version": "4.17.23"
     },
     "echarts": {
-      "url": "https://esm.sh/*echarts@6.1.0/index.js",
-      "version": "6.1.0"
+      "url": "https://esm.sh/*echarts@5.6.0/index.js",
+      "version": "5.6.0"
     },
     "dayjs": {
       "url": "https://esm.sh/*dayjs@1.11.23/dayjs.min.js",

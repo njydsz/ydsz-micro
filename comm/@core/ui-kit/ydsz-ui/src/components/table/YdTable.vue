@@ -2,32 +2,32 @@
 /**
 * 数据表格组件：语义 HTML 容器 + 列驱动渲染 + 排序支持。
 * 
- * <p>使用方式：
- * <ol>
- *   <li><b>列驱动</b>（推荐）：&lt;YdTable :data="rows"&gt; + &lt;YdTableColumn&gt; 子组件，
- *   父级自动渲染 thead/tbody，配合 border/stripe/size/max-height/loading 等属性。</li>
- *   <li><b>语义插槽</b>：直接使用 YdTableHeader/YdTableBody/YdTableRow/YdTableCell 等子组件填充，
- *   此时 YdTable 仅提供 overflow 容器。</li>
- * </ol>
+* <p>使用方式：
+* <ol>
+*   <li><b>列驱动</b>（推荐）：&lt;YdTable :data="rows"&gt; + &lt;YdTableColumn&gt; 子组件，
+*   父级自动渲染 thead/tbody，配合 border/stripe/size/max-height/loading 等属性。</li>
+*   <li><b>语义插槽</b>：直接使用 YdTableHeader/YdTableBody/YdTableRow/YdTableCell 等子组件填充，
+*   此时 YdTable 仅提供 overflow 容器。</li>
+* </ol>
 * 
- * <p>支持列排序（表头点击触发 sort-change 事件，由调用方处理排序逻辑），
- * 列固定(左/右)、列显隐、列宽调整等高级特性通过 YdTableColumn 的属性配置。
+* <p>支持列排序（表头点击触发 sort-change 事件，由调用方处理排序逻辑），
+* 列固定(左/右)、列显隐、列宽调整等高级特性通过 YdTableColumn 的属性配置。
 * 
- * a11y：使用原生 &lt;table&gt; 语义，屏幕阅读器自动识别行列关系。
+* a11y：使用原生 &lt;table&gt; 语义，屏幕阅读器自动识别行列关系。
 * 
- * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
- * @author ydsz-team
- * @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
- */
-import { computed, provide, shallowRef, useSlots } from 'vue';
-
-import type { ColumnDef } from './ColumnDef';
+* <p>脚本核心逻辑（列注册 / 排序 / 样式 / 虚拟滚动 / 列宽拖拽）已提取至
+* {@link useTableCore}，本组件仅保留 props / emits 声明与模板渲染。
+* 
+* @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
+* @author ydsz-team
+* @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
+*/
+import { useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import { useVirtualList } from '../../composables/use-virtual-list';
-import { useColumnResize } from './useColumnResize';
-import { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
+import { alignClass, useTableCore } from './use-table-core';
+
 import { useLocale } from '../../locale/useLocale';
 
 const { t } = useLocale();
@@ -95,162 +95,22 @@ const emit = defineEmits<{
 
 const slots = useSlots();
 
-// ========== 列注册表（provide 给子级 YdTableColumn 注册） ==========
-const columnMap = shallowRef(new Map<string, ColumnDef>());
-
-const orderedColumns = computed(() => {
-  const visible = Array.from(columnMap.value.values()).filter((col) => !col.isHidden);
-  return visible;
-});
-
-const registry = {
-  addColumn(id: string, column: ColumnDef) {
-    columnMap.value.set(id, column);
-    // 触发响应式（shallow ref 的 Map 替换为同一引用不触发更新）
-    columnMap.value = new Map(columnMap.value);
-  },
-  removeColumn(id: string) {
-    columnMap.value.delete(id);
-    columnMap.value = new Map(columnMap.value);
-  },
-};
-
-provide(YD_TABLE_COLUMN_REGISTRY, registry);
-
-// ========== 样式 class ==========
-const sizeClass = computed(() => {
-  switch (props.size) {
-    case 'small':
-      return '[&_td]:py-1 [&_td]:px-2 [&_th]:py-1 [&_th]:px-2 text-xs';
-    case 'large':
-      return '[&_td]:py-3 [&_td]:px-4 [&_th]:py-3 [&_th]:px-4 text-base';
-    default:
-      return '';
-  }
-});
-
-const alignClass = (align?: string) => {
-  switch (align) {
-    case 'center':
-      return 'text-center';
-    case 'right':
-      return 'text-right';
-    default:
-      return 'text-left';
-  }
-};
-
-// ========== 列排序处理 ==========
-function handleSort(col: ColumnDef): void {
-  if (!col.isSortable || !col.prop) return;
-
-  let nextOrder: 'asc' | 'desc' | null;
-  if (props.sortProp !== col.prop) {
-    // 切换到新列 -> asc
-    nextOrder = 'asc';
-  } else {
-    // 当前列：asc -> desc -> null -> asc
-    if (props.sortOrder === 'asc') {
-      nextOrder = 'desc';
-    } else if (props.sortOrder === 'desc') {
-      nextOrder = null;
-    } else {
-      nextOrder = 'asc';
-    }
-  }
-  emit('sort-change', col.prop, nextOrder);
-}
-
-/**
- * 表头文本与排序指示器。
- */
-function getSortIcon(col: ColumnDef): string {
-  if (!col.isSortable || props.sortProp !== col.prop) {
-    return '↕';
-  }
-  if (props.sortOrder === 'asc') return '↑';
-  if (props.sortOrder === 'desc') return '↓';
-  return '↕';
-}
-
-// ========== 计算最大列数（用于空数据行 colspan） ==========
-const columnCount = computed(() => orderedColumns.value.length);
-
-// ========== 判断是否有列注册（决定是否走列驱动渲染） ==========
-const hasColumns = computed(() => columnCount.value > 0);
-
-// ========== 表格外层容器样式 ==========
-const wrapperStyle = computed(() => {
-  if (props.maxHeight != null) {
-    return { maxHeight: typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight };
-  }
-  return undefined;
-});
-
-const borderClass = computed(() => (props.border ? 'border border-collapse' : ''));
-
-const dataHasItems = computed(() => (props.data?.length ?? 0) > 0);
-const displayEmptyText = computed(() => props.emptyTextCompat ?? props.emptyText ?? t('empty.default'));
-
-// ========== 虚拟滚动 ==========
-/**
- * 虚拟滚动生效条件：virtual=true 且存在数据行。
- *
- * <p>仅在列驱动模式下启用；语义插槽模式下不激活。
- */
-const isVirtualActive = computed(() => props.virtual && hasColumns.value && dataHasItems.value);
-
-/**
- * 真实滚动视口高度：优先取 maxHeight prop，否则回退到 viewportHeight。
- *
- * <p>与 wrapperStyle.maxHeight 对齐——保证虚拟列表计算出的可见行数与实际可视区域匹配。
- */
-const effectiveViewportHeight = computed(() => {
-  if (props.maxHeight != null) {
-    return typeof props.maxHeight === 'number' ? props.maxHeight : Number.parseInt(String(props.maxHeight), 10) || props.viewportHeight;
-  }
-  return props.viewportHeight;
-});
-
-/**
- * 虚拟列表句柄：驱动可见行切片与滚动容器。
- *
- * <p>包裹 getter 以让 composable 响应 props.data 变更。
- */
-const virtualList = useVirtualList<Record<string, unknown>>(
-  () => props.data ?? [],
-  {
-    itemHeight: props.itemHeight,
-    overscan: props.overscan,
-    viewportHeight: effectiveViewportHeight.value,
-    getKey: (row, index) => (props.rowKey ? String((row as Record<string, unknown>)[props.rowKey] ?? index) : String(index)),
-  },
-);
-
-// ========== 列宽拖拽调整 ==========
-/**
- * 列宽拖拽句柄。
- *
- * <p>仅在 columnResizable=true 时启用；通过 document 级 pointermove/pointerup 监听，
- * 保证快速拖拽脱离表头区域后仍能继续。
- */
-const columnResize = useColumnResize({ defaultMinWidth: 60 });
-
-/**
- * 启动列宽拖拽 —— 绑定全局 pointermove / pointerup。
- */
-function startColumnResize(prop: string, event: PointerEvent): void {
-  if (!props.columnResizable) return;
-  columnResize.onResizeStart(prop, event);
-  const moveHandler = (e: PointerEvent) => columnResize.onResizeMove(e);
-  const upHandler = () => {
-    columnResize.onResizeEnd();
-    document.removeEventListener('pointermove', moveHandler);
-    document.removeEventListener('pointerup', upHandler);
-  };
-  document.addEventListener('pointermove', moveHandler);
-  document.addEventListener('pointerup', upHandler, { once: true });
-}
+const {
+  borderClass,
+  columnCount,
+  columnResize,
+  dataHasItems,
+  displayEmptyText,
+  getSortIcon,
+  handleSort,
+  hasColumns,
+  isVirtualActive,
+  orderedColumns,
+  sizeClass,
+  startColumnResize,
+  virtualList,
+  wrapperStyle,
+} = useTableCore({ emit, props });
 
 defineExpose({
   columnWidths: columnResize.columnWidths,

@@ -1769,6 +1769,9 @@ def check_feign_constants(exit_code: int) -> int:
         prefix = next((p for p in FEIGN_PREFIX_SERVICE if name.startswith(p)), None)
         if prefix is None:
             continue
+        # 内部端点（/internal/**）不进入对外 OpenAPI 契约，由 Feign 直接调用。
+        if value.startswith("/internal/"):
+            continue
         paths = svc_paths.get(FEIGN_PREFIX_SERVICE[prefix])
         if paths is None:
             continue

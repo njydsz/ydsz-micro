@@ -7,6 +7,14 @@
  *   <li>用户级偏好（默认首页/语言）通过 HTTP API + localStorage 缓存</li>
  * </ul>
  *
+ * <p>v4.5 P1-10: 主题与偏好状态源收敛
+ * <ul>
+ *   <li>全局 @ydsz/preferences 是唯一状态源，负责主题模式、语言、布局等</li>
+ *   <li>本 composable 负责 system-web 特有的偏好项（表格密度、后端同步）</li>
+ *   <li>主题色、语言、菜单布局等通用偏好应通过 preferences.app 访问</li>
+ *   <li>避免直接操作 document.documentElement.classList 或 localStorage</li>
+ * </ul>
+ *
  * @path apps\system-web\src\composables\usePreferences.ts
  * @author ydsz-team
  * @since 1.0.0

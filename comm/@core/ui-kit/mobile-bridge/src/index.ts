@@ -9,9 +9,15 @@
  */
 
 // ===== 组合式 API =====
-export { useResponsive, useTouch, useSafeArea } from './composables';
+export { useResponsive, useTouch, useSafeArea, useMobileAdaptive } from './composables';
 export type { SwipeDirection } from './composables';
 export type { UseSafeAreaOptions, SafeAreaReturn } from './composables/use-safe-area';
+export type {
+  AdaptiveSize,
+  MobileAdaptiveResult,
+  SizeMap,
+  SpacingMap,
+} from './composables/use-mobile-adaptive';
 
 // ===== 断点常量 =====
 export { Breakpoint, TOUCH_TARGET, getBreakpointName } from './breakpoints';

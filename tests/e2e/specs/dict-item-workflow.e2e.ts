@@ -20,27 +20,19 @@
  */
 
 import { test, expect, type Page } from '@playwright/test';
+import { APP_SELECTOR, SELECTORS } from '../support/selectors';
 
 /** 选择器集中管理 */
-const SELECTORS = {
-  appContainer: '.app-container',
-  dataTable: '.el-table',
+const LOCAL_SELECTORS = {
   createButton: 'button:has-text("新增"), button:has-text("新建"), button:has-text("添加")',
-  dialog: '.el-dialog',
-  dialogSave:
-    '.el-dialog__footer button:has-text("保存"), .el-dialog__footer button:has-text("提交"), .el-dialog__footer button:has-text("确定")',
-  formError: '.el-form-item__error',
-  tableRow: '.el-table__row',
   rowEdit: 'button:has-text("编辑"), a:has-text("编辑")',
   rowDelete: 'button:has-text("删除"), a:has-text("删除")',
-  confirmOk:
-    '.el-message-box__btns button:has-text("确定"), .el-popconfirm__action button:has-text("确定"), .el-button--primary',
   // 状态切换开关
-  switchToggle: '.el-switch',
+  switchToggle: '[role="switch"]',
   // Tab / 字典项入口
-  dictItemTab: 'div:has-text("字典项"), [role="tab"]:has-text("字典项"), .el-tabs__item:has-text("字典项")',
+  dictItemTab: 'div:has-text("字典项"), [role="tab"]:has-text("字典项")',
   // 子表格（字典项列表 inside dialog or detail）
-  subTable: '.el-dialog .el-table, .detail-panel .el-table',
+  subTable: '[role="dialog"] table, .detail-panel table',
 } as const;
 
 /** 测试数据 */
@@ -55,7 +47,7 @@ const TEST_DICT = {
  * 等待应用完成 SPA 渲染。
  */
 async function waitForAppReady(page: Page): Promise<void> {
-  await page.waitForSelector(SELECTORS.appContainer, { state: 'visible', timeout: 15_000 });
+  await page.waitForSelector(APP_SELECTOR, { state: 'visible', timeout: 15_000 });
 }
 
 /**
@@ -87,7 +79,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
   test('TC-DICT-001: 新增字典 → 断言表格中出现新字典', async ({ page }) => {
     // 点击新增按钮
-    const createBtn = page.locator(SELECTORS.createButton).first();
+    const createBtn = page.locator(LOCAL_SELECTORS.createButton).first();
     await expect(createBtn).toBeVisible({ timeout: 5_000 });
     await createBtn.click();
 
@@ -96,7 +88,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
     // 填写字典类型
     const typeInput = page.locator(
-      'input[placeholder*="类型编码"], input[placeholder*="type"], .el-form-item:has(label:has-text("类型编码")) input, .el-form-item:has(label:has-text("字典编码")) input',
+      'input[placeholder*="类型编码"], input[placeholder*="type"], label:has-text("类型编码") + input, label:has-text("类型编码") ~ input, label:has-text("字典编码") + input, label:has-text("字典编码") ~ input',
     ).first();
     if (await typeInput.isVisible({ timeout: 3_000 })) {
       await typeInput.fill(TEST_DICT.type);
@@ -104,7 +96,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
     // 填写字典名称
     const nameInput = page.locator(
-      'input[placeholder*="名称"], input[placeholder*="name"], .el-form-item:has(label:has-text("名称")) input, .el-form-item:has(label:has-text("字典名称")) input',
+      'input[placeholder*="名称"], input[placeholder*="name"], label:has-text("名称") + input, label:has-text("名称") ~ input, label:has-text("字典名称") + input, label:has-text("字典名称") ~ input',
     ).first();
     if (await nameInput.isVisible({ timeout: 3_000 })) {
       await nameInput.fill(TEST_DICT.typeName);
@@ -121,7 +113,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
     // 断言表格中出现新字典
     const newRow = page.locator(
-      `td:has-text("${TEST_DICT.type}"), .el-table__row:has-text("${TEST_DICT.typeName}")`,
+      `td:has-text("${TEST_DICT.type}"), tbody tr:has-text("${TEST_DICT.typeName}")`,
     ).first();
     await expect(newRow).toBeVisible({ timeout: 10_000 });
   });
@@ -164,7 +156,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     }
 
     // 切换到「字典项」tab 或面板
-    const dictItemTab = page.locator(SELECTORS.dictItemTab).first();
+    const dictItemTab = page.locator(LOCAL_SELECTORS.dictItemTab).first();
     if (await dictItemTab.isVisible({ timeout: 3_000 })) {
       await dictItemTab.click();
       await page.waitForTimeout(500);
@@ -181,14 +173,14 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
     // 填写字典项信息
     const itemLabelInput = page.locator(
-      'input[placeholder*="标签"], input[placeholder*="label"], .el-form-item:has(label:has-text("标签")) input',
+      'input[placeholder*="标签"], input[placeholder*="label"], label:has-text("标签") + input, label:has-text("标签") ~ input',
     ).first();
     if (await itemLabelInput.isVisible({ timeout: 3_000 })) {
       await itemLabelInput.fill(TEST_DICT.itemLabel);
     }
 
     const itemValueInput = page.locator(
-      'input[placeholder*="值"], input[placeholder*="value"], .el-form-item:has(label:has-text("值")) input',
+      'input[placeholder*="值"], input[placeholder*="value"], label:has-text("值") + input, label:has-text("值") ~ input',
     ).first();
     if (await itemValueInput.isVisible({ timeout: 3_000 })) {
       await itemValueInput.fill(TEST_DICT.itemValue);
@@ -204,7 +196,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
     // 断言字典项出现
     const itemRow = page.locator(
-      `td:has-text("${TEST_DICT.itemLabel}"), td:has-text("${TEST_DICT.itemValue}"), .el-table__row:has-text("${TEST_DICT.itemLabel}")`,
+      `td:has-text("${TEST_DICT.itemLabel}"), td:has-text("${TEST_DICT.itemValue}"), tbody tr:has-text("${TEST_DICT.itemLabel}")`,
     ).first();
     await expect(itemRow).toBeVisible({ timeout: 10_000 });
   });
@@ -234,7 +226,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     }
 
     // 切换到字典项 tab
-    const dictItemTab = page.locator(SELECTORS.dictItemTab).first();
+    const dictItemTab = page.locator(LOCAL_SELECTORS.dictItemTab).first();
     if (await dictItemTab.isVisible({ timeout: 3_000 })) {
       await dictItemTab.click();
       await page.waitForTimeout(500);
@@ -245,13 +237,13 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
       .locator(SELECTORS.tableRow)
       .filter({ hasText: TEST_DICT.itemValue })
       .first()
-      .locator(SELECTORS.switchToggle)
+      .locator(LOCAL_SELECTORS.switchToggle)
       .first();
 
     if (await itemSwitch.isVisible({ timeout: 5_000 })) {
       // 读取当前状态
       const wasActive = await itemSwitch.evaluate(
-        (el: HTMLElement) => el.classList.contains('is-checked') || el.getAttribute('aria-checked') === 'true',
+        (el: HTMLElement) => el.getAttribute('aria-checked') === 'true',
       );
 
       // 点击切换
@@ -260,7 +252,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
 
       // 验证状态已改变
       const nowActive = await itemSwitch.evaluate(
-        (el: HTMLElement) => el.classList.contains('is-checked') || el.getAttribute('aria-checked') === 'true',
+        (el: HTMLElement) => el.getAttribute('aria-checked') === 'true',
       );
       expect(nowActive).toBe(!wasActive);
     } else {
@@ -269,7 +261,7 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
         .locator(SELECTORS.tableRow)
         .filter({ hasText: TEST_DICT.itemValue })
         .first()
-        .locator('.el-switch, [role="switch"], .el-checkbox')
+        .locator('[role="switch"], input[type="checkbox"]')
         .first();
 
       if (await statusToggle.isVisible({ timeout: 3_000 })) {

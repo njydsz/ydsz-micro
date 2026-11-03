@@ -26,6 +26,8 @@
   "no": "아니오",
   "showSearchPanel": "검색 패널 표시",
   "hideSearchPanel": "검색 패널 숨김",
+  "previousPage": "이전 페이지",
+  "nextPage": "다음 페이지",
   "seq": "#",
   "status": "상태",
   "createTime": "생성 시간",

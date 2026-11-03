@@ -180,6 +180,9 @@ export {
 export { useSortable } from './use-sortable';
 export type { Sortable } from './use-sortable';
 
+export { useAutoVirtual } from './use-auto-virtual';
+export type { UseAutoVirtualOptions, AutoVirtualResult } from './use-auto-virtual';
+
 export { useRangeLink } from './use-range-link';
 export type { UseRangeLinkOptions } from './use-range-link';
 

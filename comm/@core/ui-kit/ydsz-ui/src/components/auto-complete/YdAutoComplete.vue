@@ -15,7 +15,8 @@
  * * @author ydsz-team
  * @since 1.0.0
  */
-// @ts-nocheck
+import type { ClassValue } from 'clsx';
+
 import { computed, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -37,7 +38,7 @@ export interface AutoCompleteOption {
 
 interface Props<T extends AutoCompleteOption = AutoCompleteOption> {
   /** 自定义类名 */
-  class?: any;
+  class?: ClassValue;
   /** 是否禁用 */
   isDisabled?: boolean;
   /** 占位符 */

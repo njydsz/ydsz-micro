@@ -16,6 +16,9 @@
  *
  * <p>两种呈现模式：text（文件列表）/ picture-card（缩略图卡片）。
  *
+ * <p>脚本核心逻辑（列表管理 / 校验 / 上传 / 中止 / 预览）已抽取到
+ * {@link useFileUploadCore}，本文件只负责 props / emits、i18n 与模板渲染。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\file-upload\YdFileUpload.vue
  * @author ydsz-team
  * @since 26.10.12
@@ -24,10 +27,7 @@
 import type {
   YdFileUploadEmits,
   YdFileUploadProps,
-  UploadFileItem,
-  UploadFileStatus,
 } from './types';
-import type { ChunkUploadHandle } from '../../composables/use-chunk-upload';
 
 import {
   computed,
@@ -39,12 +39,9 @@ defineOptions({ name: 'YdFileUpload' });
 import { useDropZone } from '@vueuse/core';
 
 import { cn } from '@ydsz-core/shared/utils';
-import { createLogger } from '@ydsz-core/shared/utils';
 
-import {
-  useChunkUpload,
-} from '../../composables/use-chunk-upload';
 import { useLocale } from '../../locale/useLocale';
+import { useFileUploadCore } from './use-file-upload-core';
 import { YdProgress } from '.././progress';
 
 import {
@@ -60,19 +57,6 @@ import {
   UploadCloud,
   X,
 } from 'lucide-vue-next';
-
-/* ============================================================ */
-/* 模块级日志                                                      */
-/* ============================================================ */
-
-const logger = createLogger('YdFileUpload');
-
-/* ============================================================ */
-/* 常量                                                            */
-/* ============================================================ */
-
-/** 默认分片大小 5 MB（字节） */
-const DEFAULT_CHUNK_BYTES = 5 * 1024 * 1024;
 
 /* ============================================================ */
 /* Props / Emits                                                   */
@@ -112,19 +96,8 @@ const emit = defineEmits<YdFileUploadEmits>();
 const { t } = useLocale();
 
 /* ============================================================ */
-/* 内部状态                                                         */
+/* 核心逻辑（composable）                                           */
 /* ============================================================ */
-
-/** 内部维护的文件列表 */
-const internalFileList = ref<UploadFileItem[]>([]);
-
-/** 受控模式：使用外部 fileList */
-const isControlled = computed(() => props.fileList !== undefined && props.fileList !== null);
-
-/** 当前展示的文件列表 */
-const currentFileList = computed(() =>
-  isControlled.value ? (props.fileList ?? []) : internalFileList.value,
-);
 
 /** 文件 input 引用 */
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -132,12 +105,29 @@ const fileInput = ref<HTMLInputElement | null>(null);
 /** 拖拽区域 ref */
 const dropZoneRef = ref<HTMLElement | null>(null);
 
-/** 预览模态可见 */
-const previewVisible = ref(false);
-const previewFile = ref<UploadFileItem | null>(null);
-
-/** 每个文件对应的 AbortController（用于中止上传） */
-const abortControllers = ref<Map<string, AbortController>>(new Map());
+const {
+  abortFileUpload,
+  clearFiles,
+  currentFileList,
+  formatFileSize,
+  getFileIconType,
+  getFileList,
+  getThumbnailUrl,
+  handleInputChange,
+  handleIncomingFiles,
+  handlePreview,
+  isFileError,
+  isFileReady,
+  isFileSuccess,
+  isFileUploading,
+  isImage,
+  openFilePicker,
+  previewFile,
+  previewVisible,
+  removeFile,
+  retryFile,
+  submitReadyFiles,
+} = useFileUploadCore({ emit, fileInput, props });
 
 /* ============================================================ */
 /* useDropZone                                                     */
@@ -153,478 +143,17 @@ const { isOverDropZone } = useDropZone(dropZoneRef, {
 });
 
 /* ============================================================ */
-/* 分片上传                                                        */
-/* ============================================================ */
-
-const chunkUploader: ChunkUploadHandle | null = props.chunked
-  ? useChunkUpload({
-      chunkSize: DEFAULT_CHUNK_BYTES,
-      multipart: {
-        baseURL: props.multipartApiBase ?? '/api/file/multipart',
-        withCredentials: props.withCredentials,
-      },
-      withCredentials: props.withCredentials,
-    })
-  : null;
-
-/* ============================================================ */
-/* 工具函数                                                        */
-/* ============================================================ */
-
-/**
- * 生成唯一 uid。
- */
-function generateUid(): string {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-}
-
-/**
- * 格式化文件大小。
- *
- * @param bytes - 字节数
- */
-function formatFileSize(bytes: number | undefined): string {
-  if (!bytes || bytes === 0 || Number.isNaN(bytes)) return '0 B';
-  const units = ['B', 'KB', 'MB', 'GB'];
-  let i = 0;
-  let size = bytes;
-  while (size >= 1024 && i < units.length - 1) {
-    size /= 1024;
-    i++;
-  }
-  return `${size.toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
-}
-
-/**
- * 根据 MIME 返回文件类型图标名。
- *
- * @param type - MIME 类型
- */
-function getFileIconType(type: string): 'image' | 'pdf' | 'text' | 'file' {
-  if (type.startsWith('image/')) return 'image';
-  if (type === 'application/pdf') return 'pdf';
-  if (type.startsWith('text/')) return 'text';
-  return 'file';
-}
-
-/**
- * 判断为图片文件。
- *
- * @param type - MIME 类型
- */
-function isImage(type: string): boolean {
-  return type.startsWith('image/');
-}
-
-/**
- * 生成缩略图 URL。
- *
- * @param file - UploadFileItem
- */
-function getThumbnailUrl(file: UploadFileItem): string | undefined {
-  if (file.url) return file.url;
-  if (file.raw && isImage(file.type)) {
-    return URL.createObjectURL(file.raw);
-  }
-  return undefined;
-}
-
-/* ============================================================ */
-/* 文件验证                                                        */
-/* ============================================================ */
-
-interface ValidationResult {
-  valid: boolean;
-  invalidFiles: File[];
-  reason?: 'size' | 'count';
-}
-
-/**
- * 验证文件是否超出限制。
- *
- * @param files - 待验证的文件
- * @param existingCount - 现有文件数量
- */
-function validateFiles(files: File[], existingCount: number): ValidationResult {
-  const invalidFiles: File[] = [];
-
-  // 大小校验
-  if (props.maxSize) {
-    for (const file of files) {
-      if (file.size > props.maxSize) {
-        invalidFiles.push(file);
-      }
-    }
-  }
-
-  if (invalidFiles.length > 0) {
-    return { reason: 'size', valid: false, invalidFiles };
-  }
-
-  // 数量校验
-  if (props.maxCount) {
-    const totalAfterAdd = existingCount + files.length;
-    if (totalAfterAdd > props.maxCount) {
-      // 超出部分标记为无效
-      const available = Math.max(0, props.maxCount - existingCount);
-      return { count: 'count', valid: false, invalidFiles: files.slice(available) } as ValidationResult;
-    }
-  }
-
-  return { valid: true, invalidFiles: [] };
-}
-
-/* ============================================================ */
-/* 文件处理                                                        */
-/* ============================================================ */
-
-/**
- * 触发文件选择器。
- */
-function openFilePicker(): void {
-  if (props.disabled) return;
-  fileInput.value?.click();
-}
-
-/**
- * 处理 input change 事件。
- */
-function handleInputChange(event: Event): void {
-  const target = event.target as HTMLInputElement;
-  const files = Array.from(target.files ?? []);
-  if (files.length > 0) {
-    handleIncomingFiles(files);
-  }
-  // 清空 value 保证同一文件可重复选择
-  target.value = '';
-}
-
-/**
- * 处理进入的文件列表（校验 + 创建条目）。
- *
- * @param files - 原生 File 数组
- */
-function handleIncomingFiles(files: File[]): void {
-  const current = currentFileList.value;
-
-  // 多选过滤
-  const acceptedFiles = props.multiple ? files : files.slice(0, 1);
-
-  // 校验
-  const result = validateFiles(acceptedFiles, current.length);
-
-  // 数量裁剪（如果超出 maxCount 但部分仍可添加）
-  let filesToProcess = acceptedFiles;
-  if (!result.valid && result.reason === 'count' && props.maxCount) {
-    const available = Math.max(0, props.maxCount - current.length);
-    const validFiles = acceptedFiles.slice(0, available);
-    const excessFiles = acceptedFiles.slice(available);
-    filesToProcess = validFiles;
-    if (excessFiles.length > 0) {
-      emit('exceed', excessFiles, current);
-    }
-  } else if (!result.valid && result.reason === 'size') {
-    emit('exceed', result.invalidFiles, current);
-    // 过滤掉大小超出的文件
-    const invalidSet = new Set(result.invalidFiles);
-    filesToProcess = acceptedFiles.filter((f) => !invalidSet.has(f));
-  }
-
-  if (filesToProcess.length === 0) return;
-
-  const newItems: UploadFileItem[] = filesToProcess.map((file) => ({
-    uid: generateUid(),
-    name: file.name,
-    size: file.size,
-    type: file.type || 'application/octet-stream',
-    status: 'ready' as UploadFileStatus,
-    percent: 0,
-    raw: file,
-  }));
-
-  // 数量限制截断（添加后总长度）
-  let finalItems = [...current, ...newItems];
-  if (props.maxCount && finalItems.length > props.maxCount) {
-    finalItems = finalItems.slice(0, props.maxCount);
-  }
-
-  // 更新列表
-  updateFileList(finalItems);
-
-  // 触发 change
-  for (const item of newItems) {
-    if (finalItems.includes(item)) {
-      emit('change', item, finalItems);
-    }
-  }
-
-  // 自动上传
-  if (props.autoUpload) {
-    for (const item of newItems) {
-      if (finalItems.includes(item)) {
-        void uploadFile(item);
-      }
-    }
-  }
-}
-
-/* ============================================================ */
-/* 列表同步                                                        */
-/* ============================================================ */
-
-/**
- * 同步文件列表到受控 / 非受控状态。
- *
- * @param list - 新文件列表
- */
-function updateFileList(list: UploadFileItem[]): void {
-  if (isControlled.value) {
-    emit('update:fileList', list);
-  } else {
-    internalFileList.value = list;
-  }
-}
-
-/**
- * 更新单个文件项。
- *
- * @param uid  - 文件 uid
- * @param patch - 部分更新字段
- */
-function patchFileItem(uid: string, patch: Partial<UploadFileItem>): void {
-  const list = [...currentFileList.value];
-  const idx = list.findIndex((f) => f.uid === uid);
-  if (idx === -1) return;
-  list[idx] = { ...list[idx], ...patch } as UploadFileItem;
-  updateFileList(list);
-}
-
-/* ============================================================ */
-/* 上传执行                                                        */
-/* ============================================================ */
-
-/**
- * 上传单个文件。
- *
- * @param item - UploadFileItem
- */
-async function uploadFile(item: UploadFileItem): Promise<void> {
-  const raw = item.raw;
-  if (!raw) return;
-
-  patchFileItem(item.uid, { status: 'uploading', percent: 0 });
-
-  // 分片上传
-  if (props.chunked && chunkUploader) {
-    return handleChunkUpload(item, raw);
-  }
-
-  // 标准 XHR 上传
-  return handleXhrUpload(item, raw);
-}
-
-/**
- * XHR 上传实现。
- *
- * @param item - UploadFileItem
- * @param raw  - File
- */
-function handleXhrUpload(item: UploadFileItem, raw: File): void {
-  const ctrl = new AbortController();
-  abortControllers.value.set(item.uid, ctrl);
-
-  const xhr = new XMLHttpRequest();
-  const formData = new FormData();
-  formData.append(props.name ?? 'file', raw);
-
-  if (props.data) {
-    for (const [key, val] of Object.entries(props.data)) {
-      formData.append(key, val);
-    }
-  }
-
-  xhr.upload.onprogress = (event) => {
-    if (event.lengthComputable) {
-      const pct = Math.round((event.loaded / event.total) * 100);
-      patchFileItem(item.uid, { percent: pct });
-      emit('progress', pct, { ...item, percent: pct, status: 'uploading' });
-    }
-  };
-
-  xhr.onload = () => {
-    abortControllers.value.delete(item.uid);
-    if (xhr.status >= 200 && xhr.status < 300) {
-      try {
-        const response = JSON.parse(xhr.responseText);
-        patchFileItem(item.uid, { status: 'success', percent: 100, url: response?.data ?? response?.url });
-        const updated = currentFileList.value.find((f) => f.uid === item.uid)!;
-        emit('success', response, updated);
-        emit('change', updated, currentFileList.value);
-      } catch {
-        patchFileItem(item.uid, { status: 'success', percent: 100 });
-        const updated = currentFileList.value.find((f) => f.uid === item.uid)!;
-        emit('success', xhr.responseText, updated);
-        emit('change', updated, currentFileList.value);
-      }
-    } else {
-      const error = new Error(`HTTP ${xhr.status}`);
-      patchFileItem(item.uid, { status: 'error', error: error.message });
-      emit('error', error, { ...item, status: 'error' });
-    }
-  };
-
-  xhr.onerror = () => {
-    abortControllers.value.delete(item.uid);
-    const error = new Error('Network error');
-    patchFileItem(item.uid, { status: 'error', error: error.message });
-    emit('error', error, { ...item, status: 'error' });
-  };
-
-  xhr.onabort = () => {
-    abortControllers.value.delete(item.uid);
-    patchFileItem(item.uid, { status: 'ready', percent: 0 });
-  };
-
-  xhr.open(props.method ?? 'POST', props.action ?? '');
-
-  if (props.headers) {
-    for (const [key, val] of Object.entries(props.headers)) {
-      xhr.setRequestHeader(key, val);
-    }
-  }
-  if (props.withCredentials) {
-    xhr.withCredentials = true;
-  }
-
-  // abort signal 监听
-  ctrl.signal.addEventListener('abort', () => xhr.abort());
-
-  try {
-    xhr.send(formData);
-  } catch (err) {
-    abortControllers.value.delete(item.uid);
-    const error = err instanceof Error ? err : new Error(String(err));
-    patchFileItem(item.uid, { status: 'error', error: error.message });
-    emit('error', error, { ...item, status: 'error' });
-  }
-}
-
-/**
- * 分片上传实现。
- *
- * @param item - UploadFileItem
- * @param raw  - File
- */
-function handleChunkUpload(item: UploadFileItem, raw: File): void {
-  if (!chunkUploader) return;
-
-  void chunkUploader.httpRequest({
-    action: props.action ?? '',
-    file: raw,
-    filename: props.name ?? 'file',
-    headers: props.headers,
-    onError: (err) => {
-      logger.error('分片上传失败: {}', err.message);
-      patchFileItem(item.uid, { status: 'error', error: err.message });
-      emit('error', err, { ...item, status: 'error' });
-    },
-    onProgress: ({ percentage }) => {
-      patchFileItem(item.uid, { percent: percentage });
-      emit('progress', percentage, { ...item, percent: percentage, status: 'uploading' });
-    },
-    onSuccess: (response) => {
-      patchFileItem(item.uid, { status: 'success', percent: 100 });
-      const updated = currentFileList.value.find((f) => f.uid === item.uid)!;
-      emit('success', response, updated);
-      emit('change', updated, currentFileList.value);
-    },
-    withCredentials: props.withCredentials,
-  });
-}
-
-/* ============================================================ */
-/* 移除 / 重试 / 预览                                              */
-/* ============================================================ */
-
-/**
- * 移除文件。
- *
- * @param item - 要移除的文件
- */
-function removeFile(item: UploadFileItem): void {
-  // 先中止可能正在进行的上传
-  abortFileUpload(item.uid);
-
-  const list = currentFileList.value.filter((f) => f.uid !== item.uid);
-  updateFileList(list);
-  emit('remove', item, list);
-  emit('change', item, list);
-}
-
-/**
- * 重试上传。
- *
- * @param item - 上传失败的文件
- */
-function retryFile(item: UploadFileItem): void {
-  patchFileItem(item.uid, { status: 'ready', percent: 0, error: undefined });
-  void uploadFile(item);
-}
-
-/**
- * 中止某个文件的上传。
- *
- * @param uid - 文件 uid（可选，不传则中止所有）
- */
-function abortFileUpload(uid?: string): void {
-  if (uid) {
-    const ctrl = abortControllers.value.get(uid);
-    if (ctrl) {
-      ctrl.abort();
-      abortControllers.value.delete(uid);
-    }
-  } else {
-    for (const [id, ctrl] of abortControllers.value) {
-      ctrl.abort();
-      abortControllers.value.delete(id);
-    }
-  }
-}
-
-/**
- * 预览图片。
- *
- * @param item - 要预览的文件
- */
-function handlePreview(item: UploadFileItem): void {
-  if (!isImage(item.type)) return;
-  previewFile.value = item;
-  previewVisible.value = true;
-  emit('preview', item);
-}
-
-/* ============================================================ */
 /* 命令式 API（defineExpose）                                       */
 /* ============================================================ */
-
-/**
- * 手动上传所有 ready 状态的文件。
- */
-function submitReadyFiles(): void {
-  const ready = currentFileList.value.filter((f) => f.status === 'ready');
-  for (const item of ready) {
-    void uploadFile(item);
-  }
-}
 
 defineExpose({
   abort: abortFileUpload,
   clear: () => {
     abortFileUpload();
-    updateFileList([]);
+    clearFiles();
   },
+  getFileList,
   submit: submitReadyFiles,
-  getFileList: () => currentFileList.value,
 });
 
 /* ============================================================ */
@@ -654,26 +183,6 @@ const pictureCardDropClass = computed(() =>
     props.disabled && 'pointer-events-none opacity-50',
   ),
 );
-
-/* ============================================================ */
-/* 文件项状态判断工具                                                */
-/* ============================================================ */
-
-function isFileUploading(item: UploadFileItem): boolean {
-  return item.status === 'uploading';
-}
-
-function isFileError(item: UploadFileItem): boolean {
-  return item.status === 'error';
-}
-
-function isFileSuccess(item: UploadFileItem): boolean {
-  return item.status === 'success';
-}
-
-function isFileReady(item: UploadFileItem): boolean {
-  return item.status === 'ready';
-}
 </script>
 
 <template>

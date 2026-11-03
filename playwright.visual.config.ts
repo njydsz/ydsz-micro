@@ -58,6 +58,8 @@ export default defineConfig({
     },
   ],
   snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+  // v4.5: 基线缺失时自动生成，避免首次运行失败；CI 环境仍会校验基线
+  updateSnapshot: process.env.CI ? 'none' : 'missing',
   webServer: {
     command: 'pnpm vite --config tests/visual/vite.config.ts --port 4311 --strictPort',
     url: FIXTURE_URL,

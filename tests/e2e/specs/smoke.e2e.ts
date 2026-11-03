@@ -17,11 +17,10 @@
  */
 
 import { test, expect, type Page } from '@playwright/test';
+import { APP_SELECTOR } from '../support/selectors';
 
 /** 选择器集中管理（UI 变更时统一调整） */
-const SELECTORS = {
-  /** 应用主容器 — Vue 挂载完成的标志 */
-  appContainer: '.app-container',
+const LOCAL_SELECTORS = {
   /** 水印节点 — 渲染后才出现 */
   watermark: '.watermark',
   /** 错误的兜底边界 */
@@ -54,7 +53,7 @@ test.describe('全模块烟雾测试', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     // 等待应用主容器渲染完成（最多 15 秒）
-    await expect(page.locator(SELECTORS.appContainer).first()).toBeVisible({
+    await expect(page.locator(APP_SELECTOR)).toBeVisible({
       timeout: 15_000,
     });
 
@@ -79,15 +78,15 @@ test.describe('全模块烟雾测试', () => {
 
   test('P2-smoke: 组件渲染 — 兜底边界节点存在且未展示错误', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector(SELECTORS.appContainer, { state: 'visible', timeout: 15_000 });
+    await page.waitForSelector(APP_SELECTOR, { state: 'visible', timeout: 15_000 });
 
     // 兜底边界应存在
-    const fallback = page.locator(SELECTORS.errorFallback);
+    const fallback = page.locator(LOCAL_SELECTORS.errorFallback);
     await expect(fallback).toBeAttached();
 
     // 水印节点渲染（渲染后期添加）
-    const watermark = page.locator(SELECTORS.watermark);
+    const watermark = page.locator(LOCAL_SELECTORS.watermark);
     // 水印可能未启用时不渲染，此处仅做非崩溃校验
-    await expect(watermark.or(page.locator(SELECTORS.appContainer))).toBeVisible();
+    await expect(watermark.or(page.locator(APP_SELECTOR))).toBeVisible();
   });
 });

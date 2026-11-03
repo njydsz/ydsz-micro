@@ -7,27 +7,31 @@
   "homepage": "https://github.com/ydsz/vue-ydsz-admin",
   "type": "module",
   "sideEffects": false,
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
+  "scripts": {
+    "build": "pnpm unbuild",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "types": "./src/index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "development": "./src/index.ts",
-      "default": "./src/index.ts"
+      "default": "./dist/index.mjs"
     }
   },
   "publishConfig": {
     "exports": {
       ".": {
-        "default": "./src/index.ts"
+        "default": "./dist/index.mjs"
       }
     }
   },
-  "files": [
-    "src",
-    "LICENSE"
-  ],
   "dependencies": {
     "@floating-ui/dom": "^1.6.7",
     "@floating-ui/vue": "^1.1.0",

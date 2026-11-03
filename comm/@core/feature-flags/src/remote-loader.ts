@@ -32,7 +32,10 @@
 import type { FeatureFlagValue } from './types';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { dedupRequest } from '@ydsz/request';
+
+// v4.5 P2-16: 动态 import 打破 L0 → L2 静态依赖，保持层级约束
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DedupRequestFn = (...args: any[]) => Promise<unknown>;
 
 /** 远程 Feature Flag API 响应结构 */
 export interface FeatureFlagApiResponse {
@@ -239,6 +242,15 @@ export function createApiFeatureLoader(
       }
     };
 
-    return dedup ? dedupRequest('GET', endpoint, undefined, executor) : executor(endpoint);
+    // v4.5 P2-16: 动态 import 打破 L0 → L2 静态依赖
+    if (dedup) {
+      const requestPkg = '@ydsz/request';
+      const { dedupRequest } = (await import(/* @vite-ignore */ requestPkg)) as {
+        dedupRequest: DedupRequestFn;
+      };
+      const result = await dedupRequest('GET', endpoint, undefined, executor);
+      return result as Record<string, FeatureFlagValue>;
+    }
+    return executor(endpoint);
   };
 }

@@ -78,16 +78,25 @@ function resolveSseEventType(
 }
 
 /**
+ * SSE 连接状态
+ */
+type ConnectionState = 'idle' | 'connecting' | 'connected' | 'reconnecting' | 'disconnected';
+
+/**
  * 创建 SSE 连接，返回 stop 函数和 connected ref。
+ *
+ * v4.5 P1-12: 引入连接状态机，防止并发叠加；监听页面可见性；区分错误级别。
  */
 function createSseConnection(
   store: ReturnType<typeof useNotificationStore>,
 ): { stop: () => void; connected: ReturnType<typeof ref<boolean>> } {
-  const ac = new AbortController();
+  let ac = new AbortController();
   const connected = ref(false);
 
+  let state: ConnectionState = 'idle';
   let reconnectAttempts = 0;
   let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
+  let isPageVisible = true;
 
   const stop = (): void => {
     if (reconnectTimer) {
@@ -97,20 +106,41 @@ function createSseConnection(
     if (!ac.signal.aborted) {
       ac.abort();
     }
+    state = 'disconnected';
   };
+
+  /** 重新创建 AbortController（用于 abort 后重新连接） */
+  function resetAbortController(): void {
+    if (!ac.signal.aborted) {
+      ac.abort();
+    }
+    ac = new AbortController();
+  }
 
   /**
    * 调度重连（指数退避 + 抖动）。
+   * v4.5 P1-12: 防止重复调度 — 已有重连定时器时不重复触发。
    */
   function scheduleReconnect(): void {
+    if (state === 'disconnected') return;
     if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
       logger.warn('[SSE] Max reconnection attempts reached, giving up.');
+      state = 'disconnected';
       return;
     }
     if (navigator.onLine === false) {
       logger.info('[SSE] Offline, defer reconnection until online.');
+      state = 'reconnecting';
       return;
     }
+    if (!isPageVisible) {
+      logger.info('[SSE] Page hidden, defer reconnection until visible.');
+      state = 'reconnecting';
+      return;
+    }
+
+    // 已有重连定时器时不重复调度
+    if (reconnectTimer) return;
 
     const delay = calculateRetryDelay(reconnectAttempts, {
       baseDelay: BASE_RECONNECT_DELAY,
@@ -118,7 +148,9 @@ function createSseConnection(
       jitter: 0.25,
     });
 
+    state = 'reconnecting';
     reconnectTimer = setTimeout(() => {
+      reconnectTimer = null;
       reconnectAttempts++;
       logger.info(
         `[SSE] Reconnecting (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`,
@@ -129,13 +161,30 @@ function createSseConnection(
 
   /**
    * 发起 SSE 流请求。
+   * v4.5 P1-12: 状态机防止并发连接 — 已有连接或正在连接时不重复发起。
    */
   async function runStream(): Promise<void> {
+    // 已有连接或正在连接时不重复发起
+    if (state === 'connecting' || state === 'connected') {
+      logger.debug('[SSE] Connection already in progress, skip duplicate runStream.');
+      return;
+    }
+
     // 离线期不发起连接
     if (navigator.onLine === false) {
       logger.info('[SSE] Offline, skip connection attempt.');
+      state = 'reconnecting';
       return;
     }
+
+    // 页面隐藏时不发起连接
+    if (!isPageVisible) {
+      logger.info('[SSE] Page hidden, skip connection attempt.');
+      state = 'reconnecting';
+      return;
+    }
+
+    state = 'connecting';
 
     try {
       await streamRequest({
@@ -156,7 +205,13 @@ function createSseConnection(
       if (ac.signal.aborted) return;
       connected.value = false;
       store.setSseConnected(false);
-      logger.error('[SSE] Stream error:', error);
+      // v4.5 P1-12: 区分错误级别 — 普通断线用 warn，真实异常用 error
+      if (state === 'disconnected') return;
+      if (error instanceof Error && error.name === 'AbortError') {
+        logger.warn('[SSE] Connection aborted.');
+      } else {
+        logger.warn('[SSE] Stream error (will retry):', error);
+      }
       scheduleReconnect();
     }
   }
@@ -191,15 +246,23 @@ function createSseConnection(
 
   /**
    * 浏览器恢复在线时，重连 SSE。
+   * v4.5 P1-12: 先 abort 当前连接，避免并发叠加。
    */
   function onOnline(): void {
     logger.info('[SSE] Browser online, attempting reconnect.');
     reconnectAttempts = 0;
+    if (reconnectTimer) {
+      clearTimeout(reconnectTimer);
+      reconnectTimer = null;
+    }
+    resetAbortController();
+    state = 'idle';
     void runStream();
   }
 
   /**
    * 浏览器离线时，标记断开。
+   * v4.5 P1-12: abort 当前连接，防止后台重连。
    */
   function onOffline(): void {
     logger.info('[SSE] Browser offline, stopping SSE.');
@@ -209,10 +272,44 @@ function createSseConnection(
       clearTimeout(reconnectTimer);
       reconnectTimer = null;
     }
+    if (!ac.signal.aborted) {
+      ac.abort();
+    }
+    state = 'reconnecting';
+  }
+
+  /**
+   * 页面可见性变化处理。
+   * v4.5 P1-12: 页面隐藏时暂停连接，恢复时重新连接。
+   */
+  function onVisibilityChange(): void {
+    isPageVisible = document.visibilityState === 'visible';
+    if (isPageVisible) {
+      logger.info('[SSE] Page visible, resuming connection.');
+      if (state === 'reconnecting' || state === 'disconnected') {
+        resetAbortController();
+        state = 'idle';
+        reconnectAttempts = 0;
+        void runStream();
+      }
+    } else {
+      logger.info('[SSE] Page hidden, pausing connection.');
+      if (reconnectTimer) {
+        clearTimeout(reconnectTimer);
+        reconnectTimer = null;
+      }
+      if (!ac.signal.aborted) {
+        ac.abort();
+      }
+      connected.value = false;
+      store.setSseConnected(false);
+      state = 'reconnecting';
+    }
   }
 
   window.addEventListener('online', onOnline);
   window.addEventListener('offline', onOffline);
+  document.addEventListener('visibilitychange', onVisibilityChange);
 
   // 启动流
   void runStream();
@@ -221,6 +318,7 @@ function createSseConnection(
     stop: () => {
       window.removeEventListener('online', onOnline);
       window.removeEventListener('offline', onOffline);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       stop();
     },
     connected,

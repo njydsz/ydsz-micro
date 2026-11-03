@@ -205,8 +205,9 @@ const statusColors = {
 export default {
   content: [
     "./index.html",
+    // v4.5 P2-15: 移除 js/jsx/svelte/astro 扫描，与全仓 TypeScript + Vue 方向一致
     ...tailwindPackages.map((item) =>
-      path.join(item, "src/**/*.{vue,js,ts,jsx,tsx,svelte,astro,html}"),
+      path.join(item, "src/**/*.{vue,ts,tsx}"),
     ),
   ],
   darkMode: "selector",

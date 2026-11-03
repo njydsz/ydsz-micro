@@ -11,6 +11,7 @@ import type { App } from 'vue';
 
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
 
+import { registerLocaleProvider } from '@ydsz/micro-kernel/composables';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
@@ -80,6 +81,14 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
     missingWarn: !import.meta.env.PROD,
     ...options,
   });
+
+  // v4.5 P0-4: 注册 locale provider，子应用切换语言时自动同步
+  const i18n = app.config.globalProperties.$i18n as unknown as {
+    global: Parameters<typeof registerLocaleProvider>[0];
+  };
+  if (i18n?.global) {
+    registerLocaleProvider(i18n.global);
+  }
 
   // 首屏完成后空闲预加载另一语种，使切换近似瞬时
   const alternateLocale: SupportedLanguagesType =

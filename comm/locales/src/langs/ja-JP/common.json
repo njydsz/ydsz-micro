@@ -26,6 +26,8 @@
   "no": "いいえ",
   "showSearchPanel": "検索パネルを表示",
   "hideSearchPanel": "検索パネルを隠す",
+  "previousPage": "前のページ",
+  "nextPage": "次のページ",
   "seq": "#",
   "status": "ステータス",
   "createTime": "作成日時",

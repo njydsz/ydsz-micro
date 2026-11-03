@@ -27,6 +27,7 @@
     "@ydsz/constants": "workspace:*",
     "@ydsz/hooks": "workspace:*",
     "@ydsz/locales": "workspace:*",
+    "@ydsz/micro-kernel": "workspace:*",
     "@ydsz/micro-runtime": "workspace:*",
     "@ydsz/monitor": "workspace:*",
     "@ydsz/preferences": "workspace:*",

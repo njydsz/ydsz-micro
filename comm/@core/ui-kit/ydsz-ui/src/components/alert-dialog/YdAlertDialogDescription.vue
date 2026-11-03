@@ -9,16 +9,14 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-// @ts-nocheck
 import type { AlertDialogDescriptionProps } from '@ydsz-core/ydsz-vue';
+import type { ClassValue } from 'clsx';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
 import { AlertDialogDescription, useForwardProps } from '@ydsz-core/ydsz-vue';
-
-type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
 const props = defineProps<AlertDialogDescriptionProps & { class?: ClassValue }>();
 

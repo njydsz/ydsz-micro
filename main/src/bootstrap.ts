@@ -10,7 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { createLogger, initLogger } from "@ydsz-core/shared/utils";
+import { initLogger } from "@ydsz-core/shared/utils";
 
 import { featureFlagsOptions, registerApplicationFlags } from "./feature-flags";
 import { setupApp } from "./setup/app";
@@ -27,8 +27,6 @@ import {
 // 保留历史导出契约：外部模块（subapp/index.vue、use-tabbar-micro-sync.ts）通过
 // `import { microRuntime } from '#/bootstrap'` 访问运行时的只读绑定。
 export { microRuntime };
-
-const logger = createLogger("Bootstrap");
 
 /**
  * 应用引导启动。
@@ -61,12 +59,8 @@ async function bootstrap(namespace: string) {
   await initFeatureFlags(featureFlagsOptions());
 
   // 安装前端监控（错误捕获 + Web Vitals）+ Sentry 转发
-  setupAppMonitoring(app);
-
-  // 兜底：捕获未被 ErrorBoundary 处理的 JS 异常，避免静默失败
-  app.config.errorHandler = (err: unknown, instance: unknown, info: string): void => {
-    logger.error(info, err, instance);
-  };
+  // v4.5 P0-1: setupAppMonitoring 返回组合后的 handler（监控上报 + 日志兜底）
+  app.config.errorHandler = setupAppMonitoring(app);
 
   app.mount("#app");
 

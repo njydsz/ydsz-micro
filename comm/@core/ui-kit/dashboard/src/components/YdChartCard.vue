@@ -1,18 +1,22 @@
 <script lang="ts" setup>
 /**
 * YdChartCard — ECharts 图表卡片。
-* 
- * <p>封装 ECharts 图表的看板卡片，自动处理 resize、dark 主题、loading 态。
-* 
- * @path comm\@core\ui-kit\dashboard\src\components\YdChartCard.vue
- * @author ydsz-team
- * @since 1.0.0
- */
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-
-import type { EChartsOption } from 'echarts';
+*
+* <p>封装 ECharts 图表的看板卡片，自动处理 resize、dark 主题、loading 态。
+*
+* @path comm\@core\ui-kit\dashboard\src\components\YdChartCard.vue
+* @author ydsz-team
+* @since 1.0.0
+*/
+import { ref } from 'vue';
 
 import type { ChartCard } from '../types';
+import { useChartCardCore } from '../composables/use-chart-card-core';
+import { useLocale } from '@ydsz-core/ydsz-ui/locale';
+
+defineOptions({ name: 'YdChartCard' });
+
+const { t } = useLocale();
 
 const props = defineProps<{
   card: ChartCard;
@@ -21,56 +25,13 @@ const props = defineProps<{
 /** 图表容器引用 */
 const chartContainer = ref<HTMLDivElement | null>(null);
 
-/** ECharts 实例引用（懒加载） */
-const chartInstance = ref<unknown>(null);
-
-/** 图表是否正在初始化 */
-const isInitializing = ref<boolean>(true);
-
-/**
- * 初始化 ECharts 实例。
- */
-async function initChart(): Promise<void> {
-  if (!chartContainer.value) {
-    return;
-  }
-  const echarts = await import('echarts');
-  if (chartInstance.value) {
-    (chartInstance.value as { dispose: () => void }).dispose();
-  }
-  const instance = echarts.init(chartContainer.value);
-  chartInstance.value = instance;
-  instance.setOption(props.option);
-  isInitializing.value = false;
-}
-
-/**
- * 更新图表配置。
- */
-function updateOption(): void {
-  if (chartInstance.value) {
-    (chartInstance.value as { setOption: (opt: EChartsOption) => void }).setOption(props.option);
-  }
-}
-
-/**
- * 处理容器尺寸变化。
- */
-function handleResize(): void {
-  (chartInstance.value as { resize: () => void } | null)?.resize();
-}
-
-onMounted(() => {
-  initChart();
-  window.addEventListener('resize', handleResize);
+const {
+  isEmpty,
+  isInitializing,
+} = useChartCardCore({
+  container: chartContainer,
+  option: () => props.card.option,
 });
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);
-  chartInstance.value?.dispose();
-});
-
-watch(() => props.option, updateOption, { deep: true });
 </script>
 
 <template>
@@ -92,6 +53,12 @@ watch(() => props.option, updateOption, { deep: true });
         class="absolute inset-0 flex items-center justify-center"
       >
         <div class="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+      <div
+        v-else-if="isEmpty"
+        class="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground"
+      >
+        {{ t('dashboard.chartEmpty') }}
       </div>
       <div
         ref="chartContainer"

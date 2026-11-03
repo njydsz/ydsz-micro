@@ -139,17 +139,25 @@ watch(keyword, () => {
 <template>
   <div class="global-search-container p-4">
     <!-- 顶部搜索栏 -->
-    <div class="search-header mb-4">
+    <div class="search-header mb-4" role="search">
       <div class="flex items-center gap-3">
+        <label for="global-search-input" class="sr-only">
+          {{ t('system.search.placeholder') }}
+        </label>
         <input
+          id="global-search-input"
           v-model="keyword"
           class="search-input flex-1 rounded-md border px-4 py-2 text-base outline-none focus:border-blue-500"
           :placeholder="t('system.search.placeholder')"
+          :aria-label="t('system.search.placeholder')"
+          autocomplete="off"
           @keyup.enter="handleEnterSearch"
         />
         <button
+          type="button"
           class="search-btn rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700"
           :disabled="loading"
+          :aria-label="t('system.search.btnSearch')"
           @click="handleEnterSearch"
         >
           {{ t('system.search.btnSearch') }}
@@ -213,12 +221,21 @@ watch(keyword, () => {
     </div>
 
     <!-- 搜索结果列表 -->
-    <div v-else class="search-result-list space-y-3">
+    <div
+      v-else
+      class="search-result-list space-y-3"
+      role="listbox"
+      :aria-label="t('system.search.resultCount')"
+    >
       <div
         v-for="(item, idx) in searchResult.items"
         :key="item.id || idx"
         class="result-item cursor-pointer rounded-md border p-4 transition-colors hover:bg-gray-50"
+        role="option"
+        :aria-selected="false"
+        :tabindex="0"
         @click="handleItemClick(item, idx + 1)"
+        @keydown.enter="handleItemClick(item, idx + 1)"
       >
         <div class="mb-1 flex items-center gap-2">
           <span class="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
@@ -237,8 +254,10 @@ watch(keyword, () => {
     <div v-if="searchResult.total && searchResult.total > pageSize" class="mt-6 flex justify-center">
       <div class="flex gap-1">
         <button
+          type="button"
           class="rounded border px-3 py-1 text-sm disabled:opacity-50"
           :disabled="currentPage <= 1"
+          :aria-label="t('common.previousPage')"
           @click="handlePageChange(currentPage - 1)"
         >
           &laquo;
@@ -247,8 +266,10 @@ watch(keyword, () => {
           {{ currentPage }} / {{ Math.ceil((searchResult.total || 0) / pageSize) }}
         </span>
         <button
+          type="button"
           class="rounded border px-3 py-1 text-sm disabled:opacity-50"
           :disabled="currentPage >= Math.ceil((searchResult.total || 0) / pageSize)"
+          :aria-label="t('common.nextPage')"
           @click="handlePageChange(currentPage + 1)"
         >
           &raquo;

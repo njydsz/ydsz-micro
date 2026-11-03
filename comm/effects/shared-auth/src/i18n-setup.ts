@@ -18,6 +18,7 @@
 import type { App } from 'vue';
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
 
+import { onLocaleChange } from '@ydsz/micro-kernel/composables';
 import {
   $t,
   loadLocalesMapFromDir,
@@ -124,6 +125,7 @@ export function createSubAppI18n(
 
   /**
    * 初始化 i18n（封装 @ydsz/locales 的核心 setup）。
+   * v4.5 P0-4: 注册 locale consumer，跟随主应用语言切换。
    */
   async function setupI18n(app: App, runtimeOptions: LocaleSetupOptions = {}) {
     await coreSetup(app, {
@@ -133,6 +135,20 @@ export function createSubAppI18n(
       ...setupOptions,
       ...runtimeOptions,
     });
+
+    // 注册 locale consumer：主应用切换语言时自动同步到子应用
+    const i18n = app.config.globalProperties.$i18n as unknown as {
+      global: {
+        locale: { value: string };
+      };
+    };
+    if (i18n?.global) {
+      onLocaleChange((locale: string) => {
+        i18n.global.locale.value = locale;
+        // 同步 preferences 中的 locale，保持状态一致
+        preferences.app.locale = locale as typeof preferences.app.locale;
+      });
+    }
   }
 
   return { $t, setupI18n };

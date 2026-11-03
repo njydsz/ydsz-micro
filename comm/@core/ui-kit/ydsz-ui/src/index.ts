@@ -21,6 +21,8 @@ export { createContext, Slot, VisuallyHidden } from '@ydsz-core/ydsz-vue';
 // Motion / prefers-reduced-motion
 export { useReducedMotion } from './motion/useReducedMotion'
 export { MotionDurations, MotionEasings, prefersReducedMotion } from './motion/motion-tokens'
+export { useTransition } from './motion/use-transition'
+export type { UseTransitionOptions, TransitionResult, TransitionPhase, TransitionDirection } from './motion/use-transition'
 
 // Global styles
 export const ydszReducedMotionCSS = '@ydsz-core/ydsz-ui/reduced-motion.css'

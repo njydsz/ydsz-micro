@@ -14,8 +14,7 @@ import type { MenuRecordRaw } from '@ydsz/types';
 import { computed, onMounted, useSlots, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import { useRefresh } from '@ydsz/hooks';
-import { $t, i18n } from '@ydsz/locales';
+import { $t } from '@ydsz/locales';
 import {
   preferences,
   updatePreferences,
@@ -59,7 +58,6 @@ const {
   theme,
 } = usePreferences();
 const accessStore = useAccessStore();
-const { refresh } = useRefresh();
 
 const sidebarTheme = computed(() => {
   const dark = isDark.value || preferences.theme.semiDarkSidebar;
@@ -192,9 +190,10 @@ watch(
   },
 );
 
-// 语言更新后，刷新页面
-// i18n.global.locale会在preference.app.locale变更之后才会更新，因此watchpreference.app.locale是不合适的，刷新页面时可能语言配置尚未完全加载完成
-watch(i18n.global.locale, refresh, { flush: 'post' });
+// v4.5 P0-4: 移除语言切换强制刷新路由的逻辑
+// 原逻辑会丢失表单草稿、滚动位置和子组件临时状态。
+// 现在 i18n.locale 变化时 Vue 会自动重新渲染依赖 t() 的组件，无需强制刷新。
+// 如需强制刷新，请通过 refresh() 显式调用。
 
 const slots: SetupContext['slots'] = useSlots();
 const headerSlots = computed(() => {
