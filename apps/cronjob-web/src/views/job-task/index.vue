@@ -241,21 +241,21 @@ onMounted(() => {
     <!-- 进度概览卡片 -->
     <div class="mb-3 grid grid-cols-2 gap-3 md:grid-cols-4">
       <YdCard shadow="never">
-        <div class="text-xs text-gray-500">总分片数</div>
+        <div class="text-xs text-gray-500">{{ $t('page.jobTask.totalShards') }}</div>
         <div class="text-xl font-semibold text-blue-500">
           {{ Object.keys(progressData).length || 0 }}
         </div>
       </YdCard>
       <YdCard shadow="never">
-        <div class="text-xs text-gray-500">成功</div>
+        <div class="text-xs text-gray-500">{{ $t('page.jobTask.success') }}</div>
         <div class="text-xl font-semibold text-green-500">{{ successCount }}</div>
       </YdCard>
       <YdCard shadow="never">
-        <div class="text-xs text-gray-500">失败</div>
+        <div class="text-xs text-gray-500">{{ $t('page.jobTask.failed') }}</div>
         <div class="text-xl font-semibold text-red-500">{{ failCount }}</div>
       </YdCard>
       <YdCard shadow="never">
-        <div class="text-xs text-gray-500">执行中</div>
+        <div class="text-xs text-gray-500">{{ $t('page.jobTask.running') }}</div>
         <div class="text-xl font-semibold text-orange-500">{{ runningCount }}</div>
       </YdCard>
     </div>
@@ -263,7 +263,7 @@ onMounted(() => {
     <!-- 总体进度 -->
     <YdCard v-if="Object.keys(progressData).length > 0" shadow="never" class="mb-3">
       <template #header>
-        <span class="font-medium">分片执行进度</span>
+        <span class="font-medium">{{ $t('page.jobTask.shardProgress') }}</span>
       </template>
       <YdProgress
         :percentage="progressPercent"
@@ -273,55 +273,55 @@ onMounted(() => {
       />
     </YdCard>
 
-    <Grid table-title="任务分片管理" />
+    <Grid :table-title="$t('page.jobTask.taskShardManagement')" />
 
     <!-- 详情 YdSheet -->
     <YdSheet v-model:open="isDetailVisible">
       <YdSheetContent side="right" class="w-[600px]">
         <YdSheetHeader>
-          <YdSheetTitle>任务分片详情</YdSheetTitle>
+          <YdSheetTitle>{{ $t('page.jobTask.taskShardDetail') }}</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailRecord">
           <YdDescriptions :column="2" border size="small">
-            <YdDescriptionsItem label="分片名称">{{
+            <YdDescriptionsItem :label="$t('page.jobTask.shardName')">{{
               detailRecord.taskName ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="类型">
+            <YdDescriptionsItem :label="$t('page.jobTask.type')">
               <YdBadge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
-                {{ isRoot(detailRecord) ? '根任务' : '子任务' }}
+                {{ isRoot(detailRecord) ? $t('page.jobTask.rootTask') : $t('page.jobTask.subTask') }}
               </YdBadge>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="任务标识">{{
+            <YdDescriptionsItem :label="$t('page.jobTask.jobKey')">{{
               detailRecord.jobKey ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="状态">
+            <YdDescriptionsItem :label="$t('page.jobTask.status')">
               <YdBadge size="sm" :variant="taskStatusTagType(detailRecord)">
                 {{ translateTaskStatus(detailRecord.taskStatus) }}
               </YdBadge>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="执行节点">{{
+            <YdDescriptionsItem :label="$t('page.jobTask.execNode')">{{
               detailRecord.execNodeId ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="重试次数">{{
+            <YdDescriptionsItem :label="$t('page.jobTask.retryCount')">{{
               detailRecord.retryCount ?? 0
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="创建时间">{{
+            <YdDescriptionsItem :label="$t('page.jobTask.createdAt')">{{
               detailRecord.createdAt ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="更新时间">{{
+            <YdDescriptionsItem :label="$t('page.jobTask.updatedAt')">{{
               detailRecord.updatedAt ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailRecord.taskParams" label="任务参数" :span="2">
+            <YdDescriptionsItem v-if="detailRecord.taskParams" :label="$t('page.jobTask.taskParams')" :span="2">
               <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{
                 detailRecord.taskParams
               }}</pre>
             </YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailRecord.result" label="执行结果" :span="2">
+            <YdDescriptionsItem v-if="detailRecord.result" :label="$t('page.jobTask.execResult')" :span="2">
               <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{
                 detailRecord.result
               }}</pre>
             </YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailRecord.errorMessage" label="错误信息" :span="2">
+            <YdDescriptionsItem v-if="detailRecord.errorMessage" :label="$t('page.jobTask.errorMessage')" :span="2">
               <pre
                 class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs text-red-500"
                 >{{ detailRecord.errorMessage }}</pre>

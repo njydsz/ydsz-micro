@@ -500,9 +500,7 @@ function resetRenderPerf(componentName?: string): void;
 
 ## useLocale
 
-全局 locale 读写：内置 14 种语种（zh-CN / zh-TW / en-US / ja-JP / ko-KR / fr-FR
-/ de-DE / es-ES / pt-BR / ru-RU / ar-SA / hi-IN / th-TH /
-vi-VN），RTL 自动识别。
+全局 locale 读写：仅中文 / 英文双语（zh-CN / en-US），RTL 自动识别。
 
 > 组件内文案统一走它：词条按「当前语种 → zh-CN → en-US → 显式 fallback
 > → 键名」逐级回退。不要再在组件里自建 zh/en 消息表——切全站语种时那些文案不会跟着变。

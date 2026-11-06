@@ -164,56 +164,66 @@ function isRequired(field: string): boolean {
       <YdFormItem prop="agentCode">
         <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('agentCode')" class="mr-0.5 text-red-500">*</span>
-          Agent编码
+          {{ $t('agentForm.agentCode') }}
         </label>
-        <YdInput v-model="formData.agentCode" placeholder="请输入Agent编码" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.agentCode"
+          :placeholder="$t('agentForm.agentCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem prop="agentName">
         <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('agentName')" class="mr-0.5 text-red-500">*</span>
-          Agent名称
+          {{ $t('agentForm.agentName') }}
         </label>
-        <YdInput v-model="formData.agentName" placeholder="请输入Agent名称" />
+        <YdInput v-model="formData.agentName" :placeholder="$t('agentForm.agentNamePlaceholder')" />
       </YdFormItem>
       <YdFormItem>
         <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-          >Agent类型</label
+          >{{ $t('agentForm.agentType') }}</label
         >
-        <YdInput v-model="formData.agentType" placeholder="请输入Agent类型" />
+        <YdInput v-model="formData.agentType" :placeholder="$t('agentForm.agentTypePlaceholder')" />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">描述</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
+          {{ $t('agentForm.description') }}
+        </label>
         <YdInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
-          placeholder="请输入描述"
+          :placeholder="$t('agentForm.descriptionPlaceholder')"
         />
       </YdFormItem>
       <YdFormItem>
         <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-          >系统提示词</label
+          >{{ $t('agentForm.systemPrompt') }}</label
         >
         <YdInput
           v-model="formData.systemPrompt"
           type="textarea"
           :rows="2"
-          placeholder="请输入系统提示词"
+          :placeholder="$t('agentForm.systemPromptPlaceholder')"
         />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">模型配置</label>
-        <YdInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
+          {{ $t('agentForm.modelConfig') }}
+        </label>
+        <YdInput v-model="formData.modelConfig" :placeholder="$t('agentForm.modelConfigPlaceholder')" />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">工具列表</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
+          {{ $t('agentForm.toolNames') }}
+        </label>
         <YdSelect
           v-if="!useTextFallback"
           v-model="selectedTools"
           multiple
           clearable
           filterable
-          placeholder="请选择工具（可多选）"
+          :placeholder="$t('agentForm.toolNamesPlaceholder')"
           class="w-full"
         >
           <YdSelectItem
@@ -223,15 +233,21 @@ function isRequired(field: string): boolean {
             :value="opt.value"
           />
         </YdSelect>
-        <YdInput v-else v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
+        <YdInput
+          v-else
+          v-model="formData.toolNames"
+          :placeholder="$t('agentForm.toolNamesFallbackPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">温度</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
+          {{ $t('agentForm.temperature') }}
+        </label>
         <YdNumberFieldInput v-model="formData.temperature" :min="0" :max="2" :step="0.1" />
       </YdFormItem>
       <YdFormItem>
         <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-          >MaxTokens</label
+          >{{ $t('agentForm.maxTokens') }}</label
         >
         <YdNumberFieldInput v-model="formData.maxTokens" :min="0" :max="100000" :step="100" />
       </YdFormItem>

@@ -84,5 +84,19 @@
     "sourceFilePlaceholder": "Absolute path of the Java source file, e.g. D:/src/User.java",
     "sourceRequired": "Please enter the source file path",
     "startAnalyze": "Start analysis"
+  },
+  "template": {
+    "groupList": "Template Groups",
+    "create": "Create",
+    "inUse": "In Use",
+    "system": "System",
+    "activate": "Activate",
+    "delete": "Delete",
+    "groupTemplates": "Templates in group \"{name}\"",
+    "searchPlaceholder": "Search file name...",
+    "search": "Search",
+    "disabled": "Disabled",
+    "noDescription": "No description",
+    "empty": "No templates in this group"
   }
 }

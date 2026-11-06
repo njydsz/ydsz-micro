@@ -249,18 +249,20 @@ onMounted(() => {
             <!-- 顶部搜索 -->
             <YdInput
               v-model="keyword"
-              placeholder="搜索模板编码/名称"
+              :placeholder="t('ruleTemplateSearchPlaceholder')"
               clearable
               class="mb-3"
               @keyup.enter="handleSearch"
             />
-            <YdButton type="primary" size="small" class="mb-3" @click="handleSearch">搜索</YdButton>
+            <YdButton type="primary" size="small" class="mb-3" @click="handleSearch">
+              {{ t('ruleTemplateSearch') }}
+            </YdButton>
           </YdCard>
 
           <!-- 浏览模式 Tab -->
-          <YdCard shadow="never" header="浏览方式" body-class="!p-0">
+          <YdCard shadow="never" :header="t('ruleTemplateBrowseMode')" body-class="!p-0">
             <YdTabs v-model="activeBrowseMode" @tab-change="handleBrowseModeChange">
-              <YdTabsContent label="按分类" name="category">
+              <YdTabsContent :label="t('ruleTemplateBrowseByCategory')" name="category">
                 <YdTree
                   :data="
                     categoryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))
@@ -271,7 +273,7 @@ onMounted(() => {
                   class="p-2"
                 />
               </YdTabsContent>
-              <YdTabsContent label="按行业" name="industry">
+              <YdTabsContent :label="t('ruleTemplateBrowseByIndustry')" name="industry">
                 <YdTree
                   :data="
                     industryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))
@@ -290,7 +292,7 @@ onMounted(() => {
         <YdCol :span="19">
           <YdCard shadow="never">
             <div class="mb-2">
-              <YdButton @click="loadTemplates">刷新</YdButton>
+              <YdButton @click="loadTemplates">{{ t('refresh') }}</YdButton>
             </div>
             <TemplateGrid />
           </YdCard>
@@ -300,64 +302,80 @@ onMounted(() => {
       <!-- 预览弹窗 -->
       <YdDialog
         v-model="previewDialogVisible"
-        :title="`模板预览 - ${currentTemplate?.templateName ?? ''}`"
+        :title="t('ruleTemplatePreviewTitle', [currentTemplate?.templateName ?? ''])"
         width="640px"
       >
         <YdDescriptions v-if="currentTemplate" :column="2" border size="small">
-          <YdDescriptionsItem label="模板编码">{{
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewCode')">{{
             currentTemplate.templateCode
           }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="模板名称">{{
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewName')">{{
             currentTemplate.templateName
           }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="分类">
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewCategory')">
             <YdBadge type="primary">{{ currentTemplate.category ?? '-' }}</YdBadge>
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="行业">
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewIndustry')">
             <YdBadge type="success">{{ currentTemplate.industry ?? '-' }}</YdBadge>
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="描述" :span="2">
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewDescription')" :span="2">
             {{ currentTemplate.description ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="预置条件表达式" :span="2">
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewConditionExpression')" :span="2">
             <code class="text-xs text-gray-600">{{
               currentTemplate.conditionExpression ?? '-'
             }}</code>
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="预置严重度表达式" :span="2">
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewSeverityExpression')" :span="2">
             <code class="text-xs text-gray-600">{{
               currentTemplate.severityExpression ?? '-'
             }}</code>
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="默认严重度">{{
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewDefaultSeverity')">{{
             currentTemplate.defaultSeverity ?? '-'
           }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="优先级">{{
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewPriority')">{{
             currentTemplate.priority ?? '-'
           }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="适用范围" :span="2">{{
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewScope')" :span="2">{{
             currentTemplate.scope ?? '-'
           }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="标签">{{ currentTemplate.tags ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="创建人">{{
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewTags')">{{
+            currentTemplate.tags ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ruleTemplatePreviewCreatedBy')">{{
             currentTemplate.createdBy ?? '-'
           }}</YdDescriptionsItem>
         </YdDescriptions>
-        <YdEmptyState v-else description="暂无模板数据" />
+        <YdEmptyState v-else :description="t('ruleTemplateNoTemplateData')" />
       </YdDialog>
 
       <!-- 导入结果弹窗 -->
-      <YdDialog v-model="importResultDialogVisible" title="导入结果" width="520px">
+      <YdDialog
+        v-model="importResultDialogVisible"
+        :title="t('ruleTemplateImportResultTitle')"
+        width="520px"
+      >
         <YdDescriptions v-if="importResult" :column="1" border size="small">
-          <YdDescriptionsItem label="规则编码">{{ importResult.ruleCode }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="规则名称">{{ importResult.ruleName }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="规则ID">{{ importResult.id }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="分类">{{ importResult.category ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="描述" :span="2">{{
+          <YdDescriptionsItem :label="t('ruleTemplateImportRuleCode')">{{
+            importResult.ruleCode
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ruleTemplateImportRuleName')">{{
+            importResult.ruleName
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ruleTemplateImportRuleId')">{{
+            importResult.id
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ruleTemplateImportCategory')">{{
+            importResult.category ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ruleTemplateImportDescription')" :span="2">{{
             importResult.description ?? '-'
           }}</YdDescriptionsItem>
         </YdDescriptions>
-        <div v-else class="text-center text-gray-400">暂无导入数据</div>
+        <div v-else class="text-center text-gray-400">
+          {{ t('ruleTemplateNoImportData') }}
+        </div>
       </YdDialog>
     </div>
   </Page>

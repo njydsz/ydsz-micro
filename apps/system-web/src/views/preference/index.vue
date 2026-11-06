@@ -79,11 +79,6 @@ const defaultIndexOptions = [
 const languageOptions = [
   { label: 'preferences.zhCN', value: 'zh-CN' },
   { label: 'preferences.enUS', value: 'en-US' },
-  { label: 'preferences.zhTW', value: 'zh-TW' },
-  { label: 'preferences.esES', value: 'es-ES' },
-  { label: 'preferences.frFR', value: 'fr-FR' },
-  { label: 'preferences.jaJP', value: 'ja-JP' },
-  { label: 'preferences.koKR', value: 'ko-KR' },
 ];
 
 /** 主题模式选项 */

@@ -26,6 +26,7 @@ import {
   YdInput,
 } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
+import { useI18n } from '@ydsz/locales';
 import { showToast } from '@ydsz/notification';
 import { evaluate } from '#/api/prompt';
 
@@ -46,6 +47,7 @@ interface TestTemplate {
 }
 
 const visible = ref(false);
+const { t } = useI18n();
 
 const template = ref<TestTemplate | null>(null);
 
@@ -118,12 +120,12 @@ defineExpose({ open, close });
   >
     <YdDialogContent class="max-w-[700px]">
       <YdDialogHeader>
-        <YdDialogTitle>Prompt 模板测试</YdDialogTitle>
+        <YdDialogTitle>{{ t('promptTest.title') }}</YdDialogTitle>
       </YdDialogHeader>
       <div v-if="template" class="space-y-4">
         <!-- 变量填写 -->
         <div>
-          <p class="mb-2 text-sm font-medium">变量填写</p>
+          <p class="mb-2 text-sm font-medium">{{ t('promptTest.variableTitle') }}</p>
           <div
             v-for="(value, key) in variableValues"
             :key="key"
@@ -132,16 +134,20 @@ defineExpose({ open, close });
             <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{
               `${prefix}${key}${suffix}`
             }}</span>
-            <YdInput v-model="variableValues[key]" size="sm" placeholder="输入变量值" />
+            <YdInput
+              v-model="variableValues[key]"
+              size="sm"
+              :placeholder="t('promptTest.variablePlaceholder')"
+            />
           </div>
           <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">
-            该模板没有变量
+            {{ t('promptTest.noVariables') }}
           </p>
         </div>
 
         <!-- 渲染结果 -->
         <div>
-          <p class="mb-2 text-sm font-medium">渲染结果预览</p>
+          <p class="mb-2 text-sm font-medium">{{ t('promptTest.renderedTitle') }}</p>
           <pre
             class="max-h-64 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs"
             >{{ renderedPrompt }}</pre>
@@ -149,7 +155,7 @@ defineExpose({ open, close });
 
         <!-- 评估结果 -->
         <div v-if="evaluateResult !== null">
-          <p class="mb-2 text-sm font-medium">评估结果</p>
+          <p class="mb-2 text-sm font-medium">{{ t('promptTest.resultTitle') }}</p>
           <pre
             class="max-h-48 overflow-auto whitespace-pre-wrap rounded border bg-blue-50 p-3 text-xs"
             >{{ JSON.stringify(evaluateResult, null, 2) }}</pre>
@@ -157,8 +163,10 @@ defineExpose({ open, close });
       </div>
 
       <YdDialogFooter>
-        <YdButton variant="outline" @click="close">关闭</YdButton>
-        <YdButton :disabled="evaluating" @click="handleEvaluate">执行评估</YdButton>
+        <YdButton variant="outline" @click="close">{{ t('promptTest.close') }}</YdButton>
+        <YdButton :disabled="evaluating" @click="handleEvaluate">
+          {{ t('promptTest.evaluate') }}
+        </YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

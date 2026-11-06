@@ -33,6 +33,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
+import { useI18n } from '@ydsz/locales';
 
 import { showToast } from '@ydsz/notification';
 
@@ -55,6 +56,7 @@ const systemPrompt = ref('');
 const inputText = ref('');
 const messages = ref<ChatMessage[]>([]);
 const sending = ref(false);
+const { t } = useI18n();
 /** SSE 连接状态（idle/connecting/live） */
 const streamState = ref<'idle' | 'connecting' | 'live'>('idle');
 const scrollEl = ref<HTMLElement | null>(null);
@@ -65,9 +67,9 @@ const conversationShareRef = ref<InstanceType<typeof ConversationShare> | null>(
 let closeStream = (() => undefined) as () => void;
 
 const streamStateText: Record<string, string> = {
-  idle: '空闲',
-  connecting: '连接中…',
-  live: '流式输出中',
+  idle: 'agentChat.streamIdle',
+  connecting: 'agentChat.streamConnecting',
+  live: 'agentChat.streamLive',
 };
 
 /** 是否可发送（消息非空且无进行中的流） */
@@ -188,16 +190,21 @@ onBeforeUnmount(() => {
       <div class="mb-3 flex flex-wrap items-center gap-2">
         <YdInput
           v-model="conversationId"
-          placeholder="会话ID（为空自动新建）"
+          :placeholder="t('agentChat.conversationIdPlaceholder')"
           class="w-64"
           @keyup.enter="loadHistory"
         />
-        <YdButton @click="loadHistory">加载历史</YdButton>
+        <YdButton @click="loadHistory">{{ t('agentChat.loadHistory') }}</YdButton>
         <YdButton :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)"
-          >发布/分享</YdButton
+          >{{ t('agentChat.share') }}</YdButton
         >
-        <YdButton variant="destructive" @click="handleClearHistory">清空会话</YdButton>
-        <YdTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
+        <YdButton variant="destructive" @click="handleClearHistory">
+          {{ t('agentChat.clear') }}
+        </YdButton>
+        <YdTooltip
+          :content="`${t('agentChat.streamStatusLabel')}${t(streamStateText[streamState])}`"
+          placement="top"
+        >
           <span
             class="text-xs"
             :class="
@@ -208,28 +215,28 @@ onBeforeUnmount(() => {
                   : 'text-gray-400'
             "
           >
-            {{ streamStateText[streamState] }}
+            {{ t(streamStateText[streamState]) }}
           </span>
         </YdTooltip>
       </div>
       <!-- 消息区 -->
       <div ref="scrollEl" class="flex-1 overflow-y-auto rounded border border-gray-200 p-3">
         <div v-if="messages.length === 0" class="pt-10 text-center text-sm text-gray-400">
-          输入消息开始对话，流式输出将逐 token 展示
+          {{ t('agentChat.empty') }}
         </div>
         <div v-for="(msg, index) in messages" :key="`${index}-${msg.role}`" class="mb-3">
           <div
             class="mb-1 text-xs font-medium"
             :class="msg.role === 'user' ? 'text-blue-600' : 'text-green-600'"
           >
-            {{ msg.role === 'user' ? '用户' : 'Agent' }}
+            {{ msg.role === 'user' ? t('agentChat.roleUser') : 'Agent' }}
             <span v-if="msg.streaming" class="ml-1 animate-pulse text-gray-400">●</span>
           </div>
           <div
             class="whitespace-pre-wrap rounded px-3 py-2 text-sm leading-relaxed"
             :class="msg.role === 'user' ? 'bg-blue-50' : 'bg-gray-50'"
           >
-            {{ msg.content || (msg.streaming ? '…' : '（空回复）') }}
+            {{ msg.content || (msg.streaming ? '…' : t('agentChat.emptyReply')) }}
           </div>
         </div>
       </div>
@@ -238,9 +245,12 @@ onBeforeUnmount(() => {
       <div class="mt-3">
         <YdAccordion type="single" collapsible class="mb-2">
           <YdAccordionItem value="advanced">
-            <YdAccordionTrigger>高级参数（System Prompt）</YdAccordionTrigger>
+            <YdAccordionTrigger>{{ t('agentChat.advancedTrigger') }}</YdAccordionTrigger>
             <YdAccordionContent>
-              <YdTextarea v-model="systemPrompt" placeholder="可选：自定义系统提示词" />
+              <YdTextarea
+                v-model="systemPrompt"
+                :placeholder="t('agentChat.systemPromptPlaceholder')"
+              />
             </YdAccordionContent>
           </YdAccordionItem>
         </YdAccordion>
@@ -248,12 +258,16 @@ onBeforeUnmount(() => {
           <YdTextarea
             v-model="inputText"
             :disabled="sending"
-            placeholder="输入消息，Enter 发送（Shift+Enter 换行）"
+            :placeholder="t('agentChat.inputPlaceholder')"
             @keydown.enter.exact.prevent="sendMessage"
           />
           <div class="flex flex-col gap-2">
-            <YdButton :disabled="!canSend" @click="sendMessage">发送</YdButton>
-            <YdButton :disabled="!sending" @click="teardownStream">停止</YdButton>
+            <YdButton :disabled="!canSend" @click="sendMessage">
+              {{ t('agentChat.send') }}
+            </YdButton>
+            <YdButton :disabled="!sending" @click="teardownStream">
+              {{ t('agentChat.stop') }}
+            </YdButton>
           </div>
         </div>
       </div>

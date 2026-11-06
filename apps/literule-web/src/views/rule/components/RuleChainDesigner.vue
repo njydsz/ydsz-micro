@@ -360,7 +360,7 @@ defineExpose({
 <template>
   <YdDialog
     v-model="visible"
-    title="规则链可视化编排"
+    :title="$t('page.ruleChainDesigner.title')"
     width="1200px"
     :close-on-click-modal="false"
     :show-close="true"
@@ -371,15 +371,17 @@ defineExpose({
       <div class="toolbar">
         <div class="toolbar-left">
           <YdButton size="small" type="primary" @click="handleSave" :loading="saving"
-            >保存</YdButton
+            >{{ $t('page.ruleChainDesigner.save') }}</YdButton
           >
-          <YdButton size="small" @click="handleValidate">验证</YdButton>
+          <YdButton size="small" @click="handleValidate">
+            {{ $t('page.ruleChainDesigner.validate') }}
+          </YdButton>
           <YdButton size="small" type="success" @click="handleDryRun" :loading="dryRunning"
-            >试运行</YdButton
+            >{{ $t('page.ruleChainDesigner.dryRun') }}</YdButton
           >
         </div>
         <div class="toolbar-center">
-          <span class="text-xs text-gray-500">添加节点：</span>
+          <span class="text-xs text-gray-500">{{ $t('page.ruleChainDesigner.addNode') }}</span>
           <YdButton
             v-for="opt in nodeTypeOptions"
             :key="opt.value"
@@ -459,16 +461,18 @@ defineExpose({
               <span class="node-label">{{ node.label ?? node.nodeType }}</span>
             </div>
             <div class="node-body">
-              <span class="text-xs text-gray-600">{{ node.ruleCode ?? '未关联规则' }}</span>
+              <span class="text-xs text-gray-600">
+                {{ node.ruleCode ?? $t('page.ruleChainDesigner.unboundRule') }}
+              </span>
             </div>
             <!-- 节点操作按钮 -->
             <div class="node-actions">
-              <YdTooltip content="连线" placement="top">
+              <YdTooltip :content="$t('page.ruleChainDesigner.connect')" placement="top">
                 <YdButton size="small" circle @click.stop="startConnect(node.nodeId ?? '')">
                   <span class="text-xs">→</span>
                 </YdButton>
               </YdTooltip>
-              <YdTooltip content="删除" placement="top">
+              <YdTooltip :content="$t('page.ruleChainDesigner.delete')" placement="top">
                 <YdButton
                   size="small"
                   circle
@@ -483,20 +487,22 @@ defineExpose({
 
           <!-- 空状态 -->
           <div v-if="nodes.length === 0" class="empty-state">
-            <p class="text-gray-400">从工具栏拖拽或点击添加节点开始编排规则链</p>
+            <p class="text-gray-400">
+              {{ $t('page.ruleChainDesigner.emptyHint') }}
+            </p>
           </div>
         </div>
 
         <!-- 属性面板 -->
         <div class="property-panel">
-          <div class="panel-header">节点属性</div>
+          <div class="panel-header">{{ $t('page.ruleChainDesigner.nodeProperties') }}</div>
           <div v-if="selectedNode" class="panel-content">
             <YdForm label-width="60px" size="small">
-              <YdFormItem label="名称">
-                <YdInput v-model="selectedNode.label" placeholder="节点名称" />
+              <YdFormItem :label="$t('page.ruleChainDesigner.name')">
+                <YdInput v-model="selectedNode.label" :placeholder="$t('page.ruleChainDesigner.namePlaceholder')" />
               </YdFormItem>
-              <YdFormItem label="类型">
-                <YdSelect v-model="selectedNode.nodeType" placeholder="节点类型">
+              <YdFormItem :label="$t('page.ruleChainDesigner.type')">
+                <YdSelect v-model="selectedNode.nodeType" :placeholder="$t('page.ruleChainDesigner.typePlaceholder')">
                   <YdSelectItem
                     v-for="opt in nodeTypeOptions"
                     :key="opt.value"
@@ -505,29 +511,31 @@ defineExpose({
                   />
                 </YdSelect>
               </YdFormItem>
-              <YdFormItem label="规则">
-                <YdInput v-model="selectedNode.ruleCode" placeholder="关联规则编码" />
+              <YdFormItem :label="$t('page.ruleChainDesigner.rule')">
+                <YdInput v-model="selectedNode.ruleCode" :placeholder="$t('page.ruleChainDesigner.rulePlaceholder')" />
               </YdFormItem>
-              <YdFormItem label="X坐标">
+              <YdFormItem :label="$t('page.ruleChainDesigner.xCoord')">
                 <YdNumberFieldInput v-model="selectedNode.x" :step="10" />
               </YdFormItem>
-              <YdFormItem label="Y坐标">
+              <YdFormItem :label="$t('page.ruleChainDesigner.yCoord')">
                 <YdNumberFieldInput v-model="selectedNode.y" :step="10" />
               </YdFormItem>
             </YdForm>
           </div>
           <div v-else class="panel-empty">
-            <p class="text-xs text-gray-400">请选择一个节点</p>
+            <p class="text-xs text-gray-400">
+              {{ $t('page.ruleChainDesigner.selectNodeHint') }}
+            </p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- 试运行结果弹窗 -->
-    <YdDialog v-model="dryRunResultVisible" title="试运行结果" width="600px">
+    <YdDialog v-model="dryRunResultVisible" :title="$t('page.ruleChainDesigner.dryRunResultTitle')" width="600px">
       <div v-loading="dryRunning">
         <div v-if="dryRunResults.length === 0" class="py-4 text-center text-gray-400">
-          暂无试运行结果
+          {{ $t('page.ruleChainDesigner.noDryRunResult') }}
         </div>
         <div v-else class="max-h-96 overflow-auto">
           <div

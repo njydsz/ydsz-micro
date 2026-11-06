@@ -256,11 +256,11 @@ onMounted(() => {
   <Page auto-content-height>
     <!-- 顶部控制栏 -->
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
-      <h1 class="text-xl font-bold text-gray-800">消息统计看板</h1>
+      <h1 class="text-xl font-bold text-gray-800">{{ $t('page.stats.title') }}</h1>
       <div class="flex items-center gap-3">
         <YdSelectBase v-model="timeRange">
           <YdSelectTriggerBase class="w-32">
-            <YdSelectValueBase placeholder="时间范围" />
+            <YdSelectValueBase :placeholder="$t('page.stats.timeRangePlaceholder')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
             <YdSelectItemBase v-for="opt in timeRangeOptions" :key="opt.value" :value="opt.value">
@@ -268,7 +268,7 @@ onMounted(() => {
             </YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
-        <YdButton :loading="loading" @click="loadAllData">刷新</YdButton>
+        <YdButton :loading="loading" @click="loadAllData">{{ $t('page.stats.refresh') }}</YdButton>
       </div>
     </div>
 
@@ -276,31 +276,31 @@ onMounted(() => {
     <div class="mb-4 grid grid-cols-5 gap-5 px-4">
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">总发送量</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.totalSent') }}</span>
           <span class="mt-1 text-2xl font-bold">{{ overviewData.totalSent ?? 0 }}</span>
         </YdCardContent>
       </YdCard>
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">总送达量</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.totalDelivered') }}</span>
           <span class="mt-1 text-2xl font-bold">{{ overviewData.totalDelivered ?? 0 }}</span>
         </YdCardContent>
       </YdCard>
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">总已读量</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.totalRead') }}</span>
           <span class="mt-1 text-2xl font-bold">{{ overviewData.totalRead ?? 0 }}</span>
         </YdCardContent>
       </YdCard>
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">送达率</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.deliveryRate') }}</span>
           <span class="mt-1 text-2xl font-bold text-green-600">{{ deliveryRate }}%</span>
         </YdCardContent>
       </YdCard>
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">已读率</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.readRate') }}</span>
           <span class="mt-1 text-2xl font-bold text-blue-600">{{ readRate }}%</span>
         </YdCardContent>
       </YdCard>
@@ -310,7 +310,7 @@ onMounted(() => {
     <div class="mb-4 grid grid-cols-2 gap-5 px-4">
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">总成本</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.totalCost') }}</span>
           <span class="mt-1 text-2xl font-bold text-amber-600"
             >{{ '¥' }}{{ costData.totalCost.toFixed(2) }}</span
           >
@@ -318,7 +318,7 @@ onMounted(() => {
       </YdCard>
       <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
-          <span class="text-sm text-gray-500">单条成本</span>
+          <span class="text-sm text-gray-500">{{ $t('page.stats.costPerMsg') }}</span>
           <span class="mt-1 text-2xl font-bold text-purple-600"
             >{{ '¥' }}{{ costData.costPerMsg.toFixed(4) }}</span
           >

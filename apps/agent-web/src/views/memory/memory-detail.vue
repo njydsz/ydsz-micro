@@ -31,11 +31,13 @@ import {
   YdTextarea,
 } from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
+import { useI18n } from '@ydsz/locales';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
 import type { MemoryVO } from '#/api/memory';
 
 const logger = createLogger('agent-memory-detail');
+const { t } = useI18n();
 
 /** 弹窗模式 */
 type DetailMode = 'view' | 'edit';
@@ -149,35 +151,35 @@ defineExpose({ open });
   <YdDialog v-model:open="isVisible">
     <YdDialogContent class="sm:max-w-[640px]">
       <YdDialogHeader>
-        <YdDialogTitle>{{ mode === 'view' ? '记忆详情' : '写入记忆' }}</YdDialogTitle>
+        <YdDialogTitle>{{ mode === 'view' ? t('memoryDetail.viewTitle') : t('memoryDetail.editTitle') }}</YdDialogTitle>
       </YdDialogHeader>
 
       <!-- 查看模式 -->
       <div v-if="mode === 'view' && memoryData" class="space-y-4">
         <div class="grid grid-cols-2 gap-5">
           <div>
-            <span class="text-muted-foreground text-sm">消息 ID:</span>
+            <span class="text-muted-foreground text-sm">{{ t('memoryDetail.messageId') }}</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.id ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-muted-foreground text-sm">角色:</span>
+            <span class="text-muted-foreground text-sm">{{ t('memoryDetail.role') }}</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.role ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-muted-foreground text-sm">对话 ID:</span>
+            <span class="text-muted-foreground text-sm">{{ t('memoryDetail.conversationId') }}</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.conversationId ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-muted-foreground text-sm">创建时间:</span>
+            <span class="text-muted-foreground text-sm">{{ t('memoryDetail.createdAt') }}</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.createdAt ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-muted-foreground text-sm">ToolCall ID:</span>
+            <span class="text-muted-foreground text-sm">{{ t('memoryDetail.toolCallId') }}</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.toolCallId ?? '-' }}</p>
           </div>
         </div>
         <div>
-          <span class="text-muted-foreground text-sm">消息内容:</span>
+          <span class="text-muted-foreground text-sm">{{ t('memoryDetail.content') }}</span>
           <div class="bg-muted mt-1 max-h-[300px] overflow-auto rounded border p-3 text-sm">
             {{ memoryData.content ?? '-' }}
           </div>
@@ -186,11 +188,15 @@ defineExpose({ open });
 
       <!-- 写入模式 -->
       <YdForm v-else ref="formRef" :model="form" :rules="formRules" label-width="100px">
-        <YdFormItem label="对话 ID">
-          <YdInput v-model="conversationId" placeholder="对话 ID" :disabled="true" />
+        <YdFormItem :label="t('memoryDetail.conversationIdLabel')">
+          <YdInput
+            v-model="conversationId"
+            :placeholder="t('memoryDetail.conversationIdPlaceholder')"
+            :disabled="true"
+          />
         </YdFormItem>
-        <YdFormItem label="消息角色" prop="role">
-          <YdSelect v-model="form.role" placeholder="请选择消息角色" style="width: 100%">
+        <YdFormItem :label="t('memoryDetail.roleLabel')" prop="role">
+          <YdSelect v-model="form.role" :placeholder="t('memoryDetail.rolePlaceholder')" style="width: 100%">
             <YdSelectItem
               v-for="item in roleOptions"
               :key="item.value"
@@ -199,20 +205,22 @@ defineExpose({ open });
             />
           </YdSelect>
         </YdFormItem>
-        <YdFormItem label="消息内容" prop="content">
-          <YdTextarea v-model="form.content" placeholder="请输入消息内容" />
+        <YdFormItem :label="t('memoryDetail.contentLabel')" prop="content">
+          <YdTextarea v-model="form.content" :placeholder="t('memoryDetail.contentPlaceholder')" />
         </YdFormItem>
-        <YdFormItem label="ToolCall ID">
-          <YdInput v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
+        <YdFormItem :label="t('memoryDetail.toolCallIdLabel')">
+          <YdInput v-model="form.toolCallId" :placeholder="t('memoryDetail.toolCallIdPlaceholder')" />
         </YdFormItem>
       </YdForm>
 
       <YdDialogFooter>
-        <YdButton variant="outline" @click="handleClose">取消</YdButton>
+        <YdButton variant="outline" @click="handleClose">{{ t('memoryDetail.cancel') }}</YdButton>
         <YdButton v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit"
-          >保存</YdButton
+          >{{ t('memoryDetail.save') }}</YdButton
         >
-        <YdButton v-else variant="outline" @click="handleClose">关闭</YdButton>
+        <YdButton v-else variant="outline" @click="handleClose">{{
+          t('memoryDetail.close')
+        }}</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

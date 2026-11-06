@@ -7,5 +7,28 @@
   "cep": "CEP",
   "breakpoint": "Breakpoint",
   "audit": "Audit",
-  "auditLog": "Audit Log"
+  "auditLog": "Audit Log",
+  "ruleChainDesigner": {
+    "title": "Rule Chain Visual Designer",
+    "save": "Save",
+    "validate": "Validate",
+    "dryRun": "Dry Run",
+    "addNode": "Add Node: ",
+    "unboundRule": "Unbound Rule",
+    "connect": "Connect",
+    "delete": "Delete",
+    "emptyHint": "Drag from the toolbar or click to add a node to start designing the rule chain",
+    "nodeProperties": "Node Properties",
+    "name": "Name",
+    "namePlaceholder": "Node name",
+    "type": "Type",
+    "typePlaceholder": "Node type",
+    "rule": "Rule",
+    "rulePlaceholder": "Associated rule code",
+    "xCoord": "X Coordinate",
+    "yCoord": "Y Coordinate",
+    "selectNodeHint": "Please select a node",
+    "dryRunResultTitle": "Dry Run Result",
+    "noDryRunResult": "No dry run results"
+  }
 }

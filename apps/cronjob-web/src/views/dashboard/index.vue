@@ -27,12 +27,15 @@ import {
   YdEmptyState,
 } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { getOverview } from '#/api/dashboard';
 import { dashboard, heatmap, recentFailures } from '#/api/jobStats';
 import type { JobLogVO } from '#/api/models';
 
 defineOptions({ name: 'CronjobDashboard' });
+
+const { t } = useI18n();
 
 // ==================== 数据 ====================
 
@@ -65,10 +68,10 @@ const heatMax = computed(() => Math.max(1, ...heatData.value.map((item) => item.
 
 /** 统计卡片数据（总览） */
 const cards = computed(() => [
-  { label: '任务总数', value: taskStats.value.total ?? 0, color: 'text-blue-500' },
-  { label: '运行中', value: taskStats.value.normal ?? 0, color: 'text-green-500' },
-  { label: '已暂停', value: taskStats.value.paused ?? 0, color: 'text-orange-500' },
-  { label: '异常', value: taskStats.value.error ?? 0, color: 'text-red-500' },
+  { label: t('page.dashboard.totalTasks'), value: taskStats.value.total ?? 0, color: 'text-blue-500' },
+  { label: t('page.dashboard.running'), value: taskStats.value.normal ?? 0, color: 'text-green-500' },
+  { label: t('page.dashboard.paused'), value: taskStats.value.paused ?? 0, color: 'text-orange-500' },
+  { label: t('page.dashboard.error'), value: taskStats.value.error ?? 0, color: 'text-red-500' },
 ]);
 
 async function loadData() {
@@ -111,24 +114,24 @@ onMounted(loadData);
     <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-3">
       <YdCard class="lg:col-span-2">
         <YdCardHeader>
-          <YdCardTitle>今日执行</YdCardTitle>
+          <YdCardTitle>{{ $t('page.dashboard.todayExec') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
             <div>
-              <div class="text-xs text-gray-500">执行总数</div>
+              <div class="text-xs text-gray-500">{{ $t('page.dashboard.execTotal') }}</div>
               <div class="text-xl font-semibold">{{ todayExec.total ?? 0 }}</div>
             </div>
             <div>
-              <div class="text-xs text-gray-500">成功</div>
+              <div class="text-xs text-gray-500">{{ $t('page.dashboard.success') }}</div>
               <div class="text-xl font-semibold text-green-500">{{ todayExec.success ?? 0 }}</div>
             </div>
             <div>
-              <div class="text-xs text-gray-500">失败</div>
+              <div class="text-xs text-gray-500">{{ $t('page.dashboard.failed') }}</div>
               <div class="text-xl font-semibold text-red-500">{{ todayExec.failed ?? 0 }}</div>
             </div>
             <div>
-              <div class="text-xs text-gray-500">成功率</div>
+              <div class="text-xs text-gray-500">{{ $t('page.dashboard.successRate') }}</div>
               <div class="text-xl font-semibold">{{ todayExec.successRate ?? 'N/A' }}</div>
             </div>
           </div>
@@ -137,7 +140,7 @@ onMounted(loadData);
 
       <YdCard>
         <YdCardHeader>
-          <YdCardTitle>运行中</YdCardTitle>
+          <YdCardTitle>{{ $t('page.dashboard.running') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div class="flex h-28 items-center justify-center">
@@ -150,31 +153,31 @@ onMounted(loadData);
     <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-5">
       <YdCard class="lg:col-span-3">
         <YdCardHeader>
-          <YdCardTitle>最近失败（快速定位）</YdCardTitle>
+          <YdCardTitle>{{ $t('page.dashboard.recentFailures') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <YdTable v-if="failures.length" :data="failures" border size="small" max-height="300">
-            <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-            <YdTableColumn label="状态" width="90">
+            <YdTableColumn prop="jobKey" :label="$t('page.dashboard.jobKey')" min-width="120" show-overflow-tooltip />
+            <YdTableColumn :label="$t('page.dashboard.status')" width="90">
               <template #default="{ row }">
                 <YdBadge variant="destructive" size="sm">{{ row.status ?? '-' }}</YdBadge>
               </template>
             </YdTableColumn>
             <YdTableColumn
               prop="errorMessage"
-              label="错误信息"
+              :label="$t('page.dashboard.errorMessage')"
               min-width="200"
               show-overflow-tooltip
             />
-            <YdTableColumn prop="startTime" label="时间" width="170" />
+            <YdTableColumn prop="startTime" :label="$t('page.dashboard.time')" width="170" />
           </YdTable>
-          <YdEmptyState v-else description="暂无失败记录" :image-size="60" />
+          <YdEmptyState v-else :description="$t('page.dashboard.noFailures')" :image-size="60" />
         </YdCardContent>
       </YdCard>
 
       <YdCard class="lg:col-span-2">
         <YdCardHeader>
-          <YdCardTitle>24 小时执行分布</YdCardTitle>
+          <YdCardTitle>{{ $t('page.dashboard.hourlyDistribution') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div class="flex h-72 items-end gap-1 px-1">
@@ -183,7 +186,7 @@ onMounted(loadData);
               :key="item.hour"
               class="group relative flex-1 rounded-t bg-blue-100 transition-colors hover:bg-blue-300"
               :style="{ height: `${Math.max(3, ((item.count ?? 0) / heatMax) * 100)}%` }"
-              :title="`${item.hour}:00 - ${item.count ?? 0} 次`"
+              :title="$t('page.dashboard.hourTooltip', { hour: item.hour, count: item.count ?? 0 })"
             >
               <span
                 class="pointer-events-none absolute -top-5 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-1 text-[10px] text-white group-hover:block"

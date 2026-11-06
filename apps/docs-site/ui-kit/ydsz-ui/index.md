@@ -142,7 +142,7 @@ CSS 设计令牌，覆盖企业级后台系统所需的全部 UI 元素。
 | **无障碍**   | `useA11yChecker`        | axe-core 检查                  |
 | **无障碍**   | `useA11yAssertions`     | Vitest 断言                    |
 | **性能**     | `useRenderPerformance`  | 渲染性能监控                   |
-| **国际化**   | `useLocale`             | 全局 locale（14 种语种 + RTL） |
+| **国际化**   | `useLocale`             | 全局 locale（中英双语 + RTL） |
 | **回顶**     | `useBacktop`            | 回到顶部                       |
 
 ## 业务组件概览

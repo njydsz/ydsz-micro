@@ -265,7 +265,7 @@ onBeforeUnmount(() => {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">活动任务数</p>
+              <p class="text-sm text-gray-500">{{ t('asyncTask.activeCount') }}</p>
               <p class="mt-1 text-2xl font-bold text-blue-600">{{ stats.active }}</p>
             </div>
             <div class="rounded-full bg-blue-50 p-3">
@@ -277,7 +277,7 @@ onBeforeUnmount(() => {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">已完成</p>
+              <p class="text-sm text-gray-500">{{ t('asyncTask.completed') }}</p>
               <p class="mt-1 text-2xl font-bold text-green-600">{{ stats.completed }}</p>
             </div>
             <div class="rounded-full bg-green-50 p-3">
@@ -289,7 +289,7 @@ onBeforeUnmount(() => {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">运行中</p>
+              <p class="text-sm text-gray-500">{{ t('asyncTask.running') }}</p>
               <p class="mt-1 text-2xl font-bold text-orange-600">{{ stats.running }}</p>
             </div>
             <div class="rounded-full bg-orange-50 p-3">
@@ -301,7 +301,7 @@ onBeforeUnmount(() => {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">失败</p>
+              <p class="text-sm text-gray-500">{{ t('asyncTask.failed') }}</p>
               <p class="mt-1 text-2xl font-bold text-red-600">{{ stats.failed }}</p>
             </div>
             <div class="rounded-full bg-red-50 p-3">
@@ -314,26 +314,28 @@ onBeforeUnmount(() => {
       <!-- 任务列表 -->
       <YdCard>
         <div class="mb-4 flex items-center justify-between">
-          <h3 class="text-base font-medium">活动任务列表</h3>
-          <YdButton :loading="loading" size="sm" @click="handleManualRefresh"> 手动刷新 </YdButton>
+          <h3 class="text-base font-medium">{{ t('asyncTask.listTitle') }}</h3>
+          <YdButton :loading="loading" size="sm" @click="handleManualRefresh">
+            {{ t('asyncTask.refresh') }}
+          </YdButton>
         </div>
 
         <YdTable :data="taskList" border stripe height="auto" :loading="loading">
           <YdTableColumn prop="id" label="Task ID" width="100" />
           <YdTableColumn
             prop="taskTypeDesc"
-            label="任务类型"
+            :label="t('asyncTask.taskType')"
             min-width="140"
             show-overflow-tooltip
           />
-          <YdTableColumn label="状态" width="120">
+          <YdTableColumn :label="t('asyncTask.status')" width="120">
             <template #default="{ row }">
               <YdBadge :variant="getStatusVariant(row.status ?? '')">
                 {{ row.statusDesc ?? row.status ?? '-' }}
               </YdBadge>
             </template>
           </YdTableColumn>
-          <YdTableColumn label="进度" width="120">
+          <YdTableColumn :label="t('asyncTask.progress')" width="120">
             <template #default="{ row }">
               <span>{{
                 row.progressPercent !== undefined && row.progressPercent !== null
@@ -342,8 +344,8 @@ onBeforeUnmount(() => {
               }}</span>
             </template>
           </YdTableColumn>
-          <YdTableColumn prop="createdAt" label="创建时间" width="170" />
-          <YdTableColumn label="耗时" width="120">
+          <YdTableColumn prop="createdAt" :label="t('asyncTask.createdAt')" width="170" />
+          <YdTableColumn :label="t('asyncTask.duration')" width="120">
             <template #default="{ row }">
               {{ formatDuration(row.startedAt, row.isTerminal ? row.completedAt : undefined) }}
             </template>
@@ -351,9 +353,9 @@ onBeforeUnmount(() => {
           <YdTableColumn :label="t('common.actions')" width="180" fixed="right">
             <template #default="{ row }">
               <div class="flex gap-1">
-                <YdButton size="sm" variant="link" @click="handleViewDetail(row)">{{
-                  '查看详情'
-                }}</YdButton>
+                <YdButton size="sm" variant="link" @click="handleViewDetail(row)">
+                  {{ t('asyncTask.viewDetail') }}
+                </YdButton>
                 <YdButton
                   v-if="isCancelable(row)"
                   size="sm"
@@ -362,7 +364,7 @@ onBeforeUnmount(() => {
                   :loading="pendingCancelId === row.id"
                   @click="handleCancel(row)"
                 >
-                  {{ '取消' }}
+                  {{ t('asyncTask.cancel') }}
                 </YdButton>
               </div>
             </template>
@@ -370,71 +372,77 @@ onBeforeUnmount(() => {
 
           <!-- 空态 -->
           <template #empty>
-            <YdEmptyState description="暂无活动任务" />
+            <YdEmptyState :description="t('asyncTask.empty')" />
           </template>
         </YdTable>
       </YdCard>
     </div>
 
     <!-- 任务详情抽屉 -->
-    <YdDrawer v-model:open="detailVisible" header="任务详情" width="520px">
+    <YdDrawer
+      v-model:open="detailVisible"
+      :header="t('asyncTask.detail.title')"
+      width="520px"
+    >
       <div v-if="detailLoading" class="flex items-center justify-center py-8">
-        <span class="text-sm text-gray-500">加载中...</span>
+        <span class="text-sm text-gray-500">{{ t('asyncTask.detail.loading') }}</span>
       </div>
       <div v-else-if="selectedTask">
         <YdDescriptions :column="1" border>
           <YdDescriptionsItem label="Task ID">{{ selectedTask.id ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="任务类型">
+          <YdDescriptionsItem :label="t('asyncTask.detail.taskType')">
             {{ selectedTask.taskTypeDesc ?? selectedTask.taskType ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="状态">
+          <YdDescriptionsItem :label="t('asyncTask.detail.status')">
             <YdBadge :variant="getStatusVariant(selectedTask.status ?? '')">
               {{ selectedTask.statusDesc ?? selectedTask.status ?? '-' }}
             </YdBadge>
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="进度">
+          <YdDescriptionsItem :label="t('asyncTask.detail.progress')">
             {{
               selectedTask.progressPercent !== undefined && selectedTask.progressPercent !== null
                 ? `${selectedTask.progressPercent}%`
                 : '-'
             }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="租户编码">
+          <YdDescriptionsItem :label="t('asyncTask.detail.tenantCode')">
             {{ selectedTask.tenantCode ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="触发用户">
+          <YdDescriptionsItem :label="t('asyncTask.detail.userId')">
             {{ selectedTask.userId ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="创建时间">
+          <YdDescriptionsItem :label="t('asyncTask.detail.createdAt')">
             {{ selectedTask.createdAt ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="开始时间">
+          <YdDescriptionsItem :label="t('asyncTask.detail.startedAt')">
             {{ selectedTask.startedAt ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="完成时间">
+          <YdDescriptionsItem :label="t('asyncTask.detail.completedAt')">
             {{ selectedTask.completedAt ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="过期时间">
+          <YdDescriptionsItem :label="t('asyncTask.detail.expireAt')">
             {{ selectedTask.expireAt ?? '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="重试次数">
+          <YdDescriptionsItem :label="t('asyncTask.detail.retryCount')">
             {{
               selectedTask.retryCount !== undefined && selectedTask.retryCount !== null
                 ? `${selectedTask.retryCount} / ${selectedTask.maxRetry ?? 0}`
                 : '-'
             }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="是否终态">
-            {{ selectedTask.isTerminal ? '是' : '否' }}
+          <YdDescriptionsItem :label="t('asyncTask.detail.isTerminal')">
+            {{ selectedTask.isTerminal ? t('common.yes') : t('common.no') }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="是否可重试">
-            {{ selectedTask.isRetryable ? '是' : '否' }}
+          <YdDescriptionsItem :label="t('asyncTask.detail.isRetryable')">
+            {{ selectedTask.isRetryable ? t('common.yes') : t('common.no') }}
           </YdDescriptionsItem>
         </YdDescriptions>
 
         <!-- 输入参数 -->
         <div v-if="selectedTask.outputPayload" class="mt-4">
-          <h4 class="mb-2 text-sm font-medium text-gray-700">输出结果</h4>
+          <h4 class="mb-2 text-sm font-medium text-gray-700">
+            {{ t('asyncTask.detail.outputPayload') }}
+          </h4>
           <pre
             class="max-h-60 overflow-auto whitespace-pre-wrap break-all rounded border bg-gray-50 p-3 text-xs"
             >{{ selectedTask.outputPayload }}</pre>
@@ -442,7 +450,9 @@ onBeforeUnmount(() => {
 
         <!-- 错误信息 -->
         <div v-if="selectedTask.errorMessage" class="mt-4">
-          <h4 class="mb-2 text-sm font-medium text-red-600">错误信息</h4>
+          <h4 class="mb-2 text-sm font-medium text-red-600">
+            {{ t('asyncTask.detail.errorMessage') }}
+          </h4>
           <div class="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             <pre class="whitespace-pre-wrap break-all">{{ selectedTask.errorMessage }}</pre>
           </div>

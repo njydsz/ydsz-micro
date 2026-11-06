@@ -57,6 +57,14 @@ vi.mock('@ydsz-core/shared/utils', () => ({
   }),
 }));
 
+vi.mock('vue-i18n', async (importOriginal) => {
+  const actual = await importOriginal<Record<string, unknown>>();
+  return {
+    ...actual,
+    useI18n: () => ({ t: (key: string) => key }),
+  };
+});
+
 vi.mock('@ydsz/common-ui', async (importOriginal) => {
   const actual = await importOriginal<Record<string, unknown>>();
   return {

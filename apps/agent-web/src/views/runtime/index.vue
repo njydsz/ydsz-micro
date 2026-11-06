@@ -298,7 +298,7 @@ loadOverview();
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">活跃会话数</p>
+              <p class="text-sm text-gray-500">{{ t('runtime.activeCount') }}</p>
               <p class="mt-1 text-2xl font-bold">
                 {{ activeCountText }}
               </p>
@@ -312,7 +312,7 @@ loadOverview();
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">最大并发</p>
+              <p class="text-sm text-gray-500">{{ t('runtime.maxConcurrency') }}</p>
               <p class="mt-1 text-2xl font-bold text-green-600">
                 {{ maxConcurrencyText }}
               </p>
@@ -326,7 +326,7 @@ loadOverview();
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">平均 TTL</p>
+              <p class="text-sm text-gray-500">{{ t('runtime.avgTtl') }}</p>
               <p class="mt-1 text-2xl font-bold text-purple-600">{{ avgTtlText }}s</p>
             </div>
             <div class="rounded-full bg-purple-50 p-3">
@@ -338,7 +338,7 @@ loadOverview();
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">总创建数</p>
+              <p class="text-sm text-gray-500">{{ t('runtime.totalCreated') }}</p>
               <p class="mt-1 text-2xl font-bold text-orange-600">
                 {{ totalCreatedText }}
               </p>
@@ -353,27 +353,31 @@ loadOverview();
       <!-- 标签页:活跃会话 / 最近会话 -->
       <YdCard>
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
-          <YdTabsContent label="活跃会话" name="active">
-            <ActiveGrid table-title="活跃会话列表">
+          <YdTabsContent :label="t('runtime.activeTab')" name="active">
+            <ActiveGrid :table-title="t('runtime.activeListTitle')">
               <template #toolbar-tools>
-                <YdButton type="primary" @click="activeGridApi.query()">刷新</YdButton>
+                <YdButton type="primary" @click="activeGridApi.query()">
+                  {{ t('runtime.refresh') }}
+                </YdButton>
               </template>
             </ActiveGrid>
             <YdEmptyState
               v-if="!loading && activeSessions.length === 0"
-              description="暂无活跃会话"
+              :description="t('runtime.emptyActive')"
             />
           </YdTabsContent>
 
-          <YdTabsContent label="最近会话" name="recent">
-            <RecentGrid table-title="最近会话列表">
+          <YdTabsContent :label="t('runtime.recentTab')" name="recent">
+            <RecentGrid :table-title="t('runtime.recentListTitle')">
               <template #toolbar-tools>
-                <YdButton type="primary" @click="recentGridApi.query()">刷新</YdButton>
+                <YdButton type="primary" @click="recentGridApi.query()">
+                  {{ t('runtime.refresh') }}
+                </YdButton>
               </template>
             </RecentGrid>
             <YdEmptyState
               v-if="!loading && recentSessions.length === 0"
-              description="暂无最近会话"
+              :description="t('runtime.emptyRecent')"
             />
           </YdTabsContent>
         </YdTabs>
@@ -383,91 +387,93 @@ loadOverview();
     <!-- 会话详情弹窗 -->
     <YdDialog
       v-model="sessionDetailVisible"
-      title="会话详情"
+      :title="t('runtime.detailDialog.title')"
       width="700px"
       @close="selectedSession = null"
     >
       <div v-if="selectedSession" class="space-y-4">
         <div class="grid grid-cols-2 gap-5">
           <div>
-            <span class="text-sm text-gray-500">执行 ID:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.executionId') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.executionId }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">Agent 编码:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.agentCode') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.agentCode }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">对话 ID:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.conversationId') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.conversationId }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">状态:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.status') }}</span>
             <YdBadge :type="getStatusTagType(selectedSession.status ?? '')">
               {{ selectedSession.status }}
             </YdBadge>
           </div>
           <div>
-            <span class="text-sm text-gray-500">Agent 类型:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.agentType') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.agentType ?? '-' }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">模型:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.model') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.model ?? '-' }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">开始时间:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.startTime') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.startTime }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">最后活跃:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.lastActiveTime') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.lastActiveTime }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">Tenant ID:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.tenantId') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.tenantId ?? '-' }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">User ID:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.userId') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.userId ?? '-' }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">Token 消耗:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.tokenUsage') }}</span>
             <span class="text-sm font-medium">{{
               selectedSession.totalTokens?.toLocaleString() ?? 0
             }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">费用:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.cost') }}</span>
             <span class="text-sm font-medium text-orange-600">{{
               selectedSession.costUsd ? `$${selectedSession.costUsd}` : '-'
             }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">当前步骤:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.currentStep') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.currentStep ?? '-' }}</span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">迭代进度:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.iteration') }}</span>
             <span class="text-sm font-medium">
               {{ selectedSession.currentIteration ?? 0 }} / {{ selectedSession.maxIterations ?? 0 }}
             </span>
           </div>
           <div>
-            <span class="text-sm text-gray-500">来源:</span>
+            <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.source') }}</span>
             <span class="text-sm font-medium">{{ selectedSession.source ?? '-' }}</span>
           </div>
         </div>
 
         <div v-if="selectedSession.errorMessage">
-          <span class="text-sm text-gray-500">错误信息:</span>
+          <span class="text-sm text-gray-500">{{ t('runtime.detailDialog.errorMessage') }}</span>
           <div class="mt-1 rounded border bg-red-50 p-3 text-sm text-red-700">
             {{ selectedSession.errorMessage }}
           </div>
         </div>
       </div>
       <template #footer>
-        <YdButton @click="sessionDetailVisible = false">关闭</YdButton>
+        <YdButton @click="sessionDetailVisible = false">
+          {{ t('runtime.detailDialog.close') }}
+        </YdButton>
       </template>
     </YdDialog>
   </Page>

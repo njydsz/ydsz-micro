@@ -45,6 +45,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
+import { useI18n } from '@ydsz/locales';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -59,6 +60,7 @@ import {
 import type { AgentTrigger } from '#/api/models';
 
 const logger = createLogger('agent-trigger');
+const { t } = useI18n();
 
 defineOptions({ name: 'TriggerManagement' });
 
@@ -314,28 +316,38 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
       <YdCard>
         <YdCardContent class="pt-6">
           <div class="flex items-center gap-5">
-            <YdInput v-model="searchForm.name" placeholder="按名称搜索..." class="max-w-xs" />
+            <YdInput
+              v-model="searchForm.name"
+              :placeholder="t('trigger.searchNamePlaceholder')"
+              class="max-w-xs"
+            />
             <YdSelectBase v-model="searchForm.triggerType">
               <YdSelectTriggerBase class="w-40">
-                <YdSelectValueBase placeholder="按类型筛选" />
+                <YdSelectValueBase :placeholder="t('trigger.searchTypePlaceholder')" />
               </YdSelectTriggerBase>
               <YdSelectContentBase>
-                <YdSelectItemBase value="cron">Cron 定时</YdSelectItemBase>
-                <YdSelectItemBase value="webhook">Webhook</YdSelectItemBase>
-                <YdSelectItemBase value="event">事件驱动</YdSelectItemBase>
-                <YdSelectItemBase value="agent_lifecycle">Agent 生命周期</YdSelectItemBase>
-                <YdSelectItemBase value="content_match">内容匹配</YdSelectItemBase>
-                <YdSelectItemBase value="workflow_completion">工作流完成</YdSelectItemBase>
+                <YdSelectItemBase value="cron">{{ t('trigger.typeCron') }}</YdSelectItemBase>
+                <YdSelectItemBase value="webhook">{{ t('trigger.typeWebhook') }}</YdSelectItemBase>
+                <YdSelectItemBase value="event">{{ t('trigger.typeEvent') }}</YdSelectItemBase>
+                <YdSelectItemBase value="agent_lifecycle">{{
+                  t('trigger.typeAgentLifecycle')
+                }}</YdSelectItemBase>
+                <YdSelectItemBase value="content_match">{{
+                  t('trigger.typeContentMatch')
+                }}</YdSelectItemBase>
+                <YdSelectItemBase value="workflow_completion">{{
+                  t('trigger.typeWorkflowCompletion')
+                }}</YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-            <YdButton @click="refreshList">搜索</YdButton>
+            <YdButton @click="refreshList">{{ t('trigger.search') }}</YdButton>
             <YdButton
               variant="outline"
               @click="
                 searchForm.name = '';
                 searchForm.triggerType = '';
               "
-              >重置</YdButton
+              >{{ t('trigger.reset') }}</YdButton
             >
           </div>
         </YdCardContent>
@@ -344,12 +356,12 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
       <!-- 列表 -->
       <YdCard>
         <YdCardContent class="pt-6">
-          <Grid table-title="触发器管理">
+          <Grid :table-title="t('trigger.tableTitle')">
             <template #toolbar-tools>
-              <YdButton @click="handleCreate">新建触发器</YdButton>
+              <YdButton @click="handleCreate">{{ t('trigger.create') }}</YdButton>
             </template>
           </Grid>
-          <YdEmptyState v-if="triggers.length === 0" description="暂无触发器" />
+          <YdEmptyState v-if="triggers.length === 0" :description="t('trigger.empty')" />
         </YdCardContent>
       </YdCard>
     </div>
@@ -358,37 +370,52 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
     <YdDialog v-model:open="formModalVisible">
       <YdDialogContent class="sm:max-w-[600px]">
         <YdDialogHeader>
-          <YdDialogTitle>{{ isEditMode ? '编辑触发器' : '新建触发器' }}</YdDialogTitle>
+          <YdDialogTitle>
+            {{ isEditMode ? t('trigger.editTitle') : t('trigger.createTitle') }}
+          </YdDialogTitle>
         </YdDialogHeader>
         <YdForm :model="editForm" label-width="120px">
-          <YdFormItem label="名称" required>
-            <YdInput v-model="editForm.name" placeholder="请输入触发器名称" />
+          <YdFormItem :label="t('trigger.nameLabel')" required>
+            <YdInput v-model="editForm.name" :placeholder="t('trigger.namePlaceholder')" />
           </YdFormItem>
-          <YdFormItem label="描述">
+          <YdFormItem :label="t('trigger.descriptionLabel')">
             <YdInput
               v-model="editForm.description"
               type="textarea"
               :rows="2"
-              placeholder="请输入描述信息"
+              :placeholder="t('trigger.descriptionPlaceholder')"
             />
           </YdFormItem>
-          <YdFormItem label="触发类型" required>
+          <YdFormItem :label="t('trigger.triggerTypeLabel')" required>
             <YdSelect v-model="editForm.triggerType" class="w-full">
-              <YdSelectItem label="Cron 定时" value="cron" />
-              <YdSelectItem label="Webhook" value="webhook" />
-              <YdSelectItem label="事件驱动" value="event" />
-              <YdSelectItem label="Agent 生命周期" value="agent_lifecycle" />
-              <YdSelectItem label="内容匹配" value="content_match" />
-              <YdSelectItem label="工作流完成" value="workflow_completion" />
+              <YdSelectItem :label="t('trigger.typeCron')" value="cron" />
+              <YdSelectItem :label="t('trigger.typeWebhook')" value="webhook" />
+              <YdSelectItem :label="t('trigger.typeEvent')" value="event" />
+              <YdSelectItem :label="t('trigger.typeAgentLifecycle')" value="agent_lifecycle" />
+              <YdSelectItem :label="t('trigger.typeContentMatch')" value="content_match" />
+              <YdSelectItem
+                :label="t('trigger.typeWorkflowCompletion')"
+                value="workflow_completion"
+              />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem v-if="editForm.triggerType === 'cron'" label="Cron 表达式" required>
-            <YdInput v-model="editForm.cronExpression" placeholder="例如: 0 0 * * * (每天零点)" />
+          <YdFormItem
+            v-if="editForm.triggerType === 'cron'"
+            :label="t('trigger.cronExpressionLabel')"
+            required
+          >
+            <YdInput
+              v-model="editForm.cronExpression"
+              :placeholder="t('trigger.cronExpressionPlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="目标 Agent">
-            <YdInput v-model="editForm.targetAgentCode" placeholder="请输入目标 Agent 编码" />
+          <YdFormItem :label="t('trigger.targetAgentLabel')">
+            <YdInput
+              v-model="editForm.targetAgentCode"
+              :placeholder="t('trigger.targetAgentPlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="配置 JSON">
+          <YdFormItem :label="t('trigger.configLabel')">
             <YdInput
               v-model="editForm.config"
               type="textarea"
@@ -396,13 +423,21 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
               placeholder='{"key": "value"}'
             />
           </YdFormItem>
-          <YdFormItem label="启用状态">
-            <YdSwitch v-model="editForm.enabled" active-text="启用" inactive-text="停用" />
+          <YdFormItem :label="t('trigger.enabledLabel')">
+            <YdSwitch
+              v-model="editForm.enabled"
+              :active-text="t('trigger.enabledActive')"
+              :inactive-text="t('trigger.enabledInactive')"
+            />
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButton variant="outline" @click="formModalVisible = false">取消</YdButton>
-          <YdButton @click="submitForm">{{ isEditMode ? '保存修改' : '确认创建' }}</YdButton>
+          <YdButton variant="outline" @click="formModalVisible = false">
+            {{ t('trigger.cancel') }}
+          </YdButton>
+          <YdButton @click="submitForm">
+            {{ isEditMode ? t('trigger.save') : t('trigger.confirm') }}
+          </YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

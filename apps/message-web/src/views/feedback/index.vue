@@ -194,7 +194,7 @@ onMounted(() => {
       <div class="mb-4 grid grid-cols-1 gap-5 md:grid-cols-3">
         <YdCard>
           <YdCardContent class="flex flex-col items-center pt-6">
-            <span class="text-muted-foreground text-sm">平均评分</span>
+            <span class="text-muted-foreground text-sm">{{ $t('page.feedback.averageRating') }}</span>
             <div class="mt-2 flex items-center gap-2">
               <YdRate :model-value="averageRating" disabled allow-half />
               <span class="text-2xl font-bold text-amber-500">{{ averageRating.toFixed(1) }}</span>
@@ -203,13 +203,13 @@ onMounted(() => {
         </YdCard>
         <YdCard>
           <YdCardContent class="flex flex-col items-center pt-6">
-            <span class="text-muted-foreground text-sm">反馈总数</span>
+            <span class="text-muted-foreground text-sm">{{ $t('page.feedback.totalFeedback') }}</span>
             <span class="mt-2 text-2xl font-bold text-blue-600">{{ totalFeedback }}</span>
           </YdCardContent>
         </YdCard>
         <YdCard>
           <YdCardContent class="flex flex-col items-center pt-6">
-            <span class="text-muted-foreground text-sm">正面反馈比例</span>
+            <span class="text-muted-foreground text-sm">{{ $t('page.feedback.positiveRatio') }}</span>
             <span class="mt-2 text-2xl font-bold text-green-600">{{ positiveRatio }}%</span>
           </YdCardContent>
         </YdCard>
@@ -219,20 +219,30 @@ onMounted(() => {
       <YdCard class="mb-4">
         <YdCardContent class="pt-6">
           <div class="flex items-center gap-3">
-            <YdInput v-model="searchParams.userId" placeholder="用户ID" class="w-44" />
+            <YdInput
+              v-model="searchParams.userId"
+              :placeholder="$t('page.feedback.userIdPlaceholder')"
+              class="w-44"
+            />
             <YdSelectBase v-model="searchParams.channel">
               <YdSelectTriggerBase class="w-36">
-                <YdSelectValueBase placeholder="渠道" />
+                <YdSelectValueBase :placeholder="$t('page.feedback.channelPlaceholder')" />
               </YdSelectTriggerBase>
               <YdSelectContentBase>
-                <YdSelectItemBase value="EMAIL">邮件</YdSelectItemBase>
-                <YdSelectItemBase value="SMS">短信</YdSelectItemBase>
-                <YdSelectItemBase value="INBOX">站内信</YdSelectItemBase>
+                <YdSelectItemBase value="EMAIL">{{
+                  $t('page.feedback.channelEmail')
+                }}</YdSelectItemBase>
+                <YdSelectItemBase value="SMS">{{ $t('page.feedback.channelSms') }}</YdSelectItemBase>
+                <YdSelectItemBase value="INBOX">{{
+                  $t('page.feedback.channelInbox')
+                }}</YdSelectItemBase>
                 <YdSelectItemBase value="WEBHOOK">Webhook</YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-            <YdButton @click="handleSearch">查询</YdButton>
-            <YdButton variant="outline" @click="handleReset">重置</YdButton>
+            <YdButton @click="handleSearch">{{ $t('page.feedback.search') }}</YdButton>
+            <YdButton variant="outline" @click="handleReset">
+              {{ $t('page.feedback.reset') }}
+            </YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -241,16 +251,42 @@ onMounted(() => {
       <YdCard>
         <YdCardContent class="pt-6">
           <YdTable :loading="loading" :data="feedbackList" stripe border style="width: 100%">
-            <YdTableColumn type="index" label="序号" width="60" align="center" />
-            <YdTableColumn prop="userId" label="用户ID" width="140" />
-            <YdTableColumn prop="msgId" label="消息ID" width="180" />
-            <YdTableColumn label="评分" width="200" align="center">
+            <YdTableColumn
+              type="index"
+              :label="$t('page.feedback.columns.index')"
+              width="60"
+              align="center"
+            />
+            <YdTableColumn
+              prop="userId"
+              :label="$t('page.feedback.columns.userId')"
+              width="140"
+            />
+            <YdTableColumn
+              prop="msgId"
+              :label="$t('page.feedback.columns.msgId')"
+              width="180"
+            />
+            <YdTableColumn
+              :label="$t('page.feedback.columns.rating')"
+              width="200"
+              align="center"
+            >
               <template #default="{ row }">
                 <YdRate :model-value="row.rating ?? 0" disabled allow-half />
               </template>
             </YdTableColumn>
-            <YdTableColumn prop="content" label="反馈内容" min-width="200" show-overflow-tooltip />
-            <YdTableColumn label="反馈类型" width="110" align="center">
+            <YdTableColumn
+              prop="content"
+              :label="$t('page.feedback.columns.content')"
+              min-width="200"
+              show-overflow-tooltip
+            />
+            <YdTableColumn
+              :label="$t('page.feedback.columns.feedbackType')"
+              width="110"
+              align="center"
+            >
               <template #default="{ row }">
                 <YdBadge v-if="row.feedbackType" variant="secondary">{{
                   row.feedbackType
@@ -258,18 +294,31 @@ onMounted(() => {
                 <span v-else>-</span>
               </template>
             </YdTableColumn>
-            <YdTableColumn label="状态" width="100" align="center">
+            <YdTableColumn
+              :label="$t('page.feedback.columns.status')"
+              width="100"
+              align="center"
+            >
               <template #default="{ row }">
                 <YdBadge :variant="getStatusVariant(row.status)">
                   {{ getStatusLabel(row.status) }}
                 </YdBadge>
               </template>
             </YdTableColumn>
-            <YdTableColumn prop="createdAt" label="创建时间" width="170" />
-            <YdTableColumn label="操作" width="160" fixed="right" align="center">
+            <YdTableColumn
+              prop="createdAt"
+              :label="$t('page.feedback.columns.createdAt')"
+              width="170"
+            />
+            <YdTableColumn
+              :label="$t('page.feedback.columns.actions')"
+              width="160"
+              fixed="right"
+              align="center"
+            >
               <template #default="{ row }">
                 <YdButton size="sm" variant="link" @click="handleViewDetail(row)">
-                  查看详情
+                  {{ $t('page.feedback.viewDetail') }}
                 </YdButton>
                 <YdButton
                   size="sm"
@@ -277,12 +326,12 @@ onMounted(() => {
                   class="text-destructive"
                   @click="handleHideFeedback(row)"
                 >
-                  隐藏
+                  {{ $t('page.feedback.hide') }}
                 </YdButton>
               </template>
             </YdTableColumn>
             <template #empty>
-              <YdEmptyState description="暂无反馈数据" />
+              <YdEmptyState :description="$t('page.feedback.empty')" />
             </template>
           </YdTable>
 
@@ -296,10 +345,15 @@ onMounted(() => {
                 loadFeedback();
               "
             >
-              上一页
+              {{ $t('page.feedback.prevPage') }}
             </YdButton>
             <span class="text-muted-foreground mx-4 self-center text-sm">
-              第 {{ pageInfo.page }} 页，共 {{ Math.ceil(pageInfo.total / pageInfo.size) || 1 }} 页
+              {{
+                $t('page.feedback.pageInfo', {
+                  page: pageInfo.page,
+                  total: Math.ceil(pageInfo.total / pageInfo.size) || 1,
+                })
+              }}
             </span>
             <YdButton
               variant="outline"
@@ -309,7 +363,7 @@ onMounted(() => {
                 loadFeedback();
               "
             >
-              下一页
+              {{ $t('page.feedback.nextPage') }}
             </YdButton>
           </div>
         </YdCardContent>
@@ -319,39 +373,51 @@ onMounted(() => {
       <YdDialog v-model:open="detailVisible">
         <YdDialogContent class="max-w-[520px]">
           <YdDialogHeader>
-            <YdDialogTitle>反馈详情</YdDialogTitle>
+            <YdDialogTitle>{{ $t('page.feedback.detailTitle') }}</YdDialogTitle>
           </YdDialogHeader>
           <div v-if="currentDetail" class="space-y-3">
             <div class="flex">
-              <span class="text-muted-foreground w-24">用户ID：</span>
+              <span class="text-muted-foreground w-24">
+                {{ $t('page.feedback.detailUserId') }}
+              </span>
               <span>{{ currentDetail.userId ?? '-' }}</span>
             </div>
             <div class="flex">
-              <span class="text-muted-foreground w-24">消息ID：</span>
+              <span class="text-muted-foreground w-24">
+                {{ $t('page.feedback.detailMsgId') }}
+              </span>
               <span>{{ currentDetail.msgId ?? '-' }}</span>
             </div>
             <div class="flex items-center">
-              <span class="text-muted-foreground w-24">评分：</span>
+              <span class="text-muted-foreground w-24">
+                {{ $t('page.feedback.detailRating') }}
+              </span>
               <YdRate :model-value="currentDetail.rating ?? 0" disabled allow-half />
             </div>
             <div class="flex">
-              <span class="text-muted-foreground w-24">反馈类型：</span>
+              <span class="text-muted-foreground w-24">
+                {{ $t('page.feedback.detailFeedbackType') }}
+              </span>
               <span>{{ currentDetail.feedbackType ?? '-' }}</span>
             </div>
             <div class="flex">
-              <span class="text-muted-foreground w-24">状态：</span>
+              <span class="text-muted-foreground w-24">
+                {{ $t('page.feedback.detailStatus') }}
+              </span>
               <YdBadge :variant="getStatusVariant(currentDetail.status)">
                 {{ getStatusLabel(currentDetail.status) }}
               </YdBadge>
             </div>
             <div class="flex">
-              <span class="text-muted-foreground w-24">创建时间：</span>
+              <span class="text-muted-foreground w-24">
+                {{ $t('page.feedback.detailCreatedAt') }}
+              </span>
               <span>{{ currentDetail.createdAt ?? '-' }}</span>
             </div>
             <div>
-              <span class="text-muted-foreground">反馈内容：</span>
+              <span class="text-muted-foreground">{{ $t('page.feedback.detailContent') }}</span>
               <p class="bg-muted mt-1 rounded p-3 text-sm">
-                {{ currentDetail.content || '无内容' }}
+                {{ currentDetail.content || $t('page.feedback.noContent') }}
               </p>
             </div>
           </div>

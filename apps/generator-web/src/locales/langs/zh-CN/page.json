@@ -84,5 +84,19 @@
     "sourceFilePlaceholder": "Java 源文件绝对路径，如 D:/src/User.java",
     "sourceRequired": "请输入源文件路径",
     "startAnalyze": "开始分析"
+  },
+  "template": {
+    "groupList": "模板分组",
+    "create": "新建",
+    "inUse": "使用中",
+    "system": "系统",
+    "activate": "激活",
+    "delete": "删除",
+    "groupTemplates": "「{name}」分组模板",
+    "searchPlaceholder": "搜索文件名...",
+    "search": "搜索",
+    "disabled": "禁用",
+    "noDescription": "无描述",
+    "empty": "该分组暂无模板"
   }
 }

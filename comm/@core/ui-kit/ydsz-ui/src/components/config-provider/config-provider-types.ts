@@ -9,8 +9,8 @@
 /** 主题模式 */
 export type ConfigProviderTheme = 'light' | 'dark' | 'auto';
 
-/** 国际化语种 */
-export type LocaleLang = 'zh-CN' | 'en-US' | 'ja-JP' | 'zh-TW';
+/** 国际化语种（仅中文 / 英文双语） */
+export type LocaleLang = 'zh-CN' | 'en-US';
 
 /** 密度模式 */
 export type DensityMode = 'compact' | 'standard' | 'loose';
@@ -46,8 +46,6 @@ export interface ConfigProviderProps {
    * <ul>
    *   <li><code>zh-CN</code> — 简体中文</li>
    *   <li><code>en-US</code> — English</li>
-   *   <li><code>ja-JP</code> — 日本語</li>
-   *   <li><code>zh-TW</code> — 繁體中文</li>
    * </ul>
    * @default 'zh-CN'
    */

@@ -179,32 +179,32 @@ function statusText(status: ConnectStatus): string {
               </YdText>
             </div>
             <YdSpace>
-              <YdButton size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</YdButton>
+              <YdButton size="sm" :disabled="!logId.trim()" @click="handleConnect">{{ $t('page.jobLogStream.connect') }}</YdButton>
               <YdButton
                 size="sm"
                 variant="destructive"
                 :disabled="connectStatus === 'disconnected'"
                 @click="handleDisconnect"
-                >断开</YdButton
+                >{{ $t('page.jobLogStream.disconnect') }}</YdButton
               >
-              <YdButton size="sm" variant="ghost" @click="handleClear">清空</YdButton>
+              <YdButton size="sm" variant="ghost" @click="handleClear">{{ $t('page.jobLogStream.clear') }}</YdButton>
             </YdSpace>
           </div>
         </YdCardHeader>
         <YdCardContent>
           <!-- LogId 输入 -->
           <YdForm inline @submit.prevent="handleConnect">
-            <YdFormItem label="Log ID">
+            <YdFormItem :label="$t('page.jobLogStream.logIdLabel')">
               <YdInput
                 v-model="logId"
-                placeholder="请输入任务执行日志 ID"
+                :placeholder="$t('page.jobLogStream.logIdPlaceholder')"
                 class="w-80"
                 @keyup.enter="handleConnect"
               />
             </YdFormItem>
             <YdFormItem>
               <YdButton size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect"
-                >连接</YdButton
+                >{{ $t('page.jobLogStream.connect') }}</YdButton
               >
             </YdFormItem>
           </YdForm>
@@ -214,7 +214,7 @@ function statusText(status: ConnectStatus): string {
       <!-- 日志输出区 -->
       <YdCard class="rounded-lg border border-gray-200">
         <YdCardHeader>
-          <YdCardTitle class="text-sm text-gray-700">日志输出</YdCardTitle>
+          <YdCardTitle class="text-sm text-gray-700">{{ $t('page.jobLogStream.logOutput') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div
@@ -222,7 +222,7 @@ function statusText(status: ConnectStatus): string {
             class="h-96 overflow-auto rounded border border-gray-800 bg-gray-900 p-3 font-mono text-xs leading-5 text-green-300"
           >
             <pre v-if="logs" class="m-0 whitespace-pre-wrap break-all">{{ logs }}</pre>
-            <YdEmptyState v-else description="暂无日志内容" :image-size="60" class="mt-20" />
+            <YdEmptyState v-else :description="$t('page.jobLogStream.noLogContent')" :image-size="60" class="mt-20" />
           </div>
         </YdCardContent>
       </YdCard>

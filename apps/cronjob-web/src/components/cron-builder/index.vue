@@ -406,18 +406,8 @@ const cronExpression = computed({
 /** 中文/国际化解释 */
 const cronDescription = computed(() => {
   try {
-    const loc =
-      locale.value === 'zh-CN'
-        ? ('zh_CN' as const)
-        : locale.value === 'ja-JP'
-          ? ('ja' as const)
-          : locale.value === 'ko-KR'
-            ? ('ko' as const)
-            : locale.value === 'fr-FR'
-              ? ('fr' as const)
-              : locale.value === 'es-ES'
-                ? ('es' as const)
-                : 'en';
+    // 项目仅支持中文 / 英文双语，其余语种统一回退英文
+    const loc = locale.value === 'zh-CN' ? ('zh_CN' as const) : 'en';
     return cronstrue.toString(cronExpression.value, {
       locale: loc,
       use24HourTimeFormat: true,

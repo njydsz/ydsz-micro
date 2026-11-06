@@ -371,7 +371,7 @@ export const EN_US_MESSAGES: Readonly<Partial<Record<ErrorCode, string>>> = {
 
   // ==================== Unknown / fallback ====================
   C99999: 'Unknown error, please contact technical support',
-  // ---- 由 bash/gen-error-codes-i18n.mts 补齐（generated 静态扫描）----
+  // ---- generated 静态扫描补齐 ----
   A10001: 'Invalid request parameters',
   A10002: 'Parameter validation failed (JSR-303 validation did not pass)',
   A10003: 'Missing required parameter',

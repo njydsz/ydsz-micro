@@ -128,7 +128,7 @@ const [Modal, modalApi] = useYdModal({
 });
 </script>
 <template>
-  <Modal title="发送通知">
+  <Modal :title="$t('page.notificationForm.title')">
     <YdForm
       ref="formRef"
       :model="formData"
@@ -136,53 +136,53 @@ const [Modal, modalApi] = useYdModal({
       label-width="100px"
       label-position="right"
     >
-      <YdFormItem label="接收者" prop="receiverListText">
+      <YdFormItem :label="$t('page.notificationForm.receiver')" prop="receiverListText">
         <YdTextarea
           v-model="formData.receiverListText"
-          placeholder="每行一个接收者ID，支持逗号/分号/换行分隔"
+          :placeholder="$t('page.notificationForm.receiverPlaceholder')"
         />
       </YdFormItem>
-      <YdFormItem label="标题" prop="title">
-        <YdInput v-model="formData.title" placeholder="请输入标题" />
+      <YdFormItem :label="$t('page.notificationForm.title')" prop="title">
+        <YdInput v-model="formData.title" :placeholder="$t('page.notificationForm.titlePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="内容" prop="content">
-        <YdTextarea v-model="formData.content" placeholder="请输入内容" />
+      <YdFormItem :label="$t('page.notificationForm.content')" prop="content">
+        <YdTextarea v-model="formData.content" :placeholder="$t('page.notificationForm.contentPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="级别" prop="level">
+      <YdFormItem :label="$t('page.notificationForm.level')" prop="level">
         <YdSelectBase v-model="formData.level">
           <YdSelectTriggerBase>
-            <YdSelectValueBase placeholder="请选择级别" />
+            <YdSelectValueBase :placeholder="$t('page.notificationForm.levelPlaceholder')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase value="INFO">提示</YdSelectItemBase>
-            <YdSelectItemBase value="WARN">警告</YdSelectItemBase>
-            <YdSelectItemBase value="ERROR">错误</YdSelectItemBase>
+            <YdSelectItemBase value="INFO">{{ $t('page.notificationForm.levelInfo') }}</YdSelectItemBase>
+            <YdSelectItemBase value="WARN">{{ $t('page.notificationForm.levelWarn') }}</YdSelectItemBase>
+            <YdSelectItemBase value="ERROR">{{ $t('page.notificationForm.levelError') }}</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
-      <YdFormItem label="分类" prop="category">
-        <YdInput v-model="formData.category" placeholder="请输入分类（可为空）" />
+      <YdFormItem :label="$t('page.notificationForm.category')" prop="category">
+        <YdInput v-model="formData.category" :placeholder="$t('page.notificationForm.categoryPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="优先级" prop="priority">
+      <YdFormItem :label="$t('page.notificationForm.priority')" prop="priority">
         <YdSelectBase v-model="formData.priority">
           <YdSelectTriggerBase>
-            <YdSelectValueBase placeholder="请选择优先级（可为空）" />
+            <YdSelectValueBase :placeholder="$t('page.notificationForm.priorityPlaceholder')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase value="HIGH">高</YdSelectItemBase>
-            <YdSelectItemBase value="MEDIUM">中</YdSelectItemBase>
-            <YdSelectItemBase value="LOW">低</YdSelectItemBase>
+            <YdSelectItemBase value="HIGH">{{ $t('page.notificationForm.priorityHigh') }}</YdSelectItemBase>
+            <YdSelectItemBase value="MEDIUM">{{ $t('page.notificationForm.priorityMedium') }}</YdSelectItemBase>
+            <YdSelectItemBase value="LOW">{{ $t('page.notificationForm.priorityLow') }}</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
-      <YdFormItem label="业务类型" prop="bizType">
-        <YdInput v-model="formData.bizType" placeholder="请输入业务类型（可为空）" />
+      <YdFormItem :label="$t('page.notificationForm.bizType')" prop="bizType">
+        <YdInput v-model="formData.bizType" :placeholder="$t('page.notificationForm.bizTypePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="跳转链接" prop="actionUrl">
-        <YdInput v-model="formData.actionUrl" placeholder="请输入跳转链接（可为空）" />
+      <YdFormItem :label="$t('page.notificationForm.actionUrl')" prop="actionUrl">
+        <YdInput v-model="formData.actionUrl" :placeholder="$t('page.notificationForm.actionUrlPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="跳转文案" prop="actionText">
-        <YdInput v-model="formData.actionText" placeholder="请输入跳转文案（可为空）" />
+      <YdFormItem :label="$t('page.notificationForm.actionText')" prop="actionText">
+        <YdInput v-model="formData.actionText" :placeholder="$t('page.notificationForm.actionTextPlaceholder')" />
       </YdFormItem>
     </YdForm>
   </Modal>

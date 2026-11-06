@@ -76,7 +76,6 @@
     "gen:api": "node ./bash/gen-api.mts",
     "gen:api:check": "node ./bash/gen-api.mts --check",
     "gen:api:static": "node ./bash/gen-api.mts --static",
-    "gen:api:i18n": "node ./bash/gen-api.mts --i18n-only",
     "gen:api:legacy": "node ./bash/unified-contract.mts",
     "gen:api:legacy:check": "node ./bash/unified-contract.mts --check",
     "gen:app": "node ./bash/gen-app.mts",

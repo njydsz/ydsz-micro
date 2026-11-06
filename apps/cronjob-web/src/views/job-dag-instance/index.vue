@@ -257,11 +257,11 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="DAG 运行实例">
+    <Grid :table-title="$t('page.dagInstance')">
       <template #toolbar-tools>
         <YdSelectBase v-model="statusFilter" @update:model-value="queryInstances">
           <YdSelectTriggerBase class="w-[140px]">
-            <YdSelectValueBase placeholder="状态筛选" />
+            <YdSelectValueBase :placeholder="$t('common.status')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
             <YdSelectItemBase value="PENDING">待执行</YdSelectItemBase>
@@ -279,7 +279,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
     <YdSheet v-model:open="detailVisible">
       <YdSheetContent side="right" class="w-[760px]">
         <YdSheetHeader>
-          <YdSheetTitle>DAG 实例详情</YdSheetTitle>
+          <YdSheetTitle>{{ $t('page.dagInstanceDetail') }}</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailLog">
           <YdDescriptions :column="2" border size="small" class="mb-3">
@@ -312,7 +312,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
             </YdDescriptionsItem>
           </YdDescriptions>
 
-          <div class="mb-1 text-sm font-medium">节点执行明细</div>
+          <div class="mb-1 text-sm font-medium">{{ $t('page.nodeDetail') }}</div>
           <YdTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
             <YdTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
             <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
@@ -336,14 +336,14 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
               </template>
             </YdTableColumn>
           </YdTable>
-          <YdEmptyState v-else description="暂无节点明细" :image-size="60" class="mb-3" />
+          <YdEmptyState v-else :description="$t('page.noNodeDetail')" :image-size="60" class="mb-3" />
 
-          <div class="mb-1 text-sm font-medium">工作流拓扑（mermaid 源码）</div>
+          <div class="mb-1 text-sm font-medium">{{ $t('page.workflowTopology') }}</div>
           <pre
             v-if="mermaidText"
             class="max-h-64 overflow-auto whitespace-pre-wrap break-all rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
             >{{ mermaidText }}</pre>
-          <YdEmptyState v-else description="暂无拓扑数据" :image-size="60" />
+          <YdEmptyState v-else :description="$t('page.noTopologyData')" :image-size="60" />
         </template>
       </YdSheetContent>
     </YdSheet>

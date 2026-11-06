@@ -36,6 +36,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, h, onMounted, ref } from 'vue';
+import { useI18n } from '@ydsz/locales';
 
 import { showToast } from '@ydsz/notification';
 
@@ -46,6 +47,7 @@ import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 defineOptions({ name: 'DebugManagement' });
 
 const logger = createLogger('agent-debug');
+const { t } = useI18n();
 
 // =====================================================================
 // 搜索区
@@ -221,10 +223,10 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
     { type: 'checkbox', width: 40 },
     { field: 'traceId', title: 'Trace ID', width: 140 },
     { field: 'agentCode', title: 'Agent', width: 120 },
-    { field: 'model', title: '模型', width: 100 },
+    { field: 'model', title: t('debug.modelColumn'), width: 100 },
     {
       field: 'status',
-      title: '状态',
+      title: t('debug.statusColumn'),
       width: 90,
       slots: {
         default: ({ row }) =>
@@ -233,17 +235,17 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
     },
     {
       field: 'duration',
-      title: '耗时',
+      title: t('debug.durationColumn'),
       width: 90,
       slots: {
         default: ({ row }) => h('span', {}, formatDuration(row.duration)),
       },
     },
     { field: 'tokenCount', title: 'Token', width: 80 },
-    { field: 'startTime', title: '开始时间', width: 160 },
+    { field: 'startTime', title: t('debug.startTimeLabel'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('debug.actionsLabel'),
       width: 150,
       fixed: 'right',
       slots: {
@@ -252,12 +254,12 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) },
-              () => '详情',
+              () => t('debug.detailAction'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleReplay(row) },
-              () => '重放',
+              () => t('debug.replayAction'),
             ),
           ]),
       },
@@ -287,24 +289,36 @@ onMounted(() => {
       <!-- 指标卡片 -->
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5">
         <YdCard shadow="never">
-          <YdCountToAnimator title="Trace 总数" :value="totalTraces" />
-        </YdCard>
-        <YdCard shadow="never">
-          <YdCountToAnimator title="成功数" :value="successCount" value-style="color: #67c23a" />
-        </YdCard>
-        <YdCard shadow="never">
-          <YdCountToAnimator title="失败数" :value="failedCount" value-style="color: #f56c6c" />
+          <YdCountToAnimator :title="t('debug.totalTraces')" :value="totalTraces" />
         </YdCard>
         <YdCard shadow="never">
           <YdCountToAnimator
-            title="成功率"
+            :title="t('debug.successCount')"
+            :value="successCount"
+            value-style="color: #67c23a"
+          />
+        </YdCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator
+            :title="t('debug.failedCount')"
+            :value="failedCount"
+            value-style="color: #f56c6c"
+          />
+        </YdCard>
+        <YdCard shadow="never">
+          <YdCountToAnimator
+            :title="t('debug.successRate')"
             :value="Number(successRate)"
             suffix="%"
             :precision="1"
           />
         </YdCard>
         <YdCard shadow="never">
-          <YdCountToAnimator title="平均耗时" :value="Number(avgDuration)" suffix="ms" />
+          <YdCountToAnimator
+            :title="t('debug.avgDuration')"
+            :value="Number(avgDuration)"
+            suffix="ms"
+          />
         </YdCard>
       </div>
 
@@ -312,20 +326,30 @@ onMounted(() => {
       <div class="flex flex-wrap items-center gap-3">
         <YdInput
           v-model="searchTraceId"
-          placeholder="按 Trace ID 搜索..."
+          :placeholder="t('debug.searchPlaceholder')"
           class="w-64"
           clearable
           @keyup.enter="handleSearchById"
         />
-        <YdSelect v-model="searchStatus" placeholder="状态筛选" clearable class="w-32">
-          <YdSelectItem label="成功" value="SUCCESS" />
-          <YdSelectItem label="失败" value="FAILED" />
-          <YdSelectItem label="运行中" value="RUNNING" />
+        <YdSelect
+          v-model="searchStatus"
+          :placeholder="t('debug.statusFilterPlaceholder')"
+          clearable
+          class="w-32"
+        >
+          <YdSelectItem :label="t('debug.statusSuccess')" value="SUCCESS" />
+          <YdSelectItem :label="t('debug.statusFailed')" value="FAILED" />
+          <YdSelectItem :label="t('debug.statusRunning')" value="RUNNING" />
         </YdSelect>
-        <YdInput v-model="searchModelRef" placeholder="模型筛选..." class="w-40" clearable />
-        <YdButton type="primary" @click="loadTraces">查询</YdButton>
+        <YdInput
+          v-model="searchModelRef"
+          :placeholder="t('debug.modelFilterPlaceholder')"
+          class="w-40"
+          clearable
+        />
+        <YdButton type="primary" @click="loadTraces">{{ t('debug.query') }}</YdButton>
         <YdButton type="warning" :disabled="selectedTraces.length === 0" @click="handleBatchReplay">
-          批量重放({{ selectedTraces.length }})
+          {{ t('debug.batchReplay', { count: selectedTraces.length }) }}
         </YdButton>
       </div>
 
@@ -334,35 +358,35 @@ onMounted(() => {
     </div>
 
     <!-- 详情弹窗 -->
-    <YdDialog v-model="detailVisible" title="Trace 详情" width="800px" top="5vh">
+    <YdDialog v-model="detailVisible" :title="t('debug.detailTitle')" width="800px" top="5vh">
       <div v-loading="detailLoading">
         <div v-if="detailData" class="space-y-4">
           <!-- 基本信息 -->
           <div class="grid grid-cols-2 gap-3 rounded border bg-gray-50 p-3 text-sm">
             <div><span class="text-gray-500">Trace ID:</span> {{ detailData.traceId }}</div>
             <div><span class="text-gray-500">Agent:</span> {{ detailData.agentCode }}</div>
-            <div><span class="text-gray-500">模型:</span> {{ detailData.model }}</div>
+            <div><span class="text-gray-500">{{ t('debug.modelLabel') }}</span> {{ detailData.model }}</div>
             <div>
-              <span class="text-gray-500">状态:</span>
+              <span class="text-gray-500">{{ t('debug.statusLabel') }}</span>
               <YdBadge :type="statusTagType(detailData.status ?? '')">{{
                 detailData.status
               }}</YdBadge>
             </div>
             <div>
-              <span class="text-gray-500">耗时:</span> {{ formatDuration(detailData.duration) }}
+              <span class="text-gray-500">{{ t('debug.durationLabel') }}</span> {{ formatDuration(detailData.duration) }}
             </div>
             <div><span class="text-gray-500">Token:</span> {{ detailData.tokenCount }}</div>
           </div>
 
           <!-- 输入输出 -->
           <div v-if="detailData.input">
-            <h4 class="mb-2 text-sm font-medium">输入</h4>
+            <h4 class="mb-2 text-sm font-medium">{{ t('debug.inputTitle') }}</h4>
             <div class="max-h-32 overflow-auto rounded border bg-gray-50 p-3 text-sm">
               {{ detailData.input }}
             </div>
           </div>
           <div v-if="detailData.output">
-            <h4 class="mb-2 text-sm font-medium">输出</h4>
+            <h4 class="mb-2 text-sm font-medium">{{ t('debug.outputTitle') }}</h4>
             <div class="max-h-32 overflow-auto rounded border bg-gray-50 p-3 text-sm">
               {{ detailData.output }}
             </div>
@@ -370,7 +394,7 @@ onMounted(() => {
 
           <!-- 执行链路 -->
           <div v-if="detailData.steps && detailData.steps.length > 0">
-            <h4 class="mb-2 text-sm font-medium">执行链路</h4>
+            <h4 class="mb-2 text-sm font-medium">{{ t('debug.stepsTitle') }}</h4>
             <YdTimeline>
               <YdTimelineItem
                 v-for="(step, idx) in detailData.steps"
@@ -381,14 +405,14 @@ onMounted(() => {
                 <div class="text-sm">
                   <span class="font-medium">{{ step.stepName ?? `Step ${idx + 1}` }}</span>
                   <span v-if="step.toolName" class="ml-2 text-gray-500"
-                    >工具: {{ step.toolName }}</span
+                    >{{ t('debug.toolLabel') }} {{ step.toolName }}</span
                   >
                 </div>
               </YdTimelineItem>
             </YdTimeline>
           </div>
         </div>
-        <YdEmptyState v-else description="暂无数据" />
+        <YdEmptyState v-else :description="t('debug.empty')" />
       </div>
     </YdDialog>
   </Page>

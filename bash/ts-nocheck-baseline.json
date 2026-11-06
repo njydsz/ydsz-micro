@@ -1,0 +1,9 @@
+{
+  "total": 265,
+  "byPackage": {
+    "comm/@core/ui-kit/tabs-ui/src": 1,
+    "comm/@core/ui-kit/ydsz-ui/src": 76,
+    "comm/@core/ui-kit/ydsz-vue/src": 188
+  },
+  "note": "由 bash/check-ts-nocheck.mts --update-baseline 生成。清理完一个组件目录后运行本命令收紧基线；总数只允许下降。"
+}

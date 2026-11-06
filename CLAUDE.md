@@ -122,7 +122,7 @@ L3 apps/*              ← 禁止横向引用其他 apps/*
 | 规则     | 要求                                                                    |
 | -------- | ----------------------------------------------------------------------- |
 | I18N-001 | 词条文件位于 `src/locales/langs/<locale>/<namespace>.json`（扁平 JSON） |
-| I18N-002 | 支持 zh-CN / en-US / es-ES / fr-FR / ja-JP / ko-KR 六种语言             |
+| I18N-002 | 仅支持 zh-CN / en-US 中英双语（多余语种已退场）                   |
 | I18N-003 | 禁止在模板或 TS 中硬编码中文文案（UI 层使用 i18n key）                  |
 | I18N-004 | 错误码提示文案从后端错误码 i18n key 读取，禁止前端重新硬编码错误描述    |
 | I18N-005 | `pnpm check:i18n` 门禁会发现缺失词条，必须清零                          |
@@ -179,7 +179,6 @@ pnpm stylelint
 pnpm gen:api                      # OpenAPI api 生成
 pnpm gen:contract                 # 后端契约 Python 生成器（models.ts + api/*.ts）
 pnpm gen:error-codes              # 错误码前端枚举生成
-pnpm gen:api:i18n                 # api i18n 增量同步
 
 # 门禁
 pnpm check:ci                     # CI 综合检查
@@ -248,6 +247,8 @@ subject: 中文祈使句，50 字符以内
 19. **重依赖组件**（ECharts / 编辑器 / 图表）必须独立成包，禁止直接引入 ydsz-ui
 20. **组件拆分时必须先确认依赖顺序**：composable 若引用 `table`/`layout`
     等上游对象，必须在其定义之后调用（避免 TDZ 运行时错误）
+21. **禁止新增多余语种**：项目仅支持 zh-CN / en-US 双语，禁止引入其他语言包、
+    翻译脚本或组件库词典
 
 ---
 
@@ -268,7 +269,7 @@ subject: 中文祈使句，50 字符以内
   │
   ├─ API 调用走 `requestClient`（来自 @ydsz/request），from '#/api/...'
   │
-  ├─ i18n key 预填到全部 6 语言 zh-CN / en-US / es-ES / fr-FR / ja-JP / ko-KR
+  ├─ i18n key 预填到中英双语 zh-CN / en-US
   │   └─ 缺失词条走 check:i18n 门禁（warning 即阻断）
   │
   ├─ 新增错误码 → pnpm gen:error-codes（后端枚举静态扫描）

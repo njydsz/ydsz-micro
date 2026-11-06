@@ -198,8 +198,10 @@ onMounted(() => {
     <!-- 左侧：分组列表 -->
     <div class="w-64 flex-shrink-0">
       <div class="mb-3 flex items-center justify-between">
-        <span class="font-medium">模板分组</span>
-        <YdButton size="sm" @click="handleAddGroup">新建</YdButton>
+        <span class="font-medium">{{ $t('page.template.groupList') }}</span>
+        <YdButton size="sm" @click="handleAddGroup">
+          {{ $t('page.template.create') }}
+        </YdButton>
       </div>
       <div class="space-y-2">
         <div
@@ -215,8 +217,12 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <span class="font-medium">{{ group.name }}</span>
-              <YdBadge v-if="group.isActive" variant="default" class="ml-2"> 使用中 </YdBadge>
-              <YdBadge v-if="group.isSystem" variant="secondary" class="ml-2"> 系统 </YdBadge>
+              <YdBadge v-if="group.isActive" variant="default" class="ml-2">
+                {{ $t('page.template.inUse') }}
+              </YdBadge>
+              <YdBadge v-if="group.isSystem" variant="secondary" class="ml-2">
+                {{ $t('page.template.system') }}
+              </YdBadge>
             </div>
           </div>
           <div v-if="group.description" class="mt-1 text-xs text-gray-500">
@@ -229,7 +235,7 @@ onMounted(() => {
               variant="link"
               @click.stop="handleActivateGroup(group)"
             >
-              激活
+              {{ $t('page.template.activate') }}
             </YdButton>
             <YdButton
               v-if="!group.isSystem"
@@ -237,7 +243,7 @@ onMounted(() => {
               variant="destructive"
               @click.stop="handleDeleteGroup(group)"
             >
-              删除
+              {{ $t('page.template.delete') }}
             </YdButton>
           </div>
         </div>
@@ -247,15 +253,19 @@ onMounted(() => {
     <!-- 右侧：模板列表 -->
     <div class="flex flex-1 flex-col">
       <div class="mb-3 flex items-center gap-3">
-        <span class="font-medium">「{{ selectedGroupName }}」分组模板</span>
+        <span class="font-medium">
+          {{ $t('page.template.groupTemplates', { name: selectedGroupName }) }}
+        </span>
         <YdInput
           v-model="searchKeyword"
-          placeholder="搜索文件名..."
+          :placeholder="$t('page.template.searchPlaceholder')"
           style="width: 200px"
           @clear="handleSearch"
           @keyup.enter="handleSearch"
         />
-        <YdButton variant="secondary" @click="handleSearch">搜索</YdButton>
+        <YdButton variant="secondary" @click="handleSearch">
+          {{ $t('page.template.search') }}
+        </YdButton>
       </div>
 
       <div v-loading="templatesLoading" class="flex-1 overflow-auto">
@@ -268,17 +278,19 @@ onMounted(() => {
           >
             <div class="flex items-center justify-between">
               <span class="break-all text-sm font-medium">{{ tpl.fileName }}</span>
-              <YdBadge v-if="!tpl.isActive" variant="secondary">禁用</YdBadge>
+              <YdBadge v-if="!tpl.isActive" variant="secondary">
+                {{ $t('page.template.disabled') }}
+              </YdBadge>
             </div>
             <div class="mt-1 text-xs text-gray-500">
-              {{ tpl.description || '无描述' }}
+              {{ tpl.description || $t('page.template.noDescription') }}
             </div>
             <div class="mt-1 text-xs text-gray-400">
               v{{ tpl.version ?? 1 }} | {{ tpl.parentPath || '/' }}
             </div>
           </div>
         </div>
-        <YdEmptyState v-else description="该分组暂无模板" />
+        <YdEmptyState v-else :description="$t('page.template.empty')" />
       </div>
     </div>
   </div>

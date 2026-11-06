@@ -113,9 +113,9 @@ describe('ConfigProvider', () => {
     });
 
     it('期望 data-locale 属性应反映当前 locale', async () => {
-      const wrapper = createConfigProvider({ locale: 'ja-JP' });
+      const wrapper = createConfigProvider({ locale: 'en-US' });
       await nextTick();
-      expect(wrapper.attributes('data-locale')).toBe('ja-JP');
+      expect(wrapper.attributes('data-locale')).toBe('en-US');
       wrapper.unmount();
     });
 
@@ -235,9 +235,9 @@ describe('ConfigProvider', () => {
       await nextTick();
       expect(capturedRef?.value?.lang).toBe('zh-CN');
 
-      await wrapper.setProps({ locale: 'ja-JP' });
+      await wrapper.setProps({ locale: 'en-US' });
       await nextTick();
-      expect(capturedRef?.value?.lang).toBe('ja-JP');
+      expect(capturedRef?.value?.lang).toBe('en-US');
       wrapper.unmount();
     });
   });

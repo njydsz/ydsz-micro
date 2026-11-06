@@ -122,7 +122,7 @@ const [Modal, modalApi] = useYdModal({
 });
 </script>
 <template>
-  <Modal title="发送消息">
+  <Modal :title="$t('page.messageForm.title')">
     <YdForm
       ref="formRef"
       :model="formData"
@@ -130,49 +130,49 @@ const [Modal, modalApi] = useYdModal({
       label-width="100px"
       label-position="right"
     >
-      <YdFormItem label="发送策略" prop="strategy">
+      <YdFormItem :label="$t('page.messageForm.strategy')" prop="strategy">
         <YdRadioGroup v-model="formData.strategy">
-          <YdRadioGroupItem value="SYNC">同步</YdRadioGroupItem>
-          <YdRadioGroupItem value="DIRECT">直发</YdRadioGroupItem>
-          <YdRadioGroupItem value="ASYNC">异步</YdRadioGroupItem>
-          <YdRadioGroupItem value="TRANSACTIONAL">事务</YdRadioGroupItem>
+          <YdRadioGroupItem value="SYNC">{{ $t('page.messageForm.sync') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="DIRECT">{{ $t('page.messageForm.direct') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="ASYNC">{{ $t('page.messageForm.async') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="TRANSACTIONAL">{{ $t('page.messageForm.transactional') }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
-      <YdFormItem label="通道" prop="channel">
-        <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />
+      <YdFormItem :label="$t('page.messageForm.channel')" prop="channel">
+        <YdInput v-model="formData.channel" :placeholder="$t('page.messageForm.channelPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="接收者" prop="receiver">
-        <YdInput v-model="formData.receiver" placeholder="请输入接收者" />
+      <YdFormItem :label="$t('page.messageForm.receiver')" prop="receiver">
+        <YdInput v-model="formData.receiver" :placeholder="$t('page.messageForm.receiverPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="业务类型" prop="bizType">
-        <YdInput v-model="formData.bizType" placeholder="请输入业务类型" />
+      <YdFormItem :label="$t('page.messageForm.bizType')" prop="bizType">
+        <YdInput v-model="formData.bizType" :placeholder="$t('page.messageForm.bizTypePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="业务ID" prop="bizId">
-        <YdInput v-model="formData.bizId" placeholder="请输入业务ID" />
+      <YdFormItem :label="$t('page.messageForm.bizId')" prop="bizId">
+        <YdInput v-model="formData.bizId" :placeholder="$t('page.messageForm.bizIdPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="模板编码" prop="templateCode">
-        <YdInput v-model="formData.templateCode" placeholder="请输入模板编码（可为空）" />
+      <YdFormItem :label="$t('page.messageForm.templateCode')" prop="templateCode">
+        <YdInput v-model="formData.templateCode" :placeholder="$t('page.messageForm.templateCodePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="主题" prop="subject">
-        <YdInput v-model="formData.subject" placeholder="请输入主题（可为空）" />
+      <YdFormItem :label="$t('page.messageForm.subject')" prop="subject">
+        <YdInput v-model="formData.subject" :placeholder="$t('page.messageForm.subjectPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="内容" prop="content">
-        <YdTextarea v-model="formData.content" placeholder="请输入内容" />
+      <YdFormItem :label="$t('page.messageForm.content')" prop="content">
+        <YdTextarea v-model="formData.content" :placeholder="$t('page.messageForm.contentPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="优先级" prop="priority">
+      <YdFormItem :label="$t('page.messageForm.priority')" prop="priority">
         <YdSelectBase v-model="formData.priority">
           <YdSelectTriggerBase>
-            <YdSelectValueBase placeholder="请选择优先级（可为空）" />
+            <YdSelectValueBase :placeholder="$t('page.messageForm.priorityPlaceholder')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase value="HIGH">高</YdSelectItemBase>
-            <YdSelectItemBase value="MEDIUM">中</YdSelectItemBase>
-            <YdSelectItemBase value="LOW">低</YdSelectItemBase>
+            <YdSelectItemBase value="HIGH">{{ $t('page.messageForm.priorityHigh') }}</YdSelectItemBase>
+            <YdSelectItemBase value="MEDIUM">{{ $t('page.messageForm.priorityMedium') }}</YdSelectItemBase>
+            <YdSelectItemBase value="LOW">{{ $t('page.messageForm.priorityLow') }}</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
-      <YdFormItem label="消息组" prop="messageGroup">
-        <YdInput v-model="formData.messageGroup" placeholder="请输入消息组（可为空）" />
+      <YdFormItem :label="$t('page.messageForm.messageGroup')" prop="messageGroup">
+        <YdInput v-model="formData.messageGroup" :placeholder="$t('page.messageForm.messageGroupPlaceholder')" />
       </YdFormItem>
     </YdForm>
   </Modal>

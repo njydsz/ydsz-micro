@@ -7,5 +7,28 @@
   "cep": "CEP复杂事件",
   "breakpoint": "断点调试",
   "audit": "审计监控",
-  "auditLog": "审计日志"
+  "auditLog": "审计日志",
+  "ruleChainDesigner": {
+    "title": "规则链可视化编排",
+    "save": "保存",
+    "validate": "验证",
+    "dryRun": "试运行",
+    "addNode": "添加节点：",
+    "unboundRule": "未关联规则",
+    "connect": "连线",
+    "delete": "删除",
+    "emptyHint": "从工具栏拖拽或点击添加节点开始编排规则链",
+    "nodeProperties": "节点属性",
+    "name": "名称",
+    "namePlaceholder": "节点名称",
+    "type": "类型",
+    "typePlaceholder": "节点类型",
+    "rule": "规则",
+    "rulePlaceholder": "关联规则编码",
+    "xCoord": "X坐标",
+    "yCoord": "Y坐标",
+    "selectNodeHint": "请选择一个节点",
+    "dryRunResultTitle": "试运行结果",
+    "noDryRunResult": "暂无试运行结果"
+  }
 }

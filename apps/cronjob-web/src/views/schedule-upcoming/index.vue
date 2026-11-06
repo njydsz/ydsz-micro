@@ -252,19 +252,19 @@ onMounted(() => {
       <YdCardContent>
         <div class="flex flex-wrap items-center gap-3">
           <div class="flex items-center gap-2">
-            <label class="whitespace-nowrap text-sm text-gray-600">任务标识：</label>
-            <YdInput v-model="jobKey" placeholder="任务 Key" class="w-[180px]" />
+            <label class="whitespace-nowrap text-sm text-gray-600">{{ $t('page.scheduleUpcoming.jobKeyLabel') }}</label>
+            <YdInput v-model="jobKey" :placeholder="$t('page.scheduleUpcoming.jobKeyPlaceholder')" class="w-[180px]" />
           </div>
           <div class="flex items-center gap-2">
-            <label class="whitespace-nowrap text-sm text-gray-600">时间范围：</label>
+            <label class="whitespace-nowrap text-sm text-gray-600">{{ $t('page.scheduleUpcoming.timeRangeLabel') }}</label>
             <YdInput v-model="hours" type="number" :min="1" :max="168" class="w-24" />
-            <span class="text-sm text-gray-400">小时</span>
+            <span class="text-sm text-gray-400">{{ $t('page.scheduleUpcoming.hoursUnit') }}</span>
           </div>
           <div class="flex items-center gap-2">
-            <label class="whitespace-nowrap text-sm text-gray-600">最大条数：</label>
+            <label class="whitespace-nowrap text-sm text-gray-600">{{ $t('page.scheduleUpcoming.maxCountLabel') }}</label>
             <YdInput v-model="maxCount" type="number" :min="1" :max="500" class="w-24" />
           </div>
-          <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
+          <YdButton :loading="isLoading" @click="handleSearch">{{ $t('page.scheduleUpcoming.query') }}</YdButton>
         </div>
       </YdCardContent>
     </YdCard>
@@ -273,7 +273,7 @@ onMounted(() => {
       <!-- 触发时间列表 -->
       <YdCard class="lg:col-span-3">
         <YdCardHeader>
-          <YdCardTitle>下次触发时间列表 ({{ fireTimes.length }})</YdCardTitle>
+          <YdCardTitle>{{ $t('page.scheduleUpcoming.upcomingList') }} ({{ fireTimes.length }})</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <Grid table-title="" />
@@ -308,7 +308,7 @@ onMounted(() => {
               </YdTimelineItem>
             </YdTimeline>
           </div>
-          <YdEmptyState v-else description="暂无触发时间数据" :image-size="60" />
+          <YdEmptyState v-else :description="$t('page.scheduleUpcoming.noUpcomingData')" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>

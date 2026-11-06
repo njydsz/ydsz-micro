@@ -376,7 +376,7 @@ export const ZH_CN_MESSAGES: Readonly<Partial<Record<ErrorCode, string>>> = {
 
   // ==================== Unknown / 兜底 ====================
   C99999: '未知错误，请联系技术支持',
-  // ---- 由 bash/gen-error-codes-i18n.mts 补齐（generated 静态扫描）----
+  // ---- generated 静态扫描补齐 ----
   A10001: '请求参数错误',
   A10002: '参数校验失败（JSR-303 校验不通过）',
   A10003: '缺少必填参数',
