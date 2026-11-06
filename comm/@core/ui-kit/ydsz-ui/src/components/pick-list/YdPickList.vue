@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
-* PickList（选择列表）：双栏穿梭列表。
+ * PickList（选择列表）：双栏穿梭列表。
  *
  * 仿 PrimeVue PickList 布局，包含 source / target 两栏
  * 以及中间控制按钮（→ ← » «）。
@@ -36,20 +36,17 @@ import type { PickListEmits, PickListMoveEvent, YdPickListProps } from './types'
 
 defineOptions({ name: 'YdPickList' });
 
-const props = withDefaults(
-  defineProps<YdPickListProps<Record<string, unknown>>>(),
-  {
-    source: () => [],
-    target: () => [],
-    sourceLabel: undefined,
-    targetLabel: undefined,
-    itemLabel: undefined,
-    dragdrop: false,
-    filter: false,
-    filterBy: () => [],
-    template: undefined,
-  },
-);
+const props = withDefaults(defineProps<YdPickListProps<Record<string, unknown>>>(), {
+  source: () => [],
+  target: () => [],
+  sourceLabel: undefined,
+  targetLabel: undefined,
+  itemLabel: undefined,
+  dragdrop: false,
+  filter: false,
+  filterBy: () => [],
+  template: undefined,
+});
 
 const emit = defineEmits<PickListEmits<Record<string, unknown>>>();
 
@@ -88,10 +85,18 @@ const filteredSource = computed(() => {
       return props.template(item).toLowerCase().includes(query);
     }
     if (filterFields.length > 0) {
-      return filterFields.some((f) => String((item as Record<string, unknown>)[f] ?? '').toLowerCase().includes(query));
+      return filterFields.some((f) =>
+        String((item as Record<string, unknown>)[f] ?? '')
+          .toLowerCase()
+          .includes(query),
+      );
     }
     // 全字段匹配
-    return Object.values(item).some((v) => String(v ?? '').toLowerCase().includes(query));
+    return Object.values(item).some((v) =>
+      String(v ?? '')
+        .toLowerCase()
+        .includes(query),
+    );
   });
 });
 
@@ -106,9 +111,17 @@ const filteredTarget = computed(() => {
       return props.template(item).toLowerCase().includes(query);
     }
     if (filterFields.length > 0) {
-      return filterFields.some((f) => String((item as Record<string, unknown>)[f] ?? '').toLowerCase().includes(query));
+      return filterFields.some((f) =>
+        String((item as Record<string, unknown>)[f] ?? '')
+          .toLowerCase()
+          .includes(query),
+      );
     }
-    return Object.values(item).some((v) => String(v ?? '').toLowerCase().includes(query));
+    return Object.values(item).some((v) =>
+      String(v ?? '')
+        .toLowerCase()
+        .includes(query),
+    );
   });
 });
 
@@ -136,17 +149,13 @@ function getItemDisplay(item: Record<string, unknown>): string {
 /** 重置 source 侧选中态（过滤变化后防止悬空） */
 function pruneSourceSelection(): void {
   const len = filteredSource.value.length;
-  sourceSelected.value = new Set(
-    [...sourceSelected.value].filter((i) => i < len),
-  );
+  sourceSelected.value = new Set([...sourceSelected.value].filter((i) => i < len));
 }
 
 /** 重置 target 侧选中态 */
 function pruneTargetSelection(): void {
   const len = filteredTarget.value.length;
-  targetSelected.value = new Set(
-    [...targetSelected.value].filter((i) => i < len),
-  );
+  targetSelected.value = new Set([...targetSelected.value].filter((i) => i < len));
 }
 
 // ---------------------------------------------------------------------------
@@ -308,13 +317,19 @@ function handleTargetFilter(): void {
   pruneTargetSelection();
 }
 
-watch(() => props.source, () => {
-  sourceSelected.value = new Set();
-});
+watch(
+  () => props.source,
+  () => {
+    sourceSelected.value = new Set();
+  },
+);
 
-watch(() => props.target, () => {
-  targetSelected.value = new Set();
-});
+watch(
+  () => props.target,
+  () => {
+    targetSelected.value = new Set();
+  },
+);
 </script>
 
 <template>
@@ -325,11 +340,14 @@ watch(() => props.target, () => {
   >
     <!-- ===== 双栏主体 ===== -->
     <div class="flex flex-row items-stretch gap-2">
-
       <!-- === 左：Source 面板 === -->
-      <div class="flex min-w-0 flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-700">
+      <div
+        class="flex min-w-0 flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-700"
+      >
         <!-- Header -->
-        <div class="flex items-center justify-between border-b border-neutral-200 px-3 py-2 dark:border-neutral-700">
+        <div
+          class="flex items-center justify-between border-b border-neutral-200 px-3 py-2 dark:border-neutral-700"
+        >
           <span class="text-sm font-medium text-neutral-800 dark:text-neutral-200">
             {{ sourceLabel ?? t('pickList.sourceLabel') }}
           </span>
@@ -366,7 +384,8 @@ watch(() => props.target, () => {
             :class="[
               'mx-1 flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
               'hover:bg-neutral-100 dark:hover:bg-neutral-800',
-              sourceSelected.has(index) && 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+              sourceSelected.has(index) &&
+                'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
             ]"
             :aria-selected="sourceSelected.has(index)"
             :aria-label="getItemDisplay(item)"
@@ -440,9 +459,13 @@ watch(() => props.target, () => {
       </div>
 
       <!-- === 右：Target 面板 === -->
-      <div class="flex min-w-0 flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-700">
+      <div
+        class="flex min-w-0 flex-1 flex-col overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-700"
+      >
         <!-- Header -->
-        <div class="flex items-center justify-between border-b border-neutral-200 px-3 py-2 dark:border-neutral-700">
+        <div
+          class="flex items-center justify-between border-b border-neutral-200 px-3 py-2 dark:border-neutral-700"
+        >
           <span class="text-sm font-medium text-neutral-800 dark:text-neutral-200">
             {{ targetLabel ?? t('pickList.targetLabel') }}
           </span>
@@ -479,7 +502,8 @@ watch(() => props.target, () => {
             :class="[
               'mx-1 flex cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
               'hover:bg-neutral-100 dark:hover:bg-neutral-800',
-              targetSelected.has(index) && 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+              targetSelected.has(index) &&
+                'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
             ]"
             :aria-selected="targetSelected.has(index)"
             :aria-label="getItemDisplay(item)"
@@ -521,7 +545,9 @@ watch(() => props.target, () => {
   border-radius: 9999px;
   background-color: #404040;
   color: #ffffff;
-  transition: background-color 150ms ease, opacity 150ms ease;
+  transition:
+    background-color 150ms ease,
+    opacity 150ms ease;
   flex-shrink: 0;
 }
 

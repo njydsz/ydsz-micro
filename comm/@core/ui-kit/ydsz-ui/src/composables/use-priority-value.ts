@@ -19,10 +19,7 @@ import type { ComputedRef, Ref } from 'vue';
 
 import { computed, getCurrentInstance, unref, useAttrs, useSlots } from 'vue';
 
-import {
-  getFirstNonNullOrUndefined,
-  kebabToCamelCase,
-} from '@ydsz-core/shared/utils';
+import { getFirstNonNullOrUndefined, kebabToCamelCase } from '@ydsz-core/shared/utils';
 
 /**
  * 依次从插槽、attrs、props、state 中获取值
@@ -30,11 +27,11 @@ import {
  * @param props
  * @param state
  */
-export function usePriorityValue<
-  T extends object,
-  S extends object,
-  K extends keyof T = keyof T,
->(key: K, props: T, state: Readonly<Ref<NoInfer<S>>> | undefined) {
+export function usePriorityValue<T extends object, S extends object, K extends keyof T = keyof T>(
+  key: K,
+  props: T,
+  state: Readonly<Ref<NoInfer<S>>> | undefined,
+) {
   const instance = getCurrentInstance();
   const slots = useSlots();
   const attrs = useAttrs() as T;
@@ -49,8 +46,7 @@ export function usePriorityValue<
     for (const [propKey, propValue] of Object.entries(rawProps)) {
       standardRawProps[kebabToCamelCase(propKey) as K] = propValue as T[K];
     }
-    const propsKey =
-      standardRawProps?.[key] === undefined ? undefined : props[key];
+    const propsKey = standardRawProps?.[key] === undefined ? undefined : props[key];
 
     // slot可以关闭（slot/attrs/state 均为运行时透传来源，按 unknown 收窄后统一裁决）
     return getFirstNonNullOrUndefined(
@@ -96,20 +92,14 @@ export function useForwardPriorityValues<
   const computedResult = {} as { [K in keyof T]: ComputedRef<T[K]> };
 
   (Object.keys(props) as (keyof T)[]).forEach((key) => {
-    computedResult[key] = usePriorityValue(
-      key as keyof typeof props,
-      props,
-      state,
-    );
+    computedResult[key] = usePriorityValue(key as keyof typeof props, props, state);
   });
 
   return computed(() => {
     const unwrapResult: Record<string, unknown> = {};
     Object.keys(props).forEach((key) => {
       // 索引收窄：key 来自 props 自身键集合，computedResult 必含对应条目
-      unwrapResult[key] = unref(
-        computedResult[key as keyof typeof computedResult],
-      );
+      unwrapResult[key] = unref(computedResult[key as keyof typeof computedResult]);
     });
     return unwrapResult as { [K in keyof T]: T[K] };
   });

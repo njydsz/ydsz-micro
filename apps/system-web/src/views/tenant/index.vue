@@ -48,18 +48,27 @@ const gridOptions: VxeGridProps<TenantVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.status === 'ACTIVE' ? undefined : 'destructive' }, () => (row.status === 'ACTIVE' ? t('enabled') : t('disabled'))),
+          h(YdBadge, { variant: row.status === 'ACTIVE' ? undefined : 'destructive' }, () =>
+            row.status === 'ACTIVE' ? t('enabled') : t('disabled'),
+          ),
       },
     },
     { field: 'expireAt', title: t('expireAt'), width: 170 },
     { field: 'datasourceKey', title: t('datasourceKey'), width: 120 },
     {
-      field: 'action', title: t('action'), width: 160, fixed: 'right',
+      field: 'action',
+      title: t('action'),
+      width: 160,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(YdButton, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) },
+              () => t('delete'),
+            ),
           ]),
       },
     },
@@ -69,7 +78,11 @@ const gridOptions: VxeGridProps<TenantVO> = {
   proxyConfig: {
     ajax: {
       query: async ({ page: pageObj, formData }) => {
-        const res = await page({ ...formData, pageNum: pageObj.currentPage, pageSize: pageObj.pageSize });
+        const res = await page({
+          ...formData,
+          pageNum: pageObj.currentPage,
+          pageSize: pageObj.pageSize,
+        });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },
@@ -78,8 +91,16 @@ const gridOptions: VxeGridProps<TenantVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'tenantName', title: t('tenantName'), itemRender: { name: 'YdInput', props: { placeholder: t('tenantNamePlaceholder') } } },
-      { field: 'tenantCode', title: t('tenantCode'), itemRender: { name: 'YdInput', props: { placeholder: t('tenantCodePlaceholder') } } },
+      {
+        field: 'tenantName',
+        title: t('tenantName'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('tenantNamePlaceholder') } },
+      },
+      {
+        field: 'tenantCode',
+        title: t('tenantCode'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('tenantCodePlaceholder') } },
+      },
     ],
   },
 };
@@ -119,7 +140,10 @@ async function handleDelete(row: TenantVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('business.tenantDeleteConfirm', [row.tenantName]), { title: t('tenantDeleteTitle'), type: 'warning' });
+    await YdConfirm(t('business.tenantDeleteConfirm', [row.tenantName]), {
+      title: t('tenantDeleteTitle'),
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消删除租户', error);
     return; // 用户主动取消删除操作

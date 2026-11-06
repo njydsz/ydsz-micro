@@ -37,13 +37,7 @@ import {
 import { usePriorityValues } from '@ydsz/hooks';
 import { $t } from '@ydsz/locales';
 import { usePreferences } from '@ydsz/preferences';
-import {
-  cloneDeep,
-  cn,
-  isBoolean,
-  isEqual,
-  mergeWithArrayOverride,
-} from '@ydsz/utils';
+import { cloneDeep, cn, isBoolean, isEqual, mergeWithArrayOverride } from '@ydsz/utils';
 
 import { VxeUI } from 'vxe-table';
 
@@ -52,10 +46,7 @@ import { useTableForm } from '../init';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import {
-  FORM_SLOT_PREFIX,
-  useVxeGridSlotComputeds,
-} from './use-vxe-grid-slots';
+import { FORM_SLOT_PREFIX, useVxeGridSlotComputeds } from './use-vxe-grid-slots';
 
 export {
   FORM_SLOT_PREFIX,
@@ -152,9 +143,7 @@ export interface UseVxeGridLogicReturn {
  * @param props - 组件属性，包含 api 句柄与表格/表单配置
  * @returns 模板渲染所需的全部响应式数据、事件处理器与子组件
  */
-export function useVxeGridLogic(
-  props: VxeGridLogicProps,
-): UseVxeGridLogicReturn {
+export function useVxeGridLogic(props: VxeGridLogicProps): UseVxeGridLogicReturn {
   const slots: SetupContext['slots'] = useSlots();
 
   const gridRef = useTemplateRef<VxeGridInstance>('gridRef');
@@ -178,11 +167,7 @@ export function useVxeGridLogic(
   // ---------- 分隔条 ----------
 
   const isSeparator = computed(() => {
-    if (
-      !formOptions.value ||
-      showSearchForm.value === false ||
-      separator.value === false
-    ) {
+    if (!formOptions.value || showSearchForm.value === false || separator.value === false) {
       return false;
     }
     if (separator.value === true || separator.value === undefined) {
@@ -192,9 +177,7 @@ export function useVxeGridLogic(
   });
 
   const separatorBg = computed(() => {
-    return !separator.value ||
-      isBoolean(separator.value) ||
-      !separator.value.backgroundColor
+    return !separator.value || isBoolean(separator.value) || !separator.value.backgroundColor
       ? undefined
       : separator.value.backgroundColor;
   });
@@ -232,19 +215,14 @@ export function useVxeGridLogic(
 
   // ---------- 工具栏 / 插槽 ----------
 
-  const {
-    delegatedFormSlots,
-    delegatedSlots,
-    showTableTitle,
-    showToolbar,
-    toolbarOptions,
-  } = useVxeGridSlotComputeds({
-    formOptions,
-    gridOptions,
-    showSearchForm,
-    slots,
-    tableTitle,
-  });
+  const { delegatedFormSlots, delegatedSlots, showTableTitle, showToolbar, toolbarOptions } =
+    useVxeGridSlotComputeds({
+      formOptions,
+      gridOptions,
+      showSearchForm,
+      slots,
+      tableTitle,
+    });
 
   // ---------- 合并后的 vxe-grid 配置 ----------
 
@@ -268,32 +246,16 @@ export function useVxeGridLogic(
     }
 
     if (mergedOptions.pagerConfig) {
-      const mobileLayouts = [
-        'PrevJump',
-        'PrevPage',
-        'Number',
-        'NextPage',
-        'NextJump',
-      ] as string[];
-      const layouts = [
-        'Total',
-        'Sizes',
-        'Home',
-        ...mobileLayouts,
-        'End',
-      ] as readonly string[];
-      mergedOptions.pagerConfig = mergeWithArrayOverride(
-        {},
-        mergedOptions.pagerConfig,
-        {
-          pageSize: 20,
-          background: true,
-          pageSizes: [10, 20, 30, 50, 100, 200],
-          className: 'mt-2 w-full',
-          layouts: isMobile.value ? mobileLayouts : layouts,
-          size: 'mini' as const,
-        },
-      );
+      const mobileLayouts = ['PrevJump', 'PrevPage', 'Number', 'NextPage', 'NextJump'] as string[];
+      const layouts = ['Total', 'Sizes', 'Home', ...mobileLayouts, 'End'] as readonly string[];
+      mergedOptions.pagerConfig = mergeWithArrayOverride({}, mergedOptions.pagerConfig, {
+        pageSize: 20,
+        background: true,
+        pageSizes: [10, 20, 30, 50, 100, 200],
+        className: 'mt-2 w-full',
+        layouts: isMobile.value ? mobileLayouts : layouts,
+        size: 'mini' as const,
+      });
     }
     if (mergedOptions.formConfig) {
       mergedOptions.formConfig.enabled = false;
@@ -304,15 +266,11 @@ export function useVxeGridLogic(
   // ---------- 事件处理 ----------
 
   /** 工具栏按钮点击：若点击搜索按钮则切换搜索表单，其余透传给业务侧 */
-  function onToolbarToolClick(
-    event: VxeGridDefines.ToolbarToolClickEventParams,
-  ) {
+  function onToolbarToolClick(event: VxeGridDefines.ToolbarToolClickEventParams) {
     if (event.code === 'search') {
       onSearchBtnClick();
     }
-    (
-      gridEvents.value?.toolbarToolClick as VxeGridListeners['toolbarToolClick']
-    )?.(event);
+    (gridEvents.value?.toolbarToolClick as VxeGridListeners['toolbarToolClick'])?.(event);
   }
 
   /** 切换搜索表单显隐 */
@@ -371,9 +329,7 @@ export function useVxeGridLogic(
     }
     props.api?.setState?.({ gridOptions: defaultGridOptions });
     // form 由 YDSZ-form 代替，所以需要保证query相关事件可以拿到参数
-    extendProxyOptions(props.api, defaultGridOptions, () =>
-      formApi.getLatestSubmissionValues(),
-    );
+    extendProxyOptions(props.api, defaultGridOptions, () => formApi.getLatestSubmissionValues());
   }
 
   // ---------- 响应式监听 ----------
@@ -383,11 +339,7 @@ export function useVxeGridLogic(
     formOptions,
     () => {
       formApi.setState((prev) => {
-        const finalFormOptions: YdFormProps = mergeWithArrayOverride(
-          {},
-          formOptions.value,
-          prev,
-        );
+        const finalFormOptions: YdFormProps = mergeWithArrayOverride({}, formOptions.value, prev);
         return {
           ...finalFormOptions,
           collapseTriggerResize: !!finalFormOptions.showCollapseButton,

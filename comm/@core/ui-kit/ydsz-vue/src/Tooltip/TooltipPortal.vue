@@ -1,14 +1,14 @@
 <script lang="ts">
 // @ts-nocheck
-import type { TeleportProps } from '../Teleport/index.ts'
+import type { TeleportProps } from '../Teleport/index.ts';
 
 export interface TooltipPortalProps extends TeleportProps {}
 </script>
 
 <script setup lang="ts">
-import { TeleportPrimitive } from '../Teleport/index.ts'
+import { TeleportPrimitive } from '../Teleport/index.ts';
 
-const props = defineProps<TooltipPortalProps>()
+const props = defineProps<TooltipPortalProps>();
 </script>
 
 <template>

@@ -16,19 +16,11 @@
  * @author ydsz-team
  * @since 1.0.0 (26.09.17 新增 useMessage 命令式 API)
  */
-export { default as YdMessage } from './YdMessage.vue'
-export { useMessage } from './useMessage'
-export { MESSAGE_PROVIDER_KEY } from './useMessage'
-export type {
-  MessageConfig,
-  MessageHandle,
-  MessageInstance,
-  MessageType,
-} from './types'
-export type {
-  MessageProviderContext,
-  UseMessageHandler,
-} from './useMessage'
+export { default as YdMessage } from './YdMessage.vue';
+export { useMessage } from './useMessage';
+export { MESSAGE_PROVIDER_KEY } from './useMessage';
+export type { MessageConfig, MessageHandle, MessageInstance, MessageType } from './types';
+export type { MessageProviderContext, UseMessageHandler } from './useMessage';
 
 // merged from pre-refactor ui/ + primitives/ barrels
 export { default as ydMessage } from './message.vue';

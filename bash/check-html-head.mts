@@ -92,8 +92,10 @@ function parseAttrs(raw) {
 
 /** 按 name=viewport 取到 viewport meta 的 content（取不到返回空串） */
 function viewportContent(text) {
-  const meta = startTags(text, 'meta').find((t) => (t.attrs.name ?? '').toLowerCase() === 'viewport');
-  return meta ? meta.attrs.content ?? '' : '';
+  const meta = startTags(text, 'meta').find(
+    (t) => (t.attrs.name ?? '').toLowerCase() === 'viewport',
+  );
+  return meta ? (meta.attrs.content ?? '') : '';
 }
 
 /**
@@ -113,20 +115,28 @@ function checkHtml(label, html, sink) {
   // ---------- H1 viewport ----------
   const vw = viewportContent(text);
   if (!vw) {
-    sink.push(`${label} 缺少 <meta name="viewport">：移动端会按 980px 虚拟宽度渲染，管理台表格整体缩成不可读`);
+    sink.push(
+      `${label} 缺少 <meta name="viewport">：移动端会按 980px 虚拟宽度渲染，管理台表格整体缩成不可读`,
+    );
   } else {
     if (!/width\s*=\s*device-width/i.test(vw)) {
       sink.push(`${label} viewport 未声明 width=device-width（当前 content="${vw}"）`);
     }
     if (/user-scalable\s*=\s*(?:no|0)/i.test(vw)) {
-      sink.push(`${label} viewport 用 user-scalable 禁用了缩放：违反 WCAG 2.1 AA 1.4.4（Resize Text），content="${vw}"`);
+      sink.push(
+        `${label} viewport 用 user-scalable 禁用了缩放：违反 WCAG 2.1 AA 1.4.4（Resize Text），content="${vw}"`,
+      );
     }
     if (/maximum-scale\s*=/i.test(vw)) {
-      sink.push(`${label} viewport 用 maximum-scale 封死了放大上限：违反 WCAG 2.1 AA 1.4.4，content="${vw}"`);
+      sink.push(
+        `${label} viewport 用 maximum-scale 封死了放大上限：违反 WCAG 2.1 AA 1.4.4，content="${vw}"`,
+      );
     }
     const minScale = vw.match(/minimum-scale\s*=\s*([\d.]+)/i);
     if (minScale && Number(minScale[1]) >= 1) {
-      sink.push(`${label} viewport 的 minimum-scale=${minScale[1]}（>=1 等于禁止缩小/放大），content="${vw}"`);
+      sink.push(
+        `${label} viewport 的 minimum-scale=${minScale[1]}（>=1 等于禁止缩小/放大），content="${vw}"`,
+      );
     }
   }
 
@@ -134,7 +144,9 @@ function checkHtml(label, html, sink) {
   const hasCharset =
     startTags(text, 'meta').some((t) => Object.hasOwn(t.attrs, 'charset')) ||
     startTags(text, 'meta').some(
-      (t) => /^content-type$/i.test(t.attrs['http-equiv'] ?? '') && /charset=/i.test(t.attrs.content ?? ''),
+      (t) =>
+        /^content-type$/i.test(t.attrs['http-equiv'] ?? '') &&
+        /charset=/i.test(t.attrs.content ?? ''),
     );
   if (!hasCharset) sink.push(`${label} 未声明字符集：CJK 页面会被按本地编码猜测解析成乱码`);
 
@@ -157,7 +169,9 @@ function checkHtml(label, html, sink) {
   for (const tag of startTags(text, 'script')) {
     const src = tag.attrs.src ?? '';
     if (ABSOLUTE_URL.test(src)) {
-      sink.push(`${label} <script src> 指向跨域 ${src}：CSP script-src 仅 'self'，该脚本不会加载（且引入第三方 JS 等于交出 DOM）`);
+      sink.push(
+        `${label} <script src> 指向跨域 ${src}：CSP script-src 仅 'self'，该脚本不会加载（且引入第三方 JS 等于交出 DOM）`,
+      );
     }
   }
   for (const tag of startTags(text, 'link')) {
@@ -166,13 +180,21 @@ function checkHtml(label, html, sink) {
     const rel = (tag.attrs.rel ?? '').toLowerCase();
     const as = (tag.attrs.as ?? '').toLowerCase();
     if (rel === 'stylesheet') {
-      sink.push(`${label} <link rel=stylesheet> 跨域 ${href}：CSP style-src 不放行跨域样式表，字体/样式静默丢失。改自托管 woff2 + 本地 @font-face。`);
+      sink.push(
+        `${label} <link rel=stylesheet> 跨域 ${href}：CSP style-src 不放行跨域样式表，字体/样式静默丢失。改自托管 woff2 + 本地 @font-face。`,
+      );
     } else if (PROBE_RELS.has(rel)) {
-      sink.push(`${label} <link rel=${rel}> 指向第三方 ${href}：preconnect/dns-prefetch 不受 CSP 约束，仍会发起 DNS+TCP+TLS 探测（首屏额外延迟与隐私暴露）`);
+      sink.push(
+        `${label} <link rel=${rel}> 指向第三方 ${href}：preconnect/dns-prefetch 不受 CSP 约束，仍会发起 DNS+TCP+TLS 探测（首屏额外延迟与隐私暴露）`,
+      );
     } else if (rel === 'preload' && ['font', 'script', 'style'].includes(as)) {
-      sink.push(`${label} <link rel=preload as=${as}> 跨域 ${href}：CSP ${as === 'script' ? 'script' : as === 'font' ? 'font' : 'style'}-src 不放行该域，预加载只会产生失败的探测请求`);
+      sink.push(
+        `${label} <link rel=preload as=${as}> 跨域 ${href}：CSP ${as === 'script' ? 'script' : as === 'font' ? 'font' : 'style'}-src 不放行该域，预加载只会产生失败的探测请求`,
+      );
     } else {
-      sink.push(`${label} <link rel=${rel || '(缺 rel)'}> 跨域 ${href}：需确认对应 CSP 指令已显式放行，否则等价于无效引用`);
+      sink.push(
+        `${label} <link rel=${rel || '(缺 rel)'}> 跨域 ${href}：需确认对应 CSP 指令已显式放行，否则等价于无效引用`,
+      );
     }
   }
 }
@@ -185,7 +207,9 @@ function checkHtml(label, html, sink) {
  */
 function checkCspPremises(headersSrc, sink) {
   if (!/add_header\s+Content-Security-Policy\s/i.test(headersSrc)) {
-    sink.push('security-headers.conf 未下发 Content-Security-Policy：本门禁判定内联/跨域引用"会被拦截"的前提不成立');
+    sink.push(
+      'security-headers.conf 未下发 Content-Security-Policy：本门禁判定内联/跨域引用"会被拦截"的前提不成立',
+    );
     return;
   }
   const csp = /add_header\s+Content-Security-Policy\s+"([^"]*)"/i.exec(headersSrc)?.[1] ?? '';
@@ -197,14 +221,16 @@ function checkCspPremises(headersSrc, sink) {
   const styleSrc = directive('style-src');
   const fontSrc = directive('font-src');
 
-  if (!/'self'/.test(scriptSrc)) sink.push(`CSP script-src 未包含 'self'（当前：${scriptSrc || '缺失'}）`);
+  if (!/'self'/.test(scriptSrc))
+    sink.push(`CSP script-src 未包含 'self'（当前：${scriptSrc || '缺失'}）`);
   if (/'unsafe-inline'/.test(scriptSrc)) {
     sink.push(
       "CSP script-src 含 'unsafe-inline'：为放行内联脚本而放弃 XSS 兜底，属于本门禁要拦的回归路径；" +
         'inline 脚本应改为第一方外链模块',
     );
   }
-  if (/'unsafe-eval'/.test(scriptSrc)) sink.push("CSP script-src 含 'unsafe-eval'：生产 ESM 构建不需要 eval");
+  if (/'unsafe-eval'/.test(scriptSrc))
+    sink.push("CSP script-src 含 'unsafe-eval'：生产 ESM 构建不需要 eval");
   if (/https?:/.test(styleSrc)) {
     sink.push('CSP style-src 放行了跨域（含 https: 或具体域）：跨域样式表的前提被放宽');
   }
@@ -224,7 +250,9 @@ function checkCspPremises(headersSrc, sink) {
 function checkScaffoldTemplate(genSrc, sink) {
   const m = /const\s+indexHtml\s*=\s*`([\s\S]*?)`;/.exec(genSrc);
   if (!m) {
-    sink.push('无法从 bash/gen-app.mts 提取 indexHtml 模板：生成器写法已变，H1–H5 对新建子应用不再受保护');
+    sink.push(
+      '无法从 bash/gen-app.mts 提取 indexHtml 模板：生成器写法已变，H1–H5 对新建子应用不再受保护',
+    );
     return;
   }
   // 模板里的 ${title} 等插值不影响规则判定，仅替换成占位文本避免误判空 title
@@ -249,7 +277,8 @@ function discoverHtmlFiles(root) {
     for (const entry of readdirSync(appsDir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
       const candidate = join(appsDir, entry.name, 'index.html');
-      if (existsSync(candidate)) files.push({ label: `apps/${entry.name}/index.html`, file: candidate });
+      if (existsSync(candidate))
+        files.push({ label: `apps/${entry.name}/index.html`, file: candidate });
     }
   }
   return files;
@@ -386,7 +415,9 @@ function selfTest() {
       sink,
     );
 
-    const missed = REQUIRED_DETECTIONS.filter(([, needle]) => !sink.some((f) => f.includes(needle)));
+    const missed = REQUIRED_DETECTIONS.filter(
+      ([, needle]) => !sink.some((f) => f.includes(needle)),
+    );
     if (missed.length > 0) {
       console.error('❌ 门禁自检失败：反例未被下列检查命中，说明检查已空转：');
       for (const [name] of missed) console.error(`  - ${name}`);
@@ -430,7 +461,9 @@ if (rootFlagIdx !== -1 && !argv[rootFlagIdx + 1]) {
   process.exit(2);
 }
 const TARGET_ROOT = rootFlagIdx === -1 ? ROOT_DIR : resolve(argv[rootFlagIdx + 1]);
-const UNKNOWN_ARGS = argv.filter((arg, i) => arg !== '--self-test' && arg !== '--root' && i !== rootFlagIdx + 1);
+const UNKNOWN_ARGS = argv.filter(
+  (arg, i) => arg !== '--self-test' && arg !== '--root' && i !== rootFlagIdx + 1,
+);
 if (UNKNOWN_ARGS.length > 0) {
   console.error(`❌ 未知参数：${UNKNOWN_ARGS.join(' ')}（支持 --self-test、--root <dir>）`);
   process.exit(2);

@@ -22,10 +22,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import type {
-  ToastMessage,
-  ToastPosition,
-} from './types';
+import type { ToastMessage, ToastPosition } from './types';
 
 import { useLocale } from '../../locale/useLocale';
 import YdToast from './YdToast.vue';
@@ -65,9 +62,7 @@ const { t } = useLocale();
 /* 数据源：优先使用 props.messages，缺省回落到全局单例                  */
 /* ============================================================ */
 
-const sourceMessages = computed<ToastMessage[]>(
-  () => props.messages ?? globalMessages.value,
-);
+const sourceMessages = computed<ToastMessage[]>(() => props.messages ?? globalMessages.value);
 
 /* ============================================================ */
 /* 分组：按 position 将 Toast 消息分桶                                  */
@@ -112,10 +107,7 @@ const rootStyle = computed(() => ({ zIndex: String(props.zIndex) }));
 </script>
 
 <template>
-  <Teleport
-    :to="props.appendTo || 'body'"
-    :disabled="props.appendTo === false"
-  >
+  <Teleport :to="props.appendTo || 'body'" :disabled="props.appendTo === false">
     <div
       class="pointer-events-none fixed inset-0 flex flex-col"
       :style="rootStyle"
@@ -128,25 +120,14 @@ const rootStyle = computed(() => ({ zIndex: String(props.zIndex) }));
         v-for="pos in POSITIONS"
         :key="pos"
         tag="div"
-        :class="[
-          'pointer-events-none fixed flex w-auto gap-2',
-          positionClasses[pos],
-        ]"
+        :class="['pointer-events-none fixed flex w-auto gap-2', positionClasses[pos]]"
       >
-        <div
-          v-for="msg in groupedMessages[pos]"
-          :key="msg.id"
-          class="pointer-events-auto"
-        >
+        <div v-for="msg in groupedMessages[pos]" :key="msg.id" class="pointer-events-auto">
           <!--
             默认渲染 YdToast；#default 插槽可整体替换条目外观，
             插槽必须自己负责触发 close，否则该条消息不会离开队列。
           -->
-          <slot
-            :message="msg"
-            :position="pos"
-            name="default"
-          >
+          <slot :message="msg" :position="pos" name="default">
             <YdToast
               :closable="msg.closable"
               :detail="msg.detail"

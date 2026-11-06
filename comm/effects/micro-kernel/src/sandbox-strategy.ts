@@ -208,7 +208,10 @@ export class IframeSandboxStrategy implements SandboxStrategy {
     _mountPropsProxy: {
       getGlobalState: () => Record<string, unknown>;
       setGlobalState: (patch: Record<string, unknown>) => void;
-      onGlobalStateChange: (listener: (state: Record<string, unknown>) => void, fireImmediately?: boolean) => () => void;
+      onGlobalStateChange: (
+        listener: (state: Record<string, unknown>) => void,
+        fireImmediately?: boolean,
+      ) => () => void;
     },
   ): () => void {
     // 1. 初始同步：把当前 globalState 快照发送给子应用
@@ -270,9 +273,7 @@ export async function createSandboxStrategy(
     }
     case 'iframe': {
       const { createIframeSandbox } = await import('./iframe-sandbox');
-      return new IframeSandboxStrategy(
-        createIframeSandbox(appName, parentEl, devUrl),
-      );
+      return new IframeSandboxStrategy(createIframeSandbox(appName, parentEl, devUrl));
     }
     default:
       // 回退到快照沙箱

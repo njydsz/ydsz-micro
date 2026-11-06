@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* YdTimePicker 时间选择器：时/分/秒三列滚轮面板。
-* 
+ * YdTimePicker 时间选择器：时/分/秒三列滚轮面板。
+ *
  * 功能覆盖：
  * - 12h / 24h 显示格式（use12Hours）
  * - 可配置格式 HH:mm 或 HH:mm:ss（format）
@@ -10,7 +10,7 @@
  * - AM/PM 时段选择
  * - 表单集成（v-model）
  * - 占位符、清除按钮、禁用状态
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\time-picker\YdTimePicker.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -220,7 +220,7 @@ const sizeClass: Record<string, string> = {
         cn(
           'flex w-full items-center justify-between gap-2 rounded-md border transition-colors',
           sizeClass[props.size ?? 'middle'],
-          isOpen ? 'border-primary ring-2 ring-ring' : 'hover:border-muted-foreground/50',
+          isOpen ? 'border-primary ring-ring ring-2' : 'hover:border-muted-foreground/50',
           !props.modelValue && 'text-muted-foreground',
         )
       "
@@ -253,7 +253,11 @@ const sizeClass: Record<string, string> = {
       @keydown.escape="isOpen = false"
     >
       <!-- 小时列 -->
-      <ul class="h-52 w-16 overflow-y-auto border-r py-1" role="listbox" :aria-label="t('timepicker.hourAriaLabel')">
+      <ul
+        class="h-52 w-16 overflow-y-auto border-r py-1"
+        role="listbox"
+        :aria-label="t('timepicker.hourAriaLabel')"
+      >
         <li
           v-for="opt in hourOptions"
           :key="opt.value"
@@ -274,7 +278,11 @@ const sizeClass: Record<string, string> = {
       </ul>
 
       <!-- 分钟列 -->
-      <ul class="h-52 w-16 overflow-y-auto border-r py-1" role="listbox" :aria-label="t('timepicker.minuteAriaLabel')">
+      <ul
+        class="h-52 w-16 overflow-y-auto border-r py-1"
+        role="listbox"
+        :aria-label="t('timepicker.minuteAriaLabel')"
+      >
         <li
           v-for="opt in minuteOptions"
           :key="opt.value"
@@ -295,7 +303,12 @@ const sizeClass: Record<string, string> = {
       </ul>
 
       <!-- 秒列（format=HH:mm:ss 时显示） -->
-      <ul v-if="showSeconds" class="h-52 w-16 overflow-y-auto py-1" role="listbox" :aria-label="t('timepicker.secondAriaLabel')">
+      <ul
+        v-if="showSeconds"
+        class="h-52 w-16 overflow-y-auto py-1"
+        role="listbox"
+        :aria-label="t('timepicker.secondAriaLabel')"
+      >
         <li
           v-for="opt in secondOptions"
           :key="opt.value"
@@ -316,9 +329,14 @@ const sizeClass: Record<string, string> = {
       </ul>
 
       <!-- AM/PM 列（12 小时模式） -->
-      <ul v-if="props.use12Hours" class="h-52 w-14 overflow-y-auto border-l py-1" role="listbox" :aria-label="t('timepicker.meridiemAriaLabel')">
+      <ul
+        v-if="props.use12Hours"
+        class="h-52 w-14 overflow-y-auto border-l py-1"
+        role="listbox"
+        :aria-label="t('timepicker.meridiemAriaLabel')"
+      >
         <li
-          v-for="p in (['AM', 'PM'] as const)"
+          v-for="p in ['AM', 'PM'] as const"
           :key="p"
           :aria-selected="parsedTime.period === p"
           :class="

@@ -102,7 +102,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const rootDir = process.argv[2] ?? process.cwd();
   console.log(`🔍 执行发布前检查: ${rootDir}`);
   publint({ rootDir })
-    .then(results => {
+    .then((results) => {
       let totalErrors = 0;
       let totalWarnings = 0;
 
@@ -127,7 +127,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       console.log(`\n📊 统计: ${totalErrors} 个错误, ${totalWarnings} 个警告`);
       process.exit(totalErrors > 0 ? 1 : 0);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('发布检查出错:', err);
       process.exit(2);
     });

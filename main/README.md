@@ -49,17 +49,17 @@ main/
 
 主应用作为微前端宿主，复用 monorepo 共享包：
 
-| 依赖包            | 作用                                        |
-| ----------------- | ------------------------------------------- |
-| `@ydsz/request`   | HTTP 请求客户端（Axios 封装），承载认证拦截 |
-| `@ydsz/access`    | 权限码与路由访问控制                        |
-| `@ydsz/layouts`   | 布局组件（basic + auth）                    |
-| `@ydsz/common-ui` | 通用 UI 组件                                |
-| `@ydsz/monitor`   | 前端监控（错误捕获 + Web Vitals）           |
-| `@ydsz/stores`    | 全局状态管理                                |
-| `@ydsz/locales`   | 国际化基础包                                |
-| `@ydsz-core/ydsz-ui` | 自研 UI 组件库（88 primitives，零 EP 依赖）  |
-| `pinia`           | 状态管理                                    |
+| 依赖包               | 作用                                        |
+| -------------------- | ------------------------------------------- |
+| `@ydsz/request`      | HTTP 请求客户端（Axios 封装），承载认证拦截 |
+| `@ydsz/access`       | 权限码与路由访问控制                        |
+| `@ydsz/layouts`      | 布局组件（basic + auth）                    |
+| `@ydsz/common-ui`    | 通用 UI 组件                                |
+| `@ydsz/monitor`      | 前端监控（错误捕获 + Web Vitals）           |
+| `@ydsz/stores`       | 全局状态管理                                |
+| `@ydsz/locales`      | 国际化基础包                                |
+| `@ydsz-core/ydsz-ui` | 自研 UI 组件库（88 primitives，零 EP 依赖） |
+| `pinia`              | 状态管理                                    |
 
 ## 核心功能模块
 

@@ -18,7 +18,15 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { YdBadge, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdTable,
+  YdTableColumn,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
+} from '@ydsz-core/ydsz-ui';
 
 import { listHistoryFiles } from '#/api/history';
 import type { GenHistoryFile } from '#/api/models';
@@ -114,7 +122,12 @@ onMounted(() => {
             </YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="originalBackupPath" label="备份路径" min-width="200" show-overflow-tooltip />
+        <YdTableColumn
+          prop="originalBackupPath"
+          label="备份路径"
+          min-width="200"
+          show-overflow-tooltip
+        />
       </YdTable>
     </YdDialogContent>
   </YdDialog>

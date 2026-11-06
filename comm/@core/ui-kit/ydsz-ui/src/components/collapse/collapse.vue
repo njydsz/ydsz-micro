@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* Collapse 折叠面板：一组可展开/收起的面板列，支持手风琴模式。
-* 
+ * Collapse 折叠面板：一组可展开/收起的面板列，支持手风琴模式。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\collapse\collapse.vue
  * @author ydsz-ai
  * @since 1.0.0

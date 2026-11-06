@@ -11,10 +11,7 @@
 import { ref } from 'vue';
 
 import type { OverviewItem, WorkspaceData } from '#/api/core/dashboard';
-import {
-  getOverviewStatsApi,
-  getWorkspaceDataApi,
-} from '#/api/core/dashboard';
+import { getOverviewStatsApi, getWorkspaceDataApi } from '#/api/core/dashboard';
 
 /**
  * 加载概览统计项
@@ -41,9 +38,7 @@ import {
  *
  * @since 4.1.0
  */
-export function useOverviewStats<T extends OverviewItem>(
-  fallback: T[],
-) {
+export function useOverviewStats<T extends OverviewItem>(fallback: T[]) {
   const items = ref<T[]>(fallback);
   const loading = ref(true);
   const fromServer = ref(false);
@@ -107,10 +102,7 @@ export function useWorkspaceData<T extends object>(fallback: T) {
       const fallbackData = fallback as WorkspaceData;
       const hasListData = Boolean(
         res &&
-          (res.projects?.length ||
-            res.todos?.length ||
-            res.quickNavs?.length ||
-            res.trends?.length),
+        (res.projects?.length || res.todos?.length || res.quickNavs?.length || res.trends?.length),
       );
       if (res && (hasListData || res.greeting)) {
         // 按字段粒度合并：后端只返回部分字段时，缺失字段沿用 fallback
@@ -118,9 +110,7 @@ export function useWorkspaceData<T extends object>(fallback: T) {
           ...fallbackData,
           ...res,
           projects: res.projects?.length ? res.projects : fallbackData.projects,
-          quickNavs: res.quickNavs?.length
-            ? res.quickNavs
-            : fallbackData.quickNavs,
+          quickNavs: res.quickNavs?.length ? res.quickNavs : fallbackData.quickNavs,
           todos: res.todos?.length ? res.todos : fallbackData.todos,
           trends: res.trends?.length ? res.trends : fallbackData.trends,
           greeting: res.greeting || fallbackData.greeting,

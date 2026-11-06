@@ -30,10 +30,51 @@ export interface ShortcutOptions {
   preventDefault?: boolean;
   /** 是否在 input/textarea 内仍生效，默认 false */
   enableInInput?: boolean;
+  /** 功能描述（用于帮助面板展示） */
+  description?: string;
+  /** 分类（用于帮助面板分组） */
+  category?: ShortcutCategory;
 }
 
+/**
+ * 快捷键分类
+ *
+ * 与帮助面板分组顺序一致。
+ *
+ * @since 5.3.0
+ */
+export type ShortcutCategory = 'navigation' | 'editing' | 'system' | 'app';
+
+/**
+ * 快捷键详情（帮助面板展示用）
+ *
+ * @since 5.3.0
+ */
+export interface ShortcutDetail {
+  /** 标准化组合键字符串 */
+  combo: string;
+  /** 展示用文本（如 "Cmd + K"） */
+  displayText: string;
+  /** 功能描述 */
+  description: string;
+  /** 分类 */
+  category: ShortcutCategory;
+}
+
+/**
+ * 分类展示名映射
+ *
+ * @since 5.3.0
+ */
+export const CATEGORY_LABELS: Record<ShortcutCategory, string> = {
+  navigation: '导航',
+  editing: '编辑',
+  system: '系统',
+  app: '应用',
+};
+
 interface Shortcut {
-  combo: string;        // 标准化组合键字符串
+  combo: string; // 标准化组合键字符串
   handler: (e: KeyboardEvent) => void;
   options: ShortcutOptions;
 }
@@ -130,7 +171,11 @@ export function registerKeyboard(
     logger.warn(`快捷键 ${combo} 已被注册，后注册将覆盖`);
   }
 
-  registry.set(combo, { combo, handler, options });
+  registry.set(combo, {
+    combo,
+    handler,
+    options: { ...options, category: options.category ?? 'system' },
+  });
   return () => {
     registry.delete(combo);
     if (registry.size === 0) {
@@ -181,4 +226,38 @@ export function resetAllShortcuts(): void {
  */
 export function listRegisteredShortcuts(): string[] {
   return [...registry.keys()];
+}
+
+/**
+ * 把标准化组合键转成展示文本（"cmd+shift+p" → "Cmd + Shift + P"）
+ */
+function toDisplayText(combo: string): string {
+  return combo
+    .split('+')
+    .map((part) => {
+      const key = part.trim();
+      if (key === 'cmd') return 'Cmd';
+      if (key === 'escape') return 'Esc';
+      return key.charAt(0).toUpperCase() + key.slice(1);
+    })
+    .join(' + ');
+}
+
+/**
+ * 获取当前已注册快捷键的详情列表（含描述与分类）
+ *
+ * 供帮助面板按分类分组展示。返回的是快照副本，
+ * 响应式场景请通过 `useKeyboard` 的 `shortcuts` 计算属性获取。
+ *
+ * @returns 快捷键详情数组
+ *
+ * @since 5.3.0
+ */
+export function listDetailedShortcuts(): ShortcutDetail[] {
+  return [...registry.values()].map(({ combo, options }) => ({
+    combo,
+    displayText: toDisplayText(combo),
+    description: options.description ?? '',
+    category: options.category ?? 'system',
+  }));
 }

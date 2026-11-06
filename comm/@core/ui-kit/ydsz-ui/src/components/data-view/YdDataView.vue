@@ -65,10 +65,7 @@ function handlePageChange(newPage: number, newPageSize: number): void {
 <template>
   <div class="yd-data-view flex flex-col">
     <!-- 头部插槽 -->
-    <div
-      v-if="$slots.header"
-      class="yd-data-view__header mb-3"
-    >
+    <div v-if="$slots.header" class="yd-data-view__header mb-3">
       <slot name="header" />
     </div>
 
@@ -118,10 +115,7 @@ function handlePageChange(newPage: number, newPageSize: number): void {
     </div>
 
     <!-- 底部插槽 -->
-    <div
-      v-if="$slots.footer"
-      class="yd-data-view__footer mt-3"
-    >
+    <div v-if="$slots.footer" class="yd-data-view__footer mt-3">
       <slot name="footer" />
     </div>
 

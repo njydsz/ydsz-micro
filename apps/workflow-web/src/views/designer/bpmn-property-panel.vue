@@ -82,7 +82,8 @@ function classifyElement(type: string | undefined): void {
   isServiceTask.value = t === 'bpmn:servicetask' || t === 'bpmn:businessruletask';
   isExclusiveGateway.value =
     t === 'bpmn:exclusivegateway' || t === 'bpmn:parallelgateway' || t === 'bpmn:inclusivegateway';
-  isEvent.value = t === 'bpmn:startevent' || t === 'bpmn:endevent' || t === 'bpmn:intermediatecatchevent';
+  isEvent.value =
+    t === 'bpmn:startevent' || t === 'bpmn:endevent' || t === 'bpmn:intermediatecatchevent';
 }
 
 /** 从 businessObject 回填表单 */
@@ -103,10 +104,7 @@ function fillFormFromElement(element: BpmnElementDescriptor): void {
   form.expression = String(bo.$attrs?.['camunda:expression'] ?? '');
   form.delegateExpression = String(bo.$attrs?.['camunda:delegateExpression'] ?? '');
   // 条件表达式存在于 sequenceFlow.conditionExpression.body
-  const conditionBody =
-    bo.conditionExpression?.body ??
-    bo.$parent?.conditionExpression?.body ??
-    '';
+  const conditionBody = bo.conditionExpression?.body ?? bo.$parent?.conditionExpression?.body ?? '';
   form.conditionExpression = String(conditionBody);
   form.isForCompensation = Boolean(bo.isForCompensation);
   classifyElement(bo.$type || element.type);

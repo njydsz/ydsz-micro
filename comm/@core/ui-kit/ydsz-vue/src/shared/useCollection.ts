@@ -1,4 +1,4 @@
-import { unrefElement } from '@vueuse/core'
+import { unrefElement } from '@vueuse/core';
 import {
   type InjectionKey,
   type Ref,
@@ -9,49 +9,48 @@ import {
   provide,
   ref,
   watch,
-} from 'vue'
+} from 'vue';
 
-const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
+const ITEM_DATA_ATTR = 'data-radix-vue-collection-item';
 
-type ContextValue = Ref<HTMLElement[]>
+type ContextValue = Ref<HTMLElement[]>;
 /**
  * Composables for provide/inject collections
  * @param key (optional) Name to replace the default `Symbol()` as provide's key
  * @param name (optional) Name to replace the default `ITEM_DATA_ATTR` for the item's attributes
  */
 export function useCollection(key?: string, name = ITEM_DATA_ATTR) {
-  const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
+  const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>);
 
   const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {
-    const items = ref([]) as Ref<HTMLElement[]> // ref<HTMLElement[]> is causing type inference issue
+    const items = ref([]) as Ref<HTMLElement[]>; // ref<HTMLElement[]> is causing type inference issue
 
     function setCollection() {
-      const sourceEl = unrefElement(sourceRef)
-      if (!sourceEl)
-        return (items.value = [])
+      const sourceEl = unrefElement(sourceRef);
+      if (!sourceEl) return (items.value = []);
 
       return (items.value = Array.from(
         sourceEl.querySelectorAll(`[${name}]:not([data-disabled])`),
-      ) as HTMLElement[])
+      ) as HTMLElement[]);
     }
 
     onBeforeUpdate(() => {
-      items.value = []
-    })
+      items.value = [];
+    });
 
-    onMounted(setCollection)
-    onUpdated(setCollection)
+    onMounted(setCollection);
+    onUpdated(setCollection);
 
-    watch(() => sourceRef?.value, setCollection, { immediate: true })
+    watch(() => sourceRef?.value, setCollection, { immediate: true });
 
-    provide(COLLECTION_SYMBOL, items)
+    provide(COLLECTION_SYMBOL, items);
 
-    return items
-  }
+    return items;
+  };
 
   const injectCollection = () => {
-    return inject(COLLECTION_SYMBOL, ref([]))
-  }
+    return inject(COLLECTION_SYMBOL, ref([]));
+  };
 
-  return { createCollection, injectCollection }
+  return { createCollection, injectCollection };
 }

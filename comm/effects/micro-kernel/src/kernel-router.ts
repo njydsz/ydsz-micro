@@ -16,18 +16,18 @@
  * @since 4.2.1
  */
 
-import type { MicroAppConfig, StartOptions } from "@ydsz/micro-runtime";
+import type { MicroAppConfig, StartOptions } from '@ydsz/micro-runtime';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { isDegraded } from "./error-boundary";
-import { matchActiveRule, patchHistory, ROUTE_CHANGE_EVENT } from "./kernel-helpers";
-import { deactivateApp, getAppInstance } from "./scheduler";
+import { isDegraded } from './error-boundary';
+import { matchActiveRule, patchHistory, ROUTE_CHANGE_EVENT } from './kernel-helpers';
+import { deactivateApp, getAppInstance } from './scheduler';
 
-import type { LifecycleStateAccessors } from "./kernel-lifecycle";
+import type { LifecycleStateAccessors } from './kernel-lifecycle';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Router");
+const logger = createLogger('MicroKernel:Router');
 
 /**
  * 创建路由同步函数（startRouterSync）。
@@ -53,7 +53,7 @@ export function createStartRouterSync(
     const stringRules: Array<{ app: MicroAppConfig; rule: string }> = [];
     const nonStringRules: MicroAppConfig[] = [];
     for (const app of routerApps) {
-      if (typeof app.activeRule === "string") {
+      if (typeof app.activeRule === 'string') {
         stringRules.push({ rule: app.activeRule, app });
       } else {
         nonStringRules.push(app);
@@ -80,7 +80,7 @@ export function createStartRouterSync(
         if (isDegraded(app.name)) {
           // 降级应用走整页跳转
           if (state.getActiveAppName() !== app.name) {
-            const fallbackUrl = typeof app.activeRule === "string" ? app.activeRule : app.entry;
+            const fallbackUrl = typeof app.activeRule === 'string' ? app.activeRule : app.entry;
             window.location.href = fallbackUrl;
           }
           return;
@@ -111,13 +111,13 @@ export function createStartRouterSync(
     handleRouteChange();
 
     // 浏览器的前进/后退
-    window.addEventListener("popstate", handleRouteChange);
+    window.addEventListener('popstate', handleRouteChange);
     // history pushState/replaceState 补丁派发的事件
     window.addEventListener(ROUTE_CHANGE_EVENT, handleRouteChange);
 
     return () => {
       historyPatchCleanup();
-      window.removeEventListener("popstate", handleRouteChange);
+      window.removeEventListener('popstate', handleRouteChange);
       window.removeEventListener(ROUTE_CHANGE_EVENT, handleRouteChange);
     };
   };

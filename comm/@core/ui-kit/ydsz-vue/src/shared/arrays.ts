@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal'
+import isEqual from 'fast-deep-equal';
 
 /**
  * The function `areEqual` compares two arrays and returns true if they are equal in length and have
@@ -10,15 +10,13 @@ import isEqual from 'fast-deep-equal'
  * `arrayA` and `arrayB` are equal, or `false` if they are not equal.
  */
 export function areEqual(arrayA: any[], arrayB: any[]): boolean {
-  if (arrayA.length !== arrayB.length)
-    return false
+  if (arrayA.length !== arrayB.length) return false;
 
   for (let index = 0; index < arrayA.length; index++) {
-    if (arrayA[index] !== arrayB[index])
-      return false
+    if (arrayA[index] !== arrayB[index]) return false;
   }
 
-  return true
+  return true;
 }
 
 /**
@@ -33,11 +31,10 @@ export function areEqual(arrayA: any[], arrayB: any[]): boolean {
  * ```
  */
 export function chunk<T>(arr: T[], size: number): T[][] {
-  const result = []
-  for (let i = 0; i < arr.length; i += size)
-    result.push(arr.slice(i, i + size))
+  const result = [];
+  for (let i = 0; i < arr.length; i += size) result.push(arr.slice(i, i + size));
 
-  return result
+  return result;
 }
 
 /**
@@ -55,12 +52,11 @@ export function chunk<T>(arr: T[], size: number): T[][] {
  * found in the input array, an empty array is returned.
  */
 export function findValuesBetween<T>(array: T[], start: T, end: T) {
-  const startIndex = array.findIndex(i => isEqual(i, start))
-  const endIndex = array.findIndex(i => isEqual(i, end))
-  if (startIndex === -1 || endIndex === -1)
-    return []
+  const startIndex = array.findIndex((i) => isEqual(i, start));
+  const endIndex = array.findIndex((i) => isEqual(i, end));
+  if (startIndex === -1 || endIndex === -1) return [];
 
-  const [minIndex, maxIndex] = [startIndex, endIndex].sort((a, b) => a - b)
+  const [minIndex, maxIndex] = [startIndex, endIndex].sort((a, b) => a - b);
 
-  return array.slice(minIndex, maxIndex + 1)
+  return array.slice(minIndex, maxIndex + 1);
 }

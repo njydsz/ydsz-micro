@@ -1,16 +1,16 @@
 <script lang="ts">
 // @ts-nocheck
-import type { MenuGroupProps } from '../Menu/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { MenuGroupProps } from '../Menu/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface DropdownMenuGroupProps extends MenuGroupProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuGroup } from '../Menu/index.ts'
+import { MenuGroup } from '../Menu/index.ts';
 
-const props = defineProps<DropdownMenuGroupProps>()
-useForwardExpose()
+const props = defineProps<DropdownMenuGroupProps>();
+useForwardExpose();
 </script>
 
 <template>

@@ -17,7 +17,14 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdSheet, YdSheetContent, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdSheet,
+  YdSheetContent,
+  YdTable,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
 import { YdPrompt, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
@@ -78,27 +85,55 @@ const gridOptions: VxeTableGridOptions<FlowInstanceVO> = {
           h('div', { class: 'flex gap-1' }, [
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-destructive', 'aria-label': `${$t('wf.terminate')} - ${row.flowName ?? ''}`, onClick: () => handleTerminate(row) },
+              {
+                size: 'sm',
+                variant: 'link' as const,
+                class: 'text-destructive',
+                'aria-label': `${$t('wf.terminate')} - ${row.flowName ?? ''}`,
+                onClick: () => handleTerminate(row),
+              },
               () => $t('wf.terminate'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', 'aria-label': `${$t('wf.suspend')} - ${row.flowName ?? ''}`, onClick: () => handleSuspend(row) },
+              {
+                size: 'sm',
+                variant: 'link' as const,
+                class: 'text-yellow-600',
+                'aria-label': `${$t('wf.suspend')} - ${row.flowName ?? ''}`,
+                onClick: () => handleSuspend(row),
+              },
               () => $t('wf.suspend'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-green-600', 'aria-label': `${$t('wf.activate')} - ${row.flowName ?? ''}`, onClick: () => handleActivate(row) },
+              {
+                size: 'sm',
+                variant: 'link' as const,
+                class: 'text-green-600',
+                'aria-label': `${$t('wf.activate')} - ${row.flowName ?? ''}`,
+                onClick: () => handleActivate(row),
+              },
               () => $t('wf.activate'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': `${$t('wf.recall')} - ${row.flowName ?? ''}`, onClick: () => handleRecall(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                'aria-label': `${$t('wf.recall')} - ${row.flowName ?? ''}`,
+                onClick: () => handleRecall(row),
+              },
               () => $t('wf.recall'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': `${$t('wf.timeline')} - ${row.flowName ?? ''}`, onClick: () => openTimeline(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                'aria-label': `${$t('wf.timeline')} - ${row.flowName ?? ''}`,
+                onClick: () => openTimeline(row),
+              },
               () => $t('wf.timeline'),
             ),
           ]),
@@ -194,13 +229,9 @@ async function handleSuspend(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmSuspend', { name: row.flowName }),
-      $t('wf.suspendConfirm'),
-      {
-        type: 'warning',
-      },
-    );
+    await YdConfirm($t('wf.confirmSuspend', { name: row.flowName }), $t('wf.suspendConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消挂起流程实例操作', error);
     return; // 用户主动取消挂起操作
@@ -221,13 +252,9 @@ async function handleActivate(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmActivate', { name: row.flowName }),
-      $t('wf.activateConfirm'),
-      {
-        type: 'warning',
-      },
-    );
+    await YdConfirm($t('wf.confirmActivate', { name: row.flowName }), $t('wf.activateConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消恢复流程实例操作', error);
     return; // 用户主动取消恢复操作
@@ -248,13 +275,9 @@ async function handleRecall(row: FlowInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmRecall', { name: row.flowName }),
-      $t('wf.recallConfirm'),
-      {
-        type: 'warning',
-      },
-    );
+    await YdConfirm($t('wf.confirmRecall', { name: row.flowName }), $t('wf.recallConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消撤回流程实例操作', error);
     return; // 用户主动取消撤回操作
@@ -291,13 +314,9 @@ async function handleBatchUrge() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmBatchUrge', { count: ids.length }),
-      $t('wf.batchUrgeConfirm'),
-      {
-        type: 'warning',
-      },
-    );
+    await YdConfirm($t('wf.confirmBatchUrge', { count: ids.length }), $t('wf.batchUrgeConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消批量催办操作', error);
     return; // 用户主动取消批量催办
@@ -335,9 +354,16 @@ async function openTimeline(row: FlowInstanceVO) {
 </script>
 <template>
   <Page auto-content-height>
-    <Grid :table-title="$t('wf.flowInstances')" role="grid" :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0" :aria-label="$t('wf.flowInstances')">
+    <Grid
+      :table-title="$t('wf.flowInstances')"
+      role="grid"
+      :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0"
+      :aria-label="$t('wf.flowInstances')"
+    >
       <template #toolbar-tools>
-        <YdButton aria-label="$t('wf.startFlow')" @click="handleAdd">{{ $t('wf.startFlow') }}</YdButton>
+        <YdButton aria-label="$t('wf.startFlow')" @click="handleAdd">{{
+          $t('wf.startFlow')
+        }}</YdButton>
         <YdButton aria-label="$t('wf.batchUrge')" variant="secondary" @click="handleBatchUrge">{{
           $t('wf.batchUrge')
         }}</YdButton>
@@ -346,25 +372,28 @@ async function openTimeline(row: FlowInstanceVO) {
     <InstanceFormModal @success="gridApi.query()" />
     <YdSheet :open="timelineVisible" @update:open="timelineVisible = $event" aria-live="polite">
       <YdSheetContent class="!max-w-[900px]">
-      <div class="drawer-content">
-        <!-- 流程图高亮 -->
-        <FlowDiagramViewer :instance="timelineInstance" :instance-id="timelineInstance?.id ?? ''" />
-        <!-- 轨迹表格 -->
-        <YdTable :data="timelineRows" border size="small" :loading="timelineLoading" class="mt-4">
-          <YdTableColumn prop="type" :label="$t('wf.type')" width="100" />
-          <YdTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
-          <YdTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
-          <YdTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
-          <YdTableColumn prop="action" :label="$t('wf.action')" width="100" />
-          <YdTableColumn
-            prop="comment"
-            :label="$t('wf.comment')"
-            min-width="120"
-            show-overflow-tooltip
+        <div class="drawer-content">
+          <!-- 流程图高亮 -->
+          <FlowDiagramViewer
+            :instance="timelineInstance"
+            :instance-id="timelineInstance?.id ?? ''"
           />
-          <YdTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
-        </YdTable>
-      </div>
+          <!-- 轨迹表格 -->
+          <YdTable :data="timelineRows" border size="small" :loading="timelineLoading" class="mt-4">
+            <YdTableColumn prop="type" :label="$t('wf.type')" width="100" />
+            <YdTableColumn prop="timestamp" :label="$t('wf.timestamp')" width="170" />
+            <YdTableColumn prop="nodeName" :label="$t('wf.node')" width="120" />
+            <YdTableColumn prop="assigneeName" :label="$t('wf.assigneeName')" width="100" />
+            <YdTableColumn prop="action" :label="$t('wf.action')" width="100" />
+            <YdTableColumn
+              prop="comment"
+              :label="$t('wf.comment')"
+              min-width="120"
+              show-overflow-tooltip
+            />
+            <YdTableColumn prop="taskStatus" :label="$t('wf.taskStatus')" width="100" />
+          </YdTable>
+        </div>
       </YdSheetContent>
     </YdSheet>
   </Page>

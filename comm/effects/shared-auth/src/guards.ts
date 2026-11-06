@@ -36,9 +36,7 @@ export function registerSecondaryAuthModalOpener(fn: SecondaryAuthModalOpener): 
 
 function openSecondaryAuthModal(hintText?: string): Promise<string | null> {
   if (_openSecondaryAuthModal) return _openSecondaryAuthModal(hintText);
-  return Promise.reject(
-    Error('[shared-auth] registerSecondaryAuthModalOpener() not called.'),
-  );
+  return Promise.reject(Error('[shared-auth] registerSecondaryAuthModalOpener() not called.'));
 }
 
 /** 默认白名单路径 */
@@ -93,10 +91,7 @@ export function setupAuthGuard(
     if (!tokenStore.accessToken) {
       return {
         path: LOGIN_PATH,
-        query:
-          to.fullPath !== '/'
-            ? { redirect: encodeURIComponent(to.fullPath) }
-            : {},
+        query: to.fullPath !== '/' ? { redirect: encodeURIComponent(to.fullPath) } : {},
         replace: true,
       };
     }
@@ -114,10 +109,7 @@ export function setupAuthGuard(
  * @param router - Vue Router 实例
  * @param presetRoutes - 预设的需要动态注册的路由表（即 accessRoutes）
  */
-export function setupPermissionGuard(
-  router: Router,
-  presetRoutes: RouteRecordRaw[],
-): void {
+export function setupPermissionGuard(router: Router, presetRoutes: RouteRecordRaw[]): void {
   let routesAdded = false;
 
   router.beforeEach(async (to) => {
@@ -152,10 +144,7 @@ export function setupPermissionGuard(
  *
  * 将 presetRoutes 一次性注册到 'Root' 下。
  */
-export function initRoutes(
-  router: Router,
-  presetRoutes: RouteRecordRaw[],
-): void {
+export function initRoutes(router: Router, presetRoutes: RouteRecordRaw[]): void {
   presetRoutes.forEach((route) => {
     router.addRoute('Root', route);
   });

@@ -16,13 +16,7 @@
 <script lang="ts" setup>
 import type { Component } from 'vue';
 
-import {
-  AlertCircle,
-  CheckCircle2,
-  Info,
-  type LucideIcon,
-  X,
-} from 'lucide-vue-next';
+import { AlertCircle, CheckCircle2, Info, type LucideIcon, X } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -103,7 +97,7 @@ const colorMap: Record<ToastSeverity, string> = {
 
 const containerClasses = computed(() => {
   const base = cn(
-    'pointer-events-auto relative flex w-full max-w-sm items-start gap-3 border-l-4 rounded-md px-4 py-3 shadow-lg transition-all',
+    'pointer-events-auto relative flex w-full max-w-sm items-start gap-3 rounded-md border-l-4 px-4 py-3 shadow-lg transition-all',
     props.animate && 'animate-in slide-in-from-right-full duration-300',
     colorMap[props.severity ?? 'info'],
   );
@@ -210,25 +204,15 @@ function onKeyDown(event: KeyboardEvent): void {
   >
     <!-- 类型图标（默认按 severity 取 Lucide 图标，可被 icon prop 或插槽覆盖） -->
     <slot name="icon" :severity="props.severity">
-      <component
-        :is="currentIcon"
-        class="mt-0.5 size-5 shrink-0"
-        aria-hidden="true"
-      />
+      <component :is="currentIcon" class="mt-0.5 size-5 shrink-0" aria-hidden="true" />
     </slot>
 
     <!-- 内容区 -->
     <div class="flex-1 space-y-0.5">
-      <p
-        v-if="props.summary"
-        class="text-sm font-semibold leading-tight text-foreground"
-      >
+      <p v-if="props.summary" class="text-foreground text-sm font-semibold leading-tight">
         {{ props.summary }}
       </p>
-      <p
-        class="text-sm text-muted-foreground"
-        :class="{ 'font-medium': !props.summary }"
-      >
+      <p class="text-muted-foreground text-sm" :class="{ 'font-medium': !props.summary }">
         {{ props.detail }}
       </p>
     </div>
@@ -237,7 +221,7 @@ function onKeyDown(event: KeyboardEvent): void {
     <button
       v-if="props.closable"
       type="button"
-      class="shrink-0 rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      class="text-muted-foreground hover:text-foreground focus-visible:ring-ring shrink-0 rounded p-0.5 transition-colors focus:outline-none focus-visible:ring-2"
       :aria-label="t('common.close')"
       @click="emit('close')"
     >

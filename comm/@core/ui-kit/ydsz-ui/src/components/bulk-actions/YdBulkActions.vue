@@ -31,7 +31,7 @@ const emit = defineEmits<{
   <div
     :class="
       cn(
-        'bg-primary/5 flex items-center gap-3 rounded-md border border-primary/20 px-3 py-2 text-sm',
+        'bg-primary/5 border-primary/20 flex items-center gap-3 rounded-md border px-3 py-2 text-sm',
         props.class,
       )
     "
@@ -43,7 +43,7 @@ const emit = defineEmits<{
         :aria-label="t('bulkActions.selectAll', { count: props.count })"
         :checked="props.checked"
         :indeterminate="props.indeterminate"
-        class="size-4 rounded border-primary text-primary focus:ring-primary"
+        class="border-primary text-primary focus:ring-primary size-4 rounded"
         type="checkbox"
         @change="emit('check', ($event.target as HTMLInputElement).checked)"
       />
@@ -53,7 +53,11 @@ const emit = defineEmits<{
     </label>
     <span class="text-muted-foreground">|</span>
     <slot>
-      <button class="text-muted-foreground hover:text-foreground transition-colors" type="button" @click="emit('cancel')">
+      <button
+        class="text-muted-foreground hover:text-foreground transition-colors"
+        type="button"
+        @click="emit('cancel')"
+      >
         {{ t('bulkActions.clearSelection') }}
       </button>
     </slot>

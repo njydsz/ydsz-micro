@@ -26,11 +26,7 @@ import {
   useFileUploadCore,
 } from './use-file-upload-core';
 
-import type {
-  UploadFileItem,
-  YdFileUploadEmits,
-  YdFileUploadProps,
-} from './types';
+import type { UploadFileItem, YdFileUploadEmits, YdFileUploadProps } from './types';
 import type { Ref } from 'vue';
 
 import { nextTick, reactive, ref } from 'vue';
@@ -56,10 +52,7 @@ function makeItem(overrides: Partial<UploadFileItem> = {}): UploadFileItem {
  * 让 `fileList` 默认是 `[]` —— 因此真实组件永远走「受控」分支。
  * 测试用 `reactive` 复刻这一点，`fileList` 用 `ref` 暴露给用例读写。
  */
-function makeOptions(
-  propsOverrides: Partial<YdFileUploadProps> = {},
-  emit?: YdFileUploadEmits,
-) {
+function makeOptions(propsOverrides: Partial<YdFileUploadProps> = {}, emit?: YdFileUploadEmits) {
   // 用 getter 复刻 defineProps 的 prop 透传：外部 ref 写入能实时反映到 props.fileList。
   const fileList = ref<UploadFileItem[]>() as Ref<UploadFileItem[] | undefined>;
   const hasOverride = 'fileList' in propsOverrides;
@@ -123,9 +116,12 @@ function stubXhrEnvironment() {
     withCredentials = false;
   }
   vi.stubGlobal('XMLHttpRequest', FakeXHR);
-  vi.stubGlobal('FormData', class {
-    append = vi.fn();
-  });
+  vi.stubGlobal(
+    'FormData',
+    class {
+      append = vi.fn();
+    },
+  );
 
   return { openMock, sendMock, setRequestHeaderMock };
 }
@@ -212,10 +208,7 @@ describe('useFileUploadCore 列表与校验', () => {
     const options = makeOptions({ multiple: false });
     const core = useFileUploadCore(options);
 
-    core.handleIncomingFiles([
-      new File(['1'], 'a.txt'),
-      new File(['2'], 'b.txt'),
-    ]);
+    core.handleIncomingFiles([new File(['1'], 'a.txt'), new File(['2'], 'b.txt')]);
     await nextTick();
 
     const emitted = (options.emit as ReturnType<typeof vi.fn>).mock.calls.filter(
@@ -440,10 +433,7 @@ describe('useFileUploadCore 工具函数返回', () => {
     const core = useFileUploadCore(options);
 
     // 直接往受控 fileList 塞两个 ready 文件
-    options.fileList.value = [
-      makeItem({ uid: 'u1' }),
-      makeItem({ uid: 'u2' }),
-    ];
+    options.fileList.value = [makeItem({ uid: 'u1' }), makeItem({ uid: 'u2' })];
     await nextTick();
 
     core.submitReadyFiles();

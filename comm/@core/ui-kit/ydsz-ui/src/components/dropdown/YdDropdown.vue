@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* 下拉菜单 —— 便利性封装（Convenience Wrapper）。
-* 
+ * 下拉菜单 —— 便利性封装（Convenience Wrapper）。
+ *
  * 配置式 options API 包裹 YdDropdownMenu 系列组件，
  * 对齐 Element Plus ElDropdown 的 options 配置形态。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dropdown\YdDropdown.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -16,7 +16,13 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdDropdownMenu, YdDropdownMenuContent, YdDropdownMenuItem, YdDropdownMenuSeparator, YdDropdownMenuTrigger } from '.././dropdown-menu';
+import {
+  YdDropdownMenu,
+  YdDropdownMenuContent,
+  YdDropdownMenuItem,
+  YdDropdownMenuSeparator,
+  YdDropdownMenuTrigger,
+} from '.././dropdown-menu';
 
 import type { HTMLAttributes } from 'vue';
 
@@ -36,21 +42,24 @@ export interface DropdownMenuItemOption {
   onClick?: () => void;
 }
 
-const props = withDefaults(defineProps<{
-  /** 触发按钮文本 */
-  label?: string;
-  /** 配置式菜单项 */
-  options?: DropdownMenuItemOption[];
-  /** 触发方式 */
-  trigger?: 'click' | 'hover' | 'focus';
-  /** 是否禁用 */
-  disabled?: boolean;
-  /** 自定义 class */
-  class?: HTMLAttributes['class'];
-}>(), {
-  trigger: 'click',
-  disabled: false,
-});
+const props = withDefaults(
+  defineProps<{
+    /** 触发按钮文本 */
+    label?: string;
+    /** 配置式菜单项 */
+    options?: DropdownMenuItemOption[];
+    /** 触发方式 */
+    trigger?: 'click' | 'hover' | 'focus';
+    /** 是否禁用 */
+    disabled?: boolean;
+    /** 自定义 class */
+    class?: HTMLAttributes['class'];
+  }>(),
+  {
+    trigger: 'click',
+    disabled: false,
+  },
+);
 </script>
 
 <template>
@@ -81,10 +90,7 @@ const props = withDefaults(defineProps<{
   -->
   <YdDropdownMenu>
     <!-- 触发器：有 label 时渲染文本按钮，否则使用 slot -->
-    <YdDropdownMenuTrigger
-      v-if="label"
-      :disabled="disabled"
-    >
+    <YdDropdownMenuTrigger v-if="label" :disabled="disabled">
       {{ label }}
     </YdDropdownMenuTrigger>
     <slot v-else name="trigger" />
@@ -92,15 +98,9 @@ const props = withDefaults(defineProps<{
     <!-- 内容：options 配置式 或 声明式 slot -->
     <YdDropdownMenuContent>
       <template v-if="options">
-        <template
-          v-for="item in options"
-          :key="item.value"
-        >
+        <template v-for="item in options" :key="item.value">
           <YdDropdownMenuSeparator v-if="item.divided" />
-          <YdDropdownMenuItem
-            :disabled="item.disabled"
-            @click="item.onClick"
-          >
+          <YdDropdownMenuItem :disabled="item.disabled" @click="item.onClick">
             {{ item.label }}
           </YdDropdownMenuItem>
         </template>

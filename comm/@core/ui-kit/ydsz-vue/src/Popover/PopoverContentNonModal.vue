@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import PopoverContentImpl, { type PopoverContentImplEmits, type PopoverContentImplProps } from './PopoverContentImpl.vue'
-import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useForwardPropsEmits } from '../shared/index.ts'
+import { ref } from 'vue';
+import PopoverContentImpl, {
+  type PopoverContentImplEmits,
+  type PopoverContentImplProps,
+} from './PopoverContentImpl.vue';
+import { injectPopoverRootContext } from './PopoverRoot.vue';
+import { useForwardPropsEmits } from '../shared/index.ts';
 
-const props = defineProps<PopoverContentImplProps>()
-const emits = defineEmits<PopoverContentImplEmits>()
-const rootContext = injectPopoverRootContext()
-const hasInteractedOutsideRef = ref(false)
-const hasPointerDownOutsideRef = ref(false)
+const props = defineProps<PopoverContentImplProps>();
+const emits = defineEmits<PopoverContentImplEmits>();
+const rootContext = injectPopoverRootContext();
+const hasInteractedOutsideRef = ref(false);
+const hasPointerDownOutsideRef = ref(false);
 
-const forwarded = useForwardPropsEmits(props, emits)
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
@@ -54,10 +57,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         // we will get the pointer down outside event on the trigger, but then a subsequent
         // focus outside event on the container, we ignore any focus outside event when we've
         // already had a pointer down outside event.
-        if (
-          event.detail.originalEvent.type === 'focusin'
-          && hasPointerDownOutsideRef
-        ) {
+        if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef) {
           event.preventDefault();
         }
       }

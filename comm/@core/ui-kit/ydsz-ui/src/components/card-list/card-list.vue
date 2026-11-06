@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* CardList（card-list）组件：占位骨架，后续按需深化真实交互。
-* 
+ * CardList（card-list）组件：占位骨架，后续按需深化真实交互。
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */

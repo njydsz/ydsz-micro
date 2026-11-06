@@ -106,10 +106,18 @@
   /* ==================== 阴影 ==================== */
 
   --ydsz-shadow-flat: none;
-  --ydsz-shadow-low: 0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.05), 0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.1);
-  --ydsz-shadow-medium: 0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.1), 0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.1);
-  --ydsz-shadow-high: 0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.1), 0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.1);
-  --ydsz-shadow-overlay: 0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.25), 0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.05);
+  --ydsz-shadow-low:
+    0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.05),
+    0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.1);
+  --ydsz-shadow-medium:
+    0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.1),
+    0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.1);
+  --ydsz-shadow-high:
+    0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.1),
+    0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.1);
+  --ydsz-shadow-overlay:
+    0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.25),
+    0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.05);
 
   /* ==================== 间距 ==================== */
 
@@ -165,13 +173,15 @@
   --ydsz-comp-focus-ring-color: var(--ydsz-color-brand-500);
   --ydsz-comp-focus-ring-width: 2px;
   --ydsz-comp-focus-ring-offset: 1px;
-  --ydsz-comp-focus-ring: 0 0 0 var(--ydsz-comp-focus-ring-offset) hsl(var(--ydsz-surface-1)),
-    0 0 0 calc(var(--ydsz-comp-focus-ring-offset) + var(--ydsz-comp-focus-ring-width)) hsl(var(--ydsz-comp-focus-ring-color));
+  --ydsz-comp-focus-ring:
+    0 0 0 var(--ydsz-comp-focus-ring-offset) hsl(var(--ydsz-surface-1)),
+    0 0 0 calc(var(--ydsz-comp-focus-ring-offset) + var(--ydsz-comp-focus-ring-width))
+      hsl(var(--ydsz-comp-focus-ring-color));
 
   /* 组件交互状态语义 surface (hover / active / selected) */
   --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 0.08);
   --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 0.12);
-  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-500) / 0.10);
+  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-500) / 0.1);
   --ydsz-comp-surface-disabled: var(--ydsz-surface-2);
 
   /* 组件交互状态语义 border (hover / focus) */
@@ -236,10 +246,18 @@
 
   /* Shadow（不透明度上调以弥补暗色下层次感知不足） */
   --ydsz-shadow-flat: none;
-  --ydsz-shadow-low: 0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.15), 0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.25);
-  --ydsz-shadow-medium: 0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.3), 0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.3);
-  --ydsz-shadow-high: 0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.35), 0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.35);
-  --ydsz-shadow-overlay: 0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.5), 0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.2);
+  --ydsz-shadow-low:
+    0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.15),
+    0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.25);
+  --ydsz-shadow-medium:
+    0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.3),
+    0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.3);
+  --ydsz-shadow-high:
+    0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.35),
+    0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.35);
+  --ydsz-shadow-overlay:
+    0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.5),
+    0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.2);
 
   /* 组件级：暗色下交互状态不透明度上调，防止辨识度不足 */
   --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 0.16);

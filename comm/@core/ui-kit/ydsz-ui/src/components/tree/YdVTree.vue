@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 /**
-* YdVTree —— 带虚拟滚动的树形选择组件。
-* 
+ * YdVTree —— 带虚拟滚动的树形选择组件。
+ *
  * <p>基于 useTreeVirtual composable 实现，仅渲染视口可见的树节点 + overscan 缓冲区，
  * 支持 5000+ 节点的深层树流畅滚动。
-* 
+ *
  * <p>与 YdTree 的边界：
  *  - YdTree 适合 < 500 节点、需要完整 TransitionGroup 动效的场景；
  *  - YdVTree 适合大数据量、可接受无展开动效的高性能场景。
-* 
+ *
  * <p>API 参考 TanStack Virtual 的 estimateSize 模式：
  *  - estimateSize? number  — 每项估算行高（px），默认 28
  *  - overscan? number      — 上下缓冲行数，默认 5
  *  - viewportHeight? number — 滚动容器高度（px），默认 300
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\tree\YdVTree.vue
  * @author ydsz-team
  * @since 26.09.17
@@ -111,10 +111,7 @@ function flatten<T = Recordable<any>, P = number | string>(
     result.push(val);
     if (val.hasChildren)
       result.push(
-        ...flatten(children, childrenField, level + 1, [
-          ...parents,
-          get(item, props.valueField),
-        ]),
+        ...flatten(children, childrenField, level + 1, [...parents, get(item, props.valueField)]),
       );
   });
   return result;
@@ -141,9 +138,7 @@ const flatTreeNodes = computed<FlatTreeNode[]>(() =>
 
 /** 是否启用虚拟滚动（节点数 >= 阈值 + 开关打开） */
 const isVirtualActive = computed(
-  () =>
-    props.virtualEnabled &&
-    flatTreeNodes.value.length >= props.virtualThreshold,
+  () => props.virtualEnabled && flatTreeNodes.value.length >= props.virtualThreshold,
 );
 
 /** 虚拟滚动句柄 */
@@ -231,7 +226,7 @@ defineExpose({
             v-for="vNode in treeVirtual.visibleSlice.value"
             :key="vNode.key"
             :style="{
-              paddingLeft: `${(vNode.data.level - 0.5)}rem`,
+              paddingLeft: `${vNode.data.level - 0.5}rem`,
               height: `${estimateSize}px`,
             }"
             class="tree-node focus:ring-grass8 my-0.5 flex cursor-pointer items-center rounded px-2 py-1 outline-none focus:ring-2"
@@ -251,11 +246,7 @@ defineExpose({
               @click.stop="handleToggle(String(vNode.data.value))"
             />
             <div v-else class="h-4 w-4" />
-            <YdCheckbox
-              v-if="multiple"
-              :disabled="disabled"
-              @click.stop
-            />
+            <YdCheckbox v-if="multiple" :disabled="disabled" @click.stop />
             <div class="flex items-center gap-1 pl-2">
               <IconifyIcon
                 v-if="showIcon && get(vNode.data.data as any, iconField)"

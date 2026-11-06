@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * login: GET /cas/login
  *
@@ -22,12 +21,12 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function login(params: {
-    service?: string;
-    username?: string;
-    password?: string;
-    request?: Record<string, unknown>;
-    response?: Record<string, unknown>;
-  }): Promise<unknown> {
+  service?: string;
+  username?: string;
+  password?: string;
+  request?: Record<string, unknown>;
+  response?: Record<string, unknown>;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/cas/login`, { params });
 }
 
@@ -40,11 +39,11 @@ export function login(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function loginPost(params: {
-    service?: string;
-    username?: string;
-    password?: string;
-    response?: Record<string, unknown>;
-  }): Promise<unknown> {
+  service?: string;
+  username?: string;
+  password?: string;
+  response?: Record<string, unknown>;
+}): Promise<unknown> {
   return requestClient.post<unknown>(`/cas/login`, { params });
 }
 
@@ -56,10 +55,7 @@ export function loginPost(params: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function serviceValidate(params: {
-    ticket?: string;
-    service?: string;
-  }): Promise<unknown> {
+export function serviceValidate(params: { ticket?: string; service?: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/cas/serviceValidate`, { params });
 }
 
@@ -72,9 +68,9 @@ export function serviceValidate(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function serviceValidateJson(params: {
-    ticket?: string;
-    service?: string;
-  }): Promise<unknown> {
+  ticket?: string;
+  service?: string;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/cas/p3/serviceValidate`, { params });
 }
 
@@ -87,9 +83,9 @@ export function serviceValidateJson(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function logout(params: {
-    service?: string;
-    request?: Record<string, unknown>;
-    response?: Record<string, unknown>;
-  }): Promise<unknown> {
+  service?: string;
+  request?: Record<string, unknown>;
+  response?: Record<string, unknown>;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/cas/logout`, { params });
 }

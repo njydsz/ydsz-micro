@@ -57,9 +57,7 @@ const typeIconMap: Record<string, string> = {
 };
 
 /** 最近 20 条通知 */
-const displayNotifications = computed(() =>
-  notificationStore.notifications.slice(0, 20),
-);
+const displayNotifications = computed(() => notificationStore.notifications.slice(0, 20));
 
 /** 未读数（99+ 上限） */
 const badgeCount = computed(() => {
@@ -118,9 +116,7 @@ function handleClickNotification(item: { id: string; isRead: boolean; link?: str
     notificationStore.markAsRead(item.id);
   }
   if (item.link) {
-    window.dispatchEvent(
-      new CustomEvent('micro-kernel:navigate', { detail: { path: item.link } }),
-    );
+    window.dispatchEvent(new CustomEvent('micro-kernel:navigate', { detail: { path: item.link } }));
   }
 }
 
@@ -147,29 +143,16 @@ onMounted(() => {
   <div class="global-notification flex items-center">
     <YdPopover v-model:open="open">
       <YdPopoverTrigger as-child>
-        <button
-          type="button"
-          class="gn-trigger"
-          :aria-label="$t('common.notifications')"
-        >
+        <button type="button" class="gn-trigger" :aria-label="$t('common.notifications')">
           <!-- 未读角标 -->
-          <span
-            v-if="badgeCount"
-            class="gn-badge"
-            aria-hidden="true"
-          >
+          <span v-if="badgeCount" class="gn-badge" aria-hidden="true">
             {{ badgeCount }}
           </span>
           <YdIcon icon="lucide:bell" width="18" height="18" class="gn-icon" />
         </button>
       </YdPopoverTrigger>
 
-      <YdPopoverContent
-        align="end"
-        side="bottom"
-        :side-offset="8"
-        class="gn-popover"
-      >
+      <YdPopoverContent align="end" side="bottom" :side-offset="8" class="gn-popover">
         <!-- 头部 -->
         <div class="gn-header">
           <span class="gn-title">{{ $t('common.notifications') }}</span>
@@ -186,10 +169,7 @@ onMounted(() => {
 
         <!-- 通知列表 -->
         <YdScrollArea class="gn-scroll">
-          <div
-            v-if="displayNotifications.length > 0"
-            class="gn-list"
-          >
+          <div v-if="displayNotifications.length > 0" class="gn-list">
             <div
               v-for="item in displayNotifications"
               :key="item.id"
@@ -223,20 +203,12 @@ onMounted(() => {
           </div>
 
           <!-- 空状态 -->
-          <YdEmptyState
-            v-else
-            preset="no-data"
-            class="gn-empty"
-          />
+          <YdEmptyState v-else preset="no-data" class="gn-empty" />
         </YdScrollArea>
 
         <!-- 底部 -->
         <div class="gn-footer">
-          <YdButton
-            size="sm"
-            variant="outline"
-            @click="handleViewAll"
-          >
+          <YdButton size="sm" variant="outline" @click="handleViewAll">
             {{ $t('common.viewAll') }}
           </YdButton>
         </div>

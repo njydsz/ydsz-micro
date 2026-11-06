@@ -63,7 +63,9 @@ describe('YdNotification', () => {
 
   it('自定义 icon 组件应替换默认图标', () => {
     const CustomIcon = markRaw(defineComponent({ render: () => h('i', { class: 'my-icon' }) }));
-    const wrapper = mount(YdNotification, { props: { ...baseProps, duration: 0, icon: CustomIcon } });
+    const wrapper = mount(YdNotification, {
+      props: { ...baseProps, duration: 0, icon: CustomIcon },
+    });
 
     expect(wrapper.find('.my-icon').exists()).toBe(true);
     wrapper.unmount();

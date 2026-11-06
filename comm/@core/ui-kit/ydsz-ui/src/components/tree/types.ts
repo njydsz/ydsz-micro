@@ -92,6 +92,15 @@ export interface TreeProps {
   /** 显示由iconField指定的图标 */
   showIcon?: boolean;
   /**
+   * 显示层级连接线
+   *
+   * @remarks
+   * Naive UI 风格的垂直缩进线，引导视觉层级。通过 CSS 伪元素实现，
+   * 不增加额外 DOM 节点。
+   * @default false
+   */
+  showLine?: boolean;
+  /**
    * 启用展开收缩动画
    *
    * @remarks

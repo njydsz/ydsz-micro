@@ -14,14 +14,14 @@
  * @since 1.0.0
  */
 
-import type { MicroAppConfig } from "@ydsz/micro-runtime";
-import { createLogger } from "@ydsz-core/shared/utils";
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { getRoutePredictor, type Prediction } from "./route-predictor";
+import { getRoutePredictor, type Prediction } from './route-predictor';
 
-import type { PreloadStrategyOptions } from "./preload-types";
+import type { PreloadStrategyOptions } from './preload-types';
 
-const logger = createLogger("PreloadManager");
+const logger = createLogger('PreloadManager');
 
 /**
  * 创建 idle 预加载策略
@@ -32,11 +32,11 @@ export function createIdlePreloadStrategy(
   idleTimeout = 2000,
 ): PreloadStrategyOptions[] {
   return apps.map((app) => ({
-    strategy: "idle" as const,
+    strategy: 'idle' as const,
     idleTimeout,
     onPreload: () => {
       // 使用 requestIdleCallback 在空闲时执行
-      if ("requestIdleCallback" in window) {
+      if ('requestIdleCallback' in window) {
         return new Promise<void>((resolve) => {
           window.requestIdleCallback(
             () => {
@@ -65,7 +65,7 @@ export function createHoverPreloadStrategy(
   onPreload: (appName: string) => void | Promise<void>,
 ): PreloadStrategyOptions[] {
   return apps.map((app) => ({
-    strategy: "hover" as const,
+    strategy: 'hover' as const,
     onPreload: () => onPreload(app.name),
   }));
 }
@@ -120,7 +120,7 @@ export function createRoutePreloadStrategy(
   };
 
   return {
-    strategy: "route" as const,
+    strategy: 'route' as const,
     onPreload: async () => {
       // 1. 自定义模式：使用传入的预测回调
       if (getRoutePredictions) {
@@ -128,7 +128,7 @@ export function createRoutePreloadStrategy(
         for (const route of predictions) {
           const app = apps.find((a) => {
             // ActiveRule 支持字符串/正则/函数，路由预测场景仅字符串前缀可比较
-            if (typeof a.activeRule !== "string") return false;
+            if (typeof a.activeRule !== 'string') return false;
             return route.startsWith(a.activeRule);
           });
           if (app) {
@@ -147,10 +147,7 @@ export function createRoutePreloadStrategy(
       for (const fromApp of knownApps) {
         if (preloadCount >= maxPreloads) break;
 
-        const predictions: Prediction[] = predictor.predict(
-          fromApp,
-          maxPreloads,
-        );
+        const predictions: Prediction[] = predictor.predict(fromApp, maxPreloads);
         for (const pred of predictions) {
           if (preloadCount >= maxPreloads) break;
           if (pred.probability < minProbability) continue;
@@ -179,10 +176,7 @@ export function createRoutePreloadStrategy(
  * @param fromApp - 来源应用名（可为空表示主应用入口）
  * @param toApp - 目标应用名
  */
-export function recordRouteTransition(
-  fromApp: string | undefined | null,
-  toApp: string,
-): void {
+export function recordRouteTransition(fromApp: string | undefined | null, toApp: string): void {
   if (!fromApp || fromApp === toApp) return;
   try {
     getRoutePredictor().recordTransition(fromApp, toApp);
@@ -209,11 +203,11 @@ export function createFrequencyPreloadStrategy(
   onPreload: (appName: string) => void | Promise<void>,
 ): PreloadStrategyOptions {
   return {
-    strategy: "frequency" as const,
-    priority: "medium" as const,
+    strategy: 'frequency' as const,
+    priority: 'medium' as const,
     onPreload: async () => {
       // 延迟导入避免循环依赖
-      const { getPreloadManager } = await import("./preload-strategy");
+      const { getPreloadManager } = await import('./preload-strategy');
       const manager = getPreloadManager();
       const ranked = manager.getAppsByFrequency();
       const candidates = ranked.slice(0, topN);

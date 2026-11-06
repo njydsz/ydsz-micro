@@ -72,10 +72,7 @@ const PREFIX_BRAND = '[YDSZ]';
  * 在应用 bootstrap 中调用一次，传入当前环境信息。
  * 库内部不直接读 import.meta.env，由应用注入保证同源。
  */
-export function initLogger(options?: {
-  isDev?: boolean;
-  minLevel?: LogLevel;
-}): void {
+export function initLogger(options?: { isDev?: boolean; minLevel?: LogLevel }): void {
   if (initialized) return;
   initialized = true;
 
@@ -146,9 +143,7 @@ function matchModule(pattern: string, module: string): boolean {
   }
   // 通用通配
   if (pattern.includes('*')) {
-    const regex = new RegExp(
-      `^${pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')}$`,
-    );
+    const regex = new RegExp(`^${pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')}$`);
     return regex.test(module);
   }
   return false;

@@ -22,7 +22,12 @@
  * @since 26.11.03
  */
 
-import { buildFigmaVariablesPayload, diffWithFigma, getFigmaConfig, pushToFigma } from '../comm/@core/ui-kit/design-tokens/src/figma-api-sync.ts';
+import {
+  buildFigmaVariablesPayload,
+  diffWithFigma,
+  getFigmaConfig,
+  pushToFigma,
+} from '../comm/@core/ui-kit/design-tokens/src/figma-api-sync.ts';
 
 async function main(): Promise<void> {
   const command = process.argv[2] ?? 'export';
@@ -44,10 +49,16 @@ async function main(): Promise<void> {
         process.exit(1);
       }
       const result = await diffWithFigma(config);
-      console.log(`📊 差异结果：新增 ${result.added.length}，删除 ${result.removed.length}，修改 ${result.modified.length}`);
+      console.log(
+        `📊 差异结果：新增 ${result.added.length}，删除 ${result.removed.length}，修改 ${result.modified.length}`,
+      );
       if (result.added.length > 0) console.log('  新增:', result.added);
       if (result.removed.length > 0) console.log('  删除:', result.removed);
-      if (result.modified.length > 0) console.log('  修改:', result.modified.map((m) => m.name));
+      if (result.modified.length > 0)
+        console.log(
+          '  修改:',
+          result.modified.map((m) => m.name),
+        );
       break;
     }
 

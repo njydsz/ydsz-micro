@@ -18,17 +18,9 @@ import { computed, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  YdAvatar,
-  YdAvatarFallback,
-  YdAvatarImage,
-} from '.././avatar';
+import { YdAvatar, YdAvatarFallback, YdAvatarImage } from '.././avatar';
 
-import {
-  YdPopover,
-  YdPopoverContent,
-  YdPopoverTrigger,
-} from '.././popover';
+import { YdPopover, YdPopoverContent, YdPopoverTrigger } from '.././popover';
 
 import type { AvatarGroupProps, AvatarItem } from './avatar-group-types';
 import { useLocale } from '../../locale/useLocale';
@@ -60,9 +52,7 @@ const avatarSize = computed(() => avatarSizeMap[props.size]);
 
 /* 可见区域与溢出区域 */
 const visibleItems = computed<AvatarItem[]>(() =>
-  props.maxCount !== undefined
-    ? props.items.slice(0, props.maxCount)
-    : props.items.slice(),
+  props.maxCount !== undefined ? props.items.slice(0, props.maxCount) : props.items.slice(),
 );
 
 const overflowItems = computed<AvatarItem[]>(() =>
@@ -105,7 +95,7 @@ function handleOverflowClick() {
     <template v-for="(item, i) in visibleItems" :key="i">
       <YdAvatar
         :size="avatarSize"
-        class="yd-avatar-group__avatar ring-2 ring-background"
+        class="yd-avatar-group__avatar ring-background ring-2"
         :style="{
           marginLeft: i === 0 ? 0 : `${overlapOffset}px`,
         }"
@@ -127,7 +117,7 @@ function handleOverflowClick() {
         -->
         <button
           type="button"
-          class="yd-avatar-group__overflow flex items-center justify-center rounded-full bg-neutral-600 px-2 py-0.5 text-xs font-medium text-white ring-2 ring-background transition-colors hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          class="yd-avatar-group__overflow ring-background focus-visible:ring-primary flex items-center justify-center rounded-full bg-neutral-600 px-2 py-0.5 text-xs font-medium text-white ring-2 transition-colors hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2"
           :style="{ marginLeft: `${overlapOffset}px` }"
           @mouseenter="handleOverflowMouseEnter"
           @mouseleave="handleOverflowMouseLeave"
@@ -139,7 +129,7 @@ function handleOverflowClick() {
       </YdPopoverTrigger>
 
       <YdPopoverContent
-        class="z-50 w-auto min-w-[140px] max-w-[260px] rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-md"
+        class="border-border bg-popover text-popover-foreground z-50 w-auto min-w-[140px] max-w-[260px] rounded-md border p-3 shadow-md"
         side="bottom"
         align="start"
         :side-offset="4"
@@ -157,9 +147,7 @@ function handleOverflowClick() {
                 {{ item.fallback ?? item.name?.charAt(0) ?? '?' }}
               </YdAvatarFallback>
             </YdAvatar>
-            <span
-              class="block w-full truncate text-center text-xs text-muted-foreground"
-            >
+            <span class="text-muted-foreground block w-full truncate text-center text-xs">
               {{ item.name ?? '—' }}
             </span>
           </div>

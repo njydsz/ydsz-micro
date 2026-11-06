@@ -75,8 +75,12 @@ function readNavigatorConnection(): YdNetworkStatus {
   const isSlow = ['slow-2g', '2g', '3g'].includes(type);
   const isSaveData = conn?.saveData === true;
   return {
-    isOnline: navigator.onLine, isSlow, isSaveData,
-    effectiveType: type, downlink: conn?.downlink ?? 10, rtt: conn?.rtt ?? 50,
+    isOnline: navigator.onLine,
+    isSlow,
+    isSaveData,
+    effectiveType: type,
+    downlink: conn?.downlink ?? 10,
+    rtt: conn?.rtt ?? 50,
   };
 }
 
@@ -128,9 +132,15 @@ function initState() {
  * @since 4.0.0
  */
 export function useNetworkStatus() {
-  if (!stateInitialized && !refInstance) { initState(); stateInitialized = true; }
+  if (!stateInitialized && !refInstance) {
+    initState();
+    stateInitialized = true;
+  }
   const state = refInstance ?? initState()!;
-  const onChange = (fn: () => void) => { listeners.add(fn); onUnmounted(() => listeners.delete(fn)); };
+  const onChange = (fn: () => void) => {
+    listeners.add(fn);
+    onUnmounted(() => listeners.delete(fn));
+  };
   return {
     networkStatus: readonly(state),
     isOnline: () => state.value.isOnline,

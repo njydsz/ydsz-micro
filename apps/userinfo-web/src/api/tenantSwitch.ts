@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * switchTenant: POST /auth/tenant/switch
  *

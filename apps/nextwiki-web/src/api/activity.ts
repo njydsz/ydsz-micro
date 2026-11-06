@@ -12,13 +12,12 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * listActivities: GET /nextwiki/activities
  */
 export function listActivities(params: {
-    page?: number;
-    limit?: number;
-  }): Promise<Record<string, unknown>[]> {
+  page?: number;
+  limit?: number;
+}): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/nextwiki/activities`, { params });
 }

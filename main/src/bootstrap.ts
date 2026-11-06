@@ -10,19 +10,19 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { initLogger } from "@ydsz-core/shared/utils";
+import { initLogger } from '@ydsz-core/shared/utils';
 
-import { featureFlagsOptions, registerApplicationFlags } from "./feature-flags";
-import { setupApp } from "./setup/app";
-import { initTenant } from "./setup/tenant";
-import { microRuntime, registerMicroRuntime } from "./setup/micro-runtime";
+import { featureFlagsOptions, registerApplicationFlags } from './feature-flags';
+import { setupApp } from './setup/app';
+import { initTenant } from './setup/tenant';
+import { microRuntime, registerMicroRuntime } from './setup/micro-runtime';
 import {
   initCanaryManager,
   initDevToolsBridge,
   initMicroDevTools,
   setupAppMonitoring,
   setupSessionSync,
-} from "./setup/monitoring";
+} from './setup/monitoring';
 
 // 保留历史导出契约：外部模块（subapp/index.vue、use-tabbar-micro-sync.ts）通过
 // `import { microRuntime } from '#/bootstrap'` 访问运行时的只读绑定。
@@ -55,14 +55,14 @@ async function bootstrap(namespace: string) {
 
   // 远程开关依赖请求客户端读取 Pinia 中的登录态，
   // 必须等 setupApp 安装 Pinia 之后再初始化，否则会因无活跃 Pinia 而失败。
-  const { initFeatureFlags } = await import("@ydsz-core/feature-flags");
+  const { initFeatureFlags } = await import('@ydsz-core/feature-flags');
   await initFeatureFlags(featureFlagsOptions());
 
   // 安装前端监控（错误捕获 + Web Vitals）+ Sentry 转发
   // v4.5 P0-1: setupAppMonitoring 返回组合后的 handler（监控上报 + 日志兜底）
   app.config.errorHandler = setupAppMonitoring(app);
 
-  app.mount("#app");
+  app.mount('#app');
 
   // v3.1 修复：app.mount 同步渲染，#subapp-container 已就绪，
   // 直接同步注册微前端运行时，避免此前 readyState 延迟导致的初始路由

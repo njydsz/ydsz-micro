@@ -35,11 +35,7 @@ export function isSlowNetwork(): boolean {
   if (conn.saveData === true) return true;
 
   const effectiveType = conn.effectiveType;
-  if (
-    effectiveType === 'slow-2g' ||
-    effectiveType === '2g' ||
-    effectiveType === '3g'
-  ) {
+  if (effectiveType === 'slow-2g' || effectiveType === '2g' || effectiveType === '3g') {
     return true;
   }
 

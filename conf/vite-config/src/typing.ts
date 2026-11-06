@@ -73,6 +73,23 @@ interface ArchiverPluginOptions {
 }
 
 /**
+ * Sourcemap 清理插件配置选项
+ * @description 用于配置构建后 sourcemap 产物的清理行为
+ */
+export interface SourcemapCleanupOptions {
+  /**
+   * 待清理的产物目录
+   * @default 'dist'
+   */
+  distDir?: string;
+  /**
+   * 是否强制执行清理（忽略 YDSZ_KEEP_SOURCEMAP 环境变量）
+   * @default false
+   */
+  force?: boolean;
+}
+
+/**
  * ImportMap 插件配置
  * @description 用于配置模块的 CDN 导入
  */

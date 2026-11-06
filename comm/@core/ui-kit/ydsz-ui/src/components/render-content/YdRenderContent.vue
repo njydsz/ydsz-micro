@@ -41,8 +41,7 @@ const renderContent = () => {
     return null;
   }
   const isComponent =
-    (isObject(props.content) || isFunction(props.content)) &&
-    props.content !== null;
+    (isObject(props.content) || isFunction(props.content)) && props.content !== null;
   if (!isComponent) {
     if (props.renderBr && isString(props.content)) {
       const lines = props.content.split('\n');

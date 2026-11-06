@@ -1,3 +1,3 @@
 export function isTouchOrPen(event: PointerEvent) {
-  return event.pointerType !== 'mouse'
+  return event.pointerType !== 'mouse';
 }

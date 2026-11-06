@@ -14,7 +14,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
 import { YdDialog, YdTable, YdTableColumn, YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
@@ -141,11 +141,9 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
 async function handleRollback(version: FileVersionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      `确定回滚到版本 v${version.version} 吗？当前版本将被覆盖。`,
-      '回滚确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定回滚到版本 v${version.version} 吗？当前版本将被覆盖。`, '回滚确认', {
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消回滚操作
   }
@@ -200,12 +198,7 @@ onMounted(() => {
           <template #default="{ row }">
             <YdButton size="sm" variant="link" @click="handlePreview(row)">预览</YdButton>
             <YdButton size="sm" variant="link" @click="handleDownloadVersion(row)">下载</YdButton>
-            <YdButton
-              v-if="!row.isCurrent"
-              size="sm"
-              variant="link"
-              @click="handleRollback(row)"
-            >
+            <YdButton v-if="!row.isCurrent" size="sm" variant="link" @click="handleRollback(row)">
               回滚
             </YdButton>
           </template>
@@ -214,7 +207,9 @@ onMounted(() => {
 
       <!-- 版本对比结果 -->
       <YdDialog v-model="comparing" title="版本对比" width="700px">
-        <pre class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs">{{ diffContent }}</pre>
+        <pre
+          class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs"
+          >{{ diffContent }}</pre>
         <template #footer>
           <YdButton variant="outline" @click="comparing = false">关闭</YdButton>
         </template>

@@ -1,20 +1,20 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PopperContentProps } from '../Popper/index.ts'
+import type { PopperContentProps } from '../Popper/index.ts';
 
 export interface SelectPopperPositionProps extends PopperContentProps {}
 </script>
 
 <script setup lang="ts">
-import { useForwardProps } from '..'
-import { CONTENT_MARGIN } from './utils'
-import { PopperContent } from '../Popper/index.ts'
+import { useForwardProps } from '..';
+import { CONTENT_MARGIN } from './utils';
+import { PopperContent } from '../Popper/index.ts';
 
 const props = withDefaults(defineProps<SelectPopperPositionProps>(), {
   align: 'start',
   collisionPadding: CONTENT_MARGIN,
-})
-const forwarded = useForwardProps(props)
+});
+const forwarded = useForwardProps(props);
 </script>
 
 <template>
@@ -22,13 +22,10 @@ const forwarded = useForwardProps(props)
     v-bind="forwarded"
     :style="{
       // Ensure border-box for floating-ui calculations
-      'boxSizing': 'border-box',
-      '--radix-select-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-select-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-select-content-available-height':
-        'var(--radix-popper-available-height)',
+      boxSizing: 'border-box',
+      '--radix-select-content-transform-origin': 'var(--radix-popper-transform-origin)',
+      '--radix-select-content-available-width': 'var(--radix-popper-available-width)',
+      '--radix-select-content-available-height': 'var(--radix-popper-available-height)',
       '--radix-select-trigger-width': 'var(--radix-popper-anchor-width)',
       '--radix-select-trigger-height': 'var(--radix-popper-anchor-height)',
     }"

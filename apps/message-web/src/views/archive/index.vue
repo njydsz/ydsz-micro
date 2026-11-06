@@ -34,7 +34,9 @@ defineOptions({ name: 'MessageArchiveManagement' });
  * 状态列 Tag 类型映射（EP type → shadcn YdBadge variant）
  * <p>success→default（绿）, danger→destructive, warning→outline（黄）, info→secondary（灰）
  */
-function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapTagVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -65,7 +67,11 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.status)) },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },

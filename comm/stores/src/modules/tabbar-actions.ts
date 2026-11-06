@@ -13,18 +13,10 @@ import type { Router } from 'vue-router';
 
 import type { TabDefinition } from '@ydsz-core/typings';
 
-import {
-  startProgress,
-  stopProgress,
-} from '@ydsz-core/shared/utils';
+import { startProgress, stopProgress } from '@ydsz-core/shared/utils';
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import {
-  equalTab,
-  getTabKey,
-  getTabKeyFromTab,
-  isAffixTab,
-} from './tabbar-utils';
+import { equalTab, getTabKey, getTabKeyFromTab, isAffixTab } from './tabbar-utils';
 import type { TabbarStoreContext } from './tabbar-utils';
 import {
   closeTabInternal,
@@ -43,14 +35,9 @@ const logger = createLogger('Tabbar');
  * @param ctx - Tabbar store 上下文
  * @param keys - 待关闭的标签页 key 列表
  */
-export async function bulkCloseByKeys(
-  ctx: TabbarStoreContext,
-  keys: string[],
-) {
+export async function bulkCloseByKeys(ctx: TabbarStoreContext, keys: string[]) {
   const keySet = new Set(keys);
-  ctx.tabs.value = ctx.tabs.value.filter(
-    (item) => !keySet.has(getTabKeyFromTab(item)),
-  );
+  ctx.tabs.value = ctx.tabs.value.filter((item) => !keySet.has(getTabKeyFromTab(item)));
 
   await updateCacheTabs(ctx);
 }
@@ -61,10 +48,7 @@ export async function bulkCloseByKeys(
  * @param ctx - Tabbar store 上下文
  * @param router - Vue Router 实例，用于跳转
  */
-export async function closeAllTabs(
-  ctx: TabbarStoreContext,
-  router: Router,
-) {
+export async function closeAllTabs(ctx: TabbarStoreContext, router: Router) {
   const newTabs = ctx.tabs.value.filter((tab) => isAffixTab(tab));
   ctx.tabs.value = newTabs.length > 0 ? newTabs : ctx.tabs.value.slice(0, 1);
   await goToDefaultTab(ctx, router);
@@ -77,10 +61,7 @@ export async function closeAllTabs(
  * @param ctx - Tabbar store 上下文
  * @param tab - 参考标签页（关闭其左侧标签）
  */
-export async function closeLeftTabs(
-  ctx: TabbarStoreContext,
-  tab: TabDefinition,
-) {
+export async function closeLeftTabs(ctx: TabbarStoreContext, tab: TabDefinition) {
   const index = ctx.tabs.value.findIndex((item) => equalTab(item, tab));
 
   if (index < 1) {
@@ -104,19 +85,14 @@ export async function closeLeftTabs(
  * @param ctx - Tabbar store 上下文
  * @param tab - 需要保留的标签页
  */
-export async function closeOtherTabs(
-  ctx: TabbarStoreContext,
-  tab: TabDefinition,
-) {
+export async function closeOtherTabs(ctx: TabbarStoreContext, tab: TabDefinition) {
   const closeKeys = ctx.tabs.value.map((item) => getTabKeyFromTab(item));
 
   const keys: string[] = [];
 
   for (const key of closeKeys) {
     if (key !== getTabKeyFromTab(tab)) {
-      const closeTabItem = ctx.tabs.value.find(
-        (item) => getTabKeyFromTab(item) === key,
-      );
+      const closeTabItem = ctx.tabs.value.find((item) => getTabKeyFromTab(item) === key);
       if (!closeTabItem) {
         continue;
       }
@@ -134,10 +110,7 @@ export async function closeOtherTabs(
  * @param ctx - Tabbar store 上下文
  * @param tab - 参考标签页（关闭其右侧标签）
  */
-export async function closeRightTabs(
-  ctx: TabbarStoreContext,
-  tab: TabDefinition,
-) {
+export async function closeRightTabs(ctx: TabbarStoreContext, tab: TabDefinition) {
   const index = ctx.tabs.value.findIndex((item) => equalTab(item, tab));
 
   if (index !== -1 && index < ctx.tabs.value.length - 1) {
@@ -160,11 +133,7 @@ export async function closeRightTabs(
  * @param tab - 待关闭的标签页
  * @param router - Vue Router 实例，用于跳转
  */
-export async function closeTab(
-  ctx: TabbarStoreContext,
-  tab: TabDefinition,
-  router: Router,
-) {
+export async function closeTab(ctx: TabbarStoreContext, tab: TabDefinition, router: Router) {
   const { currentRoute } = router;
   // 关闭不是激活选项卡
   if (getTabKey(currentRoute.value) !== getTabKeyFromTab(tab)) {
@@ -188,7 +157,6 @@ export async function closeTab(
     closeTabInternal(ctx, tab);
     await goToTab(before, router);
   } else {
-     
     logger.error('Failed to close the tab; only one tab remains open.');
   }
 }
@@ -200,15 +168,9 @@ export async function closeTab(
  * @param key - 标签页唯一 key（URL 编码）
  * @param router - Vue Router 实例，用于跳转
  */
-export async function closeTabByKey(
-  ctx: TabbarStoreContext,
-  key: string,
-  router: Router,
-) {
+export async function closeTabByKey(ctx: TabbarStoreContext, key: string, router: Router) {
   const originKey = decodeURIComponent(key);
-  const index = ctx.tabs.value.findIndex(
-    (item) => getTabKeyFromTab(item) === originKey,
-  );
+  const index = ctx.tabs.value.findIndex((item) => getTabKeyFromTab(item) === originKey);
   if (index === -1) {
     return;
   }
@@ -231,10 +193,7 @@ export async function closeTabByKey(
  * @param ctx - Tabbar store 上下文
  * @param router - Vue Router 实例或路由名
  */
-export async function refresh(
-  ctx: TabbarStoreContext,
-  router: Router | string,
-) {
+export async function refresh(ctx: TabbarStoreContext, router: Router | string) {
   // 如果是Router路由，那么就根据当前路由刷新
   // 如果是string字符串，为路由名称，则定向刷新指定标签页，不能是当前路由名称，否则不会刷新
   if (typeof router === 'string') {
@@ -244,17 +203,13 @@ export async function refresh(
   const { currentRoute } = router;
   const { name } = currentRoute.value;
 
-  ctx.excludeCachedTabs.value = [
-    ...new Set([...ctx.excludeCachedTabs.value, name as string]),
-  ];
+  ctx.excludeCachedTabs.value = [...new Set([...ctx.excludeCachedTabs.value, name as string])];
   ctx.renderRouteView.value = false;
   startProgress();
 
   await new Promise((resolve) => setTimeout(resolve, 200));
 
-  ctx.excludeCachedTabs.value = ctx.excludeCachedTabs.value.filter(
-    (n) => n !== (name as string),
-  );
+  ctx.excludeCachedTabs.value = ctx.excludeCachedTabs.value.filter((n) => n !== (name as string));
   ctx.renderRouteView.value = true;
   stopProgress();
 }

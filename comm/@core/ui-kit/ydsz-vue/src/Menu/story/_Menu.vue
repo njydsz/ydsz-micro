@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { MenuItemEmits } from '..'
-import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..'
-import MenuWithAnchor from './_MenuWithAnchor.vue'
+import type { MenuItemEmits } from '..';
+import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '..';
+import MenuWithAnchor from './_MenuWithAnchor.vue';
 
-const emits = defineEmits<MenuItemEmits>()
+const emits = defineEmits<MenuItemEmits>();
 
 const foodGroups: Array<{
-  label?: string
-  foods: Array<{ value: string, label: string, disabled?: boolean }>
+  label?: string;
+  foods: Array<{ value: string; label: string; disabled?: boolean }>;
 }> = [
   {
     label: 'Fruits',
@@ -45,25 +45,22 @@ const foodGroups: Array<{
       { value: 'chocolates', label: 'Chocolates' },
     ],
   },
-]
+];
 </script>
 
 <template>
   <MenuWithAnchor>
-    <MenuGroup
-      v-for="(foodGroup, index) in foodGroups"
-      :key="index"
-    >
+    <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
       <MenuLabel
         v-if="foodGroup.label"
-        class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3] text-gray-400 my-2"
+        class="my-2 flex h-[25px] cursor-default select-none items-center justify-between whitespace-nowrap rounded-[3] px-[10px] leading-[1] text-black text-gray-400"
       >
         {{ foodGroup.label }}
       </MenuLabel>
       <MenuItem
         v-for="(food, i) in foodGroup.foods"
         :key="i"
-        class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
+        class="flex h-[25px] cursor-default select-none items-center justify-between whitespace-nowrap rounded-[3px] px-[10px] leading-[1] text-black outline-none data-[highlighted]:bg-black data-[disabled]:text-gray-100 data-[highlighted]:text-white"
         @select="emits('select', $event)"
       >
         {{ food.label }}

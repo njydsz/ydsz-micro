@@ -6,32 +6,32 @@
 
 ### YdInputMask 属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `modelValue` | `string` | — | 输入值（v-model） |
-| `mask` | `string` | — | **必填**，掩码模板 |
-| `unmask` | `boolean` | `false` | true 时传出去除掩码后的纯值 |
-| `placeholderChar` | `string` | `'_'` | 占位符字符 |
-| `autoClear` | `boolean` | `true` | 输入不完整时 blur 自动清空 |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | 尺寸 |
-| `variant` | `'default' \| 'filled' \| 'underlined'` | `'default'` | 变体 |
-| `placeholder` | `string` | — | 占位文本 |
-| `disabled` | `boolean` | `false` | 禁用 |
-| `readonly` | `boolean` | `false` | 只读 |
+| 属性              | 类型                                    | 默认值      | 说明                        |
+| ----------------- | --------------------------------------- | ----------- | --------------------------- |
+| `modelValue`      | `string`                                | —           | 输入值（v-model）           |
+| `mask`            | `string`                                | —           | **必填**，掩码模板          |
+| `unmask`          | `boolean`                               | `false`     | true 时传出去除掩码后的纯值 |
+| `placeholderChar` | `string`                                | `'_'`       | 占位符字符                  |
+| `autoClear`       | `boolean`                               | `true`      | 输入不完整时 blur 自动清空  |
+| `size`            | `'sm' \| 'md' \| 'lg'`                  | `'md'`      | 尺寸                        |
+| `variant`         | `'default' \| 'filled' \| 'underlined'` | `'default'` | 变体                        |
+| `placeholder`     | `string`                                | —           | 占位文本                    |
+| `disabled`        | `boolean`                               | `false`     | 禁用                        |
+| `readonly`        | `boolean`                               | `false`     | 只读                        |
 
 ### 掩码字符含义
 
-| 字符 | 含义 | 示例 |
-|------|------|------|
-| `9` | 数字（0-9） | `9999-99-99` → 日期格式 |
-| `a` | 字母（A-Z/a-z） | `aaa-999` → 字母+数字 |
-| `*` | 字母数字（A-Z/a-z/0-9） | `***-****` → 任意字符 |
-| 其他 | 字面量自动插入 | `-`, `(`, `)`, `:` 等 |
+| 字符 | 含义                    | 示例                    |
+| ---- | ----------------------- | ----------------------- |
+| `9`  | 数字（0-9）             | `9999-99-99` → 日期格式 |
+| `a`  | 字母（A-Z/a-z）         | `aaa-999` → 字母+数字   |
+| `*`  | 字母数字（A-Z/a-z/0-9） | `***-****` → 任意字符   |
+| 其他 | 字面量自动插入          | `-`, `(`, `)`, `:` 等   |
 
 ### 事件
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
+| 事件       | 参数     | 说明           |
+| ---------- | -------- | -------------- |
 | `complete` | `string` | 掩码填满时触发 |
 
 ---
@@ -44,12 +44,12 @@
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const phone = ref('')
+const phone = ref('');
 
 function handleComplete(val) {
-  console.log('手机号输入完成：', val)
+  console.log('手机号输入完成：', val);
 }
 </script>
 
@@ -62,9 +62,7 @@ function handleComplete(val) {
       size="md"
       @complete="handleComplete"
     />
-    <p class="text-xs text-neutral-500">
-      当前值：{{ phone || '—' }}
-    </p>
+    <p class="text-xs text-neutral-500">当前值：{{ phone || '—' }}</p>
   </div>
 </template>
 ```
@@ -77,11 +75,11 @@ function handleComplete(val) {
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const cardNo = ref('')
-const idCard = ref('')
-const macAddress = ref('')
+const cardNo = ref('');
+const idCard = ref('');
+const macAddress = ref('');
 </script>
 
 <template>
@@ -136,17 +134,17 @@ const macAddress = ref('')
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const server = ref({
   ip: '',
   port: '',
   subnet: '',
-})
+});
 
 // 提交时获取无掩码纯值
 function handleSubmit() {
-  console.log('提交服务器配置：', { ...server.value })
+  console.log('提交服务器配置：', { ...server.value });
 }
 </script>
 

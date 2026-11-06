@@ -47,15 +47,17 @@ const gridOptions: VxeGridProps<FlowCategoryVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
-                class: 'text-destructive' },
+              {
+                size: 'sm',
+                variant: 'link' as const,
+                onClick: () => handleDelete(row),
+                class: 'text-destructive',
+              },
               () => t('common.delete'),
             ),
           ]),

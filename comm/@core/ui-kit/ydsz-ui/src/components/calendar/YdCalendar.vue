@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* Calendar 日历：月份视图的日期展示与选择面板。
-* 
+ * Calendar 日历：月份视图的日期展示与选择面板。
+ *
  * 功能覆盖：
  * - 单日期选择 / 范围选择（startDate + endDate）
  * - 禁用日期函数（disabledDate）
@@ -11,7 +11,7 @@
  * - 月份/年份快速跳转下拉
  * - "今天"快捷按钮
  * - 预设快捷选项渲染（today / yesterday / thisWeek 等）
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\calendar\YdCalendar.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -204,7 +204,11 @@ function nextMonth(): void {
 
 function isSameDay(a: Date | undefined, b: Date | undefined): boolean {
   if (!a || !b) return false;
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
 }
 
 function isInRange(date: Date): boolean {
@@ -252,7 +256,12 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
     <!-- 头部：年份/月份跳转 + 月份导航 -->
     <div class="mb-3 flex items-center justify-between gap-2">
       <div class="flex items-center gap-1">
-        <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.previousMonth')" @click="prevMonth">
+        <button
+          class="hover:bg-muted rounded p-1"
+          type="button"
+          :aria-label="t('datepicker.previousMonth')"
+          @click="prevMonth"
+        >
           <ChevronLeft class="size-4" />
         </button>
 
@@ -263,7 +272,9 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
           :aria-label="t('calendar.selectYearAriaLabel')"
           @change="onYearChange(Number(($event.target as HTMLSelectElement).value))"
         >
-          <option v-for="y in yearOptions" :key="y" :value="y">{{ t('calendar.yearOption', { year: y }) }}</option>
+          <option v-for="y in yearOptions" :key="y" :value="y">
+            {{ t('calendar.yearOption', { year: y }) }}
+          </option>
         </select>
 
         <!-- 月份下拉 -->
@@ -273,11 +284,18 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
           :aria-label="t('calendar.selectMonthAriaLabel')"
           @change="onMonthChange(Number(($event.target as HTMLSelectElement).value))"
         >
-          <option v-for="m in monthOptions" :key="m" :value="m">{{ t('calendar.monthOption', { month: m + 1 }) }}</option>
+          <option v-for="m in monthOptions" :key="m" :value="m">
+            {{ t('calendar.monthOption', { month: m + 1 }) }}
+          </option>
         </select>
 
         <!-- 上一月/下一月导航 -->
-        <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.nextMonth')" @click="nextMonth">
+        <button
+          class="hover:bg-muted rounded p-1"
+          type="button"
+          :aria-label="t('datepicker.nextMonth')"
+          @click="nextMonth"
+        >
           <ChevronRight class="size-4" />
         </button>
       </div>
@@ -312,10 +330,11 @@ function handleShortcutClick(shortcut: CalendarShortcut): void {
         :aria-selected="isSameDay(day.date, props.value)"
         :class="
           cn(
-            'relative flex items-center justify-center rounded-md py-1 text-sm transition-colors hover:bg-muted',
+            'hover:bg-muted relative flex items-center justify-center rounded-md py-1 text-sm transition-colors',
             !day.isCurrentMonth && 'opacity-30',
             day.disabled && 'cursor-not-allowed opacity-20 hover:bg-transparent',
-            isSameDay(day.date, props.value) && 'bg-primary text-primary-foreground font-semibold hover:bg-primary/90',
+            isSameDay(day.date, props.value) &&
+              'bg-primary text-primary-foreground hover:bg-primary/90 font-semibold',
             isInRange(day.date) && 'bg-primary/20',
           )
         "

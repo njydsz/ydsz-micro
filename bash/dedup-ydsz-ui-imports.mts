@@ -24,14 +24,23 @@ const SCAN_DIRS = ['apps', 'main'];
 
 function walk(dir, out = []) {
   let entries;
-  try { entries = readdirSync(dir); } catch { return out; }
+  try {
+    entries = readdirSync(dir);
+  } catch {
+    return out;
+  }
   for (const name of entries) {
     if (SKIP.has(name)) continue;
     const full = join(dir, name);
     let st;
-    try { st = statSync(full); } catch { continue; }
-    if (st.isDirectory()) { walk(full, out); }
-    else if (EXTS.some((e) => name.endsWith(e)) && !name.endsWith('.d.ts')) {
+    try {
+      st = statSync(full);
+    } catch {
+      continue;
+    }
+    if (st.isDirectory()) {
+      walk(full, out);
+    } else if (EXTS.some((e) => name.endsWith(e)) && !name.endsWith('.d.ts')) {
       out.push(full);
     }
   }
@@ -40,7 +49,10 @@ function walk(dir, out = []) {
 
 /** 从 'A, B as C, D' 解析成员数组（保留别名） */
 function parseMembers(str) {
-  return str.split(',').map((s) => s.trim()).filter(Boolean);
+  return str
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
 function dedupFile(filePath) {
@@ -67,7 +79,10 @@ function dedupFile(filePath) {
   // 策略：合并后的 import 就地替换第一条 import，其余 import 整行删除
   let content = original;
   // 替换第一行
-  content = content.replace(matches[0][0], `import { ${merged.join(', ')} } from ${matches[0][2]}@ydsz-core/ydsz-ui${matches[0][2]};\n`);
+  content = content.replace(
+    matches[0][0],
+    `import { ${merged.join(', ')} } from ${matches[0][2]}@ydsz-core/ydsz-ui${matches[0][2]};\n`,
+  );
   // 删除其余行
   for (let i = 1; i < matches.length; i++) {
     content = content.replace(matches[i][0], '');

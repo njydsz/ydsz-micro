@@ -113,10 +113,7 @@ async function installBasePlugins(vueApp: VueApp, appName: string) {
 }
 
 /** 内核 mount 逻辑（micro-kernel & 独立运行共享） */
-async function coreMount(
-  config: SubAppConfig,
-  props?: StandardMountProps,
-) {
+async function coreMount(config: SubAppConfig, props?: StandardMountProps) {
   const {
     appName,
     basename,
@@ -131,8 +128,7 @@ async function coreMount(
 
   const env = import.meta.env.PROD ? 'prod' : 'dev';
   const appVersion = import.meta.env.VITE_APP_VERSION;
-  const namespace =
-    ns || `${import.meta.env.VITE_APP_NAMESPACE}-${appVersion}-${env}`;
+  const namespace = ns || `${import.meta.env.VITE_APP_NAMESPACE}-${appVersion}-${env}`;
 
   await initPreferences({
     namespace,
@@ -145,8 +141,7 @@ async function coreMount(
   // v4.5 P0-1: 子应用监控注入生产配置（release + 采样率 + Sentry）
   const sentryDsn = import.meta.env.VITE_SENTRY_DSN as string | undefined;
   setupMonitor(app, {
-    release:
-      import.meta.env.VITE_APP_RELEASE || import.meta.env.VITE_APP_VERSION,
+    release: import.meta.env.VITE_APP_RELEASE || import.meta.env.VITE_APP_VERSION,
     sampleRate: import.meta.env.PROD ? 0.8 : 1,
     getUserId: () => {
       try {
@@ -179,9 +174,7 @@ async function coreMount(
     routes,
     scrollBehavior: (to, _from, savedPosition) => {
       if (savedPosition) return savedPosition;
-      return to.hash
-        ? { behavior: 'smooth', el: to.hash }
-        : { left: 0, top: 0 };
+      return to.hash ? { behavior: 'smooth', el: to.hash } : { left: 0, top: 0 };
     },
   });
 
@@ -204,8 +197,7 @@ async function coreMount(
   }
 
   const mountNode =
-    (props?.container as HTMLElement)?.querySelector?.('#app') ||
-    document.querySelector('#app');
+    (props?.container as HTMLElement)?.querySelector?.('#app') || document.querySelector('#app');
   app.mount(mountNode);
 
   return router;

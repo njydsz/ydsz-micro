@@ -169,9 +169,7 @@ async function main() {
   const moduleArg = args.find((a, i) => a === '--module' && args[i + 1]);
   const targetModule = moduleArg ? args[args.indexOf('--module') + 1] : undefined;
 
-  const targets = targetModule
-    ? { [targetModule]: SERVICE_MAP[targetModule] }
-    : SERVICE_MAP;
+  const targets = targetModule ? { [targetModule]: SERVICE_MAP[targetModule] } : SERVICE_MAP;
 
   console.log(`[gen:validation] 开始提取校验规则，共 ${Object.keys(targets).length} 个模块\n`);
 
@@ -224,13 +222,12 @@ async function main() {
       const outputPath = join(ROOT, outputDir, `${schemaName}.json`);
       // schema 关联到 module 名（useValidationRules 拼接路径用）
       const moduleKey = `${name}/${schemaName}`;
-      writeFileSync(
-        outputPath,
-        JSON.stringify({ moduleKey, metas }, null, 2),
-      );
+      writeFileSync(outputPath, JSON.stringify({ moduleKey, metas }, null, 2));
     }
 
-    console.log(`✓ [${name}] ${Object.keys(rulesBySchema).length} 个 schema，${Object.values(rulesBySchema).reduce((s, m) => s + m.length, 0)} 条校验规则`);
+    console.log(
+      `✓ [${name}] ${Object.keys(rulesBySchema).length} 个 schema，${Object.values(rulesBySchema).reduce((s, m) => s + m.length, 0)} 条校验规则`,
+    );
   }
 
   console.log(`\n[gen:validation] 完成，共 ${total} 条字段校验规则`);

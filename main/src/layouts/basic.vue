@@ -6,30 +6,22 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-import type { NotificationItem } from "@ydsz/layouts";
+import type { NotificationItem } from '@ydsz/layouts';
 
-import { computed, onMounted, onUnmounted, watch } from "vue";
+import { computed, onMounted, onUnmounted, watch } from 'vue';
 
-import {
-  AuthenticationLoginExpiredModal,
-  YdNetworkStatus,
-} from "@ydsz/common-ui";
-import { useWatermark } from "@ydsz/hooks";
-import {
-  BasicLayout,
-  LockScreen,
-  Notification,
-  UserDropdown,
-} from "@ydsz/layouts";
-import { preferences } from "@ydsz/preferences";
-import { useTokenStore, useUserStore } from "@ydsz/stores";
+import { AuthenticationLoginExpiredModal, YdNetworkStatus } from '@ydsz/common-ui';
+import { useWatermark } from '@ydsz/hooks';
+import { BasicLayout, LockScreen, Notification, UserDropdown } from '@ydsz/layouts';
+import { preferences } from '@ydsz/preferences';
+import { useTokenStore, useUserStore } from '@ydsz/stores';
 
-import { useTabbarMicroSync } from "#/hooks/use-tabbar-micro-sync";
-import TenantSwitcher from "#/components/tenant-switcher.vue";
+import { useTabbarMicroSync } from '#/hooks/use-tabbar-micro-sync';
+import TenantSwitcher from '#/components/tenant-switcher.vue';
 import { YdSettingsFloatButton } from '@ydsz-core/ydsz-ui';
-import { useAuthStore } from "#/store";
-import { useNotificationStore } from "#/store/notification";
-import LoginForm from "#/views/_core/authentication/login.vue";
+import { useAuthStore } from '#/store';
+import { useNotificationStore } from '#/store/notification';
+import LoginForm from '#/views/_core/authentication/login.vue';
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
@@ -44,7 +36,7 @@ const avatar = computed(() => {
 // 将后端通知格式转为 UI 组件需要的格式
 const notifications = computed<NotificationItem[]>(() =>
   notificationStore.notifications.map((n) => ({
-    avatar: n.avatar || "https://avatar.vercel.sh/1",
+    avatar: n.avatar || 'https://avatar.vercel.sh/1',
     date: n.createdAt,
     isRead: n.isRead,
     message: n.message,
@@ -137,10 +129,7 @@ onUnmounted(() => {
       <TenantSwitcher class="mr-1" />
     </template>
     <template #extra>
-      <AuthenticationLoginExpiredModal
-        v-model:open="accessStore.loginExpired"
-        :avatar
-      >
+      <AuthenticationLoginExpiredModal v-model:open="accessStore.loginExpired" :avatar>
         <LoginForm />
       </AuthenticationLoginExpiredModal>
     </template>

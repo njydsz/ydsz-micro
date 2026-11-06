@@ -64,9 +64,7 @@ function getDefaultState(): VxeGridProps {
  * gridApi.setLoading(true);
  * ```
  */
-export class VxeGridApi<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> {
+export class VxeGridApi<T extends Record<string, unknown> = Record<string, unknown>> {
   /** 搜索表单的操作句柄；挂载前为空对象占位 */
   public formApi = {} as YdExtendedFormApi;
 
@@ -88,15 +86,12 @@ export class VxeGridApi<
     const storeState = { ...options };
 
     const defaultState = getDefaultState();
-    this.store = new Store<VxeGridProps>(
-      mergeWithArrayOverride(storeState, defaultState),
-      {
-        onUpdate: () => {
-          // this.prevState = this.state;
-          this.state = this.store.state;
-        },
+    this.store = new Store<VxeGridProps>(mergeWithArrayOverride(storeState, defaultState), {
+      onUpdate: () => {
+        // this.prevState = this.state;
+        this.state = this.store.state;
       },
-    );
+    });
 
     this.state = this.store.state;
     this.stateHandler = new StateHandler();
@@ -195,9 +190,7 @@ export class VxeGridApi<
    * @param stateOrFn - 待合并的状态片段，或接收上一状态并返回状态片段的函数
    */
   setState(
-    stateOrFn:
-      | ((prev: VxeGridProps<T>) => Partial<VxeGridProps<T>>)
-      | Partial<VxeGridProps<T>>,
+    stateOrFn: ((prev: VxeGridProps<T>) => Partial<VxeGridProps<T>>) | Partial<VxeGridProps<T>>,
   ) {
     if (isFunction(stateOrFn)) {
       this.store.setState((prev) => {

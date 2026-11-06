@@ -58,7 +58,7 @@ function actionMeta(action: string): ActionMeta {
   <!-- 审批历史 -->
   <ol
     v-if="records.length > 0"
-    class="approval-timeline relative border-l border-border-subtle pl-6"
+    class="approval-timeline border-border-subtle relative border-l pl-6"
   >
     <li
       v-for="record in records"
@@ -67,14 +67,10 @@ function actionMeta(action: string): ActionMeta {
     >
       <!-- 节点圆点 -->
       <span
-        class="absolute -left-[25px] top-1 flex h-4 w-4 items-center justify-center rounded-full bg-bg-surface-2 ring-4 ring-bg-surface-2"
+        class="bg-bg-surface-2 ring-bg-surface-2 absolute -left-[25px] top-1 flex h-4 w-4 items-center justify-center rounded-full ring-4"
         aria-hidden="true"
       >
-        <component
-          :is="actionMeta(record.action).icon"
-          :size="12"
-          class="text-txt-secondary"
-        />
+        <component :is="actionMeta(record.action).icon" :size="12" class="text-txt-secondary" />
       </span>
 
       <!-- 内容 -->
@@ -86,13 +82,13 @@ function actionMeta(action: string): ActionMeta {
           <YdBadge :variant="actionMeta(record.action).variant">
             {{ actionMeta(record.action).text }}
           </YdBadge>
-          <span class="approval-timeline__time text-xs text-txt-tertiary">
+          <span class="approval-timeline__time text-txt-tertiary text-xs">
             {{ record.time }}
           </span>
         </div>
         <p
           v-if="record.comment"
-          class="approval-timeline__comment mt-1 rounded bg-neutral-50 px-3 py-2 text-sm text-txt-secondary"
+          class="approval-timeline__comment text-txt-secondary mt-1 rounded bg-neutral-50 px-3 py-2 text-sm"
         >
           {{ record.comment }}
         </p>
@@ -101,10 +97,7 @@ function actionMeta(action: string): ActionMeta {
   </ol>
 
   <!-- 空态 -->
-  <p
-    v-else
-    class="approval-timeline__empty py-4 text-center text-sm text-txt-tertiary"
-  >
+  <p v-else class="approval-timeline__empty text-txt-tertiary py-4 text-center text-sm">
     {{ $t('ui.approval.empty') }}
   </p>
 </template>

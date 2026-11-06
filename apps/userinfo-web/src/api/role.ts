@@ -31,9 +31,7 @@ export function list(): Promise<RoleVO[]> {
 /**
  * getById: GET /role/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<RoleVO> {
+export function getById({ id }: { id: string }): Promise<RoleVO> {
   return requestClient.get<RoleVO>(`/role/${id}`);
 }
 
@@ -54,26 +52,27 @@ export function update(data: RoleDTO): Promise<boolean> {
 /**
  * remove: DELETE /role/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/role/${id}`);
 }
 
 /**
  * assignPermissions: POST /role/{roleId}/permissions
  */
-export function assignPermissions({ roleId }: {
+export function assignPermissions(
+  {
+    roleId,
+  }: {
     roleId: string;
-  }, data: AssignPermissionsDTO): Promise<boolean> {
+  },
+  data: AssignPermissionsDTO,
+): Promise<boolean> {
   return requestClient.post<boolean>(`/role/${roleId}/permissions`, data);
 }
 
 /**
  * getRolePermissions: GET /role/{roleId}/permissions
  */
-export function getRolePermissions({ roleId }: {
-    roleId: string;
-  }): Promise<string[]> {
+export function getRolePermissions({ roleId }: { roleId: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/role/${roleId}/permissions`);
 }

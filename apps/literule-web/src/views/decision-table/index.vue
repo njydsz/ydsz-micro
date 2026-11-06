@@ -16,7 +16,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
@@ -149,10 +149,7 @@ function handleDesign(row: DecisionTableVO): void {
 async function handleExport(row: DecisionTableVO): Promise<void> {
   if (!row.tableCode) return;
   try {
-    await exportDecisionTableExcel(
-      { tableCode: row.tableCode },
-      { response: {} },
-    );
+    await exportDecisionTableExcel({ tableCode: row.tableCode }, { response: {} });
     showToast.success(t('exportSuccess'));
   } catch (error) {
     logger.warn('导出决策表失败: {}', error);
@@ -165,11 +162,7 @@ async function handleDelete(row: DecisionTableVO): Promise<void> {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      t('confirmDeleteTable', [row.tableName]),
-      t('deleteConf'),
-      { type: 'warning' },
-    );
+    await YdConfirm(t('confirmDeleteTable', [row.tableName]), t('deleteConf'), { type: 'warning' });
   } catch (error) {
     logger.debug('用户取消删除决策表: {}', error);
     return; // 用户主动取消删除操作

@@ -21,7 +21,16 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdAccordion, YdAccordionContent, YdAccordionItem, YdAccordionTrigger, YdTooltip, YdButton, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdAccordion,
+  YdAccordionContent,
+  YdAccordionItem,
+  YdAccordionTrigger,
+  YdTooltip,
+  YdButton,
+  YdInput,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, onBeforeUnmount, ref } from 'vue';
 
@@ -184,12 +193,20 @@ onBeforeUnmount(() => {
           @keyup.enter="loadHistory"
         />
         <YdButton @click="loadHistory">加载历史</YdButton>
-        <YdButton :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)">发布/分享</YdButton>
+        <YdButton :disabled="!conversationId" @click="conversationShareRef?.open(conversationId)"
+          >发布/分享</YdButton
+        >
         <YdButton variant="destructive" @click="handleClearHistory">清空会话</YdButton>
         <YdTooltip :content="`流式状态：${streamStateText[streamState]}`" placement="top">
           <span
             class="text-xs"
-            :class="streamState === 'live' ? 'text-green-600' : streamState === 'connecting' ? 'text-amber-600' : 'text-gray-400'"
+            :class="
+              streamState === 'live'
+                ? 'text-green-600'
+                : streamState === 'connecting'
+                  ? 'text-amber-600'
+                  : 'text-gray-400'
+            "
           >
             {{ streamStateText[streamState] }}
           </span>

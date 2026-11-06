@@ -173,11 +173,9 @@ function handleConfirm() {
         :alt="$t('ui.captcha.alt')"
         :src="hintImage"
         class="border-border h-10 w-full rounded border"
-       loading="lazy"/>
-      <div
-        v-else-if="hintText"
-        class="border-border flex-center h-10 w-full rounded border"
-      >
+        loading="lazy"
+      />
+      <div v-else-if="hintText" class="border-border flex-center h-10 w-full rounded border">
         {{ `${$t('ui.captcha.clickInOrder')}` + `【${hintText}】` }}
       </div>
     </template>

@@ -20,12 +20,8 @@ defineProps<{ currentLayout?: LayoutType; disabled: boolean }>();
 
 const sidebarEnable = defineModel<boolean>('sidebarEnable');
 const sidebarWidth = defineModel<number>('sidebarWidth');
-const sidebarCollapsedShowTitle = defineModel<boolean>(
-  'sidebarCollapsedShowTitle',
-);
-const sidebarAutoActivateChild = defineModel<boolean>(
-  'sidebarAutoActivateChild',
-);
+const sidebarCollapsedShowTitle = defineModel<boolean>('sidebarCollapsedShowTitle');
+const sidebarAutoActivateChild = defineModel<boolean>('sidebarAutoActivateChild');
 const sidebarCollapsed = defineModel<boolean>('sidebarCollapsed');
 const sidebarExpandOnHover = defineModel<boolean>('sidebarExpandOnHover');
 
@@ -34,10 +30,7 @@ const sidebarCollapsedButton = defineModel<boolean>('sidebarCollapsedButton');
 const sidebarFixedButton = defineModel<boolean>('sidebarFixedButton');
 
 onMounted(() => {
-  if (
-    sidebarCollapsedButton.value &&
-    !sidebarButtons.value.includes('collapsed')
-  ) {
+  if (sidebarCollapsedButton.value && !sidebarButtons.value.includes('collapsed')) {
     sidebarButtons.value.push('collapsed');
   }
   if (sidebarFixedButton.value && !sidebarButtons.value.includes('fixed')) {
@@ -75,9 +68,7 @@ const handleCheckboxChange = () => {
     v-model="sidebarAutoActivateChild"
     :disabled="
       !sidebarEnable ||
-      !['sidebar-mixed-nav', 'mixed-nav', 'header-mixed-nav'].includes(
-        currentLayout as string,
-      ) ||
+      !['sidebar-mixed-nav', 'mixed-nav', 'header-mixed-nav'].includes(currentLayout as string) ||
       disabled
     "
     :tip="$t('preferences.sidebar.autoActivateChildTip')"

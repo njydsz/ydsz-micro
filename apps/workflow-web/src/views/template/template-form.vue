@@ -82,7 +82,10 @@ const [Modal, modalApi] = useYdModal({
       label-position="right"
     >
       <YdFormItem :label="t('template.templateCode.label')" prop="templateCode">
-        <YdInput v-model="formData.templateCode" :placeholder="t('template.templateCode.placeholder')" />
+        <YdInput
+          v-model="formData.templateCode"
+          :placeholder="t('template.templateCode.placeholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('template.flowName.label')">
         <YdInput v-model="formData.flowName" :placeholder="t('template.flowName.placeholder')" />

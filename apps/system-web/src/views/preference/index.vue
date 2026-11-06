@@ -10,12 +10,7 @@ import { onMounted, reactive, ref, watch } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import { usePreferenceIo } from '@ydsz-core/composables';
-import {
-  YdButton,
-  YdCard,
-  YdForm,
-  YdSeparator,
-} from '@ydsz-core/ydsz-ui';
+import { YdButton, YdCard, YdForm, YdSeparator } from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 
 import { showToast } from '@ydsz/notification';
@@ -138,9 +133,13 @@ const fontSizeCSSValue: Record<string, string> = {
  */
 function hexToHsl(hex: string): [number, number, number] {
   const cleaned = hex.replace('#', '');
-  const expanded = cleaned.length === 3
-    ? cleaned.split('').map((char) => char + char).join('')
-    : cleaned;
+  const expanded =
+    cleaned.length === 3
+      ? cleaned
+          .split('')
+          .map((char) => char + char)
+          .join('')
+      : cleaned;
   const r = parseInt(expanded.substring(0, 2), 16) / 255;
   const g = parseInt(expanded.substring(2, 4), 16) / 255;
   const b = parseInt(expanded.substring(4, 6), 16) / 255;
@@ -151,9 +150,7 @@ function hexToHsl(hex: string): [number, number, number] {
   if (delta === 0) {
     return [0, 0, Math.round(lightness * 100)];
   }
-  const saturation = lightness > 0.5
-    ? delta / (2 - max - min)
-    : delta / (max + min);
+  const saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
   let hue = 0;
   if (max === r) {
     hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
@@ -201,10 +198,7 @@ function applyThemeMode(mode: 'light' | 'dark' | 'auto'): void {
 
 /** 应用表格密度 */
 function applyTableSize(size: string): void {
-  document.documentElement.style.setProperty(
-    '--ydsz-table-size',
-    tableSizeVxeMap[size] || 'small',
-  );
+  document.documentElement.style.setProperty('--ydsz-table-size', tableSizeVxeMap[size] || 'small');
 }
 
 /** 应用字体大小 */
@@ -288,26 +282,14 @@ watch(
 function initFromLocalStorage(): void {
   const storedThemeColor = localStorage.getItem('pref_theme');
   const storedThemeMode = localStorage.getItem('pref_theme_mode') as
-    | 'light'
-    | 'dark'
-    | 'auto'
-    | null;
+    'light' | 'dark' | 'auto' | null;
   const storedMenuLayout = localStorage.getItem('pref_menu_layout') as
-    | 'side'
-    | 'top'
-    | 'mix'
-    | null;
+    'side' | 'top' | 'mix' | null;
   const storedAccordion = localStorage.getItem('pref_accordion_menu');
   const storedTableSize = localStorage.getItem('pref_table_size') as
-    | 'default'
-    | 'compact'
-    | 'loose'
-    | null;
+    'default' | 'compact' | 'loose' | null;
   const storedFontSize = localStorage.getItem('pref_font_size') as
-    | 'small'
-    | 'medium'
-    | 'large'
-    | null;
+    'small' | 'medium' | 'large' | null;
   const storedLanguage = localStorage.getItem('pref_language');
   const storedDefaultIndex = localStorage.getItem('pref_default_index');
 
@@ -361,12 +343,9 @@ async function handleLoadFromBackend(): Promise<void> {
     if (remote.themeColor) localPrefs.themeColor = remote.themeColor;
     if (remote.menuLayout)
       localPrefs.menuLayout = remote.menuLayout as typeof localPrefs.menuLayout;
-    if (remote.accordionMenu !== undefined)
-      localPrefs.accordionMenu = remote.accordionMenu;
-    if (remote.tableSize)
-      localPrefs.tableSize = remote.tableSize as typeof localPrefs.tableSize;
-    if (remote.fontSize)
-      localPrefs.fontSize = remote.fontSize as typeof localPrefs.fontSize;
+    if (remote.accordionMenu !== undefined) localPrefs.accordionMenu = remote.accordionMenu;
+    if (remote.tableSize) localPrefs.tableSize = remote.tableSize as typeof localPrefs.tableSize;
+    if (remote.fontSize) localPrefs.fontSize = remote.fontSize as typeof localPrefs.fontSize;
     showToast.success(t('preferences.loadSuccess'));
     logger.info('用户偏好从后端加载成功');
   } catch (error) {
@@ -502,7 +481,6 @@ onMounted(() => {
   // 从后端加载用户级偏好
   void handleLoadFromBackend();
 });
-
 </script>
 
 <template>
@@ -521,11 +499,7 @@ onMounted(() => {
         <div class="form-row">
           <div class="form-row-label">{{ t('preferences.themeMode') }}</div>
           <el-radio-group v-model="localPrefs.theme">
-            <el-radio-button
-              v-for="opt in themeModeOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <el-radio-button v-for="opt in themeModeOptions" :key="opt.value" :value="opt.value">
               {{ t(opt.label) }}
             </el-radio-button>
           </el-radio-group>
@@ -544,7 +518,10 @@ onMounted(() => {
               :class="{ 'is-active': localPrefs.themeColor === color.value && !showCustomColor }"
               :style="{ backgroundColor: color.value }"
               :title="t(`preferences.colorLabel.${color.label}`)"
-              @click="showCustomColor = false; localPrefs.themeColor = color.value"
+              @click="
+                showCustomColor = false;
+                localPrefs.themeColor = color.value;
+              "
             >
               <el-icon
                 v-if="localPrefs.themeColor === color.value && !showCustomColor"
@@ -585,10 +562,7 @@ onMounted(() => {
                 class="color-input-native"
                 @input="applyCustomColor"
               />
-              <span
-                class="color-preview-dot"
-                :style="{ backgroundColor: customColor }"
-              />
+              <span class="color-preview-dot" :style="{ backgroundColor: customColor }" />
               <span class="color-hex-label">{{ customColor }}</span>
               <YdButton
                 class="color-apply-btn"
@@ -598,20 +572,15 @@ onMounted(() => {
               >
                 {{ t('preferences.colorApply') }}
               </YdButton>
-              <YdButton
-                class="color-reset-btn"
-                size="small"
-                @click="resetCustomColor"
-              >
+              <YdButton class="color-reset-btn" size="small" @click="resetCustomColor">
                 {{ t('preferences.colorReset') }}
               </YdButton>
             </template>
           </div>
         </div>
-        <span
-          v-if="showCustomColor"
-          class="form-row-desc"
-        >{{ t('preferences.customColorDesc') }}</span>
+        <span v-if="showCustomColor" class="form-row-desc">{{
+          t('preferences.customColorDesc')
+        }}</span>
       </YdCard>
 
       <!-- 布局设置卡片 -->
@@ -627,11 +596,7 @@ onMounted(() => {
         <div class="form-row">
           <div class="form-row-label">{{ t('preferences.menuLayout') }}</div>
           <el-radio-group v-model="localPrefs.menuLayout">
-            <el-radio-button
-              v-for="opt in menuLayoutOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <el-radio-button v-for="opt in menuLayoutOptions" :key="opt.value" :value="opt.value">
               {{ t(opt.label) }}
             </el-radio-button>
           </el-radio-group>
@@ -663,11 +628,7 @@ onMounted(() => {
         <div class="form-row">
           <div class="form-row-label">{{ t('preferences.tableSize') }}</div>
           <el-radio-group v-model="localPrefs.tableSize">
-            <el-radio-button
-              v-for="opt in tableSizeOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <el-radio-button v-for="opt in tableSizeOptions" :key="opt.value" :value="opt.value">
               {{ t(opt.label) }}
             </el-radio-button>
           </el-radio-group>
@@ -687,11 +648,7 @@ onMounted(() => {
         <div class="form-row">
           <div class="form-row-label">{{ t('preferences.fontSize') }}</div>
           <el-radio-group v-model="localPrefs.fontSize">
-            <el-radio-button
-              v-for="opt in fontSizeOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <el-radio-button v-for="opt in fontSizeOptions" :key="opt.value" :value="opt.value">
               {{ t(opt.label) }}
             </el-radio-button>
           </el-radio-group>
@@ -726,11 +683,7 @@ onMounted(() => {
         <div class="form-row">
           <div class="form-row-label">{{ t('preferences.language') }}</div>
           <el-radio-group v-model="userPrefs.language">
-            <el-radio-button
-              v-for="opt in languageOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <el-radio-button v-for="opt in languageOptions" :key="opt.value" :value="opt.value">
               {{ t(opt.label) }}
             </el-radio-button>
           </el-radio-group>
@@ -834,7 +787,9 @@ onMounted(() => {
   }
 
   &.is-active {
-    box-shadow: 0 0 0 2px hsl(var(--bg-surface-2)), 0 0 0 4px hsl(var(--brand-500));
+    box-shadow:
+      0 0 0 2px hsl(var(--bg-surface-2)),
+      0 0 0 4px hsl(var(--brand-500));
   }
 }
 

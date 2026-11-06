@@ -8,9 +8,9 @@
 <script setup lang="ts">
 import type { TooltipContentEmits, TooltipContentProps } from '@ydsz-core/ydsz-vue';
 
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from 'vue';
 
-import { cn } from "@ydsz-core/shared/utils";
+import { cn } from '@ydsz-core/shared/utils';
 
 import { TooltipContent, TooltipPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
@@ -20,14 +20,11 @@ defineOptions({
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
-const props = withDefaults(
-  defineProps<TooltipContentProps & { class?: ClassValue }>(),
-  {
-    class: "",
-    side: "top",
-    sideOffset: 5,
-  },
-);
+const props = withDefaults(defineProps<TooltipContentProps & { class?: ClassValue }>(), {
+  class: '',
+  side: 'top',
+  sideOffset: 5,
+});
 
 const emits = defineEmits<TooltipContentEmits>();
 
@@ -53,7 +50,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       :class="
         cn(
           'z-popup overflow-hidden rounded-md px-3 py-1.5 text-xs',
-          'bg-surface-3 text-text-primary border border-border-subtle shadow-raised-md',
+          'bg-surface-3 text-text-primary border-border-subtle shadow-raised-md border',
           'animate-in fade-in-0 zoom-in-95',
           'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
           'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2',

@@ -18,31 +18,27 @@
  * @since 3.7.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import { createLogger } from "@ydsz-core/shared/utils";
+import type { DisposableManager } from './manager-registry';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { clearKernelMarks } from "./performance-utils";
-import { refreshRegistry } from "./registry-adapter";
+import { clearKernelMarks } from './performance-utils';
+import { refreshRegistry } from './registry-adapter';
 import {
   clearCustomTabs,
   getRegisteredTabs,
   renderTabButton,
   renderTabContent,
   setActiveTab,
-} from "./devtools-tabs";
+} from './devtools-tabs';
 
 // 重新导出 Tab 相关 API，保持向后兼容
-export type { DevToolsTab } from "./devtools-tabs";
-export {
-  registerDevToolsTab,
-  unregisterDevToolsTab,
-  getRegisteredTabs,
-} from "./devtools-tabs";
+export type { DevToolsTab } from './devtools-tabs';
+export { registerDevToolsTab, unregisterDevToolsTab, getRegisteredTabs } from './devtools-tabs';
 
-const logger = createLogger("MicroKernel");
+const logger = createLogger('MicroKernel');
 
 /** 面板 id，用于去重 */
-const PANEL_ID = "micro-kernel-devtools";
+const PANEL_ID = 'micro-kernel-devtools';
 
 /** 面板当前是否可见 */
 let panelVisible = false;
@@ -60,7 +56,7 @@ function renderPanel(): string {
       </div>
       <!-- P2-3 (v4.2): Tab 分页栏（动态渲染） -->
       <div style="display:flex;gap:2px;margin-bottom:12px;border-bottom:1px solid #ebeef5;flex-wrap:wrap">
-        ${[...getRegisteredTabs()].map(renderTabButton).join("")}
+        ${[...getRegisteredTabs()].map(renderTabButton).join('')}
       </div>
       <div id="${PANEL_ID}-tab-content">
         ${renderTabContent()}
@@ -71,7 +67,7 @@ function renderPanel(): string {
 
 /** 挂载面板 DOM */
 function mountPanel(): HTMLDivElement {
-  const el = document.createElement("div");
+  const el = document.createElement('div');
   el.id = PANEL_ID;
   el.style.cssText = `
     position: fixed; right: 16px; bottom: 16px; z-index: 99999;
@@ -86,7 +82,7 @@ function mountPanel(): HTMLDivElement {
 
 /** 绑定面板内按钮事件 */
 function bindPanelEvents(el: HTMLDivElement): void {
-  el.addEventListener("click", (e) => {
+  el.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
 
     // P2-3: Tab 点击切换
@@ -103,40 +99,32 @@ function bindPanelEvents(el: HTMLDivElement): void {
     const action = target.dataset.act;
     const appName = target.dataset.app;
 
-    if (action === "unmount" && appName) {
+    if (action === 'unmount' && appName) {
       window.dispatchEvent(
-        new CustomEvent("micro-kernel:devtools:unmount", {
+        new CustomEvent('micro-kernel:devtools:unmount', {
           detail: { appName },
         }),
       );
-    } else if (action === "reload" && appName) {
+    } else if (action === 'reload' && appName) {
       window.dispatchEvent(
-        new CustomEvent("micro-kernel:devtools:reload", {
+        new CustomEvent('micro-kernel:devtools:reload', {
           detail: { appName },
         }),
       );
     }
   });
 
-  el.querySelector(`#${PANEL_ID}-refresh-registry`)?.addEventListener(
-    "click",
-    () => {
-      void refreshRegistry().then(() => refreshPanel());
-    },
-  );
-  el.querySelector(`#${PANEL_ID}-clear-cache`)?.addEventListener(
-    "click",
-    () => {
-      window.dispatchEvent(
-        new CustomEvent("micro-kernel:devtools:clear-cache"),
-      );
-    },
-  );
-  el.querySelector(`#${PANEL_ID}-perf-clear`)?.addEventListener("click", () => {
+  el.querySelector(`#${PANEL_ID}-refresh-registry`)?.addEventListener('click', () => {
+    void refreshRegistry().then(() => refreshPanel());
+  });
+  el.querySelector(`#${PANEL_ID}-clear-cache`)?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('micro-kernel:devtools:clear-cache'));
+  });
+  el.querySelector(`#${PANEL_ID}-perf-clear`)?.addEventListener('click', () => {
     clearKernelMarks();
     refreshPanel(el);
   });
-  el.querySelector(`#${PANEL_ID}-close`)?.addEventListener("click", () => {
+  el.querySelector(`#${PANEL_ID}-close`)?.addEventListener('click', () => {
     toggleDevTools(false);
   });
 }
@@ -168,9 +156,7 @@ function refreshPanel(el?: HTMLDivElement): void {
   const content = target.querySelector(`#${PANEL_ID}-content`);
   if (content) {
     content.innerHTML =
-      renderPanel().match(
-        /<div id="[^"]-content"[^>]*>([\s\S]*)<\/div>\s*<\/div>/,
-      )?.[1] ?? "";
+      renderPanel().match(/<div id="[^"]-content"[^>]*>([\s\S]*)<\/div>\s*<\/div>/)?.[1] ?? '';
   }
 }
 
@@ -184,7 +170,7 @@ function toggleDevTools(forceVisible?: boolean): void {
   }
 
   panelVisible = forceVisible ?? !panelVisible;
-  el.style.display = panelVisible ? "block" : "none";
+  el.style.display = panelVisible ? 'block' : 'none';
 
   if (panelVisible) {
     el.innerHTML = renderPanel();
@@ -202,15 +188,15 @@ function toggleDevTools(forceVisible?: boolean): void {
 let keyHandlerRegistered = false;
 
 function registerKeyHandler(): void {
-  if (keyHandlerRegistered || typeof document === "undefined") return;
+  if (keyHandlerRegistered || typeof document === 'undefined') return;
   keyHandlerRegistered = true;
 
-  document.addEventListener("keydown", (e) => {
-    if (e.altKey && e.shiftKey && (e.key === "M" || e.key === "m")) {
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey && e.shiftKey && (e.key === 'M' || e.key === 'm')) {
       e.preventDefault();
       toggleDevTools();
     }
-    if (e.key === "Escape" && panelVisible) {
+    if (e.key === 'Escape' && panelVisible) {
       toggleDevTools(false);
     }
   });
@@ -230,7 +216,7 @@ function registerKeyHandler(): void {
 export function enableMicroDevTools(): void {
   if (import.meta.env.PROD) return;
   registerKeyHandler();
-  logger.info("DevTools enabled — press Alt+Shift+M to toggle panel");
+  logger.info('DevTools enabled — press Alt+Shift+M to toggle panel');
 }
 
 /** 手动触发显示/隐藏（供外部按钮调用） */
@@ -257,7 +243,7 @@ export function destroyMicroDevTools(): void {
  */
 export function createDevToolsManager(): DisposableManager {
   return {
-    name: "devtools-panel",
+    name: 'devtools-panel',
     dispose(): void {
       destroyMicroDevTools();
       clearCustomTabs();

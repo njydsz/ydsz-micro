@@ -13,50 +13,50 @@
  * @since 26.09.17
  */
 
-import type { ComputedRef, Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue';
 
-import { computed, ref } from 'vue'
+import { computed, ref } from 'vue';
 
-import type { ColumnDef } from './ColumnDef'
+import type { ColumnDef } from './ColumnDef';
 
 /** useTableData 配置项 */
 export interface UseTableDataOptions {
   /** 是否服务端模式（true 时禁用本地排序/筛选状态机，仅透传） */
-  isRemote?: boolean
+  isRemote?: boolean;
   /** 树形数据子节点字段名，默认 'children' */
-  childrenKey?: string
+  childrenKey?: string;
   /** 行数据唯一键字段名，默认 'id' */
-  rowKey?: string
+  rowKey?: string;
 }
 
 /** 排序状态 */
 export interface SortState {
   /** 当前排序列 prop，null 表示无排序 */
-  prop: string | null
+  prop: string | null;
   /** 当前排序方向 */
-  order: 'asc' | 'desc' | null
+  order: 'asc' | 'desc' | null;
 }
 
 /** useTableData 返回句柄 */
 export interface TableDataHandle<T extends object> {
   /** 视图数据（排序 + 筛选 + 树形拍平后），供渲染层消费 */
-  viewRows: ComputedRef<T[]>
+  viewRows: ComputedRef<T[]>;
   /** 当前排序状态 */
-  sortState: Ref<SortState>
+  sortState: Ref<SortState>;
   /** 当前选中行的 key 集合 */
-  selectedKeys: Ref<Set<string | number>>
+  selectedKeys: Ref<Set<string | number>>;
   /** 当前展开行的 key集合（树形 / 展开行） */
-  expandedKeys: Ref<Set<string | number>>
+  expandedKeys: Ref<Set<string | number>>;
   /** 切换排序（UI 点击表头时调用） */
-  toggleSort: (prop: string) => void
+  toggleSort: (prop: string) => void;
   /** 设置筛选值（筛选菜单确认时调用） */
-  setFilterValue: (prop: string, values: unknown[]) => void
+  setFilterValue: (prop: string, values: unknown[]) => void;
   /** 切换行选中状态 */
-  toggleRowSelection: (key: string | number, isSelected?: boolean) => void
+  toggleRowSelection: (key: string | number, isSelected?: boolean) => void;
   /** 全选 / 取消全选当前视图 */
-  toggleAllSelection: (isSelected?: boolean) => void
+  toggleAllSelection: (isSelected?: boolean) => void;
   /** 设置行展开状态 */
-  setRowExpanded: (key: string | number, isExpanded: boolean) => void
+  setRowExpanded: (key: string | number, isExpanded: boolean) => void;
 }
 
 /**
@@ -80,105 +80,91 @@ export function useTableData<T extends object>(
   columns: () => ColumnDef[],
   options: UseTableDataOptions = {},
 ): TableDataHandle<T> {
-  const {
-    isRemote = false,
-    childrenKey = 'children',
-    rowKey = 'id',
-  } = options
+  const { isRemote = false, childrenKey = 'children', rowKey = 'id' } = options;
 
   /** 排序状态（本地模式），受远程列 sortOrder 覆盖 */
-  const sortState = ref<SortState>(computeInitialSortState(columns()))
+  const sortState = ref<SortState>(computeInitialSortState(columns()));
 
   /** 列 prop → 筛选值集合 */
-  const filterValues = ref<Map<string, unknown[]>>(new Map())
+  const filterValues = ref<Map<string, unknown[]>>(new Map());
 
   /** 选中行 key 集合 */
-  const selectedKeys = ref<Set<string | number>>(new Set())
+  const selectedKeys = ref<Set<string | number>>(new Set());
 
   /** 展开行 key 集合 */
-  const expandedKeys = ref<Set<string | number>>(new Set())
+  const expandedKeys = ref<Set<string | number>>(new Set());
 
   /** 计算初始排序状态：优先读 columns 中的 sortOrder */
   function computeInitialSortState(cols: ColumnDef[]): SortState {
-    const sorted = cols.find((col): boolean => col.sortOrder != null && col.sortOrder !== null)
-    if (sorted?.prop && sorted.sortOrder)
-      return { prop: sorted.prop, order: sorted.sortOrder }
-    return { prop: null, order: null }
+    const sorted = cols.find((col): boolean => col.sortOrder != null && col.sortOrder !== null);
+    if (sorted?.prop && sorted.sortOrder) return { prop: sorted.prop, order: sorted.sortOrder };
+    return { prop: null, order: null };
   }
 
   /** 应用排序 */
   function applySort(rows: T[]): T[] {
-    if (isRemote)
-      return rows
+    if (isRemote) return rows;
 
-    const { prop, order } = sortState.value
-    if (!prop || !order)
-      return rows
+    const { prop, order } = sortState.value;
+    if (!prop || !order) return rows;
 
-    const col = columns().find((c): boolean => c.prop === prop)
-    const comparator = col?.sorter ?? defaultComparator
+    const col = columns().find((c): boolean => c.prop === prop);
+    const comparator = col?.sorter ?? defaultComparator;
 
     return [...rows].sort((a: T, b: T): number => {
-      const result = comparator(
-        a as Record<string, unknown>,
-        b as Record<string, unknown>,
-        prop,
-      )
-      return order === 'desc' ? -result : result
-    })
+      const result = comparator(a as Record<string, unknown>, b as Record<string, unknown>, prop);
+      return order === 'desc' ? -result : result;
+    });
   }
 
   /** 应用筛选 */
   function applyFilters(rows: T[]): T[] {
-    if (isRemote)
-      return rows
+    if (isRemote) return rows;
 
-    const cols = columns()
-    let result = rows
+    const cols = columns();
+    let result = rows;
 
     for (const col of cols) {
-      const activeFilters = filterValues.value.get(col.prop ?? '')
-      if (!activeFilters || activeFilters.length === 0)
-        continue
-      if (!col.prop)
-        continue
+      const activeFilters = filterValues.value.get(col.prop ?? '');
+      if (!activeFilters || activeFilters.length === 0) continue;
+      if (!col.prop) continue;
 
-      const filterMethod = col.filterMethod ?? defaultFilterMethod
+      const filterMethod = col.filterMethod ?? defaultFilterMethod;
       result = result.filter((row): boolean =>
         activeFilters.some((filterValue: unknown): boolean =>
           filterMethod(filterValue, row as Record<string, unknown>, col.prop!),
         ),
-      )
+      );
     }
 
-    return result
+    return result;
   }
 
   /** 树形 + 展开行拍平 */
   function flattenTree(rows: T[]): T[] {
-    const result: T[] = []
+    const result: T[] = [];
 
     function walk(node: T): void {
-      const key = (node as Record<string, unknown>)[rowKey] as string | number
-      result.push(node)
+      const key = (node as Record<string, unknown>)[rowKey] as string | number;
+      result.push(node);
 
       if (expandedKeys.value.has(key)) {
-        const children = ((node as Record<string, unknown>)[childrenKey] as T[] | undefined) ?? []
-        children.forEach(walk)
+        const children = ((node as Record<string, unknown>)[childrenKey] as T[] | undefined) ?? [];
+        children.forEach(walk);
       }
     }
 
-    rows.forEach(walk)
-    return result
+    rows.forEach(walk);
+    return result;
   }
 
   /** 视图数据 = 原始 → 筛选 → 排序 → 树形拍平 */
   const viewRows = computed<T[]>(() => {
-    const data = source()
-    const filtered = applyFilters(data)
-    const sorted = applySort(filtered)
-    return flattenTree(sorted)
-  })
+    const data = source();
+    const filtered = applyFilters(data);
+    const sorted = applySort(filtered);
+    return flattenTree(sorted);
+  });
 
   // ========== 公开操作方法 ==========
 
@@ -187,61 +173,56 @@ export function useTableData<T extends object>(
    * 禁止重复读取 state 做三分态判定（YDIZ-OOP-006：用 isAsc/isDesc 而非 sortOrder 字符串对比）。
    */
   function toggleSort(prop: string): void {
-    if (isRemote)
-      return
+    if (isRemote) return;
 
-    const current = sortState.value
+    const current = sortState.value;
     if (current.prop !== prop) {
-      sortState.value = { prop, order: 'asc' }
+      sortState.value = { prop, order: 'asc' };
     } else {
       // 三分态：null → asc → desc → null
-      let nextOrder: 'asc' | 'desc' | null
-      if (current.order === null)
-        nextOrder = 'asc'
-      else if (current.order === 'asc')
-        nextOrder = 'desc'
-      else nextOrder = null
+      let nextOrder: 'asc' | 'desc' | null;
+      if (current.order === null) nextOrder = 'asc';
+      else if (current.order === 'asc') nextOrder = 'desc';
+      else nextOrder = null;
 
-      sortState.value = { prop, order: nextOrder }
+      sortState.value = { prop, order: nextOrder };
     }
   }
 
   /** 设置某列筛选值 */
   function setFilterValue(prop: string, values: unknown[]): void {
-    if (isRemote)
-      return
-    filterValues.value.set(prop, values)
+    if (isRemote) return;
+    filterValues.value.set(prop, values);
     // 触发响应式（Map 替换为浅拷贝）
-    filterValues.value = new Map(filterValues.value)
+    filterValues.value = new Map(filterValues.value);
   }
 
   /** 切换行选中状态 */
   function toggleRowSelection(key: string | number, isSelected?: boolean): void {
-    const next = new Set(selectedKeys.value)
-    const shouldSelect = isSelected ?? !next.has(key)
-    if (shouldSelect)
-      next.add(key)
-    else next.delete(key)
-    selectedKeys.value = next
+    const next = new Set(selectedKeys.value);
+    const shouldSelect = isSelected ?? !next.has(key);
+    if (shouldSelect) next.add(key);
+    else next.delete(key);
+    selectedKeys.value = next;
   }
 
   /** 全选 / 取消全选 */
   function toggleAllSelection(isSelected?: boolean): void {
-    if (isRemote)
-      return
+    if (isRemote) return;
 
-    const allKeys = viewRows.value.map((row): string | number => (row as Record<string, unknown>)[rowKey] as string | number)
-    const shouldSelect = isSelected ?? selectedKeys.value.size !== allKeys.length
-    selectedKeys.value = shouldSelect ? new Set(allKeys) : new Set()
+    const allKeys = viewRows.value.map(
+      (row): string | number => (row as Record<string, unknown>)[rowKey] as string | number,
+    );
+    const shouldSelect = isSelected ?? selectedKeys.value.size !== allKeys.length;
+    selectedKeys.value = shouldSelect ? new Set(allKeys) : new Set();
   }
 
   /** 设置行展开状态 */
   function setRowExpanded(key: string | number, isExpanded: boolean): void {
-    const next = new Set(expandedKeys.value)
-    if (isExpanded)
-      next.add(key)
-    else next.delete(key)
-    expandedKeys.value = next
+    const next = new Set(expandedKeys.value);
+    if (isExpanded) next.add(key);
+    else next.delete(key);
+    expandedKeys.value = next;
   }
 
   return {
@@ -254,29 +235,19 @@ export function useTableData<T extends object>(
     toggleRowSelection,
     toggleAllSelection,
     setRowExpanded,
-  }
+  };
 }
 
 /** 默认比较函数（按字段字典序） */
-function defaultComparator<T extends object>(
-  a: T,
-  b: T,
-  prop: string,
-): number {
-  const va = (a as Record<string, unknown>)[prop] ?? ''
-  const vb = (b as Record<string, unknown>)[prop] ?? ''
-  if (va < vb)
-    return -1
-  if (va > vb)
-    return 1
-  return 0
+function defaultComparator<T extends object>(a: T, b: T, prop: string): number {
+  const va = (a as Record<string, unknown>)[prop] ?? '';
+  const vb = (b as Record<string, unknown>)[prop] ?? '';
+  if (va < vb) return -1;
+  if (va > vb) return 1;
+  return 0;
 }
 
 /** 默认筛选谓词（值相等） */
-function defaultFilterMethod(
-  filterValue: unknown,
-  row: object,
-  prop: string,
-): boolean {
-  return (row as Record<string, unknown>)[prop] === filterValue
+function defaultFilterMethod(filterValue: unknown, row: object, prop: string): boolean {
+  return (row as Record<string, unknown>)[prop] === filterValue;
 }

@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 /**
-* 单个步骤节点：展示序号 / 图标 / 连接线 / 标题 / 描述。
-* 
+ * 单个步骤节点：展示序号 / 图标 / 连接线 / 标题 / 描述。
+ *
  * 根据 status 自动应用不同样式：
  * - process（高亮蓝色）
  * - finish（绿色勾选）
  * - wait（置灰）
  * - error（红色）
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\steps\YdStepItem.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -80,7 +80,13 @@ const contentClass = computed(() => {
 
 <template>
   <li
-    :class="cn('group relative flex cursor-pointer gap-2', props.step.disabled ? 'cursor-not-allowed opacity-60' : '', props.class)"
+    :class="
+      cn(
+        'group relative flex cursor-pointer gap-2',
+        props.step.disabled ? 'cursor-not-allowed opacity-60' : '',
+        props.class,
+      )
+    "
     role="listitem"
     @click="handleClick"
   >
@@ -119,13 +125,18 @@ const contentClass = computed(() => {
       </div>
       <p
         v-if="step.description"
-        :class="cn('mt-0.5 text-xs', step.status === 'error' ? 'text-destructive' : 'text-muted-foreground')"
+        :class="
+          cn(
+            'mt-0.5 text-xs',
+            step.status === 'error' ? 'text-destructive' : 'text-muted-foreground',
+          )
+        "
       >
         <slot name="description">{{ step.description }}</slot>
       </p>
       <p
         v-if="step.status === 'error' && step.errorDescription"
-        class="mt-0.5 text-xs text-destructive"
+        class="text-destructive mt-0.5 text-xs"
       >
         {{ step.errorDescription }}
       </p>

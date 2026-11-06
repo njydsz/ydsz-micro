@@ -18,7 +18,18 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdTreeSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+  YdTreeSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -55,11 +66,15 @@ const treeData = ref<MenuTreeVO[]>([]);
 
 /** 将 MenuTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
 const treeOptions = computed(() => {
-  const mapped = treeData.value.map(node => mapMenuTreeToOption(node));
+  const mapped = treeData.value.map((node) => mapMenuTreeToOption(node));
   return [{ label: t('menu.topMenu'), value: '', children: mapped }];
 });
 
-function mapMenuTreeToOption(node: MenuTreeVO): { label: string; value: string; children?: { label: string; value: string }[] } {
+function mapMenuTreeToOption(node: MenuTreeVO): {
+  label: string;
+  value: string;
+  children?: { label: string; value: string }[];
+} {
   return {
     label: node.menuName ?? '',
     value: node.id ?? '',
@@ -131,8 +146,8 @@ const [Modal, modalApi] = useYdModal({
         path: data.record.path ?? '',
         component: data.record.component ?? '',
         icon: data.record.icon ?? '',
-  permissionCode: data.record.permissionCode ?? '',
-  sort: data.record.sort ?? 0,
+        permissionCode: data.record.permissionCode ?? '',
+        sort: data.record.sort ?? 0,
         visible: data.record.visible ?? 1,
         status: data.record.status ?? '1',
       });
@@ -147,8 +162,8 @@ const [Modal, modalApi] = useYdModal({
         path: '',
         component: '',
         icon: '',
-  permissionCode: '',
-  sort: 0,
+        permissionCode: '',
+        sort: 0,
         visible: 1,
         status: '1',
       });
@@ -171,8 +186,8 @@ const [Modal, modalApi] = useYdModal({
         path: formData.path,
         component: formData.component,
         icon: formData.icon,
-  permissionCode: formData.permissionCode,
-  sort: formData.sort,
+        permissionCode: formData.permissionCode,
+        sort: formData.sort,
         visible: formData.visible,
         status: formData.status,
       };
@@ -191,7 +206,11 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBase')}` : `${t('page.create')}${t('page.menuBase')}`));
+const title = computed(() =>
+  isEdit.value
+    ? `${t('page.edit')}${t('page.menuBase')}`
+    : `${t('page.create')}${t('page.menuBase')}`,
+);
 </script>
 
 <template>
@@ -218,7 +237,11 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
         <YdInput v-model="formData.menuCode" :placeholder="t('menu.menuCodePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('page.menuType')" prop="menuType">
-        <YdSelect v-model="formData.menuType" :placeholder="t('menu.menuTypePlaceholder')" class="w-full">
+        <YdSelect
+          v-model="formData.menuType"
+          :placeholder="t('menu.menuTypePlaceholder')"
+          class="w-full"
+        >
           <YdSelectItem
             v-for="opt in MENU_TYPE_OPTIONS"
             :key="opt.value"
@@ -235,7 +258,12 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.menuBas
       </YdFormItem>
       <YdFormItem :label="t('page.icon')">
         <div class="flex w-full gap-2">
-          <YdInput v-model="formData.icon" :placeholder="t('menu.iconPlaceholder')" readonly @click="openIconPicker" />
+          <YdInput
+            v-model="formData.icon"
+            :placeholder="t('menu.iconPlaceholder')"
+            readonly
+            @click="openIconPicker"
+          />
           <YdButton @click="openIconPicker">{{ t('menu.selectIcon') }}</YdButton>
         </div>
       </YdFormItem>

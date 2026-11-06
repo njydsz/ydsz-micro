@@ -6,4 +6,3 @@
  * @since 1.0.0
  */
 export { default as YdInputPassword } from './YdInputPassword.vue';
-

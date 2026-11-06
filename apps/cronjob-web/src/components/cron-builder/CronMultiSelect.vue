@@ -1,10 +1,6 @@
-/*
- * 通用多选网格组件（用于 CronBuilder 中的分钟/小时/月/周几选择）
- *
- * @path apps\cronjob-web\src\components\cron-builder\CronMultiSelect.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/* * 通用多选网格组件（用于 CronBuilder 中的分钟/小时/月/周几选择） * * @path
+apps\cronjob-web\src\components\cron-builder\CronMultiSelect.vue * @author ydsz-team * @since 1.0.0
+*/
 <script lang="ts" setup name="CronMultiSelect">
 import { YdCheckbox, YdLabel } from '@ydsz-core/ydsz-ui';
 
@@ -34,7 +30,10 @@ function toggle(val: number, checked: boolean): void {
   if (checked) {
     emit('update:modelValue', [...(props.modelValue ?? []), val]);
   } else {
-    emit('update:modelValue', (props.modelValue ?? []).filter((v) => v !== val));
+    emit(
+      'update:modelValue',
+      (props.modelValue ?? []).filter((v) => v !== val),
+    );
   }
 }
 </script>

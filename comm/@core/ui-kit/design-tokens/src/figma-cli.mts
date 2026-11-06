@@ -30,7 +30,7 @@ import {
   type TokenDiff,
 } from './figma-sync.ts';
 
-const [,, command, ...args] = process.argv;
+const [, , command, ...args] = process.argv;
 
 /**
  * CLI 主逻辑：按 command 分发到对应操作。

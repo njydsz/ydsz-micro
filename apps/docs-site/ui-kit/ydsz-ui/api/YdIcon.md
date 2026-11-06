@@ -6,7 +6,7 @@
 
 ## Props
 
-| 属性 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| `fallback` | `boolean` | 否 | - | - |
-| `icon` | `Component | Function | string` | 否 | - | - |
+| 属性       | 类型       | 必填     | 默认值  | 说明 |
+| ---------- | ---------- | -------- | ------- | ---- |
+| `fallback` | `boolean`  | 否       | -       | -    |
+| `icon`     | `Component | Function | string` | 否   | -   | -   |

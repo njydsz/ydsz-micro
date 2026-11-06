@@ -69,11 +69,63 @@ function hStatusBadge(text: string, type: 'success' | 'danger') {
 // TODO: 替换为真实 API 请求（后端上线 /api/userinfo/login-log/page 后接入）
 // 当前展示结构化 mock 数据（字段与后端对齐）
 const mockData: LoginLogRow[] = [
-  { id: '1', username: 'admin', loginIp: '192.168.1.100', location: '上海', userAgent: 'Mozilla/5.0', browser: 'Chrome 120', os: 'Windows 11', loginTime: '2026-09-08 09:15:22', status: 'SUCCESS' },
-  { id: '2', username: 'admin', loginIp: '10.0.0.55', location: '北京', userAgent: 'Mozilla/5.0', browser: 'Firefox 121', os: 'macOS 14', loginTime: '2026-09-07 18:30:11', status: 'SUCCESS' },
-  { id: '3', username: 'tester', loginIp: '203.0.113.42', location: '深圳', userAgent: 'Mozilla/5.0', browser: 'Edge 120', os: 'Windows 10', loginTime: '2026-09-07 14:22:05', status: 'FAILED', failureReason: '密码错误' },
-  { id: '4', username: 'operator', loginIp: '172.16.0.8', location: '广州', userAgent: 'Mozilla/5.0', browser: 'Chrome 119', os: 'Windows 11', loginTime: '2026-09-06 10:05:33', status: 'SUCCESS' },
-  { id: '5', username: 'admin', loginIp: '198.51.100.7', location: 'Unknown', userAgent: 'python-requests/2.28', browser: 'Unknown', os: 'Unknown', loginTime: '2026-09-06 03:12:48', status: 'FAILED', failureReason: 'IP 临时封禁' },
+  {
+    id: '1',
+    username: 'admin',
+    loginIp: '192.168.1.100',
+    location: '上海',
+    userAgent: 'Mozilla/5.0',
+    browser: 'Chrome 120',
+    os: 'Windows 11',
+    loginTime: '2026-09-08 09:15:22',
+    status: 'SUCCESS',
+  },
+  {
+    id: '2',
+    username: 'admin',
+    loginIp: '10.0.0.55',
+    location: '北京',
+    userAgent: 'Mozilla/5.0',
+    browser: 'Firefox 121',
+    os: 'macOS 14',
+    loginTime: '2026-09-07 18:30:11',
+    status: 'SUCCESS',
+  },
+  {
+    id: '3',
+    username: 'tester',
+    loginIp: '203.0.113.42',
+    location: '深圳',
+    userAgent: 'Mozilla/5.0',
+    browser: 'Edge 120',
+    os: 'Windows 10',
+    loginTime: '2026-09-07 14:22:05',
+    status: 'FAILED',
+    failureReason: '密码错误',
+  },
+  {
+    id: '4',
+    username: 'operator',
+    loginIp: '172.16.0.8',
+    location: '广州',
+    userAgent: 'Mozilla/5.0',
+    browser: 'Chrome 119',
+    os: 'Windows 11',
+    loginTime: '2026-09-06 10:05:33',
+    status: 'SUCCESS',
+  },
+  {
+    id: '5',
+    username: 'admin',
+    loginIp: '198.51.100.7',
+    location: 'Unknown',
+    userAgent: 'python-requests/2.28',
+    browser: 'Unknown',
+    os: 'Unknown',
+    loginTime: '2026-09-06 03:12:48',
+    status: 'FAILED',
+    failureReason: 'IP 临时封禁',
+  },
 ];
 
 const allData = ref<LoginLogRow[]>(mockData);
@@ -108,8 +160,8 @@ const gridOptions: VxeGridProps<LoginLogRow> = {
       title: '状态',
       width: 100,
       slots: {
-          default: ({ row }: { row: LoginLogRow }) =>
-            hStatusBadge(row.status === 'SUCCESS' ? '成功' : '失败', statusTagType(row.status)),
+        default: ({ row }: { row: LoginLogRow }) =>
+          hStatusBadge(row.status === 'SUCCESS' ? '成功' : '失败', statusTagType(row.status)),
       },
     },
     { field: 'loginIp', title: '登录IP', width: 140 },
@@ -153,7 +205,12 @@ if (import.meta.env.DEV) {
         style="width: 240px"
         @input="applyFilter"
       />
-      <YdSelect v-model="statusFilter" placeholder="状态" style="width: 120px" @change="applyFilter">
+      <YdSelect
+        v-model="statusFilter"
+        placeholder="状态"
+        style="width: 120px"
+        @change="applyFilter"
+      >
         <YdSelectItem label="全部状态" value="all" />
         <YdSelectItem label="成功" value="SUCCESS" />
         <YdSelectItem label="失败" value="FAILED" />

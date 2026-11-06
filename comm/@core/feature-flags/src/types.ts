@@ -65,8 +65,4 @@ export interface FeatureFlagsOptions {
 }
 
 /** 变更监听器 */
-export type FeatureFlagsChangeListener = (
-  name: string,
-  value: boolean,
-) => void;
-
+export type FeatureFlagsChangeListener = (name: string, value: boolean) => void;

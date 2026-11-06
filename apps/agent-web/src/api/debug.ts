@@ -18,26 +18,20 @@ import type { AgentTraceDetailDTO, AgentTraceListDTO } from './models';
 /**
  * listTraces: GET /agent/debug/traces
  */
-export function listTraces(params: {
-    limit?: number;
-  }): Promise<AgentTraceListDTO[]> {
+export function listTraces(params: { limit?: number }): Promise<AgentTraceListDTO[]> {
   return requestClient.get<AgentTraceListDTO[]>(`/agent/debug/traces`, { params });
 }
 
 /**
  * getTrace: GET /agent/debug/trace/{traceId}
  */
-export function getTrace({ traceId }: {
-    traceId: string;
-  }): Promise<AgentTraceDetailDTO> {
+export function getTrace({ traceId }: { traceId: string }): Promise<AgentTraceDetailDTO> {
   return requestClient.get<AgentTraceDetailDTO>(`/agent/debug/trace/${traceId}`);
 }
 
 /**
  * replayTrace: POST /agent/debug/trace/{traceId}/replay
  */
-export function replayTrace({ traceId }: {
-    traceId: string;
-  }): Promise<string> {
+export function replayTrace({ traceId }: { traceId: string }): Promise<string> {
   return requestClient.post<string>(`/agent/debug/trace/${traceId}/replay`);
 }

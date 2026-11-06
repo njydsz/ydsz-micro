@@ -289,7 +289,7 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class=" p-5">
+    <div v-loading="loading" class="p-5">
       <!-- 概览指标卡 -->
       <YdRow :gutter="12" class="mb-4">
         <YdCol :span="4">
@@ -332,7 +332,11 @@ onBeforeUnmount(() => {
       <YdRow :gutter="12" class="mb-4">
         <YdCol v-for="item in realtimeItems" :key="item.label" :span="4">
           <YdCard shadow="never">
-            <YdCountToAnimator :title="item.label" :value="item.value" :precision="item.precision" />
+            <YdCountToAnimator
+              :title="item.label"
+              :value="item.value"
+              :precision="item.precision"
+            />
           </YdCard>
         </YdCol>
       </YdRow>

@@ -110,7 +110,8 @@ export function matchActiveRule(
  * @param cb - 空闲时执行的回调
  */
 export function scheduleIdle(cb: () => void): void {
-  const ric = (globalThis as { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback;
+  const ric = (globalThis as { requestIdleCallback?: (cb: () => void) => void })
+    .requestIdleCallback;
   if (typeof ric === 'function') {
     ric(cb);
   } else {
@@ -186,11 +187,7 @@ export function shouldSkipPrefetchDueToNetwork(): boolean {
   if (conn.saveData === true) return true;
 
   const effectiveType = conn.effectiveType;
-  if (
-    effectiveType === 'slow-2g' ||
-    effectiveType === '2g' ||
-    effectiveType === '3g'
-  ) {
+  if (effectiveType === 'slow-2g' || effectiveType === '2g' || effectiveType === '3g') {
     return true;
   }
 

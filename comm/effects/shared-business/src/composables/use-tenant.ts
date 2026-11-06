@@ -175,10 +175,7 @@ export function useTenant() {
  * @param newTenantId - 新租户 ID
  * @param previousTenantId - 原租户 ID
  */
-function broadcastTenantChange(
-  newTenantId: string,
-  previousTenantId: string,
-): void {
+function broadcastTenantChange(newTenantId: string, previousTenantId: string): void {
   if (typeof window === 'undefined') {
     return;
   }

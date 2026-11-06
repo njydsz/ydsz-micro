@@ -20,7 +20,17 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdTable,
+  YdTableColumn,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -65,10 +75,8 @@ const gridOptions: VxeGridProps<JobDagVO> = {
       slots: {
         default: ({ row }) => {
           const dag = row as JobDagVO;
-          return h(
-            YdBadge,
-            { variant: isDagEnabled(dag) ? 'default' : 'secondary' },
-            () => (isDagEnabled(dag) ? '启用' : '停用'),
+          return h(YdBadge, { variant: isDagEnabled(dag) ? 'default' : 'secondary' }, () =>
+            isDagEnabled(dag) ? '启用' : '停用',
           );
         },
       },
@@ -87,13 +95,33 @@ const gridOptions: VxeGridProps<JobDagVO> = {
         default: ({ row }) => {
           const dag = row as JobDagVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () => t('common.edit')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(dag) }, () =>
+              t('common.edit'),
+            ),
             isDagEnabled(dag)
-              ? h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) }, () => '停用')
-              : h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) }, () => '启用'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) }, () => '触发'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) }, () => '版本'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () => t('common.delete')),
+              ? h(
+                  YdButton,
+                  { size: 'sm', variant: 'link', onClick: () => handleDisable(dag) },
+                  () => '停用',
+                )
+              : h(
+                  YdButton,
+                  { size: 'sm', variant: 'link', onClick: () => handleEnable(dag) },
+                  () => '启用',
+                ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleTrigger(dag) },
+              () => '触发',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleVersions(dag) },
+              () => '版本',
+            ),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(dag) }, () =>
+              t('common.delete'),
+            ),
           ]);
         },
       },
@@ -152,7 +180,10 @@ async function handleTrigger(row: JobDagVO) {
   if (!row.dagKey) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定立即触发DAG「${row.dagName}」吗？`, { title: '触发确认', type: 'warning' });
+    await YdConfirm(`确定立即触发DAG「${row.dagName}」吗？`, {
+      title: '触发确认',
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消触发DAG', row.dagKey);
     return; // 用户主动取消触发操作
@@ -207,11 +238,9 @@ async function handleVersions(row: JobDagVO) {
 async function handleRollback(versionRow: JobDagVersionVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      `确定将DAG回滚到版本 v${versionRow.version ?? ''} 吗？`,
-      '回滚确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定将DAG回滚到版本 v${versionRow.version ?? ''} 吗？`, '回滚确认', {
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消回滚DAG', currentDagId.value);
     return; // 用户主动取消回滚操作

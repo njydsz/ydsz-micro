@@ -20,19 +20,43 @@
 import type { ErrorCode } from './types';
 import { ZH_CN_MESSAGES, getZhCnMessage } from './zh-CN';
 import { EN_US_MESSAGES, getEnUsMessage } from './en-US';
+import { ES_ES_MESSAGES, getEsEsMessage } from './es-ES';
+import { FR_FR_MESSAGES, getFrFrMessage } from './fr-FR';
+import { JA_JP_MESSAGES, getJaJpMessage } from './ja-JP';
+import { KO_KR_MESSAGES, getKoKrMessage } from './ko-KR';
 import { $t } from '../src/i18n';
 import type { SupportedLanguagesType } from '../typing';
 
 // Re-export for direct use by tests or external tooling
-export { ZH_CN_MESSAGES, EN_US_MESSAGES, getZhCnMessage, getEnUsMessage };
+export {
+  ZH_CN_MESSAGES,
+  EN_US_MESSAGES,
+  ES_ES_MESSAGES,
+  FR_FR_MESSAGES,
+  JA_JP_MESSAGES,
+  KO_KR_MESSAGES,
+  getZhCnMessage,
+  getEnUsMessage,
+  getEsEsMessage,
+  getFrFrMessage,
+  getJaJpMessage,
+  getKoKrMessage,
+};
 export type { ErrorCode } from './types';
 
 /**
  * 支持语言与错误码映射表的对应关系。
  */
-const LOCALE_MESSAGE_MAP: Record<SupportedLanguagesType, Readonly<Partial<Record<ErrorCode, string>>>> = {
+const LOCALE_MESSAGE_MAP: Record<
+  SupportedLanguagesType,
+  Readonly<Partial<Record<ErrorCode, string>>>
+> = {
   'zh-CN': ZH_CN_MESSAGES,
   'en-US': EN_US_MESSAGES,
+  'es-ES': ES_ES_MESSAGES,
+  'fr-FR': FR_FR_MESSAGES,
+  'ja-JP': JA_JP_MESSAGES,
+  'ko-KR': KO_KR_MESSAGES,
 };
 
 /**

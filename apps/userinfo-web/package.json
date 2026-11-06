@@ -45,5 +45,8 @@
   "devDependencies": {
     "vite": "catalog:"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "YDSZ": {
+    "shareStrategy": "core-ui"
+  }
 }

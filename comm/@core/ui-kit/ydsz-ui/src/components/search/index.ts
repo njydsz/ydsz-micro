@@ -12,12 +12,5 @@
 
 export { default as YdGlobalSearchPanel } from './YdGlobalSearchPanel.vue';
 export { useGlobalSearch } from './use-global-search';
-export {
-  MODULE_ICONS,
-  MODULE_LABELS,
-} from './search-types';
-export type {
-  GlobalSearchResponse,
-  SearchHit,
-  SearchSuggestion,
-} from './search-types';
+export { MODULE_ICONS, MODULE_LABELS } from './search-types';
+export type { GlobalSearchResponse, SearchHit, SearchSuggestion } from './search-types';

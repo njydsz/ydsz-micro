@@ -1,13 +1,7 @@
-/**
- * YdThemeEditor —— 可视化主题编辑器。
- *
- * 实时预览并编辑 design token（主色 / 圆角 / 阴影 / 字号 / 动效），
- * 一键导出为 CSS 自定义属性字符串或 JSON。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\theme-editor\YdThemeEditor.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdThemeEditor —— 可视化主题编辑器。 * * 实时预览并编辑 design token（主色 / 圆角 / 阴影 / 字号
+/ 动效）， * 一键导出为 CSS 自定义属性字符串或 JSON。 * * @path
+comm\@core\ui-kit\ydsz-ui\src\components\theme-editor\YdThemeEditor.vue * @author ydsz-team * @since
+1.0.0 */
 <script lang="ts" setup>
 // @ts-nocheck
 import { computed, ref, watch } from 'vue';
@@ -79,9 +73,13 @@ function generateExport(): string {
 /** 当前导出内容 */
 const exportContent = ref('');
 
-watch([overrides, exportFormat], () => {
-  exportContent.value = generateExport();
-}, { deep: true, immediate: true });
+watch(
+  [overrides, exportFormat],
+  () => {
+    exportContent.value = generateExport();
+  },
+  { deep: true, immediate: true },
+);
 </script>
 
 <template>
@@ -93,7 +91,7 @@ watch([overrides, exportFormat], () => {
         :key="token.name"
         class="flex items-center justify-between gap-2"
       >
-        <label class="text-sm text-muted-foreground">{{ token.label }}</label>
+        <label class="text-muted-foreground text-sm">{{ token.label }}</label>
         <input
           :value="overrides[token.name] ?? themeTokens[token.name]?.defaultValue ?? ''"
           class="h-8 w-32 rounded border px-2 text-sm"
@@ -104,20 +102,17 @@ watch([overrides, exportFormat], () => {
     </div>
     <div class="flex gap-2">
       <button
-        class="rounded bg-destructive px-3 py-1.5 text-sm text-white"
+        class="bg-destructive rounded px-3 py-1.5 text-sm text-white"
         type="button"
         @click="resetAll"
       >
         {{ t('common.reset') }}
       </button>
-      <select
-        v-model="exportFormat"
-        class="rounded border px-2 py-1 text-sm"
-      >
+      <select v-model="exportFormat" class="rounded border px-2 py-1 text-sm">
         <option value="css">CSS</option>
         <option value="json">JSON</option>
       </select>
     </div>
-    <pre class="max-h-40 overflow-auto rounded bg-muted/30 p-2 text-xs">{{ exportContent }}</pre>
+    <pre class="bg-muted/30 max-h-40 overflow-auto rounded p-2 text-xs">{{ exportContent }}</pre>
   </div>
 </template>

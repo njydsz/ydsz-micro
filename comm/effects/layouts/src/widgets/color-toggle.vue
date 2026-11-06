@@ -9,11 +9,7 @@
 import type { BuiltinThemeType } from '@ydsz/types';
 
 import { Palette } from '@ydsz/icons';
-import {
-  COLOR_PRESETS,
-  preferences,
-  updatePreferences,
-} from '@ydsz/preferences';
+import { COLOR_PRESETS, preferences, updatePreferences } from '@ydsz/preferences';
 
 import { YdIconButton } from '@ydsz-core/ydsz-ui';
 
@@ -33,9 +29,7 @@ function handleUpdate(colorPrimary: string, type: BuiltinThemeType) {
 
 <template>
   <div class="group relative flex items-center overflow-hidden">
-    <div
-      class="flex w-0 overflow-hidden transition-all duration-500 ease-out group-hover:w-60"
-    >
+    <div class="flex w-0 overflow-hidden transition-all duration-500 ease-out group-hover:w-60">
       <template v-for="preset in COLOR_PRESETS" :key="preset.color">
         <YdIconButton
           class="flex-center flex-shrink-0"

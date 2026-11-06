@@ -145,7 +145,13 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="110px"
+      label-position="right"
+    >
       <YdFormItem label="规则名称" prop="ruleName">
         <YdInput v-model="formData.ruleName" placeholder="请输入规则名称" />
       </YdFormItem>
@@ -168,7 +174,10 @@ const title = computed(() => (isEdit.value ? '编辑告警规则' : '新增告�
         <YdInput v-model="formData.timeWindowMinutes" type="number" :min="1" />
       </YdFormItem>
       <YdFormItem label="通知通道" prop="channels">
-        <YdInput v-model="formData.channels" placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk" />
+        <YdInput
+          v-model="formData.channels"
+          placeholder="多个通道用逗号分隔，如 email,wecom,dingtalk"
+        />
       </YdFormItem>
       <YdFormItem label="接收人" prop="receivers">
         <YdInput v-model="formData.receivers" placeholder="请输入接收人，多个用逗号分隔" />

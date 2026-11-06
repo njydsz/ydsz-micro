@@ -19,7 +19,23 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCol, YdCountToAnimator, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRate, YdRow, YdTabs, YdTabsContent, YdTooltipSmart } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCol,
+  YdCountToAnimator,
+  YdDialog,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRate,
+  YdRow,
+  YdTabs,
+  YdTabsContent,
+  YdTooltipSmart,
+} from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
@@ -112,15 +128,21 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
       minWidth: 160,
       slots: {
         default: ({ row }) =>
-          h(YdTooltipSmart, { side: 'top' }, {
-            default: () => h('span', {}, row.description ?? ''),
-            trigger: () =>
-              h(
-                'span',
-                {},
-                row.description?.length > 20 ? `${row.description.slice(0, 20)}...` : (row.description ?? '-'),
-              ),
-          }),
+          h(
+            YdTooltipSmart,
+            { side: 'top' },
+            {
+              default: () => h('span', {}, row.description ?? ''),
+              trigger: () =>
+                h(
+                  'span',
+                  {},
+                  row.description?.length > 20
+                    ? `${row.description.slice(0, 20)}...`
+                    : (row.description ?? '-'),
+                ),
+            },
+          ),
       },
     },
     {
@@ -146,7 +168,12 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
             ),
             h(
               YdButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleViewVersions(row) },
+              {
+                size: 'small',
+                link: true,
+                type: 'primary',
+                onClick: () => handleViewVersions(row),
+              },
               () => '版本历史',
             ),
             h(
@@ -156,7 +183,12 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
             ),
             h(
               YdButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleOpenScoreDialog(row) },
+              {
+                size: 'small',
+                link: true,
+                type: 'primary',
+                onClick: () => handleOpenScoreDialog(row),
+              },
               () => '质量评分',
             ),
           ]),
@@ -193,7 +225,12 @@ const installedGridOptions: VxeTableGridOptions<RulePackVO> = {
           h('div', { class: 'flex gap-1' }, [
             h(
               YdButton,
-              { size: 'small', link: true, type: 'primary', onClick: () => handleViewVersions(row) },
+              {
+                size: 'small',
+                link: true,
+                type: 'primary',
+                onClick: () => handleViewVersions(row),
+              },
               () => '版本历史',
             ),
             h(
@@ -328,12 +365,12 @@ async function handleInstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
     await installPack({ packCode: row.packCode }, { version: row.packVersion });
-await YdAlert({
-  content: `规则包 ${row.packName} v${row.packVersion} 安装成功`,
-  title: '安装结果',
-  icon: 'success',
-  confirmText: '确定',
-});
+    await YdAlert({
+      content: `规则包 ${row.packName} v${row.packVersion} 安装成功`,
+      title: '安装结果',
+      icon: 'success',
+      confirmText: '确定',
+    });
     await loadAll();
   } catch (error) {
     logger.warn('安装规则包失败: {}', error);
@@ -343,7 +380,7 @@ await YdAlert({
 async function handleUninstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
-    await YdConfirm(`确认卸载规则包 "${row.packName}"？`, { title: '卸载确认', type: 'warning', });
+    await YdConfirm(`确认卸载规则包 "${row.packName}"？`, { title: '卸载确认', type: 'warning' });
   } catch {
     logger.debug('用户取消卸载规则包');
     return;
@@ -367,7 +404,7 @@ async function handleViewVersions(row: RulePackVO): Promise<void> {
 async function handleRollback(version: string): Promise<void> {
   if (!currentPackCode.value) return;
   try {
-    await YdConfirm(`确认回滚到版本 ${version}？`, { title: '回滚确认', type: 'warning', });
+    await YdConfirm(`确认回滚到版本 ${version}？`, { title: '回滚确认', type: 'warning' });
   } catch {
     logger.debug('用户取消回滚');
     return;
@@ -375,11 +412,11 @@ async function handleRollback(version: string): Promise<void> {
   try {
     await rollbackPack({ packCode: currentPackCode.value }, { version });
     await YdAlert({
-  content: `已回滚到版本 ${version}`,
-  title: '回滚成功',
-  icon: 'success',
-  confirmText: '确定',
-});
+      content: `已回滚到版本 ${version}`,
+      title: '回滚成功',
+      icon: 'success',
+      confirmText: '确定',
+    });
     versionDialogVisible.value = false;
     await loadAll();
   } catch (error) {
@@ -429,21 +466,21 @@ function handleOpenPublishDialog(): void {
 async function handlePublish(): Promise<void> {
   if (!publishForm.value.packCode || !publishForm.value.packName) {
     await YdAlert({
-  content: '请填写包编码和名称',
-  title: '提示',
-  icon: 'warning',
-  confirmText: '确定',
-});
+      content: '请填写包编码和名称',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   try {
     await publishPack(publishForm.value);
     await YdAlert({
-  content: '规则包发布成功',
-  title: '发布结果',
-  icon: 'success',
-  confirmText: '确定',
-});
+      content: '规则包发布成功',
+      title: '发布结果',
+      icon: 'success',
+      confirmText: '确定',
+    });
     publishDialogVisible.value = false;
     await loadAll();
   } catch (error) {
@@ -455,12 +492,12 @@ async function handleUpdateSingle(row: PackUpdateInfoVO): Promise<void> {
   if (!row.packCode) return;
   try {
     await installPack({ packCode: row.packCode }, { version: row.latestVersion });
-await YdAlert({
-  content: `规则包 ${row.packName} 已更新到 v${row.latestVersion}`,
-  title: '更新成功',
-  icon: 'success',
-  confirmText: '确定',
-});
+    await YdAlert({
+      content: `规则包 ${row.packName} 已更新到 v${row.latestVersion}`,
+      title: '更新成功',
+      icon: 'success',
+      confirmText: '确定',
+    });
     await loadAll();
   } catch (error) {
     logger.warn('更新规则包失败: {}', error);
@@ -471,21 +508,21 @@ async function handleBatchUpdate(): Promise<void> {
   const codes = updatablePacks.value.filter((p) => p.hasUpdate).map((p) => p.packCode ?? '');
   if (codes.length === 0) {
     await YdAlert({
-  content: '当前没有可更新的规则包',
-  title: '提示',
-  icon: 'info',
-  confirmText: '确定',
-});
+      content: '当前没有可更新的规则包',
+      title: '提示',
+      icon: 'info',
+      confirmText: '确定',
+    });
     return;
   }
   try {
     await batchUpdatePacks(codes);
     await YdAlert({
-  content: `已成功更新 ${codes.length} 个规则包`,
-  title: '批量更新成功',
-  icon: 'success',
-  confirmText: '确定',
-});
+      content: `已成功更新 ${codes.length} 个规则包`,
+      title: '批量更新成功',
+      icon: 'success',
+      confirmText: '确定',
+    });
     await loadAll();
   } catch (error) {
     logger.warn('批量更新失败: {}', error);
@@ -511,11 +548,11 @@ function handleOpenStressDialog(): void {
 async function handleStressTest(): Promise<void> {
   if (!stressPackCode.value.trim()) {
     await YdAlert({
-  content: '请输入需要压测的包编码',
-  title: '提示',
-  icon: 'warning',
-  confirmText: '确定',
-});
+      content: '请输入需要压测的包编码',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   stressLoading.value = true;
@@ -561,7 +598,10 @@ async function doScore(packId: string): Promise<void> {
   scoreLoading.value = true;
   try {
     const result = await scorePack({ id: packId });
-    scoreData.value = (typeof result === 'object' && result !== null) ? (result as Record<string, unknown>) : { result };
+    scoreData.value =
+      typeof result === 'object' && result !== null
+        ? (result as Record<string, unknown>)
+        : { result };
   } catch (error) {
     logger.warn('质量评分失败: {}', error);
     scoreData.value = null;
@@ -584,7 +624,11 @@ const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
         default: ({ row }) =>
           h(
             YdButton,
-            { size: 'small', variant: 'link', onClick: () => handleRollback(row.packVersion ?? '') },
+            {
+              size: 'small',
+              variant: 'link',
+              onClick: () => handleRollback(row.packVersion ?? ''),
+            },
             () => '回滚',
           ),
       },
@@ -617,7 +661,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class=" p-5">
+    <div v-loading="loading" class="p-5">
       <!-- 顶部指标卡 -->
       <YdRow :gutter="12" class="mb-4">
         <YdCol :span="8">
@@ -642,7 +686,7 @@ onMounted(() => {
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 包市场 -->
           <YdTabsContent label="包市场" name="market">
-            <div class="flex items-center gap-2 mb-3">
+            <div class="mb-3 flex items-center gap-2">
               <YdInput
                 v-model="keyword"
                 placeholder="搜索编码/名称/描述"
@@ -678,7 +722,11 @@ onMounted(() => {
       </YdCard>
 
       <!-- 版本历史弹窗 -->
-      <YdDialog v-model="versionDialogVisible" :title="`版本历史 - ${currentPackCode}`" width="600px">
+      <YdDialog
+        v-model="versionDialogVisible"
+        :title="`版本历史 - ${currentPackCode}`"
+        width="600px"
+      >
         <VersionGrid />
       </YdDialog>
 
@@ -696,28 +744,28 @@ onMounted(() => {
             </YdCol>
           </YdRow>
           <div>
-            <p class="text-sm font-medium mb-1">
+            <p class="mb-1 text-sm font-medium">
               <span class="text-green-600">新增规则</span> ({{ diffData.added?.length ?? 0 }})
             </p>
-            <YdBadge v-for="code in diffData.added" :key="code" type="success" class="mr-1 mb-1">
+            <YdBadge v-for="code in diffData.added" :key="code" type="success" class="mb-1 mr-1">
               {{ code }}
             </YdBadge>
             <span v-if="!diffData.added?.length" class="text-xs text-gray-400">无</span>
           </div>
           <div>
-            <p class="text-sm font-medium mb-1">
+            <p class="mb-1 text-sm font-medium">
               <span class="text-red-600">移除规则</span> ({{ diffData.removed?.length ?? 0 }})
             </p>
-            <YdBadge v-for="code in diffData.removed" :key="code" type="danger" class="mr-1 mb-1">
+            <YdBadge v-for="code in diffData.removed" :key="code" type="danger" class="mb-1 mr-1">
               {{ code }}
             </YdBadge>
             <span v-if="!diffData.removed?.length" class="text-xs text-gray-400">无</span>
           </div>
           <div>
-            <p class="text-sm font-medium mb-1">
+            <p class="mb-1 text-sm font-medium">
               <span class="text-orange-600">变更规则</span> ({{ diffData.changed?.length ?? 0 }})
             </p>
-            <YdBadge v-for="code in diffData.changed" :key="code" type="warning" class="mr-1 mb-1">
+            <YdBadge v-for="code in diffData.changed" :key="code" type="warning" class="mb-1 mr-1">
               {{ code }}
             </YdBadge>
             <span v-if="!diffData.changed?.length" class="text-xs text-gray-400">无</span>
@@ -772,11 +820,12 @@ onMounted(() => {
         <pre
           v-if="stressResultText"
           class="mt-3 max-h-60 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
-          >{{ stressResultText }}</pre
-        >
+          >{{ stressResultText }}</pre>
         <template #footer>
           <YdButton @click="stressDialogVisible = false">关闭</YdButton>
-          <YdButton type="primary" :loading="stressLoading" @click="handleStressTest">开始压测</YdButton>
+          <YdButton type="primary" :loading="stressLoading" @click="handleStressTest"
+            >开始压测</YdButton
+          >
         </template>
       </YdDialog>
 
@@ -790,7 +839,7 @@ onMounted(() => {
               class="rounded border border-gray-200 bg-blue-50 p-3"
             >
               <div class="text-xs font-medium text-gray-500">{{ key }}</div>
-              <div class="mt-1 text-sm whitespace-pre-wrap">{{ formatUnknown(value) }}</div>
+              <div class="mt-1 whitespace-pre-wrap text-sm">{{ formatUnknown(value) }}</div>
             </div>
           </div>
           <div v-else class="py-8 text-center text-sm text-gray-400">暂无评分数据</div>

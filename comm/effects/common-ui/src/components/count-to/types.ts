@@ -22,9 +22,7 @@ import { TransitionPresets as TransitionPresetsData } from '@vueuse/core';
 export type TransitionPresets = keyof typeof TransitionPresetsData;
 
 /** VueUse 内置缓动预设的完整 key 列表，供运行时遍历/枚举使用 */
-export const TransitionPresetsKeys = Object.keys(
-  TransitionPresetsData,
-) as TransitionPresets[];
+export const TransitionPresetsKeys = Object.keys(TransitionPresetsData) as TransitionPresets[];
 
 /**
  * 数字滚动动画组件 `YdCountTo` 的 Props。

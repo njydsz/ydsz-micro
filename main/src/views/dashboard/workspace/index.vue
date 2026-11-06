@@ -107,12 +107,37 @@ const demoProjects = computed<WorkbenchProjectItem[]>(() => [
 // 同样，这里的 url 也可以使用以 http 开头的外部链接
 const demoQuickNavs = computed<WorkbenchQuickNavItem[]>(() => [
   { color: '#1fdaca', icon: 'ion:home-outline', title: t('workspace.navHome'), url: '/' },
-  { color: '#bf0c2c', icon: 'ion:grid-outline', title: t('workspace.navDashboard'), url: '/dashboard' },
-  { color: '#e18525', icon: 'ion:layers-outline', title: t('workspace.navComponents'), url: '/demos/features/icons' },
+  {
+    color: '#bf0c2c',
+    icon: 'ion:grid-outline',
+    title: t('workspace.navDashboard'),
+    url: '/dashboard',
+  },
+  {
+    color: '#e18525',
+    icon: 'ion:layers-outline',
+    title: t('workspace.navComponents'),
+    url: '/demos/features/icons',
+  },
   // 示例 URL，实际接入时按项目路由调整
-  { color: '#3fb27f', icon: 'ion:settings-outline', title: t('workspace.navSystem'), url: '/demos/features/login-expired' },
-  { color: '#4daf1bc9', icon: 'ion:key-outline', title: t('workspace.navPermission'), url: '/demos/access/page-control' },
-  { color: '#00d8ff', icon: 'ion:bar-chart-outline', title: t('workspace.navCharts'), url: '/analytics' },
+  {
+    color: '#3fb27f',
+    icon: 'ion:settings-outline',
+    title: t('workspace.navSystem'),
+    url: '/demos/features/login-expired',
+  },
+  {
+    color: '#4daf1bc9',
+    icon: 'ion:key-outline',
+    title: t('workspace.navPermission'),
+    url: '/demos/access/page-control',
+  },
+  {
+    color: '#00d8ff',
+    icon: 'ion:bar-chart-outline',
+    title: t('workspace.navCharts'),
+    url: '/analytics',
+  },
 ]);
 
 const demoTodos = computed<WorkbenchTodoItem[]>(() => [
@@ -149,15 +174,60 @@ const demoTodos = computed<WorkbenchTodoItem[]>(() => [
 ]);
 
 const demoTrends = computed<WorkbenchTrendItem[]>(() => [
-  { avatar: 'svg:avatar-1', content: t('workspace.trendContent1'), date: t('workspace.trendDateJustNow'), title: t('workspace.personWilliam') },
-  { avatar: 'svg:avatar-2', content: t('workspace.trendContent2'), date: t('workspace.trendDateHour'), title: t('workspace.personEvan') },
-  { avatar: 'svg:avatar-3', content: t('workspace.trendContent3'), date: t('workspace.trendDateDay1'), title: t('workspace.personChris') },
-  { avatar: 'svg:avatar-4', content: t('workspace.trendContent4'), date: t('workspace.trendDateDay2'), title: 'YDSZ' },
-  { avatar: 'svg:avatar-1', content: t('workspace.trendContent5'), date: t('workspace.trendDateDay3'), title: t('workspace.personPeter') },
-  { avatar: 'svg:avatar-2', content: t('workspace.trendContent6'), date: t('workspace.trendDateWeek'), title: t('workspace.personJack') },
-  { avatar: 'svg:avatar-3', content: t('workspace.trendContent7'), date: t('workspace.trendDateWeek'), title: t('workspace.personWilliam') },
-  { avatar: 'svg:avatar-4', content: t('workspace.trendContent8'), date: '2021-04-01 20:00', title: t('workspace.personWilliam') },
-  { avatar: 'svg:avatar-4', content: t('workspace.trendContent9'), date: '2021-03-01 20:00', title: 'YDSZ' },
+  {
+    avatar: 'svg:avatar-1',
+    content: t('workspace.trendContent1'),
+    date: t('workspace.trendDateJustNow'),
+    title: t('workspace.personWilliam'),
+  },
+  {
+    avatar: 'svg:avatar-2',
+    content: t('workspace.trendContent2'),
+    date: t('workspace.trendDateHour'),
+    title: t('workspace.personEvan'),
+  },
+  {
+    avatar: 'svg:avatar-3',
+    content: t('workspace.trendContent3'),
+    date: t('workspace.trendDateDay1'),
+    title: t('workspace.personChris'),
+  },
+  {
+    avatar: 'svg:avatar-4',
+    content: t('workspace.trendContent4'),
+    date: t('workspace.trendDateDay2'),
+    title: 'YDSZ',
+  },
+  {
+    avatar: 'svg:avatar-1',
+    content: t('workspace.trendContent5'),
+    date: t('workspace.trendDateDay3'),
+    title: t('workspace.personPeter'),
+  },
+  {
+    avatar: 'svg:avatar-2',
+    content: t('workspace.trendContent6'),
+    date: t('workspace.trendDateWeek'),
+    title: t('workspace.personJack'),
+  },
+  {
+    avatar: 'svg:avatar-3',
+    content: t('workspace.trendContent7'),
+    date: t('workspace.trendDateWeek'),
+    title: t('workspace.personWilliam'),
+  },
+  {
+    avatar: 'svg:avatar-4',
+    content: t('workspace.trendContent8'),
+    date: '2021-04-01 20:00',
+    title: t('workspace.personWilliam'),
+  },
+  {
+    avatar: 'svg:avatar-4',
+    content: t('workspace.trendContent9'),
+    date: '2021-03-01 20:00',
+    title: 'YDSZ',
+  },
 ]);
 
 /** 工作台数据（后端字段与 UI 组件类型对齐，greeting 可选） */
@@ -169,13 +239,12 @@ interface WorkbenchData {
   greeting?: string;
 }
 
-const { data: workbenchData, load: loadWorkbench } =
-  useWorkspaceData<WorkbenchData>({
-    projects: [],
-    quickNavs: [],
-    todos: [],
-    trends: [],
-  });
+const { data: workbenchData, load: loadWorkbench } = useWorkspaceData<WorkbenchData>({
+  projects: [],
+  quickNavs: [],
+  todos: [],
+  trends: [],
+});
 
 /** 接口有数据用接口数据，否则回退到本地示例数据（示例数据随语种重算） */
 const projectItems = computed(() =>
@@ -213,7 +282,7 @@ function navTo(nav: WorkbenchProjectItem | WorkbenchQuickNavItem) {
   }
   if (nav.url?.startsWith('/')) {
     router.push(nav.url).catch((error) => {
-      logger.error("Navigation failed:", error);
+      logger.error('Navigation failed:', error);
     });
   } else {
     logger.warn(`Unknown URL for navigation item: ${nav.title} -> ${nav.url}`);
@@ -228,9 +297,7 @@ onMounted(() => {
 
 <template>
   <div class="p-5">
-    <WorkbenchHeader
-      :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar"
-    >
+    <WorkbenchHeader :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar">
       <template #title>
         {{ greeting }}, {{ userStore.userInfo?.realName }}, {{ t('workspace.greetingSuffix') }}
       </template>
@@ -239,7 +306,11 @@ onMounted(() => {
 
     <div class="mt-5 flex flex-col lg:flex-row">
       <div class="mr-4 w-full lg:w-3/5">
-        <WorkbenchProject :items="projectItems" :title="t('workspace.sectionProjects')" @click="navTo" />
+        <WorkbenchProject
+          :items="projectItems"
+          :title="t('workspace.sectionProjects')"
+          @click="navTo"
+        />
         <WorkbenchTrends :items="trendItems" class="mt-5" :title="t('workspace.sectionTrends')" />
       </div>
       <div class="w-full lg:w-2/5">

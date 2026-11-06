@@ -17,7 +17,18 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdCountToAnimator, YdBadge, YdButton, YdCard, YdCardContent, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import {
+  YdCountToAnimator,
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import * as echarts from 'echarts';
 import { showToast } from '@ydsz/notification';
@@ -328,11 +339,7 @@ onMounted(() => {
             <YdSelectValueBase :placeholder="t('monitor.timeRangePlaceholder')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase
-              v-for="opt in timeRangeOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <YdSelectItemBase v-for="opt in timeRangeOptions" :key="opt.value" :value="opt.value">
               {{ opt.label }}
             </YdSelectItemBase>
           </YdSelectContentBase>
@@ -345,40 +352,49 @@ onMounted(() => {
     <div class="mb-4 grid grid-cols-4 gap-5 px-4">
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdCountToAnimator :title="t('monitor.runningInstanceCount')" :value="overview.runningInstanceCount ?? 0" />
+          <YdCountToAnimator
+            :title="t('monitor.runningInstanceCount')"
+            :value="overview.runningInstanceCount ?? 0"
+          />
         </YdCardContent>
       </YdCard>
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdCountToAnimator :title="t('monitor.todayInstanceCount')" :value="overview.todayInstanceCount ?? 0" />
+          <YdCountToAnimator
+            :title="t('monitor.todayInstanceCount')"
+            :value="overview.todayInstanceCount ?? 0"
+          />
         </YdCardContent>
       </YdCard>
       <YdCard>
         <YdCardContent class="pt-6">
-          <YdCountToAnimator :title="t('monitor.pendingTaskCount')" :value="overview.pendingTaskCount ?? 0" />
+          <YdCountToAnimator
+            :title="t('monitor.pendingTaskCount')"
+            :value="overview.pendingTaskCount ?? 0"
+          />
         </YdCardContent>
       </YdCard>
       <YdCard>
         <YdCardContent class="pt-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm text-gray-500">{{ t('monitor.healthScore') }}</div>
-            <div class="text-2xl font-bold" :style="{ color: healthScoreColor }">
-              {{ healthScoreData.score }}
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm text-gray-500">{{ t('monitor.healthScore') }}</div>
+              <div class="text-2xl font-bold" :style="{ color: healthScoreColor }">
+                {{ healthScoreData.score }}
+              </div>
             </div>
+            <YdBadge
+              :variant="
+                healthScoreData.score >= 80
+                  ? 'default'
+                  : healthScoreData.score >= 60
+                    ? 'destructive'
+                    : 'destructive'
+              "
+            >
+              {{ healthScoreData.level }}
+            </YdBadge>
           </div>
-          <YdBadge
-            :variant="
-              healthScoreData.score >= 80
-                ? 'default'
-                : healthScoreData.score >= 60
-                  ? 'destructive'
-                  : 'destructive'
-            "
-          >
-            {{ healthScoreData.level }}
-          </YdBadge>
-        </div>
         </YdCardContent>
       </YdCard>
     </div>

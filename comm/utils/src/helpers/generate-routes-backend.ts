@@ -81,9 +81,7 @@ function convertRoutes(
       // 页面组件转换
     } else if (component) {
       const normalizePath = normalizeViewPath(component);
-      const pageKey = normalizePath.endsWith('.vue')
-        ? normalizePath
-        : `${normalizePath}.vue`;
+      const pageKey = normalizePath.endsWith('.vue') ? normalizePath : `${normalizePath}.vue`;
       if (pageMap[pageKey]) {
         route.component = pageMap[pageKey];
       } else {
@@ -110,9 +108,7 @@ function normalizeViewPath(path: string): string {
   const normalizedPath = path.replace(/^(\.\/|\.\.\/)+/, '');
 
   // 确保路径以 '/' 开头
-  const viewPath = normalizedPath.startsWith('/')
-    ? normalizedPath
-    : `/${normalizedPath}`;
+  const viewPath = normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`;
 
   // 这里耦合了ydsz-admin的目录结构
   return viewPath.replace(/^\/views/, '');

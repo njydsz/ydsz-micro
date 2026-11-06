@@ -1,57 +1,57 @@
 <script lang="ts">
 // @ts-nocheck
-import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.vue'
+import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.vue';
 
 export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {}
 </script>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
-import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
-import { Presence } from '../Presence/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import { onMounted, onUnmounted, ref } from 'vue';
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue';
+import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue';
+import { Presence } from '../Presence/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
-defineProps<ScrollAreaScrollbarHoverProps>()
+defineProps<ScrollAreaScrollbarHoverProps>();
 
-const rootContext = injectScrollAreaRootContext()
+const rootContext = injectScrollAreaRootContext();
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef } = useForwardExpose();
 
-let timeout: ReturnType<typeof setTimeout> | undefined | number
-const visible = ref(false)
+let timeout: ReturnType<typeof setTimeout> | undefined | number;
+const visible = ref(false);
 
 function handlePointerEnter() {
-  window.clearTimeout(timeout)
-  visible.value = true
+  window.clearTimeout(timeout);
+  visible.value = true;
 }
 function handlePointerLeave() {
   timeout = window.setTimeout(() => {
-    visible.value = false
-  }, rootContext.scrollHideDelay.value)
+    visible.value = false;
+  }, rootContext.scrollHideDelay.value);
 }
 
 onMounted(() => {
-  const scrollArea = rootContext.scrollArea.value
+  const scrollArea = rootContext.scrollArea.value;
 
   if (scrollArea) {
-    scrollArea.addEventListener('pointerenter', handlePointerEnter)
-    scrollArea.addEventListener('pointerleave', handlePointerLeave)
+    scrollArea.addEventListener('pointerenter', handlePointerEnter);
+    scrollArea.addEventListener('pointerleave', handlePointerLeave);
   }
-})
+});
 
 onUnmounted(() => {
-  const scrollArea = rootContext.scrollArea.value
+  const scrollArea = rootContext.scrollArea.value;
   if (scrollArea) {
-    window.clearTimeout(timeout)
-    scrollArea.removeEventListener('pointerenter', handlePointerEnter)
-    scrollArea.removeEventListener('pointerleave', handlePointerLeave)
+    window.clearTimeout(timeout);
+    scrollArea.removeEventListener('pointerenter', handlePointerEnter);
+    scrollArea.removeEventListener('pointerleave', handlePointerLeave);
   }
-})
+});
 </script>
 
 <template>

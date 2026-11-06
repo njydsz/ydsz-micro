@@ -17,7 +17,27 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdDatePicker, YdForm, YdFormItem, YdTabsContent, YdTabs, YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdDatePicker,
+  YdForm,
+  YdFormItem,
+  YdTabsContent,
+  YdTabs,
+  YdBadge,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -86,7 +106,12 @@ const myGridOptions: VxeGridProps<FlowDelegateAuthVO> = {
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-destructive', onClick: () => handleRevoke(row) },
+              {
+                size: 'sm',
+                variant: 'link' as const,
+                class: 'text-destructive',
+                onClick: () => handleRevoke(row),
+              },
               () => t('common.revoke'),
             ),
           ]),
@@ -156,8 +181,12 @@ const createForm = reactive<FlowDelegateAuthPostDTO>({
 });
 
 const createRules = {
-  delegateUserId: [{ required: true, message: t('delegate.targetUserId.required'), trigger: 'blur' }],
-  delegateUserName: [{ required: true, message: t('delegate.targetUserName.required'), trigger: 'blur' }],
+  delegateUserId: [
+    { required: true, message: t('delegate.targetUserId.required'), trigger: 'blur' },
+  ],
+  delegateUserName: [
+    { required: true, message: t('delegate.targetUserName.required'), trigger: 'blur' },
+  ],
 };
 
 /** 打开新增委托弹窗 */
@@ -200,7 +229,9 @@ async function handleToggle(row: FlowDelegateAuthVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await YdConfirm(
-      t('delegate.toggle.confirm', { action: next === 'DISABLED' ? t('common.disable') : t('common.enable') }),
+      t('delegate.toggle.confirm', {
+        action: next === 'DISABLED' ? t('common.disable') : t('common.enable'),
+      }),
       t('common.confirmTitle'),
       { type: 'warning' },
     );
@@ -224,9 +255,13 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('delegate.revoke.confirm', { userName: row.delegateUserName }), t('common.revokeTitle'), {
-      type: 'warning',
-    });
+    await YdConfirm(
+      t('delegate.revoke.confirm', { userName: row.delegateUserName }),
+      t('common.revokeTitle'),
+      {
+        type: 'warning',
+      },
+    );
   } catch (error) {
     logger.warn('用户取消撤销委托授权操作', error);
     return; // 用户主动取消撤销操作
@@ -268,57 +303,65 @@ async function handleRevoke(row: FlowDelegateAuthVO) {
           label-width="110px"
           label-position="right"
         >
-        <YdFormItem :label="t('delegate.targetUserId.label')" prop="delegateUserId">
-          <YdInput v-model="createForm.delegateUserId" :placeholder="t('delegate.targetUserId.placeholder')" />
-        </YdFormItem>
-        <YdFormItem :label="t('delegate.targetUserName.label')" prop="delegateUserName">
-          <YdInput v-model="createForm.delegateUserName" :placeholder="t('delegate.targetUserName.placeholder')" />
-        </YdFormItem>
-        <YdFormItem :label="t('delegate.scopeType.label')">
-          <YdSelectBase v-model="createForm.scopeType">
-            <YdSelectTriggerBase>
-              <YdSelectValueBase :placeholder="t('delegate.scopeType.placeholder')" />
-            </YdSelectTriggerBase>
-            <YdSelectContentBase>
-              <YdSelectItemBase value="ALL">{{ t('delegate.scopeType.all') }}</YdSelectItemBase>
-              <YdSelectItemBase value="FLOW">{{ t('delegate.scopeType.flow') }}</YdSelectItemBase>
-              <YdSelectItemBase value="NODE">{{ t('delegate.scopeType.node') }}</YdSelectItemBase>
-            </YdSelectContentBase>
-          </YdSelectBase>
-        </YdFormItem>
-        <YdFormItem :label="t('wf.flowCode')">
-          <YdInput
-            v-model="createForm.flowCode"
-            :placeholder="t('delegate.flowCode.placeholder')"
-          />
-        </YdFormItem>
-        <YdFormItem :label="t('delegate.startTime.label')">
-          <YdDatePicker
-            v-model="createForm.startTime"
-            type="date"
-            value-format="YYYY-MM-DD"
-            :placeholder="t('delegate.startTime.placeholder')"
-            style="width: 100%"
-          />
-        </YdFormItem>
-        <YdFormItem :label="t('delegate.endTime.label')">
-          <YdDatePicker
-            v-model="createForm.endTime"
-            type="date"
-            value-format="YYYY-MM-DD"
-            :placeholder="t('delegate.endTime.placeholder')"
-            style="width: 100%"
-          />
-        </YdFormItem>
-        <YdFormItem :label="t('delegate.reason.label')">
-          <YdTextarea
-            v-model="createForm.reason"
-            :placeholder="t('delegate.reason.placeholder')"
-          />
-        </YdFormItem>
-      </YdForm>
+          <YdFormItem :label="t('delegate.targetUserId.label')" prop="delegateUserId">
+            <YdInput
+              v-model="createForm.delegateUserId"
+              :placeholder="t('delegate.targetUserId.placeholder')"
+            />
+          </YdFormItem>
+          <YdFormItem :label="t('delegate.targetUserName.label')" prop="delegateUserName">
+            <YdInput
+              v-model="createForm.delegateUserName"
+              :placeholder="t('delegate.targetUserName.placeholder')"
+            />
+          </YdFormItem>
+          <YdFormItem :label="t('delegate.scopeType.label')">
+            <YdSelectBase v-model="createForm.scopeType">
+              <YdSelectTriggerBase>
+                <YdSelectValueBase :placeholder="t('delegate.scopeType.placeholder')" />
+              </YdSelectTriggerBase>
+              <YdSelectContentBase>
+                <YdSelectItemBase value="ALL">{{ t('delegate.scopeType.all') }}</YdSelectItemBase>
+                <YdSelectItemBase value="FLOW">{{ t('delegate.scopeType.flow') }}</YdSelectItemBase>
+                <YdSelectItemBase value="NODE">{{ t('delegate.scopeType.node') }}</YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
+          </YdFormItem>
+          <YdFormItem :label="t('wf.flowCode')">
+            <YdInput
+              v-model="createForm.flowCode"
+              :placeholder="t('delegate.flowCode.placeholder')"
+            />
+          </YdFormItem>
+          <YdFormItem :label="t('delegate.startTime.label')">
+            <YdDatePicker
+              v-model="createForm.startTime"
+              type="date"
+              value-format="YYYY-MM-DD"
+              :placeholder="t('delegate.startTime.placeholder')"
+              style="width: 100%"
+            />
+          </YdFormItem>
+          <YdFormItem :label="t('delegate.endTime.label')">
+            <YdDatePicker
+              v-model="createForm.endTime"
+              type="date"
+              value-format="YYYY-MM-DD"
+              :placeholder="t('delegate.endTime.placeholder')"
+              style="width: 100%"
+            />
+          </YdFormItem>
+          <YdFormItem :label="t('delegate.reason.label')">
+            <YdTextarea
+              v-model="createForm.reason"
+              :placeholder="t('delegate.reason.placeholder')"
+            />
+          </YdFormItem>
+        </YdForm>
         <YdDialogFooter>
-          <YdButton variant="secondary" @click="createVisible = false">{{ t('common.cancel') }}</YdButton>
+          <YdButton variant="secondary" @click="createVisible = false">{{
+            t('common.cancel')
+          }}</YdButton>
           <YdButton :loading="creating" @click="handleCreate">{{ t('common.confirm') }}</YdButton>
         </YdDialogFooter>
       </YdDialogContent>

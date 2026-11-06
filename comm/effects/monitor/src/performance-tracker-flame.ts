@@ -40,9 +40,9 @@ export function getFlameData(): FlameNode[] {
   if (!checkEnabled()) return [];
 
   const flames: FlameNode[] = [];
-  const measures = performance.getEntriesByType('measure').filter(
-    (m) => m.name.startsWith(MARK_PREFIX),
-  );
+  const measures = performance
+    .getEntriesByType('measure')
+    .filter((m) => m.name.startsWith(MARK_PREFIX));
 
   // 构建树：按父子关系（名称中包含 : 的层级结构）
   const nodeMap = new Map<string, FlameNode>();

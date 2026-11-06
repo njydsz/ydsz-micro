@@ -113,11 +113,7 @@ function handleChange(value: string | number): void {
       <YdSelectValueBase :placeholder="placeholder ?? $t('ui.commonAction.pleaseSelect')" />
     </YdSelectTriggerBase>
     <YdSelectContentBase>
-      <YdSelectItemBase
-        v-for="opt in options"
-        :key="String(opt.value)"
-        :value="String(opt.value)"
-      >
+      <YdSelectItemBase v-for="opt in options" :key="String(opt.value)" :value="String(opt.value)">
         {{ opt.label }}
       </YdSelectItemBase>
     </YdSelectContentBase>

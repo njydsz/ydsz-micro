@@ -51,9 +51,7 @@ const displayName = computed(() => {
 
 /** 当前租户编码（用于徽章显示） */
 const displayCode = computed(() => {
-  const current = accessibleTenants.value.find(
-    (t) => t.id === activeTenantId.value,
-  );
+  const current = accessibleTenants.value.find((t) => t.id === activeTenantId.value);
   return current?.tenantCode || '';
 });
 
@@ -149,7 +147,11 @@ onMounted(async () => {
         </div>
       </YdDropdownMenuItemBase>
 
-      <YdDropdownMenuItemBase v-if="loading" disabled class="text-muted-foreground justify-center text-center text-xs">
+      <YdDropdownMenuItemBase
+        v-if="loading"
+        disabled
+        class="text-muted-foreground justify-center text-center text-xs"
+      >
         {{ $t('ui.widgets.tenantContext.loading') ?? '加载中...' }}
       </YdDropdownMenuItemBase>
     </YdDropdownMenuContentBase>

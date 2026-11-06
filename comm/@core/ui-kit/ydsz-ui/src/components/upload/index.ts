@@ -10,20 +10,14 @@
  */
 export { default as YdUpload } from './YdUpload.vue';
 export { UploadStatus } from './types';
-export {
-  createChunkHttpRequest,
-} from '../../composables/use-chunk-upload';
+export { createChunkHttpRequest } from '../../composables/use-chunk-upload';
 export type {
   ChunkHttpOptions,
   ChunkUploadHandle,
   ChunkUploadOptions,
   MultipartApiConfig,
 } from '../../composables/use-chunk-upload';
-export type {
-  UploadFile,
-  UploadRequestOptions,
-  UploadUserFile,
-} from './types';
+export type { UploadFile, UploadRequestOptions, UploadUserFile } from './types';
 
 // merged from pre-refactor ui/ + primitives/ barrels
 export { default as ydUpload } from './upload.vue';

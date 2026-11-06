@@ -125,17 +125,13 @@ export interface UseGridProviderOptions {
  * @param options - 栅格配置
  * @returns 栅格上下文（可响应断点变化）
  */
-export function useGridProvider(
-  options: UseGridProviderOptions = {},
-): GridContext {
+export function useGridProvider(options: UseGridProviderOptions = {}): GridContext {
   const { columns = 12, rowGap = 16, columnGap = 16 } = options;
 
   const currentBreakpoint = ref<GridBreakpoint>('md');
 
   /** 根据列配置计算初始列数 */
-  const initialCols = typeof columns === 'number'
-    ? columns
-    : (columns?.md ?? 12);
+  const initialCols = typeof columns === 'number' ? columns : (columns?.md ?? 12);
   const computedCols = ref(initialCols);
 
   // 处理间距为字符串或数字

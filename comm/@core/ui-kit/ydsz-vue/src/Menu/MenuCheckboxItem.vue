@@ -1,43 +1,40 @@
 <script lang="ts">
 // @ts-nocheck
-import type { CheckedState } from './utils'
-import type {
-  MenuItemEmits,
-  MenuItemProps,
-} from './MenuItem.vue'
+import type { CheckedState } from './utils';
+import type { MenuItemEmits, MenuItemProps } from './MenuItem.vue';
 
 export type MenuCheckboxItemEmits = MenuItemEmits & {
   /** Event handler called when the checked state changes. */
-  'update:checked': [payload: boolean]
-}
+  'update:checked': [payload: boolean];
+};
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
   /** The controlled checked state of the item. Can be used as `v-model:checked`. */
-  checked?: CheckedState
+  checked?: CheckedState;
 }
 </script>
 
 <script setup lang="ts">
-import { useVModel } from '@vueuse/core'
-import { getCheckedState, isIndeterminate } from './utils'
-import MenuItem from './MenuItem.vue'
-import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue'
+import { useVModel } from '@vueuse/core';
+import { getCheckedState, isIndeterminate } from './utils';
+import MenuItem from './MenuItem.vue';
+import { provideMenuItemIndicatorContext } from './MenuItemIndicator.vue';
 
 const props = withDefaults(defineProps<MenuCheckboxItemProps>(), {
   checked: false,
-})
-const emits = defineEmits<MenuCheckboxItemEmits>()
+});
+const emits = defineEmits<MenuCheckboxItemEmits>();
 
 defineSlots<{
   default: (props: {
     /** Current checked state */
-    checked: typeof checked.value
-  }) => any
-}>()
+    checked: typeof checked.value;
+  }) => any;
+}>();
 
-const checked = useVModel(props, 'checked', emits)
+const checked = useVModel(props, 'checked', emits);
 
-provideMenuItemIndicatorContext({ checked })
+provideMenuItemIndicatorContext({ checked });
 </script>
 
 <template>
@@ -51,8 +48,7 @@ provideMenuItemIndicatorContext({ checked })
         emits('select', event);
         if (isIndeterminate(checked)) {
           checked = true;
-        }
-        else {
+        } else {
           checked = !checked;
         }
       }

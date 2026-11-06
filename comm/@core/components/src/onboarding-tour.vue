@@ -142,10 +142,7 @@ async function updatePosition(): Promise<void> {
 /**
  * 根据目标位置计算 popover 坐标。
  */
-async function positionPopover(
-  targetRect: DOMRect,
-  placement: TourPopoverPosition,
-): Promise<void> {
+async function positionPopover(targetRect: DOMRect, placement: TourPopoverPosition): Promise<void> {
   const gap = 12;
 
   // 估算 popover 尺寸（实际渲染后会更精确）
@@ -296,14 +293,11 @@ watch(currentStepIndex, () => {
 });
 
 // 监听 visible 变化 → 显示后更新位置
-watch(
-  visible,
-  (v) => {
-    if (v) {
-      void nextTick(() => updatePosition());
-    }
-  },
-);
+watch(visible, (v) => {
+  if (v) {
+    void nextTick(() => updatePosition());
+  }
+});
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeydown);
@@ -343,29 +337,17 @@ defineExpose({
 <template>
   <Teleport to="body">
     <Transition name="tour-fade">
-      <div
-        v-if="visible"
-        class="tour-overlay-wrapper"
-      >
+      <div v-if="visible" class="tour-overlay-wrapper">
         <!-- 深色半透明遮罩 SVG（通过 clip-path 镂空高亮区） -->
-        <svg
-          class="tour-overlay-svg"
-          :style="{ opacity: String(overlayOpacity) }"
-        >
+        <svg class="tour-overlay-svg" :style="{ opacity: String(overlayOpacity) }">
           <defs>
             <mask id="tour-mask">
+              <rect x="0" y="0" width="100%" height="100%" fill="white" />
               <rect
-                x="0"
-                y="0"
-                width="100%"
-                height="100%"
-                fill="white"
-              />
-              <rect
-                :x="(highlightStyle.left as string)"
-                :y="(highlightStyle.top as string)"
-                :width="(highlightStyle.width as string)"
-                :height="(highlightStyle.height as string)"
+                :x="highlightStyle.left as string"
+                :y="highlightStyle.top as string"
+                :width="highlightStyle.width as string"
+                :height="highlightStyle.height as string"
                 :rx="String(highlightRadius)"
                 :ry="String(highlightRadius)"
                 fill="black"
@@ -400,18 +382,12 @@ defineExpose({
           :aria-label="currentStep.title || '用户引导'"
         >
           <!-- 标题 -->
-          <div
-            v-if="currentStep.title"
-            class="tour-popover__title"
-          >
+          <div v-if="currentStep.title" class="tour-popover__title">
             {{ currentStep.title }}
           </div>
 
           <!-- 描述 -->
-          <div
-            v-if="currentStep.description"
-            class="tour-popover__description"
-          >
+          <div v-if="currentStep.description" class="tour-popover__description">
             {{ currentStep.description }}
           </div>
 
@@ -432,22 +408,13 @@ defineExpose({
               <span
                 v-for="(_, idx) in steps"
                 :key="idx"
-                :class="[
-                  'tour-progress-dot',
-                  { 'is-active': idx === currentStepIndex },
-                ]"
+                :class="['tour-progress-dot', { 'is-active': idx === currentStepIndex }]"
               />
             </div>
 
             <!-- 按钮组 -->
             <div class="tour-popover__actions">
-              <button
-                type="button"
-                class="tour-btn tour-btn--skip"
-                @click="skip"
-              >
-                跳过
-              </button>
+              <button type="button" class="tour-btn tour-btn--skip" @click="skip">跳过</button>
               <button
                 v-if="!isFirstStep"
                 type="button"
@@ -456,11 +423,7 @@ defineExpose({
               >
                 上一步
               </button>
-              <button
-                type="button"
-                class="tour-btn tour-btn--next"
-                @click="next"
-              >
+              <button type="button" class="tour-btn tour-btn--next" @click="next">
                 {{ isLastStep ? '完成' : '下一步' }}
               </button>
             </div>
@@ -493,7 +456,9 @@ defineExpose({
   z-index: 9998;
   pointer-events: none;
   border: 2px solid hsl(var(--brand-500, #3b82f6));
-  box-shadow: 0 0 0 4px rgb(59 130 246 / 25%), 0 0 20px rgb(59 130 246 / 15%);
+  box-shadow:
+    0 0 0 4px rgb(59 130 246 / 25%),
+    0 0 20px rgb(59 130 246 / 15%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -541,7 +506,9 @@ defineExpose({
   height: 7px;
   border-radius: 50%;
   background: hsl(var(--neutral-200, #e5e7eb));
-  transition: background 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 
   &.is-active {
     background: hsl(var(--brand-500, #3b82f6));
@@ -561,7 +528,9 @@ defineExpose({
   border-radius: 6px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
 }
 
 .tour-btn--skip {

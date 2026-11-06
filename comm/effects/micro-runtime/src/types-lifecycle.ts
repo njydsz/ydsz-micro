@@ -8,7 +8,7 @@
  * @since 3.0.0
  */
 
-import type { MicroAppConfig, MountProps } from "./types-app-config";
+import type { MicroAppConfig, MountProps } from './types-app-config';
 
 /** 子应用生命周期导出（ESM entry 必须导出 mount/unmount） */
 export interface LifecycleExports {
@@ -39,20 +39,14 @@ export interface LifecycleExports {
    * @param props - 本次激活的 mountProps（含容器等上下文）
    * @since 4.2.1
    */
-  hydrate?: (
-    state: unknown,
-    props: MountProps,
-  ) => Promise<void> | void;
+  hydrate?: (state: unknown, props: MountProps) => Promise<void> | void;
 }
 
 /** 内核生命周期钩子 */
 export type LifecycleHook = (app: MicroAppConfig) => Promise<void> | void;
 
 /** 内核错误钩子（接收错误对象） */
-export type ErrorLifecycleHook = (
-  app: MicroAppConfig,
-  error: unknown,
-) => Promise<void> | void;
+export type ErrorLifecycleHook = (app: MicroAppConfig, error: unknown) => Promise<void> | void;
 
 /**
  * 内核支持的生命周期钩子名。
@@ -69,12 +63,7 @@ export type ErrorLifecycleHook = (
  * 避免仅有 beforeLoad/afterMount 两个粗粒度节点导致进度跳变。
  */
 export type LifecycleHookName =
-  | "afterLoad"
-  | "afterMount"
-  | "afterUnmount"
-  | "beforeLoad"
-  | "beforeMount"
-  | "error";
+  'afterLoad' | 'afterMount' | 'afterUnmount' | 'beforeLoad' | 'beforeMount' | 'error';
 
 /** 权限检查函数类型 */
 export type PermissionChecker = (codes: string[]) => boolean;
@@ -124,9 +113,9 @@ export interface MicroAppEntry {
   /** 生产环境部署子路径 */
   prodPath?: string;
   /** 子应用默认骨架屏类型 */
-  skeletonType?: "dashboard" | "default" | "detail" | "form" | "list";
+  skeletonType?: 'dashboard' | 'default' | 'detail' | 'form' | 'list';
   /** 沙箱类型 */
-  sandbox?: "iframe" | "proxy" | "snapshot";
+  sandbox?: 'iframe' | 'proxy' | 'snapshot';
   /**
    * 显式入口 URL（v3.7.0 新增）。
    *

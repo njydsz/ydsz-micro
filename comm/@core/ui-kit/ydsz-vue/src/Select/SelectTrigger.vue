@@ -1,55 +1,52 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface SelectTriggerProps extends PrimitiveProps {
-  disabled?: boolean
+  disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import {
-  injectSelectRootContext,
-} from './SelectRoot.vue'
-import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
-import { Primitive } from '../Primitive/index.ts'
-import { PopperAnchor } from '../Popper/index.ts'
-import { useCollection, useForwardExpose, useId, useTypeahead } from '../shared/index.ts'
+import { computed, onMounted } from 'vue';
+import { injectSelectRootContext } from './SelectRoot.vue';
+import { OPEN_KEYS, shouldShowPlaceholder } from './utils';
+import { Primitive } from '../Primitive/index.ts';
+import { PopperAnchor } from '../Popper/index.ts';
+import { useCollection, useForwardExpose, useId, useTypeahead } from '../shared/index.ts';
 
 const props = withDefaults(defineProps<SelectTriggerProps>(), {
   as: 'button',
-})
-const rootContext = injectSelectRootContext()
+});
+const rootContext = injectSelectRootContext();
 
-const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
+const isDisabled = computed(() => rootContext.disabled?.value || props.disabled);
 
-const { forwardRef, currentElement: triggerElement } = useForwardExpose()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 
-rootContext.contentId ||= useId(undefined, 'radix-vue-select-content')
+rootContext.contentId ||= useId(undefined, 'radix-vue-select-content');
 onMounted(() => {
-  rootContext.triggerElement = triggerElement
-})
+  rootContext.triggerElement = triggerElement;
+});
 
-const { injectCollection } = useCollection()
-const collectionItems = injectCollection()
+const { injectCollection } = useCollection();
+const collectionItems = injectCollection();
 
-const { search, handleTypeaheadSearch, resetTypeahead }
-  = useTypeahead(collectionItems)
+const { search, handleTypeaheadSearch, resetTypeahead } = useTypeahead(collectionItems);
 function handleOpen() {
   if (!isDisabled.value) {
-    rootContext.onOpenChange(true)
+    rootContext.onOpenChange(true);
     // reset typeahead when we open
-    resetTypeahead()
+    resetTypeahead();
   }
 }
 
 function handlePointerOpen(event: PointerEvent) {
-  handleOpen()
+  handleOpen();
   rootContext.triggerPointerDownPosRef.value = {
     x: Math.round(event.pageX),
     y: Math.round(event.pageY),
-  }
+  };
 }
 </script>
 
@@ -67,9 +64,7 @@ function handlePointerOpen(event: PointerEvent) {
       :dir="rootContext?.dir.value"
       :data-state="rootContext?.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"
-      :data-placeholder="
-        shouldShowPlaceholder(rootContext.modelValue?.value) ? '' : undefined
-      "
+      :data-placeholder="shouldShowPlaceholder(rootContext.modelValue?.value) ? '' : undefined"
       :as-child="asChild"
       :as="as"
       @click="
@@ -86,8 +81,7 @@ function handlePointerOpen(event: PointerEvent) {
         (event: PointerEvent) => {
           // Prevent opening on touch down.
           // https://github.com/unovue/radix-vue/issues/804
-          if (event.pointerType === 'touch')
-            return event.preventDefault();
+          if (event.pointerType === 'touch') return event.preventDefault();
 
           // prevent implicit pointer capture
           // https://www.w3.org/TR/pointerevents3/#implicit-pointer-capture
@@ -99,7 +93,7 @@ function handlePointerOpen(event: PointerEvent) {
           // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
           // but not when the control key is pressed (avoiding MacOS right click)
           if (event.button === 0 && event.ctrlKey === false) {
-            handlePointerOpen(event)
+            handlePointerOpen(event);
             // prevent trigger from stealing focus from the active item after opening.
             event.preventDefault();
           }
@@ -109,8 +103,7 @@ function handlePointerOpen(event: PointerEvent) {
         (event: PointerEvent) => {
           // Only open on pointer up when using touch devices
           // https://github.com/unovue/radix-vue/issues/804
-          if (event.pointerType === 'touch')
-            handlePointerOpen(event)
+          if (event.pointerType === 'touch') handlePointerOpen(event);
         }
       "
       @keydown="

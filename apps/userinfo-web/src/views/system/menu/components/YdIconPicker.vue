@@ -14,8 +14,16 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -709,7 +717,8 @@ const filteredIcons = computed(() => {
   const keyword = searchKeyword.value.toLowerCase().trim();
   if (!keyword) return ICON_LIST;
   return ICON_LIST.filter(
-    (icon) => icon.name.toLowerCase().includes(keyword) || icon.label.toLowerCase().includes(keyword),
+    (icon) =>
+      icon.name.toLowerCase().includes(keyword) || icon.label.toLowerCase().includes(keyword),
   );
 });
 
@@ -753,10 +762,7 @@ defineExpose({ open, close });
       <div class="icon-picker">
         <!-- 搜索框 -->
         <div class="mb-4">
-          <YdInput
-            v-model="searchKeyword"
-            placeholder="搜索图标名称..."
-          />
+          <YdInput v-model="searchKeyword" placeholder="搜索图标名称..." />
         </div>
 
         <!-- 图标网格 -->
@@ -765,25 +771,23 @@ defineExpose({ open, close });
             <div
               v-for="icon in filteredIcons"
               :key="icon.name"
-              class="icon-item flex cursor-pointer flex-col items-center justify-center rounded border border-border-subtle p-2 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
+              class="icon-item border-border-subtle flex cursor-pointer flex-col items-center justify-center rounded border p-2 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
               :class="{ 'border-blue-500 bg-blue-50 dark:bg-blue-950': selectedIcon === icon.name }"
               :title="icon.label"
               @click="selectIcon(icon)"
             >
               <span class="text-lg">{{ icon.name }}</span>
-              <span class="mt-1 truncate text-xs text-muted-foreground">{{ icon.label }}</span>
+              <span class="text-muted-foreground mt-1 truncate text-xs">{{ icon.label }}</span>
             </div>
           </div>
-          <div v-if="filteredIcons.length === 0" class="py-8 text-center text-muted-foreground">
+          <div v-if="filteredIcons.length === 0" class="text-muted-foreground py-8 text-center">
             未找到匹配的图标
           </div>
         </div>
       </div>
 
       <YdDialogFooter class="gap-2 sm:justify-between">
-        <span class="text-sm text-muted-foreground">
-          共 {{ filteredIcons.length }} 个图标
-        </span>
+        <span class="text-muted-foreground text-sm"> 共 {{ filteredIcons.length }} 个图标 </span>
         <div class="flex gap-2">
           <YdButton size="sm" variant="ghost" @click="clearSelection">清除选择</YdButton>
           <YdButton size="sm" variant="outline" @click="close">取消</YdButton>

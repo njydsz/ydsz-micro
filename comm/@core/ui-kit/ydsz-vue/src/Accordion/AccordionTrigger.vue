@@ -1,29 +1,29 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface AccordionTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { useId } from '../shared/index.ts'
-import { injectAccordionItemContext } from './AccordionItem.vue'
-import { injectAccordionRootContext } from './AccordionRoot.vue'
+import { useId } from '../shared/index.ts';
+import { injectAccordionItemContext } from './AccordionItem.vue';
+import { injectAccordionRootContext } from './AccordionRoot.vue';
 
-import { CollapsibleTrigger } from '../Collapsible/index.ts'
+import { CollapsibleTrigger } from '../Collapsible/index.ts';
 
-const props = defineProps<AccordionTriggerProps>()
+const props = defineProps<AccordionTriggerProps>();
 
-const rootContext = injectAccordionRootContext()
-const itemContext = injectAccordionItemContext()
+const rootContext = injectAccordionRootContext();
+const itemContext = injectAccordionItemContext();
 
-itemContext.triggerId ||= useId(undefined, 'radix-vue-accordion-trigger')
+itemContext.triggerId ||= useId(undefined, 'radix-vue-accordion-trigger');
 function changeItem() {
-  const triggerDisabled = rootContext.isSingle.value && itemContext.open.value && !rootContext.collapsible
-  if (itemContext.disabled.value || triggerDisabled)
-    return
+  const triggerDisabled =
+    rootContext.isSingle.value && itemContext.open.value && !rootContext.collapsible;
+  if (itemContext.disabled.value || triggerDisabled) return;
 
-  rootContext.changeModelValue(itemContext.value.value)
+  rootContext.changeModelValue(itemContext.value.value);
 }
 </script>
 

@@ -1,15 +1,21 @@
-/**
- * 拓扑可视化（全局 DAG 依赖 + DAG 实例拓扑）
- *
- * @path apps\cronjob-web\src\views\topology\index.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * 拓扑可视化（全局 DAG 依赖 + DAG 实例拓扑） * * @path
+apps\cronjob-web\src\views\topology\index.vue * @author ydsz-team * @since 1.0.0 */
 
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, ref } from 'vue';
 
@@ -46,9 +52,7 @@ interface TopologyCard {
   status: string;
 }
 
-function extractGlobalCards(
-  data: Record<string, Record<string, unknown>>,
-): TopologyCard[] {
+function extractGlobalCards(data: Record<string, Record<string, unknown>>): TopologyCard[] {
   const nodes = (data?.nodes ?? data?.dags ?? []) as Record<string, unknown>[];
   if (!Array.isArray(nodes) || nodes.length === 0) {
     return Object.entries(data)
@@ -138,9 +142,7 @@ function filterGlobalCards() {
     return;
   }
   filteredGlobalCards.value = globalCards.value.filter(
-    (c) =>
-      c.dagKey.toLowerCase().includes(kw) ||
-      c.dagName.toLowerCase().includes(kw),
+    (c) => c.dagKey.toLowerCase().includes(kw) || c.dagName.toLowerCase().includes(kw),
   );
 }
 
@@ -201,7 +203,10 @@ onMounted(() => {
 
         <div v-loading="globalLoading">
           <!-- 卡片网格 -->
-          <div v-if="filteredGlobalCards.length" class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div
+            v-if="filteredGlobalCards.length"
+            class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          >
             <YdCard
               v-for="card in filteredGlobalCards"
               :key="card.id"
@@ -210,11 +215,14 @@ onMounted(() => {
             >
               <YdCardContent class="pt-4">
                 <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-700">{{ card.dagName }}</span>
-                <span class="rounded-full px-2 py-0.5 text-xs font-medium" :class="statusLabelColor(card.status)">
-                  {{ card.status }}
-                </span>
-              </div>
+                  <span class="text-sm font-medium text-gray-700">{{ card.dagName }}</span>
+                  <span
+                    class="rounded-full px-2 py-0.5 text-xs font-medium"
+                    :class="statusLabelColor(card.status)"
+                  >
+                    {{ card.status }}
+                  </span>
+                </div>
                 <div class="mt-2 truncate text-xs text-gray-400" :title="card.dagKey">
                   {{ card.dagKey }}
                 </div>
@@ -245,7 +253,10 @@ onMounted(() => {
 
         <div v-loading="instanceLoading">
           <!-- DAG 实例节点网格 -->
-          <div v-if="instanceNodes.length" class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div
+            v-if="instanceNodes.length"
+            class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          >
             <div
               v-for="node in instanceNodes"
               :key="node.id"
@@ -253,7 +264,9 @@ onMounted(() => {
               :style="{ borderColor: statusColor(node.status) }"
             >
               <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-700">{{ node.label || node.jobKey }}</span>
+                <span class="text-sm font-medium text-gray-700">{{
+                  node.label || node.jobKey
+                }}</span>
                 <span
                   class="inline-block h-3 w-3 rounded-full"
                   :style="{ backgroundColor: statusColor(node.status) }"
@@ -266,9 +279,7 @@ onMounted(() => {
                 <span :class="statusLabelColor(node.status)" class="font-medium">
                   {{ node.status }}
                 </span>
-                <span v-if="node.durationMs" class="text-gray-400">
-                  {{ node.durationMs }}ms
-                </span>
+                <span v-if="node.durationMs" class="text-gray-400"> {{ node.durationMs }}ms </span>
               </div>
               <div v-if="node.startedAt" class="mt-1 text-[10px] text-gray-300">
                 开始: {{ node.startedAt }}

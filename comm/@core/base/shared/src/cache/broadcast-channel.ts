@@ -37,9 +37,7 @@ export interface BroadcastMessage<T = unknown> {
 }
 
 /** 监听器签名 */
-export type BroadcastListener<T = unknown> = (
-  message: BroadcastMessage<T>,
-) => void;
+export type BroadcastListener<T = unknown> = (message: BroadcastMessage<T>) => void;
 
 /** BroadcastChannelManager 配置 */
 export interface BroadcastChannelOptions {
@@ -105,11 +103,7 @@ export class BroadcastChannelManager<T = unknown> {
    * @param payload 消息负载（将被 JSON 序列化）
    * @param options.echo 是否触发本实例监听器（覆盖构造期 echo 设置）
    */
-  postMessage<P = T>(
-    type: string,
-    payload: P,
-    options?: { echo?: boolean },
-  ): void {
+  postMessage<P = T>(type: string, payload: P, options?: { echo?: boolean }): void {
     const message: BroadcastMessage<P> = {
       type,
       payload,
@@ -124,10 +118,7 @@ export class BroadcastChannelManager<T = unknown> {
     try {
       serialized = JSON.stringify(message);
     } catch (error) {
-      logger.error(
-        `[BroadcastChannel] Failed to serialize message "${type}":`,
-        error,
-      );
+      logger.error(`[BroadcastChannel] Failed to serialize message "${type}":`, error);
       return;
     }
 
@@ -136,10 +127,7 @@ export class BroadcastChannelManager<T = unknown> {
       try {
         this.channel.postMessage(message);
       } catch (error) {
-        logger.error(
-          `[BroadcastChannel] Failed to post message "${type}":`,
-          error,
-        );
+        logger.error(`[BroadcastChannel] Failed to post message "${type}":`, error);
       }
     } else if (typeof localStorage !== 'undefined') {
       // 兜底：写入 localStorage 触发其它标签页的 storage 事件。
@@ -149,10 +137,7 @@ export class BroadcastChannelManager<T = unknown> {
       try {
         localStorage.setItem(this.options.storageKey, serialized);
       } catch (error) {
-        logger.error(
-          `[BroadcastChannel] Failed to write storage fallback for "${type}":`,
-          error,
-        );
+        logger.error(`[BroadcastChannel] Failed to write storage fallback for "${type}":`, error);
       }
     }
 
@@ -274,10 +259,7 @@ export class BroadcastChannelManager<T = unknown> {
       try {
         listener(message);
       } catch (error) {
-        logger.error(
-          `[BroadcastChannel] Listener error on "${message.type}":`,
-          error,
-        );
+        logger.error(`[BroadcastChannel] Listener error on "${message.type}":`, error);
       }
     }
   }
@@ -312,9 +294,7 @@ export function getSharedBroadcastChannel<T = unknown>(
   channelName: string,
   options?: Omit<BroadcastChannelOptions, 'channelName'>,
 ): BroadcastChannelManager<T> {
-  let instance = sharedChannels.get(channelName) as
-    | BroadcastChannelManager<T>
-    | undefined;
+  let instance = sharedChannels.get(channelName) as BroadcastChannelManager<T> | undefined;
   if (!instance) {
     instance = new BroadcastChannelManager<T>({
       channelName,

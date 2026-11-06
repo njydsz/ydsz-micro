@@ -48,9 +48,7 @@ export function emitDictChange(typeCode?: string): void {
  * @param callback - 回调函数，接收事件 detail
  * @returns 取消订阅函数
  */
-export function onDictChange(
-  callback: (detail: DictChangeEventDetail) => void,
-): () => void {
+export function onDictChange(callback: (detail: DictChangeEventDetail) => void): () => void {
   const handler = (event: Event) => {
     const customEvent = event as CustomEvent<DictChangeEventDetail>;
     callback(customEvent.detail);

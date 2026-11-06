@@ -8,13 +8,7 @@
 <script setup lang="ts">
 import type { WorkbenchProjectItem } from '../typing';
 
-import {
-  YdCard,
-  YdCardContent,
-  YdCardHeader,
-  YdCardTitle,
-  YdIcon,
-} from '@ydsz-core/ydsz-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdIcon } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   items?: WorkbenchProjectItem[];

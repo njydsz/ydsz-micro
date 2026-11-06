@@ -12,14 +12,14 @@
  * @since 4.4.0
  */
 
-import { createLogger } from "@ydsz-core/shared/utils";
-import { debugInfoHelper, type PreloadManagerLike } from "./preload-manager-helpers";
-import { getSummaryCore, type RoutePredictorLike } from "./route-predictor-core";
+import { createLogger } from '@ydsz-core/shared/utils';
+import { debugInfoHelper, type PreloadManagerLike } from './preload-manager-helpers';
+import { getSummaryCore, type RoutePredictorLike } from './route-predictor-core';
 
-const logger = createLogger("MicroKernel");
+const logger = createLogger('MicroKernel');
 
 /** 默认上报端点（可通过 setupPreloadMetricsReporting 覆盖） */
-let reportEndpoint = "/api/monitor/preload-metrics";
+let reportEndpoint = '/api/monitor/preload-metrics';
 
 /** 预加载指标快照（与 debugInfoHelper 字段对齐） */
 export interface PreloadMetricsSnapshot {
@@ -82,14 +82,14 @@ function reportSnapshot(snapshot: PreloadMetricsSnapshot): void {
     // 无统一请求客户端上下文（keepalive + 页面卸载窗口），云顶规范 §6.1 例外条款。
     const payload = JSON.stringify(snapshot);
     if (navigator.sendBeacon) {
-      const blob = new Blob([payload], { type: "application/json" });
+      const blob = new Blob([payload], { type: 'application/json' });
       if (navigator.sendBeacon(reportEndpoint, blob)) return;
     }
     void fetch(reportEndpoint, {
       body: payload,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       keepalive: true,
-      method: "POST",
+      method: 'POST',
     }).catch(() => {});
   } catch {
     // 指标上报失败不影响内核运行
@@ -130,12 +130,12 @@ export function setupPreloadMetricsReporting(
   const onPageHide = (): void => {
     sample();
   };
-  window.addEventListener("pagehide", onPageHide, { once: false });
+  window.addEventListener('pagehide', onPageHide, { once: false });
 
   logger.debug(`Preload metrics reporting started (interval=${intervalMs}ms)`);
 
   return () => {
     clearInterval(timer);
-    window.removeEventListener("pagehide", onPageHide);
+    window.removeEventListener('pagehide', onPageHide);
   };
 }

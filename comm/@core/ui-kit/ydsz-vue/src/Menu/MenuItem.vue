@@ -1,48 +1,47 @@
 <script lang="ts">
 // @ts-nocheck
-import type { MenuItemImplProps } from './MenuItemImpl.vue'
-import { useForwardExpose } from '../shared/index.ts'
+import type { MenuItemImplProps } from './MenuItemImpl.vue';
+import { useForwardExpose } from '../shared/index.ts';
 
 export type MenuItemEmits = {
   /**
    * Event handler called when the user selects an item (via mouse or keyboard). <br>
    *  Calling `event.preventDefault` in this handler will prevent the menu from closing when selecting that item.
    */
-  select: [event: Event]
-}
+  select: [event: Event];
+};
 
 export interface MenuItemProps extends MenuItemImplProps {}
 </script>
 
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
-import MenuItemImpl from './MenuItemImpl.vue'
-import { injectMenuRootContext } from './MenuRoot.vue'
-import { injectMenuContentContext } from './MenuContentImpl.vue'
-import { ITEM_SELECT, SELECTION_KEYS } from './utils'
+import { nextTick, ref } from 'vue';
+import MenuItemImpl from './MenuItemImpl.vue';
+import { injectMenuRootContext } from './MenuRoot.vue';
+import { injectMenuContentContext } from './MenuContentImpl.vue';
+import { ITEM_SELECT, SELECTION_KEYS } from './utils';
 
-const props = defineProps<MenuItemProps>()
-const emits = defineEmits<MenuItemEmits>()
+const props = defineProps<MenuItemProps>();
+const emits = defineEmits<MenuItemEmits>();
 
-const { forwardRef, currentElement } = useForwardExpose()
-const rootContext = injectMenuRootContext()
-const contentContext = injectMenuContentContext()
+const { forwardRef, currentElement } = useForwardExpose();
+const rootContext = injectMenuRootContext();
+const contentContext = injectMenuContentContext();
 
-const isPointerDownRef = ref(false)
+const isPointerDownRef = ref(false);
 
 async function handleSelect() {
-  const menuItem = currentElement.value
+  const menuItem = currentElement.value;
   if (!props.disabled && menuItem) {
     const itemSelectEvent = new CustomEvent(ITEM_SELECT, {
       bubbles: true,
       cancelable: true,
-    })
-    emits('select', itemSelectEvent)
+    });
+    emits('select', itemSelectEvent);
     // let select event finish
-    await nextTick()
-    if (itemSelectEvent.defaultPrevented)
-      isPointerDownRef.value = false
-    else rootContext.onClose()
+    await nextTick();
+    if (itemSelectEvent.defaultPrevented) isPointerDownRef.value = false;
+    else rootContext.onClose();
   }
 }
 </script>

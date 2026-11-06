@@ -10,32 +10,15 @@
  */
 import type { ComputedRef, Ref, SetupContext, VNodeArrayChildren } from 'vue';
 
-import type {
-  MenuItemClicked,
-  MenuItemRegistered,
-  MenuProps,
-  MenuProvider,
-} from '../types';
+import type { MenuItemClicked, MenuItemRegistered, MenuProps, MenuProvider } from '../types';
 
 import type { UseResizeObserverReturn } from '@vueuse/core';
 
-import {
-  computed,
-  nextTick,
-  reactive,
-  ref,
-  toRef,
-  useSlots,
-  watch,
-  watchEffect,
-} from 'vue';
+import { computed, nextTick, reactive, ref, toRef, useSlots, watch, watchEffect } from 'vue';
 
 import { useResizeObserver } from '@vueuse/core';
 
-import {
-  createMenuContext,
-  createSubMenuContext,
-} from '../hooks';
+import { createMenuContext, createSubMenuContext } from '../hooks';
 import { useMenuScroll } from '../hooks/use-menu-scroll';
 import { flattedChildren } from '../utils';
 
@@ -50,11 +33,7 @@ interface UseMenuLogicOptions {
   /**
    * 菜单组件的事件触发器
    */
-  emit: (
-    event: 'close' | 'open' | 'select',
-    path: string,
-    parentPaths: string[],
-  ) => void;
+  emit: (event: 'close' | 'open' | 'select', path: string, parentPaths: string[]) => void;
 }
 
 /**
@@ -156,9 +135,7 @@ function useMenuLogic(options: UseMenuLogicOptions): UseMenuLogicReturn {
   const mouseInChild = ref(false);
 
   const isMenuPopup = computed<MenuProvider['isMenuPopup']>(() => {
-    return (
-      props.mode === 'horizontal' || (props.mode === 'vertical' && props.collapse)
-    );
+    return props.mode === 'horizontal' || (props.mode === 'vertical' && props.collapse);
   });
 
   const getSlot = computed(() => {
@@ -167,12 +144,9 @@ function useMenuLogic(options: UseMenuLogicOptions): UseMenuLogicReturn {
 
     const originalSlot = flattedChildren(defaultSlots) as VNodeArrayChildren;
     const slotDefault =
-      sliceIndex.value === -1
-        ? originalSlot
-        : originalSlot.slice(0, sliceIndex.value);
+      sliceIndex.value === -1 ? originalSlot : originalSlot.slice(0, sliceIndex.value);
 
-    const slotMore =
-      sliceIndex.value === -1 ? [] : originalSlot.slice(sliceIndex.value);
+    const slotMore = sliceIndex.value === -1 ? [] : originalSlot.slice(sliceIndex.value);
 
     return { showSlotMore: slotMore.length > 0, slotDefault, slotMore };
   });
@@ -247,8 +221,7 @@ function useMenuLogic(options: UseMenuLogicOptions): UseMenuLogicReturn {
     const items = [...(menu.value?.childNodes ?? [])].filter(
       (item) =>
         // remove comment type node #12634
-        item.nodeName !== '#comment' &&
-        (item.nodeName !== '#text' || item.nodeValue),
+        item.nodeName !== '#comment' && (item.nodeName !== '#text' || item.nodeValue),
     ) as HTMLElement[];
 
     const moreItemWidth = 46;
@@ -397,9 +370,7 @@ function useMenuLogic(options: UseMenuLogicOptions): UseMenuLogicReturn {
       if (activeParentPaths.includes(path)) {
         parentPaths = activeParentPaths;
       }
-      openedMenus.value = openedMenus.value.filter((path: string) =>
-        parentPaths.includes(path),
-      );
+      openedMenus.value = openedMenus.value.filter((path: string) => parentPaths.includes(path));
     }
     openedMenus.value.push(path);
     emit('open', path, parentPaths);

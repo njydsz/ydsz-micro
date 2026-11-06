@@ -18,7 +18,7 @@
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 // PickList 的双向绑定数据
 const pickData = ref([
@@ -38,16 +38,21 @@ const pickData = ref([
     { id: 'orders', name: '订单管理', icon: '📦' },
     { id: 'products', name: '商品管理', icon: '🏷️' },
   ],
-])
+]);
 
 // 已选菜单（用于 OrderList，与 PickList 右侧同步）
 const selectedMenus = computed({
   get: () => pickData.value[1],
-  set: (val) => { pickData.value = [pickData.value[0], val] },
-})
+  set: (val) => {
+    pickData.value = [pickData.value[0], val];
+  },
+});
 
 function handleSubmit() {
-  console.log('菜单配置：', selectedMenus.value.map(m => m.name))
+  console.log(
+    '菜单配置：',
+    selectedMenus.value.map((m) => m.name),
+  );
 }
 </script>
 
@@ -95,10 +100,10 @@ function handleSubmit() {
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const roles = ['管理员', '编辑者', '访客']
-const currentRole = ref('管理员')
+const roles = ['管理员', '编辑者', '访客'];
+const currentRole = ref('管理员');
 
 // 各角色的权限配置
 const rolePermissions = ref({
@@ -147,21 +152,26 @@ const rolePermissions = ref({
       { id: 'user:delete', label: '删除用户' },
       { id: 'role:read', label: '查看角色' },
     ],
-    [
-      { id: 'user:read', label: '查看用户' },
-    ],
+    [{ id: 'user:read', label: '查看用户' }],
   ],
-})
+});
 
 const currentPick = computed({
   get: () => rolePermissions.value[currentRole.value],
-  set: (val) => { rolePermissions.value[currentRole.value] = val },
-})
+  set: (val) => {
+    rolePermissions.value[currentRole.value] = val;
+  },
+});
 
 const currentOrder = computed({
   get: () => rolePermissions.value[currentRole.value][1],
-  set: (val) => { rolePermissions.value[currentRole.value] = [rolePermissions.value[currentRole.value][0], val] },
-})
+  set: (val) => {
+    rolePermissions.value[currentRole.value] = [
+      rolePermissions.value[currentRole.value][0],
+      val,
+    ];
+  },
+});
 </script>
 
 <template>
@@ -209,7 +219,7 @@ const currentOrder = computed({
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 const dashboardConfig = ref([
   // 左侧：所有可用的仪表盘组件
@@ -232,18 +242,22 @@ const dashboardConfig = ref([
     { id: 'tasks', name: '待办事项列表', icon: '✅', category: '任务' },
     { id: 'notif', name: '通知公告', icon: '🔔', category: '信息' },
   ],
-])
+]);
 
 const activeWidgets = computed({
   get: () => dashboardConfig.value[1],
-  set: (val) => { dashboardConfig.value = [dashboardConfig.value[0], val] },
-})
+  set: (val) => {
+    dashboardConfig.value = [dashboardConfig.value[0], val];
+  },
+});
 
 function handleSave() {
   const layout = activeWidgets.value.map((w, i) => ({
-    id: w.id, name: w.name, order: i,
-  }))
-  console.log('仪表盘布局保存：', layout)
+    id: w.id,
+    name: w.name,
+    order: i,
+  }));
+  console.log('仪表盘布局保存：', layout);
 }
 </script>
 
@@ -288,7 +302,9 @@ function handleSave() {
     </div>
 
     <!-- 底部操作栏 -->
-    <div class="flex items-center justify-between border-t bg-neutral-50 px-4 py-3">
+    <div
+      class="flex items-center justify-between border-t bg-neutral-50 px-4 py-3"
+    >
       <span class="text-xs text-neutral-500">
         提示：排序结果影响首页组件展示顺序
       </span>

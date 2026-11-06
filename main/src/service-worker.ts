@@ -24,7 +24,8 @@ export async function registerServiceWorker(): Promise<void> {
   }
 
   // 检查是否在安全上下文中（HTTPS 或 localhost）
-  const isSecureContext = window.location.protocol === 'https:' || window.location.hostname === 'localhost';
+  const isSecureContext =
+    window.location.protocol === 'https:' || window.location.hostname === 'localhost';
   if (!isSecureContext) {
     logger.warn('[ServiceWorker] Service Worker requires HTTPS or localhost');
     return;

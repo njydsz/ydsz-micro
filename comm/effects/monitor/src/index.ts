@@ -40,9 +40,7 @@ export {
 } from './breadcrumb';
 export type { YdBreadcrumb, BreadcrumbCategory, BreadcrumbLevel } from './breadcrumb';
 
-export {
-  setupMonitor,
-} from './setup';
+export { setupMonitor } from './setup';
 
 // v4.4.0: 上报端点集中配置
 export {

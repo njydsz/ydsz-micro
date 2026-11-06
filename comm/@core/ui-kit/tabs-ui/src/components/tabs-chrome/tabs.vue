@@ -149,12 +149,7 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         @keydown="handleKeydown($event, i)"
         @mousedown="onMouseDown($event, tab)"
       >
-        <YdContextMenu
-          :handler-data="tab"
-          :menus="contextMenus"
-          :modal="false"
-          item-class="pr-6"
-        >
+        <YdContextMenu :handler-data="tab" :menus="contextMenus" :modal="false" item-class="pr-6">
           <div class="relative size-full px-1">
             <!-- divider -->
             <div

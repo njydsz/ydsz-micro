@@ -10,23 +10,12 @@
  * @since 4.2.0
  */
 
-export {
-  onLocaleChange,
-  registerLocaleProvider,
-  useLocaleSync,
-} from './use-locale-sync';
-export type {
-  UseLocaleSyncOptions,
-  UseLocaleSyncReturn,
-} from './use-locale-sync';
+export { onLocaleChange, registerLocaleProvider, useLocaleSync } from './use-locale-sync';
+export type { UseLocaleSyncOptions, UseLocaleSyncReturn } from './use-locale-sync';
 export {
   initThemeForSubApp,
   onThemeChange,
   registerThemeProvider,
   useThemeSync,
 } from './use-theme-sync';
-export type {
-  ThemeMode,
-  UseThemeSyncOptions,
-  UseThemeSyncReturn,
-} from './use-theme-sync';
+export type { ThemeMode, UseThemeSyncOptions, UseThemeSyncReturn } from './use-theme-sync';

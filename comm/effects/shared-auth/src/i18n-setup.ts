@@ -19,11 +19,7 @@ import type { App } from 'vue';
 import type { LocaleSetupOptions, SupportedLanguagesType } from '@ydsz/locales';
 
 import { onLocaleChange } from '@ydsz/micro-kernel/composables';
-import {
-  $t,
-  loadLocalesMapFromDir,
-  setupI18n as coreSetup,
-} from '@ydsz/locales';
+import { $t, loadLocalesMapFromDir, setupI18n as coreSetup } from '@ydsz/locales';
 import { preferences } from '@ydsz/preferences';
 
 import dayjs from 'dayjs';
@@ -74,14 +70,8 @@ export interface SubAppI18nInstance {
  * export const { $t, setupI18n } = createSubAppI18n({ modules });
  * ```
  */
-export function createSubAppI18n(
-  options: CreateSubAppI18nOptions,
-): SubAppI18nInstance {
-  const {
-    modules,
-    pattern = DEFAULT_LANG_PATTERN,
-    setupOptions,
-  } = options;
+export function createSubAppI18n(options: CreateSubAppI18nOptions): SubAppI18nInstance {
+  const { modules, pattern = DEFAULT_LANG_PATTERN, setupOptions } = options;
 
   const localesMap = loadLocalesMapFromDir(pattern, modules);
 
@@ -91,10 +81,7 @@ export function createSubAppI18n(
    * 与第三方组件库语言包并行加载；此处也可改造为从服务端拉取翻译数据。
    */
   async function loadMessages(lang: SupportedLanguagesType) {
-    const [appLocaleMessages] = await Promise.all([
-      localesMap[lang]?.(),
-      loadDayjsLocale(lang),
-    ]);
+    const [appLocaleMessages] = await Promise.all([localesMap[lang]?.(), loadDayjsLocale(lang)]);
     return appLocaleMessages?.default;
   }
 

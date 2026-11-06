@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Progress Circle —— 圆形进度环。
-* 
+ * Progress Circle —— 圆形进度环。
+ *
  * 使用 SVG 双 circle 实现：track 轨道 + indicator 指示器，
  * 通过 stroke-dasharray / stroke-dashoffset 完成「填充长度」的可动画控制。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\progress\YdProgressCircle.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -95,7 +95,7 @@ const cy = computed(() => props.size / 2);
     <!-- 中心百分比文本 -->
     <span
       v-if="showInfo"
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-medium text-foreground tabular-nums"
+      class="text-foreground absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-medium tabular-nums"
     >
       {{ safeValue }}%
     </span>

@@ -86,11 +86,7 @@ function isHttpUrl(url?: string): boolean {
  * @returns {boolean} 如果值是window对象，返回true，否则返回false。
  */
 function isWindow(value: unknown): value is Window {
-  return (
-    typeof window !== 'undefined' &&
-    value !== null &&
-    value === (value as Window).window
-  );
+  return typeof window !== 'undefined' && value !== null && value === (value as Window).window;
 }
 
 /**
@@ -134,9 +130,7 @@ function isNumber(value: unknown): value is number {
  * getFirstNonNullOrUndefined(null, undefined);              // undefined
  * ```
  */
-function getFirstNonNullOrUndefined<T>(
-  ...values: (null | T | undefined)[]
-): T | undefined {
+function getFirstNonNullOrUndefined<T>(...values: (null | T | undefined)[]): T | undefined {
   for (const value of values) {
     if (value !== undefined && value !== null) {
       return value;

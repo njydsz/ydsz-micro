@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* 表格单元格：td 语义，支持对齐与文本截断。
-* 
+ * 表格单元格：td 语义，支持对齐与文本截断。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableCell.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -36,7 +36,7 @@ const alignClass = {
       cn(
         'px-2 py-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
         alignClass[props.align],
-        truncate && 'truncate max-w-[200px]',
+        truncate && 'max-w-[200px] truncate',
         $props.class ?? '',
       )
     "

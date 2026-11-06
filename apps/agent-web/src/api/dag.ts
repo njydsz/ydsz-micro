@@ -30,9 +30,7 @@ export function execute(data: DagExecutionDTO): Promise<unknown> {
 /**
  * getCheckpoint: GET /agent/dag/checkpoint/{executionId}
  */
-export function getCheckpoint({ executionId }: {
-    executionId: string;
-  }): Promise<DagCheckpoint> {
+export function getCheckpoint({ executionId }: { executionId: string }): Promise<DagCheckpoint> {
   return requestClient.get<DagCheckpoint>(`/agent/dag/checkpoint/${executionId}`);
 }
 

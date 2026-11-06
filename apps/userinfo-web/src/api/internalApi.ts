@@ -16,9 +16,7 @@ import type { DepartmentTreeVO, DepartmentVO, UserAccountVO } from './models';
 /**
  * getUserInfo: GET /internal/user/info
  */
-export function getUserInfo(params: {
-    userId?: string;
-  }): Promise<UserAccountVO> {
+export function getUserInfo(params: { userId?: string }): Promise<UserAccountVO> {
   return requestClient.get<UserAccountVO>(`/internal/user/info`, { params });
 }
 
@@ -39,63 +37,49 @@ export function getDeptList(): Promise<DepartmentVO[]> {
 /**
  * listUserIdsByRole: GET /internal/user/list-by-role
  */
-export function listUserIdsByRole(params: {
-    roleCode?: string;
-  }): Promise<string[]> {
+export function listUserIdsByRole(params: { roleCode?: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/internal/user/list-by-role`, { params });
 }
 
 /**
  * listRoleCodesByUserId: GET /internal/user/role-codes
  */
-export function listRoleCodesByUserId(params: {
-    userId?: string;
-  }): Promise<string[]> {
+export function listRoleCodesByUserId(params: { userId?: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/internal/user/role-codes`, { params });
 }
 
 /**
  * listDeptIdsByUserId: GET /internal/user/dept-ids
  */
-export function listDeptIdsByUserId(params: {
-    userId?: string;
-  }): Promise<string[]> {
+export function listDeptIdsByUserId(params: { userId?: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/internal/user/dept-ids`, { params });
 }
 
 /**
  * getLeaderByUserId: GET /internal/user/leader
  */
-export function getLeaderByUserId(params: {
-    userId?: string;
-  }): Promise<string> {
+export function getLeaderByUserId(params: { userId?: string }): Promise<string> {
   return requestClient.get<string>(`/internal/user/leader`, { params });
 }
 
 /**
  * listUserIdsByPosition: GET /internal/user/list-by-position
  */
-export function listUserIdsByPosition(params: {
-    positionCode?: string;
-  }): Promise<string[]> {
+export function listUserIdsByPosition(params: { positionCode?: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/internal/user/list-by-position`, { params });
 }
 
 /**
  * getDeptLeaderByDeptId: GET /internal/dept/leader-by-id
  */
-export function getDeptLeaderByDeptId(params: {
-    deptId?: string;
-  }): Promise<string> {
+export function getDeptLeaderByDeptId(params: { deptId?: string }): Promise<string> {
   return requestClient.get<string>(`/internal/dept/leader-by-id`, { params });
 }
 
 /**
  * getDeptLeaderByDeptCode: GET /internal/dept/leader-by-code
  */
-export function getDeptLeaderByDeptCode(params: {
-    deptCode?: string;
-  }): Promise<string> {
+export function getDeptLeaderByDeptCode(params: { deptCode?: string }): Promise<string> {
   return requestClient.get<string>(`/internal/dept/leader-by-code`, { params });
 }
 
@@ -137,9 +121,6 @@ export function batchCompanyNames(data: string[]): Promise<Record<string, string
 /**
  * verifyPassword: GET /internal/user/verify-password
  */
-export function verifyPassword(params: {
-    userId?: string;
-    password?: string;
-  }): Promise<boolean> {
+export function verifyPassword(params: { userId?: string; password?: string }): Promise<boolean> {
   return requestClient.get<boolean>(`/internal/user/verify-password`, { params });
 }

@@ -144,7 +144,9 @@ function collectFailures(deployDir, dockerfile, sink) {
   const nginxSrc = existsSync(NGINX_FILE) ? readFileSync(NGINX_FILE, 'utf8') : '';
   const httpSlice = nginxSrc.slice(nginxSrc.indexOf('http {'), nginxSrc.indexOf('server {'));
   if (!httpSlice.includes(INCLUDE_DIRECTIVE)) {
-    sink.push('nginx.conf 的 http 层未 include security-headers.conf（/api/、/ws/ 等裸 location 将无安全头）');
+    sink.push(
+      'nginx.conf 的 http 层未 include security-headers.conf（/api/、/ws/ 等裸 location 将无安全头）',
+    );
   }
   if (/^\s*add_header\s/m.test(httpSlice)) {
     sink.push('nginx.conf 的 http 层仍有游离 add_header，应统一由 security-headers.conf 提供');
@@ -173,7 +175,9 @@ function collectFailures(deployDir, dockerfile, sink) {
 
       // I1：声明了 add_header 却不 include → 安全头被静默丢弃
       if (/add_header\s/.test(d) && !d.includes(INCLUDE_DIRECTIVE)) {
-        sink.push(`${tag} 声明了 add_header 但未 include security-headers.conf（add_header 不跨层继承）`);
+        sink.push(
+          `${tag} 声明了 add_header 但未 include security-headers.conf（add_header 不跨层继承）`,
+        );
       }
 
       // I2：一年 immutable 只允许出现在扩展名正则块，且必须禁止 HTML 兜底
@@ -182,7 +186,9 @@ function collectFailures(deployDir, dockerfile, sink) {
           sink.push(`${tag} 对非扩展名正则块施加了一年缓存（入口 HTML 命中即发版失效）`);
         }
         if (!/try_files\s+\$uri\s+=404/.test(d)) {
-          sink.push(`${tag} 使用 immutable 却缺少 try_files $uri =404（文件缺失会回落 HTML → HTML 当 JS 执行）`);
+          sink.push(
+            `${tag} 使用 immutable 却缺少 try_files $uri =404（文件缺失会回落 HTML → HTML 当 JS 执行）`,
+          );
         }
       }
 
@@ -206,12 +212,20 @@ function collectFailures(deployDir, dockerfile, sink) {
 
       // I6：expires 与显式 Cache-Control 双写易失配，统一只用 Cache-Control
       if (/^\s*expires\s/m.test(d)) {
-        sink.push(`${tag} 使用 expires 指令（会与 Cache-Control 双写），改用显式 add_header Cache-Control`);
+        sink.push(
+          `${tag} 使用 expires 指令（会与 Cache-Control 双写），改用显式 add_header Cache-Control`,
+        );
       }
 
       // I7：最外层（server 级）不得保留扩展名正则缓存块——它会劫持应用前缀 location
-      if (block.depth === outerDepth && /^~\*/.test(block.pattern) && /add_header\s+Cache-Control/.test(d)) {
-        sink.push(`${tag} 位于 server 最外层却设置 Cache-Control，会劫持 ${label} 内所有应用前缀 location`);
+      if (
+        block.depth === outerDepth &&
+        /^~\*/.test(block.pattern) &&
+        /add_header\s+Cache-Control/.test(d)
+      ) {
+        sink.push(
+          `${tag} 位于 server 最外层却设置 Cache-Control，会劫持 ${label} 内所有应用前缀 location`,
+        );
       }
     }
   }
@@ -297,7 +311,9 @@ function selfTest() {
     writeFileSync(join(dir, 'nginx-sub-apps.conf'), FIXTURE['nginx-sub-apps.conf'], 'utf8');
     const sink = [];
     collectFailures(dir, join(dir, 'Dockerfile-not-exist.conf'), sink);
-    const missed = REQUIRED_DETECTIONS.filter(([, needle]) => !sink.some((f) => f.includes(needle)));
+    const missed = REQUIRED_DETECTIONS.filter(
+      ([, needle]) => !sink.some((f) => f.includes(needle)),
+    );
     if (missed.length > 0) {
       console.error('❌ 门禁自检失败：修复前的反例未被下列不变量捕获，说明检查已空转：');
       for (const [name] of missed) console.error(`  - ${name}`);

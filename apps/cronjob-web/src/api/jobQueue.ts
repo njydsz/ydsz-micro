@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * getQueueStatus: GET /cronjob/queue/status
  */

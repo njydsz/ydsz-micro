@@ -23,18 +23,14 @@ export function search(data: SearchRequest): Promise<SearchResultVO> {
 /**
  * suggest: GET /nextwiki/search/suggest
  */
-export function suggest(params: {
-    prefix?: string;
-  }): Promise<string[]> {
+export function suggest(params: { prefix?: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/nextwiki/search/suggest`, { params });
 }
 
 /**
  * didYouMean: GET /nextwiki/search/did-you-mean
  */
-export function didYouMean(params: {
-    keyword?: string;
-  }): Promise<string[]> {
+export function didYouMean(params: { keyword?: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/nextwiki/search/did-you-mean`, { params });
 }
 
@@ -70,10 +66,10 @@ export function getHotSearches(): Promise<Record<string, unknown>[]> {
  * advancedSearch: GET /nextwiki/search/advanced
  */
 export function advancedSearch(params: {
-    rawInput?: string;
-    scope?: string;
-    page?: number;
-    pageSize?: number;
-  }): Promise<SearchResultVO> {
+  rawInput?: string;
+  scope?: string;
+  page?: number;
+  pageSize?: number;
+}): Promise<SearchResultVO> {
   return requestClient.get<SearchResultVO>(`/nextwiki/search/advanced`, { params });
 }

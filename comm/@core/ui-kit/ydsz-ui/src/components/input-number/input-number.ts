@@ -10,27 +10,24 @@ import { cva } from 'class-variance-authority';
 /**
  * 尺寸变体。
  */
-export const inputNumberVariants = cva(
-  'relative inline-flex items-stretch',
-  {
-    defaultVariants: {
-      size: 'default',
-    },
-    variants: {
-      size: {
-        default: 'h-9',
-        large: 'h-11',
-        small: 'h-8 text-sm',
-      },
+export const inputNumberVariants = cva('relative inline-flex items-stretch', {
+  defaultVariants: {
+    size: 'default',
+  },
+  variants: {
+    size: {
+      default: 'h-9',
+      large: 'h-11',
+      small: 'h-8 text-sm',
     },
   },
-);
+});
 
 /**
  * 输入框尺寸类映射。
  */
 export const inputNumberInputVariants = cva(
-  'border-y px-3 text-center outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+  'focus:border-primary focus:ring-ring border-y px-3 text-center outline-none transition-colors focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     defaultVariants: {
       size: 'default',

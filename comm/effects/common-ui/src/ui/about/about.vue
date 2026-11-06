@@ -10,11 +10,7 @@ import type { AboutProps, DescriptionItem } from './about';
 
 import { computed, h } from 'vue';
 
-import {
-  YDSZ_DOC_URL,
-  YDSZ_GITHUB_URL,
-  YDSZ_PREVIEW_URL,
-} from '@ydsz/constants';
+import { YDSZ_DOC_URL, YDSZ_GITHUB_URL, YDSZ_PREVIEW_URL } from '@ydsz/constants';
 import { $t } from '@ydsz/locales';
 
 import { YdRenderContent } from '@ydsz-core/ydsz-ui';
@@ -50,11 +46,7 @@ declare global {
 }
 
 const renderLink = (href: string, text: string) =>
-  h(
-    'a',
-    { href, target: '_blank', class: 'yd-link' },
-    { default: () => text },
-  );
+  h('a', { href, target: '_blank', class: 'yd-link' }, { default: () => text });
 
 const {
   authorEmail,

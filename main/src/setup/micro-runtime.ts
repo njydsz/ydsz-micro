@@ -11,7 +11,7 @@
  * @author ydsz-team
  * @since 4.1.0
  */
-import { watchEffect } from "vue";
+import { watchEffect } from 'vue';
 
 import {
   createKernel,
@@ -20,17 +20,17 @@ import {
   getVersionManager,
   setErrorFallbackMessages,
   setStaticRegistry,
-} from "@ydsz/micro-kernel";
-import { registerPreloadAdapter } from "@ydsz-core/menu-ui";
-import { getProdEntry, MICRO_APPS, PATH_TO_APP_MAP } from "@ydsz/constants";
-import { createRuntime, registerKernel, type MicroAppConfig } from "@ydsz/micro-runtime";
-import { preferences } from "@ydsz/preferences";
-import { startProgress, stopProgress } from "@ydsz/utils";
+} from '@ydsz/micro-kernel';
+import { registerPreloadAdapter } from '@ydsz-core/menu-ui';
+import { getProdEntry, MICRO_APPS, PATH_TO_APP_MAP } from '@ydsz/constants';
+import { createRuntime, registerKernel, type MicroAppConfig } from '@ydsz/micro-runtime';
+import { preferences } from '@ydsz/preferences';
+import { startProgress, stopProgress } from '@ydsz/utils';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { recordSubAppTabOpened } from "#/hooks/use-tabbar-micro-sync";
-import { router } from "#/router";
+import { recordSubAppTabOpened } from '#/hooks/use-tabbar-micro-sync';
+import { router } from '#/router';
 
 /**
  * 单个 micro-runtime 实例（整个主应用生命周期唯一，供其他模块获取）。
@@ -41,27 +41,25 @@ import { router } from "#/router";
 export let microRuntime: null | ReturnType<typeof createRuntime> = null;
 
 /** 微运行时日志器 */
-const runtimeLogger = createLogger("MicroRuntime");
+const runtimeLogger = createLogger('MicroRuntime');
 /** 版本管理器日志器 */
-const versionLogger = createLogger("VersionManager");
+const versionLogger = createLogger('VersionManager');
 
 /** 注册表模式：默认 'auto'（优先远程，回退静态），可通过 VITE_MICRO_APPS_REGISTRY_MODE 覆盖 */
-function getRegistryMode(): "auto" | "remote" | "static" {
+function getRegistryMode(): 'auto' | 'remote' | 'static' {
   const mode = import.meta.env.VITE_MICRO_APPS_REGISTRY_MODE;
-  if (mode === "static" || mode === "remote" || mode === "auto") return mode;
+  if (mode === 'static' || mode === 'remote' || mode === 'auto') return mode;
   // 若未配 VITE_MICRO_APPS_REGISTRY_MODE 但配了 VITE_MICRO_APPS_REGISTRY endpoint，自动启用 remote
-  if (import.meta.env.VITE_MICRO_APPS_REGISTRY) return "remote";
-  return "auto";
+  if (import.meta.env.VITE_MICRO_APPS_REGISTRY) return 'remote';
+  return 'auto';
 }
 
 /** 子应用静态注册配置（静态模式 / 远程注册表失败回退共用） */
 function buildStaticAppConfigs() {
   return MICRO_APPS.map((app) => ({
     name: app.name,
-    entry: import.meta.env.DEV
-      ? `//localhost:${app.devPort}`
-      : getProdEntry(app),
-    container: "#subapp-container",
+    entry: import.meta.env.DEV ? `//localhost:${app.devPort}` : getProdEntry(app),
+    container: '#subapp-container',
     activeRule: app.activeRule,
     sandbox: app.sandbox,
   }));
@@ -79,15 +77,15 @@ function buildStaticAppConfigs() {
  */
 export function registerMicroRuntime() {
   // 1. 注册 micro-kernel 内核
-  registerKernel("micro-kernel", () => createKernel());
+  registerKernel('micro-kernel', () => createKernel());
 
   // 1.1 v4.3.0: 注入静态注册表（内核依赖反转，见 registry-adapter.setStaticRegistry）
   //     远程注册表拉取失败时的回退数据源，内核不再直接依赖构建配置包。
   setStaticRegistry(MICRO_APPS);
 
   // 2. 创建运行时实例
-  microRuntime = createRuntime({ kernel: "micro-kernel" });
-  runtimeLogger.info("Initialized with kernel: micro-kernel");
+  microRuntime = createRuntime({ kernel: 'micro-kernel' });
+  runtimeLogger.info('Initialized with kernel: micro-kernel');
 
   // 2.1 接线：菜单 hover 预加载适配器（依赖反转，见 @ydsz-core/menu-ui preload-adapter）
   //     底层 UI 组件不直接依赖 micro-kernel，由主应用在此组装二者。
@@ -109,7 +107,7 @@ export function registerMicroRuntime() {
       }
     },
   });
-  versionLogger.info("Initialized");
+  versionLogger.info('Initialized');
 
   // v3.3: 同步 error-boundary 降级 UI 文案至当前偏好语言
   // watchEffect 保证后续语言切换时文案自动更新
@@ -121,7 +119,7 @@ export function registerMicroRuntime() {
   // 4. 注入子应用配置（支持异步注册表）
   const registryMode = getRegistryMode();
 
-  if (registryMode === "static") {
+  if (registryMode === 'static') {
     // === 静态注册（同步） ===
     microRuntime!.registerApps(buildStaticAppConfigs());
     finishRuntimeSetup();
@@ -133,15 +131,11 @@ export function registerMicroRuntime() {
         const configs = await microRuntime!.registerAppsAsync({
           adapter: registryMode,
         });
-        runtimeLogger.info(
-          `Registry resolved: ${configs.length} apps registered`,
-        );
+        runtimeLogger.info(`Registry resolved: ${configs.length} apps registered`);
         finishRuntimeSetup();
       } catch (error) {
         // 注册表拉取失败：回退到静态配置
-        runtimeLogger.warn(
-          `Registry fetch failed (${String(error)}), fallback to static`,
-        );
+        runtimeLogger.warn(`Registry fetch failed (${String(error)}), fallback to static`);
         microRuntime!.registerApps(buildStaticAppConfigs());
         finishRuntimeSetup();
       }
@@ -157,32 +151,32 @@ function finishRuntimeSetup() {
   if (!microRuntime) return;
 
   // 5. 生命周期钩子
-  microRuntime.addLifecycleHook("beforeLoad", (app: MicroAppConfig) => {
+  microRuntime.addLifecycleHook('beforeLoad', (app: MicroAppConfig) => {
     runtimeLogger.debug(`子应用 ${app.name} 开始加载...`);
     if (preferences.transition.progress) {
       startProgress();
     }
   });
-  microRuntime.addLifecycleHook("afterMount", (app: MicroAppConfig) => {
+  microRuntime.addLifecycleHook('afterMount', (app: MicroAppConfig) => {
     runtimeLogger.debug(`子应用 ${app.name} 挂载完成`);
     if (preferences.transition.progress) {
       stopProgress();
     }
   });
-  microRuntime.addLifecycleHook("error", (app: MicroAppConfig, err) => {
+  microRuntime.addLifecycleHook('error', (app: MicroAppConfig, err) => {
     runtimeLogger.error(`子应用 ${app.name} 加载/挂载失败:`, err);
     if (preferences.transition.progress) {
       stopProgress();
     }
   });
-  microRuntime.addLifecycleHook("afterUnmount", (app: MicroAppConfig) => {
+  microRuntime.addLifecycleHook('afterUnmount', (app: MicroAppConfig) => {
     runtimeLogger.debug(`子应用 ${app.name} 卸载完成`);
   });
 
   // 6. 启动：micro-kernel 内建 prefetch 预热高频应用
   const prefetchApps = import.meta.env.VITE_PREFETCH_APPS
-    ? import.meta.env.VITE_PREFETCH_APPS.split(",").map((s: string) => s.trim())
-    : ["userinfo-web"];
+    ? import.meta.env.VITE_PREFETCH_APPS.split(',').map((s: string) => s.trim())
+    : ['userinfo-web'];
 
   microRuntime.start({
     prefetch: (app) => prefetchApps.includes(app.name),

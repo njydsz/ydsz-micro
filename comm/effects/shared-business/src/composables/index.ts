@@ -46,18 +46,10 @@ export {
 } from './use-server-pagination';
 
 // —— 通用 CRUD 列表 ——
-export {
-  useCrudTable,
-  type CrudTableOptions,
-  type DeleteFetcher,
-} from './use-crud-table';
+export { useCrudTable, type CrudTableOptions, type DeleteFetcher } from './use-crud-table';
 
 // —— 字典事件 ——
-export {
-  emitDictChange,
-  onDictChange,
-  type DictChangeEventDetail,
-} from './use-dict-event';
+export { emitDictChange, onDictChange, type DictChangeEventDetail } from './use-dict-event';
 
 // —— 字典 SSE 订阅 ——
 export {
@@ -87,27 +79,13 @@ export {
 } from './use-flow-designer';
 
 // —— 用户引导 ——
-export {
-  useAppTour,
-  type AppTourOptions,
-  type TourStep,
-} from './use-app-tour';
+export { useAppTour, type AppTourOptions, type TourStep } from './use-app-tour';
 
 // —— 响应式 ——
-export {
-  useResponsive,
-  type ResponsiveColumn,
-} from './use-responsive';
+export { useResponsive, type ResponsiveColumn } from './use-responsive';
 
 // —— 二次身份验证 ——
-export {
-  useSecondaryAuth,
-  openSecondaryAuthModal,
-} from './use-secondary-auth';
+export { useSecondaryAuth, openSecondaryAuthModal } from './use-secondary-auth';
 
 // —— 子应用启动统一工厂 ——
-export {
-  defineYdzSubApp,
-  type SubAppOptions,
-  type SubAppInstance,
-} from './use-bootstrap';
+export { defineYdzSubApp, type SubAppOptions, type SubAppInstance } from './use-bootstrap';

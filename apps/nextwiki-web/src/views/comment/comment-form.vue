@@ -72,7 +72,12 @@ const [Modal, modalApi] = useYdModal({
     mentionOptions.value = [];
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch (error) { logger.debug("表单校验未通过: {}", error); return; }
+    try {
+      await formRef.value?.validate();
+    } catch (error) {
+      logger.debug('表单校验未通过: {}', error);
+      return;
+    }
     modalApi.lock();
     try {
       await addComment({
@@ -82,13 +87,21 @@ const [Modal, modalApi] = useYdModal({
       showToast.success(t('createSuccess'));
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 </script>
 <template>
   <Modal title="新增评论">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem label="文件节点ID" prop="fileNodeId">
         <YdInput v-model="formData.fileNodeId" placeholder="请输入文件节点ID" />
       </YdFormItem>

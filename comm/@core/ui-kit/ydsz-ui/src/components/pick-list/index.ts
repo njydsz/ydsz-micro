@@ -7,8 +7,4 @@
  */
 
 export { default as YdPickList } from './YdPickList.vue';
-export type {
-  YdPickListProps,
-  PickListEmits,
-  PickListMoveEvent,
-} from './types';
+export type { YdPickListProps, PickListEmits, PickListMoveEvent } from './types';

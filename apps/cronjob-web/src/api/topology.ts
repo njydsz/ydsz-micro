@@ -6,5 +6,9 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export { getDagInstanceCytoscape, getDagInstanceTopology, getJobExecutionHistory } from './taskTopology';
+export {
+  getDagInstanceCytoscape,
+  getDagInstanceTopology,
+  getJobExecutionHistory,
+} from './taskTopology';
 export { getGlobalTopology } from './globalTopology';

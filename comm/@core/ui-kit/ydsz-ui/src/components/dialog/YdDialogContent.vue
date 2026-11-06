@@ -1,15 +1,15 @@
 <script setup lang="ts">
 /**
-* YdDialogContent Vue 组件 - 现代化弹窗样式
-* 
+ * YdDialogContent Vue 组件 - 现代化弹窗样式
+ *
  * 相比原版新增三个关闭抑制开关：
  *  - `closeOnOverlayClick`：默认 true；置 false 后点击遮罩不再关闭弹窗
  *  - `closeOnEsc`：默认 true；置 false 后 ESC 不再关闭弹窗
  *  - `showClose`：默认 true；置 false 后隐藏右上角关闭按钮
-* 
+ *
  * 这三个开关共同覆盖「二次鉴权 / 强制阅读」等需要强制用户完成操作的交互场景；
  * 关闭行为一律交由调用方通过 v-model:open 显式控制。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialogContent.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -61,9 +61,7 @@ const props = withDefaults(
     showClose: true,
   },
 );
-const emits = defineEmits<
-  DialogContentEmits & { close: []; closed: []; opened: [] }
->();
+const emits = defineEmits<DialogContentEmits & { close: []; closed: []; opened: [] }>();
 
 const delegatedProps = computed(() => {
   const {
@@ -81,11 +79,7 @@ const delegatedProps = computed(() => {
 });
 
 function isAppendToBody(): boolean {
-  return (
-    props.appendTo === 'body' ||
-    props.appendTo === document.body ||
-    !props.appendTo
-  );
+  return props.appendTo === 'body' || props.appendTo === document.body || !props.appendTo;
 }
 
 const position = computed(() => {
@@ -141,8 +135,7 @@ defineExpose({
         :style="{
           ...(zIndex ? { zIndex } : {}),
           position,
-          backdropFilter:
-            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
+          backdropFilter: overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
         }"
         @click="handleOverlayClose"
       />
@@ -155,7 +148,7 @@ defineExpose({
       v-bind="forwarded"
       :class="
         cn(
-          'z-popup bg-surface-2 w-full p-6 shadow-outline outline-none sm:rounded-xl',
+          'z-popup bg-surface-2 shadow-outline w-full p-6 outline-none sm:rounded-xl',
           'data-[state=open]:animate-in data-[state=closed]:animate-out',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
           'data-[state=closed]:scale-out-95 data-[state=open]:scale-in-95',

@@ -25,9 +25,7 @@ describe('findMenuByPath', () => {
           path: '/business/report',
           name: 'Report',
           title: '报表',
-          children: [
-            { path: '/business/report/sales', name: 'SalesReport', title: '销售报表' },
-          ],
+          children: [{ path: '/business/report/sales', name: 'SalesReport', title: '销售报表' }],
         },
       ],
     },

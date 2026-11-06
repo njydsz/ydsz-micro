@@ -14,21 +14,25 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * ingest: POST /agent/knowledge/ingest
  */
-export function ingest(data: Record<string, string>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/agent/knowledge/ingest`, data);
+export function ingest(
+  data: Record<string, string>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/agent/knowledge/ingest`,
+    data,
+  );
 }
 
 /**
  * searchEntities: GET /agent/knowledge/entity/search
  */
 export function searchEntities(params: {
-    query?: string;
-    depth?: number;
-  }): Promise<Record<string, unknown>[]> {
+  query?: string;
+  depth?: number;
+}): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/agent/knowledge/entity/search`, { params });
 }
 
@@ -40,21 +44,30 @@ export function searchEntities(params: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function querySubgraph({ entityId }: {
+export function querySubgraph(
+  {
+    entityId,
+  }: {
     entityId: string;
-  }, params: {
+  },
+  params: {
     depth?: number;
-  }): Promise<unknown> {
+  },
+): Promise<unknown> {
   return requestClient.get<unknown>(`/agent/knowledge/entity/${entityId}/subgraph`, { params });
 }
 
 /**
  * queryRelations: GET /agent/knowledge/entity/{entityId}/relations
  */
-export function queryRelations({ entityId }: {
-    entityId: string;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/agent/knowledge/entity/${entityId}/relations`);
+export function queryRelations({
+  entityId,
+}: {
+  entityId: string;
+}): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(
+    `/agent/knowledge/entity/${entityId}/relations`,
+  );
 }
 
 /**

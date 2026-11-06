@@ -77,17 +77,8 @@ export {
 } from './composables';
 
 // ===== Figma Sync =====
-export {
-  exportToFigma,
-  importFromFigma,
-  generateFigmaPluginConfig,
-} from './figma-sync';
-export type {
-  TokenDiff,
-  FigmaTokenFile,
-  FigmaTokenGroup,
-  FigmaTokenValue,
-} from './figma-sync';
+export { exportToFigma, importFromFigma, generateFigmaPluginConfig } from './figma-sync';
+export type { TokenDiff, FigmaTokenFile, FigmaTokenGroup, FigmaTokenValue } from './figma-sync';
 
 // ===== Figma Variable Collections =====
 export { generateFigmaVariableCollections } from './figma-sync-variable-collections';

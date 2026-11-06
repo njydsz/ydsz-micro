@@ -21,11 +21,11 @@ import type { FileNodeVO } from './models';
  * 函数内部自动构造 FormData 并以 multipart/form-data 提交。
  */
 export function upload(params: {
-    file?: Record<string, unknown>;
-    parentId?: string;
-    rename?: string;
-    versionRemark?: string;
-  }): Promise<FileNodeVO> {
+  file?: Record<string, unknown>;
+  parentId?: string;
+  rename?: string;
+  versionRemark?: string;
+}): Promise<FileNodeVO> {
   const formData = new FormData();
   if (params?.file != null) {
     formData.append('file', params.file as Blob);
@@ -53,51 +53,64 @@ export function createFolder(data: Record<string, unknown>): Promise<FileNodeVO>
  * listFiles: GET /nextwiki/files/list
  */
 export function listFiles(params: {
-    parentId?: string;
-    sortBy?: string;
-    sortDir?: string;
-    type?: string;
-    page?: number;
-    pageSize?: number;
-  }): Promise<PageResponse<FileNodeVO[]>> {
+  parentId?: string;
+  sortBy?: string;
+  sortDir?: string;
+  type?: string;
+  page?: number;
+  pageSize?: number;
+}): Promise<PageResponse<FileNodeVO[]>> {
   return requestClient.get<PageResponse<FileNodeVO[]>>(`/nextwiki/files/list`, { params });
 }
 
 /**
  * move: PUT /nextwiki/files/{nodeId}/move
  */
-export function move({ nodeId }: {
+export function move(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, data: Record<string, unknown>): Promise<FileNodeVO> {
+  },
+  data: Record<string, unknown>,
+): Promise<FileNodeVO> {
   return requestClient.put<FileNodeVO>(`/nextwiki/files/${nodeId}/move`, data);
 }
 
 /**
  * rename: PUT /nextwiki/files/{nodeId}/rename
  */
-export function rename({ nodeId }: {
+export function rename(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, data: Record<string, unknown>): Promise<FileNodeVO> {
+  },
+  data: Record<string, unknown>,
+): Promise<FileNodeVO> {
   return requestClient.put<FileNodeVO>(`/nextwiki/files/${nodeId}/rename`, data);
 }
 
 /**
  * delete: DELETE /nextwiki/files/{nodeId}
  */
-export function deleteApi({ nodeId }: {
-    nodeId: string;
-  }): Promise<void> {
+export function deleteApi({ nodeId }: { nodeId: string }): Promise<void> {
   return requestClient.delete<void>(`/nextwiki/files/${nodeId}`);
 }
 
 /**
  * copy: POST /nextwiki/files/{nodeId}/copy
  */
-export function copy({ nodeId }: {
+export function copy(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, params: {
+  },
+  params: {
     targetParentId?: string;
-  }): Promise<FileNodeVO> {
+  },
+): Promise<FileNodeVO> {
   return requestClient.post<FileNodeVO>(`/nextwiki/files/${nodeId}/copy`, { params });
 }
 

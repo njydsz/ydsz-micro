@@ -13,7 +13,7 @@
  * @since 3.7.0
  */
 
-import type { DisposableManager } from "./manager-registry";
+import type { DisposableManager } from './manager-registry';
 import type { MicroAppEntry } from '@ydsz/micro-runtime';
 import type { PrefetchStrategy } from './preload-strategy';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -62,9 +62,9 @@ export function buildSpeculationRules(apps: MicroAppEntry[], maxRules = 5): stri
         urls: candidates.map((a) => a.entry || `/ydsz-${a.name}/`),
         where: {
           // 匹配当前域名下的所有子应用路径
-          'href_matches': candidates.map((a) => `${a.activeRule}/*`),
+          href_matches: candidates.map((a) => `${a.activeRule}/*`),
           // 仅匹配同站（不跨站预取）
-          'same_origin': true,
+          same_origin: true,
         },
         // eagerness: moderate = hover 200ms 后触发
         eagerness: 'moderate' as const,

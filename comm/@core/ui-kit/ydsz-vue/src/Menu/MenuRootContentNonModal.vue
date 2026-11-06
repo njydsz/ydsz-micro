@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import MenuContentImpl, { type MenuContentImplEmits, type MenuRootContentTypeProps } from './MenuContentImpl.vue'
-import { injectMenuContext } from './MenuRoot.vue'
-import { useForwardPropsEmits } from '../shared/index.ts'
+import MenuContentImpl, {
+  type MenuContentImplEmits,
+  type MenuRootContentTypeProps,
+} from './MenuContentImpl.vue';
+import { injectMenuContext } from './MenuRoot.vue';
+import { useForwardPropsEmits } from '../shared/index.ts';
 
-const props = defineProps<MenuRootContentNonModalProps>()
-const emits = defineEmits<MenuRootContentModalEmits>()
-const forwarded = useForwardPropsEmits(props, emits)
+const props = defineProps<MenuRootContentNonModalProps>();
+const emits = defineEmits<MenuRootContentModalEmits>();
+const forwarded = useForwardPropsEmits(props, emits);
 
-const menuContext = injectMenuContext()
+const menuContext = injectMenuContext();
 
 interface MenuRootContentNonModalProps extends MenuRootContentTypeProps {}
-type MenuRootContentModalEmits = MenuContentImplEmits
+type MenuRootContentModalEmits = MenuContentImplEmits;
 </script>
 
 <template>

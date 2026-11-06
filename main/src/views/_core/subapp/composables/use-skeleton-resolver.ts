@@ -12,16 +12,16 @@
  * @author ydsz-team
  * @since 4.1.0
  */
-import type { Component } from "vue";
+import type { Component } from 'vue';
 
-import type { SkeletonType } from "../skeletons/skeleton-registry";
+import type { SkeletonType } from '../skeletons/skeleton-registry';
 
-import { computed, type ComputedRef, type Ref } from "vue";
-import type { RouteLocationNormalizedLoaded } from "vue-router";
+import { computed, type ComputedRef, type Ref } from 'vue';
+import type { RouteLocationNormalizedLoaded } from 'vue-router';
 
-import { getAppInstance } from "@ydsz/micro-kernel";
+import { getAppInstance } from '@ydsz/micro-kernel';
 
-import { getSkeletonComponent } from "../skeletons/skeleton-registry";
+import { getSkeletonComponent } from '../skeletons/skeleton-registry';
 
 /**
  * 根据当前路由子路径从子应用 manifest.routes 匹配骨架屏类型
@@ -49,7 +49,7 @@ function resolveSkeletonTypeFromManifest(
   const activeRule = instance?.config.activeRule;
   const fullPath = route.path;
   const subPath =
-    typeof activeRule === "string" && fullPath.startsWith(activeRule)
+    typeof activeRule === 'string' && fullPath.startsWith(activeRule)
       ? fullPath.slice(activeRule.length)
       : fullPath;
 
@@ -97,8 +97,7 @@ export function useSkeletonResolver(
       return getSkeletonComponent(fromManifest);
     }
     // 回退到 route.meta.skeletonType（注册表配置）
-    const skeletonType =
-      (route.meta?.skeletonType as SkeletonType) || "default";
+    const skeletonType = (route.meta?.skeletonType as SkeletonType) || 'default';
     return getSkeletonComponent(skeletonType);
   });
 }

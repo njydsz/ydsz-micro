@@ -17,7 +17,14 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -56,8 +63,12 @@ const formData = reactive<LanguageFormState>({
 });
 
 const rules = {
-  languageCode: [{ required: true, message: t('language.languageCodePlaceholder'), trigger: 'blur' }],
-  languageName: [{ required: true, message: t('language.languageNamePlaceholder'), trigger: 'blur' }],
+  languageCode: [
+    { required: true, message: t('language.languageCodePlaceholder'), trigger: 'blur' },
+  ],
+  languageName: [
+    { required: true, message: t('language.languageNamePlaceholder'), trigger: 'blur' },
+  ],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -117,7 +128,11 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.languageBase')}` : `${t('page.create')}${t('page.languageBase')}`));
+const title = computed(() =>
+  isEdit.value
+    ? `${t('page.edit')}${t('page.languageBase')}`
+    : `${t('page.create')}${t('page.languageBase')}`,
+);
 </script>
 
 <template>
@@ -130,10 +145,17 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.languag
       label-position="right"
     >
       <YdFormItem :label="t('page.languageCode')" prop="languageCode">
-        <YdInput v-model="formData.languageCode" :placeholder="t('language.languageCodePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.languageCode"
+          :placeholder="t('language.languageCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('page.languageName')" prop="languageName">
-        <YdInput v-model="formData.languageName" :placeholder="t('language.languageNamePlaceholder')" />
+        <YdInput
+          v-model="formData.languageName"
+          :placeholder="t('language.languageNamePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('language.defaultLanguage')">
         <YdRadioGroup v-model="formData.isDefault">

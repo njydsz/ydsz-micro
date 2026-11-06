@@ -39,10 +39,7 @@ function handleClick(value: string) {
   <SwitchItem v-model="transitionEnable">
     {{ $t('preferences.animation.transition') }}
   </SwitchItem>
-  <div
-    v-if="transitionEnable"
-    class="mb-2 mt-3 flex justify-between gap-3 px-2"
-  >
+  <div v-if="transitionEnable" class="mb-2 mt-3 flex justify-between gap-3 px-2">
     <div
       v-for="item in transitionPreset"
       :key="item"

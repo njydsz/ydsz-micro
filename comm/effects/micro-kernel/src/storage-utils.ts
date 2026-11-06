@@ -28,7 +28,7 @@ const logger = createLogger('storage-utils');
 /**
  * 统一命名空间前缀，防止与业务方/其他库冲突
  */
-const NAMESPACE_PREFIX = "micro-kernel:";
+const NAMESPACE_PREFIX = 'micro-kernel:';
 
 /**
  * 预留的 key 注册表（集中式 key 管理，便于审计冲突）
@@ -85,7 +85,7 @@ function byteLength(str: string): number {
  * @returns 是否允许写入
  */
 function checkCapacity(key: string, value: string): boolean {
-  if (typeof localStorage === "undefined") return false;
+  if (typeof localStorage === 'undefined') return false;
 
   const incomingSize = byteLength(key) + byteLength(value);
 
@@ -96,7 +96,7 @@ function checkCapacity(key: string, value: string): boolean {
       for (let i = 0; i < localStorage.length; i++) {
         const k = localStorage.key(i);
         if (k?.startsWith(NAMESPACE_PREFIX)) {
-          const v = localStorage.getItem(k) || "";
+          const v = localStorage.getItem(k) || '';
           _estimatedSize += byteLength(k) + byteLength(v);
         }
       }
@@ -133,7 +133,7 @@ function checkCapacity(key: string, value: string): boolean {
  * ```
  */
 export function setStorage<T>(key: StorageKey | string, value: T): boolean {
-  if (typeof localStorage === "undefined") return false;
+  if (typeof localStorage === 'undefined') return false;
 
   try {
     const serialized = JSON.stringify(value);
@@ -171,7 +171,7 @@ export function setStorage<T>(key: StorageKey | string, value: T): boolean {
  * ```
  */
 export function getStorage<T>(key: StorageKey | string, defaultValue: T): T {
-  if (typeof localStorage === "undefined") return defaultValue;
+  if (typeof localStorage === 'undefined') return defaultValue;
 
   try {
     const raw = localStorage.getItem(key);
@@ -190,7 +190,7 @@ export function getStorage<T>(key: StorageKey | string, defaultValue: T): T {
  * @returns 是否移除成功
  */
 export function removeStorage(key: StorageKey | string): boolean {
-  if (typeof localStorage === "undefined") return false;
+  if (typeof localStorage === 'undefined') return false;
 
   try {
     localStorage.removeItem(key);
@@ -210,7 +210,7 @@ export function removeStorage(key: StorageKey | string): boolean {
  * @returns 清理的条目数
  */
 export function clearNamespace(): number {
-  if (typeof localStorage === "undefined") return 0;
+  if (typeof localStorage === 'undefined') return 0;
 
   let removedCount = 0;
   try {
@@ -237,11 +237,11 @@ export function clearNamespace(): number {
  * 应在调用 getStorage/setStorage 前检查，防止 SSR 场景报错。
  */
 export function isStorageAvailable(): boolean {
-  if (typeof localStorage === "undefined") return false;
+  if (typeof localStorage === 'undefined') return false;
   try {
     // 有些浏览器隐私模式下 localStorage 存在但 setItem 报错
     const testKey = `${NAMESPACE_PREFIX}__probe__`;
-    localStorage.setItem(testKey, "1");
+    localStorage.setItem(testKey, '1');
     localStorage.removeItem(testKey);
     return true;
   } catch {
@@ -259,14 +259,14 @@ export function isStorageAvailable(): boolean {
 export function getStorageUsage(): number {
   if (_estimatedSize !== null) return _estimatedSize;
 
-  if (typeof localStorage === "undefined") return 0;
+  if (typeof localStorage === 'undefined') return 0;
 
   let total = 0;
   try {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key?.startsWith(NAMESPACE_PREFIX)) {
-        const value = localStorage.getItem(key) || "";
+        const value = localStorage.getItem(key) || '';
         total += byteLength(key) + byteLength(value);
       }
     }

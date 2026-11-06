@@ -163,7 +163,11 @@ const title = computed(() => (isEdit.value ? '编辑模板' : '新增模板'));
       label-position="right"
     >
       <YdFormItem :label="t('templateCode')" prop="templateCode">
-        <YdInput v-model="formData.templateCode" :placeholder="t('templateCode')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.templateCode"
+          :placeholder="t('templateCode')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem label="通道" prop="channel">
         <YdInput v-model="formData.channel" placeholder="请输入通道，如 SMS/EMAIL/IN_APP" />

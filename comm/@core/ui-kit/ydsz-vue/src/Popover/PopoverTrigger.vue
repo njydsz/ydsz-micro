@@ -1,35 +1,32 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
-import { PopperAnchor } from '../Popper/index.ts'
+import { onMounted } from 'vue';
+import { injectPopoverRootContext } from './PopoverRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
+import { PopperAnchor } from '../Popper/index.ts';
 
 const props = withDefaults(defineProps<PopoverTriggerProps>(), {
   as: 'button',
-})
+});
 
-const rootContext = injectPopoverRootContext()
+const rootContext = injectPopoverRootContext();
 
-const { forwardRef, currentElement: triggerElement } = useForwardExpose()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 
 onMounted(() => {
-  rootContext.triggerElement.value = triggerElement.value
-})
+  rootContext.triggerElement.value = triggerElement.value;
+});
 </script>
 
 <template>
-  <component
-    :is="rootContext.hasCustomAnchor.value ? Primitive : PopperAnchor"
-    as-child
-  >
+  <component :is="rootContext.hasCustomAnchor.value ? Primitive : PopperAnchor" as-child>
     <Primitive
       :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"

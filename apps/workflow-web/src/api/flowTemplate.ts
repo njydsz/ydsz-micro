@@ -12,119 +12,164 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * listTemplates: GET /workflow/template/list
  */
 export function listTemplates(params: {
-    category?: string;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/template/list`, { params });
+  category?: string;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/template/list`, {
+    params,
+  });
 }
 
 /**
  * getTemplate: GET /workflow/template/{templateCode}
  */
-export function getTemplate({ templateCode }: {
-    templateCode: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/template/${templateCode}`);
+export function getTemplate({
+  templateCode,
+}: {
+  templateCode: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/template/${templateCode}`,
+  );
 }
 
 /**
  * importTemplate: POST /workflow/template/{templateCode}/import
  */
-export function importTemplate({ templateCode }: {
+export function importTemplate(
+  {
+    templateCode,
+  }: {
     templateCode: string;
-  }, params: {
+  },
+  params: {
     flowName?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/workflow/template/${templateCode}/import`, { params });
 }
 
 /**
  * exportAsTemplate: POST /workflow/template/export/{definitionId}
  */
-export function exportAsTemplate({ definitionId }: {
+export function exportAsTemplate(
+  {
+    definitionId,
+  }: {
     definitionId: string;
-  }, params: {
+  },
+  params: {
     templateName?: string;
     category?: string;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/workflow/template/export/${definitionId}`, { params });
 }
 
 /**
  * listTemplateVersions: GET /workflow/template/{templateCode}/versions
  */
-export function listTemplateVersions({ templateCode }: {
-    templateCode: string;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/template/${templateCode}/versions`);
+export function listTemplateVersions({
+  templateCode,
+}: {
+  templateCode: string;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(
+    `/workflow/template/${templateCode}/versions`,
+  );
 }
 
 /**
  * getTemplateVersion: GET /workflow/template/{templateCode}/versions/{version}
  */
-export function getTemplateVersion({ templateCode, version }: {
-    templateCode: string;
-    version: number;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/template/${templateCode}/versions/${version}`);
+export function getTemplateVersion({
+  templateCode,
+  version,
+}: {
+  templateCode: string;
+  version: number;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/template/${templateCode}/versions/${version}`,
+  );
 }
 
 /**
  * createNewVersion: POST /workflow/template/{templateCode}/newVersion
  */
-export function createNewVersion({ templateCode }: {
+export function createNewVersion(
+  {
+    templateCode,
+  }: {
     templateCode: string;
-  }, params: {
+  },
+  params: {
     versionLabel?: string;
-  }): Promise<number> {
+  },
+): Promise<number> {
   return requestClient.post<number>(`/workflow/template/${templateCode}/newVersion`, { params });
 }
 
 /**
  * cloneTemplate: POST /workflow/template/{templateCode}/clone
  */
-export function cloneTemplate({ templateCode }: {
+export function cloneTemplate(
+  {
+    templateCode,
+  }: {
     templateCode: string;
-  }, params: {
+  },
+  params: {
     newTemplateCode?: string;
     newTemplateName?: string;
     newCategory?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/workflow/template/${templateCode}/clone`, { params });
 }
 
 /**
  * inheritFromParent: POST /workflow/template/{parentTemplateCode}/inherit
  */
-export function inheritFromParent({ parentTemplateCode }: {
+export function inheritFromParent(
+  {
+    parentTemplateCode,
+  }: {
     parentTemplateCode: string;
-  }, params: {
+  },
+  params: {
     newTemplateCode?: string;
     newTemplateName?: string;
     newCategory?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/workflow/template/${parentTemplateCode}/inherit`, { params });
 }
 
 /**
  * listInheritedTemplates: GET /workflow/template/{parentTemplateCode}/inherited
  */
-export function listInheritedTemplates({ parentTemplateCode }: {
-    parentTemplateCode: string;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/template/${parentTemplateCode}/inherited`);
+export function listInheritedTemplates({
+  parentTemplateCode,
+}: {
+  parentTemplateCode: string;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(
+    `/workflow/template/${parentTemplateCode}/inherited`,
+  );
 }
 
 /**
  * syncFromParent: POST /workflow/template/{childTemplateCode}/sync
  */
-export function syncFromParent({ childTemplateCode }: {
-    childTemplateCode: string;
-  }): Promise<number> {
+export function syncFromParent({
+  childTemplateCode,
+}: {
+  childTemplateCode: string;
+}): Promise<number> {
   return requestClient.post<number>(`/workflow/template/${childTemplateCode}/sync`);
 }
 
@@ -132,17 +177,23 @@ export function syncFromParent({ childTemplateCode }: {
  * recommend: GET /workflow/template/recommend
  */
 export function recommend(params: {
-    topN?: number;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/template/recommend`, { params });
+  topN?: number;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(
+    `/workflow/template/recommend`,
+    { params },
+  );
 }
 
 /**
  * recommendByBusinessType: GET /workflow/template/recommend/byBusinessType
  */
 export function recommendByBusinessType(params: {
-    businessType?: string;
-    topN?: number;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/template/recommend/byBusinessType`, { params });
+  businessType?: string;
+  topN?: number;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(
+    `/workflow/template/recommend/byBusinessType`,
+    { params },
+  );
 }

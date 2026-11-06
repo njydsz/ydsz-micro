@@ -74,7 +74,7 @@ function nodeEls(): HTMLElement[] {
  * @returns 节点 label 数组
  */
 function visibleLabels(): string[] {
-  return nodeEls().map(el => el.textContent?.trim() ?? '');
+  return nodeEls().map((el) => el.textContent?.trim() ?? '');
 }
 
 /**
@@ -84,8 +84,8 @@ function visibleLabels(): string[] {
  * @returns 无
  */
 async function clickSwitcher(index: number): Promise<void> {
-  nodeEls()[index]
-    ?.querySelector('[data-testid="node-switcher"]')
+  nodeEls()
+    [index]?.querySelector('[data-testid="node-switcher"]')
     ?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
   await nextTick();
 }
@@ -134,7 +134,10 @@ async function typeSearch(value: string): Promise<void> {
  * @param name - 属性名
  * @returns 属性值
  */
-function triggerAria(wrapper: ReturnType<typeof mountTreeSelect>, name: string): string | undefined {
+function triggerAria(
+  wrapper: ReturnType<typeof mountTreeSelect>,
+  name: string,
+): string | undefined {
   return wrapper.find('[data-testid="tree-select-trigger"]').attributes(name);
 }
 
@@ -260,13 +263,18 @@ describe('YdTreeSelect 选择', () => {
     await openPanel(wrapper);
 
     expect(nodeEls()[1].getAttribute('aria-selected')).toBe('true');
-    expect(document.querySelector('[role="tree"]')?.getAttribute('aria-multiselectable')).toBe('true');
+    expect(document.querySelector('[role="tree"]')?.getAttribute('aria-multiselectable')).toBe(
+      'true',
+    );
     wrapper.unmount();
   });
 
   it('禁用节点不可选中', async () => {
     const wrapper = mountTreeSelect({
-      options: [{ label: '总部', value: 'hq' }, { disabled: true, label: '分部', value: 'branch' }],
+      options: [
+        { label: '总部', value: 'hq' },
+        { disabled: true, label: '分部', value: 'branch' },
+      ],
     });
     await openPanel(wrapper);
 

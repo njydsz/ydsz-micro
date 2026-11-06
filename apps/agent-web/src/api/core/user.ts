@@ -8,6 +8,4 @@
  * @path apps\agent-web\src\api\core\user.ts
  * @since 1.0.0
  */
-export {
-  getUserInfoApi,
-} from '@ydsz/shared-auth';
+export { getUserInfoApi } from '@ydsz/shared-auth';

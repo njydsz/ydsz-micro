@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * getHealth: GET /cronjob/dashboard/health
  */

@@ -32,10 +32,7 @@ import { readonly, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 import type { WebVitalName, WebVitalReport } from '@ydsz/monitor';
-import {
-  customizeAlertThresholds,
-  getAlertThresholds,
-} from '@ydsz/monitor';
+import { customizeAlertThresholds, getAlertThresholds } from '@ydsz/monitor';
 import { reportError } from '@ydsz/monitor';
 
 import budgetConfig from '../../.perf-budget.json';
@@ -95,9 +92,7 @@ const sentReportIds = new Set<string>();
  */
 function readSampleRateFromMeta(): number {
   if (typeof document === 'undefined') return sampleRate;
-  const meta = document.querySelector<HTMLMetaElement>(
-    'meta[name="perf-sample-rate"]',
-  );
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="perf-sample-rate"]');
   if (meta?.content) {
     const rate = Number.parseFloat(meta.content);
     if (!Number.isNaN(rate) && rate >= 0 && rate <= 1) {
@@ -132,10 +127,7 @@ function postMetric(report: WebVitalReport): void {
           keepalive: true,
           method: 'POST',
         }).catch(() => {
-          logger.debug(
-            '[Web Vitals] POST fallback failed, metric dropped silently',
-            report.id,
-          );
+          logger.debug('[Web Vitals] POST fallback failed, metric dropped silently', report.id);
         });
       }
     } else {
@@ -145,17 +137,11 @@ function postMetric(report: WebVitalReport): void {
         keepalive: true,
         method: 'POST',
       }).catch(() => {
-        logger.debug(
-          '[Web Vitals] POST skipped (offline or endpoint unavailable)',
-          report.id,
-        );
+        logger.debug('[Web Vitals] POST skipped (offline or endpoint unavailable)', report.id);
       });
     }
   } catch (error) {
-    logger.debug(
-      '[Web Vitals] POST failed, metric dropped silently',
-      String(error),
-    );
+    logger.debug('[Web Vitals] POST failed, metric dropped silently', String(error));
   }
 }
 
@@ -212,18 +198,14 @@ function checkBudgetViolation(report: WebVitalReport): void {
  *
  * @since 5.2.0
  */
-export function useWebVitals(
-  vitalsCallback?: (report: WebVitalReport) => void,
-): {
+export function useWebVitals(vitalsCallback?: (report: WebVitalReport) => void): {
   store: Readonly<ReturnType<typeof ref<WebVitalReport[]>>>;
   isInstalled: boolean;
   getThresholds: typeof getAlertThresholds;
 } {
   // 环境变量禁用开关
   if (import.meta.env.VITE_DISABLE_PERF_TRACK === 'true') {
-    logger.info(
-      '[Web Vitals]采集已禁用（VITE_DISABLE_PERF_TRACK=true）',
-    );
+    logger.info('[Web Vitals]采集已禁用（VITE_DISABLE_PERF_TRACK=true）');
     return {
       store: readonly(vitalsStore),
       isInstalled: false,
@@ -259,11 +241,9 @@ export function useWebVitals(
 
   // 注册 DOMContentLoaded 后安全采集（指标可能在 mount 前已触发）
   if (typeof document !== 'undefined' && document.readyState === 'loading') {
-    document.addEventListener(
-      'DOMContentLoaded',
-      () => startCollection(vitalsCallback),
-      { once: true },
-    );
+    document.addEventListener('DOMContentLoaded', () => startCollection(vitalsCallback), {
+      once: true,
+    });
   } else {
     startCollection(vitalsCallback);
   }
@@ -284,9 +264,7 @@ export function useWebVitals(
  *
  * @param callback - 外部消费回调
  */
-function startCollection(
-  callback?: (report: WebVitalReport) => void,
-): void {
+function startCollection(callback?: (report: WebVitalReport) => void): void {
   // 从 PerformanceEntry 中读取已产生指标（对标 monitor 模块的 observer 注册时机）
   collectExistingVitals(callback);
 
@@ -302,9 +280,7 @@ function startCollection(
  *
  * @param callback - 外部消费回调
  */
-function collectExistingVitals(
-  callback?: (report: WebVitalReport) => void,
-): void {
+function collectExistingVitals(callback?: (report: WebVitalReport) => void): void {
   // 延迟一帧，确保 monitor 模块的 observer 已触发
   requestAnimationFrame(() => {
     // 由 monitor 模块采集并通过 expose 的回调通知
@@ -324,9 +300,7 @@ function collectExistingVitals(
  *
  * @param callback - 外部消费回调
  */
-function syncFromPerformanceBuffer(
-  callback?: (report: WebVitalReport) => void,
-): void {
+function syncFromPerformanceBuffer(callback?: (report: WebVitalReport) => void): void {
   // 抽取 Performance API 已记录的指标作为 store 初始数据
   const entries: Array<{ name: WebVitalName; startTime: number; entryType: string }> = [];
 
@@ -405,10 +379,7 @@ function syncFromPerformanceBuffer(
  * @param value - 指标值
  * @returns 评级
  */
-function getStoredRating(
-  name: WebVitalName,
-  value: number,
-): WebVitalReport['rating'] {
+function getStoredRating(name: WebVitalName, value: number): WebVitalReport['rating'] {
   const thresholds: Record<string, [number, number]> = {
     CLS: [0.1, 0.25],
     FCP: [1800, 3000],

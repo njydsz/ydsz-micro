@@ -351,12 +351,16 @@ export const arSA = {
   'aiBuilder.generatePage': 'إنشاء صفحة',
   'aiBuilder.generating': 'جارٍ الإنشاء...',
   'aiBuilder.pageDescription': 'وصف الصفحة',
-  'aiBuilder.autoHint': 'يستنتج الذكاء الاصطناعي بنية الصفحة تلقائيًا من الحقول والكلمات الأساسية في الوصف',
-  'aiBuilder.defaultPromptPlaceholder': 'صف الصفحة التي تريد إنشاءها بلغة طبيعية (يدعم خلط اللغتين)',
-  'aiBuilder.exampleForm': 'مثال: أنشئ نموذج مستخدم جديد يتضمن الحقول الاسم والعمر والبريد الإلكتروني',
+  'aiBuilder.autoHint':
+    'يستنتج الذكاء الاصطناعي بنية الصفحة تلقائيًا من الحقول والكلمات الأساسية في الوصف',
+  'aiBuilder.defaultPromptPlaceholder':
+    'صف الصفحة التي تريد إنشاءها بلغة طبيعية (يدعم خلط اللغتين)',
+  'aiBuilder.exampleForm':
+    'مثال: أنشئ نموذج مستخدم جديد يتضمن الحقول الاسم والعمر والبريد الإلكتروني',
   'aiBuilder.exampleTable': 'مثال: أنشئ قائمة طلبات مع تصفية حسب الحالة وتصدير',
   'aiBuilder.exampleDashboard': 'مثال: أنشئ لوحة مبيعات تعرض الإيراد اليومي والطلبات ومعدل التحويل',
-  'aiBuilder.exampleDetail': 'مثال: أنشئ صفحة تفاصيل عميل تعرض المعلومات الأساسية والطلبات المرتبطة',
+  'aiBuilder.exampleDetail':
+    'مثال: أنشئ صفحة تفاصيل عميل تعرض المعلومات الأساسية والطلبات المرتبطة',
   'aiBuilder.typeString': 'نص',
   'aiBuilder.typeNumber': 'رقم',
   'aiBuilder.typeBoolean': 'منطقية',
@@ -417,7 +421,7 @@ export const arSA = {
   'dashboard.cardCount': '{count} بطاقة',
   'dashboard.emptyEditable': 'انقر على «إضافة بطاقة» لبدء بناء لوحة المعلومات',
   'dashboard.empty': 'لا توجد بيانات بطاقات',
-'dashboard.chartEmpty': 'لا توجد بيانات الرسم البياني',
+  'dashboard.chartEmpty': 'لا توجد بيانات الرسم البياني',
   'advancedFilter.toolbarAriaLabel': 'شريط أدوات التصفية',
   'advancedFilter.removeFilter': 'إزالة عامل التصفية {label}: {value}',
   'bulkActions.selectAll': 'تحديد الكل ({count} عنصر)',
@@ -492,6 +496,14 @@ export const arSA = {
   'splitter.ariaLabel': 'تغيير حجم اللوحة',
   'tag.close': 'إغلاق الوسم',
   'timeline.ariaLabel': 'المخطط الزمني',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

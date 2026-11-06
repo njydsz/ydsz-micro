@@ -9,26 +9,23 @@
  * @since 4.2.1
  */
 
-import type { MicroAppConfig, MicroAppEntry, StartOptions } from "@ydsz/micro-runtime";
+import type { MicroAppConfig, MicroAppEntry, StartOptions } from '@ydsz/micro-runtime';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { runWithConcurrency, scheduleIdle, shouldSkipPrefetchDueToNetwork } from "./kernel-helpers";
-import { loadApp } from "./loader";
-import { startMessageListener } from "./message-broker";
-import type { PreloadManagerLike } from "./preload-manager-helpers";
-import { setupPreloadMetricsReporting } from "./preload-metrics";
-import {
-  createRoutePreloadStrategy,
-  type PreloadManager,
-} from "./preload-strategy";
-import type { RoutePredictorLike } from "./route-predictor-core";
-import { getRoutePredictor } from "./route-predictor-core";
-import { setStyleIsolation, setupVisibilityAutoRelease } from "./scheduler";
-import { applyPrefetchBoost } from "./speculation-rules";
+import { runWithConcurrency, scheduleIdle, shouldSkipPrefetchDueToNetwork } from './kernel-helpers';
+import { loadApp } from './loader';
+import { startMessageListener } from './message-broker';
+import type { PreloadManagerLike } from './preload-manager-helpers';
+import { setupPreloadMetricsReporting } from './preload-metrics';
+import { createRoutePreloadStrategy, type PreloadManager } from './preload-strategy';
+import type { RoutePredictorLike } from './route-predictor-core';
+import { getRoutePredictor } from './route-predictor-core';
+import { setStyleIsolation, setupVisibilityAutoRelease } from './scheduler';
+import { applyPrefetchBoost } from './speculation-rules';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Startup");
+const logger = createLogger('MicroKernel:Startup');
 
 /**
  * 启动所需的状态访问器与依赖。
@@ -93,35 +90,37 @@ export function createStartFunction(ctx: StartupContext) {
     });
 
     // === v3.7.0: Speculation Rules API 预加载增强 ===
-    if (options?.prefetchStrategy !== "never") {
+    if (options?.prefetchStrategy !== 'never') {
       const appEntries: MicroAppEntry[] = ctx.getApps().map((a) => ({
         name: a.name,
         packageName: `@ydsz/${a.name}`,
-        activeRule: typeof a.activeRule === "string" ? a.activeRule : `/${a.name}`,
-        redirect: typeof a.activeRule === "string" ? `${a.activeRule}/` : `/${a.name}/`,
+        activeRule: typeof a.activeRule === 'string' ? a.activeRule : `/${a.name}`,
+        redirect: typeof a.activeRule === 'string' ? `${a.activeRule}/` : `/${a.name}/`,
         title: a.name,
-        icon: "lucide:box",
+        icon: 'lucide:box',
         order: 100,
         devPort: 5601,
         entry: a.entry,
-        skeletonType: "default",
+        skeletonType: 'default',
         sandbox: a.sandbox,
       }));
-      const boostResult = applyPrefetchBoost(appEntries, options?.prefetchStrategy ?? "lazy");
+      const boostResult = applyPrefetchBoost(appEntries, options?.prefetchStrategy ?? 'lazy');
       logger.debug(`Prefetch boost: ${boostResult}`);
     }
 
     // === S1 修复：预加载只拉取 ESM 模块与样式，不执行 mount ===
     const prefetchFilter = options?.prefetch;
-    if (typeof prefetchFilter === "function") {
+    if (typeof prefetchFilter === 'function') {
       const toPrefetch = ctx.getApps().filter((app) => prefetchFilter(app));
       if (shouldSkipPrefetchDueToNetwork()) {
-        logger.debug("Prefetch skipped due to slow network or saveData");
+        logger.debug('Prefetch skipped due to slow network or saveData');
       } else {
         scheduleIdle(() => {
           if (shouldSkipPrefetchDueToNetwork()) return;
           void runWithConcurrency(toPrefetch, 3, (app) =>
-            loadApp(app).catch(() => { /* 预加载失败不阻塞 */ }),
+            loadApp(app).catch(() => {
+              /* 预加载失败不阻塞 */
+            }),
           );
         });
       }
@@ -131,12 +130,14 @@ export function createStartFunction(ctx: StartupContext) {
     const apps = ctx.getApps();
     for (const app of apps) {
       ctx.preloadManager.registerStrategy(app.name, {
-        strategy: "idle",
+        strategy: 'idle',
         idleTimeout: 2000,
         onPreload: (appName: string) => {
           const config = apps.find((a) => a.name === appName);
           if (config) {
-            void loadApp(config).catch(() => { /* 预加载失败不阻塞 */ });
+            void loadApp(config).catch(() => {
+              /* 预加载失败不阻塞 */
+            });
           }
         },
       });
@@ -151,14 +152,16 @@ export function createStartFunction(ctx: StartupContext) {
     if (routePreloadEnabled) {
       try {
         ctx.preloadManager.registerStrategy(
-          "__route_prediction__",
+          '__route_prediction__',
           createRoutePreloadStrategy(
             apps,
             undefined,
             (appName: string) => {
               const config = apps.find((a) => a.name === appName);
               if (config) {
-                void loadApp(config).catch(() => { /* 预测预加载失败不阻塞 */ });
+                void loadApp(config).catch(() => {
+                  /* 预测预加载失败不阻塞 */
+                });
               }
             },
             { minProbability: 0.15, maxPreloads: 2, minSampleSize: 3 },
@@ -166,9 +169,9 @@ export function createStartFunction(ctx: StartupContext) {
         );
         scheduleIdle(() => {
           if (shouldSkipPrefetchDueToNetwork()) return;
-          void ctx.preloadManager.triggerPreload("__route_prediction__");
+          void ctx.preloadManager.triggerPreload('__route_prediction__');
         });
-        logger.debug("Route prediction preload strategy registered (opt-in)");
+        logger.debug('Route prediction preload strategy registered (opt-in)');
       } catch (error) {
         logger.warn(`Route prediction strategy registration skipped: ${String(error)}`);
       }
@@ -200,6 +203,6 @@ export function createStartFunction(ctx: StartupContext) {
     }
 
     logger.info(`Started with ${apps.length} apps`);
-    window.dispatchEvent(new CustomEvent("micro-kernel:started"));
+    window.dispatchEvent(new CustomEvent('micro-kernel:started'));
   };
 }

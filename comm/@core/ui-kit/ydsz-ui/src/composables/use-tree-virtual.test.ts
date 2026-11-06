@@ -120,9 +120,7 @@ describe('useTreeVirtual', () => {
     });
 
     await handle.loadLazyNode('1');
-    expect(onLoad).toHaveBeenCalledWith(
-      expect.objectContaining({ level: 0, value: '1' }),
-    );
+    expect(onLoad).toHaveBeenCalledWith(expect.objectContaining({ level: 0, value: '1' }));
   });
 
   it('scrollToIndex 应把目标节点滚入视口并推进切片', () => {
@@ -143,7 +141,7 @@ describe('useTreeVirtual', () => {
     handle.scrollToIndex(4);
 
     expect(element.scrollTop).toBe(84);
-    expect(handle.visibleSlice.value.map(node => node.data.value)).toEqual(['2', '2-1']);
+    expect(handle.visibleSlice.value.map((node) => node.data.value)).toEqual(['2', '2-1']);
   });
 
   it('scrollToIndex 越界索引不应改动滚动位置', () => {

@@ -12,7 +12,13 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { TenantPlanDTO, TenantPlanMenuDTO, TenantPlanMenuVO, TenantPlanPageQuery, TenantPlanVO } from './models';
+import type {
+  TenantPlanDTO,
+  TenantPlanMenuDTO,
+  TenantPlanMenuVO,
+  TenantPlanPageQuery,
+  TenantPlanVO,
+} from './models';
 
 /**
  * page: GET /tenant-plan/page
@@ -31,9 +37,7 @@ export function listAll(): Promise<TenantPlanVO[]> {
 /**
  * getById: GET /tenant-plan/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<TenantPlanVO> {
+export function getById({ id }: { id: string }): Promise<TenantPlanVO> {
   return requestClient.get<TenantPlanVO>(`/tenant-plan/${id}`);
 }
 
@@ -54,18 +58,14 @@ export function update(data: TenantPlanDTO): Promise<boolean> {
 /**
  * remove: DELETE /tenant-plan/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/tenant-plan/${id}`);
 }
 
 /**
  * listMenus: GET /tenant-plan/{planId}/menus
  */
-export function listMenus({ planId }: {
-    planId: string;
-  }): Promise<TenantPlanMenuVO[]> {
+export function listMenus({ planId }: { planId: string }): Promise<TenantPlanMenuVO[]> {
   return requestClient.get<TenantPlanMenuVO[]>(`/tenant-plan/${planId}/menus`);
 }
 

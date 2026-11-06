@@ -16,18 +16,24 @@ import type { RuleResultVO } from './models';
 /**
  * dryRun: POST /internal/literule/rules/dry-run
  */
-export function dryRun(params: {
+export function dryRun(
+  params: {
     ruleCode?: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<RuleResultVO[]> {
   return requestClient.post<RuleResultVO[]>(`/internal/literule/rules/dry-run`, data, { params });
 }
 
 /**
  * evaluate: POST /internal/literule/rules/evaluate
  */
-export function evaluate(params: {
+export function evaluate(
+  params: {
     ruleCode?: string;
     scenario?: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<RuleResultVO[]> {
   return requestClient.post<RuleResultVO[]>(`/internal/literule/rules/evaluate`, data, { params });
 }

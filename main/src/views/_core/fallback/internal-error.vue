@@ -45,14 +45,14 @@ onMounted(() => {
         <!-- 返回首页 -->
         <router-link
           to="/"
-          class="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium"
         >
           {{ $t('page.fallback.backHome') }}
         </router-link>
 
         <!-- 刷新重试 -->
         <button
-          class="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+          class="border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium"
           @click="() => location.reload()"
         >
           {{ $t('page.fallback.refresh') }}
@@ -69,7 +69,7 @@ onMounted(() => {
         <a
           v-else
           :href="`mailto:support@example.com?subject=${encodeURIComponent($t('page.fallback.mailSubject'))}&body=${encodeURIComponent($t('page.fallback.mailBody'))}`"
-          class="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+          class="border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium"
         >
           {{ $t('page.fallback.contactAdmin') }}
         </a>

@@ -51,8 +51,12 @@ const formData = reactive<DictTypeFormState>({
 });
 
 const rules = {
-  typeCode: [{ required: true, message: t('common.placeholder', [t('typeCode')]), trigger: 'blur' }],
-  typeName: [{ required: true, message: t('common.placeholder', [t('typeName')]), trigger: 'blur' }],
+  typeCode: [
+    { required: true, message: t('common.placeholder', [t('typeCode')]), trigger: 'blur' },
+  ],
+  typeName: [
+    { required: true, message: t('common.placeholder', [t('typeName')]), trigger: 'blur' },
+  ],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -109,15 +113,33 @@ const title = computed(() => (isEdit.value ? t('editDictType') : t('createDictTy
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('typeCode')" prop="typeCode">
-        <YdInput v-model="formData.typeCode" :placeholder="t('common.placeholder', [t('typeCode')])" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.typeCode"
+          :placeholder="t('common.placeholder', [t('typeCode')])"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('typeName')" prop="typeName">
-        <YdInput v-model="formData.typeName" :placeholder="t('common.placeholder', [t('typeName')])" />
+        <YdInput
+          v-model="formData.typeName"
+          :placeholder="t('common.placeholder', [t('typeName')])"
+        />
       </YdFormItem>
       <YdFormItem :label="t('description')">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('descriptionPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('status')" prop="status">
         <YdRadioGroup v-model="formData.status">

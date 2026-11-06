@@ -34,25 +34,28 @@ export function useKbd() {
     CTRL: 'Control',
     ASTERISK: '*',
     SPACE_CODE: 'Space',
-  }
+  };
 }
 
 /**
  * A wrapper around the internal kbd object to make it easier to use in tests
  * which require the key names to be wrapped in curly braces.
  */
-export type KbdKeys = keyof ReturnType<typeof useKbd>
+export type KbdKeys = keyof ReturnType<typeof useKbd>;
 
 export function useTestKbd() {
-  const kbd = useKbd()
+  const kbd = useKbd();
 
-  const initTestKbd: Record<KbdKeys, string> = Object.entries(kbd).reduce((acc, [key, value]) => {
-    acc[key as KbdKeys] = `{${value}}`
-    return acc
-  }, {} as Record<KbdKeys, string>)
+  const initTestKbd: Record<KbdKeys, string> = Object.entries(kbd).reduce(
+    (acc, [key, value]) => {
+      acc[key as KbdKeys] = `{${value}}`;
+      return acc;
+    },
+    {} as Record<KbdKeys, string>,
+  );
 
   return {
     ...initTestKbd,
     SHIFT_TAB: `{Shift>}{${kbd.TAB}}`,
-  }
+  };
 }

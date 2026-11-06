@@ -17,7 +17,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
@@ -63,7 +63,9 @@ async function loadUnreadCount(): Promise<void> {
 /**
  * 已读状态标签
  */
-function getReadStatusVariant(readStatus?: string): 'default' | 'destructive' | 'outline' | 'secondary' {
+function getReadStatusVariant(
+  readStatus?: string,
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   const s = (readStatus ?? '').toUpperCase();
   if (s === 'READ') return 'default';
   if (s === 'UNREAD') return 'destructive';
@@ -94,7 +96,9 @@ const gridOptions: VxeTableGridOptions<CcRow> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: getReadStatusVariant(row.readStatus) }, () => getReadStatusLabel(row.readStatus)),
+          h(YdBadge, { variant: getReadStatusVariant(row.readStatus) }, () =>
+            getReadStatusLabel(row.readStatus),
+          ),
       },
     },
     { field: 'triggerUserName', title: '发起人', width: 120 },
@@ -155,7 +159,10 @@ const gridOptions: VxeTableGridOptions<CcRow> = {
       {
         field: 'flowCode',
         title: t('wf.flowCode'),
-        itemRender: { name: 'YdInput', props: { placeholder: t('wf.inputFlowCode') || '请输入流程编码' } },
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('wf.inputFlowCode') || '请输入流程编码' },
+        },
       },
       {
         field: 'readStatus',
@@ -207,11 +214,7 @@ async function handleMarkRead(row: CcRow): Promise<void> {
  */
 async function handleMarkAllRead(): Promise<void> {
   try {
-    await YdConfirm(
-      $t('cc.confirmReadAll'),
-      $t('cc.markRead'),
-      { type: 'warning' },
-    );
+    await YdConfirm($t('cc.confirmReadAll'), $t('cc.markRead'), { type: 'warning' });
   } catch {
     logger.debug('用户取消全部已读');
     return;
@@ -237,21 +240,13 @@ onMounted(() => {
     <div class="space-y-4">
       <!-- 头部 -->
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-text-primary">
+        <h2 class="text-text-primary text-lg font-semibold">
           {{ $t('cc.title') || '抄送中心' }}
-          <YdBadge
-            v-if="unreadCount > 0"
-            variant="destructive"
-            class="ml-2"
-          >
+          <YdBadge v-if="unreadCount > 0" variant="destructive" class="ml-2">
             {{ unreadCount }} {{ $t('cc.unread') || '未读' }}
           </YdBadge>
         </h2>
-        <YdButton
-          variant="outline"
-          :disabled="unreadCount === 0"
-          @click="handleMarkAllRead"
-        >
+        <YdButton variant="outline" :disabled="unreadCount === 0" @click="handleMarkAllRead">
           {{ $t('cc.readAll') || '全部已读' }}
         </YdButton>
       </div>

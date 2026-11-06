@@ -48,7 +48,9 @@ async function openDrawerInstance(options: DrawerOptions): Promise<DrawerInstanc
 }
 
 /** Promise 结算结果容器，用 side-channel 收集以免 await 阻塞断言 */
-function track(instance: DrawerInstance): { value?: { data?: unknown; reason: DrawerCloseReason } } {
+function track(instance: DrawerInstance): {
+  value?: { data?: unknown; reason: DrawerCloseReason };
+} {
   const box: { value?: { data?: unknown; reason: DrawerCloseReason } } = {};
   void instance.promise.then((payload) => {
     box.value = payload;

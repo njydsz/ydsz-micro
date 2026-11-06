@@ -28,6 +28,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 // bpmn-js-properties-panel v5 起不再自带样式：面板样式实际由 @bpmn-io/properties-panel 提供
 import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
 import { onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
+import { createLogger } from '@ydsz-core/shared/utils';
 import { YdSpinner } from '@ydsz-core/ydsz-ui';
 import { getModdleExtensions, getPropertiesProvider } from './bpmn-customizations';
 import type BpmnModeler from 'bpmn-js/lib/Modeler';
@@ -61,6 +62,9 @@ const emit = defineEmits<{
   /** 画布模型加载完成时触发 */
   ready: [];
 }>();
+
+/** 模块级日志器（规范 §14.5：禁止业务代码直接调用 console） */
+const logger = createLogger('bpmn-canvas');
 
 const containerRef = shallowRef<HTMLDivElement>();
 const propertiesPanelRef = shallowRef<HTMLDivElement>();
@@ -105,14 +109,9 @@ async function initModeler(
 
   const modeler = new BpmnModelerClass({
     container: containerRef.value,
-    propertiesPanel: propertiesPanelRef.value
-      ? { parent: propertiesPanelRef.value }
-      : undefined,
+    propertiesPanel: propertiesPanelRef.value ? { parent: propertiesPanelRef.value } : undefined,
     keyboard: { bindTo: window },
-    additionalModules: [
-      PanelModule,
-      ...getPropertiesProvider(),
-    ],
+    additionalModules: [PanelModule, ...getPropertiesProvider()],
     moddleExtensions: getModdleExtensions(),
   });
 
@@ -207,15 +206,10 @@ function redo(): void {
  * @param elementId - 元素 ID（bpmn 中的 id 属性）
  * @param properties - 属性键值（camunda:* 使用完整命名空间键）
  */
-function updateElementProperties(
-  elementId: string,
-  properties: BpmnPropertyChanges,
-): void {
+function updateElementProperties(elementId: string, properties: BpmnPropertyChanges): void {
   const modeler = modelerRef.value;
   if (!modeler) return;
-  const element = modeler
-    .get<BpmnElementRegistryService>('elementRegistry')
-    .get(elementId);
+  const element = modeler.get<BpmnElementRegistryService>('elementRegistry').get(elementId);
   if (!element) return;
   modeler.get<BpmnModelingService>('modeling').updateProperties(element, properties);
 }
@@ -269,12 +263,15 @@ async function doInitModeler(): Promise<void> {
       import('bpmn-js/lib/Modeler'),
       import('bpmn-js-properties-panel'),
     ]);
-    await initModeler(BpmnModelerClass as typeof BpmnModeler, panelModule.BpmnPropertiesPanelModule);
+    await initModeler(
+      BpmnModelerClass as typeof BpmnModeler,
+      panelModule.BpmnPropertiesPanelModule,
+    );
     isReady.value = true;
     await loadXml(props.xml || EMPTY_BPMN_XML);
   } catch (err) {
     loadError.value = (err as Error)?.message || 'BPMN 引擎加载失败，请刷新页面重试';
-    console.error('[BpmnCanvas] 动态导入 bpmn-js 失败:', err);
+    logger.error('[BpmnCanvas] 动态导入 bpmn-js 失败:', err);
   }
 }
 

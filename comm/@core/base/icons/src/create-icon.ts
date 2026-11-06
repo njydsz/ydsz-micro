@@ -26,4 +26,3 @@ function createIconifyIcon(icon: string) {
 }
 
 export { createIconifyIcon };
-

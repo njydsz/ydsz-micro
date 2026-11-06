@@ -10,8 +10,7 @@
  * @since 4.2.1
  */
 
-
-import { getAllInstances } from "./scheduler";
+import { getAllInstances } from './scheduler';
 
 /** 模块级日志器 */
 /**
@@ -58,12 +57,12 @@ export function createHealthCheckFunctions(ctx: HealthCheckContext) {
   function healthCheck(): KernelHealthInfo {
     const all = getAllInstances();
     let ka = 0;
-    for (const i of all) if (i.keepAlive && i.status === "MOUNTED") ka++;
+    for (const i of all) if (i.keepAlive && i.status === 'MOUNTED') ka++;
     return {
-      kernelVersion: "4.2.1",
-      kernelName: "micro-kernel",
+      kernelVersion: '4.2.1',
+      kernelName: 'micro-kernel',
       capabilities: {
-        sandbox: ["snapshot", "proxy", "iframe"] as const,
+        sandbox: ['snapshot', 'proxy', 'iframe'] as const,
         prefetch: true,
         keepAlive: true,
         hmr: !!import.meta.env?.DEV,
@@ -85,7 +84,7 @@ export function createHealthCheckFunctions(ctx: HealthCheckContext) {
    */
   async function healthCheckAsync(options?: { force?: boolean; skipPing?: boolean }) {
     // 延迟导入避免循环依赖
-    const { runHealthCheck } = await import("./health-check");
+    const { runHealthCheck } = await import('./health-check');
     const allInstances = getAllInstances();
     const apps = allInstances.map((i) => ({
       config: { name: i.config.name, entry: i.config.entry },

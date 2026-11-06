@@ -43,7 +43,9 @@ export interface BundleBudgetOptions {
  * @param assets 产物 gzip 画像
  * @returns 体积画像（exists 恒为 true，产物已在内存里）
  */
-function toMeasure(assets: { fileName: string; gzipKB: number; type: 'css' | 'js' }[]): BudgetMeasure {
+function toMeasure(
+  assets: { fileName: string; gzipKB: number; type: 'css' | 'js' }[],
+): BudgetMeasure {
   const measure: BudgetMeasure = {
     exists: true,
     measuredAt: '',

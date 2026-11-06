@@ -34,11 +34,7 @@ import { useI18n } from 'vue-i18n';
 
 import { showToast } from '@ydsz/notification';
 
-import {
-  create,
-  update,
-  type MsgErrorCodeVO,
-} from '#/api/messageErrorCodes';
+import { create, update, type MsgErrorCodeVO } from '#/api/messageErrorCodes';
 
 const { t } = useI18n();
 
@@ -200,30 +196,12 @@ const title = computed(() =>
           v-model="formData.channelType"
           :placeholder="t('errorCode.placeholder.channelType')"
         >
-          <YdSelectItem
-            value="SMS"
-            :label="t('errorCode.channel.SMS')"
-          />
-          <YdSelectItem
-            value="EMAIL"
-            :label="t('errorCode.channel.EMAIL')"
-          />
-          <YdSelectItem
-            value="WEBHOOK"
-            :label="t('errorCode.channel.WEBHOOK')"
-          />
-          <YdSelectItem
-            value="PUSH"
-            :label="t('errorCode.channel.PUSH')"
-          />
-          <YdSelectItem
-            value="WECHAT"
-            :label="t('errorCode.channel.WECHAT')"
-          />
-          <YdSelectItem
-            value="INSITE"
-            :label="t('errorCode.channel.INSITE')"
-          />
+          <YdSelectItem value="SMS" :label="t('errorCode.channel.SMS')" />
+          <YdSelectItem value="EMAIL" :label="t('errorCode.channel.EMAIL')" />
+          <YdSelectItem value="WEBHOOK" :label="t('errorCode.channel.WEBHOOK')" />
+          <YdSelectItem value="PUSH" :label="t('errorCode.channel.PUSH')" />
+          <YdSelectItem value="WECHAT" :label="t('errorCode.channel.WECHAT')" />
+          <YdSelectItem value="INSITE" :label="t('errorCode.channel.INSITE')" />
         </YdSelect>
       </YdFormItem>
       <YdFormItem :label="t('errorCode.columns.retryPolicy')" prop="retryPolicy">
@@ -231,14 +209,8 @@ const title = computed(() =>
           v-model="formData.retryPolicy"
           :placeholder="t('errorCode.placeholder.retryPolicy')"
         >
-          <YdSelectItem
-            value="NONE"
-            :label="t('errorCode.retryPolicy.NONE')"
-          />
-          <YdSelectItem
-            value="SIMPLE"
-            :label="t('errorCode.retryPolicy.SIMPLE')"
-          />
+          <YdSelectItem value="NONE" :label="t('errorCode.retryPolicy.NONE')" />
+          <YdSelectItem value="SIMPLE" :label="t('errorCode.retryPolicy.SIMPLE')" />
           <YdSelectItem
             value="EXPONENTIAL_BACKOFF"
             :label="t('errorCode.retryPolicy.EXPONENTIAL_BACKOFF')"
@@ -250,36 +222,17 @@ const title = computed(() =>
           v-model="formData.notifyPolicy"
           :placeholder="t('errorCode.placeholder.notifyPolicy')"
         >
-          <YdSelectItem
-            value="NONE"
-            :label="t('errorCode.notifyPolicy.NONE')"
-          />
-          <YdSelectItem
-            value="EMAIL_ADMIN"
-            :label="t('errorCode.notifyPolicy.EMAIL_ADMIN')"
-          />
-          <YdSelectItem
-            value="SMS_ADMIN"
-            :label="t('errorCode.notifyPolicy.SMS_ADMIN')"
-          />
-          <YdSelectItem
-            value="WEBHOOK_ALERT"
-            :label="t('errorCode.notifyPolicy.WEBHOOK_ALERT')"
-          />
+          <YdSelectItem value="NONE" :label="t('errorCode.notifyPolicy.NONE')" />
+          <YdSelectItem value="EMAIL_ADMIN" :label="t('errorCode.notifyPolicy.EMAIL_ADMIN')" />
+          <YdSelectItem value="SMS_ADMIN" :label="t('errorCode.notifyPolicy.SMS_ADMIN')" />
+          <YdSelectItem value="WEBHOOK_ALERT" :label="t('errorCode.notifyPolicy.WEBHOOK_ALERT')" />
         </YdSelect>
       </YdFormItem>
       <YdFormItem :label="t('errorCode.columns.maxRetryCount')" prop="maxRetryCount">
         <YdNumberFieldInput v-model="formData.maxRetryCount" :min="0" :max="99" />
       </YdFormItem>
-      <YdFormItem
-        :label="t('errorCode.columns.retryIntervalBase')"
-        prop="retryIntervalBase"
-      >
-        <YdNumberFieldInput
-          v-model="formData.retryIntervalBase"
-          :min="0"
-          :max="3600"
-        />
+      <YdFormItem :label="t('errorCode.columns.retryIntervalBase')" prop="retryIntervalBase">
+        <YdNumberFieldInput v-model="formData.retryIntervalBase" :min="0" :max="3600" />
       </YdFormItem>
       <YdFormItem :label="t('common.status')" prop="status">
         <YdRadioGroup v-model="formData.status">

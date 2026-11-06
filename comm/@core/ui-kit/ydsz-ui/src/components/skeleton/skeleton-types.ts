@@ -15,13 +15,7 @@
  * - `button`：按钮占位
  * - `image`：图片占位
  */
-export type SkeletonVariant =
-  | 'text'
-  | 'avatar'
-  | 'title'
-  | 'paragraph'
-  | 'button'
-  | 'image';
+export type SkeletonVariant = 'text' | 'avatar' | 'title' | 'paragraph' | 'button' | 'image';
 
 /** Skeleton 尺寸预设。 */
 export type SkeletonSize = 'small' | 'medium' | 'large';

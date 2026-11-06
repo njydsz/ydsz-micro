@@ -102,12 +102,8 @@ export function useDialog(options: DialogOptions = {}): UseDialogResult {
             style: { display: 'contents' },
           },
           [
-            slotHeader
-              ? h('div', { 'data-ydsz-dialog-header': '' }, [slotHeader()])
-              : null,
-            slotDefault
-              ? h('div', { 'data-ydsz-dialog-body': '' }, [slotDefault()])
-              : null,
+            slotHeader ? h('div', { 'data-ydsz-dialog-header': '' }, [slotHeader()]) : null,
+            slotDefault ? h('div', { 'data-ydsz-dialog-body': '' }, [slotDefault()]) : null,
             slotFooter
               ? h('div', { 'data-ydsz-dialog-footer': '' }, [
                   slotFooter({

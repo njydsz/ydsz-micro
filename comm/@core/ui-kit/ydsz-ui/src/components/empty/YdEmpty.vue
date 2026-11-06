@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 /**
-* Empty 空状态：列表 / 表格无数据时的占位提示。
-* 
+ * Empty 空状态：列表 / 表格无数据时的占位提示。
+ *
  * 提供统一的无数据图标 + 文案 + 操作位，语义化为 "无内容"。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\empty\YdEmpty.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -35,12 +35,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div
-    :class="
-      cn(
-        'flex flex-col items-center justify-center px-8 py-12 text-center',
-        props.class,
-      )
-    "
+    :class="cn('flex flex-col items-center justify-center px-8 py-12 text-center', props.class)"
     role="status"
     aria-live="polite"
   >

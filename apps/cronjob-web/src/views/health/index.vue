@@ -17,7 +17,16 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdEmptyState,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { getHealth } from '#/api/healthDashboard';
@@ -43,7 +52,7 @@ const overallStatus = computed(() => {
   return {
     isOk: allOk,
     label: allOk ? '系统正常' : '存在异常',
-    type: allOk ? 'success' as const : 'danger' as const,
+    type: allOk ? ('success' as const) : ('danger' as const),
   };
 });
 
@@ -59,7 +68,10 @@ const componentCards = computed<HealthComponent[]>(() => {
   return Object.entries(healthData.value).map(([name, details]) => {
     const detailObj = (details ?? {}) as Record<string, unknown>;
     const status = String(detailObj.status ?? detailObj.health ?? 'UNKNOWN');
-    const isOk = status.toLowerCase() === 'ok' || status.toLowerCase() === 'up' || status.toLowerCase() === 'healthy';
+    const isOk =
+      status.toLowerCase() === 'ok' ||
+      status.toLowerCase() === 'up' ||
+      status.toLowerCase() === 'healthy';
     return {
       name,
       status: status.toUpperCase(),
@@ -105,14 +117,19 @@ onMounted(loadHealth);
       </YdCardHeader>
       <YdCardContent>
         <div class="flex items-center gap-3">
-        <span
-          class="inline-block h-4 w-4 rounded-full"
-          :class="overallStatus.isOk ? 'bg-green-500' : 'bg-red-500'"
-        />
-        <span class="text-sm text-gray-500">
-          共 {{ componentCards.length }} 个子系统
-          · <span class="text-green-600">{{ componentCards.filter((c) => c.isOk).length }} 正常</span>
-           · <span class="text-red-600">{{ componentCards.filter((c) => !c.isOk).length }} 异常</span>
+          <span
+            class="inline-block h-4 w-4 rounded-full"
+            :class="overallStatus.isOk ? 'bg-green-500' : 'bg-red-500'"
+          />
+          <span class="text-sm text-gray-500">
+            共 {{ componentCards.length }} 个子系统 ·
+            <span class="text-green-600"
+              >{{ componentCards.filter((c) => c.isOk).length }} 正常</span
+            >
+            ·
+            <span class="text-red-600"
+              >{{ componentCards.filter((c) => !c.isOk).length }} 异常</span
+            >
           </span>
         </div>
       </YdCardContent>
@@ -128,7 +145,10 @@ onMounted(loadHealth);
         <YdCardHeader>
           <div class="flex items-center justify-between">
             <YdCardTitle class="text-sm text-gray-700">{{ card.name }}</YdCardTitle>
-            <YdBadge :variant="statusTagType(card.isOk) === 'success' ? 'default' : 'destructive'" size="sm">
+            <YdBadge
+              :variant="statusTagType(card.isOk) === 'success' ? 'default' : 'destructive'"
+              size="sm"
+            >
               {{ card.status }}
             </YdBadge>
           </div>

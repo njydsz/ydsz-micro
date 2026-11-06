@@ -140,7 +140,10 @@ function getRegistryEndpoint(): string {
  */
 async function fetchWithTimeout(url: string, timeout: number): Promise<Response> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(`Registry fetch timeout after ${timeout}ms`), timeout);
+  const timeoutId = setTimeout(
+    () => controller.abort(`Registry fetch timeout after ${timeout}ms`),
+    timeout,
+  );
 
   try {
     // @infra-fetch 基础设施层直用，无统一客户端上下文（远程 registry 注册表拉取）
@@ -274,9 +277,7 @@ export function resolveAppEntry(app: MicroAppEntry): string {
   // 生产模式：prodPath 回退到 /ydsz-{name}/
   // 口径单一来源 = comm/constants/src/micro-apps.ts 的 defaultProdPath()；
   // 此处内联以避免 micro-kernel 依赖 constants 包，由 bash/check-subapp-base.mts 断言两端一致。
-  return (
-    (app as MicroAppEntry & { prodPath?: string }).prodPath ?? `/ydsz-${app.name}/`
-  );
+  return (app as MicroAppEntry & { prodPath?: string }).prodPath ?? `/ydsz-${app.name}/`;
 }
 
 /**

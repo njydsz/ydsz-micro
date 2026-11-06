@@ -66,9 +66,5 @@ async function handleLogin(_values: Record<string, unknown>) {
 </script>
 
 <template>
-  <AuthenticationCodeLogin
-    :form-schema="formSchema"
-    :loading="loading"
-    @submit="handleLogin"
-  />
+  <AuthenticationCodeLogin :form-schema="formSchema" :loading="loading" @submit="handleLogin" />
 </template>

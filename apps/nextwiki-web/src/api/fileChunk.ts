@@ -22,50 +22,50 @@ import type { FileNodeVO } from './models';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function initChunkUpload(params: {
-    fileName?: string;
-    fileSize?: number;
-    totalChunks?: number;
-    parentId?: string;
-  }): Promise<unknown> {
+  fileName?: string;
+  fileSize?: number;
+  totalChunks?: number;
+  parentId?: string;
+}): Promise<unknown> {
   return requestClient.post<unknown>(`/nextwiki/files/chunk/init`, { params });
 }
 
 /**
  * uploadChunk: POST /nextwiki/files/chunk/{uploadId}/{chunkNumber}
  */
-export function uploadChunk({ uploadId, chunkNumber }: {
+export function uploadChunk(
+  {
+    uploadId,
+    chunkNumber,
+  }: {
     uploadId: string;
     chunkNumber: number;
-  }, params: {
+  },
+  params: {
     chunk?: Record<string, unknown>;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/nextwiki/files/chunk/${uploadId}/${chunkNumber}`, { params });
 }
 
 /**
  * completeChunkUpload: POST /nextwiki/files/chunk/{uploadId}/complete
  */
-export function completeChunkUpload({ uploadId }: {
-    uploadId: string;
-  }): Promise<FileNodeVO> {
+export function completeChunkUpload({ uploadId }: { uploadId: string }): Promise<FileNodeVO> {
   return requestClient.post<FileNodeVO>(`/nextwiki/files/chunk/${uploadId}/complete`);
 }
 
 /**
  * abortChunkUpload: DELETE /nextwiki/files/chunk/{uploadId}
  */
-export function abortChunkUpload({ uploadId }: {
-    uploadId: string;
-  }): Promise<void> {
+export function abortChunkUpload({ uploadId }: { uploadId: string }): Promise<void> {
   return requestClient.delete<void>(`/nextwiki/files/chunk/${uploadId}`);
 }
 
 /**
  * getUploadedChunks: GET /nextwiki/files/chunk/{uploadId}/uploaded-chunks
  */
-export function getUploadedChunks({ uploadId }: {
-    uploadId: string;
-  }): Promise<number[]> {
+export function getUploadedChunks({ uploadId }: { uploadId: string }): Promise<number[]> {
   return requestClient.get<number[]>(`/nextwiki/files/chunk/${uploadId}/uploaded-chunks`);
 }
 
@@ -77,8 +77,6 @@ export function getUploadedChunks({ uploadId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function getUploadProgress({ uploadId }: {
-    uploadId: string;
-  }): Promise<unknown> {
+export function getUploadProgress({ uploadId }: { uploadId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/nextwiki/files/chunk/${uploadId}/progress`);
 }

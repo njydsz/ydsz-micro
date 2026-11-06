@@ -19,10 +19,7 @@ const dynamicRouteFiles = import.meta.glob('./modules/**/*.ts', {
 const dynamicRoutes: RouteRecordRaw[] = mergeRouteModules(dynamicRouteFiles);
 
 /** 路由列表，由基本路由、外部路由和404兜底路由组成 */
-const routes: RouteRecordRaw[] = [
-  ...coreRoutes,
-  fallbackNotFoundRoute,
-];
+const routes: RouteRecordRaw[] = [...coreRoutes, fallbackNotFoundRoute];
 
 /** 基本路由名称列表 */
 const coreRouteNames = traverseTreeValues(coreRoutes, (route) => route.name);

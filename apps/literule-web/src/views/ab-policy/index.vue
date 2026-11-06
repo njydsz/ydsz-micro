@@ -19,7 +19,20 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTable, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdSelect,
+  YdSwitch,
+  YdTable,
+  YdBadge,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { formatJsonResult } from '#/utils/format';
@@ -50,10 +63,8 @@ const gridOptions: VxeTableGridOptions<RuleABPolicyVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(
-            YdBadge,
-            { variant: row.isAutoRollbackEnabled ? 'success' : 'info' },
-            () => (row.isAutoRollbackEnabled ? '启用' : '关闭'),
+          h(YdBadge, { variant: row.isAutoRollbackEnabled ? 'success' : 'info' }, () =>
+            row.isAutoRollbackEnabled ? '启用' : '关闭',
           ),
       },
     },
@@ -213,11 +224,7 @@ function handleCreate() {
 async function handleDelete(row: RuleABPolicyVO) {
   if (!row.id) return;
   try {
-    await YdConfirm(
-      `确定删除 AB 策略「${row.ruleCode}」吗？`,
-      '删除确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定删除 AB 策略「${row.ruleCode}」吗？`, '删除确认', { type: 'warning' });
     await deleteABPolicy({ id: row.id });
     showToast.success('删除成功');
     gridApi.query();
@@ -270,12 +277,13 @@ async function handleRollbackHistory(row: RuleABPolicyVO) {
 async function handleManualRollback(): Promise<void> {
   if (!currentABPolicyId.value) return;
   try {
-    await YdConfirm('确定手动回滚该策略到 A 版本吗？', { title: '手动回滚', type: 'warning', });
+    await YdConfirm('确定手动回滚该策略到 A 版本吗？', { title: '手动回滚', type: 'warning' });
     await manualRollbackABPolicy({ id: currentABPolicyId.value }, { reason: '手动回滚' });
     showToast.success('回滚成功');
     rollbackHistoryLoading.value = true;
     try {
-      rollbackHistoryList.value = (await getABRollbackHistory({ id: currentABPolicyId.value })) ?? [];
+      rollbackHistoryList.value =
+        (await getABRollbackHistory({ id: currentABPolicyId.value })) ?? [];
     } catch {
       /* 错误提示由请求拦截器统一处理 */
     } finally {
@@ -301,7 +309,11 @@ async function handleManualRollback(): Promise<void> {
     <Modal :title="modalTitle">
       <YdForm ref="formRef" :model="formData" label-width="110px" label-position="right">
         <YdFormItem label="关联规则编码" required>
-          <YdInput v-model="formData.ruleCode" :disabled="isEdit" placeholder="请输入关联的规则编码" />
+          <YdInput
+            v-model="formData.ruleCode"
+            :disabled="isEdit"
+            placeholder="请输入关联的规则编码"
+          />
         </YdFormItem>
         <YdFormItem label="启用自动回滚">
           <YdSwitch v-model="formData.isAutoRollbackEnabled" />
@@ -313,7 +325,12 @@ async function handleManualRollback(): Promise<void> {
           </YdSelect>
         </YdFormItem>
         <YdFormItem label="错误率阈值(%)">
-          <YdNumberFieldInput v-model="formData.errorRateThreshold" :min="0" :max="100" class="!w-full" />
+          <YdNumberFieldInput
+            v-model="formData.errorRateThreshold"
+            :min="0"
+            :max="100"
+            class="!w-full"
+          />
         </YdFormItem>
         <YdFormItem label="最小样本量">
           <YdNumberFieldInput v-model="formData.minSampleSize" :min="1" class="!w-full" />

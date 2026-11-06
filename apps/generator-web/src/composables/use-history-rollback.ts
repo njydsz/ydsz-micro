@@ -9,8 +9,6 @@
  */
 import { ref } from 'vue';
 
-;
-
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 
@@ -122,7 +120,10 @@ export function useHistoryRollback() {
   async function deleteHistoryRecord(record: GenHistory) {
     if (!record.id) return;
     try {
-      await YdConfirm(`确定删除任务记录 #${record.id} 吗？`, { title: '删除确认', type: 'warning', });
+      await YdConfirm(`确定删除任务记录 #${record.id} 吗？`, {
+        title: '删除确认',
+        type: 'warning',
+      });
     } catch {
       return;
     }

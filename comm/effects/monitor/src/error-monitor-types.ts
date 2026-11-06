@@ -12,11 +12,7 @@ import type { YdBreadcrumb } from './breadcrumb';
 import type { MonitorEndpoints } from './monitor-endpoints';
 
 /** 错误事件类型 */
-export type ErrorType =
-  | 'vue'
-  | 'window'
-  | 'promise'
-  | 'resource';
+export type ErrorType = 'vue' | 'window' | 'promise' | 'resource';
 
 /** 错误上报数据结构 */
 export interface ErrorReport {

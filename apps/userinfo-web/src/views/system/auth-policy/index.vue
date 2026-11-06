@@ -45,11 +45,17 @@ const gridOptions: VxeTableGridOptions = {
       width: 90,
       align: 'center',
       slots: {
-        default: ({ row }) => h(
-          YdBadge,
-          { variant: (row as Record<string, unknown>)?.isMfaEnabled ? 'default' : 'secondary', class: (row as Record<string, unknown>)?.isMfaEnabled ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
-          () => ((row as Record<string, unknown>)?.isMfaEnabled ? '已启用' : '未启用'),
-        ),
+        default: ({ row }) =>
+          h(
+            YdBadge,
+            {
+              variant: (row as Record<string, unknown>)?.isMfaEnabled ? 'default' : 'secondary',
+              class: (row as Record<string, unknown>)?.isMfaEnabled
+                ? 'bg-green-500 text-white hover:bg-green-600'
+                : 'text-xs',
+            },
+            () => ((row as Record<string, unknown>)?.isMfaEnabled ? '已启用' : '未启用'),
+          ),
       },
     },
     {
@@ -58,11 +64,17 @@ const gridOptions: VxeTableGridOptions = {
       width: 100,
       align: 'center',
       slots: {
-        default: ({ row }) => h(
-          YdBadge,
-          { variant: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'default' : 'secondary', class: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
-          () => ((row as Record<string, unknown>)?.isCaptchaEnabled ? '已启用' : '未启用'),
-        ),
+        default: ({ row }) =>
+          h(
+            YdBadge,
+            {
+              variant: (row as Record<string, unknown>)?.isCaptchaEnabled ? 'default' : 'secondary',
+              class: (row as Record<string, unknown>)?.isCaptchaEnabled
+                ? 'bg-green-500 text-white hover:bg-green-600'
+                : 'text-xs',
+            },
+            () => ((row as Record<string, unknown>)?.isCaptchaEnabled ? '已启用' : '未启用'),
+          ),
       },
     },
     { field: 'allowedIdentityProviders', title: '身份提供者', width: 160, showOverflow: true },
@@ -103,7 +115,12 @@ const gridOptions: VxeTableGridOptions = {
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(record) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(record),
+              },
               () => '删除',
             ),
           ]);
@@ -114,7 +131,9 @@ const gridOptions: VxeTableGridOptions = {
   height: 'auto',
   proxyConfig: {
     ajax: {
-      query: async (params: Record<string, unknown>): Promise<{ items: Record<string, unknown>[]; total: number }> => {
+      query: async (
+        params: Record<string, unknown>,
+      ): Promise<{ items: Record<string, unknown>[]; total: number }> => {
         const formData = (params?.formData ?? {}) as Record<string, unknown>;
         try {
           const result = await page({
@@ -140,8 +159,16 @@ const gridOptions: VxeTableGridOptions = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'tenantId', title: '租户ID', itemRender: { name: 'YdInput', props: { placeholder: '租户ID' } } },
-      { field: 'name', title: '策略名称', itemRender: { name: 'YdInput', props: { placeholder: '策略名称' } } },
+      {
+        field: 'tenantId',
+        title: '租户ID',
+        itemRender: { name: 'YdInput', props: { placeholder: '租户ID' } },
+      },
+      {
+        field: 'name',
+        title: '策略名称',
+        itemRender: { name: 'YdInput', props: { placeholder: '策略名称' } },
+      },
     ],
   },
 };
@@ -197,7 +224,9 @@ async function handleDelete(row: AuthPolicyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="认证策略管理">
-      <template #toolbar-tools><YdButton variant="default" @click="handleAdd">新增</YdButton></template>
+      <template #toolbar-tools
+        ><YdButton variant="default" @click="handleAdd">新增</YdButton></template
+      >
     </Grid>
     <AuthPolicyFormModal @success="gridApi.query()" />
   </Page>

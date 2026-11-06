@@ -99,4 +99,3 @@ export function isDate(value: unknown): value is Date {
 export function isDayjsObject(value: unknown): value is dayjs.Dayjs {
   return dayjs.isDayjs(value);
 }
-

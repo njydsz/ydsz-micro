@@ -41,7 +41,14 @@ const gridOptions: VxeGridProps<TagVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h('span', { class: 'inline-block h-4 w-4 rounded', style: { backgroundColor: row.color ?? '#409eff' } }, ''),
+          h(
+            'span',
+            {
+              class: 'inline-block h-4 w-4 rounded',
+              style: { backgroundColor: row.color ?? '#409eff' },
+            },
+            '',
+          ),
       },
     },
     { field: 'type', title: '类型', width: 100 },
@@ -49,12 +56,23 @@ const gridOptions: VxeGridProps<TagVO> = {
     { field: 'createdBy', title: '创建人', width: 120 },
     { field: 'createdAt', title: '创建时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 200, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 200,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleBind(row) }, () => '绑定'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleFileTags() }, () => '文件标签'),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleBind(row) },
+              () => '绑定',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleFileTags() },
+              () => '文件标签',
+            ),
           ]),
       },
     },
@@ -73,7 +91,9 @@ const gridOptions: VxeGridProps<TagVO> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [TagFormModal, tagFormApi] = useYdModal({ connectedComponent: TagForm });
 
-function handleAdd() { tagFormApi.open(); }
+function handleAdd() {
+  tagFormApi.open();
+}
 
 /** 标签绑定弹窗（输入 fileNodeId + tagId） */
 const bindVisible = ref(false);
@@ -84,12 +104,17 @@ function handleBind(row: TagVO) {
   bindVisible.value = true;
 }
 async function confirmBind() {
-  if (!bindForm.fileNodeId || !bindForm.tagId) { showToast.warning(t('bindRequired')); return; }
+  if (!bindForm.fileNodeId || !bindForm.tagId) {
+    showToast.warning(t('bindRequired'));
+    return;
+  }
   try {
     await bindTag({ ...bindForm });
     showToast.success(t('bindSuccess'));
     bindVisible.value = false;
-  } catch (error) { logger.warn('绑定标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('绑定标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 按文件查询 / 推荐标签弹窗 */
@@ -104,16 +129,26 @@ function handleFileTags() {
   fileTagsVisible.value = true;
 }
 async function loadFileTags() {
-  if (!fileTagsNodeId.value) { fileTags.value = []; return; }
+  if (!fileTagsNodeId.value) {
+    fileTags.value = [];
+    return;
+  }
   try {
     fileTags.value = await getFileTags({ fileNodeId: fileTagsNodeId.value });
-  } catch (error) { logger.warn('查询文件标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('查询文件标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 async function loadRecommendedTags() {
-  if (!fileTagsNodeId.value) { showToast.warning(t('tagIdRequired')); return; }
+  if (!fileTagsNodeId.value) {
+    showToast.warning(t('tagIdRequired'));
+    return;
+  }
   try {
     recommendTagList.value = await recommendTags({ fileNodeId: fileTagsNodeId.value });
-  } catch (error) { logger.warn('推荐标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('推荐标签失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 </script>
 <template>
@@ -134,7 +169,12 @@ async function loadRecommendedTags() {
     </YdDialog>
     <YdDialog v-model="fileTagsVisible" title="文件标签查询 / 推荐" width="600px">
       <div class="mb-2 flex items-center gap-2">
-        <YdInput v-model="fileTagsNodeId" placeholder="请输入文件节点ID" clearable @keyup.enter="loadFileTags" />
+        <YdInput
+          v-model="fileTagsNodeId"
+          placeholder="请输入文件节点ID"
+          clearable
+          @keyup.enter="loadFileTags"
+        />
         <YdButton @click="loadFileTags">查询</YdButton>
         <YdButton variant="outline" @click="loadRecommendedTags">推荐标签</YdButton>
       </div>
@@ -145,7 +185,7 @@ async function loadRecommendedTags() {
         <YdTableColumn prop="usageCount" label="使用次数" width="100" />
       </YdTable>
       <template v-if="recommendTagList.length > 0">
-        <div class="mt-3 mb-1 text-sm font-medium text-gray-600">推荐标签</div>
+        <div class="mb-1 mt-3 text-sm font-medium text-gray-600">推荐标签</div>
         <div class="flex flex-wrap gap-1">
           <YdBadge v-for="tag in recommendTagList" :key="tag.id">{{ tag.name }}</YdBadge>
         </div>

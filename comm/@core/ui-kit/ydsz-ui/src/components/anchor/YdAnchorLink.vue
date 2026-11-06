@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Anchor 锚点链接节点（可嵌套）。
-* 
-* @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchorLink.vue
-* @author ydsz-team
-* @since 1.0.0
+ * Anchor 锚点链接节点（可嵌套）。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchorLink.vue
+ * @author ydsz-team
+ * @since 1.0.0
  */
 import type { ClassValue } from 'clsx';
 
@@ -42,7 +42,7 @@ const props = defineProps<Props>();
       <!-- 激活指示器 -->
       <span
         v-if="activeKey === item.key"
-        class="absolute -left-[1.65rem] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-primary ring-4 ring-background"
+        class="bg-primary ring-background absolute -left-[1.65rem] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full ring-4"
         aria-hidden="true"
       ></span>
       <slot name="link" :item="item">{{ item.title }}</slot>

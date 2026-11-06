@@ -268,7 +268,10 @@ function checkVendorArtifacts() {
     for (const [key, url] of Object.entries(map.imports || {})) {
       if (!url.startsWith('/vendor/')) continue;
       const rel = url.slice('/vendor/'.length);
-      if (!fs.existsSync(path.join(vendorDir, rel)) && !fs.existsSync(path.join(vendorDir, rel, 'index.js'))) {
+      if (
+        !fs.existsSync(path.join(vendorDir, rel)) &&
+        !fs.existsSync(path.join(vendorDir, rel, 'index.js'))
+      ) {
         console.error(`  [悬空] ${app}: ${key} → ${url}`);
         drift++;
       }
@@ -308,7 +311,9 @@ function checkVendorArtifacts() {
       for (const [dep, version] of versions) {
         const locked = lock.deps[dep]?.version;
         if (locked && locked !== version) {
-          console.error(`  [锁漂移] ${app} ${dep}@${version} ≠ lock@${locked}，请重跑 sync:shared-deps`);
+          console.error(
+            `  [锁漂移] ${app} ${dep}@${version} ≠ lock@${locked}，请重跑 sync:shared-deps`,
+          );
           drift++;
         }
       }
@@ -316,7 +321,9 @@ function checkVendorArtifacts() {
   }
 
   if (drift === 0) {
-    console.log(`[sync-shared-deps] --check 通过：${seen.size} 个应用 vendor 产物一致且无悬空引用 ✓`);
+    console.log(
+      `[sync-shared-deps] --check 通过：${seen.size} 个应用 vendor 产物一致且无悬空引用 ✓`,
+    );
     return 0;
   }
   console.error(`[sync-shared-deps] --check 发现 ${drift} 处不一致`);
@@ -342,9 +349,7 @@ async function downloadToVendor(url, vendorDir, vendorBase) {
   const filePath = isFile
     ? path.join(vendorDir, relPath)
     : path.join(vendorDir, relPath, 'index.js');
-  const localUrlPath = isFile
-    ? `${vendorBase}/${relPath}`
-    : `${vendorBase}/${relPath}/index.js`;
+  const localUrlPath = isFile ? `${vendorBase}/${relPath}` : `${vendorBase}/${relPath}/index.js`;
 
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
 

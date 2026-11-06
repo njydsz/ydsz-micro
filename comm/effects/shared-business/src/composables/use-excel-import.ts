@@ -280,7 +280,8 @@ export function useExcelImport<T = unknown>() {
     return new Promise<ExcelImportResult<T>>((resolveResult, rejectResult) => {
       let worker: Worker;
       try {
-        const workerUrl = workerPath ?? new URL('./workers/excel-import.worker.ts', import.meta.url).href;
+        const workerUrl =
+          workerPath ?? new URL('./workers/excel-import.worker.ts', import.meta.url).href;
         worker = new Worker(workerUrl, { type: 'module' });
       } catch (err) {
         rejectResult(err instanceof Error ? err : new Error(String(err)));
@@ -313,10 +314,9 @@ export function useExcelImport<T = unknown>() {
         rejectResult(new Error(event.message || t('excel.parseFailed')));
       };
 
-      worker.postMessage(
-        { type: 'parse', payload: { arrayBuffer, columns: options.columns } },
-        [arrayBuffer],
-      );
+      worker.postMessage({ type: 'parse', payload: { arrayBuffer, columns: options.columns } }, [
+        arrayBuffer,
+      ]);
     });
   }
 
@@ -384,7 +384,7 @@ export function useExcelImport<T = unknown>() {
       const arrayBuffer = await readerAsBuffer(file);
       // 解析首 sheet 行数以决策是否启用 Worker
       const rowCount = peekRowCount(arrayBuffer);
-      const shouldUseWorker = options.useWorker ?? (rowCount > WORKER_THRESHOLD);
+      const shouldUseWorker = options.useWorker ?? rowCount > WORKER_THRESHOLD;
 
       const parsed = shouldUseWorker
         ? await parseWithWorker(arrayBuffer, options)

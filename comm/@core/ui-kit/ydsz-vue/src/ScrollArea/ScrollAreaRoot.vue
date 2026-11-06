@@ -1,33 +1,33 @@
 <script lang="ts">
 // @ts-nocheck
-import type { Ref } from 'vue'
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import type { Direction, ScrollType } from './types'
-import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
+import type { Ref } from 'vue';
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import type { Direction, ScrollType } from './types';
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts';
 
 export interface ScrollAreaRootContext {
-  type: Ref<ScrollType>
-  dir: Ref<Direction>
-  scrollHideDelay: Ref<number>
-  scrollArea: Ref<HTMLElement | undefined>
-  viewport: Ref<HTMLElement | undefined>
-  onViewportChange: (viewport: HTMLElement | null) => void
-  content: Ref<HTMLElement | undefined>
-  onContentChange: (content: HTMLElement) => void
-  scrollbarX: Ref<HTMLElement | undefined>
-  onScrollbarXChange: (scrollbar: HTMLElement | null) => void
-  scrollbarXEnabled: Ref<boolean>
-  onScrollbarXEnabledChange: (rendered: boolean) => void
-  scrollbarY: Ref<HTMLElement | undefined>
-  onScrollbarYChange: (scrollbar: HTMLElement | null) => void
-  scrollbarYEnabled: Ref<boolean>
-  onScrollbarYEnabledChange: (rendered: boolean) => void
-  onCornerWidthChange: (width: number) => void
-  onCornerHeightChange: (height: number) => void
+  type: Ref<ScrollType>;
+  dir: Ref<Direction>;
+  scrollHideDelay: Ref<number>;
+  scrollArea: Ref<HTMLElement | undefined>;
+  viewport: Ref<HTMLElement | undefined>;
+  onViewportChange: (viewport: HTMLElement | null) => void;
+  content: Ref<HTMLElement | undefined>;
+  onContentChange: (content: HTMLElement) => void;
+  scrollbarX: Ref<HTMLElement | undefined>;
+  onScrollbarXChange: (scrollbar: HTMLElement | null) => void;
+  scrollbarXEnabled: Ref<boolean>;
+  onScrollbarXEnabledChange: (rendered: boolean) => void;
+  scrollbarY: Ref<HTMLElement | undefined>;
+  onScrollbarYChange: (scrollbar: HTMLElement | null) => void;
+  scrollbarYEnabled: Ref<boolean>;
+  onScrollbarYEnabledChange: (rendered: boolean) => void;
+  onCornerWidthChange: (width: number) => void;
+  onCornerHeightChange: (height: number) => void;
 }
 
-export const [injectScrollAreaRootContext, provideScrollAreaRootContext]
-  = createContext<ScrollAreaRootContext>('ScrollAreaRoot')
+export const [injectScrollAreaRootContext, provideScrollAreaRootContext] =
+  createContext<ScrollAreaRootContext>('ScrollAreaRoot');
 
 export interface ScrollAreaRootProps extends PrimitiveProps {
   /**
@@ -38,45 +38,45 @@ export interface ScrollAreaRootProps extends PrimitiveProps {
    * `scroll` - means that scrollbars are visible when the user is scrolling along its corresponding orientation.<br>
    * `hover` - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
    */
-  type?: ScrollType
+  type?: ScrollType;
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
-  dir?: Direction
+  dir?: Direction;
   /** If type is set to either `scroll` or `hover`, this prop determines the length of time, in milliseconds, <br> before the scrollbars are hidden after the user stops interacting with scrollbars. */
-  scrollHideDelay?: number
+  scrollHideDelay?: number;
 }
 </script>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import { Primitive } from '../Primitive/index.ts'
+import { ref, toRefs } from 'vue';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   type: 'hover',
   scrollHideDelay: 600,
-})
+});
 
-const cornerWidth = ref(0)
-const cornerHeight = ref(0)
-const viewport = ref<HTMLElement>()
-const content = ref<HTMLElement>()
-const scrollbarX = ref<HTMLElement>()
-const scrollbarY = ref<HTMLElement>()
-const scrollbarXEnabled = ref(false)
-const scrollbarYEnabled = ref(false)
+const cornerWidth = ref(0);
+const cornerHeight = ref(0);
+const viewport = ref<HTMLElement>();
+const content = ref<HTMLElement>();
+const scrollbarX = ref<HTMLElement>();
+const scrollbarY = ref<HTMLElement>();
+const scrollbarXEnabled = ref(false);
+const scrollbarYEnabled = ref(false);
 
-const { type, dir: propDir, scrollHideDelay } = toRefs(props)
-const dir = useDirection(propDir)
+const { type, dir: propDir, scrollHideDelay } = toRefs(props);
+const dir = useDirection(propDir);
 
 function scrollTop() {
   viewport.value?.scrollTo({
     top: 0,
-  })
+  });
 }
 function scrollTopLeft() {
   viewport.value?.scrollTo({
     top: 0,
     left: 0,
-  })
+  });
 }
 
 defineExpose({
@@ -86,9 +86,9 @@ defineExpose({
   scrollTop,
   /** Scroll viewport to top-left */
   scrollTopLeft,
-})
+});
 
-const { forwardRef, currentElement: scrollArea } = useForwardExpose()
+const { forwardRef, currentElement: scrollArea } = useForwardExpose();
 
 provideScrollAreaRootContext({
   type,
@@ -97,35 +97,35 @@ provideScrollAreaRootContext({
   scrollArea,
   viewport,
   onViewportChange: (el) => {
-    viewport.value = el || undefined
+    viewport.value = el || undefined;
   },
   content,
   onContentChange: (el) => {
-    content.value = el
+    content.value = el;
   },
   scrollbarX,
   scrollbarXEnabled,
   scrollbarY,
   scrollbarYEnabled,
   onScrollbarXChange: (scrollbar) => {
-    scrollbarX.value = scrollbar || undefined
+    scrollbarX.value = scrollbar || undefined;
   },
   onScrollbarYChange: (scrollbar) => {
-    scrollbarY.value = scrollbar || undefined
+    scrollbarY.value = scrollbar || undefined;
   },
   onScrollbarXEnabledChange: (rendered) => {
-    scrollbarXEnabled.value = rendered
+    scrollbarXEnabled.value = rendered;
   },
   onScrollbarYEnabledChange: (rendered) => {
-    scrollbarYEnabled.value = rendered
+    scrollbarYEnabled.value = rendered;
   },
   onCornerWidthChange: (width) => {
-    cornerWidth.value = width
+    cornerWidth.value = width;
   },
   onCornerHeightChange: (height) => {
-    cornerHeight.value = height
+    cornerHeight.value = height;
   },
-})
+});
 </script>
 
 <template>

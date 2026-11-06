@@ -1,55 +1,55 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface ScrollAreaThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { computed, onUnmounted, ref } from 'vue'
-import { watchOnce } from '@vueuse/core'
-import { Primitive } from '../Primitive/index.ts'
-import { addUnlinkedScrollListener } from './utils'
-import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
+import { computed, onUnmounted, ref } from 'vue';
+import { watchOnce } from '@vueuse/core';
+import { Primitive } from '../Primitive/index.ts';
+import { addUnlinkedScrollListener } from './utils';
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue';
+import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue';
 
-const props = defineProps<ScrollAreaThumbProps>()
+const props = defineProps<ScrollAreaThumbProps>();
 
-const rootContext = injectScrollAreaRootContext()
-const scrollbarContextVisible = injectScrollAreaScrollbarVisibleContext()
+const rootContext = injectScrollAreaRootContext();
+const scrollbarContextVisible = injectScrollAreaScrollbarVisibleContext();
 
 function handlePointerDown(event: MouseEvent) {
-  const thumb = event.target as HTMLElement
-  const thumbRect = thumb.getBoundingClientRect()
-  const x = event.clientX - thumbRect.left
-  const y = event.clientY - thumbRect.top
-  scrollbarContextVisible.handleThumbDown(event, { x, y })
+  const thumb = event.target as HTMLElement;
+  const thumbRect = thumb.getBoundingClientRect();
+  const x = event.clientX - thumbRect.left;
+  const y = event.clientY - thumbRect.top;
+  scrollbarContextVisible.handleThumbDown(event, { x, y });
 }
 
 function handlePointerUp(event: MouseEvent) {
-  scrollbarContextVisible.handleThumbUp(event)
+  scrollbarContextVisible.handleThumbUp(event);
 }
 
-const { forwardRef, currentElement: thumbElement } = useForwardExpose()
-const removeUnlinkedScrollListenerRef = ref<() => void>()
-const viewport = computed(() => rootContext.viewport.value)
+const { forwardRef, currentElement: thumbElement } = useForwardExpose();
+const removeUnlinkedScrollListenerRef = ref<() => void>();
+const viewport = computed(() => rootContext.viewport.value);
 
 function handleScroll() {
   if (!removeUnlinkedScrollListenerRef.value) {
     const listener = addUnlinkedScrollListener(
       viewport.value!,
       scrollbarContextVisible.onThumbPositionChange,
-    )
-    removeUnlinkedScrollListenerRef.value = listener
-    scrollbarContextVisible.onThumbPositionChange()
+    );
+    removeUnlinkedScrollListenerRef.value = listener;
+    scrollbarContextVisible.onThumbPositionChange();
   }
 }
 
-const sizes = computed(() => scrollbarContextVisible.sizes.value)
+const sizes = computed(() => scrollbarContextVisible.sizes.value);
 
 watchOnce(sizes, () => {
-  scrollbarContextVisible.onThumbChange(thumbElement.value!)
+  scrollbarContextVisible.onThumbChange(thumbElement.value!);
   if (viewport.value) {
     /**
      * We only bind to native scroll event so we know when scroll starts and ends.
@@ -58,15 +58,15 @@ watchOnce(sizes, () => {
      * when relevant to avoid scroll-linked effects. We cancel the loop when scroll ends.
      * https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scroll-linked_effects
      */
-    scrollbarContextVisible.onThumbPositionChange()
-    viewport.value.addEventListener('scroll', handleScroll)
+    scrollbarContextVisible.onThumbPositionChange();
+    viewport.value.addEventListener('scroll', handleScroll);
   }
-})
+});
 
 onUnmounted(() => {
-  viewport.value!.removeEventListener('scroll', handleScroll)
-  rootContext.viewport.value?.removeEventListener('scroll', handleScroll)
-})
+  viewport.value!.removeEventListener('scroll', handleScroll);
+  rootContext.viewport.value?.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>

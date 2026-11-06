@@ -14,21 +14,21 @@
  * @since 4.1.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import type { RoutePredictor } from "./route-predictor";
-import { createLogger } from "@ydsz-core/shared/utils";
+import type { DisposableManager } from './manager-registry';
+import type { RoutePredictor } from './route-predictor';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { getStorage, removeStorage, setStorage } from "./storage-utils";
-import type { PersistedData, TransitionRecord } from "./route-predictor-types";
+import { getStorage, removeStorage, setStorage } from './storage-utils';
+import type { PersistedData, TransitionRecord } from './route-predictor-types';
 import {
   DECAY_HALFLIFE_MS,
   MAX_RETENTION_MS,
   MAX_TRANSITION_ENTRIES,
   PERSIST_THROTTLE_MS,
   STORAGE_KEY,
-} from "./route-predictor-types";
+} from './route-predictor-types';
 
-const logger = createLogger("RoutePredictor");
+const logger = createLogger('RoutePredictor');
 
 /**
  * RoutePredictor 内部状态接口
@@ -52,10 +52,7 @@ export interface RoutePredictorLike {
  * @param predictor - RoutePredictor 实例
  * @param force - 是否跳过 dirty 检查强制写入
  */
-export function saveCore(
-  predictor: RoutePredictorLike,
-  force = false,
-): void {
+export function saveCore(predictor: RoutePredictorLike, force = false): void {
   if (!force && !predictor.dirty) return;
   const now = Date.now();
   const allPairs: Array<{
@@ -132,14 +129,11 @@ function loadV1Core(predictor: RoutePredictorLike): void {
     transitions: TransitionRecord[];
     version: 1;
   };
-  const data = getStorage<null | V1Data>(
-    "ydsz_route_predictions",
-    null,
-  );
+  const data = getStorage<null | V1Data>('ydsz_route_predictions', null);
   if (!data) return;
   if (data.version !== 1) return;
   if (Date.now() - data.lastUpdated > MAX_RETENTION_MS) {
-    removeStorage("ydsz_route_predictions");
+    removeStorage('ydsz_route_predictions');
     return;
   }
 
@@ -175,7 +169,7 @@ function loadV1Core(predictor: RoutePredictorLike): void {
   // 立即以 v2 格式落盘，再删除 v1 key：顺序不可颠倒，
   // 否则迁移中途崩溃（关标签页/清缓存）会同时丢掉两个版本的数据
   saveCore(predictor);
-  removeStorage("ydsz_route_predictions");
+  removeStorage('ydsz_route_predictions');
 }
 
 /** 加载 v2 格式数据 */
@@ -218,9 +212,7 @@ function loadV2Core(predictor: RoutePredictorLike): boolean {
     predictor.totals.set(record.from, existingTotal + decayedCount);
   }
 
-  logger.debug(
-    `Loaded ${data.transitions.length} historical transitions (v2)`,
-  );
+  logger.debug(`Loaded ${data.transitions.length} historical transitions (v2)`);
   return true;
 }
 
@@ -286,9 +278,7 @@ export function getGlobalTopAppsCore(
     });
   }
 
-  return predictions
-    .sort((a, b) => b.probability - a.probability)
-    .slice(0, topN);
+  return predictions.sort((a, b) => b.probability - a.probability).slice(0, topN);
 }
 
 /**
@@ -296,9 +286,7 @@ export function getGlobalTopAppsCore(
  *
  * @param predictor - RoutePredictor 实例
  */
-export function getSummaryCore(
-  predictor: RoutePredictorLike,
-): {
+export function getSummaryCore(predictor: RoutePredictorLike): {
   topPairs: Array<{ count: number; from: string; to: string }>;
   totalTransitions: number;
   uniquePairs: number;
@@ -343,9 +331,7 @@ export function __registerRoutePredictor(
  */
 export function getRoutePredictor(): RoutePredictorInterface {
   if (!instanceGetter) {
-    throw new Error(
-      "RoutePredictor not initialized. Ensure route-predictor.ts is imported.",
-    );
+    throw new Error('RoutePredictor not initialized. Ensure route-predictor.ts is imported.');
   }
   return instanceGetter();
 }
@@ -364,7 +350,7 @@ export function resetRoutePredictor(): void {
  */
 export function createRoutePredictorManagerLifecycle(): DisposableManager {
   return {
-    name: "route-predictor",
+    name: 'route-predictor',
     dispose(): void {
       try {
         instanceDestroyer?.();

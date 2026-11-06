@@ -84,20 +84,17 @@ export function getBaseRequestClient(): RequestClient {
  * <p>首次属性访问时若 {@link initSharedRequest} 尚未调用，
  * 将以默认 baseURL 自动创建实例，避免拦截器注册时序问题。
  */
-export const requestClient: RequestClient = new Proxy(
-  {} as RequestClient,
-  {
-    get(_target, prop) {
-      return getRequestClient()[prop as keyof RequestClient];
-    },
-    has(_target, prop) {
-      return prop in getRequestClient();
-    },
-    set(_target, prop, value) {
-      getRequestClient()[prop as keyof RequestClient] = value as never;
-      return true;
-    },
+export const requestClient: RequestClient = new Proxy({} as RequestClient, {
+  get(_target, prop) {
+    return getRequestClient()[prop as keyof RequestClient];
   },
-);
+  has(_target, prop) {
+    return prop in getRequestClient();
+  },
+  set(_target, prop, value) {
+    getRequestClient()[prop as keyof RequestClient] = value as never;
+    return true;
+  },
+});
 
 export type { RequestClient };

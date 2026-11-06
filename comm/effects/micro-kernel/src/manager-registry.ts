@@ -135,9 +135,7 @@ export class ManagerRegistry {
     const allManagers = [...this.managers.values()];
 
     // 快速路径：无依赖声明时直接返回逆序
-    const hasDeps = allManagers.some(
-      (m) => m.dependsOn && m.dependsOn.length > 0,
-    );
+    const hasDeps = allManagers.some((m) => m.dependsOn && m.dependsOn.length > 0);
     if (!hasDeps) {
       return allManagers.reverse();
     }
@@ -183,11 +181,9 @@ export class ManagerRegistry {
     if (result.length < allManagers.length) {
       // 将未处理的节点按注册逆序追加
       const releasedNames = new Set(result.map((m) => m.name));
-      const remaining = allManagers
-        .filter((m) => !releasedNames.has(m.name))
-        .reverse();
-      if (typeof console !== "undefined") {
-        const cycleNames = remaining.map((m) => m.name).join(", ");
+      const remaining = allManagers.filter((m) => !releasedNames.has(m.name)).reverse();
+      if (typeof console !== 'undefined') {
+        const cycleNames = remaining.map((m) => m.name).join(', ');
         logger.warn(
           `[ManagerRegistry] Circular dependency detected among: ${cycleNames}. ` +
             `Falling back to reverse-registration order.`,

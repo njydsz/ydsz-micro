@@ -46,10 +46,7 @@ const treeData: TreeRow[] = [
  * @param extraProps - 覆盖默认配置的额外 props
  * @returns 渲染完成后的 wrapper
  */
-async function mountWithSearch(
-  keyword: string,
-  extraProps: Record<string, unknown> = {},
-) {
+async function mountWithSearch(keyword: string, extraProps: Record<string, unknown> = {}) {
   const wrapper = mount(YdVTreeSearch, {
     props: { treeData, ...extraProps },
   });

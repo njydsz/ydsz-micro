@@ -1,28 +1,21 @@
 <script lang="ts" setup>
 /**
-* ImageEditor 图片裁剪编辑组件。
-* 
+ * ImageEditor 图片裁剪编辑组件。
+ *
  * 使用 Canvas 绘制原图，DOM 叠加层实现可拖拽裁剪框与四角 resize 手柄，
  * 支持宽高比约束、实时预览与 base64 导出。
-* 
+ *
  * 对标 react-image-crop 的交互体验。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\image-editor\image-editor.vue
  * @author ydsz-team
  * @since 1.0.0
  */
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-import type {
-  ImageEditorAspectRatio,
-  ImageEditorRect,
-} from './image-editor-types';
+import type { ImageEditorAspectRatio, ImageEditorRect } from './image-editor-types';
 
-import type {
-  ImageEditorEmits,
-  ImageEditorExpose,
-  ImageEditorProps,
-} from './image-editor-types';
+import type { ImageEditorEmits, ImageEditorExpose, ImageEditorProps } from './image-editor-types';
 
 import { useLocale } from '../../locale/useLocale';
 
@@ -151,9 +144,10 @@ function initCropRect(): void {
 
   // 默认取图片中心的 60% 区域
   const defaultWidth = Math.min(w * 0.6, h * 0.6);
-  const defaultHeight = props.aspectRatio !== 'free'
-    ? defaultWidth / (getAspectRatioValue(props.aspectRatio) ?? 1)
-    : defaultWidth;
+  const defaultHeight =
+    props.aspectRatio !== 'free'
+      ? defaultWidth / (getAspectRatioValue(props.aspectRatio) ?? 1)
+      : defaultWidth;
 
   cropRect.value = {
     x: (w - defaultWidth) / 2,
@@ -262,10 +256,7 @@ function handleCropMousedown(event: MouseEvent): void {
   isDragging.value = true;
 }
 
-function handleResizeMousedown(
-  event: MouseEvent,
-  handle: 'nw' | 'ne' | 'sw' | 'se',
-): void {
+function handleResizeMousedown(event: MouseEvent, handle: 'nw' | 'ne' | 'sw' | 'se'): void {
   event.preventDefault();
   event.stopPropagation();
   if (!cropRect.value) {
@@ -377,17 +368,7 @@ async function applyCrop(): Promise<string> {
     throw new Error('Canvas 2D context not supported');
   }
 
-  ctx.drawImage(
-    img,
-    rect.x,
-    rect.y,
-    rect.width,
-    rect.height,
-    0,
-    0,
-    rect.width,
-    rect.height,
-  );
+  ctx.drawImage(img, rect.x, rect.y, rect.width, rect.height, 0, 0, rect.width, rect.height);
 
   return canvas.toDataURL('image/png');
 }
@@ -481,7 +462,7 @@ defineExpose<ImageEditorExpose>({
 <template>
   <div
     :class="[
-      'yd-image-editor flex flex-col gap-3 rounded-md border border-border bg-background p-4',
+      'yd-image-editor border-border bg-background flex flex-col gap-3 rounded-md border p-4',
       props.class,
     ]"
     role="region"
@@ -492,14 +473,14 @@ defineExpose<ImageEditorExpose>({
       <span class="text-sm font-medium">{{ t('imageEditor.title') }}</span>
       <div class="flex items-center gap-2">
         <button
-          class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
+          class="text-muted-foreground hover:bg-muted rounded px-2 py-1 text-xs"
           type="button"
           @click="reset"
         >
           {{ t('common.reset') }}
         </button>
         <button
-          class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted"
+          class="text-muted-foreground hover:bg-muted rounded px-2 py-1 text-xs"
           type="button"
           @click="emit('cancel')"
         >
@@ -513,14 +494,14 @@ defineExpose<ImageEditorExpose>({
       <!-- canvas + overlay container -->
       <div
         ref="containerRef"
-        class="yd-image-container relative flex-1 overflow-hidden rounded border border-border bg-muted/20"
+        class="yd-image-container border-border bg-muted/20 relative flex-1 overflow-hidden rounded border"
       >
         <canvas ref="canvasRef" class="yd-image-canvas block"></canvas>
 
         <!-- 裁剪遮罩 + 框 -->
         <div
           v-if="cropRect && canvasWidth && canvasHeight"
-          class="yd-crop-overlay absolute inset-0 pointer-events-none"
+          class="yd-crop-overlay pointer-events-none absolute inset-0"
         >
           <!-- 顶部遮罩 -->
           <div
@@ -553,7 +534,7 @@ defineExpose<ImageEditorExpose>({
 
           <!-- 裁剪框 -->
           <div
-            class="yd-crop-box absolute border-2 border-primary bg-transparent pointer-events-auto"
+            class="yd-crop-box border-primary pointer-events-auto absolute border-2 bg-transparent"
             :style="{
               left: cropRect.x + 'px',
               top: cropRect.y + 'px',
@@ -564,28 +545,24 @@ defineExpose<ImageEditorExpose>({
           >
             <!-- 三分线网格 -->
             <div class="absolute inset-0 grid grid-cols-3 grid-rows-3">
-              <div
-                v-for="i in 9"
-                :key="i"
-                class="border border-white/30"
-              ></div>
+              <div v-for="i in 9" :key="i" class="border border-white/30"></div>
             </div>
 
             <!-- 四角 resize 手柄 -->
             <div
-              class="yd-resize-handle absolute -top-1 -left-1 h-3 w-3 cursor-nw-resize rounded-sm bg-primary ring-2 ring-background"
+              class="yd-resize-handle bg-primary ring-background absolute -left-1 -top-1 h-3 w-3 cursor-nw-resize rounded-sm ring-2"
               @mousedown="(e) => handleResizeMousedown(e as MouseEvent, 'nw')"
             ></div>
             <div
-              class="yd-resize-handle absolute -top-1 -right-1 h-3 w-3 cursor-ne-resize rounded-sm bg-primary ring-2 ring-background"
+              class="yd-resize-handle bg-primary ring-background absolute -right-1 -top-1 h-3 w-3 cursor-ne-resize rounded-sm ring-2"
               @mousedown="(e) => handleResizeMousedown(e as MouseEvent, 'ne')"
             ></div>
             <div
-              class="yd-resize-handle absolute -bottom-1 -left-1 h-3 w-3 cursor-sw-resize rounded-sm bg-primary ring-2 ring-background"
+              class="yd-resize-handle bg-primary ring-background absolute -bottom-1 -left-1 h-3 w-3 cursor-sw-resize rounded-sm ring-2"
               @mousedown="(e) => handleResizeMousedown(e as MouseEvent, 'sw')"
             ></div>
             <div
-              class="yd-resize-handle absolute -bottom-1 -right-1 h-3 w-3 cursor-se-resize rounded-sm bg-primary ring-2 ring-background"
+              class="yd-resize-handle bg-primary ring-background absolute -bottom-1 -right-1 h-3 w-3 cursor-se-resize rounded-sm ring-2"
               @mousedown="(e) => handleResizeMousedown(e as MouseEvent, 'se')"
             ></div>
           </div>
@@ -594,20 +571,17 @@ defineExpose<ImageEditorExpose>({
         <!-- 图片加载提示 -->
         <div
           v-if="!imageObj"
-          class="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground"
+          class="text-muted-foreground absolute inset-0 flex items-center justify-center text-sm"
         >
           {{ t('imageEditor.loadHint') }}
         </div>
       </div>
 
       <!-- preview sidebar -->
-      <aside
-        v-if="props.showPreview"
-        class="yd-preview-sidebar flex flex-col items-center gap-2"
-      >
-        <span class="text-xs text-muted-foreground">{{ t('imageEditor.preview') }}</span>
+      <aside v-if="props.showPreview" class="yd-preview-sidebar flex flex-col items-center gap-2">
+        <span class="text-muted-foreground text-xs">{{ t('imageEditor.preview') }}</span>
         <div
-          class="overflow-hidden rounded border border-border bg-muted"
+          class="border-border bg-muted overflow-hidden rounded border"
           :style="{
             width: props.previewSize + 'px',
             height: props.previewSize + 'px',

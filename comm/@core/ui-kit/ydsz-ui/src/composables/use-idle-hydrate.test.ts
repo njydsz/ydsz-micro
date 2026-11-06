@@ -36,12 +36,10 @@ describe('useIdleHydrate', () => {
   beforeEach(() => {
     originalRIC = globalThis.requestIdleCallback;
     idleCallbacks = [];
-    globalThis.requestIdleCallback = vi.fn(
-      (cb: IdleRequestCallback) => {
-        idleCallbacks.push(cb);
-        return idleCallbacks.length;
-      },
-    ) as typeof requestIdleCallback;
+    globalThis.requestIdleCallback = vi.fn((cb: IdleRequestCallback) => {
+      idleCallbacks.push(cb);
+      return idleCallbacks.length;
+    }) as typeof requestIdleCallback;
   });
 
   afterEach(() => {
@@ -49,16 +47,12 @@ describe('useIdleHydrate', () => {
   });
 
   it('immediate=true 时应立即挂载', () => {
-    const { data } = withLifecycle(() =>
-      useIdleHydrate({ immediate: true, idle: false }),
-    );
+    const { data } = withLifecycle(() => useIdleHydrate({ immediate: true, idle: false }));
     expect(data.isHydrated.value).toBe(true);
   });
 
   it('默认应等待 idle 回调后挂载', async () => {
-    const { data } = withLifecycle(() =>
-      useIdleHydrate({ idle: true }),
-    );
+    const { data } = withLifecycle(() => useIdleHydrate({ idle: true }));
     await nextTick();
     expect(data.isHydrated.value).toBe(false);
 
@@ -71,9 +65,7 @@ describe('useIdleHydrate', () => {
   });
 
   it('forceMount() 应跳过等待立即挂载', () => {
-    const { data } = withLifecycle(() =>
-      useIdleHydrate({ idle: true }),
-    );
+    const { data } = withLifecycle(() => useIdleHydrate({ idle: true }));
     expect(data.isHydrated.value).toBe(false);
 
     data.forceMount();
@@ -81,16 +73,12 @@ describe('useIdleHydrate', () => {
   });
 
   it('应返回 containerRef 引用', () => {
-    const { data } = withLifecycle(() =>
-      useIdleHydrate({ idle: true }),
-    );
+    const { data } = withLifecycle(() => useIdleHydrate({ idle: true }));
     expect(data.containerRef.value).toBeUndefined();
   });
 
   it('isHydrated 变更应触发响应式更新', async () => {
-    const { data } = withLifecycle(() =>
-      useIdleHydrate({ idle: false, immediate: false }),
-    );
+    const { data } = withLifecycle(() => useIdleHydrate({ idle: false, immediate: false }));
     expect(data.isHydrated.value).toBe(false);
     data.forceMount();
     expect(data.isHydrated.value).toBe(true);

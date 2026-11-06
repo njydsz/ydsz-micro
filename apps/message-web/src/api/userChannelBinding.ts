@@ -30,17 +30,13 @@ export function listMine(): Promise<MsgUserChannelVO[]> {
 /**
  * listByUser: GET /message/user-channels/user/{userId}
  */
-export function listByUser({ userId }: {
-    userId: string;
-  }): Promise<MsgUserChannelVO[]> {
+export function listByUser({ userId }: { userId: string }): Promise<MsgUserChannelVO[]> {
   return requestClient.get<MsgUserChannelVO[]>(`/message/user-channels/user/${userId}`);
 }
 
 /**
  * delete: DELETE /message/user-channels/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteApi({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/message/user-channels/${id}`);
 }

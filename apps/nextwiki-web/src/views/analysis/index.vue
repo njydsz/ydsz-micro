@@ -17,7 +17,16 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdEmptyState, YdInput, YdNumberFieldInput, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdCard,
+  YdEmptyState,
+  YdInput,
+  YdNumberFieldInput,
+  YdTable,
+  YdTableColumn,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { analyze, getOverview, statsByType, topLargeFiles } from '#/api/analysis';
@@ -42,6 +51,12 @@ const analyzeInput = ref('');
 const analyzeResult = ref<Record<string, unknown>>({});
 const isAnalyzing = ref(false);
 
+/** 摘要文本：优先 summary，回退 content，均缺省时显示占位符 */
+const summaryText = computed(() => {
+  const summary = analyzeResult.value.summary ?? analyzeResult.value.content;
+  return typeof summary === 'string' && summary.length > 0 ? summary : '--';
+});
+
 // ==================== 计算属性 ====================
 
 interface OverviewCard {
@@ -54,9 +69,17 @@ const overviewCards = computed<OverviewCard[]>(() => {
   const data = overview.value;
   return [
     { label: '文件总数', value: (data.totalFiles as number) ?? 0, color: 'text-blue-500' },
-    { label: '总存储量', value: formatSize((data.totalSize as number) ?? 0), color: 'text-green-500' },
+    {
+      label: '总存储量',
+      value: formatSize((data.totalSize as number) ?? 0),
+      color: 'text-green-500',
+    },
     { label: '文件夹数', value: (data.folderCount as number) ?? 0, color: 'text-purple-500' },
-    { label: '平均文件大小', value: formatSize((data.avgFileSize as number) ?? 0), color: 'text-orange-500' },
+    {
+      label: '平均文件大小',
+      value: formatSize((data.avgFileSize as number) ?? 0),
+      color: 'text-orange-500',
+    },
   ];
 });
 
@@ -211,7 +234,7 @@ onMounted(loadAll);
         </div>
         <YdDescriptions v-if="Object.keys(analyzeResult).length" :column="1" border size="small">
           <YdDescriptionsItem label="摘要内容">
-            <p class="whitespace-pre-wrap text-sm">{{ (analyzeResult as Record<string, unknown>).summary ?? (analyzeResult as Record<string, unknown>).content ?? '--' }}</p>
+            <p class="whitespace-pre-wrap text-sm">{{ summaryText }}</p>
           </YdDescriptionsItem>
         </YdDescriptions>
         <YdEmptyState v-else description="摘要尚未生成" :image-size="60" />

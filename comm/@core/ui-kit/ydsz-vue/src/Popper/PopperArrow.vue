@@ -1,46 +1,45 @@
 <script lang="ts">
 // @ts-nocheck
-import type { Side } from './utils'
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import type { ArrowProps } from '../shared/component/Arrow.vue'
+import type { Side } from './utils';
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import type { ArrowProps } from '../shared/component/Arrow.vue';
 
 const OPPOSITE_SIDE: Record<Side, Side> = {
   top: 'bottom',
   right: 'left',
   bottom: 'top',
   left: 'right',
-}
+};
 
 export interface PopperArrowProps extends ArrowProps, PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { injectPopperContentContext } from './PopperContent.vue'
-import { useForwardExpose } from '../shared/index.ts'
-import Arrow from '../shared/component/Arrow.vue'
+import { computed } from 'vue';
+import { injectPopperContentContext } from './PopperContent.vue';
+import { useForwardExpose } from '../shared/index.ts';
+import Arrow from '../shared/component/Arrow.vue';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
-withDefaults(
-  defineProps<PopperArrowProps>(),
-  { as: 'svg' },
-)
+withDefaults(defineProps<PopperArrowProps>(), { as: 'svg' });
 
-const { forwardRef } = useForwardExpose()
-const contentContext = injectPopperContentContext()
+const { forwardRef } = useForwardExpose();
+const contentContext = injectPopperContentContext();
 
-const baseSide = computed(() => OPPOSITE_SIDE[contentContext.placedSide.value])
+const baseSide = computed(() => OPPOSITE_SIDE[contentContext.placedSide.value]);
 </script>
 
 <template>
   <span
-    :ref="(el: HTMLElement) => {
-      contentContext.onArrowChange(el)
-      return undefined
-    }"
+    :ref="
+      (el: HTMLElement) => {
+        contentContext.onArrowChange(el);
+        return undefined;
+      }
+    "
     :style="{
       position: 'absolute',
       left: contentContext.arrowX?.value ? `${contentContext.arrowX?.value}px` : undefined,

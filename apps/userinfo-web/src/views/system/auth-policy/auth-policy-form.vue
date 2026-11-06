@@ -19,7 +19,14 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelect,
+  YdSwitch,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import type { AuthPolicyDTO, AuthPolicyVO } from '#/api/models';
@@ -87,7 +94,10 @@ function splitProviders(providers?: string): string[] {
   if (!providers) {
     return [];
   }
-  return providers.split(',').map((item) => item.trim()).filter(Boolean);
+  return providers
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 const [Modal, modalApi] = useYdModal({
@@ -182,7 +192,6 @@ function handleProviderChange(values: string[]): void {
   selectedProviders.value = values;
   formData.allowedIdentityProviders = joinProviders(values);
 }
-
 </script>
 
 <template>
@@ -204,10 +213,20 @@ function handleProviderChange(values: string[]): void {
         />
       </YdFormItem>
       <YdFormItem label="策略名称" prop="name">
-        <YdInput v-model="formData.name" placeholder="如：默认密码策略" maxlength="64" show-word-limit />
+        <YdInput
+          v-model="formData.name"
+          placeholder="如：默认密码策略"
+          maxlength="64"
+          show-word-limit
+        />
       </YdFormItem>
       <YdFormItem label="密码最小长度" prop="passwordMinLength">
-        <YdNumberFieldInput v-model="formData.passwordMinLength" :min="6" :max="64" class="w-full" />
+        <YdNumberFieldInput
+          v-model="formData.passwordMinLength"
+          :min="6"
+          :max="64"
+          class="w-full"
+        />
       </YdFormItem>
       <YdFormItem label="需大写字母">
         <YdSwitch v-model="formData.isPasswordRequireUppercase" />
@@ -238,13 +257,30 @@ function handleProviderChange(values: string[]): void {
         </YdSelect>
       </YdFormItem>
       <YdFormItem label="最大会话数" prop="maxSessionsPerUser">
-        <YdNumberFieldInput v-model="formData.maxSessionsPerUser" :min="1" :max="20" class="w-full" />
+        <YdNumberFieldInput
+          v-model="formData.maxSessionsPerUser"
+          :min="1"
+          :max="20"
+          class="w-full"
+        />
       </YdFormItem>
       <YdFormItem label="会话超时(秒)" prop="sessionTimeoutSeconds">
-        <YdNumberFieldInput v-model="formData.sessionTimeoutSeconds" :min="60" :max="86400" class="w-full" />
+        <YdNumberFieldInput
+          v-model="formData.sessionTimeoutSeconds"
+          :min="60"
+          :max="86400"
+          class="w-full"
+        />
       </YdFormItem>
       <YdFormItem label="备注" prop="remark">
-        <YdInput v-model="formData.remark" type="textarea" :rows="3" placeholder="备注说明" maxlength="255" show-word-limit />
+        <YdInput
+          v-model="formData.remark"
+          type="textarea"
+          :rows="3"
+          placeholder="备注说明"
+          maxlength="255"
+          show-word-limit
+        />
       </YdFormItem>
     </YdForm>
   </Modal>

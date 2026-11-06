@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * previewByCode: POST /message/template/preview/by-code
  */

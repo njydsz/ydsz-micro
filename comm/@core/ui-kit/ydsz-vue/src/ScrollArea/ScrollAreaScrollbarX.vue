@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue'
-import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import ScrollAreaScrollbarImpl from './ScrollAreaScrollbarImpl.vue'
-import { getThumbSize } from './utils'
-import { useForwardExpose } from '../shared/index.ts'
+import { computed, onMounted } from 'vue';
+import { injectScrollAreaScrollbarVisibleContext } from './ScrollAreaScrollbarVisible.vue';
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue';
+import ScrollAreaScrollbarImpl from './ScrollAreaScrollbarImpl.vue';
+import { getThumbSize } from './utils';
+import { useForwardExpose } from '../shared/index.ts';
 
-const rootContext = injectScrollAreaRootContext()
-const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()
+const rootContext = injectScrollAreaRootContext();
+const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext();
 
-const { forwardRef, currentElement: scrollbarElement } = useForwardExpose()
+const { forwardRef, currentElement: scrollbarElement } = useForwardExpose();
 
 onMounted(() => {
-  if (scrollbarElement.value)
-    rootContext.onScrollbarXChange(scrollbarElement.value)
-})
-const sizes = computed(() => scrollbarVisibleContext.sizes.value)
+  if (scrollbarElement.value) rootContext.onScrollbarXChange(scrollbarElement.value);
+});
+const sizes = computed(() => scrollbarVisibleContext.sizes.value);
 </script>
 
 <template>

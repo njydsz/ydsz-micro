@@ -105,23 +105,23 @@ describe('useNotificationSse', () => {
 
   it('收到 SSE 消息时应调用 store.handleSseMessage', async () => {
     // 模拟 streamRequest 在收到事件时调用 onEvent
-    mockStreamRequest.mockImplementation(async (opts: {
-      onEvent?: (event: { event?: string; data: string }) => void;
-    }) => {
-      // 模拟接收一条新通知消息
-      opts.onEvent?.({
-        event: 'new_notification',
-        data: JSON.stringify({
-          id: 'n1',
-          title: '测试通知',
-          message: '这是一条测试',
-          type: 'INFO',
-          isRead: false,
-          createdAt: '2026-07-14T10:00:00Z',
+    mockStreamRequest.mockImplementation(
+      async (opts: { onEvent?: (event: { event?: string; data: string }) => void }) => {
+        // 模拟接收一条新通知消息
+        opts.onEvent?.({
           event: 'new_notification',
-        }),
-      });
-    });
+          data: JSON.stringify({
+            id: 'n1',
+            title: '测试通知',
+            message: '这是一条测试',
+            type: 'INFO',
+            isRead: false,
+            createdAt: '2026-07-14T10:00:00Z',
+            event: 'new_notification',
+          }),
+        });
+      },
+    );
 
     const { getApi, wrapper } = await mountSseHost();
     await vi.advanceTimersByTimeAsync(0);

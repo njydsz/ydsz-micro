@@ -34,20 +34,24 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="mt-3 space-y-2 rounded bg-muted/40 p-3">
+  <div class="bg-muted/40 mt-3 space-y-2 rounded p-3">
     <div class="flex items-center justify-between">
       <span class="text-xs font-medium">{{ t('cronBuilder.preview') }}</span>
-      <span class="rounded bg-primary/10 px-2 py-0.5 font-mono text-xs text-primary">
+      <span class="bg-primary/10 text-primary rounded px-2 py-0.5 font-mono text-xs">
         {{ props.cronExpression }}
       </span>
     </div>
-    <div class="text-xs text-muted-foreground">
+    <div class="text-muted-foreground text-xs">
       {{ t('cronBuilder.previewDescription') }}: {{ props.cronDescription }}
     </div>
     <div v-if="props.nextRunTimes.length > 0" class="space-y-1">
       <div class="text-xs font-medium">{{ t('cronBuilder.previewNextRuns') }}</div>
       <ul class="ml-3 space-y-0.5">
-        <li v-for="run in props.nextRunTimes" :key="run" class="font-mono text-xs text-muted-foreground">
+        <li
+          v-for="run in props.nextRunTimes"
+          :key="run"
+          class="text-muted-foreground font-mono text-xs"
+        >
           {{ run }}
         </li>
       </ul>

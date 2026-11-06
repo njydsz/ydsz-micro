@@ -32,11 +32,6 @@ export interface SecondaryAuthVO {
  * @param data - 二次认证请求数据
  * @returns 认证令牌
  */
-export async function secondaryAuthApi(
-  data: SecondaryAuthDTO,
-): Promise<SecondaryAuthVO> {
-  return requestClient.post<SecondaryAuthVO>(
-    '/auth/secondary-auth',
-    data,
-  );
+export async function secondaryAuthApi(data: SecondaryAuthDTO): Promise<SecondaryAuthVO> {
+  return requestClient.post<SecondaryAuthVO>('/auth/secondary-auth', data);
 }

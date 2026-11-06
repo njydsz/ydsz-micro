@@ -27,9 +27,6 @@ const props = defineProps<SpinnerProps>();
 <template>
   <div :class="cn('relative min-h-20', props.class)">
     <slot></slot>
-    <YdSpinner
-      :min-loading-time="props.minLoadingTime"
-      :spinning="props.spinning"
-    />
+    <YdSpinner :min-loading-time="props.minLoadingTime" :spinning="props.spinning" />
   </div>
 </template>

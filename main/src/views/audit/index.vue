@@ -237,7 +237,9 @@ onMounted(() => {
       <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
         <!-- 操作人 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.operatorName') }}</label>
+          <label class="mb-1 block text-sm text-gray-600">{{
+            t('page.audit.filter.operatorName')
+          }}</label>
           <input
             v-model="auditStore.filters.operatorName"
             type="text"
@@ -248,7 +250,9 @@ onMounted(() => {
 
         <!-- 模块 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.module') }}</label>
+          <label class="mb-1 block text-sm text-gray-600">{{
+            t('page.audit.filter.module')
+          }}</label>
           <select
             v-model="auditStore.filters.module"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
@@ -261,7 +265,9 @@ onMounted(() => {
 
         <!-- 类型 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.actionType') }}</label>
+          <label class="mb-1 block text-sm text-gray-600">{{
+            t('page.audit.filter.actionType')
+          }}</label>
           <select
             v-model="auditStore.filters.actionType"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
@@ -278,16 +284,14 @@ onMounted(() => {
 
         <!-- 操作结果 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.result') }}</label>
+          <label class="mb-1 block text-sm text-gray-600">{{
+            t('page.audit.filter.result')
+          }}</label>
           <select
             v-model="auditStore.filters.result"
             class="w-full rounded border border-gray-300 px-3 py-2 text-sm"
           >
-            <option
-              v-for="opt in resultOptions"
-              :key="String(opt.value)"
-              :value="opt.value"
-            >
+            <option v-for="opt in resultOptions" :key="String(opt.value)" :value="opt.value">
               {{ opt.label }}
             </option>
           </select>
@@ -297,7 +301,9 @@ onMounted(() => {
       <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-4">
         <!-- 时间范围 -->
         <div class="filter-item md:col-span-2">
-          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.dateRange') }}</label>
+          <label class="mb-1 block text-sm text-gray-600">{{
+            t('page.audit.filter.dateRange')
+          }}</label>
           <div class="flex flex-wrap gap-2">
             <button
               v-for="shortcut in dateRangeShortcuts"
@@ -336,7 +342,9 @@ onMounted(() => {
 
         <!-- 关键词搜索 -->
         <div class="filter-item">
-          <label class="mb-1 block text-sm text-gray-600">{{ t('page.audit.filter.keyword') }}</label>
+          <label class="mb-1 block text-sm text-gray-600">{{
+            t('page.audit.filter.keyword')
+          }}</label>
           <input
             v-model="auditStore.filters.keyword"
             type="text"
@@ -373,7 +381,9 @@ onMounted(() => {
     <!-- 表格区域 -->
     <div class="audit-table-card rounded-lg bg-white p-4 shadow-sm">
       <div class="mb-3 flex items-center justify-between">
-        <span class="text-sm text-gray-500">{{ t('page.audit.table.total', { count: auditStore.total }) }}</span>
+        <span class="text-sm text-gray-500">{{
+          t('page.audit.table.total', { count: auditStore.total })
+        }}</span>
       </div>
 
       <!-- 表格 -->
@@ -395,9 +405,7 @@ onMounted(() => {
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               {{ t('page.audit.table.description') }}
             </th>
-            <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              IP
-            </th>
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">IP</th>
             <th class="px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               {{ t('page.audit.table.operation') }}
             </th>
@@ -430,10 +438,7 @@ onMounted(() => {
             <td class="max-w-xs truncate px-4 py-3 text-sm">{{ log.description }}</td>
             <td class="px-4 py-3 text-sm text-gray-500">{{ maskIp(log.clientIp) }}</td>
             <td class="px-4 py-3 text-sm">
-              <button
-                class="text-blue-600 hover:underline"
-                @click.stop="handleRowClick(log)"
-              >
+              <button class="text-blue-600 hover:underline" @click.stop="handleRowClick(log)">
                 {{ t('page.audit.table.viewDetail') }}
               </button>
             </td>

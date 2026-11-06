@@ -1,32 +1,33 @@
 <script lang="ts">
 // @ts-nocheck
-import type { VNode } from 'vue'
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import type { PopperContentProps } from '../Popper/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { VNode } from 'vue';
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import type { PopperContentProps } from '../Popper/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
-  escapeKeyDown: [event: KeyboardEvent]
+  escapeKeyDown: [event: KeyboardEvent];
   /** Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling `event.preventDefault`. */
-  pointerDownOutside: [event: Event]
-}
+  pointerDownOutside: [event: Event];
+};
 
 export interface TooltipContentImplProps
-  extends PrimitiveProps,
-  Pick<
-    PopperContentProps,
-    | 'side'
-    | 'sideOffset'
-    | 'align'
-    | 'alignOffset'
-    | 'avoidCollisions'
-    | 'collisionBoundary'
-    | 'collisionPadding'
-    | 'arrowPadding'
-    | 'sticky'
-    | 'hideWhenDetached'
-  > {
+  extends
+    PrimitiveProps,
+    Pick<
+      PopperContentProps,
+      | 'side'
+      | 'sideOffset'
+      | 'align'
+      | 'alignOffset'
+      | 'avoidCollisions'
+      | 'collisionBoundary'
+      | 'collisionPadding'
+      | 'arrowPadding'
+      | 'sticky'
+      | 'hideWhenDetached'
+    > {
   /**
    * By default, screenreaders will announce the content inside
    * the component. If this is not descriptive enough, or you have
@@ -35,18 +36,18 @@ export interface TooltipContentImplProps
    *
    * @defaultValue String
    */
-  ariaLabel?: string
+  ariaLabel?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { Comment, computed, onMounted, useSlots } from 'vue'
-import { useEventListener } from '@vueuse/core'
-import { TOOLTIP_OPEN } from './utils'
-import { PopperContent } from '../Popper/index.ts'
-import { VisuallyHidden } from '../VisuallyHidden/index.ts'
-import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { DismissableLayer } from '../DismissableLayer/index.ts'
+import { Comment, computed, onMounted, useSlots } from 'vue';
+import { useEventListener } from '@vueuse/core';
+import { TOOLTIP_OPEN } from './utils';
+import { PopperContent } from '../Popper/index.ts';
+import { VisuallyHidden } from '../VisuallyHidden/index.ts';
+import { injectTooltipRootContext } from './TooltipRoot.vue';
+import { DismissableLayer } from '../DismissableLayer/index.ts';
 
 const props = withDefaults(defineProps<TooltipContentImplProps>(), {
   side: 'top',
@@ -58,45 +59,42 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
   arrowPadding: 0,
   sticky: 'partial',
   hideWhenDetached: false,
-})
-const emits = defineEmits<TooltipContentImplEmits>()
+});
+const emits = defineEmits<TooltipContentImplEmits>();
 
-const rootContext = injectTooltipRootContext()
+const rootContext = injectTooltipRootContext();
 
-const { forwardRef } = useForwardExpose()
-const slot = useSlots()
-const defaultSlot = computed(() => slot.default?.())
+const { forwardRef } = useForwardExpose();
+const slot = useSlots();
+const defaultSlot = computed(() => slot.default?.());
 const ariaLabel = computed(() => {
-  if (props.ariaLabel)
-    return props.ariaLabel
-  let content = ''
+  if (props.ariaLabel) return props.ariaLabel;
+  let content = '';
 
   function recursiveTextSearch(node: VNode) {
-    if (typeof node.children === 'string' && node.type !== Comment)
-      content += node.children
+    if (typeof node.children === 'string' && node.type !== Comment) content += node.children;
     else if (Array.isArray(node.children))
-      node.children.forEach(child => recursiveTextSearch(child as VNode))
+      node.children.forEach((child) => recursiveTextSearch(child as VNode));
   }
 
-  defaultSlot.value?.forEach(node => recursiveTextSearch(node))
-  return content
-})
+  defaultSlot.value?.forEach((node) => recursiveTextSearch(node));
+  return content;
+});
 
 const popperContentProps = computed(() => {
-  const { ariaLabel: _, ...restProps } = props
-  return restProps
-})
+  const { ariaLabel: _, ...restProps } = props;
+  return restProps;
+});
 
 onMounted(() => {
   // Close the tooltip if the trigger is scrolled
   useEventListener(window, 'scroll', (event) => {
-    const target = event.target as HTMLElement
-    if (target?.contains(rootContext.trigger.value!))
-      rootContext.onClose()
-  })
+    const target = event.target as HTMLElement;
+    if (target?.contains(rootContext.trigger.value!)) rootContext.onClose();
+  });
   // Close this tooltip if another one opens
-  useEventListener(window, TOOLTIP_OPEN, rootContext.onClose)
-})
+  useEventListener(window, TOOLTIP_OPEN, rootContext.onClose);
+});
 </script>
 
 <template>
@@ -104,12 +102,17 @@ onMounted(() => {
     as-child
     :disable-outside-pointer-events="false"
     @escape-key-down="emits('escapeKeyDown', $event)"
-    @pointer-down-outside="(event) => {
-      if (rootContext.disableClosingTrigger.value && rootContext.trigger.value?.contains(event.target as HTMLElement))
-        event.preventDefault()
+    @pointer-down-outside="
+      (event) => {
+        if (
+          rootContext.disableClosingTrigger.value &&
+          rootContext.trigger.value?.contains(event.target as HTMLElement)
+        )
+          event.preventDefault();
 
-      emits('pointerDownOutside', event)
-    }"
+        emits('pointerDownOutside', event);
+      }
+    "
     @focus-outside.prevent
     @dismiss="rootContext.onClose()"
   >
@@ -126,10 +129,7 @@ onMounted(() => {
       }"
     >
       <slot />
-      <VisuallyHidden
-        :id="rootContext.contentId"
-        role="tooltip"
-      >
+      <VisuallyHidden :id="rootContext.contentId" role="tooltip">
         {{ ariaLabel }}
       </VisuallyHidden>
     </PopperContent>

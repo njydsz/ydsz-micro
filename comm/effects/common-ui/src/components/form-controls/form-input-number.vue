@@ -30,13 +30,7 @@ const model = defineModel<number | null>();
 </script>
 
 <template>
-  <YdNumberField
-    v-model="model"
-    :disabled="disabled"
-    :max="max"
-    :min="min"
-    :step="step"
-  >
+  <YdNumberField v-model="model" :disabled="disabled" :max="max" :min="min" :step="step">
     <YdNumberFieldInput :placeholder="placeholder" />
   </YdNumberField>
 </template>

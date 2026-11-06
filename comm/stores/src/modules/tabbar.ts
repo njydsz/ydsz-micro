@@ -20,11 +20,7 @@ import { openRouteInNewWindow } from '@ydsz-core/shared/utils';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
-import {
-  getTabKey,
-  isAffixTab,
-  onTabClosed,
-} from './tabbar-utils';
+import { getTabKey, isAffixTab, onTabClosed } from './tabbar-utils';
 import type { TabbarStoreContext } from './tabbar-utils';
 import {
   closeAllTabs,
@@ -51,8 +47,8 @@ import {
   unpinTab,
 } from './tabbar-manage';
 
-    /** Tabbar Pinia store 定义 —— 多页签状态管理入口 */
-    export const useTabbarStore = defineStore(
+/** Tabbar Pinia store 定义 —— 多页签状态管理入口 */
+export const useTabbarStore = defineStore(
   'core-tabbar',
   () => {
     /** 已缓存标签页的 name 集合（使用数组避免 Set 序列化隐患） */
@@ -93,9 +89,7 @@ import {
 
     const getCachedTabs = computed<string[]>(() => [...cachedTabs.value]);
 
-    const getExcludeCachedTabs = computed<string[]>(() => [
-      ...excludeCachedTabs.value,
-    ]);
+    const getExcludeCachedTabs = computed<string[]>(() => [...excludeCachedTabs.value]);
 
     const getMenuList = computed<string[]>(() => menuList.value);
 
@@ -147,30 +141,20 @@ import {
 
     const _addTab = (routeTab: TabDefinition) => addTab(_ctx, routeTab);
     const _closeAllTabs = (router: Router) => closeAllTabs(_ctx, router);
-    const _closeLeftTabs = (tab: TabDefinition) =>
-      closeLeftTabs(_ctx, tab);
-    const _closeOtherTabs = (tab: TabDefinition) =>
-      closeOtherTabs(_ctx, tab);
-    const _closeRightTabs = (tab: TabDefinition) =>
-      closeRightTabs(_ctx, tab);
-    const _closeTab = (tab: TabDefinition, router: Router) =>
-      closeTab(_ctx, tab, router);
-    const _closeTabByKey = (key: string, router: Router) =>
-      closeTabByKey(_ctx, key, router);
+    const _closeLeftTabs = (tab: TabDefinition) => closeLeftTabs(_ctx, tab);
+    const _closeOtherTabs = (tab: TabDefinition) => closeOtherTabs(_ctx, tab);
+    const _closeRightTabs = (tab: TabDefinition) => closeRightTabs(_ctx, tab);
+    const _closeTab = (tab: TabDefinition, router: Router) => closeTab(_ctx, tab, router);
+    const _closeTabByKey = (key: string, router: Router) => closeTabByKey(_ctx, key, router);
     const _getTabByKey = (key: string) => getTabByKey(_ctx, key);
     const _pinTab = (tab: TabDefinition) => pinTab(_ctx, tab);
     const _refresh = (router: Router | string) => refresh(_ctx, router);
     const _refreshByName = (name: string) => refreshByName(_ctx, name);
-    const _resetTabTitle = (tab: TabDefinition) =>
-      resetTabTitle(_ctx, tab);
-    const _setAffixTabs = (routeTabs: RouteRecordNormalized[]) =>
-      setAffixTabs(_ctx, routeTabs);
-    const _setTabTitle = (
-      tab: TabDefinition,
-      title: ComputedRef<string> | string,
-    ) => setTabTitle(_ctx, tab, title);
-    const _sortTabs = (oldIndex: number, newIndex: number) =>
-      sortTabs(_ctx, oldIndex, newIndex);
+    const _resetTabTitle = (tab: TabDefinition) => resetTabTitle(_ctx, tab);
+    const _setAffixTabs = (routeTabs: RouteRecordNormalized[]) => setAffixTabs(_ctx, routeTabs);
+    const _setTabTitle = (tab: TabDefinition, title: ComputedRef<string> | string) =>
+      setTabTitle(_ctx, tab, title);
+    const _sortTabs = (oldIndex: number, newIndex: number) => sortTabs(_ctx, oldIndex, newIndex);
     const _toggleTabPin = (tab: TabDefinition) => toggleTabPin(_ctx, tab);
     const _unpinTab = (tab: TabDefinition) => unpinTab(_ctx, tab);
     const _updateCacheTabs = () => updateCacheTabs(_ctx);

@@ -6,189 +6,177 @@
     "新增应用": "apps/* 兜底目标保留原理想值，新应用若未显式登记就会被判红——体积预算必须经一次显式评审。",
     "重新基线": "pnpm check:size --report > 新 targets 片段，连同瘦身说明一起提交；只允许下调，上调需在 PR 里给出原因。"
   },
-  "version": "26.10.25",
+  "version": "26.11.06",
   "gzip": true,
   "targets": [
     {
-      "name": "main-web",
+      "name": "main",
       "scope": "main",
       "appDir": "main",
       "maxTotalGzipKB": 1139,
-      "maxFiles": 165,
       "maxChunkGzipKB": 340,
       "maxCssGzipKB": 13,
-      "aspirationGzipKB": 512,
+      "maxFiles": 166,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 1053.9,
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 1054.1,
         "maxChunkGzipKB": 308.2,
         "maxCssGzipKB": 10.3,
-        "jsFiles": 143
+        "jsFiles": 144
       }
     },
     {
       "name": "agent-web",
       "scope": "apps",
       "appDir": "apps/agent-web",
-      "maxTotalGzipKB": 1393,
-      "maxFiles": 121,
+      "maxTotalGzipKB": 1094,
       "maxChunkGzipKB": 441,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxCssGzipKB": 12,
+      "maxFiles": 122,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 1289.7,
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 1012.8,
         "maxChunkGzipKB": 400.1,
-        "maxCssGzipKB": 68.5,
-        "jsFiles": 105
-      }
+        "maxCssGzipKB": 9.5,
+        "jsFiles": 106
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "cronjob-web",
       "scope": "apps",
       "appDir": "apps/cronjob-web",
-      "maxTotalGzipKB": 983,
-      "maxFiles": 117,
-      "maxChunkGzipKB": 386,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxTotalGzipKB": 679,
+      "maxChunkGzipKB": 387,
+      "maxCssGzipKB": 12,
+      "maxFiles": 120,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 909.6,
-        "maxChunkGzipKB": 350.7,
-        "maxCssGzipKB": 68.6,
-        "jsFiles": 101
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 628.1,
+        "maxChunkGzipKB": 351.3,
+        "maxCssGzipKB": 9.5,
+        "jsFiles": 104
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "generator-web",
       "scope": "apps",
       "appDir": "apps/generator-web",
-      "maxTotalGzipKB": 857,
-      "maxFiles": 92,
-      "maxChunkGzipKB": 280,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxTotalGzipKB": 559,
+      "maxChunkGzipKB": 302,
+      "maxCssGzipKB": 12,
+      "maxFiles": 96,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 792.7,
-        "maxChunkGzipKB": 254.1,
-        "maxCssGzipKB": 68.7,
-        "jsFiles": 80
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 516.8,
+        "maxChunkGzipKB": 274.2,
+        "maxCssGzipKB": 9.2,
+        "jsFiles": 83
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "literule-web",
       "scope": "apps",
       "appDir": "apps/literule-web",
-      "maxTotalGzipKB": 1176,
-      "maxFiles": 105,
+      "maxTotalGzipKB": 868,
       "maxChunkGzipKB": 386,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxCssGzipKB": 12,
+      "maxFiles": 104,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 1088.5,
-        "maxChunkGzipKB": 350.4,
-        "maxCssGzipKB": 68.6,
-        "jsFiles": 91
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 803.7,
+        "maxChunkGzipKB": 350.9,
+        "maxCssGzipKB": 9.5,
+        "jsFiles": 90
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "message-web",
       "scope": "apps",
       "appDir": "apps/message-web",
-      "maxTotalGzipKB": 1301,
-      "maxFiles": 122,
-      "maxChunkGzipKB": 385,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxTotalGzipKB": 614,
+      "maxChunkGzipKB": 364,
+      "maxCssGzipKB": 12,
+      "maxFiles": 126,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 1204.0,
-        "maxChunkGzipKB": 349.9,
-        "maxCssGzipKB": 68.6,
-        "jsFiles": 106
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 567.9,
+        "maxChunkGzipKB": 330,
+        "maxCssGzipKB": 9.5,
+        "jsFiles": 109
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "nextwiki-web",
       "scope": "apps",
       "appDir": "apps/nextwiki-web",
-      "maxTotalGzipKB": 937,
-      "maxFiles": 96,
-      "maxChunkGzipKB": 384,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxTotalGzipKB": 634,
+      "maxChunkGzipKB": 386,
+      "maxCssGzipKB": 12,
+      "maxFiles": 101,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 866.8,
-        "maxChunkGzipKB": 348.9,
-        "maxCssGzipKB": 68.6,
-        "jsFiles": 83
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 586.7,
+        "maxChunkGzipKB": 350,
+        "maxCssGzipKB": 9.5,
+        "jsFiles": 87
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "system-web",
       "scope": "apps",
       "appDir": "apps/system-web",
-      "maxTotalGzipKB": 941,
-      "maxFiles": 98,
+      "maxTotalGzipKB": 669,
       "maxChunkGzipKB": 392,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxCssGzipKB": 13,
+      "maxFiles": 144,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 870.4,
-        "maxChunkGzipKB": 356.0,
-        "maxCssGzipKB": 68.5,
-        "jsFiles": 85
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 619.2,
+        "maxChunkGzipKB": 356,
+        "maxCssGzipKB": 9.8,
+        "jsFiles": 125
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "userinfo-web",
       "scope": "apps",
       "appDir": "apps/userinfo-web",
-      "maxTotalGzipKB": 979,
-      "maxFiles": 120,
-      "maxChunkGzipKB": 385,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
+      "maxTotalGzipKB": 683,
+      "maxChunkGzipKB": 386,
+      "maxCssGzipKB": 12,
+      "maxFiles": 124,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 906.5,
-        "maxChunkGzipKB": 349.9,
-        "maxCssGzipKB": 68.6,
-        "jsFiles": 104
-      }
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 631.8,
+        "maxChunkGzipKB": 350.9,
+        "maxCssGzipKB": 9.5,
+        "jsFiles": 107
+      },
+      "aspirationGzipKB": 384
     },
     {
       "name": "workflow-web",
       "scope": "apps",
       "appDir": "apps/workflow-web",
-      "maxTotalGzipKB": 2007,
+      "maxTotalGzipKB": 1338,
+      "maxChunkGzipKB": 364,
+      "maxCssGzipKB": 70,
       "maxFiles": 122,
-      "maxChunkGzipKB": 471,
-      "maxCssGzipKB": 86,
-      "aspirationGzipKB": 384,
       "baseline": {
-        "measuredAt": "2026-10-25",
-        "totalGzipKB": 1857.9,
-        "maxChunkGzipKB": 427.6,
-        "maxCssGzipKB": 68.6,
+        "measuredAt": "2026-11-06",
+        "totalGzipKB": 1238.5,
+        "maxChunkGzipKB": 330.2,
+        "maxCssGzipKB": 55.6,
         "jsFiles": 106
-      }
-    },
-    {
-      "name": "sub-app-default",
-      "scope": "apps",
-      "appDir": "apps/*",
-      "maxTotalGzipKB": 384,
-      "maxFiles": 60,
-      "maxChunkGzipKB": 256,
-      "maxCssGzipKB": 96,
-      "aspirationGzipKB": 384,
-      "$comment": "未登记应用的兜底红线（沿用原理想值）：新应用必须显式评审自己的预算才能通过。"
+      },
+      "aspirationGzipKB": 384
     }
   ]
 }

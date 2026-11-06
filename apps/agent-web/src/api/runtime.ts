@@ -18,27 +18,21 @@ import type { RuntimeSession } from './models';
 /**
  * getActiveSessions: GET /agent/runtime/sessions/active
  */
-export function getActiveSessions(params: {
-    tenantId?: string;
-  }): Promise<RuntimeSession[]> {
+export function getActiveSessions(params: { tenantId?: string }): Promise<RuntimeSession[]> {
   return requestClient.get<RuntimeSession[]>(`/agent/runtime/sessions/active`, { params });
 }
 
 /**
  * getRecentSessions: GET /agent/runtime/sessions/recent
  */
-export function getRecentSessions(params: {
-    limit?: number;
-  }): Promise<RuntimeSession[]> {
+export function getRecentSessions(params: { limit?: number }): Promise<RuntimeSession[]> {
   return requestClient.get<RuntimeSession[]>(`/agent/runtime/sessions/recent`, { params });
 }
 
 /**
  * getSession: GET /agent/runtime/sessions/{executionId}
  */
-export function getSession({ executionId }: {
-    executionId: string;
-  }): Promise<RuntimeSession> {
+export function getSession({ executionId }: { executionId: string }): Promise<RuntimeSession> {
   return requestClient.get<RuntimeSession>(`/agent/runtime/sessions/${executionId}`);
 }
 
@@ -52,8 +46,6 @@ export function getOverview(): Promise<Record<string, Record<string, unknown>>> 
 /**
  * forceRecycle: DELETE /agent/runtime/sessions/{executionId}
  */
-export function forceRecycle({ executionId }: {
-    executionId: string;
-  }): Promise<boolean> {
+export function forceRecycle({ executionId }: { executionId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/agent/runtime/sessions/${executionId}`);
 }

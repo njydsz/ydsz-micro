@@ -14,10 +14,7 @@ import type { MenuRecordRaw } from '@ydsz-core/typings';
  * @param path - 目标路径（如 '/system/user'）
  * @returns 匹配的菜单项，未找到返回 null
  */
-function findMenuByPath(
-  list: MenuRecordRaw[],
-  path?: string,
-): MenuRecordRaw | null {
+function findMenuByPath(list: MenuRecordRaw[], path?: string): MenuRecordRaw | null {
   for (const menu of list) {
     if (menu.path === path) {
       return menu;
@@ -42,16 +39,18 @@ function findMenuByPath(
  * @param level - 根菜单层级索引，默认 0（顶级）
  * @returns 包含查找结果、根菜单及根菜单路径的对象
  */
-function findRootMenuByPath(menus: MenuRecordRaw[], path?: string, level = 0): {
+function findRootMenuByPath(
+  menus: MenuRecordRaw[],
+  path?: string,
+  level = 0,
+): {
   findMenu: MenuRecordRaw | null;
   rootMenu: MenuRecordRaw | undefined;
   rootMenuPath: string | undefined;
 } {
   const findMenu = findMenuByPath(menus, path);
   const rootMenuPath = findMenu?.parents?.[level];
-  const rootMenu = rootMenuPath
-    ? menus.find((item) => item.path === rootMenuPath)
-    : undefined;
+  const rootMenu = rootMenuPath ? menus.find((item) => item.path === rootMenuPath) : undefined;
   return {
     findMenu,
     rootMenu,

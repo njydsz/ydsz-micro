@@ -49,10 +49,7 @@ export async function goToTab(tab: TabDefinition, router: Router) {
  * @param ctx - Tabbar store 上下文
  * @param router - Vue Router 实例
  */
-export async function goToDefaultTab(
-  ctx: TabbarStoreContext,
-  router: Router,
-) {
+export async function goToDefaultTab(ctx: TabbarStoreContext, router: Router) {
   if (ctx.getTabs.value.length <= 0) {
     return;
   }
@@ -74,8 +71,7 @@ export function closeTabInternal(ctx: TabbarStoreContext, tab: TabDefinition) {
   }
   const index = ctx.tabs.value.findIndex((item) => equalTab(item, tab));
   if (index !== -1) {
-    const closedPath =
-      ctx.tabs.value[index]!.fullPath || ctx.tabs.value[index]!.path;
+    const closedPath = ctx.tabs.value[index]!.fullPath || ctx.tabs.value[index]!.path;
     ctx.tabs.value.splice(index, 1);
     notifyTabClosed(closedPath);
   }
@@ -88,11 +84,7 @@ export function closeTabInternal(ctx: TabbarStoreContext, tab: TabDefinition) {
  * @param oldIndex - 拖拽起始索引
  * @param newIndex - 拖拽目标索引
  */
-export async function sortTabs(
-  ctx: TabbarStoreContext,
-  oldIndex: number,
-  newIndex: number,
-) {
+export async function sortTabs(ctx: TabbarStoreContext, oldIndex: number, newIndex: number) {
   const currentTab = ctx.tabs.value[oldIndex];
   if (!currentTab) {
     return;
@@ -136,9 +128,7 @@ export async function updateCacheTabs(ctx: TabbarStoreContext) {
  * @returns 匹配的标签页定义
  */
 export function getTabByKey(ctx: TabbarStoreContext, key: string) {
-  return ctx.getTabs.value.find(
-    (item) => getTabKeyFromTab(item) === key,
-  ) as TabDefinition;
+  return ctx.getTabs.value.find((item) => getTabKeyFromTab(item) === key) as TabDefinition;
 }
 
 /**
@@ -148,13 +138,9 @@ export function getTabByKey(ctx: TabbarStoreContext, key: string) {
  * @param name - 路由名称匹配的标签页
  */
 export async function refreshByName(ctx: TabbarStoreContext, name: string) {
-  ctx.excludeCachedTabs.value = [
-    ...new Set([...ctx.excludeCachedTabs.value, name]),
-  ];
+  ctx.excludeCachedTabs.value = [...new Set([...ctx.excludeCachedTabs.value, name])];
   await new Promise((resolve) => setTimeout(resolve, 200));
-  ctx.excludeCachedTabs.value = ctx.excludeCachedTabs.value.filter(
-    (n) => n !== name,
-  );
+  ctx.excludeCachedTabs.value = ctx.excludeCachedTabs.value.filter((n) => n !== name);
 }
 
 /**
@@ -164,10 +150,7 @@ export async function refreshByName(ctx: TabbarStoreContext, name: string) {
  * @param routeTab - 待添加的配置路由转换标签页
  * @returns 添加/更新后的标签页定义
  */
-export function addTab(
-  ctx: TabbarStoreContext,
-  routeTab: TabDefinition,
-): TabDefinition {
+export function addTab(ctx: TabbarStoreContext, routeTab: TabDefinition): TabDefinition {
   let tab = cloneTab(routeTab);
   if (!tab.key) {
     tab.key = getTabKey(routeTab);
@@ -188,19 +171,15 @@ export function addTab(
     // 获取到已经打开的动态路由数, 判断是否大于某一个值
     if (
       maxNumOfOpenTab > 0 &&
-      ctx.tabs.value.filter((t) => t.name === routeTab.name).length >=
-        maxNumOfOpenTab
+      ctx.tabs.value.filter((t) => t.name === routeTab.name).length >= maxNumOfOpenTab
     ) {
       // 关闭第一个
-      const index = ctx.tabs.value.findIndex(
-        (item) => item.name === routeTab.name,
-      );
+      const index = ctx.tabs.value.findIndex((item) => item.name === routeTab.name);
       if (index !== -1) ctx.tabs.value.splice(index, 1);
     } else if (maxCount > 0 && ctx.tabs.value.length >= maxCount) {
       // 关闭第一个
       const index = ctx.tabs.value.findIndex(
-        (item) =>
-          !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
+        (item) => !Reflect.has(item.meta, 'affixTab') || !item.meta.affixTab,
       );
       if (index !== -1) ctx.tabs.value.splice(index, 1);
     }

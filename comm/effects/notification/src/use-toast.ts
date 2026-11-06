@@ -69,7 +69,10 @@ function createVariantFn(
  * 内部调用 getGlobalToastState 获取全局队列；需要确保应用已挂载 <ToastProvider /> 才会渲染。
  */
 export function showToast(title: string, options?: Omit<ToastOptions, 'title' | 'variant'>): number;
-export function showToast(title: string, options?: Omit<ToastOptions, 'title' | 'variant'>): number {
+export function showToast(
+  title: string,
+  options?: Omit<ToastOptions, 'title' | 'variant'>,
+): number {
   const state = getGlobalToastState();
   return state.push({ title, ...options });
 }

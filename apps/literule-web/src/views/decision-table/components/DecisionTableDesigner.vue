@@ -17,7 +17,17 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+  YdTable,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
 import { showToast } from '@ydsz/notification';
 import type { DecisionTableVO } from '#/api/models';

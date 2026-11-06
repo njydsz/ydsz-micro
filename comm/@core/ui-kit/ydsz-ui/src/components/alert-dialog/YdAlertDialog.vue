@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* 需要用户确认才能继续的模态对话框容器：转发 radix AlertDialogRoot 的全部 props 与 emits。
-* 
+ * 需要用户确认才能继续的模态对话框容器：转发 radix AlertDialogRoot 的全部 props 与 emits。
+ *
  * 与 YdDialog 的取舍：YdAlertDialog 强制要求显式点击 Action 或 Cancel 才会关闭，
  * 不允许点击遮罩或按 Esc 直接关闭，适用于删除、覆盖等高危操作。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\alert-dialog\YdAlertDialog.vue
  * @author ydsz-team
  * @since 1.0.0

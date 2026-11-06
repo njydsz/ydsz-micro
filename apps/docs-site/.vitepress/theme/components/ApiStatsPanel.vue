@@ -24,13 +24,11 @@ const totalEndpoints = engines.value.reduce((sum, e) => sum + e.endpointCount, 0
 
 <template>
   <div class="api-stats-panel">
-    <p class="total-line">全平台合计 <strong>{{ totalEndpoints }}</strong> 个 REST 端点</p>
+    <p class="total-line">
+      全平台合计 <strong>{{ totalEndpoints }}</strong> 个 REST 端点
+    </p>
     <div class="api-grid">
-      <div
-        v-for="engine in engines"
-        :key="engine.port"
-        class="api-card"
-      >
+      <div v-for="engine in engines" :key="engine.port" class="api-card">
         <span class="engine-name">{{ engine.name }}</span>
         <span class="engine-port">:{{ engine.port }}</span>
         <span class="endpoint-badge">{{ engine.endpointCount }} endpoints</span>

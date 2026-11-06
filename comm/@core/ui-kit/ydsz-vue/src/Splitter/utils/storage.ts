@@ -1,5 +1,5 @@
-import type { PanelGroupStorage } from '../SplitterGroup.vue'
-import type { PanelData } from '../SplitterPanel.vue'
+import type { PanelGroupStorage } from '../SplitterGroup.vue';
+import type { PanelData } from '../SplitterPanel.vue';
 
 // PanelGroup might be rendering in a server-side environment where localStorage is not available
 // or on a browser with cookies/storage disabled.
@@ -10,37 +10,35 @@ export function initializeDefaultStorage(storageObject: PanelGroupStorage) {
     if (typeof localStorage !== 'undefined') {
       // Bypass this check for future calls
       storageObject.getItem = (name: string) => {
-        return localStorage.getItem(name)
-      }
+        return localStorage.getItem(name);
+      };
       storageObject.setItem = (name: string, value: string) => {
-        localStorage.setItem(name, value)
-      }
+        localStorage.setItem(name, value);
+      };
+    } else {
+      throw new TypeError('localStorage not supported in this environment');
     }
-    else {
-      throw new TypeError('localStorage not supported in this environment')
-    }
-  }
-  catch (error) {
-    console.error(error)
+  } catch (error) {
+    console.error(error);
 
-    storageObject.getItem = () => null
-    storageObject.setItem = () => {}
+    storageObject.getItem = () => null;
+    storageObject.setItem = () => {};
   }
 }
 
 export type PanelConfigurationState = {
   expandToSizes: {
-    [panelId: string]: number
-  }
-  layout: number[]
-}
+    [panelId: string]: number;
+  };
+  layout: number[];
+};
 
 export type SerializedPanelGroupState = {
-  [panelIds: string]: PanelConfigurationState
-}
+  [panelIds: string]: PanelConfigurationState;
+};
 
 function getPanelGroupKey(autoSaveId: string): string {
-  return `radix-vue:${autoSaveId}`
+  return `radix-vue:${autoSaveId}`;
 }
 
 // Note that Panel ids might be user-provided (stable) or useId generated (non-deterministic)
@@ -50,18 +48,15 @@ function getPanelGroupKey(autoSaveId: string): string {
 function getPanelKey(panels: PanelData[]): string {
   return panels
     .map((panel) => {
-      const { constraints, id, idIsFromProps, order } = panel
+      const { constraints, id, idIsFromProps, order } = panel;
       if (idIsFromProps) {
-        return id
-      }
-      else {
-        return order
-          ? `${order}:${JSON.stringify(constraints)}`
-          : JSON.stringify(constraints)
+        return id;
+      } else {
+        return order ? `${order}:${JSON.stringify(constraints)}` : JSON.stringify(constraints);
       }
     })
     .sort((a, b) => a.localeCompare(b))
-    .join(',')
+    .join(',');
 }
 
 function loadSerializedPanelGroupState(
@@ -69,19 +64,17 @@ function loadSerializedPanelGroupState(
   storage: PanelGroupStorage,
 ): SerializedPanelGroupState | null {
   try {
-    const panelGroupKey = getPanelGroupKey(autoSaveId)
-    const serialized = storage.getItem(panelGroupKey)
+    const panelGroupKey = getPanelGroupKey(autoSaveId);
+    const serialized = storage.getItem(panelGroupKey);
     if (serialized) {
-      const parsed = JSON.parse(serialized)
-      if (typeof parsed === 'object' && parsed != null)
-        return parsed as SerializedPanelGroupState
+      const parsed = JSON.parse(serialized);
+      if (typeof parsed === 'object' && parsed != null) return parsed as SerializedPanelGroupState;
     }
-  }
-  catch {
+  } catch {
     // storage 不可用（隐私模式 / quota）或历史数据损坏时按「无历史布局」处理
   }
 
-  return null
+  return null;
 }
 
 export function loadPanelGroupState(
@@ -89,9 +82,9 @@ export function loadPanelGroupState(
   panels: PanelData[],
   storage: PanelGroupStorage,
 ): PanelConfigurationState | null {
-  const state = loadSerializedPanelGroupState(autoSaveId, storage) ?? {}
-  const panelKey = getPanelKey(panels)
-  return state[panelKey] ?? null
+  const state = loadSerializedPanelGroupState(autoSaveId, storage) ?? {};
+  const panelKey = getPanelKey(panels);
+  return state[panelKey] ?? null;
 }
 
 export function savePanelGroupState(
@@ -101,18 +94,17 @@ export function savePanelGroupState(
   sizes: number[],
   storage: PanelGroupStorage,
 ): void {
-  const panelGroupKey = getPanelGroupKey(autoSaveId)
-  const panelKey = getPanelKey(panels)
-  const state = loadSerializedPanelGroupState(autoSaveId, storage) ?? {}
+  const panelGroupKey = getPanelGroupKey(autoSaveId);
+  const panelKey = getPanelKey(panels);
+  const state = loadSerializedPanelGroupState(autoSaveId, storage) ?? {};
   state[panelKey] = {
     expandToSizes: Object.fromEntries(panelSizesBeforeCollapse.entries()),
     layout: sizes,
-  }
+  };
 
   try {
-    storage.setItem(panelGroupKey, JSON.stringify(state))
-  }
-  catch (error) {
-    console.error(error)
+    storage.setItem(panelGroupKey, JSON.stringify(state));
+  } catch (error) {
+    console.error(error);
   }
 }

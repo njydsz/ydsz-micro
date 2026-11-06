@@ -21,10 +21,7 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useTokenStore } from '@ydsz/stores';
 
 import { refreshTokenApi } from '#/api/core/auth';
-import {
-  CROSS_TAB_EVENTS,
-  notifyCrossTab,
-} from '#/hooks/use-cross-tab-sync';
+import { CROSS_TAB_EVENTS, notifyCrossTab } from '#/hooks/use-cross-tab-sync';
 import { $t } from '#/locales';
 
 /** 提前多久开始预警（5 分钟） */

@@ -63,7 +63,10 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
           const def = isDefaultLanguage(row.isDefault);
           return h(
             YdBadge,
-            { variant: def ? 'default' : 'secondary', class: def ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: def ? 'default' : 'secondary',
+              class: def ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (def ? t('language.yesDefault') : t('language.noDefault')),
           );
         },
@@ -79,7 +82,10 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -93,14 +99,17 @@ const gridOptions: VxeTableGridOptions<LanguageVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),

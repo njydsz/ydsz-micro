@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* Skeleton.Detail：详情骨架屏模板，带可选标题、字段行与操作按钮。
-* 
+ * Skeleton.Detail：详情骨架屏模板，带可选标题、字段行与操作按钮。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonDetail.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -33,18 +33,10 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <div :class="cn('space-y-4', props.class)">
     <!-- 顶部标题 -->
-    <YdSkeleton
-      v-if="props.title"
-      variant="text"
-      class="h-5 w-1/3"
-    />
+    <YdSkeleton v-if="props.title" variant="text" class="h-5 w-1/3" />
 
     <!-- 图片 -->
-    <YdSkeleton
-      v-if="props.image"
-      variant="rectangular"
-      class="h-32 w-full"
-    />
+    <YdSkeleton v-if="props.image" variant="rectangular" class="h-32 w-full" />
 
     <!-- 字段行 -->
     <div
@@ -57,10 +49,7 @@ const props = withDefaults(defineProps<Props>(), {
     </div>
 
     <!-- 底部操作 -->
-    <div
-      v-if="props.actions"
-      class="flex gap-2 pt-2"
-    >
+    <div v-if="props.actions" class="flex gap-2 pt-2">
       <YdSkeleton variant="rounded" class="h-9 w-24" />
       <YdSkeleton variant="rounded" class="h-9 w-20" />
     </div>

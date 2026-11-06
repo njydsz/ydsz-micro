@@ -10,6 +10,8 @@ build/
 output/
 .turbo/
 coverage/
+# 构建归档（含 sourcemap，随构建生成，不入库）
+**/dist.zip
 
 # ---- 测试产物 ----
 test-results/
@@ -27,6 +29,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 main.dev.err
+# 测试报告由 CI 产出，不入库
+junit.xml
+# 本地研发快照 / 一次性脚本（门禁已显式 SKIP，无保留价值）
+.dev-logs/
+# i18n 批量翻译的一次性分片脚本（与 bash/gen-locales.mts 职责重叠）
+t-i18n/
+scripts/i18n/
+scripts/append_translations.py
+scripts/gen_i18n.py
+scripts/validate_i18n.py
+scripts/data_batch1.py
 
 # ---- 本地环境变量（保留已跟踪的 .env.development / .env.production 等） ----
 .env.local

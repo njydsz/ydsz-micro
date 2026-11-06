@@ -50,18 +50,18 @@ message-web/
 
 本应用复用 monorepo 共享包，避免重复造轮子：
 
-| 依赖包                  | 作用                                       |
-| ----------------------- | ------------------------------------------ |
-| `@ydsz/shared-auth`     | 统一 RequestClient + Auth API + Auth Store |
-| `@ydsz/shared-business` | 业务公共组件与工具                         |
-| `@ydsz/request`         | HTTP 请求客户端（Axios 封装）              |
-| `@ydsz/access`          | 权限码与路由访问控制                       |
-| `@ydsz/layouts`         | 布局组件（basic）                          |
-| `@ydsz/common-ui`       | 通用 UI 组件                               |
-| `@ydsz/monitor`         | 前端监控（错误捕获 + Web Vitals）          |
-| `@ydsz/locales`         | 国际化基础包                               |
+| 依赖包                  | 作用                                        |
+| ----------------------- | ------------------------------------------- |
+| `@ydsz/shared-auth`     | 统一 RequestClient + Auth API + Auth Store  |
+| `@ydsz/shared-business` | 业务公共组件与工具                          |
+| `@ydsz/request`         | HTTP 请求客户端（Axios 封装）               |
+| `@ydsz/access`          | 权限码与路由访问控制                        |
+| `@ydsz/layouts`         | 布局组件（basic）                           |
+| `@ydsz/common-ui`       | 通用 UI 组件                                |
+| `@ydsz/monitor`         | 前端监控（错误捕获 + Web Vitals）           |
+| `@ydsz/locales`         | 国际化基础包                                |
 | `@ydsz-core/ydsz-ui`    | 自研 UI 组件库（88 primitives，零 EP 依赖） |
-| `pinia`                 | 状态管理                                   |
+| `pinia`                 | 状态管理                                    |
 
 ## 核心功能模块
 

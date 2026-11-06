@@ -53,7 +53,11 @@ const loading = ref(false);
       </div>
       <div class="flex items-center">
         <span class="w-24 text-gray-500">{{ t('session.banStatus') }}</span>
-        <YdBadge :variant="banInfo.isBanned ? 'destructive' : 'default'" :class="banInfo.isBanned ? '' : 'bg-green-500 text-white hover:bg-green-600'" class="text-xs">
+        <YdBadge
+          :variant="banInfo.isBanned ? 'destructive' : 'default'"
+          :class="banInfo.isBanned ? '' : 'bg-green-500 text-white hover:bg-green-600'"
+          class="text-xs"
+        >
           {{ banInfo.isBanned ? t('session.banned') : t('session.notBanned') }}
         </YdBadge>
       </div>

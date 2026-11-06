@@ -1,21 +1,22 @@
 # YdQrCodePro — 二维码生成
 
-> 基于 Canvas / SVG 渲染的二维码组件。支持尺寸、纠错级别、颜色、边距等自定义配置，适用于链接分享、WiFi 配置、名片等场景。
+> 基于 Canvas /
+> SVG 渲染的二维码组件。支持尺寸、纠错级别、颜色、边距等自定义配置，适用于链接分享、WiFi 配置、名片等场景。
 
 ## API 一览
 
 ### YdQrCode 属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `value` | `string` | — | **必填**，二维码编码内容 |
-| `size` | `number` | `160` | 尺寸（px） |
-| `level` | `'H' \| 'L' \| 'M' \| 'Q'` | `'M'` | 纠错级别 |
-| `bgColor` | `string` | `'#ffffff'` | 背景色 |
-| `fgColor` | `string` | `'#000000'` | 前景色 |
-| `includeMargin` | `boolean` | `false` | 是否包含边距 |
-| `renderAs` | `'canvas' \| 'svg'` | `'canvas'` | 渲染方式 |
-| `class` | `any` | — | 自定义类名 |
+| 属性            | 类型                       | 默认值      | 说明                     |
+| --------------- | -------------------------- | ----------- | ------------------------ |
+| `value`         | `string`                   | —           | **必填**，二维码编码内容 |
+| `size`          | `number`                   | `160`       | 尺寸（px）               |
+| `level`         | `'H' \| 'L' \| 'M' \| 'Q'` | `'M'`       | 纠错级别                 |
+| `bgColor`       | `string`                   | `'#ffffff'` | 背景色                   |
+| `fgColor`       | `string`                   | `'#000000'` | 前景色                   |
+| `includeMargin` | `boolean`                  | `false`     | 是否包含边距             |
+| `renderAs`      | `'canvas' \| 'svg'`        | `'canvas'`  | 渲染方式                 |
+| `class`         | `any`                      | —           | 自定义类名               |
 
 ---
 
@@ -27,10 +28,10 @@
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const shareUrl = ref('https://github.com/ydsz-micro/platform')
-const qrSize = ref(160)
+const shareUrl = ref('https://github.com/ydsz-micro/platform');
+const qrSize = ref(160);
 </script>
 
 <template>
@@ -40,9 +41,9 @@ const qrSize = ref(160)
       :size="qrSize"
       level="M"
       render-as="canvas"
-      class="rounded border p-2 bg-white"
+      class="rounded border bg-white p-2"
     />
-    <p class="text-sm text-neutral-500 max-w-[200px] text-center truncate">
+    <p class="max-w-[200px] truncate text-center text-sm text-neutral-500">
       扫描二维码访问链接
     </p>
     <div class="flex items-center gap-2">
@@ -59,19 +60,20 @@ const qrSize = ref(160)
 
 ### 变体 — WiFi 分享二维码
 
-:::demo 生成 WiFi 连接二维码，格式为 `WIFI:T:WPA;S:网络名;P:密码;;`，扫描后手机自动连接。
+:::demo 生成 WiFi 连接二维码，格式为
+`WIFI:T:WPA;S:网络名;P:密码;;`，扫描后手机自动连接。
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
-const ssid = ref('YDSZ-Guest')
-const password = ref('welcome2024')
-const encryption = ref('WPA')
+const ssid = ref('YDSZ-Guest');
+const password = ref('welcome2024');
+const encryption = ref('WPA');
 
-const wifiQrValue = computed(() =>
-  `WIFI:T:${encryption.value};S:${ssid.value};P:${password.value};;`
-)
+const wifiQrValue = computed(
+  () => `WIFI:T:${encryption.value};S:${ssid.value};P:${password.value};;`,
+);
 </script>
 
 <template>
@@ -85,12 +87,16 @@ const wifiQrValue = computed(() =>
       include-margin
       class="rounded-lg shadow-sm"
     />
-    <div class="text-center space-y-1">
+    <div class="space-y-1 text-center">
       <p class="text-sm font-medium">WiFi：{{ ssid }}</p>
       <p class="text-xs text-neutral-500">使用相机扫码即可自动连接</p>
     </div>
     <div class="flex gap-2">
-      <YdButton size="sm" variant="outline" @click="console.log('已复制WiFi配置')">
+      <YdButton
+        size="sm"
+        variant="outline"
+        @click="console.log('已复制WiFi配置')"
+      >
         复制配置文本
       </YdButton>
       <YdButton size="sm" @click="console.log('已保存二维码')">
@@ -109,7 +115,7 @@ const wifiQrValue = computed(() =>
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 const contact = ref({
   name: '张三',
@@ -119,9 +125,10 @@ const contact = ref({
   email: 'zhangsan@ydsz.com',
   website: 'https://yzsz.com',
   address: '北京市海淀区中关村软件园',
-})
+});
 
-const vcardValue = computed(() => `BEGIN:VCARD
+const vcardValue = computed(
+  () => `BEGIN:VCARD
 VERSION:3.0
 FN:${contact.value.name}
 ORG:${contact.value.company}
@@ -130,7 +137,8 @@ TEL:${contact.value.phone}
 EMAIL:${contact.value.email}
 URL:${contact.value.website}
 ADR:;;${contact.value.address};;;;
-END:VCARD`)
+END:VCARD`,
+);
 </script>
 
 <template>
@@ -152,7 +160,9 @@ END:VCARD`)
     <!-- 联系人信息预览 -->
     <div class="space-y-2">
       <h4 class="text-base font-medium">{{ contact.name }}</h4>
-      <p class="text-sm text-neutral-600">{{ contact.title }} @ {{ contact.company }}</p>
+      <p class="text-sm text-neutral-600">
+        {{ contact.title }} @ {{ contact.company }}
+      </p>
       <div class="space-y-1 text-xs text-neutral-500">
         <p>📞 {{ contact.phone }}</p>
         <p>📧 {{ contact.email }}</p>

@@ -123,7 +123,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
     <!-- 跳转到主内容区：键盘用户首屏可见，满足 WCAG 2.4.1 -->
     <a
       :href="`#${idMainContent}`"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[9999] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
+      class="focus:bg-primary focus:text-primary-foreground sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[9999] focus:rounded focus:px-3 focus:py-2"
     >
       跳转到主内容
     </a>
@@ -242,11 +242,7 @@ const idMainContent = ELEMENT_ID_MAIN_CONTENT;
       :width="footerWidth"
       :z-index="zIndex + 1"
     >
-      <LayoutTabbar
-        v-if="tabbarEnable"
-        :height="tabbarHeight"
-        :style="tabbarStyle"
-      >
+      <LayoutTabbar v-if="tabbarEnable" :height="tabbarHeight" :style="tabbarStyle">
         <slot name="tabbar"></slot>
       </LayoutTabbar>
       <slot name="footer"></slot>

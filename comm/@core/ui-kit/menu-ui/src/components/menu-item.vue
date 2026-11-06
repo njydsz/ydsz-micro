@@ -40,19 +40,12 @@ const subMenu = useSubMenuContext();
 const { parentMenu, parentPaths } = useMenu();
 
 const active = computed(() => props.path === rootMenu?.activePath);
-const menuIcon = computed(() =>
-  active.value ? props.activeIcon || props.icon : props.icon,
-);
+const menuIcon = computed(() => (active.value ? props.activeIcon || props.icon : props.icon));
 
-const isTopLevelMenuItem = computed(
-  () => parentMenu.value?.type.name === 'YdMenu',
-);
+const isTopLevelMenuItem = computed(() => parentMenu.value?.type.name === 'YdMenu');
 
 const collapseShowTitle = computed(
-  () =>
-    rootMenu.props?.collapseShowTitle &&
-    isTopLevelMenuItem.value &&
-    rootMenu.props.collapse,
+  () => rootMenu.props?.collapseShowTitle && isTopLevelMenuItem.value && rootMenu.props.collapse,
 );
 
 const showTooltip = computed(
@@ -143,11 +136,7 @@ onBeforeUnmount(() => {
     @click.stop="handleClick"
     @mouseenter="handleMouseEnter"
   >
-    <YdTooltip
-      v-if="showTooltip"
-      :content-class="[rootMenu.theme]"
-      side="right"
-    >
+    <YdTooltip v-if="showTooltip" :content-class="[rootMenu.theme]" side="right">
       <template #trigger>
         <div :class="[nsMenu.be('tooltip', 'trigger')]">
           <YdIcon :class="nsMenu.e('icon')" :icon="menuIcon" fallback />
@@ -160,11 +149,7 @@ onBeforeUnmount(() => {
       <slot name="title"></slot>
     </YdTooltip>
     <div v-show="!showTooltip" :class="[e('content')]">
-      <YdMenuBadge
-        v-if="rootMenu.props.mode !== 'horizontal'"
-        class="right-2"
-        v-bind="props"
-      />
+      <YdMenuBadge v-if="rootMenu.props.mode !== 'horizontal'" class="right-2" v-bind="props" />
       <YdIcon :class="nsMenu.e('icon')" :icon="menuIcon" />
       <slot></slot>
       <slot name="title"></slot>

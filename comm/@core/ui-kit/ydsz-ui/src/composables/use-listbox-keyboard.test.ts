@@ -28,10 +28,7 @@ const fruitItems: ListboxKeyboardItem[] = [
  * @param extra - 追加配置
  * @returns 键盘导航句柄与事件派发器
  */
-function setup(
-  items: ListboxKeyboardItem[] = fruitItems,
-  extra: Record<string, unknown> = {},
-) {
+function setup(items: ListboxKeyboardItem[] = fruitItems, extra: Record<string, unknown> = {}) {
   const list = ref(items);
   const handle = useListboxKeyboard({ items: () => list.value, ...extra });
   return { handle, list };

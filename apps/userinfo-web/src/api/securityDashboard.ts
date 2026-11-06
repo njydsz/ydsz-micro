@@ -11,7 +11,19 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { ActiveUserVO, AnomalySessionVO, DeviceDistributionVO, LoginFailDistributionVO, LoginSuccessRateVO, MfaCoverageVO, RiskLevelDistributionVO, SecurityDashboardVO, SecurityEventVO, SessionActivityVO, SessionTrendVO } from './models';
+import type {
+  ActiveUserVO,
+  AnomalySessionVO,
+  DeviceDistributionVO,
+  LoginFailDistributionVO,
+  LoginSuccessRateVO,
+  MfaCoverageVO,
+  RiskLevelDistributionVO,
+  SecurityDashboardVO,
+  SecurityEventVO,
+  SessionActivityVO,
+  SessionTrendVO,
+} from './models';
 
 /**
  * getDashboard: GET /admin/security/dashboard
@@ -24,9 +36,9 @@ export function getDashboard(): Promise<SecurityDashboardVO> {
  * getLoginSuccessRate: GET /admin/security/login-success-rate
  */
 export function getLoginSuccessRate(params: {
-    start?: string;
-    end?: string;
-  }): Promise<LoginSuccessRateVO[]> {
+  start?: string;
+  end?: string;
+}): Promise<LoginSuccessRateVO[]> {
   return requestClient.get<LoginSuccessRateVO[]>(`/admin/security/login-success-rate`, { params });
 }
 
@@ -34,9 +46,11 @@ export function getLoginSuccessRate(params: {
  * getLoginFailDistribution: GET /admin/security/login-fail-distribution
  */
 export function getLoginFailDistribution(params: {
-    date?: string;
-  }): Promise<LoginFailDistributionVO[]> {
-  return requestClient.get<LoginFailDistributionVO[]>(`/admin/security/login-fail-distribution`, { params });
+  date?: string;
+}): Promise<LoginFailDistributionVO[]> {
+  return requestClient.get<LoginFailDistributionVO[]>(`/admin/security/login-fail-distribution`, {
+    params,
+  });
 }
 
 /**
@@ -56,9 +70,7 @@ export function getRiskLevelDistribution(): Promise<RiskLevelDistributionVO> {
 /**
  * getRecentSecurityEvents: GET /admin/security/recent-events
  */
-export function getRecentSecurityEvents(params: {
-    limit?: number;
-  }): Promise<SecurityEventVO[]> {
+export function getRecentSecurityEvents(params: { limit?: number }): Promise<SecurityEventVO[]> {
   return requestClient.get<SecurityEventVO[]>(`/admin/security/recent-events`, { params });
 }
 
@@ -72,9 +84,7 @@ export function getSessionActivity(): Promise<SessionActivityVO> {
 /**
  * getActiveUserRanking: GET /admin/security/active-user-ranking
  */
-export function getActiveUserRanking(params: {
-    limit?: number;
-  }): Promise<ActiveUserVO[]> {
+export function getActiveUserRanking(params: { limit?: number }): Promise<ActiveUserVO[]> {
   return requestClient.get<ActiveUserVO[]>(`/admin/security/active-user-ranking`, { params });
 }
 
@@ -82,9 +92,9 @@ export function getActiveUserRanking(params: {
  * getSessionTrend: GET /admin/security/session-trend
  */
 export function getSessionTrend(params: {
-    start?: string;
-    end?: string;
-  }): Promise<SessionTrendVO[]> {
+  start?: string;
+  end?: string;
+}): Promise<SessionTrendVO[]> {
   return requestClient.get<SessionTrendVO[]>(`/admin/security/session-trend`, { params });
 }
 

@@ -16,29 +16,21 @@ import type { JobHistoryVO, JobVO } from './models';
 /**
  * versions: GET /cronjob/history/versions
  */
-export function versions(params: {
-    jobId?: string;
-  }): Promise<JobHistoryVO[]> {
+export function versions(params: { jobId?: string }): Promise<JobHistoryVO[]> {
   return requestClient.get<JobHistoryVO[]>(`/cronjob/history/versions`, { params });
 }
 
 /**
  * detail: GET /cronjob/history/detail
  */
-export function detail(params: {
-    jobId?: string;
-    version?: number;
-  }): Promise<JobHistoryVO> {
+export function detail(params: { jobId?: string; version?: number }): Promise<JobHistoryVO> {
   return requestClient.get<JobHistoryVO>(`/cronjob/history/detail`, { params });
 }
 
 /**
  * rollback: POST /cronjob/history/rollback
  */
-export function rollback(params: {
-    jobId?: string;
-    version?: number;
-  }): Promise<JobVO> {
+export function rollback(params: { jobId?: string; version?: number }): Promise<JobVO> {
   return requestClient.post<JobVO>(`/cronjob/history/rollback`, { params });
 }
 
@@ -46,9 +38,11 @@ export function rollback(params: {
  * compare: GET /cronjob/history/compare
  */
 export function compare(params: {
-    jobId?: string;
-    v1?: number;
-    v2?: number;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/cronjob/history/compare`, { params });
+  jobId?: string;
+  v1?: number;
+  v2?: number;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/cronjob/history/compare`, {
+    params,
+  });
 }

@@ -44,6 +44,7 @@ import { useTableColumnLayout } from './use-table-column-layout';
 import { useTableExport } from './use-table-export';
 import { useTableRowView } from './use-table-row-view';
 import { useTableResizePersistence } from './use-table-resize-persistence';
+import { useDataTableSelection } from './use-data-table-selection';
 import YdDataTableCell from './YdDataTableCell.vue';
 import YdDataTableHeadCell from './YdDataTableHeadCell.vue';
 
@@ -156,12 +157,14 @@ const emit = defineEmits<{
   'update:sortState': [state: SortState];
   'update:expandedKeys': [keys: string[]];
   'update:columnVisibility': [visibility: Record<string, boolean>];
-  'columnResize': [payload: { columnKey: string; newWidth: number }];
-  'columnReorder': [payload: {
-    columns: DataTableColumnDef<T>[];
-    fromIndex: number;
-    toIndex: number;
-  }];
+  columnResize: [payload: { columnKey: string; newWidth: number }];
+  columnReorder: [
+    payload: {
+      columns: DataTableColumnDef<T>[];
+      fromIndex: number;
+      toIndex: number;
+    },
+  ];
   'cell-edit-start': [rowKey: string, columnKey: string];
   'cell-edit-end': [rowKey: string, columnKey: string, value: string];
   'cell-edit': [rowKey: string, columnKey: string, value: string, row: T];
@@ -286,9 +289,10 @@ function emitSortState(): void {
   const primary = chain[0];
   emit('sort-change', primary?.prop ?? '', primary?.order ?? null);
   emit('sort-chain-change', [...chain]);
-  emit('update:sortState', primary
-    ? { order: primary.order, prop: primary.prop }
-    : { order: null, prop: null });
+  emit(
+    'update:sortState',
+    primary ? { order: primary.order, prop: primary.prop } : { order: null, prop: null },
+  );
 }
 
 /* ============================================================ */
@@ -326,13 +330,13 @@ const layout = useTableColumnLayout<T>({
   enableGroupHeader: () => props.enableGroupHeader,
   estimateColumnWidth: () => props.estimateColumnWidth,
   findColumn,
-  onReorder: payload => emit('columnReorder', payload),
+  onReorder: (payload) => emit('columnReorder', payload),
   resizable: () => props.resizable,
-  resizedWidth: columnKey => resizePersistence.columnResizeApi.getColumnWidthStyle(columnKey),
+  resizedWidth: (columnKey) => resizePersistence.columnResizeApi.getColumnWidthStyle(columnKey),
   reorderable: () => props.reorderable,
   scrollElement: () => tableScrollContainerRef.value ?? null,
   selectable: () => props.isSelectable,
-  sortMeta: columnKey => ({
+  sortMeta: (columnKey) => ({
     order: table.getSortOrder(columnKey),
     rank: table.getSortRank(columnKey),
   }),
@@ -358,7 +362,7 @@ const {
 const rowView = useTableRowView<T>({
   estimateRowHeight: () => props.estimateRowHeight,
   expandedKeys: () => props.treeConfig?.expandedKeys,
-  onExpandedKeysChange: keys => emit('update:expandedKeys', keys),
+  onExpandedKeysChange: (keys) => emit('update:expandedKeys', keys),
   overscan: () => props.virtualOverscan,
   rowKey: props.rowKey,
   rows: () => table.viewRows.value,
@@ -405,29 +409,35 @@ const cellEdit = useTableCellEdit<T>({
 });
 
 /* ============================================================ */
-/* 行选择 / 汇总行                                               */
+/* 行选择 / 汇总行 / 列选择器                                     */
 /* ============================================================ */
 
+const selectionApi = useDataTableSelection<T>(dataRows, {
+  columns: computed(() => props.columns),
+  rowKey: props.rowKey,
+  selection: table.selection,
+  setSelected: (next) => table.setSelected(next),
+  summary: props.summary,
+  toggleSelectAll: () => table.toggleSelectAll(),
+});
+
 /** 视图行 key 列表 */
-const rowKeys = computed<string[]>(() =>
-  dataRows.value.map((row, idx) => props.rowKey(row, idx)),
-);
+const rowKeys = selectionApi.rowKeys;
 
 /** 是否全选 */
-const isAllSelected = computed<boolean>(
-  () => rowKeys.value.length > 0
-    && rowKeys.value.every(key => table.selection.value.has(key)),
-);
+const isAllSelected = selectionApi.isAllSelected;
 
 /** 是否部分选中 */
-const someSelected = computed<boolean>(
-  () => rowKeys.value.some(key => table.selection.value.has(key)) && !isAllSelected.value,
-);
+const someSelected = selectionApi.someSelected;
 
 /** 汇总行取值（按列 key 索引） */
-const summaryValues = computed<Record<string, string | number>>(() =>
-  props.summary && dataRows.value.length > 0 ? props.summary(dataRows.value) : {},
-);
+const summaryValues = selectionApi.summaryValues;
+
+/** 列选择器 popover 开关 */
+const columnChooserOpen = selectionApi.columnChooserOpen;
+
+/** 列选择器所需的列定义 */
+const columnChooserColumns = selectionApi.columnChooserColumns;
 
 /**
  * 全选 / 取消全选。
@@ -435,7 +445,7 @@ const summaryValues = computed<Record<string, string | number>>(() =>
  * @returns 无
  */
 function handleSelectAll(): void {
-  table.toggleSelectAll();
+  selectionApi.handleSelectAll();
   emit('selection-change', Array.from(table.selection.value));
 }
 
@@ -446,41 +456,16 @@ function handleSelectAll(): void {
  * @returns 无
  */
 function handleSelect(key: string): void {
-  const set = table.selection.value;
-  const next = new Set(set);
-  if (next.has(key))
-    next.delete(key);
-  else
-    next.add(key);
-  table.setSelected(next);
-  emit('selection-change', Array.from(next));
+  selectionApi.handleSelect(key);
+  emit('selection-change', Array.from(table.selection.value));
 }
 
-/* ============================================================ */
-/* 列选择器                                                       */
-/* ============================================================ */
-
-/** 列选择器 popover 开关 */
-const columnChooserOpen = ref(false);
-
-/** 列选择器所需的列定义 */
-const columnChooserColumns = computed(() =>
-  props.columns.map((col) => ({
-    hideable: col.fixed !== 'left' && col.fixed !== 'right',
-    key: col.key,
-    label: col.label ?? col.key,
-  })),
-);
-
 function onColumnVisibilityChange(visibleKeys: string[]): void {
-  const vis: Record<string, boolean> = {};
-  for (const col of props.columns)
-    vis[col.key] = visibleKeys.includes(col.key);
-  emit('update:columnVisibility', vis);
+  emit('update:columnVisibility', selectionApi.handleColumnVisibilityChange(visibleKeys));
 }
 
 function onColumnVisibilityReset(): void {
-  emit('update:columnVisibility', {});
+  emit('update:columnVisibility', selectionApi.handleColumnVisibilityReset());
 }
 
 /** 导出仅选中行 */
@@ -496,9 +481,10 @@ function exportSelected(): void {
 /* ============================================================ */
 
 const exportApi = useTableExport<T>({
-  columns: () => columnViews.value
-    .filter(view => !view.isSpacer)
-    .map(view => ({ key: view.key, label: view.label })),
+  columns: () =>
+    columnViews.value
+      .filter((view) => !view.isSpacer)
+      .map((view) => ({ key: view.key, label: view.label })),
   fileName: () => props.exportFileName,
   rowKeyExtractor: (row: T) => String(props.rowKey ? props.rowKey(row, 0) : ''),
   rows: () => dataRows.value,
@@ -536,10 +522,10 @@ defineExpose({
   <!-- 工具栏：列选择器 / Excel 导出 / 已选行导出（showToolbar=true 时显示） -->
   <div
     v-if="props.showToolbar"
-    class="flex items-center justify-between gap-2 rounded-t-md border border-b-0 bg-muted/20 px-3 py-2"
+    class="bg-muted/20 flex items-center justify-between gap-2 rounded-t-md border border-b-0 px-3 py-2"
   >
     <slot name="toolbar-left">
-      <span class="text-sm text-muted-foreground">
+      <span class="text-muted-foreground text-sm">
         {{ dataRows.length }} {{ t('table.columns') }}
       </span>
     </slot>
@@ -549,7 +535,7 @@ defineExpose({
         <button
           v-if="props.enableColumnChooser"
           type="button"
-          class="inline-flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-accent"
+          class="hover:bg-accent inline-flex items-center gap-1 rounded px-2 py-1 text-sm"
           :aria-label="t('table.columnSetting')"
           @click="columnChooserOpen = !columnChooserOpen"
         >
@@ -558,7 +544,7 @@ defineExpose({
         <!-- Excel 导出 -->
         <button
           type="button"
-          class="inline-flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-accent"
+          class="hover:bg-accent inline-flex items-center gap-1 rounded px-2 py-1 text-sm"
           @click="exportApi.exportExcel()"
         >
           {{ t('table.exportExcel') }}
@@ -567,7 +553,7 @@ defineExpose({
         <button
           v-if="props.isSelectable"
           type="button"
-          class="inline-flex items-center gap-1 rounded px-2 py-1 text-sm hover:bg-accent"
+          class="hover:bg-accent inline-flex items-center gap-1 rounded px-2 py-1 text-sm"
           @click="exportSelected()"
         >
           {{ t('table.exportSelected') }}
@@ -579,7 +565,7 @@ defineExpose({
   <!-- 列选择器 Popover -->
   <div
     v-if="columnChooserOpen && props.enableColumnChooser"
-    class="absolute right-2 top-12 z-30 rounded-md border bg-popover p-1 shadow-md"
+    class="bg-popover absolute right-2 top-12 z-30 rounded-md border p-1 shadow-md"
   >
     <YdColumnChooser
       :columns="columnChooserColumns"
@@ -590,12 +576,14 @@ defineExpose({
 
   <div
     ref="tableScrollContainer"
-    :class="cn(
-      'relative w-full overflow-x-auto border rounded-md',
-      virtualized && 'overflow-y-auto yd-body-virtual',
-      !(props.showToolbar) && 'rounded-t-md',
-      props.class,
-    )"
+    :class="
+      cn(
+        'relative w-full overflow-x-auto rounded-md border',
+        virtualized && 'yd-body-virtual overflow-y-auto',
+        !props.showToolbar && 'rounded-t-md',
+        props.class,
+      )
+    "
     :style="virtualized ? { height: `${props.virtualHeight}px` } : undefined"
     role="grid"
     :aria-busy="props.loading"
@@ -605,7 +593,7 @@ defineExpose({
       v-if="showColumnLeftShadow"
       aria-hidden="true"
       class="pointer-events-none absolute inset-y-0 start-0 top-0 z-10 w-3"
-      style="background: linear-gradient(to right, hsl(var(--foreground) / 8%), transparent);"
+      style="background: linear-gradient(to right, hsl(var(--foreground) / 8%), transparent)"
     />
 
     <!-- 列阴影哨兵：右侧仍有未渲染列 -->
@@ -613,26 +601,23 @@ defineExpose({
       v-if="showColumnRightShadow"
       aria-hidden="true"
       class="pointer-events-none absolute inset-y-0 end-0 top-0 z-10 w-3"
-      style="background: linear-gradient(to left, hsl(var(--foreground) / 8%), transparent);"
+      style="background: linear-gradient(to left, hsl(var(--foreground) / 8%), transparent)"
     />
 
     <!-- 加载覆盖层 -->
     <div
       v-if="props.loading"
-      class="absolute inset-0 z-20 flex items-center justify-center bg-background/60"
+      class="bg-background/60 absolute inset-0 z-20 flex items-center justify-center"
       role="status"
       aria-live="polite"
     >
       <slot name="loading">
         <span class="yd-loading-spinner" aria-hidden="true" />
-        <span class="ms-2 text-sm text-muted-foreground">{{ t('table.loading') }}</span>
+        <span class="text-muted-foreground ms-2 text-sm">{{ t('table.loading') }}</span>
       </slot>
     </div>
 
-    <YdTable
-      class="w-full border-collapse"
-      :style="{ minWidth: `${tableMinWidth}px` }"
-    >
+    <YdTable class="w-full border-collapse" :style="{ minWidth: `${tableMinWidth}px` }">
       <YdTableHeader>
         <!-- 多级表头模式 -->
         <template v-if="props.enableGroupHeader && headerRows.length > 0">
@@ -681,7 +666,7 @@ defineExpose({
               :key="`group-cell-${cell.key ?? `${hIdx}-${cellIdx}`}`"
               :colspan="cell.colspan"
               :rowspan="cell.rowspan"
-              class="whitespace-nowrap font-medium text-start"
+              class="whitespace-nowrap text-start font-medium"
             >
               <slot
                 :name="`header-${cell.key}`"
@@ -773,10 +758,7 @@ defineExpose({
       <YdTableBody>
         <!-- 空态（加载中不展示，避免与覆盖层重复） -->
         <YdTableRow v-if="rowCount === 0 && !props.loading">
-          <YdTableCell
-            :colspan="totalCellSpan"
-            class="py-12 text-center text-muted-foreground"
-          >
+          <YdTableCell :colspan="totalCellSpan" class="text-muted-foreground py-12 text-center">
             <slot name="empty">{{ t('table.empty') }}</slot>
           </YdTableCell>
         </YdTableRow>
@@ -795,7 +777,7 @@ defineExpose({
         <YdTableRow
           v-for="{ index, key, row, node } in rowViews"
           :key="key"
-          class="border-b transition-colors hover:bg-muted/25"
+          class="hover:bg-muted/25 border-b transition-colors"
           :selected="props.isSelectable && table.selection.value.has(key)"
         >
           <YdTableCell v-if="props.isSelectable" class="px-2">
@@ -817,11 +799,11 @@ defineExpose({
               <button
                 v-if="node?.hasChildren"
                 type="button"
-                class="yd-tree-toggle size-4 flex items-center justify-center text-xs hover:text-primary cursor-pointer select-none"
+                class="yd-tree-toggle hover:text-primary flex size-4 cursor-pointer select-none items-center justify-center text-xs"
                 :aria-expanded="expandedKeys.has(key)"
-                :aria-label="expandedKeys.has(key)
-                  ? t('table.collapseRow')
-                  : t('table.expandedRow')"
+                :aria-label="
+                  expandedKeys.has(key) ? t('table.collapseRow') : t('table.expandedRow')
+                "
                 @click="toggleExpand(key)"
               >
                 {{ expandedKeys.has(key) ? '▼' : '▶' }}
@@ -880,7 +862,7 @@ defineExpose({
         <!-- 汇总行：按列展开，与表体列视图同序 -->
         <YdTableRow
           v-if="props.summary && dataRows.length > 0"
-          class="border-t-2 font-medium bg-muted/30"
+          class="bg-muted/30 border-t-2 font-medium"
         >
           <YdTableCell v-if="props.isSelectable" class="px-2" />
           <YdTableCell v-if="props.treeConfig" class="px-2" />
@@ -891,12 +873,7 @@ defineExpose({
               aria-hidden="true"
               class="p-0"
             />
-            <YdTableCell
-              v-else
-              :align="view.align"
-              :class="view.cellClass"
-              :style="view.style"
-            >
+            <YdTableCell v-else :align="view.align" :class="view.cellClass" :style="view.style">
               <slot :name="`summary-${view.key}`" :value="summaryValues[view.key]">
                 {{ summaryValues[view.key] ?? '' }}
               </slot>

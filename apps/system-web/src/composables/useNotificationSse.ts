@@ -117,9 +117,7 @@ export function useNotificationSse() {
         type: String(obj.level || obj.type || 'INFO'),
         category: obj.category ? String(obj.category) : undefined,
         isRead: false,
-        createdAt: String(
-          obj.createdAt || obj.timestamp || new Date().toISOString(),
-        ),
+        createdAt: String(obj.createdAt || obj.timestamp || new Date().toISOString()),
         avatar: obj.icon ? String(obj.icon) : undefined,
         link: obj.actionUrl ? String(obj.actionUrl) : undefined,
       };
@@ -137,10 +135,7 @@ export function useNotificationSse() {
    */
   function connectSSE(): void {
     // 防止重复连接
-    if (
-      sseEventSource &&
-      sseEventSource.readyState !== EventSource.CLOSED
-    ) {
+    if (sseEventSource && sseEventSource.readyState !== EventSource.CLOSED) {
       return;
     }
 
@@ -186,20 +181,17 @@ export function useNotificationSse() {
       });
 
       // 监听未读计数更新
-      sseEventSource.addEventListener(
-        'unread_count',
-        (event: MessageEvent) => {
-          try {
-            const data = JSON.parse(event.data);
-            const count = typeof data === 'number' ? data : data?.count;
-            if (typeof count === 'number') {
-              notificationStore.unreadCount = count;
-            }
-          } catch {
-            // 忽略解析失败
+      sseEventSource.addEventListener('unread_count', (event: MessageEvent) => {
+        try {
+          const data = JSON.parse(event.data);
+          const count = typeof data === 'number' ? data : data?.count;
+          if (typeof count === 'number') {
+            notificationStore.unreadCount = count;
           }
-        },
-      );
+        } catch {
+          // 忽略解析失败
+        }
+      });
 
       // 连接断开
       sseEventSource.onerror = () => {
@@ -258,9 +250,7 @@ export function useNotificationSse() {
     );
 
     // 页面失焦时使用更长的重连间隔
-    const actualDelay = isPageVisible
-      ? baseDelay
-      : Math.max(baseDelay, RECONNECT_DELAY_BACKGROUND);
+    const actualDelay = isPageVisible ? baseDelay : Math.max(baseDelay, RECONNECT_DELAY_BACKGROUND);
 
     reconnectAttempts++;
 
@@ -309,10 +299,7 @@ export function useNotificationSse() {
       void notificationStore.refreshUnreadCount();
 
       // 如果 SSE 断开且不在重连中，立即重新连接
-      if (
-        !notificationStore.connected &&
-        !notificationStore.reconnecting
-      ) {
+      if (!notificationStore.connected && !notificationStore.reconnecting) {
         reconnectAttempts = 0;
         connectSSE();
       }

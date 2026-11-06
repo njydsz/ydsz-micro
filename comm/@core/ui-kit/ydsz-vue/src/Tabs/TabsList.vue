@@ -1,29 +1,29 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface TabsListProps extends PrimitiveProps {
   /** When `true`, keyboard navigation will loop from last tab to first, and vice versa. */
-  loop?: boolean
+  loop?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { injectTabsRootContext } from './TabsRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
-import { RovingFocusGroup } from '../RovingFocus/index.ts'
+import { toRefs } from 'vue';
+import { injectTabsRootContext } from './TabsRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
+import { RovingFocusGroup } from '../RovingFocus/index.ts';
 
 const props = withDefaults(defineProps<TabsListProps>(), {
   loop: true,
-})
-const { loop } = toRefs(props)
+});
+const { loop } = toRefs(props);
 
-const { forwardRef, currentElement } = useForwardExpose()
-const context = injectTabsRootContext()
+const { forwardRef, currentElement } = useForwardExpose();
+const context = injectTabsRootContext();
 
-context.tabsList = currentElement
+context.tabsList = currentElement;
 </script>
 
 <template>

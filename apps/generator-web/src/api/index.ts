@@ -10,28 +10,14 @@
  */
 
 /** Core API — auth / user / menu */
-export {
-  loginApi,
-  logoutApi,
-  refreshTokenApi,
-  getAccessCodesApi,
-} from './core/auth';
+export { loginApi, logoutApi, refreshTokenApi, getAccessCodesApi } from './core/auth';
 
-export {
-  getUserInfoApi,
-} from './core/user';
+export { getUserInfoApi } from './core/user';
 
-export {
-  getAllMenusApi,
-  getMenuTreeApi,
-} from './core/menu';
+export { getAllMenusApi, getMenuTreeApi } from './core/menu';
 
 /** HTTP 请求客户端 */
-export {
-  requestClient,
-  baseRequestClient,
-  initSharedRequest,
-} from './request';
+export { requestClient, baseRequestClient, initSharedRequest } from './request';
 
 /** Generator 业务 API */
 export * from './code-gen';

@@ -140,7 +140,12 @@ defineExpose({ next, prev, switchTo });
         v-for="i in totalItems"
         :key="i - 1"
         :aria-label="t('carousel.goToSlide', { index: i })"
-        :class="cn('size-2 rounded-full transition-colors', activeIndex === i - 1 ? 'bg-white' : 'bg-white/50 hover:bg-white/80')"
+        :class="
+          cn(
+            'size-2 rounded-full transition-colors',
+            activeIndex === i - 1 ? 'bg-white' : 'bg-white/50 hover:bg-white/80',
+          )
+        "
         type="button"
         @click="switchTo(i - 1)"
       ></button>

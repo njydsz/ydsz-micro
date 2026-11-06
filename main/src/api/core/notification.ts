@@ -168,9 +168,7 @@ export function getUnreadCountApi() {
  * @returns 是否标记成功
  */
 export function markAsReadApi(id: string) {
-  return requestClient.post<boolean>(
-    `/api/message/notifications/${id}/read`,
-  );
+  return requestClient.post<boolean>(`/api/message/notifications/${id}/read`);
 }
 
 /**

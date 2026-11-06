@@ -16,18 +16,14 @@ import type { SpaceTemplateDTO, SpaceVO } from './models';
 /**
  * listTemplates: GET /nextwiki/templates
  */
-export function listTemplates(params: {
-    category?: string;
-  }): Promise<SpaceTemplateDTO[]> {
+export function listTemplates(params: { category?: string }): Promise<SpaceTemplateDTO[]> {
   return requestClient.get<SpaceTemplateDTO[]>(`/nextwiki/templates`, { params });
 }
 
 /**
  * getTemplate: GET /nextwiki/templates/{templateId}
  */
-export function getTemplate({ templateId }: {
-    templateId: string;
-  }): Promise<SpaceTemplateDTO> {
+export function getTemplate({ templateId }: { templateId: string }): Promise<SpaceTemplateDTO> {
   return requestClient.get<SpaceTemplateDTO>(`/nextwiki/templates/${templateId}`);
 }
 
@@ -41,26 +37,34 @@ export function createTemplate(data: Record<string, unknown>): Promise<SpaceTemp
 /**
  * updateTemplate: PUT /nextwiki/templates/{templateId}
  */
-export function updateTemplate({ templateId }: {
+export function updateTemplate(
+  {
+    templateId,
+  }: {
     templateId: string;
-  }, data: Record<string, unknown>): Promise<SpaceTemplateDTO> {
+  },
+  data: Record<string, unknown>,
+): Promise<SpaceTemplateDTO> {
   return requestClient.put<SpaceTemplateDTO>(`/nextwiki/templates/${templateId}`, data);
 }
 
 /**
  * deleteTemplate: DELETE /nextwiki/templates/{templateId}
  */
-export function deleteTemplate({ templateId }: {
-    templateId: string;
-  }): Promise<boolean> {
+export function deleteTemplate({ templateId }: { templateId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/nextwiki/templates/${templateId}`);
 }
 
 /**
  * useTemplate: POST /nextwiki/templates/{templateId}/use
  */
-export function useTemplate({ templateId }: {
+export function useTemplate(
+  {
+    templateId,
+  }: {
     templateId: string;
-  }, data: Record<string, unknown>): Promise<SpaceVO> {
+  },
+  data: Record<string, unknown>,
+): Promise<SpaceVO> {
   return requestClient.post<SpaceVO>(`/nextwiki/templates/${templateId}/use`, data);
 }

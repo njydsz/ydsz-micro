@@ -16,9 +16,7 @@ import type { FileCommentVO } from './models';
 /**
  * listComments: GET /nextwiki/comments/file/{fileNodeId}
  */
-export function listComments({ fileNodeId }: {
-    fileNodeId: string;
-  }): Promise<FileCommentVO[]> {
+export function listComments({ fileNodeId }: { fileNodeId: string }): Promise<FileCommentVO[]> {
   return requestClient.get<FileCommentVO[]>(`/nextwiki/comments/file/${fileNodeId}`);
 }
 
@@ -32,17 +30,13 @@ export function addComment(data: Record<string, unknown>): Promise<FileCommentVO
 /**
  * deleteComment: DELETE /nextwiki/comments/{commentId}
  */
-export function deleteComment({ commentId }: {
-    commentId: string;
-  }): Promise<void> {
+export function deleteComment({ commentId }: { commentId: string }): Promise<void> {
   return requestClient.delete<void>(`/nextwiki/comments/${commentId}`);
 }
 
 /**
  * resolveComment: POST /nextwiki/comments/{commentId}/resolve
  */
-export function resolveComment({ commentId }: {
-    commentId: string;
-  }): Promise<void> {
+export function resolveComment({ commentId }: { commentId: string }): Promise<void> {
   return requestClient.post<void>(`/nextwiki/comments/${commentId}/resolve`);
 }

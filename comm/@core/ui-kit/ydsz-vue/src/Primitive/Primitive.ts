@@ -1,5 +1,5 @@
-import { type Component, type PropType, defineComponent, h } from 'vue'
-import { Slot } from './Slot'
+import { type Component, type PropType, defineComponent, h } from 'vue';
+import { Slot } from './Slot';
 
 export type AsTag =
   | 'a'
@@ -19,7 +19,7 @@ export type AsTag =
   | 'svg'
   | 'ul'
   | 'template'
-  | ({} & string) // any other string
+  | ({} & string); // any other string
 
 export interface PrimitiveProps {
   /**
@@ -27,12 +27,12 @@ export interface PrimitiveProps {
    *
    * Read our [Composition](https://www.radix-vue.com/guides/composition.html) guide for more details.
    */
-  asChild?: boolean
+  asChild?: boolean;
   /**
    * The element or component this component should render as. Can be overwritten by `asChild`.
    * @defaultValue "div"
    */
-  as?: AsTag | Component
+  as?: AsTag | Component;
 }
 
 export const Primitive = defineComponent({
@@ -49,16 +49,15 @@ export const Primitive = defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
-    const asTag = props.asChild ? 'template' : props.as
+    const asTag = props.asChild ? 'template' : props.as;
 
     // For self closing tags, don't provide default slots because of hydration issue
-    const SELF_CLOSING_TAGS = ['area', 'img', 'input']
+    const SELF_CLOSING_TAGS = ['area', 'img', 'input'];
     if (typeof asTag === 'string' && SELF_CLOSING_TAGS.includes(asTag))
-      return () => h(asTag, attrs)
+      return () => h(asTag, attrs);
 
-    if (asTag !== 'template')
-      return () => h(props.as, attrs, { default: slots.default })
+    if (asTag !== 'template') return () => h(props.as, attrs, { default: slots.default });
 
-    return () => h(Slot, attrs, { default: slots.default })
+    return () => h(Slot, attrs, { default: slots.default });
   },
-})
+});

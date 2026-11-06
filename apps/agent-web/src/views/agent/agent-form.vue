@@ -16,7 +16,14 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 import { showToast } from '@ydsz/notification';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelect, YdSelectItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelect,
+  YdSelectItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { create, update } from '#/api/agentDefinition';
 import { tools } from '#/api/agentMetadata';
@@ -25,7 +32,8 @@ import type { AgentDefinitionDTO, AgentDefinitionVO } from '#/api/models';
 const emit = defineEmits<{ success: [] }>();
 const formRef = ref();
 const isEdit = ref(false);
-const formData = reactive<AgentDefinitionDTO>({ id: '',
+const formData = reactive<AgentDefinitionDTO>({
+  id: '',
   agentCode: '',
   agentName: '',
   agentType: '',
@@ -54,11 +62,13 @@ async function loadToolOptions(): Promise<void> {
   toolsLoaded = true;
   try {
     const list = await tools();
-    toolOptions.value = (list ?? []).map((t) => {
-      const name = String(t.toolName ?? t.name ?? '');
-      const code = String(t.toolCode ?? t.code ?? t.id ?? name);
-      return { label: name || code, value: code };
-    }).filter((opt) => opt.value);
+    toolOptions.value = (list ?? [])
+      .map((t) => {
+        const name = String(t.toolName ?? t.name ?? '');
+        const code = String(t.toolCode ?? t.code ?? t.id ?? name);
+        return { label: name || code, value: code };
+      })
+      .filter((opt) => opt.value);
   } catch {
     useTextFallback.value = true;
     showToast.error('工具列表加载失败，已切换为文本输入');
@@ -72,7 +82,8 @@ const [Modal, modalApi] = useYdModal({
     if (data?.record) {
       isEdit.value = true;
       const record = data.record;
-      Object.assign(formData, { id: record.id ?? '',
+      Object.assign(formData, {
+        id: record.id ?? '',
         agentCode: record.agentCode ?? '',
         agentName: record.agentName ?? '',
         agentType: record.agentType ?? '',
@@ -83,10 +94,14 @@ const [Modal, modalApi] = useYdModal({
         temperature: record.temperature ?? 0,
         maxTokens: record.maxTokens ?? 0,
       });
-      selectedTools.value = (formData.toolNames ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+      selectedTools.value = (formData.toolNames ?? '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else {
       isEdit.value = false;
-      Object.assign(formData, { id: '',
+      Object.assign(formData, {
+        id: '',
         agentCode: '',
         agentName: '',
         agentType: '',
@@ -103,15 +118,27 @@ const [Modal, modalApi] = useYdModal({
     void loadToolOptions();
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
       // 将多选数组拼回逗号分隔字符串
       formData.toolNames = selectedTools.value.join(',');
-      if (isEdit.value) { await update({ ...formData }); showToast.success('更新成功'); }
-      else { await create({ ...formData }); showToast.success('创建成功'); }
-      emit('success'); modalApi.close();
-    } finally { modalApi.unlock(); }
+      if (isEdit.value) {
+        await update({ ...formData });
+        showToast.success('更新成功');
+      } else {
+        await create({ ...formData });
+        showToast.success('创建成功');
+      }
+      emit('success');
+      modalApi.close();
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 const title = computed(() => (isEdit.value ? '编辑Agent定义' : '新增Agent定义'));
@@ -126,39 +153,59 @@ function isRequired(field: string): boolean {
 </script>
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem prop="agentCode">
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('agentCode')" class="mr-0.5 text-red-500">*</span>
           Agent编码
         </label>
         <YdInput v-model="formData.agentCode" placeholder="请输入Agent编码" :disabled="isEdit" />
       </YdFormItem>
       <YdFormItem prop="agentName">
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('agentName')" class="mr-0.5 text-red-500">*</span>
           Agent名称
         </label>
         <YdInput v-model="formData.agentName" placeholder="请输入Agent名称" />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">Agent类型</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
+          >Agent类型</label
+        >
         <YdInput v-model="formData.agentType" placeholder="请输入Agent类型" />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">描述</label>
-        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入描述" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">描述</label>
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入描述"
+        />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">系统提示词</label>
-        <YdInput v-model="formData.systemPrompt" type="textarea" :rows="2" placeholder="请输入系统提示词" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
+          >系统提示词</label
+        >
+        <YdInput
+          v-model="formData.systemPrompt"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入系统提示词"
+        />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">模型配置</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">模型配置</label>
         <YdInput v-model="formData.modelConfig" placeholder="请输入模型配置（JSON）" />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">工具列表</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">工具列表</label>
         <YdSelect
           v-if="!useTextFallback"
           v-model="selectedTools"
@@ -178,11 +225,13 @@ function isRequired(field: string): boolean {
         <YdInput v-else v-model="formData.toolNames" placeholder="请输入工具列表（逗号分隔）" />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">温度</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">温度</label>
         <YdNumberFieldInput v-model="formData.temperature" :min="0" :max="2" :step="0.1" />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">MaxTokens</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
+          >MaxTokens</label
+        >
         <YdNumberFieldInput v-model="formData.maxTokens" :min="0" :max="100000" :step="100" />
       </YdFormItem>
     </YdForm>

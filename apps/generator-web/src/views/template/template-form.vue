@@ -18,7 +18,14 @@
  */
 import { ref, watch } from 'vue';
 
-import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+} from '@ydsz-core/ydsz-ui';
 
 import type { GenTemplate } from '#/api/models';
 
@@ -66,7 +73,7 @@ function handleSave() {
       </div>
       <textarea
         v-model="content"
-        class="w-full border rounded p-3 font-mono text-xs"
+        class="w-full rounded border p-3 font-mono text-xs"
         style="height: 60vh; resize: none; tab-size: 2"
         spellcheck="false"
       />

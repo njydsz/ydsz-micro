@@ -12,7 +12,6 @@ import { createSubApp } from '@ydsz/shared-auth';
 
 import '@ydsz/styles';
 
-
 import { initComponentAdapter } from './adapter/component';
 import { initGeneratorFormAdapter } from './adapter/form';
 import RootApp from './app.vue';
@@ -25,8 +24,8 @@ import { routes } from './router/routes';
  * micro-kernel 需要的标准生命周期导出（由框架动态 import 后调用）。
  */
 export const { bootstrap, mount, unmount, update } = createSubApp({
-    appName: 'generator-web',
-    basename: '/ydsz-gen',
+  appName: 'generator-web',
+  basename: '/ydsz-gen',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

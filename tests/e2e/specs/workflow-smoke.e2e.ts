@@ -16,7 +16,8 @@ import { APP_SELECTOR, SELECTORS } from '../support/selectors';
 
 /** 选择器集中管理 */
 const LOCAL_SELECTORS = {
-  createButton: 'button:has-text("新增"), button:has-text("新建"), button:has-text("添加"), button:has-text("创建")',
+  createButton:
+    'button:has-text("新增"), button:has-text("新建"), button:has-text("添加"), button:has-text("创建")',
 } as const;
 
 /**

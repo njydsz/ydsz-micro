@@ -1,10 +1,6 @@
-/**
- * YdAvatarGroup（头像组）：多个头像横向重叠展示。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\primitives\avatar-group\YdAvatarGroup.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdAvatarGroup（头像组）：多个头像横向重叠展示。 * * @path
+comm\@core\ui-kit\ydsz-ui\src\primitives\avatar-group\YdAvatarGroup.vue * @author ydsz-team * @since
+1.0.0 */
 <script setup lang="ts">
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -38,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <div :class="cn('flex items-center', props.class)">
     <template
-      v-for="(item, i) in (props.max ? props.items.slice(0, props.max) : props.items)"
+      v-for="(item, i) in props.max ? props.items.slice(0, props.max) : props.items"
       :key="i"
     >
       <YdAvatar
@@ -51,7 +47,7 @@ const props = withDefaults(defineProps<Props>(), {
     </template>
     <div
       v-if="props.max !== undefined && props.items.length > props.max"
-      class="flex items-center justify-center rounded-full border-2 border-background bg-neutral-600 px-2 py-1 text-xs font-medium text-white ring-2 ring-background"
+      class="border-background ring-background flex items-center justify-center rounded-full border-2 bg-neutral-600 px-2 py-1 text-xs font-medium text-white ring-2"
       :style="{ marginLeft: `-${props.overlap}px` }"
     >
       +{{ props.items.length - props.max }}

@@ -17,12 +17,7 @@ export type NotificationType = 'error' | 'info' | 'success' | 'warning';
 
 /** 通知展示位置 */
 export type NotificationPosition =
-  | 'top-right'
-  | 'top-left'
-  | 'bottom-right'
-  | 'bottom-left'
-  | 'top-center'
-  | 'bottom-center';
+  'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
 
 /* ============================================================ */
 /* 声明式组件 Props                                               */

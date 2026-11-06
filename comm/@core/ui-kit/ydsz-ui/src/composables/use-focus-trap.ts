@@ -50,9 +50,9 @@ export interface UseFocusTrapOptions {
  */
 function getFocusable(container: HTMLElement): HTMLElement[] {
   // 用 attribute 而非 el.tabIndex 判断：原生可聚焦元素不写 tabindex 时 IDL 默认值随实现而变，属性判断只排除显式 -1
-  return Array.from(
-    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-  ).filter((el) => el.getAttribute('tabindex') !== '-1' && !el.hasAttribute('aria-hidden'));
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+    (el) => el.getAttribute('tabindex') !== '-1' && !el.hasAttribute('aria-hidden'),
+  );
 }
 
 /**

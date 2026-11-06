@@ -13,12 +13,12 @@
  * @since 4.2.1
  */
 
-import type { DisposableManager } from "./manager-registry";
+import type { DisposableManager } from './manager-registry';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel");
+const logger = createLogger('MicroKernel');
 
 /** 本次会话应用降级 set（key = app.name，该应用不再尝试微前端加载，走整页跳转） */
 const degradedApps = new Set<string>();
@@ -75,7 +75,7 @@ export function setRetryCount(appName: string, count: number): void {
  */
 export function createErrorBoundaryManager(): DisposableManager {
   return {
-    name: "error-boundary",
+    name: 'error-boundary',
     dispose(): void {
       degradedApps.clear();
       retryCounters.clear();
@@ -108,13 +108,11 @@ function getAutoRetryDelay(attempt: number): number {
  * @param appName - 应用名
  * @returns 'auto-retry' | 'show-ui' | 'full-page'
  */
-export function decideDegradationLevel(
-  appName: string,
-): "auto-retry" | "full-page" | "show-ui" {
+export function decideDegradationLevel(appName: string): 'auto-retry' | 'full-page' | 'show-ui' {
   const count = retryCounters.get(appName) ?? 0;
-  if (count < MAX_AUTO_RETRIES) return "auto-retry";
-  if (count < MAX_MICRO_RETRIES) return "show-ui";
-  return "full-page";
+  if (count < MAX_AUTO_RETRIES) return 'auto-retry';
+  if (count < MAX_MICRO_RETRIES) return 'show-ui';
+  return 'full-page';
 }
 
 /** 获取下次自动重试延迟（仅 auto-retry 级别有意义） */

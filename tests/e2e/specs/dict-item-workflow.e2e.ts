@@ -63,7 +63,9 @@ async function login(page: Page): Promise<void> {
   const passwordInput = page.locator('input[name="password"], input[type="password"]').first();
   await passwordInput.fill('admin123');
 
-  const loginBtn = page.locator('button[type="submit"], button:has-text("登录"), button:has-text("登 录")').first();
+  const loginBtn = page
+    .locator('button[type="submit"], button:has-text("登录"), button:has-text("登 录")')
+    .first();
   await loginBtn.click();
 
   await waitForAppReady(page);
@@ -87,17 +89,21 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     await expect(page.locator(SELECTORS.dialog)).toBeVisible({ timeout: 5_000 });
 
     // 填写字典类型
-    const typeInput = page.locator(
-      'input[placeholder*="类型编码"], input[placeholder*="type"], label:has-text("类型编码") + input, label:has-text("类型编码") ~ input, label:has-text("字典编码") + input, label:has-text("字典编码") ~ input',
-    ).first();
+    const typeInput = page
+      .locator(
+        'input[placeholder*="类型编码"], input[placeholder*="type"], label:has-text("类型编码") + input, label:has-text("类型编码") ~ input, label:has-text("字典编码") + input, label:has-text("字典编码") ~ input',
+      )
+      .first();
     if (await typeInput.isVisible({ timeout: 3_000 })) {
       await typeInput.fill(TEST_DICT.type);
     }
 
     // 填写字典名称
-    const nameInput = page.locator(
-      'input[placeholder*="名称"], input[placeholder*="name"], label:has-text("名称") + input, label:has-text("名称") ~ input, label:has-text("字典名称") + input, label:has-text("字典名称") ~ input',
-    ).first();
+    const nameInput = page
+      .locator(
+        'input[placeholder*="名称"], input[placeholder*="name"], label:has-text("名称") + input, label:has-text("名称") ~ input, label:has-text("字典名称") + input, label:has-text("字典名称") ~ input',
+      )
+      .first();
     if (await nameInput.isVisible({ timeout: 3_000 })) {
       await nameInput.fill(TEST_DICT.typeName);
     }
@@ -112,18 +118,20 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     await page.waitForTimeout(500);
 
     // 断言表格中出现新字典
-    const newRow = page.locator(
-      `td:has-text("${TEST_DICT.type}"), tbody tr:has-text("${TEST_DICT.typeName}")`,
-    ).first();
+    const newRow = page
+      .locator(`td:has-text("${TEST_DICT.type}"), tbody tr:has-text("${TEST_DICT.typeName}")`)
+      .first();
     await expect(newRow).toBeVisible({ timeout: 10_000 });
   });
 
   test('TC-DICT-002: 查看字典详情 + 新增字典项 → 断言字典项出现在列表中', async ({ page }) => {
     // 查找刚刚创建的字典，点击进入详情或字典项 tab
     const targetRow = page.locator(SELECTORS.tableRow).filter({ hasText: TEST_DICT.typeName });
-    if (await targetRow.count() === 0) {
+    if ((await targetRow.count()) === 0) {
       // 如果第一个测试未运行，用 type 搜索
-      const searchInput = page.locator('input[placeholder*="搜索"], input[placeholder*="关键字"]').first();
+      const searchInput = page
+        .locator('input[placeholder*="搜索"], input[placeholder*="关键字"]')
+        .first();
       if (await searchInput.isVisible({ timeout: 3_000 })) {
         await searchInput.fill(TEST_DICT.type);
         await page.waitForTimeout(500);
@@ -172,16 +180,20 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     }
 
     // 填写字典项信息
-    const itemLabelInput = page.locator(
-      'input[placeholder*="标签"], input[placeholder*="label"], label:has-text("标签") + input, label:has-text("标签") ~ input',
-    ).first();
+    const itemLabelInput = page
+      .locator(
+        'input[placeholder*="标签"], input[placeholder*="label"], label:has-text("标签") + input, label:has-text("标签") ~ input',
+      )
+      .first();
     if (await itemLabelInput.isVisible({ timeout: 3_000 })) {
       await itemLabelInput.fill(TEST_DICT.itemLabel);
     }
 
-    const itemValueInput = page.locator(
-      'input[placeholder*="值"], input[placeholder*="value"], label:has-text("值") + input, label:has-text("值") ~ input',
-    ).first();
+    const itemValueInput = page
+      .locator(
+        'input[placeholder*="值"], input[placeholder*="value"], label:has-text("值") + input, label:has-text("值") ~ input',
+      )
+      .first();
     if (await itemValueInput.isVisible({ timeout: 3_000 })) {
       await itemValueInput.fill(TEST_DICT.itemValue);
     }
@@ -195,9 +207,11 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     await page.waitForTimeout(1000);
 
     // 断言字典项出现
-    const itemRow = page.locator(
-      `td:has-text("${TEST_DICT.itemLabel}"), td:has-text("${TEST_DICT.itemValue}"), tbody tr:has-text("${TEST_DICT.itemLabel}")`,
-    ).first();
+    const itemRow = page
+      .locator(
+        `td:has-text("${TEST_DICT.itemLabel}"), td:has-text("${TEST_DICT.itemValue}"), tbody tr:has-text("${TEST_DICT.itemLabel}")`,
+      )
+      .first();
     await expect(itemRow).toBeVisible({ timeout: 10_000 });
   });
 
@@ -206,20 +220,25 @@ test.describe('Dict Item Workflow — 字典管理新增与状态切换', () => 
     await page.goto('/system/dict-type', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1000);
 
-    const searchInput = page.locator('input[placeholder*="搜索"], input[placeholder*="关键字"]').first();
+    const searchInput = page
+      .locator('input[placeholder*="搜索"], input[placeholder*="关键字"]')
+      .first();
     if (await searchInput.isVisible({ timeout: 3_000 })) {
       await searchInput.fill(TEST_DICT.type);
       await page.waitForTimeout(500);
     }
 
     const targetRow = page.locator(SELECTORS.tableRow).filter({ hasText: TEST_DICT.type });
-    if (await targetRow.count() === 0) {
+    if ((await targetRow.count()) === 0) {
       test.skip(true, '目标字典不存在，跳过状态切换测试');
       return;
     }
 
     // 进入字典项编辑界面
-    const editBtn = targetRow.first().locator('button:has-text("编辑"), a:has-text("编辑")').first();
+    const editBtn = targetRow
+      .first()
+      .locator('button:has-text("编辑"), a:has-text("编辑")')
+      .first();
     if (await editBtn.isVisible({ timeout: 3_000 })) {
       await editBtn.click();
       await page.waitForTimeout(500);

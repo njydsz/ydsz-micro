@@ -30,7 +30,16 @@
  * @since 4.5.0
  */
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+  writeFileSync,
+  mkdtempSync,
+  rmSync,
+} from 'node:fs';
 import { dirname, extname, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -128,7 +137,10 @@ function slotValues(expr, fileSrc, exprIndex, files) {
   const toLower = kebab || /\.toLowerCase\(\)/.test(expr);
   const name = callMatch
     ? callMatch[2]
-    : expr.replace(/\.toLowerCase\(\)/g, '').replace(/\(.*$/, '').trim();
+    : expr
+        .replace(/\.toLowerCase\(\)/g, '')
+        .replace(/\(.*$/, '')
+        .trim();
   // 形参类型允许含 '|'（字面量联合），但不含逗号/左括号/换行；多形参签名与对象方法都靠这几个边界切开
   const paramRe = /([A-Za-z0-9_$]+)\s*:\s*([^,)(\n]+)/g;
   let type = null;
@@ -146,7 +158,11 @@ function slotValues(expr, fileSrc, exprIndex, files) {
   if (!values || values.length === 0) return { values: null, reason: `无法解析类型 ${type}` };
   if (!toLower) return { values, reason: '' };
   const mapped = values.map((v) =>
-    kebab ? String(v).replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() : String(v).toLowerCase(),
+    kebab
+      ? String(v)
+          .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+          .toLowerCase()
+      : String(v).toLowerCase(),
   );
   return { values: mapped, reason: '' };
 }
@@ -172,7 +188,8 @@ function synthesizedVarNames(tokenDir) {
         continue;
       }
       if (st.isDirectory()) queue.push(full);
-      else if (/\.(ts|mts)$/.test(name)) files.set(full, withoutCommentLines(readFileSync(full, 'utf8')));
+      else if (/\.(ts|mts)$/.test(name))
+        files.set(full, withoutCommentLines(readFileSync(full, 'utf8')));
     }
   }
 
@@ -299,7 +316,9 @@ function collectFailures(paths, srcRoot) {
     failures.push('base/design 的令牌入口未 import compat-aliases.css → 历史命名仍取不到值');
   }
   if (!/"@ydsz-core\/design-tokens":\s*"workspace:\*"/.test(pkgSrc)) {
-    failures.push('base/design 的 package.json 未声明 @ydsz-core/design-tokens 依赖 → 解析靠运气的幽灵依赖');
+    failures.push(
+      'base/design 的 package.json 未声明 @ydsz-core/design-tokens 依赖 → 解析靠运气的幽灵依赖',
+    );
   }
 
   // ---------- D. 暗色选择器 ----------
@@ -372,7 +391,9 @@ function collectFailures(paths, srcRoot) {
   const compatNames = [...definedNames(compatSrc)];
   const deadAliases = compatNames.filter((n) => !used.has(n));
   if (deadAliases.length > 0) {
-    warnings.push(`compat-aliases.css 中 ${deadAliases.length} 个别名已无消费方，可删除：${deadAliases.join(', ')}`);
+    warnings.push(
+      `compat-aliases.css 中 ${deadAliases.length} 个别名已无消费方，可删除：${deadAliases.join(', ')}`,
+    );
   }
 
   return {
@@ -399,11 +420,19 @@ function selfTest() {
       ':root { --ydsz-color-brand-500: 222 47% 44%; --ydsz-fake-ok-ok: 1px; }\n',
       'utf8',
     );
-    writeFileSync(join(stylesDir, 'compat-aliases.css'), ':root { --ydsz-comp-bg: var(--ydsz-color-brand-500); }\n', 'utf8');
+    writeFileSync(
+      join(stylesDir, 'compat-aliases.css'),
+      ':root { --ydsz-comp-bg: var(--ydsz-color-brand-500); }\n',
+      'utf8',
+    );
     writeFileSync(join(dir, 'global.css'), '', 'utf8');
     // 入口故意不 import；消费方故意引用未定义令牌
     writeFileSync(join(dir, 'entry.ts'), "import './default.css';\nexport {};\n", 'utf8');
-    writeFileSync(join(dir, 'package.json'), '{"name":"@ydsz-core/design","dependencies":{}}\n', 'utf8');
+    writeFileSync(
+      join(dir, 'package.json'),
+      '{"name":"@ydsz-core/design","dependencies":{}}\n',
+      'utf8',
+    );
     writeFileSync(join(dir, 'docs.css'), '', 'utf8');
     writeFileSync(
       join(srcDir, 'widget.vue'),
@@ -465,14 +494,18 @@ function selfTest() {
     }
     // 正向断言：常量前缀展开 + JS 自声明变量计入定义，两者一旦被改坏必须报错
     if (!synthesized.has('--ydsz-fake-ok-ok')) {
-      console.error('❌ 门禁自检失败：okVar 未枚举到 --ydsz-fake-ok-ok，说明 VAR_PREFIX 常量展开失效');
+      console.error(
+        '❌ 门禁自检失败：okVar 未枚举到 --ydsz-fake-ok-ok，说明 VAR_PREFIX 常量展开失效',
+      );
       process.exit(1);
     }
     if (failures.some((f) => f.includes('--ydsz-density-fake-padding'))) {
       console.error('❌ 门禁自检失败：JS 侧自己声明的 --ydsz-density-fake-padding 被误判为未定义');
       process.exit(1);
     }
-    console.log(`✅ 门禁自检通过：反例命中 ${required.length}/${required.length} 类缺陷（检出 ${failures.length} 条）`);
+    console.log(
+      `✅ 门禁自检通过：反例命中 ${required.length}/${required.length} 类缺陷（检出 ${failures.length} 条）`,
+    );
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -500,13 +533,17 @@ if (process.argv.includes('--self-test')) {
   for (const w of warnings) console.warn(`⚠️  ${w}`);
 
   if (failures.length > 0) {
-    console.error(`❌ 设计令牌接线检查未通过（定义 ${defCount} 个 / 消费 ${usedCount} 个 / JS 拼出 ${synthCount} 个）：`);
+    console.error(
+      `❌ 设计令牌接线检查未通过（定义 ${defCount} 个 / 消费 ${usedCount} 个 / JS 拼出 ${synthCount} 个）：`,
+    );
     for (const f of failures) console.error(`  - ${f}`);
     console.error('  接线位置：comm/@core/base/design/src/design-tokens/index.ts');
     process.exit(1);
   }
 
-  const built = existsSync(DESIGN_DIST) ? '含产物级 design.css 校验' : '（base/design 未构建，跳过产物级校验）';
+  const built = existsSync(DESIGN_DIST)
+    ? '含产物级 design.css 校验'
+    : '（base/design 未构建，跳过产物级校验）';
   console.log(
     `✅ 设计令牌接线通过：${defCount} 个定义覆盖 ${usedCount} 个静态消费名 + ${synthCount} 个 JS 模板拼出名；${built}`,
   );

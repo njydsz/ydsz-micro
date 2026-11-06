@@ -93,7 +93,11 @@ function inferTsDescription(relPath) {
 
 /** 读取 JSON */
 function readJson(p) {
-  try { return JSON.parse(readFileSync(p, 'utf-8')); } catch { return {}; }
+  try {
+    return JSON.parse(readFileSync(p, 'utf-8'));
+  } catch {
+    return {};
+  }
 }
 
 /** 应用版本 */
@@ -106,14 +110,22 @@ function walk(dir, exts, excludeDirs = []) {
   const results = [];
   function recurse(current) {
     let entries;
-    try { entries = readdirSync(current); } catch { return; }
+    try {
+      entries = readdirSync(current);
+    } catch {
+      return;
+    }
     for (const entry of entries) {
       const full = join(current, entry);
       let st;
-      try { st = statSync(full); } catch { continue; }
+      try {
+        st = statSync(full);
+      } catch {
+        continue;
+      }
       if (st.isDirectory()) {
         if (!excludeDirs.includes(entry)) recurse(full);
-      } else if (exts.some(e => entry.endsWith(e))) {
+      } else if (exts.some((e) => entry.endsWith(e))) {
         results.push(full);
       }
     }
@@ -123,7 +135,17 @@ function walk(dir, exts, excludeDirs = []) {
 }
 
 // ========== 主程序 =========
-const APPS = ['agent-web', 'cronjob-web', 'generator-web', 'literule-web', 'message-web', 'nextwiki-web', 'system-web', 'userinfo-web', 'workflow-web'];
+const APPS = [
+  'agent-web',
+  'cronjob-web',
+  'generator-web',
+  'literule-web',
+  'message-web',
+  'nextwiki-web',
+  'system-web',
+  'userinfo-web',
+  'workflow-web',
+];
 const MAIN_SRC = join(ROOT, 'main', 'src');
 const TS_EXCLUDE = ['node_modules', 'dist', 'api', 'generated'];
 let totalFixed = 0;
@@ -166,7 +188,12 @@ for (const app of APPS) {
     const src = readFileSync(fp, 'utf-8');
     if (vueHasHeader(src)) continue;
     const relPath = 'main\\src\\' + fp.replace(MAIN_SRC + '\\', '');
-    const header = vueHeader(relPath, inferVueDescription('main\\src\\' + fp.replace(MAIN_SRC + '\\', '')), version) + '\n';
+    const header =
+      vueHeader(
+        relPath,
+        inferVueDescription('main\\src\\' + fp.replace(MAIN_SRC + '\\', '')),
+        version,
+      ) + '\n';
     writeFileSync(fp, header + src, 'utf-8');
     mainFixed++;
   }

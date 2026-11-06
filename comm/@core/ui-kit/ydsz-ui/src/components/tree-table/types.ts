@@ -13,8 +13,7 @@ import type { TableColumnDef } from '../../composables/use-table-data';
 /* ============================================================ */
 
 /** YdTreeTable 列定义（扩展 TableColumnDef） */
-export interface YdTreeTableColumnDef<T = Record<string, unknown>>
-  extends TableColumnDef<T> {
+export interface YdTreeTableColumnDef<T = Record<string, unknown>> extends TableColumnDef<T> {
   /** 列标题（显示于表头） */
   label?: string;
   /** 列宽度（px 或 css 字符串如 '120px' / '10%'） */
@@ -22,7 +21,12 @@ export interface YdTreeTableColumnDef<T = Record<string, unknown>>
   /** 列对齐方式 */
   align?: 'left' | 'center' | 'right';
   /** 自定义单元格格式化函数 */
-  formatter?: (row: T, column: YdTreeTableColumnDef<T>, cellValue: unknown, index: number) => unknown;
+  formatter?: (
+    row: T,
+    column: YdTreeTableColumnDef<T>,
+    cellValue: unknown,
+    index: number,
+  ) => unknown;
 }
 
 /* ============================================================ */

@@ -129,8 +129,7 @@ export function watchMultipleFields(
     getter,
     (newJson, oldJson) => {
       if (newJson === oldJson) return;
-      const parsed: Array<{ field: string; value: unknown }> =
-        JSON.parse(newJson);
+      const parsed: Array<{ field: string; value: unknown }> = JSON.parse(newJson);
       callback(parsed);
     },
     options,

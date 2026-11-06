@@ -14,25 +14,25 @@
 >
 ```
 
-| 属性 | 类型 | 默认值 | 必填 | 说明 |
-|------|------|--------|------|------|
-| `modelValue` | `string \| string[]` | — | 否 | 受控展开项 |
-| `defaultValue` | `string \| string[]` | — | 否 | 默认展开项 |
-| `type` | `'single' \| 'multiple'` | — | 否 | 单选 / 多选模式 |
-| `collapsible` | `boolean` | `false` | 否 | 是否允许全部收起 |
-| `disabled` | `boolean` | `false` | 否 | 禁用整个面板 |
-| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | 否 | 方向 |
-| `dir` | `'ltr' \| 'rtl'` | `'ltr'` | 否 | 阅读方向 |
+| 属性           | 类型                         | 默认值       | 必填 | 说明             |
+| -------------- | ---------------------------- | ------------ | ---- | ---------------- |
+| `modelValue`   | `string \| string[]`         | —            | 否   | 受控展开项       |
+| `defaultValue` | `string \| string[]`         | —            | 否   | 默认展开项       |
+| `type`         | `'single' \| 'multiple'`     | —            | 否   | 单选 / 多选模式  |
+| `collapsible`  | `boolean`                    | `false`      | 否   | 是否允许全部收起 |
+| `disabled`     | `boolean`                    | `false`      | 否   | 禁用整个面板     |
+| `orientation`  | `'vertical' \| 'horizontal'` | `'vertical'` | 否   | 方向             |
+| `dir`          | `'ltr' \| 'rtl'`             | `'ltr'`      | 否   | 阅读方向         |
 
 - **Emits**: `update:modelValue` `(value: string | string[] | undefined)`
 - **Slots**: `default` `(props: { modelValue })`
 
 ### AccordionItem
 
-| 属性 | 类型 | 默认值 | 必填 |
-|------|------|--------|------|
-| `value` | `string` | — | **是** |
-| `disabled` | `boolean` | `false` | 否 |
+| 属性       | 类型      | 默认值  | 必填   |
+| ---------- | --------- | ------- | ------ |
+| `value`    | `string`  | —       | **是** |
+| `disabled` | `boolean` | `false` | 否     |
 
 - **Slots**: `default` `(props: { open: boolean })`
 - **Expose**: `open`
@@ -47,9 +47,9 @@
 
 ### AccordionContent
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `forceMount` | `boolean` | — |
+| 属性         | 类型      | 默认值 |
+| ------------ | --------- | ------ |
+| `forceMount` | `boolean` | —      |
 
 ---
 
@@ -57,11 +57,11 @@
 
 ### AlertDialogRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `open` | `boolean` | — |
-| `defaultOpen` | `boolean` | `false` |
-| `modal` | **固定 `true`** | — |
+| 属性          | 类型            | 默认值  |
+| ------------- | --------------- | ------- |
+| `open`        | `boolean`       | —       |
+| `defaultOpen` | `boolean`       | `false` |
+| `modal`       | **固定 `true`** | —       |
 
 - **Emits**: `update:open` `(value: boolean)`
 - **Slots**: `default` `(props: { open })`
@@ -81,18 +81,18 @@
 
 ### AvatarImage
 
-| 属性 | 类型 | 默认值 | 必填 |
-|------|------|--------|------|
-| `src` | `string` | — | **是** |
-| `referrerPolicy` | `ReferrerPolicy` | — | 否 |
+| 属性             | 类型             | 默认值 | 必填   |
+| ---------------- | ---------------- | ------ | ------ |
+| `src`            | `string`         | —      | **是** |
+| `referrerPolicy` | `ReferrerPolicy` | —      | 否     |
 
 - **Emits**: `loadingStatusChange` `(value: ImageLoadingStatus)`
 
 ### AvatarFallback
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `delayMs` | `number` | `0` |
+| 属性      | 类型     | 默认值 |
+| --------- | -------- | ------ |
+| `delayMs` | `number` | `0`    |
 
 ---
 
@@ -100,22 +100,22 @@
 
 ### CheckboxRoot
 
-| 属性 | 类型 | 默认值 | 必填 |
-|------|------|--------|------|
-| `defaultChecked` | `boolean` | — | 否 |
-| `checked` | `boolean \| 'indeterminate'` | — | 否 |
-| `disabled` | `boolean` | — | 否 |
-| `required` | `boolean` | — | 否 |
-| `name` | `string` | — | 否 |
-| `value` | `string` | `'on'` | 否 |
+| 属性             | 类型                         | 默认值 | 必填 |
+| ---------------- | ---------------------------- | ------ | ---- |
+| `defaultChecked` | `boolean`                    | —      | 否   |
+| `checked`        | `boolean \| 'indeterminate'` | —      | 否   |
+| `disabled`       | `boolean`                    | —      | 否   |
+| `required`       | `boolean`                    | —      | 否   |
+| `name`           | `string`                     | —      | 否   |
+| `value`          | `string`                     | `'on'` | 否   |
 
 - **Emits**: `update:checked` `(value: boolean)`
 - **Slots**: `default` `(props: { checked })`
 
 ### CheckboxIndicator
 
-| 属性 | 类型 |
-|------|------|
+| 属性         | 类型      |
+| ------------ | --------- |
 | `forceMount` | `boolean` |
 
 ---
@@ -124,11 +124,11 @@
 
 ### CollapsibleRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
+| 属性          | 类型      | 默认值  |
+| ------------- | --------- | ------- |
 | `defaultOpen` | `boolean` | `false` |
-| `open` | `boolean` | — |
-| `disabled` | `boolean` | — |
+| `open`        | `boolean` | —       |
+| `disabled`    | `boolean` | —       |
 
 - **Emits**: `update:open` `(value: boolean)`
 - **Slots**: `default` `(props: { open })`
@@ -139,8 +139,8 @@
 
 ### CollapsibleContent
 
-| 属性 | 类型 |
-|------|------|
+| 属性         | 类型      |
+| ------------ | --------- |
 | `forceMount` | `boolean` |
 
 ---
@@ -149,23 +149,24 @@
 
 ### DialogRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `open` | `boolean` | — |
+| 属性          | 类型      | 默认值  |
+| ------------- | --------- | ------- |
+| `open`        | `boolean` | —       |
 | `defaultOpen` | `boolean` | `false` |
-| `modal` | `boolean` | `true` |
+| `modal`       | `boolean` | `true`  |
 
 - **Slots**: `default` `(props: { open })`
 
 ### DialogContent
 
-| 属性 | 类型 |
-|------|------|
-| `forceMount` | `boolean` |
-| `trapFocus` | `boolean` |
+| 属性                          | 类型      |
+| ----------------------------- | --------- |
+| `forceMount`                  | `boolean` |
+| `trapFocus`                   | `boolean` |
 | `disableOutsidePointerEvents` | `boolean` |
 
-**Emits**: `escapeKeyDown`, `focusOutside`, `interactOutside`, `pointerDownOutside`, `openAutoFocus`, `closeAutoFocus`
+**Emits**: `escapeKeyDown`, `focusOutside`, `interactOutside`,
+`pointerDownOutside`, `openAutoFocus`, `closeAutoFocus`
 
 ### DialogTrigger / DialogPortal / DialogOverlay / DialogClose / DialogTitle / DialogDescription
 
@@ -177,26 +178,26 @@
 
 ### HoverCardRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `defaultOpen` | `false` | `false` |
-| `open` | `boolean` | — |
-| `openDelay` | `number` | `700` |
-| `closeDelay` | `number` | `300` |
+| 属性          | 类型      | 默认值  |
+| ------------- | --------- | ------- |
+| `defaultOpen` | `false`   | `false` |
+| `open`        | `boolean` | —       |
+| `openDelay`   | `number`  | `700`   |
+| `closeDelay`  | `number`  | `300`   |
 
 - **Emits**: `update:open`
 - **Slots**: `default` `(props: { open })`
 
 ### HoverCardContent
 
-| 属性 | 类型 |
-|------|------|
-| `forceMount` | `boolean` |
-| `side` / `align` | Floating UI 定位 |
-| `sideOffset` / `alignOffset` | `number` |
-| `avoidCollisions` | `boolean` |
-| `trapFocus` | `boolean` |
-| 等 Floating UI 全部选项 | — |
+| 属性                         | 类型             |
+| ---------------------------- | ---------------- |
+| `forceMount`                 | `boolean`        |
+| `side` / `align`             | Floating UI 定位 |
+| `sideOffset` / `alignOffset` | `number`         |
+| `avoidCollisions`            | `boolean`        |
+| `trapFocus`                  | `boolean`        |
+| 等 Floating UI 全部选项      | —                |
 
 - **Emits**: 继承 DismissableLayerEmits
 
@@ -208,28 +209,28 @@
 
 ### MenuRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `open` | `boolean` | `false` |
-| `dir` | `Direction` | — |
-| `modal` | `boolean` | `true` |
+| 属性    | 类型        | 默认值  |
+| ------- | ----------- | ------- |
+| `open`  | `boolean`   | `false` |
+| `dir`   | `Direction` | —       |
+| `modal` | `boolean`   | `true`  |
 
 ### MenuItem
 
-| 属性 | 类型 |
-|------|------|
-| `disabled` | `boolean` |
-| `textValue` | `string` |
+| 属性        | 类型      |
+| ----------- | --------- |
+| `disabled`  | `boolean` |
+| `textValue` | `string`  |
 
 **Emits**: `select` `(event: Event)`
 
 ### MenuCheckboxItem
 
-| 属性 | 类型 |
-|------|------|
-| `checked` | `CheckedState` |
-| `disabled` | `boolean` |
-| `textValue` | `string` |
+| 属性        | 类型           |
+| ----------- | -------------- |
+| `checked`   | `CheckedState` |
+| `disabled`  | `boolean`      |
+| `textValue` | `string`       |
 
 **Emits**: `update:checked`, `select`
 
@@ -251,18 +252,18 @@
 
 ### NumberFieldRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `number` | — |
-| `defaultValue` | `number` | — |
-| `min` | `number` | — |
-| `max` | `number` | — |
-| `step` | `number` | `1` |
-| `formatOptions` | `Intl.NumberFormatOptions` | — |
-| `locale` | `string` | `'en-US'` |
-| `disabled` | `boolean` | — |
-| `required` | `boolean` | — |
-| `name` / `id` | `string` | — |
+| 属性            | 类型                       | 默认值    |
+| --------------- | -------------------------- | --------- |
+| `modelValue`    | `number`                   | —         |
+| `defaultValue`  | `number`                   | —         |
+| `min`           | `number`                   | —         |
+| `max`           | `number`                   | —         |
+| `step`          | `number`                   | `1`       |
+| `formatOptions` | `Intl.NumberFormatOptions` | —         |
+| `locale`        | `string`                   | `'en-US'` |
+| `disabled`      | `boolean`                  | —         |
+| `required`      | `boolean`                  | —         |
+| `name` / `id`   | `string`                   | —         |
 
 - **Slots**: `default` `(props: { modelValue, textValue })`
 
@@ -276,14 +277,14 @@
 
 ### PaginationRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `page` | `number` | — |
-| `defaultPage` | `number` | `1` |
-| `total` | `number` | `0` |
-| `itemsPerPage` | `number` | `10` |
-| `siblingCount` | `number` | `2` |
-| `showEdges` | `boolean` | `false` |
+| 属性           | 类型      | 默认值  |
+| -------------- | --------- | ------- |
+| `page`         | `number`  | —       |
+| `defaultPage`  | `number`  | `1`     |
+| `total`        | `number`  | `0`     |
+| `itemsPerPage` | `number`  | `10`    |
+| `siblingCount` | `number`  | `2`     |
+| `showEdges`    | `boolean` | `false` |
 
 - **Emits**: `update:page` `(value: number)`
 - **Slots**: `default` `(props: { page, pageCount })`
@@ -294,24 +295,24 @@
 
 ### PinInputRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `string[]` | — |
-| `defaultValue` | `string[]` | — |
-| `placeholder` | `string` | `''` |
-| `mask` | `boolean` | — |
-| `otp` | `boolean` | — |
-| `type` | `'text' \| 'number'` | `'text'` |
-| `disabled` | `boolean` | — |
+| 属性           | 类型                 | 默认值   |
+| -------------- | -------------------- | -------- |
+| `modelValue`   | `string[]`           | —        |
+| `defaultValue` | `string[]`           | —        |
+| `placeholder`  | `string`             | `''`     |
+| `mask`         | `boolean`            | —        |
+| `otp`          | `boolean`            | —        |
+| `type`         | `'text' \| 'number'` | `'text'` |
+| `disabled`     | `boolean`            | —        |
 
 - **Emits**: `update:modelValue`, `complete` `(value: string[])`
 
 ### PinInputInput
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `index` | `number` | **是** |
-| `disabled` | `boolean` | 否 |
+| 属性       | 类型      | 必填   |
+| ---------- | --------- | ------ |
+| `index`    | `number`  | **是** |
+| `disabled` | `boolean` | 否     |
 
 ---
 
@@ -319,17 +320,18 @@
 
 ### PopoverRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
+| 属性          | 类型      | 默认值  |
+| ------------- | --------- | ------- |
 | `defaultOpen` | `boolean` | `false` |
-| `open` | `boolean` | — |
-| `modal` | `boolean` | `false` |
+| `open`        | `boolean` | —       |
+| `modal`       | `boolean` | `false` |
 
 - **Slots**: `default` `(props: { open })`
 
 ### PopoverContent
 
-完整 Floating UI 定位属性集（`side` / `align` / `sideOffset` / `avoidCollisions` 等）。
+完整 Floating UI 定位属性集（`side` / `align` / `sideOffset` / `avoidCollisions`
+等）。
 
 ---
 
@@ -337,10 +339,10 @@
 
 ### ProgressRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `number \| null` | — |
-| `max` | `number` | `100` |
+| 属性            | 类型                     | 默认值     |
+| --------------- | ------------------------ | ---------- |
+| `modelValue`    | `number \| null`         | —          |
+| `max`           | `number`                 | `100`      |
 | `getValueLabel` | `(value, max) => string` | 百分比函数 |
 
 ---
@@ -349,20 +351,20 @@
 
 ### RadioGroupRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `string` | — |
-| `disabled` | `boolean` | `false` |
-| `required` | `boolean` | — |
-| `orientation` | `DataOrientation` | — |
-| `loop` | `boolean` | `true` |
+| 属性          | 类型              | 默认值  |
+| ------------- | ----------------- | ------- |
+| `modelValue`  | `string`          | —       |
+| `disabled`    | `boolean`         | `false` |
+| `required`    | `boolean`         | —       |
+| `orientation` | `DataOrientation` | —       |
+| `loop`        | `boolean`         | `true`  |
 
 ### RadioGroupItem
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `value` | `string` | **是** |
-| `disabled` | `boolean` | 否 |
+| 属性       | 类型      | 必填   |
+| ---------- | --------- | ------ |
+| `value`    | `string`  | **是** |
+| `disabled` | `boolean` | 否     |
 
 ---
 
@@ -370,17 +372,17 @@
 
 ### ScrollAreaRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `type` | `'auto' \| 'always' \| 'scroll' \| 'hover'` | `'hover'` |
-| `scrollHideDelay` | `number` | `600` |
+| 属性              | 类型                                        | 默认值    |
+| ----------------- | ------------------------------------------- | --------- |
+| `type`            | `'auto' \| 'always' \| 'scroll' \| 'hover'` | `'hover'` |
+| `scrollHideDelay` | `number`                                    | `600`     |
 
 - **Expose**: `viewport`, `scrollTop()`, `scrollTopLeft()`
 
 ### ScrollAreaScrollbar
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
+| 属性          | 类型                         | 默认值       |
+| ------------- | ---------------------------- | ------------ |
 | `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` |
 
 ---
@@ -389,31 +391,31 @@
 
 ### SelectRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `string` | — |
-| `open` | `boolean` | — |
-| `disabled` | `boolean` | — |
-| `dir` | `Direction` | — |
-| `name` | `string` | — |
-| `required` | `boolean` | — |
+| 属性         | 类型        | 默认值 |
+| ------------ | ----------- | ------ |
+| `modelValue` | `string`    | —      |
+| `open`       | `boolean`   | —      |
+| `disabled`   | `boolean`   | —      |
+| `dir`        | `Direction` | —      |
+| `name`       | `string`    | —      |
+| `required`   | `boolean`   | —      |
 
 - **Emits**: `update:modelValue`, `update:open`
 
 ### SelectItem
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `value` | `string` | **是** |
-| `disabled` | `boolean` | 否 |
-| `textValue` | `string` | 否 |
+| 属性        | 类型      | 必填   |
+| ----------- | --------- | ------ |
+| `value`     | `string`  | **是** |
+| `disabled`  | `boolean` | 否     |
+| `textValue` | `string`  | 否     |
 
 ### SelectContent
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `position` | `'popper' \| 'item-aligned'` | 定位策略 |
-| `bodyLock` | `boolean` | 锁定身体滚动 |
+| 属性       | 类型                         | 说明         |
+| ---------- | ---------------------------- | ------------ |
+| `position` | `'popper' \| 'item-aligned'` | 定位策略     |
+| `bodyLock` | `boolean`                    | 锁定身体滚动 |
 
 ---
 
@@ -421,15 +423,15 @@
 
 ### SliderRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `number[]` | — |
-| `defaultValue` | `number[]` | `[0]` |
-| `min` / `max` / `step` | `number` | `0` / `100` / `1` |
-| `orientation` | `DataOrientation` | `'horizontal'` |
-| `inverted` | `boolean` | `false` |
-| `minStepsBetweenThumbs` | `number` | `0` |
-| `disabled` | `boolean` | `false` |
+| 属性                    | 类型              | 默认值            |
+| ----------------------- | ----------------- | ----------------- |
+| `modelValue`            | `number[]`        | —                 |
+| `defaultValue`          | `number[]`        | `[0]`             |
+| `min` / `max` / `step`  | `number`          | `0` / `100` / `1` |
+| `orientation`           | `DataOrientation` | `'horizontal'`    |
+| `inverted`              | `boolean`         | `false`           |
+| `minStepsBetweenThumbs` | `number`          | `0`               |
+| `disabled`              | `boolean`         | `false`           |
 
 - **Emits**: `update:modelValue`, `valueCommit`
 
@@ -439,28 +441,29 @@
 
 ### SplitterGroup
 
-| 属性 | 类型 | 默认值 | 必填 |
-|------|------|--------|------|
-| `direction` | `'ltr' \| 'rtl'` | — | **是** |
-| `autoSaveId` | `string \| null` | — | 否 |
-| `keyboardResizeBy` | `number \| null` | `10` | 否 |
-| `storage` | `PanelGroupStorage` | `localStorage` | 否 |
+| 属性               | 类型                | 默认值         | 必填   |
+| ------------------ | ------------------- | -------------- | ------ |
+| `direction`        | `'ltr' \| 'rtl'`    | —              | **是** |
+| `autoSaveId`       | `string \| null`    | —              | 否     |
+| `keyboardResizeBy` | `number \| null`    | `10`           | 否     |
+| `storage`          | `PanelGroupStorage` | `localStorage` | 否     |
 
 - **Emits**: `layout` `(val: number[])`
 - **Slots**: `default` `(props: { layout })`
 
 ### SplitterPanel
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `defaultSize` | `number` | — |
-| `minSize` | `number` | — |
-| `maxSize` | `number` | — |
-| `collapsedSize` | `number` | — |
-| `collapsible` | `boolean` | — |
+| 属性            | 类型      | 默认值 |
+| --------------- | --------- | ------ |
+| `defaultSize`   | `number`  | —      |
+| `minSize`       | `number`  | —      |
+| `maxSize`       | `number`  | —      |
+| `collapsedSize` | `number`  | —      |
+| `collapsible`   | `boolean` | —      |
 
 - **Emits**: `collapse`, `expand`, `resize`
-- **Expose**: `collapse()`, `expand()`, `getSize()`, `resize(size)`, `isCollapsed`, `isExpanded`
+- **Expose**: `collapse()`, `expand()`, `getSize()`, `resize(size)`,
+  `isCollapsed`, `isExpanded`
 
 ---
 
@@ -468,14 +471,14 @@
 
 ### SwitchRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `defaultChecked` | `boolean` | — |
-| `checked` | `boolean` | — |
-| `disabled` | `boolean` | — |
-| `required` | `boolean` | — |
-| `name` | `string` | — |
-| `value` | `string` | `'on'` |
+| 属性             | 类型      | 默认值 |
+| ---------------- | --------- | ------ |
+| `defaultChecked` | `boolean` | —      |
+| `checked`        | `boolean` | —      |
+| `disabled`       | `boolean` | —      |
+| `required`       | `boolean` | —      |
+| `name`           | `string`  | —      |
+| `value`          | `string`  | `'on'` |
 
 - **Slots**: `default` `(props: { checked })`
 
@@ -485,26 +488,26 @@
 
 ### TabsRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `StringOrNumber` | — |
-| `defaultValue` | `StringOrNumber` | — |
-| `orientation` | `DataOrientation` | `'horizontal'` |
-| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` |
+| 属性             | 类型                      | 默认值         |
+| ---------------- | ------------------------- | -------------- |
+| `modelValue`     | `StringOrNumber`          | —              |
+| `defaultValue`   | `StringOrNumber`          | —              |
+| `orientation`    | `DataOrientation`         | `'horizontal'` |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'`  |
 
 ### TabsTrigger
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `value` | `StringOrNumber` | **是** |
-| `disabled` | `boolean` | 否 |
+| 属性       | 类型             | 必填   |
+| ---------- | ---------------- | ------ |
+| `value`    | `StringOrNumber` | **是** |
+| `disabled` | `boolean`        | 否     |
 
 ### TabsContent
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `value` | `StringOrNumber` | **是** |
-| `forceMount` | `boolean` | 否 |
+| 属性         | 类型             | 必填   |
+| ------------ | ---------------- | ------ |
+| `value`      | `StringOrNumber` | **是** |
+| `forceMount` | `boolean`        | 否     |
 
 ---
 
@@ -512,11 +515,11 @@
 
 ### Toggle
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `pressed` | `boolean` | — |
-| `defaultValue` | `boolean` | — |
-| `disabled` | `boolean` | `false` |
+| 属性           | 类型      | 默认值  |
+| -------------- | --------- | ------- |
+| `pressed`      | `boolean` | —       |
+| `defaultValue` | `boolean` | —       |
+| `disabled`     | `boolean` | `false` |
 
 - **Emits**: `update:pressed`
 - **Slots**: `default` `(props: { pressed })`
@@ -527,21 +530,21 @@
 
 ### ToggleGroupRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `modelValue` | `string \| string[]` | — |
-| `defaultValue` | `string \| string[]` | — |
-| `type` | `'single' \| 'multiple'` | — |
-| `disabled` | `boolean` | `false` |
-| `rovingFocus` | `boolean` | `true` |
-| `loop` | `boolean` | `true` |
+| 属性           | 类型                     | 默认值  |
+| -------------- | ------------------------ | ------- |
+| `modelValue`   | `string \| string[]`     | —       |
+| `defaultValue` | `string \| string[]`     | —       |
+| `type`         | `'single' \| 'multiple'` | —       |
+| `disabled`     | `boolean`                | `false` |
+| `rovingFocus`  | `boolean`                | `true`  |
+| `loop`         | `boolean`                | `true`  |
 
 ### ToggleGroupItem
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `value` | `string` | **是** |
-| `disabled` | `boolean` | 否 |
+| 属性       | 类型      | 必填   |
+| ---------- | --------- | ------ |
+| `value`    | `string`  | **是** |
+| `disabled` | `boolean` | 否     |
 
 ---
 
@@ -549,22 +552,22 @@
 
 ### TooltipRoot
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `defaultOpen` | `boolean` | `false` |
-| `open` | `boolean` | — |
-| `delayDuration` | `number` | — |
-| `disableHoverableContent` | `boolean` | — |
-| `disabled` | `boolean` | — |
+| 属性                      | 类型      | 默认值  |
+| ------------------------- | --------- | ------- |
+| `defaultOpen`             | `boolean` | `false` |
+| `open`                    | `boolean` | —       |
+| `delayDuration`           | `number`  | —       |
+| `disableHoverableContent` | `boolean` | —       |
+| `disabled`                | `boolean` | —       |
 
 ### TooltipProvider
 
-| 属性 | 类型 | 默认值 |
-|------|------|--------|
-| `delayDuration` | `number` | `700` |
+| 属性                      | 类型      | 默认值  |
+| ------------------------- | --------- | ------- |
+| `delayDuration`           | `number`  | `700`   |
 | `disableHoverableContent` | `boolean` | `false` |
-| `disableClosingTrigger` | `boolean` | `false` |
-| `disabled` | `boolean` | `false` |
+| `disableClosingTrigger`   | `boolean` | `false` |
+| `disabled`                | `boolean` | `false` |
 
 ### TooltipContent
 
@@ -576,28 +579,30 @@
 
 ### TreeRoot (generic \`\<T, U\>\`)
 
-| 属性 | 类型 | 默认值 | 必填 |
-|------|------|--------|------|
-| `items` | `T[]` | — | 否 |
-| `modelValue` | `U \| U[]` | — | 否 |
-| `expanded` | `string[]` | — | 否 |
-| `getKey` | `(val: T) => string` | — | **是** |
-| `getChildren` | `(val: T) => T[]` | `val => val.children` | 否 |
-| `selectionBehavior` | `'toggle' \| 'replace'` | `'toggle'` | 否 |
-| `multiple` | `boolean` | — | 否 |
-| `propagateSelect` | `boolean` | — | 否 |
-| `disabled` | `boolean` | — | 否 |
+| 属性                | 类型                    | 默认值                | 必填   |
+| ------------------- | ----------------------- | --------------------- | ------ |
+| `items`             | `T[]`                   | —                     | 否     |
+| `modelValue`        | `U \| U[]`              | —                     | 否     |
+| `expanded`          | `string[]`              | —                     | 否     |
+| `getKey`            | `(val: T) => string`    | —                     | **是** |
+| `getChildren`       | `(val: T) => T[]`       | `val => val.children` | 否     |
+| `selectionBehavior` | `'toggle' \| 'replace'` | `'toggle'`            | 否     |
+| `multiple`          | `boolean`               | —                     | 否     |
+| `propagateSelect`   | `boolean`               | —                     | 否     |
+| `disabled`          | `boolean`               | —                     | 否     |
 
 - **Emits**: `update:modelValue`, `update:expanded`
 - **Slots**: `default` `({ flattenItems, modelValue, expanded })`
 
 ### TreeItem (generic \`&lt;T&gt;\`)
 
-| 属性 | 类型 | 必填 |
-|------|------|------|
-| `value` | `T` | **是** |
+| 属性    | 类型     | 必填   |
+| ------- | -------- | ------ |
+| `value` | `T`      | **是** |
 | `level` | `number` | **是** |
 
 - **Emits**: `select`, `toggle`
-- **Slots**: `default` `({ isExpanded, isSelected, isIndeterminate, handleToggle, handleSelect })`
-- **Expose**: `isExpanded`, `isSelected`, `isIndeterminate`, `handleToggle`, `handleSelect`
+- **Slots**: `default`
+  `({ isExpanded, isSelected, isIndeterminate, handleToggle, handleSelect })`
+- **Expose**: `isExpanded`, `isSelected`, `isIndeterminate`, `handleToggle`,
+  `handleSelect`

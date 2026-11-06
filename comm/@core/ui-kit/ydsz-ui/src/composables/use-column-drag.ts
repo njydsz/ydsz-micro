@@ -132,7 +132,7 @@ export function useColumnDrag<T>(
     }
     const dx = Math.abs(event.clientX - startX);
     const dy = Math.abs(event.clientY - startY);
-    if (!dragState.value.isDragging && (dx < threshold && dy < threshold)) {
+    if (!dragState.value.isDragging && dx < threshold && dy < threshold) {
       return;
     }
 

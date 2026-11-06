@@ -68,15 +68,53 @@ const gridOptions: VxeGridProps<UserSessionVO> = {
     { field: 'loginTime', title: t('session.loginTime'), width: 170 },
     { field: 'expireTime', title: t('session.expireTime'), width: 170 },
     {
-      field: 'action', title: t('page.operation'), width: 280, fixed: 'right',
+      field: 'action',
+      title: t('page.operation'),
+      width: 280,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewBanInfo(row) }, () => t('session.viewBanInfo')),
-            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleViewUserSessions(row) }, () => t('session.viewUserSessions')),
-            h(YdButton, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleForceLogout(row) }, () => t('session.forceLogout')),
-            h(YdButton, { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleBanUser(row) }, () => t('session.banUser')),
-            h(YdButton, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleUnbanUser(row) }, () => t('session.unbanUser')),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleViewBanInfo(row) },
+              () => t('session.viewBanInfo'),
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'ghost', onClick: () => handleViewUserSessions(row) },
+              () => t('session.viewUserSessions'),
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleForceLogout(row),
+              },
+              () => t('session.forceLogout'),
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400',
+                onClick: () => handleBanUser(row),
+              },
+              () => t('session.banUser'),
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-green-500 text-green-600 dark:text-green-400',
+                onClick: () => handleUnbanUser(row),
+              },
+              () => t('session.unbanUser'),
+            ),
           ]),
       },
     },
@@ -99,7 +137,9 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [BanInfoModalWrapper, banInfoModalApi] = useYdModal({ connectedComponent: BanInfoModal });
 
 /** 用户会话列表弹窗 */
-const [UserSessionsModalWrapper, userSessionsModalApi] = useYdModal({ connectedComponent: UserSessionsModal });
+const [UserSessionsModalWrapper, userSessionsModalApi] = useYdModal({
+  connectedComponent: UserSessionsModal,
+});
 
 /** 强制下线 */
 async function handleForceLogout(row: UserSessionVO) {
@@ -123,12 +163,13 @@ async function handleForceLogout(row: UserSessionVO) {
 async function handleBanUser(row: UserSessionVO) {
   if (!row.username) return;
   try {
-    await YdConfirm(
-      t('session.banConfirm', { username: row.username }),
-      t('session.banTitle'),
-      { type: 'warning' },
+    await YdConfirm(t('session.banConfirm', { username: row.username }), t('session.banTitle'), {
+      type: 'warning',
+    });
+    await banUser(
+      { userId: row.username },
+      { banType: 'MANUAL', banReason: t('session.banReason') },
     );
-    await banUser({ userId: row.username }, { banType: 'MANUAL', banReason: t('session.banReason') });
     showToast.success(t('session.banSuccess'));
     gridApi.query();
   } catch (error) {
@@ -198,7 +239,16 @@ onMounted(() => {
 
     <Grid :table-title="t('session.onlineUserMgmt')">
       <template #toolbar-tools>
-        <YdButton variant="default" @click="() => { gridApi.query(); loadStatistics(); }">{{ t('page.refresh') }}</YdButton>
+        <YdButton
+          variant="default"
+          @click="
+            () => {
+              gridApi.query();
+              loadStatistics();
+            }
+          "
+          >{{ t('page.refresh') }}</YdButton
+        >
       </template>
     </Grid>
 

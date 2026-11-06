@@ -22,7 +22,16 @@ import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdTreeSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+  YdTreeSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -50,9 +59,13 @@ const companyList = ref<CompanyVO[]>([]);
 const deptTreeData = ref<DepartmentTreeVO[]>([]);
 
 /** 将 DepartmentTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
-const deptTreeOptions = computed(() => deptTreeData.value.map(node => mapDeptNode(node)));
+const deptTreeOptions = computed(() => deptTreeData.value.map((node) => mapDeptNode(node)));
 
-function mapDeptNode(node: DepartmentTreeVO): { label: string; value: string; children?: { label: string; value: string }[] } {
+function mapDeptNode(node: DepartmentTreeVO): {
+  label: string;
+  value: string;
+  children?: { label: string; value: string }[];
+} {
   return {
     label: node.deptName ?? '',
     value: node.id ?? '',

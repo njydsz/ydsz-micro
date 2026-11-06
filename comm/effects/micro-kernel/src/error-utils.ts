@@ -23,19 +23,19 @@
 export function getLocaleFromStorage(): string {
   try {
     // 与 main/src/preferences 中 localStorage key 约定对齐
-    const stored = localStorage.getItem("YDSZ:preferences");
+    const stored = localStorage.getItem('YDSZ:preferences');
     if (stored) {
       const prefs = JSON.parse(stored);
       if (prefs?.app?.locale) return prefs.app.locale;
     }
     // 兜底到 navigator.language
-    if (typeof navigator !== "undefined" && navigator.language) {
+    if (typeof navigator !== 'undefined' && navigator.language) {
       return navigator.language;
     }
   } catch {
     // 静默
   }
-  return "zh-CN";
+  return 'zh-CN';
 }
 
 /**
@@ -46,11 +46,11 @@ export function getLocaleFromStorage(): string {
  */
 export function escapeHtml(str: string): string {
   return str
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
 
 /**
@@ -59,7 +59,7 @@ export function escapeHtml(str: string): string {
  * HTML id 不允许空格和特殊字符，将非字母数字字符替换为 `-`。
  */
 export function sanitizeId(appName: string): string {
-  return appName.replaceAll(/[^\w-]/g, "-");
+  return appName.replaceAll(/[^\w-]/g, '-');
 }
 
 /**
@@ -81,14 +81,14 @@ export async function copyDiagnosticsToClipboard(
     // 剪贴板 API 失败（权限拒绝 / 非安全上下文）走 execCommand 回退
   }
   try {
-    const textarea = document.createElement("textarea");
+    const textarea = document.createElement('textarea');
     textarea.value = text;
-    textarea.setAttribute("readonly", "");
-    textarea.style.position = "fixed";
-    textarea.style.opacity = "0";
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
     document.body.appendChild(textarea);
     textarea.select();
-    const ok = document.execCommand("copy");
+    const ok = document.execCommand('copy');
     textarea.remove();
     return ok;
   } catch {

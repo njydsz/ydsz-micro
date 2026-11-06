@@ -129,11 +129,7 @@ const gridOptions: VxeTableGridOptions<LockRow> = {
         default: ({ row }) => {
           const lock = row as LockRow;
           const count = lock.reentrantCount ?? 1;
-          return h(
-            YdBadge,
-            { variant: count > 1 ? 'warning' : undefined },
-            () => String(count),
-          );
+          return h(YdBadge, { variant: count > 1 ? 'warning' : undefined }, () => String(count));
         },
       },
     },
@@ -148,21 +144,17 @@ const gridOptions: VxeTableGridOptions<LockRow> = {
           if (!hasAccessByCodesAll(['sys:lock:release'])) {
             return null;
           }
-          return h(
-            'div',
-            { class: 'flex gap-1' },
-            [
-              h(
-                YdButton,
-                {
-                  size: 'sm',
-                  variant: 'destructive',
-                  onClick: () => handleReleaseLock(lock),
-                },
-                () => t('lockAdmin.release'),
-              ),
-            ],
-          );
+          return h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'destructive',
+                onClick: () => handleReleaseLock(lock),
+              },
+              () => t('lockAdmin.release'),
+            ),
+          ]);
         },
       },
     },
@@ -192,8 +184,16 @@ const gridOptions: VxeTableGridOptions<LockRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'lockKey', title: t('lockAdmin.lockKey'), itemRender: { name: 'YdInput', props: { placeholder: t('lockAdmin.lockKeyPlaceholder') } } },
-      { field: 'owner', title: t('lockAdmin.owner'), itemRender: { name: 'YdInput', props: { placeholder: t('lockAdmin.ownerPlaceholder') } } },
+      {
+        field: 'lockKey',
+        title: t('lockAdmin.lockKey'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('lockAdmin.lockKeyPlaceholder') } },
+      },
+      {
+        field: 'owner',
+        title: t('lockAdmin.owner'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('lockAdmin.ownerPlaceholder') } },
+      },
     ],
   },
 };
@@ -242,10 +242,10 @@ function getTtlClass(ttlMs: number | undefined): string {
 async function handleReleaseLock(row: LockRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      t('lockAdmin.releaseConfirm', [row.lockKey ?? '']),
-      { title: t('lockAdmin.releaseTitle'), type: 'warning' },
-    );
+    await YdConfirm(t('lockAdmin.releaseConfirm', [row.lockKey ?? '']), {
+      title: t('lockAdmin.releaseTitle'),
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消操作
   }
@@ -285,51 +285,53 @@ onUnmounted(() => {
       <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
         <!-- 活跃锁数量 -->
         <YdCard shadow="hover">
-          <div class="text-center p-2">
+          <div class="p-2 text-center">
             <div class="text-sm text-gray-500">{{ t('lockAdmin.activeLockCount') }}</div>
-            <div v-if="statsLoading" class="text-2xl font-bold mt-2">
+            <div v-if="statsLoading" class="mt-2 text-2xl font-bold">
               <span class="text-gray-400">--</span>
             </div>
-            <div v-else class="text-2xl font-bold mt-2">
+            <div v-else class="mt-2 text-2xl font-bold">
               {{ stats?.activeLockCount ?? 0 }}
             </div>
-            <div class="text-xs text-gray-400 mt-1">{{ t('lockAdmin.realTime') }}</div>
+            <div class="mt-1 text-xs text-gray-400">{{ t('lockAdmin.realTime') }}</div>
           </div>
         </YdCard>
 
         <!-- 已超时数量 -->
         <YdCard shadow="hover">
-          <div class="text-center p-2">
+          <div class="p-2 text-center">
             <div class="text-sm text-gray-500">{{ t('lockAdmin.expiredCount') }}</div>
-            <div v-if="statsLoading" class="text-2xl font-bold mt-2">
+            <div v-if="statsLoading" class="mt-2 text-2xl font-bold">
               <span class="text-gray-400">--</span>
             </div>
             <div
               v-else
-              class="text-2xl font-bold mt-2"
+              class="mt-2 text-2xl font-bold"
               :class="(stats?.expiredCount ?? 0) > 0 ? 'text-red-500' : ''"
             >
               {{ stats?.expiredCount ?? 0 }}
             </div>
-            <div class="text-xs text-gray-400 mt-1">{{ t('lockAdmin.aboutToExpire') }}</div>
+            <div class="mt-1 text-xs text-gray-400">{{ t('lockAdmin.aboutToExpire') }}</div>
           </div>
         </YdCard>
 
         <!-- 持有者分布 -->
         <YdCard shadow="hover">
           <div class="p-2">
-            <div class="text-sm text-gray-500 mb-2">{{ t('lockAdmin.ownerDistribution') }}</div>
-            <div v-if="statsLoading" class="text-gray-400 text-sm">--</div>
+            <div class="mb-2 text-sm text-gray-500">{{ t('lockAdmin.ownerDistribution') }}</div>
+            <div v-if="statsLoading" class="text-sm text-gray-400">--</div>
             <div
-              v-else-if="stats?.ownerDistribution && Object.keys(stats.ownerDistribution).length > 0"
-              class="space-y-1.5 max-h-20 overflow-y-auto"
+              v-else-if="
+                stats?.ownerDistribution && Object.keys(stats.ownerDistribution).length > 0
+              "
+              class="max-h-20 space-y-1.5 overflow-y-auto"
             >
               <div
                 v-for="(count, instance) in stats.ownerDistribution"
                 :key="instance"
                 class="flex items-center gap-2 text-xs"
               >
-                <span class="truncate flex-1 text-gray-600 dark:text-gray-400" :title="instance">
+                <span class="flex-1 truncate text-gray-600 dark:text-gray-400" :title="instance">
                   {{ instance }}
                 </span>
                 <YdBadge variant="secondary">{{ count }}</YdBadge>
@@ -344,7 +346,7 @@ onUnmounted(() => {
       <YdEmptyState
         v-if="loadError"
         :description="loadError"
-        class="border border-red-200 rounded-lg bg-red-50 dark:bg-red-900/10 dark:border-red-800"
+        class="rounded-lg border border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/10"
       />
 
       <!-- 锁列表表格 -->

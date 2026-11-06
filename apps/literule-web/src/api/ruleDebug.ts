@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * listBreakpoints: GET /literule/debug/breakpoints
  *
@@ -45,9 +44,7 @@ export function addBreakpoint(data: Record<string, string>): Promise<unknown> {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function removeBreakpoint({ breakpointId }: {
-    breakpointId: string;
-  }): Promise<unknown> {
+export function removeBreakpoint({ breakpointId }: { breakpointId: string }): Promise<unknown> {
   return requestClient.delete<unknown>(`/literule/debug/breakpoints/${breakpointId}`);
 }
 
@@ -71,9 +68,7 @@ export function createSession(data: Record<string, string>): Promise<unknown> {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function getSession({ sessionId }: {
-    sessionId: string;
-  }): Promise<unknown> {
+export function getSession({ sessionId }: { sessionId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/literule/debug/sessions/${sessionId}`);
 }
 
@@ -85,9 +80,14 @@ export function getSession({ sessionId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function submitCommand({ sessionId }: {
+export function submitCommand(
+  {
+    sessionId,
+  }: {
     sessionId: string;
-  }, data: Record<string, string>): Promise<unknown> {
+  },
+  data: Record<string, string>,
+): Promise<unknown> {
   return requestClient.post<unknown>(`/literule/debug/sessions/${sessionId}/command`, data);
 }
 
@@ -99,9 +99,7 @@ export function submitCommand({ sessionId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function terminateSession({ sessionId }: {
-    sessionId: string;
-  }): Promise<unknown> {
+export function terminateSession({ sessionId }: { sessionId: string }): Promise<unknown> {
   return requestClient.delete<unknown>(`/literule/debug/sessions/${sessionId}`);
 }
 

@@ -1,47 +1,42 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface SelectValueProps extends PrimitiveProps {
   /** The content that will be rendered inside the `SelectValue` when no `value` or `defaultValue` is set. */
-  placeholder?: string
+  placeholder?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, useSlots } from 'vue'
-import { shouldShowPlaceholder } from './utils'
-import { injectSelectRootContext } from './SelectRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
-import { renderSlotFragments, useForwardExpose } from '../shared/index.ts'
+import { onBeforeMount, onMounted, useSlots } from 'vue';
+import { shouldShowPlaceholder } from './utils';
+import { injectSelectRootContext } from './SelectRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
+import { renderSlotFragments, useForwardExpose } from '../shared/index.ts';
 
 withDefaults(defineProps<SelectValueProps>(), {
   as: 'span',
   placeholder: '',
-})
+});
 
-const { forwardRef, currentElement } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose();
 
-const rootContext = injectSelectRootContext()
-const slots = useSlots()
+const rootContext = injectSelectRootContext();
+const slots = useSlots();
 
 onBeforeMount(() => {
-  const hasChildren = !!renderSlotFragments(slots?.default?.()).length
-  rootContext.onValueElementHasChildrenChange(hasChildren)
-})
+  const hasChildren = !!renderSlotFragments(slots?.default?.()).length;
+  rootContext.onValueElementHasChildrenChange(hasChildren);
+});
 
 onMounted(() => {
-  rootContext.valueElement = currentElement
-})
+  rootContext.valueElement = currentElement;
+});
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardRef"
-    :as="as"
-    :as-child="asChild"
-    :style="{ pointerEvents: 'none' }"
-  >
+  <Primitive :ref="forwardRef" :as="as" :as-child="asChild" :style="{ pointerEvents: 'none' }">
     <template v-if="shouldShowPlaceholder(rootContext.modelValue?.value)">
       {{ placeholder }}
     </template>

@@ -1,46 +1,44 @@
-import { refAutoReset } from '@vueuse/shared'
-import type { Ref } from 'vue'
-import { getActiveElement } from './getActiveElement'
+import { refAutoReset } from '@vueuse/shared';
+import type { Ref } from 'vue';
+import { getActiveElement } from './getActiveElement';
 
-const ITEM_TEXT_ATTR = 'data-item-text'
+const ITEM_TEXT_ATTR = 'data-item-text';
 
 // TODO: v2 improve the typeahead search with `ref` instead of `HTMLElement`
 export function useTypeahead(collections?: Ref<HTMLElement[]>) {
   // Reset `search` 1 second after it was last updated
-  const search = refAutoReset('', 1000)
+  const search = refAutoReset('', 1000);
 
   const handleTypeaheadSearch = (key: string, fallback?: HTMLElement[]) => {
-    if (!collections?.value && !fallback)
-      return
+    if (!collections?.value && !fallback) return;
 
-    search.value = search.value + key
-    const items = collections?.value ?? fallback!
-    const currentItem = getActiveElement()
+    search.value = search.value + key;
+    const items = collections?.value ?? fallback!;
+    const currentItem = getActiveElement();
 
-    const itemsWithTextValue = items.map(el => ({
+    const itemsWithTextValue = items.map((el) => ({
       ref: el,
       textValue: (el.querySelector(`[${ITEM_TEXT_ATTR}]`) ?? el).textContent?.trim() ?? '',
-    }))
-    const currentMatch = itemsWithTextValue.find(item => item.ref === currentItem)
-    const values = itemsWithTextValue.map(item => item.textValue)
-    const nextMatch = getNextMatch(values, search.value, currentMatch?.textValue)
+    }));
+    const currentMatch = itemsWithTextValue.find((item) => item.ref === currentItem);
+    const values = itemsWithTextValue.map((item) => item.textValue);
+    const nextMatch = getNextMatch(values, search.value, currentMatch?.textValue);
 
-    const newItem = itemsWithTextValue.find(item => item.textValue === nextMatch)
+    const newItem = itemsWithTextValue.find((item) => item.textValue === nextMatch);
 
-    if (newItem)
-      (newItem.ref as HTMLElement).focus()
-    return newItem?.ref
-  }
+    if (newItem) (newItem.ref as HTMLElement).focus();
+    return newItem?.ref;
+  };
 
   const resetTypeahead = () => {
-    search.value = ''
-  }
+    search.value = '';
+  };
 
   return {
     search,
     handleTypeaheadSearch,
     resetTypeahead,
-  }
+  };
 }
 
 /**
@@ -48,7 +46,7 @@ export function useTypeahead(collections?: Ref<HTMLElement[]>) {
  * Example: `wrapArray(['a', 'b', 'c', 'd'], 2) === ['c', 'd', 'a', 'b']`
  */
 export function wrapArray<T>(array: T[], startIndex: number) {
-  return array.map((_, index) => array[(startIndex + index) % array.length])
+  return array.map((_, index) => array[(startIndex + index) % array.length]);
 }
 
 /**
@@ -68,21 +66,15 @@ export function wrapArray<T>(array: T[], startIndex: number) {
  * and focus would never move. This is as opposed to the regular case, where we
  * don't want focus to move if the current match still matches.
  */
-export function getNextMatch(
-  values: string[],
-  search: string,
-  currentMatch?: string,
-) {
-  const isRepeated
-    = search.length > 1 && Array.from(search).every(char => char === search[0])
-  const normalizedSearch = isRepeated ? search[0] : search
-  const currentMatchIndex = currentMatch ? values.indexOf(currentMatch) : -1
-  let wrappedValues = wrapArray(values, Math.max(currentMatchIndex, 0))
-  const excludeCurrentMatch = normalizedSearch.length === 1
-  if (excludeCurrentMatch)
-    wrappedValues = wrappedValues.filter(v => v !== currentMatch)
-  const nextMatch = wrappedValues.find(value =>
+export function getNextMatch(values: string[], search: string, currentMatch?: string) {
+  const isRepeated = search.length > 1 && Array.from(search).every((char) => char === search[0]);
+  const normalizedSearch = isRepeated ? search[0] : search;
+  const currentMatchIndex = currentMatch ? values.indexOf(currentMatch) : -1;
+  let wrappedValues = wrapArray(values, Math.max(currentMatchIndex, 0));
+  const excludeCurrentMatch = normalizedSearch.length === 1;
+  if (excludeCurrentMatch) wrappedValues = wrappedValues.filter((v) => v !== currentMatch);
+  const nextMatch = wrappedValues.find((value) =>
     value.toLowerCase().startsWith(normalizedSearch.toLowerCase()),
-  )
-  return nextMatch !== currentMatch ? nextMatch : undefined
+  );
+  return nextMatch !== currentMatch ? nextMatch : undefined;
 }

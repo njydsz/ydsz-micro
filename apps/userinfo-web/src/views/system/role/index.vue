@@ -20,7 +20,14 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdTable, YdTableColumn, YdDialog, YdTransfer } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdTable,
+  YdTableColumn,
+  YdDialog,
+  YdTransfer,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -60,7 +67,9 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          row.builtIn ? h(YdBadge, { variant: 'secondary', class: 'text-xs' }, () => t('role.yesBuiltIn')) : h('span', null, t('role.noBuiltIn')),
+          row.builtIn
+            ? h(YdBadge, { variant: 'secondary', class: 'text-xs' }, () => t('role.yesBuiltIn'))
+            : h('span', null, t('role.noBuiltIn')),
       },
     },
     {
@@ -72,7 +81,10 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -87,29 +99,40 @@ const gridOptions: VxeTableGridOptions<RoleVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignPermissions(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400',
+                onClick: () => handleAssignPermissions(row),
+              },
               () => t('role.assignPermissions'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'ghost', onClick: () => handleCopyRole(row) },
-              () => t('role.copy'),
+            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleCopyRole(row) }, () =>
+              t('role.copy'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleViewUsers(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-green-500 text-green-600 dark:text-green-400',
+                onClick: () => handleViewUsers(row),
+              },
               () => t('role.viewUsers'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),
@@ -276,8 +299,8 @@ async function handleCopyRole(row: RoleVO): Promise<void> {
       roleName: `${sourceRole.roleName ?? ''}_副本`,
       roleCode: `${sourceRole.roleCode ?? ''}_COPY_${Date.now()}`,
       description: sourceRole.description,
-dataScope: sourceRole.dataScope,
-status: sourceRole.status,
+      dataScope: sourceRole.dataScope,
+      status: sourceRole.status,
       tenantId: sourceRole.tenantId,
     });
     // 复制权限
@@ -335,8 +358,12 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         :filter-placeholder="t('role.searchPermission')"
       />
       <template #footer>
-        <YdButton variant="outline" @click="permDialogVisible = false">{{ t('page.cancel') }}</YdButton>
-        <YdButton variant="default" @click="confirmPermissionAssign">{{ t('page.confirm') }}</YdButton>
+        <YdButton variant="outline" @click="permDialogVisible = false">{{
+          t('page.cancel')
+        }}</YdButton>
+        <YdButton variant="default" @click="confirmPermissionAssign">{{
+          t('page.confirm')
+        }}</YdButton>
       </template>
     </YdDialog>
 
@@ -354,7 +381,10 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         <YdTableColumn prop="email" :label="t('page.email')" width="180" />
         <YdTableColumn prop="status" :label="t('page.status')" width="80">
           <template #default="{ row }">
-            <YdBadge :variant="row.status === 1 ? 'default' : 'destructive'" :class="row.status === 1 ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
+            <YdBadge
+              :variant="row.status === 1 ? 'default' : 'destructive'"
+              :class="row.status === 1 ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'"
+            >
               {{ row.status === 1 ? t('page.enabled') : t('page.disabled') }}
             </YdBadge>
           </template>
@@ -362,7 +392,9 @@ async function handleViewUsers(row: RoleVO): Promise<void> {
         <YdTableColumn prop="createdAt" :label="t('page.createTime')" width="170" />
       </YdTable>
       <template #footer>
-        <YdButton variant="outline" @click="userListDialogVisible = false">{{ t('page.close') }}</YdButton>
+        <YdButton variant="outline" @click="userListDialogVisible = false">{{
+          t('page.close')
+        }}</YdButton>
       </template>
     </YdDialog>
   </Page>

@@ -15,10 +15,7 @@ import { Download } from 'lucide-vue-next';
 
 import { YdButton } from '@ydsz-core/ydsz-ui';
 
-import {
-  useExcelExport,
-  type ExcelExportColumn,
-} from '../composables/use-excel-export';
+import { useExcelExport, type ExcelExportColumn } from '../composables/use-excel-export';
 import { $t } from '@ydsz/locales';
 
 defineOptions({ name: 'YdExcelExportButton' });
@@ -58,11 +55,7 @@ async function handleClick(): Promise<void> {
 </script>
 
 <template>
-  <YdButton
-    size="sm"
-    variant="default"
-    @click="handleClick"
-  >
+  <YdButton size="sm" variant="default" @click="handleClick">
     <Download :size="14" class="mr-1" />
     {{ text ?? $t('ui.commonAction.export') }}
   </YdButton>

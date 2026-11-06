@@ -351,11 +351,14 @@ export const hiIN = {
   'aiBuilder.generating': 'बनाया जा रहा है...',
   'aiBuilder.pageDescription': 'पृष्ठ विवरण',
   'aiBuilder.autoHint': 'AI वर्णित फ़ील्ड और व्यावसायिक कीवर्ड से पेज संरचना स्वतः अनुमानित करेगा',
-  'aiBuilder.defaultPromptPlaceholder': 'पृष्ठ का वर्णन प्राकृतिक भाषा में करें (मिश्रित भाषा समर्थित)',
+  'aiBuilder.defaultPromptPlaceholder':
+    'पृष्ठ का वर्णन प्राकृतिक भाषा में करें (मिश्रित भाषा समर्थित)',
   'aiBuilder.exampleForm': 'उदाहरण: नाम, आयु और ईमेल फ़ील्ड वाला नया उपयोगकर्ता फ़ॉर्म बनाएँ',
   'aiBuilder.exampleTable': 'उदाहरण: स्थिति फ़िल्टर और निर्यात वाला आदेश सूची बनाएँ',
-  'aiBuilder.exampleDashboard': 'उदाहरण: दैनिक राजस्व, ऑर्डर और रूपांतरण दर वाला बिक्री डैशबोर्ड बनाएँ',
-  'aiBuilder.exampleDetail': 'उदाहरण: बुनियादी जानकारी और संबंधित ऑर्डर वाला ग्राहक विवरण पृष्ठ बनाएँ',
+  'aiBuilder.exampleDashboard':
+    'उदाहरण: दैनिक राजस्व, ऑर्डर और रूपांतरण दर वाला बिक्री डैशबोर्ड बनाएँ',
+  'aiBuilder.exampleDetail':
+    'उदाहरण: बुनियादी जानकारी और संबंधित ऑर्डर वाला ग्राहक विवरण पृष्ठ बनाएँ',
   'aiBuilder.typeString': 'टेक्स्ट',
   'aiBuilder.typeNumber': 'संख्या',
   'aiBuilder.typeBoolean': 'बूलियन',
@@ -416,7 +419,7 @@ export const hiIN = {
   'dashboard.cardCount': '{count} कार्ड',
   'dashboard.emptyEditable': 'डैशबोर्ड बनाना शुरू करने के लिए "कार्ड जोड़ें" पर क्लिक करें',
   'dashboard.empty': 'अभी कोई कार्ड डेटा नहीं है',
-'dashboard.chartEmpty': 'कोई चार्ट डेटा नहीं',
+  'dashboard.chartEmpty': 'कोई चार्ट डेटा नहीं',
   'advancedFilter.toolbarAriaLabel': 'फ़िल्टर टूलबार',
   'advancedFilter.removeFilter': 'फ़िल्टर हटाएँ {label}: {value}',
   'bulkActions.selectAll': 'सभी {count} चुनें',
@@ -491,6 +494,14 @@ export const hiIN = {
   'splitter.ariaLabel': 'पैनल का आकार बदलें',
   'tag.close': 'टैग बंद करें',
   'timeline.ariaLabel': 'समयरेखा',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

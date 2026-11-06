@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* 表尾容器：可选分组，通常用于汇总行。
-* 
+ * 表尾容器：可选分组，通常用于汇总行。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableFooter.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -10,14 +10,14 @@ import { cn } from '@ydsz-core/shared/utils';
 
 defineOptions({ name: 'YdTableFooter' });
 
-interface Props { class?: string; }
+interface Props {
+  class?: string;
+}
 defineProps<Props>();
 </script>
 
 <template>
-  <tfoot
-    :class="cn('border-t bg-muted/50 font-medium [&>tr]:last:border-b-0', $props.class ?? '')"
-  >
+  <tfoot :class="cn('bg-muted/50 border-t font-medium [&>tr]:last:border-b-0', $props.class ?? '')">
     <slot />
   </tfoot>
 </template>

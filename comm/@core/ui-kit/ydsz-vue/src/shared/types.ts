@@ -1,12 +1,15 @@
-type DataOrientation = 'vertical' | 'horizontal'
-type Direction = 'ltr' | 'rtl'
+type DataOrientation = 'vertical' | 'horizontal';
+type Direction = 'ltr' | 'rtl';
 /**
  * @deprecated Use `AccordionType` instead
  */
-type Type = 'single' | 'multiple'
-type SingleOrMultipleType = 'single' | 'multiple'
+type Type = 'single' | 'multiple';
+type SingleOrMultipleType = 'single' | 'multiple';
 
-interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType> {
+interface SingleOrMultipleProps<
+  ValidValue = string | string[],
+  ExplicitType = SingleOrMultipleType,
+> {
   /**
    * Determines whether a "single" or "multiple" items can be pressed at a time.
    *
@@ -20,22 +23,21 @@ interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = S
         ? 'single'
         : ExplicitType extends 'multiple'
           ? 'multiple'
-          : never
+          : never;
 
   /**
    * The controlled value of the active item(s).
    *
    * Use this when you need to control the state of the items. Can be binded with `v-model`
    */
-  modelValue?: ValidValue
+  modelValue?: ValidValue;
 
   /**
    * The default active value of the item(s).
    *
    * Use when you do not need to control the state of the item(s).
    */
-  defaultValue?: ValidValue
-
+  defaultValue?: ValidValue;
 }
 
 /**
@@ -44,12 +46,22 @@ interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = S
  * otherwise, it will be passed string
  */
 type ScrollBodyOption = {
-  padding?: boolean | number | string
-  margin?: boolean | number | string
-}
+  padding?: boolean | number | string;
+  margin?: boolean | number | string;
+};
 
-type AcceptableValue = string | number | boolean | Record<string, any>
-type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
- type StringOrNumber = string | number
+type AcceptableValue = string | number | boolean | Record<string, any>;
+type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>;
+type StringOrNumber = string | number;
 
-export type { AcceptableValue, ArrayOrWrapped, DataOrientation, Direction, Type, SingleOrMultipleProps, SingleOrMultipleType, ScrollBodyOption, StringOrNumber }
+export type {
+  AcceptableValue,
+  ArrayOrWrapped,
+  DataOrientation,
+  Direction,
+  Type,
+  SingleOrMultipleProps,
+  SingleOrMultipleType,
+  ScrollBodyOption,
+  StringOrNumber,
+};

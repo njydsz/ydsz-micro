@@ -180,15 +180,7 @@ export function parseSseChunk(buffer: string): { events: SseEvent[]; rest: strin
  * ```
  */
 export async function streamRequest(options: StreamRequestOptions): Promise<void> {
-  const {
-    url,
-    method = 'POST',
-    data,
-    headers = {},
-    onEvent,
-    onDone,
-    signal,
-  } = options;
+  const { url, method = 'POST', data, headers = {}, onEvent, onDone, signal } = options;
 
   const tokenStore = useTokenStore();
   const requestHeaders: Record<string, string> = {
@@ -222,7 +214,6 @@ export async function streamRequest(options: StreamRequestOptions): Promise<void
   let buffer = '';
 
   try {
-     
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -351,4 +342,3 @@ export async function* streamRequestAsync(
     });
   }
 }
-

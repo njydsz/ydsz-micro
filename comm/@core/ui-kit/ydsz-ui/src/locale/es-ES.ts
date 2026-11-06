@@ -134,7 +134,7 @@ export const esES = {
   'select.removeTag': 'Quitar',
   'create.label': 'Crear «{value}»',
 
-    // ===== Árbol =====
+  // ===== Árbol =====
   'tree.empty': 'No hay datos',
   'tree.loading': 'Cargando...',
   'tree.expandAll': 'Expandir todo',
@@ -350,12 +350,17 @@ export const esES = {
   'aiBuilder.generatePage': 'Generar página',
   'aiBuilder.generating': 'Generando...',
   'aiBuilder.pageDescription': 'Descripción de la página',
-  'aiBuilder.autoHint': 'La IA inferirá la estructura de la página a partir de los campos y palabras clave del negocio',
-  'aiBuilder.defaultPromptPlaceholder': 'Describe en lenguaje natural la página que quieres crear (admite mezcla de idiomas)',
+  'aiBuilder.autoHint':
+    'La IA inferirá la estructura de la página a partir de los campos y palabras clave del negocio',
+  'aiBuilder.defaultPromptPlaceholder':
+    'Describe en lenguaje natural la página que quieres crear (admite mezcla de idiomas)',
   'aiBuilder.exampleForm': 'Ejemplo: crea un formulario de nuevo usuario con nombre, edad y correo',
-  'aiBuilder.exampleTable': 'Ejemplo: crea una lista de pedidos con filtros por estado y exportación',
-  'aiBuilder.exampleDashboard': 'Ejemplo: crea un panel de ventas con ingresos diarios, pedidos y tasa de conversión',
-  'aiBuilder.exampleDetail': 'Ejemplo: crea una página de detalle de cliente con información básica y pedidos asociados',
+  'aiBuilder.exampleTable':
+    'Ejemplo: crea una lista de pedidos con filtros por estado y exportación',
+  'aiBuilder.exampleDashboard':
+    'Ejemplo: crea un panel de ventas con ingresos diarios, pedidos y tasa de conversión',
+  'aiBuilder.exampleDetail':
+    'Ejemplo: crea una página de detalle de cliente con información básica y pedidos asociados',
   'aiBuilder.typeString': 'Texto',
   'aiBuilder.typeNumber': 'Número',
   'aiBuilder.typeBoolean': 'Booleano',
@@ -371,7 +376,8 @@ export const esES = {
 
   // ===== FormDesigner 面板数据 / AiBuilder 错误提示 / Message 关闭 =====
   'designer.paletteTitle': 'Componentes',
-  'designer.canvasEmptyHint': 'Arrastra un componente desde la izquierda o haz clic en él para diseñar el formulario',
+  'designer.canvasEmptyHint':
+    'Arrastra un componente desde la izquierda o haz clic en él para diseñar el formulario',
   'designer.groupBasic': 'Controles básicos',
   'designer.groupAdvanced': 'Controles avanzados',
   'designer.groupLayout': 'Controles de diseño',
@@ -416,7 +422,7 @@ export const esES = {
   'dashboard.cardCount': '{count} tarjetas',
   'dashboard.emptyEditable': 'Haz clic en «Añadir tarjeta» para empezar a construir el panel',
   'dashboard.empty': 'Aún no hay datos de tarjetas',
-'dashboard.chartEmpty': 'Sin datos de gráfico',
+  'dashboard.chartEmpty': 'Sin datos de gráfico',
   'advancedFilter.toolbarAriaLabel': 'Barra de herramientas de filtros',
   'advancedFilter.removeFilter': 'Quitar filtro {label}: {value}',
   'bulkActions.selectAll': 'Seleccionar los {count} elementos',
@@ -491,6 +497,14 @@ export const esES = {
   'splitter.ariaLabel': 'Cambiar el tamaño del panel',
   'tag.close': 'Cerrar etiqueta',
   'timeline.ariaLabel': 'Línea de tiempo',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

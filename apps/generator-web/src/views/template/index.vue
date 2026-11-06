@@ -112,7 +112,7 @@ async function handleDeleteGroup(group: GenTemplateGroup) {
     return;
   }
   try {
-    await YdConfirm(`确定删除分组「${group.name}」吗？`, { title: '删除确认', type: 'warning', });
+    await YdConfirm(`确定删除分组「${group.name}」吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return;
   }
@@ -204,22 +204,21 @@ onMounted(() => {
         <div
           v-for="group in groupList"
           :key="group.id"
-          class="p-3 rounded cursor-pointer border transition-colors"
-          :class="{ 'border-blue-500 bg-blue-50': selectedGroupId === group.id, 'border-gray-200 hover:border-gray-300': selectedGroupId !== group.id, }"
+          class="cursor-pointer rounded border p-3 transition-colors"
+          :class="{
+            'border-blue-500 bg-blue-50': selectedGroupId === group.id,
+            'border-gray-200 hover:border-gray-300': selectedGroupId !== group.id,
+          }"
           @click="handleGroupSelect(group)"
         >
           <div class="flex items-center justify-between">
             <div>
               <span class="font-medium">{{ group.name }}</span>
-          <YdBadge v-if="group.isActive" variant="default" class="ml-2">
-            使用中
-          </YdBadge>
-          <YdBadge v-if="group.isSystem" variant="secondary" class="ml-2">
-            系统
-          </YdBadge>
+              <YdBadge v-if="group.isActive" variant="default" class="ml-2"> 使用中 </YdBadge>
+              <YdBadge v-if="group.isSystem" variant="secondary" class="ml-2"> 系统 </YdBadge>
             </div>
           </div>
-          <div v-if="group.description" class="text-xs text-gray-500 mt-1">
+          <div v-if="group.description" class="mt-1 text-xs text-gray-500">
             {{ group.description }}
           </div>
           <div class="mt-2 flex gap-1">
@@ -245,7 +244,7 @@ onMounted(() => {
     </div>
 
     <!-- 右侧：模板列表 -->
-    <div class="flex-1 flex flex-col">
+    <div class="flex flex-1 flex-col">
       <div class="mb-3 flex items-center gap-3">
         <span class="font-medium">「{{ selectedGroupName }}」分组模板</span>
         <YdInput
@@ -259,24 +258,21 @@ onMounted(() => {
       </div>
 
       <div v-loading="templatesLoading" class="flex-1 overflow-auto">
-        <div
-          v-if="templateList.length > 0"
-          class="grid grid-cols-3 gap-3"
-        >
+        <div v-if="templateList.length > 0" class="grid grid-cols-3 gap-3">
           <div
             v-for="tpl in templateList"
             :key="tpl.id"
-            class="p-3 border rounded cursor-pointer hover:shadow-md transition-shadow"
+            class="cursor-pointer rounded border p-3 transition-shadow hover:shadow-md"
             @click="handleEditTemplate(tpl)"
           >
             <div class="flex items-center justify-between">
-              <span class="font-medium text-sm break-all">{{ tpl.fileName }}</span>
+              <span class="break-all text-sm font-medium">{{ tpl.fileName }}</span>
               <YdBadge v-if="!tpl.isActive" variant="secondary">禁用</YdBadge>
             </div>
-            <div class="text-xs text-gray-500 mt-1">
+            <div class="mt-1 text-xs text-gray-500">
               {{ tpl.description || '无描述' }}
             </div>
-            <div class="text-xs text-gray-400 mt-1">
+            <div class="mt-1 text-xs text-gray-400">
               v{{ tpl.version ?? 1 }} | {{ tpl.parentPath || '/' }}
             </div>
           </div>

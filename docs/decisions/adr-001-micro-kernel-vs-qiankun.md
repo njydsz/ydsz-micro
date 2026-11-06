@@ -16,13 +16,19 @@
 
 选择自研 ESM 直引内核，核心理由契合团队「最小化外部依赖、绝对可控」的工程原则：
 
-- 全部子应用同团队、统一构建链、同源部署 —— 无需 HTML 解析 / UMD 兼容 / eval 沙箱等为异构场景付出的成本
+- 全部子应用同团队、统一构建链、同源部署 —— 无需 HTML 解析 / UMD 兼容 /
+  eval 沙箱等为异构场景付出的成本
 - ESM 原生 import 消除 eval 类沙箱的 CSP 冲突（nginx 已启用 strict-dynamic CSP）
-- importmap 三级共享策略（core / core-ui / all，见 `conf/vite-config/src/micro-shared-deps.ts`）保证 Vue/Pinia/Element Plus 主子单实例
+- importmap 三级共享策略（core / core-ui / all，见
+  `conf/vite-config/src/micro-shared-deps.ts`）保证 Vue/Pinia/Element
+  Plus 主子单实例
 - 内核能力（保活调度、错误降级、版本灰度、路由预测）可按自身场景裁剪演进
 
 ## 后果
 
-- 正面：无第三方微前端框架依赖；加载链路可观测、可调试（chrome/ DevTools 扩展）；SRI+CSP 安全链可内建
-- 负面：内核自身需要回归验证与维护投入（v4.4.1 注：原 10 个单测已随云顶编码规范 §15.10 测试禁令移除，质量保障由 lint / type-check / vsh 静态门禁承接）；面向不可信三方子应用的 iframe 沙箱为预留能力（见 ADR-007 支持矩阵）
+- 正面：无第三方微前端框架依赖；加载链路可观测、可调试（chrome/
+  DevTools 扩展）；SRI+CSP 安全链可内建
+- 负面：内核自身需要回归验证与维护投入（v4.4.1 注：原 10 个单测已随云顶编码规范 §15.10 测试禁令移除，质量保障由 lint
+  / type-check /
+  vsh 静态门禁承接）；面向不可信三方子应用的 iframe 沙箱为预留能力（见 ADR-007 支持矩阵）
 - 演进约束：子应用必须输出标准 manifest.json 与生命周期导出（mount/unmount），由 vite-plugin-manifest 统一保证

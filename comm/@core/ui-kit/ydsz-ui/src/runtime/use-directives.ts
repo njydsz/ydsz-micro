@@ -9,8 +9,8 @@
  * @since 1.0.0
  */
 
-import { defineNuxtPlugin } from '#app'
-import type { App, DirectiveBinding } from 'vue'
+import { defineNuxtPlugin } from '#app';
+import type { App, DirectiveBinding } from 'vue';
 
 /**
  * Ripple 指令参数
@@ -19,12 +19,12 @@ import type { App, DirectiveBinding } from 'vue'
  * - `v-ripple="{ color: 'rgba(0,0,0,.15)' }"` 自定义颜色
  */
 interface RippleOptions {
-  color?: string
-  rippleClass?: string
+  color?: string;
+  rippleClass?: string;
 }
 
 interface RippleHTMLElement extends HTMLElement {
-  _rippleHandler?: (e: MouseEvent) => void
+  _rippleHandler?: (e: MouseEvent) => void;
 }
 
 /**
@@ -32,61 +32,60 @@ interface RippleHTMLElement extends HTMLElement {
  */
 const RippleDirective = {
   mounted(el: RippleHTMLElement, binding: DirectiveBinding<RippleOptions | boolean | undefined>) {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') return;
 
-    const isCenter = binding.modifiers?.center
-    const options: RippleOptions = typeof binding.value === 'object' && binding.value !== null
-      ? binding.value
-      : {}
+    const isCenter = binding.modifiers?.center;
+    const options: RippleOptions =
+      typeof binding.value === 'object' && binding.value !== null ? binding.value : {};
 
-    el.classList.add('yd-ri')
+    el.classList.add('yd-ri');
     if (options.rippleClass) {
-      el.classList.add(options.rippleClass)
+      el.classList.add(options.rippleClass);
     }
-    el.style.position = el.style.position || 'relative'
-    el.style.overflow = el.style.overflow || 'hidden'
+    el.style.position = el.style.position || 'relative';
+    el.style.overflow = el.style.overflow || 'hidden';
 
     el._rippleHandler = (event: MouseEvent) => {
-      const rect = el.getBoundingClientRect()
-      const size = Math.max(rect.width, rect.height)
-      const x = isCenter ? rect.width / 2 : event.clientX - rect.left
-      const y = isCenter ? rect.height / 2 : event.clientY - rect.top
+      const rect = el.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = isCenter ? rect.width / 2 : event.clientX - rect.left;
+      const y = isCenter ? rect.height / 2 : event.clientY - rect.top;
 
-      const ripple = document.createElement('span')
-      ripple.className = 'yd-rd'
-      ripple.style.width = ripple.style.height = `${size}px`
-      ripple.style.left = `${x - size / 2}px`
-      ripple.style.top = `${y - size / 2}px`
+      const ripple = document.createElement('span');
+      ripple.className = 'yd-rd';
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${x - size / 2}px`;
+      ripple.style.top = `${y - size / 2}px`;
 
       if (options.color) {
-        ripple.style.backgroundColor = options.color
+        ripple.style.backgroundColor = options.color;
       }
 
-      el.appendChild(ripple)
+      el.appendChild(ripple);
 
       const cleanup = () => {
-        ripple.removeEventListener('animationend', cleanup)
-        ripple.remove()
-      }
-      ripple.addEventListener('animationend', cleanup)
+        ripple.removeEventListener('animationend', cleanup);
+        ripple.remove();
+      };
+      ripple.addEventListener('animationend', cleanup);
 
       // Fallback: force cleanup after 800ms if animationend never fires
       setTimeout(() => {
-        if (ripple.isConnected) ripple.remove()
-      }, 800)
-    }
+        if (ripple.isConnected) ripple.remove();
+      }, 800);
+    };
 
-    el.addEventListener('pointerdown', el._rippleHandler, { passive: true })
+    el.addEventListener('pointerdown', el._rippleHandler, { passive: true });
   },
 
   unmounted(el: RippleHTMLElement) {
     if (el._rippleHandler) {
-      el.removeEventListener('pointerdown', el._rippleHandler)
-      delete el._rippleHandler
+      el.removeEventListener('pointerdown', el._rippleHandler);
+      delete el._rippleHandler;
     }
-    el.classList.remove('yd-ri')
+    el.classList.remove('yd-ri');
   },
-} as const
+} as const;
 
 /**
  * v-click-outside 指令：在元素外部触发点击时回调
@@ -100,40 +99,43 @@ const RippleDirective = {
  * ```
  */
 interface ClickOutsideHTMLElement extends HTMLElement {
-  _clickOutsideHandler?: (e: MouseEvent) => void
+  _clickOutsideHandler?: (e: MouseEvent) => void;
 }
 
 const ClickOutsideDirective = {
-  mounted(el: ClickOutsideHTMLElement, binding: DirectiveBinding<(e: MouseEvent) => void | boolean | undefined>) {
-    if (typeof window === 'undefined') return
+  mounted(
+    el: ClickOutsideHTMLElement,
+    binding: DirectiveBinding<(e: MouseEvent) => void | boolean | undefined>,
+  ) {
+    if (typeof window === 'undefined') return;
 
-    const delay = binding.arg ? Number(binding.arg) : 0
+    const delay = binding.arg ? Number(binding.arg) : 0;
 
     el._clickOutsideHandler = (event: MouseEvent) => {
-      const handler = binding.value
-      if (typeof handler !== 'function') return
+      const handler = binding.value;
+      if (typeof handler !== 'function') return;
 
-      if (el === event.target || el.contains(event.target as Node)) return
+      if (el === event.target || el.contains(event.target as Node)) return;
 
-      const callback = () => handler(event)
+      const callback = () => handler(event);
       if (delay > 0) {
-        setTimeout(callback, delay)
+        setTimeout(callback, delay);
       } else {
-        callback()
+        callback();
       }
-    }
+    };
 
     // Use capture so it fires before bubbling events
-    document.addEventListener('pointerdown', el._clickOutsideHandler, true)
+    document.addEventListener('pointerdown', el._clickOutsideHandler, true);
   },
 
   unmounted(el: ClickOutsideHTMLElement) {
     if (el._clickOutsideHandler) {
-      document.removeEventListener('pointerdown', el._clickOutsideHandler, true)
-      delete el._clickOutsideHandler
+      document.removeEventListener('pointerdown', el._clickOutsideHandler, true);
+      delete el._clickOutsideHandler;
     }
   },
-} as const
+} as const;
 
 /**
  * 在 Nuxt App 上注册全局指令
@@ -141,8 +143,8 @@ const ClickOutsideDirective = {
  * 使用：在 nuxt.config.ts 中通过 addPlugin 注入本文件
  */
 function registerDirectives(app: App) {
-  app.directive('ripple', RippleDirective)
-  app.directive('click-outside', ClickOutsideDirective)
+  app.directive('ripple', RippleDirective);
+  app.directive('click-outside', ClickOutsideDirective);
 }
 
 /**
@@ -155,9 +157,9 @@ function registerDirectives(app: App) {
  * ```
  */
 export default defineNuxtPlugin((_nuxtApp) => {
-  registerDirectives(_nuxtApp.vueApp)
-})
+  registerDirectives(_nuxtApp.vueApp);
+});
 
 // 也暴露给非 Nuxt 环境使用
-export { registerDirectives, RippleDirective, ClickOutsideDirective }
-export type { RippleOptions }
+export { registerDirectives, RippleDirective, ClickOutsideDirective };
+export type { RippleOptions };

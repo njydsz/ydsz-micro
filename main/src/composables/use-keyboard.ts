@@ -78,7 +78,15 @@ export interface UseKeyboardReturn {
 }
 
 // ─── 全局单例状态 ───────────────────────────────────────────────
-const isHelpVisible = ref(false);
+
+/**
+ * 帮助面板可见性（全局单例）
+ *
+ * 以具名导出供帮助面板直接订阅，避免为读一个布尔值引入整个 composable。
+ *
+ * @since 5.3.0
+ */
+export const isHelpVisible = ref(false);
 
 /** 内部记录每个 key 对应的 unregister 函数 */
 const unregisterMap = new Map<string, () => void>();
@@ -154,8 +162,12 @@ export function useKeyboard(items: KeyboardShortcut[] = []): UseKeyboardReturn {
     registerShortcut,
     unregisterShortcut,
     isHelpVisible,
-    openHelp: () => { isHelpVisible.value = true; },
-    closeHelp: () => { isHelpVisible.value = false; },
+    openHelp: () => {
+      isHelpVisible.value = true;
+    },
+    closeHelp: () => {
+      isHelpVisible.value = false;
+    },
   };
 }
 

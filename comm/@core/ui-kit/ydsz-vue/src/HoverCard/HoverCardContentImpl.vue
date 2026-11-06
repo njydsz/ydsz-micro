@@ -1,81 +1,83 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PopperContentProps } from '../Popper/index.ts'
-import type { DismissableLayerEmits } from '../DismissableLayer/index.ts'
-import { useForwardExpose, useGraceArea } from '../shared/index.ts'
-import { syncRef } from '@vueuse/shared'
+import type { PopperContentProps } from '../Popper/index.ts';
+import type { DismissableLayerEmits } from '../DismissableLayer/index.ts';
+import { useForwardExpose, useGraceArea } from '../shared/index.ts';
+import { syncRef } from '@vueuse/shared';
 
-export type HoverCardContentImplEmits = DismissableLayerEmits
+export type HoverCardContentImplEmits = DismissableLayerEmits;
 export interface HoverCardContentImplProps extends PopperContentProps {}
 </script>
 
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue'
-import { injectHoverCardRootContext } from './HoverCardRoot.vue'
-import { PopperContent } from '../Popper/index.ts'
-import { DismissableLayer } from '../DismissableLayer/index.ts'
-import { getTabbableNodes } from './utils'
-import { useForwardProps } from '..'
+import { nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { injectHoverCardRootContext } from './HoverCardRoot.vue';
+import { PopperContent } from '../Popper/index.ts';
+import { DismissableLayer } from '../DismissableLayer/index.ts';
+import { getTabbableNodes } from './utils';
+import { useForwardProps } from '..';
 
-const props = defineProps<HoverCardContentImplProps>()
-const emits = defineEmits<HoverCardContentImplEmits>()
-const forwarded = useForwardProps(props)
+const props = defineProps<HoverCardContentImplProps>();
+const emits = defineEmits<HoverCardContentImplEmits>();
+const forwarded = useForwardProps(props);
 
-const { forwardRef, currentElement: contentElement } = useForwardExpose()
-const rootContext = injectHoverCardRootContext()
-const { isPointerInTransit, onPointerExit } = useGraceArea(rootContext.triggerElement, contentElement)
+const { forwardRef, currentElement: contentElement } = useForwardExpose();
+const rootContext = injectHoverCardRootContext();
+const { isPointerInTransit, onPointerExit } = useGraceArea(
+  rootContext.triggerElement,
+  contentElement,
+);
 
-syncRef(rootContext.isPointerInTransitRef, isPointerInTransit, { direction: 'rtl' })
+syncRef(rootContext.isPointerInTransitRef, isPointerInTransit, { direction: 'rtl' });
 
 onPointerExit(() => {
-  rootContext.onClose()
-})
+  rootContext.onClose();
+});
 
-const containSelection = ref(false)
+const containSelection = ref(false);
 
-let originalBodyUserSelect: string
+let originalBodyUserSelect: string;
 watchEffect((cleanupFn) => {
   if (containSelection.value) {
-    const body = document.body
+    const body = document.body;
 
     // Safari requires prefix
-    originalBodyUserSelect = body.style.userSelect || body.style.webkitUserSelect
+    originalBodyUserSelect = body.style.userSelect || body.style.webkitUserSelect;
 
-    body.style.userSelect = 'none'
-    body.style.webkitUserSelect = 'none'
+    body.style.userSelect = 'none';
+    body.style.webkitUserSelect = 'none';
 
     cleanupFn(() => {
-      body.style.userSelect = originalBodyUserSelect
-      body.style.webkitUserSelect = originalBodyUserSelect
-    })
+      body.style.userSelect = originalBodyUserSelect;
+      body.style.webkitUserSelect = originalBodyUserSelect;
+    });
   }
-})
+});
 
 function handlePointerUp() {
-  containSelection.value = false
-  rootContext.isPointerDownOnContentRef.value = false
+  containSelection.value = false;
+  rootContext.isPointerDownOnContentRef.value = false;
 
   // Delay a frame to ensure we always access the latest selection
   nextTick(() => {
-    const hasSelection = document.getSelection()?.toString() !== ''
-    if (hasSelection)
-      rootContext.hasSelectionRef.value = true
-  })
+    const hasSelection = document.getSelection()?.toString() !== '';
+    if (hasSelection) rootContext.hasSelectionRef.value = true;
+  });
 }
 onMounted(() => {
   if (contentElement.value) {
-    document.addEventListener('pointerup', handlePointerUp)
+    document.addEventListener('pointerup', handlePointerUp);
 
-    const tabbables = getTabbableNodes(contentElement.value)
-    tabbables.forEach(tabbable => tabbable.setAttribute('tabindex', '-1'))
+    const tabbables = getTabbableNodes(contentElement.value);
+    tabbables.forEach((tabbable) => tabbable.setAttribute('tabindex', '-1'));
   }
-})
+});
 
 onUnmounted(() => {
-  document.removeEventListener('pointerup', handlePointerUp)
-  rootContext.hasSelectionRef.value = false
-  rootContext.isPointerDownOnContentRef.value = false
-})
+  document.removeEventListener('pointerup', handlePointerUp);
+  rootContext.hasSelectionRef.value = false;
+  rootContext.isPointerDownOnContentRef.value = false;
+});
 </script>
 
 <template>
@@ -92,9 +94,9 @@ onUnmounted(() => {
       :ref="forwardRef"
       :data-state="rootContext.open.value ? 'open' : 'closed'"
       :style="{
-        'userSelect': containSelection ? 'text' : undefined,
+        userSelect: containSelection ? 'text' : undefined,
         // Safari requires prefix
-        'WebkitUserSelect': containSelection ? 'text' : undefined,
+        WebkitUserSelect: containSelection ? 'text' : undefined,
         // re-namespace exposed content custom properties
         '--radix-hover-card-content-transform-origin': 'var(--radix-popper-transform-origin)',
         '--radix-hover-card-content-available-width': 'var(--radix-popper-available-width)',
@@ -102,14 +104,16 @@ onUnmounted(() => {
         '--radix-hover-card-trigger-width': 'var(--radix-popper-anchor-width)',
         '--radix-hover-card-trigger-height': 'var(--radix-popper-anchor-height)',
       }"
-      @pointerdown="(event: PointerEvent) => {
-        // Contain selection to current layer
-        if ((event.currentTarget as HTMLElement).contains(event.target as HTMLElement)) {
-          containSelection = true
+      @pointerdown="
+        (event: PointerEvent) => {
+          // Contain selection to current layer
+          if ((event.currentTarget as HTMLElement).contains(event.target as HTMLElement)) {
+            containSelection = true;
+          }
+          rootContext.hasSelectionRef.value = false;
+          rootContext.isPointerDownOnContentRef.value = true;
         }
-        rootContext.hasSelectionRef.value = false;
-        rootContext.isPointerDownOnContentRef.value = true;
-      }"
+      "
     >
       <slot />
     </PopperContent>

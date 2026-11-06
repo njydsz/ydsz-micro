@@ -2,26 +2,25 @@
 const props = defineProps({
   open: Boolean,
   node: HTMLElement,
-})
+});
 
-const emits = defineEmits(['update:open'])
+const emits = defineEmits(['update:open']);
 
 function handleToggleVisibility() {
-  const node = props.node
+  const node = props.node;
   if (node) {
-    if (node.style.display === 'none')
-      node.style.display = 'block'
-    else node.style.display = 'none'
+    if (node.style.display === 'none') node.style.display = 'block';
+    else node.style.display = 'none';
   }
 }
 </script>
 
 <template>
-  <form class="grid grid-cols-2 mb-8">
+  <form class="mb-8 grid grid-cols-2">
     <fieldset>
       <legend>Mount</legend>
       <button
-        class="px-2 py-0.5 bg-green-700 rounded"
+        class="rounded bg-green-700 px-2 py-0.5"
         type="button"
         @click="emits('update:open', !open)"
       >
@@ -32,7 +31,7 @@ function handleToggleVisibility() {
     <fieldset>
       <legend>Visibility (triggers cancel event)</legend>
       <button
-        class="px-2 py-0.5 bg-green-700 rounded"
+        class="rounded bg-green-700 px-2 py-0.5"
         type="button"
         @click="handleToggleVisibility"
       >

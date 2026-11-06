@@ -36,11 +36,7 @@ describe('use-file-validation', () => {
     });
 
     it('maxCount 超限应标记 reason=count 并裁剪超出部分', () => {
-      const files = [
-        new File(['1'], 'a.txt'),
-        new File(['2'], 'b.txt'),
-        new File(['3'], 'c.txt'),
-      ];
+      const files = [new File(['1'], 'a.txt'), new File(['2'], 'b.txt'), new File(['3'], 'c.txt')];
       // 已有 1 个，maxCount=2，再加 3 个 → 超出 2 个
       const result = validateFiles(files, 1, undefined, 2);
       expect(result.valid).toBe(false);

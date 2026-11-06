@@ -10,11 +10,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import {
-  YdAvatarBase,
-  YdAvatarFallbackBase,
-  YdAvatarImageBase,
-} from '@ydsz-core/ydsz-ui';
+import { YdAvatarBase, YdAvatarFallbackBase, YdAvatarImageBase } from '@ydsz-core/ydsz-ui';
 import { cn } from '@ydsz-core/shared/utils';
 import { $t } from '@ydsz/locales';
 
@@ -40,28 +36,17 @@ const displayName = computed(() => {
 </script>
 
 <template>
-  <div
-    :class="cn('user-avatar', 'relative inline-flex')"
-    :style="{ '--avatar-size': size + 'px' }"
-  >
+  <div :class="cn('user-avatar', 'relative inline-flex')" :style="{ '--avatar-size': size + 'px' }">
     <YdAvatarBase
       :class="cn('user-avatar__container')"
       :style="{ width: size + 'px', height: size + 'px' }"
     >
-      <YdAvatarImageBase
-        v-if="avatar"
-        :src="avatar"
-        :alt="props.name || props.userId"
-      />
+      <YdAvatarImageBase v-if="avatar" :src="avatar" :alt="props.name || props.userId" />
       <YdAvatarFallbackBase>
         {{ displayName }}
       </YdAvatarFallbackBase>
     </YdAvatarBase>
-    <span
-      v-if="online"
-      class="online-dot"
-      :aria-label="$t('ui.userAvatar.online')"
-    />
+    <span v-if="online" class="online-dot" :aria-label="$t('ui.userAvatar.online')" />
   </div>
 </template>
 

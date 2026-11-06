@@ -53,11 +53,7 @@ setupYDSZVxeTable({
     vxeUI.renderer.add('CellLink', {
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
-        return h(
-          YdButton,
-          { size: 'sm', variant: 'link' },
-          { default: () => props?.text },
-        );
+        return h(YdButton, { size: 'sm', variant: 'link' }, { default: () => props?.text });
       },
     });
   },

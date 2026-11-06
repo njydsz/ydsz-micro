@@ -16,7 +16,15 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 const logger = createLogger('nextwiki-space');
 const { t } = useI18n();
 import { computed, onMounted, reactive, ref } from 'vue';
@@ -62,7 +70,13 @@ const canSubmit = computed(() => {
 });
 
 const rules = {
-  name: [{ required: () => !formData.useTemplateFlag, message: () => t('spaceNamePlaceholder'), trigger: 'blur' }],
+  name: [
+    {
+      required: () => !formData.useTemplateFlag,
+      message: () => t('spaceNamePlaceholder'),
+      trigger: 'blur',
+    },
+  ],
 };
 
 /** 加载模板列表 */
@@ -113,7 +127,11 @@ const [Modal, modalApi] = useYdModal({
           { name: formData.name || undefined, description: formData.description || undefined },
         );
       } else {
-        await createSpace({ name: formData.name, description: formData.description, visibility: formData.visibility });
+        await createSpace({
+          name: formData.name,
+          description: formData.description,
+          visibility: formData.visibility,
+        });
       }
       showToast.success('创建成功');
       emit('success');
@@ -127,7 +145,13 @@ const [Modal, modalApi] = useYdModal({
 
 <template>
   <Modal title="新建空间">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <!-- 创建方式切换 -->
       <YdFormItem label="创建方式">
         <YdRadioGroup v-model="formData.useTemplateFlag">
@@ -157,7 +181,12 @@ const [Modal, modalApi] = useYdModal({
         <YdInput v-model="formData.name" placeholder="请输入空间名称" />
       </YdFormItem>
       <YdFormItem label="空间描述" prop="description">
-        <YdInput v-model="formData.description" placeholder="请输入空间描述（选填）" type="textarea" :rows="3" />
+        <YdInput
+          v-model="formData.description"
+          placeholder="请输入空间描述（选填）"
+          type="textarea"
+          :rows="3"
+        />
       </YdFormItem>
       <YdFormItem label="可见性" prop="visibility">
         <YdSelect v-model="formData.visibility" placeholder="请选择可见性">

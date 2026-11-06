@@ -1,27 +1,27 @@
 <script setup lang="ts">
 /**
-* 数据表格组件：语义 HTML 容器 + 列驱动渲染 + 排序支持。
-* 
-* <p>使用方式：
-* <ol>
-*   <li><b>列驱动</b>（推荐）：&lt;YdTable :data="rows"&gt; + &lt;YdTableColumn&gt; 子组件，
-*   父级自动渲染 thead/tbody，配合 border/stripe/size/max-height/loading 等属性。</li>
-*   <li><b>语义插槽</b>：直接使用 YdTableHeader/YdTableBody/YdTableRow/YdTableCell 等子组件填充，
-*   此时 YdTable 仅提供 overflow 容器。</li>
-* </ol>
-* 
-* <p>支持列排序（表头点击触发 sort-change 事件，由调用方处理排序逻辑），
-* 列固定(左/右)、列显隐、列宽调整等高级特性通过 YdTableColumn 的属性配置。
-* 
-* a11y：使用原生 &lt;table&gt; 语义，屏幕阅读器自动识别行列关系。
-* 
-* <p>脚本核心逻辑（列注册 / 排序 / 样式 / 虚拟滚动 / 列宽拖拽）已提取至
-* {@link useTableCore}，本组件仅保留 props / emits 声明与模板渲染。
-* 
-* @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
-* @author ydsz-team
-* @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
-*/
+ * 数据表格组件：语义 HTML 容器 + 列驱动渲染 + 排序支持。
+ *
+ * <p>使用方式：
+ * <ol>
+ *   <li><b>列驱动</b>（推荐）：&lt;YdTable :data="rows"&gt; + &lt;YdTableColumn&gt; 子组件，
+ *   父级自动渲染 thead/tbody，配合 border/stripe/size/max-height/loading 等属性。</li>
+ *   <li><b>语义插槽</b>：直接使用 YdTableHeader/YdTableBody/YdTableRow/YdTableCell 等子组件填充，
+ *   此时 YdTable 仅提供 overflow 容器。</li>
+ * </ol>
+ *
+ * <p>支持列排序（表头点击触发 sort-change 事件，由调用方处理排序逻辑），
+ * 列固定(左/右)、列显隐、列宽调整等高级特性通过 YdTableColumn 的属性配置。
+ *
+ * a11y：使用原生 &lt;table&gt; 语义，屏幕阅读器自动识别行列关系。
+ *
+ * <p>脚本核心逻辑（列注册 / 排序 / 样式 / 虚拟滚动 / 列宽拖拽）已提取至
+ * {@link useTableCore}，本组件仅保留 props / emits 声明与模板渲染。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTable.vue
+ * @author ydsz-team
+ * @since 1.0.0 (4.2.0 新增列驱动，26.09.17 增强排序)
+ */
 import { useSlots } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -127,13 +127,13 @@ defineExpose({
     <!-- 加载遮罩 -->
     <div
       v-if="loading"
-      class="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm"
+      class="bg-background/80 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm"
     >
       <div class="flex flex-col items-center gap-2">
         <div
-          class="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          class="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent"
         />
-        <span class="text-sm text-muted-foreground">loading...</span>
+        <span class="text-muted-foreground text-sm">loading...</span>
       </div>
     </div>
 
@@ -167,28 +167,38 @@ defineExpose({
         </colgroup>
 
         <!-- 表头 -->
-        <thead :class="[isVirtualActive && 'sticky top-0 z-20 bg-background]', '[&_tr]:border-b']">
-          <tr class="border-b transition-colors hover:bg-muted/50">
+        <thead :class="[isVirtualActive && 'bg-background] sticky top-0 z-20', '[&_tr]:border-b']">
+          <tr class="hover:bg-muted/50 border-b transition-colors">
             <th
               v-for="(col, idx) in orderedColumns"
               :key="`th-${idx}`"
               :class="
                 cn(
-                  'h-10 px-2 align-middle font-medium text-muted-foreground',
+                  'text-muted-foreground h-10 px-2 align-middle font-medium',
                   columnResizable && 'relative',
                   alignClass(col.align),
-                  col.fixed === 'left' && 'sticky left-0 z-10 bg-muted/50',
-                  col.fixed === 'right' && 'sticky right-0 z-10 bg-muted/50',
+                  col.fixed === 'left' && 'bg-muted/50 sticky left-0 z-10',
+                  col.fixed === 'right' && 'bg-muted/50 sticky right-0 z-10',
                   col.isSortable && 'cursor-pointer select-none',
                 )
               "
               :style="{
-                width: columnResizable ? columnResize.getColumnWidthStyle(col.prop ?? String(idx)) : col.width,
+                width: columnResizable
+                  ? columnResize.getColumnWidthStyle(col.prop ?? String(idx))
+                  : col.width,
                 minWidth: col.minWidth,
                 maxWidth: col.maxWidth,
               }"
               scope="col"
-              :aria-sort="col.isSortable && sortProp === col.prop ? (sortOrder === 'asc' ? 'ascending' : sortOrder === 'desc' ? 'descending' : 'none') : undefined"
+              :aria-sort="
+                col.isSortable && sortProp === col.prop
+                  ? sortOrder === 'asc'
+                    ? 'ascending'
+                    : sortOrder === 'desc'
+                      ? 'descending'
+                      : 'none'
+                  : undefined
+              "
               @click="handleSort(col)"
             >
               <slot :name="`header-${col.prop ?? col.label ?? idx}`">
@@ -196,7 +206,7 @@ defineExpose({
                   {{ col.label ?? '' }}
                   <span
                     v-if="col.isSortable"
-                    class="text-xs text-muted-foreground/50"
+                    class="text-muted-foreground/50 text-xs"
                     aria-hidden="true"
                   >
                     {{ getSortIcon(col) }}
@@ -206,8 +216,10 @@ defineExpose({
               <!-- 列宽拖拽手柄 -->
               <div
                 v-if="columnResizable"
-                class="absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
-                :class="{ 'bg-primary/50': columnResize.resizingProp.value === (col.prop ?? String(idx)) }"
+                class="hover:bg-primary/30 absolute right-0 top-0 h-full w-1 cursor-col-resize select-none"
+                :class="{
+                  'bg-primary/50': columnResize.resizingProp.value === (col.prop ?? String(idx)),
+                }"
                 role="separator"
                 :aria-label="t('table.resizeColumn', { column: col.label || col.prop || idx })"
                 @pointerdown="startColumnResize(col.prop ?? String(idx), $event)"
@@ -231,7 +243,7 @@ defineExpose({
               :style="{ height: `${vItem.height}px` }"
               :class="
                 cn(
-                  'border-b transition-colors hover:bg-muted/50',
+                  'hover:bg-muted/50 border-b transition-colors',
                   stripe && vItem.index % 2 === 1 && 'bg-muted/30',
                 )
               "
@@ -243,8 +255,8 @@ defineExpose({
                   cn(
                     'px-2 py-2 align-middle',
                     alignClass(col.align),
-                    col.fixed === 'left' && 'sticky left-0 bg-background',
-                    col.fixed === 'right' && 'sticky right-0 bg-background',
+                    col.fixed === 'left' && 'bg-background sticky left-0',
+                    col.fixed === 'right' && 'bg-background sticky right-0',
                   )
                 "
               >
@@ -262,27 +274,58 @@ defineExpose({
                 <template v-else>
                   <span
                     v-if="col.showOverflowTooltip"
-                    :title="col.formatter ? String(col.formatter(vItem.data, col, col.prop ? vItem.data[col.prop] : undefined, vItem.index)) : col.prop ? String(vItem.data[col.prop] ?? '') : ''"
+                    :title="
+                      col.formatter
+                        ? String(
+                            col.formatter(
+                              vItem.data,
+                              col,
+                              col.prop ? vItem.data[col.prop] : undefined,
+                              vItem.index,
+                            ),
+                          )
+                        : col.prop
+                          ? String(vItem.data[col.prop] ?? '')
+                          : ''
+                    "
                     class="block truncate"
                   >
                     {{
                       col.formatter
-                        ? col.formatter(vItem.data, col, col.prop ? vItem.data[col.prop] : undefined, vItem.index)
-                        : col.prop ? (vItem.data[col.prop] ?? '') : ''
+                        ? col.formatter(
+                            vItem.data,
+                            col,
+                            col.prop ? vItem.data[col.prop] : undefined,
+                            vItem.index,
+                          )
+                        : col.prop
+                          ? (vItem.data[col.prop] ?? '')
+                          : ''
                     }}
                   </span>
                   <template v-else>
                     {{
                       col.formatter
-                        ? col.formatter(vItem.data, col, col.prop ? vItem.data[col.prop] : undefined, vItem.index)
-                        : col.prop ? (vItem.data[col.prop] ?? '') : ''
+                        ? col.formatter(
+                            vItem.data,
+                            col,
+                            col.prop ? vItem.data[col.prop] : undefined,
+                            vItem.index,
+                          )
+                        : col.prop
+                          ? (vItem.data[col.prop] ?? '')
+                          : ''
                     }}
                   </template>
                 </template>
               </td>
             </tr>
             <!-- 底部 spacer：剩余高度 -->
-            <tr :style="{ height: `${virtualList.totalHeight.value - virtualList.offsetY.value - (virtualList.visibleItems.value.reduce((sum, item) => sum + item.height, 0))}px` }">
+            <tr
+              :style="{
+                height: `${virtualList.totalHeight.value - virtualList.offsetY.value - virtualList.visibleItems.value.reduce((sum, item) => sum + item.height, 0)}px`,
+              }"
+            >
               <td :colspan="columnCount" class="border-0 p-0" />
             </tr>
           </template>
@@ -292,10 +335,10 @@ defineExpose({
             <tr
               v-for="(row, rowIdx) in data"
               v-show="dataHasItems"
-              :key="rowKey ? row[rowKey] as string : `row-${rowIdx}`"
+              :key="rowKey ? (row[rowKey] as string) : `row-${rowIdx}`"
               :class="
                 cn(
-                  'border-b transition-colors hover:bg-muted/50',
+                  'hover:bg-muted/50 border-b transition-colors',
                   stripe && rowIdx % 2 === 1 && 'bg-muted/30',
                 )
               "
@@ -307,8 +350,8 @@ defineExpose({
                   cn(
                     'px-2 py-2 align-middle',
                     alignClass(col.align),
-                    col.fixed === 'left' && 'sticky left-0 bg-background',
-                    col.fixed === 'right' && 'sticky right-0 bg-background',
+                    col.fixed === 'left' && 'bg-background sticky left-0',
+                    col.fixed === 'right' && 'bg-background sticky right-0',
                   )
                 "
               >
@@ -329,20 +372,32 @@ defineExpose({
                 <template v-else>
                   <span
                     v-if="col.showOverflowTooltip"
-                    :title="col.formatter ? String(col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)) : col.prop ? String(row[col.prop] ?? '') : ''"
+                    :title="
+                      col.formatter
+                        ? String(
+                            col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx),
+                          )
+                        : col.prop
+                          ? String(row[col.prop] ?? '')
+                          : ''
+                    "
                     class="block truncate"
                   >
                     {{
                       col.formatter
                         ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)
-                        : col.prop ? (row[col.prop] ?? '') : ''
+                        : col.prop
+                          ? (row[col.prop] ?? '')
+                          : ''
                     }}
                   </span>
                   <template v-else>
                     {{
                       col.formatter
                         ? col.formatter(row, col, col.prop ? row[col.prop] : undefined, rowIdx)
-                        : col.prop ? (row[col.prop] ?? '') : ''
+                        : col.prop
+                          ? (row[col.prop] ?? '')
+                          : ''
                     }}
                   </template>
                 </template>
@@ -352,7 +407,7 @@ defineExpose({
 
           <!-- 空数据占位 -->
           <tr v-if="!dataHasItems">
-            <td :colspan="columnCount" class="h-24 text-center text-muted-foreground">
+            <td :colspan="columnCount" class="text-muted-foreground h-24 text-center">
               <slot name="empty">
                 <div class="flex flex-col items-center justify-center gap-1">
                   <span class="text-sm">{{ displayEmptyText }}</span>
@@ -365,7 +420,7 @@ defineExpose({
         <!-- 聚合行（summary slot） -->
         <tfoot
           v-if="summaryData && hasColumns"
-          class="sticky bottom-0 bg-muted/50 font-medium [&>tr]:border-t"
+          class="bg-muted/50 sticky bottom-0 font-medium [&>tr]:border-t"
         >
           <tr>
             <td

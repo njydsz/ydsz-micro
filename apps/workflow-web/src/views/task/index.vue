@@ -23,7 +23,15 @@ import { YdPrompt, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { batchPass, batchReject, batchTransfer, batchUrge, done, passAll, todo } from '#/api/flowTask';
+import {
+  batchPass,
+  batchReject,
+  batchTransfer,
+  batchUrge,
+  done,
+  passAll,
+  todo,
+} from '#/api/flowTask';
 import type { FlowRunTaskVO } from '#/api/models';
 import { $t } from '#/locales';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -80,18 +88,33 @@ const gridOptions: VxeTableGridOptions<FlowRunTaskVO> = {
         default: ({ row }) => {
           // 已办列表不提供处理操作
           if (activeTab.value !== 'todo') return h('span', { class: 'text-gray-400 text-xs' }, '-');
-          return h('div', { class: 'flex gap-1', role: 'group', 'aria-label': $t('wf.taskActions') }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': `${$t('wf.process')} - ${row.title ?? row.flowName ?? ''}`, onClick: () => handleProcess(row) },
-              () => $t('wf.process'),
-            ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link' as const, class: 'text-yellow-600', 'aria-label': `${$t('wf.moreActions')} - ${row.title ?? row.flowName ?? ''}`, onClick: () => handleOperation(row) },
-              () => '更多',
-            ),
-          ]);
+          return h(
+            'div',
+            { class: 'flex gap-1', role: 'group', 'aria-label': $t('wf.taskActions') },
+            [
+              h(
+                YdButton,
+                {
+                  size: 'sm',
+                  variant: 'link',
+                  'aria-label': `${$t('wf.process')} - ${row.title ?? row.flowName ?? ''}`,
+                  onClick: () => handleProcess(row),
+                },
+                () => $t('wf.process'),
+              ),
+              h(
+                YdButton,
+                {
+                  size: 'sm',
+                  variant: 'link' as const,
+                  class: 'text-yellow-600',
+                  'aria-label': `${$t('wf.moreActions')} - ${row.title ?? row.flowName ?? ''}`,
+                  onClick: () => handleOperation(row),
+                },
+                () => '更多',
+              ),
+            ],
+          );
         },
       },
     },
@@ -172,13 +195,9 @@ async function handleBatchPass() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmBatchPass', { count: ids.length }),
-      $t('wf.batchPassConfirm'),
-      {
-        type: 'warning',
-      },
-    );
+    await YdConfirm($t('wf.confirmBatchPass', { count: ids.length }), $t('wf.batchPassConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消批量通过操作', error);
     return; // 用户主动取消批量通过
@@ -289,13 +308,9 @@ async function handleBatchUrge() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmBatchUrge', { count: ids.length }),
-      $t('wf.batchUrgeConfirm'),
-      {
-        type: 'warning',
-      },
-    );
+    await YdConfirm($t('wf.confirmBatchUrge', { count: ids.length }), $t('wf.batchUrgeConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消批量催办操作', error);
     return; // 用户主动取消批量催办
@@ -319,15 +334,11 @@ async function handleBatchUrge() {
 async function handlePassAll() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      $t('wf.confirmPassAll'),
-      $t('wf.passAllConfirm'),
-      {
-        type: 'warning',
-        confirmButtonText: $t('wf.passAll'),
-        cancelButtonText: $t('wf.cancel'),
-      },
-    );
+    await YdConfirm($t('wf.confirmPassAll'), $t('wf.passAllConfirm'), {
+      type: 'warning',
+      confirmButtonText: $t('wf.passAll'),
+      cancelButtonText: $t('wf.cancel'),
+    });
   } catch (error) {
     logger.warn('用户取消一键通过操作', error);
     return; // 用户主动取消一键通过
@@ -349,24 +360,44 @@ async function handlePassAll() {
       <YdTabsContent :label="$t('wf.myTodo')" name="todo" />
       <YdTabsContent :label="$t('wf.myDone')" name="done" />
     </YdTabs>
-    <Grid :table-title="$t('wf.todoTasks')" role="grid" :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0" :aria-label="activeTab === 'todo' ? $t('wf.todoTasks') : $t('wf.doneTasks')">
+    <Grid
+      :table-title="$t('wf.todoTasks')"
+      role="grid"
+      :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0"
+      :aria-label="activeTab === 'todo' ? $t('wf.todoTasks') : $t('wf.doneTasks')"
+    >
       <template #toolbar-tools>
         <template v-if="activeTab === 'todo'">
-          <YdButton aria-label="$t('wf.batchPass')" variant="default" class="bg-green-600 text-white hover:bg-green-700" @click="handleBatchPass">{{
-            $t('wf.batchPass')
-          }}</YdButton>
-          <YdButton aria-label="$t('wf.batchReject')" variant="destructive" @click="handleBatchReject">{{
-            $t('wf.batchReject')
-          }}</YdButton>
-          <YdButton aria-label="$t('wf.batchTransfer')" variant="default" class="bg-yellow-500 text-white hover:bg-yellow-600" @click="handleBatchTransfer">{{
-            $t('wf.batchTransfer')
-          }}</YdButton>
+          <YdButton
+            aria-label="$t('wf.batchPass')"
+            variant="default"
+            class="bg-green-600 text-white hover:bg-green-700"
+            @click="handleBatchPass"
+            >{{ $t('wf.batchPass') }}</YdButton
+          >
+          <YdButton
+            aria-label="$t('wf.batchReject')"
+            variant="destructive"
+            @click="handleBatchReject"
+            >{{ $t('wf.batchReject') }}</YdButton
+          >
+          <YdButton
+            aria-label="$t('wf.batchTransfer')"
+            variant="default"
+            class="bg-yellow-500 text-white hover:bg-yellow-600"
+            @click="handleBatchTransfer"
+            >{{ $t('wf.batchTransfer') }}</YdButton
+          >
           <YdButton aria-label="$t('wf.batchUrge')" variant="secondary" @click="handleBatchUrge">{{
             $t('wf.batchUrge')
           }}</YdButton>
-          <YdButton aria-label="$t('wf.passAll')" variant="default" class="bg-orange-500 text-white hover:bg-orange-600" @click="handlePassAll">{{
-            $t('wf.passAll')
-          }}</YdButton>
+          <YdButton
+            aria-label="$t('wf.passAll')"
+            variant="default"
+            class="bg-orange-500 text-white hover:bg-orange-600"
+            @click="handlePassAll"
+            >{{ $t('wf.passAll') }}</YdButton
+          >
         </template>
       </template>
     </Grid>

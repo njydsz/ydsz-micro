@@ -48,17 +48,17 @@ export interface ErrorStyleVariables {
 
 /** 默认 CSS 变量值（与 Element Plus 设计 token 对齐，保持降级 UI 视觉一致性） */
 const DEFAULT_VARIABLES: Required<ErrorStyleVariables> = {
-  primary: "#409eff",
-  danger: "#f56c6c",
-  textPrimary: "#303133",
-  textSecondary: "#909399",
-  textRegular: "#606266",
-  bgColor: "#ffffff",
-  borderColor: "#dcdfe6",
-  borderColorLight: "#ebeef5",
-  fillColor: "#f5f7fa",
-  fillColorLight: "#fafafa",
-  borderRadius: "6px",
+  primary: '#409eff',
+  danger: '#f56c6c',
+  textPrimary: '#303133',
+  textSecondary: '#909399',
+  textRegular: '#606266',
+  bgColor: '#ffffff',
+  borderColor: '#dcdfe6',
+  borderColorLight: '#ebeef5',
+  fillColor: '#f5f7fa',
+  fillColorLight: '#fafafa',
+  borderRadius: '6px',
   fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
 };
 
@@ -277,25 +277,22 @@ export function injectErrorStyles(
 ${Object.entries(resolved)
   .filter(([key]) => variables[key as keyof ErrorStyleVariables] !== undefined)
   .map(([key, value]) => {
-    const cssName = key.replaceAll(/([A-Z])/g, "-$1").toLowerCase();
+    const cssName = key.replaceAll(/([A-Z])/g, '-$1').toLowerCase();
     return `  --micro-error-${cssName}: ${value};`;
   })
-  .join("\n")}
+  .join('\n')}
 }`;
-    styleContent = styleContent.replace(
-      ":root {",
-      `:root {\n${overrideBlock}\n\n:root-ignore {`,
-    );
+    styleContent = styleContent.replace(':root {', `:root {\n${overrideBlock}\n\n:root-ignore {`);
     // 简化：直接 prepend override block (快速实现)
     styleContent = `${overrideBlock}\n${styleContent}`;
   }
 
-  const styleEl = document.createElement("style");
-  styleEl.dataset.microErrorStyles = "true";
+  const styleEl = document.createElement('style');
+  styleEl.dataset.microErrorStyles = 'true';
   styleEl.textContent = styleContent;
 
   const injectTarget = target || document.head;
-  if (injectTarget && "head" in injectTarget) {
+  if (injectTarget && 'head' in injectTarget) {
     // Document 类型：注入到 head（appendChild 与 append 等价，取兼容面更广的 API）
     (injectTarget as unknown as Document).head.appendChild(styleEl);
   } else {
@@ -313,20 +310,20 @@ ${Object.entries(resolved)
  * 集中管理 class 名，防止字符串散落在模板中出错。
  */
 export const ERROR_UI_CLASSES = {
-  container: "micro-error__container",
-  iconWrap: "micro-error__icon-wrap",
-  title: "micro-error__title",
-  appName: "micro-error__app-name",
-  description: "micro-error__description",
-  actions: "micro-error__actions",
-  btn: "micro-error__btn",
-  btnPrimary: "micro-error__btn micro-error__btn--primary",
-  btnSecondary: "micro-error__btn micro-error__btn--secondary",
-  btnGhost: "micro-error__btn micro-error__btn--ghost",
-  details: "micro-error__details",
-  detailsBody: "micro-error__details-body",
-  spinner: "micro-error__spinner",
-  spinnerAnimation: "micro-error__spinner-animation",
-  spinnerText: "micro-error__spinner-text",
-  iconWrapCompact: "micro-error__icon-wrap micro-error__icon-wrap--compact",
+  container: 'micro-error__container',
+  iconWrap: 'micro-error__icon-wrap',
+  title: 'micro-error__title',
+  appName: 'micro-error__app-name',
+  description: 'micro-error__description',
+  actions: 'micro-error__actions',
+  btn: 'micro-error__btn',
+  btnPrimary: 'micro-error__btn micro-error__btn--primary',
+  btnSecondary: 'micro-error__btn micro-error__btn--secondary',
+  btnGhost: 'micro-error__btn micro-error__btn--ghost',
+  details: 'micro-error__details',
+  detailsBody: 'micro-error__details-body',
+  spinner: 'micro-error__spinner',
+  spinnerAnimation: 'micro-error__spinner-animation',
+  spinnerText: 'micro-error__spinner-text',
+  iconWrapCompact: 'micro-error__icon-wrap micro-error__icon-wrap--compact',
 } as const;

@@ -8,14 +8,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import {
-  computed,
-  onBeforeUnmount,
-  onMounted,
-  onUpdated,
-  ref,
-  watchEffect,
-} from 'vue';
+import { computed, onBeforeUnmount, onMounted, onUpdated, ref, watchEffect } from 'vue';
 
 import { YdTooltip } from '@ydsz-core/ydsz-ui';
 
@@ -130,9 +123,7 @@ const checkEllipsis = () => {
 
   // 使用足够大的差异阈值确保只有真正被截断的文本才会显示 tooltip
   isEllipsis.value =
-    props.line === 1
-      ? widthDiff > props.ellipsisThreshold
-      : heightDiff > props.ellipsisThreshold;
+    props.line === 1 ? widthDiff > props.ellipsisThreshold : heightDiff > props.ellipsisThreshold;
 };
 
 // 使用 ResizeObserver 监听尺寸变化
@@ -170,8 +161,7 @@ onBeforeUnmount(() => {
 watchEffect(
   () => {
     if (props.tooltip && eleWidth.value) {
-      defaultTooltipMaxWidth.value =
-        props.tooltipMaxWidth ?? eleWidth.value + 24;
+      defaultTooltipMaxWidth.value = props.tooltipMaxWidth ?? eleWidth.value + 24;
     }
   },
   { flush: 'post' },
@@ -199,9 +189,7 @@ function handleExpand() {
         color: tooltipColor,
         backgroundColor: tooltipBackgroundColor,
       }"
-      :disabled="
-        !props.tooltip || isExpand || (props.tooltipWhenEllipsis && !isEllipsis)
-      "
+      :disabled="!props.tooltip || isExpand || (props.tooltipWhenEllipsis && !isEllipsis)"
       :side="placement"
     >
       <slot name="tooltip">

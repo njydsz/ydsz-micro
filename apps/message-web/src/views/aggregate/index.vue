@@ -35,7 +35,9 @@ import type { MsgAggregateVO } from '#/api/models';
 defineOptions({ name: 'AggregateManagement' });
 
 /** 状态列 Tag 类型映射 */
-function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapTagVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -64,7 +66,11 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       width: 110,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.batchStatus)) }, () => row.batchStatus ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.batchStatus)) },
+            () => row.batchStatus ?? '-',
+          ),
       },
     },
     {
@@ -73,7 +79,11 @@ const gridOptions: VxeTableGridOptions<MsgAggregateVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.status)) },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'scheduledSendAt', title: '计划发送时间', width: 170 },
@@ -133,11 +143,9 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
   if (!row.aggregateGroup) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      `确定刷新聚合组「${row.aggregateGroup}」的批次吗？`,
-      '刷新确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定刷新聚合组「${row.aggregateGroup}」的批次吗？`, '刷新确认', {
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消操作
   }
@@ -155,7 +163,7 @@ async function handleFlushByGroup(row: MsgAggregateVO) {
 async function handleFlushDue() {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm('确定刷新所有到期的聚合批次吗？', { title: '刷新确认', type: 'warning', });
+    await YdConfirm('确定刷新所有到期的聚合批次吗？', { title: '刷新确认', type: 'warning' });
   } catch {
     return; // 用户主动取消操作
   }

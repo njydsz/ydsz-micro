@@ -84,12 +84,14 @@ function createPresetRegistry(): PresetRegistry {
  * @param options - 配置项
  * @returns 主题句柄
  */
-export function useTheme(options: {
-  rootElement?: HTMLElement;
-  initialPreset?: string;
-  /** 默认密度：default | compact | loose */
-  density?: 'default' | 'compact' | 'loose';
-} = {}): ThemeHandle {
+export function useTheme(
+  options: {
+    rootElement?: HTMLElement;
+    initialPreset?: string;
+    /** 默认密度：default | compact | loose */
+    density?: 'default' | 'compact' | 'loose';
+  } = {},
+): ThemeHandle {
   const { rootElement, initialPreset, density = 'default' } = options;
 
   /** 当前作用域根元素 */
@@ -176,9 +178,7 @@ export function useTheme(options: {
   function toggleDark(force?: boolean): void {
     const el = currentRoot.value;
     if (!el) return;
-    const next = typeof force === 'boolean'
-      ? force
-      : !el.classList.contains('dark');
+    const next = typeof force === 'boolean' ? force : !el.classList.contains('dark');
     el.classList.toggle('dark', next);
   }
 
@@ -231,4 +231,3 @@ export function registerPreset(name: string, preset: ThemePreset): void {
   const handle = getTheme();
   handle.applyPreset(name, preset);
 }
-

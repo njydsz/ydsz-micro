@@ -127,7 +127,9 @@ function diffSpecs(oldSpec, newSpec) {
     }
     // 2. 检测 method 移除
     for (const [method, oldOperation] of Object.entries(oldPathItem)) {
-      if (!['get', 'post', 'put', 'delete', 'patch', 'head', 'options'].includes(method.toLowerCase())) {
+      if (
+        !['get', 'post', 'put', 'delete', 'patch', 'head', 'options'].includes(method.toLowerCase())
+      ) {
         continue;
       }
       if (!newPathItem[method]) {
@@ -241,13 +243,19 @@ async function main() {
   }
 
   if (blockingResults.length > 0 && !warnOnly) {
-    console.error(`\n[breaking-change] 失败: 发现 ${blockingResults.length} 个破坏性变更。修复后重试。`);
-    console.error('[breaking-change] 若确认为故意破坏性发布，请通过版本号升级（v1 → v2）处理并重新生成 baseline。');
+    console.error(
+      `\n[breaking-change] 失败: 发现 ${blockingResults.length} 个破坏性变更。修复后重试。`,
+    );
+    console.error(
+      '[breaking-change] 若确认为故意破坏性发布，请通过版本号升级（v1 → v2）处理并重新生成 baseline。',
+    );
     process.exit(1);
   }
 
   if (blockingResults.length > 0 && warnOnly) {
-    console.warn(`\n[breaking-change] 警告模式: 发现 ${blockingResults.length} 个破坏性变更（未阻断）。`);
+    console.warn(
+      `\n[breaking-change] 警告模式: 发现 ${blockingResults.length} 个破坏性变更（未阻断）。`,
+    );
     return;
   }
 

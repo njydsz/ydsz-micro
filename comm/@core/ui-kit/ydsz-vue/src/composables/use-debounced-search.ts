@@ -10,32 +10,32 @@
  * @since 26.09.17
  */
 
-import type { Ref } from 'vue'
+import type { Ref } from 'vue';
 
-import { ref, watch } from 'vue'
+import { ref, watch } from 'vue';
 
 /** useDebouncedSearch 配置项 */
 export interface UseDebouncedSearchOptions {
   /** 防抖等待时间（ms），默认 300 */
-  debounceMs?: number
+  debounceMs?: number;
   /** 触发搜索的最小输入长度，默认 1（空字符串不搜索） */
-  minLength?: number
+  minLength?: number;
 }
 
 /** useDebouncedSearch 返回句柄 */
 export interface UseDebouncedSearchHandle<T> {
   /** 当前查询字符串（输入框直接绑定） */
-  query: Ref<string>
+  query: Ref<string>;
   /** 搜索结果 */
-  results: Ref<T[]>
+  results: Ref<T[]>;
   /** 请求进行中 */
-  isLoading: Ref<boolean>
+  isLoading: Ref<boolean>;
   /** 错误信息 */
-  error: Ref<Error | null>
+  error: Ref<Error | null>;
   /** 手动触发一次搜索（忽略防抖） */
-  search: () => void
+  search: () => void;
   /** 清空结果和查询 */
-  reset: () => void
+  reset: () => void;
 }
 
 /**
@@ -59,85 +59,80 @@ export function useDebouncedSearch<T>(
   fetcher: (query: string) => Promise<T[]>,
   options: UseDebouncedSearchOptions = {},
 ): UseDebouncedSearchHandle<T> {
-  const {
-    debounceMs = 300,
-    minLength = 1,
-  } = options
+  const { debounceMs = 300, minLength = 1 } = options;
 
-  const query = ref('')
-  const results = ref<T[]>([]) as Ref<T[]>
-  const isLoading = ref(false)
-  const error = ref<Error | null>(null)
+  const query = ref('');
+  const results = ref<T[]>([]) as Ref<T[]>;
+  const isLoading = ref(false);
+  const error = ref<Error | null>(null);
 
-  let debounceTimer: ReturnType<typeof setTimeout> | null = null
-  let abortController: AbortController | null = null
+  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+  let abortController: AbortController | null = null;
 
   /** 执行实际查询 */
   async function executeSearch(): Promise<void> {
-    const trimmedQuery = query.value.trim()
+    const trimmedQuery = query.value.trim();
 
     if (trimmedQuery.length < minLength) {
-      results.value = []
-      isLoading.value = false
-      return
+      results.value = [];
+      isLoading.value = false;
+      return;
     }
 
     // 取消上一次未完成请求
-    abortController?.abort()
-    abortController = new AbortController()
+    abortController?.abort();
+    abortController = new AbortController();
 
-    isLoading.value = true
-    error.value = null
+    isLoading.value = true;
+    error.value = null;
 
     try {
-      const data = await fetcher(trimmedQuery)
-      results.value = data
-    }
-    catch (err) {
+      const data = await fetcher(trimmedQuery);
+      results.value = data;
+    } catch (err) {
       if ((err as Error).name !== 'AbortError') {
-        error.value = err as Error
-        results.value = []
+        error.value = err as Error;
+        results.value = [];
       }
-    }
-    finally {
-      isLoading.value = false
+    } finally {
+      isLoading.value = false;
     }
   }
 
   /** 防抖调用入口 */
   function debouncedSearch(): void {
-    disposeTimer()
+    disposeTimer();
     debounceTimer = setTimeout(() => {
-      void executeSearch()
-    }, debounceMs)
+      void executeSearch();
+    }, debounceMs);
   }
 
   /** 立即执行（取消防抖） */
   function search(): void {
-    disposeTimer()
-    void executeSearch()
+    disposeTimer();
+    void executeSearch();
   }
 
   function reset(): void {
-    query.value = ''
-    results.value = []
-    isLoading.value = false
-    error.value = null
-    disposeTimer()
+    query.value = '';
+    results.value = [];
+    isLoading.value = false;
+    error.value = null;
+    disposeTimer();
   }
 
   /** 清理防抖计时器 */
   function disposeTimer(): void {
     if (debounceTimer !== null) {
-      clearTimeout(debounceTimer)
-      debounceTimer = null
+      clearTimeout(debounceTimer);
+      debounceTimer = null;
     }
   }
 
   /** query 变化 -> 防抖搜索 */
   watch(query, () => {
-    void debouncedSearch()
-  })
+    void debouncedSearch();
+  });
 
   return {
     query,
@@ -146,5 +141,5 @@ export function useDebouncedSearch<T>(
     error,
     search,
     reset,
-  }
+  };
 }

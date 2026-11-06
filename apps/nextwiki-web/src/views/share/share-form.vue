@@ -43,20 +43,32 @@ const [Modal, modalApi] = useYdModal({
     Object.assign(formData, { title: '', fileNodeId: '', shareType: 'LINK', expireTime: '' });
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
       await createShare({ ...formData });
       showToast.success('创建成功');
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 </script>
 <template>
   <Modal title="新建分享">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem label="分享标题" prop="title">
         <YdInput v-model="formData.title" placeholder="请输入分享标题（可选）" />
       </YdFormItem>
@@ -67,7 +79,10 @@ const [Modal, modalApi] = useYdModal({
         <YdInput v-model="formData.shareType" placeholder="如 LINK / PASSWORD" />
       </YdFormItem>
       <YdFormItem label="过期时间" prop="expireTime">
-        <YdInput v-model="formData.expireTime" placeholder="格式 yyyy-MM-dd HH:mm:ss，留空永久有效" />
+        <YdInput
+          v-model="formData.expireTime"
+          placeholder="格式 yyyy-MM-dd HH:mm:ss，留空永久有效"
+        />
       </YdFormItem>
     </YdForm>
   </Modal>

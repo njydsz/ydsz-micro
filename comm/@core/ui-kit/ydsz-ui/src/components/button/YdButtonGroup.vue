@@ -107,4 +107,3 @@ withDefaults(
   }
 }
 </style>
-

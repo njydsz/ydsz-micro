@@ -6,12 +6,12 @@
  * @since 4.1.0
  */
 
-import { ref } from "vue";
+import { ref } from 'vue';
 
-import type { RecentItem } from "./use-command-search";
+import type { RecentItem } from './use-command-search';
 
 /** 最近访问 localStorage key */
-const RECENT_STORAGE_KEY = "ydsz_command_palette_recent";
+const RECENT_STORAGE_KEY = 'ydsz_command_palette_recent';
 /** 最大最近访问记录数 */
 const MAX_RECENT = 20;
 
@@ -60,7 +60,7 @@ export function useCommandRecent() {
       id: item.id,
       title: item.title,
       path: item.path,
-      appName: item.appName || "",
+      appName: item.appName || '',
       timestamp: Date.now(),
     });
 

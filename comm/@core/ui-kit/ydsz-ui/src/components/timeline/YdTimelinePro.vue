@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* 时间轴 Pro —— 便利性封装（Convenience Wrapper）。
-* 
+ * 时间轴 Pro —— 便利性封装（Convenience Wrapper）。
+ *
  * 在 YdTimeline 基础上增加 alternate（交替显示）模式和 ghost（幽灵）模式，
  * 对齐 Element Plus ElTimeline 的高级形态。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\timeline\YdTimelinePro.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -22,25 +22,28 @@ import { useLocale } from '../../locale/useLocale';
 
 const { t } = useLocale();
 
-const props = withDefaults(defineProps<{
-  /** 自定义类名 */
-  class?: any;
-  /** pending 节点文案 */
-  pending?: string;
-  /** 是否显示 pending 脉冲动画 */
-  pendingDot?: boolean;
-  /** 是否反转排序 */
-  reverse?: boolean;
-  /** 交替模式：内容项在时间轴两侧交替显示 */
-  alternate?: boolean;
-  /** 幽灵模式：更轻量的视觉风格 */
-  ghost?: boolean;
-}>(), {
-  pendingDot: true,
-  reverse: false,
-  alternate: false,
-  ghost: false,
-});
+const props = withDefaults(
+  defineProps<{
+    /** 自定义类名 */
+    class?: any;
+    /** pending 节点文案 */
+    pending?: string;
+    /** 是否显示 pending 脉冲动画 */
+    pendingDot?: boolean;
+    /** 是否反转排序 */
+    reverse?: boolean;
+    /** 交替模式：内容项在时间轴两侧交替显示 */
+    alternate?: boolean;
+    /** 幽灵模式：更轻量的视觉风格 */
+    ghost?: boolean;
+  }>(),
+  {
+    pendingDot: true,
+    reverse: false,
+    alternate: false,
+    ghost: false,
+  },
+);
 
 defineSlots<{
   default: () => any;
@@ -89,10 +92,7 @@ const dotClass = computed(() => {
     <!-- @default -->
     <slot></slot>
     <!-- pending 占位 -->
-    <li
-      v-if="props.pending"
-      class="flex items-start gap-3"
-    >
+    <li v-if="props.pending" class="flex items-start gap-3">
       <div class="flex flex-col items-center">
         <span :class="cn(dotClass, pendingDot ? 'animate-pulse' : '')" />
         <span :class="cn('h-6 w-px', dividerClass)" />

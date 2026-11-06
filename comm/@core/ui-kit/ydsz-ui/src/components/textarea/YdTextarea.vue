@@ -1,13 +1,13 @@
 <script setup lang="ts">
 /**
-* 多行输入框 —— 对标一线竞品（EP Textarea / Naive Textarea）能力矩阵。
-* 
+ * 多行输入框 —— 对标一线竞品（EP Textarea / Naive Textarea）能力矩阵。
+ *
  * <p>增强能力（5.6.0 新增）：
  * <ul>
  *   <li>autosize：基于 scrollHeight 的自动增高（支持 minRows / maxRows 约束）</li>
  *   <li>resize：控制浏览器原生拖拽拉伸方向（none / both / horizontal / vertical）</li>
  * </ul>
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\textarea\YdTextarea.vue
  * @author ydsz-team
  * @since 1.0.0 (5.6.0 新增 autosize / resize)
@@ -115,14 +115,16 @@ function getResizeCssValue(): string {
       :readonly="readonly"
       :class="
         cn(
-          'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border bg-input-background px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 readonly:cursor-default readonly:bg-muted/30',
+          'border-input placeholder:text-muted-foreground focus-visible:ring-ring bg-input-background readonly:cursor-default readonly:bg-muted/30 flex w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50',
           resize === 'none' && 'resize-none',
           $props.class,
         )
       "
       :style="{
         resize: getResizeCssValue(),
-        minHeight: isAutosizeEnabled ? `${(autosizeConfig.minRows ?? 2) * LINE_HEIGHT}px` : undefined,
+        minHeight: isAutosizeEnabled
+          ? `${(autosizeConfig.minRows ?? 2) * LINE_HEIGHT}px`
+          : undefined,
       }"
       :aria-disabled="disabled"
       :aria-readonly="readonly"

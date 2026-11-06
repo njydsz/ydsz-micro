@@ -61,20 +61,20 @@ const gridOptions: VxeGridProps<FlowQuickCommentVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
+            ),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleUse(row) }, () =>
+              t('common.use'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleUse(row) },
-              () => t('common.use'),
-            ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link' as const, onClick: () => handleDelete(row),
-                class: 'text-destructive' },
+              {
+                size: 'sm',
+                variant: 'link' as const,
+                onClick: () => handleDelete(row),
+                class: 'text-destructive',
+              },
               () => t('common.delete'),
             ),
           ]),
@@ -124,7 +124,11 @@ async function handleDelete(row: FlowQuickCommentVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('quickComment.delete.confirm', { content: row.content }), t('common.delete.confirmTitle'), { type: 'warning' });
+    await YdConfirm(
+      t('quickComment.delete.confirm', { content: row.content }),
+      t('common.delete.confirmTitle'),
+      { type: 'warning' },
+    );
   } catch (error) {
     logger.warn('用户取消删除快捷评语操作', error);
     return; // 用户主动取消删除操作

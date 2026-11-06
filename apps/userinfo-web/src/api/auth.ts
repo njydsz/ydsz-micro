@@ -11,7 +11,15 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { CurrentUserInfoVO, LoginDTO, LoginVO, RefreshRequest, SecondaryAuthRequest, SendVerifyCodeDTO, WebAuthnSecondaryAuthDTO } from './models';
+import type {
+  CurrentUserInfoVO,
+  LoginDTO,
+  LoginVO,
+  RefreshRequest,
+  SecondaryAuthRequest,
+  SendVerifyCodeDTO,
+  WebAuthnSecondaryAuthDTO,
+} from './models';
 
 /**
  * sendMfaCode: POST /auth/mfa/send-code
@@ -72,9 +80,7 @@ export function generateDeviceCode(): Promise<Record<string, Record<string, unkn
 /**
  * exchangeDeviceCode: POST /auth/sso/device-exchange
  */
-export function exchangeDeviceCode(params: {
-    code?: string;
-  }): Promise<LoginVO> {
+export function exchangeDeviceCode(params: { code?: string }): Promise<LoginVO> {
   return requestClient.post<LoginVO>(`/auth/sso/device-exchange`, { params });
 }
 
@@ -88,16 +94,16 @@ export function listActiveSessions(): Promise<string[]> {
 /**
  * kickOutSession: DELETE /auth/sessions/{token}
  */
-export function kickOutSession({ token }: {
-    token: string;
-  }): Promise<void> {
+export function kickOutSession({ token }: { token: string }): Promise<void> {
   return requestClient.delete<void>(`/auth/sessions/${token}`);
 }
 
 /**
  * secondaryAuth: POST /auth/secondary-auth
  */
-export function secondaryAuth(data: SecondaryAuthRequest): Promise<Record<string, Record<string, unknown>>> {
+export function secondaryAuth(
+  data: SecondaryAuthRequest,
+): Promise<Record<string, Record<string, unknown>>> {
   return requestClient.post<Record<string, Record<string, unknown>>>(`/auth/secondary-auth`, data);
 }
 
@@ -105,16 +111,24 @@ export function secondaryAuth(data: SecondaryAuthRequest): Promise<Record<string
  * getWebAuthnChallenge: GET /auth/secondary-auth/webauthn/challenge
  */
 export function getWebAuthnChallenge(params: {
-    scene?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/auth/secondary-auth/webauthn/challenge`, { params });
+  scene?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/auth/secondary-auth/webauthn/challenge`,
+    { params },
+  );
 }
 
 /**
  * webAuthnSecondaryAuth: POST /auth/secondary-auth/webauthn
  */
-export function webAuthnSecondaryAuth(data: WebAuthnSecondaryAuthDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/auth/secondary-auth/webauthn`, data);
+export function webAuthnSecondaryAuth(
+  data: WebAuthnSecondaryAuthDTO,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/auth/secondary-auth/webauthn`,
+    data,
+  );
 }
 
 /**

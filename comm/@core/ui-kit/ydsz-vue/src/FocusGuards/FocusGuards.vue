@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useFocusGuards } from '../shared/index.ts'
+import { useFocusGuards } from '../shared/index.ts';
 
-useFocusGuards()
+useFocusGuards();
 </script>
 
 <template>

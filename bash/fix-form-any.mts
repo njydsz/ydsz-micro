@@ -30,9 +30,13 @@ for (const relPath of formFiles) {
   if (!src.includes('formData as any')) continue;
 
   // 提取 API 模块路径与 namespace：import { createXxxApi, updateXxxApi } from '#/api/xxx'
-  const apiImport = src.match(/import\s*\{[^}]*?(create|update)\w+Api[^}]*\}\s*from\s*['"](#\/api\/[\w-]+)['"]/);
+  const apiImport = src.match(
+    /import\s*\{[^}]*?(create|update)\w+Api[^}]*\}\s*from\s*['"](#\/api\/[\w-]+)['"]/,
+  );
   // 提取 namespace：import type { XxxApi } from '#/api/xxx'
-  const typeImport = src.match(/import\s+type\s*\{[^}]*?(\w+Api)[^}]*\}\s*from\s*['"](#\/api\/[\w-]+)['"]/);
+  const typeImport = src.match(
+    /import\s+type\s*\{[^}]*?(\w+Api)[^}]*\}\s*from\s*['"](#\/api\/[\w-]+)['"]/,
+  );
 
   if (!apiImport || !typeImport) {
     skipped.push(`${relPath}: 无法定位 api import`);
@@ -59,7 +63,9 @@ for (const relPath of formFiles) {
     try {
       apiSrc = readFileSync(c, 'utf8');
       break;
-    } catch { /* continue */ }
+    } catch {
+      /* continue */
+    }
   }
   if (!apiSrc) {
     skipped.push(`${relPath}: 找不到 api 模块 ${apiPath}`);
@@ -72,7 +78,10 @@ for (const relPath of formFiles) {
     const entity = m[1]; // Approval
     // 在 api 源码中找该函数的参数类型
     const fnMatch = apiSrc.match(
-      new RegExp(`export\\s+function\\s+(?:create|update)${entity}Api\\(\\s*\\w+\\s*:\\s*([\\w.]+)`, 's'),
+      new RegExp(
+        `export\\s+function\\s+(?:create|update)${entity}Api\\(\\s*\\w+\\s*:\\s*([\\w.]+)`,
+        's',
+      ),
     );
     if (fnMatch) {
       let paramType = fnMatch[1];

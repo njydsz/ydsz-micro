@@ -1,51 +1,49 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { ref, toRefs, watch, watchEffect } from 'vue'
-import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { ref, toRefs, watch, watchEffect } from 'vue';
+import { useWindowSplitterResizeHandlerBehavior } from './utils/composables/useWindowSplitterBehavior';
 
 export interface SplitterResizeHandleProps extends PrimitiveProps {
   /** Resize handle id (unique within group); falls back to `useId` when not provided */
-  id?: string
+  id?: string;
   /** Allow this much margin when determining resizable handle hit detection */
-  hitAreaMargins?: PointerHitAreaMargins
+  hitAreaMargins?: PointerHitAreaMargins;
   /** Tabindex for the handle */
-  tabindex?: number
+  tabindex?: number;
   /** Disable drag handle */
-  disabled?: boolean
+  disabled?: boolean;
 }
 
-export type PanelResizeHandleOnDragging = (isDragging: boolean) => void
-export type ResizeHandlerState = 'drag' | 'hover' | 'inactive'
+export type PanelResizeHandleOnDragging = (isDragging: boolean) => void;
+export type ResizeHandlerState = 'drag' | 'hover' | 'inactive';
 
 export type SplitterResizeHandleEmits = {
   /** Event handler called when dragging the handler. */
-  dragging: [isDragging: boolean]
-}
+  dragging: [isDragging: boolean];
+};
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../Primitive/index.ts'
-import { injectPanelGroupContext } from './SplitterGroup.vue'
-import type { ResizeEvent, ResizeHandler } from './utils/types'
-import type { PointerHitAreaMargins, ResizeHandlerAction } from './utils/registry'
-import { registerResizeHandle } from './utils/registry'
-import { assert } from './utils/assert'
-import { isBrowser, useForwardExpose, useId } from '../shared/index.ts'
+import { Primitive } from '../Primitive/index.ts';
+import { injectPanelGroupContext } from './SplitterGroup.vue';
+import type { ResizeEvent, ResizeHandler } from './utils/types';
+import type { PointerHitAreaMargins, ResizeHandlerAction } from './utils/registry';
+import { registerResizeHandle } from './utils/registry';
+import { assert } from './utils/assert';
+import { isBrowser, useForwardExpose, useId } from '../shared/index.ts';
 
 const props = withDefaults(defineProps<SplitterResizeHandleProps>(), {
   tabindex: 0,
-})
-const emits = defineEmits<SplitterResizeHandleEmits>()
+});
+const emits = defineEmits<SplitterResizeHandleEmits>();
 
-const { forwardRef, currentElement } = useForwardExpose()
-const { disabled } = toRefs(props)
+const { forwardRef, currentElement } = useForwardExpose();
+const { disabled } = toRefs(props);
 
-const panelGroupContext = injectPanelGroupContext()
+const panelGroupContext = injectPanelGroupContext();
 if (panelGroupContext === null) {
-  throw new Error(
-    'PanelResizeHandle components must be rendered within a PanelGroup container',
-  )
+  throw new Error('PanelResizeHandle components must be rendered within a PanelGroup container');
 }
 
 const {
@@ -55,31 +53,30 @@ const {
   startDragging,
   stopDragging,
   panelGroupElement,
-} = panelGroupContext
+} = panelGroupContext;
 
-const resizeHandleId = useId(props.id, 'radix-vue-splitter-resize-handle')
-const state = ref<ResizeHandlerState>('inactive')
-const isFocused = ref(false)
-const resizeHandler = ref<ResizeHandler | null>(null)
+const resizeHandleId = useId(props.id, 'radix-vue-splitter-resize-handle');
+const state = ref<ResizeHandlerState>('inactive');
+const isFocused = ref(false);
+const resizeHandler = ref<ResizeHandler | null>(null);
 
-watch(disabled, () => {
-  if (!isBrowser)
-    return
-  if (disabled.value)
-    resizeHandler.value = null
-  else
-    resizeHandler.value = registerResizeHandleWithParentGroup(resizeHandleId)
-}, { immediate: true })
+watch(
+  disabled,
+  () => {
+    if (!isBrowser) return;
+    if (disabled.value) resizeHandler.value = null;
+    else resizeHandler.value = registerResizeHandleWithParentGroup(resizeHandleId);
+  },
+  { immediate: true },
+);
 
 watchEffect((onCleanup) => {
-  if (disabled.value || resizeHandler.value === null)
-    return
+  if (disabled.value || resizeHandler.value === null) return;
 
-  const element = currentElement.value
-  if (!element)
-    return
+  const element = currentElement.value;
+  if (!element) return;
 
-  assert(element)
+  assert(element);
 
   const setResizeHandlerState = (
     action: ResizeHandlerAction,
@@ -89,53 +86,53 @@ watchEffect((onCleanup) => {
     if (isActive) {
       switch (action) {
         case 'down': {
-          state.value = 'drag'
+          state.value = 'drag';
 
-          startDragging(resizeHandleId, event)
-          emits('dragging', true)
-          break
+          startDragging(resizeHandleId, event);
+          emits('dragging', true);
+          break;
         }
         case 'move': {
-          if (state.value !== 'drag')
-            state.value = 'hover'
+          if (state.value !== 'drag') state.value = 'hover';
 
-          resizeHandler.value?.(event)
-          break
+          resizeHandler.value?.(event);
+          break;
         }
         case 'up': {
-          state.value = 'hover'
+          state.value = 'hover';
 
-          stopDragging()
-          emits('dragging', false)
-          break
+          stopDragging();
+          emits('dragging', false);
+          break;
         }
       }
+    } else {
+      state.value = 'inactive';
     }
-    else {
-      state.value = 'inactive'
-    }
-  }
+  };
 
-  onCleanup(registerResizeHandle(
-    resizeHandleId,
-    element,
-    direction,
-    {
-      // Coarse inputs (e.g. finger/touch)
-      coarse: props.hitAreaMargins?.coarse ?? 15,
-      // Fine inputs (e.g. mouse)
-      fine: props.hitAreaMargins?.fine ?? 5,
-    },
-    setResizeHandlerState,
-  ))
-})
+  onCleanup(
+    registerResizeHandle(
+      resizeHandleId,
+      element,
+      direction,
+      {
+        // Coarse inputs (e.g. finger/touch)
+        coarse: props.hitAreaMargins?.coarse ?? 15,
+        // Fine inputs (e.g. mouse)
+        fine: props.hitAreaMargins?.fine ?? 5,
+      },
+      setResizeHandlerState,
+    ),
+  );
+});
 
 useWindowSplitterResizeHandlerBehavior({
   disabled,
   resizeHandler,
   handleId: resizeHandleId,
   panelGroupElement,
-})
+});
 </script>
 
 <template>
@@ -158,7 +155,7 @@ useWindowSplitterResizeHandlerBehavior({
     :data-resize-handle-active="state === 'drag' ? 'pointer' : isFocused ? 'keyboard' : undefined"
     :data-resize-handle-state="state"
     :data-panel-resize-handle-enabled="!disabled"
-    :data-panel-resize-handle-id=" resizeHandleId"
+    :data-panel-resize-handle-id="resizeHandleId"
     @blur="isFocused = false"
     @focus="isFocused = false"
   >

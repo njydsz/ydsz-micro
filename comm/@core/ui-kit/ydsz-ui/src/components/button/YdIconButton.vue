@@ -54,11 +54,7 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     <slot></slot>
   </YdButtonSmart>
 
-  <YdTooltipSmart
-    v-else
-    :delay-duration="tooltipDelayDuration"
-    :side="tooltipSide"
-  >
+  <YdTooltipSmart v-else :delay-duration="tooltipDelayDuration" :side="tooltipSide">
     <template #trigger>
       <YdButtonSmart
         :class="cn('rounded-full', props.class)"
@@ -76,4 +72,3 @@ const showTooltip = computed(() => !!slots.tooltip || !!props.tooltip);
     </template>
   </YdTooltipSmart>
 </template>
-

@@ -12,12 +12,7 @@
 import { requestClient } from '#/api/request';
 
 /** 审计操作类型枚举 */
-export type AuditActionType =
-  | 'CREATE'
-  | 'UPDATE'
-  | 'DELETE'
-  | 'LOGIN'
-  | 'EXPORT';
+export type AuditActionType = 'CREATE' | 'UPDATE' | 'DELETE' | 'LOGIN' | 'EXPORT';
 
 /** 审计日志摘要（列表行）。 */
 export interface AuditLog {
@@ -102,8 +97,7 @@ export interface AuditLogQueryParams {
 }
 
 /** 审计 API 基础路径（由环境变量控制；相对 requestClient 的 baseURL=/api）。 */
-const AUDIT_API_URL =
-  (import.meta.env.VITE_AUDIT_API_URL as string | undefined) ?? '/admin/audit';
+const AUDIT_API_URL = (import.meta.env.VITE_AUDIT_API_URL as string | undefined) ?? '/admin/audit';
 
 /**
  * 分页查询审计日志。
@@ -143,9 +137,7 @@ export async function listAuditLogs(
  * @param id - 审计日志 ID
  * @returns 审计日志详情
  */
-export async function getAuditLogDetail(
-  id: string,
-): Promise<AuditLogDetail> {
+export async function getAuditLogDetail(id: string): Promise<AuditLogDetail> {
   const res = await requestClient.get<AuditLogDetail>(`${AUDIT_API_URL}/${id}`);
   return {
     ...res,

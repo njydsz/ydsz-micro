@@ -54,7 +54,9 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
     const appName = readSubAppName();
     const shareStrategy = readSubAppShareStrategy();
     const sharedDeps = [...getSharedDeps(shareStrategy)];
-    logger.info(`ImportMap strategy for ${appName || 'unknown'}: ${shareStrategy} (${sharedDeps.length} deps)`);
+    logger.info(
+      `ImportMap strategy for ${appName || 'unknown'}: ${shareStrategy} (${sharedDeps.length} deps)`,
+    );
 
     const plugins = await loadApplicationPlugins({
       appTitle,
@@ -132,18 +134,18 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
         // 供 upload-sourcemaps 脚本上传到后端做 stack trace 符号化，上传后从产物删除。
         // v4.0 P0-3: common.ts 中已默认在生产环境启用 hidden sourcemap（用于 Sentry 符号化）；
         //       此处仅当 VITE_MONITOR_SOURCEMAP 显式设为 false 时关闭。
-        sourcemap: env.VITE_MONITOR_SOURCEMAP === 'false' ? false : (process.env.NODE_ENV === 'production' ? 'hidden' : false),
+        sourcemap:
+          env.VITE_MONITOR_SOURCEMAP === 'false'
+            ? false
+            : process.env.NODE_ENV === 'production'
+              ? 'hidden'
+              : false,
         chunkSizeWarningLimit: 500,
         target: 'es2022',
       },
       css: createCssOptions(injectGlobalScss, readSubAppName()),
       esbuild: {
-        drop: isBuild
-          ? [
-              'console',
-              'debugger',
-            ]
-          : [],
+        drop: isBuild ? ['console', 'debugger'] : [],
         legalComments: 'none',
       },
       plugins,
@@ -161,10 +163,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
       },
     };
 
-    const mergedCommonConfig = mergeConfig(
-      await getCommonConfig(),
-      applicationConfig,
-    );
+    const mergedCommonConfig = mergeConfig(await getCommonConfig(), applicationConfig);
     const mergedConfig = mergeConfig(mergedCommonConfig, vite);
 
     // P0-S5：子应用生产 base 单一来源 = comm/constants 的 defaultProdPath()
@@ -200,10 +199,7 @@ const SUB_APP_BASE_PREFIX = '/ydsz-';
  * @param isBuild - 当前命令是否为 build
  * @returns 生产 base 路径，不适用时返回 undefined
  */
-function resolveSubAppProdBase(
-  appName: string | undefined,
-  isBuild: boolean,
-): string | undefined {
+function resolveSubAppProdBase(appName: string | undefined, isBuild: boolean): string | undefined {
   if (!isBuild || !appName || appName === 'main-web') {
     return undefined;
   }
@@ -319,10 +315,7 @@ function createManualChunks(): (id: string) => string | undefined {
  */
 function readSubAppName(): string | undefined {
   try {
-    const pkgContent = readFileSync(
-      path.join(process.cwd(), 'package.json'),
-      'utf-8',
-    );
+    const pkgContent = readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8');
     const pkg = JSON.parse(pkgContent);
     const name: string = pkg.name || '';
     if (name.startsWith('@ydsz/') && name.endsWith('-web')) {
@@ -346,10 +339,7 @@ function readSubAppName(): string | undefined {
  */
 function readSubAppShareStrategy(): ShareStrategy {
   try {
-    const pkgContent = readFileSync(
-      path.join(process.cwd(), 'package.json'),
-      'utf-8',
-    );
+    const pkgContent = readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8');
     const pkg = JSON.parse(pkgContent);
     const strategy = pkg?.YDSZ?.shareStrategy;
     if (isValidStrategy(strategy)) {
@@ -358,7 +348,7 @@ function readSubAppShareStrategy(): ShareStrategy {
     if (strategy !== undefined) {
       logger.warn(
         `package.json 中 shareStrategy "${strategy}" 无效；` +
-        `应为 ${getAvailableStrategies().join(', ')} 之一。回退到 'all'。`,
+          `应为 ${getAvailableStrategies().join(', ')} 之一。回退到 'all'。`,
       );
     }
   } catch {

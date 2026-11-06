@@ -23,9 +23,7 @@ export function submitBatch(data: BatchSendRequestDTO): Promise<MsgBatchVO> {
 /**
  * getProgress: GET /message/batch/progress/{batchId}
  */
-export function getProgress({ batchId }: {
-    batchId: string;
-  }): Promise<BatchProgressDTO> {
+export function getProgress({ batchId }: { batchId: string }): Promise<BatchProgressDTO> {
   return requestClient.get<BatchProgressDTO>(`/message/batch/progress/${batchId}`);
 }
 
@@ -37,8 +35,6 @@ export function getProgress({ batchId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function subscribeProgress({ batchId }: {
-    batchId: string;
-  }): Promise<unknown> {
+export function subscribeProgress({ batchId }: { batchId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/message/batch/progress/${batchId}/sse`);
 }

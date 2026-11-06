@@ -22,16 +22,20 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+} from '@ydsz-core/ydsz-ui';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { showToast } from '@ydsz/notification';
 
-import {
-  listTables,
-  refreshTables,
-} from '#/api/table-meta';
+import { listTables, refreshTables } from '#/api/table-meta';
 import type { GenTableMeta } from '#/api/models';
 import { listDatasources } from '#/api/datasource';
 import type { GenDatasourceRespVO } from '#/api/models';
@@ -116,7 +120,7 @@ const gridOptions: VxeTableGridOptions<GenTableMeta> = {
         default: ({ row }) => {
           const table = row as GenTableMeta;
           return h('div', { class: 'flex gap-1' }, [
-              h(
+            h(
               YdButton,
               {
                 size: 'sm',
@@ -179,11 +183,7 @@ onMounted(() => {
           <YdSelectValueBase placeholder="请选择数据源" />
         </YdSelectTriggerBase>
         <YdSelectContentBase>
-          <YdSelectItemBase
-            v-for="ds in datasourceList"
-            :key="ds.id"
-            :value="String(ds.id)"
-          >
+          <YdSelectItemBase v-for="ds in datasourceList" :key="ds.id" :value="String(ds.id)">
             {{ ds.name }} ({{ ds.jdbcUrl }})
           </YdSelectItemBase>
         </YdSelectContentBase>

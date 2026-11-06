@@ -6,3 +6,4 @@
  */
 export { default as YdMenu } from './YdMenu.vue';
 export type { MenuItemOption } from './YdMenu.vue';
+export { default as YdMenubar } from './YdMenubar.vue';

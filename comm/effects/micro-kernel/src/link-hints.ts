@@ -108,10 +108,7 @@ export function injectModulePreload(moduleUrl: string): void {
  * @param entry - 子应用入口基路径（manifest 所在域）
  * @param manifest - 子应用 manifest
  */
-export function preloadAppAssets(
-  entry: string,
-  manifest: { entry: string; css: string[] },
-): void {
+export function preloadAppAssets(entry: string, manifest: { entry: string; css: string[] }): void {
   // 1. preconnect 子应用资源域
   injectPreconnect(entry);
   injectPreconnect(manifest.entry);

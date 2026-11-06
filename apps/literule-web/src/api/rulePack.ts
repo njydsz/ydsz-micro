@@ -23,60 +23,69 @@ export function listPacks(): Promise<RulePackVO[]> {
 /**
  * searchPacks: GET /literule/rules/packs/search
  */
-export function searchPacks(params: {
-    keyword?: string;
-  }): Promise<RulePackVO[]> {
+export function searchPacks(params: { keyword?: string }): Promise<RulePackVO[]> {
   return requestClient.get<RulePackVO[]>(`/literule/rules/packs/search`, { params });
 }
 
 /**
  * getLatestPack: GET /literule/rules/packs/{packCode}/latest
  */
-export function getLatestPack({ packCode }: {
-    packCode: string;
-  }): Promise<RulePackVO> {
+export function getLatestPack({ packCode }: { packCode: string }): Promise<RulePackVO> {
   return requestClient.get<RulePackVO>(`/literule/rules/packs/${packCode}/latest`);
 }
 
 /**
  * listPackVersions: GET /literule/rules/packs/{packCode}/versions
  */
-export function listPackVersions({ packCode }: {
-    packCode: string;
-  }): Promise<RulePackVO[]> {
+export function listPackVersions({ packCode }: { packCode: string }): Promise<RulePackVO[]> {
   return requestClient.get<RulePackVO[]>(`/literule/rules/packs/${packCode}/versions`);
 }
 
 /**
  * getPackVersion: GET /literule/rules/packs/{packCode}/versions/{version}
  */
-export function getPackVersion({ packCode, version }: {
-    packCode: string;
-    version: string;
-  }): Promise<RulePackVO> {
+export function getPackVersion({
+  packCode,
+  version,
+}: {
+  packCode: string;
+  version: string;
+}): Promise<RulePackVO> {
   return requestClient.get<RulePackVO>(`/literule/rules/packs/${packCode}/versions/${version}`);
 }
 
 /**
  * rollbackPack: POST /literule/rules/packs/{packCode}/rollback
  */
-export function rollbackPack({ packCode }: {
+export function rollbackPack(
+  {
+    packCode,
+  }: {
     packCode: string;
-  }, params: {
+  },
+  params: {
     version?: string;
-  }): Promise<InstallResultVO> {
-  return requestClient.post<InstallResultVO>(`/literule/rules/packs/${packCode}/rollback`, { params });
+  },
+): Promise<InstallResultVO> {
+  return requestClient.post<InstallResultVO>(`/literule/rules/packs/${packCode}/rollback`, {
+    params,
+  });
 }
 
 /**
  * diffPack: GET /literule/rules/packs/{packCode}/diff
  */
-export function diffPack({ packCode }: {
+export function diffPack(
+  {
+    packCode,
+  }: {
     packCode: string;
-  }, params: {
+  },
+  params: {
     fromVersion?: string;
     toVersion?: string;
-  }): Promise<PackDiffVO> {
+  },
+): Promise<PackDiffVO> {
   return requestClient.get<PackDiffVO>(`/literule/rules/packs/${packCode}/diff`, { params });
 }
 
@@ -90,42 +99,57 @@ export function publishPack(data: RulePackVO): Promise<RulePackVO> {
 /**
  * installPack: POST /literule/rules/packs/{packCode}/install
  */
-export function installPack({ packCode }: {
+export function installPack(
+  {
+    packCode,
+  }: {
     packCode: string;
-  }, params: {
+  },
+  params: {
     version?: string;
-  }): Promise<InstallResultVO> {
-  return requestClient.post<InstallResultVO>(`/literule/rules/packs/${packCode}/install`, { params });
+  },
+): Promise<InstallResultVO> {
+  return requestClient.post<InstallResultVO>(`/literule/rules/packs/${packCode}/install`, {
+    params,
+  });
 }
 
 /**
  * deletePack: DELETE /literule/rules/packs/{id}
  */
-export function deletePack({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deletePack({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/literule/rules/packs/${id}`);
 }
 
 /**
  * markOfficialPack: PUT /literule/rules/packs/{id}/official
  */
-export function markOfficialPack({ id }: {
+export function markOfficialPack(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     official?: boolean;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.put<void>(`/literule/rules/packs/${id}/official`, { params });
 }
 
 /**
  * ratePack: PUT /literule/rules/packs/{id}/rate
  */
-export function ratePack({ id }: {
+export function ratePack(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     rating?: number;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.put<void>(`/literule/rules/packs/${id}/rate`, { params });
 }
 

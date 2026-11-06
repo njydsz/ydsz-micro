@@ -1,31 +1,33 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
-import { usePressedHold } from './utils'
-import { computed } from 'vue'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { injectNumberFieldRootContext } from './NumberFieldRoot.vue';
+import { usePressedHold } from './utils';
+import { computed } from 'vue';
 
 export interface NumberFieldIncrementProps extends PrimitiveProps {
-  disabled?: boolean
+  disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '../Primitive/index.ts'
+import { Primitive, usePrimitiveElement } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<NumberFieldIncrementProps>(), {
   as: 'button',
-})
+});
 
-const rootContext = injectNumberFieldRootContext()
-const isDisabled = computed(() => rootContext.disabled?.value || props.disabled || rootContext.isIncreaseDisabled.value)
+const rootContext = injectNumberFieldRootContext();
+const isDisabled = computed(
+  () => rootContext.disabled?.value || props.disabled || rootContext.isIncreaseDisabled.value,
+);
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
-const { isPressed, onTrigger } = usePressedHold({ target: currentElement, disabled: isDisabled })
+const { primitiveElement, currentElement } = usePrimitiveElement();
+const { isPressed, onTrigger } = usePressedHold({ target: currentElement, disabled: isDisabled });
 
 onTrigger(() => {
-  rootContext.handleIncrease()
-})
+  rootContext.handleIncrease();
+});
 </script>
 
 <template>

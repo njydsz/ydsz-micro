@@ -1,15 +1,15 @@
 <script setup lang="ts">
 /**
-* 仪表盘指标卡：单数值 + 可选趋势迷你图 + 变化率标签。
-* 
+ * 仪表盘指标卡：单数值 + 可选趋势迷你图 + 变化率标签。
+ *
  * 设计目标：
  *  - 对标 ForgeLab forge-admin 数据总览页；
  *  - 单数值突出展示（标题 / 值 / 变化率 / 底部迷你图）；
  *  - 变化率颜色语义：正向绿色、负向红色、平稳无色；
  *  - 可选图标槽位 + 迷你趋势线槽位。
-* 
+ *
  * 使用场景：各子应用首页仪表盘网格中的指标卡。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdStatCard.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -91,11 +91,16 @@ const variantIconBg: Record<NonNullable<Props['variant']>, string> = {
 
 <template>
   <div
-    :class="cn('rounded-xl border border-border-subtle bg-surface-2 p-4 transition-shadow hover:shadow-md', className)"
+    :class="
+      cn(
+        'border-border-subtle bg-surface-2 rounded-xl border p-4 transition-shadow hover:shadow-md',
+        className,
+      )
+    "
   >
     <!-- 头部：标题 + 图标 -->
     <div class="mb-3 flex items-start justify-between">
-      <h4 class="text-xs font-medium text-text-tertiary">{{ title }}</h4>
+      <h4 class="text-text-tertiary text-xs font-medium">{{ title }}</h4>
       <div
         v-if="$slots.icon"
         :class="cn('flex h-7 w-7 items-center justify-center rounded-lg', variantIconBg[variant])"
@@ -106,34 +111,20 @@ const variantIconBg: Record<NonNullable<Props['variant']>, string> = {
 
     <!-- 数值 -->
     <div class="mb-1 flex items-baseline gap-1">
-      <span class="text-2xl font-semibold text-text-primary">{{ displayValue }}</span>
+      <span class="text-text-primary text-2xl font-semibold">{{ displayValue }}</span>
     </div>
 
     <!-- 变化率 -->
-    <div
-      v-if="displayDelta"
-      class="mb-3 flex items-center gap-1"
-    >
-      <component
-        :is="TrendIcon"
-        v-if="TrendIcon"
-        :size="14"
-        :class="deltaColorClass"
-      />
+    <div v-if="displayDelta" class="mb-3 flex items-center gap-1">
+      <component :is="TrendIcon" v-if="TrendIcon" :size="14" :class="deltaColorClass" />
       <span :class="cn('text-xs font-medium', deltaColorClass)">{{ displayDelta }}</span>
-      <span
-        v-if="deltaLabel"
-        class="text-xs text-text-tertiary"
-      >
+      <span v-if="deltaLabel" class="text-text-tertiary text-xs">
         {{ deltaLabel }}
       </span>
     </div>
 
     <!-- 底部迷你图槽位 -->
-    <div
-      v-if="$slots.trend"
-      class="mt-2 h-10"
-    >
+    <div v-if="$slots.trend" class="mt-2 h-10">
       <slot name="trend" />
     </div>
   </div>

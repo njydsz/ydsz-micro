@@ -49,24 +49,21 @@ import {
   IFRAME_STYLE,
   type IframeRpcConfig,
   type IframeSandboxInstance,
-} from "./iframe-types";
-import { injectBridgeScript } from "./iframe-bridge";
-import { createIframeRpc } from "./iframe-rpc";
-import { createLogger } from "@ydsz-core/shared/utils";
+} from './iframe-types';
+import { injectBridgeScript } from './iframe-bridge';
+import { createIframeRpc } from './iframe-rpc';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 // 重新导出类型，保持向后兼容
-export type {
-  IframeSandboxInstance,
-  IframeRpcConfig,
-} from "./iframe-types";
+export type { IframeSandboxInstance, IframeRpcConfig } from './iframe-types';
 export type {
   BridgeMessage,
   BridgeMessageType,
   RpcCallPayload,
   RpcResultPayload,
-} from "./iframe-types";
+} from './iframe-types';
 
-const logger = createLogger("MicroKernel:IframeSandbox");
+const logger = createLogger('MicroKernel:IframeSandbox');
 
 /**
  * 创建 iframe 沙箱实例。
@@ -96,28 +93,25 @@ export function createIframeSandbox(
     timeout: rpcConfig?.timeout ?? DEFAULT_RPC_CONFIG.timeout,
     retry: {
       enabled: rpcConfig?.retry?.enabled ?? DEFAULT_RPC_CONFIG.retry.enabled,
-      maxRetries:
-        rpcConfig?.retry?.maxRetries ?? DEFAULT_RPC_CONFIG.retry.maxRetries,
-      baseDelay:
-        rpcConfig?.retry?.baseDelay ?? DEFAULT_RPC_CONFIG.retry.baseDelay,
-      isIdempotent:
-        rpcConfig?.retry?.isIdempotent ?? DEFAULT_RPC_CONFIG.retry.isIdempotent,
+      maxRetries: rpcConfig?.retry?.maxRetries ?? DEFAULT_RPC_CONFIG.retry.maxRetries,
+      baseDelay: rpcConfig?.retry?.baseDelay ?? DEFAULT_RPC_CONFIG.retry.baseDelay,
+      isIdempotent: rpcConfig?.retry?.isIdempotent ?? DEFAULT_RPC_CONFIG.retry.isIdempotent,
     },
   };
-  const iframe = document.createElement("iframe");
-  iframe.setAttribute("aria-label", `sub-app-${appName}`);
-  iframe.dataset.microSandbox = "iframe";
-  iframe.setAttribute("style", IFRAME_STYLE);
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('aria-label', `sub-app-${appName}`);
+  iframe.dataset.microSandbox = 'iframe';
+  iframe.setAttribute('style', IFRAME_STYLE);
 
   // P2-1: dev 模式下加载子应用 dev server，实现独立 realm 完整运行
   const isDevUrl = devUrl && import.meta.env.DEV;
   if (isDevUrl) {
-    iframe.setAttribute("src", devUrl);
-    iframe.dataset.iframeMode = "standalone-dev";
+    iframe.setAttribute('src', devUrl);
+    iframe.dataset.iframeMode = 'standalone-dev';
   } else {
     // 使用 about:blank 避免额外网络请求，文档立即可用
-    iframe.setAttribute("src", "about:blank");
-    iframe.dataset.iframeMode = "esm-hosted";
+    iframe.setAttribute('src', 'about:blank');
+    iframe.dataset.iframeMode = 'esm-hosted';
   }
 
   parentEl.append(iframe);
@@ -131,9 +125,7 @@ export function createIframeSandbox(
   if (!contentWindow) {
     // 极端情况下 iframe 未就绪，移除并回退
     iframe.remove();
-    throw new Error(
-      `[IframeSandbox:${appName}] Failed to access iframe contentWindow`,
-    );
+    throw new Error(`[IframeSandbox:${appName}] Failed to access iframe contentWindow`);
   }
 
   // P2-1: dev 模式下 iframe 已加载子应用完整 SPA，无需注入桥接脚本和创建容器
@@ -144,9 +136,7 @@ export function createIframeSandbox(
 
     if (!contentDocument) {
       iframe.remove();
-      throw new Error(
-        `[IframeSandbox:${appName}] Failed to access iframe contentDocument`,
-      );
+      throw new Error(`[IframeSandbox:${appName}] Failed to access iframe contentDocument`);
     }
 
     // 写入基础 HTML 结构，确保有 body 可用
@@ -160,7 +150,7 @@ export function createIframeSandbox(
     // 仅复制 <style> 和 <link> 中带 data-shared-style 标记的，避免全量复制
     try {
       const sharedStyles = document.querySelectorAll(
-        "style[data-shared-style], link[data-shared-style]",
+        'style[data-shared-style], link[data-shared-style]',
       );
       sharedStyles.forEach((node) => {
         contentDocument.head.append(node.cloneNode(true));
@@ -170,8 +160,8 @@ export function createIframeSandbox(
     }
 
     // 在 iframe body 内创建挂载容器
-    container = contentDocument.createElement("div");
-    container.setAttribute("id", "subapp-container");
+    container = contentDocument.createElement('div');
+    container.setAttribute('id', 'subapp-container');
     container.dataset.microApp = appName;
     contentDocument.body.append(container);
 
@@ -193,7 +183,7 @@ export function createIframeSandbox(
   });
 
   // 主侧监听 iframe 发来的消息（通过 postMessage 回传）
-  window.addEventListener("message", rpcBridge.onMessage);
+  window.addEventListener('message', rpcBridge.onMessage);
 
   let isActive = false;
   let cleaned = false;
@@ -225,7 +215,7 @@ export function createIframeSandbox(
       isActive = false;
 
       // v3.6.0: 移除主侧 message 监听器，避免内存泄漏
-      window.removeEventListener("message", rpcBridge.onMessage);
+      window.removeEventListener('message', rpcBridge.onMessage);
       // v3.6.1: 清理 RPC 子系统（含待响应请求 + childMessageHandlers）
       rpcBridge.cleanupRpc(appName);
 
@@ -233,7 +223,7 @@ export function createIframeSandbox(
       if (!isDevUrl) {
         // 清空 iframe 内容并移除
         try {
-          contentDocument?.write("");
+          contentDocument?.write('');
           contentDocument?.close();
         } catch {
           // 忽略清理异常
@@ -266,9 +256,7 @@ export function createIframeSandbox(
     },
 
     // v3.6.1: 注册主应用 API 供子应用调用
-    registerMainApi(
-      handlers: Record<string, (...args: unknown[]) => unknown>,
-    ): () => void {
+    registerMainApi(handlers: Record<string, (...args: unknown[]) => unknown>): () => void {
       return rpcBridge.registerMainApi(handlers);
     },
   };

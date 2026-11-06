@@ -22,11 +22,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <li
-    :class="cn('[&>svg]:size-3.5', props.class)"
-    aria-hidden="true"
-    role="presentation"
-  >
+  <li :class="cn('[&>svg]:size-3.5', props.class)" aria-hidden="true" role="presentation">
     <slot>
       <ChevronRight />
     </slot>

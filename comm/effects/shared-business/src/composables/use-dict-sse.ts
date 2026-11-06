@@ -184,9 +184,7 @@ function createDictSseConnection(): {
 
     reconnectTimer = setTimeout(() => {
       reconnectAttempts++;
-      logger.info(
-        `[SSE] Reconnecting (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`,
-      );
+      logger.info(`[SSE] Reconnecting (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
       void runStream();
     }, delay);
   }

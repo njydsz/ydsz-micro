@@ -118,9 +118,13 @@ defineExpose({
       @closed="removeItem(entry.id)"
     >
       <!-- 内容组件（命令式） -->
-      <component :is="entry.options.component" v-if="entry.options.component" v-bind="entry.options.props || {}" />
+      <component
+        :is="entry.options.component"
+        v-if="entry.options.component"
+        v-bind="entry.options.props || {}"
+      />
       <!-- 简单文本内容 -->
-      <p v-else-if="entry.options.content" class="text-sm text-text-secondary">
+      <p v-else-if="entry.options.content" class="text-text-secondary text-sm">
         {{ entry.options.content }}
       </p>
 

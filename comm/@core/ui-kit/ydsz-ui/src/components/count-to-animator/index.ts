@@ -6,4 +6,3 @@
  * @since 1.0.0
  */
 export { default as YdCountToAnimator } from './YdCountToAnimator.vue';
-

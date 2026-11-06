@@ -47,7 +47,9 @@ const quickChannelType = ref('');
 const quickChannelUserId = ref('');
 
 /** 验证状态标签类型 */
-function mapBadgeVariant(type: 'success' | 'warning' | 'info' | 'danger'): 'default' | 'outline' | 'secondary' | 'destructive' {
+function mapBadgeVariant(
+  type: 'success' | 'warning' | 'info' | 'danger',
+): 'default' | 'outline' | 'secondary' | 'destructive' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -100,11 +102,11 @@ const gridOptions: VxeTableGridOptions<MsgUserChannelVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-          h(
-            YdButton,
-            { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
-            () => '删除',
-          ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -183,16 +185,8 @@ async function handleDelete(row: MsgUserChannelVO): Promise<void> {
     <Grid table-title="渠道绑定管理">
       <template #toolbar-tools>
         <div class="flex items-center gap-3">
-          <YdInput
-            v-model="quickChannelType"
-            placeholder="渠道类型（如 EMAIL/SMS）"
-            class="w-44"
-          />
-          <YdInput
-            v-model="quickChannelUserId"
-            placeholder="渠道用户标识"
-            class="w-56"
-          />
+          <YdInput v-model="quickChannelType" placeholder="渠道类型（如 EMAIL/SMS）" class="w-44" />
+          <YdInput v-model="quickChannelUserId" placeholder="渠道用户标识" class="w-56" />
           <YdButton @click="handleQuickCreate">新增绑定</YdButton>
         </div>
       </template>

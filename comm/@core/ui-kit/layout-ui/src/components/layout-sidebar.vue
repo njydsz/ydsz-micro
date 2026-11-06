@@ -142,15 +142,8 @@ const asideRef = shallowRef<HTMLDivElement | null>();
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
 const style = computed((): CSSProperties => {
-  const {
-    isSidebarMixed,
-    marginTop,
-    paddingTop,
-    zIndex,
-    footerHeight,
-    footerEnable,
-    footerFixed,
-  } = props;
+  const { isSidebarMixed, marginTop, paddingTop, zIndex, footerHeight, footerEnable, footerFixed } =
+    props;
   return {
     '--scroll-shadow': 'var(--sidebar)',
     ...calcMenuWidthStyle(false),
@@ -172,8 +165,7 @@ const asideStyle = computed((): CSSProperties => {
   }
   return {
     ...style.value,
-    boxShadow:
-      '1px 0 0 0 hsl(var(--border-subtle)), var(--shadow-direction-right)',
+    boxShadow: '1px 0 0 0 hsl(var(--border-subtle)), var(--shadow-direction-right)',
   };
 });
 
@@ -350,21 +342,12 @@ function handleMouseleave() {
       v-model:collapsed="extraCollapse"
     />
 
-    <SidebarFixedButton
-      v-if="!extraCollapse"
-      v-model:expand-on-hover="expandOnHover"
-    />
+    <SidebarFixedButton v-if="!extraCollapse" v-model:expand-on-hover="expandOnHover" />
     <div v-if="!extraCollapse" :style="extraTitleStyle" class="pl-2">
       <slot name="extra-title"></slot>
     </div>
-    <YdScrollbar
-      :style="extraContentStyle"
-      class="border-border py-2"
-      shadow
-      shadow-border
-    >
+    <YdScrollbar :style="extraContentStyle" class="border-border py-2" shadow shadow-border>
       <slot name="extra"></slot>
     </YdScrollbar>
   </div>
 </template>
-

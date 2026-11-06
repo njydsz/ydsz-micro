@@ -46,5 +46,10 @@ export interface TransferEmits {
   /** targetKeys 变化回调 */
   (e: 'update:targetKeys', keys: (string | number)[]): void;
   /** 选项在面板间移动 */
-  (e: 'change', targetKeys: (string | number)[], direction: 'left' | 'right', moveKeys: (string | number)[]): void;
+  (
+    e: 'change',
+    targetKeys: (string | number)[],
+    direction: 'left' | 'right',
+    moveKeys: (string | number)[],
+  ): void;
 }

@@ -4,14 +4,14 @@ ydsz-common 包含 28 个子模块，按能力划分为 L1~L6 六个层级。依
 
 ## 层级总览
 
-| 层级 | 定位 | 数量 | 子模块清单 | 依赖约束 |
-|------|------|------|-----------|----------|
-| **L1 工具层** | 零外部依赖工具库 | 4 | `json` `util` `cache` `excel` | 禁止依赖业务模块/Spring/L3+ |
-| **L2 核心响应** | 统一响应/分页/TraceId | 1 | `core` | 仅依赖 L1 |
-| **L3 领域基类** | DDD 基类/异常体系 | 2 | `domain` `exception` | 仅依赖 L1-L2 |
-| **L4 数据基础** | 持久化增强 | 5 | `jdbc` `redis` `lock` `thread` `tenant` | 仅依赖 L1-L3 |
-| **L5 业务服务** | 安全/认证/消息/事务/可观测 | 15 | `auth` `safe` `feign` `audit` `notify` `queue` `event` `config` `socket` `netty` `file` `docs` `search` `sentry` `seata` | 可依赖 L1-L4 |
-| **L6 应用基座** | Web/App 启动基类 | 3 | `base` `app` `web` | 可依赖全部 |
+| 层级            | 定位                       | 数量 | 子模块清单                                                                                                               | 依赖约束                    |
+| --------------- | -------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| **L1 工具层**   | 零外部依赖工具库           | 4    | `json` `util` `cache` `excel`                                                                                            | 禁止依赖业务模块/Spring/L3+ |
+| **L2 核心响应** | 统一响应/分页/TraceId      | 1    | `core`                                                                                                                   | 仅依赖 L1                   |
+| **L3 领域基类** | DDD 基类/异常体系          | 2    | `domain` `exception`                                                                                                     | 仅依赖 L1-L2                |
+| **L4 数据基础** | 持久化增强                 | 5    | `jdbc` `redis` `lock` `thread` `tenant`                                                                                  | 仅依赖 L1-L3                |
+| **L5 业务服务** | 安全/认证/消息/事务/可观测 | 15   | `auth` `safe` `feign` `audit` `notify` `queue` `event` `config` `socket` `netty` `file` `docs` `search` `sentry` `seata` | 可依赖 L1-L4                |
+| **L6 应用基座** | Web/App 启动基类           | 3    | `base` `app` `web`                                                                                                       | 可依赖全部                  |
 
 ## 反向依赖判断方法
 
@@ -37,7 +37,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 ### 2. 禁止跨级反向依赖
 
-即使跨多层（如 L1 → L4）同样违规。依赖关系必须在 pom.xml 中显式声明（import 某模块的类则该模块必须出现在本模块 pom.xml 中）。
+即使跨多层（如 L1 →
+L4）同样违规。依赖关系必须在 pom.xml 中显式声明（import 某模块的类则该模块必须出现在本模块 pom.xml 中）。
 
 ### 3. 层级守护机制
 

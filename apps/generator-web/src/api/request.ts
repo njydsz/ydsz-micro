@@ -7,8 +7,4 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export {
-  baseRequestClient,
-  initSharedRequest,
-  requestClient,
-} from '@ydsz/shared-auth';
+export { baseRequestClient, initSharedRequest, requestClient } from '@ydsz/shared-auth';

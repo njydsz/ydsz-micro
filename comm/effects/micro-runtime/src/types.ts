@@ -17,12 +17,7 @@
  */
 
 // ===== 应用配置 =====
-export type {
-  ActiveRule,
-  MicroAppConfig,
-  MountProps,
-  SandboxType,
-} from "./types-app-config";
+export type { ActiveRule, MicroAppConfig, MountProps, SandboxType } from './types-app-config';
 
 // ===== 生命周期与注册表 =====
 export type {
@@ -34,7 +29,7 @@ export type {
   UnmountResult,
   RegistryAdapter,
   MicroAppEntry,
-} from "./types-lifecycle";
+} from './types-lifecycle';
 
 // ===== 运行时接口 =====
 export type {
@@ -42,9 +37,6 @@ export type {
   GlobalStateListener,
   RawGlobalStateAPI,
   VersionedState,
-} from "./global-state";
+} from './global-state';
 
-export type {
-  StartOptions,
-  MicroRuntime,
-} from "./types-runtime";
+export type { StartOptions, MicroRuntime } from './types-runtime';

@@ -1,63 +1,60 @@
 <script lang="ts">
 // @ts-nocheck
-import type {
-  DismissableLayerEmits,
-  DismissableLayerProps,
-} from '../DismissableLayer/index.ts'
-import { getActiveElement, useForwardExpose, useId } from '../shared/index.ts'
+import type { DismissableLayerEmits, DismissableLayerProps } from '../DismissableLayer/index.ts';
+import { getActiveElement, useForwardExpose, useId } from '../shared/index.ts';
 
 export type DialogContentImplEmits = DismissableLayerEmits & {
   /**
    * Event handler called when auto-focusing on open.
    * Can be prevented.
    */
-  openAutoFocus: [event: Event]
+  openAutoFocus: [event: Event];
   /**
    * Event handler called when auto-focusing on close.
    * Can be prevented.
    */
-  closeAutoFocus: [event: Event]
-}
+  closeAutoFocus: [event: Event];
+};
 
 export interface DialogContentImplProps extends DismissableLayerProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling transntion with Vue native transition or other animation libraries.
    */
-  forceMount?: boolean
+  forceMount?: boolean;
   /**
    * When `true`, focus cannot escape the `Content` via keyboard,
    * pointer, or a programmatic focus.
    * @defaultValue false
    */
-  trapFocus?: boolean
+  trapFocus?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { DismissableLayer } from '../DismissableLayer/index.ts'
-import { FocusScope } from '../FocusScope/index.ts'
-import { getOpenState } from '../Menu/utils.ts'
-import { useWarning } from './utils'
-import { onMounted } from 'vue'
+import { injectDialogRootContext } from './DialogRoot.vue';
+import { DismissableLayer } from '../DismissableLayer/index.ts';
+import { FocusScope } from '../FocusScope/index.ts';
+import { getOpenState } from '../Menu/utils.ts';
+import { useWarning } from './utils';
+import { onMounted } from 'vue';
 
-const props = defineProps<DialogContentImplProps>()
-const emits = defineEmits<DialogContentImplEmits>()
+const props = defineProps<DialogContentImplProps>();
+const emits = defineEmits<DialogContentImplEmits>();
 
-const rootContext = injectDialogRootContext()
-const { forwardRef, currentElement: contentElement } = useForwardExpose()
+const rootContext = injectDialogRootContext();
+const { forwardRef, currentElement: contentElement } = useForwardExpose();
 
-rootContext.titleId ||= useId(undefined, 'radix-vue-dialog-title')
-rootContext.descriptionId ||= useId(undefined, 'radix-vue-dialog-description')
+rootContext.titleId ||= useId(undefined, 'radix-vue-dialog-title');
+rootContext.descriptionId ||= useId(undefined, 'radix-vue-dialog-description');
 
 onMounted(() => {
-  rootContext.contentElement = contentElement
+  rootContext.contentElement = contentElement;
 
   // Preserve the `DialogTrigger` element in case it was triggered programmatically
   if (getActiveElement() !== document.body)
-    rootContext.triggerElement.value = getActiveElement() as HTMLElement
-})
+    rootContext.triggerElement.value = getActiveElement() as HTMLElement;
+});
 
 if (process.env.NODE_ENV !== 'production') {
   useWarning({
@@ -67,7 +64,7 @@ if (process.env.NODE_ENV !== 'production') {
     titleId: rootContext.titleId,
     descriptionId: rootContext.descriptionId,
     contentElement,
-  })
+  });
 }
 </script>
 

@@ -8,17 +8,17 @@
  * @since 1.0.0
  */
 
-export {
-  generateMockHandlers,
-  createMockHandler,
-  createCrudHandlers,
-} from './handlers';
+export { generateMockHandlers, createMockHandler, createCrudHandlers } from './handlers';
 export type { HandlerGeneratorOptions } from './handlers';
 export { createMockDataFactory } from './factory';
 export type { MockDataFactory } from './factory';
-export type { MockFactoryOptions, MockSchema, OpenAPISpec, OpenAPIPathItem, OpenAPIOperation, OpenAPIResponseContent } from './types';
+export type {
+  MockFactoryOptions,
+  MockSchema,
+  OpenAPISpec,
+  OpenAPIPathItem,
+  OpenAPIOperation,
+  OpenAPIResponseContent,
+} from './types';
 
-export {
-  setupMockServer,
-  closeMockWorker,
-} from './server';
+export { setupMockServer, closeMockWorker } from './server';

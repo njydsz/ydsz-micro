@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
-* SplitButton（分裂按钮）：主按钮 + 下拉箭头并排组合。
+ * SplitButton（分裂按钮）：主按钮 + 下拉箭头并排组合。
  *
  * 左侧主区域触发列表第一个 action；右侧小箭头展开 dropdown menu 供选择其他 action。
  * 点击任一 action 后自动收起 dropdown。disabled 状态下整体不可交互。

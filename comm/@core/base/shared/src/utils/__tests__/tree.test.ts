@@ -47,30 +47,19 @@ describe('traverseTreeValues', () => {
   });
 
   it('应深度优先提取所有节点 name 并过滤空字符串', () => {
-    const treeWithEmpty: TreeNode[] = [
-      { id: 1, name: '', children: [{ id: 2, name: 'valid' }] },
-    ];
+    const treeWithEmpty: TreeNode[] = [{ id: 1, name: '', children: [{ id: 2, name: 'valid' }] }];
     const names = traverseTreeValues(treeWithEmpty, (node) => node.name);
     expect(names).toEqual(['valid']);
   });
 
   it('应支持自定义子节点字段名', () => {
-    const customTree = [
-      { id: 1, name: 'a', items: [{ id: 2, name: 'b' }] },
-    ];
-    const ids = traverseTreeValues(
-      customTree,
-      (node) => node.id,
-      { childProps: 'items' },
-    );
+    const customTree = [{ id: 1, name: 'a', items: [{ id: 2, name: 'b' }] }];
+    const ids = traverseTreeValues(customTree, (node) => node.id, { childProps: 'items' });
     expect(ids).toEqual([1, 2]);
   });
 
   it('空数组输入应返回空数组', () => {
-    const result = traverseTreeValues<TreeNode, number>(
-      [],
-      (node) => node.id,
-    );
+    const result = traverseTreeValues<TreeNode, number>([], (node) => node.id);
     expect(result).toEqual([]);
     expect(result).toHaveLength(0);
   });
@@ -91,9 +80,7 @@ describe('filterTree', () => {
 
   it('父节点不匹配时整棵子树被丢弃', () => {
     // root-a (id=1) 和 root-b (id=5) 均不包含 "xyz"，整棵树被过滤为空
-    const filtered = filterTree(sampleTree, (node) =>
-      node.name.includes('xyz'),
-    );
+    const filtered = filterTree(sampleTree, (node) => node.name.includes('xyz'));
     expect(filtered).toEqual([]);
     expect(filtered).toHaveLength(0);
   });
@@ -109,11 +96,7 @@ describe('filterTree', () => {
         ],
       },
     ];
-    const filtered = filterTree(
-      customTree,
-      (node) => node.id !== 3,
-      { childProps: 'items' },
-    );
+    const filtered = filterTree(customTree, (node) => node.id !== 3, { childProps: 'items' });
     expect(filtered).toHaveLength(1);
     expect(filtered[0].items).toHaveLength(1);
     expect(filtered[0].items?.[0].name).toBe('keep');
@@ -139,9 +122,7 @@ describe('mapTree', () => {
     expect(mapped).toHaveLength(2);
     expect(mapped[0].label).toBe('[root-a]');
     expect(mapped[0].children?.[0].label).toBe('[child-a1]');
-    expect(mapped[0].children?.[1].children?.[0].label).toBe(
-      '[grand-a2-1]',
-    );
+    expect(mapped[0].children?.[1].children?.[0].label).toBe('[grand-a2-1]');
   });
 
   it('应支持类型转换（如去掉 children 字段）', () => {
@@ -154,14 +135,10 @@ describe('mapTree', () => {
   });
 
   it('应支持自定义子节点字段名的映射', () => {
-    const customTree = [
-      { id: 1, name: 'a', items: [{ id: 2, name: 'b' }] },
-    ];
-    const mapped = mapTree(
-      customTree,
-      (node) => ({ ...node, name: node.name.toUpperCase() }),
-      { childProps: 'items' },
-    );
+    const customTree = [{ id: 1, name: 'a', items: [{ id: 2, name: 'b' }] }];
+    const mapped = mapTree(customTree, (node) => ({ ...node, name: node.name.toUpperCase() }), {
+      childProps: 'items',
+    });
     expect(mapped[0].name).toBe('A');
     expect(mapped[0].items?.[0].name).toBe('B');
   });

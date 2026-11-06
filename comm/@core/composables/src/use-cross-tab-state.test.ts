@@ -34,25 +34,23 @@ const mockManagerInstances = new Map<string, MockManager>();
 function createMockManager(): MockManager {
   const manager: MockManager = {
     listeners: new Map(),
-    postMessage: vi.fn(
-      <P>(type: string, payload: P, options?: { echo?: boolean }) => {
-        const message: BroadcastMessage<P> = {
-          type,
-          payload,
-          origin: 'mock-origin-id',
-          v: 1,
-        };
-        // 本地派发 echo（模拟 BroadcastChannel + echo=true 行为）
-        if (options?.echo !== false) {
-          const set = manager.listeners.get(type);
-          if (set) {
-            for (const listener of Array.from(set)) {
-              listener(message as BroadcastMessage<unknown>);
-            }
+    postMessage: vi.fn(<P>(type: string, payload: P, options?: { echo?: boolean }) => {
+      const message: BroadcastMessage<P> = {
+        type,
+        payload,
+        origin: 'mock-origin-id',
+        v: 1,
+      };
+      // 本地派发 echo（模拟 BroadcastChannel + echo=true 行为）
+      if (options?.echo !== false) {
+        const set = manager.listeners.get(type);
+        if (set) {
+          for (const listener of Array.from(set)) {
+            listener(message as BroadcastMessage<unknown>);
           }
         }
-      },
-    ),
+      }
+    }),
     on: vi.fn(<T>(type: string, listener: BroadcastListener<T>) => {
       let set = manager.listeners.get(type);
       if (!set) {
@@ -74,9 +72,7 @@ function createMockManager(): MockManager {
 }
 
 vi.mock('@ydsz-core/shared/cache', async () => {
-  const actual = await vi.importActual<typeof import('@ydsz-core/shared/cache')>(
-    '@ydsz-core/shared/cache',
-  );
+  const actual = await vi.importActual('@ydsz-core/shared/cache');
   return {
     ...actual,
     BroadcastChannelManager: vi.fn((_options: { channelName: string; echo?: boolean }) => {
@@ -88,9 +84,8 @@ vi.mock('@ydsz-core/shared/cache', async () => {
   };
 });
 
-const { useCrossTabState, useCrossTabEvent, broadcastCrossTabEvent } = await import(
-  './use-cross-tab-state'
-);
+const { useCrossTabState, useCrossTabEvent, broadcastCrossTabEvent } =
+  await import('./use-cross-tab-state');
 
 describe('useCrossTabState', () => {
   beforeEach(() => {

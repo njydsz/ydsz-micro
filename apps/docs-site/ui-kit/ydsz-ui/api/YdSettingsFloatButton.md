@@ -6,7 +6,7 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `action` | `key: string` | - |
-| `toggle-theme` | `void` | - |
+| 事件           | 参数          | 说明 |
+| -------------- | ------------- | ---- |
+| `action`       | `key: string` | -    |
+| `toggle-theme` | `void`        | -    |

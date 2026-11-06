@@ -27,10 +27,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('RenderPerf');
 
 /** 全局组件渲染统计缓存 */
-const perfRegistry = new Map<
-  string,
-  { count: number; lastWarnAt: number; totalMs: number }
->();
+const perfRegistry = new Map<string, { count: number; lastWarnAt: number; totalMs: number }>();
 
 export interface UseRenderPerformanceOptions {
   /** 自定义日志命名空间（默认使用 componentName） */

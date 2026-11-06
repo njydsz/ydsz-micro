@@ -56,8 +56,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
 ```yaml
 cors:
   allowed-origins:
-    - "http://localhost:5173"
-  allowed-methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
-  allowed-headers: ["*"]
+    - 'http://localhost:5173'
+  allowed-methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+  allowed-headers: ['*']
   allow-credentials: true
 ```

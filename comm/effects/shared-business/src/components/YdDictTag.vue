@@ -38,13 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const dictStore = useDictStore();
 
-const colorPalette: EpColor[] = [
-  'primary',
-  'success',
-  'info',
-  'warning',
-  'danger',
-];
+const colorPalette: EpColor[] = ['primary', 'success', 'info', 'warning', 'danger'];
 
 /** EP color -> shadcn YdBadge variant 兼容映射 */
 function colorToVariant(color?: EpColor): 'default' | 'outline' | 'secondary' | 'destructive' {
@@ -72,9 +66,7 @@ const tagVariant = computed(() => {
     return 'secondary';
   }
   // 按字典项排序位置轮询取色，保证同一值颜色稳定
-  const idx = items.value.findIndex(
-    (item) => String(item.itemValue) === String(props.value),
-  );
+  const idx = items.value.findIndex((item) => String(item.itemValue) === String(props.value));
   const color = colorPalette[idx % colorPalette.length] ?? 'info';
   return colorToVariant(color);
 });
@@ -93,18 +85,10 @@ watch(
 </script>
 
 <template>
-  <YdBadge
-    v-if="current"
-    :variant="tagVariant"
-  >
+  <YdBadge v-if="current" :variant="tagVariant">
     {{ current.itemText }}
   </YdBadge>
-  <span
-    v-else
-    class="dict-tag--empty"
-  >
-    -
-  </span>
+  <span v-else class="dict-tag--empty"> - </span>
 </template>
 
 <style scoped>

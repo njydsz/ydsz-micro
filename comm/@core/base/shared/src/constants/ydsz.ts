@@ -19,8 +19,7 @@ export const YDSZ_DOC_URL = 'https://docs.YDSZ.com.cn';
 /**
  * @zh_CN YDSZ Logo
  */
-export const YDSZ_LOGO_URL =
-  'https://unpkg.com/@ydsz/static-source@0.1.7/source/logo-v1.webp';
+export const YDSZ_LOGO_URL = 'https://unpkg.com/@ydsz/static-source@0.1.7/source/logo-v1.webp';
 
 /**
  * @zh_CN YDSZ Admin 首页地址

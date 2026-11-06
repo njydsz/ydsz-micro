@@ -1,22 +1,22 @@
 <script setup lang="ts">
 /**
-* 高级筛选工具栏：仿 ForgeLab forge-admin 组合筛选 Chip。
-* 
+ * 高级筛选工具栏：仿 ForgeLab forge-admin 组合筛选 Chip。
+ *
  * 设计目标：
  *  - 已选筛选条件以可删除 Chip 形式横向展示，一目了然；
  *  - 点击 Chip × 移除单个筛选条件，一键清空全部；
  *  - 窄屏自动折叠为「+N 个筛选」按钮，点击展开完整 Chip 列表；
  *  - 内置搜索框 + 通道/状态下拉筛选插槽（可按需扩展）。
-* 
+ *
  * 交互：
  *  - Chip 与 v-model:filters 双向绑定；
  *  - 每个 Chip 可单独删除；
  *  - 超出容器折行时自动收缩。
-* 
+ *
  * 无障碍：
  *  - Chip 按钮带 aria-label 说明移除含义；
  *  - 筛选工具栏整体使用 role="toolbar"。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\advanced-filter\YdAdvancedFilterBar.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -98,22 +98,21 @@ function handleSearchInput(event: Event): void {
 
 <template>
   <div
-    :class="cn('flex flex-wrap items-center gap-2 rounded-xl border border-border-subtle bg-surface-2 p-3', className)"
+    :class="
+      cn(
+        'border-border-subtle bg-surface-2 flex flex-wrap items-center gap-2 rounded-xl border p-3',
+        className,
+      )
+    "
     role="toolbar"
     :aria-label="t('advancedFilter.toolbarAriaLabel')"
   >
     <!-- 搜索框 -->
-    <div
-      v-if="showSearch"
-      class="relative flex-shrink-0"
-    >
-      <Search
-        :size="14"
-        class="absolute start-2.5 top-1/2 -translate-y-1/2 text-text-tertiary"
-      />
+    <div v-if="showSearch" class="relative flex-shrink-0">
+      <Search :size="14" class="text-text-tertiary absolute start-2.5 top-1/2 -translate-y-1/2" />
       <input
         :value="searchQuery"
-        class="h-8 w-44 rounded-lg border border-border-subtle bg-accent/50 ps-8 text-xs text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none"
+        class="border-border-subtle bg-accent/50 text-text-primary placeholder:text-text-tertiary focus:border-primary h-8 w-44 rounded-lg border ps-8 text-xs focus:outline-none"
         :placeholder="resolvedSearchPlaceholder"
         type="text"
         @input="handleSearchInput"
@@ -121,34 +120,27 @@ function handleSearchInput(event: Event): void {
     </div>
 
     <!-- 分隔线 -->
-    <div
-      v-if="showSearch && hasFilters"
-      class="h-5 w-px bg-border-subtle"
-    />
+    <div v-if="showSearch && hasFilters" class="bg-border-subtle h-5 w-px" />
 
     <!-- 筛选 Chip 列表 -->
     <div class="flex flex-1 flex-wrap items-center gap-1.5">
       <button
         v-for="filter in filters"
         :key="`${filter.field}-${filter.value}`"
-        class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+        class="bg-primary/10 text-primary hover:bg-primary/20 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-colors"
         type="button"
         :aria-label="t('advancedFilter.removeFilter', { label: filter.label, value: filter.value })"
         @click="handleRemoveFilter(filter)"
       >
         <span class="text-primary/50">{{ filter.label }}:</span>
         <span>{{ filter.value }}</span>
-        <X
-          :size="12"
-          class="ms-0.5 text-primary/50 hover:text-primary"
-          aria-hidden="true"
-        />
+        <X :size="12" class="text-primary/50 hover:text-primary ms-0.5" aria-hidden="true" />
       </button>
 
       <!-- 当有筛选时显示「清空全部」 -->
       <button
         v-if="hasFilters"
-        class="ms-1 rounded-md px-2 py-0.5 text-xs text-text-tertiary transition-colors hover:bg-accent hover:text-text-secondary"
+        class="text-text-tertiary hover:bg-accent hover:text-text-secondary ms-1 rounded-md px-2 py-0.5 text-xs transition-colors"
         type="button"
         @click="handleClearAll"
       >

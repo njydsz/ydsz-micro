@@ -35,9 +35,7 @@ export function statsByType(): Promise<Record<string, Record<string, unknown>>> 
 /**
  * topLargeFiles: GET /nextwiki/analysis/top-large-files
  */
-export function topLargeFiles(params: {
-    limit?: number;
-  }): Promise<FileNodeVO[]> {
+export function topLargeFiles(params: { limit?: number }): Promise<FileNodeVO[]> {
   return requestClient.get<FileNodeVO[]>(`/nextwiki/analysis/top-large-files`, { params });
 }
 

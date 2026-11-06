@@ -39,15 +39,15 @@
  */
 export enum SkeletonType {
   /** 仪表盘型骨架屏（数据看板、图表页等） */
-  DASHBOARD = "dashboard",
+  DASHBOARD = 'dashboard',
   /** 默认回退骨架屏（通用 loading 样式） */
-  DEFAULT = "default",
+  DEFAULT = 'default',
   /** 详情型骨架屏（只读展示页、profile 等） */
-  DETAIL = "detail",
+  DETAIL = 'detail',
   /** 表单型骨架屏（新增/编辑页、搜索表单等） */
-  FORM = "form",
+  FORM = 'form',
   /** 列表型骨架屏（表格、卡片列表、索引页等） */
-  LIST = "list",
+  LIST = 'list',
 }
 
 /**
@@ -151,7 +151,7 @@ export function resolveSkeletonType(
     }
 
     // 2. 正则匹配（以 ^ 开头视为正则）
-    if (rule.path.startsWith("^")) {
+    if (rule.path.startsWith('^')) {
       try {
         const regex = new RegExp(rule.path);
         if (regex.test(currentPath)) {
@@ -200,14 +200,9 @@ export function mergeSkeletonConfig(
 
   return {
     rules: [...ruleMap.values()],
-    defaultType:
-      override.defaultType ??
-      base.defaultType ??
-      DEFAULT_SKELETON_CONFIG.defaultType,
-    enabled:
-      override.enabled ?? base.enabled ?? DEFAULT_SKELETON_CONFIG.enabled,
-    timeoutMs:
-      override.timeoutMs ?? base.timeoutMs ?? DEFAULT_SKELETON_CONFIG.timeoutMs,
+    defaultType: override.defaultType ?? base.defaultType ?? DEFAULT_SKELETON_CONFIG.defaultType,
+    enabled: override.enabled ?? base.enabled ?? DEFAULT_SKELETON_CONFIG.enabled,
+    timeoutMs: override.timeoutMs ?? base.timeoutMs ?? DEFAULT_SKELETON_CONFIG.timeoutMs,
   };
 }
 

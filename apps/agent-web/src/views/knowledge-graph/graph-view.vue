@@ -14,7 +14,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { YdAlert, YdButton, YdTag } from '@ydsz-core/ydsz-ui';
 import { useI18n } from '@ydsz/locales';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
@@ -76,10 +76,31 @@ function getNodeColor(type?: string | null): string {
 
 const containerRef = ref<HTMLDivElement | null>(null);
 const g6Available = shallowRef<boolean>(false);
-const g6Lib = shallowRef<{ Graph: new (opts: unknown) => { setData: (d: unknown) => void; render: () => void; destroy: () => void; getCanvas: () => { get: (k: string) => number }; zoomTo: (ratio: number) => void; fitView: () => void } } | null>(null);
+const g6Lib = shallowRef<{
+  Graph: new (opts: unknown) => {
+    setData: (d: unknown) => void;
+    render: () => void;
+    destroy: () => void;
+    getCanvas: () => { get: (k: string) => number };
+    zoomTo: (ratio: number) => void;
+    fitView: () => void;
+  };
+} | null>(null);
 
 // SVG 回退方案状态
-const svgNodes = ref<Array<{ id: string; x: number; y: number; vx: number; vy: number; name: string; type: string | null; color: string; radius: number }>>([]);
+const svgNodes = ref<
+  Array<{
+    id: string;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    name: string;
+    type: string | null;
+    color: string;
+    radius: number;
+  }>
+>([]);
 const svgEdges = ref<Array<{ source: string; target: string; label: string }>>([]);
 const svgZoom = ref<number>(1);
 const svgPan = ref<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -213,7 +234,7 @@ function initSvgForceLayout(): void {
 
 /**
  * 简单的力导向迭代
-*/
+ */
 function runForceIterations(iterations: number): void {
   const nodeMap = new Map<string, (typeof svgNodes.value)[number]>();
   svgNodes.value.forEach((n) => nodeMap.set(n.id, n));
@@ -377,38 +398,23 @@ watch(
           {{ graphSummary.edgeCount }} {{ t('knowledgeGraph.graph.edgeCount') || '关系' }}
         </YdTag>
         <YdTag size="sm" :variant="graphSummary.g6Mode ? 'success' : 'warning'">
-          {{ graphSummary.g6Mode ? 'G6' : t('knowledgeGraph.graph.svgMode') || 'SVG' }} {{ t('knowledgeGraph.graph.engine') || '引擎' }}
+          {{ graphSummary.g6Mode ? 'G6' : t('knowledgeGraph.graph.svgMode') || 'SVG' }}
+          {{ t('knowledgeGraph.graph.engine') || '引擎' }}
         </YdTag>
       </div>
       <div class="flex items-center gap-2">
-        <YdButton
-          v-if="!graphSummary.g6Mode"
-          size="sm"
-          @click="handleZoomIn"
-        >
+        <YdButton v-if="!graphSummary.g6Mode" size="sm" @click="handleZoomIn">
           <ZoomIn :size="14" />
           {{ t('common.zoomIn') || '放大' }}
         </YdButton>
-        <YdButton
-          v-if="!graphSummary.g6Mode"
-          size="sm"
-          @click="handleZoomOut"
-        >
+        <YdButton v-if="!graphSummary.g6Mode" size="sm" @click="handleZoomOut">
           <ZoomOut :size="14" />
           {{ t('common.zoomOut') || '缩小' }}
         </YdButton>
-        <YdButton
-          v-if="!graphSummary.g6Mode"
-          size="sm"
-          @click="handleResetZoom"
-        >
+        <YdButton v-if="!graphSummary.g6Mode" size="sm" @click="handleResetZoom">
           {{ t('common.reset') || '重置' }}
         </YdButton>
-        <YdButton
-          size="sm"
-          :loading="loading"
-          @click="emit('refresh')"
-        >
+        <YdButton size="sm" :loading="loading" @click="emit('refresh')">
           <RefreshCw v-if="!loading" :size="14" />
           {{ t('common.refresh') || '刷新' }}
         </YdButton>
@@ -416,18 +422,13 @@ watch(
     </div>
 
     <!-- 错误提示 -->
-    <YdAlert
-      v-if="error"
-      :title="error"
-      type="error"
-      :closable="false"
-    />
+    <YdAlert v-if="error" :title="error" type="error" :closable="false" />
 
     <!-- 图形容器 -->
     <div
       ref="containerRef"
       class="relative overflow-hidden rounded-lg border border-gray-200 bg-white"
-      style="height: 500px;"
+      style="height: 500px"
     >
       <!-- G6 模式下内容由库直接渲染到 containerRef -->
       <!-- SVG 回退模式 -->
@@ -443,10 +444,10 @@ watch(
             <line
               v-for="(edge, idx) in svgEdges"
               :key="'e-' + idx"
-              :x1="svgNodes.find(n => n.id === edge.source)?.x ?? 0"
-              :y1="svgNodes.find(n => n.id === edge.source)?.y ?? 0"
-              :x2="svgNodes.find(n => n.id === edge.target)?.x ?? 0"
-              :y2="svgNodes.find(n => n.id === edge.target)?.y ?? 0"
+              :x1="svgNodes.find((n) => n.id === edge.source)?.x ?? 0"
+              :y1="svgNodes.find((n) => n.id === edge.source)?.y ?? 0"
+              :x2="svgNodes.find((n) => n.id === edge.target)?.x ?? 0"
+              :y2="svgNodes.find((n) => n.id === edge.target)?.y ?? 0"
               stroke="#94a3b8"
               stroke-width="1.5"
               :marker-end="'url(#arrowhead)'"
@@ -462,10 +463,7 @@ watch(
               refY="3.5"
               orient="auto"
             >
-              <polygon
-                points="0 0, 10 3.5, 0 7"
-                fill="#94a3b8"
-              />
+              <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
             </marker>
           </defs>
           <!-- 节点 -->
@@ -514,11 +512,8 @@ watch(
         :key="type"
         class="flex items-center gap-1.5 text-xs text-gray-600"
       >
-        <span
-          class="inline-block h-3 w-3 rounded-full"
-          :style="{ backgroundColor: color }"
-        />
-        {{ type === 'default' ? (t('knowledgeGraph.graph.otherType') || '其他') : type }}
+        <span class="inline-block h-3 w-3 rounded-full" :style="{ backgroundColor: color }" />
+        {{ type === 'default' ? t('knowledgeGraph.graph.otherType') || '其他' : type }}
       </div>
     </div>
   </div>

@@ -33,8 +33,24 @@ withDefaults(defineProps<Props>(), {
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="12" y="20" width="40" height="30" rx="4" fill="#e4e7ed" />
-      <line x1="20" y1="30" x2="44" y2="30" stroke="#a8abb2" stroke-width="2" stroke-linecap="round" />
-      <line x1="20" y1="38" x2="38" y2="38" stroke="#a8abb2" stroke-width="2" stroke-linecap="round" />
+      <line
+        x1="20"
+        y1="30"
+        x2="44"
+        y2="30"
+        stroke="#a8abb2"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <line
+        x1="20"
+        y1="38"
+        x2="38"
+        y2="38"
+        stroke="#a8abb2"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
     </svg>
     <p class="empty-state__text">{{ text ?? $t('ui.commonAction.empty') }}</p>
     <div v-if="$slots.default" class="empty-state__action">

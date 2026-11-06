@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* 行容器：支持 hover 高亮与 selected 态，实现选中行持久视觉反馈。
-* 
+ * 行容器：支持 hover 高亮与 selected 态，实现选中行持久视觉反馈。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableRow.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -23,7 +23,7 @@ withDefaults(defineProps<Props>(), { selected: false });
   <tr
     :class="
       cn(
-        'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+        'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
         selected && 'bg-muted',
         $props.class ?? '',
       )

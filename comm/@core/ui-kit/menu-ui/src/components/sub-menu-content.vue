@@ -50,9 +50,7 @@ const isFirstLevel = computed(() => {
 });
 
 const getCollapseShowTitle = computed(() => {
-  return (
-    rootMenu.props.collapseShowTitle && isFirstLevel.value && collapse.value
-  );
+  return rootMenu.props.collapseShowTitle && isFirstLevel.value && collapse.value;
 });
 
 const mode = computed(() => {
@@ -65,10 +63,7 @@ const showArrowIcon = computed(() => {
 
 const hiddenTitle = computed(() => {
   return (
-    mode.value === 'vertical' &&
-    isFirstLevel.value &&
-    collapse.value &&
-    !getCollapseShowTitle.value
+    mode.value === 'vertical' && isFirstLevel.value && collapse.value && !getCollapseShowTitle.value
   );
 });
 
@@ -84,21 +79,10 @@ const iconArrowStyle = computed(() => {
 });
 </script>
 <template>
-  <div
-    :class="[
-      b(),
-      is('collapse-show-title', getCollapseShowTitle),
-      is('more', isMenuMore),
-    ]"
-  >
+  <div :class="[b(), is('collapse-show-title', getCollapseShowTitle), is('more', isMenuMore)]">
     <slot></slot>
 
-    <YdIcon
-      v-if="!isMenuMore"
-      :class="nsMenu.e('icon')"
-      :icon="icon"
-      fallback
-    />
+    <YdIcon v-if="!isMenuMore" :class="nsMenu.e('icon')" :icon="icon" fallback />
 
     <div v-if="!hiddenTitle" :class="[e('title')]">
       <slot name="title"></slot>

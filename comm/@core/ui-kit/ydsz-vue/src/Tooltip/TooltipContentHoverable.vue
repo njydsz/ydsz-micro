@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipContentImpl.vue'
-import { injectTooltipRootContext } from './TooltipRoot.vue'
-import { injectTooltipProviderContext } from './TooltipProvider.vue'
-import { useForwardExpose, useForwardProps, useGraceArea } from '../shared/index.ts'
+import TooltipContentImpl, { type TooltipContentImplProps } from './TooltipContentImpl.vue';
+import { injectTooltipRootContext } from './TooltipRoot.vue';
+import { injectTooltipProviderContext } from './TooltipProvider.vue';
+import { useForwardExpose, useForwardProps, useGraceArea } from '../shared/index.ts';
 
-const props = defineProps<TooltipContentImplProps>()
-const forwardedProps = useForwardProps(props)
-const { forwardRef, currentElement } = useForwardExpose()
+const props = defineProps<TooltipContentImplProps>();
+const forwardedProps = useForwardProps(props);
+const { forwardRef, currentElement } = useForwardExpose();
 
-const { trigger, onClose } = injectTooltipRootContext()
-const providerContext = injectTooltipProviderContext()
+const { trigger, onClose } = injectTooltipRootContext();
+const providerContext = injectTooltipProviderContext();
 
-const { isPointerInTransit, onPointerExit } = useGraceArea(trigger, currentElement)
+const { isPointerInTransit, onPointerExit } = useGraceArea(trigger, currentElement);
 
-providerContext.isPointerInTransitRef = isPointerInTransit
+providerContext.isPointerInTransitRef = isPointerInTransit;
 onPointerExit(() => {
-  onClose()
-})
+  onClose();
+});
 </script>
 
 <template>
-  <TooltipContentImpl
-    :ref="forwardRef"
-    v-bind="forwardedProps"
-  >
+  <TooltipContentImpl :ref="forwardRef" v-bind="forwardedProps">
     <slot />
   </TooltipContentImpl>
 </template>

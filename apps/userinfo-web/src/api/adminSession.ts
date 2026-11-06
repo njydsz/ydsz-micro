@@ -11,51 +11,58 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { BanInfoVO, UserBanRequestDTO, UserSessionStatisticsVO, UserSessionVO } from './models';
+import type {
+  BanInfoVO,
+  UserBanRequestDTO,
+  UserSessionStatisticsVO,
+  UserSessionVO,
+} from './models';
 
 /**
  * banUser: POST /admin/users/{userId}/ban
  */
-export function banUser({ userId }: {
+export function banUser(
+  {
+    userId,
+  }: {
     userId: string;
-  }, data: UserBanRequestDTO): Promise<boolean> {
+  },
+  data: UserBanRequestDTO,
+): Promise<boolean> {
   return requestClient.post<boolean>(`/admin/users/${userId}/ban`, data);
 }
 
 /**
  * unbanUser: POST /admin/users/{userId}/unban
  */
-export function unbanUser({ userId }: {
-    userId: string;
-  }): Promise<boolean> {
+export function unbanUser({ userId }: { userId: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/admin/users/${userId}/unban`);
 }
 
 /**
  * getBanInfo: GET /admin/users/{userId}/ban-info
  */
-export function getBanInfo({ userId }: {
-    userId: string;
-  }): Promise<BanInfoVO> {
+export function getBanInfo({ userId }: { userId: string }): Promise<BanInfoVO> {
   return requestClient.get<BanInfoVO>(`/admin/users/${userId}/ban-info`);
 }
 
 /**
  * getUserSessions: GET /admin/users/{userId}/sessions
  */
-export function getUserSessions({ userId }: {
-    userId: string;
-  }): Promise<UserSessionVO[]> {
+export function getUserSessions({ userId }: { userId: string }): Promise<UserSessionVO[]> {
   return requestClient.get<UserSessionVO[]>(`/admin/users/${userId}/sessions`);
 }
 
 /**
  * forceLogout: DELETE /admin/users/{userId}/sessions/{accessToken}
  */
-export function forceLogout({ userId, accessToken }: {
-    userId: string;
-    accessToken: string;
-  }): Promise<boolean> {
+export function forceLogout({
+  userId,
+  accessToken,
+}: {
+  userId: string;
+  accessToken: string;
+}): Promise<boolean> {
   return requestClient.delete<boolean>(`/admin/users/${userId}/sessions/${accessToken}`);
 }
 
@@ -63,9 +70,9 @@ export function forceLogout({ userId, accessToken }: {
  * getAllActiveSessions: GET /admin/sessions
  */
 export function getAllActiveSessions(params: {
-    page?: number;
-    size?: number;
-  }): Promise<UserSessionVO[]> {
+  page?: number;
+  size?: number;
+}): Promise<UserSessionVO[]> {
   return requestClient.get<UserSessionVO[]>(`/admin/sessions`, { params });
 }
 

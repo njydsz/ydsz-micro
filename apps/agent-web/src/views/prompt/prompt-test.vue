@@ -14,8 +14,17 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { evaluate } from '#/api/prompt';
@@ -99,7 +108,14 @@ defineExpose({ open, close });
 </script>
 
 <template>
-  <YdDialog :open="visible" @update:open="(v) => { if (!v) close(); }">
+  <YdDialog
+    :open="visible"
+    @update:open="
+      (v) => {
+        if (!v) close();
+      }
+    "
+  >
     <YdDialogContent class="max-w-[700px]">
       <YdDialogHeader>
         <YdDialogTitle>Prompt 模板测试</YdDialogTitle>
@@ -108,25 +124,37 @@ defineExpose({ open, close });
         <!-- 变量填写 -->
         <div>
           <p class="mb-2 text-sm font-medium">变量填写</p>
-          <div v-for="(value, key) in variableValues" :key="key" class="mb-2 flex items-center gap-2">
-            <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{ `${prefix}${key}${suffix}` }}</span>
+          <div
+            v-for="(value, key) in variableValues"
+            :key="key"
+            class="mb-2 flex items-center gap-2"
+          >
+            <span class="w-32 shrink-0 text-right text-xs text-gray-500">{{
+              `${prefix}${key}${suffix}`
+            }}</span>
             <YdInput v-model="variableValues[key]" size="sm" placeholder="输入变量值" />
           </div>
-          <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">该模板没有变量</p>
+          <p v-if="Object.keys(variableValues).length === 0" class="text-xs text-gray-400">
+            该模板没有变量
+          </p>
         </div>
 
-      <!-- 渲染结果 -->
-      <div>
-        <p class="mb-2 text-sm font-medium">渲染结果预览</p>
-        <pre class="max-h-64 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs">{{ renderedPrompt }}</pre>
-      </div>
+        <!-- 渲染结果 -->
+        <div>
+          <p class="mb-2 text-sm font-medium">渲染结果预览</p>
+          <pre
+            class="max-h-64 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs"
+            >{{ renderedPrompt }}</pre>
+        </div>
 
-      <!-- 评估结果 -->
-      <div v-if="evaluateResult !== null">
-        <p class="mb-2 text-sm font-medium">评估结果</p>
-        <pre class="max-h-48 overflow-auto whitespace-pre-wrap rounded border bg-blue-50 p-3 text-xs">{{ JSON.stringify(evaluateResult, null, 2) }}</pre>
+        <!-- 评估结果 -->
+        <div v-if="evaluateResult !== null">
+          <p class="mb-2 text-sm font-medium">评估结果</p>
+          <pre
+            class="max-h-48 overflow-auto whitespace-pre-wrap rounded border bg-blue-50 p-3 text-xs"
+            >{{ JSON.stringify(evaluateResult, null, 2) }}</pre>
+        </div>
       </div>
-    </div>
 
       <YdDialogFooter>
         <YdButton variant="outline" @click="close">关闭</YdButton>

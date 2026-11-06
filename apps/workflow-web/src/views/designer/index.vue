@@ -28,7 +28,6 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-;
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DesignerCanvas from './components/DesignerCanvas.vue';

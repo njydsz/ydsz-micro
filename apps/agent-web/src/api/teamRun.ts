@@ -25,36 +25,35 @@ export function createTeamRun(data: Record<string, unknown>): Promise<TeamRun> {
 /**
  * addMember: POST /agent/teamruns/{teamRunId}/members
  */
-export function addMember({ teamRunId }: {
+export function addMember(
+  {
+    teamRunId,
+  }: {
     teamRunId: string;
-  }, data: Record<string, unknown>): Promise<TeamRun> {
+  },
+  data: Record<string, unknown>,
+): Promise<TeamRun> {
   return requestClient.post<TeamRun>(`/agent/teamruns/${teamRunId}/members`, data);
 }
 
 /**
  * startTeamRun: POST /agent/teamruns/{teamRunId}/start
  */
-export function startTeamRun({ teamRunId }: {
-    teamRunId: string;
-  }): Promise<TeamRun> {
+export function startTeamRun({ teamRunId }: { teamRunId: string }): Promise<TeamRun> {
   return requestClient.post<TeamRun>(`/agent/teamruns/${teamRunId}/start`);
 }
 
 /**
  * cancelTeamRun: POST /agent/teamruns/{teamRunId}/cancel
  */
-export function cancelTeamRun({ teamRunId }: {
-    teamRunId: string;
-  }): Promise<TeamRun> {
+export function cancelTeamRun({ teamRunId }: { teamRunId: string }): Promise<TeamRun> {
   return requestClient.post<TeamRun>(`/agent/teamruns/${teamRunId}/cancel`);
 }
 
 /**
  * getTeamRun: GET /agent/teamruns/{teamRunId}
  */
-export function getTeamRun({ teamRunId }: {
-    teamRunId: string;
-  }): Promise<TeamRun> {
+export function getTeamRun({ teamRunId }: { teamRunId: string }): Promise<TeamRun> {
   return requestClient.get<TeamRun>(`/agent/teamruns/${teamRunId}`);
 }
 

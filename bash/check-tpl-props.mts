@@ -28,14 +28,7 @@
  * @since 4.6.0
  */
 
-import {
-  existsSync,
-  mkdtempSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, resolve, sep } from 'node:path';
 
@@ -203,7 +196,10 @@ function selfTest(): void {
     }
     const hits = scan(root);
     const rendered = hits.map((h) => `${h.file}:${h.attr}="${h.ident}"`);
-    const required = ['hit-loading.vue:loading="isLoading"', 'hit-destructured.vue:disabled="isDisabled"'];
+    const required = [
+      'hit-loading.vue:loading="isLoading"',
+      'hit-destructured.vue:disabled="isDisabled"',
+    ];
     const forbidden = [
       'clean-bound.vue:loading="isLoading"',
       'clean-directive.vue:loading="isLoading"',

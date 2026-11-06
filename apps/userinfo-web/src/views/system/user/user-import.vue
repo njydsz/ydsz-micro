@@ -93,7 +93,9 @@ async function performImport(file: File): Promise<void> {
     });
     importResult.value = result;
     importProgress.value = 100;
-    showToast.success(`导入完成：成功 ${result.successCount ?? 0} 条，失败 ${result.failureCount ?? 0} 条`);
+    showToast.success(
+      `导入完成：成功 ${result.successCount ?? 0} 条，失败 ${result.failureCount ?? 0} 条`,
+    );
     emit('success');
   } catch (error) {
     logger.warn('导入用户文件失败: {}', error);
@@ -140,14 +142,17 @@ async function handleImport(): Promise<void> {
         drag
       >
         <div class="py-6">
-          <p class="text-sm text-muted-foreground">{{ t('user.importDragText') }}</p>
-          <p class="mt-1 text-xs text-muted-foreground">{{ t('user.importFormatText') }}</p>
+          <p class="text-muted-foreground text-sm">{{ t('user.importDragText') }}</p>
+          <p class="text-muted-foreground mt-1 text-xs">{{ t('user.importFormatText') }}</p>
         </div>
       </YdUpload>
 
       <!-- 导入进度 -->
       <div v-if="importing">
-        <YdProgress :percentage="importProgress" :status="importProgress === 100 ? 'success' : ''" />
+        <YdProgress
+          :percentage="importProgress"
+          :status="importProgress === 100 ? 'success' : ''"
+        />
         <p class="mt-1 text-xs text-gray-500">{{ t('user.importingText') }}</p>
       </div>
 
@@ -172,7 +177,11 @@ async function handleImport(): Promise<void> {
         <div v-if="importResult.details && importResult.details.length > 0" class="mt-3">
           <p class="mb-1 text-xs font-medium text-gray-600">{{ t('user.importFailureDetail') }}</p>
           <div class="max-h-32 overflow-auto rounded bg-white p-2">
-            <p v-for="(detail, index) in importResult.details" :key="detail.rowIndex ?? detail.field ?? index" class="text-xs text-red-500">
+            <p
+              v-for="(detail, index) in importResult.details"
+              :key="detail.rowIndex ?? detail.field ?? index"
+              class="text-xs text-red-500"
+            >
               {{ detail.error || t('user.importFailed') }}
             </p>
           </div>

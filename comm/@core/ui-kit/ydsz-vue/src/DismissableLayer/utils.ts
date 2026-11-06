@@ -1,40 +1,35 @@
-import { isClient } from '@vueuse/shared'
-import { handleAndDispatchCustomEvent } from '../shared/index.ts'
-import { type Ref, nextTick, ref, watchEffect } from 'vue'
+import { isClient } from '@vueuse/shared';
+import { handleAndDispatchCustomEvent } from '../shared/index.ts';
+import { type Ref, nextTick, ref, watchEffect } from 'vue';
 
 export type PointerDownOutsideEvent = CustomEvent<{
-  originalEvent: PointerEvent
-}>
-export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
+  originalEvent: PointerEvent;
+}>;
+export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>;
 
-export const DISMISSABLE_LAYER_NAME = 'DismissableLayer'
-export const CONTEXT_UPDATE = 'dismissableLayer.update'
-export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside'
-export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
+export const DISMISSABLE_LAYER_NAME = 'DismissableLayer';
+export const CONTEXT_UPDATE = 'dismissableLayer.update';
+export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside';
+export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside';
 
 function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
-  const targetLayer = targetElement.closest(
-    '[data-dismissable-layer]',
-  ) as HTMLElement
+  const targetLayer = targetElement.closest('[data-dismissable-layer]') as HTMLElement;
 
-  const mainLayer = layerElement.dataset.dismissableLayer === ''
-    ? layerElement
-    : layerElement.querySelector(
-      '[data-dismissable-layer]',
-    ) as HTMLElement
+  const mainLayer =
+    layerElement.dataset.dismissableLayer === ''
+      ? layerElement
+      : (layerElement.querySelector('[data-dismissable-layer]') as HTMLElement);
 
   const nodeList = Array.from(
     layerElement.ownerDocument.querySelectorAll('[data-dismissable-layer]'),
-  )
+  );
   if (
-    (targetLayer
-    && mainLayer === targetLayer)
-    || nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
+    (targetLayer && mainLayer === targetLayer) ||
+    nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer)
   ) {
-    return true
-  }
-  else {
-    return false
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -47,35 +42,28 @@ export function usePointerDownOutside(
   onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
   element?: Ref<HTMLElement | undefined>,
 ) {
-  const ownerDocument: Document
-    = element?.value?.ownerDocument ?? globalThis?.document
+  const ownerDocument: Document = element?.value?.ownerDocument ?? globalThis?.document;
 
-  const isPointerInsideDOMTree = ref(false)
-  const handleClickRef = ref(() => {})
+  const isPointerInsideDOMTree = ref(false);
+  const handleClickRef = ref(() => {});
 
   watchEffect((cleanupFn) => {
-    if (!isClient)
-      return
+    if (!isClient) return;
     const handlePointerDown = async (event: PointerEvent) => {
-      const target = event.target as HTMLElement
+      const target = event.target as HTMLElement;
 
-      if (!element?.value)
-        return
+      if (!element?.value) return;
 
       if (isLayerExist(element.value, target)) {
-        isPointerInsideDOMTree.value = false
-        return
+        isPointerInsideDOMTree.value = false;
+        return;
       }
 
       if (event.target && !isPointerInsideDOMTree.value) {
-        const eventDetail = { originalEvent: event }
+        const eventDetail = { originalEvent: event };
 
         function handleAndDispatchPointerDownOutsideEvent() {
-          handleAndDispatchCustomEvent(
-            POINTER_DOWN_OUTSIDE,
-            onPointerDownOutside,
-            eventDetail,
-          )
+          handleAndDispatchCustomEvent(POINTER_DOWN_OUTSIDE, onPointerDownOutside, eventDetail);
         }
 
         /**
@@ -91,23 +79,21 @@ export function usePointerDownOutside(
          * certain that it was raised, and therefore cleaned-up.
          */
         if (event.pointerType === 'touch') {
-          ownerDocument.removeEventListener('click', handleClickRef.value)
-          handleClickRef.value = handleAndDispatchPointerDownOutsideEvent
+          ownerDocument.removeEventListener('click', handleClickRef.value);
+          handleClickRef.value = handleAndDispatchPointerDownOutsideEvent;
           ownerDocument.addEventListener('click', handleClickRef.value, {
             once: true,
-          })
+          });
+        } else {
+          handleAndDispatchPointerDownOutsideEvent();
         }
-        else {
-          handleAndDispatchPointerDownOutsideEvent()
-        }
-      }
-      else {
+      } else {
         // We need to remove the event listener in case the outside click has been canceled.
         // See: https://github.com/radix-ui/primitives/issues/2171
-        ownerDocument.removeEventListener('click', handleClickRef.value)
+        ownerDocument.removeEventListener('click', handleClickRef.value);
       }
-      isPointerInsideDOMTree.value = false
-    }
+      isPointerInsideDOMTree.value = false;
+    };
     /**
      * if this hook executes in a component that mounts via a `pointerdown` event, the event
      * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
@@ -122,19 +108,19 @@ export function usePointerDownOutside(
      * });
      */
     const timerId = window.setTimeout(() => {
-      ownerDocument.addEventListener('pointerdown', handlePointerDown)
-    }, 0)
+      ownerDocument.addEventListener('pointerdown', handlePointerDown);
+    }, 0);
 
     cleanupFn(() => {
-      window.clearTimeout(timerId)
-      ownerDocument.removeEventListener('pointerdown', handlePointerDown)
-      ownerDocument.removeEventListener('click', handleClickRef.value)
-    })
-  })
+      window.clearTimeout(timerId);
+      ownerDocument.removeEventListener('pointerdown', handlePointerDown);
+      ownerDocument.removeEventListener('click', handleClickRef.value);
+    });
+  });
 
   return {
     onPointerDownCapture: () => (isPointerInsideDOMTree.value = true),
-  }
+  };
 }
 
 /**
@@ -145,50 +131,43 @@ export function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
   element?: Ref<HTMLElement | undefined>,
 ) {
-  const ownerDocument: Document
-    = element?.value?.ownerDocument ?? globalThis?.document
+  const ownerDocument: Document = element?.value?.ownerDocument ?? globalThis?.document;
 
-  const isFocusInsideDOMTree = ref(false)
+  const isFocusInsideDOMTree = ref(false);
   watchEffect((cleanupFn) => {
-    if (!isClient)
-      return
+    if (!isClient) return;
     const handleFocus = async (event: FocusEvent) => {
-      if (!element?.value)
-        return
+      if (!element?.value) return;
 
-      await nextTick()
+      await nextTick();
       // 等待 nextTick 期间焦点可能已落到 document 或已卸载的节点上，
       // 此时 event.target 没有 closest，直接传入会让 isLayerExist 抛错
-      const target = event.target as HTMLElement | null
+      const target = event.target as HTMLElement | null;
       if (
-        !element.value
-        || typeof target?.closest !== 'function'
-        || isLayerExist(element.value, target)
+        !element.value ||
+        typeof target?.closest !== 'function' ||
+        isLayerExist(element.value, target)
       )
-        return
+        return;
 
       if (!isFocusInsideDOMTree.value) {
-        const eventDetail = { originalEvent: event }
-        handleAndDispatchCustomEvent(
-          FOCUS_OUTSIDE,
-          onFocusOutside,
-          eventDetail,
-        )
+        const eventDetail = { originalEvent: event };
+        handleAndDispatchCustomEvent(FOCUS_OUTSIDE, onFocusOutside, eventDetail);
       }
-    }
+    };
 
-    ownerDocument.addEventListener('focusin', handleFocus)
+    ownerDocument.addEventListener('focusin', handleFocus);
 
-    cleanupFn(() => ownerDocument.removeEventListener('focusin', handleFocus))
-  })
+    cleanupFn(() => ownerDocument.removeEventListener('focusin', handleFocus));
+  });
 
   return {
     onFocusCapture: () => (isFocusInsideDOMTree.value = true),
     onBlurCapture: () => (isFocusInsideDOMTree.value = false),
-  }
+  };
 }
 
 export function dispatchUpdate() {
-  const event = new CustomEvent(CONTEXT_UPDATE)
-  document.dispatchEvent(event)
+  const event = new CustomEvent(CONTEXT_UPDATE);
+  document.dispatchEvent(event);
 }

@@ -44,15 +44,9 @@ export interface LifecycleHookRegistry {
  * 创建生命周期钩子注册表。
  */
 export function createLifecycleHookRegistry(): LifecycleHookRegistry {
-  const lifecycleHooks = new Map<
-    string,
-    Array<LifecycleHook | ErrorLifecycleHook>
-  >();
+  const lifecycleHooks = new Map<string, Array<LifecycleHook | ErrorLifecycleHook>>();
 
-  function add(
-    hookName: LifecycleHookName,
-    hook: ErrorLifecycleHook | LifecycleHook,
-  ): () => void {
+  function add(hookName: LifecycleHookName, hook: ErrorLifecycleHook | LifecycleHook): () => void {
     if (!lifecycleHooks.has(hookName)) {
       lifecycleHooks.set(hookName, []);
     }

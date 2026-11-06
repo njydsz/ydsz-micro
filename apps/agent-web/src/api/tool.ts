@@ -14,15 +14,16 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * searchTools: GET /agent/tool/search
  */
 export function searchTools(params: {
-    query?: string;
-    topK?: number;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/agent/tool/search`, { params });
+  query?: string;
+  topK?: number;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/agent/tool/search`, {
+    params,
+  });
 }
 
 /**

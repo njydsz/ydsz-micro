@@ -18,7 +18,12 @@ import type { ComponentPublicInstance } from 'vue';
 
 import { createApp, defineComponent, h, nextTick, ref } from 'vue';
 
-import type { DialogOptions, DialogInstance, DialogCloseReason, DialogContainerExposed } from './use-dialog';
+import type {
+  DialogOptions,
+  DialogInstance,
+  DialogCloseReason,
+  DialogContainerExposed,
+} from './use-dialog';
 
 /** 弹窗 Promise 解析回调（本地定义避免循环） */
 type DialogResolve = (payload: { data?: unknown; reason: DialogCloseReason }) => void;
@@ -176,59 +181,71 @@ export async function openDialog(options: DialogOptions): Promise<DialogInstance
     name: `YdDialog-${id}`,
     setup() {
       return () =>
-        h(YdDialogInternalContainer, {}, {
-          default: () =>
-            h(
-              'div',
-              {
-                'data-ydsz-dialog-overlay': '',
-                class: 'fixed inset-0 z-[10000] flex items-center justify-center bg-black/50 pointer-events-auto',
-                onClick: options.closeOnOverlayClick !== false
-                  ? () => finish({ reason: 'mask' })
-                  : undefined,
-              },
-              [
-                h(
-                  'div',
-                  {
-                    class: `relative bg-surface-2 rounded-xl shadow-xl animate-in zoom-in-95 fade-in duration-200 ${
-                      options.width ? '' : 'w-full max-w-lg'
-                    }`,
-                    style: options.width ? { width: options.width } : undefined,
-                    onClick: (e: MouseEvent) => e.stopPropagation(),
-                  },
-                  [
-                    // Header
-                    options.header
-                      ? h('div', { class: 'flex items-center justify-between p-4 border-b border-border' }, [
-                          h('h3', { class: 'text-lg font-semibold' }, options.header),
-                          h(
-                            'button',
+        h(
+          YdDialogInternalContainer,
+          {},
+          {
+            default: () =>
+              h(
+                'div',
+                {
+                  'data-ydsz-dialog-overlay': '',
+                  class:
+                    'fixed inset-0 z-[10000] flex items-center justify-center bg-black/50 pointer-events-auto',
+                  onClick:
+                    options.closeOnOverlayClick !== false
+                      ? () => finish({ reason: 'mask' })
+                      : undefined,
+                },
+                [
+                  h(
+                    'div',
+                    {
+                      class: `relative bg-surface-2 rounded-xl shadow-xl animate-in zoom-in-95 fade-in duration-200 ${
+                        options.width ? '' : 'w-full max-w-lg'
+                      }`,
+                      style: options.width ? { width: options.width } : undefined,
+                      onClick: (e: MouseEvent) => e.stopPropagation(),
+                    },
+                    [
+                      // Header
+                      options.header
+                        ? h(
+                            'div',
                             {
-                              class: 'rounded-full p-1 hover:bg-accent transition-colors',
-                              onClick: () => finish({ reason: 'close' }),
-                              'aria-label': '关闭',
+                              class: 'flex items-center justify-between p-4 border-b border-border',
                             },
-                            [h('span', { class: 'size-4 block' }, '×')],
-                          ),
-                        ])
-                      : null,
-                    // Content (动态组件)
-                    h(
-                      'div',
-                      { class: 'p-4' },
-                      options.component
-                        ? h(options.component, {
-                            ...options.props,
-                            onClose: (data?: unknown) => finish({ data, reason: 'api' }),
-                          })
-                        : undefined,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-        });
+                            [
+                              h('h3', { class: 'text-lg font-semibold' }, options.header),
+                              h(
+                                'button',
+                                {
+                                  class: 'rounded-full p-1 hover:bg-accent transition-colors',
+                                  onClick: () => finish({ reason: 'close' }),
+                                  'aria-label': '关闭',
+                                },
+                                [h('span', { class: 'size-4 block' }, '×')],
+                              ),
+                            ],
+                          )
+                        : null,
+                      // Content (动态组件)
+                      h(
+                        'div',
+                        { class: 'p-4' },
+                        options.component
+                          ? h(options.component, {
+                              ...options.props,
+                              onClose: (data?: unknown) => finish({ data, reason: 'api' }),
+                            })
+                          : undefined,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+          },
+        );
     },
   });
 

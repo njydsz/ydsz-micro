@@ -65,9 +65,7 @@ const [Form, { form, validate }] = useYdForm(
   }),
 );
 
-const validPass = computed(
-  () => lockScreenPassword?.value === form?.values?.password,
-);
+const validPass = computed(() => lockScreenPassword?.value === form?.values?.password);
 
 async function handleSubmit() {
   const { valid } = await validate();
@@ -95,9 +93,7 @@ useScrollLock();
           class="flex-col-center text-foreground/80 hover:text-foreground group fixed left-1/2 top-6 z-[2001] -translate-x-1/2 cursor-pointer text-xl font-semibold"
           @click="toggleUnlockForm"
         >
-          <LockKeyhole
-            class="size-5 transition-all duration-300 group-hover:scale-125"
-          />
+          <LockKeyhole class="size-5 transition-all duration-300 group-hover:scale-125" />
           <span>{{ $t('ui.widgets.lockScreen.unlock') }}</span>
         </div>
         <div class="flex h-full w-full items-center justify-center">
@@ -105,9 +101,7 @@ useScrollLock();
             <div
               class="bg-accent relative flex h-[140px] w-[140px] items-center justify-center rounded-xl text-[36px] sm:h-[160px] sm:w-[160px] sm:text-[42px] md:h-[200px] md:w-[200px] md:text-[72px]"
             >
-              <span
-                class="absolute left-3 top-3 text-xs font-semibold sm:text-sm md:text-xl"
-              >
+              <span class="absolute left-3 top-3 text-xs font-semibold sm:text-sm md:text-xl">
                 {{ meridiem }}
               </span>
               {{ hour }}
@@ -136,18 +130,10 @@ useScrollLock();
           <YdButton class="enter-x w-full" @click="handleSubmit">
             {{ $t('ui.widgets.lockScreen.entry') }}
           </YdButton>
-          <YdButton
-            class="enter-x my-2 w-full"
-            variant="ghost"
-            @click="$emit('toLogin')"
-          >
+          <YdButton class="enter-x my-2 w-full" variant="ghost" @click="$emit('toLogin')">
             {{ $t('ui.widgets.lockScreen.backToLogin') }}
           </YdButton>
-          <YdButton
-            class="enter-x mr-2 w-full"
-            variant="ghost"
-            @click="toggleUnlockForm"
-          >
+          <YdButton class="enter-x mr-2 w-full" variant="ghost" @click="toggleUnlockForm">
             {{ $t('common.back') }}
           </YdButton>
         </div>

@@ -28,11 +28,7 @@ import { TokenCategory, TokenLayer } from './theme-schema-types';
 import type { TokenDefinition } from './theme-schema-types';
 
 export { TokenCategory, TokenLayer } from './theme-schema-types';
-export type {
-  TokenDefinition,
-  TokenCategoryType,
-  TokenLayerType,
-} from './theme-schema-types';
+export type { TokenDefinition, TokenCategoryType, TokenLayerType } from './theme-schema-types';
 
 /**
  * 完整语义层（base + semantic + component）的统一注册表。
@@ -54,29 +50,19 @@ export type TokenName = keyof typeof themeTokens;
  */
 export const tokensByCategory = {
   animation: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.category === TokenCategory.ANIMATION,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.category === TokenCategory.ANIMATION),
   ) as Record<string, TokenDefinition>,
   color: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.category === TokenCategory.COLOR,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.category === TokenCategory.COLOR),
   ) as Record<string, TokenDefinition>,
   shadow: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.category === TokenCategory.SHADOW,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.category === TokenCategory.SHADOW),
   ) as Record<string, TokenDefinition>,
   size: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.category === TokenCategory.SIZE,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.category === TokenCategory.SIZE),
   ) as Record<string, TokenDefinition>,
   typography: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.category === TokenCategory.TYPOGRAPHY,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.category === TokenCategory.TYPOGRAPHY),
   ) as Record<string, TokenDefinition>,
 };
 
@@ -85,18 +71,12 @@ export const tokensByCategory = {
  */
 export const tokensByLayer = {
   base: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.layer === TokenLayer.BASE,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.layer === TokenLayer.BASE),
   ) as Record<string, TokenDefinition>,
   semantic: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.layer === TokenLayer.SEMANTIC,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.layer === TokenLayer.SEMANTIC),
   ) as Record<string, TokenDefinition>,
   component: Object.fromEntries(
-    Object.entries(themeTokens).filter(
-      ([, def]) => def.layer === TokenLayer.COMPONENT,
-    ),
+    Object.entries(themeTokens).filter(([, def]) => def.layer === TokenLayer.COMPONENT),
   ) as Record<string, TokenDefinition>,
 };

@@ -16,7 +16,23 @@
  */
 import { onMounted, reactive, ref } from 'vue';
 
-import { YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSwitch,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 
 import type { GenDatasource } from '#/api/models';
 
@@ -103,20 +119,13 @@ onMounted(() => {});
           <YdInput v-model="form.name" placeholder="如 ydsz-cloud-dev" />
         </YdFormItem>
         <YdFormItem label="JDBC URL" prop="jdbcUrl">
-          <YdInput
-            v-model="form.jdbcUrl"
-            placeholder="jdbc:mysql://localhost:3306/ydsz_cloud"
-          />
+          <YdInput v-model="form.jdbcUrl" placeholder="jdbc:mysql://localhost:3306/ydsz_cloud" />
         </YdFormItem>
         <YdFormItem label="用户名" prop="username">
           <YdInput v-model="form.username" placeholder="数据库用户名" />
         </YdFormItem>
         <YdFormItem label="密码" prop="password">
-          <YdInput
-            v-model="form.password"
-            type="password"
-            placeholder="数据库密码"
-          />
+          <YdInput v-model="form.password" type="password" placeholder="数据库密码" />
         </YdFormItem>
         <YdFormItem label="方言">
           <YdSelectBase v-model="form.dialect">
@@ -124,11 +133,7 @@ onMounted(() => {});
               <YdSelectValueBase placeholder="请选择数据库方言" />
             </YdSelectTriggerBase>
             <YdSelectContentBase>
-              <YdSelectItemBase
-                v-for="opt in dialectOptions"
-                :key="opt.value"
-                :value="opt.value"
-              >
+              <YdSelectItemBase v-for="opt in dialectOptions" :key="opt.value" :value="opt.value">
                 {{ opt.label }}
               </YdSelectItemBase>
             </YdSelectContentBase>

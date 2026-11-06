@@ -61,12 +61,7 @@ function stableStringify(obj: unknown): string {
  * @param data 请求体
  * @returns 去重缓存键
  */
-function buildDedupKey(
-  method: string,
-  url: string,
-  params?: unknown,
-  data?: unknown,
-): string {
+function buildDedupKey(method: string, url: string, params?: unknown, data?: unknown): string {
   const parts = [
     method.toUpperCase(),
     url,

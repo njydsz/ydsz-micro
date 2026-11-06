@@ -15,26 +15,21 @@
  * - 仍读取 userInfo 和 accessCodes（非敏感数据，正常通过响应体返回）
  * - 登出时调用 logoutApi 让后端清除 Cookie，前端仅清理本地 UI 状态
  */
-import type { Recordable, UserInfo } from "@ydsz/types";
+import type { Recordable, UserInfo } from '@ydsz/types';
 
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-import { LOGIN_PATH } from "@ydsz/constants";
-import { preferences } from "@ydsz/preferences";
-import {
-  resetAllStores,
-  useAccessStore,
-  useTokenStore,
-  useUserStore,
-} from "@ydsz/stores";
+import { LOGIN_PATH } from '@ydsz/constants';
+import { preferences } from '@ydsz/preferences';
+import { resetAllStores, useAccessStore, useTokenStore, useUserStore } from '@ydsz/stores';
 
 import { showToast } from '@ydsz/notification';
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
-import { $t } from "@ydsz/locales";
-import { getAccessCodesApi, loginApi, logoutApi } from "./auth-api";
-import { getUserInfoApi } from "./user-api";
+import { $t } from '@ydsz/locales';
+import { getAccessCodesApi, loginApi, logoutApi } from './auth-api';
+import { getUserInfoApi } from './user-api';
 
 /**
  * P0-F2: 认证令牌存储模式（构建期常量，与 request.ts 保持一致）。
@@ -42,7 +37,7 @@ import { getUserInfoApi } from "./user-api";
  * @see comm/effects/shared-auth/src/request.ts 中的 isHttpOnlyCookieMode
  */
 const isHttpOnlyCookieMode: boolean =
-  import.meta.env.VITE_APP_AUTH_TOKEN_STORAGE === "httpOnlyCookie";
+  import.meta.env.VITE_APP_AUTH_TOKEN_STORAGE === 'httpOnlyCookie';
 
 /**
  * 创建共享 Auth Store
@@ -68,7 +63,7 @@ export function createSharedAuthStore(
     onLogout?: (redirect: boolean) => void;
   } = {},
 ) {
-  return defineStore("auth", () => {
+  return defineStore('auth', () => {
     const accessStore = useAccessStore();
     const tokenStore = useTokenStore();
     const userStore = useUserStore();
@@ -76,19 +71,12 @@ export function createSharedAuthStore(
 
     const loginLoading = ref(false);
 
-    async function authLogin(
-      params: Recordable<unknown>,
-      onSuccess?: () => Promise<void> | void,
-    ) {
+    async function authLogin(params: Recordable<unknown>, onSuccess?: () => Promise<void> | void) {
       let userInfo: null | UserInfo = null;
       try {
         loginLoading.value = true;
         const loginResult = await loginApi(params);
-        const {
-          accessToken,
-          refreshToken,
-          userInfo: loginUserInfo,
-        } = loginResult;
+        const { accessToken, refreshToken, userInfo: loginUserInfo } = loginResult;
 
         // P0-F2: HttpOnly Cookie 模式下，令牌由后端通过 Set-Cookie 下发，
         //        前端不从响应体读取/存储 accessToken/refreshToken。
@@ -102,13 +90,8 @@ export function createSharedAuthStore(
               tokenStore.setRefreshToken(refreshToken);
             }
             // 记录绝对过期时间戳，供会话超时预警使用（expiresIn 单位：秒）
-            if (
-              typeof loginResult.expiresIn === "number" &&
-              loginResult.expiresIn > 0
-            ) {
-              tokenStore.setExpiresAt(
-                Date.now() + loginResult.expiresIn * 1000,
-              );
+            if (typeof loginResult.expiresIn === 'number' && loginResult.expiresIn > 0) {
+              tokenStore.setExpiresAt(Date.now() + loginResult.expiresIn * 1000);
             }
           }
 
@@ -132,15 +115,13 @@ export function createSharedAuthStore(
             if (onSuccess) {
               await onSuccess?.();
             } else {
-              await router.push(
-                userInfo.homePath || preferences.app.defaultHomePath,
-              );
+              await router.push(userInfo.homePath || preferences.app.defaultHomePath);
             }
           }
 
           if (userInfo?.realName) {
-            showToast.success($t("authentication.loginSuccess"), {
-              description: `${$t("authentication.loginSuccessDesc")}: ${userInfo.realName}`,
+            showToast.success($t('authentication.loginSuccess'), {
+              description: `${$t('authentication.loginSuccessDesc')}: ${userInfo.realName}`,
               duration: 3000,
             });
           }

@@ -1,37 +1,38 @@
 <script lang="ts">
 // @ts-nocheck
-import type { HoverCardContentImplEmits, HoverCardContentImplProps } from './HoverCardContentImpl.vue'
+import type {
+  HoverCardContentImplEmits,
+  HoverCardContentImplProps,
+} from './HoverCardContentImpl.vue';
 
-export type HoverCardContentEmits = HoverCardContentImplEmits
+export type HoverCardContentEmits = HoverCardContentImplEmits;
 
 export interface HoverCardContentProps extends HoverCardContentImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.
    */
-  forceMount?: boolean
+  forceMount?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { injectHoverCardRootContext } from './HoverCardRoot.vue'
-import { excludeTouch } from './utils'
-import { Presence } from '../Presence/index.ts'
-import HoverCardContentImpl from './HoverCardContentImpl.vue'
-import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
+import { injectHoverCardRootContext } from './HoverCardRoot.vue';
+import { excludeTouch } from './utils';
+import { Presence } from '../Presence/index.ts';
+import HoverCardContentImpl from './HoverCardContentImpl.vue';
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts';
 
-const props = defineProps<HoverCardContentProps>()
-const emits = defineEmits<HoverCardContentEmits>()
-const forwarded = useForwardPropsEmits(props, emits)
-const { forwardRef } = useForwardExpose()
+const props = defineProps<HoverCardContentProps>();
+const emits = defineEmits<HoverCardContentEmits>();
+const forwarded = useForwardPropsEmits(props, emits);
+const { forwardRef } = useForwardExpose();
 
-const rootContext = injectHoverCardRootContext()
+const rootContext = injectHoverCardRootContext();
 </script>
 
 <template>
-  <Presence
-    :present="forceMount || rootContext.open.value"
-  >
+  <Presence :present="forceMount || rootContext.open.value">
     <HoverCardContentImpl
       v-bind="forwarded"
       :ref="forwardRef"

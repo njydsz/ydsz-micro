@@ -16,7 +16,20 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdForm, YdFormItem, YdSpace, YdText } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdSpace,
+  YdText,
+} from '@ydsz-core/ydsz-ui';
 import { nextTick, onBeforeUnmount, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -138,7 +151,7 @@ function statusText(status: ConnectStatus): string {
 </script>
 <template>
   <Page auto-content-height>
-    <div class="p-5 space-y-4">
+    <div class="space-y-4 p-5">
       <!-- 连接控制面板 -->
       <YdCard class="rounded-lg border border-gray-200">
         <YdCardHeader>
@@ -146,11 +159,17 @@ function statusText(status: ConnectStatus): string {
             <div class="flex items-center gap-2">
               <!-- 连接状态圆点 -->
               <span
-                class="inline-block w-2.5 h-2.5 rounded-full"
+                class="inline-block h-2.5 w-2.5 rounded-full"
                 :style="{ backgroundColor: statusColor(connectStatus) }"
               />
               <YdBadge
-                :variant="connectStatus === 'connected' ? 'default' : connectStatus === 'connecting' ? 'outline' : 'secondary'"
+                :variant="
+                  connectStatus === 'connected'
+                    ? 'default'
+                    : connectStatus === 'connecting'
+                      ? 'outline'
+                      : 'secondary'
+                "
                 size="sm"
               >
                 {{ statusText(connectStatus) }}
@@ -161,7 +180,13 @@ function statusText(status: ConnectStatus): string {
             </div>
             <YdSpace>
               <YdButton size="sm" :disabled="!logId.trim()" @click="handleConnect">连接</YdButton>
-              <YdButton size="sm" variant="destructive" :disabled="connectStatus === 'disconnected'" @click="handleDisconnect">断开</YdButton>
+              <YdButton
+                size="sm"
+                variant="destructive"
+                :disabled="connectStatus === 'disconnected'"
+                @click="handleDisconnect"
+                >断开</YdButton
+              >
               <YdButton size="sm" variant="ghost" @click="handleClear">清空</YdButton>
             </YdSpace>
           </div>
@@ -169,17 +194,19 @@ function statusText(status: ConnectStatus): string {
         <YdCardContent>
           <!-- LogId 输入 -->
           <YdForm inline @submit.prevent="handleConnect">
-          <YdFormItem label="Log ID">
-            <YdInput
-              v-model="logId"
-              placeholder="请输入任务执行日志 ID"
-              class="w-80"
-              @keyup.enter="handleConnect"
-            />
-          </YdFormItem>
-          <YdFormItem>
-            <YdButton size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect">连接</YdButton>
-          </YdFormItem>
+            <YdFormItem label="Log ID">
+              <YdInput
+                v-model="logId"
+                placeholder="请输入任务执行日志 ID"
+                class="w-80"
+                @keyup.enter="handleConnect"
+              />
+            </YdFormItem>
+            <YdFormItem>
+              <YdButton size="sm" variant="outline" :disabled="!logId.trim()" @click="handleConnect"
+                >连接</YdButton
+              >
+            </YdFormItem>
           </YdForm>
         </YdCardContent>
       </YdCard>
@@ -191,19 +218,11 @@ function statusText(status: ConnectStatus): string {
         </YdCardHeader>
         <YdCardContent>
           <div
-          ref="logContainerRef"
-          class="h-96 overflow-auto rounded border border-gray-800 bg-gray-900 p-3 font-mono text-xs leading-5 text-green-300"
-        >
-          <pre
-            v-if="logs"
-            class="whitespace-pre-wrap break-all m-0"
-          >{{ logs }}</pre>
-            <YdEmptyState
-              v-else
-              description="暂无日志内容"
-              :image-size="60"
-              class="mt-20"
-            />
+            ref="logContainerRef"
+            class="h-96 overflow-auto rounded border border-gray-800 bg-gray-900 p-3 font-mono text-xs leading-5 text-green-300"
+          >
+            <pre v-if="logs" class="m-0 whitespace-pre-wrap break-all">{{ logs }}</pre>
+            <YdEmptyState v-else description="暂无日志内容" :image-size="60" class="mt-20" />
           </div>
         </YdCardContent>
       </YdCard>

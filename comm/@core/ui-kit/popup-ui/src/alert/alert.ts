@@ -45,9 +45,7 @@ export type BeforeCloseScope = {
  */
 export type YdAlertProps = {
   /** 关闭前的回调，如果返回false，则终止关闭 */
-  beforeClose?: (
-    scope: BeforeCloseScope,
-  ) => boolean | Promise<boolean | undefined> | undefined;
+  beforeClose?: (scope: BeforeCloseScope) => boolean | Promise<boolean | undefined> | undefined;
   /** 边框 */
   bordered?: boolean;
   /**
@@ -95,11 +93,7 @@ export type YdPromptProps<T = unknown> = {
   /** 输入组件的属性 */
   componentProps?: Recordable<unknown>;
   /** 输入组件的插槽 */
-  componentSlots?:
-    | (() => unknown)
-    | Recordable<unknown>
-    | VNode
-    | VNodeArrayChildren;
+  componentSlots?: (() => unknown) | Recordable<unknown> | VNode | VNodeArrayChildren;
   /** 默认值 */
   defaultValue?: T;
   /** 输入组件的值属性名 */

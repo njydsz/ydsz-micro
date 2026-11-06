@@ -155,9 +155,7 @@ export function useTreeVirtual<T = unknown>(
         continue;
       }
       // 检查所有祖先是否都已展开
-      const allAncestorsExpanded = node.parents.every((parentValue) =>
-        expanded.has(parentValue),
-      );
+      const allAncestorsExpanded = node.parents.every((parentValue) => expanded.has(parentValue));
       if (allAncestorsExpanded) {
         result.push(node);
       }
@@ -166,9 +164,7 @@ export function useTreeVirtual<T = unknown>(
   });
 
   /** 总高度 */
-  const totalHeight = computed<number>(
-    () => expandedVisibleNodes.value.length * itemHeight,
-  );
+  const totalHeight = computed<number>(() => expandedVisibleNodes.value.length * itemHeight);
 
   /** 可见起始索引 */
   const startIndex = computed(() =>

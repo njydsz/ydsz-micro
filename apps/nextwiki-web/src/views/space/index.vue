@@ -18,7 +18,18 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdInput,
+  YdBadge,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdSheet,
+  YdSheetContent,
+} from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -67,7 +78,9 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.visibility === 'PUBLIC' ? 'success' : 'secondary' }, () => (row.visibility === 'PUBLIC' ? '公开' : '私有')),
+          h(YdBadge, { variant: row.visibility === 'PUBLIC' ? 'success' : 'secondary' }, () =>
+            row.visibility === 'PUBLIC' ? '公开' : '私有',
+          ),
       },
     },
     {
@@ -76,7 +89,9 @@ const gridOptions: VxeGridProps<SpaceVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.status === 'ACTIVE' ? 'success' : 'warning' }, () => (row.status === 'ACTIVE' ? '正常' : '已归档')),
+          h(YdBadge, { variant: row.status === 'ACTIVE' ? 'success' : 'warning' }, () =>
+            row.status === 'ACTIVE' ? '正常' : '已归档',
+          ),
       },
     },
     { field: 'memberCount', title: '成员数', width: 80 },
@@ -89,18 +104,38 @@ const gridOptions: VxeGridProps<SpaceVO> = {
     },
     { field: 'createdAt', title: '创建时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 280, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 280,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleMembers(row) }, () => '成员'),
-            h(YdButton, {
-              size: 'sm', variant: 'link',
-              onClick: () => handleArchive(row),
-              disabled: row.status === 'ARCHIVED',
-            }, () => '归档'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleMembers(row) },
+              () => '成员',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handleArchive(row),
+                disabled: row.status === 'ARCHIVED',
+              },
+              () => '归档',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -137,10 +172,16 @@ function handleEdit(row: SpaceVO) {
   editVisible.value = true;
 }
 async function confirmEdit() {
-  if (!editForm.name) { showToast.warning(t('spaceNamePlaceholder')); return; }
+  if (!editForm.name) {
+    showToast.warning(t('spaceNamePlaceholder'));
+    return;
+  }
   try {
     if (editForm.id) {
-      await updateSpace({ spaceId: editForm.id }, { name: editForm.name, description: editForm.description, visibility: editForm.visibility });
+      await updateSpace(
+        { spaceId: editForm.id },
+        { name: editForm.name, description: editForm.description, visibility: editForm.visibility },
+      );
       showToast.success(t('updateSuccess'));
     } else {
       spaceFormApi.open();
@@ -149,7 +190,9 @@ async function confirmEdit() {
     }
     editVisible.value = false;
     gridApi.query();
-  } catch (error) { logger.warn('编辑/新建空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('编辑/新建空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 成员管理抽屉 */
@@ -174,13 +217,21 @@ async function loadMembers(): Promise<void> {
   }
 }
 async function handleAddMember(): Promise<void> {
-  if (!addMemberForm.userId) { showToast.warning(t('userIdRequired')); return; }
+  if (!addMemberForm.userId) {
+    showToast.warning(t('userIdRequired'));
+    return;
+  }
   try {
-    await addMember({ spaceId: currentSpaceId.value }, { userId: addMemberForm.userId, role: addMemberForm.role });
+    await addMember(
+      { spaceId: currentSpaceId.value },
+      { userId: addMemberForm.userId, role: addMemberForm.role },
+    );
     showToast.success(t('addMemberSuccess'));
     addMemberForm.userId = '';
     await loadMembers();
-  } catch (error) { logger.warn('添加成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('添加成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
   if (!row.userId) return;
@@ -189,7 +240,9 @@ async function handleRemoveMember(row: SpaceMemberDTO): Promise<void> {
     await removeMember({ spaceId: currentSpaceId.value, targetUserId: row.userId });
     showToast.success(t('removeSuccess'));
     await loadMembers();
-  } catch (error) { logger.warn('移除成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('移除成员失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 归档空间 */
@@ -200,7 +253,9 @@ async function handleArchive(row: SpaceVO) {
     await archiveSpace({ spaceId: row.id });
     showToast.success(t('archiveSuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('归档空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('归档空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 删除空间 */
@@ -211,7 +266,9 @@ async function handleDelete(row: SpaceVO) {
     await deleteSpace({ spaceId: row.id });
     showToast.success(t('deleteSuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('删除空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('删除空间失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 </script>
 
@@ -253,10 +310,16 @@ async function handleDelete(row: SpaceVO) {
         </div>
         <div v-loading="membersLoading">
           <div v-if="members.length === 0" class="py-8 text-center text-gray-400">暂无成员</div>
-          <div v-for="member in members" :key="member.id" class="mb-2 flex items-center justify-between rounded border p-3">
+          <div
+            v-for="member in members"
+            :key="member.id"
+            class="mb-2 flex items-center justify-between rounded border p-3"
+          >
             <div>
               <p class="text-sm font-medium">{{ member.userId }}</p>
-              <p class="text-xs text-gray-500">角色：{{ member.role }} | 加入时间：{{ member.joinedAt }}</p>
+              <p class="text-xs text-gray-500">
+                角色：{{ member.role }} | 加入时间：{{ member.joinedAt }}
+              </p>
             </div>
             <YdButton size="sm" variant="link" @click="handleRemoveMember(member)">移除</YdButton>
           </div>

@@ -43,20 +43,32 @@ const [Modal, modalApi] = useYdModal({
     Object.assign(formData, { scopeType: '', scopeId: '', quotaLimit: 0, fileCountLimit: 0 });
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch { return; }
+    try {
+      await formRef.value?.validate();
+    } catch {
+      return;
+    }
     modalApi.lock();
     try {
       await setQuota({ ...formData });
       showToast.success('设置成功');
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 </script>
 <template>
   <Modal title="调整配额">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="110px"
+      label-position="right"
+    >
       <YdFormItem label="存储范围类型" prop="scopeType">
         <YdInput v-model="formData.scopeType" placeholder="如 USER / SPACE，留空表示全局（可选）" />
       </YdFormItem>
@@ -64,10 +76,20 @@ const [Modal, modalApi] = useYdModal({
         <YdInput v-model="formData.scopeId" placeholder="存储范围ID（可选）" />
       </YdFormItem>
       <YdFormItem label="配额上限(字节)" prop="quotaLimit">
-        <YdNumberFieldInput v-model="formData.quotaLimit" :min="0" :max="Number.MAX_SAFE_INTEGER" style="width: 100%" />
+        <YdNumberFieldInput
+          v-model="formData.quotaLimit"
+          :min="0"
+          :max="Number.MAX_SAFE_INTEGER"
+          style="width: 100%"
+        />
       </YdFormItem>
       <YdFormItem label="文件数上限" prop="fileCountLimit">
-        <YdNumberFieldInput v-model="formData.fileCountLimit" :min="0" :max="Number.MAX_SAFE_INTEGER" style="width: 100%" />
+        <YdNumberFieldInput
+          v-model="formData.fileCountLimit"
+          :min="0"
+          :max="Number.MAX_SAFE_INTEGER"
+          style="width: 100%"
+        />
       </YdFormItem>
     </YdForm>
   </Modal>

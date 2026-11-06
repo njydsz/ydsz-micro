@@ -71,10 +71,7 @@ export type ValueType = boolean | number | string;
  * 仅从 {@link YdButtonProps} 继承 `disabled`（作用于整组），
  * 其余按钮样式通过 `btnClass` 统一定制。
  */
-export interface YdButtonGroupProps extends Pick<
-  YdButtonProps,
-  'disabled'
-> {
+export interface YdButtonGroupProps extends Pick<YdButtonProps, 'disabled'> {
   /** 单选模式下允许清除选中 */
   allowClear?: boolean;
   /** 值改变前的回调 */
@@ -98,7 +95,6 @@ export interface YdButtonGroupProps extends Pick<
   size?: 'large' | 'middle' | 'small';
 }
 
-
 /**
  * 按钮组件的 cva 样式变体（size 与 variant），返回类名生成函数。
  *
@@ -106,7 +102,7 @@ export interface YdButtonGroupProps extends Pick<
  * 仅产出弹性布局与变体类名，具体尺寸/内边距由 size 变体与全局密度共同决定。
  */
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium tracking-default transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98]',
+  'tracking-default focus-visible:ring-ring focus-visible:ring-offset-background inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
   {
     defaultVariants: {
       size: 'default',
@@ -131,9 +127,8 @@ export const buttonVariants = cva(
         icon: 'hover:bg-accent hover:text-accent-foreground text-text-secondary',
         link: 'text-primary underline-offset-4 hover:underline',
         outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+          'border-input bg-background hover:bg-accent hover:text-accent-foreground border shadow-sm',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm',
         subtle:
           'bg-primary-subtle text-primary-subtle-foreground hover:bg-brand-100 dark:hover:bg-brand-200',
       },

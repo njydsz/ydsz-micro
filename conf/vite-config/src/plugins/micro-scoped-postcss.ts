@@ -49,7 +49,12 @@ export function microScopedPostcssPlugin(options: MicroCssScopeOptions): Accepte
           // 跳过已包含 scope 前缀的规则
           if (trimmed.startsWith(prefix)) return selector;
           // 跳过 body/html 选择器（全局重置类规则不移 scoped）
-          if (trimmed === 'body' || trimmed === 'html' || trimmed.startsWith('body ') || trimmed.startsWith('html ')) {
+          if (
+            trimmed === 'body' ||
+            trimmed === 'html' ||
+            trimmed.startsWith('body ') ||
+            trimmed.startsWith('html ')
+          ) {
             return selector;
           }
           // 跳过 :root 选择器

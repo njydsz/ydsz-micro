@@ -9,19 +9,13 @@
  * @since 5.1.0
  */
 
-export * from '@internationalized/date'
+export * from '@internationalized/date';
 
-import {
-  getLocalTimeZone,
-  ZonedDateTime,
-  type DateValue,
-} from '@internationalized/date'
+import { getLocalTimeZone, ZonedDateTime, type DateValue } from '@internationalized/date';
 
 /** Intl.DateTimeFormatOptions 中的时区（缺省回退到本地时区） */
-export function getTimeZone(
-  dateTimeFormatOptions: Intl.DateTimeFormatOptions = {},
-): string {
-  return dateTimeFormatOptions.timeZone ?? getLocalTimeZone()
+export function getTimeZone(dateTimeFormatOptions: Intl.DateTimeFormatOptions = {}): string {
+  return dateTimeFormatOptions.timeZone ?? getLocalTimeZone();
 }
 
 /**
@@ -33,26 +27,21 @@ export function getTimeZone(
  */
 export function hasTime(date: Date | DateValue): boolean {
   if (typeof (date as Date).getHours === 'function') {
-    const d = date as Date
+    const d = date as Date;
     return !(
-      d.getHours() === 0
-      && d.getMinutes() === 0
-      && d.getSeconds() === 0
-      && d.getMilliseconds() === 0
-    )
+      d.getHours() === 0 &&
+      d.getMinutes() === 0 &&
+      d.getSeconds() === 0 &&
+      d.getMilliseconds() === 0
+    );
   }
-  const v = date as DateValue
-  return !(
-    v.hour === 0
-    && v.minute === 0
-    && v.second === 0
-    && v.millisecond === 0
-  )
+  const v = date as DateValue;
+  return !(v.hour === 0 && v.minute === 0 && v.second === 0 && v.millisecond === 0);
 }
 
 /** 判断是否为 @internationalized/date 的 ZonedDateTime 实例 */
 export function isZonedDateTime(date: unknown): date is ZonedDateTime {
-  return date instanceof ZonedDateTime
+  return date instanceof ZonedDateTime;
 }
 
 /**
@@ -64,10 +53,10 @@ export function toDate(
   dateTimeFormatOptions: Intl.DateTimeFormatOptions = {},
 ): Date | Date[] {
   if (Array.isArray(dateValue)) {
-    return dateValue.map(v => toDate(v, dateTimeFormatOptions) as Date)
+    return dateValue.map((v) => toDate(v, dateTimeFormatOptions) as Date);
   }
   if (isZonedDateTime(dateValue)) {
-    return dateValue.toDate()
+    return dateValue.toDate();
   }
-  return dateValue.toDate(getTimeZone(dateTimeFormatOptions))
+  return dateValue.toDate(getTimeZone(dateTimeFormatOptions));
 }

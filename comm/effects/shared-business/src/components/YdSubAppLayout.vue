@@ -42,10 +42,7 @@ watch(
 </script>
 
 <template>
-  <YdErrorBoundary
-    :error-message="$t('error.pageLoadFailed')"
-    :show-retry="true"
-  >
+  <YdErrorBoundary :error-message="$t('error.pageLoadFailed')" :show-retry="true">
     <RouterView />
     <slot />
   </YdErrorBoundary>

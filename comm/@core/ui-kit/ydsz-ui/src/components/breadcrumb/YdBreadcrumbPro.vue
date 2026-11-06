@@ -29,23 +29,23 @@ export interface BreadcrumbItemOption {
   onClick?: () => void;
 }
 
-withDefaults(defineProps<{
-  /** 面包屑项列表 */
-  items: BreadcrumbItemOption[];
-  /** 分隔符（默认 /） */
-  separator?: string;
-}>(), {
-  separator: '/',
-});
+withDefaults(
+  defineProps<{
+    /** 面包屑项列表 */
+    items: BreadcrumbItemOption[];
+    /** 分隔符（默认 /） */
+    separator?: string;
+  }>(),
+  {
+    separator: '/',
+  },
+);
 </script>
 
 <template>
   <YdBreadcrumb>
     <YdBreadcrumbList>
-      <template
-        v-for="(item, idx) in items"
-        :key="item.href ?? item.title"
-      >
+      <template v-for="(item, idx) in items" :key="item.href ?? item.title">
         <YdBreadcrumbItem>
           <YdBreadcrumbLink
             v-if="item.href && !item.disabled"

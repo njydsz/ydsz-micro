@@ -35,7 +35,16 @@
  * @since 5.7.0
  */
 
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -105,7 +114,11 @@ function blankNonCode(src: string): string {
     .replace(/\/\*[\s\S]*?\*\//g, (s) => s.replace(/[^\n]/g, ' '))
     .replace(/<!--[\s\S]*?-->/g, (s) => s.replace(/[^\n]/g, ' '))
     .replace(/(^|\n)[ \t]*\/\/[^\n]*/g, (s) => s.replace(/[^\n]/g, ' '))
-    .replace(/(['"`])(?:\\.|[^\\])*?\1/g, (s) => s.slice(0, 1) + s.slice(1, -1).replace(/[^\n]/g, ' ') + (s.length > 1 ? s.slice(-1) : ''));
+    .replace(
+      /(['"`])(?:\\.|[^\\])*?\1/g,
+      (s) =>
+        s.slice(0, 1) + s.slice(1, -1).replace(/[^\n]/g, ' ') + (s.length > 1 ? s.slice(-1) : ''),
+    );
 }
 
 /** 行号（1 起） */
@@ -124,9 +137,12 @@ function lineAt(text: string, index: number): number {
 function readDeclarations(code: string): { names: Set<string>; ranges: Array<[number, number]> } {
   const names = new Set<string>();
   const ranges: Array<[number, number]> = [];
-  const braces = /(?:^|\n)[ \t]*(?:import|export(?:[ \t]+type)?)[ \t]*\{([\s\S]*?)\}[ \t]*(?:from[ \t]*)?['"][^'"]*['"][ \t]*;?/g;
-  const single = /(?:^|\n)[ \t]*import[ \t]+([A-Za-z_$][\w$]*)([ \t]*(?:,[ \t]*\{[\s\S]*?\})?)[ \t]*from[ \t]*['"][^'"]*['"][ \t]*;?/g;
-  const star = /(?:^|\n)[ \t]*import[ \t]*\*[ \t]*as[ \t]*([A-Za-z_$][\w$]*)[ \t]*from[ \t]*['"][^'"]*['"][ \t]*;?/g;
+  const braces =
+    /(?:^|\n)[ \t]*(?:import|export(?:[ \t]+type)?)[ \t]*\{([\s\S]*?)\}[ \t]*(?:from[ \t]*)?['"][^'"]*['"][ \t]*;?/g;
+  const single =
+    /(?:^|\n)[ \t]*import[ \t]+([A-Za-z_$][\w$]*)([ \t]*(?:,[ \t]*\{[\s\S]*?\})?)[ \t]*from[ \t]*['"][^'"]*['"][ \t]*;?/g;
+  const star =
+    /(?:^|\n)[ \t]*import[ \t]*\*[ \t]*as[ \t]*([A-Za-z_$][\w$]*)[ \t]*from[ \t]*['"][^'"]*['"][ \t]*;?/g;
   let m: RegExpExecArray | null;
   while ((m = braces.exec(code))) {
     ranges.push([m.index, m.index + m[0].length]);
@@ -270,11 +286,15 @@ function scanAll(rootDir: string): ScanResult {
 /** 生成人话修复建议 */
 function describe(v: Violation): string {
   if (v.kind === 'wrong-arg-shape') {
-    return `${v.file}:${v.line} ${v.helper}({ … }) 传的是对象，但签名是 ${v.helper}(title, options)：`
-      + `改成 ${v.helper}('文案', { duration })，否则界面会渲染出 [object Object]`;
+    return (
+      `${v.file}:${v.line} ${v.helper}({ … }) 传的是对象，但签名是 ${v.helper}(title, options)：` +
+      `改成 ${v.helper}('文案', { duration })，否则界面会渲染出 [object Object]`
+    );
   }
-  return `${v.file}:${v.line} 用了 ${v.helper} 却没有导入（运行时 ReferenceError；被 try/catch 吞掉后`
-    + `其后的列表刷新也会一起失效）。修法：加 ${`import { ${v.helper} } from '${HELPERS[v.helper]}';`}`;
+  return (
+    `${v.file}:${v.line} 用了 ${v.helper} 却没有导入（运行时 ReferenceError；被 try/catch 吞掉后` +
+    `其后的列表刷新也会一起失效）。修法：加 ${`import { ${v.helper} } from '${HELPERS[v.helper]}';`}`
+  );
 }
 
 /** 自测：夹具必须被拦住，且合法写法一律不冤枉 */
@@ -288,7 +308,7 @@ function selfTest(): void {
     },
     {
       name: 'missing.vue',
-      text: "<template><p>x</p></template>\n<script lang=\"ts\" setup>\nconst go = () => showToast.success('好');\n</script>\n",
+      text: '<template><p>x</p></template>\n<script lang="ts" setup>\nconst go = () => showToast.success(\'好\');\n</script>\n',
       expect: 'showToast',
     },
     {
@@ -313,24 +333,24 @@ function selfTest(): void {
     },
     {
       name: 'ok-string-only.vue',
-      text: "<script lang=\"ts\" setup>\nconst tip = 'showToast 已废弃';\nvoid tip;\n</script>\n",
+      text: '<script lang="ts" setup>\nconst tip = \'showToast 已废弃\';\nvoid tip;\n</script>\n',
       expect: null,
     },
     {
       name: 'ok-renamed-destructure.vue',
-      text: "<script lang=\"ts\" setup>\nconst props = defineProps<{ loading?: boolean }>();\nconst { loading: showLoading } = props;\nvoid showLoading;\n</script>\n",
+      text: '<script lang="ts" setup>\nconst props = defineProps<{ loading?: boolean }>();\nconst { loading: showLoading } = props;\nvoid showLoading;\n</script>\n',
       expect: null,
     },
     {
       name: 'ok-local-const.vue',
-      text: "<script lang=\"ts\" setup>\nconst showNotification: { info: (o: unknown) => void } = { info: () => {} };\nshowNotification.info({});\n</script>\n",
+      text: '<script lang="ts" setup>\nconst showNotification: { info: (o: unknown) => void } = { info: () => {} };\nshowNotification.info({});\n</script>\n',
       expect: null,
     },
     {
       // 真实回归用例：apps/system-web/src/views/config/index.test.ts 里
       // `showToast: { success: vi.fn() }` 是对象键，不是全局引用
       name: 'ok-mock-object-key.ts',
-      text: "export const mocks = {\n  YdConfirm: vi.fn().mockResolvedValue({}),\n  showToast: { success: vi.fn(), error: vi.fn() },\n};\n",
+      text: 'export const mocks = {\n  YdConfirm: vi.fn().mockResolvedValue({}),\n  showToast: { success: vi.fn(), error: vi.fn() },\n};\n',
       expect: null,
     },
     {
@@ -352,9 +372,12 @@ function selfTest(): void {
     writeFileSync(abs, c.text);
     const hits = scanFile(abs, dir);
     if (c.expect === null) {
-      if (hits.length > 0) failures.push(`冤枉：${c.name} 本应通过，实际报 ${hits.map((h) => h.helper).join(',')}`);
+      if (hits.length > 0)
+        failures.push(`冤枉：${c.name} 本应通过，实际报 ${hits.map((h) => h.helper).join(',')}`);
     } else if (!hits.some((h) => h.helper === c.expect)) {
-      failures.push(`漏拦：${c.name} 本应报 ${c.expect}，实际 ${hits.map((h) => h.helper).join(',') || '无'}`);
+      failures.push(
+        `漏拦：${c.name} 本应报 ${c.expect}，实际 ${hits.map((h) => h.helper).join(',') || '无'}`,
+      );
     }
   }
   rmSync(dir, { force: true, recursive: true });
@@ -380,9 +403,13 @@ function main(): void {
     process.exit(1);
   }
   if (result.violations.length > 0) {
-    console.error(`❌ 存在未导入的全局助手调用（扫描 ${result.files} 个文件，违规 ${result.violations.length} 项）：`);
+    console.error(
+      `❌ 存在未导入的全局助手调用（扫描 ${result.files} 个文件，违规 ${result.violations.length} 项）：`,
+    );
     for (const v of result.violations) console.error(`  - ${describe(v)}`);
-    console.error('  说明：本仓无 unplugin-auto-import，也没有 globalThis 注入；这类调用运行时必抛 ReferenceError。');
+    console.error(
+      '  说明：本仓无 unplugin-auto-import，也没有 globalThis 注入；这类调用运行时必抛 ReferenceError。',
+    );
     process.exit(1);
   }
   console.log(`✅ 全局助手导入检查通过：${result.files} 个源文件，无"用了却没 import"`);

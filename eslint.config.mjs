@@ -94,11 +94,7 @@ const nodeGlobals = {
 };
 
 config.unshift({
-  files: [
-    'bash/**/*.{mjs,js,cjs}',
-    'scripts/**/*.{mjs,js,cjs}',
-    'conf/lint-configs/**/*.mjs',
-  ],
+  files: ['bash/**/*.{mjs,js,cjs}', 'scripts/**/*.{mjs,js,cjs}', 'conf/lint-configs/**/*.mjs'],
   languageOptions: {
     globals: nodeGlobals,
   },
@@ -182,10 +178,7 @@ config.push({
 // - comm/@core/base/design/vite.config.mts：design 包构建期配置
 // - comm/effects/mock-service/src/handlers.ts：mock 契约（依赖运行时 spec 泛型）
 config.push({
-  files: [
-    'comm/@core/base/design/vite.config.mts',
-    'comm/effects/mock-service/src/handlers.ts',
-  ],
+  files: ['comm/@core/base/design/vite.config.mts', 'comm/effects/mock-service/src/handlers.ts'],
   languageOptions: {
     parserOptions: {
       projectService: false,
@@ -251,8 +244,7 @@ config.push({
         patterns: [
           {
             group: ['@ydsz/effects/*', 'comm/effects/*', 'apps/*'],
-            message:
-              '公共工具层禁止引用效果层 (comm/effects) 或应用层 (apps)。',
+            message: '公共工具层禁止引用效果层 (comm/effects) 或应用层 (apps)。',
           },
         ],
       },
@@ -289,8 +281,7 @@ config.push({
         patterns: [
           {
             group: ['apps/*'],
-            message:
-              '应用层 (apps) 禁止横向引用其他子应用。跨应用共享能力必须下沉至 comm/ 层。',
+            message: '应用层 (apps) 禁止横向引用其他子应用。跨应用共享能力必须下沉至 comm/ 层。',
           },
         ],
       },
@@ -384,8 +375,7 @@ const noJsPlugin = {
             const jsLike = /\.(m)?js$/;
             if (!jsLike.test(fp)) return;
             // 根级工具配置：工具加载器（ESLint/commitlint/stylelint CLI）不支持 .mts
-            const toolConfig =
-              /(?:^|[\/])(?:eslint|commitlint|stylelint)\.config\.(m)?js$/;
+            const toolConfig = /(?:^|[\/])(?:eslint|commitlint|stylelint)\.config\.(m)?js$/;
             // Babel/Rollup 构建期配置也多为特殊文件
             const buildConfig = /(?:^|\/)\.babelrc(?:\.js)?$/;
             if (toolConfig.test(fp) || buildConfig.test(fp)) return;

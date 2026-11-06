@@ -13,14 +13,14 @@
  * @since 4.1.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import type { PreloadManager } from "./preload-strategy";
-import { createLogger } from "@ydsz-core/shared/utils";
+import type { DisposableManager } from './manager-registry';
+import type { PreloadManager } from './preload-strategy';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import type { PreloadStrategyOptions } from "./preload-types";
+import type { PreloadStrategyOptions } from './preload-types';
 
 /** 模块级日志器 */
-const logger = createLogger("PreloadManager");
+const logger = createLogger('PreloadManager');
 
 /**
  * PreloadManager 内部状态接口（用于辅助函数访问）
@@ -66,11 +66,9 @@ export function setupHoverListener(
 
   // 查找所有可能触发该应用的元素
   const setupElementListeners = () => {
-    const elements = document.querySelectorAll(
-      `[data-preload-app="${appName}"]`,
-    );
+    const elements = document.querySelectorAll(`[data-preload-app="${appName}"]`);
     elements.forEach((el) => {
-      el.addEventListener("mouseenter", listener, { once: true });
+      el.addEventListener('mouseenter', listener, { once: true });
     });
   };
 
@@ -116,17 +114,17 @@ export function setupVisibilityListener(manager: PreloadManagerLike): void {
   }
 
   manager.visibilityListener = () => {
-    if (document.visibilityState === "visible") {
+    if (document.visibilityState === 'visible') {
       // 页面可见时，预加载所有 visibility 策略的应用
       for (const [appName, strategy] of manager.strategies) {
-        if (strategy.strategy === "visibility") {
+        if (strategy.strategy === 'visibility') {
           void manager.triggerPreload?.(appName);
         }
       }
     }
   };
 
-  document.addEventListener("visibilitychange", manager.visibilityListener);
+  document.addEventListener('visibilitychange', manager.visibilityListener);
 }
 
 /**
@@ -138,15 +136,10 @@ export function setupVisibilityListener(manager: PreloadManagerLike): void {
  * @param appName - 应用名称
  * @since 4.0.1
  */
-export function recordPreloadConsumedHelper(
-  manager: PreloadManagerLike,
-  appName: string,
-): void {
+export function recordPreloadConsumedHelper(manager: PreloadManagerLike, appName: string): void {
   if (manager.preloadCache.has(appName)) {
     manager.stats.consumedCount++;
-    const rec = manager.stats.preloadRecords.find(
-      (r) => r.appName === appName && !r.consumed,
-    );
+    const rec = manager.stats.preloadRecords.find((r) => r.appName === appName && !r.consumed);
     if (rec) rec.consumed = true;
   }
 }
@@ -157,9 +150,7 @@ export function recordPreloadConsumedHelper(
  * @param manager - PreloadManager 实例
  * @since 4.0.1
  */
-export function debugInfoHelper(
-  manager: PreloadManagerLike,
-): {
+export function debugInfoHelper(manager: PreloadManagerLike): {
   preloadCount: number;
   consumedCount: number;
   wastedCount: number;
@@ -176,9 +167,7 @@ export function debugInfoHelper(
   manager.stats.wastedCount = wasted;
   const hitRate =
     manager.stats.preloadCount > 0
-      ? Math.round(
-          (manager.stats.consumedCount / manager.stats.preloadCount) * 100,
-        )
+      ? Math.round((manager.stats.consumedCount / manager.stats.preloadCount) * 100)
       : 0;
   return {
     preloadCount: manager.stats.preloadCount,
@@ -207,7 +196,7 @@ export function destroyHelper(manager: PreloadManagerLike): void {
 
   // 清理可见性监听器
   if (manager.visibilityListener) {
-    document.removeEventListener("visibilitychange", manager.visibilityListener);
+    document.removeEventListener('visibilitychange', manager.visibilityListener);
     manager.visibilityListener = null;
   }
 
@@ -274,9 +263,9 @@ export function registerStrategyHelper(
   options: PreloadStrategyOptions,
 ): void {
   manager.strategies.set(appName, options);
-  if (options.strategy === "hover") {
+  if (options.strategy === 'hover') {
     setupHoverListener(manager, appName, options);
-  } else if (options.strategy === "visibility") {
+  } else if (options.strategy === 'visibility') {
     setupVisibilityListener(manager);
   }
 }
@@ -287,10 +276,7 @@ export function registerStrategyHelper(
  * @param manager - PreloadManager 实例
  * @param appName - 应用名称
  */
-export function recordPreloadTriggerHelper(
-  manager: PreloadManagerLike,
-  appName: string,
-): void {
+export function recordPreloadTriggerHelper(manager: PreloadManagerLike, appName: string): void {
   manager.stats.preloadCount++;
   manager.stats.preloadRecords.push({
     appName,
@@ -322,9 +308,7 @@ export async function executePreloadHelper(
   } catch (error) {
     logger.warn(`Failed to preload ${appName}:`, error);
     manager.preloadCache.delete(appName);
-    const rec = manager.stats.preloadRecords.find(
-      (r) => r.appName === appName && !r.consumed,
-    );
+    const rec = manager.stats.preloadRecords.find((r) => r.appName === appName && !r.consumed);
     if (rec) rec.consumed = false;
   }
 }
@@ -354,9 +338,7 @@ export function __registerPreloadManager(
  */
 export function getPreloadManager(): PreloadManagerInterface {
   if (!instanceGetter) {
-    throw new Error(
-      "PreloadManager not initialized. Ensure preload-strategy.ts is imported.",
-    );
+    throw new Error('PreloadManager not initialized. Ensure preload-strategy.ts is imported.');
   }
   return instanceGetter();
 }
@@ -378,7 +360,7 @@ export function resetPreloadManager(): void {
  */
 export function createPreloadManagerLifecycle(): DisposableManager {
   return {
-    name: "preload-strategy",
+    name: 'preload-strategy',
     dispose(): void {
       instanceDestroyer?.();
     },

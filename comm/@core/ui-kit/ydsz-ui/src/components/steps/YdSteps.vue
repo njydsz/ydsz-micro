@@ -80,12 +80,22 @@ function handleStepClick(index: number, disabled?: boolean): void {
 </script>
 
 <template>
-  <nav :class="cn('flex', props.labelPlacement === 'vertical' ? 'flex-row gap-4' : 'flex-col gap-2', props.class)">
+  <nav
+    :class="
+      cn(
+        'flex',
+        props.labelPlacement === 'vertical' ? 'flex-row gap-4' : 'flex-col gap-2',
+        props.class,
+      )
+    "
+  >
     <ol class="flex w-full items-start">
       <YdStepItem
         v-for="step in resolvedSteps"
         :key="step.index"
-        :class="cn('flex-1', step.index === resolvedSteps.length - 1 ? 'flex-none flex-shrink-0' : '')"
+        :class="
+          cn('flex-1', step.index === resolvedSteps.length - 1 ? 'flex-none flex-shrink-0' : '')
+        "
         :dot="props.dot"
         :label-placement="props.labelPlacement"
         :step="step"

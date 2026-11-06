@@ -25,6 +25,17 @@ async function getCommonConfig(): Promise<UserConfig> {
     define: {
       global: 'globalThis',
     },
+    resolve: {
+      // v4.0 P0-3: 优先命中内部包的 `development` 条件（指向 ./src/*.ts），
+      // 使 @ydsz-core/* 与 @ydsz/* 直接从源码参与构建。
+      //
+      // 必要性：内部包的 dist 由 mkdist 逐文件转译产出，其 `.vue` 产物在
+      // node_modules 中被 Rollup 当作原生模块解析时会跳过 vue 插件（模板内的
+      // TS 语法导致解析失败）。源码直连同时带来更快构建与热更新。
+      //
+      // 发布产物（default 条件）不受影响：仅在应用构建链路中追加该条件。
+      conditions: ['development', 'module', 'browser', 'import', 'default'],
+    },
     build: {
       chunkSizeWarningLimit: 500,
       reportCompressedSize: false,

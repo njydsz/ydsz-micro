@@ -241,18 +241,13 @@ export function useExcelExport() {
    * @param options - 完整导出配置
    */
   function exportWithWorker(options: ExcelExportOptions): Promise<void> {
-    const {
-      onProgress,
-      onComplete,
-      onError,
-      workerPath,
-      ...params
-    } = options;
+    const { onProgress, onComplete, onError, workerPath, ...params } = options;
 
     return new Promise<void>((resolve, reject) => {
       let worker: Worker;
       try {
-        const workerUrl = workerPath ?? new URL('./workers/excel-export.worker.ts', import.meta.url).href;
+        const workerUrl =
+          workerPath ?? new URL('./workers/excel-export.worker.ts', import.meta.url).href;
         worker = new Worker(workerUrl, { type: 'module' });
       } catch (err) {
         const fallbackErr = err instanceof Error ? err : new Error(String(err));
@@ -261,7 +256,12 @@ export function useExcelExport() {
       }
 
       worker.onmessage = (event: MessageEvent) => {
-        const data = event.data as { type: string; progress?: number; result?: Blob; error?: string };
+        const data = event.data as {
+          type: string;
+          progress?: number;
+          result?: Blob;
+          error?: string;
+        };
         if (data.type === 'progress' && data.progress != null) {
           progress.value = data.progress;
           onProgress?.(data.progress);
@@ -329,7 +329,7 @@ export function useExcelExport() {
     progress.value = 0;
 
     const { useWorker, data } = options;
-    const shouldUseWorker = useWorker ?? (data.length > WORKER_THRESHOLD);
+    const shouldUseWorker = useWorker ?? data.length > WORKER_THRESHOLD;
 
     // 大文件场景：通过 showToast 全局轻提示告知用户进度
     if (shouldUseWorker) {

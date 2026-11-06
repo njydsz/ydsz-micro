@@ -159,12 +159,7 @@ function parsePayload(raw: string | null): Record<string, unknown> | null {
 export function useTableFilterStorage(
   options: UseTableFilterStorageOptions,
 ): UseTableFilterStorageReturn {
-  const {
-    tableId,
-    defaultFilters = {},
-    expireMs = DEFAULT_EXPIRE_MS,
-    enabled = true,
-  } = options;
+  const { tableId, defaultFilters = {}, expireMs = DEFAULT_EXPIRE_MS, enabled = true } = options;
 
   const storageKey = `${STORAGE_PREFIX}${tableId}`;
 

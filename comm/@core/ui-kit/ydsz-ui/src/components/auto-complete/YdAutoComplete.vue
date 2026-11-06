@@ -203,7 +203,7 @@ watch(
         <div class="absolute inset-y-0 right-2 flex items-center">
           <Loader2
             v-if="isLoading"
-            class="size-4 animate-spin text-muted-foreground"
+            class="text-muted-foreground size-4 animate-spin"
             aria-hidden="true"
           />
           <button
@@ -219,14 +219,16 @@ watch(
       </div>
     </YdPopoverTrigger>
     <YdPopoverContent
-      :class="cn('max-h-60 w-[var(--radix-popover-trigger-width)] overflow-y-auto p-1', props.class)"
+      :class="
+        cn('max-h-60 w-[var(--radix-popover-trigger-width)] overflow-y-auto p-1', props.class)
+      "
       align="start"
       side="bottom"
       @open-auto-focus="(e: Event) => e.preventDefault()"
     >
       <div
         v-if="isLoading"
-        class="flex items-center justify-center gap-2 px-2 py-3 text-sm text-muted-foreground"
+        class="text-muted-foreground flex items-center justify-center gap-2 px-2 py-3 text-sm"
       >
         <Loader2 class="size-3 animate-spin" aria-hidden="true" />
         <span>{{ t('autoComplete.loadingText') }}</span>
@@ -236,9 +238,7 @@ watch(
           v-for="option in resolvedOptions"
           :key="option.value"
           :class="
-            cn(
-              'hover:bg-muted flex w-full items-center rounded-sm px-2 py-1.5 text-left text-sm',
-            )
+            cn('hover:bg-muted flex w-full items-center rounded-sm px-2 py-1.5 text-left text-sm')
           "
           type="button"
           @mousedown.prevent="handleSelect(option)"

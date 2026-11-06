@@ -21,11 +21,7 @@
  * @since 5.7.0
  */
 
-import {
-  computed,
-  reactive,
-  ref,
-} from 'vue';
+import { computed, reactive, ref } from 'vue';
 
 import type { ComputedRef, Ref } from 'vue';
 
@@ -34,10 +30,7 @@ import { useTableData } from '../../composables/use-table-data';
 import type { TableExportApi } from '../data-table';
 import { useLocale } from '../../locale/useLocale';
 
-import type {
-  EditableConfig,
-  ProTableProps,
-} from './pro-table-types';
+import type { EditableConfig, ProTableProps } from './pro-table-types';
 
 /* ============================================================ */
 /* 类型                                                          */
@@ -57,7 +50,12 @@ export interface UseProTableOptions<T extends Record<string, unknown>> {
 
 /** ProTable 对外 emit 事件签名（与 SFC 声明保持一致） */
 export interface ProTableEmits {
-  (e: 'change', pagination: { current: number; pageSize: number; total: number }, filters: Record<string, unknown>, sorter: { prop: string; order: string | null }): void;
+  (
+    e: 'change',
+    pagination: { current: number; pageSize: number; total: number },
+    filters: Record<string, unknown>,
+    sorter: { prop: string; order: string | null },
+  ): void;
   (e: 'rowSelectionChange', selectedKeys: string[]): void;
   (e: 'pageChange', page: number, pageSize: number): void;
 }
@@ -189,7 +187,8 @@ export function useProTable<T extends Record<string, unknown>>(
 
   function handlePageChange(page: number, pageSize: number): void {
     emit('pageChange', page, pageSize);
-    emit('change',
+    emit(
+      'change',
       { ...(props.pagination ?? { current: 1, pageSize: 10, total: 0 }), current: page, pageSize },
       {},
       { prop: sortState.value.prop ?? '', order: sortState.value.order },
@@ -208,7 +207,8 @@ export function useProTable<T extends Record<string, unknown>>(
   /** 搜索 */
   function handleSearch(): void {
     const values = { ...searchValues };
-    emit('change',
+    emit(
+      'change',
       props.pagination ?? { current: 1, pageSize: 10, total: 0 },
       values as Record<string, unknown>,
       { prop: sortState.value.prop ?? '', order: sortState.value.order },

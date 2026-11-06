@@ -42,16 +42,11 @@ export function extendProxyOptions(
   options: VxeGridProps,
   getFormValues: () => Recordable<unknown>,
 ) {
-  [
-    'query',
-    'querySuccess',
-    'queryError',
-    'queryAll',
-    'queryAllSuccess',
-    'queryAllError',
-  ].forEach((key) => {
-    extendProxyOption(key, api, options, getFormValues);
-  });
+  ['query', 'querySuccess', 'queryError', 'queryAll', 'queryAllSuccess', 'queryAllError'].forEach(
+    (key) => {
+      extendProxyOption(key, api, options, getFormValues);
+    },
+  );
 }
 
 /**

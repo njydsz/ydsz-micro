@@ -12,16 +12,16 @@
  * @since 1.0.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import type { Manifest } from "./loader";
+import type { DisposableManager } from './manager-registry';
+import type { Manifest } from './loader';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { clearManifestCache } from "./loader";
-import { getStorage, setStorage, STORAGE_KEYS } from "./storage-utils";
+import { clearManifestCache } from './loader';
+import { getStorage, setStorage, STORAGE_KEYS } from './storage-utils';
 
 /** 模块级日志器 */
-const logger = createLogger("VersionManager");
+const logger = createLogger('VersionManager');
 
 /** 版本信息存储 */
 interface VersionInfo {
@@ -55,8 +55,7 @@ const DEFAULT_CHECK_INTERVAL = 5 * 60 * 1000; // 5分钟
 
 /** 是否为开发模式（dev 模式无 manifest.json，跳过自动检查） */
 const isDev =
-  import.meta !== undefined &&
-  (import.meta as { env?: Record<string, unknown> }).env?.DEV === true;
+  import.meta !== undefined && (import.meta as { env?: Record<string, unknown> }).env?.DEV === true;
 
 class VersionManager {
   /** P0-F1: 注册的子应用入口（appName → entry URL），供自动检查 fetch manifest */
@@ -95,18 +94,14 @@ class VersionManager {
   /**
    * 检查版本更新
    */
-  async checkUpdate(
-    appName: string,
-    manifest: Manifest,
-  ): Promise<VersionUpdateResult> {
+  async checkUpdate(appName: string, manifest: Manifest): Promise<VersionUpdateResult> {
     const currentVersion = this.getVersion(appName);
     const latestVersion = manifest.version;
-    const hasUpdate =
-      currentVersion !== null && currentVersion !== latestVersion;
+    const hasUpdate = currentVersion !== null && currentVersion !== latestVersion;
 
     const result: VersionUpdateResult = {
       appName,
-      currentVersion: currentVersion ?? "unknown",
+      currentVersion: currentVersion ?? 'unknown',
       latestVersion,
       hasUpdate,
       manifest,
@@ -124,9 +119,7 @@ class VersionManager {
   /**
    * 批量检查多个子应用的版本更新
    */
-  async checkUpdates(
-    manifests: Map<string, Manifest>,
-  ): Promise<VersionUpdateResult[]> {
+  async checkUpdates(manifests: Map<string, Manifest>): Promise<VersionUpdateResult[]> {
     const results: VersionUpdateResult[] = [];
     for (const [appName, manifest] of manifests) {
       const result = await this.checkUpdate(appName, manifest);
@@ -140,8 +133,8 @@ class VersionManager {
    * 返回：-1 (v1 < v2), 0 (v1 === v2), 1 (v1 > v2)
    */
   compareVersions(v1: string, v2: string): -1 | 0 | 1 {
-    const parts1 = v1.split(".").map(Number);
-    const parts2 = v2.split(".").map(Number);
+    const parts1 = v1.split('.').map(Number);
+    const parts2 = v2.split('.').map(Number);
     const len = Math.max(parts1.length, parts2.length);
 
     for (let i = 0; i < len; i++) {
@@ -175,8 +168,8 @@ class VersionManager {
    */
   isCompatible(requiredVersion: string, currentVersion: string): boolean {
     // 简单实现：主版本号必须相同
-    const requiredMajor = requiredVersion.split(".")[0];
-    const currentMajor = currentVersion.split(".")[0];
+    const requiredMajor = requiredVersion.split('.')[0];
+    const currentMajor = currentVersion.split('.')[0];
     return requiredMajor === currentMajor;
   }
 
@@ -206,7 +199,7 @@ class VersionManager {
 
     // dev 模式无 manifest.json 产物，自动检查无意义
     if (isDev) {
-      logger.debug("Auto-check skipped in dev mode");
+      logger.debug('Auto-check skipped in dev mode');
       return;
     }
 
@@ -250,16 +243,14 @@ class VersionManager {
    * 不能使用 loader 的 manifestCache（其中可能缓存了旧版本）。
    */
   private async fetchLatestManifest(entry: string): Promise<Manifest> {
-    const manifestUrl = `${entry.replace(/\/$/, "")}/manifest.json`;
+    const manifestUrl = `${entry.replace(/\/$/, '')}/manifest.json`;
     // @infra-fetch 基础设施层直用，无统一客户端上下文（版本自动检查拉取最新 manifest）
     const response = await fetch(manifestUrl, {
-      cache: "no-cache",
-      headers: { Accept: "application/json" },
+      cache: 'no-cache',
+      headers: { Accept: 'application/json' },
     });
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch manifest from ${manifestUrl}: ${response.status}`,
-      );
+      throw new Error(`Failed to fetch manifest from ${manifestUrl}: ${response.status}`);
     }
     return (await response.json()) as Manifest;
   }
@@ -269,10 +260,7 @@ class VersionManager {
    */
   private loadFromStorage(): void {
     // P0-4: 使用统一存储层
-    const data = getStorage<null | Record<string, VersionInfo>>(
-      STORAGE_KEY,
-      null,
-    );
+    const data = getStorage<null | Record<string, VersionInfo>>(STORAGE_KEY, null);
     if (data) {
       for (const [key, value] of Object.entries(data)) {
         this.versions.set(key, value);
@@ -288,18 +276,18 @@ class VersionManager {
    */
   private async runCheck(): Promise<VersionUpdateResult[]> {
     if (this.checking) {
-      logger.debug("Check already in progress, skipping");
+      logger.debug('Check already in progress, skipping');
       return [];
     }
 
     // 页面不可见时跳过，节省网络请求
-    if (typeof document !== "undefined" && document.hidden) {
-      logger.debug("Tab hidden, skipping check");
+    if (typeof document !== 'undefined' && document.hidden) {
+      logger.debug('Tab hidden, skipping check');
       return [];
     }
 
     if (this.appEntries.size === 0) {
-      logger.debug("No app entries registered, skipping check");
+      logger.debug('No app entries registered, skipping check');
       return [];
     }
 
@@ -320,7 +308,7 @@ class VersionManager {
 
             // 派发版本更新事件，供 UI 层提示用户刷新
             window.dispatchEvent(
-              new CustomEvent("micro-kernel:version-update", {
+              new CustomEvent('micro-kernel:version-update', {
                 detail: result,
               }),
             );
@@ -359,9 +347,7 @@ let versionManagerInstance: null | VersionManager = null;
 /**
  * 获取或创建版本管理器实例
  */
-export function getVersionManager(
-  options?: VersionManagerOptions,
-): VersionManager {
+export function getVersionManager(options?: VersionManagerOptions): VersionManager {
   if (!versionManagerInstance) {
     versionManagerInstance = new VersionManager(options);
   }
@@ -385,7 +371,7 @@ export function resetVersionManager(): void {
  */
 export function createVersionManager(): DisposableManager {
   return {
-    name: "version-manager",
+    name: 'version-manager',
     dispose(): void {
       versionManagerInstance?.destroy();
       versionManagerInstance = null;

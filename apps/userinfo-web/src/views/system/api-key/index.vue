@@ -52,18 +52,19 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       title: '状态',
       width: 100,
       slots: {
-        default: ({ row }) => h(YdSwitch, {
-          checked: row.isEnabled ?? false,
-          'onUpdate:checked': async (val: boolean) => {
-            try {
-              await updateEnabled(row.id ?? 0, val);
-              showToast.success(val ? '已启用' : '已禁用');
-              gridApi.query();
-            } catch {
-              /* 错误由拦截器处理 */
-            }
-          },
-        }),
+        default: ({ row }) =>
+          h(YdSwitch, {
+            checked: row.isEnabled ?? false,
+            'onUpdate:checked': async (val: boolean) => {
+              try {
+                await updateEnabled(row.id ?? 0, val);
+                showToast.success(val ? '已启用' : '已禁用');
+                gridApi.query();
+              } catch {
+                /* 错误由拦截器处理 */
+              }
+            },
+          }),
       },
     },
     {
@@ -72,16 +73,32 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
       width: 120,
       fixed: 'right',
       slots: {
-        default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleRevoke(row) }, () => '撤销'),
-        ]),
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleRevoke(row),
+              },
+              () => '撤销',
+            ),
+          ]),
       },
     },
   ],
   height: 'auto',
   proxyConfig: {
     ajax: {
-      query: async ({ formData, page }: { formData?: Record<string, unknown>; page?: { currentPage: number; pageSize: number } }) => {
+      query: async ({
+        formData,
+        page,
+      }: {
+        formData?: Record<string, unknown>;
+        page?: { currentPage: number; pageSize: number };
+      }) => {
         try {
           const result = await pageKeys({
             pageNum: page?.currentPage ?? 1,
@@ -100,7 +117,11 @@ const gridOptions: VxeTableGridOptions<ApiKeyVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'keyName', title: 'Key 名称', itemRender: { name: 'YdInput', props: { placeholder: 'Key 名称' } } },
+      {
+        field: 'keyName',
+        title: 'Key 名称',
+        itemRender: { name: 'YdInput', props: { placeholder: 'Key 名称' } },
+      },
     ],
   },
 };
@@ -148,7 +169,9 @@ async function handleRevoke(row: ApiKeyVO) {
 <template>
   <Page auto-content-height>
     <Grid table-title="API Key 管理">
-      <template #toolbar-tools><YdButton variant="default" @click="handleAdd">新增</YdButton></template>
+      <template #toolbar-tools
+        ><YdButton variant="default" @click="handleAdd">新增</YdButton></template
+      >
     </Grid>
     <ApiKeyFormModal @success="gridApi.query()" />
   </Page>

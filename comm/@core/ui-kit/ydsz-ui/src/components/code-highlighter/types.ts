@@ -7,16 +7,7 @@
  */
 
 /** 支持的语法高亮语言 */
-export type CodeLanguage =
-  | 'bash'
-  | 'css'
-  | 'html'
-  | 'js'
-  | 'json'
-  | 'md'
-  | 'text'
-  | 'ts'
-  | 'vue';
+export type CodeLanguage = 'bash' | 'css' | 'html' | 'js' | 'json' | 'md' | 'text' | 'ts' | 'vue';
 
 /** 主题模式 */
 export type CodeTheme = 'dark' | 'light';

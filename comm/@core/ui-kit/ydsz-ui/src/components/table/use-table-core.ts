@@ -151,9 +151,12 @@ export interface UseTableCoreReturn {
  */
 export function alignClass(align?: string): string {
   switch (align) {
-    case 'center': return 'text-center';
-    case 'right': return 'text-right';
-    default: return 'text-left';
+    case 'center':
+      return 'text-center';
+    case 'right':
+      return 'text-right';
+    default:
+      return 'text-left';
   }
 }
 
@@ -264,12 +267,16 @@ export function useTableCore(options: UseTableCoreOptions): UseTableCoreReturn {
 
   const wrapperStyle = computed<CSSProperties | undefined>(() => {
     if (props.maxHeight != null) {
-      return { maxHeight: typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight };
+      return {
+        maxHeight: typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight,
+      };
     }
     return undefined;
   });
 
-  const displayEmptyText = computed(() => props.emptyTextCompat ?? props.emptyText ?? t('empty.default'));
+  const displayEmptyText = computed(
+    () => props.emptyTextCompat ?? props.emptyText ?? t('empty.default'),
+  );
 
   /* ---------------------------------------------------------- */
   /* 虚拟滚动                                                     */
@@ -280,7 +287,9 @@ export function useTableCore(options: UseTableCoreOptions): UseTableCoreReturn {
    *
    * <p>仅在列驱动模式下启用；语义插槽模式下不激活。
    */
-  const isVirtualActive = computed<boolean>(() => !!(props.virtual && hasColumns.value && dataHasItems.value));
+  const isVirtualActive = computed<boolean>(
+    () => !!(props.virtual && hasColumns.value && dataHasItems.value),
+  );
 
   /**
    * 真实滚动视口高度：优先取 maxHeight prop，否则回退到 viewportHeight。
@@ -289,7 +298,9 @@ export function useTableCore(options: UseTableCoreOptions): UseTableCoreReturn {
    */
   const effectiveViewportHeight = computed<number>(() => {
     if (props.maxHeight != null) {
-      return typeof props.maxHeight === 'number' ? props.maxHeight : Number.parseInt(String(props.maxHeight), 10) || props.viewportHeight || 400;
+      return typeof props.maxHeight === 'number'
+        ? props.maxHeight
+        : Number.parseInt(String(props.maxHeight), 10) || props.viewportHeight || 400;
     }
     return props.viewportHeight || 400;
   });
@@ -299,15 +310,15 @@ export function useTableCore(options: UseTableCoreOptions): UseTableCoreReturn {
    *
    * <p>包裹 getter 以让 composable 响应 props.data 变更。
    */
-  const virtualList = useVirtualList<Record<string, unknown>>(
-    () => props.data ?? [],
-    {
-      itemHeight: props.itemHeight,
-      overscan: props.overscan,
-      viewportHeight: effectiveViewportHeight.value,
-      getKey: (row, index) => (props.rowKey ? String((row as Record<string, unknown>)[props.rowKey] ?? index) : String(index)),
-    },
-  );
+  const virtualList = useVirtualList<Record<string, unknown>>(() => props.data ?? [], {
+    itemHeight: props.itemHeight,
+    overscan: props.overscan,
+    viewportHeight: effectiveViewportHeight.value,
+    getKey: (row, index) =>
+      props.rowKey
+        ? String((row as Record<string, unknown>)[props.rowKey] ?? index)
+        : String(index),
+  });
 
   /* ---------------------------------------------------------- */
   /* 列宽拖拽调整                                                 */

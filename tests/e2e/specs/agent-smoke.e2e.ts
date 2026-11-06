@@ -20,7 +20,8 @@ import { APP_SELECTOR, SELECTORS } from '../support/selectors';
 /** 选择器集中管理 */
 const LOCAL_SELECTORS = {
   cardGrid: '[data-testid="agent-card-grid"], .card-grid',
-  createButton: 'button:has-text("新增"), button:has-text("新建"), button:has-text("添加"), button:has-text("创建Agent"), button:has-text("新建Agent")',
+  createButton:
+    'button:has-text("新增"), button:has-text("新建"), button:has-text("添加"), button:has-text("创建Agent"), button:has-text("新建Agent")',
 } as const;
 
 /**
@@ -41,7 +42,9 @@ test.describe('Agent 模块 — Agent管理', () => {
   test('TC-AGT-001: 页面访问 — 应成功导航至Agent列表页', async ({ page }) => {
     await expect(page.locator(APP_SELECTOR)).toBeVisible();
     const heading = page.locator(SELECTORS.heading);
-    await expect(heading.filter({ hasText: /Agent|智能体/ }).first()).toBeVisible({ timeout: 5_000 });
+    await expect(heading.filter({ hasText: /Agent|智能体/ }).first()).toBeVisible({
+      timeout: 5_000,
+    });
   });
 
   test('TC-AGT-002: 列表加载 — Agent卡片网格或表格应可见', async ({ page }) => {

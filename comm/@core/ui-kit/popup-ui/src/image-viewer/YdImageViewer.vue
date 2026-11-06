@@ -3,7 +3,7 @@
  * YdImageViewer.vue —— 全局图片预览器渲染挂载点。
  * 通过 useImageViewerState() 订阅模块级共享状态，挂载于 App 根节点。
  * 特性：缩放（滚轮/按钮，0.5x–5x，步进 0.25x）、旋转（±90°）、翻页（箭头/键盘）、缩略图导航。
- * 
+ *
  * @path comm\@core\ui-kit\popup-ui\src\image-viewer\YdImageViewer.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -53,10 +53,7 @@ const isDragging = ref(false);
  * @returns 夹闭后的值
  */
 function clampScale(value: number): number {
-  return Math.min(
-    Math.max(value, state.options.minScale),
-    state.options.maxScale,
-  );
+  return Math.min(Math.max(value, state.options.minScale), state.options.maxScale);
 }
 
 /**
@@ -120,10 +117,7 @@ const thumbnailSlice = computed(() => {
   const total = state.images.length;
   const start = Math.max(
     0,
-    Math.min(
-      state.currentIndex - Math.floor(MAX_THUMBNAILS / 2),
-      total - MAX_THUMBNAILS,
-    ),
+    Math.min(state.currentIndex - Math.floor(MAX_THUMBNAILS / 2), total - MAX_THUMBNAILS),
   );
   return state.images.slice(start, start + MAX_THUMBNAILS);
 });
@@ -133,10 +127,7 @@ const thumbnailOffset = computed(() => {
   const total = state.images.length;
   return Math.max(
     0,
-    Math.min(
-      state.currentIndex - Math.floor(MAX_THUMBNAILS / 2),
-      total - MAX_THUMBNAILS,
-    ),
+    Math.min(state.currentIndex - Math.floor(MAX_THUMBNAILS / 2), total - MAX_THUMBNAILS),
   );
 });
 
@@ -236,7 +227,10 @@ onBeforeUnmount(() => {
       enter-to-class="opacity-100"
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
-      :style="{ transitionDuration: `${DURATION_TOKENS.normal}ms`, transitionTimingFunction: EASING_TOKENS.standard }"
+      :style="{
+        transitionDuration: `${DURATION_TOKENS.normal}ms`,
+        transitionTimingFunction: EASING_TOKENS.standard,
+      }"
     >
       <div
         v-if="state.isOpen"
@@ -247,7 +241,7 @@ onBeforeUnmount(() => {
         aria-keyshortcuts="ArrowLeft ArrowRight Escape +-"
       >
         <!-- 顶部工具栏 -->
-        <div class="absolute top-0 start-0 end-0 z-10 flex items-center justify-between p-4">
+        <div class="absolute end-0 start-0 top-0 z-10 flex items-center justify-between p-4">
           <span class="text-sm font-medium text-white/70">
             {{ state.currentIndex + 1 }} / {{ state.images.length }}
           </span>
@@ -261,8 +255,18 @@ onBeforeUnmount(() => {
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
-                <path d="M11 8V14M8 11H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <path d="M16 16L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path
+                  d="M11 8V14M8 11H14"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M16 16L20 20"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
               </svg>
             </button>
             <button
@@ -274,7 +278,12 @@ onBeforeUnmount(() => {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
                 <path d="M8 11H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <path d="M16 16L20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path
+                  d="M16 16L20 20"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
               </svg>
             </button>
             <button
@@ -284,8 +293,20 @@ onBeforeUnmount(() => {
               @click="rotateLeft"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 12a9 9 0 1 0 3-6.7L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M3 3V8H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M3 12a9 9 0 1 0 3-6.7L3 8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M3 3V8H8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <button
@@ -295,8 +316,20 @@ onBeforeUnmount(() => {
               @click="rotateRight"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M21 12a9 9 0 1 1-3-6.7L21 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M21 3V8H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M21 12a9 9 0 1 1-3-6.7L21 8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M21 3V8H16"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <button
@@ -306,9 +339,27 @@ onBeforeUnmount(() => {
               @click="resetTransformations"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M15 3H19V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M5 15L9.5 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M3 7V11H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M15 3H19V7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M5 15L9.5 19.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M3 7V11H7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <button
@@ -318,14 +369,22 @@ onBeforeUnmount(() => {
               @click="closeViewer"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path
+                  d="M6 6L18 18M6 18L18 6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
               </svg>
             </button>
           </div>
         </div>
 
         <!-- 主内容区 -->
-        <div class="relative flex flex-1 items-center justify-center overflow-hidden" @wheel="handleWheel">
+        <div
+          class="relative flex flex-1 items-center justify-center overflow-hidden"
+          @wheel="handleWheel"
+        >
           <!-- 上一张 -->
           <button
             v-show="state.currentIndex > 0"
@@ -335,7 +394,13 @@ onBeforeUnmount(() => {
             @click="goPrev"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M15 6L9 12L15 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
 
@@ -368,7 +433,13 @@ onBeforeUnmount(() => {
             @click="goNext"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M9 6L15 12L9 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -385,14 +456,16 @@ onBeforeUnmount(() => {
             :key="img.src + idx"
             type="button"
             role="tab"
-            :aria-selected="(idx + thumbnailOffset) === state.currentIndex"
+            :aria-selected="idx + thumbnailOffset === state.currentIndex"
             :aria-label="t('image.itemAriaLabel', { index: idx + thumbnailOffset + 1 })"
-            :class="cn(
-              'h-14 w-20 shrink-0 overflow-hidden rounded border-2 transition-all duration-200',
-              (idx + thumbnailOffset) === state.currentIndex
-                ? 'border-white opacity-100 scale-105'
-                : 'border-transparent opacity-50 hover:opacity-80',
-            )"
+            :class="
+              cn(
+                'h-14 w-20 shrink-0 overflow-hidden rounded border-2 transition-all duration-200',
+                idx + thumbnailOffset === state.currentIndex
+                  ? 'scale-105 border-white opacity-100'
+                  : 'border-transparent opacity-50 hover:opacity-80',
+              )
+            "
             @click="jumpToThumbnail(idx)"
           >
             <img

@@ -47,7 +47,8 @@ describe('useTableColumnStorage', () => {
   });
 
   it('clearColumnConfig 应清除存储', () => {
-    const { saveColumnConfig, loadColumnConfig, clearColumnConfig } = useTableColumnStorage('test-table');
+    const { saveColumnConfig, loadColumnConfig, clearColumnConfig } =
+      useTableColumnStorage('test-table');
     saveColumnConfig([{ key: 'name' }]);
     clearColumnConfig();
     expect(loadColumnConfig()).toEqual([]);

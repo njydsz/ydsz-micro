@@ -26,9 +26,7 @@ const widgetNotification = defineModel<boolean>('widgetNotification');
 const widgetThemeToggle = defineModel<boolean>('widgetThemeToggle');
 const widgetSidebarToggle = defineModel<boolean>('widgetSidebarToggle');
 const widgetLockScreen = defineModel<boolean>('widgetLockScreen');
-const appPreferencesButtonPosition = defineModel<string>(
-  'appPreferencesButtonPosition',
-);
+const appPreferencesButtonPosition = defineModel<string>('appPreferencesButtonPosition');
 const widgetRefresh = defineModel<boolean>('widgetRefresh');
 
 const positionItems = computed((): SelectOption[] => [

@@ -71,10 +71,7 @@ const showShadowRight = computed(() => props.shadow && props.shadowRight);
 const computedShadowClasses = computed(() => {
   return {
     'both-shadow':
-      !isAtLeft.value &&
-      !isAtRight.value &&
-      showShadowLeft.value &&
-      showShadowRight.value,
+      !isAtLeft.value && !isAtRight.value && showShadowLeft.value && showShadowRight.value,
     'left-shadow': !isAtLeft.value && showShadowLeft.value,
     'right-shadow': !isAtRight.value && showShadowRight.value,
   };
@@ -91,11 +88,9 @@ function handleScroll(event: Event) {
   isAtTop.value = scrollTop <= 0;
   isAtLeft.value = scrollLeft <= 0;
   isAtBottom.value =
-    Math.abs(scrollTop) + clientHeight >=
-    scrollHeight - ARRIVED_STATE_THRESHOLD_PIXELS;
+    Math.abs(scrollTop) + clientHeight >= scrollHeight - ARRIVED_STATE_THRESHOLD_PIXELS;
   isAtRight.value =
-    Math.abs(scrollLeft) + clientWidth >=
-    scrollWidth - ARRIVED_STATE_THRESHOLD_PIXELS;
+    Math.abs(scrollLeft) + clientWidth >= scrollWidth - ARRIVED_STATE_THRESHOLD_PIXELS;
 
   emit('scrollAt', {
     bottom: isAtBottom.value,
@@ -131,11 +126,7 @@ function handleScroll(event: Event) {
       }"
       class="scrollbar-bottom-shadow pointer-events-none absolute bottom-0 z-10 h-12 w-full opacity-0 transition-opacity duration-300 ease-in-out will-change-[opacity]"
     ></div>
-    <YdScrollBar
-      v-if="horizontal"
-      :class="scrollBarClass"
-      orientation="horizontal"
-    />
+    <YdScrollBar v-if="horizontal" :class="scrollBarClass" orientation="horizontal" />
   </YdScrollArea>
 </template>
 
@@ -146,12 +137,7 @@ function handleScroll(event: Event) {
   }
 
   &:not(.both-shadow).right-shadow {
-    mask-image: linear-gradient(
-      90deg,
-      #000 0%,
-      #000 calc(100% - 16px),
-      transparent
-    );
+    mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent);
   }
 
   &.both-shadow {
@@ -166,18 +152,10 @@ function handleScroll(event: Event) {
 }
 
 .scrollbar-top-shadow {
-  background: linear-gradient(
-    to bottom,
-    hsl(var(--scroll-shadow, var(--background))),
-    transparent
-  );
+  background: linear-gradient(to bottom, hsl(var(--scroll-shadow, var(--background))), transparent);
 }
 
 .scrollbar-bottom-shadow {
-  background: linear-gradient(
-    to top,
-    hsl(var(--scroll-shadow, var(--background))),
-    transparent
-  );
+  background: linear-gradient(to top, hsl(var(--scroll-shadow, var(--background))), transparent);
 }
 </style>

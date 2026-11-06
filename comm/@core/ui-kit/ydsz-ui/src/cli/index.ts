@@ -7,20 +7,20 @@
  * @since 1.0.0
  */
 
-import { execSync } from 'node:child_process'
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { execSync } from 'node:child_process';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
 interface ScaffoldOptions {
-  name: string
-  template: 'vue' | 'nuxt'
-  ts: boolean
-  icon: 'lucide' | 'heroicons'
-  install: boolean
+  name: string;
+  template: 'vue' | 'nuxt';
+  ts: boolean;
+  icon: 'lucide' | 'heroicons';
+  install: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -28,42 +28,42 @@ interface ScaffoldOptions {
 // ---------------------------------------------------------------------------
 
 interface RawArg {
-  key: string
-  value: string | boolean
+  key: string;
+  value: string | boolean;
 }
 
 function parseArgs(argv: string[]): RawArg[] {
-  const result: RawArg[] = []
+  const result: RawArg[] = [];
   for (let i = 0; i < argv.length; i++) {
-    const arg = argv[i]
+    const arg = argv[i];
     if (arg.startsWith('--')) {
-      const eqIdx = arg.indexOf('=')
+      const eqIdx = arg.indexOf('=');
       if (eqIdx !== -1) {
-        result.push({ key: arg.slice(2, eqIdx), value: arg.slice(eqIdx + 1) })
+        result.push({ key: arg.slice(2, eqIdx), value: arg.slice(eqIdx + 1) });
       } else if (i + 1 < argv.length && !argv[i + 1].startsWith('-')) {
-        result.push({ key: arg.slice(2), value: argv[++i] })
+        result.push({ key: arg.slice(2), value: argv[++i] });
       } else {
-        result.push({ key: arg.slice(2), value: true })
+        result.push({ key: arg.slice(2), value: true });
       }
     } else if (arg.startsWith('-') && arg.length === 2) {
       if (i + 1 < argv.length && !argv[i + 1].startsWith('-')) {
-        result.push({ key: arg.slice(1), value: argv[++i] })
+        result.push({ key: arg.slice(1), value: argv[++i] });
       } else {
-        result.push({ key: arg.slice(1), value: true })
+        result.push({ key: arg.slice(1), value: true });
       }
     } else if (arg !== '') {
-      result.push({ key: '_', value: arg })
+      result.push({ key: '_', value: arg });
     }
   }
-  return result
+  return result;
 }
 
 function getArg(args: RawArg[], keys: string[]): string | boolean | undefined {
   for (const key of keys) {
-    const found = args.find((a) => a.key === key)
-    if (found !== undefined) return found.value
+    const found = args.find((a) => a.key === key);
+    if (found !== undefined) return found.value;
   }
-  return undefined
+  return undefined;
 }
 
 function showHelp(): void {
@@ -86,11 +86,11 @@ ydsz-init —— 一键创建 ydsz-ui 项目脚手架
   ydsz-init my-app
   ydsz-init my-app --template nuxt --icon heroicons
   ydsz-init my-app --js --no-install
-`)
+`);
 }
 
 function showVersion(): void {
-  console.log('ydsz-init v1.0.0')
+  console.log('ydsz-init v1.0.0');
 }
 
 // ---------------------------------------------------------------------------
@@ -98,18 +98,18 @@ function showVersion(): void {
 // ---------------------------------------------------------------------------
 
 function exec(cmd: string, cwd?: string): void {
-  execSync(cmd, { stdio: 'inherit', cwd })
+  execSync(cmd, { stdio: 'inherit', cwd });
 }
 
 function ensureDir(path: string): void {
   if (!existsSync(path)) {
-    mkdirSync(path, { recursive: true })
+    mkdirSync(path, { recursive: true });
   }
 }
 
 function writeProjectFile(path: string, content: string): void {
-  writeFileSync(path, content, 'utf-8')
-  console.log(`  created ${path}`)
+  writeFileSync(path, content, 'utf-8');
+  console.log(`  created ${path}`);
 }
 
 function generatePackageJson(name: string, ts: boolean, icon: 'lucide' | 'heroicons'): string {
@@ -142,7 +142,7 @@ function generatePackageJson(name: string, ts: boolean, icon: 'lucide' | 'heroic
     },
     null,
     2,
-  )
+  );
 }
 
 /** vite 配置模板：内容为纯 ESM 语法，`.ts` / `.js` 两种扩展名均可直接使用 */
@@ -162,7 +162,7 @@ export default defineConfig({
     },
   },
 })
-`
+`;
 }
 
 function generateTsConfig(): string {
@@ -190,7 +190,7 @@ function generateTsConfig(): string {
     },
     null,
     2,
-  )
+  );
 }
 
 function generateEnvDts(): string {
@@ -201,7 +201,7 @@ declare module '*.vue' {
   const component: DefineComponent<object, object, unknown>
   export default component
 }
-`
+`;
 }
 
 function generateIndexHtml(name: string): string {
@@ -218,7 +218,7 @@ function generateIndexHtml(name: string): string {
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
-`
+`;
 }
 
 function generateMainTs(): string {
@@ -229,7 +229,7 @@ import './styles/main.css'
 
 const app = createApp(App)
 app.mount('#app')
-`
+`;
 }
 
 function generateAppVue(): string {
@@ -278,7 +278,7 @@ function handleClick() {
     </div>
   </YdConfigProvider>
 </template>
-`
+`;
 }
 
 function generateCss(): string {
@@ -318,7 +318,7 @@ function generateCss(): string {
     --color-ring: #d4d4d4;
   }
 }
-`
+`;
 }
 
 function generateReadme(name: string): string {
@@ -337,7 +337,7 @@ npm run dev
 \`\`\`bash
 npm run build
 \`\`\`
-`
+`;
 }
 
 // ---------------------------------------------------------------------------
@@ -345,106 +345,104 @@ npm run build
 // ---------------------------------------------------------------------------
 
 function main(): void {
-  const raw = parseArgs(process.argv.slice(2))
+  const raw = parseArgs(process.argv.slice(2));
 
   // Help / version
   if (getArg(raw, ['h', 'help']) !== undefined) {
-    showHelp()
-    return
+    showHelp();
+    return;
   }
   if (getArg(raw, ['v', 'version']) !== undefined) {
-    showVersion()
-    return
+    showVersion();
+    return;
   }
 
   // Project name
-  const nameArg = raw.find((a) => a.key === '_')
-  const name = typeof nameArg?.value === 'string' ? nameArg.value : ''
+  const nameArg = raw.find((a) => a.key === '_');
+  const name = typeof nameArg?.value === 'string' ? nameArg.value : '';
 
   if (!name) {
-    console.error('错误: 请提供项目名称')
-    console.error('')
-    showHelp()
-    process.exit(1)
+    console.error('错误: 请提供项目名称');
+    console.error('');
+    showHelp();
+    process.exit(1);
   }
 
   // Options
-  const templateRaw = getArg(raw, ['t', 'template'])
-  const template: 'vue' | 'nuxt' =
-    templateRaw === 'nuxt' ? 'nuxt' : 'vue'
+  const templateRaw = getArg(raw, ['t', 'template']);
+  const template: 'vue' | 'nuxt' = templateRaw === 'nuxt' ? 'nuxt' : 'vue';
 
-  const tsArg = getArg(raw, ['T', 'ts'])
-  const jsArg = getArg(raw, ['J', 'js'])
-  const ts: boolean = jsArg !== undefined ? false : tsArg !== false
+  const tsArg = getArg(raw, ['T', 'ts']);
+  const jsArg = getArg(raw, ['J', 'js']);
+  const ts: boolean = jsArg !== undefined ? false : tsArg !== false;
 
-  const iconRaw = getArg(raw, ['i', 'icon'])
-  const icon: 'lucide' | 'heroicons' =
-    iconRaw === 'heroicons' ? 'heroicons' : 'lucide'
+  const iconRaw = getArg(raw, ['i', 'icon']);
+  const icon: 'lucide' | 'heroicons' = iconRaw === 'heroicons' ? 'heroicons' : 'lucide';
 
-  const noInstall = getArg(raw, ['no-install']) !== undefined
+  const noInstall = getArg(raw, ['no-install']) !== undefined;
 
-  const options: ScaffoldOptions = { name, template, ts, icon, install: !noInstall }
+  const options: ScaffoldOptions = { name, template, ts, icon, install: !noInstall };
 
-  console.log('')
-  console.log(`  项目名称: ${options.name}`)
-  console.log(`  模板类型: ${options.template}`)
-  console.log(`  语言类型: ${options.ts ? 'TypeScript' : 'JavaScript'}`)
-  console.log(`  图标库:   ${options.icon}`)
-  console.log(`  自动安装: ${options.install ? '是' : '否'}`)
-  console.log('')
+  console.log('');
+  console.log(`  项目名称: ${options.name}`);
+  console.log(`  模板类型: ${options.template}`);
+  console.log(`  语言类型: ${options.ts ? 'TypeScript' : 'JavaScript'}`);
+  console.log(`  图标库:   ${options.icon}`);
+  console.log(`  自动安装: ${options.install ? '是' : '否'}`);
+  console.log('');
 
-  const projectDir = resolve(process.cwd(), name)
+  const projectDir = resolve(process.cwd(), name);
 
   if (existsSync(projectDir)) {
-    console.error(`错误: 目录已存在 ${projectDir}`)
-    process.exit(1)
+    console.error(`错误: 目录已存在 ${projectDir}`);
+    process.exit(1);
   }
 
-  console.log(`创建项目 ${name} ...\n`)
+  console.log(`创建项目 ${name} ...\n`);
 
   // Directory structure
-  ensureDir(resolve(projectDir, 'src'))
-  ensureDir(resolve(projectDir, 'src/styles'))
-  ensureDir(resolve(projectDir, 'public'))
+  ensureDir(resolve(projectDir, 'src'));
+  ensureDir(resolve(projectDir, 'src/styles'));
+  ensureDir(resolve(projectDir, 'public'));
 
   // package.json
-  writeProjectFile(resolve(projectDir, 'package.json'), generatePackageJson(name, ts, icon))
+  writeProjectFile(resolve(projectDir, 'package.json'), generatePackageJson(name, ts, icon));
 
   // vite.config
-  writeProjectFile(resolve(projectDir, `vite.config.${ts ? 'ts' : 'js'}`), generateViteConfig())
+  writeProjectFile(resolve(projectDir, `vite.config.${ts ? 'ts' : 'js'}`), generateViteConfig());
 
   // tsconfig.json + env.d.ts
   if (ts) {
-    writeProjectFile(resolve(projectDir, 'tsconfig.json'), generateTsConfig())
-    writeProjectFile(resolve(projectDir, 'env.d.ts'), generateEnvDts())
+    writeProjectFile(resolve(projectDir, 'tsconfig.json'), generateTsConfig());
+    writeProjectFile(resolve(projectDir, 'env.d.ts'), generateEnvDts());
   }
 
   // index.html
-  writeProjectFile(resolve(projectDir, 'index.html'), generateIndexHtml(name))
+  writeProjectFile(resolve(projectDir, 'index.html'), generateIndexHtml(name));
 
   // src/main.ts
-  writeProjectFile(resolve(projectDir, 'src/main.ts'), generateMainTs())
+  writeProjectFile(resolve(projectDir, 'src/main.ts'), generateMainTs());
 
   // src/App.vue
-  writeProjectFile(resolve(projectDir, 'src/App.vue'), generateAppVue())
+  writeProjectFile(resolve(projectDir, 'src/App.vue'), generateAppVue());
 
   // src/styles/main.css
-  writeProjectFile(resolve(projectDir, 'src/styles/main.css'), generateCss())
+  writeProjectFile(resolve(projectDir, 'src/styles/main.css'), generateCss());
 
   // README.md
-  writeProjectFile(resolve(projectDir, 'README.md'), generateReadme(name))
+  writeProjectFile(resolve(projectDir, 'README.md'), generateReadme(name));
 
   // npm install
   if (options.install) {
-    console.log('\n正在安装依赖...')
-    exec('npm install', projectDir)
+    console.log('\n正在安装依赖...');
+    exec('npm install', projectDir);
   }
 
-  console.log(`\n项目 ${name} 创建完成！`)
-  console.log('')
-  console.log(`  cd ${name}`)
-  console.log(`  npm run dev`)
-  console.log('')
+  console.log(`\n项目 ${name} 创建完成！`);
+  console.log('');
+  console.log(`  cd ${name}`);
+  console.log(`  npm run dev`);
+  console.log('');
 }
 
-main()
+main();

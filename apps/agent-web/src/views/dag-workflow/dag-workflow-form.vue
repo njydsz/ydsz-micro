@@ -15,7 +15,7 @@ import { useYdModal } from '@ydsz/common-ui';
 import { reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { saveDagWorkflow } from '#/api/dag-workflow';
-import type { DagWorkflow } from '#/api/models';
+import type { DagWorkflowVO } from '#/api/models';
 
 defineOptions({ name: 'DagWorkflowForm' });
 
@@ -48,14 +48,14 @@ const form = reactive<FormData>({
 const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ mode: FormMode; record?: DagWorkflow }>();
+    const data = modalApi.getData<{ mode: FormMode; record?: DagWorkflowVO }>();
     if (data?.mode === 'edit' && data.record) {
       const record = data.record;
       Object.assign(form, {
         workflowCode: record.workflowCode ?? '',
-        workflowName: record.name ?? '',
+        workflowName: record.workflowName ?? '',
         description: record.description ?? '',
-        dslContent: record.dsl ?? '',
+        dslContent: record.dslContent ?? '',
         category: record.category ?? '',
         layoutJson: '',
       });
@@ -76,7 +76,7 @@ async function validateForm(): Promise<boolean> {
 }
 
 async function handleSubmit(): Promise<void> {
-  if (!await validateForm()) return;
+  if (!(await validateForm())) return;
   submitting.value = true;
   try {
     await saveDagWorkflow({
@@ -117,23 +117,13 @@ function handleCancel(): void {
         />
       </YdFormItem>
       <YdFormItem label="工作流名称" required>
-        <YdInput
-          v-model="form.workflowName"
-          placeholder="请输入工作流名称"
-        />
+        <YdInput v-model="form.workflowName" placeholder="请输入工作流名称" />
       </YdFormItem>
       <YdFormItem label="分类">
-        <YdInput
-          v-model="form.category"
-          placeholder="如：数据处理、审批流、对话编排"
-        />
+        <YdInput v-model="form.category" placeholder="如：数据处理、审批流、对话编排" />
       </YdFormItem>
       <YdFormItem label="描述">
-        <YdTextarea
-          v-model="form.description"
-          :rows="2"
-          placeholder="工作流用途描述（可选）"
-        />
+        <YdTextarea v-model="form.description" :rows="2" placeholder="工作流用途描述（可选）" />
       </YdFormItem>
       <YdFormItem label="YAML DSL" required>
         <YdTextarea

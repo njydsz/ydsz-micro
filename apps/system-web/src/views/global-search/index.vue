@@ -165,13 +165,19 @@ watch(keyword, () => {
       </div>
 
       <!-- 热门词推荐 -->
-      <div v-if="hotWords.length && !keyword" class="mt-3 flex flex-wrap gap-2 text-sm text-gray-500">
+      <div
+        v-if="hotWords.length && !keyword"
+        class="mt-3 flex flex-wrap gap-2 text-sm text-gray-500"
+      >
         <span>{{ t('system.search.hot') }}:</span>
         <span
           v-for="word in hotWords"
           :key="word.keyword"
           class="cursor-pointer text-blue-500 hover:underline"
-          @click="keyword = word.keyword; doSearch(1)"
+          @click="
+            keyword = word.keyword;
+            doSearch(1);
+          "
         >
           {{ word.keyword }}
         </span>
@@ -184,7 +190,11 @@ watch(keyword, () => {
         v-for="tab in tabs"
         :key="tab.key"
         class="tab-item border-b-2 px-4 py-2 text-sm transition-colors"
-        :class="activeTab === tab.key ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+        :class="
+          activeTab === tab.key
+            ? 'border-blue-600 text-blue-600'
+            : 'border-transparent text-gray-500 hover:text-gray-700'
+        "
         @click="handleTabChange(tab.key)"
       >
         {{ tab.label }}
@@ -251,7 +261,10 @@ watch(keyword, () => {
     </div>
 
     <!-- 分页 -->
-    <div v-if="searchResult.total && searchResult.total > pageSize" class="mt-6 flex justify-center">
+    <div
+      v-if="searchResult.total && searchResult.total > pageSize"
+      class="mt-6 flex justify-center"
+    >
       <div class="flex gap-1">
         <button
           type="button"

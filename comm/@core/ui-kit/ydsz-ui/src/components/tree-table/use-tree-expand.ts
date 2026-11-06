@@ -73,7 +73,8 @@ export interface UseTreeExpandReturn<T extends Record<string, unknown> = Record<
 export function useTreeExpand<T extends Record<string, unknown>>(
   options: UseTreeExpandOptions<T>,
 ): UseTreeExpandReturn<T> {
-  const { emit, props, nodeMap, getEffectiveChildren, lazyChildrenMap, internalExpandedKeys } = options;
+  const { emit, props, nodeMap, getEffectiveChildren, lazyChildrenMap, internalExpandedKeys } =
+    options;
 
   /** 懒加载内部 loading key 集合 */
   const internalLoadingKeys = ref<Set<string>>(new Set());
@@ -192,10 +193,7 @@ export function useTreeExpand<T extends Record<string, unknown>>(
   }
 
   function isNodeLoading(key: string): boolean {
-    return (
-      internalLoadingKeys.value.has(key) ||
-      (props.loadingKeys ?? []).includes(key)
-    );
+    return internalLoadingKeys.value.has(key) || (props.loadingKeys ?? []).includes(key);
   }
 
   return {

@@ -44,7 +44,10 @@ vi.mock('@ydsz-core/feature-flags', () => ({
   defineFeatureFlags: () => {},
   initFeatureFlags: async () => {},
   featureFlagsManager: { init: async () => {}, register: () => {} },
-  FeatureFlagsManager: class { init = async () => {}; register = () => {}; },
+  FeatureFlagsManager: class {
+    init = async () => {};
+    register = () => {};
+  },
 }));
 
 /** mock styles: 无实际 CSS */
@@ -82,7 +85,6 @@ afterEach(() => {
 // ---------- tests ----------
 
 describe('defineYdzSubApp', () => {
-
   // ----- 1. 返回值含 app / router / pinia -----
   it('返回值应包含 app / router / pinia 三个实例', async () => {
     const result = await defineYdzSubApp({

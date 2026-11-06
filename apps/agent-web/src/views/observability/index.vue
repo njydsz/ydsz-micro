@@ -15,9 +15,29 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState, YdTable, YdTableColumn, YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdEmptyState,
+  YdTable,
+  YdTableColumn,
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
 
@@ -134,22 +154,24 @@ onMounted(() => {
     <div class="space-y-4 p-5">
       <!-- 概览卡片 -->
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-        <YdCard class="hover:shadow-md transition-shadow">
+        <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-muted-foreground">总请求数</p>
-              <p class="mt-1 text-2xl font-bold text-primary">{{ (overviewData.totalRequests as number) ?? 0 }}</p>
+              <p class="text-muted-foreground text-sm">总请求数</p>
+              <p class="text-primary mt-1 text-2xl font-bold">
+                {{ (overviewData.totalRequests as number) ?? 0 }}
+              </p>
             </div>
-            <div class="rounded-full bg-primary/10 p-3">
-              <span class="text-2xl text-primary">📊</span>
+            <div class="bg-primary/10 rounded-full p-3">
+              <span class="text-primary text-2xl">📊</span>
             </div>
           </YdCardContent>
         </YdCard>
 
-        <YdCard class="hover:shadow-md transition-shadow">
+        <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-muted-foreground">成功率</p>
+              <p class="text-muted-foreground text-sm">成功率</p>
               <p class="mt-1 text-2xl font-bold text-green-600 dark:text-green-400">
                 {{ ((overviewData.successRate as number) ?? 0).toFixed(1) }}%
               </p>
@@ -160,10 +182,10 @@ onMounted(() => {
           </YdCardContent>
         </YdCard>
 
-        <YdCard class="hover:shadow-md transition-shadow">
+        <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-muted-foreground">平均延迟</p>
+              <p class="text-muted-foreground text-sm">平均延迟</p>
               <p class="mt-1 text-2xl font-bold text-purple-600 dark:text-purple-400">
                 {{ ((overviewData.avgLatency as number) ?? 0).toFixed(0) }}ms
               </p>
@@ -174,10 +196,10 @@ onMounted(() => {
           </YdCardContent>
         </YdCard>
 
-        <YdCard class="hover:shadow-md transition-shadow">
+        <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-sm text-muted-foreground">Token 消耗</p>
+              <p class="text-muted-foreground text-sm">Token 消耗</p>
               <p class="mt-1 text-2xl font-bold text-orange-600 dark:text-orange-400">
                 {{ ((overviewData.totalTokens as number) ?? 0).toLocaleString() }}
               </p>
@@ -193,13 +215,25 @@ onMounted(() => {
       <YdCard>
         <YdCardContent class="pt-6">
           <div class="mb-4 flex gap-2">
-            <YdButton :variant="activeTab === 'trace' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'trace'">
+            <YdButton
+              :variant="activeTab === 'trace' ? 'default' : 'secondary'"
+              size="sm"
+              @click="activeTab = 'trace'"
+            >
               Trace 追踪
             </YdButton>
-            <YdButton :variant="activeTab === 'model' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'model'">
+            <YdButton
+              :variant="activeTab === 'model' ? 'default' : 'secondary'"
+              size="sm"
+              @click="activeTab = 'model'"
+            >
               模型使用
             </YdButton>
-            <YdButton :variant="activeTab === 'performance' ? 'default' : 'secondary'" size="sm" @click="activeTab = 'performance'">
+            <YdButton
+              :variant="activeTab === 'performance' ? 'default' : 'secondary'"
+              size="sm"
+              @click="activeTab = 'performance'"
+            >
               性能监控
             </YdButton>
           </div>
@@ -240,9 +274,7 @@ onMounted(() => {
               </YdTableColumn>
               <YdTableColumn label="操作" width="100" fixed="right">
                 <template #default="{ row }">
-                  <YdButton size="sm" variant="link" @click="viewTraceDetail(row)">
-                    详情
-                  </YdButton>
+                  <YdButton size="sm" variant="link" @click="viewTraceDetail(row)"> 详情 </YdButton>
                 </template>
               </YdTableColumn>
             </YdTable>
@@ -263,17 +295,17 @@ onMounted(() => {
           <!-- 性能监控 -->
           <div v-if="activeTab === 'performance'" class="space-y-4">
             <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-              <div class="rounded border border-border p-5 text-center">
+              <div class="border-border rounded border p-5 text-center">
                 <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">99.5%</p>
-                <p class="mt-1 text-sm text-muted-foreground">可用性</p>
+                <p class="text-muted-foreground mt-1 text-sm">可用性</p>
               </div>
-              <div class="rounded border border-border p-5 text-center">
+              <div class="border-border rounded border p-5 text-center">
                 <p class="text-3xl font-bold text-green-600 dark:text-green-400">1.2s</p>
-                <p class="mt-1 text-sm text-muted-foreground">P99 延迟</p>
+                <p class="text-muted-foreground mt-1 text-sm">P99 延迟</p>
               </div>
-              <div class="rounded border border-border p-5 text-center">
+              <div class="border-border rounded border p-5 text-center">
                 <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">150</p>
-                <p class="mt-1 text-sm text-muted-foreground">QPS</p>
+                <p class="text-muted-foreground mt-1 text-sm">QPS</p>
               </div>
             </div>
           </div>
@@ -290,37 +322,39 @@ onMounted(() => {
         <div v-if="selectedTrace" class="space-y-4">
           <div class="grid grid-cols-2 gap-5">
             <div>
-              <span class="text-sm text-muted-foreground">Trace ID：</span>
+              <span class="text-muted-foreground text-sm">Trace ID：</span>
               <span class="text-sm font-medium">{{ selectedTrace.traceId }}</span>
             </div>
             <div>
-              <span class="text-sm text-muted-foreground">Agent：</span>
+              <span class="text-muted-foreground text-sm">Agent：</span>
               <span class="text-sm font-medium">{{ selectedTrace.agentName }}</span>
             </div>
             <div>
-              <span class="text-sm text-muted-foreground">开始时间：</span>
+              <span class="text-muted-foreground text-sm">开始时间：</span>
               <span class="text-sm font-medium">{{ selectedTrace.startTime }}</span>
             </div>
             <div>
-              <span class="text-sm text-muted-foreground">耗时：</span>
+              <span class="text-muted-foreground text-sm">耗时：</span>
               <span class="text-sm font-medium">{{ selectedTrace.duration }}ms</span>
             </div>
             <div>
-              <span class="text-sm text-muted-foreground">模型：</span>
+              <span class="text-muted-foreground text-sm">模型：</span>
               <span class="text-sm font-medium">{{ selectedTrace.model }}</span>
             </div>
             <div>
-              <span class="text-sm text-muted-foreground">Token：</span>
+              <span class="text-muted-foreground text-sm">Token：</span>
               <span class="text-sm font-medium">{{ selectedTrace.tokens }}</span>
             </div>
           </div>
           <div>
-            <span class="text-sm text-muted-foreground">输入：</span>
-            <div class="mt-1 rounded border border-border bg-muted p-3 text-sm">{{ selectedTrace.input }}</div>
+            <span class="text-muted-foreground text-sm">输入：</span>
+            <div class="border-border bg-muted mt-1 rounded border p-3 text-sm">
+              {{ selectedTrace.input }}
+            </div>
           </div>
           <div>
-            <span class="text-sm text-muted-foreground">输出：</span>
-            <div class="mt-1 rounded border border-border bg-muted p-3 text-sm">
+            <span class="text-muted-foreground text-sm">输出：</span>
+            <div class="border-border bg-muted mt-1 rounded border p-3 text-sm">
               {{ selectedTrace.output ?? selectedTrace.error ?? '-' }}
             </div>
           </div>

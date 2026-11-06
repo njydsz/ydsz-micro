@@ -54,7 +54,15 @@
  * @since 4.5.0
  */
 
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { builtinModules } from 'node:module';
@@ -115,7 +123,8 @@ function readWorkspaceGlobs(workspaceFile) {
       if (line.trim() !== '' && !/^\s/.test(line)) break;
     }
   }
-  if (globs.length === 0) throw new Error('pnpm-workspace.yaml 未解析出任何 packages 模式（门禁会空转，拒绝继续）');
+  if (globs.length === 0)
+    throw new Error('pnpm-workspace.yaml 未解析出任何 packages 模式（门禁会空转，拒绝继续）');
   return globs;
 }
 
@@ -168,7 +177,12 @@ function readPackages(root) {
       }
       if (!json.name) throw new Error(`${relative(root, manifest)} 缺少 name 字段`);
       const declared = new Set();
-      for (const field of ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']) {
+      for (const field of [
+        'dependencies',
+        'devDependencies',
+        'peerDependencies',
+        'optionalDependencies',
+      ]) {
         for (const key of Object.keys(json[field] ?? {})) declared.add(key);
       }
       // package.json 的 imports 字段是 `#xxx` 说明符的权威声明处（Node 原生子路径别名）
@@ -207,9 +221,17 @@ function stripNonCode(code, file) {
  */
 function extractSpecifiers(code) {
   const patterns = [
-    { re: /(?:^|[\s;}])import\s+(type\s+)?(?:[^'"();]*?)\s*from\s*['"]([^'"]+)['"]/g, spec: 2, type: 1 },
+    {
+      re: /(?:^|[\s;}])import\s+(type\s+)?(?:[^'"();]*?)\s*from\s*['"]([^'"]+)['"]/g,
+      spec: 2,
+      type: 1,
+    },
     { re: /(?:^|[\s;}])import\s*['"]([^'"]+)['"]/g, spec: 1, type: null },
-    { re: /(?:^|[\s;}])export\s+(type\s+)?(?:[^'"();]*?)\s*from\s*['"]([^'"]+)['"]/g, spec: 2, type: 1 },
+    {
+      re: /(?:^|[\s;}])export\s+(type\s+)?(?:[^'"();]*?)\s*from\s*['"]([^'"]+)['"]/g,
+      spec: 2,
+      type: 1,
+    },
     { re: /\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g, spec: 1, type: null },
     { re: /\brequire\s*\(\s*['"]([^'"]+)['"]\s*\)/g, spec: 1, type: null },
   ];
@@ -269,10 +291,15 @@ function packageNameOf(specifier) {
 /** 该说明符是否属于"不该由依赖声明负责"的类别 */
 function isIgnorableSpecifier(specifier, selfName) {
   if (SKIPPED_PREFIXES.some((p) => specifier.startsWith(p))) return true;
-  if (/\.(?:css|scss|less|svg|png|jpe?g|gif|webp|woff2?|ttf|json|ya?ml|md|txt|mp4|glb)$/i.test(specifier.split('?')[0])) {
+  if (
+    /\.(?:css|scss|less|svg|png|jpe?g|gif|webp|woff2?|ttf|json|ya?ml|md|txt|mp4|glb)$/i.test(
+      specifier.split('?')[0],
+    )
+  ) {
     return true;
   }
-  if (specifier.includes('?') && /(^|[?&])(raw|url|worker|inline|import|default)\b/.test(specifier)) return true;
+  if (specifier.includes('?') && /(^|[?&])(raw|url|worker|inline|import|default)\b/.test(specifier))
+    return true;
   const pkg = packageNameOf(specifier);
   if (pkg === selfName) return true;
   if (NODE_BUILTINS.has(pkg) || pkg.startsWith('node:')) return true;
@@ -417,7 +444,8 @@ function checkPackageEntries(root, pkg) {
       }
       continue;
     }
-    if (!missingProd.has(target)) missingProd.set(target, { fields: [], isPattern: target.includes('*') });
+    if (!missingProd.has(target))
+      missingProd.set(target, { fields: [], isPattern: target.includes('*') });
     missingProd.get(target).fields.push(field);
   }
   for (const [target, info] of missingProd) {
@@ -426,8 +454,8 @@ function checkPackageEntries(root, pkg) {
         `且本包没有任何 build/stub 脚本 —— 这个产物永远不会存在。` +
         `dev 走 development/types 条件命中 src 所以本地正常，` +
         `vite build --mode production 走 default 条件即报 "Failed to resolve entry for package"。` +
-        `修法（二选一）：把 main/module/exports.*.default 改指 ./src/...（本仓 @ydsz-core/ui、` +
-        `@ydsz-core/editor-ui 就是源码直发形态），或补 build 脚本（pnpm unbuild）并纳入 turbo build 图。`,
+        `修法（二选一）：把 main/module/exports.*.default 改指 ./src/...（源码直发形态），` +
+        `或补 build 脚本（pnpm unbuild）并纳入 turbo build 图。`,
     );
   }
   const files = Array.isArray(json.files) ? json.files : [];
@@ -504,7 +532,8 @@ function scan(root, options = {}) {
         if (KIND_SEVERITY[kind] > KIND_SEVERITY[entry.kind]) entry.kind = kind;
       }
     }
-    const declaredHint = pkg.declared.size > 0 ? `本包已声明 ${pkg.declared.size} 项` : '本包未声明任何依赖';
+    const declaredHint =
+      pkg.declared.size > 0 ? `本包已声明 ${pkg.declared.size} 项` : '本包未声明任何依赖';
     const where = (set) => {
       const list = [...set];
       return `${list.slice(0, 3).join(', ')}${list.length > 3 ? ` …（共 ${list.length}）` : ''}`;
@@ -604,7 +633,7 @@ function writeFixture(root) {
       "import { declared } from '#self-alias';",
       "import { inner } from '#/inner';",
       "import '@t/good/self-side-effect';",
-      "export { thing, declared, inner, alias, css, raw, worker, fs, trim, X };",
+      'export { thing, declared, inner, alias, css, raw, worker, fs, trim, X };',
       "// import shouldBeIgnored from 'commented-out';",
     ].join('\n'),
     'pkgs/bad/package.json': JSON.stringify({ name: '@t/bad', dependencies: { vue: '^3.0.0' } }),
@@ -614,23 +643,31 @@ function writeFixture(root) {
       "import { helper } from '@t/dep';",
       "import 'side-effect-lib';",
       "export { reused } from 're-export-lib';",
-      'const load = () => import(\'dynamic-lib\');',
+      "const load = () => import('dynamic-lib');",
       'const tpl = `',
       "  import { generated } from 'vue-tpl-not-a-dep';",
       '`;',
       '</script>',
     ].join('\n'),
-    'pkgs/bad/src/keep.ts': "export const url = 'https://example.com/a';\nconst cjs = require('cjs-only-lib');\nexport default cjs;\n",
+    'pkgs/bad/src/keep.ts':
+      "export const url = 'https://example.com/a';\nconst cjs = require('cjs-only-lib');\nexport default cjs;\n",
     // `#app`：由消费端（Nuxt）注入的构建别名，不经 node_modules，必须只报警告
-    'pkgs/bad/src/use-directives.ts': "import { useNuxtApp } from '#app';\nexport const app = useNuxtApp;\n",
+    'pkgs/bad/src/use-directives.ts':
+      "import { useNuxtApp } from '#app';\nexport const app = useNuxtApp;\n",
     // 三条"应报警告而非错误"的形态：配置文件的隐式提升（含 vite.config.<变体> 与包级 build 脚本）、测试文件、纯类型导入
-    'pkgs/bad/vite.config.mts': "import { defineConfig } from 'cfg-only-lib';\nexport default defineConfig({});\n",
-    'pkgs/bad/vite.config.trace.mts': "import { defineConfig } from 'trace-cfg-lib';\nexport default defineConfig({});\n",
-    'pkgs/bad/build.mts': "import { transpileModule } from 'build-script-lib';\nexport default transpileModule;\n",
-    'pkgs/bad/src/smoke.test.ts': "import { mount } from 'test-only-lib';\nexport const noop = mount;\n",
+    'pkgs/bad/vite.config.mts':
+      "import { defineConfig } from 'cfg-only-lib';\nexport default defineConfig({});\n",
+    'pkgs/bad/vite.config.trace.mts':
+      "import { defineConfig } from 'trace-cfg-lib';\nexport default defineConfig({});\n",
+    'pkgs/bad/build.mts':
+      "import { transpileModule } from 'build-script-lib';\nexport default transpileModule;\n",
+    'pkgs/bad/src/smoke.test.ts':
+      "import { mount } from 'test-only-lib';\nexport const noop = mount;\n",
     // 故事文件：本仓无 Storybook，不进构建图，应与测试文件同级降级为警告
-    'pkgs/bad/src/Button.stories.ts': "import { fn } from 'storybook-only-lib';\nexport default fn;\n",
-    'pkgs/bad/src/story/Toggle.story.vue': "<script setup>\nimport { x } from 'story-dir-lib';\nconst y = x;\n</script>\n",
+    'pkgs/bad/src/Button.stories.ts':
+      "import { fn } from 'storybook-only-lib';\nexport default fn;\n",
+    'pkgs/bad/src/story/Toggle.story.vue':
+      "<script setup>\nimport { x } from 'story-dir-lib';\nconst y = x;\n</script>\n",
     'pkgs/bad/src/types.ts': "import type { T } from 'type-only-lib';\nexport type Local = T;\n",
 
     // ---- 规则 B（入口可达性）夹具 ----
@@ -640,7 +677,11 @@ function writeFixture(root) {
       main: './dist/index.mjs',
       module: './dist/index.mjs',
       exports: {
-        '.': { types: './src/index.ts', development: './src/index.ts', default: './dist/index.mjs' },
+        '.': {
+          types: './src/index.ts',
+          development: './src/index.ts',
+          default: './dist/index.mjs',
+        },
       },
     }),
     'pkgs/entry-dead/src/index.ts': 'export const dead = 1;\n',
@@ -659,7 +700,11 @@ function writeFixture(root) {
       files: ['src'],
       main: './src/index.ts',
       exports: {
-        '.': { types: './src/index.ts', default: './src/index.ts', '//default': './dist/index.mjs' },
+        '.': {
+          types: './src/index.ts',
+          default: './src/index.ts',
+          '//default': './dist/index.mjs',
+        },
       },
     }),
     'pkgs/entry-parked/src/index.ts': 'export const parked = 1;\n',
@@ -835,15 +880,21 @@ if (argv.includes('--self-test')) {
         `警告 ${result.warnings.length} 项${argv.includes('--strict') ? '，--strict' : ''}）：`,
     );
     for (const v of result.violations) console.error(`  - ${v}`);
-    console.error('  说明：本门禁是"隔离 node_modules 下生产构建必红"的静态前置；修完后请实跑受影响包的 build。');
+    console.error(
+      '  说明：本门禁是"隔离 node_modules 下生产构建必红"的静态前置；修完后请实跑受影响包的 build。',
+    );
     process.exit(1);
   }
   if (result.warnings.length > 0) {
-    console.warn(`⚠️  ${result.warnings.length} 项未声明依赖属配置/测试/纯类型导入（不阻断构建，计入存量债）：`);
+    console.warn(
+      `⚠️  ${result.warnings.length} 项未声明依赖属配置/测试/纯类型导入（不阻断构建，计入存量债）：`,
+    );
     for (const w of result.warnings) console.warn(`  · ${w}`);
   }
   console.log(
     `✅ 依赖声明检查通过：${result.packages} 个 workspace 包的裸说明符全部有声明` +
-      (result.warnings.length > 0 ? `（另有 ${result.warnings.length} 项警告，清零后可用 --strict 收紧）` : ''),
+      (result.warnings.length > 0
+        ? `（另有 ${result.warnings.length} 项警告，清零后可用 --strict 收紧）`
+        : ''),
   );
 }

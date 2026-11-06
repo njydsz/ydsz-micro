@@ -1,70 +1,70 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import type { Ref } from 'vue'
-import { createContext, useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import type { Ref } from 'vue';
+import { createContext, useForwardExpose } from '../shared/index.ts';
 
 export interface CollapsibleRootProps extends PrimitiveProps {
   /** The open state of the collapsible when it is initially rendered. <br> Use when you do not need to control its open state. */
-  defaultOpen?: boolean
+  defaultOpen?: boolean;
   /** The controlled open state of the collapsible. Can be binded with `v-model`. */
-  open?: boolean
+  open?: boolean;
   /** When `true`, prevents the user from interacting with the collapsible. */
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export type CollapsibleRootEmits = {
   /** Event handler called when the open state of the collapsible changes. */
-  'update:open': [value: boolean]
-}
+  'update:open': [value: boolean];
+};
 
 interface CollapsibleRootContext {
-  contentId: string
-  disabled?: Ref<boolean>
-  open: Ref<boolean>
-  onOpenToggle: () => void
+  contentId: string;
+  disabled?: Ref<boolean>;
+  open: Ref<boolean>;
+  onOpenToggle: () => void;
 }
 
-export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
-  = createContext<CollapsibleRootContext>('CollapsibleRoot')
+export const [injectCollapsibleRootContext, provideCollapsibleRootContext] =
+  createContext<CollapsibleRootContext>('CollapsibleRoot');
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../Primitive/index.ts'
-import { useVModel } from '@vueuse/core'
+import { Primitive } from '../Primitive/index.ts';
+import { useVModel } from '@vueuse/core';
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
   open: undefined,
   defaultOpen: false,
-})
+});
 
-const emit = defineEmits<CollapsibleRootEmits>()
+const emit = defineEmits<CollapsibleRootEmits>();
 
 defineSlots<{
   default: (props: {
     /** Current open state */
-    open: typeof open.value
-  }) => any
-}>()
+    open: typeof open.value;
+  }) => any;
+}>();
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-}) as Ref<boolean>
+}) as Ref<boolean>;
 
-const disabled = useVModel(props, 'disabled')
+const disabled = useVModel(props, 'disabled');
 
 provideCollapsibleRootContext({
   contentId: '',
   disabled,
   open,
   onOpenToggle: () => {
-    open.value = !open.value
+    open.value = !open.value;
   },
-})
+});
 
-defineExpose({ open })
-useForwardExpose()
+defineExpose({ open });
+useForwardExpose();
 </script>
 
 <template>

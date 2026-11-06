@@ -23,19 +23,22 @@ export function createFromFile(data: Record<string, unknown>): Promise<string> {
 /**
  * listFileTemplates: GET /nextwiki/templates/file
  */
-export function listFileTemplates(params: {
-    category?: string;
-  }): Promise<SpaceTemplateDTO[]> {
+export function listFileTemplates(params: { category?: string }): Promise<SpaceTemplateDTO[]> {
   return requestClient.get<SpaceTemplateDTO[]>(`/nextwiki/templates/file`, { params });
 }
 
 /**
  * createFromFileTemplate: POST /nextwiki/templates/file/{templateId}/use
  */
-export function createFromFileTemplate({ templateId }: {
+export function createFromFileTemplate(
+  {
+    templateId,
+  }: {
     templateId: string;
-  }, params: {
+  },
+  params: {
     parentId?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/nextwiki/templates/file/${templateId}/use`, { params });
 }

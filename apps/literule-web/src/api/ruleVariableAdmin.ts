@@ -16,18 +16,14 @@ import type { VariableDefinition, VariableDefinitionVO } from './models';
 /**
  * list: GET /literule/variables
  */
-export function list(params: {
-    category?: string;
-  }): Promise<VariableDefinitionVO[]> {
+export function list(params: { category?: string }): Promise<VariableDefinitionVO[]> {
   return requestClient.get<VariableDefinitionVO[]>(`/literule/variables`, { params });
 }
 
 /**
  * get: GET /literule/variables/{varName}
  */
-export function get({ varName }: {
-    varName: string;
-  }): Promise<VariableDefinitionVO> {
+export function get({ varName }: { varName: string }): Promise<VariableDefinitionVO> {
   return requestClient.get<VariableDefinitionVO>(`/literule/variables/${varName}`);
 }
 
@@ -41,9 +37,7 @@ export function save(data: VariableDefinition): Promise<VariableDefinitionVO> {
 /**
  * delete: DELETE /literule/variables/{varName}
  */
-export function deleteApi({ varName }: {
-    varName: string;
-  }): Promise<void> {
+export function deleteApi({ varName }: { varName: string }): Promise<void> {
   return requestClient.delete<void>(`/literule/variables/${varName}`);
 }
 

@@ -17,7 +17,17 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDatePicker, YdInput, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdDatePicker,
+  YdInput,
+  YdTable,
+  YdTableColumn,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 
 import { daily, summary } from '#/api/jobStats';
@@ -53,9 +63,17 @@ const summaryCards = computed<SummaryCard[]>(() => {
   const data = summaryData.value as unknown as Record<string, number | undefined>;
   return [
     { label: '总触发', value: data.totalFireCount ?? data.fireCount ?? 0, color: 'text-blue-500' },
-    { label: '总成功', value: data.totalSuccessCount ?? data.successCount ?? 0, color: 'text-green-500' },
+    {
+      label: '总成功',
+      value: data.totalSuccessCount ?? data.successCount ?? 0,
+      color: 'text-green-500',
+    },
     { label: '总失败', value: data.totalFailCount ?? data.failCount ?? 0, color: 'text-red-500' },
-    { label: '总超时', value: data.totalTimeoutCount ?? data.timeoutCount ?? 0, color: 'text-orange-500' },
+    {
+      label: '总超时',
+      value: data.totalTimeoutCount ?? data.timeoutCount ?? 0,
+      color: 'text-orange-500',
+    },
   ];
 });
 
@@ -111,21 +129,9 @@ onMounted(handleQuery);
       </YdCardHeader>
       <YdCardContent>
         <div class="flex flex-wrap items-center gap-3">
-        <YdInput
-          v-model="queryForm.jobId"
-          placeholder="任务ID（可选）"
-          class="!w-56"
-        />
-        <YdDatePicker
-          v-model="queryForm.startDate"
-          placeholder="开始日期"
-          class="!w-40"
-        />
-        <YdDatePicker
-          v-model="queryForm.endDate"
-          placeholder="结束日期"
-          class="!w-40"
-        />
+          <YdInput v-model="queryForm.jobId" placeholder="任务ID（可选）" class="!w-56" />
+          <YdDatePicker v-model="queryForm.startDate" placeholder="开始日期" class="!w-40" />
+          <YdDatePicker v-model="queryForm.endDate" placeholder="结束日期" class="!w-40" />
           <button
             class="rounded bg-blue-500 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
             @click="handleQuery"
@@ -143,10 +149,10 @@ onMounted(handleQuery);
       </YdCardHeader>
       <YdCardContent>
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <div v-for="card in summaryCards" :key="card.label">
-          <div class="text-sm text-gray-500">{{ card.label }}</div>
-          <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
-        </div>
+          <div v-for="card in summaryCards" :key="card.label">
+            <div class="text-sm text-gray-500">{{ card.label }}</div>
+            <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
+          </div>
         </div>
       </YdCardContent>
     </YdCard>
@@ -159,20 +165,24 @@ onMounted(handleQuery);
         </YdCardHeader>
         <YdCardContent>
           <div v-if="dailyList.length" class="flex h-64 items-end gap-1 px-1">
-          <div
-            v-for="item in dailyList"
-            :key="item.statsDate"
-            class="group relative flex-1 rounded-t transition-colors"
-            :class="(item.failCount ?? 0) > 0 ? 'bg-red-200 hover:bg-red-400' : 'bg-green-100 hover:bg-green-300'"
-            :style="{ height: `${Math.max(3, ((item.fireCount ?? 0) / dailyMaxFire) * 100)}%` }"
-            :title="`${item.statsDate} - 触发${item.fireCount ?? 0}次`"
-          >
-            <span
-              class="pointer-events-none absolute -top-5 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-1 text-[10px] text-white group-hover:block"
-              >{{ item.statsDate }} · {{ item.fireCount ?? 0 }}</span
+            <div
+              v-for="item in dailyList"
+              :key="item.statsDate"
+              class="group relative flex-1 rounded-t transition-colors"
+              :class="
+                (item.failCount ?? 0) > 0
+                  ? 'bg-red-200 hover:bg-red-400'
+                  : 'bg-green-100 hover:bg-green-300'
+              "
+              :style="{ height: `${Math.max(3, ((item.fireCount ?? 0) / dailyMaxFire) * 100)}%` }"
+              :title="`${item.statsDate} - 触发${item.fireCount ?? 0}次`"
             >
+              <span
+                class="pointer-events-none absolute -top-5 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-1 text-[10px] text-white group-hover:block"
+                >{{ item.statsDate }} · {{ item.fireCount ?? 0 }}</span
+              >
+            </div>
           </div>
-        </div>
           <YdEmptyState v-else description="暂无日报数据" :image-size="60" />
         </YdCardContent>
       </YdCard>
@@ -183,16 +193,23 @@ onMounted(handleQuery);
           <YdCardTitle>日报明细</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <YdTable v-if="dailyList.length" :data="dailyList" border size="small" max-height="380" :loading="isLoading">
-          <YdTableColumn prop="statsDate" label="日期" width="110" />
-          <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-          <YdTableColumn prop="fireCount" label="触发" width="70" />
-          <YdTableColumn prop="successCount" label="成功" width="70" />
-          <YdTableColumn prop="failCount" label="失败" width="70" />
-          <YdTableColumn prop="timeoutCount" label="超时" width="70" />
-          <YdTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
-          <YdTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
-        </YdTable>
+          <YdTable
+            v-if="dailyList.length"
+            :data="dailyList"
+            border
+            size="small"
+            max-height="380"
+            :loading="isLoading"
+          >
+            <YdTableColumn prop="statsDate" label="日期" width="110" />
+            <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
+            <YdTableColumn prop="fireCount" label="触发" width="70" />
+            <YdTableColumn prop="successCount" label="成功" width="70" />
+            <YdTableColumn prop="failCount" label="失败" width="70" />
+            <YdTableColumn prop="timeoutCount" label="超时" width="70" />
+            <YdTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
+            <YdTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
+          </YdTable>
           <YdEmptyState v-else description="暂无日报明细" :image-size="60" />
         </YdCardContent>
       </YdCard>

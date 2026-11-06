@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* 密码强度条：按强度等级渲染五段色条。
-* 
+ * 密码强度条：按强度等级渲染五段色条。
+ *
  * 强度判定内置于组件内（长度、字符种类等启发式规则），仅用于即时反馈，
  * 不能替代服务端校验；等级与颜色的映射表集中在组件顶部，便于统一调整。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\input-password\password-strength.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -15,14 +15,7 @@ const props = withDefaults(defineProps<{ password?: string }>(), {
   password: '',
 });
 
-const strengthList: string[] = [
-  '',
-  '#e74242',
-  '#ED6F6F',
-  '#EFBD47',
-  '#55D18780',
-  '#55D187',
-];
+const strengthList: string[] = ['', '#e74242', '#ED6F6F', '#EFBD47', '#55D18780', '#55D187'];
 
 const currentStrength = computed(() => {
   return checkPasswordStrength(props.password);
@@ -60,9 +53,7 @@ function checkPasswordStrength(password: string) {
 <template>
   <div class="relative mt-2 flex items-center justify-between">
     <template v-for="index in 5" :key="`strength-bar-${index}`">
-      <div
-        class="dark:bg-input-background bg-heavy relative mr-1 h-1.5 w-1/5 rounded-sm last:mr-0"
-      >
+      <div class="dark:bg-input-background bg-heavy relative mr-1 h-1.5 w-1/5 rounded-sm last:mr-0">
         <span
           :style="{
             backgroundColor: currentColor,
@@ -74,4 +65,3 @@ function checkPasswordStrength(password: string) {
     </template>
   </div>
 </template>
-

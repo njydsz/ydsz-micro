@@ -82,9 +82,7 @@ export interface UseFormListReturn<T = unknown> {
  * </template>
  * ```
  */
-export function useFormList<T = unknown>(
-  options: UseFormListOptions,
-): UseFormListReturn<T> {
+export function useFormList<T = unknown>(options: UseFormListOptions): UseFormListReturn<T> {
   const fieldArray = useFieldArray<T>(options.name as any);
 
   return {

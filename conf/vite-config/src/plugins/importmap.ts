@@ -24,11 +24,7 @@ import { Generator } from '@jspm/generator';
 import { consola as logger } from 'consola';
 import { minify } from 'html-minifier-terser';
 
-import {
-  buildSelfHostedImportMap,
-  getShimsUrl,
-  injectShimsToHtml,
-} from './importmap-helpers';
+import { buildSelfHostedImportMap, getShimsUrl, injectShimsToHtml } from './importmap-helpers';
 import {
   DEFAULT_PROVIDER,
   getCacheKey,
@@ -67,9 +63,7 @@ let resolvedImportMap: unknown | null = null;
  * @param pluginOptions - 插件选项（CDN 供应商、依赖列表、调试开关）
  * @returns 由 external / install / html 三段组成的 Vite 插件数组
  */
-async function viteImportMapPlugin(
-  pluginOptions?: pluginOptions,
-): Promise<Plugin[]> {
+async function viteImportMapPlugin(pluginOptions?: pluginOptions): Promise<Plugin[]> {
   const { importmap, selfHostBase } = pluginOptions || {};
 
   let isSSR = false;
@@ -130,9 +124,9 @@ async function viteImportMapPlugin(
 
     if (options?.debug) {
       (async () => {
-          for await (const { message, type } of generator.logStream()) {
-            process.stdout.write(`${type}: ${message}\n`);
-          }
+        for await (const { message, type } of generator.logStream()) {
+          process.stdout.write(`${type}: ${message}\n`);
+        }
       })();
     }
   }
@@ -171,10 +165,18 @@ async function viteImportMapPlugin(
           return null;
         }
 
-        if (!depNames.has(id)) {
-          return null;
+        // 精确匹配包名，或命中子路径导入（如 echarts/core、echarts/charts）。
+        // 顶层包名需兼容 scoped 包（@scope/pkg/sub → @scope/pkg），
+        // 且只判包名而非前缀，避免把 `vue-demi-patch` 误判为 external。
+        if (depNames.has(id)) {
+          return { external: true, id };
         }
-        return { external: true, id };
+        const segments = id.split('/');
+        const topLevel = id.startsWith('@') ? segments.slice(0, 2).join('/') : segments[0];
+        if (topLevel && depNames.has(topLevel)) {
+          return { external: true, id };
+        }
+        return null;
       },
     },
     {
@@ -196,9 +198,7 @@ async function viteImportMapPlugin(
         // 在线安装并写入缓存
         try {
           installed = true;
-          await Promise.allSettled(
-            (installDeps || []).map((dep) => generator.install(dep)),
-          );
+          await Promise.allSettled((installDeps || []).map((dep) => generator.install(dep)));
           // 安装完成后，获取 importmap 并写入缓存
           resolvedImportMap = generator.getMap();
           if (cacheKey && resolvedImportMap) {
@@ -232,7 +232,7 @@ async function viteImportMapPlugin(
           // 优先使用缓存结果，其次 generator.getMap()
           const importmapJson = selfHostBase
             ? selfHostedImportMap
-            : resolvedImportMap ?? generator.getMap();
+            : (resolvedImportMap ?? generator.getMap());
 
           if (!importmapJson) {
             return html;
@@ -243,10 +243,7 @@ async function viteImportMapPlugin(
             selfHostBase,
           );
 
-          const resultHtml = await injectShimsToHtml(
-            html,
-            esModuleShimsSrc || '',
-          );
+          const resultHtml = await injectShimsToHtml(html, esModuleShimsSrc || '');
           html = await minify(resultHtml || html, {
             collapseWhitespace: true,
             minifyCSS: true,

@@ -88,7 +88,10 @@ const nodeList = computed<RichDiagramNodeVO[]>(() => {
 const hasDiagram = computed(() => hasSvg.value || nodeList.value.length > 0);
 
 /** 节点状态映射 */
-const NODE_STATUS_MAP: Record<string, { label: string; color: string; bgColor: string; animate?: boolean }> = {
+const NODE_STATUS_MAP: Record<
+  string,
+  { label: string; color: string; bgColor: string; animate?: boolean }
+> = {
   COMPLETED: { label: '已完成', color: '#67c23a', bgColor: '#f0f9eb' },
   RUNNING: { label: '当前节点', color: '#409eff', bgColor: '#ecf5ff', animate: true },
   CURRENT: { label: '当前节点', color: '#409eff', bgColor: '#ecf5ff', animate: true },
@@ -148,7 +151,11 @@ onMounted(() => {
     <div class="diagram-legend mb-3 flex items-center gap-5">
       <span class="text-xs text-gray-500">节点状态：</span>
       <div v-for="(config, key) in NODE_STATUS_MAP" :key="key" class="flex items-center gap-1">
-        <span class="legend-dot" :class="{ 'dot-animate': config.animate }" :style="{ backgroundColor: config.color }" />
+        <span
+          class="legend-dot"
+          :class="{ 'dot-animate': config.animate }"
+          :style="{ backgroundColor: config.color }"
+        />
         <span class="text-xs text-gray-600">{{ config.label }}</span>
       </div>
     </div>
@@ -158,7 +165,9 @@ onMounted(() => {
       <!-- 加载中 -->
       <div v-if="loading" class="flex h-64 items-center justify-center text-gray-400">
         <div class="flex flex-col items-center gap-2">
-          <div class="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500" />
+          <div
+            class="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500"
+          />
           <span class="text-sm">正在加载流程图...</span>
         </div>
       </div>
@@ -178,8 +187,8 @@ onMounted(() => {
           <div
             v-for="(node, idx) in nodeList"
             :key="node.id ?? idx"
-            class="flex items-center gap-2 rounded border px-4 py-2 transition-all hover:shadow-md cursor-pointer"
-            :class="{ 'ring-2 ring-blue-400': selectedNodeId === node.id, }"
+            class="flex cursor-pointer items-center gap-2 rounded border px-4 py-2 transition-all hover:shadow-md"
+            :class="{ 'ring-2 ring-blue-400': selectedNodeId === node.id }"
             :style="{
               borderColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#dcdfe6',
               backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#ffffff',
@@ -189,14 +198,19 @@ onMounted(() => {
             <span
               class="node-dot"
               :class="{ 'dot-animate': NODE_STATUS_MAP[node.nodeState ?? '']?.animate }"
-              :style="{ backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#909399' }"
+              :style="{
+                backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#909399',
+              }"
             />
-            <span class="text-sm font-medium">{{ node.nodeName ?? node.nodeCode ?? '未知节点' }}</span>
+            <span class="text-sm font-medium">{{
+              node.nodeName ?? node.nodeCode ?? '未知节点'
+            }}</span>
             <span
-              class="text-xs rounded px-1.5 py-0.5"
+              class="rounded px-1.5 py-0.5 text-xs"
               :style="{
                 color: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#909399',
-                backgroundColor: (NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#f4f4f5') + '99',
+                backgroundColor:
+                  (NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#f4f4f5') + '99',
               }"
             >
               {{ NODE_STATUS_MAP[node.nodeState ?? '']?.label ?? node.nodeState ?? '未知' }}
@@ -220,11 +234,23 @@ onMounted(() => {
 
       <!-- 空态 -->
       <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
-        <svg class="mb-2 h-12 w-12 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        <svg
+          class="mb-2 h-12 w-12 opacity-50"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+          />
         </svg>
         <p>暂无流程图数据</p>
-        <YdButton size="sm" variant="secondary" class="mt-2" @click="loadDiagram">重新加载</YdButton>
+        <YdButton size="sm" variant="secondary" class="mt-2" @click="loadDiagram"
+          >重新加载</YdButton
+        >
       </div>
     </div>
 
@@ -235,8 +261,8 @@ onMounted(() => {
         <div
           v-for="(node, idx) in nodeList"
           :key="node.id ?? idx"
-          class="flex items-center gap-2 rounded border px-3 py-1.5 transition-all hover:shadow-sm cursor-pointer"
-          :class="{ 'ring-1 ring-blue-300': selectedNodeId === node.id, }"
+          class="flex cursor-pointer items-center gap-2 rounded border px-3 py-1.5 transition-all hover:shadow-sm"
+          :class="{ 'ring-1 ring-blue-300': selectedNodeId === node.id }"
           :style="{
             borderColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#dcdfe6',
             backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#f4f4f5',
@@ -249,7 +275,10 @@ onMounted(() => {
             :style="{ backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#909399' }"
           />
           <span class="text-sm">{{ node.nodeName ?? node.nodeCode ?? '未知节点' }}</span>
-          <YdBadge :variant="NODE_STATUS_MAP[node.nodeState ?? '']?.animate ? 'default' : 'secondary'" size="sm">
+          <YdBadge
+            :variant="NODE_STATUS_MAP[node.nodeState ?? '']?.animate ? 'default' : 'secondary'"
+            size="sm"
+          >
             {{ NODE_STATUS_MAP[node.nodeState ?? '']?.label ?? node.nodeState ?? '未知' }}
           </YdBadge>
         </div>

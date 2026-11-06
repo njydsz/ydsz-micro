@@ -34,8 +34,10 @@ vi.mock('#/adapter/vxe-table', () => ({
     return [
       {
         name: 'MockGrid',
-        setup: (_props: unknown, { slots }: MockSetupContext) =>
-          () => h('div', { class: 'mock-grid' }, [slots.default?.(), slots['toolbar-tools']?.()]),
+        setup:
+          (_props: unknown, { slots }: MockSetupContext) =>
+          () =>
+            h('div', { class: 'mock-grid' }, [slots.default?.(), slots['toolbar-tools']?.()]),
       },
       {
         query: vi.fn(),
@@ -92,8 +94,10 @@ vi.mock('@ydsz/common-ui', async (importOriginal) => {
     ...actual,
     Page: {
       name: 'Page',
-      setup: (_props: unknown, { slots }: MockSetupContext) =>
-        () => h('div', { class: 'mock-page' }, slots.default?.()),
+      setup:
+        (_props: unknown, { slots }: MockSetupContext) =>
+        () =>
+          h('div', { class: 'mock-page' }, slots.default?.()),
     },
     useYdModal: () => [
       {

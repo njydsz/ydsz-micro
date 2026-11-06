@@ -128,11 +128,30 @@ const computedColumns = computed(() => {
   const visible = new Set(visibleColumns.value);
 
   // 构建字段 → 列配置的映射
-  const fieldColumnMap: Record<string, NonNullable<VxeTableGridOptions<ConfigRow>['columns']>[number]> = {
-    configKey: { field: 'configKey', title: t('configKey'), width: columnWidth.value.configKey ?? 180 },
-    configValue: { field: 'configValue', title: t('configValue'), width: columnWidth.value.configValue ?? 200 },
-    configGroup: { field: 'configGroup', title: t('configGroup'), width: columnWidth.value.configGroup ?? 130 },
-    valueType: { field: 'valueType', title: t('variable.valueType'), width: columnWidth.value.valueType ?? 100 },
+  const fieldColumnMap: Record<
+    string,
+    NonNullable<VxeTableGridOptions<ConfigRow>['columns']>[number]
+  > = {
+    configKey: {
+      field: 'configKey',
+      title: t('configKey'),
+      width: columnWidth.value.configKey ?? 180,
+    },
+    configValue: {
+      field: 'configValue',
+      title: t('configValue'),
+      width: columnWidth.value.configValue ?? 200,
+    },
+    configGroup: {
+      field: 'configGroup',
+      title: t('configGroup'),
+      width: columnWidth.value.configGroup ?? 130,
+    },
+    valueType: {
+      field: 'valueType',
+      title: t('variable.valueType'),
+      width: columnWidth.value.valueType ?? 100,
+    },
     isPublic: { field: 'isPublic', title: t('isPublic'), width: columnWidth.value.isPublic ?? 70 },
     status: {
       field: 'status',
@@ -140,15 +159,17 @@ const computedColumns = computed(() => {
       width: columnWidth.value.status ?? 80,
       slots: {
         default: ({ row }: { row: ConfigRow }) => {
-          return h(
-            YdBadge,
-            { variant: isEnabled(row.status) ? undefined : 'secondary' },
-            () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
+          return h(YdBadge, { variant: isEnabled(row.status) ? undefined : 'secondary' }, () =>
+            isEnabled(row.status) ? t('enabled') : t('disabled'),
           );
         },
       },
     },
-    description: { field: 'description', title: t('description'), width: columnWidth.value.description ?? 180 },
+    description: {
+      field: 'description',
+      title: t('description'),
+      width: columnWidth.value.description ?? 180,
+    },
   };
 
   // 按持久化顺序排列，过滤掉隐藏的列
@@ -167,15 +188,47 @@ const computedColumns = computed(() => {
           const buttons = [];
           // 编辑按钮 — 需要 sys:config:edit 权限
           if (hasAccessByCodesAll(['sys:config:edit'])) {
-            buttons.push(h(YdButton, { size: 'sm', 'aria-label': `${t('edit')} - ${row.configKey ?? ''}`, onClick: () => handleEdit(row) }, () => t('edit')));
+            buttons.push(
+              h(
+                YdButton,
+                {
+                  size: 'sm',
+                  'aria-label': `${t('edit')} - ${row.configKey ?? ''}`,
+                  onClick: () => handleEdit(row),
+                },
+                () => t('edit'),
+              ),
+            );
           }
           // 版本历史按钮 — 需要 sys:config:edit 权限
           if (hasAccessByCodesAll(['sys:config:edit'])) {
-            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', 'aria-label': `${t('configVersion.history')} - ${row.configKey ?? ''}`, onClick: () => handleVersionHistory(row) }, () => t('configVersion.history')));
+            buttons.push(
+              h(
+                YdButton,
+                {
+                  size: 'sm',
+                  variant: 'destructive',
+                  'aria-label': `${t('configVersion.history')} - ${row.configKey ?? ''}`,
+                  onClick: () => handleVersionHistory(row),
+                },
+                () => t('configVersion.history'),
+              ),
+            );
           }
           // 删除按钮 — 需要 sys:config:delete 权限
           if (hasAccessByCodesAll(['sys:config:delete'])) {
-            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', 'aria-label': `${t('delete')} - ${row.configKey ?? ''}`, onClick: () => handleDelete(row) }, () => t('delete')));
+            buttons.push(
+              h(
+                YdButton,
+                {
+                  size: 'sm',
+                  variant: 'destructive',
+                  'aria-label': `${t('delete')} - ${row.configKey ?? ''}`,
+                  onClick: () => handleDelete(row),
+                },
+                () => t('delete'),
+              ),
+            );
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -207,13 +260,23 @@ const gridOptions = computed<VxeTableGridOptions<ConfigRow>>(() => ({
   formConfig: {
     enabled: true,
     items: [
-      { field: 'configKey', title: t('configKey'), itemRender: { name: 'YdInput', props: { placeholder: t('configKey') } } },
-      { field: 'configGroup', title: t('configGroup'), itemRender: { name: 'YdInput', props: { placeholder: t('configGroup') } } },
+      {
+        field: 'configKey',
+        title: t('configKey'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('configKey') } },
+      },
+      {
+        field: 'configGroup',
+        title: t('configGroup'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('configGroup') } },
+      },
     ],
   },
 }));
 
-const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions: gridOptions.value as Record<string, unknown> });
+const [Grid, gridApi] = useYDSZVxeGrid({
+  gridOptions: gridOptions.value as Record<string, unknown>,
+});
 
 // 列配置变更后同步到 grid
 watch(gridOptions, (opts) => {
@@ -241,7 +304,9 @@ function handleVersionHistory(row: ConfigRow) {
 async function handleDelete(row: ConfigRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('confirmDeleteName', [row.configKey ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await YdConfirm(t('confirmDeleteName', [row.configKey ?? '']), t('common.deleteConfirm'), {
+      type: 'warning',
+    });
   } catch (error) {
     logger.warn('用户取消删除系统配置', error);
     return; // 用户主动取消删除操作
@@ -287,13 +352,32 @@ function handleDragEnd() {
 
 <template>
   <Page auto-content-height>
-    <Grid :table-title="t('config')" role="grid" :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0" :aria-label="t('config')">
+    <Grid
+      :table-title="t('config')"
+      role="grid"
+      :aria-rowcount="gridApi.grid?.getTableData?.()?.tableData?.length ?? 0"
+      :aria-label="t('config')"
+    >
       <template #toolbar-tools>
-        <YdBadge v-if="dataScopeLabel" variant="destructive" style="margin-right: 8px" role="status" aria-live="polite">
+        <YdBadge
+          v-if="dataScopeLabel"
+          variant="destructive"
+          style="margin-right: 8px"
+          role="status"
+          aria-live="polite"
+        >
           {{ dataScopeLabel }}
         </YdBadge>
-        <YdButton :aria-label="t('create')" v-permission="'sys:config:add'" @click="handleAdd">{{ t('create') }}</YdButton>
-        <YdButton variant="outline" size="sm" class="ml-1" @click="columnConfigOpen = true" :aria-label="t('columnConfig')">
+        <YdButton :aria-label="t('create')" v-permission="'sys:config:add'" @click="handleAdd">{{
+          t('create')
+        }}</YdButton>
+        <YdButton
+          variant="outline"
+          size="sm"
+          class="ml-1"
+          @click="columnConfigOpen = true"
+          :aria-label="t('columnConfig')"
+        >
           <span class="mr-1" aria-hidden="true">&#9881;</span>
           <span class="hidden sm:inline">{{ t('columnConfig') }}</span>
         </YdButton>
@@ -312,15 +396,17 @@ function handleDragEnd() {
         :aria-label="t('columnConfig')"
       >
         <!-- 遮罩层 -->
-        <div
-          class="absolute inset-0 bg-black/50"
-          @click="columnConfigOpen = false"
-        />
+        <div class="absolute inset-0 bg-black/50" @click="columnConfigOpen = false" />
         <!-- 面板 -->
         <div class="relative z-10 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
           <div class="mb-4 flex items-center justify-between">
             <h2 class="text-lg font-semibold">{{ t('columnConfig') }}</h2>
-            <YdButton variant="ghost" size="sm" @click="columnConfigOpen = false" :aria-label="t('close')">
+            <YdButton
+              variant="ghost"
+              size="sm"
+              @click="columnConfigOpen = false"
+              :aria-label="t('close')"
+            >
               &times;
             </YdButton>
           </div>
@@ -336,7 +422,9 @@ function handleDragEnd() {
               @dragend="handleDragEnd"
             >
               <!-- 拖拽手柄 -->
-              <span class="cursor-grab select-none text-gray-400" :title="t('dragToSort')">&#9776;</span>
+              <span class="cursor-grab select-none text-gray-400" :title="t('dragToSort')"
+                >&#9776;</span
+              >
 
               <!-- 可见性 checkbox -->
               <label class="flex flex-1 cursor-pointer items-center gap-2">
@@ -361,13 +449,17 @@ function handleDragEnd() {
                   :aria-label="`${t('columnWidth')} - ${field}`"
                   @input="setColumnWidth(field, Number(($event.target as HTMLInputElement).value))"
                 />
-                <span class="w-10 text-right text-xs text-gray-500">{{ columnWidth[field] ?? 150 }}px</span>
+                <span class="w-10 text-right text-xs text-gray-500"
+                  >{{ columnWidth[field] ?? 150 }}px</span
+                >
               </div>
             </div>
           </div>
 
           <div class="flex justify-end gap-2">
-            <YdButton variant="outline" size="sm" @click="handleResetColumns">{{ t('resetToDefault') }}</YdButton>
+            <YdButton variant="outline" size="sm" @click="handleResetColumns">{{
+              t('resetToDefault')
+            }}</YdButton>
             <YdButton size="sm" @click="columnConfigOpen = false">{{ t('done') }}</YdButton>
           </div>
         </div>

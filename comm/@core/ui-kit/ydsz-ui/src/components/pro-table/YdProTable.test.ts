@@ -57,7 +57,7 @@ function mountProTable(extraProps: Record<string, unknown> = {}) {
  * @returns 每行第一个单元格的文本
  */
 function nameColumn(wrapper: ReturnType<typeof mountProTable>): string[] {
-  return wrapper.findAll('tbody tr').map(row => row.findAll('td')[0]?.text() ?? '');
+  return wrapper.findAll('tbody tr').map((row) => row.findAll('td')[0]?.text() ?? '');
 }
 
 beforeEach(() => {
@@ -78,7 +78,7 @@ describe('YdProTable', () => {
     const wrapper = mountProTable();
 
     expect(nameColumn(wrapper)).toEqual(['Alice', 'Bob', 'Carol']);
-    expect(wrapper.findAll('th').map(th => th.text())).toEqual(['姓名', '年龄']);
+    expect(wrapper.findAll('th').map((th) => th.text())).toEqual(['姓名', '年龄']);
   });
 
   // ==================== 排序父子同步 ====================

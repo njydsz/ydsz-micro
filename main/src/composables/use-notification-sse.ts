@@ -64,10 +64,7 @@ function parseSseFrame(raw: string): Record<string, unknown> | null {
  *   <li>SSE event 字段：由 streamRequest 提供的 event name 作为 event</li>
  * </ul>
  */
-function resolveSseEventType(
-  eventName: string,
-  frame: Record<string, unknown> | null,
-): string {
+function resolveSseEventType(eventName: string, frame: Record<string, unknown> | null): string {
   if (frame && typeof frame.event === 'string') {
     return frame.event;
   }
@@ -87,9 +84,10 @@ type ConnectionState = 'idle' | 'connecting' | 'connected' | 'reconnecting' | 'd
  *
  * v4.5 P1-12: 引入连接状态机，防止并发叠加；监听页面可见性；区分错误级别。
  */
-function createSseConnection(
-  store: ReturnType<typeof useNotificationStore>,
-): { stop: () => void; connected: ReturnType<typeof ref<boolean>> } {
+function createSseConnection(store: ReturnType<typeof useNotificationStore>): {
+  stop: () => void;
+  connected: ReturnType<typeof ref<boolean>>;
+} {
   let ac = new AbortController();
   const connected = ref(false);
 
@@ -152,9 +150,7 @@ function createSseConnection(
     reconnectTimer = setTimeout(() => {
       reconnectTimer = null;
       reconnectAttempts++;
-      logger.info(
-        `[SSE] Reconnecting (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`,
-      );
+      logger.info(`[SSE] Reconnecting (attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
       void runStream();
     }, delay);
   }

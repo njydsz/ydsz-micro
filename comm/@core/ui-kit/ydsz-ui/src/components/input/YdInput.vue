@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* YdInput Vue 组件 —— 现代化输入框，对标一线竞品（EP Input / Naive Input）能力矩阵。
-* 
+ * YdInput Vue 组件 —— 现代化输入框，对标一线竞品（EP Input / Naive Input）能力矩阵。
+ *
  * <p>增强能力（对标 element-plus / naive-ui / ant-design-vue）：
  * <ul>
  *   <li>clearable：带清空按钮</li>
@@ -9,7 +9,7 @@
  *   <li>showCount + maxlength：字符计数</li>
  *   <li>disabled / readonly：禁用与只读状态</li>
  * </ul>
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\input\YdInput.vue
  * @author ydsz-team
  * @since 1.0.0 (5.6.0 新增 clearable/prefix/suffix/showCount)
@@ -176,7 +176,7 @@ const affixSizeClasses: Record<InputSize, string> = {
     <!-- 前置内容 -->
     <span
       v-if="hasPrefix"
-      class="border-input bg-muted text-muted-foreground inline-flex items-center border border-r-0 rounded-l-md"
+      class="border-input bg-muted text-muted-foreground inline-flex items-center rounded-l-md border border-r-0"
       :class="cn(affixSizeClasses[resolvedSize], densityAffixClass)"
     >
       <slot name="prefix">{{ props.prefix }}</slot>
@@ -192,9 +192,9 @@ const affixSizeClasses: Record<InputSize, string> = {
       :maxlength="props.maxlength"
       :class="
         cn(
-          'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border bg-input-background transition-all',
+          'border-input placeholder:text-muted-foreground focus-visible:ring-ring bg-input-background flex w-full rounded-md border transition-all',
           'file:border-0 file:bg-transparent file:text-sm file:font-medium',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+          'focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
           'hover:border-border-strong',
           'disabled:cursor-not-allowed disabled:opacity-50',
           'readonly:cursor-default readonly:bg-muted/30',
@@ -215,7 +215,7 @@ const affixSizeClasses: Record<InputSize, string> = {
     <!-- 后置内容区域（suffix 计数 + 清空按钮）-->
     <span
       v-if="hasSuffix"
-      class="border-input bg-muted text-muted-foreground inline-flex items-center gap-1 border border-l-0 rounded-r-md"
+      class="border-input bg-muted text-muted-foreground inline-flex items-center gap-1 rounded-r-md border border-l-0"
       :class="cn(affixSizeClasses[resolvedSize], densityAffixClass)"
     >
       <!-- 清空按钮 -->
@@ -238,7 +238,15 @@ const affixSizeClasses: Record<InputSize, string> = {
       <!-- 字符计数 -->
       <span
         v-if="props.isShowCount"
-        :class="cn('tabular-nums', props.maxlength != null && countText.includes('/') && Number(countText.split(' ')[0]) >= props.maxlength && 'text-destructive')"
+        :class="
+          cn(
+            'tabular-nums',
+            props.maxlength != null &&
+              countText.includes('/') &&
+              Number(countText.split(' ')[0]) >= props.maxlength &&
+              'text-destructive',
+          )
+        "
       >
         {{ countText }}
       </span>
@@ -259,9 +267,9 @@ const affixSizeClasses: Record<InputSize, string> = {
     :maxlength="props.maxlength"
     :class="
       cn(
-        'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border bg-input-background transition-all',
+        'border-input placeholder:text-muted-foreground focus-visible:ring-ring bg-input-background flex w-full rounded-md border transition-all',
         'file:border-0 file:bg-transparent file:text-sm file:font-medium',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        'focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
         'hover:border-border-strong',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'readonly:cursor-default readonly:bg-muted/30',

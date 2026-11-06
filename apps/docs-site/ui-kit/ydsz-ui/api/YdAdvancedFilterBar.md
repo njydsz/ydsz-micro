@@ -6,8 +6,8 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `removeFilter` | `field: string, rawValue: string | number | boolean` | - |
-| `clearAll` | `void` | - |
-| `update:searchQuery` | `value: string` | - |
+| 事件                 | 参数                             | 说明   |
+| -------------------- | -------------------------------- | ------ |
+| `removeFilter`       | `field: string, rawValue: string | number | boolean` | -   |
+| `clearAll`           | `void`                           | -      |
+| `update:searchQuery` | `value: string`                  | -      |

@@ -13,7 +13,13 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { AgentExecutionRequestDTO, BatchChatRequestDTO, BatchChatResponseDTO, ChatRequestDTO, ChatResponseDTO } from './models';
+import type {
+  AgentExecutionRequestDTO,
+  BatchChatRequestDTO,
+  BatchChatResponseDTO,
+  ChatRequestDTO,
+  ChatResponseDTO,
+} from './models';
 
 /**
  * execute: POST /agent/execute
@@ -64,8 +70,8 @@ export function batchChat(data: BatchChatRequestDTO): Promise<BatchChatResponseD
  * history: GET /agent/history
  */
 export function history(params: {
-    conversationId?: string;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
+  conversationId?: string;
+}): Promise<Record<string, Record<string, unknown>>[]> {
   return requestClient.get<Record<string, Record<string, unknown>>[]>(`/agent/history`, { params });
 }
 
@@ -73,8 +79,8 @@ export function history(params: {
  * clearHistory: DELETE /agent/history
  */
 export function clearHistory(params: {
-    conversationId?: string;
-    requestId?: string;
-  }): Promise<void> {
+  conversationId?: string;
+  requestId?: string;
+}): Promise<void> {
   return requestClient.delete<void>(`/agent/history`, { params });
 }

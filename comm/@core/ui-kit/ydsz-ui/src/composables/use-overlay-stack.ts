@@ -40,7 +40,10 @@ let nextPosition = 0;
  * @param options —— 配置项
  * @return 浮层句柄
  */
-export function useOverlayStack(options?: { baseZIndex?: number; step?: number }): OverlayStackHandle {
+export function useOverlayStack(options?: {
+  baseZIndex?: number;
+  step?: number;
+}): OverlayStackHandle {
   const base = options?.baseZIndex ?? 1000;
   const step = options?.step ?? 20;
 

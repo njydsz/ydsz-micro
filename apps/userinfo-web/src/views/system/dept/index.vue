@@ -103,7 +103,7 @@ async function handleDelete(row: DepartmentTreeVO) {
 
 <template>
   <Page auto-content-height>
-    <div class=" p-5">
+    <div class="p-5">
       <div class="mb-4 flex items-center justify-between">
         <h3 class="text-lg font-semibold">{{ t('dept.deptManagement') }}</h3>
         <div class="flex gap-2">
@@ -125,7 +125,11 @@ async function handleDelete(row: DepartmentTreeVO) {
         <YdTableColumn prop="sort" :label="t('page.sort')" width="80" align="center" />
         <YdTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
-            <YdBadge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''" class="text-xs">
+            <YdBadge
+              :variant="isEnabled(row.status) ? 'default' : 'destructive'"
+              :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : ''"
+              class="text-xs"
+            >
               {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
             </YdBadge>
           </template>

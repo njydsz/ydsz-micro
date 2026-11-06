@@ -86,9 +86,7 @@ const compact = formRenderProps.compact;
 const isInValid = computed(() => errors.value?.length > 0);
 
 const FieldComponent = computed(() => {
-  const finalComponent = isString(component)
-    ? componentMap.value[component]
-    : component;
+  const finalComponent = isString(component) ? componentMap.value[component] : component;
   if (!finalComponent) {
     // 组件未注册
     logger.warn(`Component ${component} is not registered`);
@@ -96,14 +94,8 @@ const FieldComponent = computed(() => {
   return finalComponent;
 });
 
-const {
-  dynamicComponentProps,
-  dynamicRules,
-  isDisabled,
-  isIf,
-  isRequired,
-  isShow,
-} = useDependencies(() => dependencies);
+const { dynamicComponentProps, dynamicRules, isDisabled, isIf, isRequired, isShow } =
+  useDependencies(() => dependencies);
 
 const labelStyle = computed(() => {
   return labelClass?.includes('w-') || isVertical.value
@@ -231,18 +223,14 @@ function fieldBindEvent(slotProps: ComponentFieldSlotProps) {
   const handler = slotProps.componentField['onUpdate:modelValue'];
 
   const bindEventField =
-    modelPropName ||
-    (isString(component) ? componentBindEventMap.value?.[component] : null);
+    modelPropName || (isString(component) ? componentBindEventMap.value?.[component] : null);
 
   let value = modelValue;
   // antd design 的一些组件会传递一个 event 对象
   if (modelValue && isObject(modelValue) && bindEventField) {
     value = isEventObjectLike(modelValue)
-      ? (modelValue as { target?: Record<string, unknown> }).target?.[
-          bindEventField
-        ]
-      : ((modelValue as Record<string, unknown>)?.[bindEventField] ??
-        modelValue);
+      ? (modelValue as { target?: Record<string, unknown> }).target?.[bindEventField]
+      : ((modelValue as Record<string, unknown>)?.[bindEventField] ?? modelValue);
   }
 
   if (bindEventField) {
@@ -259,9 +247,7 @@ function fieldBindEvent(slotProps: ComponentFieldSlotProps) {
             }
 
             return onChange?.(
-              (e as { target?: Record<string, unknown> })?.target?.[
-                bindEventField
-              ] ?? e,
+              (e as { target?: Record<string, unknown> })?.target?.[bindEventField] ?? e,
             );
           },
       ...(disabledOnInputListener ? { onInput: undefined } : {}),
@@ -313,12 +299,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <FormField
-    v-if="isIf"
-    v-bind="fieldProps"
-    v-slot="slotProps"
-    :name="fieldName"
-  >
+  <FormField v-if="isIf" v-bind="fieldProps" v-slot="slotProps" :name="fieldName">
     <YdFormItem
       v-show="isShow"
       :class="{
@@ -379,11 +360,7 @@ onUnmounted(() => {
                 v-bind="createComponentProps(slotProps)"
                 :disabled="shouldDisabled"
               >
-                <template
-                  v-for="name in renderContentKey"
-                  :key="name"
-                  #[name]="renderSlotProps"
-                >
+                <template v-for="name in renderContentKey" :key="name" #[name]="renderSlotProps">
                   <YdRenderContent
                     :content="customContentRender[name]"
                     v-bind="{ ...renderSlotProps, formContext: slotProps }"
@@ -391,11 +368,7 @@ onUnmounted(() => {
                 </template>
                 <!-- <slot></slot> -->
               </component>
-              <YdTooltip
-                v-if="compact && isInValid"
-                :delay-duration="300"
-                side="left"
-              >
+              <YdTooltip v-if="compact && isInValid" :delay-duration="300" side="left">
                 <template #trigger>
                   <slot name="trigger">
                     <CircleAlert
@@ -427,4 +400,3 @@ onUnmounted(() => {
     </YdFormItem>
   </FormField>
 </template>
-

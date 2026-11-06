@@ -22,20 +22,10 @@ export {
   TokenCategory,
   TokenLayer,
 } from './theme-schema';
-export type {
-  TokenDefinition,
-  TokenName,
-  TokenCategoryType,
-  TokenLayerType,
-} from './theme-schema';
+export type { TokenDefinition, TokenName, TokenCategoryType, TokenLayerType } from './theme-schema';
 
 export { useTheme, getTheme, registerPreset } from './use-theme';
-export type {
-  ThemePreset,
-  ThemeOverrides,
-  ThemeHandle,
-  PresetRegistry,
-} from './use-theme';
+export type { ThemePreset, ThemeOverrides, ThemeHandle, PresetRegistry } from './use-theme';
 
 export {
   themePresets,

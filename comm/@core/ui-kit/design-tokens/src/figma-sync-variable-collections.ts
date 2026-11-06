@@ -30,11 +30,7 @@
 
 import type { RawColorComponents, SemanticRole } from './tokens/colors.ts';
 
-import {
-  COLOR_SHADES,
-  NEUTRAL_RAW,
-  SEMANTIC_RAW_MAP,
-} from './tokens/colors.ts';
+import { COLOR_SHADES, NEUTRAL_RAW, SEMANTIC_RAW_MAP } from './tokens/colors.ts';
 
 import { SPACING_TOKENS, RADIUS_TOKENS } from './tokens/spacing.ts';
 import { SHADOW_PRESETS } from './tokens/shadow.ts';
@@ -112,8 +108,8 @@ function hslToHex({ h, s, l }: RawColorComponents): string {
 function buildColorScaleVariables(raw: RawColorComponents, role: SemanticRole): FigmaVariable[] {
   const variables: FigmaVariable[] = [];
   for (const shade of COLOR_SHADES) {
-    const lAdjust = shade <= 300 ? (300 - shade) / 300 * 40 : 0;
-    const lReduce = shade >= 500 ? (shade - 500) / 200 * 25 : 0;
+    const lAdjust = shade <= 300 ? ((300 - shade) / 300) * 40 : 0;
+    const lReduce = shade >= 500 ? ((shade - 500) / 200) * 25 : 0;
     const lNew = Math.min(97, Math.max(20, raw.l + lAdjust - lReduce));
     variables.push({
       name: `color/${role}/${shade}`,
@@ -142,9 +138,10 @@ function buildDimensionVariables(
       name: `${prefix}/${key}`,
       resolvedType,
       valuesByMode: {
-        Default: resolvedType === 'FLOAT'
-          ? { type: 'float', value: numValue }
-          : { type: 'string', value: String(val) },
+        Default:
+          resolvedType === 'FLOAT'
+            ? { type: 'float', value: numValue }
+            : { type: 'string', value: String(val) },
       },
       description: `${prefix} ${key}`,
     });
@@ -231,8 +228,14 @@ function buildSemanticCollection(): FigmaVariableCollection {
       name: `surface/${s.level}`,
       resolvedType: 'COLOR',
       valuesByMode: {
-        Light: { type: 'color', value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: s.lightL }) },
-        Dark: { type: 'color', value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: s.darkL }) },
+        Light: {
+          type: 'color',
+          value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: s.lightL }),
+        },
+        Dark: {
+          type: 'color',
+          value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: s.darkL }),
+        },
       },
       description: `Surface background level ${s.level}`,
     });
@@ -251,8 +254,14 @@ function buildSemanticCollection(): FigmaVariableCollection {
       name: `text/${t.role}`,
       resolvedType: 'COLOR',
       valuesByMode: {
-        Light: { type: 'color', value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: t.lightL }) },
-        Dark: { type: 'color', value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: t.darkL }) },
+        Light: {
+          type: 'color',
+          value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: t.lightL }),
+        },
+        Dark: {
+          type: 'color',
+          value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: t.darkL }),
+        },
       },
       description: `Text color ${t.role}`,
     });
@@ -281,8 +290,14 @@ function buildSemanticCollection(): FigmaVariableCollection {
       name: `border/${b.role}`,
       resolvedType: 'COLOR',
       valuesByMode: {
-        Light: { type: 'color', value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: b.lightL }) },
-        Dark: { type: 'color', value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: b.darkL }) },
+        Light: {
+          type: 'color',
+          value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: b.lightL }),
+        },
+        Dark: {
+          type: 'color',
+          value: hslToHex({ h: NEUTRAL_RAW.h, s: NEUTRAL_RAW.s, l: b.darkL }),
+        },
       },
       description: `Border color ${b.role}`,
     });
@@ -331,19 +346,25 @@ function buildComponentCollection(): FigmaVariableCollection {
     {
       name: 'comp/surface/hover',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-neutral-400) / 0.08)' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-neutral-400) / 0.08)' },
+      },
       description: 'Component hover surface',
     },
     {
       name: 'comp/surface/active',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-neutral-400) / 0.12)' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-neutral-400) / 0.12)' },
+      },
       description: 'Component active (pressed) surface',
     },
     {
       name: 'comp/surface/selected',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-brand-500) / 0.10)' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-brand-500) / 0.10)' },
+      },
       description: 'Component selected surface',
     },
     {
@@ -375,19 +396,25 @@ function buildComponentCollection(): FigmaVariableCollection {
     {
       name: 'comp/danger/bg',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-500))' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-500))' },
+      },
       description: 'Danger button background',
     },
     {
       name: 'comp/danger/bgHover',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-600))' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-600))' },
+      },
       description: 'Danger button hover background',
     },
     {
       name: 'comp/danger/bgActive',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-700))' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-700))' },
+      },
       description: 'Danger button active background',
     },
     {
@@ -399,7 +426,9 @@ function buildComponentCollection(): FigmaVariableCollection {
     {
       name: 'comp/danger/border',
       resolvedType: 'STRING',
-      valuesByMode: { [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-600))' } },
+      valuesByMode: {
+        [defaultMode]: { type: 'string', value: 'hsl(var(--ydsz-color-destructive-600))' },
+      },
       description: 'Danger button border color',
     },
   );

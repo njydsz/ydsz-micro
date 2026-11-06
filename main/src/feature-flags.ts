@@ -17,11 +17,11 @@ import type {
   FeatureFlagDef,
   FeatureFlagsOptions,
   FeatureFlagValue,
-} from "@ydsz-core/feature-flags";
+} from '@ydsz-core/feature-flags';
 
-import { defineFeatureFlags } from "@ydsz-core/feature-flags";
+import { defineFeatureFlags } from '@ydsz-core/feature-flags';
 
-import { requestClient } from "#/api/request";
+import { requestClient } from '#/api/request';
 
 /**
  * 主应用已注册的功能开关清单。
@@ -31,14 +31,14 @@ import { requestClient } from "#/api/request";
  */
 export const APPLICATION_FLAGS: FeatureFlagDef[] = [
   {
-    name: "new-dashboard",
+    name: 'new-dashboard',
     defaultValue: false,
-    description: "启用新版仪表盘布局（含分析卡片与拖拽配置）— 实验性",
+    description: '启用新版仪表盘布局（含分析卡片与拖拽配置）— 实验性',
   },
   {
-    name: "watermark-directive",
+    name: 'watermark-directive',
     defaultValue: true,
-    description: "敏感页面 v-watermark 指令（合规要求，关闭需评审）",
+    description: '敏感页面 v-watermark 指令（合规要求，关闭需评审）',
     allowLocalOverride: false,
   },
 ];
@@ -54,12 +54,8 @@ export function registerApplicationFlags(): void {
  * 调用 `/api/feature-flags/me`，返回当前用户可见的开关映射。
  * 失败时由 FeatureFlagsManager 内部捕获并降级到默认值，此处不再额外处理。
  */
-async function remoteFeatureFlagsLoader(): Promise<
-  Record<string, FeatureFlagValue>
-> {
-  const resp = await requestClient.get<Record<string, FeatureFlagValue>>(
-    "/feature-flags/me",
-  );
+async function remoteFeatureFlagsLoader(): Promise<Record<string, FeatureFlagValue>> {
+  const resp = await requestClient.get<Record<string, FeatureFlagValue>>('/feature-flags/me');
   return resp ?? {};
 }
 
@@ -71,7 +67,7 @@ async function remoteFeatureFlagsLoader(): Promise<
  */
 export function featureFlagsOptions(): FeatureFlagsOptions {
   return {
-    namespace: "ydsz",
+    namespace: 'ydsz',
     env: import.meta.env,
     remoteLoader: remoteFeatureFlagsLoader,
     enableLocalOverrideInProd: false,

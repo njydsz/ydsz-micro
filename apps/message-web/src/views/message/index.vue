@@ -32,7 +32,9 @@ import MessageForm from './message-form.vue';
 defineOptions({ name: 'MessageManagement' });
 
 /** 状态列 Tag 类型映射（兼容字符串/数字取值，未知值按 info 展示） */
-function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapTagVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -61,7 +63,11 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.status)) },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'priority', title: '优先级', width: 90 },

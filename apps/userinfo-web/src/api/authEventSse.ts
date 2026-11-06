@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * streamEvents: GET /auth/events/stream
  *
@@ -21,8 +20,6 @@ import { requestClient } from '#/api/request';
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function streamEvents(params: {
-    request?: Record<string, unknown>;
-  }): Promise<unknown> {
+export function streamEvents(params: { request?: Record<string, unknown> }): Promise<unknown> {
   return requestClient.get<unknown>(`/auth/events/stream`, { params });
 }

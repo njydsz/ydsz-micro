@@ -14,11 +14,7 @@ import { markRaw, reactive, readonly, watch } from 'vue';
 import { StorageManager } from '@ydsz-core/shared/cache';
 import { isMacOs, merge } from '@ydsz-core/shared/utils';
 
-import {
-  breakpointsTailwind,
-  useBreakpoints,
-  useDebounceFn,
-} from '@vueuse/core';
+import { breakpointsTailwind, useBreakpoints, useDebounceFn } from '@vueuse/core';
 
 import { defaultPreferences } from './config';
 import { updateCSSVariables } from './update-css-variables';
@@ -226,10 +222,7 @@ class PreferenceManager {
       updateCSSVariables(this.state);
     }
 
-    if (
-      Reflect.has(appUpdates, 'colorGrayMode') ||
-      Reflect.has(appUpdates, 'colorWeakMode')
-    ) {
+    if (Reflect.has(appUpdates, 'colorGrayMode') || Reflect.has(appUpdates, 'colorWeakMode')) {
       this.updateColorMode(this.state);
     }
   }

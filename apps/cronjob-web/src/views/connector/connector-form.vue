@@ -15,7 +15,16 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -73,7 +82,9 @@ function toConnectorConfig(): ConnectorConfigPostDTO {
 const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    const data = modalApi.getData<{ record?: Partial<ConnectorFormState> & { types?: string[] } }>();
+    const data = modalApi.getData<{
+      record?: Partial<ConnectorFormState> & { types?: string[] };
+    }>();
     connectorTypes.value = data?.record?.types ?? [];
     Object.assign(formData, {
       type: data?.record?.type ?? '',
@@ -114,7 +125,13 @@ const title = computed(() => '连接测试');
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('business.connectorType')" prop="type">
         <YdSelectBase v-model="formData.type">
           <YdSelectTriggerBase placeholder="请选择连接器类型" />

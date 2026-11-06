@@ -16,9 +16,7 @@ import type { SpaceVO, StorageQuotaVO } from './models';
 /**
  * getSpaceById: GET /internal/space/get
  */
-export function getSpaceById(params: {
-    spaceId?: string;
-  }): Promise<SpaceVO> {
+export function getSpaceById(params: { spaceId?: string }): Promise<SpaceVO> {
   return requestClient.get<SpaceVO>(`/internal/space/get`, { params });
 }
 
@@ -32,17 +30,13 @@ export function batchGetSpaces(data: string[]): Promise<SpaceVO[]> {
 /**
  * getQuotaByTenantId: GET /internal/quota/get-by-tenant
  */
-export function getQuotaByTenantId(params: {
-    tenantId?: string;
-  }): Promise<StorageQuotaVO> {
+export function getQuotaByTenantId(params: { tenantId?: string }): Promise<StorageQuotaVO> {
   return requestClient.get<StorageQuotaVO>(`/internal/quota/get-by-tenant`, { params });
 }
 
 /**
  * getQuotaBySpaceId: GET /internal/quota/get-by-space
  */
-export function getQuotaBySpaceId(params: {
-    spaceId?: string;
-  }): Promise<StorageQuotaVO> {
+export function getQuotaBySpaceId(params: { spaceId?: string }): Promise<StorageQuotaVO> {
   return requestClient.get<StorageQuotaVO>(`/internal/quota/get-by-space`, { params });
 }

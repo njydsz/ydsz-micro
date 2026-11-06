@@ -6,7 +6,7 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `toggleExpand` | `id: string` | - |
-| `toggleSelect` | `id: string` | - |
+| 事件           | 参数         | 说明 |
+| -------------- | ------------ | ---- |
+| `toggleExpand` | `id: string` | -    |
+| `toggleSelect` | `id: string` | -    |

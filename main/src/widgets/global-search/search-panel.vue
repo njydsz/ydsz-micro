@@ -25,9 +25,7 @@ import { useDebounceFn } from '@vueuse/core';
 import { $t } from '@ydsz/locales';
 
 import { useSearchStore } from '#/store/search';
-import {
-  useGlobalSearch,
-} from '#/hooks/use-global-search';
+import { useGlobalSearch } from '#/hooks/use-global-search';
 import { useSlashCommands } from '#/composables/use-slash-commands';
 
 /** 面板内部统一的结果项类型 */
@@ -218,7 +216,11 @@ const showSlashHint = computed(() => inSlashMode.value);
 
 /** 底部快捷键提示 */
 const footerHints = computed(() => {
-  const hints: string[] = [$t('main.search.hintNavigate'), $t('main.search.hintConfirm'), $t('main.search.hintClose')];
+  const hints: string[] = [
+    $t('main.search.hintNavigate'),
+    $t('main.search.hintConfirm'),
+    $t('main.search.hintClose'),
+  ];
   if (inSlashMode.value) {
     hints.push($t('main.search.hintSlashEnter'));
   }
@@ -262,9 +264,7 @@ async function handleSlashEnter() {
 function goTo(item: PanelResultItem) {
   close();
   if (item.url) {
-    window.dispatchEvent(
-      new CustomEvent('micro-kernel:navigate', { detail: { path: item.url } }),
-    );
+    window.dispatchEvent(new CustomEvent('micro-kernel:navigate', { detail: { path: item.url } }));
   }
 }
 
@@ -359,7 +359,8 @@ watch(activeTab, () => {
         <div class="gs-input-wrap">
           <YdIcon
             :icon="inSlashMode ? 'lucide:terminal' : 'lucide:search'"
-            width="18" height="18"
+            width="18"
+            height="18"
             class="gs-icon"
           />
           <input
@@ -367,9 +368,7 @@ watch(activeTab, () => {
             v-model="query"
             class="gs-input"
             :placeholder="
-              inSlashMode
-                ? $t('main.search.slashModePlaceholder')
-                : $t('main.search.placeholder')
+              inSlashMode ? $t('main.search.slashModePlaceholder') : $t('main.search.placeholder')
             "
             :aria-label="$t('page.commandPalette.search')"
             @keydown.enter="handleEnter"
@@ -430,7 +429,8 @@ watch(activeTab, () => {
             >
               <YdIcon
                 :icon="item.icon || 'lucide:file'"
-                width="14" height="14"
+                width="14"
+                height="14"
                 class="gs-item-icon"
               />
               <div class="gs-item-body">
@@ -438,12 +438,12 @@ watch(activeTab, () => {
                   class="gs-item-title"
                   v-safe-html="item.highlightedTitle || item.title"
                 ></span>
-                <span v-if="item.description" class="gs-item-desc">{{
-                  item.description
-                }}</span>
+                <span v-if="item.description" class="gs-item-desc">{{ item.description }}</span>
               </div>
               <span class="gs-app-badge">{{
-                (item.appName && appNameLabels?.[item.appName]) || item.categoryLabel || item.category
+                (item.appName && appNameLabels?.[item.appName]) ||
+                item.categoryLabel ||
+                item.category
               }}</span>
             </button>
           </template>
@@ -602,8 +602,12 @@ watch(activeTab, () => {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ==================== 搜索结果区（viewport-aware 自适应） ==================== */

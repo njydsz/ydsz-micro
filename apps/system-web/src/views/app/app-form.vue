@@ -121,9 +121,19 @@ const title = computed(() => (isEdit.value ? t('appForm.editTitle') : t('appForm
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('appForm.appCode')" prop="appCode">
-        <YdInput v-model="formData.appCode" :placeholder="t('appForm.appCodePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.appCode"
+          :placeholder="t('appForm.appCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.appName')" prop="appName">
         <YdInput v-model="formData.appName" :placeholder="t('appForm.appNamePlaceholder')" />
@@ -132,7 +142,10 @@ const title = computed(() => (isEdit.value ? t('appForm.editTitle') : t('appForm
         <YdInput v-model="formData.appKey" :placeholder="t('appForm.appKeyLabel')" />
       </YdFormItem>
       <YdFormItem :label="t('appForm.redirectUrl')" prop="redirectUrl">
-        <YdInput v-model="formData.redirectUrl" :placeholder="t('appForm.redirectUrlPlaceholder')" />
+        <YdInput
+          v-model="formData.redirectUrl"
+          :placeholder="t('appForm.redirectUrlPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('appForm.scopes')" prop="scopes">
         <YdInput v-model="formData.scopes" :placeholder="t('appForm.scopesPlaceholder')" />
@@ -141,7 +154,12 @@ const title = computed(() => (isEdit.value ? t('appForm.editTitle') : t('appForm
         <YdInput v-model="formData.boundIps" :placeholder="t('appForm.boundIpsPlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('business.description')">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('business.descriptionPlaceholder')" />
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('business.descriptionPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.status')" prop="status">
         <YdRadioGroup v-model="formData.status">

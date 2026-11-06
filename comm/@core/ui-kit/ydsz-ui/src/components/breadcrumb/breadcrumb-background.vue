@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* 带背景容器的面包屑变体：在普通面包屑外套一层背景与圆角。
-* 
+ * 带背景容器的面包屑变体：在普通面包屑外套一层背景与圆角。
+ *
  * 与 breadcrumb.vue 共用同一份 BreadcrumbProps，只是呈现形态不同，
  * 由 breadcrumb-view.vue 依据样式配置在两者间切换，使用方无需感知差异。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\breadcrumb\breadcrumb-background.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -31,25 +31,14 @@ function handleClick(index: number, path?: string) {
 <template>
   <ul class="flex">
     <TransitionGroup name="breadcrumb-transition">
-      <template
-        v-for="(item, index) in breadcrumbs"
-        :key="`${item.path}-${item.title}-${index}`"
-      >
+      <template v-for="(item, index) in breadcrumbs" :key="`${item.path}-${item.title}-${index}`">
         <li>
-          <a
-            href="javascript:void 0"
-            @click.stop="handleClick(index, item.path)"
-          >
+          <a href="javascript:void 0" @click.stop="handleClick(index, item.path)">
             <span class="flex-center z-10 h-full">
-              <YdIcon
-                v-if="showIcon"
-                :icon="item.icon"
-                class="mr-1 size-4 flex-shrink-0"
-              />
+              <YdIcon v-if="showIcon" :icon="item.icon" class="mr-1 size-4 flex-shrink-0" />
               <span
                 :class="{
-                  'text-foreground font-normal':
-                    index === breadcrumbs.length - 1,
+                  'text-foreground font-normal': index === breadcrumbs.length - 1,
                 }"
                 >{{ item.title }}
               </span>
@@ -118,4 +107,3 @@ li:not(:last-child) a:hover::after {
   @apply border-l-accent-hover;
 }
 </style>
-

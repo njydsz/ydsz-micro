@@ -16,7 +16,15 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdTabsContent, YdTabs, YdDescriptions, YdDescriptionsItem, YdButton, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdTabsContent,
+  YdTabs,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdButton,
+  YdInput,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { showToast } from '@ydsz/notification';
@@ -58,7 +66,9 @@ function openWorkflowDesigner(): void {
 }
 
 /** 已完成节点展示文本 */
-const completedNodesText = computed(() => checkpointResult.value?.completedNodes?.join(', ') ?? '-');
+const completedNodesText = computed(
+  () => checkpointResult.value?.completedNodes?.join(', ') ?? '-',
+);
 /** 失败节点展示文本 */
 const failedNodesText = computed(() => checkpointResult.value?.failedNodes?.join(', ') ?? '-');
 
@@ -69,50 +79,78 @@ const failedNodesText = computed(() => checkpointResult.value?.failedNodes?.join
  * @returns 展示字符串
  */
 function displayValue(value: unknown): string {
-  if (value === null || value === undefined) { return '-'; }
+  if (value === null || value === undefined) {
+    return '-';
+  }
   if (typeof value === 'object') {
-    try { return JSON.stringify(value, null, 2); } catch { return String(value); }
+    try {
+      return JSON.stringify(value, null, 2);
+    } catch {
+      return String(value);
+    }
   }
   return String(value);
 }
 
 /** 校验 DSL 编排（validate） */
 async function handleValidate() {
-  if (!dsl.value.trim()) { showToast.warning('请输入 DSL 内容'); return; }
+  if (!dsl.value.trim()) {
+    showToast.warning('请输入 DSL 内容');
+    return;
+  }
   submitting.value = true;
   try {
     validateResult.value = await validate({ dsl: dsl.value });
-  } finally { submitting.value = false; }
+  } finally {
+    submitting.value = false;
+  }
 }
 
 /** 执行 DAG 编排（execute），结果展示在独立结果区 */
 async function handleExecute() {
-  if (!dsl.value.trim()) { showToast.warning('请输入 DSL 内容'); return; }
+  if (!dsl.value.trim()) {
+    showToast.warning('请输入 DSL 内容');
+    return;
+  }
   submitting.value = true;
   try {
-    executeResult.value = await execute({ dsl: dsl.value, userInput: userInput.value || undefined });
-  } finally { submitting.value = false; }
+    executeResult.value = await execute({
+      dsl: dsl.value,
+      userInput: userInput.value || undefined,
+    });
+  } finally {
+    submitting.value = false;
+  }
 }
 
 /** 按 executionId 查询执行 Checkpoint（getCheckpoint） */
 async function handleQueryCheckpoint() {
   const id = executionId.value.trim();
-  if (!id) { showToast.warning('请输入 ExecutionId'); return; }
+  if (!id) {
+    showToast.warning('请输入 ExecutionId');
+    return;
+  }
   submitting.value = true;
   try {
     checkpointResult.value = await getCheckpoint({ executionId: id });
   } catch {
     checkpointResult.value = null;
-  } finally { submitting.value = false; }
+  } finally {
+    submitting.value = false;
+  }
 }
 </script>
 <template>
   <Page>
     <!-- 顶部入口：跳转工作流管理 -->
-    <div class="mb-4 flex items-center justify-between rounded-md border border-border-subtle bg-accent/30 px-4 py-3">
+    <div
+      class="border-border-subtle bg-accent/30 mb-4 flex items-center justify-between rounded-md border px-4 py-3"
+    >
       <div>
-        <span class="text-sm font-medium text-text-primary">需要管理工作流的持久化版本？</span>
-        <span class="ml-2 text-sm text-text-secondary">前往工作流管理页面进行创建、编辑、版本管理和导出操作。</span>
+        <span class="text-text-primary text-sm font-medium">需要管理工作流的持久化版本？</span>
+        <span class="text-text-secondary ml-2 text-sm"
+          >前往工作流管理页面进行创建、编辑、版本管理和导出操作。</span
+        >
       </div>
       <YdButton size="sm" @click="goToWorkflowManagement">工作流管理</YdButton>
     </div>
@@ -128,7 +166,7 @@ async function handleQueryCheckpoint() {
             </div>
             <YdTextarea v-model="dsl" placeholder="粘贴 DSL 编排脚本" />
           </div>
-          <div class="flex flex-col ga p-5">
+          <div class="ga flex flex-col p-5">
             <div class="rounded-md border p-3">
               <div class="mb-2 text-sm font-medium">执行参数</div>
               <div class="mb-2">
@@ -152,27 +190,43 @@ async function handleQueryCheckpoint() {
         <div class="mt-4 grid grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-2">
           <div class="rounded-md border p-3">
             <div class="mb-2 text-sm font-medium">校验结果</div>
-            <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(validateResult) }}</pre>
+            <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{
+              displayValue(validateResult)
+            }}</pre>
           </div>
           <div class="rounded-md border p-3">
             <div class="mb-2 text-sm font-medium">执行结果</div>
-            <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{ displayValue(executeResult) }}</pre>
+            <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{
+              displayValue(executeResult)
+            }}</pre>
           </div>
         </div>
         <div v-if="checkpointResult" class="mx-4 mb-4 rounded-md border p-3">
           <div class="mb-2 text-sm font-medium">Checkpoint</div>
           <YdDescriptions :column="2" border>
-            <YdDescriptionsItem label="ExecutionId">{{ checkpointResult.executionId }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="ExecutionId">{{
+              checkpointResult.executionId
+            }}</YdDescriptionsItem>
             <YdDescriptionsItem label="DAG名称">{{ checkpointResult.dagName }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="用户输入">{{ checkpointResult.userInput }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="快照时间">{{ checkpointResult.snapshotTime }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="已完成节点" :span="2">{{ completedNodesText }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="失败节点" :span="2">{{ failedNodesText }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="用户输入">{{
+              checkpointResult.userInput
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="快照时间">{{
+              checkpointResult.snapshotTime
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="已完成节点" :span="2">{{
+              completedNodesText
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="失败节点" :span="2">{{
+              failedNodesText
+            }}</YdDescriptionsItem>
             <YdDescriptionsItem label="DSL" :span="2">
               <pre class="whitespace-pre-wrap break-all">{{ checkpointResult.dsl }}</pre>
             </YdDescriptionsItem>
             <YdDescriptionsItem label="节点结果" :span="2">
-              <pre class="whitespace-pre-wrap break-all">{{ displayValue(checkpointResult.nodeResults) }}</pre>
+              <pre class="whitespace-pre-wrap break-all">{{
+                displayValue(checkpointResult.nodeResults)
+              }}</pre>
             </YdDescriptionsItem>
           </YdDescriptions>
         </div>
@@ -182,7 +236,9 @@ async function handleQueryCheckpoint() {
       <YdTabsContent label="可视化编排" name="visual">
         <div class="p-5">
           <YdButton @click="openWorkflowDesigner">打开可视化工作流设计器</YdButton>
-          <p class="mt-2 text-sm text-gray-500">使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。</p>
+          <p class="mt-2 text-sm text-gray-500">
+            使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。
+          </p>
         </div>
       </YdTabsContent>
     </YdTabs>

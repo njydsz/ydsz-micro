@@ -12,50 +12,69 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * downloadFolder: POST /nextwiki/download/folder/{folderId}
  */
-export function downloadFolder({ folderId }: {
+export function downloadFolder(
+  {
+    folderId,
+  }: {
     folderId: string;
-  }, params: {
+  },
+  params: {
     response?: Record<string, unknown>;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/nextwiki/download/folder/${folderId}`, { params });
 }
 
 /**
  * download: POST /nextwiki/download/{nodeId}
  */
-export function download({ nodeId }: {
+export function download(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, params: {
+  },
+  params: {
     request?: Record<string, unknown>;
     response?: Record<string, unknown>;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/nextwiki/download/${nodeId}`, { params });
 }
 
 /**
  * generateSignedUrl: POST /nextwiki/download/{nodeId}/signed-url
  */
-export function generateSignedUrl({ nodeId }: {
+export function generateSignedUrl(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, params: {
+  },
+  params: {
     request?: Record<string, unknown>;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/nextwiki/download/${nodeId}/signed-url`, { params });
 }
 
 /**
  * downloadBySignedUrl: GET /nextwiki/download/signed/{sign}
  */
-export function downloadBySignedUrl({ sign }: {
+export function downloadBySignedUrl(
+  {
+    sign,
+  }: {
     sign: string;
-  }, params: {
+  },
+  params: {
     expires?: number;
     request?: Record<string, unknown>;
     response?: Record<string, unknown>;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.get<void>(`/nextwiki/download/signed/${sign}`, { params });
 }

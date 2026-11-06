@@ -12,30 +12,23 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * generatePreview: POST /nextwiki/preview/{fileNodeId}/generate
  */
-export function generatePreview({ fileNodeId }: {
-    fileNodeId: string;
-  }): Promise<void> {
+export function generatePreview({ fileNodeId }: { fileNodeId: string }): Promise<void> {
   return requestClient.post<void>(`/nextwiki/preview/${fileNodeId}/generate`);
 }
 
 /**
  * isSupported: GET /nextwiki/preview/supported
  */
-export function isSupported(params: {
-    suffix?: string;
-  }): Promise<boolean> {
+export function isSupported(params: { suffix?: string }): Promise<boolean> {
   return requestClient.get<boolean>(`/nextwiki/preview/supported`, { params });
 }
 
 /**
  * getPreviewType: GET /nextwiki/preview/type
  */
-export function getPreviewType(params: {
-    suffix?: string;
-  }): Promise<string> {
+export function getPreviewType(params: { suffix?: string }): Promise<string> {
   return requestClient.get<string>(`/nextwiki/preview/type`, { params });
 }

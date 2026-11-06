@@ -10,17 +10,9 @@ import type { ThemeModeType } from '@ydsz/types';
 
 import { MoonStar, Sun, SunMoon } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
-import {
-  preferences,
-  updatePreferences,
-  usePreferences,
-} from '@ydsz/preferences';
+import { preferences, updatePreferences, usePreferences } from '@ydsz/preferences';
 
-import {
-  YdTooltip,
-  YdToggleGroup,
-  YdToggleGroupItem,
-} from '@ydsz-core/ydsz-ui';
+import { YdTooltip, YdToggleGroup, YdToggleGroupItem } from '@ydsz-core/ydsz-ui';
 
 import ThemeButton from './theme-button.vue';
 
@@ -62,26 +54,16 @@ const PRESETS = [
   <div>
     <YdTooltip :disabled="!shouldOnHover" side="bottom">
       <template #trigger>
-        <ThemeButton
-          :model-value="isDark"
-          type="icon"
-          @update:model-value="handleChange"
-        />
+        <ThemeButton :model-value="isDark" type="icon" @update:model-value="handleChange" />
       </template>
       <YdToggleGroup
         :model-value="preferences.theme.mode"
         class="gap-2"
         type="single"
         variant="outline"
-        @update:model-value="
-          (val) => updatePreferences({ theme: { mode: val as ThemeModeType } })
-        "
+        @update:model-value="(val) => updatePreferences({ theme: { mode: val as ThemeModeType } })"
       >
-        <YdToggleGroupItem
-          v-for="item in PRESETS"
-          :key="item.name"
-          :value="item.name"
-        >
+        <YdToggleGroupItem v-for="item in PRESETS" :key="item.name" :value="item.name">
           <component :is="item.icon" class="size-5" />
         </YdToggleGroupItem>
       </YdToggleGroup>

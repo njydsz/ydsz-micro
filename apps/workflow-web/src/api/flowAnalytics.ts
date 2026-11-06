@@ -21,10 +21,7 @@ import type { FlowAnomalyVO, FlowBottleneckVO, FlowMigrationImpactVO } from './m
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function overview(params: {
-    startTime?: string;
-    endTime?: string;
-  }): Promise<unknown> {
+export function overview(params: { startTime?: string; endTime?: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/workflow/analytics/overview`, { params });
 }
 
@@ -37,10 +34,10 @@ export function overview(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function approverEfficiency(params: {
-    startTime?: string;
-    endTime?: string;
-    limit?: number;
-  }): Promise<unknown> {
+  startTime?: string;
+  endTime?: string;
+  limit?: number;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/workflow/analytics/approverEfficiency`, { params });
 }
 
@@ -52,10 +49,7 @@ export function approverEfficiency(params: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function flowEfficiency(params: {
-    startTime?: string;
-    endTime?: string;
-  }): Promise<unknown> {
+export function flowEfficiency(params: { startTime?: string; endTime?: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/workflow/analytics/flowEfficiency`, { params });
 }
 
@@ -67,9 +61,7 @@ export function flowEfficiency(params: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function nodeDuration(params: {
-    flowCode?: string;
-  }): Promise<unknown> {
+export function nodeDuration(params: { flowCode?: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/workflow/analytics/nodeDuration`, { params });
 }
 
@@ -82,10 +74,10 @@ export function nodeDuration(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function approvalTrend(params: {
-    startTime?: string;
-    endTime?: string;
-    granularity?: string;
-  }): Promise<unknown> {
+  startTime?: string;
+  endTime?: string;
+  granularity?: string;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/workflow/analytics/approvalTrend`, { params });
 }
 
@@ -93,36 +85,44 @@ export function approvalTrend(params: {
  * getArchiveConfig: GET /workflow/analytics/history/config
  */
 export function getArchiveConfig(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/analytics/history/config`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/analytics/history/config`,
+  );
 }
 
 /**
  * archive: POST /workflow/analytics/history/archive
  */
 export function archive(params: {
-    retentionDays?: number;
-    batchSize?: number;
-    maxProcessMs?: number;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/workflow/analytics/history/archive`, { params });
+  retentionDays?: number;
+  batchSize?: number;
+  maxProcessMs?: number;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/workflow/analytics/history/archive`,
+    { params },
+  );
 }
 
 /**
  * purge: POST /workflow/analytics/history/purge
  */
 export function purge(params: {
-    purgeDays?: number;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/workflow/analytics/history/purge`, { params });
+  purgeDays?: number;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/workflow/analytics/history/purge`,
+    { params },
+  );
 }
 
 /**
  * bottleneckHeatmap: GET /workflow/analytics/bottleneckHeatmap
  */
 export function bottleneckHeatmap(params: {
-    startTime?: string;
-    endTime?: string;
-  }): Promise<FlowBottleneckVO[]> {
+  startTime?: string;
+  endTime?: string;
+}): Promise<FlowBottleneckVO[]> {
   return requestClient.get<FlowBottleneckVO[]>(`/workflow/analytics/bottleneckHeatmap`, { params });
 }
 
@@ -130,45 +130,68 @@ export function bottleneckHeatmap(params: {
  * anomalyAlerts: GET /workflow/analytics/anomalyAlerts
  */
 export function anomalyAlerts(params: {
-    stuckThresholdHours?: number;
-    rejectRateThreshold?: number;
-    backlogThreshold?: number;
-  }): Promise<FlowAnomalyVO[]> {
+  stuckThresholdHours?: number;
+  rejectRateThreshold?: number;
+  backlogThreshold?: number;
+}): Promise<FlowAnomalyVO[]> {
   return requestClient.get<FlowAnomalyVO[]>(`/workflow/analytics/anomalyAlerts`, { params });
 }
 
 /**
  * impactPreview: GET /workflow/analytics/impactPreview/{definitionId}
  */
-export function impactPreview({ definitionId }: {
+export function impactPreview(
+  {
+    definitionId,
+  }: {
     definitionId: string;
-  }, params: {
+  },
+  params: {
     nodeIdToCheck?: string;
-  }): Promise<FlowMigrationImpactVO> {
-  return requestClient.get<FlowMigrationImpactVO>(`/workflow/analytics/impactPreview/${definitionId}`, { params });
+  },
+): Promise<FlowMigrationImpactVO> {
+  return requestClient.get<FlowMigrationImpactVO>(
+    `/workflow/analytics/impactPreview/${definitionId}`,
+    { params },
+  );
 }
 
 /**
  * enumDescriptions: GET /workflow/analytics/i18n/enum/{enumType}
  */
-export function enumDescriptions({ enumType }: {
+export function enumDescriptions(
+  {
+    enumType,
+  }: {
     enumType: string;
-  }, params: {
+  },
+  params: {
     locale?: string;
-  }): Promise<Record<string, string>[]> {
-  return requestClient.get<Record<string, string>[]>(`/workflow/analytics/i18n/enum/${enumType}`, { params });
+  },
+): Promise<Record<string, string>[]> {
+  return requestClient.get<Record<string, string>[]>(`/workflow/analytics/i18n/enum/${enumType}`, {
+    params,
+  });
 }
 
 /**
  * enumDescription: GET /workflow/analytics/i18n/enum/{enumType}/{enumName}
  */
-export function enumDescription({ enumType, enumName }: {
+export function enumDescription(
+  {
+    enumType,
+    enumName,
+  }: {
     enumType: string;
     enumName: string;
-  }, params: {
+  },
+  params: {
     locale?: string;
-  }): Promise<string> {
-  return requestClient.get<string>(`/workflow/analytics/i18n/enum/${enumType}/${enumName}`, { params });
+  },
+): Promise<string> {
+  return requestClient.get<string>(`/workflow/analytics/i18n/enum/${enumType}/${enumName}`, {
+    params,
+  });
 }
 
 /**

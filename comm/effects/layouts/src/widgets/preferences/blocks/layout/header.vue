@@ -6,11 +6,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  LayoutHeaderMenuAlignType,
-  LayoutHeaderModeType,
-  SelectOption,
-} from '@ydsz/types';
+import type { LayoutHeaderMenuAlignType, LayoutHeaderModeType, SelectOption } from '@ydsz/types';
 
 import { $t } from '@ydsz/locales';
 
@@ -22,8 +18,7 @@ defineProps<{ disabled: boolean }>();
 
 const headerEnable = defineModel<boolean>('headerEnable');
 const headerMode = defineModel<LayoutHeaderModeType>('headerMode');
-const headerMenuAlign =
-  defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign');
+const headerMenuAlign = defineModel<LayoutHeaderMenuAlignType>('headerMenuAlign');
 
 const localeItems: SelectOption[] = [
   {
@@ -64,18 +59,10 @@ const headerMenuAlignItems: SelectOption[] = [
   <SwitchItem v-model="headerEnable" :disabled="disabled">
     {{ $t('preferences.header.visible') }}
   </SwitchItem>
-  <YdSelectItemBase
-    v-model="headerMode"
-    :disabled="!headerEnable"
-    :items="localeItems"
-  >
+  <YdSelectItemBase v-model="headerMode" :disabled="!headerEnable" :items="localeItems">
     {{ $t('preferences.mode') }}
   </YdSelectItemBase>
-  <ToggleItem
-    v-model="headerMenuAlign"
-    :disabled="!headerEnable"
-    :items="headerMenuAlignItems"
-  >
+  <ToggleItem v-model="headerMenuAlign" :disabled="!headerEnable" :items="headerMenuAlignItems">
     {{ $t('preferences.header.menuAlign') }}
   </ToggleItem>
 </template>

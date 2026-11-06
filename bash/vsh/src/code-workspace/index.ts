@@ -44,8 +44,8 @@ const RECOMMENDED_SETTINGS = {
   },
   'eslint.validate': ['javascript', 'typescript', 'vue'],
   'tailwindCSS.experimental.classRegex': [
-    ['clsx\\(([^)]*)\\)', ["\"([^\"]*)\"", "'([^']*)'"]],
-    ['cn\\(([^)]*)\\)', ["\"([^\"]*)\"", "'([^']*)'"]],
+    ['clsx\\(([^)]*)\\)', ['"([^"]*)"', "'([^']*)'"]],
+    ['cn\\(([^)]*)\\)', ['"([^"]*)"', "'([^']*)'"]],
   ],
 };
 
@@ -102,10 +102,7 @@ export function generateWorkspaceConfig(options: {
 /**
  * 写入工作区配置文件
  */
-export function writeWorkspaceFile(
-  outputPath: string,
-  config: WorkspaceConfig,
-): void {
+export function writeWorkspaceFile(outputPath: string, config: WorkspaceConfig): void {
   const content = JSON.stringify(config, null, 2);
   writeFileSync(outputPath, content, 'utf-8');
   console.log(`✅ 工作区配置已写入: ${outputPath}`);
@@ -114,10 +111,7 @@ export function writeWorkspaceFile(
 /**
  * 同步工作区配置
  */
-export async function syncWorkspace(options: {
-  rootDir?: string;
-  output?: string;
-}): Promise<void> {
+export async function syncWorkspace(options: { rootDir?: string; output?: string }): Promise<void> {
   const rootDir = options.rootDir ?? process.cwd();
   const output = options.output ?? resolve(rootDir, 'ydsz-admin.code-workspace');
 
@@ -133,7 +127,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       console.log('✅ 工作区配置同步完成');
       process.exit(0);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('工作区配置同步失败:', err);
       process.exit(1);
     });

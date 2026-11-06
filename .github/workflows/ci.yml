@@ -50,6 +50,11 @@ jobs:
       - name: 类型检查
         run: pnpm type-check
 
+      # 类型检查棘轮门禁自身的反例自检：基线文件一旦被误删或字段漂移，
+      # 棘轮会永远报 "通过"，失去 "只可下调" 的约束力。
+      - name: 类型检查棘轮自检
+        run: pnpm type-check:self-test
+
       - name: 循环依赖检查（零循环）
         run: pnpm vsh:check-circular
 
@@ -201,6 +206,11 @@ jobs:
       # （CI 侧此前正是扫 dist/assets，而产物在 dist/js、dist/css、dist/jse）。
       - name: 体积预算门禁自检
         run: pnpm check:size:self-test
+
+      # 组件体积预算门禁（SFC-006：单文件脚本 <500 行 / 单组件 <2000 行）：
+      # 超限项需抽取 composables 或子组件，避免单文件膨胀到无法维护。
+      - name: 组件体积预算
+        run: pnpm check:component-budget
 
       # 性能退化判定的自检：该脚本由 performance.yml 调用，必须"基线缺失/指标名漂移就红"，
       # 但性能 job 本身是独立工作流，所以把它的不失败能力放进必跑的 PR 门禁里验证。
@@ -359,7 +369,7 @@ jobs:
         run: |
           # 如果基线文件不存在（首次运行），跳过；否则执行 diff
           if [ -f apps/system-web/src/api/sdk/openapi.json ]; then
-            node bash/detect-breaking-changes.mjs \
+            node bash/detect-breaking-changes.mts \
               --baseline apps/system-web/src/api/sdk/openapi.json \
               --current   /tmp/openapi-current.json
           else

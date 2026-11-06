@@ -17,10 +17,17 @@ const stats = ref<RuleStat>({
   lastUpdated: '2026-09-17',
 });
 
-const recentChanges = ref<ReadonlyArray<{ id: string; level: string; summary: string; date: string }>>([
+const recentChanges = ref<
+  ReadonlyArray<{ id: string; level: string; summary: string; date: string }>
+>([
   { id: 'YDIZ-TEST-001', level: 'P0', summary: '测试金字塔模型规则', date: '2026-09-16' },
   { id: 'YDIZ-TX-002', level: 'P0', summary: '全局事务超时 ≤30000ms', date: '2026-09-14' },
-  { id: 'YDIZ-IMPORT-005', level: 'P1', summary: '禁止业务模块直接 import Netty', date: '2026-09-12' },
+  {
+    id: 'YDIZ-IMPORT-005',
+    level: 'P1',
+    summary: '禁止业务模块直接 import Netty',
+    date: '2026-09-12',
+  },
 ]);
 
 onMounted(() => {

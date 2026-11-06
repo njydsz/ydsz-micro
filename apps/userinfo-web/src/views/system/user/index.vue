@@ -77,14 +77,16 @@ const companyOptions = ref<CompanyVO[]>([]);
 const deptTreeData = ref<DepartmentTreeVO[]>([]);
 
 /** 将 DepartmentTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
-const deptTreeOptions = computed(() => deptTreeData.value.map(node => ({
-  label: node.deptName ?? '',
-  value: node.id ?? '',
-  ...(node.children?.length && { children: mapDeptChildren(node.children) }),
-})));
+const deptTreeOptions = computed(() =>
+  deptTreeData.value.map((node) => ({
+    label: node.deptName ?? '',
+    value: node.id ?? '',
+    ...(node.children?.length && { children: mapDeptChildren(node.children) }),
+  })),
+);
 
 function mapDeptChildren(nodes: DepartmentTreeVO[]): { label: string; value: string }[] {
-  return nodes.map(node => ({
+  return nodes.map((node) => ({
     label: node.deptName ?? '',
     value: node.id ?? '',
     ...(node.children?.length && { children: mapDeptChildren(node.children) }),
@@ -186,8 +188,7 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
       title: t('user.position'),
       width: 100,
       slots: {
-        default: ({ row }) =>
-          h('span', null, postNameMap.get(row.positionCode ?? '') || '-'),
+        default: ({ row }) => h('span', null, postNameMap.get(row.positionCode ?? '') || '-'),
       },
     },
     {
@@ -199,7 +200,10 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -215,14 +219,17 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleAssignRoles(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400',
+                onClick: () => handleAssignRoles(row),
+              },
               () => t('page.roleAssign'),
             ),
             h(
@@ -232,7 +239,12 @@ const gridOptions: VxeTableGridOptions<UserAccountVO> = {
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),
@@ -437,11 +449,7 @@ async function handleDelete(row: UserAccountVO) {
           <YdSelectValueBase :placeholder="t('user.company')" />
         </YdSelectTriggerBase>
         <YdSelectContentBase>
-          <YdSelectItemBase
-            v-for="item in companyOptions"
-            :key="item.id"
-            :value="item.id ?? ''"
-          >
+          <YdSelectItemBase v-for="item in companyOptions" :key="item.id" :value="item.id ?? ''">
             {{ item.companyName }}
           </YdSelectItemBase>
         </YdSelectContentBase>
@@ -474,7 +482,9 @@ async function handleDelete(row: UserAccountVO) {
         <YdButton variant="default" @click="handleAdd">{{ t('user.createUser') }}</YdButton>
         <YdButton variant="outline" @click="handleImport">{{ t('user.importUser') }}</YdButton>
         <YdButton variant="secondary" @click="handleExport">{{ t('user.exportUser') }}</YdButton>
-        <YdButton variant="ghost" @click="handleDownloadTemplate">{{ t('user.downloadTemplate') }}</YdButton>
+        <YdButton variant="ghost" @click="handleDownloadTemplate">{{
+          t('user.downloadTemplate')
+        }}</YdButton>
       </template>
     </Grid>
     <UserFormModal @success="gridApi.query()" />

@@ -21,7 +21,15 @@ import { Page } from '@ydsz/common-ui';
 import { useAccess } from '@ydsz/access';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { YdButton, YdEmptyState, YdInput, YdSelectItem, YdPagination, YdSelect, YdBadge } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdEmptyState,
+  YdInput,
+  YdSelectItem,
+  YdPagination,
+  YdSelect,
+  YdBadge,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import {
@@ -256,7 +264,10 @@ function handleAdvancedSearchSuccess(result: SearchResultVO): void {
 /** 重建搜索索引（管理员工具，需二次确认） */
 async function handleRebuildIndices(): Promise<void> {
   try {
-    await YdConfirm(t('searchRebuildIndicesConfirm'), { title: t('searchRebuildIndices'), type: 'error' });
+    await YdConfirm(t('searchRebuildIndicesConfirm'), {
+      title: t('searchRebuildIndices'),
+      type: 'error',
+    });
     loading.value = true;
     await rebuildIndices();
   } catch (error) {
@@ -327,11 +338,18 @@ onMounted(async () => {
             @keyup.enter="handleSearch"
           >
             <template #append>
-              <YdButton type="primary" :loading="loading" @click="handleSearch">{{ t('searchButton') }}</YdButton>
+              <YdButton type="primary" :loading="loading" @click="handleSearch">{{
+                t('searchButton')
+              }}</YdButton>
             </template>
           </YdInput>
           <YdSelect v-model="searchType" :placeholder="t('searchType')" size="large" class="w-32">
-            <YdSelectItem v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+            <YdSelectItem
+              v-for="opt in typeOptions"
+              :key="opt.value"
+              :label="opt.label"
+              :value="opt.value"
+            />
           </YdSelect>
           <AdvancedSearchForm @success="handleAdvancedSearchSuccess" />
         </div>
@@ -356,7 +374,8 @@ onMounted(async () => {
             :key="c"
             class="mr-2 cursor-pointer text-blue-500 underline"
             @click="handleCorrectionClick(c)"
-          >{{ c }}</span>
+            >{{ c }}</span
+          >
         </div>
       </div>
 
@@ -393,7 +412,10 @@ onMounted(async () => {
           </div>
 
           <!-- 分页 -->
-          <div v-if="hasResults && (searchResult?.total ?? 0) > pageSize" class="mt-4 flex justify-center">
+          <div
+            v-if="hasResults && (searchResult?.total ?? 0) > pageSize"
+            class="mt-4 flex justify-center"
+          >
             <YdPagination
               v-model:current-page="currentPage"
               :page-size="pageSize"
@@ -413,7 +435,9 @@ onMounted(async () => {
           <div v-if="searchHistory.length > 0" class="mb-6 rounded border bg-white p-5">
             <div class="mb-3 flex items-center justify-between">
               <h3 class="text-sm font-medium text-gray-700">{{ t('searchHistory') }}</h3>
-              <YdButton size="small" link type="primary" @click="handleClearHistory">{{ t('clearHistory') }}</YdButton>
+              <YdButton size="small" link type="primary" @click="handleClearHistory">{{
+                t('clearHistory')
+              }}</YdButton>
             </div>
             <div class="flex flex-wrap gap-2">
               <YdBadge
@@ -439,7 +463,10 @@ onMounted(async () => {
                 class="flex cursor-pointer items-center gap-2 text-sm hover:text-blue-500"
                 @click="handleHotClick(hot.keyword)"
               >
-                <span class="w-5 text-center text-xs" :class="index < 3 ? 'font-bold text-red-500' : 'text-gray-400'">
+                <span
+                  class="w-5 text-center text-xs"
+                  :class="index < 3 ? 'font-bold text-red-500' : 'text-gray-400'"
+                >
                   {{ index + 1 }}
                 </span>
                 <span class="flex-1 truncate">{{ hot.keyword }}</span>

@@ -5,10 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  YdFormSchema as FormSchema,
-  YdFormProps,
-} from '@ydsz/common-ui';
+import type { YdFormSchema as FormSchema, YdFormProps } from '@ydsz/common-ui';
 
 import type { ComponentType } from './component';
 

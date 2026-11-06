@@ -6,4 +6,3 @@
  * @since 1.0.0
  */
 export { default as YdExpandableArrow } from './YdExpandableArrow.vue';
-

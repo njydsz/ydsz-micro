@@ -19,7 +19,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { YdButton, YdInput } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -29,7 +29,7 @@ import { useRouter } from 'vue-router';
 import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { deleteDagWorkflow, getDagWorkflow, listDagWorkflows } from '#/api/dag-workflow';
-import type { DagWorkflow } from '#/api/models';
+import type { DagWorkflowVO } from '#/api/models';
 import DagWorkflowForm from './dag-workflow-form.vue';
 import DagWorkflowDetail from './dag-workflow-detail.vue';
 
@@ -38,7 +38,7 @@ defineOptions({ name: 'DagWorkflowManagement' });
 const router = useRouter();
 
 /** 工作流列表数据 */
-const workflowList = ref<DagWorkflow[]>([]);
+const workflowList = ref<DagWorkflowVO[]>([]);
 const loading = ref<boolean>(false);
 
 /** 搜索关键词 */
@@ -46,7 +46,7 @@ const searchKeyword = ref('');
 /** 分类筛选 */
 const categoryFilter = ref('');
 
-const gridOptions: VxeTableGridOptions<DagWorkflow> = {
+const gridOptions: VxeTableGridOptions<DagWorkflowVO> = {
   columns: [
     { type: 'seq', width: 50, title: '序号' },
     {
@@ -56,7 +56,7 @@ const gridOptions: VxeTableGridOptions<DagWorkflow> = {
       showOverflow: true,
     },
     {
-      field: 'name',
+      field: 'workflowName',
       title: '工作流名称',
       width: 200,
       showOverflow: true,
@@ -79,7 +79,7 @@ const gridOptions: VxeTableGridOptions<DagWorkflow> = {
       field: 'status',
       title: '状态',
       width: 100,
-      formatter: ({ row }: { row: DagWorkflow }) => row.name ? '已保存' : '-',
+      formatter: ({ row }: { row: DagWorkflowVO }) => (row.isPublished ? '已发布' : '未发布'),
     },
     {
       field: 'createdAt',
@@ -92,12 +92,31 @@ const gridOptions: VxeTableGridOptions<DagWorkflow> = {
       title: '操作',
       width: 280,
       fixed: 'right',
-      slots: { default: ({ row }: { row: DagWorkflow }) => h('div', { class: 'flex items-center gap-1' }, [
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleExport(row) }, () => '导出'),
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
-      ]) },
+      slots: {
+        default: ({ row }: { row: DagWorkflowVO }) =>
+          h('div', { class: 'flex items-center gap-1' }, [
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) },
+              () => '详情',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleExport(row) },
+              () => '导出',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
+          ]),
+      },
     },
   ],
   height: 'auto',
@@ -111,9 +130,10 @@ const gridOptions: VxeTableGridOptions<DagWorkflow> = {
           let filtered = items ?? [];
           if (searchKeyword.value.trim()) {
             const kw = searchKeyword.value.trim().toLowerCase();
-            filtered = filtered.filter(item =>
-              item.workflowCode?.toLowerCase().includes(kw) ||
-              item.name?.toLowerCase().includes(kw),
+            filtered = filtered.filter(
+              (item) =>
+                item.workflowCode?.toLowerCase().includes(kw) ||
+                item.name?.toLowerCase().includes(kw),
             );
           }
           return { items: filtered, total: filtered.length };
@@ -131,9 +151,13 @@ const gridOptions: VxeTableGridOptions<DagWorkflow> = {
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 /** 新增/编辑弹窗 */
-const [DagWorkflowFormModal, dagWorkflowFormApi] = useYdModal({ connectedComponent: DagWorkflowForm });
+const [DagWorkflowFormModal, dagWorkflowFormApi] = useYdModal({
+  connectedComponent: DagWorkflowForm,
+});
 /** 详情弹窗 */
-const [DagWorkflowDetailModal, dagWorkflowDetailApi] = useYdModal({ connectedComponent: DagWorkflowDetail });
+const [DagWorkflowDetailModal, dagWorkflowDetailApi] = useYdModal({
+  connectedComponent: DagWorkflowDetail,
+});
 
 /** 刷新列表 */
 async function handleRefresh(): Promise<void> {
@@ -147,19 +171,19 @@ function handleAdd(): void {
 }
 
 /** 打开编辑弹窗 */
-function handleEdit(row: DagWorkflow): void {
+function handleEdit(row: DagWorkflowVO): void {
   dagWorkflowFormApi.setData({ mode: 'edit', record: row });
   dagWorkflowFormApi.open();
 }
 
 /** 打开详情弹窗 */
-function handleViewDetail(row: DagWorkflow): void {
+function handleViewDetail(row: DagWorkflowVO): void {
   dagWorkflowDetailApi.setData({ record: row });
   dagWorkflowDetailApi.open();
 }
 
 /** 导出工作流 DSL */
-async function handleExport(row: DagWorkflow): Promise<void> {
+async function handleExport(row: DagWorkflowVO): Promise<void> {
   try {
     // 通过 getByCode 获取完整数据（含 dsl 字段）
     const full = await getDagWorkflow(row.workflowCode ?? '');
@@ -183,12 +207,12 @@ async function handleExport(row: DagWorkflow): Promise<void> {
 }
 
 /** 删除工作流（二次确认） */
-async function handleDelete(row: DagWorkflow): Promise<void> {
+async function handleDelete(row: DagWorkflowVO): Promise<void> {
   try {
-    await YdConfirm(
-      `确定删除工作流「${row.name ?? row.workflowCode ?? ''}」吗？删除后不可恢复。`,
-      { title: '删除确认', type: 'warning' },
-    );
+    await YdConfirm(`确定删除工作流「${row.name ?? row.workflowCode ?? ''}」吗？删除后不可恢复。`, {
+      title: '删除确认',
+      type: 'warning',
+    });
   } catch {
     return;
   }

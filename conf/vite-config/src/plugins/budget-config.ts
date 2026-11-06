@@ -260,7 +260,9 @@ export function expandBudgetTargets(config: BudgetConfig, root: string): Resolve
       if (!entry.isDirectory() || entry.name.startsWith('.')) {
         continue;
       }
-      const relDir = tailRel ? `${parentRel}/${entry.name}/${tailRel}` : `${parentRel}/${entry.name}`;
+      const relDir = tailRel
+        ? `${parentRel}/${entry.name}/${tailRel}`
+        : `${parentRel}/${entry.name}`;
       expanded.push({ target, relDir, absDir: join(root, relDir) });
     }
   }

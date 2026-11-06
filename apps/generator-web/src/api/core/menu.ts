@@ -5,7 +5,4 @@
  *
  * @path apps/generator-web/src/api/core/menu.ts
  */
-export {
-  getAllMenusApi,
-  getMenuTreeApi,
-} from '@ydsz/shared-auth/auth-api';
+export { getAllMenusApi, getMenuTreeApi } from '@ydsz/shared-auth/auth-api';

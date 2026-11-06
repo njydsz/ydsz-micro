@@ -41,7 +41,9 @@
   background: var(--ydsz-bg-card);
   border: 1px solid var(--ydsz-border);
   border-radius: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .VPFeatures .VPFeature:hover {
@@ -80,7 +82,9 @@
   background: var(--ydsz-bg-card);
   border: 1px solid var(--ydsz-border);
   border-radius: 10px;
-  transition: border-color 0.2s ease, transform 0.15s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.15s ease;
 }
 
 .engine-grid .engine-card:hover {

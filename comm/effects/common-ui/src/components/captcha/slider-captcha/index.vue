@@ -95,10 +95,7 @@ function handleDragStart(e: MouseEvent | TouchEvent) {
 
   state.moveDistance =
     getEventPageX(e) -
-    Number.parseInt(
-      actionRef.value.getStyle().left.replace('px', '') || '0',
-      10,
-    );
+    Number.parseInt(actionRef.value.getStyle().left.replace('px', '') || '0', 10);
   state.startTime = Date.now();
   state.isMoving = true;
 }
@@ -218,11 +215,7 @@ function resume() {
     @touchend="handleDragOver"
     @touchmove="handleDragMoving"
   >
-    <SliderCaptchaBar
-      ref="barRef"
-      :bar-style="barStyle"
-      :to-left="state.toLeft"
-    />
+    <SliderCaptchaBar ref="barRef" :bar-style="barStyle" :to-left="state.toLeft" />
     <SliderCaptchaContent
       ref="contentRef"
       :content-style="contentStyle"

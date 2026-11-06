@@ -1,65 +1,54 @@
-import { isBrowser } from '../../shared/index.ts'
-import type { PanelData } from '../SplitterPanel.vue'
+import { isBrowser } from '../../shared/index.ts';
+import type { PanelData } from '../SplitterPanel.vue';
 
 export function getPanelElement(
   id: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement | null {
-  if (!isBrowser)
-    return null
-  const element = scope.querySelector(`[data-panel-id="${id}"]`)
-  if (element)
-    return element as HTMLElement
+  if (!isBrowser) return null;
+  const element = scope.querySelector(`[data-panel-id="${id}"]`);
+  if (element) return element as HTMLElement;
 
-  return null
+  return null;
 }
 
 export function getPanelElementsForGroup(
   groupId: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement[] {
-  if (!isBrowser)
-    return []
-  return Array.from(
-    scope.querySelectorAll(`[data-panel][data-panel-group-id="${groupId}"]`),
-  )
+  if (!isBrowser) return [];
+  return Array.from(scope.querySelectorAll(`[data-panel][data-panel-group-id="${groupId}"]`));
 }
 
 export function getPanelGroupElement(
   id: string,
   rootElement: ParentNode | HTMLElement = document,
 ): HTMLElement | null {
-  if (!isBrowser)
-    return null
+  if (!isBrowser) return null;
   // If the root element is the PanelGroup
   if (
-    rootElement instanceof HTMLElement
-    && (rootElement as HTMLElement)?.dataset?.panelGroupId === id
+    rootElement instanceof HTMLElement &&
+    (rootElement as HTMLElement)?.dataset?.panelGroupId === id
   ) {
-    return rootElement as HTMLElement
+    return rootElement as HTMLElement;
   }
 
   // Else query children
-  const element = rootElement.querySelector(
-    `[data-panel-group][data-panel-group-id="${id}"]`,
-  )
-  if (element)
-    return element as HTMLElement
+  const element = rootElement.querySelector(`[data-panel-group][data-panel-group-id="${id}"]`);
+  if (element) return element as HTMLElement;
 
-  return null
+  return null;
 }
 
 export function getResizeHandleElement(
   id: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement | null {
-  if (!isBrowser)
-    return null
-  const element = scope.querySelector(`[data-panel-resize-handle-id="${id}"]`)
-  if (element)
-    return element as HTMLElement
+  if (!isBrowser) return null;
+  const element = scope.querySelector(`[data-panel-resize-handle-id="${id}"]`);
+  if (element) return element as HTMLElement;
 
-  return null
+  return null;
 }
 
 export function getResizeHandleElementIndex(
@@ -67,26 +56,22 @@ export function getResizeHandleElementIndex(
   id: string,
   scope: ParentNode | HTMLElement = document,
 ): number | null {
-  if (!isBrowser)
-    return null
-  const handles = getResizeHandleElementsForGroup(groupId, scope)
+  if (!isBrowser) return null;
+  const handles = getResizeHandleElementsForGroup(groupId, scope);
   const index = handles.findIndex(
-    handle => handle.getAttribute('data-panel-resize-handle-id') === id,
-  )
-  return index ?? null
+    (handle) => handle.getAttribute('data-panel-resize-handle-id') === id,
+  );
+  return index ?? null;
 }
 
 export function getResizeHandleElementsForGroup(
   groupId: string,
   scope: ParentNode | HTMLElement = document,
 ): HTMLElement[] {
-  if (!isBrowser)
-    return []
+  if (!isBrowser) return [];
   return Array.from(
-    scope.querySelectorAll(
-      `[data-panel-resize-handle-id][data-panel-group-id="${groupId}"]`,
-    ),
-  )
+    scope.querySelectorAll(`[data-panel-resize-handle-id][data-panel-group-id="${groupId}"]`),
+  );
 }
 
 export function getResizeHandlePanelIds(
@@ -95,12 +80,12 @@ export function getResizeHandlePanelIds(
   panelsArray: PanelData[],
   scope: ParentNode | HTMLElement = document,
 ): [idBefore: string | null, idAfter: string | null] {
-  const handle = getResizeHandleElement(handleId, scope)
-  const handles = getResizeHandleElementsForGroup(groupId, scope)
-  const index = handle ? handles.indexOf(handle) : -1
+  const handle = getResizeHandleElement(handleId, scope);
+  const handles = getResizeHandleElementsForGroup(groupId, scope);
+  const index = handle ? handles.indexOf(handle) : -1;
 
-  const idBefore: string | null = panelsArray[index]?.id ?? null
-  const idAfter: string | null = panelsArray[index + 1]?.id ?? null
+  const idBefore: string | null = panelsArray[index]?.id ?? null;
+  const idAfter: string | null = panelsArray[index + 1]?.id ?? null;
 
-  return [idBefore, idAfter]
+  return [idBefore, idAfter];
 }

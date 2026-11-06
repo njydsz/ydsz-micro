@@ -1,17 +1,17 @@
 <script setup lang="ts">
 /**
-* YdInputMask Vue 组件 —— 格式化输入框，对标 PrimeVue InputMask。
-* 
+ * YdInputMask Vue 组件 —— 格式化输入框，对标 PrimeVue InputMask。
+ *
  * <p>通过 mask 模板约束输入格式：
  * <ul>
  *   <li>9 = 数字（0-9）</li>
  *   <li>a = 字母（A-Z / a-z）</li>
  *   <li>* = 字母数字（A-Z / a-z / 0-9）</li>
  * </ul>
-* 
+ *
  * 其余字符视为字面量，自动跳过并插入；Backspace / Delete 正确回退到上一个掩码位；
  * 粘贴时过滤非法字符；modelValue 传出 unmasked 纯值当 unmask=true 时。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\input-mask\YdInputMask.vue
  * @author ydsz-team
  * @since 5.6.0
@@ -196,9 +196,7 @@ function clearRange(startPos: number, endPos: number): void {
 
 /** 将粘贴的文本按掩码规则逐位填入 */
 function applyPastedChars(startPos: number, input: string): void {
-  const validChars = input
-    .split('')
-    .filter((c) => /[A-Za-z0-9]/.test(c));
+  const validChars = input.split('').filter((c) => /[A-Za-z0-9]/.test(c));
 
   const len = tokens.value.length;
   let pos = nextEditablePos(startPos);
@@ -377,7 +375,7 @@ const inputClasses = computed(() =>
   cn(
     'flex w-full rounded-md text-sm transition-all',
     'placeholder:text-muted-foreground',
-    'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+    'focus:ring-ring focus:outline-none focus:ring-2 focus:ring-offset-2',
     'disabled:cursor-not-allowed disabled:opacity-50',
     'readonly:cursor-default readonly:bg-muted/30',
     sizeClasses[props.size] ?? sizeClasses.md,

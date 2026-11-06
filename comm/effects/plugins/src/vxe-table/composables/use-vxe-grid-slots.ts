@@ -88,9 +88,7 @@ export interface VxeGridSlotComputeds {
  * @param deps - 主 composable 传入的响应式依赖
  * @returns 工具栏/标题显示状态、工具栏配置与插槽委派列表
  */
-export function useVxeGridSlotComputeds(
-  deps: VxeGridSlotDeps,
-): VxeGridSlotComputeds {
+export function useVxeGridSlotComputeds(deps: VxeGridSlotDeps): VxeGridSlotComputeds {
   const { formOptions, gridOptions, showSearchForm, slots, tableTitle } = deps;
 
   // ---------- 工具栏 ----------
@@ -100,11 +98,7 @@ export function useVxeGridSlotComputeds(
   });
 
   const showToolbar = computed(() => {
-    return (
-      !!slots[TOOLBAR_ACTIONS]?.() ||
-      !!slots[TOOLBAR_TOOLS]?.() ||
-      showTableTitle.value
-    );
+    return !!slots[TOOLBAR_ACTIONS]?.() || !!slots[TOOLBAR_TOOLS]?.() || showTableTitle.value;
   });
 
   const toolbarOptions = computed(() => {
@@ -115,14 +109,11 @@ export function useVxeGridSlotComputeds(
       icon: 'vxe-icon-search',
       circle: true,
       status: showSearchForm.value ? 'primary' : undefined,
-      title: showSearchForm.value
-        ? $t('common.hideSearchPanel')
-        : $t('common.showSearchPanel'),
+      title: showSearchForm.value ? $t('common.hideSearchPanel') : $t('common.showSearchPanel'),
     };
     // 将搜索按钮合并到用户配置的toolbarConfig.tools中
     const toolbarConfig: VxeGridPropTypes.ToolbarConfig = {
-      tools: (gridOptions.value?.toolbarConfig?.tools ??
-        []) as VxeToolbarPropTypes.ToolConfig[],
+      tools: (gridOptions.value?.toolbarConfig?.tools ?? []) as VxeToolbarPropTypes.ToolConfig[],
     };
     if (gridOptions.value?.toolbarConfig?.search && !!formOptions.value) {
       toolbarConfig.tools = Array.isArray(toolbarConfig.tools)
@@ -137,9 +128,7 @@ export function useVxeGridSlotComputeds(
     // 强制使用固定的toolbar配置，不允许用户自定义
     // 减少配置的复杂度，以及后续维护的成本
     toolbarConfig.slots = {
-      ...(slotActions || showTableTitle.value
-        ? { buttons: TOOLBAR_ACTIONS }
-        : {}),
+      ...(slotActions || showTableTitle.value ? { buttons: TOOLBAR_ACTIONS } : {}),
       ...(slotTools ? { tools: TOOLBAR_TOOLS } : {}),
     };
     return { toolbarConfig };
@@ -151,11 +140,7 @@ export function useVxeGridSlotComputeds(
     const resultSlots: string[] = [];
 
     for (const key of Object.keys(slots)) {
-      if (
-        !['empty', 'form', 'loading', TOOLBAR_ACTIONS, TOOLBAR_TOOLS].includes(
-          key,
-        )
-      ) {
+      if (!['empty', 'form', 'loading', TOOLBAR_ACTIONS, TOOLBAR_TOOLS].includes(key)) {
         resultSlots.push(key);
       }
     }

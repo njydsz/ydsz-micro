@@ -60,11 +60,7 @@ const open = ref(false);
  * @param values 选中值集合
  * @param acc 标签累积器
  */
-function collectLabels(
-  nodes: TreeNode[],
-  values: Set<string>,
-  acc: string[],
-): void {
+function collectLabels(nodes: TreeNode[], values: Set<string>, acc: string[]): void {
   for (const node of nodes) {
     const value = node[props.valueField];
     if (value !== undefined && value !== null && values.has(String(value))) {
@@ -81,9 +77,7 @@ function collectLabels(
 const selectedLabel = computed(() => {
   const raw = model.value;
   if (raw === undefined || raw === null || raw === '') return '';
-  const values = new Set<string>(
-    Array.isArray(raw) ? raw.map(String) : [String(raw)],
-  );
+  const values = new Set<string>(Array.isArray(raw) ? raw.map(String) : [String(raw)]);
   const labels: string[] = [];
   collectLabels(props.treeData, values, labels);
   return labels.join('、');
@@ -121,10 +115,7 @@ function handleUpdate(value: string | number | Array<string | number>): void {
         :disabled="props.disabled"
         type="button"
       >
-        <span
-          v-if="selectedLabel"
-          class="truncate"
-        >{{ selectedLabel }}</span>
+        <span v-if="selectedLabel" class="truncate">{{ selectedLabel }}</span>
         <span v-else class="text-muted-foreground">
           {{ props.placeholder }}
         </span>

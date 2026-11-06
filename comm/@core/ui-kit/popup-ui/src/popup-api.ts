@@ -32,8 +32,9 @@ export interface YdPopupApiCallbacks {
 /**
  * 弹窗通用 API 选项接口
  */
-export interface YdPopupApiOptions<State extends Record<string, unknown>>
-  extends YdPopupApiCallbacks {
+export interface YdPopupApiOptions<
+  State extends Record<string, unknown>,
+> extends YdPopupApiCallbacks {
   connectedComponent?: Component;
   /** 引用泛型 State，便于子接口扩展状态相关选项 */
   state?: Partial<State>;
@@ -176,11 +177,7 @@ export class YdPopupApi<State extends Record<string, unknown>> {
     return this;
   }
 
-  setState(
-    stateOrFn:
-      | ((prev: State) => Partial<State>)
-      | Partial<State>,
-  ) {
+  setState(stateOrFn: ((prev: State) => Partial<State>) | Partial<State>) {
     if (isFunction(stateOrFn)) {
       this.store.setState(stateOrFn);
     } else {

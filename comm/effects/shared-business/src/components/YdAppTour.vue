@@ -11,10 +11,7 @@
  */
 import { onMounted } from 'vue';
 
-import {
-  useAppTour,
-  type TourStep,
-} from '../composables/use-app-tour';
+import { useAppTour, type TourStep } from '../composables/use-app-tour';
 
 interface Props {
   /** 引导唯一标识 */

@@ -58,12 +58,12 @@ const chooser: UseColumnChooserReturn = useColumnChooser({
 /* 派生状态                                                       */
 /* ============================================================ */
 
-const visibleCount = computed(() =>
-  chooser.states.value.filter((s: ColumnVisibilityState) => s.visible).length,
+const visibleCount = computed(
+  () => chooser.states.value.filter((s: ColumnVisibilityState) => s.visible).length,
 );
 
-const totalHideable = computed(() =>
-  chooser.states.value.filter((s: ColumnVisibilityState) => s.hideable).length,
+const totalHideable = computed(
+  () => chooser.states.value.filter((s: ColumnVisibilityState) => s.hideable).length,
 );
 
 /* ============================================================ */
@@ -94,20 +94,20 @@ defineExpose({
 <template>
   <div class="flex w-56 flex-col gap-2 p-1" role="group" :aria-label="t('table.columnChooser')">
     <!-- 操作栏 -->
-    <div class="flex items-center justify-between border-b border-border px-2 py-1.5">
-      <span class="text-xs font-medium text-muted-foreground">
+    <div class="border-border flex items-center justify-between border-b px-2 py-1.5">
+      <span class="text-muted-foreground text-xs font-medium">
         {{ t('table.columnChooser') }}
       </span>
       <div class="flex gap-1">
         <button
-          class="rounded px-1.5 py-0.5 text-xs text-primary hover:bg-accent"
+          class="text-primary hover:bg-accent rounded px-1.5 py-0.5 text-xs"
           type="button"
           @click="handleShowAll"
         >
           {{ t('table.showAll') }}
         </button>
         <button
-          class="rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-accent"
+          class="text-muted-foreground hover:bg-accent rounded px-1.5 py-0.5 text-xs"
           type="button"
           @click="handleReset"
         >
@@ -117,7 +117,7 @@ defineExpose({
     </div>
 
     <!-- 计数提示 -->
-    <div class="px-2 text-xs text-muted-foreground">
+    <div class="text-muted-foreground px-2 text-xs">
       {{ visibleCount }} / {{ totalHideable }} {{ t('table.columns') }}
     </div>
 
@@ -126,14 +126,14 @@ defineExpose({
       <label
         v-for="col in chooser.states.value"
         :key="col.key"
-        class="flex cursor-pointer items-center gap-2 rounded px-2 py-1 hover:bg-accent"
+        class="hover:bg-accent flex cursor-pointer items-center gap-2 rounded px-2 py-1"
         :class="{ 'opacity-50': !col.hideable }"
       >
         <input
           type="checkbox"
           :checked="col.visible"
           :disabled="!col.hideable"
-          class="size-4 rounded border-muted-foreground text-primary focus:ring-primary"
+          class="border-muted-foreground text-primary focus:ring-primary size-4 rounded"
           @change="handleToggle(col.key)"
         />
         <span class="flex-1 truncate text-sm">{{ col.label }}</span>

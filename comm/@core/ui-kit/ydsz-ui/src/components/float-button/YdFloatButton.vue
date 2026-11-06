@@ -1,9 +1,9 @@
 <script setup lang="ts">
 /**
-* FloatButton 悬浮按钮：固定在页面右下角的操作入口。
-* 
+ * FloatButton 悬浮按钮：固定在页面右下角的操作入口。
+ *
  * 支持 tooltip 描述 / 图标 / badge / click 回调。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\float-button\YdFloatButton.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -76,10 +76,7 @@ function handleClick(event: MouseEvent): void {
           type="button"
           @click="handleClick"
         >
-          <span
-            v-if="props.badge"
-            class="absolute -right-1 -top-1 size-4"
-          >
+          <span v-if="props.badge" class="absolute -right-1 -top-1 size-4">
             <YdBadge
               class="flex size-full justify-center rounded-full p-0 text-xs"
               variant="destructive"

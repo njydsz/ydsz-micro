@@ -11,18 +11,12 @@
 <script lang="ts" setup>
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('error-feedback');
-import { computed, ref } from "vue";
+import { computed, ref } from 'vue';
 
-import {
-  AlertTriangle,
-  CheckCircle2,
-  MessageCircle,
-  Send,
-  X,
-} from "@ydsz/icons";
-import { isSentryInitialized } from "@ydsz/monitor/sentry";
+import { AlertTriangle, CheckCircle2, MessageCircle, Send, X } from '@ydsz/icons';
+import { isSentryInitialized } from '@ydsz/monitor/sentry';
 
-import { YdButton } from "@ydsz-core/ydsz-ui";
+import { YdButton } from '@ydsz-core/ydsz-ui';
 import {
   YdDialog,
   YdDialogContent,
@@ -31,8 +25,8 @@ import {
   YdDialogHeader,
   YdDialogTitle,
   YdDialogTrigger,
-} from "@ydsz-core/ydsz-ui/ui/dialog";
-import { YdTextarea } from "@ydsz-core/ydsz-ui/ui/textarea";
+} from '@ydsz-core/ydsz-ui/ui/dialog';
+import { YdTextarea } from '@ydsz-core/ydsz-ui/ui/textarea';
 
 /**
  * 组件属性
@@ -47,17 +41,17 @@ const props = withDefaults(
     onSubmitSuccess?: () => void;
   }>(),
   {
-    errorId: "",
-    errorMessage: "",
+    errorId: '',
+    errorMessage: '',
     onSubmitSuccess: () => {},
   },
 );
 
 const isOpen = ref(false);
-const feedback = ref("");
-const email = ref("");
-const submitStatus = ref<"error" | "idle" | "submitting" | "success">("idle");
-const submitError = ref("");
+const feedback = ref('');
+const email = ref('');
+const submitStatus = ref<'error' | 'idle' | 'submitting' | 'success'>('idle');
+const submitError = ref('');
 
 /** 是否已启用 Sentry 集成 */
 const sentryEnabled = computed(() => isSentryInitialized());
@@ -65,18 +59,17 @@ const sentryEnabled = computed(() => isSentryInitialized());
 /** 文案辅助函数 - 避免在模板中硬编码 i18n keys（实际项目中应由 i18n 提供） */
 const t = (key: string): string => {
   const messages: Record<string, string> = {
-    "feedback.title": "报告问题",
-    "feedback.description":
-      "您遇到了一个问题，是否愿意帮助我们改进？您的反馈将发送给开发团队。",
-    "feedback.emailPlaceholder": "您的邮箱（可选，方便我们联系您）",
-    "feedback.placeholder": "请描述您遇到的问题或操作步骤...",
-    "feedback.submit": "提交反馈",
-    "feedback.cancel": "取消",
-    "feedback.success": "反馈已提交，感谢您的帮助！",
-    "feedback.error": "提交失败，请稍后重试",
-    "feedback.unknownError": "发生未知错误",
-    "feedback.includeErrorInfo": "附带错误信息",
-    "feedback.charLimit": "字数限制",
+    'feedback.title': '报告问题',
+    'feedback.description': '您遇到了一个问题，是否愿意帮助我们改进？您的反馈将发送给开发团队。',
+    'feedback.emailPlaceholder': '您的邮箱（可选，方便我们联系您）',
+    'feedback.placeholder': '请描述您遇到的问题或操作步骤...',
+    'feedback.submit': '提交反馈',
+    'feedback.cancel': '取消',
+    'feedback.success': '反馈已提交，感谢您的帮助！',
+    'feedback.error': '提交失败，请稍后重试',
+    'feedback.unknownError': '发生未知错误',
+    'feedback.includeErrorInfo': '附带错误信息',
+    'feedback.charLimit': '字数限制',
   };
   return messages[key] || key;
 };
@@ -86,8 +79,8 @@ const t = (key: string): string => {
  */
 function open(): void {
   isOpen.value = true;
-  submitStatus.value = "idle";
-  submitError.value = "";
+  submitStatus.value = 'idle';
+  submitError.value = '';
 }
 
 /**
@@ -105,41 +98,41 @@ function close(): void {
  */
 async function submitFeedback(): Promise<void> {
   if (!feedback.value.trim()) {
-    submitError.value = "请填写反馈内容";
+    submitError.value = '请填写反馈内容';
     return;
   }
 
-  submitStatus.value = "submitting";
+  submitStatus.value = 'submitting';
 
   try {
-    const sentrySpecifier = "@sentry/vue";
+    const sentrySpecifier = '@sentry/vue';
     const sentry = await import(/* @vite-ignore */ sentrySpecifier);
 
     // 构造 Sentry 用户反馈
     const userFeedback = {
       event_id: props.errorId || sentry.lastEventId() || undefined,
-      email: email.value.trim() || "anonymous",
-      name: email.value.trim() || "Anonymous User",
+      email: email.value.trim() || 'anonymous',
+      name: email.value.trim() || 'Anonymous User',
       comments: feedback.value.trim(),
     };
 
     // 发送到 Sentry
     sentry.captureUserFeedback(userFeedback);
 
-    submitStatus.value = "success";
+    submitStatus.value = 'success';
     props.onSubmitSuccess?.();
 
     // 成功提交后短暂延迟自动关闭
     setTimeout(() => {
       close();
-      feedback.value = "";
-      email.value = "";
-      submitStatus.value = "idle";
+      feedback.value = '';
+      email.value = '';
+      submitStatus.value = 'idle';
     }, 2000);
   } catch (error) {
-    submitStatus.value = "error";
+    submitStatus.value = 'error';
     submitError.value = error instanceof Error ? error.message : String(error);
-    logger.error("[YdErrorFeedback] Failed to submit:", error);
+    logger.error('[YdErrorFeedback] Failed to submit:', error);
 
     // 降级：即使 Sentry 发送失败，也记录用户反馈到本地
     try {
@@ -152,7 +145,7 @@ async function submitFeedback(): Promise<void> {
         userAgent: navigator.userAgent,
         url: window.location.href,
       };
-      logger.warn("[YdErrorFeedback] Fallback log:", feedbackLog);
+      logger.warn('[YdErrorFeedback] Fallback log:', feedbackLog);
     } catch {
       // 静默
     }
@@ -174,7 +167,7 @@ defineExpose({ open, close });
       @click="open"
     >
       <MessageCircle class="size-4" aria-hidden="true" />
-      {{ t("feedback.title") }}
+      {{ t('feedback.title') }}
     </YdButton>
 
     <!-- 反馈弹窗 -->
@@ -191,24 +184,22 @@ defineExpose({ open, close });
         <YdDialogHeader>
           <YdDialogTitle class="flex items-center gap-2">
             <AlertTriangle class="size-5 text-amber-500" aria-hidden="true" />
-            {{ t("feedback.title") }}
+            {{ t('feedback.title') }}
           </YdDialogTitle>
           <YdDialogDescription>
-            {{ t("feedback.description") }}
+            {{ t('feedback.description') }}
           </YdDialogDescription>
         </YdDialogHeader>
 
         <!-- 错误信息摘要 -->
         <div
           v-if="submitError || props.errorMessage"
-          class="rounded-md bg-destructive/10 p-3 text-sm"
+          class="bg-destructive/10 rounded-md p-3 text-sm"
           role="alert"
           aria-live="polite"
         >
-          <p class="font-medium text-destructive">
-            {{ t("feedback.includeErrorInfo") }}：
-          </p>
-          <p class="mt-1 break-all text-xs text-muted-foreground">
+          <p class="text-destructive font-medium">{{ t('feedback.includeErrorInfo') }}：</p>
+          <p class="text-muted-foreground mt-1 break-all text-xs">
             {{ props.errorMessage || submitError }}
           </p>
         </div>
@@ -218,14 +209,14 @@ defineExpose({ open, close });
           <!-- 邮箱输入 -->
           <div class="grid gap-2">
             <label for="feedback-email" class="text-sm font-medium">
-              {{ t("feedback.emailPlaceholder") }}
+              {{ t('feedback.emailPlaceholder') }}
             </label>
             <input
               id="feedback-email"
               v-model="email"
               type="email"
               placeholder="your@email.com"
-              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              class="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2"
               :disabled="submitStatus === 'submitting'"
               autocomplete="email"
             />
@@ -235,11 +226,9 @@ defineExpose({ open, close });
           <div class="grid gap-2">
             <div class="flex items-center justify-between">
               <label for="feedback-content" class="text-sm font-medium">
-                {{ t("feedback.placeholder") }}
+                {{ t('feedback.placeholder') }}
               </label>
-              <span class="text-xs text-muted-foreground">
-                {{ feedback.length }}/500
-              </span>
+              <span class="text-muted-foreground text-xs"> {{ feedback.length }}/500 </span>
             </div>
             <YdTextarea
               id="feedback-content"
@@ -249,58 +238,42 @@ defineExpose({ open, close });
               maxlength="500"
               :disabled="submitStatus === 'submitting'"
             />
-            <p
-              v-if="submitError && submitStatus === 'error'"
-              class="text-xs text-destructive"
-            >
+            <p v-if="submitError && submitStatus === 'error'" class="text-destructive text-xs">
               {{ submitError }}
             </p>
           </div>
         </div>
 
         <!-- 成功状态 -->
-        <div
-          v-else
-          class="flex flex-col items-center gap-3 py-8"
-          role="status"
-          aria-live="polite"
-        >
+        <div v-else class="flex flex-col items-center gap-3 py-8" role="status" aria-live="polite">
           <CheckCircle2 class="size-12 text-green-500" aria-hidden="true" />
           <p class="text-lg font-medium text-green-600">
-            {{ t("feedback.success") }}
+            {{ t('feedback.success') }}
           </p>
         </div>
 
         <YdDialogFooter v-if="submitStatus !== 'success'">
-          <YdButton
-            variant="outline"
-            @click="close"
-            :disabled="submitStatus === 'submitting'"
-          >
-            {{ t("feedback.cancel") }}
+          <YdButton variant="outline" @click="close" :disabled="submitStatus === 'submitting'">
+            {{ t('feedback.cancel') }}
           </YdButton>
           <YdButton
             @click="submitFeedback"
             :disabled="submitStatus === 'submitting' || !feedback.trim()"
             class="gap-2"
           >
-            <Send
-              v-if="submitStatus !== 'submitting'"
-              class="size-4"
-              aria-hidden="true"
-            />
+            <Send v-if="submitStatus !== 'submitting'" class="size-4" aria-hidden="true" />
             <span
               v-else
               class="size-4 animate-spin rounded-full border-2 border-current border-t-transparent"
               aria-hidden="true"
             ></span>
-            {{ t("feedback.submit") }}
+            {{ t('feedback.submit') }}
           </YdButton>
         </YdDialogFooter>
 
         <!-- 关闭按钮 -->
         <button
-          class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring"
+          class="ring-offset-background focus:ring-ring absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2"
           aria-label="Close"
           @click="close"
         >

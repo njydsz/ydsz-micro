@@ -57,9 +57,7 @@ export interface LockStatsVO {
 /**
  * listLocks: GET /system/lock/page
  */
-export function listLocks(params: {
-  query?: LockPageQuery;
-}): Promise<PageResponse<LockVO[]>> {
+export function listLocks(params: { query?: LockPageQuery }): Promise<PageResponse<LockVO[]>> {
   return requestClient.get<PageResponse<LockVO[]>>(`/system/lock/page`, { params });
 }
 

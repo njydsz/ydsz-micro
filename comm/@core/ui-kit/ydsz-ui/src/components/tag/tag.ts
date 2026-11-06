@@ -20,11 +20,9 @@ export const tagVariants = cva(
     variants: {
       variant: {
         default: 'bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300',
-        primary:
-          'text-primary-foreground bg-primary dark:bg-primary dark:text-primary-foreground',
+        primary: 'text-primary-foreground bg-primary dark:bg-primary dark:text-primary-foreground',
         success: 'bg-success-50 text-success-500 dark:bg-success-50 dark:text-success-500',
-        warning:
-          'bg-warning-50 text-warning-500 dark:bg-warning-50 dark:text-warning-500',
+        warning: 'bg-warning-50 text-warning-500 dark:bg-warning-50 dark:text-warning-500',
         destructive:
           'bg-destructive-50 text-destructive-500 dark:bg-destructive-50 dark:text-destructive-500',
         info: 'bg-brand-50 text-brand-500 dark:bg-brand-50 dark:text-brand-500',

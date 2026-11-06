@@ -1,15 +1,8 @@
-/**
- * YdMegaMenu —— 大型菜单组件。
- *
- * 受 Azure / Office ribbon menu 启发的大型菜单：顶部一条横栏，
- * 点击任意一项展开多列子菜单面板，每列含一个标题与若干条目。
- *
- * WAI-ARIA: 顶部导航 role="menubar"，子面板 role="menu"，条目 role="menuitem"。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\mega-menu\YdMegaMenu.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdMegaMenu —— 大型菜单组件。 * * 受 Azure / Office ribbon menu 启发的大型菜单：顶部一条横栏，
+* 点击任意一项展开多列子菜单面板，每列含一个标题与若干条目。 * * WAI-ARIA: 顶部导航
+role="menubar"，子面板 role="menu"，条目 role="menuitem"。 * * @path
+comm\@core\ui-kit\ydsz-ui\src\components\mega-menu\YdMegaMenu.vue * @author ydsz-team * @since 1.0.0
+*/
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
@@ -85,11 +78,7 @@ function onKeydown(e: KeyboardEvent): void {
     @mouseleave="closeSubmenu"
   >
     <!-- 顶部导航 -->
-    <nav
-      class="yd-mega-menu__bar"
-      role="menubar"
-      :aria-orientation="orientation"
-    >
+    <nav class="yd-mega-menu__bar" role="menubar" :aria-orientation="orientation">
       <button
         v-for="(item, idx) in items"
         :key="idx"
@@ -102,11 +91,7 @@ function onKeydown(e: KeyboardEvent): void {
         @mouseenter="openSubmenu(idx)"
         @click="onTopItemCommand(idx)"
       >
-        <span
-          v-if="item.icon"
-          class="yd-mega-menu__top-icon"
-          aria-hidden="true"
-        >
+        <span v-if="item.icon" class="yd-mega-menu__top-icon" aria-hidden="true">
           {{ item.icon }}
         </span>
         <span class="yd-mega-menu__top-label">{{ item.label }}</span>
@@ -163,11 +148,7 @@ function onKeydown(e: KeyboardEvent): void {
               class="yd-mega-menu__sub-item"
               @click="onItemClick(sub)"
             >
-              <span
-                v-if="sub.icon"
-                class="yd-mega-menu__sub-icon"
-                aria-hidden="true"
-              >
+              <span v-if="sub.icon" class="yd-mega-menu__sub-icon" aria-hidden="true">
                 {{ sub.icon }}
               </span>
               <span class="yd-mega-menu__sub-label">{{ sub.label }}</span>
@@ -208,7 +189,9 @@ function onKeydown(e: KeyboardEvent): void {
   font-size: var(--ydsz-font-size-sm);
   color: hsl(var(--ydsz-text-secondary));
   border-radius: var(--ydsz-radius-md) var(--ydsz-radius-md) 0 0;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
   white-space: nowrap;
 }
 
@@ -333,7 +316,9 @@ function onKeydown(e: KeyboardEvent): void {
 /* —— 过渡 —— */
 .yd-mega-menu-panel-enter-active,
 .yd-mega-menu-panel-leave-active {
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
 }
 
 .yd-mega-menu-panel-enter-from,

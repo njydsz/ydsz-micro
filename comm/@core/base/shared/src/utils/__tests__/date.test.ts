@@ -27,9 +27,7 @@ describe('formatDate', () => {
     const timestamp = 1700000000000;
     const result = formatDate(timestamp, 'YYYY/MM/DD');
     expect(result).toBe(dayjs(timestamp).format('YYYY/MM/DD'));
-    expect(formatDate(timestamp, 'MM-DD')).toBe(
-      dayjs(timestamp).format('MM-DD'),
-    );
+    expect(formatDate(timestamp, 'MM-DD')).toBe(dayjs(timestamp).format('MM-DD'));
   });
 
   it('应能解析并格式化有效的日期字符串', () => {
@@ -127,7 +125,7 @@ describe('isDayjsObject', () => {
 
   it('空对象和仿 dayjs 结构的字面量应返回 false', () => {
     expect(isDayjsObject({})).toBe(false);
-     
+
     expect(isDayjsObject({ $d: new Date(), $y: 2023 })).toBe(false);
   });
 

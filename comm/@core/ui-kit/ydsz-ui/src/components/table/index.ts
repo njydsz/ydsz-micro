@@ -16,11 +16,7 @@ export { default as YdTableHeader } from './YdTableHeader.vue';
 export { default as YdTableRow } from './YdTableRow.vue';
 export { useTableData } from './useTableData';
 export type { ColumnDef, FilterOption, HeaderRow } from './ColumnDef';
-export type {
-  SortState,
-  TableDataHandle,
-  UseTableDataOptions,
-} from './useTableData';
+export type { SortState, TableDataHandle, UseTableDataOptions } from './useTableData';
 export type { ColumnRegistry } from './injectionKeys';
 export { YD_TABLE_COLUMN_REGISTRY } from './injectionKeys';
 

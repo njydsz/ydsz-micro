@@ -123,11 +123,14 @@ function parseMessage(
   vars: Record<string, string | number>,
   locale: string,
 ): string {
-  return message.replace(/\{([^}]+(?:\{[^}]*\}[^}]*)*)\}\s*\{([^}]*)\}/g, (_full, prefix: string, body: string) => {
-    // prefix 形如 "count, plural" / "gender, select"
-    const subExpr = `${prefix}, ${body}`;
-    return parseSubExpressionWrapper(subExpr, vars, locale);
-  });
+  return message.replace(
+    /\{([^}]+(?:\{[^}]*\}[^}]*)*)\}\s*\{([^}]*)\}/g,
+    (_full, prefix: string, body: string) => {
+      // prefix 形如 "count, plural" / "gender, select"
+      const subExpr = `${prefix}, ${body}`;
+      return parseSubExpressionWrapper(subExpr, vars, locale);
+    },
+  );
 }
 
 /**
@@ -171,8 +174,11 @@ export function formatPlural(
   locale: string = 'zh-CN',
 ): string {
   const category = new Intl.PluralRules(locale).select(count);
-  const text = category === 'one' ? messages.one
-    : category === 'zero' || count === 0 ? (messages.zero ?? messages.other)
-    : messages.other;
+  const text =
+    category === 'one'
+      ? messages.one
+      : category === 'zero' || count === 0
+        ? (messages.zero ?? messages.other)
+        : messages.other;
   return text.replace(/#/g, String(count));
 }

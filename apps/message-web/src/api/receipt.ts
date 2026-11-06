@@ -23,8 +23,6 @@ export function callback(data: ReceiptCallbackDTO): Promise<void> {
 /**
  * listByLogId: GET /message/receipt/{logId}
  */
-export function listByLogId({ logId }: {
-    logId: string;
-  }): Promise<MsgReceiptVO[]> {
+export function listByLogId({ logId }: { logId: string }): Promise<MsgReceiptVO[]> {
   return requestClient.get<MsgReceiptVO[]>(`/message/receipt/${logId}`);
 }

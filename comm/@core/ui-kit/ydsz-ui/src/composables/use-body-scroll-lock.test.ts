@@ -36,7 +36,10 @@ function mountLockHost(initial = false) {
 /** 覆盖窗口/文档宽度以模拟滚动条占位 */
 function setMetrics(innerWidth: number, clientWidth: number): void {
   Object.defineProperty(window, 'innerWidth', { configurable: true, value: innerWidth });
-  Object.defineProperty(document.documentElement, 'clientWidth', { configurable: true, value: clientWidth });
+  Object.defineProperty(document.documentElement, 'clientWidth', {
+    configurable: true,
+    value: clientWidth,
+  });
 }
 
 afterEach(() => {

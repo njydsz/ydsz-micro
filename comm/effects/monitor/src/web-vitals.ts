@@ -17,15 +17,14 @@ const logger = createLogger('Monitor:WebVitals');
 
 /** Web Vital 指标名称 */
 export type WebVitalName =
-  | 'LCP'  // Largest Contentful Paint
-  | 'FID'  // First YdInput Delay
-  | 'CLS'  // Cumulative Layout Shift
-  | 'INP'  // Interaction to Next Paint
-  | 'FCP'  // First Contentful Paint
+  | 'LCP' // Largest Contentful Paint
+  | 'FID' // First YdInput Delay
+  | 'CLS' // Cumulative Layout Shift
+  | 'INP' // Interaction to Next Paint
+  | 'FCP' // First Contentful Paint
   | 'TTFB' // Time to First Byte
-  | 'LT'   // Long Task
-  | 'RT'   // Resource Timing
-  ;
+  | 'LT' // Long Task
+  | 'RT'; // Resource Timing
 
 /** Web Vital 上报数据 */
 export interface WebVitalReport {
@@ -134,12 +133,12 @@ function enqueueVital(report: WebVitalReport): void {
  * @since 1.2.0 (P1-4)
  */
 export interface WebVitalAlertThresholds {
-  CLS?: number;   // 默认 0.25 (poor 阈值)
-  FCP?: number;   // 默认 3000ms
-  FID?: number;   // 默认 300ms
-  INP?: number;   // 默认 500ms
-  LCP?: number;   // 默认 4000ms
-  TTFB?: number;  // 默认 1800ms
+  CLS?: number; // 默认 0.25 (poor 阈值)
+  FCP?: number; // 默认 3000ms
+  FID?: number; // 默认 300ms
+  INP?: number; // 默认 500ms
+  LCP?: number; // 默认 4000ms
+  TTFB?: number; // 默认 1800ms
 }
 
 /** 默认告警阈值（取 Google "poor" 临界值） */
@@ -279,11 +278,7 @@ function getRating(name: WebVitalName, value: number): WebVitalReport['rating'] 
  * v3.4: 改为加入缓冲队列批量上报，不再逐条 sendBeacon
  * v1.2: 集成阈值告警，当 rating 为 'poor' 时主动向告警端点发送即时告警
  */
-export function reportWebVital(
-  name: WebVitalName,
-  value: number,
-  delta?: number,
-) {
+export function reportWebVital(name: WebVitalName, value: number, delta?: number) {
   // 同一页面加载只上报一次每种指标（除 CLS 外）
   if (name !== 'CLS' && reportedMetrics.has(name)) return;
   reportedMetrics.add(name);
@@ -307,7 +302,9 @@ export function reportWebVital(
       alertedMetrics.add(alertKey);
       // 开发环境打印告警
       if (!import.meta.env.PROD) {
-        logger.warn(`[Web Vitals ALERT] ${name}: ${report.value} exceeds threshold (${String(getAlertThresholds()[name as keyof WebVitalAlertThresholds])})`);
+        logger.warn(
+          `[Web Vitals ALERT] ${name}: ${report.value} exceeds threshold (${String(getAlertThresholds()[name as keyof WebVitalAlertThresholds])})`,
+        );
       }
       sendAlert(report);
     }
@@ -342,10 +339,7 @@ export function setupWebVitals() {
       const entries = list.getEntries();
       for (const entry of entries) {
         const fidEntry = entry as PerformanceEventTiming;
-        reportWebVital(
-          'FID',
-          fidEntry.processingStart - fidEntry.startTime,
-        );
+        reportWebVital('FID', fidEntry.processingStart - fidEntry.startTime);
       }
     }).observe({ buffered: true, type: 'first-input' });
   } catch {
@@ -379,10 +373,7 @@ export function setupWebVitals() {
       const entries = list.getEntries();
       if (entries.length > 0) {
         const lastEntry = entries[entries.length - 1] as PerformanceEventTiming;
-        reportWebVital(
-          'INP',
-          lastEntry.processingEnd - lastEntry.startTime,
-        );
+        reportWebVital('INP', lastEntry.processingEnd - lastEntry.startTime);
       }
     }).observe({ buffered: true, type: 'event' });
   } catch {

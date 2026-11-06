@@ -17,7 +17,13 @@
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdProgress, YdDescriptions, YdDescriptionsItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
+import {
+  YdProgress,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdButton,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -57,33 +63,60 @@ async function handleQuery() {
       scopeId: queryForm.scopeId || undefined,
     });
     showToast.success('查询成功');
-  } catch (error) { logger.warn('查询配额失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('查询配额失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 const [QuotaFormModal, quotaFormApi] = useYdModal({ connectedComponent: QuotaForm });
-function handleAdjust() { quotaFormApi.open(); }
+function handleAdjust() {
+  quotaFormApi.open();
+}
 </script>
 <template>
   <Page auto-content-height>
     <div class="mb-4 flex flex-wrap items-center gap-2">
-      <YdInput v-model="queryForm.scopeType" placeholder="存储范围类型（如 USER / SPACE，可选）" class="w-64" />
-      <YdInput v-model="queryForm.scopeId" placeholder="存储范围ID（可选）" class="w-64" @keyup.enter="handleQuery" />
+      <YdInput
+        v-model="queryForm.scopeType"
+        placeholder="存储范围类型（如 USER / SPACE，可选）"
+        class="w-64"
+      />
+      <YdInput
+        v-model="queryForm.scopeId"
+        placeholder="存储范围ID（可选）"
+        class="w-64"
+        @keyup.enter="handleQuery"
+      />
       <YdButton @click="handleQuery">查询配额</YdButton>
       <YdButton @click="handleAdjust">调整配额</YdButton>
     </div>
     <div class="mb-4">
-      <div class="mb-1 text-sm text-gray-600">容量使用（{{ quotaInfo.quotaUsed ?? 0 }} / {{ quotaInfo.quotaLimit ?? 0 }} 字节）</div>
+      <div class="mb-1 text-sm text-gray-600">
+        容量使用（{{ quotaInfo.quotaUsed ?? 0 }} / {{ quotaInfo.quotaLimit ?? 0 }} 字节）
+      </div>
       <YdProgress :percentage="quotaPercent" :stroke-width="14" />
-      <div class="mt-2 mb-1 text-sm text-gray-600">文件数使用（{{ quotaInfo.fileCountUsed ?? 0 }} / {{ quotaInfo.fileCountLimit ?? 0 }}）</div>
+      <div class="mb-1 mt-2 text-sm text-gray-600">
+        文件数使用（{{ quotaInfo.fileCountUsed ?? 0 }} / {{ quotaInfo.fileCountLimit ?? 0 }}）
+      </div>
       <YdProgress :percentage="fileCountPercent" :stroke-width="14" status="success" />
     </div>
     <YdDescriptions :column="2" border>
-      <YdDescriptionsItem label="存储范围类型">{{ quotaInfo.scopeType ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="存储范围类型">{{
+        quotaInfo.scopeType ?? '--'
+      }}</YdDescriptionsItem>
       <YdDescriptionsItem label="存储范围ID">{{ quotaInfo.scopeId ?? '--' }}</YdDescriptionsItem>
-      <YdDescriptionsItem label="配额上限（字节）">{{ quotaInfo.quotaLimit ?? '--' }}</YdDescriptionsItem>
-      <YdDescriptionsItem label="已用容量（字节）">{{ quotaInfo.quotaUsed ?? '--' }}</YdDescriptionsItem>
-      <YdDescriptionsItem label="文件数上限">{{ quotaInfo.fileCountLimit ?? '--' }}</YdDescriptionsItem>
-      <YdDescriptionsItem label="已用文件数">{{ quotaInfo.fileCountUsed ?? '--' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="配额上限（字节）">{{
+        quotaInfo.quotaLimit ?? '--'
+      }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="已用容量（字节）">{{
+        quotaInfo.quotaUsed ?? '--'
+      }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="文件数上限">{{
+        quotaInfo.fileCountLimit ?? '--'
+      }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="已用文件数">{{
+        quotaInfo.fileCountUsed ?? '--'
+      }}</YdDescriptionsItem>
       <YdDescriptionsItem label="更新时间">{{ quotaInfo.updatedAt ?? '--' }}</YdDescriptionsItem>
       <YdDescriptionsItem label="更新人">{{ quotaInfo.updatedBy ?? '--' }}</YdDescriptionsItem>
     </YdDescriptions>

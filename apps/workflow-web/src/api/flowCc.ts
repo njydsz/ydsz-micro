@@ -30,9 +30,7 @@ export function ccUnreadCount(): Promise<number> {
 /**
  * ccMarkRead: POST /workflow/engine/cc/{id}/read
  */
-export function ccMarkRead({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function ccMarkRead({ id }: { id: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/workflow/engine/cc/${id}/read`);
 }
 

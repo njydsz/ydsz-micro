@@ -18,13 +18,9 @@ export { default as YdVTreeSearch } from './YdVTreeSearch.vue';
 export { useTreeSearch } from './use-tree-search';
 export type { FlattenedItem } from '@ydsz-core/ydsz-vue';
 export type { VTreeProps } from './YdVTree.vue';
-export type {
-  FilteredTreeNode,
-  TreeSearchHandle,
-  TreeSearchOptions,
-} from './use-tree-search';
+export type { FilteredTreeNode, TreeSearchHandle, TreeSearchOptions } from './use-tree-search';
 export type { VTreeSearchProps } from './YdVTreeSearch.vue';
 
 // merged from pre-refactor ui/ + primitives/ barrels
 export { default as ydTree } from './tree.vue';
-export type { TreeNodeData, TreeExpandTrigger, YdTreeProps, YdTreeEmits, } from './tree-types';
+export type { TreeNodeData, TreeExpandTrigger, YdTreeProps, YdTreeEmits } from './tree-types';

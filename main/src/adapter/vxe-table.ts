@@ -51,17 +51,14 @@ setupYDSZVxeTable({
         const { column, row } = params;
         const src = row[column.field];
         // 使用原生 img 标签 + 点击预览（脱离 Element Plus）
-        return h(
-          'img',
-          {
-            src,
-            alt: '',
-            class: 'h-8 w-8 cursor-pointer rounded object-cover',
-            onClick: () => {
-              if (src) window.open(src, '_blank');
-            },
+        return h('img', {
+          src,
+          alt: '',
+          class: 'h-8 w-8 cursor-pointer rounded object-cover',
+          onClick: () => {
+            if (src) window.open(src, '_blank');
           },
-        );
+        });
       },
     });
 
@@ -69,11 +66,7 @@ setupYDSZVxeTable({
     vxeUI.renderer.add('CellLink', {
       renderTableDefault(renderOpts) {
         const { props } = renderOpts;
-        return h(
-          YdButton,
-          { size: 'sm', variant: 'link' },
-          { default: () => props?.text },
-        );
+        return h(YdButton, { size: 'sm', variant: 'link' }, { default: () => props?.text });
       },
     });
 

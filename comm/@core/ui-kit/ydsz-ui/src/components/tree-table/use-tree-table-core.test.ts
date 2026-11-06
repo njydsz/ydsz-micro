@@ -22,11 +22,7 @@ import { alignClass, useTreeTableCore } from './use-tree-table-core';
 
 import type { ResolvedTreeTableProps } from './use-tree-table-core';
 
-import type {
-  TreeFlatRow,
-  YdTreeTableEmits,
-  YdTreeTableProps,
-} from './types';
+import type { TreeFlatRow, YdTreeTableEmits, YdTreeTableProps } from './types';
 import type { CSSProperties } from 'vue';
 
 interface Row extends Record<string, unknown> {
@@ -47,9 +43,7 @@ function makeDataSource(): Row[] {
       name: 'parent 1',
     },
     {
-      children: [
-        { id: '2-1', name: 'child 2-1' },
-      ],
+      children: [{ id: '2-1', name: 'child 2-1' }],
       id: '2',
       name: 'parent 2',
     },
@@ -128,10 +122,12 @@ describe('useTreeTableCore 扁平化', () => {
 
   it('懒加载追加子节点后子节点进入 flatRows', async () => {
     const loadData = vi.fn(async () => [{ id: 'lazy-1', name: 'lazy child' }]);
-    const core = useTreeTableCore(makeOptions({
-      lazy: true,
-      loadData,
-    }));
+    const core = useTreeTableCore(
+      makeOptions({
+        lazy: true,
+        loadData,
+      }),
+    );
     await core.handleLazyLoad('3');
     expect(loadData).toHaveBeenCalledTimes(1);
     const rows = core.flatRows.value;
@@ -157,7 +153,11 @@ describe('useTreeTableCore 展开 / 收起', () => {
     core.expandKey('1');
     core.collapseKey('1');
     expect(options.emit).toHaveBeenCalledWith('update:expandedKeys', []);
-    expect(options.emit).toHaveBeenCalledWith('collapse', '1', expect.objectContaining({ id: '1' }));
+    expect(options.emit).toHaveBeenCalledWith(
+      'collapse',
+      '1',
+      expect.objectContaining({ id: '1' }),
+    );
   });
 
   it('toggleExpand 在展开与收起间切换', () => {
@@ -328,7 +328,9 @@ describe('useTreeTableCore 懒加载', () => {
     const options = makeOptions({ lazy: true, loadData });
     const core = useTreeTableCore(options);
     await core.handleLazyLoad('3');
-    expect(options.emit).toHaveBeenCalledWith('load-success', '3', [{ id: 'lazy-1', name: 'lazy child' }]);
+    expect(options.emit).toHaveBeenCalledWith('load-success', '3', [
+      { id: 'lazy-1', name: 'lazy child' },
+    ]);
     expect(core.internalExpandedKeys.value.has('3')).toBe(true);
   });
 });
@@ -351,33 +353,45 @@ describe('useTreeTableCore 渲染辅助', () => {
     const core = useTreeTableCore(makeOptions());
     core.expandAll();
     // 节点 1-1 的祖先 1 有后续兄弟 2 → 第 1 层竖线应绘制
-    const hasSibling = core.hasAncestorSibling({
-      ancestorKeys: ['1'],
-      depth: 1,
-      hasChildren: false,
-      key: '1-1',
-      parentKey: '1',
-      row: { id: '1-1', name: 'child 1-1' },
-    }, 1);
+    const hasSibling = core.hasAncestorSibling(
+      {
+        ancestorKeys: ['1'],
+        depth: 1,
+        hasChildren: false,
+        key: '1-1',
+        parentKey: '1',
+        row: { id: '1-1', name: 'child 1-1' },
+      },
+      1,
+    );
     expect(hasSibling).toBe(true);
     // depthLevel 越界返回 false
-    expect(core.hasAncestorSibling({
-      ancestorKeys: ['1'],
-      depth: 1,
-      hasChildren: false,
-      key: '1-1',
-      parentKey: '1',
-      row: { id: '1-1', name: 'child 1-1' },
-    }, 0)).toBe(false);
+    expect(
+      core.hasAncestorSibling(
+        {
+          ancestorKeys: ['1'],
+          depth: 1,
+          hasChildren: false,
+          key: '1-1',
+          parentKey: '1',
+          row: { id: '1-1', name: 'child 1-1' },
+        },
+        0,
+      ),
+    ).toBe(false);
   });
 
   it('getCellValue 优先使用 formatter', () => {
-    const core = useTreeTableCore(makeOptions({
-      columns: [{
-        formatter: (row) => `formatted:${row.name}`,
-        key: 'name',
-      }],
-    }));
+    const core = useTreeTableCore(
+      makeOptions({
+        columns: [
+          {
+            formatter: (row) => `formatted:${row.name}`,
+            key: 'name',
+          },
+        ],
+      }),
+    );
     const value = core.getCellValue({ id: '1', name: 'x' }, { formatter: undefined, key: 'name' });
     expect(value).toBe('x');
   });
@@ -392,12 +406,11 @@ describe('useTreeTableCore 渲染辅助', () => {
   });
 
   it('renderColumns 将列定义转换为渲染视图', () => {
-    const core = useTreeTableCore(makeOptions({
-      columns: [
-        { align: 'center', key: 'name', label: 'Name', width: 120 },
-        { key: 'id' },
-      ],
-    }));
+    const core = useTreeTableCore(
+      makeOptions({
+        columns: [{ align: 'center', key: 'name', label: 'Name', width: 120 }, { key: 'id' }],
+      }),
+    );
     expect(core.renderColumns.value).toEqual([
       { align: 'center', formatter: undefined, key: 'name', label: 'Name', width: 120 },
       { align: undefined, formatter: undefined, key: 'id', label: 'id', width: undefined },

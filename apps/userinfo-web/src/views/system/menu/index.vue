@@ -112,7 +112,7 @@ async function handleDelete(row: MenuTreeVO) {
 
 <template>
   <Page auto-content-height>
-    <div class=" p-5">
+    <div class="p-5">
       <div class="mb-4 flex items-center justify-between">
         <h3 class="text-lg font-semibold">{{ t('menu.menuManagement') }}</h3>
         <div class="flex gap-2">
@@ -133,7 +133,13 @@ async function handleDelete(row: MenuTreeVO) {
           <template #default="{ row }">
             <YdBadge
               :variant="MENU_TYPE_MAP[row.menuType]?.variant ?? 'secondary'"
-              :class="MENU_TYPE_MAP[row.menuType]?.variant === 'default' ? 'text-xs' : MENU_TYPE_MAP[row.menuType]?.variant === 'outline' ? 'border text-xs' : 'text-xs'"
+              :class="
+                MENU_TYPE_MAP[row.menuType]?.variant === 'default'
+                  ? 'text-xs'
+                  : MENU_TYPE_MAP[row.menuType]?.variant === 'outline'
+                    ? 'border text-xs'
+                    : 'text-xs'
+              "
             >
               {{ t(MENU_TYPE_MAP[row.menuType]?.label || 'page.unknown') }}
             </YdBadge>
@@ -147,14 +153,26 @@ async function handleDelete(row: MenuTreeVO) {
         <YdTableColumn prop="sort" :label="t('page.sort')" width="80" align="center" />
         <YdTableColumn :label="t('menu.visible')" width="80" align="center">
           <template #default="{ row }">
-            <YdBadge :variant="isVisible(row.visible) ? 'outline' : 'secondary'" :class="isVisible(row.visible) ? 'border-green-500 text-green-600 dark:text-green-400' : 'text-xs'">
+            <YdBadge
+              :variant="isVisible(row.visible) ? 'outline' : 'secondary'"
+              :class="
+                isVisible(row.visible)
+                  ? 'border-green-500 text-green-600 dark:text-green-400'
+                  : 'text-xs'
+              "
+            >
               {{ isVisible(row.visible) ? t('menu.show') : t('menu.hide') }}
             </YdBadge>
           </template>
         </YdTableColumn>
         <YdTableColumn :label="t('page.status')" width="80" align="center">
           <template #default="{ row }">
-            <YdBadge :variant="isEnabled(row.status) ? 'default' : 'destructive'" :class="isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'">
+            <YdBadge
+              :variant="isEnabled(row.status) ? 'default' : 'destructive'"
+              :class="
+                isEnabled(row.status) ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs'
+              "
+            >
               {{ isEnabled(row.status) ? t('page.enabled') : t('page.disabled') }}
             </YdBadge>
           </template>

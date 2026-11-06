@@ -1,1 +1,1 @@
-export { default as TeleportPrimitive, type TeleportProps } from './Teleport.vue'
+export { default as TeleportPrimitive, type TeleportProps } from './Teleport.vue';

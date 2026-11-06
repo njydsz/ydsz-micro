@@ -22,7 +22,7 @@ export type ActiveRule = ((path: string) => boolean) | RegExp | string;
  *
  * @since 3.6.0
  */
-export type SandboxType = "iframe" | "proxy" | "snapshot";
+export type SandboxType = 'iframe' | 'proxy' | 'snapshot';
 
 /** 子应用注册配置 */
 export interface MicroAppConfig {

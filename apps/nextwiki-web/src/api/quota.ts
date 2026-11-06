@@ -17,9 +17,9 @@ import type { StorageQuotaVO } from './models';
  * getQuota: GET /nextwiki/quota/info
  */
 export function getQuota(params: {
-    scopeType?: string;
-    scopeId?: string;
-  }): Promise<StorageQuotaVO> {
+  scopeType?: string;
+  scopeId?: string;
+}): Promise<StorageQuotaVO> {
   return requestClient.get<StorageQuotaVO>(`/nextwiki/quota/info`, { params });
 }
 

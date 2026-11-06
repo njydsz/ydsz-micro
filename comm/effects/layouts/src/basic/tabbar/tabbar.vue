@@ -28,13 +28,7 @@ const tabbarStore = useTabbarStore();
 const { contentIsMaximize, toggleMaximize } = useContentMaximize();
 const { unpinTab } = useTabs();
 
-const {
-  createContextMenus,
-  currentActive,
-  currentTabs,
-  handleClick,
-  handleClose,
-} = useTabbar();
+const { createContextMenus, currentActive, currentTabs, handleClick, handleClose } = useTabbar();
 
 const menus = computed(() => {
   const tab = tabbarStore.getTabByKey(currentActive.value);

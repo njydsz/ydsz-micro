@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* Countdown（countdown）组件：倒计时实时展示，对标 Element Plus Statistic.Countdown。
-* 
+ * Countdown（countdown）组件：倒计时实时展示，对标 Element Plus Statistic.Countdown。
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */
@@ -133,8 +133,8 @@ function formatTemplate(time: CountdownTime, tpl: string): string {
 }
 
 /** 当前格式化后的时间字符串（仅数值部分，不含前后缀）。 */
-const formattedValue = computed<string>(
-  () => formatTemplate(parseTime(remaining.value), props.format ?? 'HH:mm:ss'),
+const formattedValue = computed<string>(() =>
+  formatTemplate(parseTime(remaining.value), props.format ?? 'HH:mm:ss'),
 );
 
 onMounted(() => {

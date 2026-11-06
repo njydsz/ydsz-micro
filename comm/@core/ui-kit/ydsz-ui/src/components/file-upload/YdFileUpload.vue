@@ -24,15 +24,9 @@
  * @since 26.10.12
  */
 
-import type {
-  YdFileUploadEmits,
-  YdFileUploadProps,
-} from './types';
+import type { YdFileUploadEmits, YdFileUploadProps } from './types';
 
-import {
-  computed,
-  ref,
-} from 'vue';
+import { computed, ref } from 'vue';
 
 defineOptions({ name: 'YdFileUpload' });
 
@@ -209,11 +203,13 @@ const pictureCardDropClass = computed(() =>
     <!-- ========== 普通按钮（text 模式，非 draggable） ========== -->
     <button
       v-else-if="!isPictureCard"
-      :class="cn(
-        'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center gap-1.5 rounded-md px-4 text-sm font-medium',
-        'focus-visible:outline-none focus-visible:ring-2',
-        'disabled:pointer-events-none disabled:opacity-50',
-      )"
+      :class="
+        cn(
+          'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center gap-1.5 rounded-md px-4 text-sm font-medium',
+          'focus-visible:outline-none focus-visible:ring-2',
+          'disabled:pointer-events-none disabled:opacity-50',
+        )
+      "
       :disabled="disabled || isLimitReached"
       type="button"
       @click="openFilePicker"
@@ -259,39 +255,35 @@ const pictureCardDropClass = computed(() =>
       <div
         v-for="item in currentFileList"
         :key="item.uid"
-        :class="cn(
-          'bg-accent/20 hover:bg-accent/40 border-border flex items-center gap-3 rounded-md border px-3 py-2 text-sm transition-colors',
-          isFileError(item) && 'border-destructive/30 bg-destructive/5',
-          isFileSuccess(item) && 'border-green-400/40',
-        )"
+        :class="
+          cn(
+            'bg-accent/20 hover:bg-accent/40 border-border flex items-center gap-3 rounded-md border px-3 py-2 text-sm transition-colors',
+            isFileError(item) && 'border-destructive/30 bg-destructive/5',
+            isFileSuccess(item) && 'border-green-400/40',
+          )
+        "
         role="listitem"
       >
         <!-- 文件类型图标 -->
         <FileImage
           v-if="getFileIconType(item.type) === 'image'"
-          class="text-blue-500 h-4 w-4 shrink-0"
+          class="h-4 w-4 shrink-0 text-blue-500"
         />
         <FileText
           v-else-if="getFileIconType(item.type) === 'pdf'"
-          class="text-red-500 h-4 w-4 shrink-0"
+          class="h-4 w-4 shrink-0 text-red-500"
         />
         <FileText
           v-else-if="getFileIconType(item.type) === 'text'"
           class="text-muted-foreground h-4 w-4 shrink-0"
         />
-        <File
-          v-else
-          class="text-muted-foreground h-4 w-4 shrink-0"
-        />
+        <File v-else class="text-muted-foreground h-4 w-4 shrink-0" />
 
         <!-- 文件名 + 进度/状态 -->
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2">
             <span class="truncate font-medium">{{ item.name }}</span>
-            <span
-              v-if="!isFileUploading(item)"
-              class="text-muted-foreground shrink-0 text-xs"
-            >
+            <span v-if="!isFileUploading(item)" class="text-muted-foreground shrink-0 text-xs">
               {{ formatFileSize(item.size) }}
             </span>
             <span
@@ -303,10 +295,7 @@ const pictureCardDropClass = computed(() =>
           </div>
 
           <!-- 进度条（上传中） -->
-          <div
-            v-if="isFileUploading(item)"
-            class="mt-1.5"
-          >
+          <div v-if="isFileUploading(item)" class="mt-1.5">
             <YdProgress :percentage="item.percent ?? 0" />
           </div>
 
@@ -320,23 +309,14 @@ const pictureCardDropClass = computed(() =>
           </div>
 
           <!-- ready 状态提示 -->
-          <div
-            v-else-if="isFileReady(item)"
-            class="text-muted-foreground mt-0.5 text-xs"
-          >
+          <div v-else-if="isFileReady(item)" class="text-muted-foreground mt-0.5 text-xs">
             {{ t('fileUpload.fileSize') }}: {{ formatFileSize(item.size) }}
           </div>
         </div>
 
         <!-- 状态图标 -->
-        <CheckCircle2
-          v-if="isFileSuccess(item)"
-          class="h-4 w-4 shrink-0 text-green-500"
-        />
-        <AlertCircle
-          v-else-if="isFileError(item)"
-          class="h-4 w-4 shrink-0 text-red-500"
-        />
+        <CheckCircle2 v-if="isFileSuccess(item)" class="h-4 w-4 shrink-0 text-green-500" />
+        <AlertCircle v-else-if="isFileError(item)" class="h-4 w-4 shrink-0 text-red-500" />
         <Loader2
           v-else-if="isFileUploading(item)"
           class="h-4 w-4 shrink-0 animate-spin text-blue-500"
@@ -389,11 +369,13 @@ const pictureCardDropClass = computed(() =>
       <div
         v-for="item in currentFileList"
         :key="item.uid"
-        :class="cn(
-          'border-border bg-accent/10 group relative flex h-28 w-28 flex-col items-center justify-center overflow-hidden rounded-lg border transition-colors',
-          isFileError(item) && 'border-destructive/50 border-2 border-dashed',
-          isFileSuccess(item) && 'border-green-400/60',
-        )"
+        :class="
+          cn(
+            'border-border bg-accent/10 group relative flex h-28 w-28 flex-col items-center justify-center overflow-hidden rounded-lg border transition-colors',
+            isFileError(item) && 'border-destructive/50 border-2 border-dashed',
+            isFileSuccess(item) && 'border-green-400/60',
+          )
+        "
         role="listitem"
       >
         <!-- 缩略图 -->
@@ -418,16 +400,13 @@ const pictureCardDropClass = computed(() =>
           class="absolute inset-0 flex flex-col items-center justify-center bg-black/50"
         >
           <Loader2 class="h-5 w-5 animate-spin text-white" />
-          <span class="mt-1 text-xs font-medium text-white tabular-nums">
+          <span class="mt-1 text-xs font-medium tabular-nums text-white">
             {{ item.percent ?? 0 }}%
           </span>
         </div>
 
         <!-- 遮罩：成功 -->
-        <div
-          v-else-if="isFileSuccess(item)"
-          class="absolute right-1 top-1"
-        >
+        <div v-else-if="isFileSuccess(item)" class="absolute right-1 top-1">
           <CheckCircle2 class="h-5 w-5 rounded-full bg-white/80 text-green-500" />
         </div>
 
@@ -493,10 +472,7 @@ const pictureCardDropClass = computed(() =>
         :aria-label="t('common.preview')"
         @click="previewVisible = false"
       >
-        <div
-          class="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg"
-          @click.stop
-        >
+        <div class="relative max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg" @click.stop>
           <img
             v-if="getThumbnailUrl(previewFile)"
             :alt="previewFile.name"

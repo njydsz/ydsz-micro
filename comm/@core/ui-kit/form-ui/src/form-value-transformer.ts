@@ -44,40 +44,34 @@ export class FormValueTransformer {
       return values;
     }
 
-    fieldMappingTime.forEach(
-      ([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
-        if (startTimeKey && endTimeKey && values[field] === null) {
-          Reflect.deleteProperty(values, startTimeKey);
-          Reflect.deleteProperty(values, endTimeKey);
-        }
+    fieldMappingTime.forEach(([field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD']) => {
+      if (startTimeKey && endTimeKey && values[field] === null) {
+        Reflect.deleteProperty(values, startTimeKey);
+        Reflect.deleteProperty(values, endTimeKey);
+      }
 
-        if (!values[field]) {
-          Reflect.deleteProperty(values, field);
-          return;
-        }
-
-        const [startTime, endTime] = values[field] as unknown[];
-        if (format === null) {
-          values[startTimeKey] = startTime;
-          values[endTimeKey] = endTime;
-        } else if (isFunction(format)) {
-          values[startTimeKey] = format(startTime, startTimeKey);
-          values[endTimeKey] = format(endTime, endTimeKey);
-        } else {
-          const [startTimeFormat, endTimeFormat] = Array.isArray(format)
-            ? format
-            : [format, format];
-
-          values[startTimeKey] = startTime
-            ? formatDate(startTime as string, startTimeFormat)
-            : undefined;
-          values[endTimeKey] = endTime
-            ? formatDate(endTime as string, endTimeFormat)
-            : undefined;
-        }
+      if (!values[field]) {
         Reflect.deleteProperty(values, field);
-      },
-    );
+        return;
+      }
+
+      const [startTime, endTime] = values[field] as unknown[];
+      if (format === null) {
+        values[startTimeKey] = startTime;
+        values[endTimeKey] = endTime;
+      } else if (isFunction(format)) {
+        values[startTimeKey] = format(startTime, startTimeKey);
+        values[endTimeKey] = format(endTime, endTimeKey);
+      } else {
+        const [startTimeFormat, endTimeFormat] = Array.isArray(format) ? format : [format, format];
+
+        values[startTimeKey] = startTime
+          ? formatDate(startTime as string, startTimeFormat)
+          : undefined;
+        values[endTimeKey] = endTime ? formatDate(endTime as string, endTimeFormat) : undefined;
+      }
+      Reflect.deleteProperty(values, field);
+    });
     return values;
   }
 
@@ -98,12 +92,8 @@ export class FormValueTransformer {
     };
 
     if (arrayToStringFields.every((item) => typeof item === 'string')) {
-      const lastItem =
-        arrayToStringFields[arrayToStringFields.length - 1] || '';
-      const fields =
-        lastItem.length === 1
-          ? arrayToStringFields.slice(0, -1)
-          : arrayToStringFields;
+      const lastItem = arrayToStringFields[arrayToStringFields.length - 1] || '';
+      const fields = lastItem.length === 1 ? arrayToStringFields.slice(0, -1) : arrayToStringFields;
       const separator = lastItem.length === 1 ? lastItem : ',';
       processFields(fields, separator);
       return;
@@ -141,21 +131,14 @@ export class FormValueTransformer {
         if (value === '') {
           return [];
         }
-        const escapedSeparator = sep.replaceAll(
-          /[.*+?^${}()|[\]\\]/g,
-          String.raw`\$&`,
-        );
+        const escapedSeparator = sep.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
         return value.split(new RegExp(escapedSeparator));
       });
     };
 
     if (arrayToStringFields.every((item) => typeof item === 'string')) {
-      const lastItem =
-        arrayToStringFields[arrayToStringFields.length - 1] || '';
-      const fields =
-        lastItem.length === 1
-          ? arrayToStringFields.slice(0, -1)
-          : arrayToStringFields;
+      const lastItem = arrayToStringFields[arrayToStringFields.length - 1] || '';
+      const fields = lastItem.length === 1 ? arrayToStringFields.slice(0, -1) : arrayToStringFields;
       const separator = lastItem.length === 1 ? lastItem : ',';
       processFields(fields, separator);
       return;
@@ -171,10 +154,7 @@ export class FormValueTransformer {
           if (value === '') {
             originValues[fields] = [];
           } else {
-            const escapedSeparator = separator.replaceAll(
-              /[.*+?^${}()|[\]\\]/g,
-              String.raw`\$&`,
-            );
+            const escapedSeparator = separator.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
             originValues[fields] = value.split(new RegExp(escapedSeparator));
           }
         }
@@ -204,4 +184,3 @@ export class FormValueTransformer {
     });
   }
 }
-

@@ -15,74 +15,84 @@ import type { CEPPatternVO } from './models';
 /**
  * getPattern: GET /api/literule/cep/patterns/{id}
  */
-export function getPattern({ id }: {
-    id: string;
-}): Promise<CEPPatternVO> {
+export function getPattern({ id }: { id: string }): Promise<CEPPatternVO> {
   return requestClient.get<CEPPatternVO>(`/api/literule/cep/patterns/${id}`);
 }
 
 /**
  * updatePattern: PUT /api/literule/cep/patterns/{id}
  */
-export function updatePattern({ id }: {
+export function updatePattern(
+  {
+    id,
+  }: {
     id: string;
-  }, data: CEPPatternVO): Promise<void> {
+  },
+  data: CEPPatternVO,
+): Promise<void> {
   return requestClient.put<void>(`/api/literule/cep/patterns/${id}`, data);
 }
 
 /**
  * enablePattern: POST /api/literule/cep/patterns/{id}/enable
  */
-export function enablePattern({ id }: {
-    id: string;
-}): Promise<void> {
+export function enablePattern({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/api/literule/cep/patterns/${id}/enable`);
 }
 
 /**
  * disablePattern: POST /api/literule/cep/patterns/{id}/disable
  */
-export function disablePattern({ id }: {
-    id: string;
-}): Promise<void> {
+export function disablePattern({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/api/literule/cep/patterns/${id}/disable`);
 }
 
 /**
  * testPattern: POST /api/literule/cep/patterns/{id}/test
  */
-export function testPattern({ id }: {
+export function testPattern(
+  {
+    id,
+  }: {
     id: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/api/literule/cep/patterns/${id}/test`, data);
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/api/literule/cep/patterns/${id}/test`,
+    data,
+  );
 }
 
 /**
  * getPatternStatistics: GET /api/literule/cep/patterns/{id}/statistics
  */
-export function getPatternStatistics({ id }: {
-    id: string;
-}): Promise<Record<string, unknown>> {
+export function getPatternStatistics({ id }: { id: string }): Promise<Record<string, unknown>> {
   return requestClient.get<Record<string, unknown>>(`/api/literule/cep/patterns/${id}/statistics`);
 }
 
 /**
  * getPatternHits: GET /api/literule/cep/patterns/{id}/hits
  */
-export function getPatternHits({ id }: {
+export function getPatternHits(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     pageNum?: number;
     pageSize?: number;
-  }): Promise<Record<string, unknown>> {
-  return requestClient.get<Record<string, unknown>>(`/api/literule/cep/patterns/${id}/hits`, { params });
+  },
+): Promise<Record<string, unknown>> {
+  return requestClient.get<Record<string, unknown>>(`/api/literule/cep/patterns/${id}/hits`, {
+    params,
+  });
 }
 
 /**
  * getPatternHistory: GET /api/literule/cep/patterns/{id}/history
  */
-export function getPatternHistory({ id }: {
-    id: string;
-}): Promise<Record<string, unknown>[]> {
+export function getPatternHistory({ id }: { id: string }): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/api/literule/cep/patterns/${id}/history`);
 }

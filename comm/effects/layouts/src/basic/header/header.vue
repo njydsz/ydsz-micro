@@ -15,12 +15,7 @@ import { useAccessStore } from '@ydsz/stores';
 
 import { YdFullScreen, YdIconButton } from '@ydsz-core/ydsz-ui';
 
-import {
-  GlobalSearch,
-  LanguageToggle,
-  PreferencesButton,
-  ThemeToggle,
-} from '../../widgets';
+import { GlobalSearch, LanguageToggle, PreferencesButton, ThemeToggle } from '../../widgets';
 
 interface Props {
   /**

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 /**
-* 迷你趋势图（纯 SVG Sparkline，零依赖）。
-* 
+ * 迷你趋势图（纯 SVG Sparkline，零依赖）。
+ *
  * 设计目标：
  *  - 替代重量级 ECharts 渲染小型趋势线（指标卡底部、列表统计列等）；
  *  - 平滑曲线 + 渐变填充 + 最小/最大点高亮；
  *  - 纯 SVG 方案，无外部依赖，暗色模式自动适配。
-* 
+ *
  * 设计取舍：不做 YdTooltipSmart、不做坐标轴——仅当「一眼扫趋势」的信息密度足够。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\dashboard\YdMiniChart.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -73,7 +73,7 @@ const pathData = computed<{ areaPath: string; linePath: string }>(() => {
   // 折线路径
   const linePath = points
     .map((p, index) => `${index === 0 ? 'M' : 'L'} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`)
-    .join(' ' );
+    .join(' ');
 
   // 填充路径（延伸到基线）
   const areaPath = `${linePath} L ${points[points.length - 1]?.x.toFixed(2) ?? 0} ${viewBoxHeight - padding} L ${padding} ${viewBoxHeight - padding} Z`;
@@ -95,32 +95,14 @@ const gradientId = `mini-chart-grad-${Math.random().toString(36).slice(2, 8)}`;
   >
     <!-- 渐变填充定义 -->
     <defs>
-      <linearGradient
-        :id="gradientId"
-        x1="0"
-        x2="0"
-        y1="0"
-        y2="1"
-      >
-        <stop
-          offset="0%"
-          :stop-color="color"
-          stop-opacity="0.3"
-        />
-        <stop
-          offset="100%"
-          :stop-color="color"
-          stop-opacity="0"
-        />
+      <linearGradient :id="gradientId" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" :stop-color="color" stop-opacity="0.3" />
+        <stop offset="100%" :stop-color="color" stop-opacity="0" />
       </linearGradient>
     </defs>
 
     <!-- 填充区域 -->
-    <path
-      v-if="filled && pathData.areaPath"
-      :d="pathData.areaPath"
-      :fill="`url(#${gradientId})`"
-    />
+    <path v-if="filled && pathData.areaPath" :d="pathData.areaPath" :fill="`url(#${gradientId})`" />
 
     <!-- 趋势线 -->
     <path

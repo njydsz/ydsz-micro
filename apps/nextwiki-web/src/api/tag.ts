@@ -37,17 +37,13 @@ export function bindTag(data: Record<string, unknown>): Promise<void> {
 /**
  * getFileTags: GET /nextwiki/tags/file/{fileNodeId}
  */
-export function getFileTags({ fileNodeId }: {
-    fileNodeId: string;
-  }): Promise<TagVO[]> {
+export function getFileTags({ fileNodeId }: { fileNodeId: string }): Promise<TagVO[]> {
   return requestClient.get<TagVO[]>(`/nextwiki/tags/file/${fileNodeId}`);
 }
 
 /**
  * recommendTags: GET /nextwiki/tags/recommend/{fileNodeId}
  */
-export function recommendTags({ fileNodeId }: {
-    fileNodeId: string;
-  }): Promise<TagVO[]> {
+export function recommendTags({ fileNodeId }: { fileNodeId: string }): Promise<TagVO[]> {
   return requestClient.get<TagVO[]>(`/nextwiki/tags/recommend/${fileNodeId}`);
 }

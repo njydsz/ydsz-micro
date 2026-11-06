@@ -8,15 +8,15 @@ YDSZ 文件引擎是平台的统一文件存储与知识管理系统，支持文
 
 ## 关键差异化能力
 
-| 能力 | 说明 |
-|------|------|
-| **秒传** | 基于文件哈希的去重机制，相同文件秒级完成上传，节省带宽和存储 |
-| **20 版本保留** | 每次文件更新保留最近 20 个历史版本，支持版本对比和回滚 |
-| **WOPI 协议** | 支持 WOPI 在线预览/编辑，集成 Office Online / OnlyOffice |
-| **ClamAV 病毒扫描** | 文件实时防病毒引擎，拦截恶意文件上传 |
-| **OCR 文字识别** | 图片/PDF OCR 文字提取，支持多语言 |
-| **AI 摘要生成** | 对接智能引擎，自动生成文档/表格摘要 |
-| **分享链接** | 支持密码保护、有效期、下载次数限制的分享链接 |
+| 能力                | 说明                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| **秒传**            | 基于文件哈希的去重机制，相同文件秒级完成上传，节省带宽和存储 |
+| **20 版本保留**     | 每次文件更新保留最近 20 个历史版本，支持版本对比和回滚       |
+| **WOPI 协议**       | 支持 WOPI 在线预览/编辑，集成 Office Online / OnlyOffice     |
+| **ClamAV 病毒扫描** | 文件实时防病毒引擎，拦截恶意文件上传                         |
+| **OCR 文字识别**    | 图片/PDF OCR 文字提取，支持多语言                            |
+| **AI 摘要生成**     | 对接智能引擎，自动生成文档/表格摘要                          |
+| **分享链接**        | 支持密码保护、有效期、下载次数限制的分享链接                 |
 
 ## 核心代码模块
 
@@ -34,16 +34,16 @@ ydsz-nextwiki/
 
 ## 核心 API
 
-| 端点 | 方法 | 说明 |
-|------|------|------|
-| `/nextwiki/file/upload` | POST | 文件上传（支持秒传） |
-| `/nextwiki/file/download` | GET | 文件下载 |
-| `/nextwiki/file/version/page` | GET | 文件版本列表 |
-| `/nextwiki/file/rollback` | POST | 回滚到指定版本 |
-| `/nextwiki/share/create` | POST | 创建分享链接 |
-| `/nextwiki/share/verify` | POST | 验证分享密码 |
-| `/nextwiki/ocr/recognize` | POST | OCR 文字识别 |
-| `/nextwiki/summary/generate` | POST | AI 摘要生成 |
+| 端点                          | 方法 | 说明                 |
+| ----------------------------- | ---- | -------------------- |
+| `/nextwiki/file/upload`       | POST | 文件上传（支持秒传） |
+| `/nextwiki/file/download`     | GET  | 文件下载             |
+| `/nextwiki/file/version/page` | GET  | 文件版本列表         |
+| `/nextwiki/file/rollback`     | POST | 回滚到指定版本       |
+| `/nextwiki/share/create`      | POST | 创建分享链接         |
+| `/nextwiki/share/verify`      | POST | 验证分享密码         |
+| `/nextwiki/ocr/recognize`     | POST | OCR 文字识别         |
+| `/nextwiki/summary/generate`  | POST | AI 摘要生成          |
 
 ## 数据库表前缀
 

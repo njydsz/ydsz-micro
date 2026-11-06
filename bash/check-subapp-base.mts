@@ -117,7 +117,9 @@ if (existsSync(appsDir)) {
       warnings.push(`apps/${app.name}/.env.production 缺失`);
       continue;
     }
-    const declared = readFileSync(envFile, 'utf8').match(/^VITE_BASE=(.+)$/m)?.[1]?.trim();
+    const declared = readFileSync(envFile, 'utf8')
+      .match(/^VITE_BASE=(.+)$/m)?.[1]
+      ?.trim();
     if (!declared) continue;
     const expected = prodPathOf(app);
     if (declared !== expected) {
@@ -133,7 +135,9 @@ const dockerfile = read(DOCKERFILE);
 for (const app of apps) {
   const dirName = prodPathOf(app).replaceAll('/', '');
   if (!dockerfile.includes(`/usr/share/nginx/html/${dirName}`)) {
-    failures.push(`Dockerfile 缺少 apps/${app.name}/dist → /usr/share/nginx/html/${dirName} 的 COPY`);
+    failures.push(
+      `Dockerfile 缺少 apps/${app.name}/dist → /usr/share/nginx/html/${dirName} 的 COPY`,
+    );
   }
 }
 
@@ -174,9 +178,13 @@ if (warnings.length > 0) {
 }
 
 if (failures.length > 0) {
-  console.error(`❌ 子应用 base 一致性检查未通过（${apps.length} 个注册应用，${builtAppCount} 个已构建）：`);
+  console.error(
+    `❌ 子应用 base 一致性检查未通过（${apps.length} 个注册应用，${builtAppCount} 个已构建）：`,
+  );
   for (const f of failures) console.error(`  - ${f}`);
-  console.error('  修复：统一走 comm/constants 的 defaultProdPath()，然后 pnpm gen:nginx && pnpm gen:registry');
+  console.error(
+    '  修复：统一走 comm/constants 的 defaultProdPath()，然后 pnpm gen:nginx && pnpm gen:registry',
+  );
   process.exit(1);
 }
 

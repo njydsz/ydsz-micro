@@ -1,92 +1,91 @@
 <script lang="ts">
 // @ts-nocheck
-import type { Ref } from 'vue'
-import type { Direction } from './utils'
-import { createContext, useDirection } from '../shared/index.ts'
-import { useIsUsingKeyboard } from '../shared/useIsUsingKeyboard.ts'
+import type { Ref } from 'vue';
+import type { Direction } from './utils';
+import { createContext, useDirection } from '../shared/index.ts';
+import { useIsUsingKeyboard } from '../shared/useIsUsingKeyboard.ts';
 
 export interface MenuContext {
-  open: Ref<boolean>
-  onOpenChange: (open: boolean) => void
-  content: Ref<HTMLElement | undefined>
-  onContentChange: (content: HTMLElement | undefined) => void
+  open: Ref<boolean>;
+  onOpenChange: (open: boolean) => void;
+  content: Ref<HTMLElement | undefined>;
+  onContentChange: (content: HTMLElement | undefined) => void;
 }
 
 export interface MenuRootContext {
-  onClose: () => void
-  dir: Ref<Direction>
-  isUsingKeyboardRef: Ref<boolean>
-  modal: Ref<boolean>
+  onClose: () => void;
+  dir: Ref<Direction>;
+  isUsingKeyboardRef: Ref<boolean>;
+  modal: Ref<boolean>;
 }
 
 export interface MenuProps {
   /** The controlled open state of the menu. Can be used as `v-model:open`. */
-  open?: boolean
+  open?: boolean;
   /**
    * The reading direction of the combobox when applicable.
    *
    * If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode.
    */
-  dir?: Direction
+  dir?: Direction;
   /**
    * The modality of the dropdown menu.
    *
    * When set to `true`, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
    */
-  modal?: boolean
+  modal?: boolean;
 }
 
 export type MenuEmits = {
-  'update:open': [payload: boolean]
-}
+  'update:open': [payload: boolean];
+};
 
-export const [injectMenuContext, provideMenuContext]
-  = createContext<MenuContext>(['MenuRoot', 'MenuSub'], 'MenuContext')
+export const [injectMenuContext, provideMenuContext] = createContext<MenuContext>(
+  ['MenuRoot', 'MenuSub'],
+  'MenuContext',
+);
 
-export const [injectMenuRootContext, provideMenuRootContext]
-  = createContext<MenuRootContext>('MenuRoot')
+export const [injectMenuRootContext, provideMenuRootContext] =
+  createContext<MenuRootContext>('MenuRoot');
 </script>
 
 <script setup lang="ts">
-import {
-  ref,
-  toRefs,
-} from 'vue'
-import { useVModel } from '@vueuse/core'
-import { PopperRoot } from '../Popper/index.ts'
+import { ref, toRefs } from 'vue';
+import { useVModel } from '@vueuse/core';
+import { PopperRoot } from '../Popper/index.ts';
 
 const props = withDefaults(defineProps<MenuProps>(), {
   open: false,
   modal: true,
-})
-const emits = defineEmits<MenuEmits>()
-const { modal, dir: propDir } = toRefs(props)
-const dir = useDirection(propDir)
+});
+const emits = defineEmits<MenuEmits>();
+const { modal, dir: propDir } = toRefs(props);
+const dir = useDirection(propDir);
 
-const open = useVModel(props, 'open', emits)
+const open = useVModel(props, 'open', emits);
 
-const content = ref<HTMLElement>()
-const isUsingKeyboardRef = useIsUsingKeyboard()
+const content = ref<HTMLElement>();
+const isUsingKeyboardRef = useIsUsingKeyboard();
 
 provideMenuContext({
   open,
   onOpenChange: (value) => {
-    open.value = value
+    open.value = value;
   },
   content,
   onContentChange: (element) => {
-    content.value = element
+    content.value = element;
   },
-})
+});
 
 provideMenuRootContext({
   onClose: () => {
-    open.value = false
+    open.value = false;
   },
   isUsingKeyboardRef,
   dir,
   modal,
-})
+});
 </script>
 
 <template>

@@ -93,9 +93,7 @@ export function useTreeSelection<T extends Record<string, unknown>>(
     for (const row of flatRows.value) {
       if (!row.hasChildren) continue;
       const children = getEffectiveChildren(row.row, row.key);
-      const childKeys = children.map(
-        (c) => String((c as Record<string, unknown>)[props.rowKey]),
-      );
+      const childKeys = children.map((c) => String((c as Record<string, unknown>)[props.rowKey]));
       const checkedCount = childKeys.filter((k) => currentChecked.has(k)).length;
       if (checkedCount > 0 && checkedCount < childKeys.length) {
         newHalf.add(row.key);
@@ -158,8 +156,8 @@ export function useTreeSelection<T extends Record<string, unknown>>(
         const ancestorRow = flatRows.value.find((r) => r.key === ancestorKey);
         if (!ancestorRow) continue;
         const siblingChildren = getEffectiveChildren(ancestorRow.row, ancestorKey);
-        const siblingKeys = siblingChildren.map(
-          (c) => String((c as Record<string, unknown>)[props.rowKey]),
+        const siblingKeys = siblingChildren.map((c) =>
+          String((c as Record<string, unknown>)[props.rowKey]),
         );
         const allChecked = siblingKeys.every((k) => nextChecked.has(k));
         if (allChecked) {

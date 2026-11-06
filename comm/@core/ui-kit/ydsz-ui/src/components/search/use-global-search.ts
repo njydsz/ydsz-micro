@@ -32,9 +32,9 @@ type RequestClient = {
 let requestClientPromise: Promise<RequestClient> | null = null;
 function getRequestClient(): Promise<RequestClient> {
   if (!requestClientPromise) {
-    requestClientPromise = import(/* @vite-ignore */ '@ydsz/request').then((mod: {
-      requestClient: RequestClient;
-    }) => mod.requestClient);
+    requestClientPromise = import(/* @vite-ignore */ '@ydsz/request').then(
+      (mod: { requestClient: RequestClient }) => mod.requestClient,
+    );
   }
   return requestClientPromise;
 }
@@ -105,13 +105,13 @@ const doSearch = useDebounceFn(async (kw: string) => {
     return;
   }
 
-    loading.value = true;
-    try {
-      const requestClient = await getRequestClient();
-      const data = await requestClient.get<GlobalSearchResponse>(SEARCH_API, {
-        params: { keyword: kw.trim(), pageSize: 20 },
-      });
-      results.value = data;
+  loading.value = true;
+  try {
+    const requestClient = await getRequestClient();
+    const data = await requestClient.get<GlobalSearchResponse>(SEARCH_API, {
+      params: { keyword: kw.trim(), pageSize: 20 },
+    });
+    results.value = data;
     saveSearchHistory(kw.trim());
     // 默认切到全部
     activeTab.value = '_all';
@@ -132,12 +132,12 @@ const doSuggest = useDebounceFn(async (kw: string) => {
     suggestions.value = getSearchHistory();
     return;
   }
-    try {
-      const requestClient = await getRequestClient();
-      const data = await requestClient.get<SearchSuggestion[]>(SUGGEST_API, {
-        params: { keyword: kw.trim(), limit: 8 },
-      });
-      suggestions.value = data;
+  try {
+    const requestClient = await getRequestClient();
+    const data = await requestClient.get<SearchSuggestion[]>(SUGGEST_API, {
+      params: { keyword: kw.trim(), limit: 8 },
+    });
+    suggestions.value = data;
   } catch {
     // 建议失败时降级为历史记录
     suggestions.value = getSearchHistory();

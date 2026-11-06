@@ -14,8 +14,22 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdForm, YdFormItem, YdSelectItem, YdSelect, type FormInstance, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdForm,
+  YdFormItem,
+  YdSelectItem,
+  YdSelect,
+  type FormInstance,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { saveMemory } from '#/api/memory';
@@ -70,11 +84,7 @@ const formRules = {
  *
  * @param params 打开参数（mode + 数据）
  */
-function open(params: {
-  mode: DetailMode;
-  record?: MemoryVO;
-  convId?: string;
-}): void {
+function open(params: { mode: DetailMode; record?: MemoryVO; convId?: string }): void {
   mode.value = params.mode;
   conversationId.value = params.convId ?? params.record?.conversationId ?? '';
   memoryData.value = params.record ?? null;
@@ -146,42 +156,36 @@ defineExpose({ open });
       <div v-if="mode === 'view' && memoryData" class="space-y-4">
         <div class="grid grid-cols-2 gap-5">
           <div>
-            <span class="text-sm text-muted-foreground">消息 ID:</span>
+            <span class="text-muted-foreground text-sm">消息 ID:</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.id ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-sm text-muted-foreground">角色:</span>
+            <span class="text-muted-foreground text-sm">角色:</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.role ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-sm text-muted-foreground">对话 ID:</span>
+            <span class="text-muted-foreground text-sm">对话 ID:</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.conversationId ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-sm text-muted-foreground">创建时间:</span>
+            <span class="text-muted-foreground text-sm">创建时间:</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.createdAt ?? '-' }}</p>
           </div>
           <div>
-            <span class="text-sm text-muted-foreground">ToolCall ID:</span>
+            <span class="text-muted-foreground text-sm">ToolCall ID:</span>
             <p class="mt-1 text-sm font-medium">{{ memoryData.toolCallId ?? '-' }}</p>
           </div>
         </div>
         <div>
-          <span class="text-sm text-muted-foreground">消息内容:</span>
-          <div class="mt-1 max-h-[300px] overflow-auto rounded border bg-muted p-3 text-sm">
+          <span class="text-muted-foreground text-sm">消息内容:</span>
+          <div class="bg-muted mt-1 max-h-[300px] overflow-auto rounded border p-3 text-sm">
             {{ memoryData.content ?? '-' }}
           </div>
         </div>
       </div>
 
       <!-- 写入模式 -->
-      <YdForm
-        v-else
-        ref="formRef"
-        :model="form"
-        :rules="formRules"
-        label-width="100px"
-      >
+      <YdForm v-else ref="formRef" :model="form" :rules="formRules" label-width="100px">
         <YdFormItem label="对话 ID">
           <YdInput v-model="conversationId" placeholder="对话 ID" :disabled="true" />
         </YdFormItem>
@@ -196,10 +200,7 @@ defineExpose({ open });
           </YdSelect>
         </YdFormItem>
         <YdFormItem label="消息内容" prop="content">
-          <YdTextarea
-            v-model="form.content"
-            placeholder="请输入消息内容"
-          />
+          <YdTextarea v-model="form.content" placeholder="请输入消息内容" />
         </YdFormItem>
         <YdFormItem label="ToolCall ID">
           <YdInput v-model="form.toolCallId" placeholder="Tool 角色时请填写 ToolCall ID" />
@@ -208,7 +209,9 @@ defineExpose({ open });
 
       <YdDialogFooter>
         <YdButton variant="outline" @click="handleClose">取消</YdButton>
-        <YdButton v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit">保存</YdButton>
+        <YdButton v-if="mode === 'edit'" :disabled="isSubmitting" @click="handleSubmit"
+          >保存</YdButton
+        >
         <YdButton v-else variant="outline" @click="handleClose">关闭</YdButton>
       </YdDialogFooter>
     </YdDialogContent>

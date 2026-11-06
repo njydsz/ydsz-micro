@@ -42,9 +42,7 @@ function updateCSSVariables(preferences: Preferences) {
   }
 
   // 获取当前的内置主题
-  const currentBuiltType = [...BUILT_IN_THEME_PRESETS].find(
-    (item) => item.type === builtinType,
-  );
+  const currentBuiltType = [...BUILT_IN_THEME_PRESETS].find((item) => item.type === builtinType);
 
   let builtinTypeColorPrimary: string | undefined = '';
 
@@ -83,8 +81,7 @@ function updateMainColorVariables(preference: Preferences) {
   if (!preference.theme) {
     return;
   }
-  const { colorDestructive, colorPrimary, colorSuccess, colorWarning } =
-    preference.theme;
+  const { colorDestructive, colorPrimary, colorSuccess, colorWarning } = preference.theme;
 
   const colorVariables = generatorColorVariables([
     { color: colorPrimary, name: 'primary' },

@@ -23,18 +23,14 @@ export function save(data: Record<string, unknown>): Promise<GlueCodeVO> {
 /**
  * latest: GET /cronjob/glue/latest
  */
-export function latest(params: {
-    jobId?: string;
-  }): Promise<GlueCodeVO> {
+export function latest(params: { jobId?: string }): Promise<GlueCodeVO> {
   return requestClient.get<GlueCodeVO>(`/cronjob/glue/latest`, { params });
 }
 
 /**
  * versions: GET /cronjob/glue/versions
  */
-export function versions(params: {
-    jobId?: string;
-  }): Promise<GlueCodeVO[]> {
+export function versions(params: { jobId?: string }): Promise<GlueCodeVO[]> {
   return requestClient.get<GlueCodeVO[]>(`/cronjob/glue/versions`, { params });
 }
 
@@ -48,16 +44,16 @@ export function rollback(data: Record<string, unknown>): Promise<GlueCodeVO> {
 /**
  * test: POST /cronjob/glue/test
  */
-export function test(data: Record<string, unknown>): Promise<Record<string, Record<string, unknown>>> {
+export function test(
+  data: Record<string, unknown>,
+): Promise<Record<string, Record<string, unknown>>> {
   return requestClient.post<Record<string, Record<string, unknown>>>(`/cronjob/glue/test`, data);
 }
 
 /**
  * template: GET /cronjob/glue/template
  */
-export function template(params: {
-    language?: string;
-  }): Promise<Record<string, string>> {
+export function template(params: { language?: string }): Promise<Record<string, string>> {
   return requestClient.get<Record<string, string>>(`/cronjob/glue/template`, { params });
 }
 
@@ -65,16 +61,22 @@ export function template(params: {
  * diff: GET /cronjob/glue/diff
  */
 export function diff(params: {
-    jobId?: string;
-    versionA?: number;
-    versionB?: number;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/glue/diff`, { params });
+  jobId?: string;
+  versionA?: number;
+  versionB?: number;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/glue/diff`, {
+    params,
+  });
 }
 
 /**
  * validate: POST /cronjob/glue/validate
  */
-export function validateGlueCode(data: { sourceCode: string; language: string; paramsJson?: string }): Promise<{ valid: boolean; message: string; errors?: string }> {
+export function validateGlueCode(data: {
+  sourceCode: string;
+  language: string;
+  paramsJson?: string;
+}): Promise<{ valid: boolean; message: string; errors?: string }> {
   return requestClient.post(`/cronjob/glue/validate`, data);
 }

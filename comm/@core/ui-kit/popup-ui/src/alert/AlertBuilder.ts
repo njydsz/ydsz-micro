@@ -46,10 +46,7 @@ export function YdAlert(options: YdAlertProps): Promise<void>;
  * @param options - 可选的配置覆盖项
  * @returns 用户点击确认后 resolve；取消时 reject
  */
-export function YdAlert(
-  message: string,
-  options?: Partial<YdAlertProps>,
-): Promise<void>;
+export function YdAlert(message: string, options?: Partial<YdAlertProps>): Promise<void>;
 /**
  * 以「文案 + 标题」的形式弹出提示框，可附带少量配置覆盖。
  *
@@ -178,10 +175,7 @@ export function YdConfirm(options: YdAlertProps): Promise<void>;
  * @param options - 可选的配置覆盖项
  * @returns 确认时 resolve；取消时 reject
  */
-export function YdConfirm(
-  message: string,
-  options?: Partial<YdAlertProps>,
-): Promise<void>;
+export function YdConfirm(message: string, options?: Partial<YdAlertProps>): Promise<void>;
 /**
  * 以「文案 + 标题」的形式弹出确认框。
  *
@@ -226,9 +220,7 @@ export function YdConfirm(
     showCancel: true,
   };
   if (!arg1) {
-    return isString(arg0)
-      ? YdAlert(arg0, defaultProps)
-      : YdAlert({ ...defaultProps, ...arg0 });
+    return isString(arg0) ? YdAlert(arg0, defaultProps) : YdAlert({ ...defaultProps, ...arg0 });
   } else if (!arg2) {
     return isString(arg1)
       ? YdAlert(arg0 as string, arg1, defaultProps)
@@ -269,9 +261,7 @@ export function YdConfirm(
  * });
  * ```
  */
-export async function YdPrompt<T = unknown>(
-  options: YdPromptProps<T>,
-): Promise<T | undefined> {
+export async function YdPrompt<T = unknown>(options: YdPromptProps<T>): Promise<T | undefined> {
   const {
     component: _component,
     componentProps: _componentProps,
@@ -304,11 +294,7 @@ export async function YdPrompt<T = unknown>(
     };
 
     // 创建输入组件
-    inputComponentRef.value = h(
-      _component || YdInput,
-      currentProps,
-      componentSlots,
-    );
+    inputComponentRef.value = h(_component || YdInput, currentProps, componentSlots);
 
     // 返回包含静态内容和输入组件的数组
     return h(
@@ -335,18 +321,13 @@ export async function YdPrompt<T = unknown>(
       await nextTick();
       const componentRef: null | VNode = inputComponentRef.value;
       if (componentRef) {
-        if (
-          componentRef.component?.exposed &&
-          isFunction(componentRef.component.exposed.focus)
-        ) {
+        if (componentRef.component?.exposed && isFunction(componentRef.component.exposed.focus)) {
           componentRef.component.exposed.focus();
         } else {
           if (componentRef.el) {
             if (
               isFunction(componentRef.el.focus) &&
-              ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(
-                componentRef.el.tagName,
-              )
+              ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(componentRef.el.tagName)
             ) {
               componentRef.el.focus();
             } else if (isFunction(componentRef.el.querySelector)) {

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { DismissableLayer } from '../'
-import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../../Popper/index.ts'
-import { FocusScope } from '../../FocusScope/index.ts'
+import { ref } from 'vue';
+import { DismissableLayer } from '../';
+import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../../Popper/index.ts';
+import { FocusScope } from '../../FocusScope/index.ts';
 
 withDefaults(
   defineProps<{
-    openLabel?: string
-    closeLabel?: string
-    trapped?: boolean
-    disableOutsidePointerEvents?: boolean
-    color?: string
+    openLabel?: string;
+    closeLabel?: string;
+    trapped?: boolean;
+    disableOutsidePointerEvents?: boolean;
+    color?: string;
   }>(),
   {
     openLabel: 'Open',
@@ -19,10 +19,10 @@ withDefaults(
     disableOutsidePointerEvents: false,
     color: 'white',
   },
-)
+);
 
-const open = ref(false)
-const openButtonRef = ref()
+const open = ref(false);
+const openButtonRef = ref();
 </script>
 
 <template>
@@ -31,28 +31,22 @@ const openButtonRef = ref()
       <button
         ref="openButtonRef"
         type="button"
-        class="py-2 rounded bg-gray-500 focus:outline focus:outline-blue-500"
+        class="rounded bg-gray-500 py-2 focus:outline focus:outline-blue-500"
         @click="open = !open"
       >
         {{ openLabel }}
       </button>
     </PopperAnchor>
 
-    <Teleport
-      v-if="open"
-      to="body"
-    >
+    <Teleport v-if="open" to="body">
       <DismissableLayer
         as-child
         :disable-outside-pointer-events="disableOutsidePointerEvents"
         @dismiss="open = false"
       >
-        <FocusScope
-          as-child
-          :trapped="trapped"
-        >
+        <FocusScope as-child :trapped="trapped">
           <PopperContent
-            class="flex items-start gap-4 bg-white min-w-[200px] min-h-[150px] p-6 rounded-md"
+            class="flex min-h-[150px] min-w-[200px] items-start gap-4 rounded-md bg-white p-6"
             :style="{
               backgroundColor: color,
             }"
@@ -65,10 +59,7 @@ const openButtonRef = ref()
             <button @click="open = false">
               {{ closeLabel }}
             </button>
-            <input
-              type="text"
-              value="hello world"
-            >
+            <input type="text" value="hello world" />
             <PopperArrow
               :width="10"
               :height="4"

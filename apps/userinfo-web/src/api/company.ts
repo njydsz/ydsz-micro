@@ -30,9 +30,7 @@ export function tree(): Promise<CompanyTreeVO[]> {
 /**
  * getById: GET /company/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<CompanyVO> {
+export function getById({ id }: { id: string }): Promise<CompanyVO> {
   return requestClient.get<CompanyVO>(`/company/${id}`);
 }
 
@@ -53,8 +51,6 @@ export function update(data: CompanyDTO): Promise<boolean> {
 /**
  * remove: DELETE /company/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/company/${id}`);
 }

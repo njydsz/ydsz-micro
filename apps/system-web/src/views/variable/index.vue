@@ -80,8 +80,14 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
         default: ({ row }) => {
           const variable = row as VariableRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', onClick: () => handleEdit(variable) }, () => t('common.edit')),
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) }, () => t('common.delete')),
+            h(YdButton, { size: 'sm', onClick: () => handleEdit(variable) }, () =>
+              t('common.edit'),
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'destructive', onClick: () => handleDelete(variable) },
+              () => t('common.delete'),
+            ),
           ]);
         },
       },
@@ -106,7 +112,11 @@ const gridOptions: VxeTableGridOptions<VariableRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'variableKey', title: t('variable.key'), itemRender: { name: 'YdInput', props: { placeholder: t('variable.key') } } },
+      {
+        field: 'variableKey',
+        title: t('variable.key'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('variable.key') } },
+      },
     ],
   },
 };
@@ -146,7 +156,11 @@ function handleEdit(row: VariableRow) {
 async function handleDelete(row: VariableRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('variable.deleteConfirm', { key: row.variableKey ?? '' }), t('crud.deleteConfirmTitle'), { type: 'warning' });
+    await YdConfirm(
+      t('variable.deleteConfirm', { key: row.variableKey ?? '' }),
+      t('crud.deleteConfirmTitle'),
+      { type: 'warning' },
+    );
   } catch {
     return; // 用户主动取消删除操作
   }

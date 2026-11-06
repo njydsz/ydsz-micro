@@ -8,10 +8,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  DropdownMenuRadioItemEmits,
-  DropdownMenuRadioItemProps,
-} from '@ydsz-core/ydsz-vue';
+import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 

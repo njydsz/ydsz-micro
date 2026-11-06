@@ -130,7 +130,15 @@ function defaultCronState(): CronState {
     hour: { mode: 'every', specific: [], intervalFrom: 0, intervalStep: 1 },
     day: { dayMode: 'every', everyN: 1, specific: [], workdayDay: 1, nearestWorkdayDay: 15 },
     month: { mode: 'every', specific: [], intervalFrom: 1, intervalStep: 1 },
-    week: { mode: 'every', specific: [], ordinalDay: '1', ordinalWeek: '1', lastDay: '5', rangeFrom: 1, rangeTo: 5 },
+    week: {
+      mode: 'every',
+      specific: [],
+      ordinalDay: '1',
+      ordinalWeek: '1',
+      lastDay: '5',
+      rangeFrom: 1,
+      rangeTo: 5,
+    },
   };
 }
 
@@ -313,7 +321,10 @@ function parseSimplePart(str: string, part: SimplePartState): void {
     part.rangeTo = Number.parseInt(parts[1] ?? '59', 10) || 59;
   } else if (str.includes(',')) {
     part.mode = 'specific';
-    part.specific = str.split(',').map((s) => Number.parseInt(s, 10)).filter((n) => !Number.isNaN(n));
+    part.specific = str
+      .split(',')
+      .map((s) => Number.parseInt(s, 10))
+      .filter((n) => !Number.isNaN(n));
   } else {
     part.mode = 'specific';
     const n = Number.parseInt(str, 10);
@@ -342,7 +353,10 @@ function parseDayPart(str: string): void {
     d.everyN = Number.parseInt(str.slice(2), 10) || 1;
   } else if (str.includes(',')) {
     d.dayMode = 'byWeekday';
-    d.specific = str.split(',').map((s) => Number.parseInt(s, 10)).filter((n) => !Number.isNaN(n));
+    d.specific = str
+      .split(',')
+      .map((s) => Number.parseInt(s, 10))
+      .filter((n) => !Number.isNaN(n));
   } else {
     d.dayMode = 'every';
     const n = Number.parseInt(str, 10);
@@ -369,7 +383,10 @@ function parseWeekPart(str: string): void {
     w.rangeTo = Number.parseInt(parts[1] ?? '5', 10) || 5;
   } else if (str.includes(',')) {
     w.mode = 'specific';
-    w.specific = str.split(',').map((s) => Number.parseInt(s, 10)).filter((n) => !Number.isNaN(n));
+    w.specific = str
+      .split(',')
+      .map((s) => Number.parseInt(s, 10))
+      .filter((n) => !Number.isNaN(n));
   } else {
     w.mode = 'specific';
     const n = Number.parseInt(str, 10);
@@ -389,12 +406,18 @@ const cronExpression = computed({
 /** 中文/国际化解释 */
 const cronDescription = computed(() => {
   try {
-    const loc = locale.value === 'zh-CN' ? 'zh_CN' as const
-      : locale.value === 'ja-JP' ? 'ja' as const
-        : locale.value === 'ko-KR' ? 'ko' as const
-          : locale.value === 'fr-FR' ? 'fr' as const
-            : locale.value === 'es-ES' ? 'es' as const
-              : 'en';
+    const loc =
+      locale.value === 'zh-CN'
+        ? ('zh_CN' as const)
+        : locale.value === 'ja-JP'
+          ? ('ja' as const)
+          : locale.value === 'ko-KR'
+            ? ('ko' as const)
+            : locale.value === 'fr-FR'
+              ? ('fr' as const)
+              : locale.value === 'es-ES'
+                ? ('es' as const)
+                : 'en';
     return cronstrue.toString(cronExpression.value, {
       locale: loc,
       use24HourTimeFormat: true,
@@ -601,7 +624,7 @@ defineOptions({ name: 'CronBuilder' });
         :disabled="props.disabled"
         class="font-mono"
       />
-      <div v-if="cronDescription" class="text-xs text-muted-foreground">
+      <div v-if="cronDescription" class="text-muted-foreground text-xs">
         {{ cronDescription }}
       </div>
     </div>
@@ -610,7 +633,7 @@ defineOptions({ name: 'CronBuilder' });
     <div v-else class="space-y-3">
       <!-- 预设按钮 -->
       <div v-if="props.showPresets" class="space-y-1">
-        <div class="text-xs font-medium text-muted-foreground">{{ t('cronBuilder.preset') }}</div>
+        <div class="text-muted-foreground text-xs font-medium">{{ t('cronBuilder.preset') }}</div>
         <div class="flex flex-wrap gap-1">
           <YdButton
             v-for="preset in PRESETS"
@@ -675,7 +698,9 @@ defineOptions({ name: 'CronBuilder' });
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="interval" id="min-interval" />
-              <YdLabel for="min-interval" class="text-xs">{{ t('cronBuilder.minuteInterval') }}</YdLabel>
+              <YdLabel for="min-interval" class="text-xs">{{
+                t('cronBuilder.minuteInterval')
+              }}</YdLabel>
               <YdLabel class="text-xs">{{ t('cronBuilder.every') }}</YdLabel>
               <YdInputNumber
                 v-model="state.minute.intervalStep"
@@ -720,7 +745,9 @@ defineOptions({ name: 'CronBuilder' });
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="interval" id="hour-interval" />
-              <YdLabel for="hour-interval" class="text-xs">{{ t('cronBuilder.hourInterval') }}</YdLabel>
+              <YdLabel for="hour-interval" class="text-xs">{{
+                t('cronBuilder.hourInterval')
+              }}</YdLabel>
               <YdLabel class="text-xs">{{ t('cronBuilder.every') }}</YdLabel>
               <YdInputNumber
                 v-model="state.hour.intervalStep"
@@ -840,7 +867,9 @@ defineOptions({ name: 'CronBuilder' });
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem value="interval" id="month-interval" />
-              <YdLabel for="month-interval" class="text-xs">{{ t('cronBuilder.monthInterval') }}</YdLabel>
+              <YdLabel for="month-interval" class="text-xs">{{
+                t('cronBuilder.monthInterval')
+              }}</YdLabel>
               <YdLabel class="text-xs">{{ t('cronBuilder.every') }}</YdLabel>
               <YdInputNumber
                 v-model="state.month.intervalStep"
@@ -917,11 +946,7 @@ defineOptions({ name: 'CronBuilder' });
               >
                 <YdSelectTrigger class="w-16" />
                 <YdSelectContent>
-                  <YdSelectItem
-                    v-for="opt in ORDINAL_OPTIONS"
-                    :key="opt.value"
-                    :value="opt.value"
-                  >
+                  <YdSelectItem v-for="opt in ORDINAL_OPTIONS" :key="opt.value" :value="opt.value">
                     {{ opt.label }}
                   </YdSelectItem>
                 </YdSelectContent>

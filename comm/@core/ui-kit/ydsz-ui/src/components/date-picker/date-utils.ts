@@ -85,7 +85,8 @@ export function getISOWeek(d: Date): string {
   const firstThursday = new Date(Date.UTC(target.getUTCFullYear(), 0, 4));
   const firstDayNr = (firstThursday.getUTCDay() + 6) % 7;
   firstThursday.setUTCDate(firstThursday.getUTCDate() - firstDayNr + 3);
-  const weekNo = 1 + Math.round((target.getTime() - firstThursday.getTime()) / (7 * 24 * 3600 * 1000));
+  const weekNo =
+    1 + Math.round((target.getTime() - firstThursday.getTime()) / (7 * 24 * 3600 * 1000));
   return `${target.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`;
 }
 

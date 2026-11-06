@@ -101,13 +101,7 @@ export function useTreeSearch<T>(
   nodes: Ref<T[]> | (() => T[]),
   options: TreeSearchOptions<T>,
 ): TreeSearchHandle<T> {
-  const {
-    getChildren,
-    getLabel,
-    getValue,
-    caseSensitive = false,
-    maxResults = 1000,
-  } = options;
+  const { getChildren, getLabel, getValue, caseSensitive = false, maxResults = 1000 } = options;
 
   const keyword = ref('');
 
@@ -128,11 +122,7 @@ export function useTreeSearch<T>(
    * @param level - 当前层级（0-based）
    * @param parents - 祖先 value 数组
    * @return 扁平化后的节点数组   */
-  function flatten(
-    items: T[],
-    level: number,
-    parents: Array<string | number>,
-  ): FlatNode[] {
+  function flatten(items: T[], level: number, parents: Array<string | number>): FlatNode[] {
     const result: FlatNode[] = [];
     for (const item of items) {
       const value = getValue(item);
@@ -150,9 +140,7 @@ export function useTreeSearch<T>(
       });
 
       if (hasChildren) {
-        result.push(
-          ...flatten(children!, level + 1, [...parents, value]),
-        );
+        result.push(...flatten(children!, level + 1, [...parents, value]));
       }
     }
     return result;

@@ -8,7 +8,7 @@
  * @since 3.0.0
  */
 
-import type { MicroAppConfig } from "./types-app-config";
+import type { MicroAppConfig } from './types-app-config';
 import type {
   LifecycleHook,
   LifecycleHookName,
@@ -16,7 +16,7 @@ import type {
   MicroAppEntry,
   PermissionChecker,
   UnmountResult,
-} from "./types-lifecycle";
+} from './types-lifecycle';
 
 /** 全局状态句柄 — 从 global-state 统一导出，避免使用方直接依赖 internal 模块 */
 export type {
@@ -24,7 +24,7 @@ export type {
   GlobalStateListener,
   RawGlobalStateAPI,
   VersionedState,
-} from "./global-state";
+} from './global-state';
 
 /** 内核启动选项 */
 export interface StartOptions {
@@ -43,7 +43,7 @@ export interface StartOptions {
    * 默认 'static'：从 @ydsz/constants 静态 MICRO_APPS 数组读取。
    * 'remote' / 'auto'：优先拉取远程 registry.json，失败回退到静态。
    */
-  registry?: "auto" | "remote" | "static";
+  registry?: 'auto' | 'remote' | 'static';
   /**
    * 预加载策略模式（v3.7.0 新增）。
    *
@@ -55,7 +55,7 @@ export interface StartOptions {
    *
    * @since 3.7.0
    */
-  prefetchStrategy?: "eager" | "lazy" | "never";
+  prefetchStrategy?: 'eager' | 'lazy' | 'never';
   /**
    * 自定义注册表获取函数（覆盖默认 resolveRegistry）。
    *
@@ -130,7 +130,7 @@ export interface MicroRuntime {
    * @returns 注册完成后的应用配置数组
    */
   registerAppsAsync(registry: {
-    adapter: "auto" | "remote" | "static";
+    adapter: 'auto' | 'remote' | 'static';
     fetcher?: () => Promise<MicroAppEntry[]>;
   }): Promise<MicroAppConfig[]>;
 
@@ -200,9 +200,7 @@ export interface MicroRuntime {
    * @returns 各应用更新结果 Map<appName, success>
    * @since 4.2.1
    */
-  updateAllApps(
-    newProps: Record<string, unknown>,
-  ): Promise<Record<string, boolean>>;
+  updateAllApps(newProps: Record<string, unknown>): Promise<Record<string, boolean>>;
 
   /**
    * 获取全部已注册的子应用实例（DevTools / 巡检用）。
@@ -310,9 +308,5 @@ export interface MicroRuntime {
    * @param cfg - KeepAlive 配置（max / ttl / enabled）
    * @since 4.2.1
    */
-  configureKeepAlive?(cfg: {
-    enabled?: boolean;
-    max?: number;
-    ttl?: number;
-  }): void;
+  configureKeepAlive?(cfg: { enabled?: boolean; max?: number; ttl?: number }): void;
 }

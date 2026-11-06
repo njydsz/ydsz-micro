@@ -47,7 +47,9 @@ onMounted(() => {
     searchVisible.value = !searchVisible.value;
   });
 });
-onUnmounted(() => { stopSearchShortcut?.(); });
+onUnmounted(() => {
+  stopSearchShortcut?.();
+});
 
 // --- 全局 LoadingProvider（带防闪烁 debounce） ---
 const loadingStore = useLoadingStore();
@@ -122,9 +124,5 @@ onUnmounted(() => {
     />
   </ErrorBoundary>
   <!-- 全局 loading overlay：请求进行中时展示，防闪烁 debounce 控制 -->
-  <YdLoading
-    v-if="showLoading"
-    class="fixed inset-0 z-[9999]"
-    :spinning="true"
-  />
+  <YdLoading v-if="showLoading" class="fixed inset-0 z-[9999]" :spinning="true" />
 </template>

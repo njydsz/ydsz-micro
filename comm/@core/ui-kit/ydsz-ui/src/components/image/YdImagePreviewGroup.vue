@@ -204,7 +204,12 @@ watch(isOpen, (val) => {
         @click="close"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path
+            d="M12 4L4 12M4 4L12 12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
         </svg>
       </button>
 
@@ -217,7 +222,13 @@ watch(isOpen, (val) => {
         @click="prev"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M10 3L5 8L10 13"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
 
@@ -227,7 +238,9 @@ watch(isOpen, (val) => {
         :alt="t('image.previewAlt', { index: currentIndex + 1 })"
         class="max-h-[85vh] max-w-[90vw] select-none object-contain transition-transform duration-200"
         :style="{
-          transform: isZoomed ? `scale(2) translate(${dragOffset.x / 2}px, ${dragOffset.y / 2}px)` : 'scale(1)',
+          transform: isZoomed
+            ? `scale(2) translate(${dragOffset.x / 2}px, ${dragOffset.y / 2}px)`
+            : 'scale(1)',
           cursor: isZoomed ? 'grab' : 'zoom-in',
         }"
         @click="toggleZoom"
@@ -243,7 +256,13 @@ watch(isOpen, (val) => {
         @click="next"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M6 3L11 8L6 13"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
 
@@ -262,15 +281,14 @@ watch(isOpen, (val) => {
           :aria-selected="idx === currentIndex"
           :aria-label="t('image.itemAriaLabel', { index: idx + 1 })"
           class="h-12 w-16 overflow-hidden rounded border-2 transition-all"
-          :class="idx === currentIndex ? 'border-white opacity-100' : 'border-transparent opacity-50 hover:opacity-80'"
+          :class="
+            idx === currentIndex
+              ? 'border-white opacity-100'
+              : 'border-transparent opacity-50 hover:opacity-80'
+          "
           @click="open(idx)"
         >
-          <img
-            :src="img"
-            alt=""
-            class="h-full w-full object-cover"
-            draggable="false"
-          />
+          <img :src="img" alt="" class="h-full w-full object-cover" draggable="false" />
         </button>
       </div>
     </div>

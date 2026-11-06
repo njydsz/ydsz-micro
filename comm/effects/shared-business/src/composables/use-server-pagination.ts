@@ -111,7 +111,12 @@ export function useServerPagination<T = unknown, Q = Record<string, unknown>>(
   params: QueryParams<Q> = {} as Q,
   options: ServerPaginationOptions = {},
 ) {
-  const { pageNum: initPageNum = 1, pageSize: initPageSize = 10, immediate = true, enableAbort = true } = options;
+  const {
+    pageNum: initPageNum = 1,
+    pageSize: initPageSize = 10,
+    immediate = true,
+    enableAbort = true,
+  } = options;
 
   const pageNum = ref(initPageNum);
   const pageSize = ref(initPageSize);

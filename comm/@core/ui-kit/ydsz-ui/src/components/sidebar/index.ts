@@ -6,8 +6,4 @@
  * @since 1.0.0
  */
 export { default as YdSidebar } from './YdSidebar.vue';
-export type {
-  SidebarItem,
-  YdSidebarEmits,
-  YdSidebarProps,
-} from './types';
+export type { SidebarItem, YdSidebarEmits, YdSidebarProps } from './types';

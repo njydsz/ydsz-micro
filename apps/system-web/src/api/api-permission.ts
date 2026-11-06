@@ -40,19 +40,17 @@ export interface ApiPermissionPageQuery {
  * 分页查询接口权限: GET /api/permission/api/page
  */
 export function page(params: {
-    query?: ApiPermissionPageQuery;
-    pageNum?: number;
-    pageSize?: number;
-  }): Promise<PageResponse<ApiPermissionVO[]>> {
+  query?: ApiPermissionPageQuery;
+  pageNum?: number;
+  pageSize?: number;
+}): Promise<PageResponse<ApiPermissionVO[]>> {
   return requestClient.get<PageResponse<ApiPermissionVO[]>>(`/permission/api/page`, { params });
 }
 
 /**
  * 查询详情: GET /api/permission/api/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<ApiPermissionVO> {
+export function getById({ id }: { id: string }): Promise<ApiPermissionVO> {
   return requestClient.get<ApiPermissionVO>(`/permission/api/${id}`);
 }
 
@@ -66,26 +64,20 @@ export function scan(): Promise<number> {
 /**
  * 启用: POST /api/permission/api/{id}/enable
  */
-export function enable({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function enable({ id }: { id: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/permission/api/${id}/enable`);
 }
 
 /**
  * 禁用: POST /api/permission/api/{id}/disable
  */
-export function disable({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function disable({ id }: { id: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/permission/api/${id}/disable`);
 }
 
 /**
  * 删除: DELETE /api/permission/api/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/permission/api/${id}`);
 }

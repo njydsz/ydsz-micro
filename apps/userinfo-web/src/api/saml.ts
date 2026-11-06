@@ -28,9 +28,7 @@ export function metadata(): Promise<unknown> {
 /**
  * initiateSso: GET /saml/sso
  */
-export function initiateSso(params: {
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+export function initiateSso(params: { response?: Record<string, unknown> }): Promise<void> {
   return requestClient.get<void>(`/saml/sso`, { params });
 }
 
@@ -38,32 +36,42 @@ export function initiateSso(params: {
  * assertionConsumerService: POST /saml/acs
  */
 export function assertionConsumerService(params: {
-    samlResponse?: string;
-    relayState?: string;
-  }): Promise<Record<string, string>> {
+  samlResponse?: string;
+  relayState?: string;
+}): Promise<Record<string, string>> {
   return requestClient.post<Record<string, string>>(`/saml/acs`, { params });
 }
 
 /**
  * initiateSsoByEntityId: GET /saml/sso/{idpEntityId}
  */
-export function initiateSsoByEntityId({ idpEntityId }: {
+export function initiateSsoByEntityId(
+  {
+    idpEntityId,
+  }: {
     idpEntityId: string;
-  }, params: {
+  },
+  params: {
     response?: Record<string, unknown>;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.get<void>(`/saml/sso/${idpEntityId}`, { params });
 }
 
 /**
  * assertionConsumerServiceByEntityId: POST /saml/acs/{idpEntityId}
  */
-export function assertionConsumerServiceByEntityId({ idpEntityId }: {
+export function assertionConsumerServiceByEntityId(
+  {
+    idpEntityId,
+  }: {
     idpEntityId: string;
-  }, params: {
+  },
+  params: {
     samlResponse?: string;
     relayState?: string;
-  }): Promise<Record<string, string>> {
+  },
+): Promise<Record<string, string>> {
   return requestClient.post<Record<string, string>>(`/saml/acs/${idpEntityId}`, { params });
 }
 

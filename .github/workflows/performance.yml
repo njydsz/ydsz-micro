@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 需要完整历史对比 main 基线
+          fetch-depth: 0 # 需要完整历史对比 main 基线
 
       - uses: pnpm/action-setup@v4
 
@@ -46,7 +46,7 @@ jobs:
       - name: 构建 main-web（production）
         env:
           NODE_OPTIONS: --max-old-space-size=4096
-          VITE_DISABLE_PERF_TRACK: 'false'  # 确保采集代码不被 tree-shake
+          VITE_DISABLE_PERF_TRACK: "false" # 确保采集代码不被 tree-shake
         run: pnpm build:main
 
       # 检出 main 分支基线（PR 时与 main 对比）
@@ -67,7 +67,7 @@ jobs:
       # 会被那份配置过滤成 0 条用例，或（侥幸命中时）测的是 fixture 而不是 main/dist 产物。
       - name: 运行 Web Vitals 基线测试
         id: vitals-test
-        continue-on-error: true  # 允许收集报告后再失败
+        continue-on-error: true # 允许收集报告后再失败
         run: |
           pnpm test:perf
 

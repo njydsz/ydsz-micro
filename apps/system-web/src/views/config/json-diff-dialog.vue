@@ -13,7 +13,15 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+} from '@ydsz-core/ydsz-ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -164,58 +172,64 @@ function handleClose() {
       <YdDialogHeader>
         <YdDialogTitle>{{ t('configVersion.diffTitle', { versionA, versionB }) }}</YdDialogTitle>
       </YdDialogHeader>
-    <!-- 差异统计 -->
-    <div class="mb-3 flex gap-5 text-sm">
-      <span class="text-red-500">
-        {{ t('configVersion.diffRemoved') }}: {{ diffStats.removed }}
-      </span>
-      <span class="text-green-500">
-        {{ t('configVersion.diffAdded') }}: {{ diffStats.added }}
-      </span>
-    </div>
+      <!-- 差异统计 -->
+      <div class="mb-3 flex gap-5 text-sm">
+        <span class="text-red-500">
+          {{ t('configVersion.diffRemoved') }}: {{ diffStats.removed }}
+        </span>
+        <span class="text-green-500">
+          {{ t('configVersion.diffAdded') }}: {{ diffStats.added }}
+        </span>
+      </div>
 
-    <!-- 左右分栏对比 -->
-    <div class="diff-container">
-      <!-- 左侧面板 -->
-      <div class="diff-panel left">
-        <div class="diff-panel-header">
-          <YdButton variant="ghost" size="sm">
-            {{ t('configVersion.leftVersion', [versionA]) }}
-          </YdButton>
+      <!-- 左右分栏对比 -->
+      <div class="diff-container">
+        <!-- 左侧面板 -->
+        <div class="diff-panel left">
+          <div class="diff-panel-header">
+            <YdButton variant="ghost" size="sm">
+              {{ t('configVersion.leftVersion', [versionA]) }}
+            </YdButton>
+          </div>
+          <div class="diff-panel-body">
+            <div
+              v-for="(line, idx) in diffLines"
+              :key="'left-' + idx"
+              class="diff-line"
+              :class="{
+                'diff-line-removed': line.left?.status === 'removed',
+                'diff-line-empty': !line.left,
+              }"
+            >
+              <span v-if="line.left" class="diff-line-content">{{ line.left.text }}</span>
+              <span v-else class="diff-line-placeholder"> </span>
+            </div>
+          </div>
         </div>
-        <div class="diff-panel-body">
-          <div
-            v-for="(line, idx) in diffLines"
-            :key="'left-' + idx"
-            class="diff-line"
-            :class="{ 'diff-line-removed': line.left?.status === 'removed', 'diff-line-empty': !line.left, }"
-          >
-            <span v-if="line.left" class="diff-line-content">{{ line.left.text }}</span>
-            <span v-else class="diff-line-placeholder"> </span>
+
+        <!-- 右侧面板 -->
+        <div class="diff-panel right">
+          <div class="diff-panel-header">
+            <YdButton variant="ghost" size="sm">
+              {{ t('configVersion.rightVersion', [versionB]) }}
+            </YdButton>
+          </div>
+          <div class="diff-panel-body">
+            <div
+              v-for="(line, idx) in diffLines"
+              :key="'right-' + idx"
+              class="diff-line"
+              :class="{
+                'diff-line-added': line.right?.status === 'added',
+                'diff-line-empty': !line.right,
+              }"
+            >
+              <span v-if="line.right" class="diff-line-content">{{ line.right.text }}</span>
+              <span v-else class="diff-line-placeholder"> </span>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- 右侧面板 -->
-      <div class="diff-panel right">
-        <div class="diff-panel-header">
-          <YdButton variant="ghost" size="sm">
-            {{ t('configVersion.rightVersion', [versionB]) }}
-          </YdButton>
-        </div>
-        <div class="diff-panel-body">
-          <div
-            v-for="(line, idx) in diffLines"
-            :key="'right-' + idx"
-            class="diff-line"
-            :class="{ 'diff-line-added': line.right?.status === 'added', 'diff-line-empty': !line.right, }"
-          >
-            <span v-if="line.right" class="diff-line-content">{{ line.right.text }}</span>
-            <span v-else class="diff-line-placeholder"> </span>
-          </div>
-        </div>
-      </div>
-    </div>
 
       <YdDialogFooter>
         <YdButton @click="handleClose">{{ t('common.close') }}</YdButton>

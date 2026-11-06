@@ -140,7 +140,4 @@ function pushNotification(options: NotificationOptions & { variant?: string }): 
 }
 
 /** 兼容 showToast 存在的类型导出 */
-export type {
-  NotificationAction,
-  NotificationOptions,
-};
+export type { NotificationAction, NotificationOptions };

@@ -74,10 +74,7 @@ function readFromStorage(tableId: string): null | ColumnPreferenceState {
  */
 function writeToStorage(tableId: string, state: ColumnPreferenceState): void {
   try {
-    localStorage.setItem(
-      `${STORAGE_KEY_PREFIX}${tableId}`,
-      JSON.stringify(state),
-    );
+    localStorage.setItem(`${STORAGE_KEY_PREFIX}${tableId}`, JSON.stringify(state));
   } catch (error) {
     logger.warn('保存表格列配置失败', { tableId, error });
   }
@@ -91,9 +88,7 @@ function writeToStorage(tableId: string, state: ColumnPreferenceState): void {
  */
 function deriveDefaults(columns: ColumnMeta[]): ColumnPreferenceState {
   return {
-    visibleColumns: columns
-      .filter((col) => col.visible !== false)
-      .map((col) => col.field),
+    visibleColumns: columns.filter((col) => col.visible !== false).map((col) => col.field),
     columnOrder: columns.map((col) => col.field),
     columnWidth: columns.reduce<Record<string, number>>((acc, col) => {
       if (col.width) {
@@ -131,9 +126,7 @@ function deriveDefaults(columns: ColumnMeta[]): ColumnPreferenceState {
  * });
  * ```
  */
-export function useTableColumnPreference(
-  options: UseTableColumnPreferenceOptions,
-): {
+export function useTableColumnPreference(options: UseTableColumnPreferenceOptions): {
   /** 当前可见列字段集合（响应式） */
   visibleColumns: Ref<string[]>;
   /** 当前列顺序（响应式） */
@@ -181,9 +174,7 @@ export function useTableColumnPreference(
     // 过滤掉已失效的字段，补充缺失的字段
     const mergedVisible = [
       ...saved.visibleColumns.filter((f) => validFields.has(f)),
-      ...defaults.visibleColumns.filter(
-        (f) => !saved.visibleColumns.includes(f),
-      ),
+      ...defaults.visibleColumns.filter((f) => !saved.visibleColumns.includes(f)),
     ];
 
     const mergedOrder = [

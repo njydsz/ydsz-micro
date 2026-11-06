@@ -126,7 +126,11 @@ function cleanJavadoc(raw) {
  * @returns {CodeEntry[]} 解析出的条目
  */
 function parseEnumFile(filePath, content, module, annotated) {
-  const relPath = filePath.split(/ydsz-cloud[\\/]/).pop()?.replace(/\\/g, '/') ?? filePath;
+  const relPath =
+    filePath
+      .split(/ydsz-cloud[\\/]/)
+      .pop()
+      ?.replace(/\\/g, '/') ?? filePath;
   const entries = [];
 
   // 匹配形如 NAME("B30001", "userinfo.user.not.found", 404) / NAME("A00000", "ok") 的常量定义
@@ -197,7 +201,9 @@ function scanBackendCodes() {
       continue;
     }
     const isYdszResultCode = file.endsWith('YdszResultCode.java');
-    const annotationUse = content.match(/@YdszExceptionCode\s*\(\s*module\s*=\s*"([^"]+)"\s*(?:,\s*description\s*=\s*"([^"]+)")?\s*\)/);
+    const annotationUse = content.match(
+      /@YdszExceptionCode\s*\(\s*module\s*=\s*"([^"]+)"\s*(?:,\s*description\s*=\s*"([^"]+)")?\s*\)/,
+    );
 
     if (annotationUse) {
       const [, module, description] = annotationUse;
@@ -267,7 +273,9 @@ function renderTypeScript(entries, modules) {
   lines.push('/**');
   lines.push(' * 错误码常量（auto-generated 自动生成，禁止手改）');
   lines.push(' *');
-  lines.push(` * <p>由 bash/gen-error-codes.mjs 于 ${generatedAt} 从后端 ydsz-cloud 静态提取生成，`);
+  lines.push(
+    ` * <p>由 bash/gen-error-codes.mjs 于 ${generatedAt} 从后端 ydsz-cloud 静态提取生成，`,
+  );
   lines.push(' * 共 ' + entries.length + ' 个错误码，来源模块：' + moduleList + '。');
   lines.push(' * 后端新增/修改错误码后运行 pnpm gen:error-codes 重新生成；');
   lines.push(' * CI 通过 gen:error-codes:check 门禁拦截手改与漂移。');
@@ -371,7 +379,9 @@ function main() {
       console.error('  请运行 pnpm gen:error-codes 重新生成并随本次变更一并提交。');
       process.exit(1);
     }
-    console.log(`[gen-error-codes] --check 通过：${resolved.length} 个错误码（${files} 个源文件）无漂移`);
+    console.log(
+      `[gen-error-codes] --check 通过：${resolved.length} 个错误码（${files} 个源文件）无漂移`,
+    );
     return;
   }
 

@@ -1,1 +1,1 @@
-export { default as Presence, type PresenceProps } from './Presence'
+export { default as Presence, type PresenceProps } from './Presence';

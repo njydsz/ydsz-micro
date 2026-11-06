@@ -112,16 +112,9 @@ export function isTabShown(tab: TabDefinition): boolean {
  * @returns 解码后的唯一键字符串
  */
 export function getTabKey(tab: RouteLocationNormalized | RouteRecordNormalized): string {
-  const {
-    fullPath,
-    path,
-    meta: { fullPathKey } = {},
-    query = {},
-  } = tab as RouteLocationNormalized;
+  const { fullPath, path, meta: { fullPathKey } = {}, query = {} } = tab as RouteLocationNormalized;
   // pageKey可能是数组（查询参数重复时可能出现）
-  const pageKey = Array.isArray(query.pageKey)
-    ? query.pageKey[0]
-    : query.pageKey;
+  const pageKey = Array.isArray(query.pageKey) ? query.pageKey[0] : query.pageKey;
   let rawKey;
   if (pageKey) {
     rawKey = pageKey;
@@ -195,4 +188,3 @@ export interface TabbarStoreContext {
   /** 缓存标签页副本 */
   getCachedTabs: ComputedRef<string[]>;
 }
-

@@ -25,10 +25,7 @@ import { openSecondaryAuthModal } from '#/composables/useSecondaryAuth';
 const logger = createLogger('system-interceptors');
 
 /** 二次认证业务错误码 —— 需用户输入当前登录密码完成二次身份验证 */
-const SECONDARY_AUTH_CODES = new Set([
-  'A20123',
-  'SECONDARY_AUTH_REQUIRED',
-]);
+const SECONDARY_AUTH_CODES = new Set(['A20123', 'SECONDARY_AUTH_REQUIRED']);
 
 /** X-Secondary-Auth 请求头键名常量 */
 const HEADER_SECONDARY_AUTH = 'X-Secondary-Auth';
@@ -48,9 +45,7 @@ function isSecondaryAuthError(error: unknown): {
   if (!code || !SECONDARY_AUTH_CODES.has(code)) return null;
 
   // 后端将 authHint / scene 放在 data.data 中
-  const data = error.data as
-    | { data?: { authHint?: string; scene?: string } }
-    | undefined;
+  const data = error.data as { data?: { authHint?: string; scene?: string } } | undefined;
 
   return {
     authHint: data?.data?.authHint,
@@ -84,8 +79,7 @@ export function createSecondaryAuthResponseInterceptor(): ResponseInterceptorCon
 
       const axiosError = error as AxiosError;
       const originalConfig = axiosError.config as
-        | (RequestClientConfig & { __secondaryAuthRetry?: boolean })
-        | undefined;
+        (RequestClientConfig & { __secondaryAuthRetry?: boolean }) | undefined;
 
       // 防止二次认证本身还再次触发 4xx/二次认证 无限循环
       if (!originalConfig || originalConfig.__secondaryAuthRetry) {

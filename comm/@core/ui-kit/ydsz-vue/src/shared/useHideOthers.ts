@@ -1,6 +1,6 @@
-import { type MaybeElementRef, unrefElement } from '@vueuse/core'
-import { hideOthers } from 'aria-hidden'
-import { onUnmounted, watch } from 'vue'
+import { type MaybeElementRef, unrefElement } from '@vueuse/core';
+import { hideOthers } from 'aria-hidden';
+import { onUnmounted, watch } from 'vue';
 
 /**
  * The `useHideOthers` function is a TypeScript function that takes a target element reference and
@@ -10,19 +10,18 @@ import { onUnmounted, watch } from 'vue'
  * to hide other elements when it is clicked or focused.
  */
 export function useHideOthers(target: MaybeElementRef) {
-  let undo: ReturnType<typeof hideOthers>
-  watch(() => unrefElement(target), (el) => {
-    // disable hideOthers on test mode
-    if (import.meta.env.MODE === 'test')
-      return
-    if (el)
-      undo = hideOthers(el)
-    else if (undo)
-      undo()
-  })
+  let undo: ReturnType<typeof hideOthers>;
+  watch(
+    () => unrefElement(target),
+    (el) => {
+      // disable hideOthers on test mode
+      if (import.meta.env.MODE === 'test') return;
+      if (el) undo = hideOthers(el);
+      else if (undo) undo();
+    },
+  );
 
   onUnmounted(() => {
-    if (undo)
-      undo()
-  })
+    if (undo) undo();
+  });
 }

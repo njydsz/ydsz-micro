@@ -40,9 +40,11 @@ const deprecationWarned = new Set<string>();
  * @param options.onDeprecated 退役接口命中回调（可选，用于上报监控）
  * @returns 响应拦截器配置
  */
-export const deprecationNoticeInterceptor = (options: {
-  onDeprecated?: (info: { sunset: string; url: string; version: string }) => void;
-} = {}): ResponseInterceptorConfig => {
+export const deprecationNoticeInterceptor = (
+  options: {
+    onDeprecated?: (info: { sunset: string; url: string; version: string }) => void;
+  } = {},
+): ResponseInterceptorConfig => {
   return {
     fulfilled: (response) => {
       // axios 将响应头键统一小写
@@ -59,7 +61,9 @@ export const deprecationNoticeInterceptor = (options: {
       if (!deprecationWarned.has(dedupeKey)) {
         deprecationWarned.add(dedupeKey);
         const sunsetTip = sunset ? `，计划下线时间: ${sunset}` : '';
-        logger.warn(`接口 ${url} 已标记退役（Deprecation: ${version || 'true'}${sunsetTip}），请尽快迁移`);
+        logger.warn(
+          `接口 ${url} 已标记退役（Deprecation: ${version || 'true'}${sunsetTip}），请尽快迁移`,
+        );
         options.onDeprecated?.({ sunset, url, version });
       }
       return response;

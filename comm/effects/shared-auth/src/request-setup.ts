@@ -26,11 +26,9 @@ export function initSharedRequest(
   onRefreshToken: () => Promise<null | string>,
 ) {
   if (!_requestClient) {
-    _requestClient = createSharedRequestClient(
-      onReAuthenticate,
-      onRefreshToken,
-      { responseReturn: 'data' },
-    );
+    _requestClient = createSharedRequestClient(onReAuthenticate, onRefreshToken, {
+      responseReturn: 'data',
+    });
   }
   if (!_baseRequestClient) {
     _baseRequestClient = createSharedBaseClient();
@@ -38,31 +36,25 @@ export function initSharedRequest(
 }
 
 /** 共享认证请求客户端代理，调用前必须先执行 initSharedRequest 注入实现 */
-export const requestClient: RequestClient = new Proxy(
-  {} as RequestClient,
-  {
-    get(_target, prop) {
-      if (!_requestClient) {
-        throw new Error(
-          '[shared-auth] requestClient not initialized. Call initSharedRequest() first.',
-        );
-      }
-      return Reflect.get(_requestClient, prop);
-    },
+export const requestClient: RequestClient = new Proxy({} as RequestClient, {
+  get(_target, prop) {
+    if (!_requestClient) {
+      throw new Error(
+        '[shared-auth] requestClient not initialized. Call initSharedRequest() first.',
+      );
+    }
+    return Reflect.get(_requestClient, prop);
   },
-);
+});
 
 /** 共享基础请求客户端代理（不带认证拦截），调用前必须先执行 initSharedRequest 注入实现 */
-export const baseRequestClient: RequestClient = new Proxy(
-  {} as RequestClient,
-  {
-    get(_target, prop) {
-      if (!_baseRequestClient) {
-        throw new Error(
-          '[shared-auth] baseRequestClient not initialized. Call initSharedRequest() first.',
-        );
-      }
-      return Reflect.get(_baseRequestClient, prop);
-    },
+export const baseRequestClient: RequestClient = new Proxy({} as RequestClient, {
+  get(_target, prop) {
+    if (!_baseRequestClient) {
+      throw new Error(
+        '[shared-auth] baseRequestClient not initialized. Call initSharedRequest() first.',
+      );
+    }
+    return Reflect.get(_baseRequestClient, prop);
   },
-);
+});

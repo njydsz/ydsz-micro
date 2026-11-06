@@ -14,7 +14,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * getOverview: GET /agent/observability/overview
  *
@@ -30,10 +29,10 @@ export function getOverview(): Promise<unknown> {
 /**
  * getModelUsage: GET /agent/observability/model-usage
  */
-export function getModelUsage(params: {
-    days?: number;
-  }): Promise<Record<string, unknown>[]> {
-  return requestClient.get<Record<string, unknown>[]>(`/agent/observability/model-usage`, { params });
+export function getModelUsage(params: { days?: number }): Promise<Record<string, unknown>[]> {
+  return requestClient.get<Record<string, unknown>[]>(`/agent/observability/model-usage`, {
+    params,
+  });
 }
 
 /**
@@ -46,10 +45,18 @@ export function getTraceContext(): Promise<Record<string, string>> {
 /**
  * getMetricsByBotId: GET /agent/observability/metrics/bot/{botId}
  */
-export function getMetricsByBotId({ botId }: {
+export function getMetricsByBotId(
+  {
+    botId,
+  }: {
     botId: string;
-  }, params: {
+  },
+  params: {
     days?: number;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/agent/observability/metrics/bot/${botId}`, { params });
+  },
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/agent/observability/metrics/bot/${botId}`,
+    { params },
+  );
 }

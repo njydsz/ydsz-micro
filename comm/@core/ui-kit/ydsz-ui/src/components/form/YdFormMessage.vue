@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* YdFormMessage —— 字段错误消息 + 异步校验 loading 态。
-* 
+ * YdFormMessage —— 字段错误消息 + 异步校验 loading 态。
+ *
  * P0-5 增强：当字段处于 isValidating 状态时，显示 loading spinner，
  * 让用户明确感知「校验中」状态，避免异步校验时用户误以为无响应。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdFormMessage.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -30,7 +30,7 @@ const { error, formMessageId, isValidating, name } = useFormField();
   <p
     v-if="isValidating"
     :id="`${formMessageId}-validating`"
-    class="flex items-center gap-1 text-[0.8rem] text-muted-foreground"
+    class="text-muted-foreground flex items-center gap-1 text-[0.8rem]"
     aria-live="polite"
     role="status"
   >

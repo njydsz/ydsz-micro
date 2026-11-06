@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 /**
-* YdVTreeSearch：带搜索过滤的树选择组件，解决深层树中关键字查找难的问题。
-* 
+ * YdVTreeSearch：带搜索过滤的树选择组件，解决深层树中关键字查找难的问题。
+ *
  * 设计目标：
  *  - 内置搜索框，输入关键字即时过滤节点 matched 结果；
  *  - 自动展开匹配节点的祖先链，保证结果可见；
  *  - 匹配文本高亮（mark 标签）；
  *  - 支持 searchPlaceholder、debounceMs 等配置。
-* 
+ *
  * 交互：
  *  - 搜索框支持 Esc 清空；
  *  - 搜索结果自动选中首个命中的节点；
  *  - 清空搜索恢复原树视图。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tree\YdVTreeSearch.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -174,10 +174,7 @@ function splitHighlightLabel(
  * @param node - 被点击的匹配节点
  * @param value - 节点值
  */
-function handleResultClick(
-  node: Record<string, unknown>,
-  value: string | number,
-): void {
+function handleResultClick(node: Record<string, unknown>, value: string | number): void {
   emit('select', value, node);
 }
 
@@ -203,24 +200,20 @@ defineExpose({
   <div :class="cn('flex flex-col gap-2', $props.class)">
     <!-- 搜索框 -->
     <div class="relative flex items-center">
-      <Search
-        :size="14"
-        class="absolute start-2.5 text-muted-foreground"
-        aria-hidden="true"
-      />
+      <Search :size="14" class="text-muted-foreground absolute start-2.5" aria-hidden="true" />
       <input
         :value="searchInput"
         type="text"
         :placeholder="placeholder"
         :aria-label="placeholder"
-        class="h-8 w-full rounded-md border border-input bg-transparent ps-8 pe-8 text-sm shadow-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary/50"
+        class="border-input placeholder:text-muted-foreground focus:border-primary focus:ring-primary/50 h-8 w-full rounded-md border bg-transparent pe-8 ps-8 text-sm shadow-sm outline-none transition-colors focus:ring-1"
         @input="handleSearchInput"
         @keydown="handleSearchKeydown"
       />
       <button
         v-if="searchInput"
         type="button"
-        class="absolute end-2 rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground"
+        class="text-muted-foreground hover:text-foreground absolute end-2 rounded-sm p-0.5 transition-colors"
         :aria-label="t('tree.clearSearch')"
         @click="handleClearSearch"
       >
@@ -233,12 +226,12 @@ defineExpose({
       v-if="showResults"
       role="listbox"
       :aria-label="t('tree.searchResults')"
-      class="max-h-64 overflow-y-auto rounded-md border border-border bg-popover py-1"
+      class="border-border bg-popover max-h-64 overflow-y-auto rounded-md border py-1"
     >
       <!-- 无匹配结果 -->
       <div
         v-if="searchResults.length === 0"
-        class="px-3 py-6 text-center text-sm text-muted-foreground"
+        class="text-muted-foreground px-3 py-6 text-center text-sm"
       >
         {{ t('empty.search') }}
       </div>
@@ -249,7 +242,7 @@ defineExpose({
         type="button"
         role="option"
         :aria-selected="false"
-        class="flex w-full items-center gap-2 px-3 py-1.5 text-sm transition-colors hover:bg-accent focus:bg-accent focus:outline-none"
+        class="hover:bg-accent focus:bg-accent flex w-full items-center gap-2 px-3 py-1.5 text-sm transition-colors focus:outline-none"
         :style="{ paddingLeft: `${(result.level + 1) * 12 + 8}px` }"
         @click="handleResultClick(result.data, result.value)"
       >
@@ -258,10 +251,9 @@ defineExpose({
             v-for="(segment, segmentIndex) in splitHighlightLabel(result.label, result.matchRange)"
             :key="segmentIndex"
           >
-            <mark
-              v-if="segment.matched"
-              class="bg-primary/20 text-primary rounded-sm px-0.5"
-            >{{ segment.text }}</mark>
+            <mark v-if="segment.matched" class="bg-primary/20 text-primary rounded-sm px-0.5">{{
+              segment.text
+            }}</mark>
             <template v-else>{{ segment.text }}</template>
           </template>
         </span>

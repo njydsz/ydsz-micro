@@ -99,11 +99,7 @@ const {
       </template>
 
       <!-- 继承默认的slot -->
-      <template
-        v-for="slotName in delegatedSlots"
-        :key="slotName"
-        #[slotName]="slotProps"
-      >
+      <template v-for="slotName in delegatedSlots" :key="slotName" #[slotName]="slotProps">
         <slot :name="slotName" v-bind="slotProps"></slot>
       </template>
       <template #toolbar-tools="slotProps">
@@ -127,13 +123,7 @@ const {
           :class="
             cn(
               'relative rounded py-3',
-              isCompactForm
-                ? isSeparator
-                  ? 'pb-8'
-                  : 'pb-4'
-                : isSeparator
-                  ? 'pb-4'
-                  : 'pb-0',
+              isCompactForm ? (isSeparator ? 'pb-8' : 'pb-4') : isSeparator ? 'pb-4' : 'pb-0',
             )
           "
         >
@@ -144,10 +134,7 @@ const {
                 :key="slotName"
                 #[slotName]="slotProps"
               >
-                <slot
-                  :name="`${FORM_SLOT_PREFIX}${slotName}`"
-                  v-bind="slotProps"
-                ></slot>
+                <slot :name="`${FORM_SLOT_PREFIX}${slotName}`" v-bind="slotProps"></slot>
               </template>
               <template #reset-before="slotProps">
                 <slot name="reset-before" v-bind="slotProps"></slot>

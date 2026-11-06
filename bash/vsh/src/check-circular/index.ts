@@ -14,7 +14,12 @@
 
 import { readFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
-import { collectSourceFiles, loadPathMapping, resolveSpecifier, extractSpecifiers } from '../shared/fs-path.ts';
+import {
+  collectSourceFiles,
+  loadPathMapping,
+  resolveSpecifier,
+  extractSpecifiers,
+} from '../shared/fs-path.ts';
 
 /** 依赖图 */
 type DependencyGraph = Map<string, Set<string>>;

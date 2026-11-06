@@ -75,8 +75,17 @@ export interface SseRequestOptions extends SseLifecycleHandlers {
  * @returns 关闭连接函数（幂等，可重复调用）
  */
 export function openSseRequest(options: SseRequestOptions): () => void {
-  const { url, method = 'GET', headers = {}, data, signal, onOpen, onEvent, onClose, onError } =
-    options;
+  const {
+    url,
+    method = 'GET',
+    headers = {},
+    data,
+    signal,
+    onOpen,
+    onEvent,
+    onClose,
+    onError,
+  } = options;
 
   const controller = new AbortController();
   const isAborted = (): boolean => controller.signal.aborted || (signal?.aborted ?? false);

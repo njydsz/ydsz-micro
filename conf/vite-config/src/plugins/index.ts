@@ -34,6 +34,7 @@ import { viteInjectAppLoadingPlugin } from './inject-app-loading';
 import { viteMetadataPlugin } from './inject-metadata';
 import { viteLicensePlugin } from './license';
 import { vitePrintPlugin } from './print';
+import { viteSourcemapCleanupPlugin } from './sourcemap-cleanup';
 import { viteVxeTableImportsPlugin } from './vxe-table';
 import { hmrGuardPlugin } from './hmr-guard';
 
@@ -66,9 +67,7 @@ async function loadConditionPlugins(conditionPlugins: ConditionPlugin[]) {
  * @param options - 通用插件配置（是否开发工具、是否注入元数据、是否构建、是否依赖分析）
  * @returns 条件插件数组
  */
-async function loadCommonPlugins(
-  options: CommonPluginOptions,
-): Promise<ConditionPlugin[]> {
+async function loadCommonPlugins(options: CommonPluginOptions): Promise<ConditionPlugin[]> {
   const { devtools, injectMetadata, isBuild, visualizer } = options;
   return [
     {
@@ -118,9 +117,7 @@ async function loadCommonPlugins(
  * @param options - 应用插件配置选项
  * @returns 应用类型插件数组
  */
-async function loadApplicationPlugins(
-  options: ApplicationPluginOptions,
-): Promise<PluginOption[]> {
+async function loadApplicationPlugins(options: ApplicationPluginOptions): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
   const env = options.env;
@@ -186,7 +183,12 @@ async function loadApplicationPlugins(
     },
     {
       condition: injectAppLoading,
-      plugins: async () => [await viteInjectAppLoadingPlugin(!!isBuild, env as Record<string, string | undefined> | undefined)],
+      plugins: async () => [
+        await viteInjectAppLoadingPlugin(
+          !!isBuild,
+          env as Record<string, string | undefined> | undefined,
+        ),
+      ],
     },
     {
       condition: license,
@@ -202,7 +204,9 @@ async function loadApplicationPlugins(
           disable: !isBuild,
           workbox: {
             // 缓存静态资源（JS/CSS/图片/字体）
-            globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,eot,webp,wasm}'],
+            globPatterns: [
+              '**/*.{js,css,html,png,jpg,jpeg,gif,svg,ico,woff,woff2,ttf,eot,webp,wasm}',
+            ],
             // 忽略较大的文件（> 2MB）
             maximumFileSizeToCacheInBytes: 2 * 1024 * 1024,
             // 运行时缓存策略
@@ -299,14 +303,10 @@ async function loadApplicationPlugins(
       plugins: () => {
         const compressPlugins: PluginOption[] = [];
         if (compressTypes?.includes('brotli')) {
-          compressPlugins.push(
-            viteCompressPlugin({ deleteOriginFile: false, ext: '.br' }),
-          );
+          compressPlugins.push(viteCompressPlugin({ deleteOriginFile: false, ext: '.br' }));
         }
         if (compressTypes?.includes('gzip')) {
-          compressPlugins.push(
-            viteCompressPlugin({ deleteOriginFile: false, ext: '.gz' }),
-          );
+          compressPlugins.push(viteCompressPlugin({ deleteOriginFile: false, ext: '.gz' }));
         }
         return compressPlugins;
       },
@@ -332,9 +332,12 @@ async function loadApplicationPlugins(
     },
     {
       condition: isBuild && extraAppConfig,
-      plugins: async () => [
-        await viteExtraAppConfigPlugin({ isBuild: true, root: process.cwd() }),
-      ],
+      plugins: async () => [await viteExtraAppConfigPlugin({ isBuild: true, root: process.cwd() })],
+    },
+    {
+      // v4.0: 构建末尾清理 sourcemap，必须在归档之前执行，确保 dist.zip 同样不含 .map
+      condition: isBuild,
+      plugins: () => [viteSourcemapCleanupPlugin()],
     },
     {
       condition: archiver,
@@ -359,9 +362,7 @@ async function loadApplicationPlugins(
  * @param options - 库插件配置选项
  * @returns 库类型插件数组
  */
-async function loadLibraryPlugins(
-  options: LibraryPluginOptions,
-): Promise<PluginOption[]> {
+async function loadLibraryPlugins(options: LibraryPluginOptions): Promise<PluginOption[]> {
   // 单独取，否则commonOptions拿不到
   const isBuild = options.isBuild;
   const { dts, ...commonOptions } = options;

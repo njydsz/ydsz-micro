@@ -16,7 +16,18 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+  YdTabsContent,
+  YdTabs,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { communicate, freeJump, jump, saveDraft } from '#/api/flowTask';
@@ -190,11 +201,16 @@ function handleSubmit(): void {
         <YdForm :model="jumpForm" label-width="100px" class="mt-4">
           <YdFormItem :label="t('task.jump.mode.label')">
             <YdRadioGroup v-model="jumpForm.mode">
-              <YdRadioGroupItem value="designated">{{ t('task.jump.mode.designated') }}</YdRadioGroupItem>
+              <YdRadioGroupItem value="designated">{{
+                t('task.jump.mode.designated')
+              }}</YdRadioGroupItem>
               <YdRadioGroupItem value="free">{{ t('task.jump.mode.free') }}</YdRadioGroupItem>
             </YdRadioGroup>
           </YdFormItem>
-          <YdFormItem v-if="jumpForm.mode === 'designated'" :label="t('task.jump.targetNode.label')">
+          <YdFormItem
+            v-if="jumpForm.mode === 'designated'"
+            :label="t('task.jump.targetNode.label')"
+          >
             <YdSelect
               v-model="jumpForm.targetNodeCode"
               :placeholder="t('task.jump.targetNode.placeholder')"
@@ -240,7 +256,10 @@ function handleSubmit(): void {
               class="w-full"
             >
               <YdSelectItem :label="t('task.communicate.target.initiator')" value="initiator" />
-              <YdSelectItem :label="t('task.communicate.target.prevAssignee')" value="prevAssignee" />
+              <YdSelectItem
+                :label="t('task.communicate.target.prevAssignee')"
+                value="prevAssignee"
+              />
             </YdSelect>
           </YdFormItem>
         </YdForm>
@@ -268,7 +287,9 @@ function handleSubmit(): void {
 
     <template #footer>
       <YdButton @click="modalApi.close()">{{ t('common.cancel') }}</YdButton>
-      <YdButton type="primary" :loading="submitting" @click="handleSubmit">{{ t('common.confirm') }}</YdButton>
+      <YdButton type="primary" :loading="submitting" @click="handleSubmit">{{
+        t('common.confirm')
+      }}</YdButton>
     </template>
   </Modal>
 </template>

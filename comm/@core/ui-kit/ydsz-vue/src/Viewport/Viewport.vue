@@ -1,26 +1,26 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
-import { useNonce } from '../shared/useNonce.ts'
-import { toRefs } from 'vue'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
+import { useNonce } from '../shared/useNonce.ts';
+import { toRefs } from 'vue';
 
 export interface ViewportProps extends PrimitiveProps {
   /**
    * Will add `nonce` attribute to the style tag which can be used by Content Security Policy. <br> If omitted, inherits globally from `ConfigProvider`.
    */
-  nonce?: string
+  nonce?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../Primitive/index.ts'
+import { Primitive } from '../Primitive/index.ts';
 
-const props = defineProps<ViewportProps>()
-const { forwardRef } = useForwardExpose()
+const props = defineProps<ViewportProps>();
+const { forwardRef } = useForwardExpose();
 
-const { nonce: propNonce } = toRefs(props)
-const nonce = useNonce(propNonce)
+const { nonce: propNonce } = toRefs(props);
+const nonce = useNonce(propNonce);
 </script>
 
 <template>
@@ -40,13 +40,9 @@ const nonce = useNonce(propNonce)
   >
     <slot />
   </Primitive>
-  <Primitive
-    as="style"
-    :nonce="nonce"
-  >
-    /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */ [data-radix-viewport] { scrollbar-width:none; -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch; }
-    [data-radix-viewport]::-webkit-scrollbar { display: none; }
+  <Primitive as="style" :nonce="nonce">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch devices */
+    [data-radix-viewport] { scrollbar-width:none; -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch; } [data-radix-viewport]::-webkit-scrollbar { display: none; }
   </Primitive>
 </template>

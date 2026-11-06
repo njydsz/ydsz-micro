@@ -14,8 +14,28 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSlider, YdButton, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTooltip, YdTooltipContent, YdTooltipTrigger } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdSelect,
+  YdSlider,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
+  YdTooltip,
+  YdTooltipContent,
+  YdTooltipTrigger,
+} from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { computed, nextTick, ref } from 'vue';
 
@@ -156,9 +176,7 @@ function initDefaultWorkflow(): void {
     config: {},
   };
   nodes.value = [startNode, endNode];
-  edges.value = [
-    { id: 'edge_1', source: 'node_start', target: 'node_end' },
-  ];
+  edges.value = [{ id: 'edge_1', source: 'node_start', target: 'node_end' }];
 }
 
 /** 添加节点 */
@@ -189,7 +207,7 @@ function deleteNode(nodeId: string): void {
 /** 选择节点 */
 function selectNode(node: WorkflowNode): void {
   selectedNode.value = node;
-};
+}
 
 /** 节点拖拽开始 */
 function handleNodeMouseDown(event: MouseEvent, node: WorkflowNode): void {
@@ -329,11 +347,14 @@ async function handleSave(): Promise<void> {
 /** 导出 DSL */
 function handleExportDsl(): void {
   const dsl = generateDsl();
-  navigator.clipboard.writeText(dsl).then(() => {
-    showToast.success('DSL 已复制到剪贴板');
-  }).catch(() => {
-    showToast.error('复制失败');
-  });
+  navigator.clipboard
+    .writeText(dsl)
+    .then(() => {
+      showToast.success('DSL 已复制到剪贴板');
+    })
+    .catch(() => {
+      showToast.error('复制失败');
+    });
 }
 
 defineExpose({ open, close });
@@ -365,7 +386,7 @@ defineExpose({ open, close });
                 <YdButton size="sm" variant="outline" @click="handleExportDsl">导出DSL</YdButton>
               </div>
               <div class="toolbar-center">
-                <span class="text-xs text-muted-foreground">添加节点：</span>
+                <span class="text-muted-foreground text-xs">添加节点：</span>
                 <YdButton
                   v-for="opt in nodeTypeOptions"
                   :key="opt.value"
@@ -407,7 +428,14 @@ defineExpose({ open, close });
                     @click="deleteEdge(edge)"
                   />
                   <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <marker
+                      id="arrowhead"
+                      markerWidth="10"
+                      markerHeight="7"
+                      refX="9"
+                      refY="3.5"
+                      orient="auto"
+                    >
                       <polygon points="0 0, 10 3.5, 0 7" fill="hsl(var(--muted-foreground))" />
                     </marker>
                   </defs>
@@ -418,7 +446,10 @@ defineExpose({ open, close });
                   v-for="node in nodes"
                   :key="node.id"
                   class="workflow-node"
-                  :class="{ 'selected': selectedNode?.id === node.id, 'connecting-target': isConnecting && connectStart !== node.id, }"
+                  :class="{
+                    selected: selectedNode?.id === node.id,
+                    'connecting-target': isConnecting && connectStart !== node.id,
+                  }"
                   :style="{
                     left: `${node.x}px`,
                     top: `${node.y}px`,
@@ -429,18 +460,26 @@ defineExpose({ open, close });
                   @mousedown="handleNodeMouseDown($event, node)"
                   @click.stop="finishConnect(node.id)"
                 >
-                  <div class="node-header" :style="{ backgroundColor: getNodeConfig(node.type).color }">
+                  <div
+                    class="node-header"
+                    :style="{ backgroundColor: getNodeConfig(node.type).color }"
+                  >
                     <span class="node-icon">{{ getNodeConfig(node.type).icon }}</span>
                     <span class="node-label">{{ node.label }}</span>
                   </div>
                   <div class="node-body">
-                    <span class="text-xs text-muted-foreground">{{ node.type }}</span>
+                    <span class="text-muted-foreground text-xs">{{ node.type }}</span>
                   </div>
                   <!-- 节点操作按钮 -->
                   <div class="node-actions">
                     <YdTooltip>
                       <YdTooltipTrigger as-child>
-                        <YdButton size="icon" variant="ghost" class="h-6 w-6" @click.stop="startConnect(node.id)">
+                        <YdButton
+                          size="icon"
+                          variant="ghost"
+                          class="h-6 w-6"
+                          @click.stop="startConnect(node.id)"
+                        >
                           <span class="text-xs">→</span>
                         </YdButton>
                       </YdTooltipTrigger>
@@ -450,7 +489,12 @@ defineExpose({ open, close });
                     </YdTooltip>
                     <YdTooltip>
                       <YdTooltipTrigger as-child>
-                        <YdButton size="icon" variant="destructive" class="h-6 w-6" @click.stop="deleteNode(node.id)">
+                        <YdButton
+                          size="icon"
+                          variant="destructive"
+                          class="h-6 w-6"
+                          @click.stop="deleteNode(node.id)"
+                        >
                           <span class="text-xs">×</span>
                         </YdButton>
                       </YdTooltipTrigger>
@@ -476,7 +520,11 @@ defineExpose({ open, close });
                       <YdInput v-model="selectedNode.label" placeholder="节点名称" />
                     </YdFormItem>
                     <YdFormItem label="类型">
-                      <YdSelect v-model="selectedNode.type" placeholder="节点类型" @change="selectedNode.label = getNodeConfig(selectedNode.type).label">
+                      <YdSelect
+                        v-model="selectedNode.type"
+                        placeholder="节点类型"
+                        @change="selectedNode.label = getNodeConfig(selectedNode.type).label"
+                      >
                         <YdSelectItem
                           v-for="opt in nodeTypeOptions"
                           :key="opt.value"
@@ -496,10 +544,20 @@ defineExpose({ open, close });
                         </YdSelect>
                       </YdFormItem>
                       <YdFormItem label="提示词">
-                        <YdInput v-model="selectedNode.config.prompt" type="textarea" :rows="3" placeholder="输入提示词" />
+                        <YdInput
+                          v-model="selectedNode.config.prompt"
+                          type="textarea"
+                          :rows="3"
+                          placeholder="输入提示词"
+                        />
                       </YdFormItem>
                       <YdFormItem label="温度">
-                        <YdNumberFieldInput v-model="selectedNode.config.temperature" :min="0" :max="2" :step="0.1" />
+                        <YdNumberFieldInput
+                          v-model="selectedNode.config.temperature"
+                          :min="0"
+                          :max="2"
+                          :step="0.1"
+                        />
                       </YdFormItem>
                     </template>
                     <!-- 工具节点配置 -->
@@ -508,13 +566,23 @@ defineExpose({ open, close });
                         <YdInput v-model="selectedNode.config.tool" placeholder="工具名称" />
                       </YdFormItem>
                       <YdFormItem label="参数">
-                        <YdInput v-model="selectedNode.config.params" type="textarea" :rows="2" placeholder="JSON格式参数" />
+                        <YdInput
+                          v-model="selectedNode.config.params"
+                          type="textarea"
+                          :rows="2"
+                          placeholder="JSON格式参数"
+                        />
                       </YdFormItem>
                     </template>
                     <!-- 条件节点配置 -->
                     <template v-if="selectedNode.type === 'CONDITION'">
                       <YdFormItem label="条件">
-                        <YdInput v-model="selectedNode.config.condition" type="textarea" :rows="2" placeholder="输入条件表达式" />
+                        <YdInput
+                          v-model="selectedNode.config.condition"
+                          type="textarea"
+                          :rows="2"
+                          placeholder="输入条件表达式"
+                        />
                       </YdFormItem>
                     </template>
                     <YdFormItem label="X坐标">
@@ -526,7 +594,7 @@ defineExpose({ open, close });
                   </YdForm>
                 </div>
                 <div v-else class="panel-empty">
-                  <p class="text-xs text-muted-foreground">请选择一个节点</p>
+                  <p class="text-muted-foreground text-xs">请选择一个节点</p>
                 </div>
               </div>
             </div>
@@ -540,10 +608,17 @@ defineExpose({ open, close });
                   <YdInput v-model="workflowName" placeholder="请输入工作流名称" />
                 </YdFormItem>
                 <YdFormItem label="描述">
-                  <YdInput v-model="workflowDescription" type="textarea" :rows="2" placeholder="请输入工作流描述" />
+                  <YdInput
+                    v-model="workflowDescription"
+                    type="textarea"
+                    :rows="2"
+                    placeholder="请输入工作流描述"
+                  />
                 </YdFormItem>
               </YdForm>
-              <pre class="max-h-96 overflow-auto rounded border bg-muted p-5 text-xs">{{ generateDsl() }}</pre>
+              <pre class="bg-muted max-h-96 overflow-auto rounded border p-5 text-xs">{{
+                generateDsl()
+              }}</pre>
             </div>
           </YdTabsContent>
         </YdTabs>
@@ -624,7 +699,9 @@ defineExpose({ open, close });
 }
 
 .workflow-node.selected {
-  box-shadow: 0 0 0 2px #409eff, 0 4px 12px rgb(0 0 0 / 15%);
+  box-shadow:
+    0 0 0 2px #409eff,
+    0 4px 12px rgb(0 0 0 / 15%);
 }
 
 .workflow-node.connecting-target {

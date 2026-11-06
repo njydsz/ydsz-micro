@@ -19,7 +19,17 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdTable, YdTableColumn, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdTable,
+  YdTableColumn,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -52,10 +62,8 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
       slots: {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
-          return h(
-            YdBadge,
-            { variant: rule.enabled === 1 ? 'default' : 'secondary' },
-            () => (rule.enabled === 1 ? '启用' : '停用'),
+          return h(YdBadge, { variant: rule.enabled === 1 ? 'default' : 'secondary' }, () =>
+            rule.enabled === 1 ? '启用' : '停用',
           );
         },
       },
@@ -70,10 +78,26 @@ const gridOptions: VxeGridProps<JobAlertRuleVO> = {
         default: ({ row }) => {
           const rule = row as JobAlertRuleVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () => t('common.edit')),
-            h(YdButton, { size: 'sm', variant: rule.enabled === 1 ? 'destructive' : 'link', onClick: () => handleToggle(rule) }, () => (rule.enabled === 1 ? '停用' : '启用')),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) }, () => '日志'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () => t('common.delete')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(rule) }, () =>
+              t('common.edit'),
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: rule.enabled === 1 ? 'destructive' : 'link',
+                onClick: () => handleToggle(rule),
+              },
+              () => (rule.enabled === 1 ? '停用' : '启用'),
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleLogs(rule) },
+              () => '日志',
+            ),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(rule) }, () =>
+              t('common.delete'),
+            ),
           ]);
         },
       },
@@ -119,7 +143,10 @@ async function handleToggle(row: JobAlertRuleVO) {
 async function handleDelete(row: JobAlertRuleVO) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除告警规则「${row.ruleName}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除告警规则「${row.ruleName}」吗？`, {
+      title: '删除确认',
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消删除操作
   }
@@ -167,16 +194,16 @@ async function handleLogs(row: JobAlertRuleVO) {
           <YdSheetTitle>{{ t('page.alertRule') }}</YdSheetTitle>
         </YdSheetHeader>
         <YdTable :data="alertLogs" border>
-        <YdTableColumn prop="alertCode" label="告警编码" width="130" />
-        <YdTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
-        <YdTableColumn prop="jobKey" label="任务标识" width="140" />
-        <YdTableColumn prop="alertType" label="类型" width="100" />
-        <YdTableColumn prop="alertLevel" :label="t('business.alertLevel')" width="90" />
-        <YdTableColumn prop="triggerValue" label="触发值" width="110" />
-        <YdTableColumn prop="alertStatus" :label="t('common.status')" width="90" />
-        <YdTableColumn prop="errorMessage" label="错误信息" min-width="140" />
-        <YdTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
-      </YdTable>
+          <YdTableColumn prop="alertCode" label="告警编码" width="130" />
+          <YdTableColumn prop="ruleName" :label="t('business.alertRule')" width="150" />
+          <YdTableColumn prop="jobKey" label="任务标识" width="140" />
+          <YdTableColumn prop="alertType" label="类型" width="100" />
+          <YdTableColumn prop="alertLevel" :label="t('business.alertLevel')" width="90" />
+          <YdTableColumn prop="triggerValue" label="触发值" width="110" />
+          <YdTableColumn prop="alertStatus" :label="t('common.status')" width="90" />
+          <YdTableColumn prop="errorMessage" label="错误信息" min-width="140" />
+          <YdTableColumn prop="createdAt" :label="t('common.createTime')" width="170" />
+        </YdTable>
         <YdEmptyState v-if="alertLogs.length === 0" :description="t('common.noData')" />
       </YdSheetContent>
     </YdSheet>

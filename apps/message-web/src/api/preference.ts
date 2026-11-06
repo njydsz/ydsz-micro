@@ -23,28 +23,28 @@ export function upsert(data: PreferenceUpsertDTO): Promise<MsgPreferenceVO> {
 /**
  * listByUser: GET /message/preference/{userId}
  */
-export function listByUser({ userId }: {
-    userId: string;
-  }): Promise<MsgPreferenceVO[]> {
+export function listByUser({ userId }: { userId: string }): Promise<MsgPreferenceVO[]> {
   return requestClient.get<MsgPreferenceVO[]>(`/message/preference/${userId}`);
 }
 
 /**
  * getByUser: GET /message/preference/{userId}/{channel}/{bizType}
  */
-export function getByUser({ userId, channel, bizType }: {
-    userId: string;
-    channel: string;
-    bizType: string;
-  }): Promise<MsgPreferenceVO> {
+export function getByUser({
+  userId,
+  channel,
+  bizType,
+}: {
+  userId: string;
+  channel: string;
+  bizType: string;
+}): Promise<MsgPreferenceVO> {
   return requestClient.get<MsgPreferenceVO>(`/message/preference/${userId}/${channel}/${bizType}`);
 }
 
 /**
  * delete: DELETE /message/preference/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteApi({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/message/preference/${id}`);
 }

@@ -13,7 +13,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -22,7 +22,13 @@ const logger = createLogger('nextwiki-file');
 const { t } = useI18n();
 import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
-import { initChunkUpload, uploadChunk, completeChunkUpload, abortChunkUpload, getUploadedChunks } from '#/api/fileChunk';
+import {
+  initChunkUpload,
+  uploadChunk,
+  completeChunkUpload,
+  abortChunkUpload,
+  getUploadedChunks,
+} from '#/api/fileChunk';
 import { upload } from '#/api/file';
 import type { FileNodeVO } from '#/api/models';
 
@@ -207,7 +213,13 @@ async function handleCancel(): Promise<void> {
 
 <template>
   <Modal title="上传文件">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem label="父目录ID" prop="parentId">
         <YdInput v-model="formData.parentId" placeholder="请输入父目录ID（留空表示根目录）" />
       </YdFormItem>
@@ -241,7 +253,10 @@ async function handleCancel(): Promise<void> {
       </YdFormItem>
       <YdFormItem v-if="uploadStatus === 'uploading'" label="上传进度">
         <div>
-          <YdProgress :percentage="uploadProgress" :status="uploadProgress === 100 ? 'success' : ''" />
+          <YdProgress
+            :percentage="uploadProgress"
+            :status="uploadProgress === 100 ? 'success' : ''"
+          />
           <p v-if="uploadSpeed" class="mt-1 text-xs text-gray-500">{{ uploadSpeed }}</p>
         </div>
       </YdFormItem>

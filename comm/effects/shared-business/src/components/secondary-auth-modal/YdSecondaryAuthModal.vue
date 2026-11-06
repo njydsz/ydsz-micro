@@ -106,7 +106,11 @@ onBeforeUnmount(() => {
       :close-on-esc="false"
       :close-on-overlay-click="false"
       :show-close="false"
-      @update:open="(open) => { if (!open) handleCancel(); }"
+      @update:open="
+        (open) => {
+          if (!open) handleCancel();
+        }
+      "
     >
       <YdDialogHeader>
         <YdDialogTitle>{{ t('secondaryAuth.title') }}</YdDialogTitle>
@@ -123,10 +127,7 @@ onBeforeUnmount(() => {
       />
 
       <!-- 表单区 -->
-      <form
-        class="secondary-auth-modal__form"
-        @submit.prevent="handleConfirm"
-      >
+      <form class="secondary-auth-modal__form" @submit.prevent="handleConfirm">
         <label class="secondary-auth-modal__label">
           <span class="secondary-auth-modal__label-text">
             {{ t('secondaryAuth.password') }}
@@ -152,19 +153,10 @@ onBeforeUnmount(() => {
 
       <!-- 操作区 -->
       <YdDialogFooter class="secondary-auth-modal__footer">
-        <YdButton
-          :disabled="submitting"
-          type="button"
-          variant="outline"
-          @click="handleCancel"
-        >
+        <YdButton :disabled="submitting" type="button" variant="outline" @click="handleCancel">
           {{ t('secondaryAuth.cancel') }}
         </YdButton>
-        <YdButton
-          :loading="props.loading || submitting"
-          type="button"
-          @click="handleConfirm"
-        >
+        <YdButton :loading="props.loading || submitting" type="button" @click="handleConfirm">
           {{ t('secondaryAuth.confirm') }}
         </YdButton>
       </YdDialogFooter>

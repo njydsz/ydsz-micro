@@ -47,9 +47,9 @@ export function useA11yChecker(
         'color-contrast': { enabled: true },
         'empty-heading': { enabled: true },
         'heading-order': { enabled: true },
-        'label': { enabled: true },
+        label: { enabled: true },
         'link-name': { enabled: true },
-        'region': { enabled: true },
+        region: { enabled: true },
       },
       ...options,
     });

@@ -8,7 +8,7 @@
  * @since 4.2.2
  */
 
-import type { PageCachePolicy, ScrollPosition } from "./page-cache-types";
+import type { PageCachePolicy, ScrollPosition } from './page-cache-types';
 
 /**
  * 捕获当前页面滚动位置（window + 可滚动容器）。
@@ -92,7 +92,7 @@ function findScrollableContainers(
   limit: number,
 ): Array<{ el: HTMLElement; selector: string }> {
   const result: Array<{ el: HTMLElement; selector: string }> = [];
-  const allElements = root.querySelectorAll<HTMLElement>("*");
+  const allElements = root.querySelectorAll<HTMLElement>('*');
 
   for (const el of allElements) {
     if (result.length >= limit) break;
@@ -103,8 +103,10 @@ function findScrollableContainers(
     // 排除不可见元素（getComputedStyle 对 display:none 返回 ""）
     if (!overflowY && !overflowX) continue;
 
-    const isScrollableY = (overflowY === "auto" || overflowY === "scroll") && el.scrollHeight > el.clientHeight;
-    const isScrollableX = (overflowX === "auto" || overflowX === "scroll") && el.scrollWidth > el.clientWidth;
+    const isScrollableY =
+      (overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight;
+    const isScrollableX =
+      (overflowX === 'auto' || overflowX === 'scroll') && el.scrollWidth > el.clientWidth;
 
     if (isScrollableY || isScrollableX) {
       result.push({
@@ -124,7 +126,7 @@ function findScrollableContainers(
  */
 function generateSelector(el: HTMLElement): string {
   if (el.id) return `#${el.id}`;
-  if (el.className && typeof el.className === "string") {
+  if (el.className && typeof el.className === 'string') {
     const classes = el.className.trim().split(/\s+/).filter(Boolean);
     if (classes.length > 0) return `.${classes[0]}`;
   }

@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * discovery: GET /.well-known/openid-configuration
  *

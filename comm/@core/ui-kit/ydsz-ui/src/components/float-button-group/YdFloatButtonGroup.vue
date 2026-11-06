@@ -55,13 +55,7 @@ const listHidden = computed(() => (props.open ? '' : 'pointer-events-none opacit
   >
     <!-- 按钮组内容 -->
     <div
-      :class="
-        cn(
-          'flex gap-2 transition-all duration-300',
-          directionClasses[direction],
-          listHidden,
-        )
-      "
+      :class="cn('flex gap-2 transition-all duration-300', directionClasses[direction], listHidden)"
     >
       <slot></slot>
     </div>

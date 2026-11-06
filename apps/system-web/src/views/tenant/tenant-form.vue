@@ -14,7 +14,14 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdDatePicker, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdDatePicker,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { save, update } from '#/api/tenant';
@@ -121,30 +128,57 @@ const isEdit = computed(() => !!formData.id);
 
 <template>
   <Modal :title="isEdit ? t('tenantForm.editTitle') : t('tenantForm.createTitle')">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('business.tenantCode')" prop="tenantCode">
-        <YdInput v-model="formData.tenantCode" :placeholder="t('business.tenantCodePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.tenantCode"
+          :placeholder="t('business.tenantCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.tenantName')" prop="tenantName">
         <YdInput v-model="formData.tenantName" :placeholder="t('business.tenantNamePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('business.contactName')" prop="contactName">
-        <YdInput v-model="formData.contactName" :placeholder="t('tenantForm.contactNamePlaceholder')" />
+        <YdInput
+          v-model="formData.contactName"
+          :placeholder="t('tenantForm.contactNamePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.contactPhone')" prop="contactPhone">
-        <YdInput v-model="formData.contactPhone" :placeholder="t('tenantForm.contactPhonePlaceholder')" />
+        <YdInput
+          v-model="formData.contactPhone"
+          :placeholder="t('tenantForm.contactPhonePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.contactEmail')" prop="contactEmail">
-        <YdInput v-model="formData.contactEmail" :placeholder="t('tenantForm.contactEmailPlaceholder')" />
+        <YdInput
+          v-model="formData.contactEmail"
+          :placeholder="t('tenantForm.contactEmailPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('tenantForm.planId')" prop="planId">
         <YdInput v-model="formData.planId" :placeholder="t('tenantForm.planIdPlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('business.expireAt')" prop="expireAt">
-        <YdDatePicker v-model="formData.expireAt" type="datetime" :placeholder="t('tenantForm.expireAtPlaceholder')" class="w-full" />
+        <YdDatePicker
+          v-model="formData.expireAt"
+          type="datetime"
+          :placeholder="t('tenantForm.expireAtPlaceholder')"
+          class="w-full"
+        />
       </YdFormItem>
       <YdFormItem :label="t('tenantForm.datasource')" prop="datasourceKey">
-        <YdInput v-model="formData.datasourceKey" :placeholder="t('tenantForm.datasourcePlaceholder')" />
+        <YdInput
+          v-model="formData.datasourceKey"
+          :placeholder="t('tenantForm.datasourcePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.status')" prop="status">
         <YdSelect v-model="formData.status" :placeholder="t('tenantForm.statusPlaceholder')">

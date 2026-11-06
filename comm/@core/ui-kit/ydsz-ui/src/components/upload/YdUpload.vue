@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* YdUpload 组件 - 文件上传封装，提供与 ElUpload 对齐的核心 API。
-* 
+ * YdUpload 组件 - 文件上传封装，提供与 ElUpload 对齐的核心 API。
+ *
  * 支持属性：
  * - action: 必填，上传 URL
  * - multiple: 是否允许多选
@@ -26,7 +26,7 @@
  * - max-concurrency: 分片并发数，默认 3
  * - multipart-api-base: 分片上传 API 基础路径
  * - storage-key: 对象存储路径（启用分片上传时必填）
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\upload\YdUpload.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -35,20 +35,14 @@ import type {
   ChunkHttpRequestOptions,
   ChunkUploadHandle,
 } from '../../composables/use-chunk-upload';
-import type {
-  UploadFile,
-  UploadRequestOptions,
-  UploadUserFile,
-} from './types';
+import type { UploadFile, UploadRequestOptions, UploadUserFile } from './types';
 import { UploadStatus } from './types';
 
 import { computed, ref } from 'vue';
 
 import { useDropZone } from '@vueuse/core';
 
-import {
-  useChunkUpload,
-} from '../../composables/use-chunk-upload';
+import { useChunkUpload } from '../../composables/use-chunk-upload';
 import { cn } from '@ydsz-core/shared/utils';
 
 import { CloudUpload, Plus } from 'lucide-vue-next';
@@ -273,10 +267,7 @@ async function uploadFile(rawFile: File): Promise<void> {
  * @param rawFile —— 原生 File
  * @param uploadItem —— 上传文件对象
  */
-async function handleCustomRequest(
-  rawFile: File,
-  uploadItem: UploadFile,
-): Promise<void> {
+async function handleCustomRequest(rawFile: File, uploadItem: UploadFile): Promise<void> {
   if (!props.httpRequest) return;
   try {
     await props.httpRequest({
@@ -312,10 +303,7 @@ async function handleCustomRequest(
  * @param rawFile —— 原生 File
  * @param uploadItem —— 上传文件对象
  */
-function handleChunkUpload(
-  rawFile: File,
-  uploadItem: UploadFile,
-): void {
+function handleChunkUpload(rawFile: File, uploadItem: UploadFile): void {
   const chunkReq: ChunkHttpRequestOptions = {
     action: props.action ?? '',
     file: rawFile,
@@ -348,10 +336,7 @@ function handleChunkUpload(
  * @param rawFile —— 原生 File
  * @param uploadItem —— 上传文件对象
  */
-function handleDefaultUpload(
-  rawFile: File,
-  uploadItem: UploadFile,
-): void {
+function handleDefaultUpload(rawFile: File, uploadItem: UploadFile): void {
   try {
     const xhr = new XMLHttpRequest();
     const formData = new FormData();
@@ -477,18 +462,21 @@ defineExpose({
     >
       <CloudUpload class="text-muted-foreground h-10 w-10" />
       <span class="text-muted-foreground text-sm">
-        {{ t('upload.dragTipPrefix') }}<span class="text-primary cursor-pointer">{{ t('upload.clickToUpload') }}</span>
+        {{ t('upload.dragTipPrefix')
+        }}<span class="text-primary cursor-pointer">{{ t('upload.clickToUpload') }}</span>
       </span>
     </div>
 
     <!-- text 模式：普通按钮 -->
     <button
       v-else-if="!isPictureCard"
-      :class="cn(
-        'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center gap-1 rounded-md px-4 text-sm font-medium',
-        'focus-visible:outline-none focus-visible:ring-2',
-        'disabled:pointer-events-none disabled:opacity-50',
-      )"
+      :class="
+        cn(
+          'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center gap-1 rounded-md px-4 text-sm font-medium',
+          'focus-visible:outline-none focus-visible:ring-2',
+          'disabled:pointer-events-none disabled:opacity-50',
+        )
+      "
       :disabled="isDisabled || isLimitReached"
       type="button"
       @click="openFilePicker"
@@ -511,7 +499,11 @@ defineExpose({
     <!-- picture-card 模式：上传卡片始终在file list顶部 -->
     <div
       v-if="isPictureCard && !isLimitReached"
-      :ref="(el: unknown) => { dropZoneRef = (el as HTMLElement) ?? null; }"
+      :ref="
+        (el: unknown) => {
+          dropZoneRef = (el as HTMLElement) ?? null;
+        }
+      "
       :class="pictureCardDropClass"
       role="button"
       tabindex="0"

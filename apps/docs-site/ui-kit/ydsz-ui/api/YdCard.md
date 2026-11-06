@@ -6,8 +6,8 @@
 
 ## Props
 
-| 属性 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| `class` | `ClassValue` | 否 | - | - |
-| `hoverable` | `boolean` | 否 | - | - |
-| `shadow` | `'never' | 'always' | 'hover'` | 否 | - | 阴影变体：never / always / hover（默认 always） |
+| 属性        | 类型         | 必填     | 默认值   | 说明 |
+| ----------- | ------------ | -------- | -------- | ---- |
+| `class`     | `ClassValue` | 否       | -        | -    |
+| `hoverable` | `boolean`    | 否       | -        | -    |
+| `shadow`    | `'never'     | 'always' | 'hover'` | 否   | -   | 阴影变体：never / always / hover（默认 always） |

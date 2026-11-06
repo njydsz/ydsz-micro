@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import type { CheckboxRootProps } from '../'
-import { CheckboxIndicator, CheckboxRoot } from '../'
-import { ref } from 'vue'
+import { Icon } from '@iconify/vue';
+import type { CheckboxRootProps } from '../';
+import { CheckboxIndicator, CheckboxRoot } from '../';
+import { ref } from 'vue';
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   checked: undefined,
-})
-const checked = ref(props.checked)
+});
+const checked = ref(props.checked);
 </script>
 
 <template>
-  <label
-    class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100"
-    for="test"
-  >
+  <label class="flex flex-row items-center gap-4 [&>.checkbox]:hover:bg-neutral-100" for="test">
     Test
   </label>
   <CheckboxRoot
@@ -26,12 +23,9 @@ const checked = ref(props.checked)
   >
     <CheckboxIndicator
       data-testid="test-indicator"
-      class="bg-white h-full w-full rounded flex items-center justify-center"
+      class="flex h-full w-full items-center justify-center rounded bg-white"
     >
-      <Icon
-        icon="radix-icons:check"
-        class="h-3 w-3 text-black"
-      />
+      <Icon icon="radix-icons:check" class="h-3 w-3 text-black" />
     </CheckboxIndicator>
   </CheckboxRoot>
 </template>

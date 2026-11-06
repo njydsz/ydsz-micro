@@ -1,22 +1,10 @@
-/**
- * YdCommandMenu —— 命令面板组件。
- *
- * 受 VS Code / Raycast 奎发的全屏模糊面板，输入框实时搜索过滤 + 上下键导航 + Enter 确认。
- *
- * WAI-ARIA: role="dialog" + aria-modal，搜索框 role="combobox"，列表 role="listbox"，选项 role="option"。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\command-menu\YdCommandMenu.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdCommandMenu —— 命令面板组件。 * * 受 VS Code / Raycast
+奎发的全屏模糊面板，输入框实时搜索过滤 + 上下键导航 + Enter 确认。 * * WAI-ARIA: role="dialog" +
+aria-modal，搜索框 role="combobox"，列表 role="listbox"，选项 role="option"。 * * @path
+comm\@core\ui-kit\ydsz-ui\src\components\command-menu\YdCommandMenu.vue * @author ydsz-team * @since
+1.0.0 */
 <script setup lang="ts">
-import {
-  computed,
-  nextTick,
-  ref,
-  useTemplateRef,
-  watch,
-} from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 
 import type { CommandItem, YdCommandMenuEmits, YdCommandMenuProps } from './types';
 
@@ -34,14 +22,17 @@ const emit = defineEmits<YdCommandMenuEmits>();
 // —— 面板显隐 ——
 const isVisible = ref(props.open);
 
-watch(() => props.open, (val) => {
-  isVisible.value = val;
-  if (val) {
-    searchQuery.value = '';
-    activeIndex.value = 0;
-    nextTick(() => inputRef.value?.focus());
-  }
-});
+watch(
+  () => props.open,
+  (val) => {
+    isVisible.value = val;
+    if (val) {
+      searchQuery.value = '';
+      activeIndex.value = 0;
+      nextTick(() => inputRef.value?.focus());
+    }
+  },
+);
 
 // —— 搜索过滤 ——
 const searchQuery = ref('');
@@ -168,13 +159,7 @@ function scrollIntoView(): void {
               fill="none"
               aria-hidden="true"
             >
-              <circle
-                cx="6.5"
-                cy="6.5"
-                r="5"
-                stroke="currentColor"
-                stroke-width="1.5"
-              />
+              <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5" />
               <path
                 d="M10.5 10.5L14 14"
                 stroke="currentColor"
@@ -194,7 +179,7 @@ function scrollIntoView(): void {
               :placeholder="placeholder"
               class="yd-command-menu__input"
               @keydown="onKeydown"
-            >
+            />
           </div>
 
           <!-- 结果列表 -->
@@ -219,36 +204,22 @@ function scrollIntoView(): void {
               @click="selectItem(item)"
               @mouseenter="activeIndex = idx"
             >
-              <span
-                v-if="item.icon"
-                class="yd-command-menu__item-icon"
-                aria-hidden="true"
-              >
+              <span v-if="item.icon" class="yd-command-menu__item-icon" aria-hidden="true">
                 {{ item.icon }}
               </span>
 
               <span class="yd-command-menu__item-label">{{ item.label }}</span>
 
-              <span
-                v-if="item.shortcut?.length"
-                class="yd-command-menu__item-shortcut"
-              >
-                <kbd
-                  v-for="(key, ki) in item.shortcut"
-                  :key="ki"
-                  class="yd-command-menu__kbd"
-                >{{ key }}</kbd>
+              <span v-if="item.shortcut?.length" class="yd-command-menu__item-shortcut">
+                <kbd v-for="(key, ki) in item.shortcut" :key="ki" class="yd-command-menu__kbd">{{
+                  key
+                }}</kbd>
               </span>
             </button>
           </div>
 
           <!-- 空状态 -->
-          <div
-            v-else
-            class="yd-command-menu__empty"
-            role="status"
-            aria-live="polite"
-          >
+          <div v-else class="yd-command-menu__empty" role="status" aria-live="polite">
             {{ emptyText }}
           </div>
         </div>
@@ -399,7 +370,9 @@ function scrollIntoView(): void {
 
 .yd-command-menu-enter-active .yd-command-menu__panel,
 .yd-command-menu-leave-active .yd-command-menu__panel {
-  transition: transform 0.18s ease, opacity 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
 }
 
 .yd-command-menu-enter-from,

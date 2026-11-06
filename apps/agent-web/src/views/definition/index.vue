@@ -19,7 +19,13 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { h, ref } from 'vue';
 
-import { YdDrawer, YdDescriptions, YdDescriptionsItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
+import {
+  YdDrawer,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdButton,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { getByCode, getById, list } from '#/api/agentDefinition';
@@ -46,10 +52,20 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     { field: 'createdAt', title: '创建时间', width: 160 },
     { field: 'updatedAt', title: '更新时间', width: 160 },
     {
-      field: 'action', title: '操作', width: 100, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleView(row) }, () => '查看'),
-      ]) },
+      field: 'action',
+      title: '操作',
+      width: 100,
+      fixed: 'right',
+      slots: {
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleView(row) },
+              () => '查看',
+            ),
+          ]),
+      },
     },
   ],
   height: 'auto',
@@ -62,17 +78,31 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     },
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-      { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } } },
-      { field: 'agentName', title: 'Agent名称', itemRender: { name: 'YdInput', props: { placeholder: 'Agent名称' } } },
-  ] },
+  formConfig: {
+    enabled: true,
+    items: [
+      {
+        field: 'agentCode',
+        title: 'Agent编码',
+        itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } },
+      },
+      {
+        field: 'agentName',
+        title: 'Agent名称',
+        itemRender: { name: 'YdInput', props: { placeholder: 'Agent名称' } },
+      },
+    ],
+  },
 };
 const [Grid] = useYDSZVxeGrid({ gridOptions });
 
 /** 按 Agent 编码查询定义详情，结果展示在顶部描述区 */
 async function handleQueryByCode() {
   const code = queryCode.value.trim();
-  if (!code) { showToast.warning('请输入Agent编码'); return; }
+  if (!code) {
+    showToast.warning('请输入Agent编码');
+    return;
+  }
   try {
     queryDetail.value = await getByCode({ code });
     showToast.success('查询成功');
@@ -86,7 +116,9 @@ async function handleView(row: AgentDefinitionVO) {
   try {
     detail.value = await getById({ id: row.id ?? '' });
     detailVisible.value = true;
-  } catch { /* 详情查询失败，由拦截器统一提示 */ }
+  } catch {
+    /* 详情查询失败，由拦截器统一提示 */
+  }
 }
 </script>
 <template>

@@ -70,15 +70,11 @@ const gridOptions: VxeTableGridOptions<MsgRouteRuleVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
-              () => t('common.delete'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () =>
+              t('common.delete'),
             ),
           ]),
       },
@@ -134,7 +130,10 @@ async function handleDelete(row: MsgRouteRuleVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除路由规则「${row.ruleName}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
+    await YdConfirm(`确定删除路由规则「${row.ruleName}」吗？`, {
+      title: t('deleteConfirmTitle'),
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消删除操作
   }

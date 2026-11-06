@@ -10,12 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  ComponentInternalInstance,
-  VNode,
-  VNodeChild,
-  VNodeNormalizedChildren,
-} from 'vue';
+import type { ComponentInternalInstance, VNode, VNodeChild, VNodeNormalizedChildren } from 'vue';
 
 import { isVNode } from 'vue';
 
@@ -29,10 +24,7 @@ type FlattenVNodes = Array<RawSlots | VNodeChildAtom>;
  * @param instance
  * @param parentNames
  */
-function findComponentUpward(
-  instance: ComponentInternalInstance,
-  parentNames: string[],
-) {
+function findComponentUpward(instance: ComponentInternalInstance, parentNames: string[]) {
   let parent = instance.parent;
   while (parent && !parentNames.includes(parent?.type?.name ?? '')) {
     parent = parent.parent;

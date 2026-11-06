@@ -10,13 +10,7 @@
  */
 
 /** 面包屑类别 */
-export type BreadcrumbCategory =
-  | 'click'
-  | 'navigation'
-  | 'http'
-  | 'console'
-  | 'custom'
-  | 'error';
+export type BreadcrumbCategory = 'click' | 'navigation' | 'http' | 'console' | 'custom' | 'error';
 
 /** 面包屑级别 */
 export type BreadcrumbLevel = 'info' | 'warning' | 'error';
@@ -101,12 +95,11 @@ export function setupBreadcrumbAutoCapture(): () => void {
     const target = event.target as HTMLElement | null;
     if (!target) return;
     // 生成简短描述：优先 id，其次 class，最后 tagName
-    const desc =
-      target.id
-        ? `#${target.id}`
-        : target.getAttribute('data-breadcrumb')
-          ? `[${target.getAttribute('data-breadcrumb')}]`
-          : target.tagName.toLowerCase();
+    const desc = target.id
+      ? `#${target.id}`
+      : target.getAttribute('data-breadcrumb')
+        ? `[${target.getAttribute('data-breadcrumb')}]`
+        : target.tagName.toLowerCase();
     addBreadcrumb('click', desc, {
       data: { x: event.clientX, y: event.clientY },
     });
@@ -123,16 +116,16 @@ export function setupBreadcrumbAutoCapture(): () => void {
 
   // 3. console.warn / console.error（拦截注入面包屑，对标 Sentry request interceptor）
   // 该文件是监控拦截器实现层，需要覆写 console 方法进行诊断采集，属于 §14.5 豁免场景
-   
+
   const originalWarn = console.warn;
-   
+
   const originalError = console.error;
-   
+
   console.warn = (...args: unknown[]): void => {
     addBreadcrumb('console', args.map(String).join(' '), { level: 'warning' });
     originalWarn.apply(console, args);
   };
-   
+
   console.error = (...args: unknown[]): void => {
     addBreadcrumb('console', args.map(String).join(' '), { level: 'error' });
     originalError.apply(console, args);
@@ -143,9 +136,9 @@ export function setupBreadcrumbAutoCapture(): () => void {
     window.removeEventListener('click', onClick, { capture: true } as EventListenerOptions);
     window.removeEventListener('popstate', onNavigation);
     window.removeEventListener('hashchange', onNavigation);
-     
+
     console.warn = originalWarn;
-     
+
     console.error = originalError;
   };
 }

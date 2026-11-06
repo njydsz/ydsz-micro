@@ -232,9 +232,7 @@ async function handleSubmitCommand() {
           <YdTableColumn prop="createdAt" label="创建时间" width="170" />
           <YdTableColumn label="操作" width="160" fixed="right">
             <template #default="{ row }">
-              <YdButton variant="link" size="sm" @click="handleSelectSession(row)"
-                >选择</YdButton
-              >
+              <YdButton variant="link" size="sm" @click="handleSelectSession(row)">选择</YdButton>
               <YdButton variant="link" size="sm" @click="handleTerminateSession(row)"
                 >结束</YdButton
               >
@@ -249,9 +247,7 @@ async function handleSubmitCommand() {
             placeholder="输入调试命令…"
             class="flex-1"
           />
-          <YdButton :disabled="!selectedSessionId" @click="handleSubmitCommand"
-            >提交命令</YdButton
-          >
+          <YdButton :disabled="!selectedSessionId" @click="handleSubmitCommand">提交命令</YdButton>
         </div>
         <pre
           v-if="commandResult"

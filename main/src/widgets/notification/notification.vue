@@ -90,7 +90,7 @@ function formatTime(time: string) {
 <template>
   <div class="relative inline-flex">
     <button
-      class="relative rounded-md p-1.5 transition-colors hover:bg-accent"
+      class="hover:bg-accent relative rounded-md p-1.5 transition-colors"
       :aria-label="$t('ui.widgets.notifications')"
       @click.stop="toggle()"
     >
@@ -105,7 +105,7 @@ function formatTime(time: string) {
 
     <div
       v-if="open"
-      class="absolute right-0 top-full z-50 mt-2 w-[320px] rounded-lg border bg-popover shadow-lg"
+      class="bg-popover absolute right-0 top-full z-50 mt-2 w-[320px] rounded-lg border shadow-lg"
     >
       <!-- 标题栏 -->
       <div class="flex items-center justify-between border-b px-4 py-3">
@@ -127,13 +127,13 @@ function formatTime(time: string) {
         <div
           v-for="item in recentNotifications"
           :key="item.id"
-          class="flex cursor-pointer items-start gap-3 border-b px-4 py-3 transition-colors hover:bg-accent"
+          class="hover:bg-accent flex cursor-pointer items-start gap-3 border-b px-4 py-3 transition-colors"
           :class="{ 'bg-accent/30': !item.isRead }"
           @click="handleViewNotification(item.id)"
         >
           <span
             v-if="!item.isRead"
-            class="mt-1.5 inline-block h-2 w-2 shrink-0 rounded bg-primary"
+            class="bg-primary mt-1.5 inline-block h-2 w-2 shrink-0 rounded"
           ></span>
           <div class="min-w-0 flex-1">
             <p class="line-clamp-1 text-sm" :class="{ 'font-medium': !item.isRead }">
@@ -149,10 +149,7 @@ function formatTime(time: string) {
         </div>
       </div>
 
-      <div
-        v-else
-        class="text-muted-foreground py-8 text-center text-sm"
-      >
+      <div v-else class="text-muted-foreground py-8 text-center text-sm">
         {{ $t('common.noData') }}
       </div>
 
@@ -168,10 +165,6 @@ function formatTime(time: string) {
     </div>
 
     <!-- 点击外部关闭 -->
-    <div
-      v-if="open"
-      class="fixed inset-0 z-40"
-      @click="open = false"
-    ></div>
+    <div v-if="open" class="fixed inset-0 z-40" @click="open = false"></div>
   </div>
 </template>

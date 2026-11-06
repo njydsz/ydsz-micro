@@ -10,20 +10,20 @@
  * @author ydsz-team
  * @since 4.1.0
  */
-import type { microRuntime } from "#/setup/micro-runtime";
+import type { microRuntime } from '#/setup/micro-runtime';
 
-import { enableMicroDevTools, getCanaryManager } from "@ydsz/micro-kernel";
-import { setupMonitor } from "@ydsz/monitor";
-import { useUserStore } from "@ydsz/stores";
+import { enableMicroDevTools, getCanaryManager } from '@ydsz/micro-kernel';
+import { setupMonitor } from '@ydsz/monitor';
+import { useUserStore } from '@ydsz/stores';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { useCrossTabSync } from "#/hooks/use-cross-tab-sync";
-import { useSessionExpiryWarning } from "#/hooks/use-session-expiry-warning";
-import { enableDevToolsBridge } from "#/monitoring/devtools-bridge";
+import { useCrossTabSync } from '#/hooks/use-cross-tab-sync';
+import { useSessionExpiryWarning } from '#/hooks/use-session-expiry-warning';
+import { enableDevToolsBridge } from '#/monitoring/devtools-bridge';
 
 /** 运行时日志器 */
-const runtimeLogger = createLogger("MicroRuntime");
+const runtimeLogger = createLogger('MicroRuntime');
 
 /**
  * 安装前端监控（错误捕获 + Web Vitals）。
@@ -43,8 +43,7 @@ export function setupAppMonitoring(
         return undefined;
       }
     },
-    release:
-      import.meta.env.VITE_APP_RELEASE || import.meta.env.VITE_APP_VERSION,
+    release: import.meta.env.VITE_APP_RELEASE || import.meta.env.VITE_APP_VERSION,
     // 生产环境高频错误采样 80%，开发环境全量
     sampleRate: import.meta.env.PROD ? 0.8 : 1,
     ...(sentryDsn ? { sentryDsn } : {}),
@@ -77,7 +76,7 @@ export async function initCanaryManager() {
       await getCanaryManager().init({
         remoteUrl: remoteUrl || undefined,
       });
-      runtimeLogger.info("Canary manager initialized");
+      runtimeLogger.info('Canary manager initialized');
     }
   } catch (error) {
     runtimeLogger.warn(`Canary init skipped: ${String(error)}`);

@@ -20,12 +20,9 @@ import { PaginationLast } from '@ydsz-core/ydsz-vue';
 
 import { YdButton } from '.././button';
 
-const props = withDefaults(
-  defineProps<PaginationLastProps & { class?: any }>(),
-  {
-    asChild: true,
-  },
-);
+const props = withDefaults(defineProps<PaginationLastProps & { class?: any }>(), {
+  asChild: true,
+});
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

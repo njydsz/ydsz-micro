@@ -11,10 +11,10 @@
  * @since 1.0.0
  */
 
-import type { AppUsageStats } from "./preload-types";
+import type { AppUsageStats } from './preload-types';
 
 /** 统计数据 localStorage key */
-const STORAGE_KEY = "ydsz_app_usage_stats";
+const STORAGE_KEY = 'ydsz_app_usage_stats';
 
 /**
  * 使用统计存储管理器。
@@ -51,8 +51,7 @@ export class UsageStatsStore {
       stats.lastVisitTime = now;
       // 更新平均间隔（加权平均）
       stats.averageInterval =
-        (stats.averageInterval * (stats.visitCount - 1) + interval) /
-        stats.visitCount;
+        (stats.averageInterval * (stats.visitCount - 1) + interval) / stats.visitCount;
     } else {
       this.usageStats.set(appName, {
         appName,
@@ -93,9 +92,7 @@ export class UsageStatsStore {
    * @since 4.1.0
    */
   getAll(): AppUsageStats[] {
-    return Array.from(this.usageStats.values()).sort(
-      (a, b) => b.visitCount - a.visitCount,
-    );
+    return Array.from(this.usageStats.values()).sort((a, b) => b.visitCount - a.visitCount);
   }
 
   /**

@@ -85,8 +85,14 @@ test.describe('全局搜索冒烟', () => {
     const empty = page.locator(LOCAL_SELECTORS.empty).first();
 
     const anyVisible = await Promise.race([
-      resultItem.isVisible({ timeout: 3_000 }).then(() => true).catch(() => false),
-      empty.isVisible({ timeout: 100 }).then(() => true).catch(() => false),
+      resultItem
+        .isVisible({ timeout: 3_000 })
+        .then(() => true)
+        .catch(() => false),
+      empty
+        .isVisible({ timeout: 100 })
+        .then(() => true)
+        .catch(() => false),
     ]);
 
     expect(anyVisible, '搜索结果列表或空状态至少有一个应渲染').toBe(true);

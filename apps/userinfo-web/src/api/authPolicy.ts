@@ -24,9 +24,7 @@ export function page(query?: AuthPolicyPageQuery): Promise<PageResponse<AuthPoli
 /**
  * getByTenantId: GET /auth-policy/{tenantId}
  */
-export function getByTenantId({ tenantId }: {
-    tenantId: string;
-  }): Promise<AuthPolicyVO> {
+export function getByTenantId({ tenantId }: { tenantId: string }): Promise<AuthPolicyVO> {
   return requestClient.get<AuthPolicyVO>(`/auth-policy/${tenantId}`);
 }
 
@@ -40,17 +38,20 @@ export function create(data: AuthPolicyDTO): Promise<void> {
 /**
  * update: PUT /auth-policy/{tenantId}
  */
-export function update({ tenantId }: {
+export function update(
+  {
+    tenantId,
+  }: {
     tenantId: string;
-  }, data: AuthPolicyDTO): Promise<void> {
+  },
+  data: AuthPolicyDTO,
+): Promise<void> {
   return requestClient.put<void>(`/auth-policy/${tenantId}`, data);
 }
 
 /**
  * delete: DELETE /auth-policy/{tenantId}
  */
-export function deleteApi({ tenantId }: {
-    tenantId: string;
-  }): Promise<void> {
+export function deleteApi({ tenantId }: { tenantId: string }): Promise<void> {
   return requestClient.delete<void>(`/auth-policy/${tenantId}`);
 }

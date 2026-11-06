@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* YdDatePicker Vue 组件 —— 基于 Popover 的日历命令式选择器，全粒度矩阵。
-* 
+ * YdDatePicker Vue 组件 —— 基于 Popover 的日历命令式选择器，全粒度矩阵。
+ *
  * 提供对齐业界 DatePicker 的核心 API：v-model 双向绑定、placeholder、disabled，
  * type 支持 date / datetime / week / month / quarter / year 及 range 变体（共 10 种）。
-* 
+ *
  * 改进（YDIZ-POPUP-001 + 5.6.0）：
  * - 弹出层使用 Teleport 挂载到 body，避免父级 overflow:hidden 裁切
  * - 添加 click-outside 自动关闭，点击弹出层外部即收起
@@ -14,12 +14,13 @@
  *   结束点未定时随鼠标悬停实时预览区间范围
  * - 5.6.0 新增：week / month / quarter / year 粒度与对应 range 变体，
  *   面板可在日 / 月 / 年视图层级上切换
-* 
+ * - 5.7.0 新增：multiple 离散多选 + inline 常驻面板
+ *
  * 样式全部使用 Tailwind 设计系统 Token，暗色模式由 CSS 变量驱动。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdDatePicker.vue
  * @author ydsz-team
- * @since 5.3.0 (5.6.0 支持 week/month/quarter/year 全粒度)
+ * @since 5.3.0 (5.6.0 支持 week/month/quarter/year 全粒度；5.7.0 multiple/inline)
  */
 import type { DatePickerShortcut, DatePickerType, DatePickerValue } from './types';
 
@@ -38,13 +39,11 @@ import YdMonthPanel from './YdMonthPanel.vue';
 import YdQuarterPanel from './YdQuarterPanel.vue';
 import YdYearPanel from './YdYearPanel.vue';
 import {
-  endOfByGrain,
   formatByGrain,
   isRangeType,
   parseByGrain,
   resolveRangeBase,
   startOfByGrain,
-  startOfYear,
 } from './date-utils';
 
 const props = withDefaults(
@@ -55,9 +54,25 @@ const props = withDefaults(
     placeholder?: string;
     type?: DatePickerType;
     shortcuts?: DatePickerShortcut[];
+    /**
+     * 多选日期（离散多选）
+     *
+     * 仅在非 range 粒度下生效。选中多个日期后 v-model 为字符串数组。
+     * @default false
+     */
+    multiple?: boolean;
+    /**
+     * 常驻面板（inline 模式）
+     *
+     * 开启后不渲染触发器，面板直接内联展示。
+     * @default false
+     */
+    inline?: boolean;
   }>(),
   {
     disabled: false,
+    inline: false,
+    multiple: false,
     type: 'date',
   },
 );
@@ -94,6 +109,8 @@ const triggerBounds = useElementBounding(triggerRef);
 const grain = computed<DatePickerType>(() => props.type ?? 'date');
 const isRange = computed(() => isRangeType(grain.value));
 const baseGrain = computed(() => resolveRangeBase(grain.value));
+/** 是否多选模式（非 range + multiple） */
+const isMultiple = computed(() => props.multiple && !isRange.value);
 
 /* ----- 月份/年份导航状态 ----- */
 const now = new Date();
@@ -108,7 +125,7 @@ function resolveViewDate(value?: DatePickerValue): Date {
   if (!value) {
     return new Date(now.getFullYear(), now.getMonth(), 1);
   }
-  const seed = Array.isArray(value) ? value[0] : value;
+  const seed = Array.isArray(value) ? (value[0] as string) : (value as string);
   const parsed = parseByGrain(seed, baseGrain.value);
   if (parsed) {
     return startOfByGrain(parsed, baseGrain.value);
@@ -145,11 +162,6 @@ onClickOutside(
 
 const { t } = useLocale();
 
-const EN_MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-
 /** 月份标题 */
 const monthLabel = computed(() => {
   const year = viewDate.value.getFullYear();
@@ -157,13 +169,7 @@ const monthLabel = computed(() => {
   return `${year} 年 ${month + 1} 月`;
 });
 
-/** 十年标题 */
-const yearRangeLabel = computed(() => {
-  const start = decadeStart.value;
-  return `${start} - ${start + 9}`;
-});
-
-/** year 视图标题（10年一级） */
+/** 年份视图导航（10年一级） */
 function prevDecade(): void {
   viewDate.value = new Date(decadeStart.value - 10, 0, 1);
 }
@@ -185,12 +191,24 @@ function nextMonth(): void {
 
 /** 输入框展示值 */
 const displayValue = computed(() => {
+  if (isMultiple.value) {
+    const values = multipleSelection.value;
+    return values.length ? values.join(', ') : '';
+  }
   if (!isRange.value) {
     const v = modelValue.value as string | undefined;
     return v ?? '';
   }
   const tuple = modelValue.value as readonly [string, string] | undefined;
   return tuple ? `${tuple[0]} ~ ${tuple[1]}` : '';
+});
+
+/** 多选已选集合（字符串数组） */
+const multipleSelection = computed<string[]>(() => {
+  if (!isMultiple.value) return [];
+  const v = modelValue.value;
+  if (Array.isArray(v)) return [...v];
+  return v ? [v as string] : [];
 });
 
 /* ----- 选择状态 ----- */
@@ -245,6 +263,17 @@ function commitRange(start: string, end: string): void {
 function handleDaySelect(date: Date): void {
   const key = formatByGrain(date, baseGrain.value);
 
+  // 多选模式：离散累积
+  if (isMultiple.value) {
+    const current = multipleSelection.value;
+    const next = current.includes(key)
+      ? current.filter((v) => v !== key)
+      : [...current, key];
+    emits('update:modelValue', next as unknown as DatePickerValue);
+    emits('change', next as unknown as DatePickerValue);
+    return;
+  }
+
   if (!isRange.value) {
     commitSingle(key);
     return;
@@ -271,6 +300,17 @@ function handleDaySelect(date: Date): void {
  */
 function handleMonthSelect(date: Date): void {
   const key = formatByGrain(date, 'month');
+
+  if (isMultiple.value) {
+    const current = multipleSelection.value;
+    const next = current.includes(key)
+      ? current.filter((v) => v !== key)
+      : [...current, key];
+    emits('update:modelValue', next as unknown as DatePickerValue);
+    emits('change', next as unknown as DatePickerValue);
+    return;
+  }
+
   if (!isRange.value) {
     commitSingle(key);
     return;
@@ -295,6 +335,17 @@ function handleMonthSelect(date: Date): void {
  */
 function handleYearSelect(date: Date): void {
   const key = formatByGrain(date, 'year');
+
+  if (isMultiple.value) {
+    const current = multipleSelection.value;
+    const next = current.includes(key)
+      ? current.filter((v) => v !== key)
+      : [...current, key];
+    emits('update:modelValue', next as unknown as DatePickerValue);
+    emits('change', next as unknown as DatePickerValue);
+    return;
+  }
+
   if (!isRange.value) {
     commitSingle(key);
     return;
@@ -356,6 +407,8 @@ function applyShortcut(shortcut: DatePickerShortcut): void {
 /** 当前选中（用于 CalendarPanel highlight） */
 const daySelected = computed(() => {
   if (isRange.value) return undefined;
+  // CalendarPanel selected 为 string 类型；多选模式由面板内部高亮数组处理
+  if (isMultiple.value) return undefined;
   return (modelValue.value as string | undefined) ?? undefined;
 });
 
@@ -384,12 +437,15 @@ const panelWidth = computed(() => {
       return 'w-[280px]';
   }
 });
+
+/** inline 模式下面板始终可见 */
+const panelVisible = computed(() => props.inline || isOpen.value);
 </script>
 
 <template>
   <div :class="cn('relative inline-flex', props.class)">
-    <!-- 触发器区域 -->
-    <div ref="triggerRef" class="relative">
+    <!-- 触发器区域（inline 模式不渲染） -->
+    <div v-if="!props.inline" ref="triggerRef" class="relative">
       <input
         :value="displayValue"
         :class="
@@ -417,7 +473,123 @@ const panelWidth = computed(() => {
       </button>
     </div>
 
-    <!-- 弹出层 -->
+    <!-- 弹出层（inline 模式内联渲染，否则 Teleport） -->
+    <div
+      v-if="props.inline"
+      ref="popoverRef"
+      :class="
+        cn(
+          'border-border bg-popover text-popover-foreground rounded-md border p-3 shadow-md',
+          panelWidth,
+        )
+      "
+    >
+      <!-- 快捷项 -->
+      <div
+        v-if="shortcuts && shortcuts.length > 0"
+        class="mb-2 flex flex-wrap gap-1 border-b pb-2"
+      >
+        <button
+          v-for="sc in shortcuts"
+          :key="sc.text"
+          type="button"
+          class="hover:bg-accent text-muted-foreground rounded px-2 py-0.5 text-xs"
+          @click="applyShortcut(sc)"
+        >
+          {{ sc.text }}
+        </button>
+      </div>
+
+      <!-- 按粒度渲染不同面板 -->
+      <template v-if="baseGrain === 'year'">
+        <YdYearPanel
+          :decade-start="decadeStart"
+          :selected="isRange ? undefined : daySelected"
+          :range-end="rangeEndValue"
+          :range-hover="rangeHoverValue"
+          :range-start="rangeStartValue"
+          @clear-hover="handleClearHover"
+          @hover="handleHover"
+          @next-decade="nextDecade"
+          @prev-decade="prevDecade"
+          @select="handleYearSelect"
+        />
+      </template>
+
+      <template v-else-if="baseGrain === 'quarter'">
+        <YdQuarterPanel
+          :display-year="viewDate"
+          :selected="daySelected"
+          @select="handleQuarterSelect"
+        />
+      </template>
+
+      <template v-else-if="baseGrain === 'month'">
+        <YdMonthPanel
+          :display-year="viewDate"
+          :selected="isRange ? undefined : daySelected"
+          :range-end="rangeEndValue"
+          :range-hover="rangeHoverValue"
+          :range-start="rangeStartValue"
+          @clear-hover="handleClearHover"
+          @hover="handleHover"
+          @select="handleMonthSelect"
+        />
+      </template>
+
+      <template v-else>
+        <!-- 日视图（date / datetime / week / range 变体）-->
+        <!-- 月份导航 -->
+        <div class="mb-2 flex items-center justify-between">
+          <button
+            :aria-label="t('datepicker.previousMonth')"
+            class="hover:bg-accent hover:text-accent-foreground rounded-md p-1"
+            type="button"
+            @click="prevMonth"
+          >
+            <svg
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <span class="text-sm font-medium">{{ monthLabel }}</span>
+          <button
+            :aria-label="t('datepicker.nextMonth')"
+            class="hover:bg-accent hover:text-accent-foreground rounded-md p-1"
+            type="button"
+            @click="nextMonth"
+          >
+            <svg
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <YdCalendarPanel
+          :display-month="viewDate"
+          :selected="daySelected"
+          :range-end="rangeEndValue"
+          :range-hover="rangeHoverValue"
+          :range-start="rangeStartValue"
+          @clear-hover="handleClearHover"
+          @hover="handleHover"
+          @select="handleDaySelect"
+        />
+      </template>
+    </div>
+
+    <!-- 弹出层（非 inline） -->
     <Teleport v-if="isClient" to="body">
       <Transition
         enter-active-class="transition duration-200 ease-out"
@@ -426,13 +598,21 @@ const panelWidth = computed(() => {
         leave-to-class="opacity-0 scale-95"
       >
         <div
-          v-show="isOpen"
+          v-show="panelVisible && !props.inline"
           ref="popoverRef"
           :style="popoverStyle"
-          :class="cn('border-border bg-popover text-popover-foreground rounded-md border p-3 shadow-md', panelWidth)"
+          :class="
+            cn(
+              'border-border bg-popover text-popover-foreground rounded-md border p-3 shadow-md',
+              panelWidth,
+            )
+          "
         >
           <!-- 快捷项 -->
-          <div v-if="shortcuts && shortcuts.length > 0" class="mb-2 flex flex-wrap gap-1 border-b pb-2">
+          <div
+            v-if="shortcuts && shortcuts.length > 0"
+            class="mb-2 flex flex-wrap gap-1 border-b pb-2"
+          >
             <button
               v-for="sc in shortcuts"
               :key="sc.text"
@@ -461,7 +641,11 @@ const panelWidth = computed(() => {
           </template>
 
           <template v-else-if="baseGrain === 'quarter'">
-            <YdQuarterPanel :display-year="viewDate" :selected="daySelected" @select="handleQuarterSelect" />
+            <YdQuarterPanel
+              :display-year="viewDate"
+              :selected="daySelected"
+              @select="handleQuarterSelect"
+            />
           </template>
 
           <template v-else-if="baseGrain === 'month'">
@@ -487,7 +671,13 @@ const panelWidth = computed(() => {
                 type="button"
                 @click="prevMonth"
               >
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </button>
@@ -498,7 +688,13 @@ const panelWidth = computed(() => {
                 type="button"
                 @click="nextMonth"
               >
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </button>
@@ -520,3 +716,4 @@ const panelWidth = computed(() => {
     </Teleport>
   </div>
 </template>
+

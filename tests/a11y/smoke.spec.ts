@@ -24,11 +24,7 @@
 
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import {
-  configureAxeBuilder,
-  filterBlockingViolations,
-  formatViolations,
-} from './axe.config';
+import { configureAxeBuilder, filterBlockingViolations, formatViolations } from './axe.config';
 
 test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
   test.beforeEach(async ({ page }) => {
@@ -52,83 +48,83 @@ test.describe('ydsz-ui 无障碍冒烟（WCAG 2.1 AA）', () => {
 
   test('P1-a11y: Button 组件 — 图标按钮必须具备可访问名称', async ({ page }) => {
     const results = await configureAxeBuilder(
-      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-button"]'),
+      new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .include('[data-testid="fixture-button"]'),
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `Button 组件存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `Button 组件存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
   });
 
   test('P1-a11y: Input 组件 — 输入控件必须具备 label 关联', async ({ page }) => {
     const results = await configureAxeBuilder(
-      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-input"]'),
+      new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .include('[data-testid="fixture-input"]'),
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `Input 组件存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `Input 组件存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
   });
 
   test('P1-a11y: Select 组件 — 选择器必须具备可访问名称与选项文本', async ({ page }) => {
     const results = await configureAxeBuilder(
-      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-select"]'),
+      new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .include('[data-testid="fixture-select"]'),
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `Select 组件存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `Select 组件存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
   });
 
   test('P1-a11y: Table 组件 — 表头必须具备 scope 关联', async ({ page }) => {
     const results = await configureAxeBuilder(
-      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-table"]'),
+      new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .include('[data-testid="fixture-table"]'),
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `Table 组件存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `Table 组件存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
   });
 
   test('P1-a11y: Dialog 组件 — 模态对话框必须具备可访问名称与焦点管理', async ({ page }) => {
     // Dialog 默认未打开，先点击触发器
     await page.locator('[data-testid="dialog-trigger"]').click();
     // 等待 Dialog 内容渲染完成
-    await page.waitForSelector('[data-testid="fixture-dialog"]', { state: 'visible', timeout: 5_000 });
+    await page.waitForSelector('[data-testid="fixture-dialog"]', {
+      state: 'visible',
+      timeout: 5_000,
+    });
 
     const results = await configureAxeBuilder(
-      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-dialog"]'),
+      new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .include('[data-testid="fixture-dialog"]'),
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `Dialog 组件存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `Dialog 组件存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
   });
 
   test('P1-a11y: Sheet 组件 — 侧边抽屉必须具备可访问名称', async ({ page }) => {
     // Sheet 默认未打开，先点击触发器
     await page.locator('[data-testid="sheet-trigger"]').click();
     // 等待 Sheet 内容渲染完成
-    await page.waitForSelector('[data-testid="fixture-sheet"]', { state: 'visible', timeout: 5_000 });
+    await page.waitForSelector('[data-testid="fixture-sheet"]', {
+      state: 'visible',
+      timeout: 5_000,
+    });
 
     const results = await configureAxeBuilder(
-      new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).include('[data-testid="fixture-sheet"]'),
+      new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+        .include('[data-testid="fixture-sheet"]'),
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `Sheet 组件存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `Sheet 组件存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
   });
 });

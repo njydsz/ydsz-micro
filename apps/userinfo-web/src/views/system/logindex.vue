@@ -19,7 +19,17 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdDatePicker, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdDatePicker,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -62,7 +72,26 @@ function statusTagType(status: string): 'success' | 'danger' {
  * @returns VNode
  */
 function hYdBadge(text: string, type: 'success' | 'danger' | 'warning' | 'info') {
-  return h(YdBadge, { variant: type === 'success' ? 'default' : type === 'danger' ? 'destructive' : type === 'warning' ? 'outline' : 'secondary', class: type === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => text);
+  return h(
+    YdBadge,
+    {
+      variant:
+        type === 'success'
+          ? 'default'
+          : type === 'danger'
+            ? 'destructive'
+            : type === 'warning'
+              ? 'outline'
+              : 'secondary',
+      class:
+        type === 'success'
+          ? 'bg-green-500 text-white hover:bg-green-600'
+          : type === 'warning'
+            ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+            : 'text-xs',
+    },
+    () => text,
+  );
 }
 
 /**
@@ -200,8 +229,18 @@ onMounted(() => {
           <YdSelectItemBase value="FAILED">{{ t('security.fail') }}</YdSelectItemBase>
         </YdSelectContentBase>
       </YdSelectBase>
-      <YdDatePicker v-model="startTime" :placeholder="t('loginLog.startTime')" class="w-[180px]" @update:model-value="applyFilter" />
-      <YdDatePicker v-model="endTime" :placeholder="t('loginLog.endTime')" class="w-[180px]" @update:model-value="applyFilter" />
+      <YdDatePicker
+        v-model="startTime"
+        :placeholder="t('loginLog.startTime')"
+        class="w-[180px]"
+        @update:model-value="applyFilter"
+      />
+      <YdDatePicker
+        v-model="endTime"
+        :placeholder="t('loginLog.endTime')"
+        class="w-[180px]"
+        @update:model-value="applyFilter"
+      />
       <YdButton variant="ghost" @click="resetFilter">{{ t('page.reset') }}</YdButton>
       <div class="ml-auto text-sm text-gray-400">
         {{ t('loginLog.totalRecords', { total: totalCount }) }}

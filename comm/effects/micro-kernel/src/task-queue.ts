@@ -9,20 +9,20 @@
  * @since 3.6.1
  */
 
-import type { AppInstance, SchedulerContext } from "./app-state";
-import { getContext } from "./app-state";
-import { createLogger } from "@ydsz-core/shared/utils";
-import { removeStylesheets } from "./loader";
-import type { ExtendedPerformance, MemoryInfo } from "./performance-memory";
+import type { AppInstance, SchedulerContext } from './app-state';
+import { getContext } from './app-state';
+import { createLogger } from '@ydsz-core/shared/utils';
+import { removeStylesheets } from './loader';
+import type { ExtendedPerformance, MemoryInfo } from './performance-memory';
 
 /** 模块级日志器（任务调度队列） */
-const logger = createLogger("MicroKernel:TaskQueue");
+const logger = createLogger('MicroKernel:TaskQueue');
 
 // ==================== P0-P2: before-evict 事件 ====================
 
 /** 派发 before-evict 事件，返回 true 表示允许淘汰，false 表示被阻止 */
 function dispatchBeforeEvict(appName: string): boolean {
-  const event = new CustomEvent("micro-kernel:before-evict", {
+  const event = new CustomEvent('micro-kernel:before-evict', {
     detail: { appName },
     cancelable: true,
     bubbles: true,
@@ -104,10 +104,10 @@ async function getMemoryUsageMB(): Promise<number | null> {
   // 标准路径：performance.measureMemory()（feature-detect，勿假设存在）
   const perf = (window as unknown as { performance?: ExtendedPerformance }).performance;
   const measure = perf?.measureMemory?.bind(window.performance);
-  if (typeof measure === "function") {
+  if (typeof measure === 'function') {
     try {
       const result = await measure({ attribution: false });
-      if (result && typeof result.bytes === "number") {
+      if (result && typeof result.bytes === 'number') {
         return result.bytes / 1024 / 1024;
       }
     } catch {
@@ -136,11 +136,7 @@ export async function evictKeepAliveIfNeeded(
   const cached: AppInstance[] = [];
   const now = ctx.keepAliveTimestamp;
   for (const instance of ctx.appInstances.values()) {
-    if (
-      instance.keepAlive &&
-      instance.status === "UNMOUNTED" &&
-      instance.cachedRoot
-    ) {
+    if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
       cached.push(instance);
     }
   }
@@ -165,7 +161,7 @@ export async function evictKeepAliveIfNeeded(
       ...[...ctx.appInstances.values()].filter(
         (i) =>
           i.keepAlive &&
-          i.status === "UNMOUNTED" &&
+          i.status === 'UNMOUNTED' &&
           i.cachedRoot &&
           !evicted.includes(i.config.name),
       ),
@@ -180,9 +176,7 @@ export async function evictKeepAliveIfNeeded(
     // 且不能因为「每次都选中它」而让 while 循环空转
     if (victim.pinned) continue;
     if (!dispatchBeforeEvict(victim.config.name)) {
-      logger.debug(
-        `LRU eviction of "${victim.config.name}" prevented by before-evict listener`,
-      );
+      logger.debug(`LRU eviction of "${victim.config.name}" prevented by before-evict listener`);
       continue;
     }
     logger.debug(
@@ -226,13 +220,8 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
   try {
     if (instance.exports) {
       await instance.exports.unmount({
-        container:
-          (instance.cachedParent as HTMLElement) ||
-          document.createElement("div"),
-        basename:
-          typeof instance.config.activeRule === "string"
-            ? instance.config.activeRule
-            : "/",
+        container: (instance.cachedParent as HTMLElement) || document.createElement('div'),
+        basename: typeof instance.config.activeRule === 'string' ? instance.config.activeRule : '/',
       });
     }
   } catch (error) {
@@ -258,7 +247,7 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
   instance.cachedRoot = null;
   instance.cachedParent = null;
   instance.exports = null;
-  instance.status = "NOT_LOADED";
+  instance.status = 'NOT_LOADED';
   instance.error = null;
   instance.keepAliveSince = 0;
   logger.debug(`Evicted keep-alive app "${instance.config.name}"`);
@@ -278,9 +267,7 @@ async function evictSingleInstance(instance: AppInstance): Promise<void> {
  *
  * @param thresholdMB - 内存阈值（MB），默认使用动态阈值
  */
-export async function evictAllKeepAliveOnMemoryPressure(
-  thresholdMB?: number,
-): Promise<void> {
+export async function evictAllKeepAliveOnMemoryPressure(thresholdMB?: number): Promise<void> {
   const effectiveThreshold = thresholdMB ?? getDynamicMemoryThreshold();
   const measuredMB = await getMemoryUsageMB();
 
@@ -295,11 +282,7 @@ export async function evictAllKeepAliveOnMemoryPressure(
     const max = getAdaptiveMaxKeepAlive();
     let keepAliveCount = 0;
     for (const instance of getContext().appInstances.values()) {
-      if (
-        instance.keepAlive &&
-        instance.status === "UNMOUNTED" &&
-        instance.cachedRoot
-      ) {
+      if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
         keepAliveCount++;
       }
     }
@@ -310,11 +293,7 @@ export async function evictAllKeepAliveOnMemoryPressure(
   }
 
   for (const instance of getContext().appInstances.values()) {
-    if (
-      instance.keepAlive &&
-      instance.status === "UNMOUNTED" &&
-      instance.cachedRoot
-    ) {
+    if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
       if (!dispatchBeforeEvict(instance.config.name)) {
         logger.debug(
           `Memory pressure eviction of "${instance.config.name}" prevented by before-evict listener`,
@@ -324,18 +303,22 @@ export async function evictAllKeepAliveOnMemoryPressure(
 
       instance.keepAlive = false;
       try {
-        if (instance.exports) await instance.exports.unmount({
-          container: (instance.cachedParent as HTMLElement) || document.createElement("div"),
-          basename: typeof instance.config.activeRule === "string" ? instance.config.activeRule : "/",
-        });
-      } catch { /* 静默 */ }
+        if (instance.exports)
+          await instance.exports.unmount({
+            container: (instance.cachedParent as HTMLElement) || document.createElement('div'),
+            basename:
+              typeof instance.config.activeRule === 'string' ? instance.config.activeRule : '/',
+          });
+      } catch {
+        /* 静默 */
+      }
       instance.strategy?.cleanup();
       instance.strategy = null;
       removeStylesheets(instance.config.name);
       instance.cachedRoot = null;
       instance.cachedParent = null;
       instance.exports = null;
-      instance.status = "NOT_LOADED";
+      instance.status = 'NOT_LOADED';
     }
   }
 }
@@ -344,15 +327,15 @@ export async function evictAllKeepAliveOnMemoryPressure(
 
 /** 页面切换到后台时触发内存压力检查，自动释放非活跃保活实例 */
 export function setupVisibilityAutoRelease(): () => void {
-  if (typeof document === "undefined") return () => {};
+  if (typeof document === 'undefined') return () => {};
 
   const handler = (): void => {
     if (document.hidden) {
       void evictAllKeepAliveOnMemoryPressure();
     }
   };
-  document.addEventListener("visibilitychange", handler);
+  document.addEventListener('visibilitychange', handler);
   return () => {
-    document.removeEventListener("visibilitychange", handler);
+    document.removeEventListener('visibilitychange', handler);
   };
 }

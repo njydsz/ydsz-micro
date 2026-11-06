@@ -140,9 +140,7 @@ type ComponentProps =
  *
  * @param values - 经过归一化处理的表单值
  */
-export type HandleSubmitFn = (
-  values: Record<string, unknown>,
-) => Promise<void> | void;
+export type HandleSubmitFn = (values: Record<string, unknown>) => Promise<void> | void;
 
 /**
  * 表单重置回调。
@@ -154,9 +152,7 @@ export type HandleSubmitFn = (
  *
  * @param values - 重置完成后的表单值
  */
-export type HandleResetFn = (
-  values: Record<string, unknown>,
-) => Promise<void> | void;
+export type HandleResetFn = (values: Record<string, unknown>) => Promise<void> | void;
 
 /**
  * 区间时间字段的拆分映射规则。
@@ -176,12 +172,7 @@ export type HandleResetFn = (
 export type FieldMappingTime = [
   string,
   [string, string],
-  (
-    | ((value: unknown, fieldName: string) => unknown)
-    | [string, string]
-    | null
-    | string
-  )?,
+  (((value: unknown, fieldName: string) => unknown) | [string, string] | null | string)?,
 ][];
 
 /**

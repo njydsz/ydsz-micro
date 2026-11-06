@@ -87,11 +87,19 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
           const buttons = [];
           // 编辑按钮 — 需要 sys:dict:edit 权限
           if (hasAccessByCodesAll(['sys:dict:edit'])) {
-            buttons.push(h(YdButton, { size: 'sm', onClick: () => handleEdit(dictType) }, () => t('edit')));
+            buttons.push(
+              h(YdButton, { size: 'sm', onClick: () => handleEdit(dictType) }, () => t('edit')),
+            );
           }
           // 删除按钮 — 需要 sys:dict:delete 权限
           if (hasAccessByCodesAll(['sys:dict:delete'])) {
-            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(dictType) }, () => t('delete')));
+            buttons.push(
+              h(
+                YdButton,
+                { size: 'sm', variant: 'destructive', onClick: () => handleDelete(dictType) },
+                () => t('delete'),
+              ),
+            );
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -117,8 +125,16 @@ const gridOptions: VxeTableGridOptions<DictTypeRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'typeName', title: t('typeName'), itemRender: { name: 'YdInput', props: { placeholder: t('typeName') } } },
-      { field: 'typeCode', title: t('typeCode'), itemRender: { name: 'YdInput', props: { placeholder: t('typeCode') } } },
+      {
+        field: 'typeName',
+        title: t('typeName'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('typeName') } },
+      },
+      {
+        field: 'typeCode',
+        title: t('typeCode'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('typeCode') } },
+      },
     ],
   },
 };

@@ -182,7 +182,9 @@ async function main() {
 
   if (!existsSync(specPath)) {
     console.warn(`! 流式 spec 文件不存在: ${specPath}`);
-    console.warn('! 提示: 请在 ydsz-cloud 仓库根创建 .streaming-spec.yaml，参见 bash/gen-streaming-sdk.mjs 头部文档。');
+    console.warn(
+      '! 提示: 请在 ydsz-cloud 仓库根创建 .streaming-spec.yaml，参见 bash/gen-streaming-sdk.mjs 头部文档。',
+    );
     if (isCheck) {
       console.error('\n[gen:streaming] spec 不存在，CI 校验跳过（不阻断）。');
     }
@@ -201,7 +203,9 @@ async function main() {
 
   if (isCheck) {
     if (oldHash && oldHash !== newHash) {
-      console.error(`✗ 流式契约漂移: spec 已修改 (${oldHash} → ${newHash})，请运行 pnpm gen:streaming 更新 SDK`);
+      console.error(
+        `✗ 流式契约漂移: spec 已修改 (${oldHash} → ${newHash})，请运行 pnpm gen:streaming 更新 SDK`,
+      );
       process.exit(1);
     }
     console.log(`✓ 流式契约一致 (${newHash})`);

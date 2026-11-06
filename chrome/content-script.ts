@@ -88,7 +88,7 @@ chrome.runtime.onMessage.addListener(
   (
     msg: ExtensionMessage,
     _sender: chrome.runtime.MessageSender,
-    sendResponse: (response: unknown) => void
+    sendResponse: (response: unknown) => void,
   ): void => {
     if (msg.target !== 'content-script') return;
     window.postMessage(
@@ -99,10 +99,10 @@ chrome.runtime.onMessage.addListener(
         payload: msg.payload,
         _id: msg._id,
       },
-      '*'
+      '*',
     );
     sendResponse({ ok: true });
-  }
+  },
 );
 
 /* 4. 页面就绪通知 background */

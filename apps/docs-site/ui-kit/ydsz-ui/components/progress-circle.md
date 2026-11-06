@@ -1,20 +1,21 @@
 # YdProgressCircle — 圆形进度环
 
-> SVG 双 circle 实现的圆形进度环。通过 stroke-dasharray / stroke-dashoffset 完成填充长度的可动画控制，支持中心文本与进度仪表盘变体。
+> SVG 双 circle 实现的圆形进度环。通过 stroke-dasharray /
+> stroke-dashoffset 完成填充长度的可动画控制，支持中心文本与进度仪表盘变体。
 
 ## API 一览
 
 ### YdProgressCircle 属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `value` | `number` | `0` | **必填**，当前进度值（0-100） |
-| `size` | `number` | `80` | SVG 画布尺寸（px） |
-| `strokeWidth` | `number` | `6` | 线条宽度（px） |
-| `color` | `string` | `'rgb(var(--primary))'` | 指示器颜色（CSS 颜色值） |
-| `trackColor` | `string` | `'rgba(var(--primary), 0.15)'` | 轨道颜色 |
-| `showInfo` | `boolean` | `true` | 是否在中心显示百分比文本 |
-| `class` | `any` | — | 自定义类名 |
+| 属性          | 类型      | 默认值                         | 说明                          |
+| ------------- | --------- | ------------------------------ | ----------------------------- |
+| `value`       | `number`  | `0`                            | **必填**，当前进度值（0-100） |
+| `size`        | `number`  | `80`                           | SVG 画布尺寸（px）            |
+| `strokeWidth` | `number`  | `6`                            | 线条宽度（px）                |
+| `color`       | `string`  | `'rgb(var(--primary))'`        | 指示器颜色（CSS 颜色值）      |
+| `trackColor`  | `string`  | `'rgba(var(--primary), 0.15)'` | 轨道颜色                      |
+| `showInfo`    | `boolean` | `true`                         | 是否在中心显示百分比文本      |
+| `class`       | `any`     | —                              | 自定义类名                    |
 
 ### YdProgressDashboard 属性
 
@@ -30,24 +31,32 @@
 
 ```vue
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 
-const uploadProgress = ref(0)
+const uploadProgress = ref(0);
 
 // 模拟上传进度
 onMounted(() => {
   const timer = setInterval(() => {
-    uploadProgress.value = Math.min(100, uploadProgress.value + Math.random() * 15)
-    if (uploadProgress.value >= 100) clearInterval(timer)
-  }, 500)
-})
+    uploadProgress.value = Math.min(
+      100,
+      uploadProgress.value + Math.random() * 15,
+    );
+    if (uploadProgress.value >= 100) clearInterval(timer);
+  }, 500);
+});
 </script>
 
 <template>
   <div class="flex items-center gap-8">
     <!-- 固定进度 -->
     <div class="flex flex-col items-center gap-2">
-      <YdProgressCircle :value="65" :size="80" :stroke-width="6" color="#3b82f6" />
+      <YdProgressCircle
+        :value="65"
+        :size="80"
+        :stroke-width="6"
+        color="#3b82f6"
+      />
       <span class="text-xs text-neutral-500">65%</span>
     </div>
 
@@ -64,7 +73,12 @@ onMounted(() => {
 
     <!-- 完成 -->
     <div class="flex flex-col items-center gap-2">
-      <YdProgressCircle :value="100" :size="80" :stroke-width="6" color="#22c55e" />
+      <YdProgressCircle
+        :value="100"
+        :size="80"
+        :stroke-width="6"
+        color="#22c55e"
+      />
       <span class="text-xs text-neutral-500">完成</span>
     </div>
   </div>
@@ -79,11 +93,11 @@ onMounted(() => {
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const cpuUsage = ref(72)
-const memoryUsage = ref(88)
-const diskUsage = ref(45)
+const cpuUsage = ref(72);
+const memoryUsage = ref(88);
+const diskUsage = ref(45);
 </script>
 
 <template>
@@ -133,16 +147,30 @@ const diskUsage = ref(45)
 
 ```vue
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 const tasks = ref([
-  { id: 1, name: '待办事项', value: 35, color: '#3b82f6', icon: '📋', total: 120 },
+  {
+    id: 1,
+    name: '待办事项',
+    value: 35,
+    color: '#3b82f6',
+    icon: '📋',
+    total: 120,
+  },
   { id: 2, name: '进行中', value: 68, color: '#f59e0b', icon: '⚡', total: 45 },
-  { id: 3, name: '已验收', value: 92, color: '#22c55e', icon: '✅', total: 200 },
+  {
+    id: 3,
+    name: '已验收',
+    value: 92,
+    color: '#22c55e',
+    icon: '✅',
+    total: 200,
+  },
   { id: 4, name: '已驳回', value: 15, color: '#ef4444', icon: '❌', total: 18 },
-])
+]);
 
-const selectedTask = ref(null)
+const selectedTask = ref(null);
 </script>
 
 <template>

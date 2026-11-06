@@ -18,8 +18,6 @@ import { requestClient } from '#/api/request';
  * 后端方法声明为 {@code YdszResponse}，响应结构未固定为具名 VO，
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  */
-export function scorePack({ id }: {
-    id: string;
-}): Promise<unknown> {
+export function scorePack({ id }: { id: string }): Promise<unknown> {
   return requestClient.post<unknown>(`/api/literule/rules/packs/${id}/score`);
 }

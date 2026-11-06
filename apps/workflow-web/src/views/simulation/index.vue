@@ -17,7 +17,20 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSteps, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+  YdSteps,
+  YdTabsContent,
+  YdTabs,
+  YdBadge,
+} from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { runSimulation } from '#/api/flowSimulation';
@@ -60,12 +73,13 @@ const predictedNodes = computed(() => {
 /** 步骤条数据（YdSteps 以数组驱动，不接受子节点） */
 const predictedStepItems = computed(() =>
   predictedNodes.value.map((node, index) => {
-    const title =
-      (node.nodeName as string) ?? (node.nodeCode as string) ?? `节点 ${index + 1}`;
+    const title = (node.nodeName as string) ?? (node.nodeCode as string) ?? `节点 ${index + 1}`;
     const parts = [
       `编码: ${(node.nodeCode as string) ?? '--'}`,
       `预计耗时: ${
-        node.estimatedDurationMs ? `${Math.round((node.estimatedDurationMs as number) / 1000)}s` : '--'
+        node.estimatedDurationMs
+          ? `${Math.round((node.estimatedDurationMs as number) / 1000)}s`
+          : '--'
       }`,
       `审批人: ${(node.assigneeName as string) ?? (node.assignee as string) ?? '--'}`,
     ];
@@ -73,13 +87,14 @@ const predictedStepItems = computed(() =>
     if (node.branch) parts.push(`分支: ${node.branch as string}`);
     return {
       description: parts.join(' · '),
-      status: index === predictedNodes.value.length - 1 ? ('process' as const) : ('finish' as const),
+      status:
+        index === predictedNodes.value.length - 1 ? ('process' as const) : ('finish' as const),
       title,
     };
   }),
 );
 
-/** 预计总耗时（格式化） */const estimatedTotalDuration = computed(() => {
+/** 预计总耗时（格式化） */ const estimatedTotalDuration = computed(() => {
   if (!simulationResult.value) return '--';
   const ms = (simulationResult.value.estimatedDurationMs as number) ?? 0;
   if (ms < 60000) return `${Math.round(ms / 1000)} 秒`;
@@ -277,7 +292,9 @@ function handleReset(): void {
                     </td>
                     <td class="px-4 py-2">
                       <div v-if="node.condition" class="mb-1">
-                        <YdBadge size="small" type="warning">{{ node.condition as string }}</YdBadge>
+                        <YdBadge size="small" type="warning">{{
+                          node.condition as string
+                        }}</YdBadge>
                       </div>
                       <div v-if="node.branch">
                         <YdBadge size="small" type="info">{{ node.branch as string }}</YdBadge>

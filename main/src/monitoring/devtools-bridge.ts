@@ -11,11 +11,11 @@ import type {
   MicroAppConfig,
   MicroRuntime,
   UnmountResult,
-} from "@ydsz/micro-runtime";
+} from '@ydsz/micro-runtime';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-const logger = createLogger("DevToolsBridge");
+const logger = createLogger('DevToolsBridge');
 
 /** 子应用运行时状态快照 */
 interface AppInstanceSnapshot {
@@ -50,15 +50,15 @@ export interface DevToolsBridgeOptions {
 }
 
 type DiagType =
-  | "kernel:memory"
-  | "kernel:state:full"
-  | "lifecycle:afterLoad"
-  | "lifecycle:afterMount"
-  | "lifecycle:afterUnmount"
-  | "lifecycle:beforeLoad"
-  | "lifecycle:beforeMount"
-  | "lifecycle:beforeUnmount"
-  | "lifecycle:error";
+  | 'kernel:memory'
+  | 'kernel:state:full'
+  | 'lifecycle:afterLoad'
+  | 'lifecycle:afterMount'
+  | 'lifecycle:afterUnmount'
+  | 'lifecycle:beforeLoad'
+  | 'lifecycle:beforeMount'
+  | 'lifecycle:beforeUnmount'
+  | 'lifecycle:error';
 
 interface KernelStateSnapshot {
   appName: string;
@@ -92,7 +92,7 @@ let heartbeatTimer: null | ReturnType<typeof setInterval> = null;
 function shouldEnable(): boolean {
   if (import.meta.env.DEV) return true;
   try {
-    return localStorage.getItem("micro-kernel:devtools") === "1";
+    return localStorage.getItem('micro-kernel:devtools') === '1';
   } catch {
     return false;
   }
@@ -102,19 +102,19 @@ function sendToExtension(type: DiagType, payload: unknown): void {
   try {
     const win = window as WindowWithMicroKernel;
     const sender = win.__sendToExtension;
-    if (typeof sender === "function") {
+    if (typeof sender === 'function') {
       sender(type, payload);
       return;
     }
     window.postMessage(
       {
-        channel: "__YDSZ_MICRO_KERNEL__CHANNEL",
-        source: "page",
+        channel: '__YDSZ_MICRO_KERNEL__CHANNEL',
+        source: 'page',
         type,
         payload,
         _t: Date.now(),
       },
-      "*",
+      '*',
     );
   } catch {
     /* 静默失败 */
@@ -139,22 +139,22 @@ function collectFullState(opts: DevToolsBridgeOptions) {
   try {
     const instances = kernel?.getAllInstances?.() ?? [];
     for (const inst of instances) {
-      const name = inst?.config?.name ?? "unknown";
+      const name = inst?.config?.name ?? 'unknown';
       const snap: KernelStateSnapshot = {
         appName: name,
-        status: inst?.status || "NOT_LOADED",
-        entry: inst?.config?.entry || "",
-        sandboxType: inst?.sandboxType || "snapshot",
+        status: inst?.status || 'NOT_LOADED',
+        entry: inst?.config?.entry || '',
+        sandboxType: inst?.sandboxType || 'snapshot',
         loadDuration: inst?.loadDuration,
         keepAlive: !!inst?.keepAlive,
         pinned: !!inst?.pinned,
       };
       apps.push(snap);
       if (snap.keepAlive) keepAliveCount++;
-      if (snap.status === "MOUNTED") activeApp = activeApp || name;
+      if (snap.status === 'MOUNTED') activeApp = activeApp || name;
     }
   } catch (error) {
-    logger.warn("收集状态快照失败", error);
+    logger.warn('收集状态快照失败', error);
   }
 
   try {
@@ -163,10 +163,9 @@ function collectFullState(opts: DevToolsBridgeOptions) {
       if (!apps.find((a) => a.appName === reg.name)) {
         apps.push({
           appName: reg.name,
-          status: "NOT_LOADED",
-          entry: reg.entry || "",
-          sandboxType:
-            (reg as { sandboxType?: string }).sandboxType || "snapshot",
+          status: 'NOT_LOADED',
+          entry: reg.entry || '',
+          sandboxType: (reg as { sandboxType?: string }).sandboxType || 'snapshot',
           keepAlive: false,
           pinned: false,
         });
@@ -176,11 +175,10 @@ function collectFullState(opts: DevToolsBridgeOptions) {
     /* noop */
   }
 
-  let memory = "N/A";
+  let memory = 'N/A';
   try {
     const perf = performance as PerformanceWithMemory;
-    if (perf.memory)
-      memory = `${Math.round(perf.memory.usedJSHeapSize / 1024 / 1024)}MB`;
+    if (perf.memory) memory = `${Math.round(perf.memory.usedJSHeapSize / 1024 / 1024)}MB`;
   } catch {
     /* noop */
   }
@@ -192,8 +190,8 @@ function collectFullState(opts: DevToolsBridgeOptions) {
     totalApps: apps.length,
     memory,
     capabilities: {
-      kernelVersion: kernel?.healthCheck?.()?.kernelVersion || "4.0.0",
-      kernelName: "micro-kernel",
+      kernelVersion: kernel?.healthCheck?.()?.kernelVersion || '4.0.0',
+      kernelName: 'micro-kernel',
     },
   };
 }
@@ -211,71 +209,71 @@ function errorToMessage(err: unknown): string {
 export function enableDevToolsBridge(opts: DevToolsBridgeOptions): void {
   if (bridgeActive) return;
   if (!opts.forceEnable && !shouldEnable()) {
-    logger.info("DevTools Bridge 未启用");
+    logger.info('DevTools Bridge 未启用');
     return;
   }
 
-  logger.info("DevTools Bridge 启用中...");
+  logger.info('DevTools Bridge 启用中...');
   (window as WindowWithMicroKernel).__MICRO_KERNEL_DEVTOOLS_ENABLED__ = true;
 
   const kernel = opts.kernel;
   try {
-    kernel?.addLifecycleHook?.("beforeLoad", (app: MicroAppConfig) => {
-      sendToExtension("lifecycle:beforeLoad", {
+    kernel?.addLifecycleHook?.('beforeLoad', (app: MicroAppConfig) => {
+      sendToExtension('lifecycle:beforeLoad', {
         appName: app.name,
         ts: Date.now(),
       });
     });
-    kernel?.addLifecycleHook?.("afterLoad", (app: MicroAppConfig) => {
-      sendToExtension("lifecycle:afterLoad", {
+    kernel?.addLifecycleHook?.('afterLoad', (app: MicroAppConfig) => {
+      sendToExtension('lifecycle:afterLoad', {
         appName: app.name,
         ts: Date.now(),
       });
     });
-    kernel?.addLifecycleHook?.("beforeMount", (app: MicroAppConfig) => {
-      sendToExtension("lifecycle:beforeMount", {
+    kernel?.addLifecycleHook?.('beforeMount', (app: MicroAppConfig) => {
+      sendToExtension('lifecycle:beforeMount', {
         appName: app.name,
         ts: Date.now(),
       });
     });
-    kernel?.addLifecycleHook?.("afterMount", (app: MicroAppConfig) => {
-      sendToExtension("lifecycle:afterMount", {
+    kernel?.addLifecycleHook?.('afterMount', (app: MicroAppConfig) => {
+      sendToExtension('lifecycle:afterMount', {
         appName: app.name,
         ts: Date.now(),
       });
-      sendToExtension("kernel:state:full", collectFullState(opts));
+      sendToExtension('kernel:state:full', collectFullState(opts));
     });
-    kernel?.addLifecycleHook?.("beforeUnmount", (app: MicroAppConfig) => {
-      sendToExtension("lifecycle:beforeUnmount", {
+    kernel?.addLifecycleHook?.('beforeUnmount', (app: MicroAppConfig) => {
+      sendToExtension('lifecycle:beforeUnmount', {
         appName: app.name,
         ts: Date.now(),
       });
     });
-    kernel?.addLifecycleHook?.("afterUnmount", (app: MicroAppConfig) => {
-      sendToExtension("lifecycle:afterUnmount", {
+    kernel?.addLifecycleHook?.('afterUnmount', (app: MicroAppConfig) => {
+      sendToExtension('lifecycle:afterUnmount', {
         appName: app.name,
         ts: Date.now(),
       });
-      sendToExtension("kernel:state:full", collectFullState(opts));
+      sendToExtension('kernel:state:full', collectFullState(opts));
     });
-    kernel?.addLifecycleHook?.("error", (app: MicroAppConfig, err: unknown) => {
-      sendToExtension("lifecycle:error", {
+    kernel?.addLifecycleHook?.('error', (app: MicroAppConfig, err: unknown) => {
+      sendToExtension('lifecycle:error', {
         appName: app.name,
         error: errorToMessage(err),
         ts: Date.now(),
       });
     });
   } catch (error) {
-    logger.warn("挂载生命周期钩子失败", error);
+    logger.warn('挂载生命周期钩子失败', error);
   }
 
   const interval = opts.heartbeatMs ?? 5000;
   heartbeatTimer = setInterval(() => {
     try {
-      sendToExtension("kernel:state:full", collectFullState(opts));
+      sendToExtension('kernel:state:full', collectFullState(opts));
       const perf = performance as PerformanceWithMemory;
       if (perf.memory) {
-        sendToExtension("kernel:memory", {
+        sendToExtension('kernel:memory', {
           usedMB: Math.round(perf.memory.usedJSHeapSize / 1024 / 1024),
           totalMB: Math.round(perf.memory.jsHeapSizeLimit / 1024 / 1024),
         });
@@ -286,80 +284,73 @@ export function enableDevToolsBridge(opts: DevToolsBridgeOptions): void {
   }, interval);
 
   // 监听 Extension 通过 content-script 转发来的命令
-  window.addEventListener("message", (e: MessageEvent<ExtensionMessage>) => {
+  window.addEventListener('message', (e: MessageEvent<ExtensionMessage>) => {
     if (e.source !== window || !e.data) return;
-    if (e.data.channel !== "__YDSZ_MICRO_KERNEL__CHANNEL") return;
-    if (e.data.source !== "extension") return;
+    if (e.data.channel !== '__YDSZ_MICRO_KERNEL__CHANNEL') return;
+    if (e.data.source !== 'extension') return;
     handleExtensionCommand(e.data as ExtensionCommand, opts);
   });
 
-  sendToExtension("kernel:state:full", collectFullState(opts));
+  sendToExtension('kernel:state:full', collectFullState(opts));
   bridgeActive = true;
   logger.info(`DevTools Bridge 已启用（心跳 ${interval}ms）`);
 }
 
-function handleExtensionCommand(
-  msg: ExtensionCommand,
-  opts: DevToolsBridgeOptions,
-): void {
+function handleExtensionCommand(msg: ExtensionCommand, opts: DevToolsBridgeOptions): void {
   const { type, payload } = msg;
   const kernel = opts.kernel;
   switch (type) {
-    case "kernel:clear-cache": {
+    case 'kernel:clear-cache': {
       try {
-        if (typeof caches !== "undefined") {
-          caches
-            .keys()
-            .then((names) => Promise.all(names.map((n) => caches.delete(n))));
+        if (typeof caches !== 'undefined') {
+          caches.keys().then((names) => Promise.all(names.map((n) => caches.delete(n))));
         }
-        sendToExtension("kernel:event", {
-          eventName: "cache-cleared",
+        sendToExtension('kernel:event', {
+          eventName: 'cache-cleared',
           ts: Date.now(),
         });
       } catch (error: unknown) {
-        sendToExtension("lifecycle:error", {
-          appName: "*",
+        sendToExtension('lifecycle:error', {
+          appName: '*',
           error: errorToMessage(error),
         });
       }
       break;
     }
-    case "kernel:health:request": {
+    case 'kernel:health:request': {
       let health: {
         [key: string]: unknown;
         error?: string;
         kernelVersion?: string;
-      } = { error: "kernel 不支持 healthCheck" };
+      } = { error: 'kernel 不支持 healthCheck' };
       try {
         health = kernel?.healthCheck?.() ?? health;
       } catch (error: unknown) {
         health = { error: errorToMessage(error) };
       }
-      sendToExtension("kernel:health:response", health);
+      sendToExtension('kernel:health:response', health);
       break;
     }
-    case "kernel:refresh-registry": {
+    case 'kernel:refresh-registry': {
       try {
         kernel?.refreshRegistry?.();
-        sendToExtension("kernel:state:full", collectFullState(opts));
+        sendToExtension('kernel:state:full', collectFullState(opts));
       } catch (error: unknown) {
-        sendToExtension("lifecycle:error", {
-          appName: "*",
+        sendToExtension('lifecycle:error', {
+          appName: '*',
           error: errorToMessage(error),
         });
       }
       break;
     }
-    case "kernel:reload": {
+    case 'kernel:reload': {
       const appName = payload?.appName;
       if (appName && kernel?.loadApp) {
         kernel
           .loadApp({ name: appName })
-          .then(() =>
-            sendToExtension("kernel:state:full", collectFullState(opts)),
-          )
+          .then(() => sendToExtension('kernel:state:full', collectFullState(opts)))
           .catch((error: unknown) =>
-            sendToExtension("lifecycle:error", {
+            sendToExtension('lifecycle:error', {
               appName,
               error: errorToMessage(error),
             }),
@@ -367,20 +358,18 @@ function handleExtensionCommand(
       }
       break;
     }
-    case "kernel:state:request": {
-      sendToExtension("kernel:state:full", collectFullState(opts));
+    case 'kernel:state:request': {
+      sendToExtension('kernel:state:full', collectFullState(opts));
       break;
     }
-    case "kernel:unmount": {
+    case 'kernel:unmount': {
       const name = payload?.appName;
       if (name && kernel?.unmountApp) {
         kernel
           .unmountApp(name)
-          .then(() =>
-            sendToExtension("kernel:state:full", collectFullState(opts)),
-          )
+          .then(() => sendToExtension('kernel:state:full', collectFullState(opts)))
           .catch((error: unknown) =>
-            sendToExtension("lifecycle:error", {
+            sendToExtension('lifecycle:error', {
               appName: name,
               error: errorToMessage(error),
             }),

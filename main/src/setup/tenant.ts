@@ -40,13 +40,11 @@ export function initTenant(): void {
   // 1. 注入租户查询加载器
   const fetcher: TenantFetcher = async () => {
     const tenants = await getAccessibleTenantsApi();
-    return tenants.map(
-      (t): TenantInfo => ({
-        id: t.id,
-        tenantCode: t.tenantCode,
-        tenantName: t.tenantName,
-      }),
-    );
+    return tenants.map((t): TenantInfo => ({
+      id: t.id,
+      tenantCode: t.tenantCode,
+      tenantName: t.tenantName,
+    }));
   };
   setTenantFetcher(fetcher);
 

@@ -35,7 +35,10 @@ function queryActiveTab(): void {
     const tab = tabs[0];
     if (!tab?.id) return;
     void chrome.tabs
-      .sendMessage<unknown>(tab.id, { target: 'content-script', type: 'kernel:state:request' } as never)
+      .sendMessage<unknown>(tab.id, {
+        target: 'content-script',
+        type: 'kernel:state:request',
+      } as never)
       .catch(() => {
         /* tab 可能未注入 content-script */
       });
@@ -76,7 +79,7 @@ function pullSnapshot(): void {
       if (agg.keepAlive != null && klEl) klEl.textContent = String(agg.keepAlive);
       if (agg.totalApps && naEl) naEl.textContent = String(agg.totalApps);
       if (agg.memory && memEl) memEl.textContent = agg.memory;
-    }
+    },
   );
 }
 
@@ -85,10 +88,10 @@ $('#open')?.addEventListener('click', () => {
   void chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tab = tabs[0];
     if (tab?.id) {
-      void chrome.tabs.sendMessage<unknown>(
-        tab.id,
-        { target: 'content-script', type: 'kernel:state:request' } as never
-      );
+      void chrome.tabs.sendMessage<unknown>(tab.id, {
+        target: 'content-script',
+        type: 'kernel:state:request',
+      } as never);
       // DevTools 需要用户在当前 tab 主动按 F12；Extension 无法直接打开 F12（安全限制）
     }
   });

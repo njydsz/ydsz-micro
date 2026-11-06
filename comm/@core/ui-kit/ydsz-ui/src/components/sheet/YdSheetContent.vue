@@ -43,28 +43,16 @@ const props = withDefaults(defineProps<SheetContentProps>(), {
   appendTo: 'body',
 });
 
-const emits = defineEmits<
-  DialogContentEmits & { close: []; closed: []; opened: [] }
->();
+const emits = defineEmits<DialogContentEmits & { close: []; closed: []; opened: [] }>();
 
 const delegatedProps = computed(() => {
-  const {
-    class: _,
-    modal: _modal,
-    open: _open,
-    side: _side,
-    ...delegated
-  } = props;
+  const { class: _, modal: _modal, open: _open, side: _side, ...delegated } = props;
 
   return delegated;
 });
 
 function isAppendToBody() {
-  return (
-    props.appendTo === 'body' ||
-    props.appendTo === document.body ||
-    !props.appendTo
-  );
+  return props.appendTo === 'body' || props.appendTo === document.body || !props.appendTo;
 }
 
 const position = computed(() => {
@@ -100,8 +88,7 @@ function onAnimationEnd(event: AnimationEvent) {
         :style="{
           ...(zIndex ? { zIndex } : {}),
           position,
-          backdropFilter:
-            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
+          backdropFilter: overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
         }"
       />
     </Transition>

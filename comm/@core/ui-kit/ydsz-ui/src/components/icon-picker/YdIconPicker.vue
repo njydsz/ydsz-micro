@@ -110,9 +110,7 @@ const filteredIcons = computed(() => {
   return iconRegistry.filter((i) => i.name.toLowerCase().includes(q));
 });
 
-const selectedIconObj = computed(() =>
-  iconRegistry.find((i) => i.name === props.modelValue),
-);
+const selectedIconObj = computed(() => iconRegistry.find((i) => i.name === props.modelValue));
 
 function select(name: string): void {
   emit('update:modelValue', name);
@@ -127,7 +125,7 @@ function select(name: string): void {
       :aria-label="t('iconPicker.ariaLabel')"
       :class="
         cn(
-          'flex h-9 w-full items-center justify-between gap-2 rounded-md border bg-background px-3 text-sm transition-colors hover:border-muted-foreground/50',
+          'bg-background hover:border-muted-foreground/50 flex h-9 w-full items-center justify-between gap-2 rounded-md border px-3 text-sm transition-colors',
         )
       "
       :disabled="props.disabled"
@@ -137,10 +135,12 @@ function select(name: string): void {
       <span class="flex items-center gap-2">
         <component :is="selectedIconObj?.Icon" v-if="selectedIconObj" class="size-4" />
         <span :class="cn(!props.modelValue && 'text-muted-foreground')">
-          {{ selectedIconObj?.name ?? (props.placeholder ?? t('iconPicker.placeholder')) }}
+          {{ selectedIconObj?.name ?? props.placeholder ?? t('iconPicker.placeholder') }}
         </span>
       </span>
-      <ChevronDown :class="cn('size-4 text-muted-foreground transition-transform', isOpen && 'rotate-180')" />
+      <ChevronDown
+        :class="cn('text-muted-foreground size-4 transition-transform', isOpen && 'rotate-180')"
+      />
     </button>
 
     <!-- 下拉面板 -->
@@ -154,7 +154,7 @@ function select(name: string): void {
           <input
             v-model="query"
             :aria-label="t('common.search')"
-            class="w-full rounded border bg-transparent py-1 pl-7 pr-2 text-sm outline-none focus:border-primary"
+            class="focus:border-primary w-full rounded border bg-transparent py-1 pl-7 pr-2 text-sm outline-none"
             :placeholder="t('iconPicker.searchPlaceholder')"
             type="text"
           />
@@ -165,10 +165,12 @@ function select(name: string): void {
           v-for="item in filteredIcons"
           :key="item.name"
           :aria-label="item.name"
-          :class="cn(
-            'flex size-9 items-center justify-center rounded-md transition-colors hover:bg-muted',
-            modelValue === item.name && 'bg-primary/10 ring-1 ring-primary',
-          )"
+          :class="
+            cn(
+              'hover:bg-muted flex size-9 items-center justify-center rounded-md transition-colors',
+              modelValue === item.name && 'bg-primary/10 ring-primary ring-1',
+            )
+          "
           type="button"
           @click="select(item.name)"
         >

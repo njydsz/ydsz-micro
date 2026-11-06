@@ -331,7 +331,12 @@ async function handleVersionDetail(versionItem: TemplateRow): Promise<void> {
   try {
     const detail = await getTemplateVersion({ templateCode: currentTemplateCode.value, version });
     await YdAlert({
-      content: () => h('pre', { class: 'max-h-64 overflow-auto text-left text-xs' }, JSON.stringify(detail, null, 2)),
+      content: () =>
+        h(
+          'pre',
+          { class: 'max-h-64 overflow-auto text-left text-xs' },
+          JSON.stringify(detail, null, 2),
+        ),
       title: `${t('wf.versionDetail')} ${version}`,
       icon: 'info',
       confirmText: t('wf.confirm'),
@@ -368,10 +373,14 @@ void loadCardData();
   <Page auto-content-height>
     <!-- 视图切换 + 工具栏 -->
     <div class="mb-4 flex items-center justify-between">
-      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+      <div class="border-border-subtle bg-accent/50 flex items-center gap-1 rounded-lg border p-1">
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'card'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('card')"
         >
@@ -383,40 +392,20 @@ void loadCardData();
             viewBox="0 0 24 24"
             width="14"
           >
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="12.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="12.5"
-            />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="12.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="12.5" />
           </svg>
           卡片
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'table'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('table')"
         >
@@ -429,30 +418,10 @@ void loadCardData();
             viewBox="0 0 24 24"
             width="14"
           >
-            <line
-              x1="3"
-              x2="21"
-              y1="6.5"
-              y2="6.5"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="12"
-              y2="12"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="17.5"
-              y2="17.5"
-            />
-            <line
-              x1="8.5"
-              x2="8.5"
-              y1="3"
-              y2="21"
-            />
+            <line x1="3" x2="21" y1="6.5" y2="6.5" />
+            <line x1="3" x2="21" y1="12" y2="12" />
+            <line x1="3" x2="21" y1="17.5" y2="17.5" />
+            <line x1="8.5" x2="8.5" y1="3" y2="21" />
           </svg>
           表格
         </button>
@@ -461,10 +430,7 @@ void loadCardData();
     </div>
 
     <!-- 表格视图 -->
-    <Grid
-      v-if="viewMode === 'table'"
-      :table-title="t('template')"
-    >
+    <Grid v-if="viewMode === 'table'" :table-title="t('template')">
       <template #col-action="{ row }">
         <div class="flex gap-1">
           <YdButton size="sm" variant="link" @click="handleImport(row as TemplateRow)">{{
@@ -484,14 +450,8 @@ void loadCardData();
     </Grid>
 
     <!-- 卡片视图 -->
-    <div
-      v-else
-      class="min-h-[400px]"
-    >
-      <YdCardGrid
-        :is-empty="templateList.length === 0 && !cardLoading"
-        :is-loading="cardLoading"
-      >
+    <div v-else class="min-h-[400px]">
+      <YdCardGrid :is-empty="templateList.length === 0 && !cardLoading" :is-loading="cardLoading">
         <template #empty>
           <YdEmptyState
             description="导入流程模板后可在多个业务场景中复用"
@@ -521,7 +481,7 @@ void loadCardData();
           </template>
 
           <template #meta>
-            <div class="mt-3 flex items-center justify-between text-xs text-text-tertiary">
+            <div class="text-text-tertiary mt-3 flex items-center justify-between text-xs">
               <span>{{ t('wf.version') }} {{ item.version ?? '-' }}</span>
               <span>{{ item.updatedAt || '-' }}</span>
             </div>
@@ -530,11 +490,7 @@ void loadCardData();
           <template #actions>
             <YdDropdownMenuBase>
               <YdDropdownMenuTriggerBase as-child>
-                <YdButton
-                  size="sm"
-                  variant="link"
-                  @click.stop
-                >
+                <YdButton size="sm" variant="link" @click.stop>
                   <svg
                     class="mb-0.5 me-1 inline"
                     fill="none"
@@ -545,21 +501,9 @@ void loadCardData();
                     viewBox="0 0 24 24"
                     width="14"
                   >
-                    <circle
-                      cx="12"
-                      cy="5"
-                      r="1"
-                    />
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="1"
-                    />
-                    <circle
-                      cx="12"
-                      cy="19"
-                      r="1"
-                    />
+                    <circle cx="12" cy="5" r="1" />
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="12" cy="19" r="1" />
                   </svg>
                 </YdButton>
               </YdDropdownMenuTriggerBase>
@@ -587,54 +531,29 @@ void loadCardData();
     <YdSheet :open="versionsVisible" @update:open="versionsVisible = $event">
       <YdSheetContent class="!max-w-[540px]">
         <div class="mb-2 flex justify-end">
-        <YdButton size="sm" variant="secondary" @click="loadVersions">{{ t('common.refresh') }}</YdButton>
-      </div>
-      <YdTable
-        :data="versionRows"
-        border
-        size="small"
-        :loading="versionsLoading"
-      >
-        <YdTableColumn
-          prop="version"
-          :label="t('wf.version')"
-          width="90"
-        />
-        <YdTableColumn
-          prop="versionLabel"
-          :label="t('wf.versionLabel')"
-          width="120"
-        />
-        <YdTableColumn
-          prop="templateName"
-          :label="t('wf.templateName')"
-          min-width="120"
-          show-overflow-tooltip
-        />
-        <YdTableColumn
-          prop="status"
-          :label="t('wf.status')"
-          width="90"
-        />
-        <YdTableColumn
-          prop="updatedAt"
-          :label="t('wf.updateTime')"
-          width="170"
-        />
-        <YdTableColumn
-          :label="t('wf.action')"
-          width="90"
-          fixed="right"
-        >
-          <template #default="{ row }">
-            <YdButton
-              variant="link"
-              size="sm"
-              @click="handleVersionDetail(row as TemplateRow)"
-            >{{ t('wf.detail') }}</YdButton>
-          </template>
-        </YdTableColumn>
-      </YdTable>
+          <YdButton size="sm" variant="secondary" @click="loadVersions">{{
+            t('common.refresh')
+          }}</YdButton>
+        </div>
+        <YdTable :data="versionRows" border size="small" :loading="versionsLoading">
+          <YdTableColumn prop="version" :label="t('wf.version')" width="90" />
+          <YdTableColumn prop="versionLabel" :label="t('wf.versionLabel')" width="120" />
+          <YdTableColumn
+            prop="templateName"
+            :label="t('wf.templateName')"
+            min-width="120"
+            show-overflow-tooltip
+          />
+          <YdTableColumn prop="status" :label="t('wf.status')" width="90" />
+          <YdTableColumn prop="updatedAt" :label="t('wf.updateTime')" width="170" />
+          <YdTableColumn :label="t('wf.action')" width="90" fixed="right">
+            <template #default="{ row }">
+              <YdButton variant="link" size="sm" @click="handleVersionDetail(row as TemplateRow)">{{
+                t('wf.detail')
+              }}</YdButton>
+            </template>
+          </YdTableColumn>
+        </YdTable>
       </YdSheetContent>
     </YdSheet>
   </Page>

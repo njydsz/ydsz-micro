@@ -11,17 +11,17 @@ export const MotionDurations = {
   fast: '150ms',
   normal: '250ms',
   emphasis: '400ms',
-} as const
+} as const;
 
 export const MotionEasings = {
   standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
   decelerate: 'cubic-bezier(0, 0, 0.2, 1)',
   accelerate: 'cubic-bezier(0.4, 0, 1, 1)',
   spring: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-} as const
+} as const;
 
 /** 当用户开启 prefers-reduced-motion: reduce 时返回 true */
 export function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined') return false
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }

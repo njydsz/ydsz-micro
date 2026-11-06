@@ -67,9 +67,7 @@ const displayName = computed(() => {
   if (activeTenantName.value) {
     return activeTenantName.value;
   }
-  const matched = accessibleTenants.value.find(
-    (t) => t.id === activeTenantId.value,
-  );
+  const matched = accessibleTenants.value.find((t) => t.id === activeTenantId.value);
   return matched?.tenantName || activeTenantId.value || '-';
 });
 
@@ -153,11 +151,9 @@ onMounted(async () => {
       <!-- 加载中状态 -->
       <YdTooltipBase v-if="loading">
         <YdTooltipTriggerBase as-child>
-          <span
-            class="tenant-switcher__loading flex items-center gap-1 px-2 py-1 text-xs"
-          >
+          <span class="tenant-switcher__loading flex items-center gap-1 px-2 py-1 text-xs">
             <svg
-              class="size-4 animate-spin text-muted-foreground"
+              class="text-muted-foreground size-4 animate-spin"
               viewBox="0 0 24 24"
               fill="none"
               aria-hidden="true"
@@ -179,7 +175,9 @@ onMounted(async () => {
             <span>{{ $t('page.tenantSwitcher.loading') }}</span>
           </span>
         </YdTooltipTriggerBase>
-        <YdTooltipContentBase side="bottom">{{ $t('page.tenantSwitcher.loadingTooltip') }}</YdTooltipContentBase>
+        <YdTooltipContentBase side="bottom">{{
+          $t('page.tenantSwitcher.loadingTooltip')
+        }}</YdTooltipContentBase>
       </YdTooltipBase>
 
       <!-- 切换器主体 -->
@@ -223,7 +221,9 @@ onMounted(async () => {
               <YdSelectValueBase :placeholder="displayName" />
             </YdSelectTriggerBase>
           </YdTooltipTriggerBase>
-          <YdTooltipContentBase side="bottom">{{ $t('page.tenantSwitcher.switchAriaLabel') }}</YdTooltipContentBase>
+          <YdTooltipContentBase side="bottom">{{
+            $t('page.tenantSwitcher.switchAriaLabel')
+          }}</YdTooltipContentBase>
         </YdTooltipBase>
 
         <!-- 租户选项列表 -->
@@ -235,10 +235,7 @@ onMounted(async () => {
             :disabled="tenant.id === activeTenantId"
           >
             <span class="flex w-full items-center justify-between gap-3">
-              <span
-                class="truncate"
-                :class="{ 'font-medium': tenant.id === activeTenantId }"
-              >
+              <span class="truncate" :class="{ 'font-medium': tenant.id === activeTenantId }">
                 {{ tenant.tenantName }}
               </span>
               <span

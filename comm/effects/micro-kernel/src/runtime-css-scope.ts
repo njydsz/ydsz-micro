@@ -22,12 +22,12 @@
  * @since 4.2.1
  */
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-const logger = createLogger("MicroKernel");
+const logger = createLogger('MicroKernel');
 
 /** scoped style 的 data 属性标记（卸载时定位） */
-const SCOPED_STYLE_ATTR = "data-micro-kernel-scoped-app";
+const SCOPED_STYLE_ATTR = 'data-micro-kernel-scoped-app';
 
 /**
  * 为指定子应用的全部样式表应用运行时作用域。
@@ -38,27 +38,21 @@ const SCOPED_STYLE_ATTR = "data-micro-kernel-scoped-app";
  * @since 4.2.1
  */
 export function applyRuntimeCssScope(appName: string): void {
-  if (typeof document === "undefined") return;
+  if (typeof document === 'undefined') return;
 
   const links = Array.from(
-    document.querySelectorAll<HTMLLinkElement>(
-      `link[data-micro-kernel-app="${appName}"]`,
-    ),
+    document.querySelectorAll<HTMLLinkElement>(`link[data-micro-kernel-app="${appName}"]`),
   );
   for (const link of links) {
     // 已被本模块处理过则跳过
-    if (link.dataset.microKernelScoped === "done") continue;
+    if (link.dataset.microKernelScoped === 'done') continue;
 
     const sheet = link.sheet;
     if (!sheet) {
       // 样式尚未加载完成：监听 load 后重试（一次）
       if (!link.dataset.microKernelScopedPending) {
-        link.dataset.microKernelScopedPending = "1";
-        link.addEventListener(
-          "load",
-          () => applyRuntimeCssScope(appName),
-          { once: true },
-        );
+        link.dataset.microKernelScopedPending = '1';
+        link.addEventListener('load', () => applyRuntimeCssScope(appName), { once: true });
       }
       continue;
     }
@@ -67,17 +61,15 @@ export function applyRuntimeCssScope(appName: string): void {
       const scopedCss = buildScopedCss(appName, sheet);
       if (!scopedCss) continue;
 
-      const style = document.createElement("style");
+      const style = document.createElement('style');
       style.setAttribute(SCOPED_STYLE_ATTR, appName);
       style.textContent = scopedCss;
       link.replaceWith(style);
-      link.dataset.microKernelScoped = "done";
+      link.dataset.microKernelScoped = 'done';
       logger.debug(`Runtime CSS scope applied for "${appName}"`);
     } catch (err) {
       // 跨域读取失败或规则解析异常 → 保留原始样式（构建期 scoping 兜底）
-      logger.debug(
-        `Runtime CSS scope skipped for "${appName}" (${String(err)})`,
-      );
+      logger.debug(`Runtime CSS scope skipped for "${appName}" (${String(err)})`);
     }
   }
 }
@@ -91,7 +83,7 @@ export function applyRuntimeCssScope(appName: string): void {
  * @since 4.2.1
  */
 export function removeRuntimeCssScope(appName: string): void {
-  if (typeof document === "undefined") return;
+  if (typeof document === 'undefined') return;
   const styles = document.querySelectorAll<HTMLStyleElement>(
     `style[${SCOPED_STYLE_ATTR}="${appName}"]`,
   );
@@ -114,10 +106,7 @@ export function removeRuntimeCssScope(appName: string): void {
  * @param sheet - 样式表（CSSStyleSheet 或分组规则）
  * @returns 前缀化 CSS 文本；无可处理规则时返回空串
  */
-function buildScopedCss(
-  appName: string,
-  sheet: CSSStyleSheet | CSSGroupingRule,
-): string {
+function buildScopedCss(appName: string, sheet: CSSStyleSheet | CSSGroupingRule): string {
   const prefix = `[data-micro-app="${appName}"]`;
   const parts: string[] = [];
   const rules = Array.from(sheet.cssRules ?? []);
@@ -126,18 +115,15 @@ function buildScopedCss(
     try {
       if (rule instanceof CSSStyleRule) {
         const scopedSelectors = rule.selectorText
-          .split(",")
+          .split(',')
           .map((s) => s.trim())
           .map((s) => scopeSelector(s, prefix))
-          .join(", ");
+          .join(', ');
         parts.push(`${scopedSelectors} { ${rule.style.cssText} }`);
-      } else if (
-        rule instanceof CSSMediaRule ||
-        rule instanceof CSSSupportsRule
-      ) {
+      } else if (rule instanceof CSSMediaRule || rule instanceof CSSSupportsRule) {
         const inner = buildScopedCss(appName, rule as CSSGroupingRule);
         if (inner) {
-          const atName = rule instanceof CSSMediaRule ? "media" : "supports";
+          const atName = rule instanceof CSSMediaRule ? 'media' : 'supports';
           parts.push(
             `@${atName} ${(rule as CSSMediaRule | CSSSupportsRule).conditionText} { ${inner} }`,
           );
@@ -151,7 +137,7 @@ function buildScopedCss(
     }
   }
 
-  return parts.join("\n");
+  return parts.join('\n');
 }
 
 /**
@@ -166,18 +152,14 @@ function buildScopedCss(
  */
 function scopeSelector(selector: string, prefix: string): string {
   if (!selector) return selector;
-  if (selector === ":root" || selector.startsWith(":root")) return selector;
-  if (selector === "html" || selector === "body") return selector;
-  if (selector.startsWith("html ") || selector.startsWith("body ")) {
+  if (selector === ':root' || selector.startsWith(':root')) return selector;
+  if (selector === 'html' || selector === 'body') return selector;
+  if (selector.startsWith('html ') || selector.startsWith('body ')) {
     return selector;
   }
   if (selector.startsWith(prefix)) return selector;
   // keyframes 的 from/to/百分比 选择器
-  if (
-    selector === "from" ||
-    selector === "to" ||
-    /^\d+(\.\d+)?%$/.test(selector)
-  ) {
+  if (selector === 'from' || selector === 'to' || /^\d+(\.\d+)?%$/.test(selector)) {
     return selector;
   }
   return `${prefix} ${selector}`;

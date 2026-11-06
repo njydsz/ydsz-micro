@@ -17,6 +17,8 @@ pnpm changeset:publish
 
 ## 约定
 
-- 仅对公开共享包（`@ydsz/*` workspace 包）写 changeset，应用包（`apps/*`、`main`）不参与版本发布。
-- 版本级别：修复缺陷用 `patch`；新增向后兼容能力用 `minor`；破坏性变更用 `major` 并在描述中标注迁移方式。
+- 仅对公开共享包（`@ydsz/*`
+  workspace 包）写 changeset，应用包（`apps/*`、`main`）不参与版本发布。
+- 版本级别：修复缺陷用 `patch`；新增向后兼容能力用 `minor`；破坏性变更用 `major`
+  并在描述中标注迁移方式。
 - 变更描述遵循 Conventional Commits 风格，说明「做了什么 + 为什么」。

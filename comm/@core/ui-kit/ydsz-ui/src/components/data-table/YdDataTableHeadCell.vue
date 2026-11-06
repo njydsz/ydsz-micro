@@ -137,13 +137,18 @@ function handleResizeStart(event: PointerEvent): void {
       :aria-label="sortHint"
       @click="handleClick"
     >
-      <slot :column-key="props.columnKey" :label="props.label" :order="props.order" :rank="props.rank">
+      <slot
+        :column-key="props.columnKey"
+        :label="props.label"
+        :order="props.order"
+        :rank="props.rank"
+      >
         {{ props.label }}
       </slot>
-      <span v-if="orderIcon" class="text-xs text-muted-foreground/50">{{ orderIcon }}</span>
+      <span v-if="orderIcon" class="text-muted-foreground/50 text-xs">{{ orderIcon }}</span>
       <span
         v-if="props.rank"
-        class="rounded bg-muted px-1 text-[10px] leading-4 text-muted-foreground"
+        class="bg-muted text-muted-foreground rounded px-1 text-[10px] leading-4"
       >
         {{ props.rank }}
       </span>
@@ -155,7 +160,7 @@ function handleResizeStart(event: PointerEvent): void {
     </span>
     <div
       v-if="props.resizable"
-      class="yd-resize-handle absolute right-0 top-0 h-full w-1 cursor-col-resize select-none hover:bg-primary/30"
+      class="yd-resize-handle hover:bg-primary/30 absolute right-0 top-0 h-full w-1 cursor-col-resize select-none"
       :class="{ 'bg-primary/50': props.resizing }"
       role="separator"
       :aria-label="`${t('table.resizeColumn')} ${props.label}`"

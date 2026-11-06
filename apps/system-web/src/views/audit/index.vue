@@ -154,7 +154,10 @@ const gridOptions = reactive<VxeGridProps<AuditLog>>({
         if (searchForm.action) params.action = searchForm.action;
         if (searchForm.module) params.module = searchForm.module;
         /** 后端返回 YdszResponse<PageResult<AuditLogVO>>，response 拦截器已解包至 .data */
-        const res = (await queryByTimeRange(params)) as unknown as { items: AuditLog[]; total: number };
+        const res = (await queryByTimeRange(params)) as unknown as {
+          items: AuditLog[];
+          total: number;
+        };
         return { items: res.items ?? [], total: res.total ?? 0 };
       },
     },
@@ -200,12 +203,37 @@ function handleReset(): void {
         :placeholder="t('audit.placeholder.endTime')"
         class="w-48"
       />
-      <YdInput v-model="searchForm.operatorId" :placeholder="t('audit.placeholder.operatorId')" clearable class="w-40" />
-      <YdSelect v-model="searchForm.action" :placeholder="t('audit.placeholder.actionType')" clearable class="w-32">
-        <YdSelectItem v-for="opt in actionOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+      <YdInput
+        v-model="searchForm.operatorId"
+        :placeholder="t('audit.placeholder.operatorId')"
+        clearable
+        class="w-40"
+      />
+      <YdSelect
+        v-model="searchForm.action"
+        :placeholder="t('audit.placeholder.actionType')"
+        clearable
+        class="w-32"
+      >
+        <YdSelectItem
+          v-for="opt in actionOptions"
+          :key="opt.value"
+          :label="opt.label"
+          :value="opt.value"
+        />
       </YdSelect>
-      <YdSelect v-model="searchForm.module" :placeholder="t('audit.columns.module')" clearable class="w-32">
-        <YdSelectItem v-for="opt in moduleOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+      <YdSelect
+        v-model="searchForm.module"
+        :placeholder="t('audit.columns.module')"
+        clearable
+        class="w-32"
+      >
+        <YdSelectItem
+          v-for="opt in moduleOptions"
+          :key="opt.value"
+          :label="opt.label"
+          :value="opt.value"
+        />
       </YdSelect>
       <YdButton type="primary" @click="handleSearch">{{ t('common.buttons.search') }}</YdButton>
       <YdButton @click="handleReset">{{ t('common.buttons.reset') }}</YdButton>

@@ -19,10 +19,10 @@
  * @since 4.0.0
  */
 
-import { satisfiesVersion } from "@ydsz-core/shared/semver";
-import { createLogger } from "@ydsz-core/shared/utils";
+import { satisfiesVersion } from '@ydsz-core/shared/semver';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { getStorage, STORAGE_KEYS } from "./storage-utils";
+import { getStorage, STORAGE_KEYS } from './storage-utils';
 import type {
   CanaryGlobalConfig,
   CanaryMode,
@@ -30,8 +30,8 @@ import type {
   CanaryResolutionCallback,
   CanaryUserContext,
   CanaryVersion,
-} from "./canary-types";
-import { DEFAULT_CONFIG } from "./canary-types";
+} from './canary-types';
+import { DEFAULT_CONFIG } from './canary-types';
 
 import {
   resolveVersionCore,
@@ -39,9 +39,9 @@ import {
   resetAutoRefreshCore,
   __registerCanaryManager,
   createCanaryManagerLifecycle,
-} from "./canary-manager-core";
-import type { CanaryManagerLike } from "./canary-manager-core";
-import type { DisposableManager } from "./manager-registry";
+} from './canary-manager-core';
+import type { CanaryManagerLike } from './canary-manager-core';
+import type { DisposableManager } from './manager-registry';
 
 // 重新导出类型，保持向后兼容
 export type {
@@ -54,15 +54,12 @@ export type {
   CanaryTag,
   CanaryUserContext,
   CanaryVersion,
-} from "./canary-types";
+} from './canary-types';
 
 // 重新导出单例管理函数，保持向后兼容
-export {
-  getCanaryManager,
-  resetCanaryManager,
-} from "./canary-manager-core";
+export { getCanaryManager, resetCanaryManager } from './canary-manager-core';
 
-const logger = createLogger("Canary");
+const logger = createLogger('Canary');
 
 /**
  * 灰度管理器单例
@@ -91,7 +88,7 @@ export class CanaryManager {
    * 从 config.mode 读取，未配置时回退到 advanced（保持向后兼容）。
    */
   getMode(): CanaryMode {
-    return this.config.mode ?? "advanced";
+    return this.config.mode ?? 'advanced';
   }
 
   /**
@@ -126,13 +123,10 @@ export class CanaryManager {
     remoteUrl?: string;
   }): Promise<void> {
     const localKey = STORAGE_KEYS.CANARY_CONFIG;
-    const cached = getStorage<null | Partial<CanaryGlobalConfig>>(
-      localKey,
-      null,
-    );
+    const cached = getStorage<null | Partial<CanaryGlobalConfig>>(localKey, null);
     if (cached) {
       this.config = { ...DEFAULT_CONFIG, ...cached };
-      logger.info("Canary config loaded from localStorage cache");
+      logger.info('Canary config loaded from localStorage cache');
     }
 
     if (options?.fallbackConfig) {

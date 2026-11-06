@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * triggerSync: POST /admin/ldap/sync
  *

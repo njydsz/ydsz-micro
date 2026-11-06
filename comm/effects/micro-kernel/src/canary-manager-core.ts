@@ -12,9 +12,9 @@
  * @since 4.1.0
  */
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { setStorage, STORAGE_KEYS } from "./storage-utils";
+import { setStorage, STORAGE_KEYS } from './storage-utils';
 import type {
   CanaryAppConfig,
   CanaryGlobalConfig,
@@ -23,13 +23,13 @@ import type {
   CanaryResolutionCallback,
   CanaryResolutionEvent,
   CanaryUserContext,
-} from "./canary-types";
-import type { CanaryManager } from "./canary-manager";
-import type { DisposableManager } from "./manager-registry";
-import { DEFAULT_CONFIG } from "./canary-types";
-import { hashToPercentage } from "./canary-hash";
+} from './canary-types';
+import type { CanaryManager } from './canary-manager';
+import type { DisposableManager } from './manager-registry';
+import { DEFAULT_CONFIG } from './canary-types';
+import { hashToPercentage } from './canary-hash';
 
-const logger = createLogger("Canary");
+const logger = createLogger('Canary');
 
 /**
  * CanaryManager 内部状态接口
@@ -56,19 +56,19 @@ export function defaultStableResolution(
     return {
       appName,
       resolved: cfg.stable,
-      tag: "stable",
+      tag: 'stable',
       whitelisted: false,
     };
   }
   return {
     appName,
     resolved: {
-      version: "stable",
-      tag: "stable",
-      entry: "",
+      version: 'stable',
+      tag: 'stable',
+      entry: '',
       percentage: 100,
     },
-    tag: "stable",
+    tag: 'stable',
     whitelisted: false,
   };
 }
@@ -91,7 +91,7 @@ export function emitResolutionEvent(
       try {
         cb(event);
       } catch (error) {
-        logger.warn("Canary resolution callback threw:", error);
+        logger.warn('Canary resolution callback threw:', error);
       }
     }
   });
@@ -133,25 +133,21 @@ export function resolveVersionCore(
       appName,
       userId: user?.userId,
       orgId: user?.orgId,
-      resolvedTag: "stable",
+      resolvedTag: 'stable',
       resolvedVersion: resolution.resolved.version,
       whitelisted: false,
-      reason: "stable_fallback",
+      reason: 'stable_fallback',
       timestamp: Date.now(),
     });
     return resolution;
   }
 
-  const allVersions = [
-    appConfig.stable,
-    ...appConfig.canaries.filter((c) => !c.disabled),
-  ];
-  const userIdWhitelisted =
-    !!user?.userId && manager.config.whitelistUserIds.includes(user.userId);
-  const mode: CanaryMode = manager.config.mode ?? "advanced";
+  const allVersions = [appConfig.stable, ...appConfig.canaries.filter((c) => !c.disabled)];
+  const userIdWhitelisted = !!user?.userId && manager.config.whitelistUserIds.includes(user.userId);
+  const mode: CanaryMode = manager.config.mode ?? 'advanced';
 
   // ===== simple 模式：轻量 forceTag 分流 =====
-  if (mode === "simple") {
+  if (mode === 'simple') {
     if (manager.config.forceTag) {
       const forced = allVersions.find((v) => v.tag === manager.config.forceTag);
       if (forced) {
@@ -168,7 +164,7 @@ export function resolveVersionCore(
           resolvedTag: forced.tag,
           resolvedVersion: forced.version,
           whitelisted: userIdWhitelisted,
-          reason: "force_tag",
+          reason: 'force_tag',
           timestamp: Date.now(),
         });
         return resolution;
@@ -178,17 +174,17 @@ export function resolveVersionCore(
     const resolution: CanaryResolution = {
       appName,
       resolved: appConfig.stable,
-      tag: "stable",
+      tag: 'stable',
       whitelisted: userIdWhitelisted,
     };
     emitResolutionEvent(manager, {
       appName,
       userId: user?.userId,
       orgId: user?.orgId,
-      resolvedTag: "stable",
+      resolvedTag: 'stable',
       resolvedVersion: appConfig.stable.version,
       whitelisted: userIdWhitelisted,
-      reason: "stable_fallback",
+      reason: 'stable_fallback',
       timestamp: Date.now(),
     });
     return resolution;
@@ -213,7 +209,7 @@ export function resolveVersionCore(
         resolvedTag: forced.tag,
         resolvedVersion: forced.version,
         whitelisted: true,
-        reason: "whitelist_user",
+        reason: 'whitelist_user',
         timestamp: Date.now(),
       });
       return resolution;
@@ -241,7 +237,7 @@ export function resolveVersionCore(
         resolvedTag: forced.tag,
         resolvedVersion: forced.version,
         whitelisted: true,
-        reason: "whitelist_org",
+        reason: 'whitelist_org',
         timestamp: Date.now(),
       });
       return resolution;
@@ -252,9 +248,7 @@ export function resolveVersionCore(
   const routeTags = manager.config.routeTags ?? [];
   const userTags = user?.tags ?? [];
   const tagMatched =
-    routeTags.length > 0 &&
-    userTags.length > 0 &&
-    routeTags.some((rt) => userTags.includes(rt));
+    routeTags.length > 0 && userTags.length > 0 && routeTags.some((rt) => userTags.includes(rt));
   if (tagMatched && manager.config.forceTag) {
     const forced = allVersions.find((v) => v.tag === manager.config.forceTag);
     if (forced) {
@@ -271,7 +265,7 @@ export function resolveVersionCore(
         resolvedTag: forced.tag,
         resolvedVersion: forced.version,
         whitelisted: false,
-        reason: "tag_match",
+        reason: 'tag_match',
         timestamp: Date.now(),
       });
       return resolution;
@@ -283,15 +277,15 @@ export function resolveVersionCore(
     const resolution: CanaryResolution = {
       appName,
       resolved: appConfig.stable,
-      tag: "stable",
+      tag: 'stable',
       whitelisted: false,
     };
     emitResolutionEvent(manager, {
       appName,
-      resolvedTag: "stable",
+      resolvedTag: 'stable',
       resolvedVersion: appConfig.stable.version,
       whitelisted: false,
-      reason: "stable_fallback",
+      reason: 'stable_fallback',
       timestamp: Date.now(),
     });
     return resolution;
@@ -316,7 +310,7 @@ export function resolveVersionCore(
         resolvedTag: ver.tag,
         resolvedVersion: ver.version,
         whitelisted: false,
-        reason: "percentage_hash",
+        reason: 'percentage_hash',
         timestamp: Date.now(),
       });
       return resolution;
@@ -326,17 +320,17 @@ export function resolveVersionCore(
   const resolution: CanaryResolution = {
     appName,
     resolved: appConfig.stable,
-    tag: "stable",
+    tag: 'stable',
     whitelisted: userIdWhitelisted || orgWhitelisted,
   };
   emitResolutionEvent(manager, {
     appName,
     userId: user?.userId,
     orgId: user?.orgId,
-    resolvedTag: "stable",
+    resolvedTag: 'stable',
     resolvedVersion: appConfig.stable.version,
     whitelisted: userIdWhitelisted || orgWhitelisted,
-    reason: "stable_fallback",
+    reason: 'stable_fallback',
     timestamp: Date.now(),
   });
   return resolution;
@@ -345,9 +339,7 @@ export function resolveVersionCore(
 /**
  * 刷新远端配置
  */
-export async function refreshFromRemoteCore(
-  manager: CanaryManagerLike,
-): Promise<void> {
+export async function refreshFromRemoteCore(manager: CanaryManagerLike): Promise<void> {
   const url = manager.config.remoteUrl;
   if (!url) return;
 
@@ -355,13 +347,13 @@ export async function refreshFromRemoteCore(
   manager.fetchPromise = (async () => {
     try {
       // @infra-fetch 基础设施层直用，无统一客户端上下文（canary 远端配置拉取）
-      const res = await fetch(url, { cache: "no-cache" });
+      const res = await fetch(url, { cache: 'no-cache' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       manager.config = { ...DEFAULT_CONFIG, ...data };
       manager.cacheTimestamp = Date.now();
       setStorage(STORAGE_KEYS.CANARY_CONFIG, manager.config);
-      logger.info("Canary config refreshed from remote");
+      logger.info('Canary config refreshed from remote');
     } catch (error) {
       logger.warn(`Canary refresh failed, using cached: ${error}`);
     } finally {
@@ -404,9 +396,7 @@ export function __registerCanaryManager(
  */
 export function getCanaryManager(): CanaryManagerInterface {
   if (!instanceGetter) {
-    throw new Error(
-      "CanaryManager not initialized. Ensure canary-manager.ts is imported.",
-    );
+    throw new Error('CanaryManager not initialized. Ensure canary-manager.ts is imported.');
   }
   return instanceGetter();
 }
@@ -425,7 +415,7 @@ export function resetCanaryManager(): void {
  */
 export function createCanaryManagerLifecycle(): DisposableManager {
   return {
-    name: "canary-manager",
+    name: 'canary-manager',
     dispose(): void {
       instanceDestroyer?.();
     },

@@ -6,10 +6,7 @@
  */
 
 import type { Ref } from 'vue';
-import type {
-  Limits,
-  RectCorrectionInput,
-} from './use-resize-types';
+import type { Limits, RectCorrectionInput } from './use-resize-types';
 
 /**
  * 根据限制修正单侧值

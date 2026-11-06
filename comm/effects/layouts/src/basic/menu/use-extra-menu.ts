@@ -39,9 +39,7 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
   const extraMenus = ref<MenuRecordRaw[]>([]);
   const sidebarExtraVisible = ref<boolean>(false);
   const extraActiveMenu = ref('');
-  const parentLevel = computed(() =>
-    preferences.app.layout === 'header-mixed-nav' ? 1 : 0,
-  );
+  const parentLevel = computed(() => (preferences.app.layout === 'header-mixed-nav' ? 1 : 0));
 
   /**
    * 选择混合菜单事件
@@ -61,9 +59,7 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
       await navigation(menu.path);
     } else if (preferences.sidebar.autoActivateChild) {
       await navigation(
-        defaultSubMap.has(menu.path)
-          ? (defaultSubMap.get(menu.path) as string)
-          : menu.path,
+        defaultSubMap.has(menu.path) ? (defaultSubMap.get(menu.path) as string) : menu.path,
       );
     }
   };
@@ -73,10 +69,7 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
    * @param menu
    * @param rootMenu
    */
-  const handleDefaultSelect = async (
-    menu: MenuRecordRaw,
-    rootMenu?: MenuRecordRaw,
-  ) => {
+  const handleDefaultSelect = async (menu: MenuRecordRaw, rootMenu?: MenuRecordRaw) => {
     extraMenus.value = rootMenu?.children ?? extraRootMenus.value ?? [];
     extraActiveMenu.value = menu.parents?.[parentLevel.value] ?? menu.path;
 
@@ -93,10 +86,7 @@ function useExtraMenu(useRootMenus?: ComputedRef<MenuRecordRaw[]>) {
       return;
     }
 
-    const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(
-      menus.value,
-      route.path,
-    );
+    const { findMenu, rootMenu, rootMenuPath } = findRootMenuByPath(menus.value, route.path);
     extraActiveMenu.value = rootMenuPath ?? findMenu?.path ?? '';
     extraMenus.value = rootMenu?.children ?? [];
   };

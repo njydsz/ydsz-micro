@@ -26,8 +26,12 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 const logger = createLogger('nextwiki-favorites');
 const { t } = useI18n();
-import { getFavoriteCount, listFavorites, removeFavorite, updatesort as updateSort }
-  from '#/api/userFavorite';
+import {
+  getFavoriteCount,
+  listFavorites,
+  removeFavorite,
+  updatesort as updateSort,
+} from '#/api/userFavorite';
 import type { UserFavoriteVO } from '#/api/models';
 
 defineOptions({ name: 'FavoriteManagement' });
@@ -72,23 +76,27 @@ const gridOptions: VxeGridProps<UserFavoriteVO> = {
     { field: 'path', title: t('path'), minWidth: 200 },
     { field: 'favoritedAt', title: t('favoritesFavoritedAt'), width: 170 },
     {
-field: 'sort',
-title: t('favoritesSort'),
-width: 140,
+      field: 'sort',
+      title: t('favoritesSort'),
+      width: 140,
       slots: {
         default: ({ row }) =>
-          h(YdNumberField, {
-            modelValue: row.sort ?? 0,
-            min: 0,
-            max: 9999,
-            step: 1,
-            'onUpdate:modelValue': (val: number | string) => {
-              row.sort = Number(val);
-              handleSortChange(row);
+          h(
+            YdNumberField,
+            {
+              modelValue: row.sort ?? 0,
+              min: 0,
+              max: 9999,
+              step: 1,
+              'onUpdate:modelValue': (val: number | string) => {
+                row.sort = Number(val);
+                handleSortChange(row);
+              },
             },
-          }, {
-            default: () => h(YdNumberFieldInput, { class: 'w-[100px]' }),
-          }),
+            {
+              default: () => h(YdNumberFieldInput, { class: 'w-[100px]' }),
+            },
+          ),
       },
     },
     {
@@ -99,11 +107,15 @@ width: 140,
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, {
-              size: 'sm',
-              variant: 'link',
-              onClick: () => handleRemove(row),
-            }, () => t('favoritesRemove')),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handleRemove(row),
+              },
+              () => t('favoritesRemove'),
+            ),
           ]),
       },
     },

@@ -13,10 +13,6 @@
     "removeComments": false,
     "isolatedModules": true
   },
-  "include": [
-    "*.ts",
-    "popup/*.ts",
-    "devtools/*.ts"
-  ],
+  "include": ["*.ts", "popup/*.ts", "devtools/*.ts"],
   "exclude": ["node_modules", "dist", "vendor", "*.mjs", "*.json"]
 }

@@ -22,7 +22,18 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdStatusBadge, YdBadge, YdButton, YdDrawer, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdCardGrid,
+  YdEmptyState,
+  YdEntityCard,
+  YdStatusBadge,
+  YdBadge,
+  YdButton,
+  YdDrawer,
+  YdProgress,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { h, onBeforeUnmount, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -43,7 +54,9 @@ type ViewMode = 'card' | 'table';
 const viewMode = ref<ViewMode>('card');
 
 /** YdBadge variant 映射（EP type → shadcn variant） */
-function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapTagVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -90,7 +103,11 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.status)) },
+            () => row.status ?? '-',
+          ),
       },
     },
     {
@@ -100,7 +117,11 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
       fixed: 'right',
       slots: {
         default: ({ row }) =>
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleProgress(row) }, () => '进度'),
+          h(
+            YdButton,
+            { size: 'sm', variant: 'link', onClick: () => handleProgress(row) },
+            () => '进度',
+          ),
       },
     },
   ],
@@ -120,7 +141,11 @@ const gridOptions: VxeTableGridOptions<MsgBatchVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'batchName', title: '批次名称', itemRender: { name: 'YdInput', props: { placeholder: '批次名称' } } },
+      {
+        field: 'batchName',
+        title: '批次名称',
+        itemRender: { name: 'YdInput', props: { placeholder: '批次名称' } },
+      },
     ],
   },
 };
@@ -259,10 +284,14 @@ onBeforeUnmount(() => {
   <Page auto-content-height>
     <!-- 视图切换 + 工具栏 -->
     <div class="mb-4 flex items-center justify-between">
-      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+      <div class="border-border-subtle bg-accent/50 flex items-center gap-1 rounded-lg border p-1">
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'card'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('card')"
         >
@@ -274,40 +303,20 @@ onBeforeUnmount(() => {
             viewBox="0 0 24 24"
             width="14"
           >
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="12.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="12.5"
-            />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="12.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="12.5" />
           </svg>
           卡片
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'table'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('table')"
         >
@@ -320,24 +329,9 @@ onBeforeUnmount(() => {
             viewBox="0 0 24 24"
             width="14"
           >
-            <line
-              x1="3"
-              x2="21"
-              y1="6.5"
-              y2="6.5"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="12"
-              y2="12"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="17.5"
-              y2="17.5"
-            />
+            <line x1="3" x2="21" y1="6.5" y2="6.5" />
+            <line x1="3" x2="21" y1="12" y2="12" />
+            <line x1="3" x2="21" y1="17.5" y2="17.5" />
           </svg>
           表格
         </button>
@@ -346,20 +340,11 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- 表格视图 -->
-    <Grid
-      v-if="viewMode === 'table'"
-      table-title="批量发送"
-    />
+    <Grid v-if="viewMode === 'table'" table-title="批量发送" />
 
     <!-- 卡片视图 -->
-    <div
-      v-else
-      class="min-h-[400px]"
-    >
-      <YdCardGrid
-        :is-empty="batchRows.length === 0"
-        :is-loading="false"
-      >
+    <div v-else class="min-h-[400px]">
+      <YdCardGrid :is-empty="batchRows.length === 0" :is-loading="false">
         <template #empty>
           <YdEmptyState
             description="创建批量发送任务后可查看发送进度和统计"
@@ -373,7 +358,13 @@ onBeforeUnmount(() => {
           v-for="item in batchRows"
           :key="item.batchId"
           :avatar-text="item.batchName"
-          :avatar-variant="resolveBatchStatus(item.status) === 'running' ? 'blue' : (resolveBatchStatus(item.status) === 'success' ? 'primary' : 'neutral')"
+          :avatar-variant="
+            resolveBatchStatus(item.status) === 'running'
+              ? 'blue'
+              : resolveBatchStatus(item.status) === 'success'
+                ? 'primary'
+                : 'neutral'
+          "
           :code="item.batchId ?? undefined"
           :description="`${item.channel ?? ''} · ${item.templateCode ?? ''}`"
           class="transition-transform hover:-translate-y-0.5"
@@ -388,7 +379,7 @@ onBeforeUnmount(() => {
           </template>
 
           <template #meta>
-            <div class="mt-3 text-xs text-text-tertiary">
+            <div class="text-text-tertiary mt-3 text-xs">
               <div class="flex items-center justify-between">
                 <span>业务类型: {{ item.bizType ?? '-' }}</span>
                 <span>{{ item.createdAt ?? '' }}</span>
@@ -397,11 +388,7 @@ onBeforeUnmount(() => {
           </template>
 
           <template #actions>
-            <YdButton
-              size="sm"
-              variant="link"
-              @click.stop="handleProgress(item)"
-            >
+            <YdButton size="sm" variant="link" @click.stop="handleProgress(item)">
               查看进度
             </YdButton>
           </template>
@@ -415,10 +402,19 @@ onBeforeUnmount(() => {
         <div class="flex w-full items-center justify-between pe-2">
           <span>{{ t('page.batchSend') }}</span>
           <span class="flex items-center gap-2">
-            <YdBadge :variant="sseState === 'live' ? 'default' : sseState === 'error' ? 'destructive' : 'secondary'">
+            <YdBadge
+              :variant="
+                sseState === 'live' ? 'default' : sseState === 'error' ? 'destructive' : 'secondary'
+              "
+            >
               {{ sseStateText[sseState] }}
             </YdBadge>
-            <YdButton size="sm" variant="link" :disabled="!subscribedBatchId" @click="refreshProgressSnapshot">
+            <YdButton
+              size="sm"
+              variant="link"
+              :disabled="!subscribedBatchId"
+              @click="refreshProgressSnapshot"
+            >
               {{ t('common.refresh') }}
             </YdButton>
           </span>
@@ -427,14 +423,24 @@ onBeforeUnmount(() => {
       <div v-loading="progressLoading" class="min-h-24">
         <YdDescriptions v-if="progressData" :column="1" border size="small">
           <YdDescriptionsItem label="批次ID">{{ progressData.batchId ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="批次名称">{{ progressData.batchName ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="批次名称">{{
+            progressData.batchName ?? '-'
+          }}</YdDescriptionsItem>
           <YdDescriptionsItem label="通道">{{ progressData.channel ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem :label="t('templateCode')">{{ progressData.templateCode ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem :label="t('common.status')">{{ progressData.status ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('templateCode')">{{
+            progressData.templateCode ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('common.status')">{{
+            progressData.status ?? '-'
+          }}</YdDescriptionsItem>
           <YdDescriptionsItem label="进度">
             <YdProgress
               :percentage="Math.min(100, Number(progressData.progressPercent ?? 0))"
-              :status="Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status) ? 'success' : undefined"
+              :status="
+                Number(progressData.progressPercent ?? 0) >= 100 || statusDone(progressData.status)
+                  ? 'success'
+                  : undefined
+              "
               :stroke-width="12"
               class="w-56"
             />
@@ -444,9 +450,15 @@ onBeforeUnmount(() => {
           <YdDescriptionsItem label="成功">{{ progressData.success ?? 0 }}</YdDescriptionsItem>
           <YdDescriptionsItem label="失败">{{ progressData.failed ?? 0 }}</YdDescriptionsItem>
           <YdDescriptionsItem label="跳过">{{ progressData.skipped ?? 0 }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="错误信息">{{ progressData.errorMessage ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="开始时间">{{ progressData.startedAt ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="完成时间">{{ progressData.completedAt ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="错误信息">{{
+            progressData.errorMessage ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="开始时间">{{
+            progressData.startedAt ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="完成时间">{{
+            progressData.completedAt ?? '-'
+          }}</YdDescriptionsItem>
         </YdDescriptions>
       </div>
     </YdDrawer>

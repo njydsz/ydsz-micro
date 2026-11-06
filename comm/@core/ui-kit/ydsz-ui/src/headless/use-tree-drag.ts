@@ -38,7 +38,9 @@ export interface UseTreeDragOptions<T> {
   /** 已展开的节点 Set（来自 useTreeHeadless） */
   expandedKeys: Ref<Set<string | number>>;
   /** 扁平化节点列表（来自 useTreeHeadless） */
-  flattenedNodes: Ref<Array<{ data: T; level: number; hasChildren: boolean; value: string | number }>>;
+  flattenedNodes: Ref<
+    Array<{ data: T; level: number; hasChildren: boolean; value: string | number }>
+  >;
   /** 节点唯一值获取函数 */
   getValue: (node: T) => string | number;
   /** 子节点获取函数 */
@@ -61,9 +63,7 @@ export interface UseTreeDragOptions<T> {
  * @param options - 配置项
  * @return 拖拽操作句柄
  */
-export function useTreeDrag<T extends Record<string, unknown>>(
-  options: UseTreeDragOptions<T>,
-) {
+export function useTreeDrag<T extends Record<string, unknown>>(options: UseTreeDragOptions<T>) {
   const {
     autoExpandDelay = 600,
     canDrag,
@@ -113,7 +113,11 @@ export function useTreeDrag<T extends Record<string, unknown>>(
    *  - 25% ~ 75% → inside（有子节点能力时）
    *  - > 75% → after
    */
-  function getDropPosition(offsetX: number, targetHasChildren: boolean, targetIsExpanded: boolean): TreeDropPosition {
+  function getDropPosition(
+    offsetX: number,
+    targetHasChildren: boolean,
+    targetIsExpanded: boolean,
+  ): TreeDropPosition {
     const ratio = dragSourceWidth > 0 ? offsetX / dragSourceWidth : 0.5;
     if (ratio < 0.25) return 'before';
     if (ratio > 0.75) return 'after';

@@ -64,7 +64,8 @@ const LEVEL_TOAST_VARIANT: Record<ExceptionSeverity, 'info' | 'warning' | 'error
  */
 export function showToastCompat(message: string, level: ExceptionSeverity = 'WARN'): void {
   const variant = LEVEL_TOAST_VARIANT[level];
-  const duration = level === 'ERROR' ? DURATION.ERROR : level === 'INFO' ? DURATION.INFO : DURATION.WARN;
+  const duration =
+    level === 'ERROR' ? DURATION.ERROR : level === 'INFO' ? DURATION.INFO : DURATION.WARN;
   showToast(message, { variant, duration });
 }
 
@@ -149,9 +150,7 @@ export function handleBusinessError(message: string, level: ExceptionSeverity = 
 // WebSocket 实时通信
 // =====================================================================
 
-export {
-  useWebSocket,
-} from './use-websocket';
+export { useWebSocket } from './use-websocket';
 export type {
   WebSocketStatus,
   ConnectionStatus,

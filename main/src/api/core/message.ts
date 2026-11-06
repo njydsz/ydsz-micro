@@ -62,9 +62,7 @@ export interface TemplateVersionItem {
  * @returns 该日志关联的回执记录列表，未产生回执时为空数组
  */
 export function getReceiptsByLogIdApi(logId: string) {
-  return requestClient.get<ReceiptItem[]>(
-    `/api/message/receipt/${logId}`,
-  );
+  return requestClient.get<ReceiptItem[]>(`/api/message/receipt/${logId}`);
 }
 
 /**

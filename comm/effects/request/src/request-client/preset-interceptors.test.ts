@@ -87,7 +87,9 @@ type ExtendedAxiosRequestConfig = InternalAxiosRequestConfig & {
 };
 
 /** 创建模拟 Axios 请求配置 */
-function createConfig(overrides: Partial<ExtendedAxiosRequestConfig> = {}): ExtendedAxiosRequestConfig {
+function createConfig(
+  overrides: Partial<ExtendedAxiosRequestConfig> = {},
+): ExtendedAxiosRequestConfig {
   return {
     url: '/api/test',
     method: 'GET',
@@ -232,7 +234,9 @@ describe('retryResponseInterceptor', () => {
       responseData: { message: 'Service Unavailable' },
     });
 
-    (mockAxiosInstance.request as ReturnType<typeof vi.fn>).mockResolvedValueOnce({ data: 'recovered' });
+    (mockAxiosInstance.request as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      data: 'recovered',
+    });
 
     const interceptor = retryResponseInterceptor({
       axiosInstance: mockAxiosInstance,
@@ -393,9 +397,7 @@ describe('retryResponseInterceptor', () => {
 
     // Assert: onRetry 在等待前立即调用
     expect(onRetryMock).toHaveBeenCalledTimes(1);
-    expect(onRetryMock).toHaveBeenCalledWith(
-      expect.objectContaining({ retryCount: 1 }),
-    );
+    expect(onRetryMock).toHaveBeenCalledWith(expect.objectContaining({ retryCount: 1 }));
 
     // 此时还未到延迟时间，不应已发起重入请求
     expect(mockAxiosInstance.request).not.toHaveBeenCalled();
@@ -559,7 +561,8 @@ describe('retryResponseInterceptor', () => {
     await interceptor(axiosError);
 
     // Assert - 重入的 config 包含 __isRetryRequest=true
-    const requestCall = (mockAxiosInstance.request as ReturnType<typeof vi.fn>).mock.calls[0][0] as ExtendedAxiosRequestConfig;
+    const requestCall = (mockAxiosInstance.request as ReturnType<typeof vi.fn>).mock
+      .calls[0][0] as ExtendedAxiosRequestConfig;
     expect(requestCall.__isRetryRequest).toBe(true);
     expect(requestCall.__retryCount).toBe(1);
   });
@@ -672,7 +675,9 @@ describe('authenticateResponseInterceptor', () => {
     const axiosError = createAxiosError({ config, status: 401 });
 
     doRefreshTokenMock.mockResolvedValueOnce('refreshed-token');
-    (mockClient.request as ReturnType<typeof vi.fn>).mockResolvedValueOnce({ data: 'retried-success' });
+    (mockClient.request as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      data: 'retried-success',
+    });
 
     const interceptor = authenticateResponseInterceptor({
       client: mockClient,
@@ -688,9 +693,12 @@ describe('authenticateResponseInterceptor', () => {
     // Assert
     expect(doRefreshTokenMock).toHaveBeenCalledTimes(1);
     expect(mockClient.request).toHaveBeenCalledTimes(1);
-    expect(mockClient.request).toHaveBeenCalledWith('/api/protected', expect.objectContaining({
-      __isRetryRequest: true,
-    }));
+    expect(mockClient.request).toHaveBeenCalledWith(
+      '/api/protected',
+      expect.objectContaining({
+        __isRetryRequest: true,
+      }),
+    );
     expect(result).toEqual({ data: 'retried-success' });
     expect(doReAuthenticateMock).not.toHaveBeenCalled();
   });
@@ -1203,7 +1211,7 @@ describe('defaultResponseInterceptor', () => {
     const interceptor = defaultResponseInterceptor({
       codeField: 'code',
       dataField: (res: Record<string, unknown>) => ({
-        ...(res.data as Record<string, unknown>).nested as Record<string, unknown>,
+        ...((res.data as Record<string, unknown>).nested as Record<string, unknown>),
         meta: res.extra,
       }),
       successCode: 0,

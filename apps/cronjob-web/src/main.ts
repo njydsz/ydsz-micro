@@ -8,7 +8,6 @@
 import { createSubApp } from '@ydsz/shared-auth';
 import '@ydsz/styles';
 
-
 import { initComponentAdapter } from './adapter/component';
 import { initSetupYDSZForm } from './adapter/form';
 import RootApp from './app.vue';
@@ -18,8 +17,8 @@ import { createRouterGuard, initRoutes } from './router/guard';
 import { routes } from './router/routes';
 
 export const { bootstrap, mount, unmount, update } = createSubApp({
-    appName: 'cronjob-web',
-    basename: '/ydsz-cron',
+  appName: 'cronjob-web',
+  basename: '/ydsz-cron',
   routes,
   rootComponent: RootApp,
   preferencesOverrides: overridesPreferences,

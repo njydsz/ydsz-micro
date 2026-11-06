@@ -8,11 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  AuthApiLoginParams,
-  AuthApiLoginResult,
-  AuthApiRefreshTokenResult,
-} from './types';
+import type { AuthApiLoginParams, AuthApiLoginResult, AuthApiRefreshTokenResult } from './types';
 
 import { baseRequestClient, requestClient } from './request-setup';
 
@@ -25,10 +21,7 @@ export { baseRequestClient, requestClient };
  * @returns 登录结果，含 accessToken、refreshToken 与用户信息
  */
 export async function loginApi(data: AuthApiLoginParams) {
-  return requestClient.post<AuthApiLoginResult>(
-    '/api/auth/login',
-    data,
-  );
+  return requestClient.post<AuthApiLoginResult>('/api/auth/login', data);
 }
 
 /**
@@ -38,10 +31,7 @@ export async function loginApi(data: AuthApiLoginParams) {
  * @returns 刷新结果，含新的 accessToken 与 refreshToken
  */
 export async function refreshTokenApi(refreshToken: string) {
-  return baseRequestClient.post<AuthApiRefreshTokenResult>(
-    '/api/auth/refresh',
-    { refreshToken },
-  );
+  return baseRequestClient.post<AuthApiRefreshTokenResult>('/api/auth/refresh', { refreshToken });
 }
 
 /**

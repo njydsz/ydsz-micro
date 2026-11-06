@@ -17,14 +17,18 @@ import type { StringVO } from './models';
  * weeklyReport: GET /workflow/advanced/report/weekly
  */
 export function weeklyReport(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/report/weekly`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/advanced/report/weekly`,
+  );
 }
 
 /**
  * monthlyReport: GET /workflow/advanced/report/monthly
  */
 export function monthlyReport(): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/report/monthly`);
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/advanced/report/monthly`,
+  );
 }
 
 /**
@@ -44,40 +48,52 @@ export function sendMonthly(): Promise<boolean> {
 /**
  * merge: POST /workflow/advanced/merge
  */
-export function merge(params: {
-    instanceIds?: string[];
-  }): Promise<StringVO> {
+export function merge(params: { instanceIds?: string[] }): Promise<StringVO> {
   return requestClient.post<StringVO>(`/workflow/advanced/merge`, { params });
 }
 
 /**
  * getMergeGroup: GET /workflow/advanced/merge/{mergeGroupId}
  */
-export function getMergeGroup({ mergeGroupId }: {
-    mergeGroupId: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/merge/${mergeGroupId}`);
+export function getMergeGroup({
+  mergeGroupId,
+}: {
+  mergeGroupId: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/advanced/merge/${mergeGroupId}`,
+  );
 }
 
 /**
  * mergePass: POST /workflow/advanced/merge/{mergeGroupId}/pass
  */
-export function mergePass({ mergeGroupId }: {
+export function mergePass(
+  {
+    mergeGroupId,
+  }: {
     mergeGroupId: string;
-  }, params: {
+  },
+  params: {
     comment?: string;
-  }): Promise<number> {
+  },
+): Promise<number> {
   return requestClient.post<number>(`/workflow/advanced/merge/${mergeGroupId}/pass`, { params });
 }
 
 /**
  * mergeReject: POST /workflow/advanced/merge/{mergeGroupId}/reject
  */
-export function mergeReject({ mergeGroupId }: {
+export function mergeReject(
+  {
+    mergeGroupId,
+  }: {
     mergeGroupId: string;
-  }, params: {
+  },
+  params: {
     comment?: string;
-  }): Promise<number> {
+  },
+): Promise<number> {
   return requestClient.post<number>(`/workflow/advanced/merge/${mergeGroupId}/reject`, { params });
 }
 
@@ -85,65 +101,84 @@ export function mergeReject({ mergeGroupId }: {
  * mergeable: GET /workflow/advanced/mergeable
  */
 export function mergeable(): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/advanced/mergeable`);
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(
+    `/workflow/advanced/mergeable`,
+  );
 }
 
 /**
  * updateVotePassRate: POST /workflow/advanced/countersign/{taskId}/votePassRate
  */
-export function updateVotePassRate({ taskId }: {
+export function updateVotePassRate(
+  {
+    taskId,
+  }: {
     taskId: string;
-  }, params: {
+  },
+  params: {
     votePassRate?: number;
-  }): Promise<void> {
-  return requestClient.post<void>(`/workflow/advanced/countersign/${taskId}/votePassRate`, { params });
+  },
+): Promise<void> {
+  return requestClient.post<void>(`/workflow/advanced/countersign/${taskId}/votePassRate`, {
+    params,
+  });
 }
 
 /**
  * updateApproveCount: POST /workflow/advanced/countersign/{taskId}/approveCount
  */
-export function updateApproveCount({ taskId }: {
+export function updateApproveCount(
+  {
+    taskId,
+  }: {
     taskId: string;
-  }, params: {
+  },
+  params: {
     approveCount?: number;
-  }): Promise<void> {
-  return requestClient.post<void>(`/workflow/advanced/countersign/${taskId}/approveCount`, { params });
+  },
+): Promise<void> {
+  return requestClient.post<void>(`/workflow/advanced/countersign/${taskId}/approveCount`, {
+    params,
+  });
 }
 
 /**
  * hasApproved: GET /workflow/advanced/dedup/{instanceId}/check/{userId}
  */
-export function hasApproved({ instanceId, userId }: {
-    instanceId: string;
-    userId: string;
-  }): Promise<boolean> {
+export function hasApproved({
+  instanceId,
+  userId,
+}: {
+  instanceId: string;
+  userId: string;
+}): Promise<boolean> {
   return requestClient.get<boolean>(`/workflow/advanced/dedup/${instanceId}/check/${userId}`);
 }
 
 /**
  * approvedUsers: GET /workflow/advanced/dedup/{instanceId}/approvedUsers
  */
-export function approvedUsers({ instanceId }: {
-    instanceId: string;
-  }): Promise<StringVO[]> {
+export function approvedUsers({ instanceId }: { instanceId: string }): Promise<StringVO[]> {
   return requestClient.get<StringVO[]>(`/workflow/advanced/dedup/${instanceId}/approvedUsers`);
 }
 
 /**
  * urgeCooldown: GET /workflow/advanced/urge/cooldown/{instanceId}
  */
-export function urgeCooldown({ instanceId }: {
-    instanceId: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/workflow/advanced/urge/cooldown/${instanceId}`);
+export function urgeCooldown({
+  instanceId,
+}: {
+  instanceId: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/workflow/advanced/urge/cooldown/${instanceId}`,
+  );
 }
 
 /**
  * autoForward: POST /workflow/advanced/offlineForward/auto
  */
-export function autoForward(params: {
-    authId?: string;
-  }): Promise<number> {
+export function autoForward(params: { authId?: string }): Promise<number> {
   return requestClient.post<number>(`/workflow/advanced/offlineForward/auto`, { params });
 }
 
@@ -151,8 +186,8 @@ export function autoForward(params: {
  * manualForward: POST /workflow/advanced/offlineForward/manual
  */
 export function manualForward(params: {
-    userId?: string;
-    delegateUserId?: string;
-  }): Promise<number> {
+  userId?: string;
+  delegateUserId?: string;
+}): Promise<number> {
   return requestClient.post<number>(`/workflow/advanced/offlineForward/manual`, { params });
 }

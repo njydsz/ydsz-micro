@@ -46,11 +46,13 @@ const gridOptions: VxeTableGridOptions<InsightReportResult> = {
       field: 'status',
       title: '状态',
       width: 100,
-      slots: { default: ({ row }) => {
-        const theme = getStatusTheme(row.status);
-        const text = getStatusText(row.status);
-        return h(YdBadge, { variant: theme === 'primary' ? 'default' : theme }, () => text);
-      } },
+      slots: {
+        default: ({ row }) => {
+          const theme = getStatusTheme(row.status);
+          const text = getStatusText(row.status);
+          return h(YdBadge, { variant: theme === 'primary' ? 'default' : theme }, () => text);
+        },
+      },
     },
     { field: 'durationMs', title: '生成耗时(ms)', width: 120 },
     { field: 'createdAt', title: '创建时间', width: 160 },
@@ -60,10 +62,19 @@ const gridOptions: VxeTableGridOptions<InsightReportResult> = {
       width: 240,
       fixed: 'right',
       slots: {
-        default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewHtml(row) }, () => t('business.insight.viewHtml') || '查看 HTML'),
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => t('business.insight.delete') || '删除'),
-        ]),
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleViewHtml(row) },
+              () => t('business.insight.viewHtml') || '查看 HTML',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => t('business.insight.delete') || '删除',
+            ),
+          ]),
       },
     },
   ],
@@ -85,7 +96,11 @@ const gridOptions: VxeTableGridOptions<InsightReportResult> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'title', title: '报告标题', itemRender: { name: 'YdInput', props: { placeholder: '报告标题' } } },
+      {
+        field: 'title',
+        title: '报告标题',
+        itemRender: { name: 'YdInput', props: { placeholder: '报告标题' } },
+      },
     ],
   },
 };
@@ -133,11 +148,9 @@ async function handleDelete(row: InsightReportResult) {
     return;
   }
   try {
-    await YdConfirm(
-      `确定删除报告「${row.title ?? row.reportId}」吗？`,
-      '删除确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定删除报告「${row.title ?? row.reportId}」吗？`, '删除确认', {
+      type: 'warning',
+    });
   } catch {
     return;
   }

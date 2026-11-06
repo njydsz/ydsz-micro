@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* 导航菜单 —— 便利性封装（Convenience Wrapper）。
-* 
+ * 导航菜单 —— 便利性封装（Convenience Wrapper）。
+ *
  * 侧边栏 / 顶栏导航的配置式菜单封装，对齐 Ant Design Menu / Element Plus ElMenu。
  * 支持嵌套子菜单、分组、禁用、图标等。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\menu\YdMenu.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -14,8 +14,16 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { DropdownMenuRoot as DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from '@ydsz-core/ydsz-vue';
+ */
+import {
+  DropdownMenuRoot as DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from '@ydsz-core/ydsz-vue';
 
 /** 菜单项配置 */
 export interface MenuItemOption {
@@ -33,16 +41,19 @@ export interface MenuItemOption {
   onClick?: () => void;
 }
 
-const props = withDefaults(defineProps<{
-  /** 菜单项列表 */
-  items: MenuItemOption[];
-  /** 当前选中项 */
-  modelValue?: string;
-  /** 展开模式：horizontal / vertical */
-  mode?: 'horizontal' | 'vertical';
-}>(), {
-  mode: 'vertical',
-});
+const props = withDefaults(
+  defineProps<{
+    /** 菜单项列表 */
+    items: MenuItemOption[];
+    /** 当前选中项 */
+    modelValue?: string;
+    /** 展开模式：horizontal / vertical */
+    mode?: 'horizontal' | 'vertical';
+  }>(),
+  {
+    mode: 'vertical',
+  },
+);
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
@@ -81,19 +92,13 @@ function handleSelect(item: MenuItemOption): void {
   -->
   <DropdownMenu>
     <DropdownMenuContent
-      :class="[
-        'min-w-[180px]',
-        mode === 'horizontal' ? 'flex-row' : 'flex-col',
-      ]"
+      :class="['min-w-[180px]', mode === 'horizontal' ? 'flex-row' : 'flex-col']"
     >
-      <template
-        v-for="item in items"
-        :key="item.key"
-      >
+      <template v-for="item in items" :key="item.key">
         <!-- 分组标题 -->
         <div
           v-if="item.type === 'group'"
-          class="px-2 py-1.5 text-xs font-semibold text-muted-foreground"
+          class="text-muted-foreground px-2 py-1.5 text-xs font-semibold"
         >
           {{ item.label }}
         </div>

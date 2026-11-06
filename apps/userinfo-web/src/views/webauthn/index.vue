@@ -19,7 +19,25 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdEmptyState,
+  YdIcon,
+  YdTimeline,
+  YdTimelineItem,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -100,11 +118,9 @@ function handleViewDetail(cred: WebAuthnCredentialVO) {
 async function handleDelete(cred: WebAuthnCredentialVO) {
   if (!cred.credentialId) return;
   try {
-    await YdConfirm(
-      '确认删除该 Passkey 凭证？删除后将无法使用该凭证登录。',
-      '确认删除',
-      { type: 'warning' },
-    );
+    await YdConfirm('确认删除该 Passkey 凭证？删除后将无法使用该凭证登录。', '确认删除', {
+      type: 'warning',
+    });
   } catch {
     return;
   }
@@ -152,12 +168,7 @@ const credentialCount = computed(() => credentials.value.length);
         <YdCardContent class="flex items-center justify-between pt-6">
           <div class="flex items-center gap-3">
             <YdIcon :size="24" class="text-blue-500">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path
                   d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8m0 2a6 6 0 0 1 6 6c0 1.77-.77 3.36-2 4.46V12a4 4 0 0 0-8 0v4.46A5.98 5.98 0 0 1 6 12a6 6 0 0 1 6-6m0 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0v-3a4 4 0 0 0-4-4z"
                 />
@@ -165,7 +176,7 @@ const credentialCount = computed(() => credentials.value.length);
             </YdIcon>
             <div>
               <h3 class="text-lg font-semibold">Passkey 管理</h3>
-              <p class="text-sm text-muted-foreground">
+              <p class="text-muted-foreground text-sm">
                 管理您的生物识别登录凭证，共 {{ credentialCount }} 个凭证
               </p>
             </div>
@@ -185,84 +196,68 @@ const credentialCount = computed(() => credentials.value.length);
           <YdCardTitle class="font-medium">已注册凭证</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-
-        <!-- 空状态 -->
-        <YdEmptyState
-          v-if="!loading && credentials.length === 0"
-          description="尚未注册任何 Passkey 凭证"
-          :image-size="100"
-        >
-          <YdButton variant="default" @click="registerDialogVisible = true">
-            立即注册
-          </YdButton>
-        </YdEmptyState>
-
-        <!-- 凭证列表 -->
-        <div v-else class="space-y-3">
-          <div
-            v-for="cred in credentials"
-            :key="cred.credentialId"
-            class="flex items-center justify-between p-5 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all"
+          <!-- 空状态 -->
+          <YdEmptyState
+            v-if="!loading && credentials.length === 0"
+            description="尚未注册任何 Passkey 凭证"
+            :image-size="100"
           >
-            <div class="flex items-center gap-3">
-              <YdIcon :size="28" class="text-gray-400">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <rect x="3" y="6" width="18" height="14" rx="2" />
-                  <path d="M3 10h18" />
-                  <circle cx="8" cy="14" r="1" fill="currentColor" />
-                  <circle cx="12" cy="14" r="1" fill="currentColor" />
-                  <circle cx="16" cy="14" r="1" fill="currentColor" />
-                </svg>
-              </YdIcon>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-medium">{{
-                    cred.displayName || '未命名凭证'
-                  }}</span>
-                  <YdBadge variant="secondary" class="text-xs">{{
-                    credentialTypeLabels[cred.credentialType ?? ''] ||
-                    cred.credentialType ||
-                    '凭证'
-                  }}</YdBadge>
-                </div>
-                <div class="text-xs text-gray-400 mt-1">
-                  ID: {{ formatCredentialId(cred.credentialId) }}
-                </div>
-              </div>
-            </div>
-            <div class="flex items-center gap-5 text-sm text-gray-500">
-              <div class="text-right">
-                <div>注册于: {{ formatDateTime(cred.registeredAt) }}</div>
-                <div class="mt-0.5">
-                  最后使用: {{ formatDateTime(cred.lastUsedAt) }}
+            <YdButton variant="default" @click="registerDialogVisible = true"> 立即注册 </YdButton>
+          </YdEmptyState>
+
+          <!-- 凭证列表 -->
+          <div v-else class="space-y-3">
+            <div
+              v-for="cred in credentials"
+              :key="cred.credentialId"
+              class="flex items-center justify-between rounded-lg border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-sm"
+            >
+              <div class="flex items-center gap-3">
+                <YdIcon :size="28" class="text-gray-400">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="6" width="18" height="14" rx="2" />
+                    <path d="M3 10h18" />
+                    <circle cx="8" cy="14" r="1" fill="currentColor" />
+                    <circle cx="12" cy="14" r="1" fill="currentColor" />
+                    <circle cx="16" cy="14" r="1" fill="currentColor" />
+                  </svg>
+                </YdIcon>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-medium">{{ cred.displayName || '未命名凭证' }}</span>
+                    <YdBadge variant="secondary" class="text-xs">{{
+                      credentialTypeLabels[cred.credentialType ?? ''] ||
+                      cred.credentialType ||
+                      '凭证'
+                    }}</YdBadge>
+                  </div>
+                  <div class="mt-1 text-xs text-gray-400">
+                    ID: {{ formatCredentialId(cred.credentialId) }}
+                  </div>
                 </div>
               </div>
-              <div class="flex gap-1">
-                <YdButton
-                  size="sm"
-                  variant="link"
-                  @click="handleViewDetail(cred)"
-                >
-                  详情
-                </YdButton>
-                <YdButton
-                  size="sm"
-                  variant="link"
-                  class="text-destructive"
-                  @click="handleDelete(cred)"
-                >
-                  删除
-                </YdButton>
+              <div class="flex items-center gap-5 text-sm text-gray-500">
+                <div class="text-right">
+                  <div>注册于: {{ formatDateTime(cred.registeredAt) }}</div>
+                  <div class="mt-0.5">最后使用: {{ formatDateTime(cred.lastUsedAt) }}</div>
+                </div>
+                <div class="flex gap-1">
+                  <YdButton size="sm" variant="link" @click="handleViewDetail(cred)">
+                    详情
+                  </YdButton>
+                  <YdButton
+                    size="sm"
+                    variant="link"
+                    class="text-destructive"
+                    @click="handleDelete(cred)"
+                  >
+                    删除
+                  </YdButton>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </YdCardContent>
+        </YdCardContent>
       </YdCard>
 
       <!-- 注册说明弹窗 -->
@@ -273,9 +268,8 @@ const credentialCount = computed(() => credentials.value.length);
           </YdDialogHeader>
           <div class="mb-4">
             <p class="text-muted-foreground">
-              注册 Passkey 后，您可以使用设备的生物识别功能（如 Windows Hello、Apple
-              Touch ID/Face ID）或安全密钥（YubiKey
-              等）快速、安全地登录系统。
+              注册 Passkey 后，您可以使用设备的生物识别功能（如 Windows Hello、Apple Touch ID/Face
+              ID）或安全密钥（YubiKey 等）快速、安全地登录系统。
             </p>
           </div>
 
@@ -286,7 +280,7 @@ const credentialCount = computed(() => credentials.value.length);
               :hollow="index > 0"
             >
               <div class="font-medium">{{ step.title }}</div>
-              <div class="text-sm text-muted-foreground mt-1">
+              <div class="text-muted-foreground mt-1 text-sm">
                 {{ step.description }}
               </div>
             </YdTimelineItem>
@@ -294,9 +288,7 @@ const credentialCount = computed(() => credentials.value.length);
 
           <YdDialogFooter class="gap-2">
             <YdButton variant="outline" @click="registerDialogVisible = false">关闭</YdButton>
-            <YdButton disabled>
-              注册 Passkey（需在支持设备上操作）
-            </YdButton>
+            <YdButton disabled> 注册 Passkey（需在支持设备上操作） </YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>
@@ -309,9 +301,7 @@ const credentialCount = computed(() => credentials.value.length);
           </YdDialogHeader>
           <YdDescriptions v-if="selectedCredential" :column="1" border>
             <YdDescriptionsItem label="凭证 ID">
-              <span class="text-xs break-all">{{
-                selectedCredential.credentialId
-              }}</span>
+              <span class="break-all text-xs">{{ selectedCredential.credentialId }}</span>
             </YdDescriptionsItem>
             <YdDescriptionsItem label="显示名称">
               {{ selectedCredential.displayName || '-' }}

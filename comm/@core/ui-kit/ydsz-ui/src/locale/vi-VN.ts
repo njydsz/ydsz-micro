@@ -351,11 +351,14 @@ export const viVN = {
   'aiBuilder.generating': 'Đang tạo...',
   'aiBuilder.pageDescription': 'Mô tả trang',
   'aiBuilder.autoHint': 'AI sẽ tự suy đoán cấu trúc trang từ các trường và từ khóa nghiệp vụ',
-  'aiBuilder.defaultPromptPlaceholder': 'Mô tả trang bạn muốn tạo bằng ngôn ngữ tự nhiên (hỗ trợ trộn ngôn ngữ)',
+  'aiBuilder.defaultPromptPlaceholder':
+    'Mô tả trang bạn muốn tạo bằng ngôn ngữ tự nhiên (hỗ trợ trộn ngôn ngữ)',
   'aiBuilder.exampleForm': 'Ví dụ: tạo biểu mẫu người dùng mới với trường tên, tuổi và email',
   'aiBuilder.exampleTable': 'Ví dụ: tạo danh sách đơn hàng với bộ lọc trạng thái và xuất dữ liệu',
-  'aiBuilder.exampleDashboard': 'Ví dụ: tạo trang doanh thu hiển thị doanh thu ngày, số đơn và tỷ lệ chuyển đổi',
-  'aiBuilder.exampleDetail': 'Ví dụ: tạo trang chi tiết khách hàng hiển thị thông tin cơ bản và đơn hàng liên quan',
+  'aiBuilder.exampleDashboard':
+    'Ví dụ: tạo trang doanh thu hiển thị doanh thu ngày, số đơn và tỷ lệ chuyển đổi',
+  'aiBuilder.exampleDetail':
+    'Ví dụ: tạo trang chi tiết khách hàng hiển thị thông tin cơ bản và đơn hàng liên quan',
   'aiBuilder.typeString': 'Văn bản',
   'aiBuilder.typeNumber': 'Số',
   'aiBuilder.typeBoolean': 'Boolean',
@@ -416,7 +419,7 @@ export const viVN = {
   'dashboard.cardCount': '{count} thẻ',
   'dashboard.emptyEditable': 'Nhấp "Thêm thẻ" để bắt đầu dựng bảng điều khiển',
   'dashboard.empty': 'Chưa có dữ liệu thẻ',
-'dashboard.chartEmpty': 'Chưa có dữ liệu biểu đồ',
+  'dashboard.chartEmpty': 'Chưa có dữ liệu biểu đồ',
   'advancedFilter.toolbarAriaLabel': 'Thanh công cụ bộ lọc',
   'advancedFilter.removeFilter': 'Xóa bộ lọc {label}: {value}',
   'bulkActions.selectAll': 'Chọn tất cả {count} mục',
@@ -491,6 +494,18 @@ export const viVN = {
   'splitter.ariaLabel': 'Đổi kích thước bảng',
   'tag.close': 'Đóng thẻ',
   'timeline.ariaLabel': 'Dòng thời gian',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
+
+  // === 补齐 aiBuilder 键（机翻回退，待人工校） ===
+
+  // === 补齐 aiBuilder 键（机翻回退，待人工校） ===
 
 } as const satisfies Record<string, string>;
 

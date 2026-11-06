@@ -36,7 +36,7 @@ const emit = defineEmits<{
 }>();
 
 const containerRef = ref<HTMLElement>();
-const innerSizes = ref([...props.sizes ?? props.defaultSizes]);
+const innerSizes = ref([...(props.sizes ?? props.defaultSizes)]);
 let isDragging = false;
 let activeIndex = -1;
 
@@ -91,7 +91,13 @@ onBeforeUnmount(() => handleMouseUp());
 <template>
   <div
     ref="containerRef"
-    :class="cn('flex h-full w-full overflow-hidden', props.direction === 'vertical' && 'flex-col', props.class)"
+    :class="
+      cn(
+        'flex h-full w-full overflow-hidden',
+        props.direction === 'vertical' && 'flex-col',
+        props.class,
+      )
+    "
     style="user-select: none"
   >
     <template v-for="(size, i) in innerSizes" :key="i">
@@ -108,7 +114,7 @@ onBeforeUnmount(() => handleMouseUp());
         :aria-label="t('splitter.ariaLabel')"
         :class="
           cn(
-            'relative z-10 flex shrink-0 items-center justify-center bg-border transition-colors hover:bg-primary/20',
+            'bg-border hover:bg-primary/20 relative z-10 flex shrink-0 items-center justify-center transition-colors',
             props.direction === 'horizontal' ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize',
             isDragging && 'bg-primary/30',
           )
@@ -117,10 +123,14 @@ onBeforeUnmount(() => handleMouseUp());
         tabindex="0"
         @mousedown="handleMouseDown(i, $event)"
       >
-        <div :class="cn(
-          'rounded-full bg-muted-foreground/30',
-          props.direction === 'horizontal' ? 'h-8 w-0.5' : 'h-0.5 w-8',
-        )"></div>
+        <div
+          :class="
+            cn(
+              'bg-muted-foreground/30 rounded-full',
+              props.direction === 'horizontal' ? 'h-8 w-0.5' : 'h-0.5 w-8',
+            )
+          "
+        ></div>
       </div>
     </template>
   </div>

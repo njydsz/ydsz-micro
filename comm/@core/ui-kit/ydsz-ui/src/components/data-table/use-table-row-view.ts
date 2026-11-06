@@ -135,7 +135,7 @@ export function useTableRowView<T extends Record<string, unknown>>(
   /** 完整渲染序列（未裁剪） */
   const fullRows = computed<RowView<T>[]>(() => {
     if (isTreeMode.value) {
-      return treeFlatRows.value.map(node => ({
+      return treeFlatRows.value.map((node) => ({
         index: 0,
         key: node.key,
         node,
@@ -173,7 +173,7 @@ export function useTableRowView<T extends Record<string, unknown>>(
     if (!virtualized.value) return rows;
     return rowVirtualizer.value
       .getVirtualItems()
-      .map(item => rows[item.index])
+      .map((item) => rows[item.index])
       .filter((view): view is RowView<T> => view !== undefined);
   });
 
@@ -190,7 +190,7 @@ export function useTableRowView<T extends Record<string, unknown>>(
     return Math.max(0, rowVirtualizer.value.getTotalSize() - last.end);
   });
 
-  const dataRows = computed<T[]>(() => indexedRows.value.map(view => view.row));
+  const dataRows = computed<T[]>(() => indexedRows.value.map((view) => view.row));
 
   return {
     bottomSpacerHeight,

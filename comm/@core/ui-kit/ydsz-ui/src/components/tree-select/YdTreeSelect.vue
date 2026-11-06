@@ -32,6 +32,7 @@ import type { TreeFlatNode } from '../../headless/use-tree-headless';
 import { useTreeHeadless } from '../../headless/use-tree-headless';
 import { useLocale } from '../../locale/useLocale';
 import { YdPopover, YdPopoverContent, YdPopoverTrigger } from '../popover';
+import { useTreeCheckStrategy, type TreeCheckStrategy } from './use-tree-check-strategy';
 
 /**
  * 树选择器节点。
@@ -69,6 +70,16 @@ interface Props {
   showSearch?: boolean;
   /** 是否以复选框方式多选（等价于 multiple，保留旧 API） */
   treeCheckable?: boolean;
+  /**
+   * 父子勾选关联策略
+   *
+   * - 'all'（显式传入）：父子完全关联；
+   * - 'parent'：只提交父节点值；
+   * - 'children'：只提交叶子节点值；
+   * - undefined（默认）：扁平点选，无父子级联（向后兼容旧行为）。
+   * @default undefined
+   */
+  checkStrategy?: TreeCheckStrategy;
   /** 打开时默认展开的层级数，Infinity 表示全部展开 */
   defaultExpandLevel?: number;
   /** 多选触发区内最多展示的标签数，超出折叠为 +N */
@@ -85,6 +96,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   allowClear: false,
+  checkStrategy: undefined,
   class: '',
   defaultExpandLevel: Number.POSITIVE_INFINITY,
   disabled: false,
@@ -133,6 +145,16 @@ const selectedValues = computed<(string | number)[]>(() => {
   return value === undefined || value === null ? [] : [value];
 });
 
+/** 勾选策略控制器（多选 + 父子关联） */
+const checkStrategyCtrl = useTreeCheckStrategy<TreeSelectNode>({
+  strategy: () => props.checkStrategy ?? 'all',
+  checkedValues: () => new Set(selectedValues.value),
+  nodes: () => tree.flattenedNodes.value,
+});
+
+/** 是否启用父子级联（显式传入 checkStrategy 时） */
+const cascadeEnabled = computed(() => props.checkStrategy !== undefined);
+
 /**
  * 按 defaultExpandLevel 重建展开集合：只展开限定层级内的父节点。
  *
@@ -141,8 +163,8 @@ const selectedValues = computed<(string | number)[]>(() => {
 function applyDefaultExpand(): void {
   const level = props.defaultExpandLevel;
   const keys = tree.flattenedNodes.value
-    .filter(node => node.hasChildren && node.level < level)
-    .map(node => node.value);
+    .filter((node) => node.hasChildren && node.level < level)
+    .map((node) => node.value);
   tree.expandedKeys.value = new Set(keys);
 }
 
@@ -154,8 +176,8 @@ const searchHits = computed<FlatNode[]>(() => {
   const keyword = query.value.trim().toLowerCase();
   if (!keyword) return [];
   return tree.flattenedNodes.value
-    .filter(node => node.data.label.toLowerCase().includes(keyword))
-    .map(node => ({ ...node, parents: [] }));
+    .filter((node) => node.data.label.toLowerCase().includes(keyword))
+    .map((node) => ({ ...node, parents: [] }));
 });
 
 /** 喂给虚拟滚动器的节点源：搜索态用命中集，否则用全树扁平集 */
@@ -212,7 +234,7 @@ function isChecked(value: string | number): boolean {
  * @returns 归一化后的项数组
  */
 const keyboardItems = computed(() =>
-  visibleNodes.value.map(node => ({
+  visibleNodes.value.map((node) => ({
     disabled: node.data.disabled,
     label: node.data.label,
     value: node.value,
@@ -241,12 +263,36 @@ function commit(values: (string | number)[]): void {
  */
 function toggleNode(node: FlatNode | undefined): void {
   if (!node || node.data.disabled) return;
-  const current = selectedValues.value;
-  const next = current.includes(node.value)
-    ? current.filter(value => value !== node.value)
-    : [...current, node.value];
-  commit(next);
-  if (!isMultiple.value) isOpen.value = false;
+  if (!isMultiple.value) {
+    // 单选：再次点击已选节点取消选择
+    if (isChecked(node.value)) {
+      commit([]);
+      isOpen.value = false;
+      return;
+    }
+    commit([node.value]);
+    isOpen.value = false;
+    return;
+  }
+  // 多选：显式 checkStrategy 时走父子级联，否则扁平点选（旧行为）
+  if (!cascadeEnabled.value) {
+    const current = selectedValues.value;
+    const next = current.includes(node.value)
+      ? current.filter((value) => value !== node.value)
+      : [...current, node.value];
+    commit(next);
+    return;
+  }
+  const nextSet = checkStrategyCtrl.toggle(node);
+  const commitValues = checkStrategyCtrl.toCommitValues(nextSet);
+  commit(commitValues);
+}
+
+/** 节点勾选态（支持半选） */
+function nodeCheckState(node: FlatNode): 'checked' | 'indeterminate' | 'unchecked' {
+  if (!isMultiple.value) return isChecked(node.value) ? 'checked' : 'unchecked';
+  if (!cascadeEnabled.value) return isChecked(node.value) ? 'checked' : 'unchecked';
+  return checkStrategyCtrl.getCheckState(node);
 }
 
 /**
@@ -272,7 +318,7 @@ function moveActiveToParent(): void {
   const node = visibleNodes.value[keyboard.activeIndex.value];
   const parentValue = node?.parents.at(-1);
   if (parentValue === undefined) return;
-  const parentIndex = visibleNodes.value.findIndex(item => item.value === parentValue);
+  const parentIndex = visibleNodes.value.findIndex((item) => item.value === parentValue);
   if (parentIndex >= 0) keyboard.setActiveIndex(parentIndex);
 }
 
@@ -282,7 +328,7 @@ const keyboard = useListboxKeyboard({
   onClose: () => {
     isOpen.value = false;
   },
-  onSelect: index => toggleNode(visibleNodes.value[index]),
+  onSelect: (index) => toggleNode(visibleNodes.value[index]),
 });
 
 /**
@@ -355,7 +401,7 @@ function hoverNode(index: number): void {
 
 /** 多选标签文本（受 maxTagCount 截断） */
 const visibleTags = computed(() => {
-  const labels = selectedValues.value.map(value => labelOf(value));
+  const labels = selectedValues.value.map((value) => labelOf(value));
   if (props.maxTagCount === undefined) return labels;
   return labels.slice(0, props.maxTagCount);
 });
@@ -373,7 +419,9 @@ const hiddenTagCount = computed(() => {
  * @returns label，查不到时退回字符串化的 value
  */
 function labelOf(value: string | number): string {
-  return tree.flattenedNodes.value.find(node => node.value === value)?.data.label ?? String(value);
+  return (
+    tree.flattenedNodes.value.find((node) => node.value === value)?.data.label ?? String(value)
+  );
 }
 
 /** 单选时触发区显示的文本 */
@@ -391,7 +439,7 @@ function handleClear(): void {
 
 /** 移除一个多选标签 */
 function removeTag(value: string | number): void {
-  commit(selectedValues.value.filter(item => item !== value));
+  commit(selectedValues.value.filter((item) => item !== value));
 }
 
 /** aria-activedescendant 目标 */
@@ -432,12 +480,14 @@ defineExpose({
         :aria-controls="treeId"
         :aria-activedescendant="activeDescendant"
         :aria-disabled="props.disabled ? true : undefined"
-        :class="cn(
-          'flex w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm',
-          'focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/50',
-          props.disabled && 'cursor-not-allowed opacity-50',
-          props.class,
-        )"
+        :class="
+          cn(
+            'border-input flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm',
+            'focus-visible:ring-primary/50 focus:outline-none focus-visible:ring-1',
+            props.disabled && 'cursor-not-allowed opacity-50',
+            props.class,
+          )
+        "
         data-testid="tree-select-trigger"
         @keydown="handleTriggerKeydown"
       >
@@ -496,7 +546,7 @@ defineExpose({
 
     <YdPopoverContent
       align="start"
-      :class="cn('min-w-[var(--radix-popover-trigger-width)] w-auto p-1')"
+      :class="cn('w-auto min-w-[var(--radix-popover-trigger-width)] p-1')"
       @keydown="handlePanelKeydown"
     >
       <input
@@ -504,7 +554,7 @@ defineExpose({
         ref="searchInput"
         v-model="query"
         type="text"
-        class="mb-1 w-full rounded border border-input bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-1 focus-visible:ring-primary/50"
+        class="border-input focus-visible:ring-primary/50 mb-1 w-full rounded border bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-1"
         :aria-label="t('select.search')"
         :placeholder="t('select.search')"
         data-testid="tree-select-search"
@@ -520,10 +570,7 @@ defineExpose({
         data-testid="tree-select-tree"
         @scroll="virtual.onScroll"
       >
-        <p
-          v-if="visibleNodes.length === 0"
-          class="text-muted-foreground py-6 text-center text-sm"
-        >
+        <p v-if="visibleNodes.length === 0" class="text-muted-foreground py-6 text-center text-sm">
           {{ t('select.empty') }}
         </p>
 
@@ -534,16 +581,20 @@ defineExpose({
             :key="item.key"
             role="treeitem"
             :aria-level="item.data.level + 1"
-            :aria-expanded="item.data.hasChildren ? tree.expandedKeys.value.has(item.data.value) : undefined"
+            :aria-expanded="
+              item.data.hasChildren ? tree.expandedKeys.value.has(item.data.value) : undefined
+            "
             :aria-selected="isChecked(item.data.value)"
             :aria-disabled="item.data.data.disabled ? true : undefined"
-            :class="cn(
-              'flex cursor-default items-center gap-1 rounded-sm pr-2 text-sm outline-none select-none',
-              'hover:bg-accent/60',
-              keyboard.activeIndex.value === item.index && 'bg-accent',
-              isChecked(item.data.value) && 'font-medium text-primary',
-              item.data.data.disabled && 'pointer-events-none opacity-50',
-            )"
+            :class="
+              cn(
+                'flex cursor-default select-none items-center gap-1 rounded-sm pr-2 text-sm outline-none',
+                'hover:bg-accent/60',
+                keyboard.activeIndex.value === item.index && 'bg-accent',
+                isChecked(item.data.value) && 'text-primary font-medium',
+                item.data.data.disabled && 'pointer-events-none opacity-50',
+              )
+            "
             :style="{
               height: `${props.itemHeight}px`,
               left: 0,
@@ -562,16 +613,61 @@ defineExpose({
               v-if="item.data.hasChildren"
               type="button"
               class="shrink-0 cursor-pointer p-0.5 opacity-60 hover:opacity-100"
-              :aria-label="tree.expandedKeys.value.has(item.data.value) ? t('common.collapse') : t('common.expand')"
+              :aria-label="
+                tree.expandedKeys.value.has(item.data.value)
+                  ? t('common.collapse')
+                  : t('common.expand')
+              "
               data-testid="node-switcher"
               @click.stop.prevent="tree.toggleExpand(item.data.value)"
             >
               <ChevronRight
                 :size="14"
-                :class="cn('transition-transform', tree.expandedKeys.value.has(item.data.value) && 'rotate-90')"
+                :class="
+                  cn(
+                    'transition-transform',
+                    tree.expandedKeys.value.has(item.data.value) && 'rotate-90',
+                  )
+                "
               />
             </button>
             <span v-else class="w-4 shrink-0" aria-hidden="true" />
+
+            <!-- 多选：checkbox + tri-state -->
+            <span
+              v-if="isMultiple"
+              class="flex shrink-0 items-center justify-center"
+              :aria-label="item.data.data.label"
+            >
+              <span
+                :class="
+                  cn(
+                    'flex size-4 items-center justify-center rounded border text-white transition-colors',
+                    nodeCheckState(item.data) === 'checked' && 'border-primary bg-primary',
+                    nodeCheckState(item.data) === 'indeterminate' && 'border-primary bg-primary',
+                    nodeCheckState(item.data) === 'unchecked' && 'border-input bg-transparent',
+                  )
+                "
+                data-testid="tree-checkbox"
+              >
+                <svg
+                  v-if="nodeCheckState(item.data) === 'checked'"
+                  class="size-3"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                <span
+                  v-else-if="nodeCheckState(item.data) === 'indeterminate'"
+                  class="h-0.5 w-2 bg-white"
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
 
             <span class="min-w-0 flex-1 truncate">{{ item.data.data.label }}</span>
 

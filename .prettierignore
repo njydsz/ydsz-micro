@@ -15,3 +15,24 @@ node_modules/
 # 归档目录（含生成代码参考文件）
 **/archived/**
 **/.generated-archived/**
+
+# 存量噪声目录（不参与格式门禁）
+.dev-logs/
+**/.storybook/
+**/*.stories.ts
+**/*.story.vue
+.storybook/
+
+# Figma 同步产物（由 figma-cli 重写）
+tokens-export.json
+
+# 构建期缓存产物
+**/node_modules/.vite/
+**/.vitepress/cache/
+**/public/vendor/
+
+
+# 一次性临时脚本（含未纳入版本管理的辅助脚本）
+Makefile
+bash/__*
+

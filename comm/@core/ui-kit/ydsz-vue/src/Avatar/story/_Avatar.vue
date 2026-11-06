@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { AvatarFallback, AvatarImage, AvatarRoot } from '../'
+import { AvatarFallback, AvatarImage, AvatarRoot } from '../';
 
-defineProps<{ delay?: number }>()
+defineProps<{ delay?: number }>();
 </script>
 
 <template>

@@ -20,7 +20,17 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdBadge, YdButton, YdCard as ShadcnCard, YdCardContent as ShadcnCardContent, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard as ShadcnCard,
+  YdCardContent as ShadcnCardContent,
+  YdTable,
+  YdTableColumn,
+  YdCard,
+  YdEmptyState,
+  YdProgress,
+} from '@ydsz-core/ydsz-ui';
 
 import { requestClient } from '#/api/request';
 
@@ -94,9 +104,7 @@ async function loadDashboard() {
   try {
     // 统一请求客户端（规范 §6.1）：路径对齐契约 /api/{service}/**，
     // 业务信封（code === 'A00000'）与鉴权头由拦截器统一处理。
-    dashboardData.value = await requestClient.get<DashboardData>(
-      '/system/metrics/dashboard',
-    );
+    dashboardData.value = await requestClient.get<DashboardData>('/system/metrics/dashboard');
   } catch (error) {
     const msg = error instanceof Error ? error.message : t('monitor.requestFailed');
     loadError.value = msg;
@@ -159,10 +167,14 @@ const healthRatio = computed(() => {
 /** 状态标签类型 */
 const statusTagType = (status: string): 'success' | 'warning' | 'danger' | 'info' => {
   switch (status) {
-    case 'UP': return 'success';
-    case 'DEGRADED': return 'warning';
-    case 'DOWN': return 'danger';
-    default: return 'info';
+    case 'UP':
+      return 'success';
+    case 'DEGRADED':
+      return 'warning';
+    case 'DOWN':
+      return 'danger';
+    default:
+      return 'info';
   }
 };
 
@@ -174,47 +186,56 @@ const formatNumber = (value: number | undefined): string => {
 </script>
 
 <template>
-  <div class="monitor-dashboard p-5 space-y-6">
+  <div class="monitor-dashboard space-y-6 p-5">
     <!-- 顶部关键指标卡片 -->
     <div class="grid grid-cols-1 gap-5 md:grid-cols-4">
       <YdCard shadow="hover">
-        <div class="text-center p-2">
+        <div class="p-2 text-center">
           <div class="text-sm text-gray-500">{{ t('monitor.registeredServices') }}</div>
-          <div class="text-2xl font-bold mt-1">{{ summary.totalServices }}</div>
-          <div class="text-xs text-gray-400 mt-1">{{ t('monitor.nacosRealtime') }}</div>
+          <div class="mt-1 text-2xl font-bold">{{ summary.totalServices }}</div>
+          <div class="mt-1 text-xs text-gray-400">{{ t('monitor.nacosRealtime') }}</div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
-        <div class="text-center p-2">
+        <div class="p-2 text-center">
           <div class="text-sm text-gray-500">{{ t('monitor.serviceHealth') }}</div>
           <YdProgress
             :percentage="healthRatio"
             :status="healthRatio >= 90 ? 'success' : healthRatio >= 70 ? 'warning' : 'exception'"
             class="mt-2"
           />
-          <div class="text-xs text-gray-400 mt-1">
-            {{ t('monitor.healthyRatio', { up: summary.upServices, total: summary.totalServices }) }}
+          <div class="mt-1 text-xs text-gray-400">
+            {{
+              t('monitor.healthyRatio', { up: summary.upServices, total: summary.totalServices })
+            }}
           </div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
-        <div class="text-center p-2">
+        <div class="p-2 text-center">
           <div class="text-sm text-gray-500">{{ t('monitor.redisHitRate') }}</div>
           <div
             v-if="redisMetrics?.available"
-            class="text-2xl font-bold mt-1"
+            class="mt-1 text-2xl font-bold"
             style="color: #67c23a"
           >
             {{ redisMetrics.hitRate }}%
           </div>
-          <YdBadge v-else variant="secondary" class="mt-2">{{ t('monitor.redisNotReady') }}</YdBadge>
-          <div v-if="redisMetrics?.available" class="text-xs text-gray-400 mt-1">
-            {{ t('monitor.hitsAndMisses', { hits: formatNumber(redisMetrics.keyspaceHits), misses: formatNumber(redisMetrics.keyspaceMisses) }) }}
+          <YdBadge v-else variant="secondary" class="mt-2">{{
+            t('monitor.redisNotReady')
+          }}</YdBadge>
+          <div v-if="redisMetrics?.available" class="mt-1 text-xs text-gray-400">
+            {{
+              t('monitor.hitsAndMisses', {
+                hits: formatNumber(redisMetrics.keyspaceHits),
+                misses: formatNumber(redisMetrics.keyspaceMisses),
+              })
+            }}
           </div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
-        <div class="text-center p-2">
+        <div class="p-2 text-center">
           <div class="text-sm text-gray-500">{{ t('monitor.jvmMemoryUsage') }}</div>
           <YdProgress
             v-if="memory"
@@ -222,7 +243,7 @@ const formatNumber = (value: number | undefined): string => {
             :status="memory.usagePercent >= 80 ? 'warning' : 'success'"
             class="mt-2"
           />
-          <div v-if="memory" class="text-xs text-gray-400 mt-1">
+          <div v-if="memory" class="mt-1 text-xs text-gray-400">
             {{ memory.usedMb }}MB / {{ memory.maxMb }}MB
           </div>
           <YdBadge v-else variant="secondary" class="mt-2">-</YdBadge>
@@ -241,29 +262,34 @@ const formatNumber = (value: number | undefined): string => {
               v-if="services.length > 0"
               :variant="summary.downServices === 0 ? undefined : 'destructive'"
             >
-              {{ t('monitor.healthyRatio', { up: summary.upServices, total: summary.totalServices }) }}
+              {{
+                t('monitor.healthyRatio', { up: summary.upServices, total: summary.totalServices })
+              }}
             </YdBadge>
           </div>
         </template>
-        <YdTable
-          v-if="services.length > 0"
-          :data="services"
-          size="small"
-          stripe
-          max-height="400"
-        >
+        <YdTable v-if="services.length > 0" :data="services" size="small" stripe max-height="400">
           <YdTableColumn prop="serviceId" :label="t('monitor.colServiceId')" min-width="180" />
           <YdTableColumn :label="t('monitor.colStatus')" width="90">
             <template #default="{ row }">
-              <YdBadge :variant="statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary'">{{ row.status }}</YdBadge>
+              <YdBadge
+                :variant="
+                  statusTagType(row.status) === 'success'
+                    ? undefined
+                    : statusTagType(row.status) === 'warning'
+                      ? 'destructive'
+                      : statusTagType(row.status) === 'danger'
+                        ? 'destructive'
+                        : 'secondary'
+                "
+                >{{ row.status }}</YdBadge
+              >
             </template>
           </YdTableColumn>
           <YdTableColumn prop="instanceCount" :label="t('monitor.colInstanceCount')" width="80" />
           <YdTableColumn :label="t('monitor.colAddress')" min-width="160">
             <template #default="{ row }">
-              <span class="text-xs font-mono">
-                {{ row.host ?? '-' }}:{{ row.port ?? '-' }}
-              </span>
+              <span class="font-mono text-xs"> {{ row.host ?? '-' }}:{{ row.port ?? '-' }} </span>
             </template>
           </YdTableColumn>
         </YdTable>
@@ -312,10 +338,12 @@ const formatNumber = (value: number | undefined): string => {
           </div>
           <!-- JVM 内存详情 -->
           <div class="border-t pt-3">
-            <div class="text-xs text-gray-500 mb-2">{{ t('monitor.jvmHeap') }}</div>
+            <div class="mb-2 text-xs text-gray-500">{{ t('monitor.jvmHeap') }}</div>
             <div v-if="memory" class="text-sm">
-              <div class="flex justify-between mb-1">
-                <span>{{ t('monitor.heapUsage', { used: memory.usedMb, total: memory.totalMb }) }}</span>
+              <div class="mb-1 flex justify-between">
+                <span>{{
+                  t('monitor.heapUsage', { used: memory.usedMb, total: memory.totalMb })
+                }}</span>
                 <span class="text-gray-500">{{ t('monitor.heapMax', { max: memory.maxMb }) }}</span>
               </div>
               <YdProgress
@@ -336,30 +364,30 @@ const formatNumber = (value: number | undefined): string => {
         <span class="font-medium">{{ t('monitor.redisMetricsTitle') }}</span>
       </template>
       <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-        <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="rounded-lg bg-gray-50 p-5 dark:bg-gray-800">
           <div class="text-sm text-gray-500">{{ t('monitor.totalCommands') }}</div>
-          <div class="text-xl font-bold mt-1">{{ formatNumber(redisMetrics.totalCommands) }}</div>
-          <div class="text-xs text-gray-400 mt-1">total_commands_processed</div>
+          <div class="mt-1 text-xl font-bold">{{ formatNumber(redisMetrics.totalCommands) }}</div>
+          <div class="mt-1 text-xs text-gray-400">total_commands_processed</div>
         </div>
-        <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="rounded-lg bg-gray-50 p-5 dark:bg-gray-800">
           <div class="text-sm text-gray-500">{{ t('monitor.hitCount') }}</div>
-          <div class="text-xl font-bold mt-1" style="color: #67c23a">
+          <div class="mt-1 text-xl font-bold" style="color: #67c23a">
             {{ formatNumber(redisMetrics.keyspaceHits) }}
           </div>
-          <div class="text-xs text-gray-400 mt-1">keyspace_hits</div>
+          <div class="mt-1 text-xs text-gray-400">keyspace_hits</div>
         </div>
-        <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800">
+        <div class="rounded-lg bg-gray-50 p-5 dark:bg-gray-800">
           <div class="text-sm text-gray-500">{{ t('monitor.missCount') }}</div>
-          <div class="text-xl font-bold mt-1" style="color: #f56c6c">
+          <div class="mt-1 text-xl font-bold" style="color: #f56c6c">
             {{ formatNumber(redisMetrics.keyspaceMisses) }}
           </div>
-          <div class="text-xs text-gray-400 mt-1">keyspace_misses</div>
+          <div class="mt-1 text-xs text-gray-400">keyspace_misses</div>
         </div>
       </div>
     </YdCard>
 
     <!-- 底部：采集时间 & 操作 -->
-    <div class="flex items-center justify-between text-xs text-gray-400 px-1">
+    <div class="flex items-center justify-between px-1 text-xs text-gray-400">
       <div>
         {{ t('monitor.lastCollected') }}<span class="font-mono">{{ collectedAt }}</span>
         <span class="ml-4">{{ t('monitor.autoRefreshInterval') }}</span>

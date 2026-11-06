@@ -19,7 +19,7 @@ import {
   sendRequest as sendRequestImpl,
   sendMessage as sendSendMessageImpl,
   startMessageListener as startMessageListenerImpl,
-} from "./message-broker";
+} from './message-broker';
 
 /**
  * 内核消息 API 接口。
@@ -75,11 +75,7 @@ export function createKernelMessagingAPI(): KernelMessagingAPI {
    * @param payload - 业务数据
    * @returns 消息 id（用于调试跟踪）
    */
-  function sendToApp(
-    appName: string,
-    action: string,
-    payload?: unknown,
-  ): string {
+  function sendToApp(appName: string, action: string, payload?: unknown): string {
     return sendSendMessageImpl(appName, action, payload);
   }
 

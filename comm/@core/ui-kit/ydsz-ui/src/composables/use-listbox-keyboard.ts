@@ -97,11 +97,7 @@ function normalize(label: string | undefined): string {
  * @param from - 起始索引（不含）
  * @returns 命中索引，未命中返回 -1
  */
-function findByPrefix(
-  items: ListboxKeyboardItem[],
-  query: string,
-  from: number,
-): number {
+function findByPrefix(items: ListboxKeyboardItem[], query: string, from: number): number {
   for (let offset = 1; offset <= items.length; offset++) {
     const index = (from + offset) % items.length;
     const item = items[index];
@@ -150,9 +146,7 @@ function findNextNavigable(
  * @param options - 配置
  * @returns 键盘导航句柄
  */
-export function useListboxKeyboard(
-  options: UseListboxKeyboardOptions,
-): UseListboxKeyboardReturn {
+export function useListboxKeyboard(options: UseListboxKeyboardOptions): UseListboxKeyboardReturn {
   const activeIndex = ref(-1);
 
   /**
@@ -193,18 +187,22 @@ export function useListboxKeyboard(
     if (items.length === 0) return;
 
     if (edge >= 0) {
-      const index = edge === 0
-        ? findNextNavigable(items, -1, 1, false)
-        : findNextNavigable(items, items.length, -1, false);
+      const index =
+        edge === 0
+          ? findNextNavigable(items, -1, 1, false)
+          : findNextNavigable(items, items.length, -1, false);
       if (index >= 0) setActiveIndex(index);
       return;
     }
 
     const from = activeIndex.value;
     // 尚无活动项时：向后从头部起，向前从尾部起
-    const candidate = from < 0
-      ? (step > 0 ? findNextNavigable(items, -1, 1, false) : findNextNavigable(items, items.length, -1, false))
-      : findNextNavigable(items, from, step, toValue(options.wrap ?? true));
+    const candidate =
+      from < 0
+        ? step > 0
+          ? findNextNavigable(items, -1, 1, false)
+          : findNextNavigable(items, items.length, -1, false)
+        : findNextNavigable(items, from, step, toValue(options.wrap ?? true));
     if (candidate >= 0) setActiveIndex(candidate);
   }
 

@@ -71,24 +71,24 @@ async function handlePublish() {
   <Page auto-content-height>
     <YdCard class="message-event-card">
       <YdCardContent class="pt-6">
-      <p class="text-sm text-gray-600 mb-4">
-        此页面用于向订阅了特定消息的等待节点触发流程继续。
-        通常由外部系统（如消息队列消费者）通过 API 调用，此处提供手动触发入口用于调试和运维。
-      </p>
-      <YdForm :model="form" label-width="120px">
-        <YdFormItem label="消息名称" required>
-          <YdInput v-model="form.messageName" placeholder="对应流程中消息节点的订阅名称" />
-        </YdFormItem>
-        <YdFormItem label="关联键名">
-          <YdInput v-model="form.correlationKey" placeholder="可选，如 orderId" />
-        </YdFormItem>
-        <YdFormItem label="关联键值">
-          <YdInput v-model="form.correlationValue" placeholder="可选，如 ORD-20260908-001" />
-        </YdFormItem>
-        <YdFormItem>
-          <YdButton :loading="loading" @click="handlePublish">发布事件</YdButton>
-        </YdFormItem>
-      </YdForm>
+        <p class="mb-4 text-sm text-gray-600">
+          此页面用于向订阅了特定消息的等待节点触发流程继续。 通常由外部系统（如消息队列消费者）通过
+          API 调用，此处提供手动触发入口用于调试和运维。
+        </p>
+        <YdForm :model="form" label-width="120px">
+          <YdFormItem label="消息名称" required>
+            <YdInput v-model="form.messageName" placeholder="对应流程中消息节点的订阅名称" />
+          </YdFormItem>
+          <YdFormItem label="关联键名">
+            <YdInput v-model="form.correlationKey" placeholder="可选，如 orderId" />
+          </YdFormItem>
+          <YdFormItem label="关联键值">
+            <YdInput v-model="form.correlationValue" placeholder="可选，如 ORD-20260908-001" />
+          </YdFormItem>
+          <YdFormItem>
+            <YdButton :loading="loading" @click="handlePublish">发布事件</YdButton>
+          </YdFormItem>
+        </YdForm>
       </YdCardContent>
     </YdCard>
   </Page>

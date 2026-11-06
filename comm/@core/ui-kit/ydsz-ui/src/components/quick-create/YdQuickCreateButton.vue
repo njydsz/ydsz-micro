@@ -1,21 +1,21 @@
 <script setup lang="ts">
 /**
-* 快捷创建悬浮按钮：仿 ForgeLab forge-admin 全局创建入口。
-* 
+ * 快捷创建悬浮按钮：仿 ForgeLab forge-admin 全局创建入口。
+ *
  * 设计目标：
  *  - 固定悬浮于页面底中偏右（与 YdSettingsFloatButton 错开）；
  *  - 点击展开快捷创建菜单（流程模板 / 规则 / Agent / 消息批次...）；
  *  - 菜单项通过 props 注册，支持子应用各自挂载自己的创建入口。
-* 
+ *
  * 交互：
  *  - 第一次点击展开菜单，再次点击或点击外部区域收起；
  *  - 菜单项 hover 时显示描述文字；
  *  - 移动端自动贴边。
-* 
+ *
  * 无障碍：
  *  - 按钮带 aria-label / aria-expanded；
  *  - 菜单项通过 role="menuitem" 暴露语义。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\quick-create\YdQuickCreateButton.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -152,23 +152,20 @@ onBeforeUnmount(() => {
         <!-- 描述文字 -->
         <span
           v-if="item.description"
-          class="max-w-[160px] truncate rounded-md border border-border-subtle bg-surface-2 px-2 py-1 text-xs text-text-secondary shadow-sm"
+          class="border-border-subtle bg-surface-2 text-text-secondary max-w-[160px] truncate rounded-md border px-2 py-1 text-xs shadow-sm"
         >
           {{ item.description }}
         </span>
         <!-- 菜单项按钮 -->
         <button
-          class="flex h-9 w-9 items-center justify-center rounded-full bg-surface-2 text-text-primary shadow-lg transition-transform hover:scale-110 active:scale-95"
+          class="bg-surface-2 text-text-primary flex h-9 w-9 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95"
           role="menuitem"
           type="button"
           :aria-label="t('quickCreate.createItem', { label: item.label })"
           @click="handleItemClick(item)"
         >
           <slot :name="item.key">
-            <component
-              :is="item.icon ?? Plus"
-              :size="16"
-            />
+            <component :is="item.icon ?? Plus" :size="16" />
           </slot>
         </button>
       </div>
@@ -183,14 +180,8 @@ onBeforeUnmount(() => {
       :class="cn(buttonClass, expanded && 'rotate-45')"
       @click="toggle"
     >
-      <Plus
-        v-if="!expanded"
-        :size="24"
-      />
-      <X
-        v-else
-        :size="24"
-      />
+      <Plus v-if="!expanded" :size="24" />
+      <X v-else :size="24" />
     </button>
   </div>
 </template>

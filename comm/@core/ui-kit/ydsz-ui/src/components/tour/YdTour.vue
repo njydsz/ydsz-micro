@@ -16,14 +16,7 @@
 -->
 
 <script lang="ts" setup>
-import {
-  computed,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-} from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import type { PopoverPlacement, TourPopoverStyle, TourStep } from './tour-types';
 import type { YdTourEmits, YdTourProps } from './tour-types';
@@ -60,7 +53,9 @@ const transitioning = ref(false);
 
 const currentIndex = computed(() => props.modelValue);
 const totalSteps = computed(() => props.steps.length);
-const currentStep = computed<TourStep | undefined>(() => props.steps[props.modelValue] as TourStep | undefined);
+const currentStep = computed<TourStep | undefined>(
+  () => props.steps[props.modelValue] as TourStep | undefined,
+);
 
 // ─── 目标元素查询 ───
 
@@ -342,5 +337,4 @@ const effectiveCloseOnClickMask = computed(() => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

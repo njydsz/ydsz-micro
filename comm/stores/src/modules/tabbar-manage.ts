@@ -15,17 +15,9 @@ import type { TabDefinition } from '@ydsz-core/typings';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import {
-  equalTab,
-  isAffixTab,
-  routeToTab,
-} from './tabbar-utils';
+import { equalTab, isAffixTab, routeToTab } from './tabbar-utils';
 import type { TabbarStoreContext } from './tabbar-utils';
-import {
-  addTab,
-  sortTabs,
-  updateCacheTabs,
-} from './tabbar-store-actions';
+import { addTab, sortTabs, updateCacheTabs } from './tabbar-store-actions';
 
 /** 模块级日志器 */
 const _logger = createLogger('Tabbar');
@@ -82,10 +74,7 @@ export async function unpinTab(ctx: TabbarStoreContext, tab: TabDefinition) {
  * @param ctx - Tabbar store 上下文
  * @param tab - 目标标签页
  */
-export async function toggleTabPin(
-  ctx: TabbarStoreContext,
-  tab: TabDefinition,
-) {
+export async function toggleTabPin(ctx: TabbarStoreContext, tab: TabDefinition) {
   const affixTab = tab?.meta?.affixTab ?? false;
 
   await (affixTab ? unpinTab(ctx, tab) : pinTab(ctx, tab));
@@ -97,10 +86,7 @@ export async function toggleTabPin(
  * @param ctx - Tabbar store 上下文
  * @param tab - 目标标签页
  */
-export async function resetTabTitle(
-  ctx: TabbarStoreContext,
-  tab: TabDefinition,
-) {
+export async function resetTabTitle(ctx: TabbarStoreContext, tab: TabDefinition) {
   if (tab?.meta?.newTabTitle) {
     return;
   }
@@ -117,10 +103,7 @@ export async function resetTabTitle(
  * @param ctx - Tabbar store 上下文
  * @param routeTabs - 需固定的路由记录数组
  */
-export function setAffixTabs(
-  ctx: TabbarStoreContext,
-  routeTabs: RouteRecordNormalized[],
-) {
+export function setAffixTabs(ctx: TabbarStoreContext, routeTabs: RouteRecordNormalized[]) {
   for (const tab of routeTabs) {
     tab.meta.affixTab = true;
     addTab(ctx, routeToTab(tab));

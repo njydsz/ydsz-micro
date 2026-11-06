@@ -13,35 +13,33 @@
 import { computed, ref } from 'vue';
 
 import { useI18n } from '#/composables/use-i18n';
-import {
-  initMultipart,
-  uploadPart,
-  completeMultipart,
-  abortMultipart,
-} from '#/api/fileMultipart';
+import { initMultipart, uploadPart, completeMultipart, abortMultipart } from '#/api/fileMultipart';
 
 const { t } = useI18n();
 
 // ======================== Props & Emits ========================
 
-const props = withDefaults(defineProps<{
-  /** 对象存储 key 前缀（如 "workflow/attachment"） */
-  keyPrefix?: string;
-  /** 分片大小（字节，默认 5MB） */
-  chunkSize?: number;
-  /** 最大并行分片上传数 */
-  maxConcurrency?: number;
-  /** 是否自动上传 */
-  autoUpload?: boolean;
-  /** 接受的文件类型 */
-  accept?: string;
-}>(), {
-  keyPrefix: 'upload/',
-  chunkSize: 5 * 1024 * 1024,
-  maxConcurrency: 3,
-  autoUpload: true,
-  accept: '*/*',
-});
+const props = withDefaults(
+  defineProps<{
+    /** 对象存储 key 前缀（如 "workflow/attachment"） */
+    keyPrefix?: string;
+    /** 分片大小（字节，默认 5MB） */
+    chunkSize?: number;
+    /** 最大并行分片上传数 */
+    maxConcurrency?: number;
+    /** 是否自动上传 */
+    autoUpload?: boolean;
+    /** 接受的文件类型 */
+    accept?: string;
+  }>(),
+  {
+    keyPrefix: 'upload/',
+    chunkSize: 5 * 1024 * 1024,
+    maxConcurrency: 3,
+    autoUpload: true,
+    accept: '*/*',
+  },
+);
 
 const emit = defineEmits<{
   (e: 'success', result: { uploadId: string; key: string }): void;
@@ -76,10 +74,11 @@ const totalChunks = ref(0);
 
 // ======================== 计算属性 ========================
 
-const isLoading = computed(() =>
-  status.value === 'initializing'
-  || status.value === 'uploading'
-  || status.value === 'completing',
+const isLoading = computed(
+  () =>
+    status.value === 'initializing' ||
+    status.value === 'uploading' ||
+    status.value === 'completing',
 );
 
 const statusText = computed(() => {
@@ -93,7 +92,7 @@ const statusText = computed(() => {
     case 'done':
       return t('system.fileUpload.statusDone') || '上传完成';
     case 'error':
-      return errorMessage.value || (t('system.fileUpload.statusError') || '上传失败');
+      return errorMessage.value || t('system.fileUpload.statusError') || '上传失败';
     default:
       return '';
   }
@@ -203,12 +202,7 @@ defineExpose({ startUpload, cancelUpload, reset: resetState });
   <div class="multipart-upload rounded-md border border-dashed p-6 text-center">
     <!-- 文件选择区 -->
     <div v-if="status === 'idle' || status === 'error'" class="upload-dropzone">
-      <input
-        type="file"
-        :accept="props.accept"
-        class="hidden"
-        @change="handleFileChange"
-      />
+      <input type="file" :accept="props.accept" class="hidden" @change="handleFileChange" />
       <label class="cursor-pointer">
         <div class="mb-2 text-4xl text-gray-300">📁</div>
         <p class="text-sm text-gray-500">
@@ -265,6 +259,6 @@ defineExpose({ startUpload, cancelUpload, reset: resetState });
   transition: border-color 0.2s;
 }
 .multipart-upload:hover {
-  border-color:var(--color-primary, #3b82f6);
+  border-color: var(--color-primary, #3b82f6);
 }
 </style>

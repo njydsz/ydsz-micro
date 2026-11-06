@@ -7,7 +7,4 @@
  * @author ydsz-team
  * @since 1.1.0
  */
-export {
-  initComponentAdapter,
-  type ComponentType,
-} from '@ydsz/shared-business';
+export { initComponentAdapter, type ComponentType } from '@ydsz/shared-business';

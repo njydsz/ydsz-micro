@@ -132,17 +132,10 @@ export { default as YdVirtualList } from './components/YdVirtualList.vue';
 export { default as YdAppTour } from './components/YdAppTour.vue';
 
 // 引导 composable
-export {
-  useAppTour,
-  type AppTourOptions,
-  type TourStep,
-} from './composables/use-app-tour';
+export { useAppTour, type AppTourOptions, type TourStep } from './composables/use-app-tour';
 
 // 移动端响应式适配 composable
-export {
-  useResponsive,
-  type ResponsiveColumn,
-} from './composables/use-responsive';
+export { useResponsive, type ResponsiveColumn } from './composables/use-responsive';
 
 // 审批历史时间轴组件
 export { default as YdApprovalTimeline } from './components/YdApprovalTimeline.vue';
@@ -160,10 +153,7 @@ export {
 export { default as YdSecondaryAuthModal } from './components/secondary-auth-modal/YdSecondaryAuthModal.vue';
 
 // 二次身份验证 composable 与 imperative API
-export {
-  useSecondaryAuth,
-  openSecondaryAuthModal,
-} from './composables/use-secondary-auth';
+export { useSecondaryAuth, openSecondaryAuthModal } from './composables/use-secondary-auth';
 
 // 子应用启动统一工厂 — 封装 pinia / router / i18n / feature-flags / 错误边界共性逻辑
 export {
@@ -180,8 +170,5 @@ export {
   type YdFormProps,
   type YdFormSchema,
 } from './adapter/form';
-export {
-  initComponentAdapter,
-  type ComponentType,
-} from './adapter/component';
+export { initComponentAdapter, type ComponentType } from './adapter/component';
 export { useYDSZVxeGrid } from './adapter/vxe-table';

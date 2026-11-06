@@ -1,26 +1,11 @@
-/**
- * YdInputOtp —— OTP 验证码输入组件。
- *
- * N 位独立的单字符输入框，自动跳框、Backspace 跳回、粘贴分配、完成回调。
- *
- * 用法示例：
- * ```vue
- * <YdInputOtp v-model="otp" :length="6" @complete="onComplete" />
- * ```
- *
- * WAI-ARIA: role="group" + aria-label，每个 input 带 aria-label 标明第几位。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\input-otp\YdInputOtp.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdInputOtp —— OTP 验证码输入组件。 * * N 位独立的单字符输入框，自动跳框、Backspace
+跳回、粘贴分配、完成回调。 * * 用法示例： * ```vue *
+<YdInputOtp v-model="otp" :length="6" @complete="onComplete" />
+* ``` * * WAI-ARIA: role="group" + aria-label，每个 input 带 aria-label 标明第几位。 * * @path
+comm\@core\ui-kit\ydsz-ui\src\components\input-otp\YdInputOtp.vue * @author ydsz-team * @since 1.0.0
+*/
 <script setup lang="ts">
-import {
-  computed,
-  nextTick,
-  ref,
-  watch,
-} from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 
 import type { YdInputOtpEmits, YdInputOtpProps } from './types';
 
@@ -53,20 +38,27 @@ function setInputRef(el: unknown, index: number): void {
   }
 }
 
-watch(() => props.modelValue, (val) => {
-  if (val === chars.value.join('')) return;
-  const arr = val.split('').slice(0, props.length);
-  while (arr.length < props.length) arr.push('');
-  chars.value = arr;
-}, { immediate: true });
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val === chars.value.join('')) return;
+    const arr = val.split('').slice(0, props.length);
+    while (arr.length < props.length) arr.push('');
+    chars.value = arr;
+  },
+  { immediate: true },
+);
 
-watch(() => props.length, (len) => {
-  const current = chars.value.slice(0, len);
-  while (current.length < len) current.push('');
-  chars.value = current;
-  // 重置 refs 数组
-  inputRefs.value = Array.from({ length: len }, () => null);
-});
+watch(
+  () => props.length,
+  (len) => {
+    const current = chars.value.slice(0, len);
+    while (current.length < len) current.push('');
+    chars.value = current;
+    // 重置 refs 数组
+    inputRefs.value = Array.from({ length: len }, () => null);
+  },
+);
 
 /** 是否以遮罩字符显示 */
 const shouldMask = computed(() => props.mask || props.type === 'password');
@@ -169,7 +161,7 @@ function onPaste(e: ClipboardEvent, startIndex: number): void {
   }
 
   // 分配到 chars（从 startIndex 开始）
-  for (let i = 0; i < clean.length && (startIndex + i) < props.length; i++) {
+  for (let i = 0; i < clean.length && startIndex + i < props.length; i++) {
     chars.value[startIndex + i] = clean[i] ?? '';
   }
 
@@ -217,16 +209,9 @@ defineExpose({ reset });
     aria-label="One-time password input"
     :aria-disabled="disabled || undefined"
   >
-    <template
-      v-for="(_, index) in chars"
-      :key="index"
-    >
+    <template v-for="(_, index) in chars" :key="index">
       <!-- 分隔符 slot -->
-      <div
-        v-if="index > 0 && $slots.separator"
-        class="yd-input-otp__separator"
-        aria-hidden="true"
-      >
+      <div v-if="index > 0 && $slots.separator" class="yd-input-otp__separator" aria-hidden="true">
         <slot name="separator" />
       </div>
 
@@ -244,7 +229,7 @@ defineExpose({ reset });
         @keydown="onKeydown($event, index)"
         @paste="onPaste($event, index)"
         @focus="onFocus"
-      >
+      />
     </template>
   </div>
 </template>
@@ -273,7 +258,9 @@ defineExpose({ reset });
   border-radius: var(--ydsz-radius-md);
   outline: none;
   caret-color: hsl(var(--ydsz-comp-bg));
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
   box-sizing: border-box;
   padding: 0;
   margin: 0;

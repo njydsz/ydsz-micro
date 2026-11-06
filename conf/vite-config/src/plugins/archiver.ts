@@ -25,9 +25,7 @@ import { consola as logger } from 'consola';
  * @param options - 归档配置（名称、输出目录），缺省使用默认值
  * @returns Vite 插件对象
  */
-export const viteArchiverPlugin = (
-  options: ArchiverPluginOptions = {},
-): PluginOption => {
+export const viteArchiverPlugin = (options: ArchiverPluginOptions = {}): PluginOption => {
   return {
     apply: 'build',
     closeBundle: {
@@ -69,10 +67,7 @@ export const viteArchiverPlugin = (
  * @param outputPath - 生成的 zip 文件目标路径
  * @throws 压缩过程出错时 reject
  */
-async function zipFolder(
-  folderPath: string,
-  outputPath: string,
-): Promise<void> {
+async function zipFolder(folderPath: string, outputPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const output = fs.createWriteStream(outputPath);
     const archive = archiver('zip', {
@@ -80,9 +75,7 @@ async function zipFolder(
     });
 
     output.on('close', () => {
-      process.stdout.write(
-        `ZIP file created: ${outputPath} (${archive.pointer()} total bytes)\n`,
-      );
+      process.stdout.write(`ZIP file created: ${outputPath} (${archive.pointer()} total bytes)\n`);
       resolve();
     });
 

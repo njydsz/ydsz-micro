@@ -48,10 +48,7 @@ async function doReAuthenticate() {
   tokenStore.setAccessToken(null);
   // 同步清空过期时间戳，避免登出后仍触发会话超时预警
   tokenStore.setExpiresAt(null);
-  if (
-    preferences.app.loginExpiredMode === 'modal' &&
-    accessStore.isAccessChecked
-  ) {
+  if (preferences.app.loginExpiredMode === 'modal' && accessStore.isAccessChecked) {
     tokenStore.setLoginExpired(true);
   } else {
     const authStore = useAuthStore();
@@ -98,11 +95,7 @@ async function doRefreshToken() {
 }
 
 /** 主应用共享请求客户端：携带鉴权拦截器，响应统一只返回数据字段。 */
-export const requestClient = createSharedRequestClient(
-  doReAuthenticate,
-  doRefreshToken,
-  options,
-);
+export const requestClient = createSharedRequestClient(doReAuthenticate, doRefreshToken, options);
 
 /** 基础请求客户端：不含鉴权拦截器，用于登录、刷新令牌等公共接口。 */
 export const baseRequestClient = createSharedBaseClient();

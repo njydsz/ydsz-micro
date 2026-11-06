@@ -30,12 +30,9 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = withDefaults(
-  defineProps<SelectContentProps & { class?: any }>(),
-  {
-    position: 'popper',
-  },
-);
+const props = withDefaults(defineProps<SelectContentProps & { class?: any }>(), {
+  position: 'popper',
+});
 const emits = defineEmits<SelectContentEmits>();
 
 const delegatedProps = computed(() => {

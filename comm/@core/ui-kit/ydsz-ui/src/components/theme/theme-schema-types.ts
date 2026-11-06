@@ -21,8 +21,7 @@ export const TokenCategory = {
 } as const;
 
 /** 主题类别 */
-export type TokenCategoryType =
-  (typeof TokenCategory)[keyof typeof TokenCategory];
+export type TokenCategoryType = (typeof TokenCategory)[keyof typeof TokenCategory];
 
 /** Token 分层 */
 export const TokenLayer = {

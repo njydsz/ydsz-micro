@@ -14,9 +14,21 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdButton,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSwitch,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -119,7 +131,9 @@ async function handleSubmit(): Promise<void> {
       status: formData.status,
       remark: formData.remark,
     });
-    showToast.success(isEditMode.value ? t('common.updateSuccess') : t('subscription.subscribeSuccess'));
+    showToast.success(
+      isEditMode.value ? t('common.updateSuccess') : t('subscription.subscribeSuccess'),
+    );
     emit('success');
     modalApi.close();
   } catch (error) {
@@ -127,25 +141,16 @@ async function handleSubmit(): Promise<void> {
     // 错误提示由请求拦截器统一处理
   }
 }
-
 </script>
 
 <template>
   <Modal :title="isEditMode ? '编辑订阅' : '新增订阅'" width="500px">
     <YdForm label-width="100px" class="mt-3">
       <YdFormItem label="用户ID" required>
-        <YdInput
-          v-model="formData.userId"
-          placeholder="请输入用户ID"
-          :disabled="isEditMode"
-        />
+        <YdInput v-model="formData.userId" placeholder="请输入用户ID" :disabled="isEditMode" />
       </YdFormItem>
       <YdFormItem label="主题编码" required>
-        <YdInput
-          v-model="formData.topicCode"
-          placeholder="请输入主题编码"
-          :disabled="isEditMode"
-        />
+        <YdInput v-model="formData.topicCode" placeholder="请输入主题编码" :disabled="isEditMode" />
       </YdFormItem>
       <YdFormItem label="主题名称" required>
         <YdInput v-model="formData.topicName" placeholder="请输入主题名称" />
@@ -156,11 +161,7 @@ async function handleSubmit(): Promise<void> {
             <YdSelectValueBase placeholder="请选择通道" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase
-              v-for="opt in channelOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <YdSelectItemBase v-for="opt in channelOptions" :key="opt.value" :value="opt.value">
               {{ opt.label }}
             </YdSelectItemBase>
           </YdSelectContentBase>
@@ -169,7 +170,7 @@ async function handleSubmit(): Promise<void> {
       <YdFormItem label="订阅状态">
         <YdSwitch
           :checked="formData.status === 'ACTIVE'"
-          @update:checked="(val: boolean) => formData.status = val ? 'ACTIVE' : 'UNSUBSCRIBED'"
+          @update:checked="(val: boolean) => (formData.status = val ? 'ACTIVE' : 'UNSUBSCRIBED')"
         />
       </YdFormItem>
       <YdFormItem label="备注">

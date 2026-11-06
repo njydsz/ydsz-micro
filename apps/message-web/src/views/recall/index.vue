@@ -21,7 +21,24 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdForm, YdFormItem, YdTabsContent, YdTabs, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdForm,
+  YdFormItem,
+  YdTabsContent,
+  YdTabs,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -120,11 +137,9 @@ async function handleRecallByLogId(): Promise<void> {
     return;
   }
   try {
-    await YdConfirm(
-      `确定召回消息（logId: ${messageForm.logId}）吗？`,
-      '召回确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定召回消息（logId: ${messageForm.logId}）吗？`, '召回确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消消息召回操作');
     return;
@@ -154,11 +169,9 @@ async function handleRecallByMsgId(): Promise<void> {
     return;
   }
   try {
-    await YdConfirm(
-      `确定召回消息（msgId: ${messageForm.msgId}）吗？`,
-      '召回确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定召回消息（msgId: ${messageForm.msgId}）吗？`, '召回确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消消息召回操作');
     return;
@@ -277,118 +290,91 @@ onMounted(() => {
         <div class="lg:col-span-2">
           <YdCard>
             <YdCardContent class="pt-4">
-            <YdTabs v-model="activeTab">
-              <!-- 通知召回 Tab -->
-              <YdTabsContent label="通知召回" name="notification">
-                <YdForm :model="notificationForm" label-width="100px" class="mt-4">
-                  <YdFormItem label="用户ID">
-                    <YdInput
-                      v-model="notificationForm.userId"
-                      placeholder="召回指定用户的通知（可选）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="通知ID" required>
-                    <YdInput
-                      v-model="notificationForm.id"
-                      placeholder="站内通知ID"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="业务类型">
-                    <YdInput
-                      v-model="notificationForm.bizType"
-                      placeholder="业务类型（可选）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="业务ID">
-                    <YdInput
-                      v-model="notificationForm.bizId"
-                      placeholder="业务单据ID（可选）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="召回范围">
-                    <YdSelectBase v-model="notificationForm.recallScope">
-                      <YdSelectTriggerBase class="w-full">
-                        <YdSelectValueBase />
-                      </YdSelectTriggerBase>
-                      <YdSelectContentBase>
-                        <YdSelectItemBase value="SINGLE">单条召回</YdSelectItemBase>
-                        <YdSelectItemBase value="BATCH">批次召回</YdSelectItemBase>
-                      </YdSelectContentBase>
-                    </YdSelectBase>
-                  </YdFormItem>
-                  <YdFormItem>
-                    <YdButton
-                      v-loading="executing"
-                      @click="handleRecallNotification"
-                    >
-                      执行召回
-                    </YdButton>
-                    <YdButton variant="outline" @click="handleReset">重置</YdButton>
-                  </YdFormItem>
-                </YdForm>
-              </YdTabsContent>
-
-              <!-- 消息召回 Tab -->
-              <YdTabsContent label="消息召回" name="message">
-                <YdForm :model="messageForm" label-width="100px" class="mt-4">
-                  <YdFormItem label="日志ID">
-                    <YdInput
-                      v-model="messageForm.logId"
-                      placeholder="消息日志 logId（精准召回，与消息ID二选一）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="消息ID">
-                    <YdInput
-                      v-model="messageForm.msgId"
-                      placeholder="消息 msgId（精准召回，与日志ID二选一）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="批量ID">
-                    <YdInput
-                      v-model="messageForm.id"
-                      placeholder="业务ID（配合批次召回使用）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="业务类型">
-                    <YdInput
-                      v-model="messageForm.bizType"
-                      placeholder="业务类型（可选）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem label="业务ID">
-                    <YdInput
-                      v-model="messageForm.bizId"
-                      placeholder="业务单据ID（可选）"
-                    />
-                  </YdFormItem>
-                  <YdFormItem>
-                    <div class="flex gap-2">
-                      <YdButton
-                        v-loading="executing"
-                        @click="handleRecallByLogId"
-                      >
-                        按日志ID召回
-                      </YdButton>
-                      <YdButton
-                        v-loading="executing"
-                        @click="handleRecallByMsgId"
-                      >
-                        按消息ID召回
-                      </YdButton>
-                      <YdButton
-                        v-loading="executing"
-                        variant="destructive"
-                        @click="handleRecallBatch"
-                      >
-                        批量召回
+              <YdTabs v-model="activeTab">
+                <!-- 通知召回 Tab -->
+                <YdTabsContent label="通知召回" name="notification">
+                  <YdForm :model="notificationForm" label-width="100px" class="mt-4">
+                    <YdFormItem label="用户ID">
+                      <YdInput
+                        v-model="notificationForm.userId"
+                        placeholder="召回指定用户的通知（可选）"
+                      />
+                    </YdFormItem>
+                    <YdFormItem label="通知ID" required>
+                      <YdInput v-model="notificationForm.id" placeholder="站内通知ID" />
+                    </YdFormItem>
+                    <YdFormItem label="业务类型">
+                      <YdInput v-model="notificationForm.bizType" placeholder="业务类型（可选）" />
+                    </YdFormItem>
+                    <YdFormItem label="业务ID">
+                      <YdInput v-model="notificationForm.bizId" placeholder="业务单据ID（可选）" />
+                    </YdFormItem>
+                    <YdFormItem label="召回范围">
+                      <YdSelectBase v-model="notificationForm.recallScope">
+                        <YdSelectTriggerBase class="w-full">
+                          <YdSelectValueBase />
+                        </YdSelectTriggerBase>
+                        <YdSelectContentBase>
+                          <YdSelectItemBase value="SINGLE">单条召回</YdSelectItemBase>
+                          <YdSelectItemBase value="BATCH">批次召回</YdSelectItemBase>
+                        </YdSelectContentBase>
+                      </YdSelectBase>
+                    </YdFormItem>
+                    <YdFormItem>
+                      <YdButton v-loading="executing" @click="handleRecallNotification">
+                        执行召回
                       </YdButton>
                       <YdButton variant="outline" @click="handleReset">重置</YdButton>
-                    </div>
-                  </YdFormItem>
-                </YdForm>
-              </YdTabsContent>
-            </YdTabs>
-          </YdCardContent>
+                    </YdFormItem>
+                  </YdForm>
+                </YdTabsContent>
+
+                <!-- 消息召回 Tab -->
+                <YdTabsContent label="消息召回" name="message">
+                  <YdForm :model="messageForm" label-width="100px" class="mt-4">
+                    <YdFormItem label="日志ID">
+                      <YdInput
+                        v-model="messageForm.logId"
+                        placeholder="消息日志 logId（精准召回，与消息ID二选一）"
+                      />
+                    </YdFormItem>
+                    <YdFormItem label="消息ID">
+                      <YdInput
+                        v-model="messageForm.msgId"
+                        placeholder="消息 msgId（精准召回，与日志ID二选一）"
+                      />
+                    </YdFormItem>
+                    <YdFormItem label="批量ID">
+                      <YdInput v-model="messageForm.id" placeholder="业务ID（配合批次召回使用）" />
+                    </YdFormItem>
+                    <YdFormItem label="业务类型">
+                      <YdInput v-model="messageForm.bizType" placeholder="业务类型（可选）" />
+                    </YdFormItem>
+                    <YdFormItem label="业务ID">
+                      <YdInput v-model="messageForm.bizId" placeholder="业务单据ID（可选）" />
+                    </YdFormItem>
+                    <YdFormItem>
+                      <div class="flex gap-2">
+                        <YdButton v-loading="executing" @click="handleRecallByLogId">
+                          按日志ID召回
+                        </YdButton>
+                        <YdButton v-loading="executing" @click="handleRecallByMsgId">
+                          按消息ID召回
+                        </YdButton>
+                        <YdButton
+                          v-loading="executing"
+                          variant="destructive"
+                          @click="handleRecallBatch"
+                        >
+                          批量召回
+                        </YdButton>
+                        <YdButton variant="outline" @click="handleReset">重置</YdButton>
+                      </div>
+                    </YdFormItem>
+                  </YdForm>
+                </YdTabsContent>
+              </YdTabs>
+            </YdCardContent>
           </YdCard>
         </div>
 
@@ -396,27 +382,25 @@ onMounted(() => {
         <div>
           <YdCard>
             <YdCardContent class="pt-4">
-            <h3 class="mb-3 text-base font-medium">召回操作日志</h3>
-            <YdTimeline v-if="recallLogs.length > 0">
-              <YdTimelineItem
-                v-for="(log, index) in recallLogs"
-                :key="log.time ?? index"
-                :type="log.success ? 'success' : 'danger'"
-                :timestamp="log.time"
-              >
-                <div class="text-sm">
-                      <YdBadge :variant="log.type === 'notification' ? 'default' : 'outline'">
-                    {{ log.type === 'notification' ? '通知' : '消息' }}
-                  </YdBadge>
-                  <span class="ml-2 font-mono">{{ log.id }}</span>
-                </div>
-                <p class="mt-1 text-xs text-gray-500">{{ log.detail }}</p>
-              </YdTimelineItem>
-            </YdTimeline>
-            <div v-else class="py-8 text-center text-gray-400">
-              暂无召回操作记录
-            </div>
-          </YdCardContent>
+              <h3 class="mb-3 text-base font-medium">召回操作日志</h3>
+              <YdTimeline v-if="recallLogs.length > 0">
+                <YdTimelineItem
+                  v-for="(log, index) in recallLogs"
+                  :key="log.time ?? index"
+                  :type="log.success ? 'success' : 'danger'"
+                  :timestamp="log.time"
+                >
+                  <div class="text-sm">
+                    <YdBadge :variant="log.type === 'notification' ? 'default' : 'outline'">
+                      {{ log.type === 'notification' ? '通知' : '消息' }}
+                    </YdBadge>
+                    <span class="ml-2 font-mono">{{ log.id }}</span>
+                  </div>
+                  <p class="mt-1 text-xs text-gray-500">{{ log.detail }}</p>
+                </YdTimelineItem>
+              </YdTimeline>
+              <div v-else class="py-8 text-center text-gray-400">暂无召回操作记录</div>
+            </YdCardContent>
           </YdCard>
         </div>
       </div>

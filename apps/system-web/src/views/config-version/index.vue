@@ -46,11 +46,18 @@ const gridOptions: VxeGridProps<EntityVersionVO> = {
     { field: 'changeLog', title: t('configVersion.changeLog'), minWidth: 200 },
     { field: 'effectiveDate', title: t('configVersion.effectiveDate'), width: 170 },
     {
-      field: 'action', title: t('action'), width: 120, fixed: 'right',
+      field: 'action',
+      title: t('action'),
+      width: 120,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleRollback(row) }, () => t('configVersion.rollback')),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'destructive', onClick: () => handleRollback(row) },
+              () => t('configVersion.rollback'),
+            ),
           ]),
       },
     },
@@ -99,7 +106,9 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
     await rollback({ resourceKey: resourceKey.value }, { targetVersion: row.version });
     showToast.success(t('operationSuccess'));
     await handleQuery();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 </script>
 
@@ -113,7 +122,9 @@ async function handleRollback(row: EntityVersionVO): Promise<void> {
         class="w-80"
         @keyup.enter="handleQuery"
       />
-        <YdButton :loading="loading" @click="handleQuery">{{ t('configVersion.queryHistory') }}</YdButton>
+      <YdButton :loading="loading" @click="handleQuery">{{
+        t('configVersion.queryHistory')
+      }}</YdButton>
     </div>
 
     <Grid :table-title="t('configVersion.tableTitle')">

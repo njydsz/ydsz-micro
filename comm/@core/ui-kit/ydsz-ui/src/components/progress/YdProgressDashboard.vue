@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 /**
-* Progress Dashboard —— 仪表盘进度（半圆）。
-* 
+ * Progress Dashboard —— 仪表盘进度（半圆）。
+ *
  * 用 SVG <path> 绘制一段 180° 圆弧作为轨道，
  * 再叠一层同路径的指示器 path，通过 stroke-dasharray / stroke-dashoffset
  * 驱动「填充长度」动画。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\progress\YdProgressDashboard.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -74,12 +74,7 @@ const dashOffset = computed(() => halfArcLength.value * (1 - safeValue.value / 1
     aria-valuemin="0"
     aria-valuemax="100"
   >
-    <svg
-      :width="size"
-      :height="size / 2"
-      :viewBox="`0 0 ${size} ${size / 2}`"
-      class="block"
-    >
+    <svg :width="size" :height="size / 2" :viewBox="`0 0 ${size} ${size / 2}`" class="block">
       <!-- 轨道 -->
       <path
         :d="arcPath"
@@ -104,7 +99,7 @@ const dashOffset = computed(() => halfArcLength.value * (1 - safeValue.value / 1
     <!-- 百分比文本，位于弧心下方 -->
     <span
       v-if="showInfo"
-      class="absolute bottom-0 text-sm font-medium text-foreground tabular-nums"
+      class="text-foreground absolute bottom-0 text-sm font-medium tabular-nums"
       :style="{ transform: 'translateY(2px)' }"
     >
       {{ safeValue }}%

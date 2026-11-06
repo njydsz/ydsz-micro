@@ -12,17 +12,8 @@ import type { TabOption } from '@ydsz/types';
 import { onMounted } from 'vue';
 import { $t } from '@ydsz/locales';
 
-import {
-  AnalysisChartCard,
-  AnalysisChartsTabs,
-  AnalysisOverview,
-} from '@ydsz/common-ui';
-import {
-  SvgBellIcon,
-  SvgCakeIcon,
-  SvgCardIcon,
-  SvgDownloadIcon,
-} from '@ydsz/icons';
+import { AnalysisChartCard, AnalysisChartsTabs, AnalysisOverview } from '@ydsz/common-ui';
+import { SvgBellIcon, SvgCakeIcon, SvgCardIcon, SvgDownloadIcon } from '@ydsz/icons';
 
 import { useOverviewStats } from '#/hooks/use-dashboard-data';
 
@@ -64,9 +55,7 @@ const defaultOverview = (): AnalysisOverviewItem[] => [
   },
 ];
 
-const { items: overviewItems, load: loadOverview } = useOverviewStats(
-  defaultOverview(),
-);
+const { items: overviewItems, load: loadOverview } = useOverviewStats(defaultOverview());
 
 const chartTabs = computed<TabOption[]>(() => [
   {
@@ -98,10 +87,16 @@ onMounted(() => {
     </AnalysisChartsTabs>
 
     <div class="mt-5 w-full md:flex">
-      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" :title="$t('page.analytics.visitCount')">
+      <AnalysisChartCard
+        class="mt-5 md:mr-4 md:mt-0 md:w-1/3"
+        :title="$t('page.analytics.visitCount')"
+      >
         <AnalyticsVisitsData />
       </AnalysisChartCard>
-      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" :title="$t('page.analytics.visitSource')">
+      <AnalysisChartCard
+        class="mt-5 md:mr-4 md:mt-0 md:w-1/3"
+        :title="$t('page.analytics.visitSource')"
+      >
         <AnalyticsVisitsSource />
       </AnalysisChartCard>
       <AnalysisChartCard class="mt-5 md:mt-0 md:w-1/3" :title="$t('page.analytics.visitSource')">

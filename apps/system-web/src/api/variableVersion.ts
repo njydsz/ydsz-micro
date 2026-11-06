@@ -16,19 +16,26 @@ import type { EntityVersionVO } from './models';
 /**
  * listByResourceKey: GET /variable/version/{resourceKey}
  */
-export function listByResourceKey({ resourceKey }: {
-    resourceKey: string;
-  }): Promise<EntityVersionVO[]> {
+export function listByResourceKey({
+  resourceKey,
+}: {
+  resourceKey: string;
+}): Promise<EntityVersionVO[]> {
   return requestClient.get<EntityVersionVO[]>(`/variable/version/${resourceKey}`);
 }
 
 /**
  * rollback: POST /variable/version/{resourceKey}/rollback
  */
-export function rollback({ resourceKey }: {
+export function rollback(
+  {
+    resourceKey,
+  }: {
     resourceKey: string;
-  }, params: {
+  },
+  params: {
     targetVersion?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/variable/version/${resourceKey}/rollback`, { params });
 }

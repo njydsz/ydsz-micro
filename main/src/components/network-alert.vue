@@ -11,10 +11,10 @@
  * @since 4.0.0
 -->
 <script setup lang="ts">
-import { computed, onUnmounted, ref, watch } from "vue";
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { $t } from '@ydsz/locales';
 import { YdIcon } from '@ydsz-core/ydsz-ui';
-import { useNetworkStatus } from "#/hooks/use-network-status";
+import { useNetworkStatus } from '#/hooks/use-network-status';
 
 const { networkStatus } = useNetworkStatus();
 const justRecovered = ref(false);
@@ -22,42 +22,38 @@ const justRecovered = ref(false);
 /** 网络恢复提示的自动隐藏定时器 */
 let recoveryTimer: ReturnType<typeof setTimeout> | undefined;
 
-const severity = computed<"info" | "warning" | "error" | "success" | "none">(
-  () => {
-    if (!networkStatus.value.isOnline) return "error";
-    if (networkStatus.value.isSaveData) return "warning";
-    if (networkStatus.value.effectiveType === "2g") return "warning";
-    return "none";
-  },
-);
+const severity = computed<'info' | 'warning' | 'error' | 'success' | 'none'>(() => {
+  if (!networkStatus.value.isOnline) return 'error';
+  if (networkStatus.value.isSaveData) return 'warning';
+  if (networkStatus.value.effectiveType === '2g') return 'warning';
+  return 'none';
+});
 
-const visible = computed(
-  () => severity.value !== "none" || justRecovered.value,
-);
+const visible = computed(() => severity.value !== 'none' || justRecovered.value);
 
 const text = computed(() => {
   if (justRecovered.value) return $t('page.networkAlert.recovered');
   switch (severity.value) {
-    case "error":
+    case 'error':
       return $t('page.networkAlert.offline');
-    case "warning":
+    case 'warning':
       return networkStatus.value.isSaveData
         ? $t('page.networkAlert.dataSaver')
         : $t('page.networkAlert.slow');
     default:
-      return "";
+      return '';
   }
 });
 
 const iconName = computed(() => {
-  if (justRecovered.value) return "lucide:wifi";
+  if (justRecovered.value) return 'lucide:wifi';
   switch (severity.value) {
-    case "error":
-      return "lucide:wifi-off";
-    case "warning":
-      return "lucide:alert-triangle";
+    case 'error':
+      return 'lucide:wifi-off';
+    case 'warning':
+      return 'lucide:alert-triangle';
     default:
-      return "";
+      return '';
   }
 });
 

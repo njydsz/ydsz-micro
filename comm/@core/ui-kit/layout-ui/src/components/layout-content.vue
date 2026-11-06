@@ -41,14 +41,7 @@ const props = withDefaults(defineProps<Props>(), {});
 const { contentElement, overlayStyle } = useLayoutContentStyle();
 
 const style = computed((): CSSProperties => {
-  const {
-    contentCompact,
-    padding,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-  } = props;
+  const { contentCompact, padding, paddingBottom, paddingLeft, paddingRight, paddingTop } = props;
 
   const compactStyle: CSSProperties =
     contentCompact === 'compact'
@@ -74,4 +67,3 @@ const style = computed((): CSSProperties => {
     <slot></slot>
   </main>
 </template>
-

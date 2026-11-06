@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * batchUpload: POST /nextwiki/import/batch-upload
  *
@@ -22,9 +21,9 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function batchUpload(params: {
-    files?: Record<string, unknown>[];
-    parentId?: string;
-  }): Promise<unknown> {
+  files?: Record<string, unknown>[];
+  parentId?: string;
+}): Promise<unknown> {
   return requestClient.post<unknown>(`/nextwiki/import/batch-upload`, { params });
 }
 
@@ -37,8 +36,8 @@ export function batchUpload(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function importZip(params: {
-    file?: Record<string, unknown>;
-    parentId?: string;
-  }): Promise<unknown> {
+  file?: Record<string, unknown>;
+  parentId?: string;
+}): Promise<unknown> {
   return requestClient.post<unknown>(`/nextwiki/import/zip`, { params });
 }

@@ -47,9 +47,7 @@ export function useLayout(props: YdLayoutProps) {
   /**
    * 是否侧边混合模式
    */
-  const isSidebarMixedNav = computed(
-    () => currentLayout.value === 'sidebar-mixed-nav',
-  );
+  const isSidebarMixedNav = computed(() => currentLayout.value === 'sidebar-mixed-nav');
 
   /**
    * 是否为头部导航模式
@@ -60,17 +58,13 @@ export function useLayout(props: YdLayoutProps) {
    * 是否为混合导航模式
    */
   const isMixedNav = computed(
-    () =>
-      currentLayout.value === 'mixed-nav' ||
-      currentLayout.value === 'header-sidebar-nav',
+    () => currentLayout.value === 'mixed-nav' || currentLayout.value === 'header-sidebar-nav',
   );
 
   /**
    * 是否为头部混合模式
    */
-  const isHeaderMixedNav = computed(
-    () => currentLayout.value === 'header-mixed-nav',
-  );
+  const isHeaderMixedNav = computed(() => currentLayout.value === 'header-mixed-nav');
 
   return {
     currentLayout,

@@ -18,4 +18,6 @@ export interface ColumnRegistry {
   removeColumn: (id: string) => void;
 }
 
-export const YD_TABLE_COLUMN_REGISTRY: InjectionKey<ColumnRegistry> = Symbol('YD_TABLE_COLUMN_REGISTRY');
+export const YD_TABLE_COLUMN_REGISTRY: InjectionKey<ColumnRegistry> = Symbol(
+  'YD_TABLE_COLUMN_REGISTRY',
+);

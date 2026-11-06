@@ -18,10 +18,7 @@
 import type { Ref } from 'vue';
 
 import { getCurrentScope, onScopeDispose, ref } from 'vue';
-import {
-  BroadcastChannelManager,
-  type BroadcastListener,
-} from '@ydsz-core/shared/cache';
+import { BroadcastChannelManager, type BroadcastListener } from '@ydsz-core/shared/cache';
 
 /** 已初始化的通道注册表：channelName → BroadcastChannelManager */
 const channelMap = new Map<string, BroadcastChannelManager>();
@@ -38,17 +35,12 @@ const channelRefCount = new Map<string, number>();
  * 派发给本标签页内的其它监听器。跨标签页投递仍由 BroadcastChannel 原生处理。
  */
 function acquireChannel<T = unknown>(channelName: string): BroadcastChannelManager<T> {
-  let channel = channelMap.get(channelName) as
-    | BroadcastChannelManager<T>
-    | undefined;
+  let channel = channelMap.get(channelName) as BroadcastChannelManager<T> | undefined;
   if (!channel) {
     channel = new BroadcastChannelManager<T>({ channelName, echo: true });
     channelMap.set(channelName, channel as BroadcastChannelManager);
   }
-  channelRefCount.set(
-    channelName,
-    (channelRefCount.get(channelName) ?? 0) + 1,
-  );
+  channelRefCount.set(channelName, (channelRefCount.get(channelName) ?? 0) + 1);
   return channel;
 }
 
@@ -116,9 +108,7 @@ export function useCrossTabState<T>(
    *
    * 显式 broadcast 让"本地写入 → 广播"这一动作可被追踪。
    */
-  (state as Ref<T> & { broadcast?: (value: T) => void }).broadcast = (
-    value: T,
-  ) => {
+  (state as Ref<T> & { broadcast?: (value: T) => void }).broadcast = (value: T) => {
     state.value = value;
     channel.postMessage(stateKey, value);
   };

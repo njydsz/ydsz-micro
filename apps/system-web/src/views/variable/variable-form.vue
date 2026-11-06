@@ -51,7 +51,9 @@ const formData = reactive<VariableFormState>({
 });
 
 const rules = {
-  variableKey: [{ required: true, message: t('common.placeholder', [t('variable.key')]), trigger: 'blur' }],
+  variableKey: [
+    { required: true, message: t('common.placeholder', [t('variable.key')]), trigger: 'blur' },
+  ],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -108,18 +110,38 @@ const title = computed(() => (isEdit.value ? t('editVariable') : t('createVariab
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('variable.key')" prop="variableKey">
-        <YdInput v-model="formData.variableKey" :placeholder="t('common.placeholder', [t('variable.key')])" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.variableKey"
+          :placeholder="t('common.placeholder', [t('variable.key')])"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('variable.valueType')" prop="valueType">
         <YdInput v-model="formData.valueType" :placeholder="t('valueTypePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('variable.value')" prop="variableValue">
-        <YdInput v-model="formData.variableValue" type="textarea" :rows="2" :placeholder="t('common.placeholder', [t('variable.value')])" />
+        <YdInput
+          v-model="formData.variableValue"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('common.placeholder', [t('variable.value')])"
+        />
       </YdFormItem>
       <YdFormItem :label="t('description')">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('descriptionPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('status')" prop="status">
         <YdRadioGroup v-model="formData.status">

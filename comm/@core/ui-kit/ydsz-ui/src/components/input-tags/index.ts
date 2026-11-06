@@ -6,8 +6,4 @@
  * @since 1.0.0
  */
 export { default as YdInputTags } from './YdInputTags.vue';
-export type {
-  InputTagsSize,
-  YdInputTagsEmits,
-  YdInputTagsProps,
-} from './types';
+export type { InputTagsSize, YdInputTagsEmits, YdInputTagsProps } from './types';

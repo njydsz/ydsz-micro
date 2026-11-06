@@ -1,9 +1,9 @@
 <script setup lang="ts">
 /**
-* QuarterPanel —— 季度选择面板。
-* 
+ * QuarterPanel —— 季度选择面板。
+ *
  * <p>用于 type='quarter'：显示 4 个季度按钮 (Q1~Q4)。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdQuarterPanel.vue
  * @author ydsz-team
  * @since 5.6.0

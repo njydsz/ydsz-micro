@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Timeline 时间轴：按时间顺序展示事件流。
-* 
+ * Timeline 时间轴：按时间顺序展示事件流。
+ *
  * 支持 dot、pending、reverse 三种变体。
  * 子组件 YdTimelineItem 渲染单个事件节点，color / dot 支持自定义。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\timeline\YdTimeline.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -39,7 +39,11 @@ const itemsClass = computed(() => {
 </script>
 
 <template>
-  <ol :class="cn('flex flex-col', itemsClass, props.class)" role="list" :aria-label="t('timeline.ariaLabel')">
+  <ol
+    :class="cn('flex flex-col', itemsClass, props.class)"
+    role="list"
+    :aria-label="t('timeline.ariaLabel')"
+  >
     <slot></slot>
     <!-- pending 占位 -->
     <li v-if="props.pending" class="flex items-start gap-3">
@@ -50,7 +54,7 @@ const itemsClass = computed(() => {
               'block size-3 rounded-full border',
               props.pendingDot
                 ? 'border-primary bg-primary/20 animate-pulse'
-                : 'bg-neutral-300 border-neutral-300 dark:bg-neutral-600 dark:border-neutral-600',
+                : 'border-neutral-300 bg-neutral-300 dark:border-neutral-600 dark:bg-neutral-600',
             )
           "
         ></span>

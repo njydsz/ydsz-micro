@@ -53,12 +53,7 @@ export interface UseTableCellEditReturn<T> {
   /** 解析列编辑选项（select 类型） */
   resolveEditOptions: (columnKey: string) => CellEditOption[];
   /** 解析单元格展示值（draft 优先） */
-  resolveCellValue: (
-    row: T,
-    columnKey: string,
-    rowKey: string,
-    rowIndex: number,
-  ) => unknown;
+  resolveCellValue: (row: T, columnKey: string, rowKey: string, rowIndex: number) => unknown;
   /** 进入编辑态（列需声明 editable） */
   startEdit: (rowKey: string, columnKey: string) => void;
   /** 更新临时值 */
@@ -82,9 +77,7 @@ export function useTableCellEdit<T extends Record<string, unknown>>(
    * props 上的 Set / Map 是普通值，而 useTableEditing 需要 Ref 才能用替换模式触发更新，
    * 因此本地各持一份 ref 并与 prop 单向同步。
    */
-  const internalEditingKeys: Ref<Set<string>> = ref(
-    new Set(toValue(options.editingKeys) ?? []),
-  );
+  const internalEditingKeys: Ref<Set<string>> = ref(new Set(toValue(options.editingKeys) ?? []));
   const internalEditConfig: Ref<Map<string, CellEditType>> = ref(
     new Map(toValue(options.editConfig) ?? []),
   );
@@ -109,8 +102,7 @@ export function useTableCellEdit<T extends Record<string, unknown>>(
 
   const editableMode = computed<boolean>(() => toValue(options.editable));
 
-  const cellKey = (rowKey: string, columnKey: string): string =>
-    composeCellKey(rowKey, columnKey);
+  const cellKey = (rowKey: string, columnKey: string): string => composeCellKey(rowKey, columnKey);
 
   /**
    * 单元格是否处于编辑态。
@@ -120,8 +112,7 @@ export function useTableCellEdit<T extends Record<string, unknown>>(
    * @returns 是否正在编辑
    */
   function isCellEditing(rowKey: string, columnKey: string): boolean {
-    return editableMode.value
-      && editing.editingCellKeys.value.has(cellKey(rowKey, columnKey));
+    return editableMode.value && editing.editingCellKeys.value.has(cellKey(rowKey, columnKey));
   }
 
   /**
@@ -131,9 +122,9 @@ export function useTableCellEdit<T extends Record<string, unknown>>(
    * @returns 编辑类型
    */
   function resolveEditType(columnKey: string): CellEditType {
-    return internalEditConfig.value.get(columnKey)
-      ?? options.findColumn(columnKey)?.editType
-      ?? 'input';
+    return (
+      internalEditConfig.value.get(columnKey) ?? options.findColumn(columnKey)?.editType ?? 'input'
+    );
   }
 
   /**
@@ -155,12 +146,7 @@ export function useTableCellEdit<T extends Record<string, unknown>>(
    * @param rowIndex - 行下标
    * @returns 单元格值
    */
-  function resolveCellValue(
-    row: T,
-    columnKey: string,
-    rowKey: string,
-    rowIndex: number,
-  ): unknown {
+  function resolveCellValue(row: T, columnKey: string, rowKey: string, rowIndex: number): unknown {
     const draft = editing.draftValues.value.get(cellKey(rowKey, columnKey));
     if (draft !== undefined) return draft;
     const raw = (row as Record<string, unknown>)[columnKey];

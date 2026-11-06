@@ -161,9 +161,7 @@ export function useTableData<T extends Record<string, unknown>>(
   const { data, columns: getColumns, filterStorage: filterStorageOptions } = options;
 
   /* ----- 筛选条件持久化（可选） ----- */
-  const filterStorage = filterStorageOptions
-    ? useTableFilterStorage(filterStorageOptions)
-    : null;
+  const filterStorage = filterStorageOptions ? useTableFilterStorage(filterStorageOptions) : null;
 
   const isFilterRestored = ref(false);
 
@@ -182,7 +180,7 @@ export function useTableData<T extends Record<string, unknown>>(
     for (const rule of chain) {
       // 排序链可能来自外部受控输入（props / localStorage 恢复），只接受完整合法规则
       if (!rule?.prop || (rule.order !== 'asc' && rule.order !== 'desc')) continue;
-      if (merged.some(item => item.prop === rule.prop)) continue;
+      if (merged.some((item) => item.prop === rule.prop)) continue;
       merged.push({ order: rule.order, prop: rule.prop });
     }
     sortChain.value = merged;
@@ -211,10 +209,11 @@ export function useTableData<T extends Record<string, unknown>>(
   function toggleSort(prop: string, additive = false): void {
     const allowMulti = toValue(options.multipleSort ?? false);
     // 追加模式保留整条链；否则只保留同列规则，使 asc → desc → 取消 的循环可继续
-    const next = allowMulti && additive
-      ? [...sortChain.value]
-      : sortChain.value.filter(rule => rule.prop === prop);
-    const index = next.findIndex(rule => rule.prop === prop);
+    const next =
+      allowMulti && additive
+        ? [...sortChain.value]
+        : sortChain.value.filter((rule) => rule.prop === prop);
+    const index = next.findIndex((rule) => rule.prop === prop);
     const order = nextOrderFor(index >= 0 ? next[index]?.order : undefined);
     if (index >= 0) {
       if (order) next[index] = { order, prop };
@@ -230,12 +229,12 @@ export function useTableData<T extends Record<string, unknown>>(
   }
 
   function getSortOrder(prop: string): SortOrder | null {
-    return sortChain.value.find(rule => rule.prop === prop)?.order ?? null;
+    return sortChain.value.find((rule) => rule.prop === prop)?.order ?? null;
   }
 
   function getSortRank(prop: string): number | null {
     if (!toValue(options.multipleSort ?? false)) return null;
-    const index = sortChain.value.findIndex(rule => rule.prop === prop);
+    const index = sortChain.value.findIndex((rule) => rule.prop === prop);
     return index >= 0 ? index + 1 : null;
   }
 
@@ -293,9 +292,7 @@ export function useTableData<T extends Record<string, unknown>>(
 
   function toggleSelectAll(): void {
     const allKeys = viewRows.value.map((row, idx) =>
-      options.rowSelection
-        ? options.rowSelection.rowKey(row, idx)
-        : String(idx),
+      options.rowSelection ? options.rowSelection.rowKey(row, idx) : String(idx),
     );
     const isAllSelected = allKeys.every((k) => selection.value.has(k));
     selection.value = isAllSelected ? new Set() : new Set(allKeys);
@@ -327,7 +324,7 @@ export function useTableData<T extends Record<string, unknown>>(
     rule: SortRule,
   ): (a: T, b: T) => number {
     const dir = rule.order === 'asc' ? 1 : -1;
-    const compare = defs.find(c => c.key === rule.prop)?.sorter;
+    const compare = defs.find((c) => c.key === rule.prop)?.sorter;
     return (a, b) => {
       if (compare) return compare(a, b) * dir;
       return String(a[rule.prop] ?? '').localeCompare(String(b[rule.prop] ?? '')) * dir;
@@ -339,8 +336,8 @@ export function useTableData<T extends Record<string, unknown>>(
     const chain = sortChain.value;
     if (chain.length === 0) return rawRows.value;
 
-    const colDefs = getColumns ? toValue(getColumns) ?? [] : [];
-    const comparators = chain.map(rule => buildComparator(colDefs, rule));
+    const colDefs = getColumns ? (toValue(getColumns) ?? []) : [];
+    const comparators = chain.map((rule) => buildComparator(colDefs, rule));
 
     return [...rawRows.value].sort((a, b) => {
       for (const compare of comparators) {
@@ -356,7 +353,7 @@ export function useTableData<T extends Record<string, unknown>>(
     if (options.isRemote) return sortedRows.value;
     if (filterState.value.size === 0) return sortedRows.value;
 
-    const colDefs = getColumns ? toValue(getColumns) ?? [] : [];
+    const colDefs = getColumns ? (toValue(getColumns) ?? []) : [];
     return sortedRows.value.filter((row) => {
       for (const [colKey, values] of filterState.value) {
         const col = colDefs.find((c) => c.key === colKey);

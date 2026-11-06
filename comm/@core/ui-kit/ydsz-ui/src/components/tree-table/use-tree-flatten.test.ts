@@ -31,9 +31,7 @@ function makeDataSource(): Row[] {
       name: 'parent 1',
     },
     {
-      children: [
-        { id: '2-1', name: 'child 2-1' },
-      ],
+      children: [{ id: '2-1', name: 'child 2-1' }],
       id: '2',
       name: 'parent 2',
     },

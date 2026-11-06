@@ -46,20 +46,33 @@ const gridOptions: VxeGridProps<FileCommentVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.resolved ? 'default' : 'destructive' }, () => (row.resolved ? '已解决' : '未解决')),
+          h(YdBadge, { variant: row.resolved ? 'default' : 'destructive' }, () =>
+            row.resolved ? '已解决' : '未解决',
+          ),
       },
     },
     { field: 'createdBy', title: '评论人', width: 110 },
     { field: 'createdAt', title: '评论时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 160, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 160,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             !row.resolved
-              ? h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleResolve(row) }, () => '解决')
+              ? h(
+                  YdButton,
+                  { size: 'sm', variant: 'link', onClick: () => handleResolve(row) },
+                  () => '解决',
+                )
               : h('span', {}, ''),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -81,17 +94,24 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [CommentFormModal, commentFormApi] = useYdModal({ connectedComponent: CommentForm });
 
 function handleQuery() {
-  if (!fileNodeId.value) { showToast.warning(t('fileNodeIdRequired')); return; }
+  if (!fileNodeId.value) {
+    showToast.warning(t('fileNodeIdRequired'));
+    return;
+  }
   gridApi.query();
 }
-function handleAdd() { commentFormApi.open(); }
+function handleAdd() {
+  commentFormApi.open();
+}
 async function handleResolve(row: FileCommentVO) {
   if (!row.id) return;
   try {
     await resolveComment({ commentId: row.id });
     showToast.success(t('resolvedSuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('解决评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('解决评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 async function handleDelete(row: FileCommentVO) {
   if (!row.id) return;
@@ -100,14 +120,22 @@ async function handleDelete(row: FileCommentVO) {
     await deleteComment({ commentId: row.id });
     showToast.success(t('deleteSuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('删除评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('删除评论失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 </script>
 
 <template>
   <Page auto-content-height>
     <div class="mb-2 flex items-center gap-2">
-      <YdInput v-model="fileNodeId" placeholder="请输入文件节点ID" class="w-72" clearable @keyup.enter="handleQuery" />
+      <YdInput
+        v-model="fileNodeId"
+        placeholder="请输入文件节点ID"
+        class="w-72"
+        clearable
+        @keyup.enter="handleQuery"
+      />
       <YdButton @click="handleQuery">查询评论</YdButton>
       <YdButton @click="handleAdd">新增评论</YdButton>
     </div>

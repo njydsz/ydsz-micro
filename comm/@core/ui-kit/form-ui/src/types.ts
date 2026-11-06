@@ -47,4 +47,3 @@ export type {
   YdFormAdapterOptions,
   YdFormProps,
 } from './types-components';
-

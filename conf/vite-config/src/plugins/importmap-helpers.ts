@@ -120,4 +120,3 @@ typeof importShim === 'function'
   $('head').remove(`script[type='module']`);
   return $.html();
 }
-

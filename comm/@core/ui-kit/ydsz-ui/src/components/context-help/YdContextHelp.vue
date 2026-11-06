@@ -1,17 +1,17 @@
 <script setup lang="ts">
 /**
-* 上下文帮助提示：页面级轻量级帮助信息条。
-* 
+ * 上下文帮助提示：页面级轻量级帮助信息条。
+ *
  * 设计目标：
  *  - 仿 ForgeLab forge-admin 底部/侧边 "对象和访问入口已移入应用上下文" 提示条；
  *  - 常驻显示一行简要帮助文字 + 问号图标，带 hover tooltip 显示完整说明；
  *  - 支持点击展开为简短帮助文档（内置 modal 风格展开层）；
  *  - 支持 dismissible（用户关闭后通过 localStorage 记录不再显示）。
-* 
+ *
  * 无障碍：
  *  - 按钮带 aria-label；
  *  - 装饰性图标 aria-hidden。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\context-help\YdContextHelp.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -93,24 +93,17 @@ function toggleDetail(): void {
 </script>
 
 <template>
-  <div
-    v-if="!dismissed"
-    :class="cn('relative', props.class)"
-  >
+  <div v-if="!dismissed" :class="cn('relative', props.class)">
     <!-- 横条风格 -->
     <div
       v-if="variant === 'bar'"
-      class="flex items-start gap-2 rounded-lg border border-info-500/20 bg-info-500/10 px-3 py-2.5 text-xs text-info-700 dark:text-info-400"
+      class="border-info-500/20 bg-info-500/10 text-info-700 dark:text-info-400 flex items-start gap-2 rounded-lg border px-3 py-2.5 text-xs"
     >
-      <Info
-        :size="14"
-        class="mt-0.5 shrink-0"
-        aria-hidden="true"
-      />
+      <Info :size="14" class="mt-0.5 shrink-0" aria-hidden="true" />
       <div class="flex-1 leading-relaxed">
         <span class="font-medium">{{ summary }}</span>
         <button
-          class="ms-2 inline-flex items-center gap-0.5 text-info-600 underline underline-offset-2 hover:text-info-800 dark:hover:text-info-300"
+          class="text-info-600 hover:text-info-800 dark:hover:text-info-300 ms-2 inline-flex items-center gap-0.5 underline underline-offset-2"
           type="button"
           @click="toggleDetail"
         >
@@ -120,7 +113,7 @@ function toggleDetail(): void {
       </div>
       <button
         v-if="dismissible"
-        class="ms-2 shrink-0 text-info-400 transition-colors hover:text-info-600"
+        class="text-info-400 hover:text-info-600 ms-2 shrink-0 transition-colors"
         type="button"
         :aria-label="t('contextHelp.closeAriaLabel')"
         @click="handleDismiss"
@@ -130,18 +123,11 @@ function toggleDetail(): void {
     </div>
 
     <!-- 行内气泡风格 -->
-    <div
-      v-else
-      class="inline-flex items-center gap-1.5 text-xs text-text-tertiary"
-    >
-      <HelpCircle
-        :size="14"
-        class="shrink-0"
-        aria-hidden="true"
-      />
+    <div v-else class="text-text-tertiary inline-flex items-center gap-1.5 text-xs">
+      <HelpCircle :size="14" class="shrink-0" aria-hidden="true" />
       <span>{{ summary }}</span>
       <button
-        class="text-info-500 underline underline-offset-2 hover:text-info-600"
+        class="text-info-500 hover:text-info-600 underline underline-offset-2"
         type="button"
         @click="toggleDetail"
       >
@@ -152,11 +138,11 @@ function toggleDetail(): void {
     <!-- 详情浮层 -->
     <div
       v-if="showingDetail"
-      class="absolute start-0 top-full z-20 mt-2 max-w-[320px] rounded-lg border border-border-subtle bg-surface-2 p-3 text-xs text-text-secondary shadow-raised"
+      class="border-border-subtle bg-surface-2 text-text-secondary shadow-raised absolute start-0 top-full z-20 mt-2 max-w-[320px] rounded-lg border p-3 text-xs"
     >
       <p class="leading-relaxed">{{ helpText }}</p>
       <button
-        class="mt-2 text-xs text-info-500 hover:text-info-600"
+        class="text-info-500 hover:text-info-600 mt-2 text-xs"
         type="button"
         @click="toggleDetail"
       >

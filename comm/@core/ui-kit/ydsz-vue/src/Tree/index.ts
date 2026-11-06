@@ -3,15 +3,12 @@ export {
   type TreeRootProps,
   type TreeRootEmits,
   type FlattenedItem,
-} from './TreeRoot.vue'
+} from './TreeRoot.vue';
 export {
   default as TreeItem,
   type TreeItemProps,
   type TreeItemEmits,
   type SelectEvent as TreeItemSelectEvent,
   type ToggleEvent as TreeItemToggleEvent,
-} from './TreeItem.vue'
-export {
-  default as TreeVirtualizer,
-  type TreeVirtualizerProps,
-} from './TreeVirtualizer.vue'
+} from './TreeItem.vue';
+export { default as TreeVirtualizer, type TreeVirtualizerProps } from './TreeVirtualizer.vue';

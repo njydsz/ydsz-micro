@@ -17,15 +17,45 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import {
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdSelectItem,
+  YdSelect,
+  YdSwitch,
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { createTrigger, deleteTrigger, disableTrigger, enableTrigger, getTrigger, listTriggers, updateTrigger } from '#/api/trigger';
+import {
+  createTrigger,
+  deleteTrigger,
+  disableTrigger,
+  enableTrigger,
+  getTrigger,
+  listTriggers,
+  updateTrigger,
+} from '#/api/trigger';
 import type { AgentTrigger } from '#/api/models';
 
 const logger = createLogger('agent-trigger');
@@ -93,13 +123,31 @@ const gridColumns: VxeTableGridOptions<AgentTrigger>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButton, {
-            size: 'sm', variant: 'link',
-            className: row.enabled ? 'text-yellow-600' : 'text-green-600',
-            onClick: () => handleToggleEnabled(row),
-          }, () => (row.enabled ? '禁用' : '启用')),
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-          h(YdButton, { size: 'sm', variant: 'link', className: 'text-destructive', onClick: () => handleDelete(row) }, () => '删除'),
+          h(
+            YdButton,
+            {
+              size: 'sm',
+              variant: 'link',
+              className: row.enabled ? 'text-yellow-600' : 'text-green-600',
+              onClick: () => handleToggleEnabled(row),
+            },
+            () => (row.enabled ? '禁用' : '启用'),
+          ),
+          h(
+            YdButton,
+            { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
+            () => '编辑',
+          ),
+          h(
+            YdButton,
+            {
+              size: 'sm',
+              variant: 'link',
+              className: 'text-destructive',
+              onClick: () => handleDelete(row),
+            },
+            () => '删除',
+          ),
         ]),
     },
   },
@@ -118,25 +166,32 @@ const gridOptions: VxeTableGridOptions<AgentTrigger> = {
     },
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-    { field: 'name', title: '名称', itemRender: { name: 'YdInput', props: { placeholder: '触发器名称' } } },
-    {
-      field: 'triggerType',
-      title: '类型',
-      itemRender: {
-        name: 'YdSelectBase',
-        options: [
-          { label: 'Cron 定时', value: 'cron' },
-          { label: 'Webhook', value: 'webhook' },
-          { label: '事件驱动', value: 'event' },
-          { label: 'Agent 生命周期', value: 'agent_lifecycle' },
-          { label: '内容匹配', value: 'content_match' },
-          { label: '工作流完成', value: 'workflow_completion' },
-        ],
-        props: { placeholder: '触发类型' },
+  formConfig: {
+    enabled: true,
+    items: [
+      {
+        field: 'name',
+        title: '名称',
+        itemRender: { name: 'YdInput', props: { placeholder: '触发器名称' } },
       },
-    },
-  ] },
+      {
+        field: 'triggerType',
+        title: '类型',
+        itemRender: {
+          name: 'YdSelectBase',
+          options: [
+            { label: 'Cron 定时', value: 'cron' },
+            { label: 'Webhook', value: 'webhook' },
+            { label: '事件驱动', value: 'event' },
+            { label: 'Agent 生命周期', value: 'agent_lifecycle' },
+            { label: '内容匹配', value: 'content_match' },
+            { label: '工作流完成', value: 'workflow_completion' },
+          ],
+          props: { placeholder: '触发类型' },
+        },
+      },
+    ],
+  },
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
@@ -259,11 +314,7 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
       <YdCard>
         <YdCardContent class="pt-6">
           <div class="flex items-center gap-5">
-            <YdInput
-              v-model="searchForm.name"
-              placeholder="按名称搜索..."
-              class="max-w-xs"
-            />
+            <YdInput v-model="searchForm.name" placeholder="按名称搜索..." class="max-w-xs" />
             <YdSelectBase v-model="searchForm.triggerType">
               <YdSelectTriggerBase class="w-40">
                 <YdSelectValueBase placeholder="按类型筛选" />
@@ -278,7 +329,14 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
               </YdSelectContentBase>
             </YdSelectBase>
             <YdButton @click="refreshList">搜索</YdButton>
-            <YdButton variant="outline" @click="searchForm.name = ''; searchForm.triggerType = ''">重置</YdButton>
+            <YdButton
+              variant="outline"
+              @click="
+                searchForm.name = '';
+                searchForm.triggerType = '';
+              "
+              >重置</YdButton
+            >
           </div>
         </YdCardContent>
       </YdCard>
@@ -307,7 +365,12 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
             <YdInput v-model="editForm.name" placeholder="请输入触发器名称" />
           </YdFormItem>
           <YdFormItem label="描述">
-            <YdInput v-model="editForm.description" type="textarea" :rows="2" placeholder="请输入描述信息" />
+            <YdInput
+              v-model="editForm.description"
+              type="textarea"
+              :rows="2"
+              placeholder="请输入描述信息"
+            />
           </YdFormItem>
           <YdFormItem label="触发类型" required>
             <YdSelect v-model="editForm.triggerType" class="w-full">
@@ -319,25 +382,22 @@ async function handleDelete(row: AgentTrigger): Promise<void> {
               <YdSelectItem label="工作流完成" value="workflow_completion" />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem
-            v-if="editForm.triggerType === 'cron'"
-            label="Cron 表达式"
-            required
-          >
+          <YdFormItem v-if="editForm.triggerType === 'cron'" label="Cron 表达式" required>
             <YdInput v-model="editForm.cronExpression" placeholder="例如: 0 0 * * * (每天零点)" />
           </YdFormItem>
           <YdFormItem label="目标 Agent">
             <YdInput v-model="editForm.targetAgentCode" placeholder="请输入目标 Agent 编码" />
           </YdFormItem>
           <YdFormItem label="配置 JSON">
-            <YdInput v-model="editForm.config" type="textarea" :rows="4" placeholder='{"key": "value"}' />
+            <YdInput
+              v-model="editForm.config"
+              type="textarea"
+              :rows="4"
+              placeholder='{"key": "value"}'
+            />
           </YdFormItem>
           <YdFormItem label="启用状态">
-            <YdSwitch
-              v-model="editForm.enabled"
-              active-text="启用"
-              inactive-text="停用"
-            />
+            <YdSwitch v-model="editForm.enabled" active-text="启用" inactive-text="停用" />
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>

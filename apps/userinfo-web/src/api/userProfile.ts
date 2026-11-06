@@ -37,9 +37,7 @@ export function changePassword(data: Record<string, unknown>): Promise<boolean> 
 /**
  * uploadAvatar: PUT /profile/avatar
  */
-export function uploadAvatar(params: {
-    file?: Record<string, unknown>;
-  }): Promise<string> {
+export function uploadAvatar(params: { file?: Record<string, unknown> }): Promise<string> {
   return requestClient.put<string>(`/profile/avatar`, { params });
 }
 

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 /**
-* Slider（slider）组件：支持单值与 range 双 thumb 的模式。
-* 
+ * Slider（slider）组件：支持单值与 range 双 thumb 的模式。
+ *
  * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
  * - role="slider" + aria-valuemin / aria-valuemax / aria-valuenow / aria-valuetext
  * - range 模式下两个 thumb 分别暴露 aria-valuenow
  * - 键盘：Arrow（±step）/ Arrow + Shift（±step*5）/ Home / End / PageUp / PageDown
  * - aria-label / aria-labelledby 标签关联
-* 
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */
@@ -34,10 +34,7 @@ const activeThumb = ref<number>(0);
 /** 计算 thumb 值列表 */
 const thumbValues = computed<[number] | [number, number]>(() => {
   if (props.range) {
-    const r = props.modelValueRange ?? [
-      props.min!,
-      props.modelValue ?? props.max!,
-    ];
+    const r = props.modelValueRange ?? [props.min!, props.modelValue ?? props.max!];
     return [r[0], r[1]];
   }
   return [props.modelValue ?? props.min!];
@@ -109,10 +106,16 @@ function handleThumbKeydown(event: KeyboardEvent, index: number) {
 
   if (props.range) {
     const current = thumbValues.value as [number, number];
-    const target = delta === -Infinity ? props.min! : delta === Infinity ? props.max! : current[index] + delta;
+    const target =
+      delta === -Infinity ? props.min! : delta === Infinity ? props.max! : current[index] + delta;
     updateRange(index as 0 | 1, target);
   } else {
-    const target = delta === -Infinity ? props.min! : delta === Infinity ? props.max! : thumbValues.value[0] + delta;
+    const target =
+      delta === -Infinity
+        ? props.min!
+        : delta === Infinity
+          ? props.max!
+          : thumbValues.value[0] + delta;
     updateSingle(target);
   }
   emit('change', props.range ? thumbValues.value : thumbValues.value[0]);
@@ -187,21 +190,19 @@ function thumbStyle(index: number) {
 
 <template>
   <div
-    :class="['yd-slider', `yd-slider--${range ? 'range' : 'single'}`, { 'yd-slider--disabled': disabled }, props.class]"
+    :class="[
+      'yd-slider',
+      `yd-slider--${range ? 'range' : 'single'}`,
+      { 'yd-slider--disabled': disabled },
+      props.class,
+    ]"
     role="group"
     :aria-label="ariaLabel ?? undefined"
     :aria-labelledby="ariaLabelledby ?? undefined"
   >
     <!-- 滑轨 -->
-    <div
-      class="yd-slider__track"
-      role="presentation"
-      @click="handleTrackClick"
-    >
-      <div
-        class="yd-slider__track-fill"
-        :style="trackFillStyle"
-      />
+    <div class="yd-slider__track" role="presentation" @click="handleTrackClick">
+      <div class="yd-slider__track-fill" :style="trackFillStyle" />
     </div>
     <!-- thumb(s) -->
     <div
@@ -277,7 +278,8 @@ function thumbStyle(index: number) {
   background-color: hsl(var(--ydsz-surface-1));
   border: 2px solid hsl(var(--ydsz-comp-bg, 210 100% 50%));
   box-shadow: 0 1px 2px hsl(0 0% 0% / 0.1);
-  transition: box-shadow var(--ydsz-motion-duration-fast, 150ms) var(--ydsz-motion-easing-standard, ease);
+  transition: box-shadow var(--ydsz-motion-duration-fast, 150ms)
+    var(--ydsz-motion-easing-standard, ease);
 }
 
 .yd-slider__thumb:focus-visible .yd-slider__thumb-dot,

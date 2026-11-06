@@ -8,7 +8,7 @@
  * @since 4.2.2
  */
 
-import { STORAGE_KEYS } from "./storage-utils";
+import { STORAGE_KEYS } from './storage-utils';
 
 /** 单条页面缓存记录 */
 export interface PageCacheRecord {
@@ -56,4 +56,4 @@ export const DEFAULT_POLICY: PageCachePolicy = {
 export const CACHE_REGISTRY_KEY = `${STORAGE_KEYS.CANARY_CONFIG}-page-cache-registry`;
 
 /** 命名空间前缀 */
-export const NAMESPACE_PREFIX = "micro-kernel:";
+export const NAMESPACE_PREFIX = 'micro-kernel:';

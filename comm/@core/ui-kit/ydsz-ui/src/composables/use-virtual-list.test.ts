@@ -29,9 +29,7 @@ describe('useVirtualList', () => {
   });
 
   it('totalHeight 应等于 项数 × itemHeight', () => {
-    const items = ref(
-      Array.from({ length: 100 }, (_, i) => ({ id: i })),
-    );
+    const items = ref(Array.from({ length: 100 }, (_, i) => ({ id: i })));
     const { totalHeight } = useVirtualList(items, {
       itemHeight: 32,
       viewportHeight: 256,
@@ -41,9 +39,7 @@ describe('useVirtualList', () => {
   });
 
   it('滚动后应更新可见项区间', async () => {
-    const items = ref(
-      Array.from({ length: 1000 }, (_, i) => ({ id: i })),
-    );
+    const items = ref(Array.from({ length: 1000 }, (_, i) => ({ id: i })));
     const { visibleItems, onScroll } = useVirtualList(items, {
       itemHeight: 32,
       viewportHeight: 256,
@@ -63,9 +59,7 @@ describe('useVirtualList', () => {
   });
 
   it('offsetY 应表示首个可见项的顶部偏移', () => {
-    const items = ref(
-      Array.from({ length: 100 }, (_, i) => ({ id: i })),
-    );
+    const items = ref(Array.from({ length: 100 }, (_, i) => ({ id: i })));
     const { offsetY } = useVirtualList(items, {
       itemHeight: 32,
       viewportHeight: 256,
@@ -76,9 +70,7 @@ describe('useVirtualList', () => {
   });
 
   it('measuredHeights 应影响单项高度', () => {
-    const items = ref(
-      Array.from({ length: 10 }, (_, i) => ({ id: i })),
-    );
+    const items = ref(Array.from({ length: 10 }, (_, i) => ({ id: i })));
     const measured = ref(new Map<number, number>([[0, 64]]));
 
     const { totalHeight } = useVirtualList(items, {

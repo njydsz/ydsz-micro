@@ -24,9 +24,7 @@ export function page(query?: LanguagePageQuery): Promise<PageResponse<LanguageVO
 /**
  * getById: GET /language/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<LanguageVO> {
+export function getById({ id }: { id: string }): Promise<LanguageVO> {
   return requestClient.get<LanguageVO>(`/language/${id}`);
 }
 
@@ -54,8 +52,6 @@ export function update(data: LanguageDTO): Promise<boolean> {
 /**
  * remove: DELETE /language/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/language/${id}`);
 }

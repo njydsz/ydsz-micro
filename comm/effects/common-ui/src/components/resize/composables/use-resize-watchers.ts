@@ -234,8 +234,7 @@ export function useResizeWatchers(
   watch(
     () => parentW.value,
     (val) => {
-      resizeState.right.value =
-        val - resizeState.width.value - resizeState.left.value!;
+      resizeState.right.value = val - resizeState.width.value - resizeState.left.value!;
       resizeState.parentWidth.value = val;
     },
   );
@@ -244,8 +243,7 @@ export function useResizeWatchers(
   watch(
     () => parentH.value,
     (val) => {
-      resizeState.bottom.value =
-        val - resizeState.height.value - resizeState.top.value!;
+      resizeState.bottom.value = val - resizeState.height.value - resizeState.top.value!;
       resizeState.parentHeight.value = val;
     },
   );

@@ -66,10 +66,8 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
       width: 80,
       slots: {
         default: ({ row }) =>
-          h(
-            YdBadge,
-            { variant: isEnabled(row.status) ? undefined : 'secondary' },
-            () => (isEnabled(row.status) ? t('enabled') : t('disabled')),
+          h(YdBadge, { variant: isEnabled(row.status) ? undefined : 'secondary' }, () =>
+            isEnabled(row.status) ? t('enabled') : t('disabled'),
           ),
       },
     },
@@ -83,7 +81,11 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
             h(YdButton, { size: 'sm', onClick: () => handleEdit(row) }, () => t('edit')),
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => t('delete')),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) },
+              () => t('delete'),
+            ),
           ]),
       },
     },
@@ -107,8 +109,19 @@ const gridOptions: VxeTableGridOptions<DictItemRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'typeCode', title: t('dictType'), itemRender: { name: 'YdInput', props: { placeholder: t('dictTypePlaceholder') } } },
-      { field: 'itemCode', title: t('itemCode'), itemRender: { name: 'YdInput', props: { placeholder: t('common.placeholder', [t('itemCode')]) } } },
+      {
+        field: 'typeCode',
+        title: t('dictType'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('dictTypePlaceholder') } },
+      },
+      {
+        field: 'itemCode',
+        title: t('itemCode'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('common.placeholder', [t('itemCode')]) },
+        },
+      },
     ],
   },
 };
@@ -148,7 +161,11 @@ function handleEdit(row: DictItemRow) {
 async function handleDelete(row: DictItemRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('confirmDeleteName', [row.itemCode ?? row.itemValue ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await YdConfirm(
+      t('confirmDeleteName', [row.itemCode ?? row.itemValue ?? '']),
+      t('common.deleteConfirm'),
+      { type: 'warning' },
+    );
   } catch (error) {
     logger.warn('用户取消删除字典项', error);
     return; // 用户主动取消删除操作

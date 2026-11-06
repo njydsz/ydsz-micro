@@ -78,12 +78,7 @@ export const NEUTRAL_RAW: RawColorComponents = {
 };
 
 /** 语义角色枚举 */
-export type SemanticRole =
-  | 'brand'
-  | 'success'
-  | 'warning'
-  | 'destructive'
-  | 'neutral';
+export type SemanticRole = 'brand' | 'success' | 'warning' | 'destructive' | 'neutral';
 
 /** 语义色映射 */
 export const SEMANTIC_RAW_MAP: Record<SemanticRole, RawColorComponents> = {
@@ -121,7 +116,9 @@ export function surfaceTokenVar(level: 1 | 2 | 3): string {
  * @param level primary | secondary | tertiary | disabled | inverse
  * @return CSS 变量引用表达式
  */
-export function textTokenVar(level: 'primary' | 'secondary' | 'tertiary' | 'disabled' | 'inverse'): string {
+export function textTokenVar(
+  level: 'primary' | 'secondary' | 'tertiary' | 'disabled' | 'inverse',
+): string {
   return `var(--ydsz-text-${level})`;
 }
 

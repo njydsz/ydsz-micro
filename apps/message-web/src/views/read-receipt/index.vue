@@ -20,7 +20,14 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdEmptyState, YdInput } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdEmptyState,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -203,25 +210,29 @@ onMounted(() => {
                 <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">回执状态</span>
                   <p class="mt-1">
-                    <YdBadge :variant="getStatusType(receiptDetail.status) === 'success' ? 'default' : getStatusType(receiptDetail.status) === 'warning' ? 'outline' : 'secondary'">
+                    <YdBadge
+                      :variant="
+                        getStatusType(receiptDetail.status) === 'success'
+                          ? 'default'
+                          : getStatusType(receiptDetail.status) === 'warning'
+                            ? 'outline'
+                            : 'secondary'
+                      "
+                    >
                       {{ getStatusLabel(receiptDetail.status) }}
                     </YdBadge>
                   </p>
                 </div>
                 <div class="rounded bg-gray-50 p-5">
                   <span class="text-xs text-gray-500">重定向地址</span>
-                  <p class="mt-1 font-mono text-xs text-gray-600 break-all">
+                  <p class="mt-1 break-all font-mono text-xs text-gray-600">
                     {{ receiptDetail.redirectUrl ?? '-' }}
                   </p>
                 </div>
               </div>
             </div>
 
-            <YdEmptyState
-              v-else
-              description="请输入短码进行查询"
-              preset="no-result"
-            />
+            <YdEmptyState v-else description="请输入短码进行查询" preset="no-result" />
           </YdCard>
         </div>
 
@@ -245,15 +256,8 @@ onMounted(() => {
                 <span class="text-xs text-gray-400">{{ item.time }}</span>
               </div>
             </div>
-            <YdEmptyState
-              v-else
-              description="暂无查询记录"
-              preset="no-data"
-              title="暂无查询"
-            />
-            <p class="mt-2 text-xs text-gray-400">
-              点击记录可快速重新查询
-            </p>
+            <YdEmptyState v-else description="暂无查询记录" preset="no-data" title="暂无查询" />
+            <p class="mt-2 text-xs text-gray-400">点击记录可快速重新查询</p>
           </YdCard>
         </div>
       </div>

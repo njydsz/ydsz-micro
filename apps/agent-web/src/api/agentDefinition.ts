@@ -27,26 +27,24 @@ export function list(): Promise<AgentDefinitionVO[]> {
  * listPage: GET /agent/definitions/page
  */
 export function listPage(params: {
-    query?: PageQuery;
-  }): Promise<PageResponse<AgentDefinitionVO[]>> {
-  return requestClient.get<PageResponse<AgentDefinitionVO[]>>(`/agent/definitions/page`, { params });
+  query?: PageQuery;
+}): Promise<PageResponse<AgentDefinitionVO[]>> {
+  return requestClient.get<PageResponse<AgentDefinitionVO[]>>(`/agent/definitions/page`, {
+    params,
+  });
 }
 
 /**
  * getById: GET /agent/definitions/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<AgentDefinitionVO> {
+export function getById({ id }: { id: string }): Promise<AgentDefinitionVO> {
   return requestClient.get<AgentDefinitionVO>(`/agent/definitions/${id}`);
 }
 
 /**
  * getByCode: GET /agent/definitions/code/{code}
  */
-export function getByCode({ code }: {
-    code: string;
-  }): Promise<AgentDefinitionVO> {
+export function getByCode({ code }: { code: string }): Promise<AgentDefinitionVO> {
   return requestClient.get<AgentDefinitionVO>(`/agent/definitions/code/${code}`);
 }
 
@@ -67,9 +65,7 @@ export function update(data: AgentDefinitionDTO): Promise<AgentDefinitionVO> {
 /**
  * delete: DELETE /agent/definitions/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function deleteApi({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/agent/definitions/${id}`);
 }
 

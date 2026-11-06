@@ -1,12 +1,11 @@
-export function flatten<U, T extends { children: any[] } >(items: T[]): U[] {
+export function flatten<U, T extends { children: any[] }>(items: T[]): U[] {
   return items.reduce((acc: any[], item: T) => {
-    acc.push(item)
+    acc.push(item);
 
-    if (item.children)
-      acc.push(...flatten(item.children))
+    if (item.children) acc.push(...flatten(item.children));
 
-    return acc
-  }, [])
+    return acc;
+  }, []);
 }
 
 // TODO: expose more utility function to handle flattened item

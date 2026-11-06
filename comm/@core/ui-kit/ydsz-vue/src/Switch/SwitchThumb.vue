@@ -1,20 +1,20 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface SwitchThumbProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { injectSwitchRootContext } from './SwitchRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
+import { injectSwitchRootContext } from './SwitchRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
 
-withDefaults(defineProps<SwitchThumbProps>(), { as: 'span' })
+withDefaults(defineProps<SwitchThumbProps>(), { as: 'span' });
 
-const rootContext = injectSwitchRootContext()
+const rootContext = injectSwitchRootContext();
 
-useForwardExpose()
+useForwardExpose();
 </script>
 
 <template>

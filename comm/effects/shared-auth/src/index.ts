@@ -14,49 +14,26 @@
  * @since 1.0.0
  */
 
-export type {
-  AuthApi,
-} from './types';
+export type { AuthApi } from './types';
 
-export {
-  createSharedBaseClient,
-  createSharedRequestClient,
-} from './request';
+export { createSharedBaseClient, createSharedRequestClient } from './request';
 
-export {
-  baseRequestClient,
-  initSharedRequest,
-  requestClient,
-} from './request-setup';
+export { baseRequestClient, initSharedRequest, requestClient } from './request-setup';
 
-export {
-  loginApi,
-  logoutApi,
-  refreshTokenApi,
-  getAccessCodesApi,
-} from './auth-api';
+export { loginApi, logoutApi, refreshTokenApi, getAccessCodesApi } from './auth-api';
 
-export {
-  getUserInfoApi,
-} from './user-api';
+export { getUserInfoApi } from './user-api';
 
-export {
-  getAllMenusApi,
-  getMenuTreeApi,
-} from './menu-api';
+export { getAllMenusApi, getMenuTreeApi } from './menu-api';
 
-export {
-  createSharedAuthStore,
-} from './auth-store';
+export { createSharedAuthStore } from './auth-store';
 
-export {
-  setupSharedAuth,
-} from './setup-shared-auth';
+export { setupSharedAuth } from './setup-shared-auth';
 
-export {
-  type SubAppConfig,
-  createSubApp,
-} from './create-sub-app';
+// v4.1: 子应用壳层复用（消除 9 份重复拷贝）
+export { coreRoutes, fallbackNotFoundRoute } from './shell-core-routes';
+
+export { type SubAppConfig, createSubApp } from './create-sub-app';
 
 export {
   type CreateSubAppI18nOptions,
@@ -83,9 +60,7 @@ export {
 // v4.4.1: 注册接口用于打破 shared-auth ↔ shared-business 循环依赖
 export { registerSecondaryAuthModalOpener } from './guards';
 
-export {
-  createOpenApiClient,
-} from './create-openapi-client';
+export { createOpenApiClient } from './create-openapi-client';
 
 export {
   type SseEvent,

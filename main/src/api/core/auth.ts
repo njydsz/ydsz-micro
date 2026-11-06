@@ -69,10 +69,7 @@ export async function loginApi(data: LoginParams) {
  * @returns 新的令牌信息（accessToken / refreshToken / 过期时间）
  */
 export async function refreshTokenApi(refreshToken: string) {
-  return baseRequestClient.post<RefreshTokenResult>(
-    '/api/auth/refresh',
-    { refreshToken },
-  );
+  return baseRequestClient.post<RefreshTokenResult>('/api/auth/refresh', { refreshToken });
 }
 
 /**

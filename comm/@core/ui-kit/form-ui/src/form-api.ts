@@ -12,12 +12,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  FormState,
-  GenericObject,
-  ResetFormOpts,
-  ValidationOptions,
-} from 'vee-validate';
+import type { FormState, GenericObject, ResetFormOpts, ValidationOptions } from 'vee-validate';
 
 import type { Recordable } from '@ydsz-core/typings';
 
@@ -306,11 +301,7 @@ export class FormApi {
     this.latestSubmissionValues = { ...toRaw(values) };
   }
 
-  setState(
-    stateOrFn:
-      | ((prev: YdFormProps) => Partial<YdFormProps>)
-      | Partial<YdFormProps>,
-  ) {
+  setState(stateOrFn: ((prev: YdFormProps) => Partial<YdFormProps>) | Partial<YdFormProps>) {
     if (isFunction(stateOrFn)) {
       this.store.setState((prev) => {
         return mergeWithArrayOverride(stateOrFn(prev), prev);
@@ -398,10 +389,7 @@ export class FormApi {
     currentSchema.forEach((schema, index) => {
       const updatedData = updatedMap[schema.fieldName];
       if (updatedData) {
-        currentSchema[index] = mergeWithArrayOverride(
-          updatedData,
-          schema,
-        ) as FormSchema;
+        currentSchema[index] = mergeWithArrayOverride(updatedData, schema) as FormSchema;
       }
     });
     this.setState({ schema: currentSchema });
@@ -462,16 +450,11 @@ export class FormApi {
     const currentSchema = this.state?.schema ?? [];
     const prevSchema = this.prevState?.schema ?? [];
     if (currentSchema.length < prevSchema.length) {
-      const currentFields = new Set(
-        currentSchema.map((item) => item.fieldName),
-      );
-      const deletedSchema = prevSchema.filter(
-        (item) => !currentFields.has(item.fieldName),
-      );
+      const currentFields = new Set(currentSchema.map((item) => item.fieldName));
+      const deletedSchema = prevSchema.filter((item) => !currentFields.has(item.fieldName));
       for (const schema of deletedSchema) {
         this.form?.setFieldValue?.(schema.fieldName, undefined);
       }
     }
   }
 }
-

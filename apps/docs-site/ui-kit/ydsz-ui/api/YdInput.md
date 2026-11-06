@@ -6,7 +6,7 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `update:modelValue` | `payload: number | string` | - |
-| `clear` | `void` | - |
+| 事件                | 参数             | 说明    |
+| ------------------- | ---------------- | ------- |
+| `update:modelValue` | `payload: number | string` | -   |
+| `clear`             | `void`           | -       |

@@ -17,7 +17,17 @@
  */
 import { computed, reactive, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdSelect,
+  YdSwitch,
+  YdTabs,
+  YdTabsContent,
+} from '@ydsz-core/ydsz-ui';
 import type { DesignerNodeConfig } from '../types';
 import { DesignerNodeType } from '../types';
 
@@ -130,7 +140,10 @@ function handleFormChange() {
               <YdSelectItem :label="t('wf.designerPanel.user')" value="USER" />
               <YdSelectItem :label="t('wf.designerPanel.role')" value="ROLE" />
               <YdSelectItem :label="t('wf.designerPanel.initiator')" value="INITIATOR" />
-              <YdSelectItem :label="t('wf.designerPanel.initiatorLeader')" value="INITIATOR_LEADER" />
+              <YdSelectItem
+                :label="t('wf.designerPanel.initiatorLeader')"
+                value="INITIATOR_LEADER"
+              />
               <YdSelectItem :label="t('wf.designerPanel.expr')" value="EXPR" />
             </YdSelect>
           </YdFormItem>
@@ -223,7 +236,12 @@ function handleFormChange() {
             </YdSelect>
           </YdFormItem>
           <YdFormItem :label="t('wf.designerPanel.retryMax')">
-            <YdNumberFieldInput v-model="form.retryMax" :min="0" :max="5" @change="handleFormChange" />
+            <YdNumberFieldInput
+              v-model="form.retryMax"
+              :min="0"
+              :max="5"
+              @change="handleFormChange"
+            />
           </YdFormItem>
           <YdFormItem :label="t('wf.designerPanel.timeoutMs')">
             <YdNumberFieldInput
@@ -251,7 +269,10 @@ function handleFormChange() {
               <YdSelectItem :label="t('wf.designerPanel.customNode')" value="CUSTOM" />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem v-if="form.rejectStrategy === 'CUSTOM'" :label="t('wf.designerPanel.customTarget')">
+          <YdFormItem
+            v-if="form.rejectStrategy === 'CUSTOM'"
+            :label="t('wf.designerPanel.customTarget')"
+          >
             <YdInput
               v-model="form.customTarget"
               :placeholder="t('wf.designerPanel.customTargetPlaceholder')"

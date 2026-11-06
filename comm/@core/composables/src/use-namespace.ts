@@ -109,4 +109,3 @@ type UseNamespaceReturn = ReturnType<typeof useNamespace>;
 
 export type { UseNamespaceReturn };
 export { useNamespace };
-

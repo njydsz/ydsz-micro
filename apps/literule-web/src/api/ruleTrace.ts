@@ -16,53 +16,73 @@ import type { RuleExecutionTraceVO } from './models';
 /**
  * getTrace: GET /literule/rules/traces/{traceId}
  */
-export function getTrace({ traceId }: {
-    traceId: string;
-  }): Promise<RuleExecutionTraceVO[]> {
+export function getTrace({ traceId }: { traceId: string }): Promise<RuleExecutionTraceVO[]> {
   return requestClient.get<RuleExecutionTraceVO[]>(`/literule/rules/traces/${traceId}`);
 }
 
 /**
  * getTracesByRule: GET /literule/rules/traces/rule/{ruleCode}
  */
-export function getTracesByRule({ ruleCode }: {
+export function getTracesByRule(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     limit?: number;
-  }): Promise<RuleExecutionTraceVO[]> {
-  return requestClient.get<RuleExecutionTraceVO[]>(`/literule/rules/traces/rule/${ruleCode}`, { params });
+  },
+): Promise<RuleExecutionTraceVO[]> {
+  return requestClient.get<RuleExecutionTraceVO[]>(`/literule/rules/traces/rule/${ruleCode}`, {
+    params,
+  });
 }
 
 /**
  * replayTrace: POST /literule/rules/traces/{traceId}/replay
  */
-export function replayTrace({ traceId }: {
-    traceId: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/traces/${traceId}/replay`);
+export function replayTrace({
+  traceId,
+}: {
+  traceId: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/rules/traces/${traceId}/replay`,
+  );
 }
 
 /**
  * batchReplayTraces: POST /literule/rules/traces/batch-replay
  */
-export function batchReplayTraces(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/traces/batch-replay`, data);
+export function batchReplayTraces(
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/rules/traces/batch-replay`,
+    data,
+  );
 }
 
 /**
  * impactPreview: POST /literule/rules/{ruleCode}/impact-preview
  */
-export function impactPreview({ ruleCode }: {
+export function impactPreview(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/${ruleCode}/impact-preview`, data);
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/rules/${ruleCode}/impact-preview`,
+    data,
+  );
 }
 
 /**
  * listRecentTraces: GET /literule/rules/traces
  */
-export function listRecentTraces(params: {
-    limit?: number;
-  }): Promise<RuleExecutionTraceVO[]> {
+export function listRecentTraces(params: { limit?: number }): Promise<RuleExecutionTraceVO[]> {
   return requestClient.get<RuleExecutionTraceVO[]>(`/literule/rules/traces`, { params });
 }

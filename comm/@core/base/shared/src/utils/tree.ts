@@ -32,9 +32,7 @@ function traverseTreeValues<T, V>(
   const dfs = (treeNode: T) => {
     const value = getValue(treeNode);
     result.push(value);
-    const children = (treeNode as Record<string, unknown>)?.[childProps] as
-      | T[]
-      | undefined;
+    const children = (treeNode as Record<string, unknown>)?.[childProps] as T[] | undefined;
     if (!children) {
       return;
     }
@@ -57,11 +55,7 @@ function traverseTreeValues<T, V>(
  * @param options - 子节点数组字段名配置，默认 `{ childProps: 'children' }`
  * @returns 过滤后的树形结构数组
  */
-function filterTree<T>(
-  tree: T[],
-  filter: (node: T) => boolean,
-  options?: TreeConfigOptions,
-): T[] {
+function filterTree<T>(tree: T[], filter: (node: T) => boolean, options?: TreeConfigOptions): T[] {
   const { childProps } = options || {
     childProps: 'children',
   };
@@ -90,11 +84,7 @@ function filterTree<T>(
  * @param options - 子节点数组字段名配置，默认 `{ childProps: 'children' }`
  * @returns 映射后的新树形结构数组
  */
-function mapTree<T, V>(
-  tree: T[],
-  mapper: (node: T) => V,
-  options?: TreeConfigOptions,
-): V[] {
+function mapTree<T, V>(tree: T[], mapper: (node: T) => V, options?: TreeConfigOptions): V[] {
   const { childProps } = options || {
     childProps: 'children',
   };

@@ -22,7 +22,14 @@ interface TestNode {
 
 function createMockOptions(overrides: Record<string, unknown> = {}) {
   const treeData = ref<TestNode[]>([
-    { id: '1', name: 'A', children: [{ id: '1-1', name: 'A1' }, { id: '1-2', name: 'A2' }] },
+    {
+      id: '1',
+      name: 'A',
+      children: [
+        { id: '1-1', name: 'A1' },
+        { id: '1-2', name: 'A2' },
+      ],
+    },
     { id: '2', name: 'B', children: [{ id: '2-1', name: 'B1' }] },
     { id: '3', name: 'C' },
   ]);

@@ -12,11 +12,12 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * importDsl: POST /literule/dsl/import
  */
-export function importDsl(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
+export function importDsl(
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
   return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/dsl/import`, data);
 }
 
@@ -24,16 +25,22 @@ export function importDsl(data: Record<string, Record<string, unknown>>): Promis
  * exportAll: GET /literule/dsl/export
  */
 export function exportAll(params: {
-    category?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/dsl/export`, { params });
+  category?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/dsl/export`, {
+    params,
+  });
 }
 
 /**
  * exportSingle: GET /literule/dsl/export/{ruleCode}
  */
-export function exportSingle({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/literule/dsl/export/${ruleCode}`);
+export function exportSingle({
+  ruleCode,
+}: {
+  ruleCode: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/literule/dsl/export/${ruleCode}`,
+  );
 }

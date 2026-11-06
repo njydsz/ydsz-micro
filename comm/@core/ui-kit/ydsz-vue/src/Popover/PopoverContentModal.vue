@@ -1,20 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import PopoverContentImpl, { type PopoverContentImplEmits, type PopoverContentImplProps } from './PopoverContentImpl.vue'
-import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { useBodyScrollLock, useForwardExpose, useForwardPropsEmits, useHideOthers } from '../shared/index.ts'
+import { ref } from 'vue';
+import PopoverContentImpl, {
+  type PopoverContentImplEmits,
+  type PopoverContentImplProps,
+} from './PopoverContentImpl.vue';
+import { injectPopoverRootContext } from './PopoverRoot.vue';
+import {
+  useBodyScrollLock,
+  useForwardExpose,
+  useForwardPropsEmits,
+  useHideOthers,
+} from '../shared/index.ts';
 
-const props = defineProps<PopoverContentImplProps>()
-const emits = defineEmits<PopoverContentImplEmits>()
-const rootContext = injectPopoverRootContext()
-const isRightClickOutsideRef = ref(false)
+const props = defineProps<PopoverContentImplProps>();
+const emits = defineEmits<PopoverContentImplEmits>();
+const rootContext = injectPopoverRootContext();
+const isRightClickOutsideRef = ref(false);
 
-useBodyScrollLock(true)
+useBodyScrollLock(true);
 
-const forwarded = useForwardPropsEmits(props, emits)
+const forwarded = useForwardPropsEmits(props, emits);
 
-const { forwardRef, currentElement } = useForwardExpose()
-useHideOthers(currentElement)
+const { forwardRef, currentElement } = useForwardExpose();
+useHideOthers(currentElement);
 </script>
 
 <template>
@@ -35,8 +43,7 @@ useHideOthers(currentElement)
         emits('pointerDownOutside', event);
 
         const originalEvent = event.detail.originalEvent;
-        const ctrlLeftClick
-          = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+        const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
         const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
 
         isRightClickOutsideRef = isRightClick;

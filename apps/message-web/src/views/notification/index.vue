@@ -73,7 +73,11 @@ const gridOptions: VxeTableGridOptions<MsgNotificationVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.recallStatus ? 'outline' : 'secondary' }, () => row.recallStatus ?? '-'),
+          h(
+            YdBadge,
+            { variant: row.recallStatus ? 'outline' : 'secondary' },
+            () => row.recallStatus ?? '-',
+          ),
       },
     },
     {

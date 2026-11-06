@@ -12,12 +12,9 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * getToken: GET /repeat-submit/token
  */
-export function getToken(params: {
-    ttlMillis?: number;
-  }): Promise<string> {
+export function getToken(params: { ttlMillis?: number }): Promise<string> {
   return requestClient.get<string>(`/repeat-submit/token`, { params });
 }

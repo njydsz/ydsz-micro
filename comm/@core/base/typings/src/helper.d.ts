@@ -27,9 +27,7 @@ type DeepReadonly<T> = {
  * 任意类型的异步函数
  */
 
-type AnyPromiseFunction<T extends unknown[] = unknown[], R = void> = (
-  ...arg: T
-) => PromiseLike<R>;
+type AnyPromiseFunction<T extends unknown[] = unknown[], R = void> = (...arg: T) => PromiseLike<R>;
 
 /**
  * 任意类型的普通函数
@@ -40,8 +38,7 @@ type AnyNormalFunction<T extends unknown[] = unknown[], R = void> = (...arg: T) 
  * 任意类型的函数
  */
 type AnyFunction<T extends unknown[] = unknown[], R = void> =
-  | AnyNormalFunction<T, R>
-  | AnyPromiseFunction<T, R>;
+  AnyNormalFunction<T, R> | AnyPromiseFunction<T, R>;
 
 /**
  *  T | null 包装
@@ -88,11 +85,7 @@ type MaybeReadonlyRef<T> = (() => T) | ComputedRef<T>;
 type MaybeComputedRef<T> = MaybeReadonlyRef<T> | MaybeRef<T>;
 
 type Merge<O extends object, T extends object> = {
-  [K in keyof O | keyof T]: K extends keyof T
-    ? T[K]
-    : K extends keyof O
-      ? O[K]
-      : never;
+  [K in keyof O | keyof T]: K extends keyof T ? T[K] : K extends keyof O ? O[K] : never;
 };
 
 /**
@@ -107,10 +100,10 @@ type Merge<O extends object, T extends object> = {
  *  age: string
  * }
  */
-type MergeAll<
-  T extends object[],
-  R extends object = Record<string, unknown>,
-> = T extends [infer F extends object, ...infer Rest extends object[]]
+type MergeAll<T extends object[], R extends object = Record<string, unknown>> = T extends [
+  infer F extends object,
+  ...infer Rest extends object[],
+]
   ? MergeAll<Rest, Merge<R, F>>
   : R;
 

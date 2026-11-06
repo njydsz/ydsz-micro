@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * tokenExchange: POST /sso/token-exchange
  *
@@ -21,9 +20,12 @@ import { requestClient } from '#/api/request';
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function tokenExchange(params: {
+export function tokenExchange(
+  params: {
     request?: Record<string, unknown>;
-  }, data: Record<string, unknown>): Promise<unknown> {
+  },
+  data: Record<string, unknown>,
+): Promise<unknown> {
   return requestClient.post<unknown>(`/sso/token-exchange`, data, { params });
 }
 
@@ -36,9 +38,9 @@ export function tokenExchange(params: {
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function validate(params: {
-    request?: Record<string, unknown>;
-    token?: string;
-  }): Promise<unknown> {
+  request?: Record<string, unknown>;
+  token?: string;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/sso/validate`, { params });
 }
 
@@ -50,8 +52,11 @@ export function validate(params: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function logoutNotify(params: {
+export function logoutNotify(
+  params: {
     request?: Record<string, unknown>;
-  }, data: Record<string, unknown>): Promise<unknown> {
+  },
+  data: Record<string, unknown>,
+): Promise<unknown> {
   return requestClient.post<unknown>(`/sso/logout-notify`, data, { params });
 }

@@ -5,9 +5,9 @@
  * @since 26.10.10
  */
 
-import { onBeforeUnmount, readonly, ref, type Ref } from 'vue'
+import { onBeforeUnmount, readonly, ref, type Ref } from 'vue';
 
-import { prefersReducedMotion } from './motion-tokens'
+import { prefersReducedMotion } from './motion-tokens';
 
 /**
  * 全局响应式的 prefers-reduced-motion 状态。
@@ -24,29 +24,29 @@ import { prefersReducedMotion } from './motion-tokens'
  * ```
  */
 export function useReducedMotion(): {
-  reduced: Readonly<Ref<boolean>>
+  reduced: Readonly<Ref<boolean>>;
 } {
-  const reduced = ref(prefersReducedMotion())
+  const reduced = ref(prefersReducedMotion());
 
-  let mql: MediaQueryList | undefined
+  let mql: MediaQueryList | undefined;
 
   if (typeof window !== 'undefined') {
-    mql = window.matchMedia('(prefers-reduced-motion: reduce)')
+    mql = window.matchMedia('(prefers-reduced-motion: reduce)');
     const handler = (e: MediaQueryListEvent) => {
-      reduced.value = e.matches
-    }
+      reduced.value = e.matches;
+    };
     if (mql.addEventListener) {
-      mql.addEventListener('change', handler)
+      mql.addEventListener('change', handler);
     } else {
-      mql.addListener(handler)
+      mql.addListener(handler);
     }
   }
 
   onBeforeUnmount(() => {
     if (mql && mql.removeEventListener) {
-      mql.removeEventListener('change', () => {})
+      mql.removeEventListener('change', () => {});
     }
-  })
+  });
 
-  return { reduced: readonly(reduced) }
+  return { reduced: readonly(reduced) };
 }

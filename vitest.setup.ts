@@ -43,7 +43,7 @@ const nativeFetch = globalThis.fetch;
 const ICONIFY_ICONS_URL = /(?:^|\/\/)(?:[^/]*\.)?iconify\.design|\/json\/icons\//;
 
 globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-  const url = typeof input === 'string' ? input : (input instanceof URL ? input.href : input.url);
+  const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
   if (ICONIFY_ICONS_URL.test(url)) {
     return Promise.resolve(
       new Response(JSON.stringify({ height: 24, icons: {}, width: 24 }), {

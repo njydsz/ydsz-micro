@@ -104,11 +104,7 @@ watchDebounced(
 const currentList = computed(() => {
   try {
     if (props.prefix) {
-      if (
-        props.prefix !== 'svg' &&
-        props.autoFetchApi &&
-        props.icons.length === 0
-      ) {
+      if (props.prefix !== 'svg' && props.autoFetchApi && props.icons.length === 0) {
         return innerIcons.value;
       }
       const icons = listIcons('', props.prefix);
@@ -126,15 +122,10 @@ const currentList = computed(() => {
 });
 
 const showList = computed(() => {
-  return currentList.value.filter((item) =>
-    item.includes(keywordDebounce.value),
-  );
+  return currentList.value.filter((item) => item.includes(keywordDebounce.value));
 });
 
-const { paginationList, total, setCurrentPage } = usePagination(
-  showList,
-  props.pageSize,
-);
+const { paginationList, total, setCurrentPage } = usePagination(showList, props.pageSize);
 
 watchEffect(() => {
   currentSelect.value = modelValue.value;
@@ -217,11 +208,7 @@ defineExpose({ toggleOpenState, open, close });
           v-bind="getBindAttrs"
         >
           <template #[iconSlot]>
-            <YdIcon
-              :icon="currentSelect || Grip"
-              class="size-4"
-              aria-hidden="true"
-            />
+            <YdIcon :icon="currentSelect || Grip" class="size-4" aria-hidden="true" />
           </template>
         </component>
         <div class="relative w-full" v-else>
@@ -241,19 +228,10 @@ defineExpose({ toggleOpenState, open, close });
           />
         </div>
       </template>
-      <YdIcon
-        :icon="currentSelect || Grip"
-        v-else
-        class="size-4"
-        v-bind="$attrs"
-      />
+      <YdIcon :icon="currentSelect || Grip" v-else class="size-4" v-bind="$attrs" />
     </template>
     <div class="mb-2 flex w-full">
-      <component
-        v-if="inputComponent"
-        :is="inputComponent"
-        v-bind="searchInputProps"
-      />
+      <component v-if="inputComponent" :is="inputComponent" v-bind="searchInputProps" />
       <YdInput
         v-else
         class="mx-2 h-8 w-full"
@@ -291,10 +269,7 @@ defineExpose({ toggleOpenState, open, close });
           size="small"
           @update:page="handlePageChange"
         >
-          <PaginationList
-            v-slot="{ items }"
-            class="flex w-full items-center gap-1"
-          >
+          <PaginationList v-slot="{ items }" class="flex w-full items-center gap-1">
             <YdPaginationFirst class="size-5" />
             <YdPaginationPrev class="size-5" />
             <template v-for="(item, index) in items">
@@ -311,12 +286,7 @@ defineExpose({ toggleOpenState, open, close });
                   {{ item.value }}
                 </YdButton>
               </PaginationListItem>
-              <YdPaginationEllipsis
-                v-else
-                :key="item.type"
-                :index="index"
-                class="size-5"
-              />
+              <YdPaginationEllipsis v-else :key="item.type" :index="index" class="size-5" />
             </template>
             <YdPaginationNext class="size-5" />
             <YdPaginationLast class="size-5" />

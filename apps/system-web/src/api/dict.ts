@@ -24,9 +24,7 @@ export function page(query?: DictPageQuery): Promise<PageResponse<DictTypeVO[]>>
 /**
  * getById: GET /dict/type/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<DictTypeVO> {
+export function getById({ id }: { id: string }): Promise<DictTypeVO> {
   return requestClient.get<DictTypeVO>(`/dict/type/${id}`);
 }
 
@@ -47,9 +45,7 @@ export function update(data: DictTypeDTO): Promise<boolean> {
 /**
  * remove: DELETE /dict/type/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/dict/type/${id}`);
 }
 

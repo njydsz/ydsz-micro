@@ -24,8 +24,14 @@ export default defineConfig({
     // 解析到本包 src，全局别名会把 apps/* 的 '#/xxx' 误指向 main/src，导致按目录收集用例时解析漂移。
     alias: {
       '@ydsz/request': resolve(rootDir, 'comm/effects/request/src/index.ts'),
-      '@ydsz-core/design-tokens/composables': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/composables/index.ts'),
-      '@ydsz-core/design-tokens/density': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/tokens/density.ts'),
+      '@ydsz-core/design-tokens/composables': resolve(
+        rootDir,
+        'comm/@core/ui-kit/design-tokens/src/composables/index.ts',
+      ),
+      '@ydsz-core/design-tokens/density': resolve(
+        rootDir,
+        'comm/@core/ui-kit/design-tokens/src/tokens/density.ts',
+      ),
       '@ydsz-core/design-tokens': resolve(rootDir, 'comm/@core/ui-kit/design-tokens/src/index.ts'),
     },
   },

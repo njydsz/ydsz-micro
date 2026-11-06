@@ -21,7 +21,19 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdButton, YdCard, YdDialog, YdEmptyState, YdInput, YdSelectItem, YdSelect, YdCountToAnimator, YdBadge, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdDialog,
+  YdEmptyState,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+  YdCountToAnimator,
+  YdBadge,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, h, onMounted, ref } from 'vue';
 
@@ -64,8 +76,12 @@ const detailData = ref<AgentTraceDetailDTO | null>(null);
 // =====================================================================
 
 const totalTraces = computed(() => traceList.value.length);
-const successCount = computed(() => traceList.value.filter((item) => item.status === 'SUCCESS').length);
-const failedCount = computed(() => traceList.value.filter((item) => item.status === 'FAILED').length);
+const successCount = computed(
+  () => traceList.value.filter((item) => item.status === 'SUCCESS').length,
+);
+const failedCount = computed(
+  () => traceList.value.filter((item) => item.status === 'FAILED').length,
+);
 const successRate = computed(() => {
   if (totalTraces.value === 0) return '0.0';
   return ((successCount.value / totalTraces.value) * 100).toFixed(1);
@@ -173,7 +189,10 @@ async function handleBatchReplay(): Promise<void> {
     showToast.warning('请至少选择一个 Trace');
     return;
   }
-  YdConfirm(`确认批量重放选中的 ${selectedTraces.value.length} 条 Trace？`, { title: '批量重放', type: 'warning' })
+  YdConfirm(`确认批量重放选中的 ${selectedTraces.value.length} 条 Trace？`, {
+    title: '批量重放',
+    type: 'warning',
+  })
     .then(async () => {
       for (const item of selectedTraces.value) {
         const id = item.executionId ?? item.traceId ?? '';
@@ -208,7 +227,8 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
       title: '状态',
       width: 90,
       slots: {
-        default: ({ row }) => h(YdBadge, { variant: statusTagType(row.status ?? '') }, () => row.status ?? '-'),
+        default: ({ row }) =>
+          h(YdBadge, { variant: statusTagType(row.status ?? '') }, () => row.status ?? '-'),
       },
     },
     {
@@ -227,10 +247,19 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
       width: 150,
       fixed: 'right',
       slots: {
-        default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleReplay(row) }, () => '重放'),
-        ]),
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) },
+              () => '详情',
+            ),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleReplay(row) },
+              () => '重放',
+            ),
+          ]),
       },
     },
   ],
@@ -238,7 +267,6 @@ const gridOptions: VxeTableGridOptions<AgentTraceListDTO> = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-
       query: async () => ({ items: traceList.value, total: traceList.value.length }),
     },
   },
@@ -268,7 +296,12 @@ onMounted(() => {
           <YdCountToAnimator title="失败数" :value="failedCount" value-style="color: #f56c6c" />
         </YdCard>
         <YdCard shadow="never">
-          <YdCountToAnimator title="成功率" :value="Number(successRate)" suffix="%" :precision="1" />
+          <YdCountToAnimator
+            title="成功率"
+            :value="Number(successRate)"
+            suffix="%"
+            :precision="1"
+          />
         </YdCard>
         <YdCard shadow="never">
           <YdCountToAnimator title="平均耗时" :value="Number(avgDuration)" suffix="ms" />
@@ -311,20 +344,28 @@ onMounted(() => {
             <div><span class="text-gray-500">模型:</span> {{ detailData.model }}</div>
             <div>
               <span class="text-gray-500">状态:</span>
-              <YdBadge :type="statusTagType(detailData.status ?? '')">{{ detailData.status }}</YdBadge>
+              <YdBadge :type="statusTagType(detailData.status ?? '')">{{
+                detailData.status
+              }}</YdBadge>
             </div>
-            <div><span class="text-gray-500">耗时:</span> {{ formatDuration(detailData.duration) }}</div>
+            <div>
+              <span class="text-gray-500">耗时:</span> {{ formatDuration(detailData.duration) }}
+            </div>
             <div><span class="text-gray-500">Token:</span> {{ detailData.tokenCount }}</div>
           </div>
 
           <!-- 输入输出 -->
           <div v-if="detailData.input">
             <h4 class="mb-2 text-sm font-medium">输入</h4>
-            <div class="max-h-32 overflow-auto rounded border bg-gray-50 p-3 text-sm">{{ detailData.input }}</div>
+            <div class="max-h-32 overflow-auto rounded border bg-gray-50 p-3 text-sm">
+              {{ detailData.input }}
+            </div>
           </div>
           <div v-if="detailData.output">
             <h4 class="mb-2 text-sm font-medium">输出</h4>
-            <div class="max-h-32 overflow-auto rounded border bg-gray-50 p-3 text-sm">{{ detailData.output }}</div>
+            <div class="max-h-32 overflow-auto rounded border bg-gray-50 p-3 text-sm">
+              {{ detailData.output }}
+            </div>
           </div>
 
           <!-- 执行链路 -->
@@ -339,7 +380,9 @@ onMounted(() => {
               >
                 <div class="text-sm">
                   <span class="font-medium">{{ step.stepName ?? `Step ${idx + 1}` }}</span>
-                  <span v-if="step.toolName" class="ml-2 text-gray-500">工具: {{ step.toolName }}</span>
+                  <span v-if="step.toolName" class="ml-2 text-gray-500"
+                    >工具: {{ step.toolName }}</span
+                  >
                 </div>
               </YdTimelineItem>
             </YdTimeline>

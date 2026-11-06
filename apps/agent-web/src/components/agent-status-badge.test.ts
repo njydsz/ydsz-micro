@@ -30,10 +30,7 @@ const STATUS_LABEL_MAP = {
   error: '异常',
 } satisfies Record<AgentStatus, string>;
 
-const STATUS_LABEL_ENTRIES = Object.entries(STATUS_LABEL_MAP) as [
-  AgentStatus,
-  string,
-][];
+const STATUS_LABEL_ENTRIES = Object.entries(STATUS_LABEL_MAP) as [AgentStatus, string][];
 
 describe('AgentStatusBadge', () => {
   it('running 状态应显示「运行中」文字', () => {

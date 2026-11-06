@@ -18,24 +18,24 @@ Content-Type: application/json
 
 ## 通用请求规范
 
-| Header | 必须 | 说明 |
-|--------|------|------|
-| `Authorization` | 是 | Bearer Token |
-| `Content-Type` | 是 | `application/json` |
-| `X-Api-Version` | 否 | API 版本，默认 `v1` |
-| `X-Tenant-Id` | 多租户场景 | 目标租户 ID |
-| `Accept-Language` | 否 | 国际化语言，默认 `zh-CN` |
+| Header            | 必须       | 说明                     |
+| ----------------- | ---------- | ------------------------ |
+| `Authorization`   | 是         | Bearer Token             |
+| `Content-Type`    | 是         | `application/json`       |
+| `X-Api-Version`   | 否         | API 版本，默认 `v1`      |
+| `X-Tenant-Id`     | 多租户场景 | 目标租户 ID              |
+| `Accept-Language` | 否         | 国际化语言，默认 `zh-CN` |
 
 ## 分页请求参数
 
 统一分页参数（GET 列表接口通用）：
 
-| 参数 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `page` | `number` | `1` | 页码（从 1 开始） |
-| `size` | `number` | `20` | 每页条数（最大 200） |
-| `sort` | `string` | `createdAt,desc` | 排序字段（YDIZ-DB-001，统一命名 `sort`） |
-| `keyword` | `string` | — | 全文搜索关键词 |
+| 参数      | 类型     | 默认值           | 说明                                     |
+| --------- | -------- | ---------------- | ---------------------------------------- |
+| `page`    | `number` | `1`              | 页码（从 1 开始）                        |
+| `size`    | `number` | `20`             | 每页条数（最大 200）                     |
+| `sort`    | `string` | `createdAt,desc` | 排序字段（YDIZ-DB-001，统一命名 `sort`） |
+| `keyword` | `string` | —                | 全文搜索关键词                           |
 
 ## 引擎 API 入口
 
@@ -52,9 +52,9 @@ Content-Type: application/json
 
 ## SDK 与工具
 
-| 工具 | 用途 |
-|------|------|
-| `openapi-fetch` | 自动生成 TypeScript 客户端 |
+| 工具                 | 用途                             |
+| -------------------- | -------------------------------- |
+| `openapi-fetch`      | 自动生成 TypeScript 客户端       |
 | `openapi-typescript` | 从 OpenAPI JSON 生成 TS 类型定义 |
 
 ```bash

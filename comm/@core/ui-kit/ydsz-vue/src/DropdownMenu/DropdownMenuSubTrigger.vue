@@ -1,16 +1,16 @@
 <script lang="ts">
 // @ts-nocheck
-import type { MenuSubTriggerProps } from '../Menu/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { MenuSubTriggerProps } from '../Menu/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface DropdownMenuSubTriggerProps extends MenuSubTriggerProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuSubTrigger } from '../Menu/index.ts'
+import { MenuSubTrigger } from '../Menu/index.ts';
 
-const props = defineProps<DropdownMenuSubTriggerProps>()
-useForwardExpose()
+const props = defineProps<DropdownMenuSubTriggerProps>();
+useForwardExpose();
 </script>
 
 <template>

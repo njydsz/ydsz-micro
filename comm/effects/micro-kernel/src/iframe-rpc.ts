@@ -20,7 +20,7 @@ import {
   type IframeRpcConfig,
   type RpcCallPayload,
   type RpcResultPayload,
-} from "./iframe-types";
+} from './iframe-types';
 
 /** 待响应的 RPC 条目 */
 interface PendingRpc {
@@ -58,35 +58,26 @@ export function createIframeRpc(
   /** 主 → 子消息发送 */
   postToChild: (payload: unknown) => void;
   /** 注册子 → 主消息处理器 */
-  onChildMessage: (
-    handler: (payload: unknown) => void,
-  ) => () => void;
+  onChildMessage: (handler: (payload: unknown) => void) => () => void;
   /** 主应用调用子应用 RPC 方法（异步，带超时重试） */
   callRpc: (method: string, args: unknown[]) => Promise<unknown>;
   /** 注册主应用 API 供子应用调用 */
-  registerMainApi: (
-    handlers: Record<string, (...args: unknown[]) => unknown>,
-  ) => () => void;
+  registerMainApi: (handlers: Record<string, (...args: unknown[]) => unknown>) => () => void;
   /** 清理所有待响应的 RPC（cleanup 时调用） */
   cleanupRpc: (appName: string) => void;
 } {
   // v4.3.0: 主 → 子消息目标 origin（默认宿主 origin；devUrl 模式由调用方传入）
   const hostOrigin = window.location.origin;
   const targetOrigin =
-    options.targetOrigin && options.targetOrigin !== "null"
+    options.targetOrigin && options.targetOrigin !== 'null'
       ? options.targetOrigin
-      : hostOrigin && hostOrigin !== "null"
+      : hostOrigin && hostOrigin !== 'null'
         ? hostOrigin
-        : "*";
+        : '*';
   // v4.3.0: 接收侧 origin 白名单（默认宿主 origin；为空时不校验 origin 仅校验 source）
-  const expectedOrigins = options.expectedOrigins?.length
-    ? new Set(options.expectedOrigins)
-    : null;
+  const expectedOrigins = options.expectedOrigins?.length ? new Set(options.expectedOrigins) : null;
   // v3.6.1: 子 → 主 RPC 处理器（子应用可调用的主应用 API）
-  const mainApiHandlers: Record<
-    string,
-    (...args: unknown[]) => unknown
-  > = {};
+  const mainApiHandlers: Record<string, (...args: unknown[]) => unknown> = {};
   // v3.6.1: 主 → 子 RPC 待响应 Map（callId → resolve/reject）
   const pendingRpcs = new Map<string, PendingRpc>();
   // v3.6.1: RPC 调用序号
@@ -101,7 +92,7 @@ export function createIframeRpc(
     if (expectedOrigins && !expectedOrigins.has(event.origin)) return;
     const data = event.data;
     if (!isBridgeMessage(data)) return;
-    if (data.type === "state-set") {
+    if (data.type === 'state-set') {
       for (const handler of childMessageHandlers) {
         try {
           handler(data.payload);
@@ -111,7 +102,7 @@ export function createIframeRpc(
       }
       return;
     }
-    if (data.type === "rpc-result") {
+    if (data.type === 'rpc-result') {
       const payload = data.payload as RpcResultPayload;
       const pending = pendingRpcs.get(payload.callId);
       if (pending) {
@@ -119,48 +110,40 @@ export function createIframeRpc(
         if (payload.ok) {
           pending.resolve(payload.result);
         } else {
-          pending.reject(new Error(payload.error || "RPC call failed"));
+          pending.reject(new Error(payload.error || 'RPC call failed'));
         }
       }
       return;
     }
-    if (data.type === "rpc-call") {
+    if (data.type === 'rpc-call') {
       // 子应用调用主应用 API
       const payload = data.payload as RpcCallPayload;
       const handler = mainApiHandlers[payload.method];
       const respond = (ok: boolean, result?: unknown, error?: string) => {
         const response: BridgeMessage = {
           [BRIDGE_MARK]: true,
-          type: "rpc-result",
+          type: 'rpc-result',
           payload: { callId: payload.callId, ok, result, error },
         } as BridgeMessage;
         contentWindow.postMessage(response, targetOrigin);
       };
-      if (typeof handler !== "function") {
+      if (typeof handler !== 'function') {
         respond(false, undefined, `RPC method not found: ${payload.method}`);
         return;
       }
       try {
         // 使用 thenable 判定替代 (as Promise) 断言，兼容任意 thenable 返回值
         const result = handler(...payload.args);
-        if (
-          result &&
-          typeof (result as { then?: unknown }).then === "function"
-        ) {
+        if (result && typeof (result as { then?: unknown }).then === 'function') {
           Promise.resolve(result).then(
             (value) => respond(true, value),
-            (error) =>
-              respond(false, undefined, String(error?.message || error)),
+            (error) => respond(false, undefined, String(error?.message || error)),
           );
         } else {
           respond(true, result);
         }
       } catch (error) {
-        respond(
-          false,
-          undefined,
-          String(error instanceof Error ? error.message : error),
-        );
+        respond(false, undefined, String(error instanceof Error ? error.message : error));
       }
     }
   };
@@ -169,27 +152,22 @@ export function createIframeRpc(
     if (!contentWindow) return;
     const message: BridgeMessage = {
       [BRIDGE_MARK]: true,
-      type: "state-sync",
+      type: 'state-sync',
       payload,
     } as BridgeMessage;
     contentWindow.postMessage(message, targetOrigin);
   };
 
-  const onChildMessage = (
-    handler: (payload: unknown) => void,
-  ): (() => void) => {
+  const onChildMessage = (handler: (payload: unknown) => void): (() => void) => {
     childMessageHandlers.add(handler);
     return () => {
       childMessageHandlers.delete(handler);
     };
   };
 
-  async function callRpc(
-    method: string,
-    args: unknown[] = [],
-  ): Promise<unknown> {
+  async function callRpc(method: string, args: unknown[] = []): Promise<unknown> {
     if (!contentWindow) {
-      throw new Error("[IframeRpc] ContentWindow is not available");
+      throw new Error('[IframeRpc] ContentWindow is not available');
     }
 
     // P1-3: 可重试的 RPC 调用
@@ -197,10 +175,7 @@ export function createIframeRpc(
     // 此处按 DEFAULT_RPC_CONFIG 同款默认值兜底（启用重试时必有完整配置）
     const retryConfig = rpc.retry;
     const isIdempotent = retryConfig.isIdempotent?.(method) ?? false;
-    const maxAttempts =
-      retryConfig.enabled && isIdempotent
-        ? 1 + (retryConfig.maxRetries ?? 2)
-        : 1;
+    const maxAttempts = retryConfig.enabled && isIdempotent ? 1 + (retryConfig.maxRetries ?? 2) : 1;
 
     let lastError: Error | undefined;
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -210,7 +185,7 @@ export function createIframeRpc(
         await new Promise((r) => setTimeout(r, delay));
         // 重试前检查沙箱是否已关闭
         if (!contentWindow) {
-          throw new Error("[IframeRpc] ContentWindow closed during retry");
+          throw new Error('[IframeRpc] ContentWindow closed during retry');
         }
       }
 
@@ -220,7 +195,7 @@ export function createIframeRpc(
       });
       const message: BridgeMessage = {
         [BRIDGE_MARK]: true,
-        type: "rpc-call",
+        type: 'rpc-call',
         payload: { method, args, callId } satisfies RpcCallPayload,
       } as BridgeMessage;
       contentWindow.postMessage(message, targetOrigin);
@@ -231,9 +206,7 @@ export function createIframeRpc(
         if (pending) {
           pendingRpcs.delete(callId);
           pending.reject(
-            new Error(
-              `[IframeRpc] RPC timeout: ${method} (attempt ${attempt + 1}/${maxAttempts})`,
-            ),
+            new Error(`[IframeRpc] RPC timeout: ${method} (attempt ${attempt + 1}/${maxAttempts})`),
           );
         }
       }, rpc.timeout);
@@ -256,9 +229,7 @@ export function createIframeRpc(
     throw lastError ?? new Error(`[IframeRpc] RPC failed: ${method}`);
   }
 
-  function registerMainApi(
-    handlers: Record<string, (...args: unknown[]) => unknown>,
-  ): () => void {
+  function registerMainApi(handlers: Record<string, (...args: unknown[]) => unknown>): () => void {
     for (const [method, handler] of Object.entries(handlers)) {
       mainApiHandlers[method] = handler;
     }

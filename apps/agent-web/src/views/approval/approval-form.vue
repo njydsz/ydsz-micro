@@ -16,7 +16,14 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdDescriptions, YdDescriptionsItem, YdButton } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdButton,
+} from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -45,21 +52,31 @@ const detailEntries = computed<[string, unknown][]>(() => Object.entries(detail.
  * @returns 展示字符串
  */
 function displayValue(value: unknown): string {
-  if (value === null || value === undefined) { return '-'; }
+  if (value === null || value === undefined) {
+    return '-';
+  }
   if (typeof value === 'object') {
-    try { return JSON.stringify(value); } catch { return String(value); }
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
   }
   return String(value);
 }
 
 const [Modal, modalApi] = useYdModal({
   onOpenChange: async (isOpen) => {
-    if (!isOpen) { return; }
+    if (!isOpen) {
+      return;
+    }
     comment.value = '';
     detail.value = {};
     const data = modalApi.getData<{ record?: { id?: string } }>();
     approvalId.value = data?.record?.id ?? '';
-    if (!approvalId.value) { return; }
+    if (!approvalId.value) {
+      return;
+    }
     detailLoading.value = true;
     try {
       const res = await getApproval({ id: approvalId.value });
@@ -74,7 +91,9 @@ const [Modal, modalApi] = useYdModal({
 
 /** 提交审批处理：action 为 approve / reject */
 async function handleSubmit(action: 'approve' | 'reject') {
-  if (!approvalId.value) { return; }
+  if (!approvalId.value) {
+    return;
+  }
   submitting.value = true;
   modalApi.lock();
   try {
@@ -108,7 +127,9 @@ async function handleSubmit(action: 'approve' | 'reject') {
       </YdFormItem>
     </YdForm>
     <div class="mt-2 flex justify-end gap-2">
-      <YdButton variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">驳回</YdButton>
+      <YdButton variant="destructive" :disabled="submitting" @click="handleSubmit('reject')"
+        >驳回</YdButton
+      >
       <YdButton :disabled="submitting" @click="handleSubmit('approve')">通过</YdButton>
     </div>
   </Modal>

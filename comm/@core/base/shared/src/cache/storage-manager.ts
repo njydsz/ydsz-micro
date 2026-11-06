@@ -37,27 +37,21 @@ class StorageManager {
   private storage: Storage;
 
   /**
- * 构造存储管理器
- *
- * @param options.prefix - 键名前缀，用于多租户隔离
- * @param options.storageType - 底层存储引擎，默认 `localStorage`
- */
-  constructor({
-    prefix = '',
-    storageType = 'localStorage',
-  }: StorageManagerOptions = {}) {
+   * 构造存储管理器
+   *
+   * @param options.prefix - 键名前缀，用于多租户隔离
+   * @param options.storageType - 底层存储引擎，默认 `localStorage`
+   */
+  constructor({ prefix = '', storageType = 'localStorage' }: StorageManagerOptions = {}) {
     this.prefix = prefix;
     // 直接取 window 上的 Storage 实例而不做存在性保护：本包定位为纯前端工具，
     // SSR / 无 window 环境下应提前短路调用方，而不是在此静默降级为内存 Map
-    this.storage =
-      storageType === 'localStorage'
-        ? window.localStorage
-        : window.sessionStorage;
+    this.storage = storageType === 'localStorage' ? window.localStorage : window.sessionStorage;
   }
 
   /**
- * 清空所有以当前 prefix 开头的存储项。
- */
+   * 清空所有以当前 prefix 开头的存储项。
+   */
   clear(): void {
     // 先收集再统一删除：Storage 的 key(i) 索引随 removeItem 实时前移，
     // 边遍历边删除会漏掉紧随被删键之后的那个键
@@ -72,8 +66,8 @@ class StorageManager {
   }
 
   /**
- * 清理所有已过期的 storage 项（通过 getItem 内部的过期判定触发）。
- */
+   * 清理所有已过期的 storage 项（通过 getItem 内部的过期判定触发）。
+   */
   clearExpiredItems(): void {
     for (let i = 0; i < this.storage.length; i++) {
       const key = this.storage.key(i);
@@ -92,12 +86,12 @@ class StorageManager {
   }
 
   /**
- * 获取存储项，自动处理过期与反序列化。
- *
- * @param key - 键名（不含前缀）
- * @param defaultValue - 不存在或已过期时返回的默认值
- * @returns 反序列化后的值，或默认值
- */
+   * 获取存储项，自动处理过期与反序列化。
+   *
+   * @param key - 键名（不含前缀）
+   * @param defaultValue - 不存在或已过期时返回的默认值
+   * @returns 反序列化后的值，或默认值
+   */
   getItem<T>(key: string, defaultValue: null | T = null): null | T {
     const fullKey = this.getFullKey(key);
     const itemStr = this.storage.getItem(fullKey);
@@ -122,22 +116,22 @@ class StorageManager {
   }
 
   /**
- * 移除指定存储项。
- *
- * @param key - 键名（不含前缀）
- */
+   * 移除指定存储项。
+   *
+   * @param key - 键名（不含前缀）
+   */
   removeItem(key: string): void {
     const fullKey = this.getFullKey(key);
     this.storage.removeItem(fullKey);
   }
 
   /**
- * 写入存储项，可选设置 TTL 过期时间。
- *
- * @param key - 键名（不含前缀）
- * @param value - 值（会被 JSON 序列化）
- * @param ttl - 存活时间（毫秒），不传则永不过期
- */
+   * 写入存储项，可选设置 TTL 过期时间。
+   *
+   * @param key - 键名（不含前缀）
+   * @param value - 值（会被 JSON 序列化）
+   * @param ttl - 存活时间（毫秒），不传则永不过期
+   */
   setItem<T>(key: string, value: T, ttl?: number): void {
     const fullKey = this.getFullKey(key);
     // 注意 ttl 走真值判断：传 0 会被当作「不设置过期」而永久保留，

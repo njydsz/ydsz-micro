@@ -1,13 +1,7 @@
 <script lang="ts" setup>
 // @ts-nocheck
 import { cn } from '@ydsz-core/shared/utils';
-import {
-  AlertCircle,
-  CheckCircle2,
-  Info,
-  type LucideIcon,
-  X,
-} from 'lucide-vue-next';
+import { AlertCircle, CheckCircle2, Info, type LucideIcon, X } from 'lucide-vue-next';
 import { useLocale } from '../../locale/useLocale';
 
 const { t } = useLocale();
@@ -53,11 +47,13 @@ const typeStyles: Record<string, string> = {
 
 <template>
   <div
-    :class="cn(
-      'pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 text-sm shadow-lg transition-all',
-      typeStyles[props.type],
-      props.class,
-    )"
+    :class="
+      cn(
+        'pointer-events-auto flex items-center gap-3 rounded-lg border px-4 py-3 text-sm shadow-lg transition-all',
+        typeStyles[props.type],
+        props.class,
+      )
+    "
     role="alert"
     aria-live="polite"
     aria-atomic="true"

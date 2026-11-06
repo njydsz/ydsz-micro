@@ -16,7 +16,18 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdTextarea,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -61,7 +72,9 @@ const formData = reactive<WebhookFormState>({
 const rules = {
   name: [{ required: true, message: t('business.webhookNameRequired'), trigger: 'blur' }],
   eventType: [{ required: true, message: t('business.webhookEventTypeRequired'), trigger: 'blur' }],
-  callbackUrl: [{ required: true, message: t('business.webhookCallbackUrlRequired'), trigger: 'blur' }],
+  callbackUrl: [
+    { required: true, message: t('business.webhookCallbackUrlRequired'), trigger: 'blur' },
+  ],
 };
 
 /** Webhook 事件类型选项 */
@@ -141,12 +154,20 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('business.webhookCreate')));
+const title = computed(() =>
+  isEdit.value ? t('business.webhookEdit') : t('business.webhookCreate'),
+);
 </script>
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="110px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="110px"
+      label-position="right"
+    >
       <YdFormItem :label="t('business.webhookName')" prop="name">
         <YdInput v-model="formData.name" :placeholder="t('business.webhookNamePlaceholder')" />
       </YdFormItem>
@@ -154,7 +175,11 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         <YdSelectBase v-model="formData.eventType">
           <YdSelectTriggerBase :placeholder="t('business.webhookEventTypePlaceholder')" />
           <YdSelectContentBase>
-            <YdSelectItemBase v-for="item in eventTypeOptions" :key="item.value" :value="item.value">
+            <YdSelectItemBase
+              v-for="item in eventTypeOptions"
+              :key="item.value"
+              :value="item.value"
+            >
               {{ item.label }}
             </YdSelectItemBase>
           </YdSelectContentBase>
@@ -164,10 +189,16 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         <YdInput v-model="formData.jobKey" :placeholder="t('business.webhookJobKeyPlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('business.webhookJobGroup')" prop="jobGroup">
-        <YdInput v-model="formData.jobGroup" :placeholder="t('business.webhookJobGroupPlaceholder')" />
+        <YdInput
+          v-model="formData.jobGroup"
+          :placeholder="t('business.webhookJobGroupPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.webhookCallbackUrl')" prop="callbackUrl">
-        <YdInput v-model="formData.callbackUrl" :placeholder="t('business.webhookCallbackUrlPlaceholder')" />
+        <YdInput
+          v-model="formData.callbackUrl"
+          :placeholder="t('business.webhookCallbackUrlPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem label="HTTP Method" prop="httpMethod">
         <YdRadioGroup v-model="formData.httpMethod">
@@ -184,21 +215,33 @@ const title = computed(() => (isEdit.value ? t('business.webhookEdit') : t('busi
         </YdRadioGroup>
       </YdFormItem>
       <YdFormItem :label="t('business.webhookHeaders')" prop="headers">
-        <YdTextarea v-model="formData.headers" :rows="3" :placeholder="t('business.webhookHeadersPlaceholder')" />
+        <YdTextarea
+          v-model="formData.headers"
+          :rows="3"
+          :placeholder="t('business.webhookHeadersPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('business.webhookSecret')" prop="secret">
-        <YdInput v-model="formData.secret" :placeholder="t('business.webhookSecretPlaceholder')" type="password" />
+        <YdInput
+          v-model="formData.secret"
+          :placeholder="t('business.webhookSecretPlaceholder')"
+          type="password"
+        />
       </YdFormItem>
       <YdFormItem :label="t('common.status')">
         <YdRadioGroup v-model="formData.webhookStatus">
           <div class="flex items-center gap-5">
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="status-active" value="ACTIVE" />
-              <label for="status-active" class="cursor-pointer text-sm">{{ t('common.enabled') }}</label>
+              <label for="status-active" class="cursor-pointer text-sm">{{
+                t('common.enabled')
+              }}</label>
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="status-inactive" value="INACTIVE" />
-              <label for="status-inactive" class="cursor-pointer text-sm">{{ t('common.disabled') }}</label>
+              <label for="status-inactive" class="cursor-pointer text-sm">{{
+                t('common.disabled')
+              }}</label>
             </div>
           </div>
         </YdRadioGroup>

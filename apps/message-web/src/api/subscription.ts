@@ -23,29 +23,32 @@ export function upsert(data: SubscriptionUpsertDTO): Promise<MsgSubscriptionVO> 
 /**
  * listByUser: GET /message/subscription/user/{userId}
  */
-export function listByUser({ userId }: {
-    userId: string;
-  }): Promise<MsgSubscriptionVO[]> {
+export function listByUser({ userId }: { userId: string }): Promise<MsgSubscriptionVO[]> {
   return requestClient.get<MsgSubscriptionVO[]>(`/message/subscription/user/${userId}`);
 }
 
 /**
  * listByTopic: GET /message/subscription/topic/{topicCode}/{channel}
  */
-export function listByTopic({ topicCode, channel }: {
-    topicCode: string;
-    channel: string;
-  }): Promise<MsgSubscriptionVO[]> {
-  return requestClient.get<MsgSubscriptionVO[]>(`/message/subscription/topic/${topicCode}/${channel}`);
+export function listByTopic({
+  topicCode,
+  channel,
+}: {
+  topicCode: string;
+  channel: string;
+}): Promise<MsgSubscriptionVO[]> {
+  return requestClient.get<MsgSubscriptionVO[]>(
+    `/message/subscription/topic/${topicCode}/${channel}`,
+  );
 }
 
 /**
  * unsubscribe: POST /message/subscription/unsubscribe
  */
 export function unsubscribe(params: {
-    userId?: string;
-    topicCode?: string;
-    channel?: string;
-  }): Promise<void> {
+  userId?: string;
+  topicCode?: string;
+  channel?: string;
+}): Promise<void> {
   return requestClient.post<void>(`/message/subscription/unsubscribe`, { params });
 }

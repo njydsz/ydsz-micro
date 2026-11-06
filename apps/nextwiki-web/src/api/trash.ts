@@ -23,9 +23,7 @@ export function list(): Promise<TrashItemVO[]> {
 /**
  * restore: POST /nextwiki/trash/{trashItemId}/restore
  */
-export function restore({ trashItemId }: {
-    trashItemId: string;
-  }): Promise<void> {
+export function restore({ trashItemId }: { trashItemId: string }): Promise<void> {
   return requestClient.post<void>(`/nextwiki/trash/${trashItemId}/restore`);
 }
 
@@ -39,9 +37,7 @@ export function batchRestore(data: string[]): Promise<void> {
 /**
  * purge: DELETE /nextwiki/trash/{trashItemId}
  */
-export function purge({ trashItemId }: {
-    trashItemId: string;
-  }): Promise<void> {
+export function purge({ trashItemId }: { trashItemId: string }): Promise<void> {
   return requestClient.delete<void>(`/nextwiki/trash/${trashItemId}`);
 }
 

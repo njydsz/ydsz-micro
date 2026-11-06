@@ -8,14 +8,14 @@
  * * @author ydsz-team
  * @since 26.10.10
  */
-import { onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue';
 
-const mounted = ref(false)
+const mounted = ref(false);
 onMounted(() => {
-  mounted.value = true
-})
+  mounted.value = true;
+});
 
-defineExpose({ isClient: mounted })
+defineExpose({ isClient: mounted });
 </script>
 
 <template>

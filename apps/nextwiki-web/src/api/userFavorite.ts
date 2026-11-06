@@ -16,47 +16,44 @@ import type { UserFavoriteVO } from './models';
 /**
  * listFavorites: GET /nextwiki/favorites
  */
-export function listFavorites(params: {
-    limit?: number;
-  }): Promise<UserFavoriteVO[]> {
+export function listFavorites(params: { limit?: number }): Promise<UserFavoriteVO[]> {
   return requestClient.get<UserFavoriteVO[]>(`/nextwiki/favorites`, { params });
 }
 
 /**
  * addFavorite: POST /nextwiki/favorites/{nodeId}
  */
-export function addFavorite({ nodeId }: {
-    nodeId: string;
-  }): Promise<string> {
+export function addFavorite({ nodeId }: { nodeId: string }): Promise<string> {
   return requestClient.post<string>(`/nextwiki/favorites/${nodeId}`);
 }
 
 /**
  * removeFavorite: DELETE /nextwiki/favorites/{nodeId}
  */
-export function removeFavorite({ nodeId }: {
-    nodeId: string;
-  }): Promise<boolean> {
+export function removeFavorite({ nodeId }: { nodeId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/nextwiki/favorites/${nodeId}`);
 }
 
 /**
  * isFavorited: GET /nextwiki/favorites/{nodeId}/is-favorited
  */
-export function isFavorited({ nodeId }: {
-    nodeId: string;
-  }): Promise<boolean> {
+export function isFavorited({ nodeId }: { nodeId: string }): Promise<boolean> {
   return requestClient.get<boolean>(`/nextwiki/favorites/${nodeId}/is-favorited`);
 }
 
 /**
  * updatesort: POST /nextwiki/favorites/{nodeId}/sort
  */
-export function updatesort({ nodeId }: {
+export function updatesort(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, params: {
+  },
+  params: {
     sort?: number;
-  }): Promise<boolean> {
+  },
+): Promise<boolean> {
   return requestClient.post<boolean>(`/nextwiki/favorites/${nodeId}/sort`, { params });
 }
 

@@ -90,8 +90,7 @@ interface LocaleLangState {
 type LocaleRegistry = Record<LocaleLang, LocaleMessages>;
 
 /** 注入 key —— 从 ConfigProvider 读取当前语种对象 */
-const LOCALE_LANG_KEY: InjectionKey<Ref<LocaleLangState | undefined>>
-  = Symbol('ydsz-locale-lang');
+const LOCALE_LANG_KEY: InjectionKey<Ref<LocaleLangState | undefined>> = Symbol('ydsz-locale-lang');
 
 /** RTL 语言列表（预留扩展） */
 const rtlLanguages: LocaleLang[] = ['ar-SA'];
@@ -238,9 +237,10 @@ export function useLocale(options: UseLocaleOptions = {}): {
     const fallback = typeof fallbackOrParams === 'string' ? fallbackOrParams : undefined;
     const params = typeof fallbackOrParams === 'string' ? undefined : fallbackOrParams;
     const table = resolvedMessages.value[lang.value] ?? {};
-    const hit = table[key]
-      ?? (lang.value === 'zh-CN' ? undefined : resolvedMessages.value['zh-CN']?.[key])
-      ?? (lang.value === 'en-US' ? undefined : resolvedMessages.value['en-US']?.[key]);
+    const hit =
+      table[key] ??
+      (lang.value === 'zh-CN' ? undefined : resolvedMessages.value['zh-CN']?.[key]) ??
+      (lang.value === 'en-US' ? undefined : resolvedMessages.value['en-US']?.[key]);
     const text = hit ?? fallback ?? key;
     return params ? interpolate(text, params) : text;
   }

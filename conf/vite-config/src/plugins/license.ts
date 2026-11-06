@@ -5,11 +5,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  NormalizedOutputOptions,
-  OutputBundle,
-  OutputChunk,
-} from 'rollup';
+import type { NormalizedOutputOptions, OutputBundle, OutputChunk } from 'rollup';
 import type { PluginOption } from 'vite';
 
 import { EOL } from 'node:os';
@@ -25,14 +21,8 @@ import { dateUtil, readPackageJSON } from '@ydsz/node-utils';
  * @param root - 项目根目录，默认 process.cwd()
  * @returns Vite 插件对象
  */
-async function viteLicensePlugin(
-  root = process.cwd(),
-): Promise<PluginOption | undefined> {
-  const {
-    description = '',
-    homepage = '',
-    version = '',
-  } = await readPackageJSON(root);
+async function viteLicensePlugin(root = process.cwd()): Promise<PluginOption | undefined> {
+  const { description = '', homepage = '', version = '' } = await readPackageJSON(root);
 
   return {
     apply: 'build',

@@ -24,27 +24,28 @@ export function create(data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
 /**
  * update: PUT /message/route-rule/{id}
  */
-export function update({ id }: {
+export function update(
+  {
+    id,
+  }: {
     id: string;
-  }, data: RouteRuleUpsertDTO): Promise<MsgRouteRuleVO> {
+  },
+  data: RouteRuleUpsertDTO,
+): Promise<MsgRouteRuleVO> {
   return requestClient.put<MsgRouteRuleVO>(`/message/route-rule/${id}`, data);
 }
 
 /**
  * delete: DELETE /message/route-rule/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteApi({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/message/route-rule/${id}`);
 }
 
 /**
  * getById: GET /message/route-rule/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<MsgRouteRuleVO> {
+export function getById({ id }: { id: string }): Promise<MsgRouteRuleVO> {
   return requestClient.get<MsgRouteRuleVO>(`/message/route-rule/${id}`);
 }
 
@@ -52,7 +53,9 @@ export function getById({ id }: {
  * page: GET /message/route-rule/page
  */
 export function page(query?: PageQuery): Promise<PageResponse<MsgRouteRuleVO[]>> {
-  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/message/route-rule/page`, { params: query });
+  return requestClient.get<PageResponse<MsgRouteRuleVO[]>>(`/message/route-rule/page`, {
+    params: query,
+  });
 }
 
 /**

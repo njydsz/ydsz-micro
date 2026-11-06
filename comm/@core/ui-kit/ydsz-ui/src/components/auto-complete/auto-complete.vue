@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 /**
-* YdAutoComplete —— 自动补全输入框。
-* 
+ * YdAutoComplete —— 自动补全输入框。
+ *
  * <p>对标 Element Plus Autocomplete：
  * <ul>
  *   <li>输入触发远端搜索（带防抖、缓存）</li>
@@ -9,7 +9,7 @@
  *   <li>支持自定义渲染、清空、loading 状态</li>
  *   <li>大数据量下启用虚拟滚动</li>
  * </ul>
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\auto-complete\auto-complete.vue
  * @author ydsz-team
  * @since 26.10.11
@@ -19,7 +19,12 @@ import { computed, ref, toRef, watch } from 'vue';
 import { useVirtualForList } from '../../composables/use-virtual-for-list';
 import { useLocale } from '../../locale/useLocale';
 
-import type { AutoCompleteEmits, AutoCompleteFetchMethod, AutoCompleteOption, AutoCompleteProps } from './auto-complete-types';
+import type {
+  AutoCompleteEmits,
+  AutoCompleteFetchMethod,
+  AutoCompleteOption,
+  AutoCompleteProps,
+} from './auto-complete-types';
 import { useAutoComplete } from './use-auto-complete';
 
 defineOptions({ name: 'YdAutoComplete' });
@@ -161,10 +166,7 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    class="yd-auto-complete"
-    :class="{ 'yd-auto-complete--disabled': props.disabled }"
-  >
+  <div class="yd-auto-complete" :class="{ 'yd-auto-complete--disabled': props.disabled }">
     <!-- 输入框 -->
     <input
       ref="inputRef"
@@ -192,7 +194,9 @@ defineExpose({
       @click.stop="handleClear"
     >
       <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true">
-        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+        />
       </svg>
     </button>
 
@@ -235,10 +239,18 @@ defineExpose({
             @click="handleSelect(option as AutoCompleteOption<T>)"
             @mouseenter="activeIndex = idx"
           >
-            <slot name="option" :option="(option as AutoCompleteOption<T>)" :keyword="queryInner">
+            <slot name="option" :option="option as AutoCompleteOption<T>" :keyword="queryInner">
               <span class="yd-auto-complete__option-text">
-                <template v-for="(part, pIdx) in highlightText((option as AutoCompleteOption<T>).label, queryInner)" :key="pIdx">
-                  <mark v-if="part.hit" class="yd-auto-complete__option-highlight">{{ part.text }}</mark>
+                <template
+                  v-for="(part, pIdx) in highlightText(
+                    (option as AutoCompleteOption<T>).label,
+                    queryInner,
+                  )"
+                  :key="pIdx"
+                >
+                  <mark v-if="part.hit" class="yd-auto-complete__option-highlight">{{
+                    part.text
+                  }}</mark>
                   <template v-else>{{ part.text }}</template>
                 </template>
               </span>
@@ -248,7 +260,10 @@ defineExpose({
 
         <!-- 虚拟滚动列表 -->
         <template v-else>
-          <div v-bind="virtualScrollHandler.raw.containerProps.value" class="yd-auto-complete__virtual-container">
+          <div
+            v-bind="virtualScrollHandler.raw.containerProps.value"
+            class="yd-auto-complete__virtual-container"
+          >
             <div v-bind="virtualScrollHandler.raw.spacerProps.value">
               <button
                 v-for="vItem in virtualScrollHandler.displayItems.value"
@@ -259,7 +274,12 @@ defineExpose({
                   'yd-auto-complete__option--active': activeIndex === vItem.index,
                   'yd-auto-complete__option--disabled': vItem.data.disabled,
                 }"
-                :style="{ position: 'absolute', top: `${vItem.offsetY}px`, width: '100%', height: `${vItem.height}px` }"
+                :style="{
+                  position: 'absolute',
+                  top: `${vItem.offsetY}px`,
+                  width: '100%',
+                  height: `${vItem.height}px`,
+                }"
                 role="option"
                 :disabled="vItem.data.disabled"
                 @click="handleSelect(vItem.data)"
@@ -367,8 +387,12 @@ defineExpose({
 }
 
 @keyframes yd-auto-complete-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .yd-auto-complete__option {
@@ -414,7 +438,9 @@ defineExpose({
 
 .yd-auto-complete-fade-enter-active,
 .yd-auto-complete-fade-leave-active {
-  transition: opacity 0.2s ease, transform 0.15s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
 }
 
 .yd-auto-complete-fade-enter-from,

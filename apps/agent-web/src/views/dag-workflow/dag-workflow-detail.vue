@@ -12,16 +12,16 @@
 import { YdButton, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
 import { useYdModal } from '@ydsz/common-ui';
 import { ref } from 'vue';
-import type { DagWorkflow } from '#/api/models';
+import type { DagWorkflowVO } from '#/api/models';
 
 defineOptions({ name: 'DagWorkflowDetail' });
 
-const detailRecord = ref<DagWorkflow | undefined>(undefined);
+const detailRecord = ref<DagWorkflowVO | undefined>(undefined);
 
 const [Modal, modalApi] = useYdModal({
   onOpenChange: (isOpen: boolean) => {
     if (!isOpen) return;
-    detailRecord.value = modalApi.getData<{ record: DagWorkflow }>()?.record;
+    detailRecord.value = modalApi.getData<{ record: DagWorkflowVO }>()?.record;
   },
 });
 
@@ -31,18 +31,22 @@ function handleClose(): void {
 </script>
 
 <template>
-  <Modal
-    title="工作流详情"
-    width="720px"
-    @close="handleClose"
-  >
+  <Modal title="工作流详情" width="720px" @close="handleClose">
     <YdDescriptions :column="2" border>
-      <YdDescriptionsItem label="工作流编码">{{ detailRecord?.workflowCode ?? '-' }}</YdDescriptionsItem>
-      <YdDescriptionsItem label="工作流名称">{{ detailRecord?.name ?? '-' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="工作流编码">{{
+        detailRecord?.workflowCode ?? '-'
+      }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="工作流名称">{{
+        detailRecord?.workflowName ?? '-'
+      }}</YdDescriptionsItem>
       <YdDescriptionsItem label="分类">{{ detailRecord?.category ?? '-' }}</YdDescriptionsItem>
-      <YdDescriptionsItem label="描述" :span="2">{{ detailRecord?.description ?? '-' }}</YdDescriptionsItem>
+      <YdDescriptionsItem label="描述" :span="2">{{
+        detailRecord?.description ?? '-'
+      }}</YdDescriptionsItem>
       <YdDescriptionsItem label="YAML DSL" :span="2">
-        <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all rounded bg-accent/40 p-3 text-xs font-mono">{{ detailRecord?.dsl ?? '-' }}</pre>
+        <pre
+          class="bg-accent/40 max-h-64 overflow-auto whitespace-pre-wrap break-all rounded p-3 font-mono text-xs"
+          >{{ detailRecord?.dslContent ?? '-' }}</pre>
       </YdDescriptionsItem>
     </YdDescriptions>
     <template #footer>

@@ -1,21 +1,15 @@
 <script setup lang="ts">
 /**
-* Watermark（水印）组件
-* 
+ * Watermark（水印）组件
+ *
  * 通过 canvas 将文字/图片绘制为 base64 dataURL，再作为 background-image
  * 平铺覆盖整个容器。可选择性开启 MutationObserver 防篡改监听。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\watermark\watermark.vue
  * @author ydsz-ai
  * @since 1.0.0
  */
-import {
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-} from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import type { WatermarkProps } from './watermark-types';
 
@@ -157,28 +151,18 @@ function startObserver(): void {
         const style = target.style;
 
         // background-image 被移除 → 恢复
-        if (
-          mutation.attributeName === 'style' &&
-          !style.backgroundImage &&
-          currentDataUrl.value
-        ) {
+        if (mutation.attributeName === 'style' && !style.backgroundImage && currentDataUrl.value) {
           target.style.backgroundImage = `url(${currentDataUrl.value})`;
           target.style.backgroundRepeat = 'repeat';
         }
 
         // display:none → 恢复
-        if (
-          mutation.attributeName === 'style' &&
-          style.display === 'none'
-        ) {
+        if (mutation.attributeName === 'style' && style.display === 'none') {
           target.style.display = '';
         }
 
         // visibility:hidden → 恢复
-        if (
-          mutation.attributeName === 'style' &&
-          style.visibility === 'hidden'
-        ) {
+        if (mutation.attributeName === 'style' && style.visibility === 'hidden') {
           target.style.visibility = '';
         }
       }
@@ -243,11 +227,7 @@ watch(
 </script>
 
 <template>
-  <div
-    ref="watermarkRef"
-    :class="[`yd-watermark`, props.class]"
-    :style="{ zIndex }"
-  >
+  <div ref="watermarkRef" :class="[`yd-watermark`, props.class]" :style="{ zIndex }">
     <slot />
   </div>
 </template>

@@ -118,6 +118,8 @@ describe('YdDialogTitle / Description 导出验证', () => {
 
   it('YdDialogDescription 应导出为函数或对象', () => {
     expect(YdDialogDescription).toBeDefined();
-    expect(typeof YdDialogDescription === 'function' || typeof YdDialogDescription === 'object').toBe(true);
+    expect(
+      typeof YdDialogDescription === 'function' || typeof YdDialogDescription === 'object',
+    ).toBe(true);
   });
 });

@@ -183,7 +183,9 @@ function parsePropsFromType(typeStr: string, script: string): PropInfo[] {
  * 从脚本中提取默认值。
  */
 function extractDefaultValue(propName: string, script: string): string | undefined {
-  const withDefaultsMatch = script.match(/withDefaults\s*\(\s*defineProps[^)]*,\s*\{([\s\S]*?)\}\s*\)/);
+  const withDefaultsMatch = script.match(
+    /withDefaults\s*\(\s*defineProps[^)]*,\s*\{([\s\S]*?)\}\s*\)/,
+  );
   if (!withDefaultsMatch) return undefined;
 
   const defaults = withDefaultsMatch[1];

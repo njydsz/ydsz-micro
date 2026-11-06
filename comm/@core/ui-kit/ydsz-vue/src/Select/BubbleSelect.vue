@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import { VisuallyHidden } from '../VisuallyHidden/index.ts'
+import { ref, toRefs } from 'vue';
+import { VisuallyHidden } from '../VisuallyHidden/index.ts';
 
 interface BubbleSelectProps {
-  autocomplete?: string
-  autofocus?: boolean
-  disabled?: boolean
-  form?: string
-  multiple?: boolean
-  name?: string
-  required?: boolean
-  size?: number
-  value?: any
+  autocomplete?: string;
+  autofocus?: boolean;
+  disabled?: boolean;
+  form?: string;
+  multiple?: boolean;
+  name?: string;
+  required?: boolean;
+  size?: number;
+  value?: any;
 }
 
-const props = defineProps<BubbleSelectProps>()
+const props = defineProps<BubbleSelectProps>();
 // 透传的 $attrs 可能包含表单适配器注入的 `options` 数组等组件级参数，
 // 落到原生 <select> 上会触发无效 DOM prop 警告，故禁止自动继承。
-defineOptions({ inheritAttrs: false })
-const { value } = toRefs(props)
-const selectElement = ref<HTMLElement>()
+defineOptions({ inheritAttrs: false });
+const { value } = toRefs(props);
+const selectElement = ref<HTMLElement>();
 
 // This would bubble "change" event to form, with the target as Select element.
 // We temporary disable this as not sure if it will be needed for Vue

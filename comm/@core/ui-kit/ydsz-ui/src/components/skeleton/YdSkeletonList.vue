@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* Skeleton.List：列表骨架屏模板，每行带可选头像与操作按钮。
-* 
+ * Skeleton.List：列表骨架屏模板，每行带可选头像与操作按钮。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonList.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -29,17 +29,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div :class="cn('flex flex-col gap-4', props.class)">
-    <div
-      v-for="(_, idx) in props.rows"
-      :key="idx"
-      class="flex items-center gap-3"
-    >
+    <div v-for="(_, idx) in props.rows" :key="idx" class="flex items-center gap-3">
       <!-- 左侧圆形头像占位 -->
-      <YdSkeleton
-        v-if="props.avatar"
-        variant="circular"
-        class="size-10"
-      />
+      <YdSkeleton v-if="props.avatar" variant="circular" class="size-10" />
 
       <!-- 中间文本区域 -->
       <div class="flex-1 space-y-2">
@@ -48,11 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
       </div>
 
       <!-- 右侧操作按钮占位 -->
-      <YdSkeleton
-        v-if="props.action"
-        variant="rounded"
-        class="h-8 w-16"
-      />
+      <YdSkeleton v-if="props.action" variant="rounded" class="h-8 w-16" />
     </div>
   </div>
 </template>

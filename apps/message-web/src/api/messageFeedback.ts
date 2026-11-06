@@ -25,9 +25,9 @@ export function submitFeedback(data: MessageFeedbackDTO): Promise<string> {
  * getAverageRating: GET /message/feedback/rating
  */
 export function getAverageRating(params: {
-    userId?: string;
-    channel?: string;
-  }): Promise<Record<string, number>> {
+  userId?: string;
+  channel?: string;
+}): Promise<Record<string, number>> {
   return requestClient.get<Record<string, number>>(`/message/feedback/rating`, { params });
 }
 
@@ -35,19 +35,23 @@ export function getAverageRating(params: {
  * pageFeedback: GET /message/feedback/page
  */
 export function pageFeedback(query?: {
-    page?: number;
-    size?: number;
-    channel?: string;
-    userId?: string;
-  }): Promise<PageResponse<MsgFeedbackVO[]>> {
-  return requestClient.get<PageResponse<MsgFeedbackVO[]>>(`/message/feedback/page`, { params: query });
+  page?: number;
+  size?: number;
+  channel?: string;
+  userId?: string;
+}): Promise<PageResponse<MsgFeedbackVO[]>> {
+  return requestClient.get<PageResponse<MsgFeedbackVO[]>>(`/message/feedback/page`, {
+    params: query,
+  });
 }
 
 /**
  * shouldReduceFrequency: GET /message/feedback/shouldReduceFreq
  */
 export function shouldReduceFrequency(params: {
-    userId?: string;
-  }): Promise<Record<string, boolean>> {
-  return requestClient.get<Record<string, boolean>>(`/message/feedback/shouldReduceFreq`, { params });
+  userId?: string;
+}): Promise<Record<string, boolean>> {
+  return requestClient.get<Record<string, boolean>>(`/message/feedback/shouldReduceFreq`, {
+    params,
+  });
 }

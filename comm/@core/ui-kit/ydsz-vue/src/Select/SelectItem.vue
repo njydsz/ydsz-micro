@@ -1,25 +1,25 @@
 <script lang="ts">
 // @ts-nocheck
-import type { Ref } from 'vue'
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { createContext, getActiveElement, useForwardExpose, useId } from '../shared/index.ts'
+import type { Ref } from 'vue';
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { createContext, getActiveElement, useForwardExpose, useId } from '../shared/index.ts';
 
 interface SelectItemContext {
-  value: string
-  textId: string
-  disabled: Ref<boolean>
-  isSelected: Ref<boolean>
-  onItemTextChange: (node: HTMLElement | undefined) => void
+  value: string;
+  textId: string;
+  disabled: Ref<boolean>;
+  isSelected: Ref<boolean>;
+  onItemTextChange: (node: HTMLElement | undefined) => void;
 }
 
-export const [injectSelectItemContext, provideSelectItemContext]
-    = createContext<SelectItemContext>('SelectItem')
+export const [injectSelectItemContext, provideSelectItemContext] =
+  createContext<SelectItemContext>('SelectItem');
 
 export interface SelectItemProps extends PrimitiveProps {
   /** The value given as data when submitted with a `name`. */
-  value: string
+  value: string;
   /** When `true`, prevents the user from interacting with the item. */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * Optional text used for typeahead purposes.
    *
@@ -27,97 +27,80 @@ export interface SelectItemProps extends PrimitiveProps {
    *
    * Use this when the content is complex, or you have non-textual content inside.
    */
-  textValue?: string
+  textValue?: string;
 }
 </script>
 
 <script setup lang="ts">
+import { computed, nextTick, onMounted, ref, toRefs } from 'vue';
+import { injectSelectRootContext } from './SelectRoot.vue';
 import {
-  computed,
-  nextTick,
-  onMounted,
-  ref,
-  toRefs,
-} from 'vue'
-import { injectSelectRootContext } from './SelectRoot.vue'
-import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
-import { SELECTION_KEYS } from './utils'
-import { Primitive } from '../Primitive/index.ts'
+  SelectContentDefaultContextValue,
+  injectSelectContentContext,
+} from './SelectContentImpl.vue';
+import { SELECTION_KEYS } from './utils';
+import { Primitive } from '../Primitive/index.ts';
 
-const props = defineProps<SelectItemProps>()
-const { disabled } = toRefs(props)
+const props = defineProps<SelectItemProps>();
+const { disabled } = toRefs(props);
 
-const rootContext = injectSelectRootContext()
-const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-const { forwardRef, currentElement } = useForwardExpose()
+const rootContext = injectSelectRootContext();
+const contentContext = injectSelectContentContext(SelectContentDefaultContextValue);
+const { forwardRef, currentElement } = useForwardExpose();
 
-const isSelected = computed(() => rootContext.modelValue?.value === props.value)
-const isFocused = ref(false)
-const textValue = ref(props.textValue ?? '')
-const textId = useId(undefined, 'radix-vue-select-item-text')
+const isSelected = computed(() => rootContext.modelValue?.value === props.value);
+const isFocused = ref(false);
+const textValue = ref(props.textValue ?? '');
+const textId = useId(undefined, 'radix-vue-select-item-text');
 
 async function handleSelect(ev?: PointerEvent) {
-  await nextTick()
-  if (ev?.defaultPrevented)
-    return
+  await nextTick();
+  if (ev?.defaultPrevented) return;
 
   if (!disabled.value) {
-    rootContext.onValueChange(props.value)
-    rootContext.onOpenChange(false)
+    rootContext.onValueChange(props.value);
+    rootContext.onOpenChange(false);
   }
 }
 
 async function handlePointerMove(event: PointerEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
+  await nextTick();
+  if (event.defaultPrevented) return;
   if (disabled.value) {
-    contentContext.onItemLeave?.()
-  }
-  else {
+    contentContext.onItemLeave?.();
+  } else {
     // even though safari doesn't support this option, it's acceptable
     // as it only means it might scroll a few pixels when using the pointer.
-    (event.currentTarget as HTMLElement).focus({ preventScroll: true })
+    (event.currentTarget as HTMLElement).focus({ preventScroll: true });
   }
 }
 
 async function handlePointerLeave(event: PointerEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
-  if (event.currentTarget === getActiveElement())
-    contentContext.onItemLeave?.()
+  await nextTick();
+  if (event.defaultPrevented) return;
+  if (event.currentTarget === getActiveElement()) contentContext.onItemLeave?.();
 }
 
 async function handleKeyDown(event: KeyboardEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
-  const isTypingAhead = contentContext.searchRef?.value !== ''
-  if (isTypingAhead && event.key === ' ')
-    return
-  if (SELECTION_KEYS.includes(event.key))
-    handleSelect()
+  await nextTick();
+  if (event.defaultPrevented) return;
+  const isTypingAhead = contentContext.searchRef?.value !== '';
+  if (isTypingAhead && event.key === ' ') return;
+  if (SELECTION_KEYS.includes(event.key)) handleSelect();
   // prevent page scroll if using the space key to select an item
-  if (event.key === ' ')
-    event.preventDefault()
+  if (event.key === ' ') event.preventDefault();
 }
 
 if (props.value === '') {
   throw new Error(
     'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
-  )
+  );
 }
 
 onMounted(() => {
-  if (!currentElement.value)
-    return
-  contentContext.itemRefCallback(
-    currentElement.value,
-    props.value,
-    props.disabled,
-  )
-})
+  if (!currentElement.value) return;
+  contentContext.itemRefCallback(currentElement.value, props.value, props.disabled);
+});
 
 provideSelectItemContext({
   value: props.value,
@@ -125,9 +108,9 @@ provideSelectItemContext({
   textId,
   isSelected,
   onItemTextChange: (node) => {
-    textValue.value = ((textValue.value || node?.textContent) ?? '').trim()
+    textValue.value = ((textValue.value || node?.textContent) ?? '').trim();
   },
-})
+});
 </script>
 
 <template>
@@ -147,9 +130,11 @@ provideSelectItemContext({
     @focus="isFocused = true"
     @blur="isFocused = false"
     @pointerup="handleSelect"
-    @pointerdown="(event) => {
-      (event.currentTarget as HTMLElement).focus({ preventScroll: true })
-    }"
+    @pointerdown="
+      (event) => {
+        (event.currentTarget as HTMLElement).focus({ preventScroll: true });
+      }
+    "
     @touchend.prevent.stop
     @pointermove="handlePointerMove"
     @pointerleave="handlePointerLeave"

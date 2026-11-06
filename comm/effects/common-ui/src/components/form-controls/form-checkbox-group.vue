@@ -64,9 +64,7 @@ function toggle(option: CheckboxGroupOption): void {
       v-for="option in props.options"
       :key="option.value"
       :class="
-        props.disabled || option.disabled
-          ? 'cursor-not-allowed opacity-50'
-          : 'cursor-pointer'
+        props.disabled || option.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
       "
       class="flex items-center gap-2 text-sm"
       @click.prevent="toggle(option)"

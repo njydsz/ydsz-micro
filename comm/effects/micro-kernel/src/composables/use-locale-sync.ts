@@ -31,11 +31,11 @@
  * @since 4.2.0
  */
 
-import type { Composer } from "vue-i18n";
+import type { Composer } from 'vue-i18n';
 
-import { onUnmounted, ref, watch } from "vue";
+import { onUnmounted, ref, watch } from 'vue';
 
-import { useSimpleLocale } from "@ydsz-core/composables";
+import { useSimpleLocale } from '@ydsz-core/composables';
 
 // ==================== 模块级共享状态 ====================
 
@@ -184,24 +184,18 @@ export interface UseLocaleSyncReturn {
  * }
  * ```
  */
-export function useLocaleSync(
-  options: UseLocaleSyncOptions,
-): UseLocaleSyncReturn {
-  const {
-    i18n,
-    initialLocale,
-    providerReadyTimeout = 2000,
-  } = options;
+export function useLocaleSync(options: UseLocaleSyncOptions): UseLocaleSyncReturn {
+  const { i18n, initialLocale, providerReadyTimeout = 2000 } = options;
 
   const { setSimpleLocale } = useSimpleLocale();
-  const locale = ref<string>(initialLocale || i18n.locale.value || "zh-CN");
+  const locale = ref<string>(initialLocale || i18n.locale.value || 'zh-CN');
 
   // 同步辅助：更新 i18n + 响应式 ref + SimpleLocale
   const applyLocale = (nextLocale: string): void => {
     if (nextLocale === locale.value) return;
     locale.value = nextLocale;
     i18n.locale.value = nextLocale;
-    setSimpleLocale(nextLocale as "en-US" | "zh-CN");
+    setSimpleLocale(nextLocale as 'en-US' | 'zh-CN');
   };
 
   // === Provider 注册：监听本地 i18n.locale 变化，广播到 all consumers ===
@@ -211,7 +205,7 @@ export function useLocaleSync(
     (nextLocale) => {
       if (!nextLocale) return;
       locale.value = nextLocale as string;
-      setSimpleLocale(nextLocale as "en-US" | "zh-CN");
+      setSimpleLocale(nextLocale as 'en-US' | 'zh-CN');
       // 广播到所有 consumer
       for (const consumer of shared.consumers) {
         consumer(nextLocale as string);
@@ -261,7 +255,7 @@ export function useLocaleSync(
         const idx = shared.waitingResolvers.indexOf(resolveWaiting);
         if (idx !== -1) shared.waitingResolvers.splice(idx, 1);
         // 回退到本地值
-        const fallback = initialLocale || i18n.locale.value || "zh-CN";
+        const fallback = initialLocale || i18n.locale.value || 'zh-CN';
         applyLocale(fallback);
         resolve(fallback);
       }, providerReadyTimeout);

@@ -14,21 +14,16 @@ import type {
   MicroAppConfig,
   SandboxType,
   UnmountResult,
-} from "@ydsz/micro-runtime";
-import type { Manifest } from "./loader";
-import type { SandboxStrategy } from "./sandbox-strategy";
+} from '@ydsz/micro-runtime';
+import type { Manifest } from './loader';
+import type { SandboxStrategy } from './sandbox-strategy';
 // ==================== 状态类型 ====================
 
 /** 子应用生命周期状态：未加载 / 加载中 / 已加载 / 已挂载 / 已卸载 */
-export type AppStatus =
-  | "LOADED"
-  | "LOADING"
-  | "MOUNTED"
-  | "NOT_LOADED"
-  | "UNMOUNTED";
+export type AppStatus = 'LOADED' | 'LOADING' | 'MOUNTED' | 'NOT_LOADED' | 'UNMOUNTED';
 
 /** 沙箱类型 (re-export 自 micro-runtime) */
-export type { SandboxType } from "@ydsz/micro-runtime";
+export type { SandboxType } from '@ydsz/micro-runtime';
 
 /** 单个子应用运行时实例 */
 export interface AppInstance {
@@ -137,9 +132,9 @@ export interface KeepAliveConfig {
  */
 export function configureKeepAlive(config: KeepAliveConfig): void {
   const ctx = getContext();
-  if (typeof config.enabled === "boolean") ctx.keepAliveEnabled = config.enabled;
-  if (typeof config.max === "number") ctx.maxKeepAliveApps = Math.max(0, config.max);
-  if (typeof config.ttl === "number") ctx.keepAliveTTL = Math.max(0, config.ttl);
+  if (typeof config.enabled === 'boolean') ctx.keepAliveEnabled = config.enabled;
+  if (typeof config.max === 'number') ctx.maxKeepAliveApps = Math.max(0, config.max);
+  if (typeof config.ttl === 'number') ctx.keepAliveTTL = Math.max(0, config.ttl);
 }
 
 /** 获取当前 KeepAlive 配置快照 */
@@ -191,13 +186,13 @@ export function setMaxKeepAliveApps(max: number): void {
 export function createAppInstance(config: MicroAppConfig): AppInstance {
   const instance: AppInstance = {
     config,
-    status: "NOT_LOADED",
+    status: 'NOT_LOADED',
     exports: null,
     keepAlive: false,
     cachedRoot: null,
     cachedParent: null,
     strategy: null,
-    sandboxType: config.sandbox ?? "snapshot",
+    sandboxType: config.sandbox ?? 'snapshot',
     loadMetrics: null,
     error: null,
     lastActivatedAt: 0,
@@ -314,7 +309,7 @@ export function resetScheduler(): void {
 export function getKeepAliveCount(): number {
   let count = 0;
   for (const instance of getContext().appInstances.values()) {
-    if (instance.keepAlive && instance.status === "UNMOUNTED" && instance.cachedRoot) {
+    if (instance.keepAlive && instance.status === 'UNMOUNTED' && instance.cachedRoot) {
       count++;
     }
   }

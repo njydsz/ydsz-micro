@@ -23,18 +23,24 @@ export function reportErrors(data: MonitorErrorBatchDTO): Promise<void> {
 /**
  * reportWebVitals: POST /monitor/web-vitals
  */
-export function reportWebVitals(params: {
+export function reportWebVitals(
+  params: {
     alert?: boolean;
-  }, data: MonitorWebVitalBatchDTO): Promise<void> {
+  },
+  data: MonitorWebVitalBatchDTO,
+): Promise<void> {
   return requestClient.post<void>(`/monitor/web-vitals`, data, { params });
 }
 
 /**
  * uploadSourcemap: POST /v1/monitor/sourcemaps
  */
-export function uploadSourcemap(params: {
+export function uploadSourcemap(
+  params: {
     release?: string;
     file?: string;
-  }, data: number[]): Promise<string> {
+  },
+  data: number[],
+): Promise<string> {
   return requestClient.post<string>(`/v1/monitor/sourcemaps`, data, { params });
 }

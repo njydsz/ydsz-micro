@@ -16,7 +16,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
@@ -90,7 +90,11 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
-        const res = await listJobs({ pageNum: page.currentPage, pageSize: page.pageSize, ...formValues });
+        const res = await listJobs({
+          pageNum: page.currentPage,
+          pageSize: page.pageSize,
+          ...formValues,
+        });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },
@@ -99,7 +103,11 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'jobName', title: '任务名称', itemRender: { name: 'YdInput', props: { placeholder: '请输入任务名称' } } },
+      {
+        field: 'jobName',
+        title: '任务名称',
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入任务名称' } },
+      },
     ],
   },
   checkboxConfig: { reserve: true, strict: false },
@@ -182,16 +190,8 @@ onMounted(() => {
             <YdSwitch :checked="migrationEnabled" disabled />
             <span class="text-sm">{{ migrationEnabled ? '漂移已启用' : '漂移已禁用' }}</span>
           </div>
-          <YdInput
-            v-model="targetCluster"
-            placeholder="请输入目标集群名称"
-            class="!w-48"
-          />
-          <YdButton
-            :loading="migrating"
-            :disabled="!targetCluster"
-            @click="handleMigrate"
-          >
+          <YdInput v-model="targetCluster" placeholder="请输入目标集群名称" class="!w-48" />
+          <YdButton :loading="migrating" :disabled="!targetCluster" @click="handleMigrate">
             执行迁移
           </YdButton>
         </div>
@@ -202,7 +202,9 @@ onMounted(() => {
     <div v-if="clusterList.length > 0" class="mt-4 rounded border bg-gray-50 p-3">
       <div class="mb-2 text-xs font-medium text-gray-600">可用目标集群：</div>
       <div class="flex flex-wrap gap-2">
-        <YdBadge v-for="cluster in clusterList" :key="cluster" variant="secondary">{{ cluster }}</YdBadge>
+        <YdBadge v-for="cluster in clusterList" :key="cluster" variant="secondary">{{
+          cluster
+        }}</YdBadge>
       </div>
     </div>
   </Page>

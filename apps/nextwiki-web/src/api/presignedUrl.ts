@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * generateUploadUrl: POST /nextwiki/storage/presigned-upload
  *

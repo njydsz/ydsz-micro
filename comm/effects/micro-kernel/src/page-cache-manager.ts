@@ -19,17 +19,14 @@
  * @since 4.2.2
  */
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import type { PageCachePolicy, PageCacheRecord, ScrollPosition } from "./page-cache-types";
-import {
-  DEFAULT_POLICY,
-  NAMESPACE_PREFIX,
-} from "./page-cache-types";
+import type { PageCachePolicy, PageCacheRecord, ScrollPosition } from './page-cache-types';
+import { DEFAULT_POLICY, NAMESPACE_PREFIX } from './page-cache-types';
 import {
   captureScrollPosition as captureScrollPositionRaw,
   restoreScrollPosition as restoreScrollPositionRaw,
-} from "./page-cache-scroll";
+} from './page-cache-scroll';
 
 import {
   persistPageCacheStorage,
@@ -41,21 +38,17 @@ import {
   loadAppStateStorage,
   removeAppStateStorage,
   removeFromRegistry,
-} from "./page-cache-storage";
+} from './page-cache-storage';
 
 // v4.3.0 修复：consumePersistedPageCache 使用 getStorage/removeStorage 但
 // 模块拆分（v4.2.2）时遗漏导入，导致任何环境读取缓存即 ReferenceError
 // → 被 catch 吞掉后恒返回 null（页面缓存记忆功能实际失效）。
-import { getStorage, removeStorage } from "./storage-utils";
+import { getStorage, removeStorage } from './storage-utils';
 
 // 重新导出类型，保持向后兼容
-export type {
-  PageCachePolicy,
-  PageCacheRecord,
-  ScrollPosition,
-} from "./page-cache-types";
+export type { PageCachePolicy, PageCacheRecord, ScrollPosition } from './page-cache-types';
 
-const logger = createLogger("PageCacheManager");
+const logger = createLogger('PageCacheManager');
 
 // ==================== 全局配置 ====================
 
@@ -105,10 +98,7 @@ export function captureScrollPosition(container: HTMLElement): ScrollPosition {
  * @param record - 缓存记录
  * @param container - 子应用根容器元素
  */
-export function restoreScrollPosition(
-  record: PageCacheRecord,
-  container: HTMLElement,
-): void {
+export function restoreScrollPosition(record: PageCacheRecord, container: HTMLElement): void {
   restoreScrollPositionRaw(
     record.scroll,
     record.routePath,
@@ -123,10 +113,7 @@ export function captureScroll(container: HTMLElement): ScrollPosition {
 }
 
 /** @deprecated v4.3.0 起更名为 restoreScrollPosition，本别名仅为向后兼容 */
-export function restoreScroll(
-  record: PageCacheRecord,
-  container: HTMLElement,
-): void {
+export function restoreScroll(record: PageCacheRecord, container: HTMLElement): void {
   restoreScrollPosition(record, container);
 }
 
@@ -155,7 +142,7 @@ export function consumePersistedPageCache(
   routePath: string,
 ): PageCacheRecord | null {
   try {
-    const cacheKey = `${NAMESPACE_PREFIX}page-cache:${appName}:${routePath.replace(/[^a-zA-Z0-9-]/g, "_")}`;
+    const cacheKey = `${NAMESPACE_PREFIX}page-cache:${appName}:${routePath.replace(/[^a-zA-Z0-9-]/g, '_')}`;
     // v4.3.0: getStorage 双参契约（缺失返回 defaultValue），显式传 null 避免类型违约
     const record = getStorage<PageCacheRecord | null>(cacheKey, null);
 

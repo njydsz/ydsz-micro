@@ -44,7 +44,17 @@ const DEFAULT_RULES: ArchRule[] = [
   {
     name: 'no-main-import-apps',
     from: ['main/'],
-    to: ['apps/', '@ydsz/userinfo-web', '@ydsz/system-web', '@ydsz/message-web', '@ydsz/cronjob-web', '@ydsz/workflow-web', '@ydsz/nextwiki-web', '@ydsz/literule-web', '@ydsz/agent-web'],
+    to: [
+      'apps/',
+      '@ydsz/userinfo-web',
+      '@ydsz/system-web',
+      '@ydsz/message-web',
+      '@ydsz/cronjob-web',
+      '@ydsz/workflow-web',
+      '@ydsz/nextwiki-web',
+      '@ydsz/literule-web',
+      '@ydsz/agent-web',
+    ],
     description: '主应用不应依赖子应用代码',
   },
   {

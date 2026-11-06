@@ -88,15 +88,13 @@ function run() {
   outputValue = useTransition(source, {
     disabled,
     duration: props.duration,
-        onFinished: () => {
-          emit('finished');
-        },
-        onStarted: () => {
-          emit('started');
-        },
-    ...(props.useEasing
-      ? { transition: TransitionPresets[props.transition] }
-      : {}),
+    onFinished: () => {
+      emit('finished');
+    },
+    onStarted: () => {
+      emit('started');
+    },
+    ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
   });
 }
 
@@ -128,4 +126,3 @@ defineExpose({ reset });
     {{ value }}
   </span>
 </template>
-

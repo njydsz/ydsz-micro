@@ -54,10 +54,7 @@ export class BusinessError extends Error {
     this.retryable = getErrorMeta(this.code)?.retryable ?? false;
     // 优先使用后端响应中的 level，其次从错误码元信息推断，兜底 ERROR
     const meta = getErrorMeta(this.code);
-    this.level =
-      options.level ??
-      (meta?.level as ExceptionSeverity | undefined) ??
-      'ERROR';
+    this.level = options.level ?? (meta?.level as ExceptionSeverity | undefined) ?? 'ERROR';
   }
 }
 

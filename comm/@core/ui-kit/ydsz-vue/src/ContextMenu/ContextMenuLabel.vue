@@ -1,16 +1,16 @@
 <script lang="ts">
 // @ts-nocheck
-import type { MenuLabelProps } from '../Menu/index.ts'
+import type { MenuLabelProps } from '../Menu/index.ts';
 
 export interface ContextMenuLabelProps extends MenuLabelProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuLabel } from '../Menu/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import { MenuLabel } from '../Menu/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
-const props = defineProps<ContextMenuLabelProps>()
-useForwardExpose()
+const props = defineProps<ContextMenuLabelProps>();
+useForwardExpose();
 </script>
 
 <template>

@@ -6,18 +6,18 @@
 
 ### YdInputGroup 属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `compact` | `boolean` | `false` | 紧凑模式：相邻元素共享边框，类似 ANT compact |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | 尺寸档位，影响内部 input 高度与字号 |
-| `class` | `any` | — | 自定义类名 |
+| 属性      | 类型                   | 默认值  | 说明                                         |
+| --------- | ---------------------- | ------- | -------------------------------------------- |
+| `compact` | `boolean`              | `false` | 紧凑模式：相邻元素共享边框，类似 ANT compact |
+| `size`    | `'sm' \| 'md' \| 'lg'` | `'md'`  | 尺寸档位，影响内部 input 高度与字号          |
+| `class`   | `any`                  | —       | 自定义类名                                   |
 
 ### YdInputAddon 属性
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
+| 属性      | 类型      | 默认值  | 说明                             |
+| --------- | --------- | ------- | -------------------------------- |
 | `isPlain` | `boolean` | `false` | 裸边模式：去除内边距，紧贴输入框 |
-| `class` | `any` | — | 自定义类名 |
+| `class`   | `any`     | —       | 自定义类名                       |
 
 ### 子组件
 
@@ -34,9 +34,9 @@
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const url = ref('')
+const url = ref('');
 </script>
 
 <template>
@@ -56,19 +56,19 @@ const url = ref('')
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const keyword = ref('')
-const category = ref('article')
+const keyword = ref('');
+const category = ref('article');
 
 const categories = [
   { label: '文章', value: 'article' },
   { label: '用户', value: 'user' },
   { label: '标签', value: 'tag' },
-]
+];
 
 function handleSearch() {
-  console.log('搜索：', category.value, keyword.value)
+  console.log('搜索：', category.value, keyword.value);
 }
 </script>
 
@@ -76,7 +76,7 @@ function handleSearch() {
   <YdInputGroup compact class="max-w-md">
     <YdSelect v-model="category" class="w-24">
       <YdSelectTrigger class="rounded-r-none border-r-0">
-        {{ categories.find(c => c.value === category)?.label }}
+        {{ categories.find((c) => c.value === category)?.label }}
       </YdSelectTrigger>
       <YdSelectContent>
         <YdSelectItem
@@ -108,11 +108,11 @@ function handleSearch() {
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const price = ref(0)
-const quantity = ref(1)
-const discount = ref(100)
+const price = ref(0);
+const quantity = ref(1);
+const discount = ref(100);
 </script>
 
 <template>

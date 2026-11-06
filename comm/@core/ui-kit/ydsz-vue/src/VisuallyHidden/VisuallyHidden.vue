@@ -1,16 +1,16 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface VisuallyHiddenProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../Primitive/index.ts'
+import { Primitive } from '../Primitive/index.ts';
 
-withDefaults(defineProps<VisuallyHiddenProps>(), { as: 'span' })
-useForwardExpose()
+withDefaults(defineProps<VisuallyHiddenProps>(), { as: 'span' });
+useForwardExpose();
 </script>
 
 <template>

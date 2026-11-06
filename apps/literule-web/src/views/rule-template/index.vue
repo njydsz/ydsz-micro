@@ -19,7 +19,21 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdCol, YdDialog, YdEmptyState, YdInput, YdRow, YdTabsContent, YdTabs, YdBadge, YdTree, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdCol,
+  YdDialog,
+  YdEmptyState,
+  YdInput,
+  YdRow,
+  YdTabsContent,
+  YdTabs,
+  YdBadge,
+  YdTree,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -200,11 +214,9 @@ function handlePreview(row: RuleTemplateVO): void {
 async function handleImport(row: RuleTemplateVO): Promise<void> {
   if (!row.templateCode) return;
   try {
-    await YdConfirm(
-      `确认导入模板 "${row.templateName}"？将基于模板创建新规则。`,
-      '导入确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确认导入模板 "${row.templateName}"？将基于模板创建新规则。`, '导入确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消导入模板');
     return;
@@ -225,7 +237,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class=" p-5">
+    <div v-loading="loading" class="p-5">
       <YdRow :gutter="12">
         <!-- 左侧类目树 -->
         <YdCol :span="5">
@@ -246,7 +258,9 @@ onMounted(() => {
             <YdTabs v-model="activeBrowseMode" @tab-change="handleBrowseModeChange">
               <YdTabsContent label="按分类" name="category">
                 <YdTree
-                  :data="categoryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))"
+                  :data="
+                    categoryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))
+                  "
                   node-key="value"
                   :default-expanded-keys="['all']"
                   @node-click="handleCategoryClick"
@@ -255,7 +269,9 @@ onMounted(() => {
               </YdTabsContent>
               <YdTabsContent label="按行业" name="industry">
                 <YdTree
-                  :data="industryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))"
+                  :data="
+                    industryTree.map((c) => ({ label: c.label, value: c.value, isLeaf: true }))
+                  "
                   node-key="value"
                   :default-expanded-keys="['all']"
                   @node-click="handleIndustryClick"
@@ -284,8 +300,12 @@ onMounted(() => {
         width="640px"
       >
         <YdDescriptions v-if="currentTemplate" :column="2" border size="small">
-          <YdDescriptionsItem label="模板编码">{{ currentTemplate.templateCode }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="模板名称">{{ currentTemplate.templateName }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="模板编码">{{
+            currentTemplate.templateCode
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="模板名称">{{
+            currentTemplate.templateName
+          }}</YdDescriptionsItem>
           <YdDescriptionsItem label="分类">
             <YdBadge type="primary">{{ currentTemplate.category ?? '-' }}</YdBadge>
           </YdDescriptionsItem>
@@ -296,32 +316,42 @@ onMounted(() => {
             {{ currentTemplate.description ?? '-' }}
           </YdDescriptionsItem>
           <YdDescriptionsItem label="预置条件表达式" :span="2">
-            <code class="text-xs text-gray-600">{{ currentTemplate.conditionExpression ?? '-' }}</code>
+            <code class="text-xs text-gray-600">{{
+              currentTemplate.conditionExpression ?? '-'
+            }}</code>
           </YdDescriptionsItem>
           <YdDescriptionsItem label="预置严重度表达式" :span="2">
-            <code class="text-xs text-gray-600">{{ currentTemplate.severityExpression ?? '-' }}</code>
+            <code class="text-xs text-gray-600">{{
+              currentTemplate.severityExpression ?? '-'
+            }}</code>
           </YdDescriptionsItem>
-          <YdDescriptionsItem label="默认严重度">{{ currentTemplate.defaultSeverity ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="优先级">{{ currentTemplate.priority ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="适用范围" :span="2">{{ currentTemplate.scope ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="默认严重度">{{
+            currentTemplate.defaultSeverity ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="优先级">{{
+            currentTemplate.priority ?? '-'
+          }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="适用范围" :span="2">{{
+            currentTemplate.scope ?? '-'
+          }}</YdDescriptionsItem>
           <YdDescriptionsItem label="标签">{{ currentTemplate.tags ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="创建人">{{ currentTemplate.createdBy ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="创建人">{{
+            currentTemplate.createdBy ?? '-'
+          }}</YdDescriptionsItem>
         </YdDescriptions>
         <YdEmptyState v-else description="暂无模板数据" />
       </YdDialog>
 
       <!-- 导入结果弹窗 -->
-      <YdDialog
-        v-model="importResultDialogVisible"
-        title="导入结果"
-        width="520px"
-      >
+      <YdDialog v-model="importResultDialogVisible" title="导入结果" width="520px">
         <YdDescriptions v-if="importResult" :column="1" border size="small">
           <YdDescriptionsItem label="规则编码">{{ importResult.ruleCode }}</YdDescriptionsItem>
           <YdDescriptionsItem label="规则名称">{{ importResult.ruleName }}</YdDescriptionsItem>
           <YdDescriptionsItem label="规则ID">{{ importResult.id }}</YdDescriptionsItem>
           <YdDescriptionsItem label="分类">{{ importResult.category ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="描述" :span="2">{{ importResult.description ?? '-' }}</YdDescriptionsItem>
+          <YdDescriptionsItem label="描述" :span="2">{{
+            importResult.description ?? '-'
+          }}</YdDescriptionsItem>
         </YdDescriptions>
         <div v-else class="text-center text-gray-400">暂无导入数据</div>
       </YdDialog>

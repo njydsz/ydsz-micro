@@ -26,7 +26,15 @@
  * @since 4.5.0
  */
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+  mkdtempSync,
+  rmSync,
+} from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -188,7 +196,10 @@ function collectFailures(opts = {}) {
   }
 
   const rootScripts = scriptsOf(root) ?? {};
-  const wsScripts = workspaceScripts(root, opts.workspaces ?? ['comm', 'main', 'apps', 'packages', 'internal', 'scripts', 'tooling']);
+  const wsScripts = workspaceScripts(
+    root,
+    opts.workspaces ?? ['comm', 'main', 'apps', 'packages', 'internal', 'scripts', 'tooling'],
+  );
   const ciCommands = new Set();
   let runLineCount = 0;
   let jobCount = 0;
@@ -206,13 +217,17 @@ function collectFailures(opts = {}) {
         }
       }
       if (!job.hasCheckout) {
-        failures.push(`${relative(root, wf)}: job '${job.id}' 没有 actions/checkout 步骤，run 命令会在空目录里执行`);
+        failures.push(
+          `${relative(root, wf)}: job '${job.id}' 没有 actions/checkout 步骤，run 命令会在空目录里执行`,
+        );
       }
     }
 
     for (const cmd of runLines) {
       // A. node/python 直接调用的脚本文件必须存在
-      for (const m of cmd.matchAll(/\b(?:node|python3|python|tsx)\s+(?!-)([\w./@-]+\.(?:mts|ts|mjs|cjs|js|py))\b/g)) {
+      for (const m of cmd.matchAll(
+        /\b(?:node|python3|python|tsx)\s+(?!-)([\w./@-]+\.(?:mts|ts|mjs|cjs|js|py))\b/g,
+      )) {
         const target = m[1];
         if (!existsSync(join(root, target))) {
           failures.push(`${relative(root, wf)}: 引用了不存在的脚本 ${target}（命令：${cmd}）`);
@@ -222,9 +237,10 @@ function collectFailures(opts = {}) {
       // B. pnpm 脚本必须存在
       const filtered = cmd.split('&&').map((s) => s.trim());
       for (const piece of filtered) {
-        const pnpmMatch = /^pnpm\s+(?:--?\S+\s+)*(?:run\s+)?(?!exec\b|add\b|install\b|audit\b|list\b|dlx\b|patch\b|remove\b|link\b|unlink\b|store\b|fund\b|why\b|prune\b|rebuild\b|outdated\b|init\b|import\b|up\b)([\w:][\w:-]*)/.exec(
-          piece,
-        );
+        const pnpmMatch =
+          /^pnpm\s+(?:--?\S+\s+)*(?:run\s+)?(?!exec\b|add\b|install\b|audit\b|list\b|dlx\b|patch\b|remove\b|link\b|unlink\b|store\b|fund\b|why\b|prune\b|rebuild\b|outdated\b|init\b|import\b|up\b)([\w:][\w:-]*)/.exec(
+            piece,
+          );
         if (!pnpmMatch) continue;
         const script = pnpmMatch[1];
         const filterMatch = /-F\s+(\S+)/.exec(piece);
@@ -233,7 +249,9 @@ function collectFailures(opts = {}) {
           const name = filterMatch[1].replace(/^['"]|['"]$/g, '');
           const found = wsScripts.get(name);
           if (!found) {
-            failures.push(`${relative(root, wf)}: pnpm -F ${name} 指向的包不存在（命令：${piece}）`);
+            failures.push(
+              `${relative(root, wf)}: pnpm -F ${name} 指向的包不存在（命令：${piece}）`,
+            );
             continue;
           }
           scripts = found;
@@ -251,7 +269,10 @@ function collectFailures(opts = {}) {
   for (const [name, command] of Object.entries(rootScripts)) {
     if (!/^(check:|.*:check$|.*:self-test$)/.test(name)) continue;
     const normalized = normalizeCmd(String(command));
-    const wired = ciCommands.has(`pnpm ${name}`) || ciCommands.has(`pnpm run ${name}`) || ciCommands.has(normalized);
+    const wired =
+      ciCommands.has(`pnpm ${name}`) ||
+      ciCommands.has(`pnpm run ${name}`) ||
+      ciCommands.has(normalized);
     if (wired) continue;
     if (MANUAL_ONLY[name]) continue;
     failures.push(
@@ -313,7 +334,7 @@ function selfTest() {
     '    name: 缺 checkout 的 job',
     '    runs-on: ubuntu-latest',
     '    steps:',
-    "      - name: 直接跑命令",
+    '      - name: 直接跑命令',
     '        run: pnpm test',
     '',
   ].join('\n');
@@ -344,7 +365,9 @@ function selfTest() {
         process.exit(1);
       }
     }
-    console.log(`✅ CI 门禁自检通过：反例命中 ${required.length}/${required.length} 类缺陷（检出 ${failures.length} 条）`);
+    console.log(
+      `✅ CI 门禁自检通过：反例命中 ${required.length}/${required.length} 类缺陷（检出 ${failures.length} 条）`,
+    );
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -356,9 +379,13 @@ if (process.argv.includes('--self-test')) {
 } else {
   const { failures, checked } = collectFailures();
   if (failures.length > 0) {
-    console.error(`❌ CI 接线检查未通过（扫描 ${checked.jobs} 个 job / ${checked.runLines} 条 run 命令）：`);
+    console.error(
+      `❌ CI 接线检查未通过（扫描 ${checked.jobs} 个 job / ${checked.runLines} 条 run 命令）：`,
+    );
     for (const f of failures) console.error(`  - ${f}`);
     process.exit(1);
   }
-  console.log(`✅ CI 接线通过：${checked.jobs} 个 job、${checked.runLines} 条 run 命令的脚本/文件/job 引用全部存在`);
+  console.log(
+    `✅ CI 接线通过：${checked.jobs} 个 job、${checked.runLines} 条 run 命令的脚本/文件/job 引用全部存在`,
+  );
 }

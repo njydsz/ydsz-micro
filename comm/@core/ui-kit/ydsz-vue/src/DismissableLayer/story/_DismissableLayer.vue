@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { DismissableLayerEmits } from '..'
-import { DismissableLayer } from '..'
-import { useEmitAsProps } from '../../shared/index.ts'
+import { ref } from 'vue';
+import type { DismissableLayerEmits } from '..';
+import { DismissableLayer } from '..';
+import { useEmitAsProps } from '../../shared/index.ts';
 
 defineProps<{
-  openLabel?: string
-  closeLabel?: string
-  outsideLabel?: string
+  openLabel?: string;
+  closeLabel?: string;
+  outsideLabel?: string;
 
-  preventEscapeKeyDownEvent?: boolean
-  preventPointerDownOutsideEvent?: boolean
-  preventFocusOutsideEvent?: boolean
-}>()
+  preventEscapeKeyDownEvent?: boolean;
+  preventPointerDownOutsideEvent?: boolean;
+  preventFocusOutsideEvent?: boolean;
+}>();
 
-const emits = defineEmits<DismissableLayerEmits>()
+const emits = defineEmits<DismissableLayerEmits>();
 
-const open = ref(false)
+const open = ref(false);
 
 function handleDismiss() {
-  open.value = false
+  open.value = false;
 }
 </script>
 
@@ -34,24 +34,24 @@ function handleDismiss() {
       id="layer"
       v-bind="useEmitAsProps(emits)"
       @dismiss="handleDismiss"
-      @escape-key-down="(ev) => {
-        if (preventEscapeKeyDownEvent)
-          ev.preventDefault()
-      }"
-      @pointer-down-outside="(ev) => {
-        if (preventPointerDownOutsideEvent)
-          ev.preventDefault()
-      }"
-      @focus-outside="(ev) => {
-        if (preventFocusOutsideEvent)
-          ev.preventDefault()
-      }"
+      @escape-key-down="
+        (ev) => {
+          if (preventEscapeKeyDownEvent) ev.preventDefault();
+        }
+      "
+      @pointer-down-outside="
+        (ev) => {
+          if (preventPointerDownOutsideEvent) ev.preventDefault();
+        }
+      "
+      @focus-outside="
+        (ev) => {
+          if (preventFocusOutsideEvent) ev.preventDefault();
+        }
+      "
     >
       <div>Content</div>
-      <button
-        type="button"
-        @click="open = false"
-      >
+      <button type="button" @click="open = false">
         {{ closeLabel }}
       </button>
     </DismissableLayer>

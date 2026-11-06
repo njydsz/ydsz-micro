@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* Table（table）组件：基于 design-tokens 语义化变量的数据表格基元。
-* 
+ * Table（table）组件：基于 design-tokens 语义化变量的数据表格基元。
+ *
  * <p>通过 CSS 变量引用 `variables.css` 中定义的 token，
  * 支持 `data-theme="dark"` 自动切换。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\table.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -50,19 +50,13 @@ function handleCancel() {
 <template>
   <div :class="[tableClass, 'yd-table__wrapper']">
     <table class="yd-table__element">
-      <thead
-        v-if="$slots.header"
-        class="yd-table__header"
-      >
+      <thead v-if="$slots.header" class="yd-table__header">
         <slot name="header" />
       </thead>
       <tbody class="yd-table__body">
         <slot />
       </tbody>
-      <tfoot
-        v-if="$slots.footer"
-        class="yd-table__footer"
-      >
+      <tfoot v-if="$slots.footer" class="yd-table__footer">
         <slot name="footer" />
       </tfoot>
     </table>

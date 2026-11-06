@@ -23,9 +23,7 @@ export function listDecisionTables(): Promise<DecisionTableVO[]> {
 /**
  * getDecisionTable: GET /literule/rules/decision-tables/{tableCode}
  */
-export function getDecisionTable({ tableCode }: {
-    tableCode: string;
-  }): Promise<DecisionTableVO> {
+export function getDecisionTable({ tableCode }: { tableCode: string }): Promise<DecisionTableVO> {
   return requestClient.get<DecisionTableVO>(`/literule/rules/decision-tables/${tableCode}`);
 }
 
@@ -39,46 +37,62 @@ export function saveDecisionTable(data: DecisionTableDTO): Promise<DecisionTable
 /**
  * deleteDecisionTable: DELETE /literule/rules/decision-tables/{id}
  */
-export function deleteDecisionTable({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteDecisionTable({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/literule/rules/decision-tables/${id}`);
 }
 
 /**
  * evaluateDecisionTable: POST /literule/rules/decision-tables/{tableCode}/evaluate
  */
-export function evaluateDecisionTable({ tableCode }: {
+export function evaluateDecisionTable(
+  {
+    tableCode,
+  }: {
     tableCode: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.post<Record<string, Record<string, unknown>>[]>(`/literule/rules/decision-tables/${tableCode}/evaluate`, data);
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.post<Record<string, Record<string, unknown>>[]>(
+    `/literule/rules/decision-tables/${tableCode}/evaluate`,
+    data,
+  );
 }
 
 /**
  * exportDecisionTableExcel: GET /literule/rules/decision-tables/{tableCode}/export-excel
  */
-export function exportDecisionTableExcel({ tableCode }: {
+export function exportDecisionTableExcel(
+  {
+    tableCode,
+  }: {
     tableCode: string;
-  }, params: {
+  },
+  params: {
     response?: Record<string, unknown>;
-  }): Promise<void> {
-  return requestClient.get<void>(`/literule/rules/decision-tables/${tableCode}/export-excel`, { params });
+  },
+): Promise<void> {
+  return requestClient.get<void>(`/literule/rules/decision-tables/${tableCode}/export-excel`, {
+    params,
+  });
 }
 
 /**
  * importDecisionTableExcel: POST /literule/rules/decision-tables/import-excel
  */
 export function importDecisionTableExcel(params: {
-    file?: Record<string, unknown>;
-  }): Promise<DecisionTableDefinitionVO> {
-  return requestClient.post<DecisionTableDefinitionVO>(`/literule/rules/decision-tables/import-excel`, { params });
+  file?: Record<string, unknown>;
+}): Promise<DecisionTableDefinitionVO> {
+  return requestClient.post<DecisionTableDefinitionVO>(
+    `/literule/rules/decision-tables/import-excel`,
+    { params },
+  );
 }
 
 /**
  * downloadDecisionTableExcelTemplate: GET /literule/rules/decision-tables/excel-template
  */
 export function downloadDecisionTableExcelTemplate(params: {
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+  response?: Record<string, unknown>;
+}): Promise<void> {
   return requestClient.get<void>(`/literule/rules/decision-tables/excel-template`, { params });
 }

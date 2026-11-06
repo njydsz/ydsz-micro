@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 /**
-* VirtualTable 虚拟表格：大数据量场景下仅渲染可见行，保持 DOM 节点数恒定。
-* 
+ * VirtualTable 虚拟表格：大数据量场景下仅渲染可见行，保持 DOM 节点数恒定。
+ *
  * 特性：
  * - 基于 useVirtualList 调度行可见区间
  * - 支持固定表头 + 横向滚动
  * - 支持动态高度（通过 measureHeights 记录已渲染行实测高度）
  * - 支持列配置持久化（通过 storageKey 保存列宽与显隐）
  * - 支持列排序（表头点击事件）
-* 
+ *
  * 使用方式：与 YdTable 共享 columns 定义，额外提供 dataSource 行数据。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\virtual-table\YdVirtualTable.vue
  * @author ydsz-team
  * @since 1.0.0 (26.09.17 增强：持久化+排序)
@@ -86,12 +86,7 @@ const emit = defineEmits<{
 const viewportRef = ref<HTMLElement>();
 const measured = ref(new Map<number, number>()) as Ref<Map<number, number>>;
 
-const {
-  visibleItems,
-  totalHeight,
-  offsetY,
-  containerProps,
-} = useVirtualList(
+const { visibleItems, totalHeight, offsetY, containerProps } = useVirtualList(
   () => props.dataSource as Record<string, unknown>[],
   {
     itemHeight: props.estimateRowHeight,
@@ -110,9 +105,7 @@ let rowObserver: null | ResizeObserver = null;
 function observeVisibleRows(): void {
   const viewport = viewportRef.value;
   if (!rowObserver || !viewport) return;
-  viewport
-    .querySelectorAll('[data-index]')
-    .forEach((row) => rowObserver?.observe(row));
+  viewport.querySelectorAll('[data-index]').forEach((row) => rowObserver?.observe(row));
 }
 
 onMounted(() => {
@@ -121,10 +114,7 @@ onMounted(() => {
     const next = new Map(measured.value);
     let changed = false;
     for (const entry of entries) {
-      const index = Number.parseInt(
-        entry.target.getAttribute('data-index') ?? '-1',
-        10,
-      );
+      const index = Number.parseInt(entry.target.getAttribute('data-index') ?? '-1', 10);
       const { height } = entry.contentRect;
       if (!Number.isNaN(index) && index >= 0 && next.get(index) !== height) {
         next.set(index, height);
@@ -143,13 +133,17 @@ onBeforeUnmount(() => {
   rowObserver = null;
 });
 
+/**
+ * 按列 dataIndex 从行数据中取值（模板内不支持 `as` 类型断言）。
+ */
+function cellValue(data: unknown, dataIndex: string | undefined): unknown {
+  if (!dataIndex || typeof data !== 'object' || data === null) return undefined;
+  return (data as Record<string, unknown>)[dataIndex];
+}
+
 function getColumnClass(col: VirtualTableColumn): string {
   const align = col.align ?? 'left';
-  return align === 'center'
-    ? 'text-center'
-    : align === 'right'
-      ? 'text-right'
-      : 'text-left';
+  return align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left';
 }
 
 function handleSort(col: VirtualTableColumn): void {
@@ -188,7 +182,13 @@ function formatWidth(w: number | string | undefined): string | undefined {
             <YdTableHead
               v-for="col in columns"
               :key="col.key"
-              :class="cn('whitespace-nowrap font-medium text-foreground', getColumnClass(col), col.isSortable && 'cursor-pointer select-none')"
+              :class="
+                cn(
+                  'text-foreground whitespace-nowrap font-medium',
+                  getColumnClass(col),
+                  col.isSortable && 'cursor-pointer select-none',
+                )
+              "
               :style="{
                 width: formatWidth(col.width),
                 minWidth: formatWidth(col.minWidth),
@@ -198,11 +198,16 @@ function formatWidth(w: number | string | undefined): string | undefined {
             >
               <span class="inline-flex items-center gap-1">
                 {{ col.title }}
-                <span
-                  v-if="col.isSortable"
-                  class="text-xs text-muted-foreground/50"
-                >
-                  {{ sortProp === col.dataIndex ? (sortOrder === 'asc' ? '↑' : sortOrder === 'desc' ? '↓' : '↕') : '↕' }}
+                <span v-if="col.isSortable" class="text-muted-foreground/50 text-xs">
+                  {{
+                    sortProp === col.dataIndex
+                      ? sortOrder === 'asc'
+                        ? '↑'
+                        : sortOrder === 'desc'
+                          ? '↓'
+                          : '↕'
+                      : '↕'
+                  }}
                 </span>
               </span>
             </YdTableHead>
@@ -212,12 +217,7 @@ function formatWidth(w: number | string | undefined): string | undefined {
     </div>
 
     <!-- 虚拟滚动视口 -->
-    <div
-      ref="viewportRef"
-      v-bind="containerProps"
-      class="relative overflow-y-auto"
-      role="rowgroup"
-    >
+    <div ref="viewportRef" v-bind="containerProps" class="relative overflow-y-auto" role="rowgroup">
       <!-- spacer 撑开总高度 -->
       <div :style="{ height: `${totalHeight}px`, position: 'relative', width: '100%' }">
         <!-- 可见行 -->
@@ -228,7 +228,7 @@ function formatWidth(w: number | string | undefined): string | undefined {
                 v-for="item in visibleItems"
                 :key="item.key"
                 :data-index="item.index"
-                class="border-b transition-colors hover:bg-muted/25"
+                class="hover:bg-muted/25 border-b transition-colors"
                 :style="{ height: `${item.height}px` }"
               >
                 <YdTableCell
@@ -237,10 +237,10 @@ function formatWidth(w: number | string | undefined): string | undefined {
                   :class="cn('overflow-hidden text-ellipsis', getColumnClass(col))"
                 >
                   <template v-if="col.render">
-                    {{ col.render((item.data as Record<string, unknown>)[col.dataIndex], item.data, item.index) }}
+                    {{ col.render(cellValue(item.data, col.dataIndex), item.data, item.index) }}
                   </template>
                   <template v-else>
-                    {{ (item.data as Record<string, unknown>)[col.dataIndex] ?? '-' }}
+                    {{ cellValue(item.data, col.dataIndex) ?? '-' }}
                   </template>
                 </YdTableCell>
               </YdTableRow>

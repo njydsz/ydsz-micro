@@ -13,11 +13,7 @@
  */
 import type { Component } from 'vue';
 
-import type {
-  YdBaseFormComponentType,
-  FormCommonConfig,
-  YdFormAdapterOptions,
-} from './types';
+import type { YdBaseFormComponentType, FormCommonConfig, YdFormAdapterOptions } from './types';
 
 import { h } from 'vue';
 
@@ -50,9 +46,7 @@ export const COMPONENT_MAP: Record<YdBaseFormComponentType, Component> = {
 };
 
 /** 各表单控件默认绑定的 v-model prop 名映射，如复选框使用 `checked` 而非 `modelValue` */
-export const COMPONENT_BIND_EVENT_MAP: Partial<
-  Record<YdBaseFormComponentType, string>
-> = {
+export const COMPONENT_BIND_EVENT_MAP: Partial<Record<YdBaseFormComponentType, string>> = {
   YdCheckbox: 'checked',
 };
 
@@ -80,9 +74,9 @@ export const COMPONENT_BIND_EVENT_MAP: Partial<
  *
  * @param options - 适配器配置，含控件行为配置与内置规则实现，详见 {@link YdFormAdapterOptions}
  */
-export function setupYdForm<
-  T extends YdBaseFormComponentType = YdBaseFormComponentType,
->(options: YdFormAdapterOptions<T>) {
+export function setupYdForm<T extends YdBaseFormComponentType = YdBaseFormComponentType>(
+  options: YdFormAdapterOptions<T>,
+) {
   const { config, defineRules } = options;
 
   const {
@@ -103,11 +97,9 @@ export function setupYdForm<
     }
   }
 
-  const baseModelPropName =
-    config?.baseModelPropName ?? DEFAULT_MODEL_PROP_NAME;
+  const baseModelPropName = config?.baseModelPropName ?? DEFAULT_MODEL_PROP_NAME;
   const modelPropNameMap = config?.modelPropNameMap as
-    | Record<YdBaseFormComponentType, string>
-    | undefined;
+    Record<YdBaseFormComponentType, string> | undefined;
 
   const components = globalShareState.getComponents();
 
@@ -125,4 +117,3 @@ export function setupYdForm<
     }
   }
 }
-

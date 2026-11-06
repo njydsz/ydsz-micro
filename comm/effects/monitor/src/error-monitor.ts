@@ -38,7 +38,11 @@ import {
 // 向后兼容：重新导出类型
 export type { ErrorType, ErrorReport, MonitorConfig } from './error-monitor-types';
 export { cacheForOffline, loadOfflineCache, clearOfflineCache } from './error-monitor-offline';
-export { setSentryForwarding, enableSentryForwarding, disableSentryForwarding } from './error-monitor-queue';
+export {
+  setSentryForwarding,
+  enableSentryForwarding,
+  disableSentryForwarding,
+} from './error-monitor-queue';
 export { reportError } from './error-monitor-queue';
 
 const logger = createLogger('Monitor:Errors');
@@ -76,41 +80,42 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
   };
 
   // 2. window 全局错误
-  window.addEventListener('error', (event) => {
-    // 资源加载错误（src 属性仅存在于 img/script/source 等元素上）
-    const resourceTarget = event.target as
-      | HTMLImageElement
-      | HTMLScriptElement
-      | HTMLSourceElement
-      | null;
-    if (event.target && resourceTarget?.src) {
+  window.addEventListener(
+    'error',
+    (event) => {
+      // 资源加载错误（src 属性仅存在于 img/script/source 等元素上）
+      const resourceTarget = event.target as
+        HTMLImageElement | HTMLScriptElement | HTMLSourceElement | null;
+      if (event.target && resourceTarget?.src) {
+        const report: ErrorReport = {
+          message: `Resource load failed: ${resourceTarget.src}`,
+          filename: resourceTarget.src,
+          timestamp: Date.now(),
+          type: 'resource',
+          url: getCurrentRoute(),
+          userAgent: navigator.userAgent,
+          extra: { tagName: resourceTarget.tagName },
+        };
+        enqueueError(report);
+        return;
+      }
+
+      // JS 运行时错误
       const report: ErrorReport = {
-        message: `Resource load failed: ${resourceTarget.src}`,
-        filename: resourceTarget.src,
+        colno: event.colno,
+        filename: event.filename,
+        lineno: event.lineno,
+        message: event.message,
+        stack: event.error?.stack,
         timestamp: Date.now(),
-        type: 'resource',
+        type: 'window',
         url: getCurrentRoute(),
         userAgent: navigator.userAgent,
-        extra: { tagName: resourceTarget.tagName },
       };
       enqueueError(report);
-      return;
-    }
-
-    // JS 运行时错误
-    const report: ErrorReport = {
-      colno: event.colno,
-      filename: event.filename,
-      lineno: event.lineno,
-      message: event.message,
-      stack: event.error?.stack,
-      timestamp: Date.now(),
-      type: 'window',
-      url: getCurrentRoute(),
-      userAgent: navigator.userAgent,
-    };
-    enqueueError(report);
-  }, true);
+    },
+    true,
+  );
 
   // 3. Promise 未捕获异常
   window.addEventListener('unhandledrejection', (event) => {
@@ -122,9 +127,13 @@ export function setupErrorMonitoring(app: unknown, config: MonitorConfig = {}): 
       type: 'promise',
       url: getCurrentRoute(),
       userAgent: navigator.userAgent,
-      extra: reason && typeof reason === 'object' && 'config' in reason
-        ? { url: (reason as { config: { url: string } }).config.url, method: (reason as { config: { method: string } }).config.method }
-        : undefined,
+      extra:
+        reason && typeof reason === 'object' && 'config' in reason
+          ? {
+              url: (reason as { config: { url: string } }).config.url,
+              method: (reason as { config: { method: string } }).config.method,
+            }
+          : undefined,
     };
     enqueueError(report);
   });

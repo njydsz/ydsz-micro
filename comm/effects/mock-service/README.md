@@ -28,8 +28,8 @@ import spec from './api/sdk/openapi.json';
 // 开发环境且启用 Mock 时启动
 if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === 'true') {
   const handlers = generateMockHandlers(spec as any, {
-    enableDelay: true,  // 模拟网络延迟
-    listSize: 10,       // 列表默认长度
+    enableDelay: true, // 模拟网络延迟
+    listSize: 10, // 列表默认长度
   });
 
   await setupMockServer(handlers);
@@ -78,7 +78,7 @@ import { generateMockHandlers, setupMockServer } from '@ydsz/mock-service';
 
 const handlers = generateMockHandlers(spec as any, {
   enableDelay: true,
-  seed: 12345,        // 固定种子，可重复
+  seed: 12345, // 固定种子，可重复
   listSize: 5,
   overrides: {
     // 自定义特定接口的响应
@@ -100,9 +100,7 @@ import { createMockHandler, setupMockServer } from '@ydsz/mock-service';
 const handlers = [
   createMockHandler('get', '/api/config', () => ({
     code: 'A00000',
-    data: [
-      { id: '1', configKey: 'site_name', configValue: 'YDSZ' },
-    ],
+    data: [{ id: '1', configKey: 'site_name', configValue: 'YDSZ' }],
   })),
 ];
 

@@ -87,8 +87,9 @@ function discoverKeyRefPkgDirs(root: string): string[] {
       dependencies?: Record<string, string>;
       peerDependencies?: Record<string, string>;
     };
-    const dependsOnLocale = manifest.dependencies?.['@ydsz-core/ydsz-ui']
-      ?? manifest.peerDependencies?.['@ydsz-core/ydsz-ui'];
+    const dependsOnLocale =
+      manifest.dependencies?.['@ydsz-core/ydsz-ui'] ??
+      manifest.peerDependencies?.['@ydsz-core/ydsz-ui'];
     if (dependsOnLocale) {
       dirs.push(`${UIKIT_DIR}/${name}`);
     }
@@ -104,10 +105,14 @@ const SIBLING_DATA_PKG_DIR = `${UIKIT_DIR}/advanced-table`;
 
 /** 自检夹具用的包清单（只有声明 ydsz-ui 依赖的包才会被枚举进扫描范围） */
 function dependentPkgManifest(name: string): string {
-  return `${JSON.stringify({
-    name: `@ydsz-core/${name}`,
-    dependencies: { '@ydsz-core/ydsz-ui': 'workspace:*' },
-  }, null, 2)}\n`;
+  return `${JSON.stringify(
+    {
+      name: `@ydsz-core/${name}`,
+      dependencies: { '@ydsz-core/ydsz-ui': 'workspace:*' },
+    },
+    null,
+    2,
+  )}\n`;
 }
 
 /**
@@ -141,8 +146,13 @@ const KEY_REF_SKIP = ['node_modules', '/dist/', '/__tests__/', '.test.ts', '/src
 /** 语种文件命名形如 zh-CN.ts / zh-CN.json，用于排除 index、useLocale、测试文件 */
 const LOCALE_FILE_RE = /^[a-z]{2}-[A-Z]{2}\.[a-z]+$/;
 
-/** 组件库词典的词条行：缩进 + 单引号点号 key + 单引号字符串值 */
-const UIKIT_ENTRY_RE = /^\s+'([^']+)':\s*'/;
+/**
+ * 组件库词典的词条行：缩进 + 单引号点号 key + 字符串值。
+ *
+ * 值可能是单引号或双引号：prettier 对含撇号的译文（如法语 "Sélecteur d'heure"）
+ * 会自动改用双引号包裹，只认单引号会把这类合法词条判成缺键。
+ */
+const UIKIT_ENTRY_RE = /^\s+'([^']+)':(?:\s*(?:'|"|$))/;
 
 /** 递归收集 JSON 对象的全部叶子 key 路径（点号连接） */
 function collectKeys(obj: Record<string, unknown>, prefix = ''): string[] {
@@ -460,10 +470,13 @@ function checkUikitKeyUsage(report: Report, root: string): void {
   if (langFiles.length === 0) {
     return;
   }
-  const keySets = langFiles.map((file) => [
-    file.replace(/\.ts$/u, ''),
-    new Set(collectFlatKeys(readFileSync(join(dir, file), 'utf-8'))),
-  ] as const);
+  const keySets = langFiles.map(
+    (file) =>
+      [
+        file.replace(/\.ts$/u, ''),
+        new Set(collectFlatKeys(readFileSync(join(dir, file), 'utf-8'))),
+      ] as const,
+  );
 
   const reported = new Set<string>();
   for (const { key, at } of collectKeyRefs(root)) {
@@ -670,7 +683,11 @@ function countQualityHits(root: string): Record<string, number> {
   if (existsSync(join(uikitDir, 'en.ts'))) {
     const enValues = uikitKeyValues(readFileSync(join(uikitDir, 'en.ts'), 'utf-8'));
     for (const file of readdirSync(uikitDir).filter(
-      (f) => LOCALE_FILE_RE.test(f) && f.endsWith('.ts') && !f.startsWith('en.') && !f.startsWith('zh-CN.'),
+      (f) =>
+        LOCALE_FILE_RE.test(f) &&
+        f.endsWith('.ts') &&
+        !f.startsWith('en.') &&
+        !f.startsWith('zh-CN.'),
     )) {
       const lang = file.replace('.ts', '');
       const values = uikitKeyValues(readFileSync(join(uikitDir, file), 'utf-8'));
@@ -712,7 +729,10 @@ interface QualityBaseline {
  * @param budgets - 预算数
  * @return 问题描述列表，空表示在预算内
  */
-function compareQualityToBudget(counts: Record<string, number>, budgets: Record<string, number>): string[] {
+function compareQualityToBudget(
+  counts: Record<string, number>,
+  budgets: Record<string, number>,
+): string[] {
   const over: string[] = [];
   for (const [lang, count] of Object.entries(counts)) {
     const budget = budgets[lang] ?? 0;
@@ -769,7 +789,9 @@ function checkTranslationQuality(root: string, writeBaseline: boolean): void {
   }
   console.log(
     `[check:i18n] 翻译质量预算内 ✓ — 机翻痕迹存量 ${total} 处（` +
-      `${Object.entries(counts).map(([l, n]) => `${l} ${n}`).join('、')}）`,
+      `${Object.entries(counts)
+        .map(([l, n]) => `${l} ${n}`)
+        .join('、')}）`,
   );
 }
 
@@ -922,7 +944,9 @@ function qualitySelfTest(): void {
           single: 'Total',
         }),
       },
-      'ko-KR': { 'common.json': json({ copied: 'No application data', gloss: '아니요 application data' }) },
+      'ko-KR': {
+        'common.json': json({ copied: 'No application data', gloss: '아니요 application data' }),
+      },
       'zh-CN': {
         'common.json': json({ accent: 'zh', copied: 'zh', gloss: 'zh', ok: 'zh', single: 'zh' }),
       },
@@ -948,8 +972,16 @@ function qualitySelfTest(): void {
 
     writeLangDirs(join(clean, 'comm/locales/src/langs'), {
       'en-US': { 'common.json': json({ copied: 'No application data', single: 'Total' }) },
-      'es-ES': { 'common.json': json({ accent: 'Éxito', copied: 'Sin datos de aplicación', single: 'Total' }) },
-      'fr-FR': { 'common.json': json({ accent: 'Succès', copied: 'Aucune donnée', single: 'Total' }) },
+      'es-ES': {
+        'common.json': json({
+          accent: 'Éxito',
+          copied: 'Sin datos de aplicación',
+          single: 'Total',
+        }),
+      },
+      'fr-FR': {
+        'common.json': json({ accent: 'Succès', copied: 'Aucune donnée', single: 'Total' }),
+      },
       'ja-JP': {
         'common.json': json({
           copied: 'アプリデータがありません',
@@ -1016,13 +1048,11 @@ function selfTest(): void {
     // 按 package.json 依赖自动纳入的兄弟包：.vue 的 t() 与 .ts 数据里的 labelKey 都要命中
     writeFixture(dir, {
       [`${SIBLING_REF_PKG_DIR}/package.json`]: dependentPkgManifest('popup-ui'),
-      [`${SIBLING_REF_PKG_DIR}/src/image-viewer/Ghost.vue`]: uikitRefFixture([
-        'imageViewer.ghost',
-      ]),
+      [`${SIBLING_REF_PKG_DIR}/src/image-viewer/Ghost.vue`]: uikitRefFixture(['imageViewer.ghost']),
       [`${SIBLING_REF_PKG_DIR}/src/palette/GhostPalette.ts`]:
-        'export const GHOST_META = [\n'
-        + "  { labelKey: 'imageViewer.ghostLabel', placeholderKey: 'imageViewer.ghostPlaceholder' },\n"
-        + '] as const;\n',
+        'export const GHOST_META = [\n' +
+        "  { labelKey: 'imageViewer.ghostLabel', placeholderKey: 'imageViewer.ghostPlaceholder' },\n" +
+        '] as const;\n',
     });
     // 第二个消费包同样零登记即被扫到（证明扫描范围不是靠人记得）→ [引用缺键]
     writeFixture(dir, {
@@ -1075,8 +1105,8 @@ function selfTest(): void {
       [`${SIBLING_REF_PKG_DIR}/package.json`]: dependentPkgManifest('popup-ui'),
       [`${SIBLING_DATA_PKG_DIR}/package.json`]: dependentPkgManifest('advanced-table'),
       [`${SIBLING_REF_PKG_DIR}/src/alert/Alert.vue`]:
-        '<script setup lang="ts">\nconst hint = i18n.t(\'prompt\');\n</script>\n\n'
-        + '<template>\n  <span>{{ cancelText || $t(\'cancel\') }}</span>\n</template>\n',
+        '<script setup lang="ts">\nconst hint = i18n.t(\'prompt\');\n</script>\n\n' +
+        "<template>\n  <span>{{ cancelText || $t('cancel') }}</span>\n</template>\n",
     });
     writeFixture(clean, {
       [`${SIBLING_REF_PKG_DIR}/src/table/useGhostTable.ts`]:

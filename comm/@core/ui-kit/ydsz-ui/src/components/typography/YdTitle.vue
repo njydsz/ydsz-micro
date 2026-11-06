@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* Typography.Title：语义化标题，带 level 1-5。
-* 
+ * Typography.Title：语义化标题，带 level 1-5。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\typography\YdTitle.vue
  * @author ydsz-team
  * @since 1.0.0

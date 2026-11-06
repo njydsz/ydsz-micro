@@ -60,7 +60,7 @@ chrome.runtime.onMessage.addListener(
   (
     msg: BackgroundMessage,
     sender: chrome.runtime.MessageSender,
-    sendResponse: (response: unknown) => void
+    sendResponse: (response: unknown) => void,
   ): boolean | void => {
     if (msg.target !== 'background') return false;
 
@@ -98,10 +98,11 @@ chrome.runtime.onMessage.addListener(
           break;
         }
         void chrome.tabs
-          .sendMessage<unknown>(
-            tabId,
-            { target: 'content-script', type: msg.type, payload: msg.payload } as never
-          )
+          .sendMessage<unknown>(tabId, {
+            target: 'content-script',
+            type: msg.type,
+            payload: msg.payload,
+          } as never)
           .then(sendResponse)
           .catch((e: Error) => {
             sendResponse({ ok: false, error: e.message });
@@ -116,7 +117,7 @@ chrome.runtime.onMessage.addListener(
         sendResponse({ ok: false, error: `unknown: ${msg.type}` });
       }
     }
-  }
+  },
 );
 
 chrome.tabs.onRemoved.addListener((id) => {

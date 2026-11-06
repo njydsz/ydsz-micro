@@ -39,12 +39,14 @@ interface MountedPalette {
  */
 function mountPalette(options: UseCommandPaletteOptions): MountedPalette {
   let api!: ReturnType<typeof useCommandPalette>;
-  const wrapper = mount(defineComponent({
-    setup() {
-      api = useCommandPalette(options);
-      return () => h('div');
-    },
-  }));
+  const wrapper = mount(
+    defineComponent({
+      setup() {
+        api = useCommandPalette(options);
+        return () => h('div');
+      },
+    }),
+  );
   return { api, wrapper };
 }
 

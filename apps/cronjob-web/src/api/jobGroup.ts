@@ -17,39 +17,38 @@ import type { BatchResultDTO, JobVO } from './models';
 /**
  * pageByGroup: GET /cronjob/group/{jobGroup}/page
  */
-export function pageByGroup({ jobGroup }: {
+export function pageByGroup(
+  {
+    jobGroup,
+  }: {
     jobGroup: string;
-  }, params: {
+  },
+  params: {
     page?: number;
     size?: number;
-  }): Promise<PageResponse<JobVO[]>> {
+  },
+): Promise<PageResponse<JobVO[]>> {
   return requestClient.get<PageResponse<JobVO[]>>(`/cronjob/group/${jobGroup}/page`, { params });
 }
 
 /**
  * pauseByGroup: POST /cronjob/group/{jobGroup}/pause
  */
-export function pauseByGroup({ jobGroup }: {
-    jobGroup: string;
-  }): Promise<BatchResultDTO> {
+export function pauseByGroup({ jobGroup }: { jobGroup: string }): Promise<BatchResultDTO> {
   return requestClient.post<BatchResultDTO>(`/cronjob/group/${jobGroup}/pause`);
 }
 
 /**
  * resumeByGroup: POST /cronjob/group/{jobGroup}/resume
  */
-export function resumeByGroup({ jobGroup }: {
-    jobGroup: string;
-  }): Promise<BatchResultDTO> {
+export function resumeByGroup({ jobGroup }: { jobGroup: string }): Promise<BatchResultDTO> {
   return requestClient.post<BatchResultDTO>(`/cronjob/group/${jobGroup}/resume`);
 }
 
 /**
  * triggerByGroup: POST /cronjob/group/{jobGroup}/trigger
  */
-export function triggerByGroup({ jobGroup }: {
-    jobGroup: string;
-  }): Promise<BatchResultDTO> {
+export function triggerByGroup({ jobGroup }: { jobGroup: string }): Promise<BatchResultDTO> {
   return requestClient.post<BatchResultDTO>(`/cronjob/group/${jobGroup}/trigger`);
 }
 

@@ -11,24 +11,30 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { MessageSendResultVO, MsgTemplateVersionVO, TemplatePreviewDTO, TemplateTestSendDTO } from './models';
+import type {
+  MessageSendResultVO,
+  MsgTemplateVersionVO,
+  TemplatePreviewDTO,
+  TemplateTestSendDTO,
+} from './models';
 
 /**
  * listVersions: GET /message/template/version/list/{templateCode}
  */
-export function listVersions({ templateCode }: {
-    templateCode: string;
-  }): Promise<MsgTemplateVersionVO[]> {
-  return requestClient.get<MsgTemplateVersionVO[]>(`/message/template/version/list/${templateCode}`);
+export function listVersions({
+  templateCode,
+}: {
+  templateCode: string;
+}): Promise<MsgTemplateVersionVO[]> {
+  return requestClient.get<MsgTemplateVersionVO[]>(
+    `/message/template/version/list/${templateCode}`,
+  );
 }
 
 /**
  * rollback: POST /message/template/version/rollback
  */
-export function rollback(params: {
-    templateCode?: string;
-    version?: number;
-  }): Promise<string> {
+export function rollback(params: { templateCode?: string; version?: number }): Promise<string> {
   return requestClient.post<string>(`/message/template/version/rollback`, { params });
 }
 

@@ -39,8 +39,8 @@ export function injectBridgeScript(iframeWin: Window): void {
   const iframeDoc = iframeWin.document;
   // v4.3.0: 宿主精确 origin（file:// / sandbox 等 origin 为 'null' 时回退 '*'）
   const origin = window.location.origin;
-  const targetOrigin = origin && origin !== "null" ? origin : "*";
-  const script = iframeDoc.createElement("script");
+  const targetOrigin = origin && origin !== 'null' ? origin : '*';
+  const script = iframeDoc.createElement('script');
   script.textContent = `
     (function() {
       // 当前 globalState 快照（由主应用同步过来）

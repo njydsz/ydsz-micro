@@ -131,7 +131,7 @@ describe('YdSelectSmart 选项面板', () => {
     const optionsEls = optionEls();
     // disabled 项仍然渲染，但带 aria-disabled=true
     expect(optionsEls.length).toBe(4);
-    const disabledEl = optionsEls.find(el => el.getAttribute('aria-disabled') === 'true');
+    const disabledEl = optionsEls.find((el) => el.getAttribute('aria-disabled') === 'true');
     expect(disabledEl).toBeDefined();
     wrapper.unmount();
   });

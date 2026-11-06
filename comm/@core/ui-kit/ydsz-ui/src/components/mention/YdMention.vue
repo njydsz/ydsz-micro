@@ -43,9 +43,7 @@ const dropdownVisible = ref(false);
 const searchTerm = ref('');
 const caretOffset = ref(0);
 
-const prefixes = computed(() =>
-  Array.isArray(props.prefix) ? props.prefix : [props.prefix],
-);
+const prefixes = computed(() => (Array.isArray(props.prefix) ? props.prefix : [props.prefix]));
 
 const filteredOptions = computed(() => {
   if (!searchTerm.value) return props.options.slice(0, 8);
@@ -109,7 +107,10 @@ function selectOption(option: { label: string; value: string }): void {
       // 移动光标
       requestAnimationFrame(() => {
         inputRef.value?.focus();
-        inputRef.value?.setSelectionRange(before.length + insert.length, before.length + insert.length);
+        inputRef.value?.setSelectionRange(
+          before.length + insert.length,
+          before.length + insert.length,
+        );
       });
       return;
     }
@@ -123,9 +124,11 @@ function selectOption(option: { label: string; value: string }): void {
       ref="inputRef"
       :value="props.modelValue"
       :aria-label="t('mention.ariaLabel')"
-      :class="cn(
-        'flex min-h-[60px] w-full resize-none rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
-      )"
+      :class="
+        cn(
+          'bg-background focus:border-primary focus:ring-ring flex min-h-[60px] w-full resize-none rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
+        )
+      "
       :disabled="props.disabled"
       :placeholder="resolvedPlaceholder"
       @input="handleInput"
@@ -143,7 +146,11 @@ function selectOption(option: { label: string; value: string }): void {
         v-for="opt in filteredOptions"
         :key="opt.value"
         :aria-selected="false"
-        :class="cn('flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-muted')"
+        :class="
+          cn(
+            'hover:bg-muted flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors',
+          )
+        "
         role="option"
         type="button"
         @click="selectOption(opt)"
@@ -151,7 +158,12 @@ function selectOption(option: { label: string; value: string }): void {
         <span class="font-medium">{{ opt.label }}</span>
         <span class="text-muted-foreground text-xs">{{ opt.value }}</span>
       </button>
-      <div v-if="filteredOptions.length === 0" class="text-muted-foreground px-3 py-2 text-center text-sm">{{ t('empty.no-result') }}</div>
+      <div
+        v-if="filteredOptions.length === 0"
+        class="text-muted-foreground px-3 py-2 text-center text-sm"
+      >
+        {{ t('empty.no-result') }}
+      </div>
     </div>
   </div>
 </template>

@@ -17,7 +17,6 @@
  * @since 26.10.14
  */
 
-
 import type { SearchResultItem, SearchResponse } from '#/api/globalSearch';
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';

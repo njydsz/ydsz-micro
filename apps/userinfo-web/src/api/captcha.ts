@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * generate: GET /captcha/generate
  */
@@ -23,9 +22,6 @@ export function generate(): Promise<Record<string, string>> {
 /**
  * validate: POST /captcha/validate
  */
-export function validate(params: {
-    captchaKey?: string;
-    captcha?: string;
-  }): Promise<boolean> {
+export function validate(params: { captchaKey?: string; captcha?: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/captcha/validate`, { params });
 }

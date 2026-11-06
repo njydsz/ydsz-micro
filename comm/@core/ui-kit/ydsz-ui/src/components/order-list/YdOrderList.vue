@@ -10,11 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import {
-  computed,
-  ref,
-  watch,
-} from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { ChevronDown, ChevronUp, GripVertical, Search } from 'lucide-vue-next';
@@ -237,10 +233,7 @@ const isLastSelected = computed(
       </button>
 
       <!-- 搜索（filter 模式） -->
-      <div
-        v-if="props.filter"
-        class="relative ml-auto flex items-center"
-      >
+      <div v-if="props.filter" class="relative ml-auto flex items-center">
         <Search class="absolute left-2 size-3.5 text-neutral-400" aria-hidden="true" />
         <input
           v-model="query"
@@ -253,7 +246,7 @@ const isLastSelected = computed(
 
     <!-- 列表 -->
     <ul
-      class="max-h-80 flex flex-col gap-0.5 overflow-y-auto"
+      class="flex max-h-80 flex-col gap-0.5 overflow-y-auto"
       role="listbox"
       :aria-label="t('orderList.listAriaLabel')"
     >
@@ -265,7 +258,7 @@ const isLastSelected = computed(
             'flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-sm transition-colors',
             'hover:bg-neutral-100 dark:hover:bg-neutral-800',
             index === selectedIndex
-              ? 'bg-primary/10 font-medium text-primary-700 dark:text-primary-300'
+              ? 'bg-primary/10 text-primary-700 dark:text-primary-300 font-medium'
               : 'text-neutral-800 dark:text-neutral-200',
           )
         "
@@ -285,10 +278,7 @@ const isLastSelected = computed(
         />
         <span class="truncate">{{ getItemLabel(item) }}</span>
       </li>
-      <li
-        v-if="filteredItems.length === 0"
-        class="px-3 py-6 text-center text-sm text-neutral-400"
-      >
+      <li v-if="filteredItems.length === 0" class="px-3 py-6 text-center text-sm text-neutral-400">
         —
       </li>
     </ul>
@@ -313,7 +303,9 @@ const isLastSelected = computed(
   color: #ffffff;
   font-size: 12px;
   line-height: 1;
-  transition: background-color 150ms ease, opacity 150ms ease;
+  transition:
+    background-color 150ms ease,
+    opacity 150ms ease;
   white-space: nowrap;
   flex-shrink: 0;
 }

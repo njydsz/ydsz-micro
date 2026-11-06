@@ -18,7 +18,22 @@
  */
 import { onMounted, ref } from 'vue';
 
-import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdCheckboxBase, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdUpload, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdCheckboxBase,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdUpload,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import type { UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 
 import { showToast } from '@ydsz/notification';
@@ -121,15 +136,10 @@ onMounted(() => {
             </YdSelectBase>
           </YdFormItem>
           <YdFormItem>
-            <YdButton
-              :loading="exporting"
-              @click="handleExport"
-            >
-              导出 ZIP
-            </YdButton>
+            <YdButton :loading="exporting" @click="handleExport"> 导出 ZIP </YdButton>
           </YdFormItem>
         </YdForm>
-        <div class="text-xs text-gray-500 mt-2">
+        <div class="mt-2 text-xs text-gray-500">
           导出当前分组的所有 Velocity 模板文件为 ZIP 压缩包，可作为备份或跨环境迁移。
         </div>
       </YdCardContent>
@@ -179,7 +189,7 @@ onMounted(() => {
             </YdUpload>
           </YdFormItem>
         </YdForm>
-        <div class="text-xs text-gray-500 mt-2">
+        <div class="mt-2 text-xs text-gray-500">
           从 ZIP 压缩包导入模板到指定分组。ZIP 文件应包含 Velocity 模板文件。
         </div>
       </YdCardContent>

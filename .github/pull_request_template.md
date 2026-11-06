@@ -12,4 +12,5 @@
 
 - [ ] This PR does NOT modify any UI components or pages (skip visual check)
 - [ ] This PR modifies UI but existing baselines still match (no update needed)
-- [ ] This PR adds/modifies UI and visual baselines have been updated (`pnpm test:visual:update`)
+- [ ] This PR adds/modifies UI and visual baselines have been updated
+      (`pnpm test:visual:update`)

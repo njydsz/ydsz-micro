@@ -16,7 +16,15 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import {
@@ -202,9 +210,15 @@ const title = computed(() => {
           <YdRadioGroupItem value="reject">{{ $t('wf.reject') }}</YdRadioGroupItem>
           <YdRadioGroupItem value="transfer">{{ $t('wf.transfer') }}</YdRadioGroupItem>
           <YdRadioGroupItem value="delegate">{{ $t('wf.delegate') }}</YdRadioGroupItem>
-          <YdRadioGroupItem value="countersignBefore">{{ $t('wf.countersignBefore') }}</YdRadioGroupItem>
-          <YdRadioGroupItem value="countersignAfter">{{ $t('wf.countersignAfter') }}</YdRadioGroupItem>
-          <YdRadioGroupItem value="countersignParallel">{{ $t('wf.countersignParallel') }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="countersignBefore">{{
+            $t('wf.countersignBefore')
+          }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="countersignAfter">{{
+            $t('wf.countersignAfter')
+          }}</YdRadioGroupItem>
+          <YdRadioGroupItem value="countersignParallel">{{
+            $t('wf.countersignParallel')
+          }}</YdRadioGroupItem>
         </YdRadioGroup>
       </YdFormItem>
       <YdFormItem :label="$t('wf.quickComment')">

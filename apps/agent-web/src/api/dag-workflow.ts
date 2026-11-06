@@ -4,7 +4,7 @@
  * <p>对应后端 {@code DagWorkflowController}（/agent/dag-workflow）。
  */
 import { requestClient } from '#/api/request';
-import type { DagWorkflow } from '#/api/models';
+import type { DagWorkflowVO } from '#/api/models';
 
 /** 保存工作流请求 */
 export interface SaveDagWorkflowRequest {
@@ -22,13 +22,13 @@ export function saveDagWorkflow(data: SaveDagWorkflowRequest): Promise<string> {
 }
 
 /** 根据编码查询工作流 */
-export function getDagWorkflow(code: string): Promise<DagWorkflow> {
-  return requestClient.get<DagWorkflow>(`/agent/dag-workflow/${code}`);
+export function getDagWorkflow(code: string): Promise<DagWorkflowVO> {
+  return requestClient.get<DagWorkflowVO>(`/agent/dag-workflow/${code}`);
 }
 
 /** 查询工作流列表 */
-export function listDagWorkflows(category?: string): Promise<DagWorkflow[]> {
-  return requestClient.get<DagWorkflow[]>('/agent/dag-workflow/list', { params: { category } });
+export function listDagWorkflows(category?: string): Promise<DagWorkflowVO[]> {
+  return requestClient.get<DagWorkflowVO[]>('/agent/dag-workflow/list', { params: { category } });
 }
 
 /** 删除工作流 */

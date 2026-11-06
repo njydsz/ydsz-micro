@@ -22,11 +22,11 @@
  * @since 4.0.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import type { RoutePredictorLike } from "./route-predictor-core";
+import type { DisposableManager } from './manager-registry';
+import type { RoutePredictorLike } from './route-predictor-core';
 
-import { removeStorage } from "./storage-utils";
-import { STORAGE_KEY } from "./route-predictor-types";
+import { removeStorage } from './storage-utils';
+import { STORAGE_KEY } from './route-predictor-types';
 
 import {
   saveCore,
@@ -36,17 +36,14 @@ import {
   getSummaryCore,
   __registerRoutePredictor,
   createRoutePredictorManagerLifecycle,
-} from "./route-predictor-core";
+} from './route-predictor-core';
 
 // 重新导出类型，保持向后兼容
-export type { Prediction } from "./route-predictor-types";
-export type { PersistedData, TransitionRecord } from "./route-predictor-types";
+export type { Prediction } from './route-predictor-types';
+export type { PersistedData, TransitionRecord } from './route-predictor-types';
 
 // 重新导出单例管理函数，保持向后兼容
-export {
-  getRoutePredictor,
-  resetRoutePredictor,
-} from "./route-predictor-core";
+export { getRoutePredictor, resetRoutePredictor } from './route-predictor-core';
 
 /**
  * 路由预测器
@@ -145,8 +142,7 @@ export class RoutePredictor {
   predict(currentApp: string, topN = 3, fallbackTopN?: number) {
     const toMap = this.transitions.get(currentApp);
     if (!toMap || toMap.size === 0) {
-      const fbN =
-        fallbackTopN === undefined ? topN : fallbackTopN > 0 ? fallbackTopN : 0;
+      const fbN = fallbackTopN === undefined ? topN : fallbackTopN > 0 ? fallbackTopN : 0;
       if (fbN > 0) {
         return this.getGlobalTopApps(fbN, currentApp);
       }
@@ -155,8 +151,7 @@ export class RoutePredictor {
 
     const total = this.totals.get(currentApp) || 0;
     if (total === 0) {
-      const fbN =
-        fallbackTopN === undefined ? topN : fallbackTopN > 0 ? fallbackTopN : 0;
+      const fbN = fallbackTopN === undefined ? topN : fallbackTopN > 0 ? fallbackTopN : 0;
       if (fbN > 0) return this.getGlobalTopApps(fbN, currentApp);
       return [];
     }
@@ -171,9 +166,7 @@ export class RoutePredictor {
       });
     }
 
-    return predictions
-      .sort((a, b) => b.probability - a.probability)
-      .slice(0, topN);
+    return predictions.sort((a, b) => b.probability - a.probability).slice(0, topN);
   }
 
   /**

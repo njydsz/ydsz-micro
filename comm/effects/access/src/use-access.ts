@@ -132,8 +132,7 @@ function useAccess() {
   async function toggleAccessMode() {
     updatePreferences({
       app: {
-        accessMode:
-          preferences.app.accessMode === 'frontend' ? 'backend' : 'frontend',
+        accessMode: preferences.app.accessMode === 'frontend' ? 'backend' : 'frontend',
       },
     });
   }

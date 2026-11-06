@@ -1,4 +1,4 @@
-import { camelize, getCurrentInstance, toHandlerKey } from 'vue'
+import { camelize, getCurrentInstance, toHandlerKey } from 'vue';
 
 // Vue doesn't have emits forwarding, in order to bind the emits we have to convert events into `onXXX` handlers
 // issue: https://github.com/vuejs/core/issues/5917
@@ -11,22 +11,18 @@ import { camelize, getCurrentInstance, toHandlerKey } from 'vue'
  * @returns The function `useEmitAsProps` returns an object that maps event names to functions that
  * call the `emit` function with the corresponding event name and arguments.
  */
-export function useEmitAsProps<Name extends string>(
-  emit: (name: Name, ...args: any[]) => void,
-) {
-  const vm = getCurrentInstance()
+export function useEmitAsProps<Name extends string>(emit: (name: Name, ...args: any[]) => void) {
+  const vm = getCurrentInstance();
 
-  const events = vm?.type.emits as Name[]
-  const result: Record<string, any> = {}
+  const events = vm?.type.emits as Name[];
+  const result: Record<string, any> = {};
 
   if (!events?.length) {
-    console.warn(
-      `No emitted event found. Please check component: ${vm?.type.__name}`,
-    )
+    console.warn(`No emitted event found. Please check component: ${vm?.type.__name}`);
   }
 
   events?.forEach((ev) => {
-    result[toHandlerKey(camelize(ev))] = (...arg: any) => emit(ev, ...arg)
-  })
-  return result
+    result[toHandlerKey(camelize(ev))] = (...arg: any) => emit(ev, ...arg);
+  });
+  return result;
 }

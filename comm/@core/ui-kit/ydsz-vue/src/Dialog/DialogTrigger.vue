@@ -1,26 +1,26 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface DialogTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { useForwardExpose, useId } from '../shared/index.ts'
-import { Primitive } from '../Primitive/index.ts'
+import { onMounted } from 'vue';
+import { injectDialogRootContext } from './DialogRoot.vue';
+import { useForwardExpose, useId } from '../shared/index.ts';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<DialogTriggerProps>(), {
   as: 'button',
-})
-const rootContext = injectDialogRootContext()
-const { forwardRef, currentElement } = useForwardExpose()
+});
+const rootContext = injectDialogRootContext();
+const { forwardRef, currentElement } = useForwardExpose();
 
-rootContext.contentId ||= useId(undefined, 'radix-vue-dialog-content')
+rootContext.contentId ||= useId(undefined, 'radix-vue-dialog-content');
 onMounted(() => {
-  rootContext.triggerElement.value = currentElement.value
-})
+  rootContext.triggerElement.value = currentElement.value;
+});
 </script>
 
 <template>

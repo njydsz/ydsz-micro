@@ -1,17 +1,17 @@
 <script setup lang="ts">
 /**
-* 左侧域/分类筛选面板：仿 ForgeLab forge-admin 业务域筛选面板。
-* 
+ * 左侧域/分类筛选面板：仿 ForgeLab forge-admin 业务域筛选面板。
+ *
  * 设计目标：
  *  - 通用左侧筛选面板，适配业务域、空间、分类、目录等场景；
  *  - 支持全选项 + N 个域选项 + 每项计数徽章；
  *  - 支持可选的搜索框（过滤域列表）和"新建"按钮。
-* 
+ *
  * 交互：
  *  - 单击选项选中（single-select）；
  *  - 全选项始终在顶部，选中后其他项取消；
  *  - 支持 v-model 双向绑定选中值（'top-code' 或各项 code）。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\domain-filter\YdDomainFilterPanel.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -89,8 +89,7 @@ const filteredItems = computed<DomainItem[]>(() => {
   const keyword = searchKeyword.value.trim().toLowerCase();
   return props.items.filter(
     (item: DomainItem) =>
-      item.name.toLowerCase().includes(keyword)
-      || item.code.toLowerCase().includes(keyword),
+      item.name.toLowerCase().includes(keyword) || item.code.toLowerCase().includes(keyword),
   );
 });
 
@@ -110,20 +109,20 @@ function handleAdd(): void {
   <div
     :class="
       cn(
-        'flex h-full w-full flex-col rounded-xl border border-border-subtle bg-surface-2 p-3',
+        'border-border-subtle bg-surface-2 flex h-full w-full flex-col rounded-xl border p-3',
         props.class,
       )
     "
   >
     <!-- 头部：标题 + 计数 -->
     <div class="mb-3 flex items-center justify-between">
-      <h3 class="text-sm font-medium text-text-primary">
+      <h3 class="text-text-primary text-sm font-medium">
         {{ resolvedTitle }}
-        <span class="ms-1 text-xs text-text-tertiary">· {{ items.length }}</span>
+        <span class="text-text-tertiary ms-1 text-xs">· {{ items.length }}</span>
       </h3>
       <button
         v-if="showAdd"
-        class="flex h-6 items-center gap-1 rounded-md bg-primary/10 px-2 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+        class="bg-primary/10 text-primary hover:bg-primary/20 flex h-6 items-center gap-1 rounded-md px-2 text-xs font-medium transition-colors"
         type="button"
         @click="handleAdd"
       >
@@ -133,17 +132,11 @@ function handleAdd(): void {
     </div>
 
     <!-- 搜索框 -->
-    <div
-      v-if="showSearch"
-      class="relative mb-3"
-    >
-      <Search
-        :size="14"
-        class="absolute start-2.5 top-1/2 -translate-y-1/2 text-text-tertiary"
-      />
+    <div v-if="showSearch" class="relative mb-3">
+      <Search :size="14" class="text-text-tertiary absolute start-2.5 top-1/2 -translate-y-1/2" />
       <input
         v-model="searchKeyword"
-        class="h-8 w-full rounded-lg border border-border-subtle bg-accent/50 ps-8 text-xs text-text-primary placeholder:text-text-tertiary focus:border-primary focus:outline-none"
+        class="border-border-subtle bg-accent/50 text-text-primary placeholder:text-text-tertiary focus:border-primary h-8 w-full rounded-lg border ps-8 text-xs focus:outline-none"
         :placeholder="t('domainFilter.searchPlaceholder', { title: resolvedTitle })"
         type="text"
       />
@@ -152,15 +145,16 @@ function handleAdd(): void {
     <!-- 全选项 -->
     <button
       class="mb-1 flex items-center gap-2 rounded-lg px-2 py-2 text-left text-sm transition-colors"
-      :class="selected === 'all' ? 'bg-primary/10 text-primary' : 'text-text-secondary hover:bg-accent'"
+      :class="
+        selected === 'all' ? 'bg-primary/10 text-primary' : 'text-text-secondary hover:bg-accent'
+      "
       type="button"
       @click="handleSelect('all')"
     >
-      <FolderOpen
-        :size="16"
-        :class="selected === 'all' ? 'text-primary' : 'text-text-tertiary'"
-      />
-      <span class="flex-1 truncate">{{ t('domainFilter.allItems', { title: resolvedTitle }) }}</span>
+      <FolderOpen :size="16" :class="selected === 'all' ? 'text-primary' : 'text-text-tertiary'" />
+      <span class="flex-1 truncate">{{
+        t('domainFilter.allItems', { title: resolvedTitle })
+      }}</span>
       <span
         class="rounded-md px-1.5 py-0.5 text-xs"
         :class="selected === 'all' ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'"
@@ -175,25 +169,33 @@ function handleAdd(): void {
         v-for="item in filteredItems"
         :key="item.code"
         class="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm transition-colors"
-        :class="selected === item.code ? 'bg-primary/10 text-primary' : 'text-text-secondary hover:bg-accent'"
+        :class="
+          selected === item.code
+            ? 'bg-primary/10 text-primary'
+            : 'text-text-secondary hover:bg-accent'
+        "
         type="button"
         @click="handleSelect(item.code)"
       >
         <ChevronRight
           :size="14"
-          class="shrink-0 text-text-tertiary transition-transform"
+          class="text-text-tertiary shrink-0 transition-transform"
           :class="{ 'rotate-90': selected === item.code }"
         />
         <span
           class="inline-flex h-5 min-w-[20px] shrink-0 items-center justify-center rounded-md text-xs font-medium"
-          :class="selected === item.code ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'"
+          :class="
+            selected === item.code ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'
+          "
         >
           {{ t('domainFilter.badge') }}
         </span>
         <span class="flex-1 truncate">{{ item.name }}</span>
         <span
           class="rounded-md px-1.5 py-0.5 text-xs"
-          :class="selected === item.code ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'"
+          :class="
+            selected === item.code ? 'bg-primary/20 text-primary' : 'bg-accent text-text-tertiary'
+          "
         >
           {{ item.count ?? 0 }}
         </span>
@@ -203,7 +205,7 @@ function handleAdd(): void {
     <!-- 底部提示 -->
     <div
       v-if="bottomHint"
-      class="mt-3 rounded-md bg-accent/60 px-2 py-2 text-xs text-text-tertiary"
+      class="bg-accent/60 text-text-tertiary mt-3 rounded-md px-2 py-2 text-xs"
     >
       {{ bottomHint }}
     </div>

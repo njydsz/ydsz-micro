@@ -17,26 +17,33 @@ import type { EntityVersionPageQuery, EntityVersionVO } from './models';
 /**
  * listByTypeCode: GET /dict/version/{typeCode}
  */
-export function listByTypeCode({ typeCode }: {
-    typeCode: string;
-  }): Promise<EntityVersionVO[]> {
+export function listByTypeCode({ typeCode }: { typeCode: string }): Promise<EntityVersionVO[]> {
   return requestClient.get<EntityVersionVO[]>(`/dict/version/${typeCode}`);
 }
 
 /**
  * pageByTypeCode: GET /dict/version/page
  */
-export function pageByTypeCode(query?: EntityVersionPageQuery): Promise<PageResponse<EntityVersionVO[]>> {
-  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/dict/version/page`, { params: query });
+export function pageByTypeCode(
+  query?: EntityVersionPageQuery,
+): Promise<PageResponse<EntityVersionVO[]>> {
+  return requestClient.get<PageResponse<EntityVersionVO[]>>(`/dict/version/page`, {
+    params: query,
+  });
 }
 
 /**
  * rollback: POST /dict/version/{typeCode}/rollback
  */
-export function rollback({ typeCode }: {
+export function rollback(
+  {
+    typeCode,
+  }: {
     typeCode: string;
-  }, params: {
+  },
+  params: {
     targetVersion?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/dict/version/${typeCode}/rollback`, { params });
 }

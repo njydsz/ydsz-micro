@@ -87,4 +87,3 @@ const logoStyle = computed((): CSSProperties => {
     <slot></slot>
   </header>
 </template>
-

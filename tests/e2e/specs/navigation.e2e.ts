@@ -56,9 +56,18 @@ test.describe('主导航冒烟', () => {
     const tabBar = page.locator(LOCAL_SELECTORS.tabBar).first();
 
     const anyVisible = await Promise.race([
-      sidebar.isVisible({ timeout: 5_000 }).then(() => true).catch(() => false),
-      menuItem.isVisible({ timeout: 100 }).then(() => true).catch(() => false),
-      tabBar.isVisible({ timeout: 100 }).then(() => true).catch(() => false),
+      sidebar
+        .isVisible({ timeout: 5_000 })
+        .then(() => true)
+        .catch(() => false),
+      menuItem
+        .isVisible({ timeout: 100 })
+        .then(() => true)
+        .catch(() => false),
+      tabBar
+        .isVisible({ timeout: 100 })
+        .then(() => true)
+        .catch(() => false),
     ]);
 
     expect(anyVisible, '侧边栏、菜单项或标签栏至少有一个应可见').toBe(true);

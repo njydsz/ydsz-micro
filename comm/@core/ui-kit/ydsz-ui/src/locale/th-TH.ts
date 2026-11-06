@@ -354,8 +354,10 @@ export const thTH = {
   'aiBuilder.defaultPromptPlaceholder': 'อธิบายหน้าที่ต้องการสร้างด้วยภาษาธรรมชาติ (รองรับผสมภาษา)',
   'aiBuilder.exampleForm': 'ตัวอย่าง: สร้างฟอร์มผู้ใช้ใหม่พร้อมฟิลด์ชื่อ อายุ และอีเมล',
   'aiBuilder.exampleTable': 'ตัวอย่าง: สร้างรายการคำสั่งซื้อพร้อมตัวกรองสถานะและส่งออก',
-  'aiBuilder.exampleDashboard': 'ตัวอย่าง: สร้างแดชบอร์ดขายแสดงรายได้รายวัน คำสั่งซื้อ และอัตราแปลง',
-  'aiBuilder.exampleDetail': 'ตัวอย่าง: สร้างหน้ารายละเอียดลูกค้าแสดงข้อมูลพื้นฐานและคำสั่งซื้อที่เกี่ยวข้อง',
+  'aiBuilder.exampleDashboard':
+    'ตัวอย่าง: สร้างแดชบอร์ดขายแสดงรายได้รายวัน คำสั่งซื้อ และอัตราแปลง',
+  'aiBuilder.exampleDetail':
+    'ตัวอย่าง: สร้างหน้ารายละเอียดลูกค้าแสดงข้อมูลพื้นฐานและคำสั่งซื้อที่เกี่ยวข้อง',
   'aiBuilder.typeString': 'ข้อความ',
   'aiBuilder.typeNumber': 'ตัวเลข',
   'aiBuilder.typeBoolean': 'บูลีน',
@@ -416,7 +418,7 @@ export const thTH = {
   'dashboard.cardCount': '{count} การ์ด',
   'dashboard.emptyEditable': 'คลิก "เพิ่มการ์ด" เพื่อเริ่มสร้างแดชบอร์ด',
   'dashboard.empty': 'ยังไม่มีข้อมูลการ์ด',
-'dashboard.chartEmpty': 'ยังไม่มีข้อมูลแผนภูมิ',
+  'dashboard.chartEmpty': 'ยังไม่มีข้อมูลแผนภูมิ',
   'advancedFilter.toolbarAriaLabel': 'แถบเครื่องมือตัวกรอง',
   'advancedFilter.removeFilter': 'ลบตัวกรอง {label}: {value}',
   'bulkActions.selectAll': 'เลือกทั้งหมด {count} รายการ',
@@ -491,6 +493,14 @@ export const thTH = {
   'splitter.ariaLabel': 'ปรับขนาดแผง',
   'tag.close': 'ปิดแท็ก',
   'timeline.ariaLabel': 'ไทม์ไลน์',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

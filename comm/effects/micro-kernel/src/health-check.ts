@@ -17,12 +17,12 @@
  * @since 4.2.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import type { AppStatus } from "./scheduler";
+import type { DisposableManager } from './manager-registry';
+import type { AppStatus } from './scheduler';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-const logger = createLogger("MicroKernel:HealthCheck");
+const logger = createLogger('MicroKernel:HealthCheck');
 
 /** 最小探测间隔（毫秒）— 防止高频探测占用带宽 */
 const MIN_PROBE_INTERVAL_MS = 30_000;
@@ -155,7 +155,7 @@ export function getMemoryEstimate(): MemoryEstimate | null {
   };
 
   const memory = perf.memory;
-  if (!memory || typeof memory.totalJSHeapSize !== "number") {
+  if (!memory || typeof memory.totalJSHeapSize !== 'number') {
     return null;
   }
 
@@ -204,10 +204,10 @@ async function pingApp(
     // @infra-fetch 基础设施层直用，无统一客户端上下文（微内核健康检查 ping）
     // 使用 HEAD + no-cors 模式，仅检验可达性
     await fetch(origin, {
-      method: "HEAD",
-      mode: "no-cors",
+      method: 'HEAD',
+      mode: 'no-cors',
       signal: controller.signal,
-      cache: "no-store",
+      cache: 'no-store',
     });
     const latencyMs = Math.round(performance.now() - start);
     return { reachable: true, latencyMs };
@@ -239,7 +239,7 @@ export async function runHealthCheck(
 
   // 节流检查
   if (!options?.force && now - lastProbeTime < MIN_PROBE_INTERVAL_MS) {
-    logger.debug("Health check throttled, returning cached data");
+    logger.debug('Health check throttled, returning cached data');
   }
   lastProbeTime = now;
 
@@ -255,9 +255,8 @@ export async function runHealthCheck(
   async function probeNext(): Promise<void> {
     while (queue.length > 0) {
       const app = queue.shift()!;
-      const entryUrl = app.config.entry || "";
-      const lastLoadMs =
-        app.loadMetrics?.duration ?? getAverageLoadDuration(app.config.name);
+      const entryUrl = app.config.entry || '';
+      const lastLoadMs = app.loadMetrics?.duration ?? getAverageLoadDuration(app.config.name);
 
       let reachable = false;
       let latencyMs = -1;
@@ -279,21 +278,18 @@ export async function runHealthCheck(
   }
 
   // 启动 N 个并发 worker
-  const workers = Array.from(
-    { length: Math.min(maxConcurrent, queue.length) },
-    () => probeNext(),
-  );
+  const workers = Array.from({ length: Math.min(maxConcurrent, queue.length) }, () => probeNext());
   await Promise.all(workers);
 
   // 汇总
-  const mounted = appResults.filter((a) => a.status === "MOUNTED");
+  const mounted = appResults.filter((a) => a.status === 'MOUNTED');
   const reachableApps = appResults.filter((a) => a.reachable);
   const unreachableList = appResults
-    .filter((a) => a.status === "MOUNTED" && !a.reachable)
+    .filter((a) => a.status === 'MOUNTED' && !a.reachable)
     .map((a) => a.appName);
 
   if (unreachableList.length > 0) {
-    logger.warn(`Unreachable mounted apps: ${unreachableList.join(", ")}`);
+    logger.warn(`Unreachable mounted apps: ${unreachableList.join(', ')}`);
   }
 
   // 内存压力告警
@@ -304,7 +300,7 @@ export async function runHealthCheck(
   }
 
   return {
-    kernelVersion: "4.2.0",
+    kernelVersion: '4.2.0',
     timestamp: now,
     apps: appResults,
     memory,
@@ -334,7 +330,7 @@ export function resetHealthCheck(): void {
  */
 export function createHealthCheckerManager(): DisposableManager {
   return {
-    name: "health-checker",
+    name: 'health-checker',
     dispose(): void {
       resetHealthCheck();
     },

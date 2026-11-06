@@ -3,8 +3,8 @@ import { useLocale } from '../../locale/useLocale';
 
 const { t } = useLocale();
 /**
-* 表格空数据占位：在 tbody 内独占一行，跨所有列。
-* 
+ * 表格空数据占位：在 tbody 内独占一行，跨所有列。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableEmpty.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -26,10 +26,7 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <tr>
-    <td
-      :colspan="colspan"
-      class="h-24 text-center text-muted-foreground"
-    >
+    <td :colspan="colspan" class="text-muted-foreground h-24 text-center">
       <slot>
         <div class="flex flex-col items-center justify-center gap-1">
           <span class="text-sm">{{ description ?? t('empty.default') }}</span>

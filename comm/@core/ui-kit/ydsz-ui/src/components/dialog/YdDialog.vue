@@ -1,9 +1,9 @@
 <script setup lang="ts">
 /**
-* 对话框根容器：包装 radix DialogRoot，持有对话框的开关状态。
-* 
+ * 对话框根容器：包装 radix DialogRoot，持有对话框的开关状态。
+ *
  * 支持 v-model:open 受控；不传时由 radix 内部维护非受控状态。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\dialog\YdDialog.vue
  * @author ydsz-team
  * @since 1.0.0

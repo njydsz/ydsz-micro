@@ -37,22 +37,13 @@ export class FormScrollHelper {
    * @param fieldName 字段名
    * @returns 组件实例
    */
-  getFieldComponentRef<T = ComponentPublicInstance>(
-    fieldName: string,
-  ): T | undefined {
+  getFieldComponentRef<T = ComponentPublicInstance>(fieldName: string): T | undefined {
     let target = this.componentRefMap.has(fieldName)
       ? (this.componentRefMap.get(fieldName) as ComponentPublicInstance)
       : undefined;
-    if (
-      target &&
-      target.$.type.name === 'AsyncComponentWrapper' &&
-      target.$.subTree.ref
-    ) {
+    if (target && target.$.type.name === 'AsyncComponentWrapper' && target.$.subTree.ref) {
       if (Array.isArray(target.$.subTree.ref)) {
-        if (
-          target.$.subTree.ref.length > 0 &&
-          isRef(target.$.subTree.ref[0]?.r)
-        ) {
+        if (target.$.subTree.ref.length > 0 && isRef(target.$.subTree.ref[0]?.r)) {
           target = target.$.subTree.ref[0]?.r.value as ComponentPublicInstance;
         }
       } else if (isRef(target.$.subTree.ref.r)) {
@@ -79,10 +70,7 @@ export class FormScrollHelper {
         if (!el) {
           continue;
         }
-        if (
-          el === document.activeElement ||
-          el.contains(document.activeElement)
-        ) {
+        if (el === document.activeElement || el.contains(document.activeElement)) {
           return fieldName;
         }
       }
@@ -95,16 +83,13 @@ export class FormScrollHelper {
    * @param errors 验证错误对象或字段名
    */
   scrollToFirstError(errors: Record<string, unknown> | string) {
-    const firstErrorFieldName =
-      typeof errors === 'string' ? errors : Object.keys(errors)[0];
+    const firstErrorFieldName = typeof errors === 'string' ? errors : Object.keys(errors)[0];
 
     if (!firstErrorFieldName) {
       return;
     }
 
-    let el = document.querySelector(
-      `[name="${firstErrorFieldName}"]`,
-    ) as HTMLElement;
+    let el = document.querySelector(`[name="${firstErrorFieldName}"]`) as HTMLElement;
 
     if (!el) {
       const componentRef = this.getFieldComponentRef(firstErrorFieldName);
@@ -122,4 +107,3 @@ export class FormScrollHelper {
     }
   }
 }
-

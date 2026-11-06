@@ -67,10 +67,18 @@ const webhookGridOptions: VxeGridProps<JobWebhookVO> = {
         default: ({ row }) => {
           const item = row as JobWebhookVO;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(item) }, () => t('common.edit')),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleToggle(item) }, () => (item.webhookStatus === 'ACTIVE' ? '停用' : '启用')),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTest(item) }, () => t('business.webhookTest')),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(item) }, () => t('common.delete')),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(item) }, () =>
+              t('common.edit'),
+            ),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleToggle(item) }, () =>
+              item.webhookStatus === 'ACTIVE' ? '停用' : '启用',
+            ),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTest(item) }, () =>
+              t('business.webhookTest'),
+            ),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(item) }, () =>
+              t('common.delete'),
+            ),
           ]);
         },
       },

@@ -180,11 +180,7 @@ function sliceFile(file: File, hash: string, chunkSize: number): ChunkInfo[] {
  * @param init    - fetch RequestInit
  * @param timeout - 超时毫秒
  */
-function fetchWithTimeout(
-  url: string,
-  init: RequestInit,
-  timeout: number,
-): Promise<Response> {
+function fetchWithTimeout(url: string, init: RequestInit, timeout: number): Promise<Response> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeout);
 
@@ -204,10 +200,7 @@ function fetchWithTimeout(
  * @param fn      - 实际请求函数（返回 Promise<Response>）
  * @param maxRetries - 最大重试次数
  */
-async function retryFetch(
-  fn: () => Promise<Response>,
-  maxRetries: number,
-): Promise<Response> {
+async function retryFetch(fn: () => Promise<Response>, maxRetries: number): Promise<Response> {
   let lastError: unknown;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
@@ -409,9 +402,7 @@ async function uploadChunksWithConcurrency(
     await uploadNext();
   }
 
-  await Promise.all(
-    Array.from({ length: Math.min(maxConcurrency, total) }, () => uploadNext()),
-  );
+  await Promise.all(Array.from({ length: Math.min(maxConcurrency, total) }, () => uploadNext()));
 }
 
 // ---------------------------------------------------------------------------
@@ -480,9 +471,7 @@ async function uploadChunksSingleEndpoint(
     await uploadNext();
   }
 
-  await Promise.all(
-    Array.from({ length: Math.min(maxConcurrency, total) }, () => uploadNext()),
-  );
+  await Promise.all(Array.from({ length: Math.min(maxConcurrency, total) }, () => uploadNext()));
 }
 
 // ---------------------------------------------------------------------------
@@ -510,9 +499,7 @@ async function uploadChunksSingleEndpoint(
  * });
  * ```
  */
-export function useChunkUpload(
-  options: ChunkUploadOptions = {},
-): ChunkUploadHandle {
+export function useChunkUpload(options: ChunkUploadOptions = {}): ChunkUploadHandle {
   const {
     chunkSize = DEFAULT_CHUNK_SIZE,
     maxConcurrency = 3,
@@ -544,21 +531,10 @@ export function useChunkUpload(
   }
 
   /** 整个 httpRequest 入口 —— 与 YdUpload.vue 的 httpRequest 约定对齐 */
-  async function httpRequest(
-    req?: ChunkHttpRequestOptions,
-  ): Promise<unknown> {
+  async function httpRequest(req?: ChunkHttpRequestOptions): Promise<unknown> {
     if (!req) return;
 
-    const {
-      action,
-      file,
-      filename,
-      storageKey,
-      data,
-      onProgress,
-      onSuccess,
-      onError,
-    } = req;
+    const { action, file, filename, storageKey, data, onProgress, onSuccess, onError } = req;
 
     try {
       // 阶段 1：计算 hash
@@ -628,7 +604,11 @@ export function useChunkUpload(
 
         // 4a. 初始化
         const initResult = await initMultipart(cfg, file, storageKey, maxRetries);
-        logger.info('分片上传初始化完成: uploadId={}, partSize={}', initResult.uploadId, initResult.recommendedPartSize);
+        logger.info(
+          '分片上传初始化完成: uploadId={}, partSize={}',
+          initResult.uploadId,
+          initResult.recommendedPartSize,
+        );
 
         // 4b. 并发上传分片
         await uploadChunksWithConcurrency(

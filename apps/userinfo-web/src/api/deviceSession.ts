@@ -23,8 +23,6 @@ export function listMyDevices(): Promise<DeviceSessionVO[]> {
 /**
  * revokeDevice: DELETE /devices/{sessionId}
  */
-export function revokeDevice({ sessionId }: {
-    sessionId: string;
-  }): Promise<boolean> {
+export function revokeDevice({ sessionId }: { sessionId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/devices/${sessionId}`);
 }

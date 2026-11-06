@@ -82,11 +82,7 @@ const densityClass = computed(() => {
     :class="cn(buttonVariants({ variant: variant, size: resolvedSize }), densityClass, props.class)"
     :disabled="loading"
   >
-    <Loader2
-      v-if="loading"
-      :class="cn('mr-1 size-4 animate-spin')"
-      aria-hidden="true"
-    />
+    <Loader2 v-if="loading" :class="cn('mr-1 size-4 animate-spin')" aria-hidden="true" />
     <slot></slot>
   </Primitive>
 </template>

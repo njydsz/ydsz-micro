@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * checkFileInfo: GET /nextwiki/wopi/files/{fileId}
  *
@@ -21,18 +20,14 @@ import { requestClient } from '#/api/request';
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function checkFileInfo({ fileId }: {
-    fileId: string;
-  }): Promise<unknown> {
+export function checkFileInfo({ fileId }: { fileId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/nextwiki/wopi/files/${fileId}`);
 }
 
 /**
  * getFileContents: GET /nextwiki/wopi/files/{fileId}/contents
  */
-export function getFileContents({ fileId }: {
-    fileId: string;
-  }): Promise<number[]> {
+export function getFileContents({ fileId }: { fileId: string }): Promise<number[]> {
   return requestClient.get<number[]>(`/nextwiki/wopi/files/${fileId}/contents`);
 }
 
@@ -44,9 +39,14 @@ export function getFileContents({ fileId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function putFileContents({ fileId }: {
+export function putFileContents(
+  {
+    fileId,
+  }: {
     fileId: string;
-  }, data: number[]): Promise<unknown> {
+  },
+  data: number[],
+): Promise<unknown> {
   return requestClient.post<unknown>(`/nextwiki/wopi/files/${fileId}/contents`, data);
 }
 
@@ -58,9 +58,7 @@ export function putFileContents({ fileId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function lockFile({ fileId }: {
-    fileId: string;
-  }): Promise<unknown> {
+export function lockFile({ fileId }: { fileId: string }): Promise<unknown> {
   return requestClient.post<unknown>(`/nextwiki/wopi/files/${fileId}/lock`);
 }
 
@@ -72,8 +70,6 @@ export function lockFile({ fileId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function unlockFile({ fileId }: {
-    fileId: string;
-  }): Promise<unknown> {
+export function unlockFile({ fileId }: { fileId: string }): Promise<unknown> {
   return requestClient.post<unknown>(`/nextwiki/wopi/files/${fileId}/unlock`);
 }

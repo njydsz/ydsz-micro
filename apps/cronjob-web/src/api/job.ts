@@ -12,7 +12,15 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { BatchResultDTO, JobBatchDTO, JobBatchUpdateDTO, JobLogVO, JobPostDTO, JobPutDTO, JobVO } from './models';
+import type {
+  BatchResultDTO,
+  JobBatchDTO,
+  JobBatchUpdateDTO,
+  JobLogVO,
+  JobPostDTO,
+  JobPutDTO,
+  JobVO,
+} from './models';
 
 /**
  * create: POST /cronjob
@@ -32,10 +40,12 @@ export function update(data: JobPutDTO): Promise<void> {
  * validateCron: GET /cronjob/cron/validate
  */
 export function validateCron(params: {
-    expr?: string;
-    count?: number;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/cron/validate`, { params });
+  expr?: string;
+  count?: number;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/cron/validate`, {
+    params,
+  });
 }
 
 /**
@@ -48,38 +58,37 @@ export function batchDelete(data: JobBatchDTO): Promise<BatchResultDTO> {
 /**
  * delete: DELETE /cronjob/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteApi({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/cronjob/${id}`);
 }
 
 /**
  * pause: POST /cronjob/{id}/pause
  */
-export function pause({ id }: {
-    id: string;
-  }): Promise<void> {
+export function pause({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/cronjob/${id}/pause`);
 }
 
 /**
  * resume: POST /cronjob/{id}/resume
  */
-export function resume({ id }: {
-    id: string;
-  }): Promise<void> {
+export function resume({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/cronjob/${id}/resume`);
 }
 
 /**
  * trigger: POST /cronjob/{id}/trigger
  */
-export function trigger({ id }: {
+export function trigger(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     holdLock?: boolean;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/cronjob/${id}/trigger`, { params });
 }
 
@@ -121,9 +130,7 @@ export function batchUpdateCron(data: JobBatchUpdateDTO): Promise<BatchResultDTO
 /**
  * getById: GET /cronjob/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<JobVO> {
+export function getById({ id }: { id: string }): Promise<JobVO> {
   return requestClient.get<JobVO>(`/cronjob/${id}`);
 }
 
@@ -131,12 +138,12 @@ export function getById({ id }: {
  * page: GET /cronjob/page
  */
 export function page(params: {
-    pageNum?: number;
-    size?: number;
-    keyword?: string;
-    status?: string;
-    group?: string;
-  }): Promise<PageResponse<JobVO[]>> {
+  pageNum?: number;
+  size?: number;
+  keyword?: string;
+  status?: string;
+  group?: string;
+}): Promise<PageResponse<JobVO[]>> {
   return requestClient.get<PageResponse<JobVO[]>>(`/cronjob/page`, { params });
 }
 
@@ -144,11 +151,11 @@ export function page(params: {
  * pageLog: GET /cronjob/log/page
  */
 export function pageLog(params: {
-    pageNum?: number;
-    size?: number;
-    jobKey?: string;
-    status?: string;
-  }): Promise<PageResponse<JobLogVO[]>> {
+  pageNum?: number;
+  size?: number;
+  jobKey?: string;
+  status?: string;
+}): Promise<PageResponse<JobLogVO[]>> {
   return requestClient.get<PageResponse<JobLogVO[]>>(`/cronjob/log/page`, { params });
 }
 
@@ -156,11 +163,11 @@ export function pageLog(params: {
  * exportJobs: GET /cronjob/export
  */
 export function exportJobs(params: {
-    keyword?: string;
-    status?: string;
-    group?: string;
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+  keyword?: string;
+  status?: string;
+  group?: string;
+  response?: Record<string, unknown>;
+}): Promise<void> {
   return requestClient.get<void>(`/cronjob/export`, { params });
 }
 
@@ -168,10 +175,10 @@ export function exportJobs(params: {
  * exportJobLogs: GET /cronjob/log/export
  */
 export function exportJobLogs(params: {
-    jobKey?: string;
-    status?: string;
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+  jobKey?: string;
+  status?: string;
+  response?: Record<string, unknown>;
+}): Promise<void> {
   return requestClient.get<void>(`/cronjob/log/export`, { params });
 }
 

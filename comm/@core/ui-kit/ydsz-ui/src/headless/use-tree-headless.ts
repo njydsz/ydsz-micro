@@ -110,12 +110,8 @@ export function useTreeHeadless<T extends TreeNodeLike>(
     defaultSelectedKeys = [],
   } = options;
 
-  const expandedKeys = ref<Set<string | number>>(
-    new Set(defaultExpandedKeys),
-  );
-  const selectedKeys = ref<Set<string | number>>(
-    new Set(defaultSelectedKeys),
-  );
+  const expandedKeys = ref<Set<string | number>>(new Set(defaultExpandedKeys));
+  const selectedKeys = ref<Set<string | number>>(new Set(defaultSelectedKeys));
 
   /**
    * 递归扁平化树，同时标注 level / parents / hasChildren。
@@ -125,11 +121,7 @@ export function useTreeHeadless<T extends TreeNodeLike>(
    * @param parents - 祖先 value 数组
    * @return 扁平节点数组
    */
-  function flatten(
-    items: T[],
-    level: number,
-    parents: Array<string | number>,
-  ): TreeFlatNode<T>[] {
+  function flatten(items: T[], level: number, parents: Array<string | number>): TreeFlatNode<T>[] {
     const result: TreeFlatNode<T>[] = [];
 
     for (const item of items) {
@@ -146,9 +138,7 @@ export function useTreeHeadless<T extends TreeNodeLike>(
       });
 
       if (hasChildren) {
-        result.push(
-          ...flatten(children!, level + 1, [...parents, value]),
-        );
+        result.push(...flatten(children!, level + 1, [...parents, value]));
       }
     }
     return result;
@@ -278,7 +268,7 @@ export function useTreeHeadless<T extends TreeNodeLike>(
    * @return 找到的节点或 undefined
    */
   function findNode(value: string | number): T | undefined {
-    return flattenedNodes.value.find(node => node.value === value)?.data;
+    return flattenedNodes.value.find((node) => node.value === value)?.data;
   }
 
   /**

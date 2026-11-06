@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { SelectRootContext } from './SelectRoot.vue'
-import { provideSelectRootContext } from './SelectRoot.vue'
+import type { SelectRootContext } from './SelectRoot.vue';
+import { provideSelectRootContext } from './SelectRoot.vue';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
 const props = defineProps<{
-  context: SelectRootContext
-}>()
+  context: SelectRootContext;
+}>();
 
-provideSelectRootContext(props.context)
+provideSelectRootContext(props.context);
 </script>
 
 <template>

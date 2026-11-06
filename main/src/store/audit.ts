@@ -8,12 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  AuditActionType,
-  AuditLog,
-  AuditLogDetail,
-  AuditLogQueryParams,
-} from '#/api/audit';
+import type { AuditActionType, AuditLog, AuditLogDetail, AuditLogQueryParams } from '#/api/audit';
 
 import { ref } from 'vue';
 
@@ -29,9 +24,8 @@ const logger = createLogger('AuditStore');
 const DEFAULT_PAGE_SIZE = 20;
 
 /** 默认筛选条件工厂 */
-function createDefaultFilters(): Required<
-  Pick<AuditLogQueryParams, 'pageNum' | 'pageSize'>
-> & Omit<AuditLogQueryParams, 'pageNum' | 'pageSize'> {
+function createDefaultFilters(): Required<Pick<AuditLogQueryParams, 'pageNum' | 'pageSize'>> &
+  Omit<AuditLogQueryParams, 'pageNum' | 'pageSize'> {
   return {
     pageNum: 1,
     pageSize: DEFAULT_PAGE_SIZE,
@@ -74,9 +68,7 @@ export const useAuditStore = defineStore('audit', () => {
    *
    * @param overrides - 覆盖筛选条件（如翻页时传入 { pageNum: 2 }）
    */
-  async function fetchLogs(
-    overrides?: Partial<AuditLogQueryParams>,
-  ): Promise<void> {
+  async function fetchLogs(overrides?: Partial<AuditLogQueryParams>): Promise<void> {
     if (overrides) {
       filters.value = { ...filters.value, ...overrides };
     }

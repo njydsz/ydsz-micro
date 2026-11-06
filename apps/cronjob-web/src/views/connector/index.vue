@@ -90,7 +90,10 @@ const taskGridOptions: VxeGridProps<ConnectorTaskInfo> = {
         if (!config.endpoint) {
           return { items: [], total: 0 };
         }
-        const items = await listRemoteTasks({ type: config.type || undefined }, toConnectorConfig());
+        const items = await listRemoteTasks(
+          { type: config.type || undefined },
+          toConnectorConfig(),
+        );
         return { items, total: items.length };
       },
     },
@@ -148,7 +151,9 @@ async function handleExport() {
   }
   try {
     const res = await exportTasks({ type: config.type });
-    showToast.success(`导出完成：成功 ${res.success ?? 0}，失败 ${res.failed ?? 0}，跳过 ${res.skipped ?? 0}`);
+    showToast.success(
+      `导出完成：成功 ${res.success ?? 0}，失败 ${res.failed ?? 0}，跳过 ${res.skipped ?? 0}`,
+    );
   } catch {
     // 错误提示由请求拦截器统一处理
   }
@@ -160,7 +165,9 @@ async function handleExport() {
     <div class="mb-2 flex flex-wrap items-center gap-2">
       <span class="text-sm text-gray-500">支持的连接器类型：</span>
       <YdBadge v-for="item in connectorTypes" :key="item" variant="secondary">{{ item }}</YdBadge>
-      <YdBadge v-if="connectorTypes.length === 0" variant="secondary">{{ t('common.noData') }}</YdBadge>
+      <YdBadge v-if="connectorTypes.length === 0" variant="secondary">{{
+        t('common.noData')
+      }}</YdBadge>
     </div>
     <YdForm inline class="rounded border border-gray-200 p-2">
       <YdFormItem label="类型">

@@ -46,9 +46,13 @@ import type { AxiosInstance, AxiosResponse } from 'axios';
 import type { RequestClientConfig, RequestClientOptions } from './types';
 
 import { bindMethods, isString, merge } from '@ydsz/utils';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import axios from 'axios';
 import qs from 'qs';
+
+/** 模块级日志器（规范 §14.5：禁止业务代码直接调用 console） */
+const logger = createLogger('RequestClient');
 
 import { BusinessError } from './business-error';
 import { dedupRequest } from './request-dedup';
@@ -56,9 +60,7 @@ import { FileDownloader } from './modules/downloader';
 import { InterceptorManager } from './modules/interceptor';
 import { FileUploader } from './modules/uploader';
 
-function getParamsSerializer(
-  paramsSerializer: RequestClientOptions['paramsSerializer'],
-) {
+function getParamsSerializer(paramsSerializer: RequestClientOptions['paramsSerializer']) {
   if (isString(paramsSerializer)) {
     switch (paramsSerializer) {
       case 'brackets': {
@@ -146,9 +148,7 @@ class RequestClient {
     };
     const { retry, ...axiosConfig } = options;
     const requestConfig = merge(axiosConfig, defaultConfig);
-    requestConfig.paramsSerializer = getParamsSerializer(
-      requestConfig.paramsSerializer,
-    );
+    requestConfig.paramsSerializer = getParamsSerializer(requestConfig.paramsSerializer);
     this.instance = axios.create(requestConfig);
 
     if (retry) {
@@ -156,10 +156,10 @@ class RequestClient {
       // 运行时警告：内置重试已启用，若同时注册 retryResponseInterceptor 将产生双重重试
       const effectiveRetryCount = retry.retryCount ?? 0;
       if (effectiveRetryCount > 0) {
-        console.warn(
+        logger.warn(
           `[RequestClient] 内置重试已启用 (retryCount=${effectiveRetryCount})。` +
-          '请确保未注册 retryResponseInterceptor，否则两套重试机制会叠加导致非预期行为。' +
-          '推荐做法：仅在无拦截器重试时使用内置重试；否则请将 retryCount 设为 0。'
+            '请确保未注册 retryResponseInterceptor，否则两套重试机制会叠加导致非预期行为。' +
+            '推荐做法：仅在无拦截器重试时使用内置重试；否则请将 retryCount 设为 0。',
         );
       }
     }
@@ -167,8 +167,7 @@ class RequestClient {
     bindMethods(this);
 
     const interceptorManager = new InterceptorManager(this.instance);
-    this.addRequestInterceptor =
-      interceptorManager.addRequestInterceptor.bind(interceptorManager);
+    this.addRequestInterceptor = interceptorManager.addRequestInterceptor.bind(interceptorManager);
     this.addResponseInterceptor =
       interceptorManager.addResponseInterceptor.bind(interceptorManager);
     this.removeRequestInterceptor =
@@ -185,10 +184,7 @@ class RequestClient {
   /**
    * DELETE请求方法
    */
-  public delete<T = unknown>(
-    url: string,
-    config?: RequestClientConfig,
-  ): Promise<T> {
+  public delete<T = unknown>(url: string, config?: RequestClientConfig): Promise<T> {
     return dedupRequest<T>('DELETE', url, config, (u, c) =>
       this.request<T>(u, { ...c, method: 'DELETE' }),
     );
@@ -209,11 +205,7 @@ class RequestClient {
    * data 保留为 unknown：调用方直接传入业务 DTO（interface 无索引签名），
    * 不可固定为 Record<string, unknown> 以免 TS 报类型不兼容；底层交给 axios 序列化。
    */
-  public post<T = unknown>(
-    url: string,
-    data?: unknown,
-    config?: RequestClientConfig,
-  ): Promise<T> {
+  public post<T = unknown>(url: string, data?: unknown, config?: RequestClientConfig): Promise<T> {
     return dedupRequest<T>('POST', url, config, (u, c) =>
       this.request<T>(u, { ...c, data, method: 'POST' }),
     );
@@ -224,11 +216,7 @@ class RequestClient {
    *
    * 同 post：请求体放宽为 unknown，兼容业务 DTO 直传。
    */
-  public put<T = unknown>(
-    url: string,
-    data?: unknown,
-    config?: RequestClientConfig,
-  ): Promise<T> {
+  public put<T = unknown>(url: string, data?: unknown, config?: RequestClientConfig): Promise<T> {
     return dedupRequest<T>('PUT', url, config, (u, c) =>
       this.request<T>(u, { ...c, data, method: 'PUT' }),
     );
@@ -240,11 +228,7 @@ class RequestClient {
    * 用于部分更新等后端 PATCH 语义（如 SCIM /scim/v2/Users/{id}）。
    * 请求体放宽为 unknown，兼容业务 DTO 直传。
    */
-  public patch<T = unknown>(
-    url: string,
-    data?: unknown,
-    config?: RequestClientConfig,
-  ): Promise<T> {
+  public patch<T = unknown>(url: string, data?: unknown, config?: RequestClientConfig): Promise<T> {
     return dedupRequest<T>('PATCH', url, config, (u, c) =>
       this.request<T>(u, { ...c, data, method: 'PATCH' }),
     );
@@ -264,10 +248,7 @@ class RequestClient {
    *   <li>二者同时启用时，拦截器阶段的重试结束后抛出的错误可能被内置重试再次捕获 → 重试次数相乘。</li>
    * </ul>
    */
-  public async request<T>(
-    url: string,
-    config: RequestClientConfig,
-  ): Promise<T> {
+  public async request<T>(url: string, config: RequestClientConfig): Promise<T> {
     const maxRetries = this.retryConfig.retryCount ?? 0;
     const baseDelay = this.retryConfig.retryDelay ?? 1000;
     const backoff = this.retryConfig.retryBackoff ?? 'fixed';
@@ -275,8 +256,7 @@ class RequestClient {
     const retryCondition = this.retryConfig.retryCondition ?? (() => false);
 
     // 为本次请求创建内部 controller（调用方未提供 signal 时）
-    const ownController =
-      config.signal instanceof AbortSignal ? null : new AbortController();
+    const ownController = config.signal instanceof AbortSignal ? null : new AbortController();
     if (ownController) {
       const set = this.abortControllerMap.get(url);
       if (set) {
@@ -337,13 +317,10 @@ class RequestClient {
           if (axios.isAxiosError(error)) {
             const axiosError = error;
             if (axiosError.response) {
-              throw new BusinessError(
-                axiosError.response.statusText || axiosError.message,
-                {
-                  data: axiosError.response.data,
-                  statusCode: axiosError.response.status,
-                },
-              );
+              throw new BusinessError(axiosError.response.statusText || axiosError.message, {
+                data: axiosError.response.data,
+                statusCode: axiosError.response.status,
+              });
             }
             if (axiosError.code === 'ECONNABORTED' || axiosError.code === 'ETIMEDOUT') {
               throw new BusinessError('请求超时', { statusCode: 408 });

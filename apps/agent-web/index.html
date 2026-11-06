@@ -11,10 +11,7 @@
       不得禁用缩放：maximum-scale=1 / user-scalable=0 会让低视力用户无法放大页面，
       违反 WCAG 2.1 AA 1.4.4（Resize Text）。bash/check-html-head.mts 会拦此类写法。
     -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- 由 vite 注入 VITE_APP_TITLE 变量，在 .env 文件内配置 -->
     <title><%= VITE_APP_TITLE %></title>
     <link rel="icon" href="/favicon.ico" />

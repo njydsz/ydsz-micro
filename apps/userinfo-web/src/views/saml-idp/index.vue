@@ -19,7 +19,16 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+} from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -58,7 +67,10 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -73,24 +85,29 @@ const gridOptions: VxeTableGridOptions<SamlIdpConfigVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
               {
                 size: 'sm',
                 variant: 'link',
-                class: isEnabled(row.status) ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'border-green-500 text-green-600 dark:text-green-400',
+                class: isEnabled(row.status)
+                  ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                  : 'border-green-500 text-green-600 dark:text-green-400',
                 onClick: () => handleToggleStatus(row),
               },
               () => (isEnabled(row.status) ? '禁用' : '启用'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),
@@ -275,17 +292,20 @@ async function handleToggleStatus(row: SamlIdpConfigVO) {
     return;
   }
   try {
-    await update({ entityId: row.entityId }, {
-      entityId: row.entityId,
-      name: row.name,
-      ssoUrl: row.ssoUrl,
-      certificate: row.certificate,
-      emailAttribute: row.emailAttribute,
-      displayNameAttribute: row.displayNameAttribute,
-      status: newStatus,
-      sort: row.sort,
-      remark: row.remark,
-    });
+    await update(
+      { entityId: row.entityId },
+      {
+        entityId: row.entityId,
+        name: row.name,
+        ssoUrl: row.ssoUrl,
+        certificate: row.certificate,
+        emailAttribute: row.emailAttribute,
+        displayNameAttribute: row.displayNameAttribute,
+        status: newStatus,
+        sort: row.sort,
+        remark: row.remark,
+      },
+    );
     showToast.success('操作成功');
     gridApi.query();
   } catch (error) {
@@ -296,11 +316,9 @@ async function handleToggleStatus(row: SamlIdpConfigVO) {
 async function handleDelete(row: SamlIdpConfigVO) {
   if (!row.entityId) return;
   try {
-    await YdConfirm(
-      `确认删除 IdP "${row.name ?? row.entityId}"？此操作不可恢复。`,
-      '确认删除',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确认删除 IdP "${row.name ?? row.entityId}"？此操作不可恢复。`, '确认删除', {
+      type: 'warning',
+    });
   } catch {
     return;
   }
@@ -332,7 +350,11 @@ async function handleDelete(row: SamlIdpConfigVO) {
         label-position="right"
       >
         <YdFormItem label="Entity ID" prop="entityId">
-          <YdInput v-model="formData.entityId" placeholder="如 https://idp.example.com/entity" :disabled="isEdit" />
+          <YdInput
+            v-model="formData.entityId"
+            placeholder="如 https://idp.example.com/entity"
+            :disabled="isEdit"
+          />
         </YdFormItem>
         <YdFormItem label="IdP 名称" prop="name">
           <YdInput v-model="formData.name" placeholder="如 企业微信 SAML" />

@@ -94,7 +94,9 @@ interface BudgetReport {
  * SFC-006 关注的是逻辑膨胀，模板复杂度是组件固有特性，因此
  * 单文件判定以脚本行数为准，总量判定仍以总行数为准。
  */
-async function countLines(filePath: string): Promise<{ lines: number; scriptLines: number; templateLines: number }> {
+async function countLines(
+  filePath: string,
+): Promise<{ lines: number; scriptLines: number; templateLines: number }> {
   const content = await readFile(filePath, 'utf-8');
   const total = content.split('\n').length;
 

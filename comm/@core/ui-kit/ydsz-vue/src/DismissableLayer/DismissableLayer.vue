@@ -1,18 +1,10 @@
 <script lang="ts">
 // @ts-nocheck
-import {
-  computed,
-  nextTick,
-  reactive,
-  watchEffect,
-} from 'vue'
+import { computed, nextTick, reactive, watchEffect } from 'vue';
 
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import type {
-  FocusOutsideEvent,
-  PointerDownOutsideEvent,
-} from './utils'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import type { FocusOutsideEvent, PointerDownOutsideEvent } from './utils';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -20,7 +12,7 @@ export interface DismissableLayerProps extends PrimitiveProps {
    * the `DismissableLayer`. Users will need to click twice on outside elements to
    * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
    */
-  disableOutsidePointerEvents?: boolean
+  disableOutsidePointerEvents?: boolean;
 }
 
 export type DismissableLayerEmits = {
@@ -28,147 +20,134 @@ export type DismissableLayerEmits = {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  escapeKeyDown: [event: KeyboardEvent]
+  escapeKeyDown: [event: KeyboardEvent];
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  pointerDownOutside: [event: PointerDownOutsideEvent]
+  pointerDownOutside: [event: PointerDownOutsideEvent];
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  focusOutside: [ event: FocusOutsideEvent]
+  focusOutside: [event: FocusOutsideEvent];
   /**
    * Event handler called when an interaction happens outside the `DismissableLayer`.
    * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
    * Can be prevented.
    */
-  interactOutside: [ event: PointerDownOutsideEvent | FocusOutsideEvent]
-}
+  interactOutside: [event: PointerDownOutsideEvent | FocusOutsideEvent];
+};
 
 export type DismissableLayerPrivateEmits = DismissableLayerEmits & {
   /**
    * Handler called when the `DismissableLayer` should be dismissed
    */
-  dismiss: []
-}
+  dismiss: [];
+};
 
 export const context = reactive({
   layersRoot: new Set<HTMLElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<HTMLElement>(),
   branches: new Set<HTMLElement>(),
-})
+});
 </script>
 
 <script setup lang="ts">
-import { onKeyStroke } from '@vueuse/core'
-import {
-  useFocusOutside,
-  usePointerDownOutside,
-} from './utils'
-import {
-  Primitive,
-} from '../Primitive/index.ts'
+import { onKeyStroke } from '@vueuse/core';
+import { useFocusOutside, usePointerDownOutside } from './utils';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
   disableOutsidePointerEvents: false,
-})
+});
 
-const emits = defineEmits<DismissableLayerPrivateEmits>()
+const emits = defineEmits<DismissableLayerPrivateEmits>();
 
-const { forwardRef, currentElement: layerElement } = useForwardExpose()
-const ownerDocument = computed(
-  () => layerElement.value?.ownerDocument ?? globalThis.document,
-)
+const { forwardRef, currentElement: layerElement } = useForwardExpose();
+const ownerDocument = computed(() => layerElement.value?.ownerDocument ?? globalThis.document);
 
-const layers = computed(() => context.layersRoot)
+const layers = computed(() => context.layersRoot);
 
 const index = computed(() => {
-  return layerElement.value
-    ? Array.from(layers.value).indexOf(layerElement.value)
-    : -1
-})
+  return layerElement.value ? Array.from(layers.value).indexOf(layerElement.value) : -1;
+});
 
 const isBodyPointerEventsDisabled = computed(() => {
-  return context.layersWithOutsidePointerEventsDisabled.size > 0
-})
+  return context.layersWithOutsidePointerEventsDisabled.size > 0;
+});
 
 const isPointerEventsEnabled = computed(() => {
-  const localLayers = Array.from(layers.value)
-  const [highestLayerWithOutsidePointerEventsDisabled] = [...context.layersWithOutsidePointerEventsDisabled].slice(-1)
-  const highestLayerWithOutsidePointerEventsDisabledIndex = localLayers.indexOf(highestLayerWithOutsidePointerEventsDisabled)
+  const localLayers = Array.from(layers.value);
+  const [highestLayerWithOutsidePointerEventsDisabled] = [
+    ...context.layersWithOutsidePointerEventsDisabled,
+  ].slice(-1);
+  const highestLayerWithOutsidePointerEventsDisabledIndex = localLayers.indexOf(
+    highestLayerWithOutsidePointerEventsDisabled,
+  );
 
-  return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
-})
+  return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex;
+});
 
 const pointerDownOutside = usePointerDownOutside(async (event) => {
-  const isPointerDownOnBranch = [...context.branches].some(branch =>
+  const isPointerDownOnBranch = [...context.branches].some((branch) =>
     branch?.contains(event.target as HTMLElement),
-  )
+  );
 
-  if (!isPointerEventsEnabled.value || isPointerDownOnBranch)
-    return
-  emits('pointerDownOutside', event)
-  emits('interactOutside', event)
-  await nextTick()
-  if (!event.defaultPrevented)
-    emits('dismiss')
-}, layerElement)
+  if (!isPointerEventsEnabled.value || isPointerDownOnBranch) return;
+  emits('pointerDownOutside', event);
+  emits('interactOutside', event);
+  await nextTick();
+  if (!event.defaultPrevented) emits('dismiss');
+}, layerElement);
 
 const focusOutside = useFocusOutside((event) => {
-  const isFocusInBranch = [...context.branches].some(branch =>
+  const isFocusInBranch = [...context.branches].some((branch) =>
     branch?.contains(event.target as HTMLElement),
-  )
+  );
 
-  if (isFocusInBranch)
-    return
-  emits('focusOutside', event)
-  emits('interactOutside', event)
-  if (!event.defaultPrevented)
-    emits('dismiss')
-}, layerElement)
+  if (isFocusInBranch) return;
+  emits('focusOutside', event);
+  emits('interactOutside', event);
+  if (!event.defaultPrevented) emits('dismiss');
+}, layerElement);
 
 onKeyStroke('Escape', (event) => {
-  const isHighestLayer = index.value === layers.value.size - 1
-  if (!isHighestLayer)
-    return
-  emits('escapeKeyDown', event)
-  if (!event.defaultPrevented)
-    emits('dismiss')
-})
+  const isHighestLayer = index.value === layers.value.size - 1;
+  if (!isHighestLayer) return;
+  emits('escapeKeyDown', event);
+  if (!event.defaultPrevented) emits('dismiss');
+});
 
-let originalBodyPointerEvents: string
+let originalBodyPointerEvents: string;
 watchEffect((cleanupFn) => {
-  if (!layerElement.value)
-    return
+  if (!layerElement.value) return;
   if (props.disableOutsidePointerEvents) {
     if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
-      originalBodyPointerEvents = ownerDocument.value.body.style.pointerEvents
-      ownerDocument.value.body.style.pointerEvents = 'none'
+      originalBodyPointerEvents = ownerDocument.value.body.style.pointerEvents;
+      ownerDocument.value.body.style.pointerEvents = 'none';
     }
-    context.layersWithOutsidePointerEventsDisabled.add(layerElement.value)
+    context.layersWithOutsidePointerEventsDisabled.add(layerElement.value);
   }
-  layers.value.add(layerElement.value)
+  layers.value.add(layerElement.value);
 
   cleanupFn(() => {
     if (
-      props.disableOutsidePointerEvents
-      && context.layersWithOutsidePointerEventsDisabled.size === 1
+      props.disableOutsidePointerEvents &&
+      context.layersWithOutsidePointerEventsDisabled.size === 1
     ) {
-      ownerDocument.value.body.style.pointerEvents = originalBodyPointerEvents
+      ownerDocument.value.body.style.pointerEvents = originalBodyPointerEvents;
     }
-  })
-})
+  });
+});
 
 watchEffect((cleanupFn) => {
   cleanupFn(() => {
-    if (!layerElement.value)
-      return
-    layers.value.delete(layerElement.value)
-    context.layersWithOutsidePointerEventsDisabled.delete(layerElement.value)
-  })
-})
+    if (!layerElement.value) return;
+    layers.value.delete(layerElement.value);
+    context.layersWithOutsidePointerEventsDisabled.delete(layerElement.value);
+  });
+});
 </script>
 
 <template>

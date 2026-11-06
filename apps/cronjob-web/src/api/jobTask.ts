@@ -17,9 +17,7 @@ import type { JobTaskVO } from './models';
 /**
  * list: GET /cronjob/task/list
  */
-export function list(params: {
-    logId?: string;
-  }): Promise<JobTaskVO[]> {
+export function list(params: { logId?: string }): Promise<JobTaskVO[]> {
   return requestClient.get<JobTaskVO[]>(`/cronjob/task/list`, { params });
 }
 
@@ -27,10 +25,10 @@ export function list(params: {
  * page: GET /cronjob/task/page
  */
 export function page(params: {
-    logId?: string;
-    page?: number;
-    size?: number;
-  }): Promise<PageResponse<JobTaskVO[]>> {
+  logId?: string;
+  page?: number;
+  size?: number;
+}): Promise<PageResponse<JobTaskVO[]>> {
   return requestClient.get<PageResponse<JobTaskVO[]>>(`/cronjob/task/page`, { params });
 }
 
@@ -38,7 +36,9 @@ export function page(params: {
  * progress: GET /cronjob/task/progress
  */
 export function progress(params: {
-    logId?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/task/progress`, { params });
+  logId?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/task/progress`, {
+    params,
+  });
 }

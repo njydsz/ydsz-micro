@@ -63,9 +63,7 @@ const alignMap: Record<NonNullable<SpaceProps['align']>, string> = {
   stretch: 'stretch',
 };
 
-const resolvedAlign = computed(() =>
-  props.align ? alignMap[props.align] : undefined,
-);
+const resolvedAlign = computed(() => (props.align ? alignMap[props.align] : undefined));
 </script>
 
 <template>

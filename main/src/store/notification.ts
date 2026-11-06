@@ -5,14 +5,14 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { NotificationItem, NotificationPageResult } from "#/api/core/notification";
+import type { NotificationItem, NotificationPageResult } from '#/api/core/notification';
 
-import { ref } from "vue";
+import { ref } from 'vue';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { defineStore } from "pinia";
-import { showToast } from "@ydsz/notification";
+import { defineStore } from 'pinia';
+import { showToast } from '@ydsz/notification';
 
 import {
   deleteNotificationsApi,
@@ -20,10 +20,10 @@ import {
   getUnreadCountApi,
   markAllAsReadApi,
   markAsReadApi,
-} from "#/api/core/notification";
+} from '#/api/core/notification';
 
 /** 模块级日志器 */
-const logger = createLogger("NotificationStore");
+const logger = createLogger('NotificationStore');
 
 /** SSE 推送消息类型 */
 interface SseNotificationMessage {
@@ -40,14 +40,14 @@ interface SseNotificationMessage {
 }
 
 /** 持久化 Storage key */
-const PERSIST_KEY = "ydsz-notification-store";
+const PERSIST_KEY = 'ydsz-notification-store';
 
 /**
  * 从 localStorage 恢复持久化的通知列表（SSR 安全）。
  */
 function loadPersistedState(): { notifications: NotificationItem[]; unreadCount: number } {
   try {
-    if (typeof localStorage === "undefined") {
+    if (typeof localStorage === 'undefined') {
       return { notifications: [], unreadCount: 0 };
     }
     const raw = localStorage.getItem(PERSIST_KEY);
@@ -67,11 +67,8 @@ function loadPersistedState(): { notifications: NotificationItem[]; unreadCount:
  */
 function persistState(notifications: NotificationItem[], unreadCount: number): void {
   try {
-    if (typeof localStorage === "undefined") return;
-    localStorage.setItem(
-      PERSIST_KEY,
-      JSON.stringify({ notifications, unreadCount }),
-    );
+    if (typeof localStorage === 'undefined') return;
+    localStorage.setItem(PERSIST_KEY, JSON.stringify({ notifications, unreadCount }));
   } catch {
     // quota / private mode 静默失败
   }
@@ -88,7 +85,7 @@ const persisted = loadPersistedState();
  * 连接建立由 {@link useNotificationSse} composable 负责，Store 仅暴露 handleSseMessage
  * 回调供 composable 调用。
  */
-export const useNotificationStore = defineStore("notification", () => {
+export const useNotificationStore = defineStore('notification', () => {
   /** 通知列表（响应式） */
   const notifications = ref<NotificationItem[]>(persisted.notifications);
   /** 未读通知数量（响应式） */
@@ -122,7 +119,7 @@ export const useNotificationStore = defineStore("notification", () => {
       syncPersist();
       return res;
     } catch (error) {
-      logger.error("[NotificationStore] fetchNotifications failed:", error);
+      logger.error('[NotificationStore] fetchNotifications failed:', error);
       throw error;
     }
   }
@@ -220,15 +217,16 @@ export const useNotificationStore = defineStore("notification", () => {
     syncPersist();
 
     // 弹出桌面 toast
-    const toastVariant = item.type === "ERROR" || item.type === "FATAL"
-      ? "error"
-      : item.type === "WARN" || item.type === "WARNING"
-        ? "warning"
-        : item.type === "SUCCESS"
-          ? "success"
-          : "info";
+    const toastVariant =
+      item.type === 'ERROR' || item.type === 'FATAL'
+        ? 'error'
+        : item.type === 'WARN' || item.type === 'WARNING'
+          ? 'warning'
+          : item.type === 'SUCCESS'
+            ? 'success'
+            : 'info';
 
-    showToast(item.title || "新通知", {
+    showToast(item.title || '新通知', {
       description: item.message,
       variant: toastVariant,
       duration: 5000,
@@ -283,23 +281,23 @@ export const useNotificationStore = defineStore("notification", () => {
    */
   function handleSseMessage(message: SseNotificationMessage) {
     switch (message.event) {
-      case "new_notification": {
+      case 'new_notification': {
         if (message.data) {
           addItem(message.data);
         }
         break;
       }
-      case "mark_read": {
+      case 'mark_read': {
         if (message.notificationId) {
           handleSseMarkRead(message.notificationId);
         }
         break;
       }
-      case "unread_count": {
+      case 'unread_count': {
         handleSseUnreadCount(message.count ?? 0);
         break;
       }
-      case "notification_deleted": {
+      case 'notification_deleted': {
         if (message.deletedId) {
           handleSseDelete(message.deletedId);
         }

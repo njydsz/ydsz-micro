@@ -17,7 +17,14 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdTreeSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdTreeSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -42,8 +49,10 @@ const treeData = ref<CompanyTreeVO[]>([]);
 /** 将 CompanyTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
 const treeOptions = computed(() => mapCompanyTreeToOptions(treeData.value));
 
-function mapCompanyTreeToOptions(nodes: CompanyTreeVO[]): { label: string; value: string; children?: { label: string; value: string }[] }[] {
-  return nodes.map(node => ({
+function mapCompanyTreeToOptions(
+  nodes: CompanyTreeVO[],
+): { label: string; value: string; children?: { label: string; value: string }[] }[] {
+  return nodes.map((node) => ({
     label: node.companyName ?? '',
     value: node.id ?? '',
     ...(node.children?.length && { children: mapCompanyTreeToOptions(node.children) }),
@@ -142,7 +151,11 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.companyBase')}` : `${t('page.create')}${t('page.companyBase')}`));
+const title = computed(() =>
+  isEdit.value
+    ? `${t('page.edit')}${t('page.companyBase')}`
+    : `${t('page.create')}${t('page.companyBase')}`,
+);
 </script>
 
 <template>
@@ -163,19 +176,36 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.company
         />
       </YdFormItem>
       <YdFormItem :label="t('page.companyName')" prop="companyName">
-        <YdInput v-model="formData.companyName" :placeholder="t('company.companyNamePlaceholder')" />
+        <YdInput
+          v-model="formData.companyName"
+          :placeholder="t('company.companyNamePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('page.companyCode')" prop="companyCode">
-        <YdInput v-model="formData.companyCode" :placeholder="t('company.companyCodePlaceholder')" />
+        <YdInput
+          v-model="formData.companyCode"
+          :placeholder="t('company.companyCodePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('company.contactPerson')">
-        <YdInput v-model="formData.contactPerson" :placeholder="t('company.contactPersonPlaceholder')" />
+        <YdInput
+          v-model="formData.contactPerson"
+          :placeholder="t('company.contactPersonPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('company.contactPhone')">
-        <YdInput v-model="formData.contactPhone" :placeholder="t('company.contactPhonePlaceholder')" />
+        <YdInput
+          v-model="formData.contactPhone"
+          :placeholder="t('company.contactPhonePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('company.address')">
-        <YdInput v-model="formData.address" type="textarea" :rows="2" :placeholder="t('company.addressPlaceholder')" />
+        <YdInput
+          v-model="formData.address"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('company.addressPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('page.status')">
         <YdRadioGroup v-model="formData.status">

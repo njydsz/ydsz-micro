@@ -350,12 +350,16 @@ export const deDE = {
   'aiBuilder.generatePage': 'Seite generieren',
   'aiBuilder.generating': 'Wird generiert...',
   'aiBuilder.pageDescription': 'Seitenbeschreibung',
-  'aiBuilder.autoHint': 'KI leitet die Seitenstruktur aus beschriebenen Feldern und Fachbegriffen ab',
-  'aiBuilder.defaultPromptPlaceholder': 'Beschreiben Sie die gewünschte Seite in natürlicher Sprache (Sprachmix möglich)',
+  'aiBuilder.autoHint':
+    'KI leitet die Seitenstruktur aus beschriebenen Feldern und Fachbegriffen ab',
+  'aiBuilder.defaultPromptPlaceholder':
+    'Beschreiben Sie die gewünschte Seite in natürlicher Sprache (Sprachmix möglich)',
   'aiBuilder.exampleForm': 'Beispiel: Neues-Benutzer-Formular mit Name, Alter und E-Mail',
   'aiBuilder.exampleTable': 'Beispiel: Bestellliste mit Statusfilter und Export',
-  'aiBuilder.exampleDashboard': 'Beispiel: Verkaufs-Dashboard mit Tagesumsatz, Bestellungen und Conversion-Rate',
-  'aiBuilder.exampleDetail': 'Beispiel: Kundendetailseite mit Basisinfo und zugehörigen Bestellungen',
+  'aiBuilder.exampleDashboard':
+    'Beispiel: Verkaufs-Dashboard mit Tagesumsatz, Bestellungen und Conversion-Rate',
+  'aiBuilder.exampleDetail':
+    'Beispiel: Kundendetailseite mit Basisinfo und zugehörigen Bestellungen',
   'aiBuilder.typeString': 'Text',
   'aiBuilder.typeNumber': 'Zahl',
   'aiBuilder.typeBoolean': 'Boolesch',
@@ -371,7 +375,8 @@ export const deDE = {
 
   // ===== FormDesigner 面板数据 / AiBuilder 错误提示 / Message 关闭 =====
   'designer.paletteTitle': 'Komponenten',
-  'designer.canvasEmptyHint': 'Ziehen Sie eine Komponente von links oder klicken Sie sie an, um das Formular zu gestalten',
+  'designer.canvasEmptyHint':
+    'Ziehen Sie eine Komponente von links oder klicken Sie sie an, um das Formular zu gestalten',
   'designer.groupBasic': 'Basiskomponenten',
   'designer.groupAdvanced': 'Erweiterungen',
   'designer.groupLayout': 'Layout-Komponenten',
@@ -416,7 +421,7 @@ export const deDE = {
   'dashboard.cardCount': '{count} Karten',
   'dashboard.emptyEditable': 'Klicken Sie auf „Karte hinzufügen“, um das Dashboard aufzubauen',
   'dashboard.empty': 'Keine Kartendaten vorhanden',
-'dashboard.chartEmpty': 'Keine Diagrammdaten',
+  'dashboard.chartEmpty': 'Keine Diagrammdaten',
   'advancedFilter.toolbarAriaLabel': 'Filterleiste',
   'advancedFilter.removeFilter': 'Filter {label} entfernen: {value}',
   'bulkActions.selectAll': 'Alle {count} auswählen',
@@ -491,6 +496,14 @@ export const deDE = {
   'splitter.ariaLabel': 'Panelgröße ändern',
   'tag.close': 'Tag schließen',
   'timeline.ariaLabel': 'Zeitleiste',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

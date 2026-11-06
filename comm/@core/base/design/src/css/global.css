@@ -278,7 +278,8 @@
   .card-interactive {
     border: 1px solid hsl(var(--border-default));
     border-radius: var(--radius);
-    transition: box-shadow var(--duration-default) var(--ease-out),
+    transition:
+      box-shadow var(--duration-default) var(--ease-out),
       border-color var(--duration-default) var(--ease-out),
       transform var(--duration-fast) var(--ease-out);
   }

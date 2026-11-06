@@ -12,16 +12,15 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * createExperiment: POST /message/canary/experiment
  */
 export function createExperiment(params: {
-    templateCode?: string;
-    experimentName?: string;
-    canaryPercent?: number;
-    metricsGoal?: string;
-  }): Promise<string> {
+  templateCode?: string;
+  experimentName?: string;
+  canaryPercent?: number;
+  metricsGoal?: string;
+}): Promise<string> {
   return requestClient.post<string>(`/message/canary/experiment`, { params });
 }
 
@@ -29,8 +28,8 @@ export function createExperiment(params: {
  * assignBucket: GET /message/canary/assign
  */
 export function assignBucket(params: {
-    experimentId?: string;
-    requestKey?: string;
-  }): Promise<string> {
+  experimentId?: string;
+  requestKey?: string;
+}): Promise<string> {
   return requestClient.get<string>(`/message/canary/assign`, { params });
 }

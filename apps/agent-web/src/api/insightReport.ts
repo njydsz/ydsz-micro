@@ -25,9 +25,7 @@ export function generateReport(data: InsightReportRequest): Promise<InsightRepor
 /**
  * getReport: GET /agent/insight/report/{reportId}
  */
-export function getReport({ reportId }: {
-    reportId: string;
-  }): Promise<InsightReportResult> {
+export function getReport({ reportId }: { reportId: string }): Promise<InsightReportResult> {
   return requestClient.get<InsightReportResult>(`/agent/insight/report/${reportId}`);
 }
 
@@ -39,9 +37,7 @@ export function getReport({ reportId }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function exportHtml({ reportId }: {
-    reportId: string;
-  }): Promise<unknown> {
+export function exportHtml({ reportId }: { reportId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/agent/insight/report/${reportId}/html`);
 }
 
@@ -49,17 +45,15 @@ export function exportHtml({ reportId }: {
  * listRecentReports: GET /agent/insight/reports
  */
 export function listRecentReports(params: {
-    userId?: string;
-    limit?: number;
-  }): Promise<InsightReportResult[]> {
+  userId?: string;
+  limit?: number;
+}): Promise<InsightReportResult[]> {
   return requestClient.get<InsightReportResult[]>(`/agent/insight/reports`, { params });
 }
 
 /**
  * deleteReport: DELETE /agent/insight/report/{reportId}
  */
-export function deleteReport({ reportId }: {
-    reportId: string;
-  }): Promise<Record<string, string>> {
+export function deleteReport({ reportId }: { reportId: string }): Promise<Record<string, string>> {
   return requestClient.delete<Record<string, string>>(`/agent/insight/report/${reportId}`);
 }

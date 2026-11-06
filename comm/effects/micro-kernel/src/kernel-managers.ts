@@ -23,14 +23,14 @@
  * @since 4.1.0
  */
 
-export { createCanaryManager } from "./canary-manager";
-export { createDevToolsManager } from "./devtools-panel";
-export { createErrorBoundaryManager } from "./error-boundary";
-export { createHealthCheckerManager } from "./health-check";
-export { createMessageBrokerManager } from "./message-broker";
-export { createPerformanceManager } from "./performance-utils";
-export { createPreloadManager } from "./preload-strategy";
-export { createRoutePredictorManager } from "./route-predictor";
-export { createSchedulerManager } from "./scheduler";
-export { createSpeculationRulesManager } from "./speculation-rules";
-export { createVersionManager } from "./version-manager";
+export { createCanaryManager } from './canary-manager';
+export { createDevToolsManager } from './devtools-panel';
+export { createErrorBoundaryManager } from './error-boundary';
+export { createHealthCheckerManager } from './health-check';
+export { createMessageBrokerManager } from './message-broker';
+export { createPerformanceManager } from './performance-utils';
+export { createPreloadManager } from './preload-strategy';
+export { createRoutePredictorManager } from './route-predictor';
+export { createSchedulerManager } from './scheduler';
+export { createSpeculationRulesManager } from './speculation-rules';
+export { createVersionManager } from './version-manager';

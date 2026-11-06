@@ -55,10 +55,7 @@ export interface SubAppInstance {
 // ==================== 内部工具 ====================
 
 /** 默认 router 工厂 — 使用 history mode + 子应用 basename */
-async function defaultCreateRouter(
-  basename: string,
-  routes: RouteRecordRaw[],
-): Promise<Router> {
+async function defaultCreateRouter(basename: string, routes: RouteRecordRaw[]): Promise<Router> {
   const { createRouter, createWebHistory } = await import('vue-router');
   const router = createRouter({
     history: createWebHistory(basename || '/'),
@@ -91,9 +88,7 @@ async function defaultCreateRouter(
  *
  * @since 1.0.0
  */
-export async function defineYdzSubApp(
-  options: SubAppOptions,
-): Promise<SubAppInstance> {
+export async function defineYdzSubApp(options: SubAppOptions): Promise<SubAppInstance> {
   const {
     appKey,
     createApp,
@@ -107,9 +102,7 @@ export async function defineYdzSubApp(
 
   // ---------- 1. 参数校验 ----------
   if (!appKey || appKey.trim() === '') {
-    throw new Error(
-      '[defineYdzSubApp] appKey is required and must be a non-empty string.',
-    );
+    throw new Error('[defineYdzSubApp] appKey is required and must be a non-empty string.');
   }
 
   // ---------- 2. Pinia 装配（含 persistedState） ----------
@@ -142,13 +135,17 @@ export async function defineYdzSubApp(
     const { defineFeatureFlags, initFeatureFlags } = await import('@ydsz-core/feature-flags');
 
     const microProps = useMicroProps();
-    const flagDefs = (microProps as unknown as { featureFlags?: Array<{ name: string; defaultValue: boolean }> }).featureFlags;
+    const flagDefs = (
+      microProps as unknown as { featureFlags?: Array<{ name: string; defaultValue: boolean }> }
+    ).featureFlags;
 
     if (Array.isArray(flagDefs) && flagDefs.length > 0) {
-      defineFeatureFlags(flagDefs.map((def) => ({
-        name: def.name,
-        defaultValue: def.defaultValue,
-      })));
+      defineFeatureFlags(
+        flagDefs.map((def) => ({
+          name: def.name,
+          defaultValue: def.defaultValue,
+        })),
+      );
       await initFeatureFlags({
         namespace: appKey,
         env: import.meta.env as Record<string, unknown>,
@@ -165,9 +162,7 @@ export async function defineYdzSubApp(
   };
 
   // ---------- 6. Router 装配 ----------
-  const router = createRouter
-    ? createRouter(app)
-    : await defaultCreateRouter(basename, routes);
+  const router = createRouter ? createRouter(app) : await defaultCreateRouter(basename, routes);
 
   app.use(router);
 
@@ -184,7 +179,8 @@ export async function defineYdzSubApp(
   }
 
   // ---------- 9. 自动挂载 ----------
-  const mountNode = document.querySelector('#app') || document.body.appendChild(document.createElement('div'));
+  const mountNode =
+    document.querySelector('#app') || document.body.appendChild(document.createElement('div'));
   mountNode.id = 'app';
   app.mount(mountNode);
 

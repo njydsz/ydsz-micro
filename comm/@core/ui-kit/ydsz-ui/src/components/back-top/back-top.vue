@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* BackTop（back-top）组件：占位骨架，后续按需深化真实交互。
-* 
+ * BackTop（back-top）组件：占位骨架，后续按需深化真实交互。
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */

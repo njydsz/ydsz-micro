@@ -27,10 +27,18 @@ const ROOT = join(__dirname, '..');
 const BASH_DIR = __dirname;
 
 /** 颜色日志 */
-function ok(msg: string)  { console.log(`  ✓ ${msg}`); }
-function err(msg: string) { console.error(`  ✗ ${msg}`); }
-function warn(msg: string){ console.log(`  ! ${msg}`); }
-function info(msg: string){ console.log(`  · ${msg}`); }
+function ok(msg: string) {
+  console.log(`  ✓ ${msg}`);
+}
+function err(msg: string) {
+  console.error(`  ✗ ${msg}`);
+}
+function warn(msg: string) {
+  console.log(`  ! ${msg}`);
+}
+function info(msg: string) {
+  console.log(`  · ${msg}`);
+}
 
 /**
  * 执行命令并返回结果（不抛出异常）
@@ -159,9 +167,7 @@ async function main() {
   const skipI18n = args.includes('--no-i18n');
 
   // 透传给子脚本的参数（仅消费本入口独有的标志，--check 需透传给 unified-contract.mts）
-  const passthroughArgs = args.filter(
-    (a) => !['--i18n-only', '--no-i18n'].includes(a),
-  );
+  const passthroughArgs = args.filter((a) => !['--i18n-only', '--no-i18n'].includes(a));
 
   const startTime = Date.now();
   console.log(`[gen:api] 统一代码生成入口 — ${new Date().toISOString()}`);

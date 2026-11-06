@@ -126,9 +126,7 @@ export interface ExtendedVxeGridApi<
    * @param selector - 可选派生函数，省略时返回完整状态
    * @returns 响应式的只读状态或派生值
    */
-  useStore: <S = VxeGridProps<T, D>>(
-    selector?: (state: VxeGridProps<T, D>) => S,
-  ) => Readonly<S>;
+  useStore: <S = VxeGridProps<T, D>>(selector?: (state: VxeGridProps<T, D>) => S) => Readonly<S>;
 }
 
 /**

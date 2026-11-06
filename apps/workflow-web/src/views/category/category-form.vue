@@ -16,7 +16,14 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdCascader, YdForm, YdFormItem, YdNumberFieldInput, YdInput, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdCascader,
+  YdForm,
+  YdFormItem,
+  YdNumberFieldInput,
+  YdInput,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { create, tree, update } from '#/api/flowCategory';
@@ -165,7 +172,11 @@ const title = computed(() => (isEdit.value ? t('category.edit.title') : t('categ
       label-position="right"
     >
       <YdFormItem :label="t('category.code.label')" prop="categoryCode">
-        <YdInput v-model="formData.categoryCode" :placeholder="t('category.code.placeholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.categoryCode"
+          :placeholder="t('category.code.placeholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('category.name.label')" prop="categoryName">
         <YdInput v-model="formData.categoryName" :placeholder="t('category.name.placeholder')" />

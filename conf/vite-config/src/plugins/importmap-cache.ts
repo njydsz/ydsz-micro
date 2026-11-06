@@ -65,7 +65,7 @@ export function readCachedImportMap(cacheKey: string): unknown | null {
     }
     return raw.importmap;
   } catch (err) {
-      logger.warn(`Failed to read cache:`, err);
+    logger.warn(`Failed to read cache:`, err);
     return null;
   }
 }
@@ -82,10 +82,7 @@ export function writeCachedImportMap(cacheKey: string, importmap: unknown): void
       mkdirSync(cacheDir, { recursive: true });
     }
     const cacheFile = path.join(cacheDir, `${cacheKey}.json`);
-    writeFileSync(
-      cacheFile,
-      JSON.stringify({ cachedAt: Date.now(), importmap }, null, 2),
-    );
+    writeFileSync(cacheFile, JSON.stringify({ cachedAt: Date.now(), importmap }, null, 2));
     logger.debug(`Cache written: ${cacheFile}`);
   } catch (err) {
     logger.warn(`Failed to write cache:`, err);

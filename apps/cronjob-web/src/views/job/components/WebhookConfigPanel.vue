@@ -15,8 +15,29 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSwitch, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdBadge,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSwitch,
+  YdTextarea,
+  YdTable,
+  YdTableColumn,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -211,7 +232,10 @@ onMounted(loadList);
       <YdTableColumn prop="httpMethod" label="方法" width="80" />
       <YdTableColumn prop="webhookStatus" label="状态" width="90">
         <template #default="{ row }">
-          <YdBadge :variant="formatStatus(row.webhookStatus).type === 'success' ? 'default' : 'secondary'" size="sm">
+          <YdBadge
+            :variant="formatStatus(row.webhookStatus).type === 'success' ? 'default' : 'secondary'"
+            size="sm"
+          >
             {{ formatStatus(row.webhookStatus).label }}
           </YdBadge>
         </template>

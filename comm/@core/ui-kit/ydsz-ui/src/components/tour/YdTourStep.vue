@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 /**
-* YdTourStep —— 单一步骤内容面板。
- * 
+ * YdTourStep —— 单一步骤内容面板。
+ *
  * 由 YdTour 内部消费，负责渲染：
  * 1. 步骤标题 + 描述（或自定义 render）
  * 2. 进度指示器（dot 序列）
  * 3. Footer 按钮区（上一步 / 下一步 / 完成 / 跳过）
- * 
+ *
  * 本组件不负责定位，定位由 YdTour 控制器传入 CSS left/top。
- * 
+ *
  * @module primitives/tour/YdTourStep
  * @author ydsz-team
  * @since 26.10.10
@@ -84,7 +84,12 @@ const finishText = computed(() => props.step.finishText ?? props.globalFinishTex
       @click="emit('close')"
     >
       <svg class="size-3.5" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <path
+          d="M1 1L11 11M11 1L1 11"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
       </svg>
     </button>
 
@@ -95,10 +100,7 @@ const finishText = computed(() => props.step.finishText ?? props.globalFinishTex
 
     <!-- 标准标题 + 描述 -->
     <div v-else>
-      <h3
-        v-if="step.title"
-        class="yd-tour-step__title text-sm font-medium text-neutral-900"
-      >
+      <h3 v-if="step.title" class="yd-tour-step__title text-sm font-medium text-neutral-900">
         {{ step.title }}
       </h3>
       <p
@@ -134,9 +136,7 @@ const finishText = computed(() => props.step.finishText ?? props.globalFinishTex
 
     <!-- Footer 按钮区域 -->
     <div class="yd-tour-step__footer mt-3 flex items-center justify-between">
-      <span class="text-xs text-neutral-400">
-        {{ currentIndex + 1 }} / {{ totalSteps }}
-      </span>
+      <span class="text-xs text-neutral-400"> {{ currentIndex + 1 }} / {{ totalSteps }} </span>
       <div class="flex gap-2">
         <YdButton size="sm" variant="ghost" @click="emit('close')">
           {{ skipText }}

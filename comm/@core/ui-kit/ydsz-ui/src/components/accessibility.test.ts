@@ -44,14 +44,7 @@ import {
 } from './form';
 import { YdInput } from './input';
 import { YdLabel } from './label';
-import {
-  YdTable,
-  YdTableBody,
-  YdTableCell,
-  YdTableHead,
-  YdTableHeader,
-  YdTableRow,
-} from './table';
+import { YdTable, YdTableBody, YdTableCell, YdTableHead, YdTableHeader, YdTableRow } from './table';
 
 /** 扩展 vitest expect：添加 toBeAccessible matcher */
 expect.extend({
@@ -73,7 +66,6 @@ expect.extend({
 });
 
 declare module 'vitest' {
-
   interface Assertion<T> {
     toBeAccessible(): Promise<T>;
   }

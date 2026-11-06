@@ -350,12 +350,17 @@ export const ruRU = {
   'aiBuilder.generatePage': 'Сгенерировать страницу',
   'aiBuilder.generating': 'Генерация...',
   'aiBuilder.pageDescription': 'Описание страницы',
-  'aiBuilder.autoHint': 'ИИ автоматически определит структуру страницы по описанным полям и ключевым словам',
-  'aiBuilder.defaultPromptPlaceholder': 'Опишите страницу на естественном языке (смешение языков поддерживается)',
-  'aiBuilder.exampleForm': 'Пример: создать форму нового пользователя с полями имени, возраста и e-mail',
+  'aiBuilder.autoHint':
+    'ИИ автоматически определит структуру страницы по описанным полям и ключевым словам',
+  'aiBuilder.defaultPromptPlaceholder':
+    'Опишите страницу на естественном языке (смешение языков поддерживается)',
+  'aiBuilder.exampleForm':
+    'Пример: создать форму нового пользователя с полями имени, возраста и e-mail',
   'aiBuilder.exampleTable': 'Пример: создать список заказов с фильтром по статусу и экспортом',
-  'aiBuilder.exampleDashboard': 'Пример: создать панель продаж с ежедневной выручкой, заказами и конверсией',
-  'aiBuilder.exampleDetail': 'Пример: создать страницу клиента с основной информацией и связанными заказами',
+  'aiBuilder.exampleDashboard':
+    'Пример: создать панель продаж с ежедневной выручкой, заказами и конверсией',
+  'aiBuilder.exampleDetail':
+    'Пример: создать страницу клиента с основной информацией и связанными заказами',
   'aiBuilder.typeString': 'Текст',
   'aiBuilder.typeNumber': 'Число',
   'aiBuilder.typeBoolean': 'Логический',
@@ -371,7 +376,8 @@ export const ruRU = {
 
   // ===== FormDesigner 面板数据 / AiBuilder 错误提示 / Message 关闭 =====
   'designer.paletteTitle': 'Компоненты',
-  'designer.canvasEmptyHint': 'Перетащите компонент слева или нажмите на него, чтобы начать разработку формы',
+  'designer.canvasEmptyHint':
+    'Перетащите компонент слева или нажмите на него, чтобы начать разработку формы',
   'designer.groupBasic': 'Базовые элементы',
   'designer.groupAdvanced': 'Расширенные элементы',
   'designer.groupLayout': 'Элементы макета',
@@ -416,7 +422,7 @@ export const ruRU = {
   'dashboard.cardCount': 'Карточек: {count}',
   'dashboard.emptyEditable': 'Нажмите «Добавить карточку», чтобы начать сборку панели',
   'dashboard.empty': 'Данных карточек пока нет',
-'dashboard.chartEmpty': 'Данных графика пока нет',
+  'dashboard.chartEmpty': 'Данных графика пока нет',
   'advancedFilter.toolbarAriaLabel': 'Панель фильтров',
   'advancedFilter.removeFilter': 'Удалить фильтр {label}: {value}',
   'bulkActions.selectAll': 'Выбрать все ({count})',
@@ -491,6 +497,14 @@ export const ruRU = {
   'splitter.ariaLabel': 'Изменить размер панели',
   'tag.close': 'Закрыть метку',
   'timeline.ariaLabel': 'Хронология',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

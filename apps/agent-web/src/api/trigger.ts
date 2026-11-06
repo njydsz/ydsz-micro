@@ -25,45 +25,42 @@ export function createTrigger(data: Record<string, unknown>): Promise<AgentTrigg
 /**
  * updateTrigger: PUT /agent/triggers/{triggerId}
  */
-export function updateTrigger({ triggerId }: {
+export function updateTrigger(
+  {
+    triggerId,
+  }: {
     triggerId: string;
-  }, data: Record<string, unknown>): Promise<AgentTrigger> {
+  },
+  data: Record<string, unknown>,
+): Promise<AgentTrigger> {
   return requestClient.put<AgentTrigger>(`/agent/triggers/${triggerId}`, data);
 }
 
 /**
  * enableTrigger: POST /agent/triggers/{triggerId}/enable
  */
-export function enableTrigger({ triggerId }: {
-    triggerId: string;
-  }): Promise<void> {
+export function enableTrigger({ triggerId }: { triggerId: string }): Promise<void> {
   return requestClient.post<void>(`/agent/triggers/${triggerId}/enable`);
 }
 
 /**
  * disableTrigger: POST /agent/triggers/{triggerId}/disable
  */
-export function disableTrigger({ triggerId }: {
-    triggerId: string;
-  }): Promise<void> {
+export function disableTrigger({ triggerId }: { triggerId: string }): Promise<void> {
   return requestClient.post<void>(`/agent/triggers/${triggerId}/disable`);
 }
 
 /**
  * deleteTrigger: DELETE /agent/triggers/{triggerId}
  */
-export function deleteTrigger({ triggerId }: {
-    triggerId: string;
-  }): Promise<void> {
+export function deleteTrigger({ triggerId }: { triggerId: string }): Promise<void> {
   return requestClient.delete<void>(`/agent/triggers/${triggerId}`);
 }
 
 /**
  * getTrigger: GET /agent/triggers/{triggerId}
  */
-export function getTrigger({ triggerId }: {
-    triggerId: string;
-  }): Promise<AgentTrigger> {
+export function getTrigger({ triggerId }: { triggerId: string }): Promise<AgentTrigger> {
   return requestClient.get<AgentTrigger>(`/agent/triggers/${triggerId}`);
 }
 

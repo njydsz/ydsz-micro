@@ -1,20 +1,20 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface SliderTrackProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../Primitive/index.ts'
-import { injectSliderRootContext } from './SliderRoot.vue'
+import { Primitive } from '../Primitive/index.ts';
+import { injectSliderRootContext } from './SliderRoot.vue';
 
-withDefaults(defineProps<SliderTrackProps>(), { as: 'span' })
+withDefaults(defineProps<SliderTrackProps>(), { as: 'span' });
 
-const rootContext = injectSliderRootContext()
+const rootContext = injectSliderRootContext();
 
-useForwardExpose()
+useForwardExpose();
 </script>
 
 <template>

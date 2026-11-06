@@ -9,11 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  AvatarFallbackProps,
-  AvatarImageProps,
-  AvatarRootProps,
-} from '@ydsz-core/ydsz-vue';
+import type { AvatarFallbackProps, AvatarImageProps, AvatarRootProps } from '@ydsz-core/ydsz-vue';
 
 import type { CSSProperties } from 'vue';
 
@@ -89,4 +85,3 @@ const rootStyle = computed(() => {
     </span>
   </div>
 </template>
-

@@ -62,14 +62,12 @@ const isInvalidVisible = ref(false);
 const inputAriaLabel = computed(() => props.placeholder || t('inputTags.placeholder'));
 
 /** 是否已达上限 */
-const isMaxReached = computed(() =>
-  props.maxTags !== undefined && tags.value.length >= props.maxTags,
+const isMaxReached = computed(
+  () => props.maxTags !== undefined && tags.value.length >= props.maxTags,
 );
 
 /** 输入框是否禁用 */
-const isInputDisabled = computed(() =>
-  props.disabled || props.readonly || isMaxReached.value,
-);
+const isInputDisabled = computed(() => props.disabled || props.readonly || isMaxReached.value);
 
 /** 尺寸样式映射 */
 const sizeClasses = computed(() => {
@@ -105,7 +103,10 @@ function commitInput(): void {
   if (!raw) return;
 
   // 处理可能包含分隔符的粘贴场景
-  const parts = raw.split(props.separator).map(s => s.trim()).filter(Boolean);
+  const parts = raw
+    .split(props.separator)
+    .map((s) => s.trim())
+    .filter(Boolean);
 
   let added = false;
   for (const part of parts) {
@@ -244,7 +245,7 @@ defineExpose({
       role="listitem"
       :aria-label="t('inputTags.tagAriaLabel', { tag })"
     >
-      <span class="truncate max-w-[160px]">{{ tag }}</span>
+      <span class="max-w-[160px] truncate">{{ tag }}</span>
       <button
         v-if="!props.readonly && !props.disabled"
         type="button"
@@ -273,7 +274,7 @@ defineExpose({
       :aria-label="inputAriaLabel"
       :class="
         cn(
-          'flex-1 min-w-[80px] border-none bg-transparent outline-none',
+          'min-w-[80px] flex-1 border-none bg-transparent outline-none',
           'text-[hsl(var(--ydsz-text-primary))] placeholder:text-[hsl(var(--ydsz-text-tertiary))]',
           sizeClasses.input,
         )

@@ -21,8 +21,8 @@ const ROOT_OPEN = new RegExp(`^<(${ICON_ROOT_TAGS})\\b([^>]*)>`, 'i');
 const SELF_CLOSING_ROOT = new RegExp(`^<(${ICON_ROOT_TAGS})\\b[^>]*/>$`, 'i');
 
 /** 事件属性、危险协议与可执行标签：命中即整体拒绝 */
-const DANGEROUS_ICON_PART
-  = /\son[a-z]+\s*=|javascript:|<\/\s*script|<\s*(iframe|object|embed|form|link|meta|base)\b/i;
+const DANGEROUS_ICON_PART =
+  /\son[a-z]+\s*=|javascript:|<\/\s*script|<\s*(iframe|object|embed|form|link|meta|base)\b/i;
 
 /**
  * 判断标记是否为「单一图标根元素」。

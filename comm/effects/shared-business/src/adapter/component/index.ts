@@ -66,10 +66,7 @@ const withDefaultPlaceholder = <T extends Component>(
     name: component.name,
     inheritAttrs: false,
     setup: (props: Record<string, unknown>, { attrs, expose, slots }) => {
-      const placeholder =
-        props?.placeholder ||
-        attrs?.placeholder ||
-        $t(`ui.placeholder.${type}`);
+      const placeholder = props?.placeholder || attrs?.placeholder || $t(`ui.placeholder.${type}`);
       // 透传组件暴露的方法
       const innerRef = ref();
       expose(
@@ -82,11 +79,7 @@ const withDefaultPlaceholder = <T extends Component>(
         ),
       );
       return () =>
-        h(
-          component,
-          { ...componentProps, placeholder, ...props, ...attrs, ref: innerRef },
-          slots,
-        );
+        h(component, { ...componentProps, placeholder, ...props, ...attrs, ref: innerRef }, slots);
     },
   });
 };

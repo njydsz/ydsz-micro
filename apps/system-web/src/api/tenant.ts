@@ -31,9 +31,7 @@ export function page(query?: TenantPageQuery): Promise<PageResponse<TenantVO[]>>
 /**
  * getById: GET /tenant/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<TenantVO> {
+export function getById({ id }: { id: string }): Promise<TenantVO> {
   return requestClient.get<TenantVO>(`/tenant/${id}`);
 }
 
@@ -54,8 +52,6 @@ export function update(data: TenantDTO): Promise<boolean> {
 /**
  * remove: DELETE /tenant/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/tenant/${id}`);
 }

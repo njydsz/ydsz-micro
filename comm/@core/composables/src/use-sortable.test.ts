@@ -36,7 +36,7 @@ vi.mock(
 
 // ---- Mock @vueuse/core ----
 vi.mock('@vueuse/core', async () => {
-  const actual = await vi.importActual<typeof import('@vueuse/core')>('@vueuse/core');
+  const actual = await vi.importActual('@vueuse/core');
   return {
     ...actual,
     tryOnUnmounted: vi.fn(),

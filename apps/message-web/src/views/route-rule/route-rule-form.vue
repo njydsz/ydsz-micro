@@ -18,7 +18,15 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdNumberFieldInput, YdInput, YdRadioGroup, YdRadioGroupItem, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdNumberFieldInput,
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -84,9 +92,9 @@ const [Modal, modalApi] = useYdModal({
         conditionExpr: data.record.conditionExpr ?? '',
         targetChannel: data.record.targetChannel ?? '',
         fallbackChannel: data.record.fallbackChannel ?? '',
-  status: data.record.status ?? 'ENABLED',
-  description: data.record.description ?? '',
-  sort: data.record.sort ?? 0,
+        status: data.record.status ?? 'ENABLED',
+        description: data.record.description ?? '',
+        sort: data.record.sort ?? 0,
       });
     } else {
       isEdit.value = false;
@@ -100,9 +108,9 @@ const [Modal, modalApi] = useYdModal({
         conditionExpr: '',
         targetChannel: '',
         fallbackChannel: '',
-  status: 'ENABLED',
-  description: '',
-  sort: 0,
+        status: 'ENABLED',
+        description: '',
+        sort: 0,
       });
     }
   },
@@ -170,10 +178,7 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
         <YdInput v-model="formData.channel" placeholder="请输入触发通道（可为空）" />
       </YdFormItem>
       <YdFormItem label="条件表达式" prop="conditionExpr">
-        <YdTextarea
-          v-model="formData.conditionExpr"
-          placeholder="请输入条件表达式"
-        />
+        <YdTextarea v-model="formData.conditionExpr" placeholder="请输入条件表达式" />
       </YdFormItem>
       <YdFormItem label="目标通道" prop="targetChannel">
         <YdInput v-model="formData.targetChannel" placeholder="请输入目标通道" />
@@ -194,10 +199,7 @@ const title = computed(() => (isEdit.value ? '编辑路由规则' : '新增路�
         </YdRadioGroup>
       </YdFormItem>
       <YdFormItem label="描述" prop="description">
-        <YdTextarea
-          v-model="formData.description"
-          placeholder="请输入描述（可为空）"
-        />
+        <YdTextarea v-model="formData.description" placeholder="请输入描述（可为空）" />
       </YdFormItem>
     </YdForm>
   </Modal>

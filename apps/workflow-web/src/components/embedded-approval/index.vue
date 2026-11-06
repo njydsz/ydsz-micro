@@ -23,7 +23,21 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdEmptyState, YdForm, YdFormItem, YdSpace, YdTimeline, YdTimelineItem, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput } from '@ydsz-core/ydsz-ui';
+import {
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdSpace,
+  YdTimeline,
+  YdTimelineItem,
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { loadPanel, quickAction } from '#/api/flowEmbeddedApproval';
@@ -149,91 +163,96 @@ onMounted(() => {
       </div>
     </YdCardHeader>
     <YdCardContent>
-    <YdEmptyState v-if="!loading && !availableActions.length" description="暂无待处理任务" />
+      <YdEmptyState v-if="!loading && !availableActions.length" description="暂无待处理任务" />
 
-    <div v-else class="content">
-      <!-- 当前任务 -->
-      <div v-if="currentTasks.length" class="section">
-        <div class="section-title">当前节点</div>
-        <div v-for="task in currentTasks" :key="task.id" class="task-item">
-          <span class="task-node">{{ task.nodeName }}</span>
-          <span class="task-assignee">{{ task.assigneeName }}</span>
+      <div v-else class="content">
+        <!-- 当前任务 -->
+        <div v-if="currentTasks.length" class="section">
+          <div class="section-title">当前节点</div>
+          <div v-for="task in currentTasks" :key="task.id" class="task-item">
+            <span class="task-node">{{ task.nodeName }}</span>
+            <span class="task-assignee">{{ task.assigneeName }}</span>
+          </div>
+        </div>
+
+        <!-- 操作面板 -->
+        <YdForm v-if="availableActions.length" :model="form" label-width="80px" size="small">
+          <YdFormItem label="操作">
+            <YdSpace wrap>
+              <div class="flex flex-wrap gap-2">
+                <YdButton
+                  v-if="availableActions.includes('pass')"
+                  size="sm"
+                  @click="form.action = 'pass'"
+                >
+                  {{ $t('wf.approve') }}
+                </YdButton>
+                <YdButton
+                  v-if="availableActions.includes('reject')"
+                  variant="destructive"
+                  size="sm"
+                  @click="form.action = 'reject'"
+                >
+                  {{ $t('wf.reject') }}
+                </YdButton>
+                <YdButton
+                  v-if="availableActions.includes('transfer')"
+                  variant="secondary"
+                  size="sm"
+                  @click="form.action = 'transfer'"
+                >
+                  {{ $t('wf.transfer') }}
+                </YdButton>
+                <YdButton
+                  v-if="availableActions.includes('delegate')"
+                  variant="secondary"
+                  size="sm"
+                  @click="form.action = 'delegate'"
+                >
+                  {{ $t('wf.delegate') }}
+                </YdButton>
+              </div>
+            </YdSpace>
+          </YdFormItem>
+          <YdFormItem label="意见">
+            <YdInput
+              v-model="form.comment"
+              type="textarea"
+              :placeholder="$t('wf.commentPlaceholder')"
+            />
+          </YdFormItem>
+          <YdFormItem>
+            <YdButton :loading="submitting" @click="handleAction"> 提交 </YdButton>
+            <YdButton
+              v-if="canRecall"
+              variant="secondary"
+              :loading="submitting"
+              @click="handleRecall"
+            >
+              {{ $t('wf.recall') }}
+            </YdButton>
+          </YdFormItem>
+        </YdForm>
+
+        <!-- 审批历史 -->
+        <div v-if="history.length" class="section">
+          <div class="section-title">审批历史</div>
+          <YdTimeline>
+            <YdTimelineItem
+              v-for="item in history"
+              :key="item.id"
+              :timestamp="item.createdAt"
+              placement="top"
+            >
+              <div class="history-item">
+                <span class="history-action">{{ item.action }}</span>
+                <span class="history-user">{{ item.userName }}</span>
+                <span v-if="item.comment" class="history-comment">{{ item.comment }}</span>
+              </div>
+            </YdTimelineItem>
+          </YdTimeline>
         </div>
       </div>
-
-      <!-- 操作面板 -->
-      <YdForm v-if="availableActions.length" :model="form" label-width="80px" size="small">
-        <YdFormItem label="操作">
-          <YdSpace wrap>
-            <div class="flex flex-wrap gap-2">
-            <YdButton
-              v-if="availableActions.includes('pass')"
-              size="sm"
-              @click="form.action = 'pass'"
-            >
-              {{ $t('wf.approve') }}
-            </YdButton>
-            <YdButton
-              v-if="availableActions.includes('reject')"
-              variant="destructive"
-              size="sm"
-              @click="form.action = 'reject'"
-            >
-              {{ $t('wf.reject') }}
-            </YdButton>
-            <YdButton
-              v-if="availableActions.includes('transfer')"
-              variant="secondary"
-              size="sm"
-              @click="form.action = 'transfer'"
-            >
-              {{ $t('wf.transfer') }}
-            </YdButton>
-            <YdButton
-              v-if="availableActions.includes('delegate')"
-              variant="secondary"
-              size="sm"
-              @click="form.action = 'delegate'"
-            >
-              {{ $t('wf.delegate') }}
-            </YdButton>
-          </div>
-          </YdSpace>
-        </YdFormItem>
-        <YdFormItem label="意见">
-          <YdInput
-            v-model="form.comment"
-            type="textarea"
-            :placeholder="$t('wf.commentPlaceholder')"
-          />
-        </YdFormItem>
-        <YdFormItem>
-          <YdButton :loading="submitting" @click="handleAction"> 提交 </YdButton>
-          <YdButton v-if="canRecall" variant="secondary" :loading="submitting" @click="handleRecall">
-            {{ $t('wf.recall') }}
-          </YdButton>
-        </YdFormItem>
-      </YdForm>
-
-      <!-- 审批历史 -->
-      <div v-if="history.length" class="section">
-        <div class="section-title">审批历史</div>
-        <YdTimeline>
-          <YdTimelineItem
-            v-for="item in history"
-            :key="item.id"
-            :timestamp="item.createdAt"
-            placement="top"
-          >
-            <div class="history-item">
-              <span class="history-action">{{ item.action }}</span>
-              <span class="history-user">{{ item.userName }}</span>
-              <span v-if="item.comment" class="history-comment">{{ item.comment }}</span>
-            </div>
-          </YdTimelineItem>
-        </YdTimeline>
-      </div>
-    </div>
     </YdCardContent>
   </YdCard>
 </template>

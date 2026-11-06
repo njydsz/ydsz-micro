@@ -1,56 +1,55 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { injectNumberFieldRootContext } from './NumberFieldRoot.vue'
-import { onMounted, ref, watch } from 'vue'
-import { getActiveElement } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { injectNumberFieldRootContext } from './NumberFieldRoot.vue';
+import { onMounted, ref, watch } from 'vue';
+import { getActiveElement } from '../shared/index.ts';
 
-export interface NumberFieldInputProps extends PrimitiveProps {
-}
+export interface NumberFieldInputProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive, usePrimitiveElement } from '../Primitive/index.ts'
+import { Primitive, usePrimitiveElement } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<NumberFieldInputProps>(), {
   as: 'input',
-})
+});
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
-const rootContext = injectNumberFieldRootContext()
+const { primitiveElement, currentElement } = usePrimitiveElement();
+const rootContext = injectNumberFieldRootContext();
 
 function handleWheelEvent(event: WheelEvent) {
   // only handle when in focus
-  if (event.target !== getActiveElement())
-    return
+  if (event.target !== getActiveElement()) return;
 
   // if on a trackpad, users can scroll in both X and Y at once, check the magnitude of the change
   // if it's mostly in the X direction, then just return, the user probably doesn't mean to inc/dec
   // this isn't perfect, events come in fast with small deltas and a part of the scroll may give a false indication
   // especially if the user is scrolling near 45deg
-  if (Math.abs(event.deltaY) <= Math.abs(event.deltaX))
-    return
+  if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
 
-  event.preventDefault()
-  if (event.deltaY > 0)
-    rootContext.handleIncrease()
-  else if (event.deltaY < 0)
-    rootContext.handleDecrease()
+  event.preventDefault();
+  if (event.deltaY > 0) rootContext.handleIncrease();
+  else if (event.deltaY < 0) rootContext.handleDecrease();
 }
 
 onMounted(() => {
-  rootContext.onInputElement(currentElement.value as HTMLInputElement)
-})
+  rootContext.onInputElement(currentElement.value as HTMLInputElement);
+});
 
-const inputValue = ref(rootContext.textValue.value)
-watch(() => rootContext.textValue.value, () => {
-  inputValue.value = rootContext.textValue.value
-}, { immediate: true, deep: true })
+const inputValue = ref(rootContext.textValue.value);
+watch(
+  () => rootContext.textValue.value,
+  () => {
+    inputValue.value = rootContext.textValue.value;
+  },
+  { immediate: true, deep: true },
+);
 
 function handleChange() {
   requestAnimationFrame(() => {
-    inputValue.value = rootContext.textValue.value
-  })
+    inputValue.value = rootContext.textValue.value;
+  });
 }
 </script>
 
@@ -80,21 +79,24 @@ function handleChange() {
     @keydown.home.prevent="rootContext.handleMinMaxValue('min')"
     @keydown.end.prevent="rootContext.handleMinMaxValue('max')"
     @wheel="handleWheelEvent"
-    @beforeinput="(event: InputEvent) => {
-      const target = event.target as HTMLInputElement
-      let nextValue
-        = target.value.slice(0, target.selectionStart ?? undefined)
-          + (event.data ?? '')
-          + target.value.slice(target.selectionEnd ?? undefined);
+    @beforeinput="
+      (event: InputEvent) => {
+        const target = event.target as HTMLInputElement;
+        let nextValue =
+          target.value.slice(0, target.selectionStart ?? undefined) +
+          (event.data ?? '') +
+          target.value.slice(target.selectionEnd ?? undefined);
 
-      // validate
-      if (!rootContext.validate(nextValue))
-        event.preventDefault()
-    }"
-    @input="(event: InputEvent) => {
-      const target = event.target as HTMLInputElement
-      inputValue = target.value
-    }"
+        // validate
+        if (!rootContext.validate(nextValue)) event.preventDefault();
+      }
+    "
+    @input="
+      (event: InputEvent) => {
+        const target = event.target as HTMLInputElement;
+        inputValue = target.value;
+      }
+    "
     @change="handleChange"
     @keydown.enter="rootContext.applyInputValue($event.target?.value)"
     @blur="rootContext.applyInputValue($event.target?.value)"

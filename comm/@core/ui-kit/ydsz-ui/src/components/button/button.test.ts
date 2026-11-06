@@ -34,9 +34,7 @@ describe('YdButton', () => {
     const wrapper = mount(YdButton, { props: { variant: 'destructive' } });
     const classList = wrapper.classes();
     // destructive variant 含 bg-destructive
-    const hasDestructiveBg = classList.some((cls) =>
-      cls.startsWith('bg-destructive'),
-    );
+    const hasDestructiveBg = classList.some((cls) => cls.startsWith('bg-destructive'));
     expect(hasDestructiveBg).toBe(true);
   });
 

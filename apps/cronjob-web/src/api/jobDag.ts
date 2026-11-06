@@ -11,7 +11,13 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { JobDagPostDTO, JobDagPutDTO, JobDagTriggerDTO, JobDagVO, JobDagVersionVO } from './models';
+import type {
+  JobDagPostDTO,
+  JobDagPutDTO,
+  JobDagTriggerDTO,
+  JobDagVO,
+  JobDagVersionVO,
+} from './models';
 
 /**
  * createDag: POST /cronjob/dag
@@ -23,54 +29,49 @@ export function createDag(data: JobDagPostDTO): Promise<string> {
 /**
  * updateDag: PUT /cronjob/dag/{dagId}
  */
-export function updateDag({ dagId }: {
+export function updateDag(
+  {
+    dagId,
+  }: {
     dagId: string;
-  }, data: JobDagPutDTO): Promise<void> {
+  },
+  data: JobDagPutDTO,
+): Promise<void> {
   return requestClient.put<void>(`/cronjob/dag/${dagId}`, data);
 }
 
 /**
  * deleteDag: DELETE /cronjob/dag/{dagId}
  */
-export function deleteDag({ dagId }: {
-    dagId: string;
-  }): Promise<void> {
+export function deleteDag({ dagId }: { dagId: string }): Promise<void> {
   return requestClient.delete<void>(`/cronjob/dag/${dagId}`);
 }
 
 /**
  * enableDag: PUT /cronjob/dag/{dagId}/enable
  */
-export function enableDag({ dagId }: {
-    dagId: string;
-  }): Promise<void> {
+export function enableDag({ dagId }: { dagId: string }): Promise<void> {
   return requestClient.put<void>(`/cronjob/dag/${dagId}/enable`);
 }
 
 /**
  * disableDag: PUT /cronjob/dag/{dagId}/disable
  */
-export function disableDag({ dagId }: {
-    dagId: string;
-  }): Promise<void> {
+export function disableDag({ dagId }: { dagId: string }): Promise<void> {
   return requestClient.put<void>(`/cronjob/dag/${dagId}/disable`);
 }
 
 /**
  * getDagById: GET /cronjob/dag/{dagId}
  */
-export function getDagById({ dagId }: {
-    dagId: string;
-  }): Promise<JobDagVO> {
+export function getDagById({ dagId }: { dagId: string }): Promise<JobDagVO> {
   return requestClient.get<JobDagVO>(`/cronjob/dag/${dagId}`);
 }
 
 /**
  * getDagByKey: GET /cronjob/dag/key/{dagKey}
  */
-export function getDagByKey({ dagKey }: {
-    dagKey: string;
-  }): Promise<JobDagVO> {
+export function getDagByKey({ dagKey }: { dagKey: string }): Promise<JobDagVO> {
   return requestClient.get<JobDagVO>(`/cronjob/dag/key/${dagKey}`);
 }
 
@@ -98,19 +99,22 @@ export function validateDag(data: string): Promise<boolean> {
 /**
  * listDagVersions: GET /cronjob/dag/{dagId}/versions
  */
-export function listDagVersions({ dagId }: {
-    dagId: string;
-  }): Promise<JobDagVersionVO[]> {
+export function listDagVersions({ dagId }: { dagId: string }): Promise<JobDagVersionVO[]> {
   return requestClient.get<JobDagVersionVO[]>(`/cronjob/dag/${dagId}/versions`);
 }
 
 /**
  * rollbackDag: POST /cronjob/dag/{dagId}/rollback
  */
-export function rollbackDag({ dagId }: {
+export function rollbackDag(
+  {
+    dagId,
+  }: {
     dagId: string;
-  }, params: {
+  },
+  params: {
     version?: number;
-  }): Promise<JobDagVO> {
+  },
+): Promise<JobDagVO> {
   return requestClient.post<JobDagVO>(`/cronjob/dag/${dagId}/rollback`, { params });
 }

@@ -75,12 +75,18 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       width: 100,
       slots: {
         default: ({ row }) => {
-          const statusMap: Record<string, { label: string; variant: 'default' | 'destructive' | 'secondary' }> = {
+          const statusMap: Record<
+            string,
+            { label: string; variant: 'default' | 'destructive' | 'secondary' }
+          > = {
             PENDING: { label: t('trashStatusPending'), variant: 'destructive' },
             PURGED: { label: t('trashStatusPurged'), variant: 'secondary' },
             RESTORED: { label: t('trashStatusRestored'), variant: 'default' },
           };
-          const info = statusMap[row.status ?? ''] ?? { label: row.status ?? '--', variant: 'destructive' as const };
+          const info = statusMap[row.status ?? ''] ?? {
+            label: row.status ?? '--',
+            variant: 'destructive' as const,
+          };
           return h(YdBadge, { variant: info.variant }, () => info.label);
         },
       },
@@ -93,18 +99,26 @@ const gridOptions: VxeGridProps<TrashItemVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, {
-              size: 'sm',
-              variant: 'link',
-              disabled: row.status !== 'PENDING',
-              onClick: () => handleRestore(row),
-            }, () => t('trashRestore')),
-            h(YdButton, {
-              size: 'sm',
-              variant: 'link',
-              disabled: row.status !== 'PENDING',
-              onClick: () => handlePurge(row),
-            }, () => t('trashPurge')),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                disabled: row.status !== 'PENDING',
+                onClick: () => handleRestore(row),
+              },
+              () => t('trashRestore'),
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                disabled: row.status !== 'PENDING',
+                onClick: () => handlePurge(row),
+              },
+              () => t('trashPurge'),
+            ),
           ]),
       },
     },
@@ -155,13 +169,19 @@ async function handleBatchRestore() {
     showToast.warning(t('trashBatchSelectTip'));
     return;
   }
-  const ids = records.filter(r => r.status === 'PENDING').map(r => r.id!).filter(Boolean);
+  const ids = records
+    .filter((r) => r.status === 'PENDING')
+    .map((r) => r.id!)
+    .filter(Boolean);
   if (ids.length === 0) {
     showToast.warning(t('trashBatchNoValid'));
     return;
   }
   try {
-    await YdConfirm(t('trashBatchRestoreConfirm'), { title: t('trashBatchRestore'), type: 'warning' });
+    await YdConfirm(t('trashBatchRestoreConfirm'), {
+      title: t('trashBatchRestore'),
+      type: 'warning',
+    });
     await batchRestore(ids);
     showToast.success(t('trashBatchRestoreSuccess'));
     gridApi.query();

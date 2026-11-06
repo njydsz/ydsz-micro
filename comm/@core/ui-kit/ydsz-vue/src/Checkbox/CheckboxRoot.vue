@@ -1,85 +1,87 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import type { Ref } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { createContext, useFormControl, useForwardExpose } from '../shared/index.ts'
-import type { CheckedState } from './utils'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import type { Ref } from 'vue';
+import { useVModel } from '@vueuse/core';
+import { createContext, useFormControl, useForwardExpose } from '../shared/index.ts';
+import type { CheckedState } from './utils';
 
 export interface CheckboxRootProps extends PrimitiveProps {
   /** The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state. */
-  defaultChecked?: boolean
+  defaultChecked?: boolean;
   /** The controlled checked state of the checkbox. Can be binded with v-model. */
-  checked?: boolean | 'indeterminate'
+  checked?: boolean | 'indeterminate';
   /** When `true`, prevents the user from interacting with the checkbox */
-  disabled?: boolean
+  disabled?: boolean;
   /** When `true`, indicates that the user must check the checkbox before the owning form can be submitted. */
-  required?: boolean
+  required?: boolean;
   /** The name of the checkbox. Submitted with its owning form as part of a name/value pair. */
-  name?: string
+  name?: string;
   /**
    * The value given as data when submitted with a `name`.
    *  @defaultValue "on"
    */
-  value?: string
+  value?: string;
   /** Id of the element */
-  id?: string
+  id?: string;
 }
 
 export type CheckboxRootEmits = {
   /** Event handler called when the checked state of the checkbox changes. */
-  'update:checked': [value: boolean]
-}
+  'update:checked': [value: boolean];
+};
 
 interface CheckboxRootContext {
-  disabled: Ref<boolean>
-  state: Ref<CheckedState>
+  disabled: Ref<boolean>;
+  state: Ref<CheckedState>;
 }
 
-export const [injectCheckboxRootContext, provideCheckboxRootContext]
-  = createContext<CheckboxRootContext>('CheckboxRoot')
+export const [injectCheckboxRootContext, provideCheckboxRootContext] =
+  createContext<CheckboxRootContext>('CheckboxRoot');
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
-import { Primitive } from '../Primitive/index.ts'
-import { getState, isIndeterminate } from './utils'
+import { computed, toRefs } from 'vue';
+import { Primitive } from '../Primitive/index.ts';
+import { getState, isIndeterminate } from './utils';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   checked: undefined,
   value: 'on',
   as: 'button',
-})
-const emits = defineEmits<CheckboxRootEmits>()
+});
+const emits = defineEmits<CheckboxRootEmits>();
 
 defineSlots<{
   default: (props: {
     /** Current checked state */
-    checked: typeof checked.value
-  }) => any
-}>()
+    checked: typeof checked.value;
+  }) => any;
+}>();
 
-const { disabled } = toRefs(props)
+const { disabled } = toRefs(props);
 
 const checked = useVModel(props, 'checked', emits, {
   defaultValue: props.defaultChecked,
   passive: (props.checked === undefined) as false,
-}) as Ref<CheckedState>
+}) as Ref<CheckedState>;
 
-const { forwardRef, currentElement } = useForwardExpose()
-const isFormControl = useFormControl(currentElement)
-const ariaLabel = computed(() => props.id && currentElement.value
-  ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
-  : undefined)
+const { forwardRef, currentElement } = useForwardExpose();
+const isFormControl = useFormControl(currentElement);
+const ariaLabel = computed(() =>
+  props.id && currentElement.value
+    ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.innerText
+    : undefined,
+);
 
 provideCheckboxRootContext({
   disabled,
   state: checked,
-})
+});
 </script>
 
 <template>
@@ -97,9 +99,11 @@ provideCheckboxRootContext({
     :data-state="getState(checked)"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
-    @keydown.enter.prevent="() => {
-      // According to WAI ARIA, Checkboxes don't activate on enter keypress
-    }"
+    @keydown.enter.prevent="
+      () => {
+        // According to WAI ARIA, Checkboxes don't activate on enter keypress
+      }
+    "
     @click="checked = isIndeterminate(checked) ? true : !checked"
   >
     <slot :checked="checked" />
@@ -122,5 +126,5 @@ provideCheckboxRootContext({
       opacity: 0,
       margin: 0,
     }"
-  >
+  />
 </template>

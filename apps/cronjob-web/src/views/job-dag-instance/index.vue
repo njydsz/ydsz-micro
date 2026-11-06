@@ -19,7 +19,24 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdTable, YdTableColumn, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdTable,
+  YdTableColumn,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdEmptyState,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -181,7 +198,10 @@ async function handleCancel(row: JobDagInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, { title: '取消确认', type: 'warning', });
+    await YdConfirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, {
+      title: '取消确认',
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消DAG实例', row.id);
     return; // 用户主动取消操作
@@ -261,68 +281,70 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
         <YdSheetHeader>
           <YdSheetTitle>DAG 实例详情</YdSheetTitle>
         </YdSheetHeader>
-      <template v-if="detailLog">
-        <YdDescriptions :column="2" border size="small" class="mb-3">
-          <YdDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="状态">
-            <YdBadge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
-              detailLog.instanceStatus ?? '-'
-            }}</YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="触发方式">{{
-            detailLog.triggerType ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="触发人">{{ detailLog.triggerBy ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="开始时间">{{ detailLog.startedAt ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="结束时间">{{
-            detailLog.finishedAt ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="耗时(ms)">{{
-            detailLog.durationMs ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="TraceId">{{
-            detailLog.triggerTraceId ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
-            <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
-              detailLog.errorMessage
-            }}</pre>
-          </YdDescriptionsItem>
-        </YdDescriptions>
-
-        <div class="mb-1 text-sm font-medium">节点执行明细</div>
-        <YdTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
-          <YdTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
-          <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-          <YdTableColumn label="状态" width="110">
-            <template #default="{ row }">
-              <YdBadge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
-                row.nodeStatus ?? '-'
+        <template v-if="detailLog">
+          <YdDescriptions :column="2" border size="small" class="mb-3">
+            <YdDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="状态">
+              <YdBadge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
+                detailLog.instanceStatus ?? '-'
               }}</YdBadge>
-            </template>
-          </YdTableColumn>
-          <YdTableColumn prop="durationMs" label="耗时(ms)" width="90" />
-          <YdTableColumn label="操作" width="100">
-            <template #default="{ row }">
-              <YdButton
-                v-if="row.nodeStatus === 'FAILED'"
-                size="sm"
-                variant="link"
-                @click="handleRetryNode(row)"
-                >重试</YdButton
-              >
-            </template>
-          </YdTableColumn>
-        </YdTable>
-        <YdEmptyState v-else description="暂无节点明细" :image-size="60" class="mb-3" />
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="触发方式">{{
+              detailLog.triggerType ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="触发人">{{ detailLog.triggerBy ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="开始时间">{{
+              detailLog.startedAt ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="结束时间">{{
+              detailLog.finishedAt ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="耗时(ms)">{{
+              detailLog.durationMs ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="TraceId">{{
+              detailLog.triggerTraceId ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
+              <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
+                detailLog.errorMessage
+              }}</pre>
+            </YdDescriptionsItem>
+          </YdDescriptions>
 
-        <div class="mb-1 text-sm font-medium">工作流拓扑（mermaid 源码）</div>
-        <pre
-          v-if="mermaidText"
-          class="max-h-64 overflow-auto whitespace-pre-wrap break-all rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
-          >{{ mermaidText }}</pre>
-        <YdEmptyState v-else description="暂无拓扑数据" :image-size="60" />
-      </template>
+          <div class="mb-1 text-sm font-medium">节点执行明细</div>
+          <YdTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
+            <YdTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
+            <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
+            <YdTableColumn label="状态" width="110">
+              <template #default="{ row }">
+                <YdBadge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
+                  row.nodeStatus ?? '-'
+                }}</YdBadge>
+              </template>
+            </YdTableColumn>
+            <YdTableColumn prop="durationMs" label="耗时(ms)" width="90" />
+            <YdTableColumn label="操作" width="100">
+              <template #default="{ row }">
+                <YdButton
+                  v-if="row.nodeStatus === 'FAILED'"
+                  size="sm"
+                  variant="link"
+                  @click="handleRetryNode(row)"
+                  >重试</YdButton
+                >
+              </template>
+            </YdTableColumn>
+          </YdTable>
+          <YdEmptyState v-else description="暂无节点明细" :image-size="60" class="mb-3" />
+
+          <div class="mb-1 text-sm font-medium">工作流拓扑（mermaid 源码）</div>
+          <pre
+            v-if="mermaidText"
+            class="max-h-64 overflow-auto whitespace-pre-wrap break-all rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
+            >{{ mermaidText }}</pre>
+          <YdEmptyState v-else description="暂无拓扑数据" :image-size="60" />
+        </template>
       </YdSheetContent>
     </YdSheet>
   </Page>

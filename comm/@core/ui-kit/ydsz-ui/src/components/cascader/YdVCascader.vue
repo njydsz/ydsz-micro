@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 /**
-* YdVCascader —— 带虚拟滚动的级联选择器。
-* 
+ * YdVCascader —— 带虚拟滚动的级联选择器。
+ *
  * <p>与 YdCascader 的功能等价替代（单/多选、hover 触发、远程加载、搜索），
  * 但在每列大数据场景下，通过 useVirtualList 仅渲染可见选项，
  * 避免千级选项全量渲染造成的面板展开慢、滚动卡顿。
-* 
+ *
  * <p>与 YdCascader 的边界：
  *  - YdCascader 适合单级 < 200 选项的常规场景；
  *  - YdVCascader 适合任意级存在大量选项的高性能场景。
-* 
+ *
  * <p>性能特征（以每列 2000 项为例）：
  *  - 不虚拟：每列 ~2000 个 li DOM 节点，共 ~6000 节点（3 层展开）；
  *  - 虚拟后：每列 ~18 个 DOM 节点（8 visible + 10 overscan），共 ~54 节点。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\cascader\YdVCascader.vue
  * @author ydsz-team
  * @since 26.09.17
@@ -201,9 +201,9 @@ const sizeMap: Record<string, string> = {
       :aria-label="t('cascader.ariaLabel')"
       :class="
         cn(
-          'flex w-full items-center justify-between gap-2 rounded-md border bg-background px-3 text-left transition-colors',
+          'bg-background flex w-full items-center justify-between gap-2 rounded-md border px-3 text-left transition-colors',
           sizeMap[props.size],
-          isOpen ? 'ring-2 ring-ring border-primary' : 'hover:border-muted-foreground/50',
+          isOpen ? 'ring-ring border-primary ring-2' : 'hover:border-muted-foreground/50',
           !props.modelValue.length && 'text-muted-foreground',
         )
       "
@@ -211,7 +211,7 @@ const sizeMap: Record<string, string> = {
       type="button"
       @click="togglePanel"
     >
-      <span v-if="props.modelValue.length" class="truncate text-foreground">
+      <span v-if="props.modelValue.length" class="text-foreground truncate">
         {{ props.modelValue.join(' / ') }}
       </span>
       <span v-else>{{ resolvedPlaceholder }}</span>
@@ -222,7 +222,9 @@ const sizeMap: Record<string, string> = {
           class="text-muted-foreground hover:text-foreground size-3.5"
           @click="clearValue"
         />
-        <ChevronDown :class="cn('size-4 text-muted-foreground transition-transform', isOpen && 'rotate-180')" />
+        <ChevronDown
+          :class="cn('text-muted-foreground size-4 transition-transform', isOpen && 'rotate-180')"
+        />
       </span>
     </button>
 
@@ -239,7 +241,7 @@ const sizeMap: Record<string, string> = {
           <input
             v-model="searchQuery"
             :aria-label="t('select.search')"
-            class="w-full rounded border bg-transparent py-1.5 pl-7 pr-2 text-sm outline-none focus:border-primary"
+            class="focus:border-primary w-full rounded border bg-transparent py-1.5 pl-7 pr-2 text-sm outline-none"
             :placeholder="t('cascader.searchPlaceholder')"
             type="text"
           />
@@ -256,9 +258,14 @@ const sizeMap: Record<string, string> = {
             role="option"
             @click="handleSearchSelect(result)"
           >
-            <span class="text-muted-foreground text-xs">{{ result.path.map(p => p.label).join(' / ') }}</span>
+            <span class="text-muted-foreground text-xs">{{
+              result.path.map((p) => p.label).join(' / ')
+            }}</span>
           </li>
-          <li v-if="!filteredOptions.length" class="text-muted-foreground px-3 py-2 text-center text-sm">
+          <li
+            v-if="!filteredOptions.length"
+            class="text-muted-foreground px-3 py-2 text-center text-sm"
+          >
             {{ t('select.empty') }}
           </li>
         </ul>
@@ -292,18 +299,32 @@ const sizeMap: Record<string, string> = {
                   <div
                     v-for="vItem in columnVirtuals[level].visibleItems.value"
                     :key="(vItem as any).key"
-                    :aria-selected="activePath[level]?.value === (vItem.data as CascaderOption).value"
+                    :aria-selected="
+                      activePath[level]?.value === (vItem.data as CascaderOption).value
+                    "
                     :class="
                       cn(
                         'flex cursor-pointer items-center justify-between px-3 py-2 text-sm transition-colors',
-                        activePath[level]?.value === (vItem.data as CascaderOption).value ? 'bg-muted font-medium text-foreground' : 'hover:bg-muted/50',
+                        activePath[level]?.value === (vItem.data as CascaderOption).value
+                          ? 'bg-muted text-foreground font-medium'
+                          : 'hover:bg-muted/50',
                         (vItem.data as CascaderOption).disabled && 'cursor-not-allowed opacity-40',
                       )
                     "
                     :style="{ height: `${itemHeight}px` }"
                     role="option"
-                    @click="handleSelect(vItem.data as CascaderOption, level, !((vItem.data as CascaderOption).children?.length))"
-                    @mouseenter="props.expandTrigger === 'hover' && (vItem.data as CascaderOption).children?.length && (activePath = activePath.slice(0, level))"
+                    @click="
+                      handleSelect(
+                        vItem.data as CascaderOption,
+                        level,
+                        !(vItem.data as CascaderOption).children?.length,
+                      )
+                    "
+                    @mouseenter="
+                      props.expandTrigger === 'hover' &&
+                      (vItem.data as CascaderOption).children?.length &&
+                      (activePath = activePath.slice(0, level))
+                    "
                   >
                     <span class="truncate">{{ (vItem.data as CascaderOption).label }}</span>
                     <ChevronRight
@@ -316,11 +337,7 @@ const sizeMap: Record<string, string> = {
             </div>
 
             <!-- 非虚拟模式：全量渲染（列 < virtualThreshold） -->
-            <ul
-              v-else
-              class="max-h-64 overflow-y-auto py-1"
-              role="listbox"
-            >
+            <ul v-else class="max-h-64 overflow-y-auto py-1" role="listbox">
               <li
                 v-for="option in column"
                 :key="String(option.value)"
@@ -328,13 +345,19 @@ const sizeMap: Record<string, string> = {
                 :class="
                   cn(
                     'flex cursor-pointer items-center justify-between px-3 py-2 text-sm transition-colors',
-                    activePath[level]?.value === option.value ? 'bg-muted font-medium text-foreground' : 'hover:bg-muted/50',
+                    activePath[level]?.value === option.value
+                      ? 'bg-muted text-foreground font-medium'
+                      : 'hover:bg-muted/50',
                     option.disabled && 'cursor-not-allowed opacity-40',
                   )
                 "
                 role="option"
                 @click="handleSelect(option, level, !option.children?.length)"
-                @mouseenter="props.expandTrigger === 'hover' && option.children?.length && (activePath = activePath.slice(0, level))"
+                @mouseenter="
+                  props.expandTrigger === 'hover' &&
+                  option.children?.length &&
+                  (activePath = activePath.slice(0, level))
+                "
               >
                 <span class="truncate">{{ option.label }}</span>
                 <ChevronRight

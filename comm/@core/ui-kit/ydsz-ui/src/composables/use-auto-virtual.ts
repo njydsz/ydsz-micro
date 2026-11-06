@@ -77,12 +77,7 @@ export function useAutoVirtual(
   itemCountRef: () => number,
   options: UseAutoVirtualOptions = {},
 ): AutoVirtualResult {
-  const {
-    threshold = 100,
-    itemHeight = 32,
-    viewportHeight = 300,
-    force,
-  } = options;
+  const { threshold = 100, itemHeight = 32, viewportHeight = 300, force } = options;
 
   const shouldVirtualize = computed(() => {
     if (force !== undefined) return force;

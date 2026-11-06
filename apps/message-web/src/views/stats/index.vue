@@ -17,7 +17,15 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdCard, YdCardContent, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref, watch } from 'vue';
 
@@ -255,11 +263,7 @@ onMounted(() => {
             <YdSelectValueBase placeholder="时间范围" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase
-              v-for="opt in timeRangeOptions"
-              :key="opt.value"
-              :value="opt.value"
-            >
+            <YdSelectItemBase v-for="opt in timeRangeOptions" :key="opt.value" :value="opt.value">
               {{ opt.label }}
             </YdSelectItemBase>
           </YdSelectContentBase>
@@ -270,31 +274,31 @@ onMounted(() => {
 
     <!-- 概览卡片 -->
     <div class="mb-4 grid grid-cols-5 gap-5 px-4">
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">总发送量</span>
           <span class="mt-1 text-2xl font-bold">{{ overviewData.totalSent ?? 0 }}</span>
         </YdCardContent>
       </YdCard>
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">总送达量</span>
           <span class="mt-1 text-2xl font-bold">{{ overviewData.totalDelivered ?? 0 }}</span>
         </YdCardContent>
       </YdCard>
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">总已读量</span>
           <span class="mt-1 text-2xl font-bold">{{ overviewData.totalRead ?? 0 }}</span>
         </YdCardContent>
       </YdCard>
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">送达率</span>
           <span class="mt-1 text-2xl font-bold text-green-600">{{ deliveryRate }}%</span>
         </YdCardContent>
       </YdCard>
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">已读率</span>
           <span class="mt-1 text-2xl font-bold text-blue-600">{{ readRate }}%</span>
@@ -304,16 +308,20 @@ onMounted(() => {
 
     <!-- 成本卡片 -->
     <div class="mb-4 grid grid-cols-2 gap-5 px-4">
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">总成本</span>
-          <span class="mt-1 text-2xl font-bold text-amber-600">{{ '¥' }}{{ costData.totalCost.toFixed(2) }}</span>
+          <span class="mt-1 text-2xl font-bold text-amber-600"
+            >{{ '¥' }}{{ costData.totalCost.toFixed(2) }}</span
+          >
         </YdCardContent>
       </YdCard>
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent class="flex flex-col items-center pt-6">
           <span class="text-sm text-gray-500">单条成本</span>
-          <span class="mt-1 text-2xl font-bold text-purple-600">{{ '¥' }}{{ costData.costPerMsg.toFixed(4) }}</span>
+          <span class="mt-1 text-2xl font-bold text-purple-600"
+            >{{ '¥' }}{{ costData.costPerMsg.toFixed(4) }}</span
+          >
         </YdCardContent>
       </YdCard>
     </div>
@@ -321,14 +329,14 @@ onMounted(() => {
     <!-- 图表区域 -->
     <div class="grid grid-cols-2 gap-5 px-4 pb-4">
       <!-- 渠道分布 -->
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent>
           <div id="channelChart" class="h-80" />
         </YdCardContent>
       </YdCard>
 
       <!-- 转化漏斗 -->
-      <YdCard class="hover:shadow-md transition-shadow">
+      <YdCard class="transition-shadow hover:shadow-md">
         <YdCardContent>
           <div id="funnelChart" class="h-80" />
         </YdCardContent>

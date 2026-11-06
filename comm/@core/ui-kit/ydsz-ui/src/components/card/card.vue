@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* Card（card）组件：基于 design-tokens 语义化变量的卡片容器基元。
-* 
+ * Card（card）组件：基于 design-tokens 语义化变量的卡片容器基元。
+ *
  * <p>通过 CSS 变量引用 `variables.css` 中定义的 token，
  * 支持 `data-theme="dark"` 自动切换。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\card\card.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -45,19 +45,13 @@ function handleCancel() {
 
 <template>
   <section :class="cardClass">
-    <header
-      v-if="$slots.header"
-      class="yd-card__header"
-    >
+    <header v-if="$slots.header" class="yd-card__header">
       <slot name="header" />
     </header>
     <div class="yd-card__body">
       <slot />
     </div>
-    <footer
-      v-if="$slots.footer"
-      class="yd-card__footer"
-    >
+    <footer v-if="$slots.footer" class="yd-card__footer">
       <slot name="footer" />
     </footer>
   </section>

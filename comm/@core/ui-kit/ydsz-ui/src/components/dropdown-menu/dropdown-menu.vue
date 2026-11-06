@@ -1,14 +1,14 @@
 <script setup lang="ts">
 /**
-* DropdownMenu（dropdown-menu）组件：带键盘导航和焦点循环的菜单容器。
-* 
+ * DropdownMenu（dropdown-menu）组件：带键盘导航和焦点循环的菜单容器。
+ *
  * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
  * - 容器 role="menu"；子项通过 slot 注入时由父级分配 role="menuitem"
  * - 子菜单 trigger 暴露 aria-haspopup="true" + aria-expanded
  * - 键盘：↑↓ 在 menuitem 间移动焦点 / Home/End 跳转首尾 / Esc 关闭
  * - 焦点循环：末尾 ↓ 回到首位，首位 ↑ 跳到末尾
  * - aria-label / aria-labelledby 标签关联
-* 
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */
@@ -35,7 +35,9 @@ const setMenuRef = (el: any) => {
 function getMenuItems(): HTMLElement[] {
   if (!menuRef) return [];
   return Array.from(
-    menuRef.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled]):not([aria-disabled="true"])'),
+    menuRef.querySelectorAll<HTMLElement>(
+      '[role="menuitem"]:not([disabled]):not([aria-disabled="true"])',
+    ),
   );
 }
 

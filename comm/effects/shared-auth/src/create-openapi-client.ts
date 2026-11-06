@@ -41,9 +41,7 @@ import { requestClient } from './request-setup';
  * @param options - openapi-fetch 配置选项（baseUrl 等）
  * @returns 类型安全的 OpenAPI 客户端
  */
-export function createOpenApiClient<T extends Record<string, unknown>>(
-  options?: ClientOptions,
-) {
+export function createOpenApiClient<T extends Record<string, unknown>>(options?: ClientOptions) {
   return createClient<T>({
     // 复用 requestClient 的 axios 实例作为底层传输
     fetch: async (url: string | URL | Request, init?: RequestInit) => {
@@ -54,9 +52,13 @@ export function createOpenApiClient<T extends Record<string, unknown>>(
       const headers: Record<string, string> = {};
       if (init?.headers) {
         if (init.headers instanceof Headers) {
-          init.headers.forEach((v, k) => { headers[k] = v; });
+          init.headers.forEach((v, k) => {
+            headers[k] = v;
+          });
         } else if (Array.isArray(init.headers)) {
-          for (const [k, v] of init.headers) { headers[k] = v; }
+          for (const [k, v] of init.headers) {
+            headers[k] = v;
+          }
         } else {
           Object.assign(headers, init.headers);
         }

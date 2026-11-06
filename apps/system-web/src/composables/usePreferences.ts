@@ -108,9 +108,13 @@ function persistConfig(config: UserPrefConfig): void {
  */
 function hexToHsl(hex: string): [number, number, number] {
   const cleaned = hex.replace('#', '');
-  const expanded = cleaned.length === 3
-    ? cleaned.split('').map((char) => char + char).join('')
-    : cleaned;
+  const expanded =
+    cleaned.length === 3
+      ? cleaned
+          .split('')
+          .map((char) => char + char)
+          .join('')
+      : cleaned;
   const r = parseInt(expanded.substring(0, 2), 16) / 255;
   const g = parseInt(expanded.substring(2, 4), 16) / 255;
   const b = parseInt(expanded.substring(4, 6), 16) / 255;
@@ -124,9 +128,7 @@ function hexToHsl(hex: string): [number, number, number] {
     return [0, 0, Math.round(lightness * 100)];
   }
 
-  const saturation = lightness > 0.5
-    ? delta / (2 - max - min)
-    : delta / (max + min);
+  const saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
   let hue = 0;
   if (max === r) {
     hue = ((g - b) / delta + (g < b ? 6 : 0)) / 6;
@@ -235,10 +237,7 @@ export function usePreferences() {
 
   /**
    * 更新单个字段。   */
-  function set<K extends keyof UserPrefConfig>(
-    key: K,
-    value: UserPrefConfig[K],
-  ): void {
+  function set<K extends keyof UserPrefConfig>(key: K, value: UserPrefConfig[K]): void {
     update({ [key]: value } as Partial<UserPrefConfig>);
   }
 
@@ -263,12 +262,9 @@ export function usePreferences() {
       if (remote.language) merged.language = remote.language;
       if (remote.theme) merged.theme = remote.theme as ThemeMode;
       if (remote.themeColor) merged.themeColor = remote.themeColor;
-      if (remote.menuLayout)
-        merged.menuLayout = remote.menuLayout as MenuLayout;
-      if (remote.accordionMenu !== undefined)
-        merged.accordionMenu = remote.accordionMenu;
-      if (remote.tableSize)
-        merged.tableSize = remote.tableSize as TableSize;
+      if (remote.menuLayout) merged.menuLayout = remote.menuLayout as MenuLayout;
+      if (remote.accordionMenu !== undefined) merged.accordionMenu = remote.accordionMenu;
+      if (remote.tableSize) merged.tableSize = remote.tableSize as TableSize;
       if (remote.fontSize) merged.fontSize = remote.fontSize as FontSize;
       configRef.value = merged;
       applyConfigToDOM(merged);

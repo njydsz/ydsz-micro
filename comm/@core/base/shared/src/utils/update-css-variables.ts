@@ -12,13 +12,9 @@
  * @param variables - 变量名到新值的映射，键名应带 `--` 前缀
  * @param id - 内联样式表 DOM id，默认 `'__ydsz-styles__'`
  */
-function updateCSSVariables(
-  variables: { [key: string]: string },
-  id = '__ydsz-styles__',
-): void {
+function updateCSSVariables(variables: { [key: string]: string }, id = '__ydsz-styles__'): void {
   // 获取或创建内联样式表元素
-  const styleElement =
-    document.querySelector(`#${id}`) || document.createElement('style');
+  const styleElement = document.querySelector(`#${id}`) || document.createElement('style');
 
   styleElement.id = id;
 

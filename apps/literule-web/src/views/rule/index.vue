@@ -23,7 +23,20 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import type { CategoryNodeVO, RuleDefinitionVO, RuleVersionVO } from '#/api/models';
 import type { DomainItem } from '@ydsz-core/ydsz-ui';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdDomainFilterPanel, YdEmptyState, YdEntityCard, YdStatusBadge, YdTable, YdTableColumn, YdButton, YdDrawer, YdDropdownMenu, YdDropdownMenuItem, YdBadge } from '@ydsz-core/ydsz-ui';
+import {
+  YdCardGrid,
+  YdDomainFilterPanel,
+  YdEmptyState,
+  YdEntityCard,
+  YdStatusBadge,
+  YdTable,
+  YdTableColumn,
+  YdButton,
+  YdDrawer,
+  YdDropdownMenu,
+  YdDropdownMenuItem,
+  YdBadge,
+} from '@ydsz-core/ydsz-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -113,14 +126,35 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleDesign(row) }, () => '编排'),
-            h(YdButton, {
-              size: 'small', variant: 'link',
-              onClick: () => handleToggle(row),
-            }, () => (row.isEnabled ? '停用' : '启用')),
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => openVersions(row) }, () => '版本'),
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleDesign(row) },
+              () => '编排',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'small',
+                variant: 'link',
+                onClick: () => handleToggle(row),
+              },
+              () => (row.isEnabled ? '停用' : '启用'),
+            ),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => openVersions(row) },
+              () => '版本',
+            ),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -141,8 +175,16 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'ruleName', title: '规则名称', itemRender: { name: 'YdInput', props: { placeholder: '请输入规则名称' } } },
-      { field: 'ruleCode', title: '规则编码', itemRender: { name: 'YdInput', props: { placeholder: '请输入规则编码' } } },
+      {
+        field: 'ruleName',
+        title: '规则名称',
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入规则名称' } },
+      },
+      {
+        field: 'ruleCode',
+        title: '规则编码',
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入规则编码' } },
+      },
     ],
   },
 };
@@ -166,7 +208,9 @@ function statusTagType(status?: string): 'success' | 'warning' | 'info' | 'dange
 }
 
 /** 规则状态 → YdStatusBadge 语义值 */
-function resolveRuleStatus(row: RuleDefinitionVO): 'draft' | 'pending' | 'published' | 'offline' | 'running' {
+function resolveRuleStatus(
+  row: RuleDefinitionVO,
+): 'draft' | 'pending' | 'published' | 'offline' | 'running' {
   const status = (row.status ?? '').toUpperCase();
   switch (status) {
     case 'PUBLISHED':
@@ -332,11 +376,9 @@ async function handleRollback(versionItem: RuleVersionVO): Promise<void> {
   const rule = currentRule.value;
   if (!rule?.ruleCode || versionItem.version === undefined) return;
   try {
-    await YdConfirm(
-      t('confirmRollback', [rule.ruleName, versionItem.version]),
-      t('rollbackConf'),
-      { type: 'warning' },
-    );
+    await YdConfirm(t('confirmRollback', [rule.ruleName, versionItem.version]), t('rollbackConf'), {
+      type: 'warning',
+    });
     await rollback({ ruleCode: rule.ruleCode }, { version: versionItem.version });
     showToast.success(t('rollbackSuccess'));
     gridApi.query();
@@ -356,10 +398,14 @@ void loadCategoryTree();
   <Page auto-content-height>
     <!-- 视图切换 + 工具栏 -->
     <div class="mb-4 flex items-center justify-between">
-      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+      <div class="border-border-subtle bg-accent/50 flex items-center gap-1 rounded-lg border p-1">
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'card'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('card')"
         >
@@ -371,40 +417,20 @@ void loadCategoryTree();
             viewBox="0 0 24 24"
             width="14"
           >
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="12.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="12.5"
-            />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="12.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="12.5" />
           </svg>
           卡片
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'table'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('table')"
         >
@@ -417,24 +443,9 @@ void loadCategoryTree();
             viewBox="0 0 24 24"
             width="14"
           >
-            <line
-              x1="3"
-              x2="21"
-              y1="6.5"
-              y2="6.5"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="12"
-              y2="12"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="17.5"
-              y2="17.5"
-            />
+            <line x1="3" x2="21" y1="6.5" y2="6.5" />
+            <line x1="3" x2="21" y1="12" y2="12" />
+            <line x1="3" x2="21" y1="17.5" y2="17.5" />
           </svg>
           表格
         </button>
@@ -443,16 +454,10 @@ void loadCategoryTree();
     </div>
 
     <!-- 表格视图 -->
-    <Grid
-      v-if="viewMode === 'table'"
-      table-title="规则管理"
-    />
+    <Grid v-if="viewMode === 'table'" table-title="规则管理" />
 
     <!-- 卡片视图 -->
-    <div
-      v-else
-      class="flex min-h-[500px] gap-5"
-    >
+    <div v-else class="flex min-h-[500px] gap-5">
       <!-- 左侧分类筛选面板 -->
       <div class="w-52 shrink-0">
         <YdDomainFilterPanel
@@ -472,7 +477,11 @@ void loadCategoryTree();
         >
           <template #empty>
             <YdEmptyState
-              :description="selectedCategory === 'all' ? '新增规则后可编排到规则链中执行' : '该分类下暂无规则，可切换分类或新建规则'"
+              :description="
+                selectedCategory === 'all'
+                  ? '新增规则后可编排到规则链中执行'
+                  : '该分类下暂无规则，可切换分类或新建规则'
+              "
               preset="created"
               action-text="新建规则"
               title="暂无规则"
@@ -483,46 +492,47 @@ void loadCategoryTree();
             v-for="item in filteredRules"
             :key="item.id ?? item.ruleCode"
             :avatar-text="item.ruleName"
-            :avatar-variant="item.isEnabled ? (resolveRuleStatus(item) === 'published' ? 'primary' : 'blue') : 'neutral'"
+            :avatar-variant="
+              item.isEnabled
+                ? resolveRuleStatus(item) === 'published'
+                  ? 'primary'
+                  : 'blue'
+                : 'neutral'
+            "
             :code="item.ruleCode ?? undefined"
             :description="item.description"
             class="transition-transform hover:-translate-y-0.5"
             @click="handleEdit(item)"
           >
             <template #status-badge>
-              <YdStatusBadge
-                :status="resolveRuleStatus(item)"
-                class="shrink-0"
-              />
+              <YdStatusBadge :status="resolveRuleStatus(item)" class="shrink-0" />
             </template>
 
             <template #meta>
               <div class="mt-3 flex items-center justify-between text-xs">
-                <div class="flex items-center gap-2 text-text-tertiary">
+                <div class="text-text-tertiary flex items-center gap-2">
                   <span>优先级 {{ item.priority ?? '-' }}</span>
-                  <span class="h-3 w-px bg-border-subtle" />
+                  <span class="bg-border-subtle h-3 w-px" />
                   <span>v{{ item.version ?? '-' }}</span>
                 </div>
                 <span
                   v-if="item.category"
-                  class="max-w-[120px] truncate rounded-md bg-accent/60 px-1.5 py-0.5 text-text-tertiary"
+                  class="bg-accent/60 text-text-tertiary max-w-[120px] truncate rounded-md px-1.5 py-0.5"
                 >
                   {{ item.category }}
                 </span>
               </div>
-              <div class="mt-1.5 text-xs text-text-tertiary">
+              <div class="text-text-tertiary mt-1.5 text-xs">
                 {{ item.updatedAt ?? item.createdAt ?? '' }}
               </div>
             </template>
 
             <template #actions>
-              <YdDropdownMenu trigger="click" @command="(cmd: string) => handleCardAction(cmd as CardCommand, item)">
-                <YdButton
-                  size="small"
-                  link
-                  type="primary"
-                  @click.stop
-                >
+              <YdDropdownMenu
+                trigger="click"
+                @command="(cmd: string) => handleCardAction(cmd as CardCommand, item)"
+              >
+                <YdButton size="small" link type="primary" @click.stop>
                   <svg
                     class="mb-0.5 me-1 inline"
                     fill="none"
@@ -533,41 +543,20 @@ void loadCategoryTree();
                     viewBox="0 0 24 24"
                     width="14"
                   >
-                    <circle
-                      cx="12"
-                      cy="5"
-                      r="1"
-                    />
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="1"
-                    />
-                    <circle
-                      cx="12"
-                      cy="19"
-                      r="1"
-                    />
+                    <circle cx="12" cy="5" r="1" />
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="12" cy="19" r="1" />
                   </svg>
                 </YdButton>
                 <template #dropdown>
                   <YdDropdownMenu>
-                    <YdDropdownMenuItem command="edit">
-                      编辑信息
-                    </YdDropdownMenuItem>
-                    <YdDropdownMenuItem command="design">
-                      规则编排
-                    </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="edit"> 编辑信息 </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="design"> 规则编排 </YdDropdownMenuItem>
                     <YdDropdownMenuItem command="toggle">
                       {{ item.isEnabled ? '停用规则' : '启用规则' }}
                     </YdDropdownMenuItem>
-                    <YdDropdownMenuItem command="version" divided>
-                      版本历史
-                    </YdDropdownMenuItem>
-                    <YdDropdownMenuItem
-                      command="delete"
-                      divided
-                    >
+                    <YdDropdownMenuItem command="version" divided> 版本历史 </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="delete" divided>
                       <span class="text-destructive">删除规则</span>
                     </YdDropdownMenuItem>
                   </YdDropdownMenu>
@@ -589,44 +578,14 @@ void loadCategoryTree();
       <div class="mb-2 flex justify-end">
         <YdButton size="small" @click="loadVersions">刷新</YdButton>
       </div>
-      <YdTable
-        :data="versionRows"
-        border
-        size="small"
-        :loading="versionsLoading"
-      >
-        <YdTableColumn
-          prop="version"
-          label="版本"
-          width="80"
-        />
-        <YdTableColumn
-          prop="changeDesc"
-          label="变更说明"
-          min-width="120"
-        />
-        <YdTableColumn
-          prop="operator"
-          label="操作人"
-          width="100"
-        />
-        <YdTableColumn
-          prop="createdAt"
-          label="变更时间"
-          width="170"
-        />
-        <YdTableColumn
-          label="操作"
-          width="90"
-          fixed="right"
-        >
+      <YdTable :data="versionRows" border size="small" :loading="versionsLoading">
+        <YdTableColumn prop="version" label="版本" width="80" />
+        <YdTableColumn prop="changeDesc" label="变更说明" min-width="120" />
+        <YdTableColumn prop="operator" label="操作人" width="100" />
+        <YdTableColumn prop="createdAt" label="变更时间" width="170" />
+        <YdTableColumn label="操作" width="90" fixed="right">
           <template #default="{ row }">
-            <YdButton
-              link
-              type="primary"
-              size="small"
-              @click="handleRollback(row)"
-            >回滚</YdButton>
+            <YdButton link type="primary" size="small" @click="handleRollback(row)">回滚</YdButton>
           </template>
         </YdTableColumn>
       </YdTable>

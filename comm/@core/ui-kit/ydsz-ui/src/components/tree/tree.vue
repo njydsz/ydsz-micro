@@ -42,6 +42,7 @@ const props = withDefaults(defineProps<TreeProps>(), {
   labelField: 'label',
   multiple: false,
   showIcon: true,
+  showLine: false,
   transition: true,
   valueField: 'value',
   childrenField: 'children',
@@ -77,10 +78,7 @@ function flatten<T = Recordable<any>, P = number | string>(
     result.push(val);
     if (val.hasChildren)
       result.push(
-        ...flatten(children, childrenField, level + 1, [
-          ...parents,
-          get(item, props.valueField),
-        ]),
+        ...flatten(children, childrenField, level + 1, [...parents, get(item, props.valueField)]),
       );
   });
   return result;
@@ -96,18 +94,13 @@ onMounted(() => {
   watchEffect(() => {
     flattenData.value = flatten(props.treeData, props.childrenField);
     updateTreeValue();
-    if (
-      props.defaultExpandedLevel !== undefined &&
-      props.defaultExpandedLevel > 0
-    )
+    if (props.defaultExpandedLevel !== undefined && props.defaultExpandedLevel > 0)
       expandToLevel(props.defaultExpandedLevel);
   });
 });
 
 function getItemByValue(value: number | string) {
-  return flattenData.value.find(
-    (item) => get(item.value, props.valueField) === value,
-  )?.value;
+  return flattenData.value.find((item) => get(item.value, props.valueField) === value)?.value;
 }
 
 function updateTreeValue() {
@@ -196,17 +189,10 @@ function onSelect(item: FlattenedItem<Recordable<any>>, isSelected: boolean) {
     return;
   }
 
-  if (
-    !props.checkStrictly &&
-    props.multiple &&
-    props.autoCheckParent &&
-    isSelected
-  ) {
+  if (!props.checkStrictly && props.multiple && props.autoCheckParent && isSelected) {
     flattenData.value
       .find((i) => {
-        return (
-          get(i.value, props.valueField) === get(item.value, props.valueField)
-        );
+        return get(i.value, props.valueField) === get(item.value, props.valueField);
       })
       ?.parents?.forEach((p) => {
         if (Array.isArray(modelValue.value) && !modelValue.value.includes(p)) {
@@ -255,19 +241,17 @@ defineExpose({
     <TransitionGroup :name="transition ? 'fade' : ''">
       <TreeItem
         v-for="item in flattenItems"
-        v-slot="{
-          isExpanded,
-          isSelected,
-          isIndeterminate,
-          handleSelect,
-          handleToggle,
-        }"
+        v-slot="{ isExpanded, isSelected, isIndeterminate, handleSelect, handleToggle }"
         :key="item._id"
-        :style="{ 'padding-left': `${item.level - 0.5}rem` }"
+        :style="{
+          'padding-left': `${item.level - 0.5}rem`,
+          '--tree-level': item.level,
+        }"
         :class="
           cn('cursor-pointer', getNodeClass?.(item), {
             'data-[selected]:bg-accent': !multiple,
             'cursor-not-allowed': isNodeDisabled(item),
+            'tree-show-line': showLine,
           })
         "
         v-bind="
@@ -397,5 +381,27 @@ defineExpose({
       以便正确地计算移动时的动画效果。 */
 .fade-leave-active {
   position: absolute;
+}
+</style>
+
+<!-- showLine 层级连接线：非 scoped，因 Radix TreeItem DOM 不在 scoped 作用域 -->
+<style lang="scss">
+.tree-show-line {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(0.5rem * var(--tree-level, 1));
+    width: 1px;
+    background-color: var(--border-subtle, #e5e5e5);
+    pointer-events: none;
+  }
+
+  &:last-child::before {
+    bottom: 50%;
+  }
 }
 </style>

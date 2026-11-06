@@ -11,7 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { FlowCommentCreateDTO, FlowCommentVO, FlowQuickCommentDTO, FlowQuickCommentVO } from './models';
+import type {
+  FlowCommentCreateDTO,
+  FlowCommentVO,
+  FlowQuickCommentDTO,
+  FlowQuickCommentVO,
+} from './models';
 
 /**
  * addComment: POST /workflow/comment
@@ -23,36 +28,32 @@ export function addComment(data: FlowCommentCreateDTO): Promise<string> {
 /**
  * listByInstance: GET /workflow/comment/instance/{instanceId}
  */
-export function listByInstance({ instanceId }: {
-    instanceId: string;
-  }): Promise<FlowCommentVO[]> {
+export function listByInstance({ instanceId }: { instanceId: string }): Promise<FlowCommentVO[]> {
   return requestClient.get<FlowCommentVO[]>(`/workflow/comment/instance/${instanceId}`);
 }
 
 /**
  * listRootComments: GET /workflow/comment/root/{instanceId}
  */
-export function listRootComments({ instanceId }: {
-    instanceId: string;
-  }): Promise<FlowCommentVO[]> {
+export function listRootComments({ instanceId }: { instanceId: string }): Promise<FlowCommentVO[]> {
   return requestClient.get<FlowCommentVO[]>(`/workflow/comment/root/${instanceId}`);
 }
 
 /**
  * listReplies: GET /workflow/comment/replies/{parentCommentId}
  */
-export function listReplies({ parentCommentId }: {
-    parentCommentId: string;
-  }): Promise<FlowCommentVO[]> {
+export function listReplies({
+  parentCommentId,
+}: {
+  parentCommentId: string;
+}): Promise<FlowCommentVO[]> {
   return requestClient.get<FlowCommentVO[]>(`/workflow/comment/replies/${parentCommentId}`);
 }
 
 /**
  * deleteComment: DELETE /workflow/comment/{commentId}
  */
-export function deleteComment({ commentId }: {
-    commentId: string;
-  }): Promise<boolean> {
+export function deleteComment({ commentId }: { commentId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/workflow/comment/${commentId}`);
 }
 
@@ -80,17 +81,13 @@ export function updateQuickComment(data: FlowQuickCommentDTO): Promise<void> {
 /**
  * deleteQuickComment: DELETE /workflow/comment/quick/{id}
  */
-export function deleteQuickComment({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteQuickComment({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/workflow/comment/quick/${id}`);
 }
 
 /**
  * incrementUseCount: POST /workflow/comment/quick/{id}/use
  */
-export function incrementUseCount({ id }: {
-    id: string;
-  }): Promise<void> {
+export function incrementUseCount({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/workflow/comment/quick/${id}/use`);
 }

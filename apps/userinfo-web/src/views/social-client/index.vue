@@ -19,7 +19,18 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -81,7 +92,15 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
         default: ({ row }) =>
           h(
             YdBadge,
-            { variant: getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary', class: 'text-xs' },
+            {
+              variant:
+                getPlatformTagType(row.platform) === 'primary'
+                  ? 'default'
+                  : getPlatformTagType(row.platform) === 'warning'
+                    ? 'outline'
+                    : 'secondary',
+              class: 'text-xs',
+            },
             () => row.platform ?? '-',
           ),
       },
@@ -99,7 +118,10 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -114,24 +136,29 @@ const gridOptions: VxeTableGridOptions<SocialClientVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
               {
                 size: 'sm',
                 variant: 'link',
-                class: isEnabled(row.status) ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'border-green-500 text-green-600 dark:text-green-400',
+                class: isEnabled(row.status)
+                  ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                  : 'border-green-500 text-green-600 dark:text-green-400',
                 onClick: () => handleToggleStatus(row),
               },
               () => (isEnabled(row.status) ? '禁用' : '启用'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),
@@ -332,17 +359,20 @@ async function handleToggleStatus(row: SocialClientVO) {
     return;
   }
   try {
-    await update({ platform: row.platform }, {
-      id: row.id,
-      platform: row.platform,
-      platformName: row.platformName,
-      appId: row.appId,
-      scope: row.scope,
-      redirectUri: row.redirectUri,
-      status: newStatus,
-      sort: row.sort,
-      remark: row.remark,
-    });
+    await update(
+      { platform: row.platform },
+      {
+        id: row.id,
+        platform: row.platform,
+        platformName: row.platformName,
+        appId: row.appId,
+        scope: row.scope,
+        redirectUri: row.redirectUri,
+        status: newStatus,
+        sort: row.sort,
+        remark: row.remark,
+      },
+    );
     showToast.success('操作成功');
     gridApi.query();
   } catch (error) {
@@ -389,7 +419,12 @@ async function handleDelete(row: SocialClientVO) {
         label-position="right"
       >
         <YdFormItem label="平台" prop="platform">
-          <YdSelect v-model="formData.platform" placeholder="请选择平台" :disabled="isEdit" class="w-full">
+          <YdSelect
+            v-model="formData.platform"
+            placeholder="请选择平台"
+            :disabled="isEdit"
+            class="w-full"
+          >
             <YdSelectItem
               v-for="opt in PLATFORM_OPTIONS"
               :key="opt.value"
@@ -416,7 +451,10 @@ async function handleDelete(row: SocialClientVO) {
           <YdInput v-model="formData.scope" placeholder="如 user:email,openid" />
         </YdFormItem>
         <YdFormItem label="回调地址" prop="redirectUri">
-          <YdInput v-model="formData.redirectUri" placeholder="如 https://example.com/auth/callback" />
+          <YdInput
+            v-model="formData.redirectUri"
+            placeholder="如 https://example.com/auth/callback"
+          />
         </YdFormItem>
         <YdFormItem label="状态">
           <YdRadioGroup v-model="formData.status">

@@ -170,10 +170,7 @@ export function validateFormSchema(
   const dependencyGraph = new Map<string, Set<string>>();
   for (const item of schema) {
     if (item.dependencies?.triggerFields) {
-      dependencyGraph.set(
-        item.fieldName,
-        new Set(item.dependencies.triggerFields),
-      );
+      dependencyGraph.set(item.fieldName, new Set(item.dependencies.triggerFields));
     }
   }
 
@@ -238,9 +235,7 @@ export function assertValidSchema(schema: FormSchema[]): void {
 
   const result = validateFormSchema(schema, { strict: true });
   if (!result.isSchemaValid) {
-    const detail = result.errors
-      .map((e) => `[${e.level}] ${e.fieldName}: ${e.message}`)
-      .join('\n');
+    const detail = result.errors.map((e) => `[${e.level}] ${e.fieldName}: ${e.message}`).join('\n');
     throw new Error(`FormSchema 校验失败：\n${detail}`);
   }
 }

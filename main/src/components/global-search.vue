@@ -9,9 +9,9 @@
  * @since 4.0.0
 -->
 <script setup lang="ts">
-import type { SearchItem } from "#/hooks/use-global-search";
+import type { SearchItem } from '#/hooks/use-global-search';
 
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, ref, watch } from 'vue';
 import { $t } from '@ydsz/locales';
 import { YdIcon } from '@ydsz-core/ydsz-ui';
 
@@ -20,9 +20,9 @@ const props = defineProps<{
   appNameLabels?: Record<string, string>;
   items: SearchItem[];
 }>();
-const visible = defineModel<boolean>("visible", { required: true });
+const visible = defineModel<boolean>('visible', { required: true });
 
-const query = ref("");
+const query = ref('');
 const activeIndex = ref(0);
 const inputRef = ref<HTMLInputElement | null>(null);
 const placeholder = $t('page.globalSearch.placeholder');
@@ -53,7 +53,7 @@ watch(visible, async (v) => {
   if (v) {
     await nextTick();
     inputRef.value?.focus();
-    query.value = "";
+    query.value = '';
     activeIndex.value = 0;
   }
 });
@@ -80,9 +80,7 @@ function goTo(item: SearchItem) {
 }
 
 function emitRouterPush(path: string) {
-  window.dispatchEvent(
-    new CustomEvent("micro-kernel:navigate", { detail: { path } }),
-  );
+  window.dispatchEvent(new CustomEvent('micro-kernel:navigate', { detail: { path } }));
 }
 
 function close() {
@@ -134,7 +132,8 @@ function close() {
             >
               <YdIcon
                 :icon="item.icon || 'lucide:file'"
-                width="14" height="14"
+                width="14"
+                height="14"
                 class="gs-item-icon"
               />
               <div class="gs-item-body">
@@ -142,18 +141,18 @@ function close() {
                   class="gs-item-title"
                   v-safe-html="item.highlightedTitle || item.title"
                 ></span>
-                <span class="gs-item-desc" v-if="item.description">{{
-                  item.description
-                }}</span>
+                <span class="gs-item-desc" v-if="item.description">{{ item.description }}</span>
               </div>
-              <span class="gs-app-badge" :class="`is-${item.appName}`">{{
-                item.appLabel
-              }}</span>
+              <span class="gs-app-badge" :class="`is-${item.appName}`">{{ item.appLabel }}</span>
             </button>
           </template>
-          <div v-else-if="query.length > 0" class="gs-empty">{{ $t('page.globalSearch.empty') }}</div>
+          <div v-else-if="query.length > 0" class="gs-empty">
+            {{ $t('page.globalSearch.empty') }}
+          </div>
           <div v-else class="gs-tips">
-            <span>{{ $t('page.commandPalette.tipsNav') }}</span><span>{{ $t('page.globalSearch.tipsJump') }}</span><span>{{ $t('page.commandPalette.tipsClose') }}</span>
+            <span>{{ $t('page.commandPalette.tipsNav') }}</span
+            ><span>{{ $t('page.globalSearch.tipsJump') }}</span
+            ><span>{{ $t('page.commandPalette.tipsClose') }}</span>
           </div>
         </div>
       </div>

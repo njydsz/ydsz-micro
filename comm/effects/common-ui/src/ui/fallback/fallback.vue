@@ -6,40 +6,36 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type { FallbackProps } from "./fallback";
+import type { FallbackProps } from './fallback';
 
-import { computed, defineAsyncComponent } from "vue";
-import { useRouter } from "vue-router";
+import { computed, defineAsyncComponent } from 'vue';
+import { useRouter } from 'vue-router';
 
-import { ArrowLeft, RotateCw } from "@ydsz/icons";
-import { $t } from "@ydsz/locales";
+import { ArrowLeft, RotateCw } from '@ydsz/icons';
+import { $t } from '@ydsz/locales';
 
-import { YdButton } from "@ydsz-core/ydsz-ui";
+import { YdButton } from '@ydsz-core/ydsz-ui';
 
 type Props = FallbackProps;
 
 defineOptions({
-  name: "Fallback",
+  name: 'Fallback',
 });
 
 const props = withDefaults(defineProps<Props>(), {
-  description: "",
-  homePath: "/",
-  image: "",
+  description: '',
+  homePath: '/',
+  image: '',
   showBack: true,
-  status: "coming-soon",
-  title: "",
+  status: 'coming-soon',
+  title: '',
 });
 
-const Icon403 = defineAsyncComponent(() => import("./icons/icon-403.vue"));
-const Icon404 = defineAsyncComponent(() => import("./icons/icon-404.vue"));
-const Icon500 = defineAsyncComponent(() => import("./icons/icon-500.vue"));
-const IconHello = defineAsyncComponent(
-  () => import("./icons/icon-coming-soon.vue"),
-);
-const IconOffline = defineAsyncComponent(
-  () => import("./icons/icon-offline.vue"),
-);
+const Icon403 = defineAsyncComponent(() => import('./icons/icon-403.vue'));
+const Icon404 = defineAsyncComponent(() => import('./icons/icon-404.vue'));
+const Icon500 = defineAsyncComponent(() => import('./icons/icon-500.vue'));
+const IconHello = defineAsyncComponent(() => import('./icons/icon-coming-soon.vue'));
+const IconOffline = defineAsyncComponent(() => import('./icons/icon-offline.vue'));
 
 const titleText = computed(() => {
   if (props.title) {
@@ -47,26 +43,26 @@ const titleText = computed(() => {
   }
 
   switch (props.status) {
-    case "403": {
-      return $t("ui.fallback.forbidden");
+    case '403': {
+      return $t('ui.fallback.forbidden');
     }
-    case "404": {
-      return $t("ui.fallback.pageNotFound");
+    case '404': {
+      return $t('ui.fallback.pageNotFound');
     }
-    case "500": {
-      return $t("ui.fallback.internalError");
+    case '500': {
+      return $t('ui.fallback.internalError');
     }
-    case "coming-soon": {
-      return $t("ui.fallback.comingSoon");
+    case 'coming-soon': {
+      return $t('ui.fallback.comingSoon');
     }
-    case "offline": {
-      return $t("ui.fallback.offlineError");
+    case 'offline': {
+      return $t('ui.fallback.offlineError');
     }
-    case "empty": {
-      return "暂无数据";
+    case 'empty': {
+      return '暂无数据';
     }
     default: {
-      return "";
+      return '';
     }
   }
 });
@@ -76,42 +72,42 @@ const descText = computed(() => {
     return props.description;
   }
   switch (props.status) {
-    case "403": {
-      return $t("ui.fallback.forbiddenDesc");
+    case '403': {
+      return $t('ui.fallback.forbiddenDesc');
     }
-    case "404": {
-      return $t("ui.fallback.pageNotFoundDesc");
+    case '404': {
+      return $t('ui.fallback.pageNotFoundDesc');
     }
-    case "500": {
-      return $t("ui.fallback.internalErrorDesc");
+    case '500': {
+      return $t('ui.fallback.internalErrorDesc');
     }
-    case "offline": {
-      return $t("ui.fallback.offlineErrorDesc");
+    case 'offline': {
+      return $t('ui.fallback.offlineErrorDesc');
     }
-    case "empty": {
-      return "当前页面暂无数据";
+    case 'empty': {
+      return '当前页面暂无数据';
     }
     default: {
-      return "";
+      return '';
     }
   }
 });
 
 const fallbackIcon = computed(() => {
   switch (props.status) {
-    case "403": {
+    case '403': {
       return Icon403;
     }
-    case "404": {
+    case '404': {
       return Icon404;
     }
-    case "500": {
+    case '500': {
       return Icon500;
     }
-    case "coming-soon": {
+    case 'coming-soon': {
       return IconHello;
     }
-    case "offline": {
+    case 'offline': {
       return IconOffline;
     }
     default: {
@@ -121,11 +117,11 @@ const fallbackIcon = computed(() => {
 });
 
 const showBack = computed(() => {
-  return props.status === "403" || props.status === "404";
+  return props.status === '403' || props.status === '404';
 });
 
 const showRefresh = computed(() => {
-  return props.status === "500" || props.status === "offline";
+  return props.status === '500' || props.status === 'offline';
 });
 
 const { push } = useRouter();
@@ -186,14 +182,9 @@ function refresh() {
 
       <!-- 操作按钮 -->
       <div class="mt-8 flex items-center gap-3">
-        <YdButton
-          v-if="showBack"
-          size="lg"
-          @click="back"
-          :aria-label="$t('common.backToHome')"
-        >
+        <YdButton v-if="showBack" size="lg" @click="back" :aria-label="$t('common.backToHome')">
           <ArrowLeft class="mr-2 size-4" aria-hidden="true" />
-          {{ $t("common.backToHome") }}
+          {{ $t('common.backToHome') }}
         </YdButton>
         <YdButton
           v-else-if="showRefresh"
@@ -203,7 +194,7 @@ function refresh() {
           :aria-label="$t('common.refresh')"
         >
           <RotateCw class="mr-2 size-4" aria-hidden="true" />
-          {{ $t("common.refresh") }}
+          {{ $t('common.refresh') }}
         </YdButton>
       </div>
     </div>

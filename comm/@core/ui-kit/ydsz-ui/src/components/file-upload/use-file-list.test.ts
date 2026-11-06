@@ -62,7 +62,9 @@ describe('use-file-list', () => {
       list.updateFileList([makeItem()]);
       await nextTick();
 
-      expect(emit).toHaveBeenCalledWith('update:fileList', [expect.objectContaining({ uid: 'uid-1' })]);
+      expect(emit).toHaveBeenCalledWith('update:fileList', [
+        expect.objectContaining({ uid: 'uid-1' }),
+      ]);
     });
 
     it('受控模式下 clearFiles 应触发 update:fileList([])', async () => {
@@ -85,10 +87,9 @@ describe('use-file-list', () => {
       list.patchFileItem('uid-1', { status: 'uploading', percent: 50 });
       await nextTick();
 
-      expect(emit).toHaveBeenCalledWith(
-        'update:fileList',
-        [expect.objectContaining({ uid: 'uid-1', status: 'uploading', percent: 50 })],
-      );
+      expect(emit).toHaveBeenCalledWith('update:fileList', [
+        expect.objectContaining({ uid: 'uid-1', status: 'uploading', percent: 50 }),
+      ]);
     });
   });
 

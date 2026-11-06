@@ -18,14 +18,14 @@ import type { MessageLogQueryDTO, MsgLogVO } from './models';
  * page: GET /message/dead-letter/page
  */
 export function page(query?: MessageLogQueryDTO): Promise<PageResponse<MsgLogVO[]>> {
-  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/dead-letter/page`, { params: query });
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/dead-letter/page`, {
+    params: query,
+  });
 }
 
 /**
  * resend: POST /message/dead-letter/{logId}/resend
  */
-export function resend({ logId }: {
-    logId: string;
-  }): Promise<void> {
+export function resend({ logId }: { logId: string }): Promise<void> {
   return requestClient.post<void>(`/message/dead-letter/${logId}/resend`);
 }

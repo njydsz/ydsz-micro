@@ -1,22 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type {
-  AccordionRootEmits,
-  AccordionRootProps,
-} from '../'
+import { ref } from 'vue';
+import type { AccordionRootEmits, AccordionRootProps } from '../';
 import {
   AccordionContent,
   AccordionHeader,
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-} from '../'
-import { useEmitAsProps } from '../../shared/index.ts'
+} from '../';
+import { useEmitAsProps } from '../../shared/index.ts';
 
-withDefaults(defineProps<{ type?: AccordionRootProps['type'] }>(), { type: 'single' })
-const emits = defineEmits<AccordionRootEmits>()
-const values = ['One', 'Two', 'Three', 'Four']
-const count = ref(1)
+withDefaults(defineProps<{ type?: AccordionRootProps['type'] }>(), { type: 'single' });
+const emits = defineEmits<AccordionRootEmits>();
+const values = ['One', 'Two', 'Three', 'Four'];
+const count = ref(1);
 </script>
 
 <template>
@@ -25,12 +22,7 @@ const count = ref(1)
     v-bind="useEmitAsProps(emits)"
     :type="type"
   >
-    <AccordionItem
-      v-for="value in values"
-      :key="value"
-      class="accordion-item"
-      :value="value"
-    >
+    <AccordionItem v-for="value in values" :key="value" class="accordion-item" :value="value">
       <AccordionHeader class="flex">
         <AccordionTrigger class="accordion-trigger">
           {{ value }}
@@ -41,9 +33,7 @@ const count = ref(1)
         :key="i"
         class="accordion-animated-content data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp"
       >
-        <div class="px-5 py-4">
-          Content {{ value }}
-        </div>
+        <div class="px-5 py-4">Content {{ value }}</div>
       </AccordionContent>
     </AccordionItem>
   </AccordionRoot>

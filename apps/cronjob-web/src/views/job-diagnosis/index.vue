@@ -1,15 +1,22 @@
-/**
- * 任务诊断（按 jobKey 诊断健康状态）
- *
- * @path apps\cronjob-web\src\views\job-diagnosis\index.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * 任务诊断（按 jobKey 诊断健康状态） * * @path
+apps\cronjob-web\src\views\job-diagnosis\index.vue * @author ydsz-team * @since 1.0.0 */
 
 <script lang="ts" setup>
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdProgress, YdCountToAnimator, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdEmptyState,
+  YdProgress,
+  YdCountToAnimator,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -76,7 +83,7 @@ async function handleDiagnose() {
   if (!jobKey.value.trim()) return;
   loading.value = true;
   try {
-    const result = await diagnose({ jobKey: jobKey.value.trim() }) as Record<string, unknown>;
+    const result = (await diagnose({ jobKey: jobKey.value.trim() })) as Record<string, unknown>;
     diagnosisResult.value = {
       score: (result?.score as number) ?? 0,
       status: (result?.status as string) ?? 'UNKNOWN',
@@ -158,7 +165,9 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
             :stroke-width="12"
             class="my-4"
           />
-          <span class="text-2xl font-semibold" :style="{ color: scoreColor }">{{ scorePercentage }}</span>
+          <span class="text-2xl font-semibold" :style="{ color: scoreColor }">{{
+            scorePercentage
+          }}</span>
         </YdCardContent>
       </YdCard>
 
@@ -169,24 +178,24 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
         </YdCardHeader>
         <YdCardContent>
           <div class="flex flex-col gap-3">
-          <YdCountToAnimator title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
-            <template #suffix>
-              <span
-                class="ml-1 inline-block rounded px-1.5 py-0.5 text-xs text-white"
-                :class="{
-                  'bg-green-500': lastExecTagType === 'success',
-                  'bg-red-500': lastExecTagType === 'danger',
-                  'bg-yellow-500': lastExecTagType === 'warning',
-                  'bg-blue-400': lastExecTagType === 'info',
-                }"
-              >
-                {{ diagnosisResult.lastExecStatus ?? '-' }}
-              </span>
-            </template>
-          </YdCountToAnimator>
-          <YdCountToAnimator title="执行时间" :value="diagnosisResult.lastExecTime ?? '-'" />
-          <YdCountToAnimator title="耗时" :value="`${diagnosisResult.lastDurationMs ?? 0} ms`" />
-          <YdCountToAnimator title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
+            <YdCountToAnimator title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
+              <template #suffix>
+                <span
+                  class="ml-1 inline-block rounded px-1.5 py-0.5 text-xs text-white"
+                  :class="{
+                    'bg-green-500': lastExecTagType === 'success',
+                    'bg-red-500': lastExecTagType === 'danger',
+                    'bg-yellow-500': lastExecTagType === 'warning',
+                    'bg-blue-400': lastExecTagType === 'info',
+                  }"
+                >
+                  {{ diagnosisResult.lastExecStatus ?? '-' }}
+                </span>
+              </template>
+            </YdCountToAnimator>
+            <YdCountToAnimator title="执行时间" :value="diagnosisResult.lastExecTime ?? '-'" />
+            <YdCountToAnimator title="耗时" :value="`${diagnosisResult.lastDurationMs ?? 0} ms`" />
+            <YdCountToAnimator title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
             <YdCountToAnimator title="成功率" :value="diagnosisResult.successRate ?? '-'" />
           </div>
         </YdCardContent>
@@ -199,17 +208,17 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
         </YdCardHeader>
         <YdCardContent>
           <div v-if="diagnosisResult.failReason" class="mb-3">
-          <div class="text-xs font-medium text-red-500">失败原因</div>
-          <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.failReason }}</div>
-        </div>
-        <div v-if="diagnosisResult.lastError" class="mb-3">
-          <div class="text-xs font-medium text-orange-500">最近错误</div>
-          <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.lastError }}</div>
-        </div>
-        <div v-if="diagnosisResult.suggestion">
-          <div class="text-xs font-medium text-blue-500">建议操作</div>
-          <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.suggestion }}</div>
-        </div>
+            <div class="text-xs font-medium text-red-500">失败原因</div>
+            <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.failReason }}</div>
+          </div>
+          <div v-if="diagnosisResult.lastError" class="mb-3">
+            <div class="text-xs font-medium text-orange-500">最近错误</div>
+            <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.lastError }}</div>
+          </div>
+          <div v-if="diagnosisResult.suggestion">
+            <div class="text-xs font-medium text-blue-500">建议操作</div>
+            <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.suggestion }}</div>
+          </div>
           <YdEmptyState v-else description="暂无建议" :image-size="60" />
         </YdCardContent>
       </YdCard>
@@ -224,21 +233,21 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
       </YdCardHeader>
       <YdCardContent>
         <YdTimeline>
-        <YdTimelineItem
-          v-for="record in historyRecords"
-          :key="record.id"
-          :timestamp="record.time"
-          :type="recordStatusType(record.status)"
-          placement="top"
-        >
-          <div class="flex items-center gap-3 text-sm">
-            <span class="text-gray-500">{{ record.jobKey }}</span>
-            <span class="font-medium" :style="{ color: recordScoreColor(record.score) }">
-              评分 {{ record.score }}
-            </span>
-            <span>{{ record.status }}</span>
-          </div>
-        </YdTimelineItem>
+          <YdTimelineItem
+            v-for="record in historyRecords"
+            :key="record.id"
+            :timestamp="record.time"
+            :type="recordStatusType(record.status)"
+            placement="top"
+          >
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-gray-500">{{ record.jobKey }}</span>
+              <span class="font-medium" :style="{ color: recordScoreColor(record.score) }">
+                评分 {{ record.score }}
+              </span>
+              <span>{{ record.status }}</span>
+            </div>
+          </YdTimelineItem>
         </YdTimeline>
       </YdCardContent>
     </YdCard>

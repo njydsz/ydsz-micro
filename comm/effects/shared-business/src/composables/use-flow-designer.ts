@@ -90,9 +90,7 @@ export function useFlowDesigner(options: FlowDesignerOptions) {
 
   function handleKeydown(event: KeyboardEvent) {
     const selected = getSelectedNode();
-    const isInput = (event.target as HTMLElement)?.tagName?.match(
-      /INPUT|TEXTAREA|SELECT/,
-    );
+    const isInput = (event.target as HTMLElement)?.tagName?.match(/INPUT|TEXTAREA|SELECT/);
 
     // Delete 删除选中节点
     if (event.key === 'Delete' && selected && !isInput) {
@@ -103,14 +101,24 @@ export function useFlowDesigner(options: FlowDesignerOptions) {
     }
 
     // Ctrl+C 复制
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'c' && selected && !isInput) {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      event.key.toLowerCase() === 'c' &&
+      selected &&
+      !isInput
+    ) {
       event.preventDefault();
       clipboard.node = structuredClone(selected);
       return;
     }
 
     // Ctrl+V 粘贴
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'v' && clipboard.node && !isInput) {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      event.key.toLowerCase() === 'v' &&
+      clipboard.node &&
+      !isInput
+    ) {
       event.preventDefault();
       controls.pasteNode();
     }

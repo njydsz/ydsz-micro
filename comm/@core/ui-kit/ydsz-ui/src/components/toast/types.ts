@@ -17,12 +17,7 @@ export type ToastSeverity = 'success' | 'info' | 'warning' | 'error';
 
 /** Toast 展示位置 */
 export type ToastPosition =
-  | 'top-right'
-  | 'top-left'
-  | 'bottom-right'
-  | 'bottom-left'
-  | 'top-center'
-  | 'bottom-center';
+  'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
 
 /* ============================================================ */
 /* 消息项                                                         */

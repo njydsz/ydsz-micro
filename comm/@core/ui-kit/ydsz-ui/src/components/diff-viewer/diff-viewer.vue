@@ -1,24 +1,20 @@
 <script lang="ts" setup>
 /**
-* DiffViewer 文本对比组件。
-* 
+ * DiffViewer 文本对比组件。
+ *
  * 内置 LCS（最长公共子序列）差量算法按行比较两份文本，
  * 支持 split（分栏）/ unified（单栏）两种视图模式，
  * 可选行号显示、上下文折叠与自定义标题。
-* 
+ *
  * 对标 react-diff-view / GitHub PR diff 的阅读体验。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\diff-viewer\diff-viewer.vue
  * @author ydsz-team
  * @since 1.0.0
  */
 import { computed, ref, watch } from 'vue';
 
-import type {
-  DiffChunk,
-  DiffLine,
-  DiffOpType,
-} from './diff-viewer-types';
+import type { DiffChunk, DiffLine, DiffOpType } from './diff-viewer-types';
 
 import type { DiffViewerProps } from './diff-viewer-types';
 
@@ -43,16 +39,11 @@ const expandedChunks = ref<Set<number>>(new Set());
  * 使用动态规划求解两行数组的 LCS 长度表。
  * dp[i][j] 表示 oldLines[0..i) 与 newLines[0..j) 的 LCS 长度。
  */
-function computeLCSTable(
-  oldLines: readonly string[],
-  newLines: readonly string[],
-): number[][] {
+function computeLCSTable(oldLines: readonly string[], newLines: readonly string[]): number[][] {
   const m = oldLines.length;
   const n = newLines.length;
   // dp[i][j] = LCS 长度
-  const dp: number[][] = Array.from({ length: m + 1 }, () =>
-    new Array<number>(n + 1).fill(0),
-  );
+  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array<number>(n + 1).fill(0));
 
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
@@ -116,10 +107,7 @@ function backtrackLCS(
 /**
  * 将操作序列按上下文行数分组为 chunks。
  */
-function chunkDiffLines(
-  lines: readonly DiffLine[],
-  contextSize: number,
-): DiffChunk[] {
+function chunkDiffLines(lines: readonly DiffLine[], contextSize: number): DiffChunk[] {
   if (lines.length === 0) {
     return [];
   }
@@ -135,10 +123,8 @@ function chunkDiffLines(
       if (currentLines.length === 0) {
         // 第一个差异点：先补上 contextSize 行前文
         const start = Math.max(0, index - contextSize);
-        oldStart =
-          (lines[start].oldNumber ?? oldStart);
-        newStart =
-          (lines[start].newNumber ?? newStart);
+        oldStart = lines[start].oldNumber ?? oldStart;
+        newStart = lines[start].newNumber ?? newStart;
         for (let k = start; k < index; k++) {
           currentLines.push(lines[k]);
         }
@@ -216,7 +202,7 @@ function isLineVisible(chunkIndex: number): boolean {
 <template>
   <div
     :class="[
-      'yd-diff-viewer flex flex-col overflow-hidden rounded-md border border-border bg-background text-sm font-mono',
+      'yd-diff-viewer border-border bg-background flex flex-col overflow-hidden rounded-md border font-mono text-sm',
       props.class,
     ]"
     role="region"
@@ -225,7 +211,7 @@ function isLineVisible(chunkIndex: number): boolean {
     <!-- header -->
     <header
       v-if="props.oldTitle || props.newTitle"
-      class="yd-diff-header flex items-center justify-between border-b border-border bg-muted/40 px-4 py-2 text-xs font-sans"
+      class="yd-diff-header border-border bg-muted/40 flex items-center justify-between border-b px-4 py-2 font-sans text-xs"
     >
       <span class="text-muted-foreground">{{ props.oldTitle ?? t('diffViewer.oldVersion') }}</span>
       <span class="text-muted-foreground">{{ props.newTitle ?? t('diffViewer.newVersion') }}</span>
@@ -234,20 +220,13 @@ function isLineVisible(chunkIndex: number): boolean {
     <!-- diff content -->
     <div class="yd-diff-content overflow-auto">
       <!-- split 模式：分栏 -->
-      <div
-        v-if="props.mode === 'split'"
-        class="yd-diff-split grid grid-cols-2"
-      >
-        <div
-          v-for="(chunk, chunkIndex) in chunks"
-          :key="chunkIndex"
-          class="contents"
-        >
+      <div v-if="props.mode === 'split'" class="yd-diff-split grid grid-cols-2">
+        <div v-for="(chunk, chunkIndex) in chunks" :key="chunkIndex" class="contents">
           <!-- 展开按钮 -->
           <button
             v-if="props.expandable && !isLineVisible(chunkIndex)"
             :key="'expand-' + chunkIndex"
-            class="col-span-2 border-y border-border bg-muted/30 px-4 py-1 text-xs text-muted-foreground hover:bg-muted/50"
+            class="border-border bg-muted/30 text-muted-foreground hover:bg-muted/50 col-span-2 border-y px-4 py-1 text-xs"
             type="button"
             @click="toggleChunk(chunkIndex)"
           >
@@ -264,18 +243,16 @@ function isLineVisible(chunkIndex: number): boolean {
               <!-- 旧侧 -->
               <div
                 :class="[
-                  'yd-diff-old-row flex items-start border-r border-border px-2 font-mono leading-relaxed',
+                  'yd-diff-old-row border-border flex items-start border-r px-2 font-mono leading-relaxed',
                   {
-                    'bg-red-500/10 dark:bg-red-900/20':
-                      line.type === 'remove',
-                    'bg-transparent':
-                      line.type !== 'remove',
+                    'bg-red-500/10 dark:bg-red-900/20': line.type === 'remove',
+                    'bg-transparent': line.type !== 'remove',
                   },
                 ]"
               >
                 <span
                   v-if="props.showLineNumbers"
-                  class="mr-2 w-8 select-none text-right text-xs text-muted-foreground"
+                  class="text-muted-foreground mr-2 w-8 select-none text-right text-xs"
                 >
                   {{ line.oldNumber ?? '' }}
                 </span>
@@ -283,8 +260,7 @@ function isLineVisible(chunkIndex: number): boolean {
                   :class="[
                     'flex-1 whitespace-pre-wrap break-all',
                     {
-                      'text-red-700 dark:text-red-400':
-                        line.type === 'remove',
+                      'text-red-700 dark:text-red-400': line.type === 'remove',
                     },
                   ]"
                 >
@@ -298,16 +274,14 @@ function isLineVisible(chunkIndex: number): boolean {
                 :class="[
                   'yd-diff-new-row flex items-start px-2 font-mono leading-relaxed',
                   {
-                    'bg-green-500/10 dark:bg-green-900/20':
-                      line.type === 'add',
-                    'bg-transparent':
-                      line.type !== 'add',
+                    'bg-green-500/10 dark:bg-green-900/20': line.type === 'add',
+                    'bg-transparent': line.type !== 'add',
                   },
                 ]"
               >
                 <span
                   v-if="props.showLineNumbers"
-                  class="mr-2 w-8 select-none text-right text-xs text-muted-foreground"
+                  class="text-muted-foreground mr-2 w-8 select-none text-right text-xs"
                 >
                   {{ line.newNumber ?? '' }}
                 </span>
@@ -315,8 +289,7 @@ function isLineVisible(chunkIndex: number): boolean {
                   :class="[
                     'flex-1 whitespace-pre-wrap break-all',
                     {
-                      'text-green-700 dark:text-green-400':
-                        line.type === 'add',
+                      'text-green-700 dark:text-green-400': line.type === 'add',
                     },
                   ]"
                 >
@@ -331,15 +304,12 @@ function isLineVisible(chunkIndex: number): boolean {
 
       <!-- unified 模式：单栏 -->
       <div v-else class="yd-diff-unified flex flex-col">
-        <template
-          v-for="(chunk, chunkIndex) in chunks"
-          :key="chunkIndex"
-        >
+        <template v-for="(chunk, chunkIndex) in chunks" :key="chunkIndex">
           <!-- 展开按钮 -->
           <button
             v-if="props.expandable && !isLineVisible(chunkIndex)"
             :key="'u-expand-' + chunkIndex"
-            class="border-y border-border bg-muted/30 px-4 py-1 text-xs text-muted-foreground hover:bg-muted/50"
+            class="border-border bg-muted/30 text-muted-foreground hover:bg-muted/50 border-y px-4 py-1 text-xs"
             type="button"
             @click="toggleChunk(chunkIndex)"
           >
@@ -353,10 +323,8 @@ function isLineVisible(chunkIndex: number): boolean {
             :class="[
               'yd-diff-row flex items-start px-2 font-mono leading-relaxed',
               {
-                'bg-red-500/10 dark:bg-red-900/20':
-                  line.type === 'remove',
-                'bg-green-500/10 dark:bg-green-900/20':
-                  line.type === 'add',
+                'bg-red-500/10 dark:bg-red-900/20': line.type === 'remove',
+                'bg-green-500/10 dark:bg-green-900/20': line.type === 'add',
                 'bg-transparent': line.type === 'equal',
               },
             ]"
@@ -364,14 +332,14 @@ function isLineVisible(chunkIndex: number): boolean {
             <!-- 旧行号 -->
             <span
               v-if="props.showLineNumbers"
-              class="mr-1 w-7 shrink-0 select-none text-right text-xs text-muted-foreground"
+              class="text-muted-foreground mr-1 w-7 shrink-0 select-none text-right text-xs"
             >
               {{ line.oldNumber ?? '' }}
             </span>
             <!-- 新行号 -->
             <span
               v-if="props.showLineNumbers"
-              class="mr-2 w-7 shrink-0 select-none text-right text-xs text-muted-foreground"
+              class="text-muted-foreground mr-2 w-7 shrink-0 select-none text-right text-xs"
             >
               {{ line.newNumber ?? '' }}
             </span>
@@ -380,22 +348,14 @@ function isLineVisible(chunkIndex: number): boolean {
               :class="[
                 'flex-1 whitespace-pre-wrap break-all',
                 {
-                  'text-red-700 dark:text-red-400':
-                    line.type === 'remove',
-                  'text-green-700 dark:text-green-400':
-                    line.type === 'add',
+                  'text-red-700 dark:text-red-400': line.type === 'remove',
+                  'text-green-700 dark:text-green-400': line.type === 'add',
                   'text-foreground': line.type === 'equal',
                 },
               ]"
             >
-              <span
-                v-if="line.type === 'remove'"
-                class="mr-1 font-bold"
-              >-</span>
-              <span
-                v-else-if="line.type === 'add'"
-                class="mr-1 font-bold"
-              >+</span>
+              <span v-if="line.type === 'remove'" class="mr-1 font-bold">-</span>
+              <span v-else-if="line.type === 'add'" class="mr-1 font-bold">+</span>
               <span v-else class="mr-1">&nbsp;</span>
               {{ line.content }}
             </span>

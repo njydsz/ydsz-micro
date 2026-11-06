@@ -59,13 +59,13 @@ describe('YDSZ_UI_COMPONENT_NAMES 名册', () => {
   const barrelNames = readExportsFromBarrels();
 
   it('应覆盖 barrels 透出的每一个组件导出', () => {
-    const missing = [...barrelNames].filter(name => !YDSZ_UI_COMPONENT_NAMES.includes(name));
+    const missing = [...barrelNames].filter((name) => !YDSZ_UI_COMPONENT_NAMES.includes(name));
     expect(missing).toEqual([]);
   });
 
   it('不应包含 barrels 里不存在的幽灵组件', () => {
     const roster = new Set(YDSZ_UI_COMPONENT_NAMES);
-    const phantom = [...roster].filter(name => !barrelNames.has(name));
+    const phantom = [...roster].filter((name) => !barrelNames.has(name));
     expect(phantom).toEqual([]);
   });
 
@@ -78,12 +78,18 @@ describe('YDSZ_UI_COMPONENT_NAMES 名册', () => {
   });
 
   it('全部条目都应带 Yd 前缀', () => {
-    expect(YDSZ_UI_COMPONENT_NAMES.filter(name => !name.startsWith('Yd'))).toEqual([]);
+    expect(YDSZ_UI_COMPONENT_NAMES.filter((name) => !name.startsWith('Yd'))).toEqual([]);
   });
 
   it('barrel 扫描应真实命中已知组件，而非空集合通过校验', () => {
     expect(barrelNames.size).toBe(YDSZ_UI_COMPONENT_NAMES.length);
-    for (const name of ['YdButton', 'YdSelectSmart', 'YdTreeSelect', 'YdBreadcrumbPro', 'YdTourStep']) {
+    for (const name of [
+      'YdButton',
+      'YdSelectSmart',
+      'YdTreeSelect',
+      'YdBreadcrumbPro',
+      'YdTourStep',
+    ]) {
       expect(barrelNames.has(name)).toBe(true);
     }
   });

@@ -41,10 +41,7 @@ export interface IframeSandboxLike {
 }
 
 /** 沙箱工厂签名，对齐 kernel 的 createIframeSandbox(appName, parentEl) */
-export type IframeSandboxFactory = (
-  appName: string,
-  parentEl: HTMLElement,
-) => IframeSandboxLike;
+export type IframeSandboxFactory = (appName: string, parentEl: HTMLElement) => IframeSandboxLike;
 
 let factory: IframeSandboxFactory | null = null;
 
@@ -65,9 +62,9 @@ export function registerIframeSandboxFactory(impl: IframeSandboxFactory): void {
 export function resolveIframeSandboxFactory(): IframeSandboxFactory {
   if (!factory) {
     throw new Error(
-      "[ReactSubApp] iframe 沙箱工厂未注册：请确保应用已加载 @ydsz/micro-kernel" +
-        "（其模块初始化会调用 registerIframeSandboxFactory），" +
-        "或手动调用 registerIframeSandboxFactory 注入自定义实现。",
+      '[ReactSubApp] iframe 沙箱工厂未注册：请确保应用已加载 @ydsz/micro-kernel' +
+        '（其模块初始化会调用 registerIframeSandboxFactory），' +
+        '或手动调用 registerIframeSandboxFactory 注入自定义实现。',
     );
   }
   return factory;

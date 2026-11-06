@@ -61,8 +61,7 @@ type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
  * 同样保留了任意字符串的兜底分支，可传入项目自定义 class，但会失去校验能力。
  */
 export type WrapperClassType =
-  | `${Breakpoints}grid-cols-${GridCols}`
-  | (Record<never, never> & string);
+  `${Breakpoints}grid-cols-${GridCols}` | (Record<never, never> & string);
 
 /**
  * 单个表单项在栅格中的占位 class 类型。
@@ -148,11 +147,7 @@ export interface FormShape {
  * 再用任意字符串兜底以容纳各 UI 库的私有 prop。
  */
 export type MaybeComponentPropKey =
-  | 'options'
-  | 'placeholder'
-  | 'title'
-  | keyof HtmlHTMLAttributes
-  | (Record<never, never> & string);
+  'options' | 'placeholder' | 'title' | keyof HtmlHTMLAttributes | (Record<never, never> & string);
 
 /**
  * 传递给具体表单控件的 props 对象。
@@ -199,11 +194,7 @@ export type CustomRenderType = (() => Component | string) | string;
  * 传 `null` 表示显式声明「无校验」，语义上区别于 `undefined`（未配置，可能被上层默认配置覆盖）。
  */
 export type FormSchemaRuleType =
-  | 'required'
-  | 'selectRequired'
-  | null
-  | (Record<never, never> & string)
-  | ZodTypeAny;
+  'required' | 'selectRequired' | null | (Record<never, never> & string) | ZodTypeAny;
 
 type FormItemDependenciesCondition<T = boolean | PromiseLike<boolean>> = (
   // 表单值为 Partial 类型，值类型为 unknown 以支持任意表单结构

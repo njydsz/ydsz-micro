@@ -30,4 +30,3 @@ export function useFeatureFlag(name: string) {
 export function useAllFeatureFlags() {
   return computed(() => featureFlagsManager.getAll());
 }
-

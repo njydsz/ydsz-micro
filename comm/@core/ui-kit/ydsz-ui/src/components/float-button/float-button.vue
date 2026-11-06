@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* FloatButton（float-button）组件：占位骨架，后续按需深化真实交互。
-* 
+ * FloatButton（float-button）组件：占位骨架，后续按需深化真实交互。
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */

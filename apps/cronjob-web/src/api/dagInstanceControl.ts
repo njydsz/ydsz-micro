@@ -12,41 +12,39 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * pause: POST /cronjob/dag/instance/{instanceId}/pause
  */
-export function pause({ instanceId }: {
-    instanceId: string;
-  }): Promise<boolean> {
+export function pause({ instanceId }: { instanceId: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/cronjob/dag/instance/${instanceId}/pause`);
 }
 
 /**
  * resume: POST /cronjob/dag/instance/{instanceId}/resume
  */
-export function resume({ instanceId }: {
-    instanceId: string;
-  }): Promise<boolean> {
+export function resume({ instanceId }: { instanceId: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/cronjob/dag/instance/${instanceId}/resume`);
 }
 
 /**
  * cancel: POST /cronjob/dag/instance/{instanceId}/cancel
  */
-export function cancel({ instanceId }: {
-    instanceId: string;
-  }): Promise<boolean> {
+export function cancel({ instanceId }: { instanceId: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/cronjob/dag/instance/${instanceId}/cancel`);
 }
 
 /**
  * retryNode: POST /cronjob/dag/instance/{instanceId}/retryNode
  */
-export function retryNode({ instanceId }: {
+export function retryNode(
+  {
+    instanceId,
+  }: {
     instanceId: string;
-  }, params: {
+  },
+  params: {
     jobKey?: string;
-  }): Promise<boolean> {
+  },
+): Promise<boolean> {
   return requestClient.post<boolean>(`/cronjob/dag/instance/${instanceId}/retryNode`, { params });
 }

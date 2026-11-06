@@ -47,4 +47,3 @@ const collapsed = defineModel({ default: false });
     </div>
   </div>
 </template>
-

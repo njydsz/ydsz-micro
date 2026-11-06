@@ -37,4 +37,3 @@ interface PinInputProps {
 }
 
 export type { PinInputProps };
-

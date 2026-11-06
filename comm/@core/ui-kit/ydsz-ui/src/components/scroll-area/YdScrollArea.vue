@@ -17,11 +17,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  ScrollAreaViewport,
-} from '@ydsz-core/ydsz-vue';
+import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from '@ydsz-core/ydsz-vue';
 
 import YdScrollBar from './YdScrollBar.vue';
 
@@ -45,10 +41,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <ScrollAreaRoot
-    v-bind="delegatedProps"
-    :class="cn('relative overflow-hidden', props.class)"
-  >
+  <ScrollAreaRoot v-bind="delegatedProps" :class="cn('relative overflow-hidden', props.class)">
     <ScrollAreaViewport
       as-child
       class="h-full w-full rounded-[inherit] focus:outline-none"

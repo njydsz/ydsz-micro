@@ -55,4 +55,3 @@ export function getNestedValue<T>(obj: T, path: string): unknown {
 
   return current;
 }
-

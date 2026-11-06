@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /**
-* Link 链接：带下划线与 hover 状态的可点击文本。
-* 
+ * Link 链接：带下划线与 hover 状态的可点击文本。
+ *
  * 之所以不直接用 <a> 是为了统一下划线/颜色/禁用态的交互语义：
  * - href 有值时渲染 <a>，支持 cmd+click 新标签等原生习惯
  * - 无 href 时渲染 <button>（由 disabled 状态决定）
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\link\YdLink.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -49,8 +49,12 @@ function handleClick(event: MouseEvent): void {
     v-if="props.href && !props.disabled"
     :class="
       cn(
-        'inline-flex items-center gap-0.5 text-brand-500 transition-colors dark:text-brand-400',
-        props.underline === true ? 'underline' : props.underline === 'hover' ? 'hover:underline' : '',
+        'text-brand-500 dark:text-brand-400 inline-flex items-center gap-0.5 transition-colors',
+        props.underline === true
+          ? 'underline'
+          : props.underline === 'hover'
+            ? 'hover:underline'
+            : '',
         'hover:text-brand-600 dark:hover:text-brand-300',
         props.class,
       )
@@ -67,8 +71,12 @@ function handleClick(event: MouseEvent): void {
     :aria-disabled="props.disabled"
     :class="
       cn(
-        'inline-flex items-center gap-0.5 text-brand-500 transition-colors dark:text-brand-400',
-        props.underline === true ? 'underline' : props.underline === 'hover' ? 'hover:underline' : '',
+        'text-brand-500 dark:text-brand-400 inline-flex items-center gap-0.5 transition-colors',
+        props.underline === true
+          ? 'underline'
+          : props.underline === 'hover'
+            ? 'hover:underline'
+            : '',
         !props.disabled && 'hover:text-brand-600 dark:hover:text-brand-300',
         props.disabled && 'cursor-not-allowed opacity-50',
         props.class,

@@ -13,11 +13,7 @@
 <script setup lang="ts">
 import type { CustomRenderType } from '../types';
 
-import {
-  YdFormLabel,
-  YdHelpTooltip,
-  YdRenderContent,
-} from '@ydsz-core/ydsz-ui';
+import { YdFormLabel, YdHelpTooltip, YdRenderContent } from '@ydsz-core/ydsz-ui';
 import { cn } from '@ydsz-core/shared/utils';
 
 interface Props {
@@ -41,4 +37,3 @@ const props = defineProps<Props>();
     <span v-if="colon && label" class="ml-[2px]">:</span>
   </YdFormLabel>
 </template>
-

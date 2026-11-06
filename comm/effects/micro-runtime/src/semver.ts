@@ -141,11 +141,16 @@ export function satisfiesVersion(version: string, range: string): boolean {
     if (!target) return false;
     const cmp = compareVersion(v, target);
     switch (op) {
-      case '>=': return cmp >= 0;
-      case '>': return cmp > 0;
-      case '<=': return cmp <= 0;
-      case '<': return cmp < 0;
-      default: return cmp === 0;
+      case '>=':
+        return cmp >= 0;
+      case '>':
+        return cmp > 0;
+      case '<=':
+        return cmp <= 0;
+      case '<':
+        return cmp < 0;
+      default:
+        return cmp === 0;
     }
   }
   return false;

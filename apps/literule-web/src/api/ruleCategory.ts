@@ -23,39 +23,45 @@ export function categoryTree(): Promise<CategoryNodeVO> {
 /**
  * listByCategoryPath: GET /literule/rules/by-category-path
  */
-export function listByCategoryPath(params: {
-    path?: string;
-  }): Promise<RuleDefinitionVO[]> {
+export function listByCategoryPath(params: { path?: string }): Promise<RuleDefinitionVO[]> {
   return requestClient.get<RuleDefinitionVO[]>(`/literule/rules/by-category-path`, { params });
 }
 
 /**
  * listByOwner: GET /literule/rules/by-owner
  */
-export function listByOwner(params: {
-    owner?: string;
-  }): Promise<RuleDefinitionVO[]> {
+export function listByOwner(params: { owner?: string }): Promise<RuleDefinitionVO[]> {
   return requestClient.get<RuleDefinitionVO[]>(`/literule/rules/by-owner`, { params });
 }
 
 /**
  * setOwner: PUT /literule/rules/{ruleCode}/owner
  */
-export function setOwner({ ruleCode }: {
+export function setOwner(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     owner?: string;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.put<void>(`/literule/rules/${ruleCode}/owner`, { params });
 }
 
 /**
  * setCategoryPath: PUT /literule/rules/{ruleCode}/category-path
  */
-export function setCategoryPath({ ruleCode }: {
+export function setCategoryPath(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     path?: string;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.put<void>(`/literule/rules/${ruleCode}/category-path`, { params });
 }

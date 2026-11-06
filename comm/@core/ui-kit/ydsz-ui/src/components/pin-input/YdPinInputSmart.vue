@@ -143,4 +143,3 @@ const id = useId();
     </div>
   </YdPinInput>
 </template>
-

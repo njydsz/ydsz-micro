@@ -7,11 +7,7 @@
  */
 import type { PluginOption } from 'vite';
 
-import {
-  colors,
-  generatorContentHash,
-  readPackageJSON,
-} from '@ydsz/node-utils';
+import { colors, generatorContentHash, readPackageJSON } from '@ydsz/node-utils';
 
 import { loadEnv } from '../utils/env';
 
@@ -67,9 +63,7 @@ async function viteExtraAppConfigPlugin({
         process.stdout.write(colors.cyan(`✨configuration file is build successfully!\n`));
       } catch (error) {
         process.stderr.write(
-          colors.red(
-            `configuration file configuration file failed to package:\n${error}\n`,
-          ),
+          colors.red(`configuration file configuration file failed to package:\n${error}\n`),
         );
       }
     },

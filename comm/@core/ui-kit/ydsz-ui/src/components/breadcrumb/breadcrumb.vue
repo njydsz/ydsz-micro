@@ -51,10 +51,7 @@ function handleClick(path?: string) {
   <YdBreadcrumb :aria-label="t('breadcrumb.ariaLabel')">
     <YdBreadcrumbList>
       <TransitionGroup name="breadcrumb-transition">
-        <template
-          v-for="(item, index) in breadcrumbs"
-          :key="`${item.path}-${item.title}-${index}`"
-        >
+        <template v-for="(item, index) in breadcrumbs" :key="`${item.path}-${item.title}-${index}`">
           <YdBreadcrumbItem>
             <div v-if="item.items?.length ?? 0 > 0">
               <YdDropdownMenuSmart>
@@ -64,10 +61,7 @@ function handleClick(path?: string) {
                   <ChevronDown class="size-4" aria-hidden="true" />
                 </YdDropdownMenuTrigger>
                 <YdDropdownMenuContent align="start" role="menu">
-                  <template
-                    v-for="menuItem in item.items"
-                    :key="`sub-${menuItem.path}`"
-                  >
+                  <template v-for="menuItem in item.items" :key="`sub-${menuItem.path}`">
                     <YdDropdownMenuItem role="menuitem" @click.stop="handleClick(menuItem.path)">
                       {{ menuItem.title }}
                     </YdDropdownMenuItem>
@@ -92,7 +86,10 @@ function handleClick(path?: string) {
                 {{ item.title }}
               </div>
             </YdBreadcrumbLink>
-            <YdBreadcrumbPage v-else :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined">
+            <YdBreadcrumbPage
+              v-else
+              :aria-current="index === breadcrumbs.length - 1 ? 'page' : undefined"
+            >
               <div class="flex-center">
                 <YdIcon
                   v-if="showIcon"
@@ -114,4 +111,3 @@ function handleClick(path?: string) {
     </YdBreadcrumbList>
   </YdBreadcrumb>
 </template>
-

@@ -12,62 +12,68 @@
  * @since 26.10.10
  */
 
-import type { Directive, DirectiveBinding } from 'vue'
+import type { Directive, DirectiveBinding } from 'vue';
 
-export type ClickOutsideHandler = (event: PointerEvent) => void
+export type ClickOutsideHandler = (event: PointerEvent) => void;
 
 interface ClickOutsideElement extends HTMLElement {
   __clickOutside__?: {
-    handler: ClickOutsideHandler | ClickOutsideHandler[]
-    listener: (e: PointerEvent) => void
-  }
+    handler: ClickOutsideHandler | ClickOutsideHandler[];
+    listener: (e: PointerEvent) => void;
+  };
 }
 
 function createListener(el: ClickOutsideElement): (e: PointerEvent) => void {
   return (e: PointerEvent) => {
-    const ctx = el.__clickOutside__
-    if (!ctx) return
-    const target = e.target as Node
-    if (el === target || el.contains(target)) return
+    const ctx = el.__clickOutside__;
+    if (!ctx) return;
+    const target = e.target as Node;
+    if (el === target || el.contains(target)) return;
 
-    const handlers = Array.isArray(ctx.handler) ? ctx.handler : [ctx.handler]
+    const handlers = Array.isArray(ctx.handler) ? ctx.handler : [ctx.handler];
     for (const h of handlers) {
-      h(e)
+      h(e);
     }
-  }
+  };
 }
 
 export const vClickOutside: Directive<HTMLElement, ClickOutsideHandler | ClickOutsideHandler[]> = {
-  mounted(el: ClickOutsideElement, binding: DirectiveBinding<ClickOutsideHandler | ClickOutsideHandler[]>) {
+  mounted(
+    el: ClickOutsideElement,
+    binding: DirectiveBinding<ClickOutsideHandler | ClickOutsideHandler[]>,
+  ) {
     // 延迟注册，避免刚挂载就触发
     const timer = setTimeout(() => {
-      const listener = createListener(el)
-      document.addEventListener('pointerdown', listener, true)
+      const listener = createListener(el);
+      document.addEventListener('pointerdown', listener, true);
       el.__clickOutside__ = {
         handler: binding.value,
         listener,
-      }
-    }, 0)
+      };
+    }, 0);
 
     // 保存 timer 以便在 unmounted 时清理
-    el.__vClickOutsideTimer__ = timer
+    el.__vClickOutsideTimer__ = timer;
   },
 
-  updated(el: ClickOutsideElement, binding: DirectiveBinding<ClickOutsideHandler | ClickOutsideHandler[]>) {
+  updated(
+    el: ClickOutsideElement,
+    binding: DirectiveBinding<ClickOutsideHandler | ClickOutsideHandler[]>,
+  ) {
     if (el.__clickOutside__) {
-      el.__clickOutside__.handler = binding.value
+      el.__clickOutside__.handler = binding.value;
     }
   },
 
   unmounted(el: ClickOutsideElement) {
     if ((el as any).__vClickOutsideTimer__) {
-      clearTimeout((el as any).__vClickOutsideTimer__)
+      clearTimeout((el as any).__vClickOutsideTimer__);
     }
     if (el.__clickOutside__) {
-      document.removeEventListener('pointerdown', el.__clickOutside__.listener, true)
-      delete el.__clickOutside__
+      document.removeEventListener('pointerdown', el.__clickOutside__.listener, true);
+      delete el.__clickOutside__;
     }
   },
-}
+};
 
-export default vClickOutside
+export default vClickOutside;

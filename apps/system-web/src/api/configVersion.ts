@@ -16,31 +16,46 @@ import type { EntityVersionVO } from './models';
 /**
  * listByResourceKey: GET /config/version/{resourceKey}
  */
-export function listByResourceKey({ resourceKey }: {
-    resourceKey: string;
-  }): Promise<EntityVersionVO[]> {
+export function listByResourceKey({
+  resourceKey,
+}: {
+  resourceKey: string;
+}): Promise<EntityVersionVO[]> {
   return requestClient.get<EntityVersionVO[]>(`/config/version/${resourceKey}`);
 }
 
 /**
  * diffVersions: GET /config/version/{resourceKey}/diff
  */
-export function diffVersions({ resourceKey }: {
+export function diffVersions(
+  {
+    resourceKey,
+  }: {
     resourceKey: string;
-  }, params: {
+  },
+  params: {
     fromVersion?: string;
     toVersion?: string;
-  }): Promise<'MODIFIED' | 'ADDED' | 'REMOVED'> {
-  return requestClient.get<'MODIFIED' | 'ADDED' | 'REMOVED'>(`/config/version/${resourceKey}/diff`, { params });
+  },
+): Promise<'MODIFIED' | 'ADDED' | 'REMOVED'> {
+  return requestClient.get<'MODIFIED' | 'ADDED' | 'REMOVED'>(
+    `/config/version/${resourceKey}/diff`,
+    { params },
+  );
 }
 
 /**
  * rollback: POST /config/version/{resourceKey}/rollback
  */
-export function rollback({ resourceKey }: {
+export function rollback(
+  {
+    resourceKey,
+  }: {
     resourceKey: string;
-  }, params: {
+  },
+  params: {
     targetVersion?: string;
-  }): Promise<string> {
+  },
+): Promise<string> {
   return requestClient.post<string>(`/config/version/${resourceKey}/rollback`, { params });
 }

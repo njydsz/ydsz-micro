@@ -62,7 +62,10 @@ interface NotificationPageResult {
 /** 创建通知核心所需的 API 函数集合 */
 export interface NotificationCoreApis {
   /** 分页加载通知列表 */
-  getNotificationsApi: (params: { pageNum?: number; pageSize?: number }) => Promise<NotificationPageResult>;
+  getNotificationsApi: (params: {
+    pageNum?: number;
+    pageSize?: number;
+  }) => Promise<NotificationPageResult>;
   /** 获取未读计数 */
   getUnreadCountApi: () => Promise<number>;
   /** 标记单条已读 */

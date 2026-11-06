@@ -11,10 +11,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  SplitterResizeHandleEmits,
-  SplitterResizeHandleProps,
-} from '@ydsz-core/ydsz-vue';
+import type { SplitterResizeHandleEmits, SplitterResizeHandleProps } from '@ydsz-core/ydsz-vue';
 
 import type { HTMLAttributes } from 'vue';
 
@@ -52,9 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     "
   >
     <template v-if="props.withHandle">
-      <div
-        class="bg-border z-10 flex h-4 w-3 items-center justify-center rounded-sm border"
-      >
+      <div class="bg-border z-10 flex h-4 w-3 items-center justify-center rounded-sm border">
         <GripVertical class="h-2.5 w-2.5" />
       </div>
     </template>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* Typography.Text：文本 / 代码 / 标记 / 复制 / 可编辑等原子组件。
-* 
+ * Typography.Text：文本 / 代码 / 标记 / 复制 / 可编辑等原子组件。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\typography\YdText.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -149,7 +149,7 @@ function handleKeydown(e: KeyboardEvent): void {
         'inline',
         props.type ? typeClass[props.type] : 'text-foreground',
         props.bold && 'font-semibold',
-        props.code && 'rounded bg-muted px-1 py-0.5 font-mono text-sm',
+        props.code && 'bg-muted rounded px-1 py-0.5 font-mono text-sm',
         props.delete && 'line-through',
         props.ellipsis && 'block max-w-full overflow-hidden text-ellipsis whitespace-nowrap',
         props.italic && 'italic',
@@ -166,7 +166,7 @@ function handleKeydown(e: KeyboardEvent): void {
       v-if="isEditing"
       ref="contentRef"
       contenteditable="true"
-      class="min-w-[2em] rounded border border-primary bg-transparent px-1 outline-none focus:ring-1 focus:ring-primary"
+      class="border-primary focus:ring-primary min-w-[2em] rounded border bg-transparent px-1 outline-none focus:ring-1"
       @blur="finishEditing"
       @keydown="handleKeydown"
     />
@@ -175,7 +175,12 @@ function handleKeydown(e: KeyboardEvent): void {
     <template v-else>
       <span
         ref="contentRef"
-        :class="cn(props.editable && 'cursor-text', props.ellipsis && 'overflow-hidden text-ellipsis whitespace-nowrap')"
+        :class="
+          cn(
+            props.editable && 'cursor-text',
+            props.ellipsis && 'overflow-hidden text-ellipsis whitespace-nowrap',
+          )
+        "
       >
         <slot></slot>
       </span>
@@ -186,7 +191,14 @@ function handleKeydown(e: KeyboardEvent): void {
         class="text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
         :aria-label="t('common.edit')"
       >
-        <svg aria-hidden="true" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          class="size-3.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
           <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
           <path d="m15 5 4 4" />
         </svg>
@@ -200,7 +212,14 @@ function handleKeydown(e: KeyboardEvent): void {
         type="button"
         @click="handleCopy"
       >
-        <svg aria-hidden="true" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          class="size-3.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
           <rect height="13" rx="2" ry="2" width="13" x="9" y="9" />
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
         </svg>

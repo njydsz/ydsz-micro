@@ -19,10 +19,10 @@
  *
  * @since 4.1.0
  */
-export type CanaryMode = "advanced" | "simple";
+export type CanaryMode = 'advanced' | 'simple';
 
 /** 灰度标签 */
-export type CanaryTag = "alpha" | "beta" | "canary" | "stable";
+export type CanaryTag = 'alpha' | 'beta' | 'canary' | 'stable';
 
 /** 单版本配置 */
 export interface CanaryVersion {
@@ -112,12 +112,12 @@ export interface CanaryResolutionEvent {
   resolvedVersion: string;
   whitelisted: boolean;
   reason:
-    | "whitelist_user"
-    | "whitelist_org"
-    | "force_tag"
-    | "tag_match"
-    | "percentage_hash"
-    | "stable_fallback";
+    | 'whitelist_user'
+    | 'whitelist_org'
+    | 'force_tag'
+    | 'tag_match'
+    | 'percentage_hash'
+    | 'stable_fallback';
   timestamp: number;
 }
 

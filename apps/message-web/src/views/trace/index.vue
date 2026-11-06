@@ -17,7 +17,16 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSteps } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSteps,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
 
@@ -152,11 +161,7 @@ const stepItems = computed(() =>
               <YdSelectValueBase placeholder="查询类型" />
             </YdSelectTriggerBase>
             <YdSelectContentBase>
-              <YdSelectItemBase
-                v-for="opt in queryTypeOptions"
-                :key="opt.value"
-                :value="opt.value"
-              >
+              <YdSelectItemBase v-for="opt in queryTypeOptions" :key="opt.value" :value="opt.value">
                 {{ opt.label }}
               </YdSelectItemBase>
             </YdSelectContentBase>
@@ -179,11 +184,7 @@ const stepItems = computed(() =>
       <!-- 轨迹展示 -->
       <div v-if="traceSteps.length > 0" class="rounded border bg-white p-6">
         <h3 class="mb-4 text-base font-medium">消息轨迹（共 {{ traceSteps.length }} 个节点）</h3>
-        <YdSteps
-          :current="currentStepIndex"
-          :steps="stepItems"
-          label-placement="vertical"
-        />
+        <YdSteps :current="currentStepIndex" :steps="stepItems" label-placement="vertical" />
       </div>
 
       <!-- 空状态 -->

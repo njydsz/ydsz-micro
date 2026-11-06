@@ -16,7 +16,18 @@
  */
 import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdInput, YdBadge, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdSheet, YdSheetContent } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdInput,
+  YdBadge,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdSheet,
+  YdSheetContent,
+} from '@ydsz-core/ydsz-ui';
 import { h, reactive, ref } from 'vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -62,7 +73,9 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.nodeType === 'FOLDER' ? 'warning' : 'default' }, () => (row.nodeType === 'FOLDER' ? '目录' : '文件')),
+          h(YdBadge, { variant: row.nodeType === 'FOLDER' ? 'warning' : 'default' }, () =>
+            row.nodeType === 'FOLDER' ? '目录' : '文件',
+          ),
       },
     },
     {
@@ -75,34 +88,73 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
     { field: 'createdBy', title: '创建人', width: 110 },
     { field: 'createdAt', title: '创建时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 320, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 320,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, {
-              size: 'sm', variant: 'link',
-              onClick: () => handlePreview(row),
-              disabled: row.nodeType === 'FOLDER',
-            }, () => '预览'),
-            h(YdButton, {
-              size: 'sm', variant: 'link',
-              onClick: () => handleDownload(row),
-              disabled: row.nodeType === 'FOLDER',
-            }, () => '下载'),
-            h(YdButton, {
-              size: 'sm', variant: 'link',
-              onClick: () => handleOnlineEdit(row),
-              disabled: row.nodeType === 'FOLDER',
-            }, () => '编辑'),
-            h(YdButton, {
-              size: 'sm', variant: 'link',
-              onClick: () => handleVersionHistory(row),
-              disabled: row.nodeType === 'FOLDER',
-            }, () => '版本'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleRename(row) }, () => '重命名'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleMove(row) }, () => '移动'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleCopy(row) }, () => '复制'),
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handlePreview(row),
+                disabled: row.nodeType === 'FOLDER',
+              },
+              () => '预览',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handleDownload(row),
+                disabled: row.nodeType === 'FOLDER',
+              },
+              () => '下载',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handleOnlineEdit(row),
+                disabled: row.nodeType === 'FOLDER',
+              },
+              () => '编辑',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handleVersionHistory(row),
+                disabled: row.nodeType === 'FOLDER',
+              },
+              () => '版本',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleRename(row) },
+              () => '重命名',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleMove(row) },
+              () => '移动',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleCopy(row) },
+              () => '复制',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
           ]),
       },
     },
@@ -112,7 +164,11 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
   proxyConfig: {
     ajax: {
       query: async ({ page }, formValues) => {
-        const res = await listFiles({ page: page.currentPage, pageSize: page.pageSize, ...formValues });
+        const res = await listFiles({
+          page: page.currentPage,
+          pageSize: page.pageSize,
+          ...formValues,
+        });
         return { items: res.data ?? [], total: res.total ?? 0 };
       },
     },
@@ -121,7 +177,11 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'name', title: '名称', itemRender: { name: 'YdInput', props: { placeholder: '请输入名称' } } },
+      {
+        field: 'name',
+        title: '名称',
+        itemRender: { name: 'YdInput', props: { placeholder: '请输入名称' } },
+      },
     ],
   },
 };
@@ -152,9 +212,13 @@ function handleOnlineEdit(row: FileNodeVO): void {
 const previewVisible = ref(false);
 const previewFileNode = ref<FileNodeVO | null>(null);
 
-function handleAdd() { fileFormApi.open(); }
+function handleAdd() {
+  fileFormApi.open();
+}
 
-function handleUpload() { fileUploadApi.open(); }
+function handleUpload() {
+  fileUploadApi.open();
+}
 
 /** 预览文件 */
 function handlePreview(row: FileNodeVO) {
@@ -169,7 +233,9 @@ async function handleDownload(row: FileNodeVO) {
   try {
     await download({ nodeId: row.id }, {});
     showToast.success(t('downloadStarted'));
-  } catch (error) { logger.warn('下载文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('下载文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 重命名弹窗状态 */
@@ -181,13 +247,18 @@ function handleRename(row: FileNodeVO) {
   renameVisible.value = true;
 }
 async function confirmRename() {
-  if (!renameForm.name) { showToast.warning(t('renameNameRequired')); return; }
+  if (!renameForm.name) {
+    showToast.warning(t('renameNameRequired'));
+    return;
+  }
   try {
     await rename({ nodeId: renameForm.nodeId }, { name: renameForm.name });
     showToast.success(t('renameSuccess'));
     renameVisible.value = false;
     gridApi.query();
-  } catch (error) { logger.warn('重命名文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('重命名文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 移动弹窗状态（简化：输入目标父目录 ID） */
@@ -204,7 +275,9 @@ async function confirmMove() {
     showToast.success(t('moveSuccess'));
     moveVisible.value = false;
     gridApi.query();
-  } catch (error) { logger.warn('移动文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('移动文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 async function handleCopy(row: FileNodeVO) {
@@ -214,7 +287,9 @@ async function handleCopy(row: FileNodeVO) {
     await copy({ nodeId: row.id }, {});
     showToast.success(t('copySuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('复制文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('复制文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 async function handleDelete(row: FileNodeVO) {
@@ -224,7 +299,9 @@ async function handleDelete(row: FileNodeVO) {
     await deleteApi({ nodeId: row.id });
     showToast.success(t('deleteSuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('删除文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('删除文件失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 
 /** 批量导入弹窗可见性 */
@@ -287,6 +364,10 @@ function handleBatchImportSuccess(): void {
     </YdSheet>
     <FileVersionHistory ref="fileVersionHistoryRef" :file-node="currentNode" />
     <WopiEditor ref="wopiEditorRef" :file-node="currentNode" />
-    <BatchImportDialog ref="batchImportRef" v-model="batchImportVisible" @success="handleBatchImportSuccess" />
+    <BatchImportDialog
+      ref="batchImportRef"
+      v-model="batchImportVisible"
+      @success="handleBatchImportSuccess"
+    />
   </Page>
 </template>

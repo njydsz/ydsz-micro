@@ -62,12 +62,7 @@ let globalListenerBound = false;
 function isInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
   const tag = target.tagName.toLowerCase();
-  return (
-    tag === 'input' ||
-    tag === 'textarea' ||
-    tag === 'select' ||
-    target.isContentEditable
-  );
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
 }
 
 function matchModifiers(event: KeyboardEvent, modifiers: ModifierKey[] = []): boolean {
@@ -93,8 +88,7 @@ function handleKeydown(event: KeyboardEvent) {
   // 遍历所有 scope，匹配首个命中
   for (const shortcuts of registry.values()) {
     for (const { descriptor, handler } of shortcuts) {
-      const { key, modifiers = [], allowInInput = false, preventDefault = true } =
-        descriptor;
+      const { key, modifiers = [], allowInInput = false, preventDefault = true } = descriptor;
 
       if (event.key.toLowerCase() !== key) continue;
       if (!matchModifiers(event, modifiers)) continue;
@@ -141,10 +135,7 @@ function unbind(scope: string, key: string, modifiers: ModifierKey[] = []) {
  * );
  * ```
  */
-export function useKeyboardShortcut(
-  descriptor: ShortcutDescriptor,
-  handler: ShortcutHandler,
-) {
+export function useKeyboardShortcut(descriptor: ShortcutDescriptor, handler: ShortcutHandler) {
   const { scope = 'global', key, modifiers = [] } = descriptor;
 
   // 冲突检测

@@ -8,7 +8,12 @@
  * @path comm\@core\base\shared\src\semver.ts
  * @since 5.6.0
  */
-export interface SemVer { major: number; minor: number; patch: number; prerelease?: string }
+export interface SemVer {
+  major: number;
+  minor: number;
+  patch: number;
+  prerelease?: string;
+}
 
 /**
  * 解析语义化版本字符串为结构化对象（major.minor.patch + 可选 prerelease）。
@@ -76,11 +81,16 @@ export function satisfiesVersion(version: string, range: string): boolean {
     if (!target) return false;
     const cmp = compareVersion(v, target);
     switch (op) {
-      case '>=': return cmp >= 0;
-      case '>': return cmp > 0;
-      case '<=': return cmp <= 0;
-      case '<': return cmp < 0;
-      default: return cmp === 0;
+      case '>=':
+        return cmp >= 0;
+      case '>':
+        return cmp > 0;
+      case '<=':
+        return cmp <= 0;
+      case '<':
+        return cmp < 0;
+      default:
+        return cmp === 0;
     }
   }
   return false;

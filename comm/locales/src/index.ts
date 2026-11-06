@@ -14,7 +14,7 @@ import {
   loadNamespaceMessages,
   preloadLocaleOnIdle,
   setupI18n,
-} from "./i18n";
+} from './i18n';
 
 /**
  * 延迟绑定的翻译函数（重载签名）。
@@ -39,11 +39,7 @@ function $t(key: string, values: Record<string, unknown>): string;
 /** 带位置插值数组的翻译 */
 function $t(key: string, values: Array<unknown>): string;
 /** 带 locale 与插值的翻译 */
-function $t(
-  key: string,
-  locale: string,
-  values: Array<unknown> | Record<string, unknown>,
-): string;
+function $t(key: string, locale: string, values: Array<unknown> | Record<string, unknown>): string;
 function $t(...args: unknown[]): string {
   return (i18n.global.t as (...a: unknown[]) => string)(...args);
 }
@@ -70,10 +66,7 @@ export {
   preloadLocaleOnIdle,
   setupI18n,
 };
-export {
-  formatMessage,
-  formatPlural,
-} from './message-formatter';
+export { formatMessage, formatPlural } from './message-formatter';
 export {
   type ImportLocaleFn,
   type ImportNamespaceFn,

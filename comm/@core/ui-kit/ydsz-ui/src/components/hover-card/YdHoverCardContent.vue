@@ -18,12 +18,9 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { HoverCardContent, HoverCardPortal, useForwardProps } from '@ydsz-core/ydsz-vue';
 
-const props = withDefaults(
-  defineProps<HoverCardContentProps & { class?: any }>(),
-  {
-    sideOffset: 4,
-  },
-);
+const props = withDefaults(defineProps<HoverCardContentProps & { class?: any }>(), {
+  sideOffset: 4,
+});
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

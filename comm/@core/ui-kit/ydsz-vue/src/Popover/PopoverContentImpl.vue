@@ -1,51 +1,46 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PopperContentProps } from '../Popper/index.ts'
-import type {
-  DismissableLayerEmits,
-  DismissableLayerProps,
-} from '../DismissableLayer/index.ts'
-import type { FocusScopeProps } from '../FocusScope/index.ts'
+import type { PopperContentProps } from '../Popper/index.ts';
+import type { DismissableLayerEmits, DismissableLayerProps } from '../DismissableLayer/index.ts';
+import type { FocusScopeProps } from '../FocusScope/index.ts';
 
 export type PopoverContentImplEmits = DismissableLayerEmits & {
   /**
    * Event handler called when auto-focusing on open.
    * Can be prevented.
    */
-  openAutoFocus: [event: Event]
+  openAutoFocus: [event: Event];
   /**
    * Event handler called when auto-focusing on close.
    * Can be prevented.
    */
-  closeAutoFocus: [event: Event]
-}
+  closeAutoFocus: [event: Event];
+};
 
-export interface PopoverContentImplProps
-  extends PopperContentProps,
-  DismissableLayerProps {
+export interface PopoverContentImplProps extends PopperContentProps, DismissableLayerProps {
   /**
    * Whether focus should be trapped within the `MenuContent`
    * @defaultValue false
    */
-  trapFocus?: FocusScopeProps['trapped']
+  trapFocus?: FocusScopeProps['trapped'];
 }
 </script>
 
 <script setup lang="ts">
-import { injectPopoverRootContext } from './PopoverRoot.vue'
-import { PopperContent } from '../Popper/index.ts'
-import { DismissableLayer } from '../DismissableLayer/index.ts'
-import { FocusScope } from '../FocusScope/index.ts'
-import { useFocusGuards, useForwardExpose, useForwardProps } from '../shared/index.ts'
+import { injectPopoverRootContext } from './PopoverRoot.vue';
+import { PopperContent } from '../Popper/index.ts';
+import { DismissableLayer } from '../DismissableLayer/index.ts';
+import { FocusScope } from '../FocusScope/index.ts';
+import { useFocusGuards, useForwardExpose, useForwardProps } from '../shared/index.ts';
 
-const props = defineProps<PopoverContentImplProps>()
-const emits = defineEmits<PopoverContentImplEmits>()
+const props = defineProps<PopoverContentImplProps>();
+const emits = defineEmits<PopoverContentImplEmits>();
 
-const forwarded = useForwardProps(props)
-const { forwardRef } = useForwardExpose()
+const forwarded = useForwardProps(props);
+const { forwardRef } = useForwardExpose();
 
-const rootContext = injectPopoverRootContext()
-useFocusGuards()
+const rootContext = injectPopoverRootContext();
+useFocusGuards();
 </script>
 
 <template>
@@ -72,12 +67,9 @@ useFocusGuards()
         :data-state="rootContext.open.value ? 'open' : 'closed'"
         role="dialog"
         :style="{
-          '--radix-popover-content-transform-origin':
-            'var(--radix-popper-transform-origin)',
-          '--radix-popover-content-available-width':
-            'var(--radix-popper-available-width)',
-          '--radix-popover-content-available-height':
-            'var(--radix-popper-available-height)',
+          '--radix-popover-content-transform-origin': 'var(--radix-popper-transform-origin)',
+          '--radix-popover-content-available-width': 'var(--radix-popper-available-width)',
+          '--radix-popover-content-available-height': 'var(--radix-popper-available-height)',
           '--radix-popover-trigger-width': 'var(--radix-popper-anchor-width)',
           '--radix-popover-trigger-height': 'var(--radix-popper-anchor-height)',
         }"

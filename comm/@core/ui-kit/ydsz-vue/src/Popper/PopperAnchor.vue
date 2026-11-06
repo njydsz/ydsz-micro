@@ -1,38 +1,32 @@
 <script lang="ts">
 // @ts-nocheck
-import type { Measurable } from './PopperRoot.vue'
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { Measurable } from './PopperRoot.vue';
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface PopperAnchorProps extends PrimitiveProps {
-  element?: Measurable
+  element?: Measurable;
 }
 </script>
 
 <script setup lang="ts">
-import { watchEffect } from 'vue'
-import { injectPopperRootContext } from './PopperRoot.vue'
-import {
-  Primitive,
-} from '../Primitive/index.ts'
+import { watchEffect } from 'vue';
+import { injectPopperRootContext } from './PopperRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
 
-const props = defineProps<PopperAnchorProps>()
+const props = defineProps<PopperAnchorProps>();
 
-const { forwardRef, currentElement } = useForwardExpose()
+const { forwardRef, currentElement } = useForwardExpose();
 
-const rootContext = injectPopperRootContext()
+const rootContext = injectPopperRootContext();
 
 watchEffect(() => {
-  rootContext.onAnchorChange(props.element ?? currentElement.value)
-})
+  rootContext.onAnchorChange(props.element ?? currentElement.value);
+});
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardRef"
-    :as="as"
-    :as-child="asChild"
-  >
+  <Primitive :ref="forwardRef" :as="as" :as-child="asChild">
     <slot />
   </Primitive>
 </template>

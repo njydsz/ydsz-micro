@@ -124,9 +124,7 @@ export interface UseFileUploadCoreReturn {
  * @param options - props / emit / fileInput
  * @returns 上传核心句柄
  */
-export function useFileUploadCore(
-  options: UseFileUploadCoreOptions,
-): UseFileUploadCoreReturn {
+export function useFileUploadCore(options: UseFileUploadCoreOptions): UseFileUploadCoreReturn {
   const { emit, fileInput, props } = options;
 
   /* ---------------------------------------------------------- */

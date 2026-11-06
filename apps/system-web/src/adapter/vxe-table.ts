@@ -47,9 +47,7 @@ function useYDSZVxeGrid(options: { gridOptions: Record<string, unknown> }) {
   if (tableSize) {
     options.gridOptions.size = tableSize;
   }
-  return useSharedYDSZVxeGrid(
-    options as Parameters<typeof useSharedYDSZVxeGrid>[0],
-  );
+  return useSharedYDSZVxeGrid(options as Parameters<typeof useSharedYDSZVxeGrid>[0]);
 }
 
 export { useYDSZVxeGrid };

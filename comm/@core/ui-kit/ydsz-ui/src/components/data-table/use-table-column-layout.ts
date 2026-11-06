@@ -102,15 +102,15 @@ export interface TableColumnLayoutResult {
 export function useTableColumnLayout<T extends Record<string, unknown>>(
   options: TableColumnLayoutOptions<T>,
 ): TableColumnLayoutResult {
-  const estimateWidth = computed<number>(() =>
-    toValue(options.estimateColumnWidth) ?? DEFAULT_COLUMN_WIDTH,
+  const estimateWidth = computed<number>(
+    () => toValue(options.estimateColumnWidth) ?? DEFAULT_COLUMN_WIDTH,
   );
 
   /* ---------------- 固定列分组 ---------------- */
 
   /** 列作为 ColumnFixedConfig 使用 */
   const columnsAsFixedConfig = computed<ColumnFixedConfig[]>(() =>
-    toValue(options.columns).map(col => ({
+    toValue(options.columns).map((col) => ({
       fixed: col.fixed,
       key: col.key,
       width: col.width,
@@ -147,7 +147,7 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
   /* ---------------- 多级表头 ---------------- */
 
   const columnsAsGroup = computed<TableColumn[]>(() =>
-    toValue(options.columns).map(col => ({
+    toValue(options.columns).map((col) => ({
       ...(col.children ? { children: col.children as TableColumn[] } : {}),
       key: col.key,
       label: col.label ?? col.key,
@@ -171,7 +171,7 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
   /** 当前作为 cell 渲染的中间列 */
   const displayMiddleColumns = computed<readonly ColumnFixedConfig[]>(() => {
     if (enableGroup.value) {
-      return leafColumns.value.map(col => ({
+      return leafColumns.value.map((col) => ({
         key: col.key ?? '',
         width: estimateWidth.value,
       }));
@@ -188,7 +188,7 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
 
   watch(
     () => toValue(options.columns),
-    cols => {
+    (cols) => {
       reorderedColumns.value = [...cols];
     },
     { deep: true },
@@ -208,7 +208,7 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
   /** 中间区参与渲染的列（拖拽模式下取本地顺序） */
   const middleSourceColumns = computed<readonly ColumnFixedConfig[]>(() => {
     if (reorderable.value) {
-      return reorderedColumns.value.map(col => ({
+      return reorderedColumns.value.map((col) => ({
         fixed: col.fixed,
         key: col.key,
         width: col.width,
@@ -222,8 +222,9 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
   /* ---------------- 列虚拟滚动 ---------------- */
 
   const shouldVirtualizeColumns = computed<boolean>(
-    () => (toValue(options.columnVirtualizer) ?? false)
-      && middleColumnCount.value > VIRTUAL_COLUMN_THRESHOLD,
+    () =>
+      (toValue(options.columnVirtualizer) ?? false) &&
+      middleColumnCount.value > VIRTUAL_COLUMN_THRESHOLD,
   );
 
   const columnVirtualizer = useVirtualizer(
@@ -262,9 +263,10 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
   );
 
   const tableMinWidth = computed<number>(
-    () => middleColumnCount.value * estimateWidth.value
-      + leftFixedTotalWidth.value
-      + rightFixedTotalWidth.value,
+    () =>
+      middleColumnCount.value * estimateWidth.value +
+      leftFixedTotalWidth.value +
+      rightFixedTotalWidth.value,
   );
 
   /* ---------------- 列视图装配 ---------------- */
@@ -329,58 +331,70 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
   /** 中间区列视图（含列虚拟滚动的左右占位） */
   const middleViews = computed<ColumnView[]>(() => {
     if (!shouldVirtualizeColumns.value) {
-      return middleSourceColumns.value.map((col, idx) => makeView(col.key, {
-        cellClass: col.fixed === 'left' ? 'sticky-cell' : '',
-        dragIndex: reorderable.value ? idx : -1,
-        headClass: cn(
-          col.fixed === 'left' && 'sticky-cell',
-          resizable.value && 'relative',
-          reorderable.value && 'cursor-grab select-none',
-        ),
-        rowspan: 1,
-        style: resizedWidthStyle(col.key),
-      }));
+      return middleSourceColumns.value.map((col, idx) =>
+        makeView(col.key, {
+          cellClass: col.fixed === 'left' ? 'sticky-cell' : '',
+          dragIndex: reorderable.value ? idx : -1,
+          headClass: cn(
+            col.fixed === 'left' && 'sticky-cell',
+            resizable.value && 'relative',
+            reorderable.value && 'cursor-grab select-none',
+          ),
+          rowspan: 1,
+          style: resizedWidthStyle(col.key),
+        }),
+      );
     }
 
     const list: ColumnView[] = [];
     if (spacerLeftSpan.value > 0) {
-      list.push(makeView(`spacer-left-${spacerLeftSpan.value}`, {
-        colspan: spacerLeftSpan.value,
-        isSpacer: true,
-      }));
+      list.push(
+        makeView(`spacer-left-${spacerLeftSpan.value}`, {
+          colspan: spacerLeftSpan.value,
+          isSpacer: true,
+        }),
+      );
     }
     for (const item of virtualColumns.value) {
       const col = middleSourceColumns.value[item.index];
       if (!col) continue;
-      list.push(makeView(col.key, {
-        cellClass: col.fixed === 'left' ? 'sticky-cell' : '',
-        headClass: cn(col.fixed === 'left' && 'sticky-cell', resizable.value && 'relative'),
-        style: virtualColumnStyle(col.key),
-      }));
+      list.push(
+        makeView(col.key, {
+          cellClass: col.fixed === 'left' ? 'sticky-cell' : '',
+          headClass: cn(col.fixed === 'left' && 'sticky-cell', resizable.value && 'relative'),
+          style: virtualColumnStyle(col.key),
+        }),
+      );
     }
     if (spacerRightSpan.value > 0) {
-      list.push(makeView(`spacer-right-${spacerRightSpan.value}`, {
-        colspan: spacerRightSpan.value,
-        isSpacer: true,
-      }));
+      list.push(
+        makeView(`spacer-right-${spacerRightSpan.value}`, {
+          colspan: spacerRightSpan.value,
+          isSpacer: true,
+        }),
+      );
     }
     return list;
   });
 
   const leftFixedViews = computed<ColumnView[]>(() =>
-    leftFixedColumns.value.map(col => makeView(col.key, {
-      cellClass: 'sticky-cell',
-      headClass: 'sticky-cell',
-      style: fixedColumnStyle(col, 'left', [...leftFixedColumns.value]) as CSSProperties,
-    })),
+    leftFixedColumns.value.map((col) =>
+      makeView(col.key, {
+        cellClass: 'sticky-cell',
+        headClass: 'sticky-cell',
+        style: fixedColumnStyle(col, 'left', [...leftFixedColumns.value]) as CSSProperties,
+      }),
+    ),
   );
 
   const rightFixedViews = computed<ColumnView[]>(() =>
-    rightFixedColumns.value.map(col => makeView(col.key, {
-      cellClass: 'sticky-cell',
-      headClass: 'sticky-cell',
-      style: fixedColumnStyle(col, 'right', [...rightFixedColumns.value]) as CSSProperties,
-    })),
+    rightFixedColumns.value.map((col) =>
+      makeView(col.key, {
+        cellClass: 'sticky-cell',
+        headClass: 'sticky-cell',
+        style: fixedColumnStyle(col, 'right', [...rightFixedColumns.value]) as CSSProperties,
+      }),
+    ),
   );
 
   const columnViews = computed<ColumnView[]>(() => [
@@ -391,13 +405,14 @@ export function useTableColumnLayout<T extends Record<string, unknown>>(
 
   /** 真实列数（不含占位列） */
   const realColumnCount = computed<number>(
-    () => columnViews.value.filter(view => !view.isSpacer).length,
+    () => columnViews.value.filter((view) => !view.isSpacer).length,
   );
 
   const totalCellSpan = computed<number>(
-    () => realColumnCount.value
-      + (toValue(options.selectable) ? 1 : 0)
-      + (toValue(options.treeMode) ? 1 : 0),
+    () =>
+      realColumnCount.value +
+      (toValue(options.selectable) ? 1 : 0) +
+      (toValue(options.treeMode) ? 1 : 0),
   );
 
   return {

@@ -28,9 +28,9 @@
  * @since 3.2.0
  */
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-const logger = createLogger("MicroKernel:ProxySandbox");
+const logger = createLogger('MicroKernel:ProxySandbox');
 
 /** Proxy 沙箱实例 */
 export interface ProxySandboxInstance {
@@ -213,5 +213,3 @@ export function createProxySandbox(appName: string): ProxySandboxInstance {
     },
   };
 }
-
-

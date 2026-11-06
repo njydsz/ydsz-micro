@@ -150,7 +150,7 @@ function handleViewDetail(row: ConfigApprovalRecord) {
 }
 
 function handleApprove(row: ConfigApprovalRecord) {
-  YdConfirm(t('configApproval.approveConfirm'), { title: t('common.confirm'), type: 'warning', })
+  YdConfirm(t('configApproval.approveConfirm'), { title: t('common.confirm'), type: 'warning' })
     .then(async () => {
       // TODO: 对接真实 API —— approveApprovalApi(row.id)
       logger.info('[Mock] 通过审批单:', row.id);
@@ -168,7 +168,7 @@ function handleReject(row: ConfigApprovalRecord) {
 }
 
 function handleWithdraw(row: ConfigApprovalRecord) {
-  YdConfirm(t('common.cancel') + '?', { title: t('common.withdraw'), type: 'warning', })
+  YdConfirm(t('common.cancel') + '?', { title: t('common.withdraw'), type: 'warning' })
     .then(async () => {
       // TODO: 对接真实 API —— withdrawApprovalApi(row.id)
       logger.info('[Mock] 撤回审批单:', row.id);
@@ -212,7 +212,14 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       width: 100,
       slots: {
         default: ({ row }) => {
-          const variant = statusTagType(row.status) === 'success' ? undefined : statusTagType(row.status) === 'warning' ? 'destructive' : statusTagType(row.status) === 'danger' ? 'destructive' : 'secondary';
+          const variant =
+            statusTagType(row.status) === 'success'
+              ? undefined
+              : statusTagType(row.status) === 'warning'
+                ? 'destructive'
+                : statusTagType(row.status) === 'danger'
+                  ? 'destructive'
+                  : 'secondary';
           return h(YdBadge, { variant }, () => statusLabel(row.status));
         },
       },
@@ -228,23 +235,36 @@ const gridOptions: VxeTableGridOptions<ConfigApprovalRecord> = {
       width: 220,
       fixed: 'right',
       slots: {
-        default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-          // 查看详情按钮
-          h(YdButton, { size: 'sm', onClick: () => handleViewDetail(row) }, () => t('common.viewDetail')),
-          // 待我审批 Tab：通过 / 拒绝
-          ...(activeTab.value === 'pending'
-            ? [
-                h(YdButton, { size: 'sm', onClick: () => handleApprove(row) }, () => t('common.approve')),
-                h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) }, () => t('common.reject')),
-              ]
-            : []),
-          // 我已发起 Tab：撤回（仅 PENDING 状态）
-          ...(activeTab.value === 'submitted' && row.status === 'PENDING'
-            ? [
-                h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) }, () => t('common.withdraw')),
-              ]
-            : []),
-        ]),
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            // 查看详情按钮
+            h(YdButton, { size: 'sm', onClick: () => handleViewDetail(row) }, () =>
+              t('common.viewDetail'),
+            ),
+            // 待我审批 Tab：通过 / 拒绝
+            ...(activeTab.value === 'pending'
+              ? [
+                  h(YdButton, { size: 'sm', onClick: () => handleApprove(row) }, () =>
+                    t('common.approve'),
+                  ),
+                  h(
+                    YdButton,
+                    { size: 'sm', variant: 'destructive', onClick: () => handleReject(row) },
+                    () => t('common.reject'),
+                  ),
+                ]
+              : []),
+            // 我已发起 Tab：撤回（仅 PENDING 状态）
+            ...(activeTab.value === 'submitted' && row.status === 'PENDING'
+              ? [
+                  h(
+                    YdButton,
+                    { size: 'sm', variant: 'destructive', onClick: () => handleWithdraw(row) },
+                    () => t('common.withdraw'),
+                  ),
+                ]
+              : []),
+          ]),
       },
     },
   ],
@@ -297,7 +317,12 @@ function handleTabChange(_tab: TabValue) {
         {{ t('configApproval.mockData') }}
       </div>
     </div>
-    <ApprovalDetailDialog ref="detailDialogRef" @approved="gridApi.query()" @rejected="gridApi.query()" @withdrawn="gridApi.query()" />
+    <ApprovalDetailDialog
+      ref="detailDialogRef"
+      @approved="gridApi.query()"
+      @rejected="gridApi.query()"
+      @withdrawn="gridApi.query()"
+    />
   </Page>
 </template>
 

@@ -109,10 +109,13 @@ function toCamel(s) {
   return s.replace(/(^|-)([a-z])/g, (_, _p, c) => c.toUpperCase());
 }
 function toPascal(s) {
-  return s.split('-').map(p => p[0].toUpperCase() + p.slice(1)).join('');
+  return s
+    .split('-')
+    .map((p) => p[0].toUpperCase() + p.slice(1))
+    .join('');
 }
 
-const dirs = readdirSync(BASE).filter(d => {
+const dirs = readdirSync(BASE).filter((d) => {
   const p = join(BASE, d, 'index.ts');
   return existsSync(p);
 });
@@ -134,8 +137,7 @@ for (const kebab of dirs) {
   const camel = toCamel(kebab);
   const pascal = toPascal(kebab);
 
-  const indexContentNew = INDEX_TPL
-    .replaceAll('{CAMEL}', camel)
+  const indexContentNew = INDEX_TPL.replaceAll('{CAMEL}', camel)
     .replaceAll('{PASCAL}', pascal)
     .replaceAll('{KEBAB}', kebab);
 
@@ -146,11 +148,13 @@ for (const kebab of dirs) {
     writeFileSync(typesPath, TYPES_TPL.replaceAll('{CAMEL}', camel));
   }
   if (!existsSync(sfcPath)) {
-    writeFileSync(sfcPath, SFC_TPL
-      .replaceAll('{CAMEL}', camel)
-      .replaceAll('{PASCAL}', pascal)
-      .replaceAll('{KEBAB}', kebab)
-      .replaceAll('{YZSHN}', kebab));
+    writeFileSync(
+      sfcPath,
+      SFC_TPL.replaceAll('{CAMEL}', camel)
+        .replaceAll('{PASCAL}', pascal)
+        .replaceAll('{KEBAB}', kebab)
+        .replaceAll('{YZSHN}', kebab),
+    );
   }
   writeFileSync(indexPath, indexContentNew);
   created++;

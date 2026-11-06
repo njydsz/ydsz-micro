@@ -84,10 +84,46 @@ const emit = defineEmits<{
     <div v-else-if="status === 'empty'" class="status-panel">
       <div class="empty-icon">
         <svg viewBox="0 0 80 80" width="80" height="80" fill="none">
-          <rect x="12" y="16" width="56" height="48" rx="4" stroke="currentColor" stroke-width="2" opacity="0.15" />
-          <line x1="20" y1="30" x2="48" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.1" />
-          <line x1="20" y1="38" x2="60" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.1" />
-          <line x1="20" y1="46" x2="40" y2="46" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.1" />
+          <rect
+            x="12"
+            y="16"
+            width="56"
+            height="48"
+            rx="4"
+            stroke="currentColor"
+            stroke-width="2"
+            opacity="0.15"
+          />
+          <line
+            x1="20"
+            y1="30"
+            x2="48"
+            y2="30"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            opacity="0.1"
+          />
+          <line
+            x1="20"
+            y1="38"
+            x2="60"
+            y2="38"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            opacity="0.1"
+          />
+          <line
+            x1="20"
+            y1="46"
+            x2="40"
+            y2="46"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            opacity="0.1"
+          />
         </svg>
       </div>
       <p class="status-text">{{ description ?? $t('ui.commonAction.empty') }}</p>
@@ -101,7 +137,13 @@ const emit = defineEmits<{
       <div class="error-icon">
         <svg viewBox="0 0 64 64" width="64" height="64" fill="none">
           <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" opacity="0.2" />
-          <path d="M32 20v16M32 44v2" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6" />
+          <path
+            d="M32 20v16M32 44v2"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            opacity="0.6"
+          />
         </svg>
       </div>
       <p class="status-text">{{ message ?? $t('ui.pageStatus.error') }}</p>
@@ -168,6 +210,8 @@ const emit = defineEmits<{
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

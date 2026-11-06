@@ -31,8 +31,7 @@ const logger = createLogger('MicroKernel:ManifestPlugin');
  */
 async function sha256Sri(content: string | Uint8Array): Promise<string> {
   const crypto = globalThis.crypto;
-  const bytes =
-    typeof content === 'string' ? new TextEncoder().encode(content) : content;
+  const bytes = typeof content === 'string' ? new TextEncoder().encode(content) : content;
   // TS 5.7 起 Uint8Array<ArrayBufferLike> 不能直接赋给 BufferSource，
   // 复制到独立 ArrayBuffer 完成泛型收窄（单文件级开销可忽略）。
   const data = new Uint8Array(bytes).buffer;

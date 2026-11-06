@@ -21,7 +21,11 @@ import { defineStore } from 'pinia';
 
 import { computed, ref } from 'vue';
 
-import type { NotificationItem, NotificationUnreadCounts, NotificationType } from './notification-types';
+import type {
+  NotificationItem,
+  NotificationUnreadCounts,
+  NotificationType,
+} from './notification-types';
 
 /** 通知列表容量上限（超长截断，保持内存可控） */
 const MAX_NOTIFICATION_ITEMS = 200;

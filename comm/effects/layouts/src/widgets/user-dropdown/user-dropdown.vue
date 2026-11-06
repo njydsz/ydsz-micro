@@ -91,8 +91,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{ logout: [] }>();
 
-const { globalLockScreenShortcutKey, globalLogoutShortcutKey } =
-  usePreferences();
+const { globalLockScreenShortcutKey, globalLogoutShortcutKey } = usePreferences();
 const tokenStore = useTokenStore();
 const [LockModal, lockModalApi] = useYdModal({
   connectedComponent: LockScreenModal,

@@ -49,7 +49,10 @@ export interface GlobalStateConfig<T> {
 /** 内核注入的原始全局状态通信能力 */
 export interface RawGlobalStateAPI<T extends Record<string, unknown> = Record<string, unknown>> {
   /** 监听全局状态变化，返回取消订阅函数 */
-  onGlobalStateChange: (listener: (state: T, prev: T) => void, fireImmediately?: boolean) => () => void;
+  onGlobalStateChange: (
+    listener: (state: T, prev: T) => void,
+    fireImmediately?: boolean,
+  ) => () => void;
   setGlobalState: (state: Partial<T>) => void;
   getGlobalState: () => T;
   /** v4.0.1: 直接获取指定 key 的值，避免完整浅拷贝 */

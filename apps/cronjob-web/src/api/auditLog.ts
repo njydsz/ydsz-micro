@@ -18,12 +18,12 @@ import type { AuditLogVO } from './models';
  * page: GET /cronjob/audit/page
  */
 export function page(params: {
-    pageNum?: number;
-    size?: number;
-    action?: number;
-    operatorName?: string;
-    startTime?: string;
-    endTime?: string;
-  }): Promise<PageResponse<AuditLogVO[]>> {
+  pageNum?: number;
+  size?: number;
+  action?: number;
+  operatorName?: string;
+  startTime?: string;
+  endTime?: string;
+}): Promise<PageResponse<AuditLogVO[]>> {
   return requestClient.get<PageResponse<AuditLogVO[]>>(`/cronjob/audit/page`, { params });
 }

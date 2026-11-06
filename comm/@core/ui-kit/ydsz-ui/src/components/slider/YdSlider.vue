@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* Slider 滑块：在数值区间内拖拽选择。
-* 
+ * Slider 滑块：在数值区间内拖拽选择。
+ *
  * 基于 Radix Slider 封装双值 range 模式；
  * 竖直模式下轨道宽度通过 css 变量控制。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\slider\YdSlider.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   'update:modelValue': [value: SliderValue];
-  'valueCommit': [value: SliderValue];
+  valueCommit: [value: SliderValue];
 }>();
 
 /** Radix Slider 只接受数组，单值用法在此归一化 */
@@ -52,7 +52,13 @@ const normalizedValue = computed<number[]>(() => {
 const isScalar = computed(() => typeof (props.modelValue ?? props.defaultValue) === 'number');
 
 const delegatedProps = computed(() => {
-  const { class: _, defaultValue: _defaultValue, modelValue: _modelValue, range: _range, ...delegated } = props;
+  const {
+    class: _,
+    defaultValue: _defaultValue,
+    modelValue: _modelValue,
+    range: _range,
+    ...delegated
+  } = props;
   return delegated;
 });
 
@@ -81,14 +87,14 @@ function toExternal(value: number[]): SliderValue {
       class="bg-slider-track relative h-1.5 w-full grow overflow-hidden rounded-full dark:bg-neutral-700"
     >
       <SliderRange
-        class="bg-slider-range absolute h-full rounded-full dark:bg-brand-400"
-        :class="cn(props.range ?? false ? '' : '', '')"
+        class="bg-slider-range dark:bg-brand-400 absolute h-full rounded-full"
+        :class="cn((props.range ?? false) ? '' : '', '')"
       />
     </SliderTrack>
     <SliderThumb
       v-for="(_, i) in thumbs"
       :key="i"
-      class="ring-slider-thumb-ring block size-4 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
+      class="ring-slider-thumb-ring border-primary bg-background block size-4 rounded-full border-2 shadow transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50"
       :aria-label="t('slider.ariaLabel')"
     />
   </SliderRoot>

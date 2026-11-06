@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { injectDialogRootContext } from './DialogRoot.vue'
-import DialogContentImpl, { type DialogContentImplEmits, type DialogContentImplProps } from './DialogContentImpl.vue'
-import { useEmitAsProps, useForwardExpose, useHideOthers } from '../shared/index.ts'
+import { injectDialogRootContext } from './DialogRoot.vue';
+import DialogContentImpl, {
+  type DialogContentImplEmits,
+  type DialogContentImplProps,
+} from './DialogContentImpl.vue';
+import { useEmitAsProps, useForwardExpose, useHideOthers } from '../shared/index.ts';
 
-const props = defineProps<DialogContentImplProps>()
-const emits = defineEmits<DialogContentImplEmits>()
+const props = defineProps<DialogContentImplProps>();
+const emits = defineEmits<DialogContentImplEmits>();
 
-const rootContext = injectDialogRootContext()
+const rootContext = injectDialogRootContext();
 
-const emitsAsProps = useEmitAsProps(emits)
+const emitsAsProps = useEmitAsProps(emits);
 
-const { forwardRef, currentElement } = useForwardExpose()
-useHideOthers(currentElement)
+const { forwardRef, currentElement } = useForwardExpose();
+useHideOthers(currentElement);
 </script>
 
 <template>
@@ -31,8 +34,7 @@ useHideOthers(currentElement)
     @pointer-down-outside="
       (event) => {
         const originalEvent = event.detail.originalEvent;
-        const ctrlLeftClick
-          = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+        const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
         const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
 
         // If the event is a right-click, we shouldn't close because

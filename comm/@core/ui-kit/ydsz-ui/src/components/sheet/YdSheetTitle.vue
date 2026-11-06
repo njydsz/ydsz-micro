@@ -30,10 +30,7 @@ const delegatedProps = computed(() => {
 </script>
 
 <template>
-  <DialogTitle
-    :class="cn('text-foreground font-medium', props.class)"
-    v-bind="delegatedProps"
-  >
+  <DialogTitle :class="cn('text-foreground font-medium', props.class)" v-bind="delegatedProps">
     <slot></slot>
   </DialogTitle>
 </template>

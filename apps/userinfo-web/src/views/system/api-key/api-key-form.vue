@@ -17,7 +17,21 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdAlertBanner, YdForm, YdFormItem, YdInput, YdNumberFieldInput, type FormInstance } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdAlertBanner,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  type FormInstance,
+} from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { cn } from '@ydsz-core/shared/utils';
 import { reactive, ref } from 'vue';
@@ -104,25 +118,44 @@ defineExpose({ open, close });
         <YdDialogTitle>创建 API Key</YdDialogTitle>
       </YdDialogHeader>
       <YdDialogDescription v-if="createdApiKey">
-        <strong class="text-yellow-600 dark:text-yellow-400">请立即保存以下明文 API Key，关闭此弹窗后将无法再次获取！</strong>
+        <strong class="text-yellow-600 dark:text-yellow-400"
+          >请立即保存以下明文 API Key，关闭此弹窗后将无法再次获取！</strong
+        >
       </YdDialogDescription>
 
-      <div v-if="createdApiKey" class="mb-4 p-3 bg-muted rounded font-mono text-sm break-all">
+      <div v-if="createdApiKey" class="bg-muted mb-4 break-all rounded p-3 font-mono text-sm">
         {{ createdApiKey }}
       </div>
 
       <YdForm v-show="!createdApiKey" ref="formRef" :model="form" label-width="100px">
         <YdFormItem label="Key 名称" prop="keyName" required>
-          <YdInput v-model="form.keyName" placeholder="如 jenkins-deploy" maxlength="64" show-word-limit />
+          <YdInput
+            v-model="form.keyName"
+            placeholder="如 jenkins-deploy"
+            maxlength="64"
+            show-word-limit
+          />
         </YdFormItem>
         <YdFormItem label="授权范围" prop="scopes">
           <YdInput v-model="form.scopes" placeholder="逗号分隔，如 read,write" />
         </YdFormItem>
         <YdFormItem label="过期天数" prop="expireDays">
-          <YdNumberFieldInput v-model="form.expireDays" :min="1" :max="3650" placeholder="留空永不过期" class="w-full" />
+          <YdNumberFieldInput
+            v-model="form.expireDays"
+            :min="1"
+            :max="3650"
+            placeholder="留空永不过期"
+            class="w-full"
+          />
         </YdFormItem>
         <YdFormItem label="限流(次/分)" prop="rateLimit">
-          <YdNumberFieldInput v-model="form.rateLimit" :min="1" :max="10000" placeholder="留空使用默认" class="w-full" />
+          <YdNumberFieldInput
+            v-model="form.rateLimit"
+            :min="1"
+            :max="10000"
+            placeholder="留空使用默认"
+            class="w-full"
+          />
         </YdFormItem>
       </YdForm>
 

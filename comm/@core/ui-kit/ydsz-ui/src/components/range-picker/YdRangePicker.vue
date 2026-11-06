@@ -70,7 +70,9 @@ const emit = defineEmits<{
 /** 左侧日历显示的月份（1号锚点） */
 const leftDisplayDate = ref<Date>(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
 /** 右侧日历显示的月份（1号锚点） */
-const rightDisplayDate = ref<Date>(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1));
+const rightDisplayDate = ref<Date>(
+  new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1),
+);
 
 /** 范围起始值 */
 const rangeStart = ref<Date | undefined>(props.modelValue?.[0]);
@@ -91,10 +93,7 @@ function formatDate(date: Date | undefined): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return props.format
-    .replace('YYYY', String(year))
-    .replace('MM', month)
-    .replace('DD', day);
+  return props.format.replace('YYYY', String(year)).replace('MM', month).replace('DD', day);
 }
 
 /** 展示值 */
@@ -114,7 +113,10 @@ function leftNextMonth(): void {
   const d = new Date(leftDisplayDate.value);
   d.setMonth(d.getMonth() + 1);
   // 确保右侧始终晚于左侧
-  if (d.getMonth() >= rightDisplayDate.value.getMonth() && d.getFullYear() >= rightDisplayDate.value.getFullYear()) {
+  if (
+    d.getMonth() >= rightDisplayDate.value.getMonth() &&
+    d.getFullYear() >= rightDisplayDate.value.getFullYear()
+  ) {
     rightDisplayDate.value = new Date(d.getFullYear(), d.getMonth() + 1, 1);
   }
   leftDisplayDate.value = d;
@@ -125,7 +127,10 @@ function rightPrevMonth(): void {
   const d = new Date(rightDisplayDate.value);
   d.setMonth(d.getMonth() - 1);
   // 确保右侧始终晚于左侧
-  if (d.getMonth() <= leftDisplayDate.value.getMonth() && d.getFullYear() <= leftDisplayDate.value.getFullYear()) {
+  if (
+    d.getMonth() <= leftDisplayDate.value.getMonth() &&
+    d.getFullYear() <= leftDisplayDate.value.getFullYear()
+  ) {
     leftDisplayDate.value = new Date(d.getFullYear(), d.getMonth() - 1, 1);
   }
   rightDisplayDate.value = d;
@@ -173,7 +178,11 @@ const rightCalendarDays = computed(() => buildCalendarDays(rightDisplayDate.valu
 
 function isSameDay(a: Date | undefined, b: Date | undefined): boolean {
   if (!a || !b) return false;
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
 }
 
 function isInRange(date: Date): boolean {
@@ -333,13 +342,28 @@ const disabled = computed(() => false);
         <div class="flex flex-col">
           <!-- 月份导航 -->
           <div class="mb-2 flex items-center justify-between">
-            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.previousMonth')" @click="leftPrevMonth">
+            <button
+              class="hover:bg-muted rounded p-1"
+              type="button"
+              :aria-label="t('datepicker.previousMonth')"
+              @click="leftPrevMonth"
+            >
               <ChevronLeft class="size-4" />
             </button>
             <span class="text-xs font-semibold">
-              {{ t('datepicker.yearMonth', { year: leftDisplayDate.getFullYear(), month: leftDisplayDate.getMonth() + 1 }) }}
+              {{
+                t('datepicker.yearMonth', {
+                  year: leftDisplayDate.getFullYear(),
+                  month: leftDisplayDate.getMonth() + 1,
+                })
+              }}
             </span>
-            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.nextMonth')" @click="leftNextMonth">
+            <button
+              class="hover:bg-muted rounded p-1"
+              type="button"
+              :aria-label="t('datepicker.nextMonth')"
+              @click="leftNextMonth"
+            >
               <ChevronRight class="size-4" />
             </button>
           </div>
@@ -366,7 +390,10 @@ const disabled = computed(() => false);
                   'relative flex size-7 items-center justify-center rounded text-xs transition-colors',
                   !day.isCurrentMonth && 'opacity-30',
                   day.disabled && 'cursor-not-allowed opacity-20 hover:bg-transparent',
-                  !day.disabled && !isRangeEdge(day.date) && !isInRange(day.date) && 'hover:bg-muted',
+                  !day.disabled &&
+                    !isRangeEdge(day.date) &&
+                    !isInRange(day.date) &&
+                    'hover:bg-muted',
                   isRangeEdge(day.date) && 'bg-primary text-primary-foreground font-semibold',
                   isInRange(day.date) && !isRangeEdge(day.date) && 'bg-primary/20 range-hover',
                 )
@@ -385,13 +412,28 @@ const disabled = computed(() => false);
         <div class="flex flex-col">
           <!-- 月份导航 -->
           <div class="mb-2 flex items-center justify-between">
-            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.previousMonth')" @click="rightPrevMonth">
+            <button
+              class="hover:bg-muted rounded p-1"
+              type="button"
+              :aria-label="t('datepicker.previousMonth')"
+              @click="rightPrevMonth"
+            >
               <ChevronLeft class="size-4" />
             </button>
             <span class="text-xs font-semibold">
-              {{ t('datepicker.yearMonth', { year: rightDisplayDate.getFullYear(), month: rightDisplayDate.getMonth() + 1 }) }}
+              {{
+                t('datepicker.yearMonth', {
+                  year: rightDisplayDate.getFullYear(),
+                  month: rightDisplayDate.getMonth() + 1,
+                })
+              }}
             </span>
-            <button class="hover:bg-muted rounded p-1" type="button" :aria-label="t('datepicker.nextMonth')" @click="rightNextMonth">
+            <button
+              class="hover:bg-muted rounded p-1"
+              type="button"
+              :aria-label="t('datepicker.nextMonth')"
+              @click="rightNextMonth"
+            >
               <ChevronRight class="size-4" />
             </button>
           </div>
@@ -418,7 +460,10 @@ const disabled = computed(() => false);
                   'relative flex size-7 items-center justify-center rounded text-xs transition-colors',
                   !day.isCurrentMonth && 'opacity-30',
                   day.disabled && 'cursor-not-allowed opacity-20 hover:bg-transparent',
-                  !day.disabled && !isRangeEdge(day.date) && !isInRange(day.date) && 'hover:bg-muted',
+                  !day.disabled &&
+                    !isRangeEdge(day.date) &&
+                    !isInRange(day.date) &&
+                    'hover:bg-muted',
                   isRangeEdge(day.date) && 'bg-primary text-primary-foreground font-semibold',
                   isInRange(day.date) && !isRangeEdge(day.date) && 'bg-primary/20 range-hover',
                 )
@@ -436,9 +481,19 @@ const disabled = computed(() => false);
 
       <!-- 时间选择（showTime 模式） -->
       <div v-if="props.showTime" class="mt-3 flex items-center gap-2 border-t pt-2">
-        <YdTimePicker v-model="startTime" format="HH:mm:ss" size="small" :placeholder="t('rangePicker.startTimePlaceholder')" />
+        <YdTimePicker
+          v-model="startTime"
+          format="HH:mm:ss"
+          size="small"
+          :placeholder="t('rangePicker.startTimePlaceholder')"
+        />
         <span class="text-muted-foreground text-xs">{{ t('rangePicker.to') }}</span>
-        <YdTimePicker v-model="endTime" format="HH:mm:ss" size="small" :placeholder="t('rangePicker.endTimePlaceholder')" />
+        <YdTimePicker
+          v-model="endTime"
+          format="HH:mm:ss"
+          size="small"
+          :placeholder="t('rangePicker.endTimePlaceholder')"
+        />
       </div>
 
       <!-- 确认/取消按钮 -->

@@ -16,7 +16,8 @@ import { APP_SELECTOR, SELECTORS } from '../support/selectors';
 
 /** 选择器集中管理 */
 const LOCAL_SELECTORS = {
-  createButton: 'button:has-text("新增"), button:has-text("新建"), button:has-text("添加"), button:has-text("创建规则")',
+  createButton:
+    'button:has-text("新增"), button:has-text("新建"), button:has-text("添加"), button:has-text("创建规则")',
 } as const;
 
 /**
@@ -63,7 +64,9 @@ test.describe('Literule 模块 — CEP复杂事件', () => {
   test('TC-RULE-004: 页面访问 — 应成功渲染CEP复杂事件页', async ({ page }) => {
     await expect(page.locator(APP_SELECTOR)).toBeVisible();
     const heading = page.locator(SELECTORS.heading);
-    await expect(heading.filter({ hasText: /CEP|复杂事件/ }).first()).toBeVisible({ timeout: 5_000 });
+    await expect(heading.filter({ hasText: /CEP|复杂事件/ }).first()).toBeVisible({
+      timeout: 5_000,
+    });
   });
 
   test('TC-RULE-005: 列表加载 — CEP列表/卡片区域应可见', async ({ page }) => {

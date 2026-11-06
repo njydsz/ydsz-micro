@@ -38,7 +38,10 @@ class MockWebSocket {
   public closeCode: number | null = null;
   public closeReason: string | null = null;
 
-  constructor(public url: string, public protocols?: string | string[]) {
+  constructor(
+    public url: string,
+    public protocols?: string | string[],
+  ) {
     mockInstances.push(this);
   }
 

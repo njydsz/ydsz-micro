@@ -1,32 +1,35 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface SelectItemTextProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { computed, h, onBeforeUnmount, onMounted } from 'vue'
-import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue'
-import { SelectContentDefaultContextValue, injectSelectContentContext } from './SelectContentImpl.vue'
-import { injectSelectItemContext } from './SelectItem.vue'
-import { Primitive } from '../Primitive/index.ts'
+import { computed, h, onBeforeUnmount, onMounted } from 'vue';
+import { injectSelectNativeOptionsContext, injectSelectRootContext } from './SelectRoot.vue';
+import {
+  SelectContentDefaultContextValue,
+  injectSelectContentContext,
+} from './SelectContentImpl.vue';
+import { injectSelectItemContext } from './SelectItem.vue';
+import { Primitive } from '../Primitive/index.ts';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
 const props = withDefaults(defineProps<SelectItemTextProps>(), {
   as: 'span',
-})
+});
 
-const rootContext = injectSelectRootContext()
-const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-const nativeOptionContext = injectSelectNativeOptionsContext()
-const itemContext = injectSelectItemContext()
+const rootContext = injectSelectRootContext();
+const contentContext = injectSelectContentContext(SelectContentDefaultContextValue);
+const nativeOptionContext = injectSelectNativeOptionsContext();
+const itemContext = injectSelectItemContext();
 
-const { forwardRef, currentElement: itemTextElement } = useForwardExpose()
+const { forwardRef, currentElement: itemTextElement } = useForwardExpose();
 
 const nativeOption = computed(() => {
   return h('option', {
@@ -34,24 +37,23 @@ const nativeOption = computed(() => {
     value: itemContext.value,
     disabled: itemContext.disabled.value,
     textContent: itemTextElement.value?.textContent,
-  })
-})
+  });
+});
 
 onMounted(() => {
-  if (!itemTextElement.value)
-    return
-  itemContext.onItemTextChange(itemTextElement.value)
+  if (!itemTextElement.value) return;
+  itemContext.onItemTextChange(itemTextElement.value);
   contentContext.itemTextRefCallback(
     itemTextElement.value,
     itemContext.value,
     itemContext.disabled.value,
-  )
-  nativeOptionContext.onNativeOptionAdd(nativeOption.value)
-})
+  );
+  nativeOptionContext.onNativeOptionAdd(nativeOption.value);
+});
 
 onBeforeUnmount(() => {
-  nativeOptionContext.onNativeOptionRemove(nativeOption.value)
-})
+  nativeOptionContext.onNativeOptionRemove(nativeOption.value);
+});
 </script>
 
 <template>
@@ -66,7 +68,11 @@ onBeforeUnmount(() => {
 
   <!-- Portal the select item text into the trigger value node -->
   <Teleport
-    v-if="itemContext.isSelected.value && rootContext.valueElement.value && !rootContext.valueElementHasChildren.value"
+    v-if="
+      itemContext.isSelected.value &&
+      rootContext.valueElement.value &&
+      !rootContext.valueElementHasChildren.value
+    "
     :to="rootContext.valueElement.value"
   >
     <slot />

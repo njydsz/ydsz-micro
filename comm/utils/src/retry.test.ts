@@ -40,7 +40,11 @@ describe('calculateRetryDelay', () => {
 
   it('延迟值始终非负', () => {
     for (let attempt = 0; attempt < 10; attempt++) {
-      const delay = calculateRetryDelay(attempt, { baseDelay: 10, backoff: 'exponential', jitter: 0.5 });
+      const delay = calculateRetryDelay(attempt, {
+        baseDelay: 10,
+        backoff: 'exponential',
+        jitter: 0.5,
+      });
       expect(delay).toBeGreaterThanOrEqual(0);
     }
   });

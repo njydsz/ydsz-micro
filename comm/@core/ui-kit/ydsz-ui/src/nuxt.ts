@@ -16,19 +16,19 @@
  * @since 1.0.0
  */
 
-import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'node:path'
-import { defineNuxtModule, addPlugin, addComponent } from '@nuxt/kit'
-import { name, version } from './package.json'
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+import { defineNuxtModule, addPlugin, addComponent } from '@nuxt/kit';
+import { name, version } from './package.json';
 
-import { YDSZ_UI_COMPONENT_NAMES } from './component-names'
+import { YDSZ_UI_COMPONENT_NAMES } from './component-names';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 interface ModuleOptions {
   /** 是否自动注册所有 ydsz-ui 组件（默认 true） */
-  autoRegister?: boolean
+  autoRegister?: boolean;
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -46,7 +46,7 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin({
       src: resolve(__dirname, 'runtime/use-directives.ts'),
       mode: 'client',
-    })
+    });
 
     // 全量组件自动注册：名册来自 component-names.ts，与包根导出同源
     if (options.autoRegister) {
@@ -55,8 +55,8 @@ export default defineNuxtModule<ModuleOptions>({
           export: componentName,
           filePath: '@ydsz-core/ydsz-ui',
           name: componentName,
-        })
+        });
       }
     }
   },
-})
+});

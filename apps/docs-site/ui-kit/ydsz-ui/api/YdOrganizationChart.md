@@ -6,9 +6,9 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `nodeSelect` | `node: OrgNodeType` | - |
-| `nodeUnselect` | `node: OrgNodeType` | - |
-| `nodeExpand` | `node: OrgNodeType` | - |
-| `nodeCollapse` | `node: OrgNodeType` | - |
+| 事件           | 参数                | 说明 |
+| -------------- | ------------------- | ---- |
+| `nodeSelect`   | `node: OrgNodeType` | -    |
+| `nodeUnselect` | `node: OrgNodeType` | -    |
+| `nodeExpand`   | `node: OrgNodeType` | -    |
+| `nodeCollapse` | `node: OrgNodeType` | -    |

@@ -45,9 +45,7 @@ const listen = computed(() => {
   for (const [key, value] of Object.entries(preferences)) {
     if (typeof value === 'object') {
       for (const subKey of Object.keys(value)) {
-        result[`update:${key}${capitalizeFirstLetter(subKey)}`] = (
-          val: unknown,
-        ) => {
+        result[`update:${key}${capitalizeFirstLetter(subKey)}`] = (val: unknown) => {
           // 偏好值动态键更新：键为运行时字符串，无法静态枚举，断言为 DeepPartial<Preferences>
           updatePreferences({
             [key]: { [subKey]: val },

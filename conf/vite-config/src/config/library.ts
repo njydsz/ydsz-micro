@@ -42,13 +42,9 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
       ...library,
     });
 
-    const { dependencies = {}, peerDependencies = {} } =
-      await readPackageJSON(root);
+    const { dependencies = {}, peerDependencies = {} } = await readPackageJSON(root);
 
-    const externalPackages = [
-      ...Object.keys(dependencies),
-      ...Object.keys(peerDependencies),
-    ];
+    const externalPackages = [...Object.keys(dependencies), ...Object.keys(peerDependencies)];
 
     const packageConfig: UserConfig = {
       build: {
@@ -65,9 +61,7 @@ function defineLibraryConfig(userConfigPromise?: DefineLibraryOptions) {
             // 结果是"样式文件存在、import 语句也在，但产物里就是没有"。
             // base/design 的 @ydsz-* 令牌正是这样丢掉的（dist/design.css 里 0 个令牌）。
             if (id.endsWith('.css')) return false;
-            return externalPackages.some(
-              (pkg) => id === pkg || id.startsWith(`${pkg}/`),
-            );
+            return externalPackages.some((pkg) => id === pkg || id.startsWith(`${pkg}/`));
           },
         },
       },

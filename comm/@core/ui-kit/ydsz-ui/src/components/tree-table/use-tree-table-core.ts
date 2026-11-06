@@ -20,14 +20,17 @@
  */
 
 import type { TreeFlatRow } from './types';
-import type {
-  UseTreeTableCoreOptions,
-  UseTreeTableCoreReturn,
-} from './tree-table-shared-types';
+import type { UseTreeTableCoreOptions, UseTreeTableCoreReturn } from './tree-table-shared-types';
 
 import { computed, ref } from 'vue';
 
-import { alignClass, formatCellValue, getCellValue, indentStyle as indentStyleFn, toRenderColumns } from './tree-table-utils';
+import {
+  alignClass,
+  formatCellValue,
+  getCellValue,
+  indentStyle as indentStyleFn,
+  toRenderColumns,
+} from './tree-table-utils';
 import { useTreeDrag } from './use-tree-drag';
 import { useTreeExpand } from './use-tree-expand';
 import { useTreeFlatten } from './use-tree-flatten';
@@ -125,10 +128,7 @@ export function useTreeTableCore<T extends Record<string, unknown>>(
   }
 
   /** 判断某一层祖先是否还有后续兄弟（决定是否画竖线） */
-  function hasAncestorSibling(
-    flatRow: TreeFlatRow<T>,
-    depthLevel: number,
-  ): boolean {
+  function hasAncestorSibling(flatRow: TreeFlatRow<T>, depthLevel: number): boolean {
     if (depthLevel <= 0 || depthLevel > flatRow.ancestorKeys.length) return false;
     // 找到该层祖先节点
     const ancestorKey = flatRow.ancestorKeys[depthLevel - 1]!;

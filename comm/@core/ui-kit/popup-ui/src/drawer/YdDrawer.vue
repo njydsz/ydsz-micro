@@ -12,15 +12,7 @@
 <script lang="ts" setup>
 import type { DrawerProps, ExtendedDrawerApi } from './drawer';
 
-import {
-  computed,
-  onDeactivated,
-  provide,
-  ref,
-  unref,
-  useId,
-  watch,
-} from 'vue';
+import { computed, onDeactivated, provide, ref, unref, useId, watch } from 'vue';
 
 import { useIsMobile, useSimpleLocale } from '@ydsz-core/composables';
 import { usePriorityValues } from '@ydsz-core/ydsz-ui/composables';
@@ -134,11 +126,7 @@ function escapeKeyDown(e: KeyboardEvent) {
 function pointerDownOutside(e: Event) {
   const target = e.target as HTMLElement;
   const dismissableDrawer = target?.dataset.dismissableDrawer;
-  if (
-    submitting.value ||
-    !closeOnClickModal.value ||
-    dismissableDrawer !== id
-  ) {
+  if (submitting.value || !closeOnClickModal.value || dismissableDrawer !== id) {
     e.preventDefault();
   }
 }
@@ -155,9 +143,7 @@ function handleFocusOutside(e: Event) {
 }
 
 const getAppendTo = computed(() => {
-  return appendToMain.value
-    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
-    : undefined;
+  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div` : undefined;
 });
 
 /**
@@ -184,11 +170,7 @@ const getForceMount = computed(() => {
 });
 </script>
 <template>
-  <YdSheet
-    :modal="false"
-    :open="state?.isOpen"
-    @update:open="() => drawerApi?.close()"
-  >
+  <YdSheet :modal="false" :open="state?.isOpen" @update:open="() => drawerApi?.close()">
     <YdSheetContent
       :append-to="getAppendTo"
       :class="
@@ -216,14 +198,10 @@ const getForceMount = computed(() => {
       <YdSheetHeader
         v-if="showHeader"
         :class="
-          cn(
-            '!flex flex-row items-center justify-between border-b px-5 py-4',
-            headerClass,
-            {
-              'px-4 py-3': closable,
-              'pl-2': closable && closeIconPlacement === 'left',
-            },
-          )
+          cn('!flex flex-row items-center justify-between border-b px-5 py-4', headerClass, {
+            'px-4 py-3': closable,
+            'pl-2': closable && closeIconPlacement === 'left',
+          })
         "
       >
         <div class="flex items-center">
@@ -301,12 +279,7 @@ const getForceMount = computed(() => {
       <YdLoading v-if="showLoading || submitting" spinning />
       <YdSheetFooter
         v-if="showFooter"
-        :class="
-          cn(
-            'w-full flex-row items-center justify-end border-t p-2 px-3',
-            footerClass,
-          )
-        "
+        :class="cn('w-full flex-row items-center justify-end border-t p-2 px-3', footerClass)"
       >
         <slot name="prepend-footer"></slot>
         <slot name="footer">

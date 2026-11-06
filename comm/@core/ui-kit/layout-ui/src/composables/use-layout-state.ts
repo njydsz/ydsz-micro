@@ -17,10 +17,7 @@ import type { YdLayoutProps } from '../YdLayout';
 
 import { computed, ref, watch } from 'vue';
 
-import {
-  useLayoutFooterStyle,
-  useLayoutHeaderStyle,
-} from '@ydsz-core/composables';
+import { useLayoutFooterStyle, useLayoutHeaderStyle } from '@ydsz-core/composables';
 
 import { useMouse, useScroll, useThrottleFn } from '@vueuse/core';
 
@@ -71,12 +68,7 @@ export function useLayoutState(options: UseLayoutStateOptions) {
   const headerIsHidden = ref(false);
   const contentRef = ref();
 
-  const {
-    arrivedState,
-    directions,
-    isScrolling,
-    y: scrollY,
-  } = useScroll(document);
+  const { arrivedState, directions, isScrolling, y: scrollY } = useScroll(document);
 
   const { setLayoutHeaderHeight } = useLayoutHeaderStyle();
   const { setLayoutFooterHeight } = useLayoutFooterStyle();
@@ -106,12 +98,9 @@ export function useLayoutState(options: UseLayoutStateOptions) {
   });
 
   const getSideCollapseWidth = computed(() => {
-    const { sidebarCollapseShowTitle, sidebarMixedWidth, sideCollapseWidth } =
-      props;
+    const { sidebarCollapseShowTitle, sidebarMixedWidth, sideCollapseWidth } = props;
 
-    return sidebarCollapseShowTitle ||
-      isSidebarMixedNav.value ||
-      isHeaderMixedNav.value
+    return sidebarCollapseShowTitle || isSidebarMixedNav.value || isHeaderMixedNav.value
       ? sidebarMixedWidth
       : sideCollapseWidth;
   });
@@ -144,10 +133,7 @@ export function useLayoutState(options: UseLayoutStateOptions) {
 
     if (
       !sidebarEnableState.value ||
-      (sidebarHidden &&
-        !isSidebarMixedNav.value &&
-        !isMixedNav.value &&
-        !isHeaderMixedNav.value)
+      (sidebarHidden && !isSidebarMixedNav.value && !isMixedNav.value && !isHeaderMixedNav.value)
     ) {
       return width;
     }
@@ -168,9 +154,7 @@ export function useLayoutState(options: UseLayoutStateOptions) {
   const sidebarExtraWidth = computed(() => {
     const { sidebarExtraCollapsedWidth, sidebarWidth } = props;
 
-    return sidebarExtraCollapse.value
-      ? sidebarExtraCollapsedWidth
-      : sidebarWidth;
+    return sidebarExtraCollapse.value ? sidebarExtraCollapsedWidth : sidebarWidth;
   });
 
   /**
@@ -205,9 +189,7 @@ export function useLayoutState(options: UseLayoutStateOptions) {
   /**
    * 遮罩可见性
    */
-  const maskVisible = computed(
-    () => !sidebarCollapse.value && props.isMobile,
-  );
+  const maskVisible = computed(() => !sidebarCollapse.value && props.isMobile);
 
   const mainStyle = computed(() => {
     let width = '100%';
@@ -284,7 +266,7 @@ export function useLayoutState(options: UseLayoutStateOptions) {
   const headerWrapperStyle = computed((): CSSProperties => {
     const fixed = headerFixed.value;
     /** full-content 非沉浸模式下隐藏 header；沉浸模式下 header 由 headerIsHidden 驱动滑入滑出 */
-    const shouldHideHeader = isFullContent.value && !(isHeaderAutoMode.value);
+    const shouldHideHeader = isFullContent.value && !isHeaderAutoMode.value;
     return {
       height: shouldHideHeader ? '0' : `${headerWrapperHeight.value}px`,
       left: isMixedNav.value ? 0 : mainStyle.value.sidebarAndExtraWidth,
@@ -426,19 +408,11 @@ export function useLayoutState(options: UseLayoutStateOptions) {
     watch(
       () => scrollY.value,
       () => {
-        if (
-          props.headerMode !== 'auto-scroll' ||
-          isMixedNav.value ||
-          isFullContent.value
-        ) {
+        if (props.headerMode !== 'auto-scroll' || isMixedNav.value || isFullContent.value) {
           return;
         }
         if (isScrolling.value) {
-          checkHeaderIsHidden(
-            directions.top,
-            directions.bottom,
-            arrivedState.top,
-          );
+          checkHeaderIsHidden(directions.top, directions.bottom, arrivedState.top);
         }
       },
     );

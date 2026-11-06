@@ -1,12 +1,12 @@
 <script lang="ts">
 /**
-* Typography.Ellipsis：文本省略自适应 Tooltip。
-* 
+ * Typography.Ellipsis：文本省略自适应 Tooltip。
+ *
  * 自动检测文字是否溢出容器：溢出时用 Tooltip 包裹显示全文，
  * 不溢出时纯文本展示。支持单行/多行省略与复制按钮。
-* 
+ *
  * 使用 ResizeObserver 在容器尺寸变化时重新检测溢出状态。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\typography\YdEllipsis.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -102,13 +102,19 @@ onBeforeUnmount(() => {
   }
 });
 
-watch(() => props.content, () => {
-  nextTick(checkOverflow);
-});
+watch(
+  () => props.content,
+  () => {
+    nextTick(checkOverflow);
+  },
+);
 
-watch(() => props.lines, () => {
-  nextTick(checkOverflow);
-});
+watch(
+  () => props.lines,
+  () => {
+    nextTick(checkOverflow);
+  },
+);
 
 const tooltipPositionClass: Record<string, string> = {
   top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
@@ -137,15 +143,17 @@ function resolveWidth(): string | undefined {
     <!-- 文本主体 -->
     <span
       ref="textRef"
-      :class="
-        cn(
-          'block',
-          lines === 1
-            ? 'overflow-hidden text-ellipsis whitespace-nowrap'
-            : '',
-        )
+      :class="cn('block', lines === 1 ? 'overflow-hidden text-ellipsis whitespace-nowrap' : '')"
+      :style="
+        lines > 1
+          ? ({
+              display: '-webkit-box',
+              '-webkit-line-clamp': lines,
+              '-webkit-box-orient': 'vertical',
+              overflow: 'hidden',
+            } as any)
+          : undefined
       "
-      :style="lines > 1 ? { display: '-webkit-box', '-webkit-line-clamp': lines, '-webkit-box-orient': 'vertical', overflow: 'hidden' } as any : undefined"
     >
       {{ props.content }}
     </span>
@@ -155,7 +163,7 @@ function resolveWidth(): string | undefined {
       :class="
         cn(
           'pointer-events-none absolute z-50 max-w-xs whitespace-normal break-words rounded-md px-3 py-1.5 text-xs',
-          'bg-surface-3 text-text-primary border border-border-subtle shadow-raised-md',
+          'bg-surface-3 text-text-primary border-border-subtle shadow-raised-md border',
           'transition-opacity duration-150',
           tooltipOpen ? 'opacity-100' : 'opacity-0',
           tooltipPositionClass[props.placement],
@@ -174,7 +182,14 @@ function resolveWidth(): string | undefined {
       type="button"
       @click="handleCopy"
     >
-      <svg aria-hidden="true" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <svg
+        aria-hidden="true"
+        class="size-3.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
         <rect height="13" rx="2" ry="2" width="13" x="9" y="9" />
         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
       </svg>
@@ -182,22 +197,20 @@ function resolveWidth(): string | undefined {
   </span>
 
   <!-- 不溢出或不用 Tooltip：纯文本 -->
-  <span
-    v-else
-    :class="cn('inline-block w-full', props.class)"
-    :style="{ width: resolveWidth() }"
-  >
+  <span v-else :class="cn('inline-block w-full', props.class)" :style="{ width: resolveWidth() }">
     <span
       ref="textRef"
-      :class="
-        cn(
-          'block',
-          lines === 1
-            ? 'overflow-hidden text-ellipsis whitespace-nowrap'
-            : '',
-        )
+      :class="cn('block', lines === 1 ? 'overflow-hidden text-ellipsis whitespace-nowrap' : '')"
+      :style="
+        lines > 1
+          ? ({
+              display: '-webkit-box',
+              '-webkit-line-clamp': lines,
+              '-webkit-box-orient': 'vertical',
+              overflow: 'hidden',
+            } as any)
+          : undefined
       "
-      :style="lines > 1 ? { display: '-webkit-box', '-webkit-line-clamp': lines, '-webkit-box-orient': 'vertical', overflow: 'hidden' } as any : undefined"
     >
       {{ props.content }}
     </span>
@@ -210,7 +223,14 @@ function resolveWidth(): string | undefined {
       type="button"
       @click="handleCopy"
     >
-      <svg aria-hidden="true" class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <svg
+        aria-hidden="true"
+        class="size-3.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
         <rect height="13" rx="2" ry="2" width="13" x="9" y="9" />
         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
       </svg>

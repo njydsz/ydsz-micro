@@ -1,14 +1,7 @@
-/**
- * YdFieldset —— 字段集组件，原生 fieldset 封装。
- *
- * 提供带 legend 标题的可折叠/可禁用字段集，语义化 fieldset 元素。
- *
- * WAI-ARIA: 使用原生 fieldset + legend 元素，无障碍语义完整。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\fieldset\YdFieldset.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdFieldset —— 字段集组件，原生 fieldset 封装。 * * 提供带 legend
+标题的可折叠/可禁用字段集，语义化 fieldset 元素。 * * WAI-ARIA: 使用原生 fieldset + legend
+元素，无障碍语义完整。 * * @path comm\@core\ui-kit\ydsz-ui\src\components\fieldset\YdFieldset.vue *
+@author ydsz-team * @since 1.0.0 */
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 
@@ -28,9 +21,12 @@ const emit = defineEmits<YdFieldsetEmits>();
 
 const isExpanded = ref(!props.collapsed);
 
-watch(() => props.collapsed, (val) => {
-  isExpanded.value = !val;
-});
+watch(
+  () => props.collapsed,
+  (val) => {
+    isExpanded.value = !val;
+  },
+);
 
 const isCollapsed = computed(() => props.toggleable && !isExpanded.value);
 
@@ -81,10 +77,7 @@ function toggle() {
       </button>
 
       <slot name="legend">
-        <span
-          v-if="legend"
-          class="yd-fieldset__legend-text"
-        >
+        <span v-if="legend" class="yd-fieldset__legend-text">
           {{ legend }}
         </span>
       </slot>
@@ -117,11 +110,7 @@ function toggle() {
       </button>
     </legend>
 
-    <div
-      v-show="isExpanded"
-      class="yd-fieldset__content"
-      role="group"
-    >
+    <div v-show="isExpanded" class="yd-fieldset__content" role="group">
       <slot />
     </div>
   </fieldset>

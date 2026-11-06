@@ -22,11 +22,20 @@ declare global {
         windowId?: number;
       }
 
-      function query(queryInfo: { active?: boolean; currentWindow?: boolean; windowId?: number }, callback: (tabs: Tab[]) => void): void;
+      function query(
+        queryInfo: { active?: boolean; currentWindow?: boolean; windowId?: number },
+        callback: (tabs: Tab[]) => void,
+      ): void;
       function sendMessage<T = unknown>(tabId: number, message: any): Promise<T>;
 
-      const onRemoved: { addListener(cb: (tabId: number, removeInfo: { windowId: number; isWindowClosing: boolean }) => void): void };
-      const onActivated: { addListener(cb: (activeInfo: { tabId: number; windowId: number }) => void): void };
+      const onRemoved: {
+        addListener(
+          cb: (tabId: number, removeInfo: { windowId: number; isWindowClosing: boolean }) => void,
+        ): void;
+      };
+      const onActivated: {
+        addListener(cb: (activeInfo: { tabId: number; windowId: number }) => void): void;
+      };
     }
 
     namespace runtime {
@@ -50,7 +59,15 @@ declare global {
         disconnect(): void;
       }
 
-      const onMessage: { addListener(cb: (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | void): void };
+      const onMessage: {
+        addListener(
+          cb: (
+            message: any,
+            sender: MessageSender,
+            sendResponse: (response?: any) => void,
+          ) => boolean | void,
+        ): void;
+      };
       const onConnect: { addListener(cb: (port: Port) => void): void };
     }
 
@@ -66,7 +83,12 @@ declare global {
       }
 
       interface Panels {
-        create(title: string, iconPath: string, pagePath: string, callback?: (panel: Panel) => void): Panel;
+        create(
+          title: string,
+          iconPath: string,
+          pagePath: string,
+          callback?: (panel: Panel) => void,
+        ): Panel;
         themeName: string;
       }
 

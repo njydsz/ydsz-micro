@@ -38,19 +38,11 @@ import {
   WARNING_RAW,
 } from './tokens/colors.ts';
 
-import {
-  SPACING_TOKENS,
-  RADIUS_TOKENS,
-} from './tokens/spacing.ts';
+import { SPACING_TOKENS, RADIUS_TOKENS } from './tokens/spacing.ts';
 
-import {
-  DURATION_TOKENS,
-} from './tokens/motion.ts';
+import { DURATION_TOKENS } from './tokens/motion.ts';
 
-import {
-  FONT_SIZE_TOKENS,
-  FONT_WEIGHT_TOKENS,
-} from './tokens/typography.ts';
+import { FONT_SIZE_TOKENS, FONT_WEIGHT_TOKENS } from './tokens/typography.ts';
 
 /** Figma Variables API 基础 URL */
 const FIGMA_API_BASE = 'https://api.figma.com/v1';
@@ -66,7 +58,9 @@ function hslToHex({ h, s, l }: RawColorComponents): string {
   const f = (n: number) => {
     const k = (n + h / 30) % 12;
     const color = lDecimal - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    return Math.round(255 * color).toString(16).padStart(2, '0');
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0');
   };
   return `#${f(0)}${f(8)}${f(4)}`;
 }
@@ -173,9 +167,7 @@ export function buildFigmaVariablesPayload(): {
     valuesByMode: Record<string, FigmaVariableValue>;
   }>;
 } {
-  const collections = [
-    { modes: [{ name: 'Default' }], name: 'YDSZ Design Tokens' },
-  ];
+  const collections = [{ modes: [{ name: 'Default' }], name: 'YDSZ Design Tokens' }];
 
   const variables: Array<{
     collectionId: string;
@@ -265,7 +257,12 @@ export async function pushToFigma(config: FigmaApiConfig): Promise<void> {
   const payload = buildFigmaVariablesPayload();
 
   // 创建 collection 和 variables
-  await figmaRequest(config, 'POST', `/files/${config.fileKey}${FIGMA_VARIABLES_ENDPOINT}`, payload);
+  await figmaRequest(
+    config,
+    'POST',
+    `/files/${config.fileKey}${FIGMA_VARIABLES_ENDPOINT}`,
+    payload,
+  );
 }
 
 /** 从 Figma 拉取并与本地 tokens 对比 */
@@ -287,9 +284,7 @@ export async function diffWithFigma(config: FigmaApiConfig): Promise<{
 
   const modified: Array<{ name: string; local: unknown; figma: unknown }> = [];
   for (const v of local.variables) {
-    const remoteVar = Object.values(remoteVars).find(
-      (rv: FigmaVariable) => rv.name === v.name,
-    );
+    const remoteVar = Object.values(remoteVars).find((rv: FigmaVariable) => rv.name === v.name);
     if (remoteVar) {
       const remoteValue = remoteVar.valuesByMode.default;
       const localValue = v.valuesByMode.default;

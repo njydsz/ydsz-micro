@@ -35,7 +35,12 @@ export interface ColumnDef {
   /** 内容超长省略+tooltip */
   showOverflowTooltip?: boolean;
   /** 格式化函数 */
-  formatter?: (row: Record<string, unknown>, column: ColumnDef, cellValue: unknown, index: number) => string;
+  formatter?: (
+    row: Record<string, unknown>,
+    column: ColumnDef,
+    cellValue: unknown,
+    index: number,
+  ) => string;
   /** 是否隐藏（可被列设置面板控制） */
   isHidden?: boolean;
   /** 是否允许用户通过列设置面板隐藏，默认 true */

@@ -9,27 +9,17 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  DropdownMenuContentEmits,
-  DropdownMenuContentProps,
-} from '@ydsz-core/ydsz-vue';
+import type { DropdownMenuContentEmits, DropdownMenuContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  DropdownMenuContent,
-  DropdownMenuPortal,
-  useForwardPropsEmits,
-} from '@ydsz-core/ydsz-vue';
+import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-const props = withDefaults(
-  defineProps<DropdownMenuContentProps & { class?: any }>(),
-  {
-    sideOffset: 4,
-  },
-);
+const props = withDefaults(defineProps<DropdownMenuContentProps & { class?: any }>(), {
+  sideOffset: 4,
+});
 const emits = defineEmits<DropdownMenuContentEmits>();
 
 const delegatedProps = computed(() => {

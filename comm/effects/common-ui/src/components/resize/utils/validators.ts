@@ -34,9 +34,7 @@ export function useValidation(props: {
     () => props.gridX,
     (val: number) => {
       if (val < 0) {
-        logger.warn(
-          `[resize] gridX prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] gridX prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.gridX = 0;
       }
     },
@@ -47,9 +45,7 @@ export function useValidation(props: {
     () => props.gridY,
     (val: number) => {
       if (val < 0) {
-        logger.warn(
-          `[resize] gridY prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] gridY prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.gridY = 0;
       }
     },
@@ -60,9 +56,7 @@ export function useValidation(props: {
     () => props.parentW,
     (val: number) => {
       if (val < 0) {
-        logger.warn(
-          `[resize] parentW prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] parentW prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.parentW = 0;
       }
     },
@@ -73,9 +67,7 @@ export function useValidation(props: {
     () => props.parentH,
     (val: number) => {
       if (val < 0) {
-        logger.warn(
-          `[resize] parentH prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] parentH prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.parentH = 0;
       }
     },
@@ -91,9 +83,7 @@ export function useValidation(props: {
         );
         props.w = 'auto';
       } else if (typeof val === 'number' && val < 0) {
-        logger.warn(
-          `[resize] w prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] w prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.w = 0;
       }
     },
@@ -109,9 +99,7 @@ export function useValidation(props: {
         );
         props.h = 'auto';
       } else if (typeof val === 'number' && val < 0) {
-        logger.warn(
-          `[resize] h prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] h prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.h = 0;
       }
     },
@@ -122,9 +110,7 @@ export function useValidation(props: {
     () => props.minw,
     (val: number) => {
       if (val < 0) {
-        logger.warn(
-          `[resize] minw prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] minw prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.minw = 0;
       }
     },
@@ -135,9 +121,7 @@ export function useValidation(props: {
     () => props.minh,
     (val: number) => {
       if (val < 0) {
-        logger.warn(
-          `[resize] minh prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] minh prop 必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.minh = 0;
       }
     },
@@ -148,9 +132,7 @@ export function useValidation(props: {
     () => props.x,
     (val: number) => {
       if (typeof val !== 'number') {
-        logger.warn(
-          `[resize] x prop 必须为数字类型，当前值已自动修正为 0。`,
-        );
+        logger.warn(`[resize] x prop 必须为数字类型，当前值已自动修正为 0。`);
         props.x = 0;
       }
     },
@@ -161,9 +143,7 @@ export function useValidation(props: {
     () => props.y,
     (val: number) => {
       if (typeof val !== 'number') {
-        logger.warn(
-          `[resize] y prop 必须为数字类型，当前值已自动修正为 0。`,
-        );
+        logger.warn(`[resize] y prop 必须为数字类型，当前值已自动修正为 0。`);
         props.y = 0;
       }
     },
@@ -179,9 +159,7 @@ export function useValidation(props: {
         );
         props.z = 'auto';
       } else if (typeof val === 'number' && val < 0) {
-        logger.warn(
-          `[resize] z prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`,
-        );
+        logger.warn(`[resize] z prop 为数字时必须大于等于 0，当前值为 ${val}，已自动修正为 0。`);
         props.z = 0;
       }
     },

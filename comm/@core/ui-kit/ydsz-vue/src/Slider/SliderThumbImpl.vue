@@ -1,49 +1,64 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface SliderThumbImplProps extends PrimitiveProps {
-  index: number
+  index: number;
 }
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
-import { useMounted } from '@vueuse/core'
-import { Primitive } from '../Primitive/index.ts'
-import { CollectionItem } from '../Collection/index.ts'
-import { injectSliderRootContext } from './SliderRoot.vue'
-import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
-import { useForwardExpose, useSize } from '../shared/index.ts'
+import { computed, onMounted, onUnmounted } from 'vue';
+import { useMounted } from '@vueuse/core';
+import { Primitive } from '../Primitive/index.ts';
+import { CollectionItem } from '../Collection/index.ts';
+import { injectSliderRootContext } from './SliderRoot.vue';
+import {
+  convertValueToPercentage,
+  getLabel,
+  getThumbInBoundsOffset,
+  injectSliderOrientationContext,
+} from './utils';
+import { useForwardExpose, useSize } from '../shared/index.ts';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
-const props = defineProps<SliderThumbImplProps>()
+const props = defineProps<SliderThumbImplProps>();
 
-const rootContext = injectSliderRootContext()
-const orientation = injectSliderOrientationContext()
+const rootContext = injectSliderRootContext();
+const orientation = injectSliderOrientationContext();
 
-const { forwardRef, currentElement: thumbElement } = useForwardExpose()
+const { forwardRef, currentElement: thumbElement } = useForwardExpose();
 
-const value = computed(() => rootContext.modelValue?.value?.[props.index])
-const percent = computed(() => value.value === undefined ? 0 : convertValueToPercentage(value.value, rootContext.min.value ?? 0, rootContext.max.value ?? 100))
-const label = computed(() => getLabel(props.index, rootContext.modelValue?.value?.length ?? 0))
-const size = useSize(thumbElement)
-const orientationSize = computed(() => size[orientation!.size].value)
-const thumbInBoundsOffset = computed(() => orientationSize.value
-  ? getThumbInBoundsOffset(orientationSize.value, percent.value, orientation!.direction)
-  : 0)
+const value = computed(() => rootContext.modelValue?.value?.[props.index]);
+const percent = computed(() =>
+  value.value === undefined
+    ? 0
+    : convertValueToPercentage(
+        value.value,
+        rootContext.min.value ?? 0,
+        rootContext.max.value ?? 100,
+      ),
+);
+const label = computed(() => getLabel(props.index, rootContext.modelValue?.value?.length ?? 0));
+const size = useSize(thumbElement);
+const orientationSize = computed(() => size[orientation!.size].value);
+const thumbInBoundsOffset = computed(() =>
+  orientationSize.value
+    ? getThumbInBoundsOffset(orientationSize.value, percent.value, orientation!.direction)
+    : 0,
+);
 
-const isMounted = useMounted()
+const isMounted = useMounted();
 onMounted(() => {
-  rootContext.thumbElements.value.push(thumbElement.value)
-})
+  rootContext.thumbElements.value.push(thumbElement.value);
+});
 onUnmounted(() => {
-  const i = rootContext.thumbElements.value.findIndex(i => i === thumbElement.value) ?? -1
-  rootContext.thumbElements.value.splice(i, 1)
-})
+  const i = rootContext.thumbElements.value.findIndex((i) => i === thumbElement.value) ?? -1;
+  rootContext.thumbElements.value.splice(i, 1);
+});
 </script>
 
 <template>
@@ -75,9 +90,11 @@ onUnmounted(() => {
          */
         display: !isMounted && value === undefined ? 'none' : undefined,
       }"
-      @focus="() => {
-        rootContext.valueIndexToChangeRef.value = index
-      }"
+      @focus="
+        () => {
+          rootContext.valueIndexToChangeRef.value = index;
+        }
+      "
     >
       <slot />
     </Primitive>

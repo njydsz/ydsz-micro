@@ -51,9 +51,21 @@ export function isLdapSyncLogVo(value: unknown): value is LdapSyncLogVo {
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdTable,
+  YdTableColumn,
+  YdEmptyState,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -178,18 +190,14 @@ onMounted(() => {
         <YdCardTitle>{{ t('ldap.ldapSyncTitle') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent class="flex items-center gap-5">
-        <YdButton
-          variant="default"
-          :disabled="isSyncing"
-          @click="handleTriggerSync"
-        >
+        <YdButton variant="default" :disabled="isSyncing" @click="handleTriggerSync">
           <Loader2 v-if="isSyncing" class="mr-2 h-4 w-4 animate-spin" />
           {{ isSyncing ? t('ldap.syncing') : t('ldap.triggerSync') }}
         </YdButton>
         <YdButton variant="outline" @click="loadAll">
           {{ t('ldap.refreshStatus') }}
         </YdButton>
-        <span class="text-sm text-muted-foreground">
+        <span class="text-muted-foreground text-sm">
           {{ t('ldap.lastSyncTime', { time: syncStatus.lastSyncTime ?? '-' }) }}
         </span>
       </YdCardContent>
@@ -199,36 +207,74 @@ onMounted(() => {
     <YdCard class="mb-4">
       <YdCardHeader class="flex flex-row items-center justify-between pb-2">
         <YdCardTitle>{{ t('ldap.syncStatus') }}</YdCardTitle>
-        <YdBadge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
+        <YdBadge
+          :variant="
+            getStatusTagType(syncStatus.status) === 'success'
+              ? 'default'
+              : getStatusTagType(syncStatus.status) === 'danger'
+                ? 'destructive'
+                : getStatusTagType(syncStatus.status) === 'warning'
+                  ? 'outline'
+                  : 'secondary'
+          "
+          :class="
+            getStatusTagType(syncStatus.status) === 'success'
+              ? 'bg-green-500 text-white hover:bg-green-600'
+              : getStatusTagType(syncStatus.status) === 'warning'
+                ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                : 'text-xs'
+          "
+        >
           {{ getStatusText(syncStatus.status) }}
         </YdBadge>
       </YdCardHeader>
       <YdCardContent>
-      <YdDescriptions :column="3" border>
-        <YdDescriptionsItem :label="t('ldap.currentStatus')">
-          <YdBadge :variant="getStatusTagType(syncStatus.status) === 'success' ? 'default' : getStatusTagType(syncStatus.status) === 'danger' ? 'destructive' : getStatusTagType(syncStatus.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(syncStatus.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(syncStatus.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
-            {{ getStatusText(syncStatus.status) }}
-          </YdBadge>
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('ldap.lastSyncTimeLabel')">
-          {{ syncStatus.lastSyncTime ?? '-' }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('ldap.nextSyncTime')">
-          {{ syncStatus.nextSyncTime ?? '-' }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('ldap.totalSynced')">
-          {{ syncStatus.totalSynced ?? 0 }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('ldap.successCount')">
-          <span class="text-green-600">{{ syncStatus.successCount ?? 0 }}</span>
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('ldap.failCount')">
-          <span class="text-red-600">{{ syncStatus.failCount ?? 0 }}</span>
-        </YdDescriptionsItem>
-        <YdDescriptionsItem v-if="syncStatus.errorMessage" :label="t('ldap.errorMessage')" :span="3">
-          <span class="text-red-600">{{ syncStatus.errorMessage }}</span>
-        </YdDescriptionsItem>
-      </YdDescriptions>
+        <YdDescriptions :column="3" border>
+          <YdDescriptionsItem :label="t('ldap.currentStatus')">
+            <YdBadge
+              :variant="
+                getStatusTagType(syncStatus.status) === 'success'
+                  ? 'default'
+                  : getStatusTagType(syncStatus.status) === 'danger'
+                    ? 'destructive'
+                    : getStatusTagType(syncStatus.status) === 'warning'
+                      ? 'outline'
+                      : 'secondary'
+              "
+              :class="
+                getStatusTagType(syncStatus.status) === 'success'
+                  ? 'bg-green-500 text-white hover:bg-green-600'
+                  : getStatusTagType(syncStatus.status) === 'warning'
+                    ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                    : 'text-xs'
+              "
+            >
+              {{ getStatusText(syncStatus.status) }}
+            </YdBadge>
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ldap.lastSyncTimeLabel')">
+            {{ syncStatus.lastSyncTime ?? '-' }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ldap.nextSyncTime')">
+            {{ syncStatus.nextSyncTime ?? '-' }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ldap.totalSynced')">
+            {{ syncStatus.totalSynced ?? 0 }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ldap.successCount')">
+            <span class="text-green-600">{{ syncStatus.successCount ?? 0 }}</span>
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('ldap.failCount')">
+            <span class="text-red-600">{{ syncStatus.failCount ?? 0 }}</span>
+          </YdDescriptionsItem>
+          <YdDescriptionsItem
+            v-if="syncStatus.errorMessage"
+            :label="t('ldap.errorMessage')"
+            :span="3"
+          >
+            <span class="text-red-600">{{ syncStatus.errorMessage }}</span>
+          </YdDescriptionsItem>
+        </YdDescriptions>
       </YdCardContent>
     </YdCard>
 
@@ -238,32 +284,58 @@ onMounted(() => {
         <YdCardTitle>{{ t('ldap.syncLogs') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-      <YdTable :data="syncLogs" border max-height="400">
-        <YdTableColumn type="index" :label="t('page.rowIndex')" width="60" />
-        <YdTableColumn prop="syncTime" :label="t('ldap.syncTime')" width="170" />
-        <YdTableColumn :label="t('page.status')" width="100">
-          <template #default="{ row }">
-            <YdBadge :variant="getStatusTagType(row.status) === 'success' ? 'default' : getStatusTagType(row.status) === 'danger' ? 'destructive' : getStatusTagType(row.status) === 'warning' ? 'outline' : 'secondary'" :class="getStatusTagType(row.status) === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : getStatusTagType(row.status) === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs'">
-              {{ getStatusText(row.status) }}
-            </YdBadge>
-          </template>
-        </YdTableColumn>
-        <YdTableColumn prop="totalCount" :label="t('ldap.total')" width="80" />
-        <YdTableColumn prop="successCount" :label="t('security.success')" width="80">
-          <template #default="{ row }">
-            <span class="text-green-600">{{ row.successCount ?? 0 }}</span>
-          </template>
-        </YdTableColumn>
-        <YdTableColumn prop="failCount" :label="t('security.fail')" width="80">
-          <template #default="{ row }">
-            <span class="text-red-600">{{ row.failCount ?? 0 }}</span>
-          </template>
-        </YdTableColumn>
-        <YdTableColumn prop="duration" :label="t('ldap.duration')" width="100" />
-        <YdTableColumn prop="operator" :label="t('ldap.operator')" width="120" />
-        <YdTableColumn prop="errorMessage" :label="t('ldap.errorMessage')" minWidth="150" show-overflow-tooltip />
-      </YdTable>
-      <YdEmptyState v-if="syncLogs.length === 0" :description="t('ldap.noLogs')" :image-size="60" />
+        <YdTable :data="syncLogs" border max-height="400">
+          <YdTableColumn type="index" :label="t('page.rowIndex')" width="60" />
+          <YdTableColumn prop="syncTime" :label="t('ldap.syncTime')" width="170" />
+          <YdTableColumn :label="t('page.status')" width="100">
+            <template #default="{ row }">
+              <YdBadge
+                :variant="
+                  getStatusTagType(row.status) === 'success'
+                    ? 'default'
+                    : getStatusTagType(row.status) === 'danger'
+                      ? 'destructive'
+                      : getStatusTagType(row.status) === 'warning'
+                        ? 'outline'
+                        : 'secondary'
+                "
+                :class="
+                  getStatusTagType(row.status) === 'success'
+                    ? 'bg-green-500 text-white hover:bg-green-600'
+                    : getStatusTagType(row.status) === 'warning'
+                      ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                      : 'text-xs'
+                "
+              >
+                {{ getStatusText(row.status) }}
+              </YdBadge>
+            </template>
+          </YdTableColumn>
+          <YdTableColumn prop="totalCount" :label="t('ldap.total')" width="80" />
+          <YdTableColumn prop="successCount" :label="t('security.success')" width="80">
+            <template #default="{ row }">
+              <span class="text-green-600">{{ row.successCount ?? 0 }}</span>
+            </template>
+          </YdTableColumn>
+          <YdTableColumn prop="failCount" :label="t('security.fail')" width="80">
+            <template #default="{ row }">
+              <span class="text-red-600">{{ row.failCount ?? 0 }}</span>
+            </template>
+          </YdTableColumn>
+          <YdTableColumn prop="duration" :label="t('ldap.duration')" width="100" />
+          <YdTableColumn prop="operator" :label="t('ldap.operator')" width="120" />
+          <YdTableColumn
+            prop="errorMessage"
+            :label="t('ldap.errorMessage')"
+            minWidth="150"
+            show-overflow-tooltip
+          />
+        </YdTable>
+        <YdEmptyState
+          v-if="syncLogs.length === 0"
+          :description="t('ldap.noLogs')"
+          :image-size="60"
+        />
       </YdCardContent>
     </YdCard>
   </Page>

@@ -19,7 +19,14 @@
  * @since 1.0.0
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
-import { YdCardGrid, YdEmptyState, YdEntityCard, YdDropdownMenu, YdDropdownMenuItem, YdButton } from '@ydsz-core/ydsz-ui';
+import {
+  YdCardGrid,
+  YdEmptyState,
+  YdEntityCard,
+  YdDropdownMenu,
+  YdDropdownMenuItem,
+  YdButton,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { computed, h, ref } from 'vue';
@@ -68,11 +75,25 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     { field: 'createdBy', title: '创建人', width: 100 },
     { field: 'updatedBy', title: '更新人', width: 100 },
     {
-      field: 'action', title: '操作', width: 140, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () => '编辑'),
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () => '删除'),
-      ]) },
+      field: 'action',
+      title: '操作',
+      width: 140,
+      fixed: 'right',
+      slots: {
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
+              () => '编辑',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
+              () => '删除',
+            ),
+          ]),
+      },
     },
   ],
   height: 'auto',
@@ -90,10 +111,21 @@ const gridOptions: VxeTableGridOptions<AgentDefinitionVO> = {
     },
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } } },
-    { field: 'agentName', title: 'Agent名称', itemRender: { name: 'YdInput', props: { placeholder: 'Agent名称' } } },
-  ] },
+  formConfig: {
+    enabled: true,
+    items: [
+      {
+        field: 'agentCode',
+        title: 'Agent编码',
+        itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } },
+      },
+      {
+        field: 'agentName',
+        title: 'Agent名称',
+        itemRender: { name: 'YdInput', props: { placeholder: 'Agent名称' } },
+      },
+    ],
+  },
 };
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 const [AgentFormModal, agentFormApi] = useYdModal({ connectedComponent: AgentForm });
@@ -155,7 +187,9 @@ async function handleRefresh(): Promise<void> {
 }
 
 /** 打开新增弹窗 */
-function handleAdd(): void { agentFormApi.open(); }
+function handleAdd(): void {
+  agentFormApi.open();
+}
 
 /** 导出 Agent 定义列表为 Excel/CSV 文件 */
 async function handleExport(): Promise<void> {
@@ -179,13 +213,19 @@ async function handleExport(): Promise<void> {
 }
 
 /** 打开编辑弹窗，回填行数据 */
-function handleEdit(row: AgentDefinitionVO): void { agentFormApi.setData({ record: row }); agentFormApi.open(); }
+function handleEdit(row: AgentDefinitionVO): void {
+  agentFormApi.setData({ record: row });
+  agentFormApi.open();
+}
 
 /** 删除定义，二次确认后调用 deleteApi({ id }) */
 async function handleDelete(row: AgentDefinitionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除「${row.agentName ?? row.agentCode ?? ''}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除「${row.agentName ?? row.agentCode ?? ''}」吗？`, {
+      title: '删除确认',
+      type: 'warning',
+    });
   } catch {
     // 用户主动取消删除操作
     return;
@@ -208,10 +248,14 @@ void loadAgentList();
   <Page auto-content-height>
     <!-- 视图切换 + 工具栏 -->
     <div class="mb-4 flex items-center justify-between">
-      <div class="flex items-center gap-1 rounded-lg border border-border-subtle bg-accent/50 p-1">
+      <div class="border-border-subtle bg-accent/50 flex items-center gap-1 rounded-lg border p-1">
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'card' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'card'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('card')"
         >
@@ -223,40 +267,20 @@ void loadAgentList();
             viewBox="0 0 24 24"
             width="14"
           >
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="2.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="2.5"
-              y="12.5"
-            />
-            <rect
-              height="9"
-              rx="1.5"
-              width="9"
-              x="12.5"
-              y="12.5"
-            />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="2.5" />
+            <rect height="9" rx="1.5" width="9" x="2.5" y="12.5" />
+            <rect height="9" rx="1.5" width="9" x="12.5" y="12.5" />
           </svg>
           卡片
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
-          :class="viewMode === 'table' ? 'bg-surface-2 text-text-primary shadow-sm' : 'text-text-secondary hover:text-text-primary'"
+          :class="
+            viewMode === 'table'
+              ? 'bg-surface-2 text-text-primary shadow-sm'
+              : 'text-text-secondary hover:text-text-primary'
+          "
           type="button"
           @click="handleViewModeChange('table')"
         >
@@ -269,30 +293,10 @@ void loadAgentList();
             viewBox="0 0 24 24"
             width="14"
           >
-            <line
-              x1="3"
-              x2="21"
-              y1="6.5"
-              y2="6.5"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="12"
-              y2="12"
-            />
-            <line
-              x1="3"
-              x2="21"
-              y1="17.5"
-              y2="17.5"
-            />
-            <line
-              x1="8.5"
-              x2="8.5"
-              y1="3"
-              y2="21"
-            />
+            <line x1="3" x2="21" y1="6.5" y2="6.5" />
+            <line x1="3" x2="21" y1="12" y2="12" />
+            <line x1="3" x2="21" y1="17.5" y2="17.5" />
+            <line x1="8.5" x2="8.5" y1="3" y2="21" />
           </svg>
           表格
         </button>
@@ -327,16 +331,10 @@ void loadAgentList();
     </div>
 
     <!-- 表格视图 -->
-    <Grid
-      v-if="viewMode === 'table'"
-      table-title="Agent定义管理"
-    />
+    <Grid v-if="viewMode === 'table'" table-title="Agent定义管理" />
 
     <!-- 卡片视图 -->
-    <div
-      v-else
-      class="min-h-[400px]"
-    >
+    <div v-else class="min-h-[400px]">
       <YdCardGrid
         :is-empty="agentList.length === 0 && !loading"
         :is-loading="loading && pageNum === 1"
@@ -354,7 +352,13 @@ void loadAgentList();
           v-for="item in paginatedList"
           :key="item.id"
           :avatar-text="item.agentName"
-          :avatar-variant="item.agentType === 'CHAT' ? 'primary' : (item.agentType === 'WORKFLOW' ? 'purple' : 'blue')"
+          :avatar-variant="
+            item.agentType === 'CHAT'
+              ? 'primary'
+              : item.agentType === 'WORKFLOW'
+                ? 'purple'
+                : 'blue'
+          "
           :code="item.agentCode"
           :description="item.description"
           class="transition-transform hover:-translate-y-0.5"
@@ -362,13 +366,17 @@ void loadAgentList();
         >
           <template #meta>
             <div class="mt-3 grid grid-cols-2 gap-2 text-xs">
-              <div class="rounded-md bg-accent/60 px-2 py-1.5">
+              <div class="bg-accent/60 rounded-md px-2 py-1.5">
                 <span class="text-text-tertiary">模型温度</span>
-                <div class="mt-0.5 font-medium text-text-secondary">{{ item.temperature ?? '-' }}</div>
+                <div class="text-text-secondary mt-0.5 font-medium">
+                  {{ item.temperature ?? '-' }}
+                </div>
               </div>
-              <div class="rounded-md bg-accent/60 px-2 py-1.5">
+              <div class="bg-accent/60 rounded-md px-2 py-1.5">
                 <span class="text-text-tertiary">MaxTokens</span>
-                <div class="mt-0.5 font-medium text-text-secondary">{{ item.maxTokens ?? '-' }}</div>
+                <div class="text-text-secondary mt-0.5 font-medium">
+                  {{ item.maxTokens ?? '-' }}
+                </div>
               </div>
             </div>
           </template>
@@ -378,12 +386,13 @@ void loadAgentList();
           </template>
 
           <template #actions>
-            <YdDropdownMenu trigger="click" @command="(cmd: string) => cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item)">
-              <YdButton
-                size="sm"
-                variant="ghost"
-                @click.stop
-              >
+            <YdDropdownMenu
+              trigger="click"
+              @command="
+                (cmd: string) => (cmd === 'edit' ? handleCardEdit(item) : handleCardDelete(item))
+              "
+            >
+              <YdButton size="sm" variant="ghost" @click.stop>
                 <svg
                   class="me-1"
                   fill="none"
@@ -394,32 +403,15 @@ void loadAgentList();
                   viewBox="0 0 24 24"
                   width="14"
                 >
-                  <circle
-                    cx="12"
-                    cy="5"
-                    r="1"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="1"
-                  />
-                  <circle
-                    cx="12"
-                    cy="19"
-                    r="1"
-                  />
+                  <circle cx="12" cy="5" r="1" />
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="12" cy="19" r="1" />
                 </svg>
               </YdButton>
               <template #dropdown>
                 <YdDropdownMenu>
-                  <YdDropdownMenuItem command="edit">
-                    编辑信息
-                  </YdDropdownMenuItem>
-                  <YdDropdownMenuItem
-                    command="delete"
-                    divided
-                  >
+                  <YdDropdownMenuItem command="edit"> 编辑信息 </YdDropdownMenuItem>
+                  <YdDropdownMenuItem command="delete" divided>
                     <span class="text-destructive">删除定义</span>
                   </YdDropdownMenuItem>
                 </YdDropdownMenu>
@@ -431,17 +423,8 @@ void loadAgentList();
 
       <!-- P2-3: 卡片视图「加载更多」按钮 -->
       <div v-if="agentList.length > 0 && !loading" class="mt-6 flex justify-center">
-        <YdButton
-          v-if="hasMore"
-          variant="outline"
-          @click="loadMore"
-        >
-          加载更多
-        </YdButton>
-        <span
-          v-else-if="agentList.length > pageSize"
-          class="text-sm text-text-tertiary"
-        >
+        <YdButton v-if="hasMore" variant="outline" @click="loadMore"> 加载更多 </YdButton>
+        <span v-else-if="agentList.length > pageSize" class="text-text-tertiary text-sm">
           已全部加载（共 {{ agentList.length }} 条）
         </span>
       </div>

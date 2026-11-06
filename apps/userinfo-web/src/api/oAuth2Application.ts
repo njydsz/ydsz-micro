@@ -24,46 +24,50 @@ export function register(data: Record<string, unknown>): Promise<'CONFIDENTIAL' 
  * page: GET /admin/oauth2/applications
  */
 export function page(params: {
-    status?: string;
-    keyword?: string;
-    pageNum?: number;
-    pageSize?: number;
-  }): Promise<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>> {
-  return requestClient.get<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>>(`/admin/oauth2/applications`, { params });
+  status?: string;
+  keyword?: string;
+  pageNum?: number;
+  pageSize?: number;
+}): Promise<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>> {
+  return requestClient.get<PageResponse<'CONFIDENTIAL' | 'PUBLIC'[]>>(
+    `/admin/oauth2/applications`,
+    { params },
+  );
 }
 
 /**
  * getById: GET /admin/oauth2/applications/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+export function getById({ id }: { id: string }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
   return requestClient.get<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications/${id}`);
 }
 
 /**
  * update: PUT /admin/oauth2/applications/{id}
  */
-export function update({ id }: {
+export function update(
+  {
+    id,
+  }: {
     id: string;
-  }, data: Record<string, unknown>): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+  },
+  data: Record<string, unknown>,
+): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
   return requestClient.put<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications/${id}`, data);
 }
 
 /**
  * resetSecret: POST /admin/oauth2/applications/{id}/reset-secret
  */
-export function resetSecret({ id }: {
-    id: string;
-  }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
-  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(`/admin/oauth2/applications/${id}/reset-secret`);
+export function resetSecret({ id }: { id: string }): Promise<'CONFIDENTIAL' | 'PUBLIC'> {
+  return requestClient.post<'CONFIDENTIAL' | 'PUBLIC'>(
+    `/admin/oauth2/applications/${id}/reset-secret`,
+  );
 }
 
 /**
  * delete: DELETE /admin/oauth2/applications/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function deleteApi({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/admin/oauth2/applications/${id}`);
 }

@@ -70,12 +70,8 @@ function toggleExpand(item: SidebarItem): void {
   if (!hasChildren(item)) return;
 
   if (props.accordion) {
-    accordionExpandedKey.value =
-      accordionExpandedKey.value === item.key ? undefined : item.key;
-    emit(
-      'expand-change',
-      accordionExpandedKey.value ? [accordionExpandedKey.value] : [],
-    );
+    accordionExpandedKey.value = accordionExpandedKey.value === item.key ? undefined : item.key;
+    emit('expand-change', accordionExpandedKey.value ? [accordionExpandedKey.value] : []);
   } else {
     const next = new Set(expandedKeys.value);
     if (next.has(item.key)) {
@@ -126,30 +122,26 @@ defineExpose({
     :class="
       cn(
         'yd-sidebar flex h-full flex-col overflow-hidden',
-        'bg-[hsl(var(--ydsz-surface-3))] border-r border-[hsl(var(--ydsz-border-subtle))]',
+        'border-r border-[hsl(var(--ydsz-border-subtle))] bg-[hsl(var(--ydsz-surface-3))]',
         'transition-[width] duration-300',
       )
     "
     :style="{
       width: props.collapsed
-        ? (typeof props.collapsedWidth === 'number' ? `${props.collapsedWidth}px` : props.collapsedWidth)
-        : (typeof props.width === 'number' ? `${props.width}px` : props.width),
+        ? typeof props.collapsedWidth === 'number'
+          ? `${props.collapsedWidth}px`
+          : props.collapsedWidth
+        : typeof props.width === 'number'
+          ? `${props.width}px`
+          : props.width,
     }"
     role="tree"
     aria-label="Sidebar navigation"
     aria-orientation="vertical"
   >
     <div class="flex-1 overflow-y-auto overflow-x-hidden py-2">
-      <ul
-        v-if="props.items.length > 0"
-        role="group"
-        class="flex flex-col gap-0.5"
-      >
-        <li
-          v-for="item in props.items"
-          :key="item.key"
-          role="none"
-        >
+      <ul v-if="props.items.length > 0" role="group" class="flex flex-col gap-0.5">
+        <li v-for="item in props.items" :key="item.key" role="none">
           <SidebarMenuItem
             :item="item"
             :level="0"
@@ -164,10 +156,7 @@ defineExpose({
         </li>
       </ul>
 
-      <p
-        v-else
-        class="px-4 py-8 text-center text-sm text-[hsl(var(--ydsz-text-tertiary))]"
-      >
+      <p v-else class="px-4 py-8 text-center text-sm text-[hsl(var(--ydsz-text-tertiary))]">
         No menu items
       </p>
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T">
 /**
-* YdTag —— 标签组件。
-* 
+ * YdTag —— 标签组件。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\tag\tag.vue
  * @author ydsz-team
  * @since 26.10.11
@@ -58,7 +58,11 @@ function handleClose(event: MouseEvent): void {
       'yd-tag',
       variantClass,
       sizeClass,
-      { 'yd-tag--bordered': props.bordered, 'yd-tag--closable': props.closable, 'yd-tag--disabled': props.disabled },
+      {
+        'yd-tag--bordered': props.bordered,
+        'yd-tag--closable': props.closable,
+        'yd-tag--disabled': props.disabled,
+      },
       props.class,
     ]"
   >
@@ -77,7 +81,9 @@ function handleClose(event: MouseEvent): void {
       @click="handleClose"
     >
       <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor" aria-hidden="true">
-        <path d="M3.707 2.293a1 1 0 0 0-1.414 1.414L4.586 6l-2.293 2.293a1 1 0 1 0 1.414 1.414L6 7.414l2.293 2.293a1 1 0 0 0 1.414-1.414L7.414 6l2.293-2.293a1 1 0 0 0-1.414-1.414L6 4.586 3.707 2.293z" />
+        <path
+          d="M3.707 2.293a1 1 0 0 0-1.414 1.414L4.586 6l-2.293 2.293a1 1 0 1 0 1.414 1.414L6 7.414l2.293 2.293a1 1 0 0 0 1.414-1.414L7.414 6l2.293-2.293a1 1 0 0 0-1.414-1.414L6 4.586 3.707 2.293z"
+        />
       </svg>
     </button>
   </span>
@@ -177,7 +183,9 @@ function handleClose(event: MouseEvent): void {
   color: currentColor;
   border-radius: 50%;
   opacity: 0.7;
-  transition: opacity 0.15s, background-color 0.15s;
+  transition:
+    opacity 0.15s,
+    background-color 0.15s;
 }
 
 .yd-tag__close:hover {

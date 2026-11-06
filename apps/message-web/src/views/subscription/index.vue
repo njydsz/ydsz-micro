@@ -19,7 +19,18 @@
  */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTabsContent,
+  YdTabs,
+} from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -83,8 +94,17 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: getSubscriptionStatusType(row.status) === 'success' ? 'default' : getSubscriptionStatusType(row.status) === 'warning' ? 'outline' : 'secondary' }, () =>
-            getSubscriptionStatusLabel(row.status),
+          h(
+            YdBadge,
+            {
+              variant:
+                getSubscriptionStatusType(row.status) === 'success'
+                  ? 'default'
+                  : getSubscriptionStatusType(row.status) === 'warning'
+                    ? 'outline'
+                    : 'secondary',
+            },
+            () => getSubscriptionStatusLabel(row.status),
           ),
       },
     },
@@ -98,10 +118,8 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
             ),
             h(
               YdButton,
@@ -154,7 +172,10 @@ async function handleUnsubscribe(row: MsgSubscriptionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
     await YdConfirm(
-      t('subscription.unsubscribeConfirm', { topic: row.topicName ?? row.topicCode, channel: row.channel ?? '' }),
+      t('subscription.unsubscribeConfirm', {
+        topic: row.topicName ?? row.topicCode,
+        channel: row.channel ?? '',
+      }),
       t('subscription.unsubscribeConfirmTitle'),
       { type: 'warning' },
     );
@@ -212,11 +233,7 @@ function handleQueryByTopic(): void {
           </YdTabsContent>
           <YdTabsContent label="按主题查询" name="topic">
             <div class="flex gap-2 py-2">
-              <YdInput
-                v-model="currentTopicCode"
-                placeholder="请输入主题编码"
-                class="w-48"
-              />
+              <YdInput v-model="currentTopicCode" placeholder="请输入主题编码" class="w-48" />
               <YdSelectBase v-model="currentChannel">
                 <YdSelectTriggerBase class="w-32">
                   <YdSelectValueBase />

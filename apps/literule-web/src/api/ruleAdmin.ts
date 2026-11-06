@@ -12,105 +12,143 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { ExpressionValidateDTO, ExpressionValidationResultVO, PageQuery, RuleABTestDTO, RuleDefinitionDTO, RuleDefinitionVO, RuleEngineStatsVO, RuleResultVO, RuleVersionDiffVO, RuleVersionVO } from './models';
+import type {
+  ExpressionValidateDTO,
+  ExpressionValidationResultVO,
+  PageQuery,
+  RuleABTestDTO,
+  RuleDefinitionDTO,
+  RuleDefinitionVO,
+  RuleEngineStatsVO,
+  RuleResultVO,
+  RuleVersionDiffVO,
+  RuleVersionVO,
+} from './models';
 
 /**
  * list: GET /literule/rules
  */
-export function list(params: {
-    pageQuery?: PageQuery;
-  }): Promise<PageResponse<RuleDefinitionVO[]>> {
+export function list(params: { pageQuery?: PageQuery }): Promise<PageResponse<RuleDefinitionVO[]>> {
   return requestClient.get<PageResponse<RuleDefinitionVO[]>>(`/literule/rules`, { params });
 }
 
 /**
  * get: GET /literule/rules/{ruleCode}
  */
-export function get({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<RuleDefinitionVO> {
+export function get({ ruleCode }: { ruleCode: string }): Promise<RuleDefinitionVO> {
   return requestClient.get<RuleDefinitionVO>(`/literule/rules/${ruleCode}`);
 }
 
 /**
  * save: POST /literule/rules
  */
-export function save(params: {
+export function save(
+  params: {
     changeDesc?: string;
-  }, data: RuleDefinitionDTO): Promise<RuleDefinitionVO> {
+  },
+  data: RuleDefinitionDTO,
+): Promise<RuleDefinitionVO> {
   return requestClient.post<RuleDefinitionVO>(`/literule/rules`, data, { params });
 }
 
 /**
  * toggle: PUT /literule/rules/{ruleCode}/toggle
  */
-export function toggle({ ruleCode }: {
+export function toggle(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     enabled?: boolean;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.put<void>(`/literule/rules/${ruleCode}/toggle`, { params });
 }
 
 /**
  * listVersions: GET /literule/rules/{ruleCode}/versions
  */
-export function listVersions({ ruleCode }: {
+export function listVersions(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     pageQuery?: PageQuery;
-  }): Promise<PageResponse<RuleVersionVO[]>> {
-  return requestClient.get<PageResponse<RuleVersionVO[]>>(`/literule/rules/${ruleCode}/versions`, { params });
+  },
+): Promise<PageResponse<RuleVersionVO[]>> {
+  return requestClient.get<PageResponse<RuleVersionVO[]>>(`/literule/rules/${ruleCode}/versions`, {
+    params,
+  });
 }
 
 /**
  * versionDiff: GET /literule/rules/{ruleCode}/version-diff
  */
-export function versionDiff({ ruleCode }: {
+export function versionDiff(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     oldVersion?: number;
     newVersion?: number;
-  }): Promise<RuleVersionDiffVO> {
-  return requestClient.get<RuleVersionDiffVO>(`/literule/rules/${ruleCode}/version-diff`, { params });
+  },
+): Promise<RuleVersionDiffVO> {
+  return requestClient.get<RuleVersionDiffVO>(`/literule/rules/${ruleCode}/version-diff`, {
+    params,
+  });
 }
 
 /**
  * rollback: POST /literule/rules/{ruleCode}/rollback
  */
-export function rollback({ ruleCode }: {
+export function rollback(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     version?: number;
-  }): Promise<RuleDefinitionVO> {
+  },
+): Promise<RuleDefinitionVO> {
   return requestClient.post<RuleDefinitionVO>(`/literule/rules/${ruleCode}/rollback`, { params });
 }
 
 /**
  * dryRun: POST /literule/rules/dry-run
  */
-export function dryRun(params: {
+export function dryRun(
+  params: {
     ruleCode?: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<RuleResultVO[]> {
   return requestClient.post<RuleResultVO[]>(`/literule/rules/dry-run`, data, { params });
 }
 
 /**
  * validate: GET /literule/rules/validate
  */
-export function validate(params: {
-    expression?: string;
-  }): Promise<boolean> {
+export function validate(params: { expression?: string }): Promise<boolean> {
   return requestClient.get<boolean>(`/literule/rules/validate`, { params });
 }
 
 /**
  * evaluate: POST /literule/rules/evaluate
  */
-export function evaluate(params: {
+export function evaluate(
+  params: {
     ruleCode?: string;
     scenario?: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<RuleResultVO[]> {
   return requestClient.post<RuleResultVO[]>(`/literule/rules/evaluate`, data, { params });
 }
 
@@ -129,15 +167,26 @@ export function traceExpression(data: Record<string, Record<string, unknown>>): 
 /**
  * validateExpression: POST /literule/rules/validate-expression
  */
-export function validateExpression(data: ExpressionValidateDTO): Promise<ExpressionValidationResultVO> {
-  return requestClient.post<ExpressionValidationResultVO>(`/literule/rules/validate-expression`, data);
+export function validateExpression(
+  data: ExpressionValidateDTO,
+): Promise<ExpressionValidationResultVO> {
+  return requestClient.post<ExpressionValidationResultVO>(
+    `/literule/rules/validate-expression`,
+    data,
+  );
 }
 
 /**
  * validateBatch: POST /literule/rules/validate-batch
  */
-export function validateBatch(data: Record<string, string>): Promise<Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>> {
-  return requestClient.post<Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>>(`/literule/rules/validate-batch`, data);
+export function validateBatch(
+  data: Record<string, string>,
+): Promise<
+  Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>
+> {
+  return requestClient.post<
+    Record<string, 'OK' | 'EMPTY' | 'SYNTAX_ERROR' | 'SANDBOX_VIOLATION' | 'UNDEFINED_VARIABLE'>
+  >(`/literule/rules/validate-batch`, data);
 }
 
 /**
@@ -148,9 +197,14 @@ export function validateBatch(data: Record<string, string>): Promise<Record<stri
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function abTest({ ruleCode }: {
+export function abTest(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: RuleABTestDTO): Promise<unknown> {
+  },
+  data: RuleABTestDTO,
+): Promise<unknown> {
   return requestClient.post<unknown>(`/literule/rules/${ruleCode}/ab-test`, data);
 }
 

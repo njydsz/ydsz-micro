@@ -20,7 +20,16 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+  YdTabsContent,
+  YdTabs,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref, watch } from 'vue';
 import { showToast } from '@ydsz/notification';
 import {
@@ -139,9 +148,9 @@ const functionOptions = [
 ];
 
 /** 已构建的条件列表 */
-const conditionList = ref<Array<{ field: string; operator: string; value: string; valueType: string; logic: string }>>(
-  [],
-);
+const conditionList = ref<
+  Array<{ field: string; operator: string; value: string; valueType: string; logic: string }>
+>([]);
 
 /** 客户端本地预览表达式 */
 const localPreviewExpression = computed(() => {
@@ -458,7 +467,11 @@ watch(
               </YdSelect>
             </YdFormItem>
             <YdFormItem :label="$t('wf.exprField')">
-              <YdSelect v-model="builderForm.field" :placeholder="$t('wf.exprSelectField')" filterable>
+              <YdSelect
+                v-model="builderForm.field"
+                :placeholder="$t('wf.exprSelectField')"
+                filterable
+              >
                 <YdSelectItem
                   v-for="v in variableOptions"
                   :key="v.name"
@@ -478,7 +491,11 @@ watch(
               </YdSelect>
             </YdFormItem>
             <YdFormItem v-if="valueTypeOptions.length > 0" :label="$t('wf.exprValueType')">
-              <YdSelect v-model="builderForm.valueType" :placeholder="$t('wf.exprSelectValueType')" clearable>
+              <YdSelect
+                v-model="builderForm.valueType"
+                :placeholder="$t('wf.exprSelectValueType')"
+                clearable
+              >
                 <YdSelectItem
                   v-for="vt in valueTypeOptions"
                   :key="vt.value"
@@ -492,9 +509,15 @@ watch(
             </YdFormItem>
           </YdForm>
           <div class="mt-2 flex flex-wrap gap-2">
-            <YdButton type="primary" size="small" @click="handleAddCondition">{{ $t('wf.exprAddCondition') }}</YdButton>
-            <YdButton size="small" @click="applyVisualResult">{{ $t('wf.exprApplyVisual') }}</YdButton>
-            <YdButton size="small" @click="handleBuildExpression">{{ $t('wf.exprBuild') }}</YdButton>
+            <YdButton type="primary" size="small" @click="handleAddCondition">{{
+              $t('wf.exprAddCondition')
+            }}</YdButton>
+            <YdButton size="small" @click="applyVisualResult">{{
+              $t('wf.exprApplyVisual')
+            }}</YdButton>
+            <YdButton size="small" @click="handleBuildExpression">{{
+              $t('wf.exprBuild')
+            }}</YdButton>
             <YdButton size="small" @click="resetBuilder">{{ $t('wf.exprClear') }}</YdButton>
           </div>
         </div>
@@ -511,20 +534,25 @@ watch(
           />
           <!-- 校验结果提示 -->
           <div v-if="validationResult" class="mt-2">
-            <p
-              class="text-sm"
-              :class="validationResult.valid ? 'text-green-600' : 'text-red-600'"
-            >
+            <p class="text-sm" :class="validationResult.valid ? 'text-green-600' : 'text-red-600'">
               {{ validationResult.message }}
             </p>
           </div>
           <div class="mt-3 flex flex-wrap gap-2">
-            <YdButton size="small" @click="handleValidateExpression">{{ $t('wf.exprValidate') }}</YdButton>
-            <YdButton size="small" @click="handleParseExpression">{{ $t('wf.exprParse') }}</YdButton>
-            <YdButton size="small" @click="handlePreviewExpression">{{ $t('wf.exprPreview') }}</YdButton>
+            <YdButton size="small" @click="handleValidateExpression">{{
+              $t('wf.exprValidate')
+            }}</YdButton>
+            <YdButton size="small" @click="handleParseExpression">{{
+              $t('wf.exprParse')
+            }}</YdButton>
+            <YdButton size="small" @click="handlePreviewExpression">{{
+              $t('wf.exprPreview')
+            }}</YdButton>
           </div>
           <div class="mt-3">
-            <p class="mb-2 text-xs font-medium text-gray-600">{{ $t('wf.exprCommonFunctions') }}：</p>
+            <p class="mb-2 text-xs font-medium text-gray-600">
+              {{ $t('wf.exprCommonFunctions') }}：
+            </p>
             <div class="flex flex-wrap gap-2">
               <YdButton
                 v-for="func in functionOptions"
@@ -549,7 +577,9 @@ watch(
       <!-- 服务端构建/预览结果 -->
       <div v-if="serverPreview" class="mt-2 border-t pt-2">
         <p class="mb-1 text-xs font-medium text-gray-500">{{ $t('wf.exprServerResult') }}：</p>
-        <pre class="overflow-auto whitespace-pre-wrap break-words text-xs text-blue-700">{{ serverPreview }}</pre>
+        <pre class="overflow-auto whitespace-pre-wrap break-words text-xs text-blue-700">{{
+          serverPreview
+        }}</pre>
       </div>
     </div>
   </Modal>

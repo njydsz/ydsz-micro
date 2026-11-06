@@ -30,63 +30,68 @@ export function createSpace(data: Record<string, unknown>): Promise<SpaceVO> {
 /**
  * getSpace: GET /nextwiki/spaces/{spaceId}
  */
-export function getSpace({ spaceId }: {
-    spaceId: string;
-  }): Promise<SpaceVO> {
+export function getSpace({ spaceId }: { spaceId: string }): Promise<SpaceVO> {
   return requestClient.get<SpaceVO>(`/nextwiki/spaces/${spaceId}`);
 }
 
 /**
  * updateSpace: PUT /nextwiki/spaces/{spaceId}
  */
-export function updateSpace({ spaceId }: {
+export function updateSpace(
+  {
+    spaceId,
+  }: {
     spaceId: string;
-  }, data: Record<string, unknown>): Promise<SpaceVO> {
+  },
+  data: Record<string, unknown>,
+): Promise<SpaceVO> {
   return requestClient.put<SpaceVO>(`/nextwiki/spaces/${spaceId}`, data);
 }
 
 /**
  * archiveSpace: POST /nextwiki/spaces/{spaceId}/archive
  */
-export function archiveSpace({ spaceId }: {
-    spaceId: string;
-  }): Promise<boolean> {
+export function archiveSpace({ spaceId }: { spaceId: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/nextwiki/spaces/${spaceId}/archive`);
 }
 
 /**
  * deleteSpace: DELETE /nextwiki/spaces/{spaceId}
  */
-export function deleteSpace({ spaceId }: {
-    spaceId: string;
-  }): Promise<boolean> {
+export function deleteSpace({ spaceId }: { spaceId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/nextwiki/spaces/${spaceId}`);
 }
 
 /**
  * addMember: POST /nextwiki/spaces/{spaceId}/members
  */
-export function addMember({ spaceId }: {
+export function addMember(
+  {
+    spaceId,
+  }: {
     spaceId: string;
-  }, data: Record<string, unknown>): Promise<boolean> {
+  },
+  data: Record<string, unknown>,
+): Promise<boolean> {
   return requestClient.post<boolean>(`/nextwiki/spaces/${spaceId}/members`, data);
 }
 
 /**
  * removeMember: DELETE /nextwiki/spaces/{spaceId}/members/{targetUserId}
  */
-export function removeMember({ spaceId, targetUserId }: {
-    spaceId: string;
-    targetUserId: string;
-  }): Promise<boolean> {
+export function removeMember({
+  spaceId,
+  targetUserId,
+}: {
+  spaceId: string;
+  targetUserId: string;
+}): Promise<boolean> {
   return requestClient.delete<boolean>(`/nextwiki/spaces/${spaceId}/members/${targetUserId}`);
 }
 
 /**
  * listMembers: GET /nextwiki/spaces/{spaceId}/members
  */
-export function listMembers({ spaceId }: {
-    spaceId: string;
-  }): Promise<SpaceMemberDTO[]> {
+export function listMembers({ spaceId }: { spaceId: string }): Promise<SpaceMemberDTO[]> {
   return requestClient.get<SpaceMemberDTO[]>(`/nextwiki/spaces/${spaceId}/members`);
 }

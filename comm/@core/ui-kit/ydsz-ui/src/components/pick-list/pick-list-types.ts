@@ -51,7 +51,10 @@ export interface PickListEmits {
   /** v-model 更新 */
   (e: 'update:modelValue', value: [PickListItem[], PickListItem[]]): void;
   /** 拖拽重排序完成（source 侧） */
-  (e: 'reorder', event: { originalEvent: Event; value: PickListItem[]; fromIndex: number; toIndex: number }): void;
+  (
+    e: 'reorder',
+    event: { originalEvent: Event; value: PickListItem[]; fromIndex: number; toIndex: number },
+  ): void;
   /** 选中项移动到目标 */
   (e: 'move-to-target', event: { items: PickListItem[] }): void;
   /** 选中项移回来源 */

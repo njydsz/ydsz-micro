@@ -16,20 +16,23 @@ import type { UserRecentVO } from './models';
 /**
  * listRecent: GET /nextwiki/recent
  */
-export function listRecent(params: {
-    limit?: number;
-  }): Promise<UserRecentVO[]> {
+export function listRecent(params: { limit?: number }): Promise<UserRecentVO[]> {
   return requestClient.get<UserRecentVO[]>(`/nextwiki/recent`, { params });
 }
 
 /**
  * recordAccess: POST /nextwiki/recent/{nodeId}
  */
-export function recordAccess({ nodeId }: {
+export function recordAccess(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, params: {
+  },
+  params: {
     accessType?: string;
-  }): Promise<boolean> {
+  },
+): Promise<boolean> {
   return requestClient.post<boolean>(`/nextwiki/recent/${nodeId}`, { params });
 }
 
@@ -43,9 +46,7 @@ export function clearAll(): Promise<boolean> {
 /**
  * removeRecent: DELETE /nextwiki/recent/{nodeId}
  */
-export function removeRecent({ nodeId }: {
-    nodeId: string;
-  }): Promise<boolean> {
+export function removeRecent({ nodeId }: { nodeId: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/nextwiki/recent/${nodeId}`);
 }
 

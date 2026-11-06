@@ -1,24 +1,31 @@
 <script setup lang="ts">
 /**
-* 实体卡片：用于卡片网格视图下的业务实体展示。
-* 
+ * 实体卡片：用于卡片网格视图下的业务实体展示。
+ *
  * 设计目标：
  *  - 替代 VxeTable 的表格行，在列表页展示为信息密度更低的卡片；
  *  - 统一 ForgeLab forge-admin 风格：图标 + 标题 + 编码 + 描述 + 状态标签 + 更新时间 + 操作区；
  *  - 通过 slot 注入自定义字段行，不绑定具体业务字段名。
-* 
+ *
  * 交互：
  *  - hover 时抬升阴影并浮现快捷操作；
  *  - 卡片主体可点击（@click），clickable 启用后附 cursor-pointer；
  *  - 多选模式下顶部出现 checkbox。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\entity-card\YdEntityCard.vue
  * @author ydsz-team
  * @since 1.0.0
  */
 import { computed } from 'vue';
 
-import { YdCard, YdCardContent, YdCardDescription, YdCardFooter, YdCardHeader, YdCardTitle } from '../card';
+import {
+  YdCard,
+  YdCardContent,
+  YdCardDescription,
+  YdCardFooter,
+  YdCardHeader,
+  YdCardTitle,
+} from '../card';
 import { YdCheckbox } from '../checkbox';
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -96,7 +103,7 @@ function handleSelectChange(checked: boolean): void {
       cn(
         'group relative transition-all duration-200',
         clickable && 'cursor-pointer',
-        selected && 'border-primary ring-1 ring-primary',
+        selected && 'border-primary ring-primary ring-1',
         props.class,
       )
     "
@@ -109,10 +116,7 @@ function handleSelectChange(checked: boolean): void {
       class="absolute start-3 top-3 z-10 opacity-0 transition-opacity group-hover:opacity-100"
       :class="{ 'opacity-100': selected }"
     >
-      <YdCheckboxSmart
-        :checked="selected"
-        @update:checked="handleSelectChange"
-      />
+      <YdCheckboxSmart :checked="selected" @update:checked="handleSelectChange" />
     </div>
 
     <YdCardHeader class="pb-3">
@@ -140,10 +144,7 @@ function handleSelectChange(checked: boolean): void {
             <!-- 状态标签插槽 -->
             <slot name="status-badge" />
           </div>
-          <YdCardDescription
-            v-if="code || $slots.code"
-            class="mt-0.5 text-xs"
-          >
+          <YdCardDescription v-if="code || $slots.code" class="mt-0.5 text-xs">
             <slot name="code">{{ code }}</slot>
           </YdCardDescription>
         </div>
@@ -152,10 +153,7 @@ function handleSelectChange(checked: boolean): void {
 
     <YdCardContent class="pb-3">
       <!-- 描述 -->
-      <p
-        v-if="description"
-        class="line-clamp-2 text-xs text-text-secondary leading-relaxed"
-      >
+      <p v-if="description" class="text-text-secondary line-clamp-2 text-xs leading-relaxed">
         {{ description }}
       </p>
 
@@ -164,9 +162,11 @@ function handleSelectChange(checked: boolean): void {
     </YdCardContent>
 
     <!-- 底部操作区：默认具名 slot，hover 时完全浮现 -->
-    <YdCardFooter class="flex items-center justify-between pb-3 pt-0 opacity-0 transition-opacity group-hover:opacity-100">
+    <YdCardFooter
+      class="flex items-center justify-between pb-3 pt-0 opacity-0 transition-opacity group-hover:opacity-100"
+    >
       <!-- 底部左侧辅助信息 -->
-      <div class="text-xs text-text-tertiary">
+      <div class="text-text-tertiary text-xs">
         <slot name="footer-left" />
       </div>
 

@@ -38,11 +38,25 @@ const gridOptions: VxeTableGridOptions<Record<string, unknown>> = {
     { field: 'status', title: t('common.status'), width: 100 },
     { field: 'createTime', title: '创建时间', width: 170 },
     {
-      field: 'action', title: t('common.actions'), width: 140, fixed: 'right',
-      slots: { default: ({ row }) => h('div', { class: 'flex gap-1' }, [
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'approve') }, () => '通过'),
-        h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'reject') }, () => '驳回'),
-      ]) },
+      field: 'action',
+      title: t('common.actions'),
+      width: 140,
+      fixed: 'right',
+      slots: {
+        default: ({ row }) =>
+          h('div', { class: 'flex gap-1' }, [
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'approve') },
+              () => '通过',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleOpen(row, 'reject') },
+              () => '驳回',
+            ),
+          ]),
+      },
     },
   ],
   height: 'auto',

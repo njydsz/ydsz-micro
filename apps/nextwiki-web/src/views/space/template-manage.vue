@@ -17,20 +17,28 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdForm, YdFormItem, YdInput, YdTable, YdTableColumn, YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdTable,
+  YdTableColumn,
+  YdBadge,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 
 import type { SpaceTemplateDTO } from '#/api/models';
-import {
-  createTemplate,
-  deleteTemplate,
-  listTemplates,
-  updateTemplate,
-} from '#/api/spaceTemplate';
+import { createTemplate, deleteTemplate, listTemplates, updateTemplate } from '#/api/spaceTemplate';
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -205,7 +213,12 @@ onMounted(() => {
             <YdInput v-model="formData.name" placeholder="请输入模板名称" />
           </YdFormItem>
           <YdFormItem label="描述" prop="description">
-            <YdInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入描述" />
+            <YdInput
+              v-model="formData.description"
+              type="textarea"
+              :rows="3"
+              placeholder="请输入描述"
+            />
           </YdFormItem>
           <YdFormItem label="分类" prop="category">
             <YdInput v-model="formData.category" placeholder="如：项目管理、技术文档" />

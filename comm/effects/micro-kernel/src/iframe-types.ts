@@ -53,9 +53,7 @@ export interface IframeSandboxInstance {
    * @param handlers - method → 处理函数映射
    * @returns 取消注册函数
    */
-  registerMainApi: (
-    handlers: Record<string, (...args: unknown[]) => unknown>,
-  ) => () => void;
+  registerMainApi: (handlers: Record<string, (...args: unknown[]) => unknown>) => () => void;
 }
 
 /**
@@ -88,8 +86,7 @@ export interface IframeRpcConfig {
 }
 
 /** iframe 默认样式：撑满容器、无边框 */
-export const IFRAME_STYLE =
-  "width:100%;height:100%;border:0;display:block;margin:0;padding:0;";
+export const IFRAME_STYLE = 'width:100%;height:100%;border:0;display:block;margin:0;padding:0;';
 
 /**
  * postMessage 桥接协议标记。
@@ -99,7 +96,7 @@ export const IFRAME_STYLE =
  *
  * @since 3.6.0
  */
-export const BRIDGE_MARK = "__MICRO_KERNEL_BRIDGE__";
+export const BRIDGE_MARK = '__MICRO_KERNEL_BRIDGE__';
 
 /**
  * 桥接消息类型。
@@ -111,7 +108,7 @@ export const BRIDGE_MARK = "__MICRO_KERNEL_BRIDGE__";
  *
  * @since 3.6.0
  */
-export type BridgeMessageType = "rpc-call" | "rpc-result" | "state-set" | "state-sync";
+export type BridgeMessageType = 'rpc-call' | 'rpc-result' | 'state-set' | 'state-sync';
 
 /** RPC 调用消息体 */
 export interface RpcCallPayload {
@@ -149,7 +146,7 @@ export interface BridgeMessage<T = unknown> {
  */
 export function isBridgeMessage(data: unknown): data is BridgeMessage {
   return (
-    typeof data === "object" &&
+    typeof data === 'object' &&
     data !== null &&
     (data as Record<string, unknown>)[BRIDGE_MARK] === true
   );
@@ -162,7 +159,6 @@ export const DEFAULT_RPC_CONFIG: Required<IframeRpcConfig> = {
     enabled: false,
     maxRetries: 2,
     baseDelay: 1000,
-    isIdempotent: (method) =>
-      /^(get|query|fetch|read|select|find)/i.test(method),
+    isIdempotent: (method) => /^(get|query|fetch|read|select|find)/i.test(method),
   },
 };

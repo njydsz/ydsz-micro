@@ -56,10 +56,7 @@ vi.mock('../../composables/use-theme', () => ({
  * @param slots - 插槽内容
  * @returns mount 包裹器
  */
-function createConfigProvider(
-  props: ConfigProviderProps = {},
-  slots?: { default?: unknown },
-) {
+function createConfigProvider(props: ConfigProviderProps = {}, slots?: { default?: unknown }) {
   return mount(ConfigProvider, {
     props,
     slots: slots as { default?: string } | undefined,
@@ -182,9 +179,13 @@ describe('ConfigProvider', () => {
       const Wrapper = defineComponent({
         props: { locale: { type: String, default: 'en-US' } },
         render() {
-          return h(ConfigProvider, { locale: this.locale }, {
-            default: () => h(Child),
-          });
+          return h(
+            ConfigProvider,
+            { locale: this.locale },
+            {
+              default: () => h(Child),
+            },
+          );
         },
       });
 
@@ -218,9 +219,13 @@ describe('ConfigProvider', () => {
       const Wrapper = defineComponent({
         props: { locale: { type: String, default: 'zh-CN' } },
         render() {
-          return h(ConfigProvider, { locale: this.locale }, {
-            default: () => h(Child),
-          });
+          return h(
+            ConfigProvider,
+            { locale: this.locale },
+            {
+              default: () => h(Child),
+            },
+          );
         },
       });
 

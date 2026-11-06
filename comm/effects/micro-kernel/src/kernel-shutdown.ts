@@ -16,11 +16,11 @@
  * @since 4.2.1
  */
 
-import type { ManagerRegistry } from "./manager-registry";
-import type { GlobalStateAPI } from "./global-state";
-import type { LifecycleHookRegistry } from "./lifecycle-hooks";
+import type { ManagerRegistry } from './manager-registry';
+import type { GlobalStateAPI } from './global-state';
+import type { LifecycleHookRegistry } from './lifecycle-hooks';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   createCanaryManager,
@@ -34,12 +34,17 @@ import {
   createSchedulerManager,
   createSpeculationRulesManager,
   createVersionManager,
-} from "./kernel-managers";
-import { clearManifestCache } from "./loader";
-import { bindSchedulerContext, createSchedulerContext, deactivateApp, getAllInstances } from "./scheduler";
+} from './kernel-managers';
+import { clearManifestCache } from './loader';
+import {
+  bindSchedulerContext,
+  createSchedulerContext,
+  deactivateApp,
+  getAllInstances,
+} from './scheduler';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Shutdown");
+const logger = createLogger('MicroKernel:Shutdown');
 
 /**
  * 关闭所需的状态访问器与依赖。
@@ -99,7 +104,7 @@ export function createStopFunction(ctx: ShutdownContext) {
     ctx.setAbortController(null);
 
     for (const instance of getAllInstances()) {
-      if (instance.status === "MOUNTED") {
+      if (instance.status === 'MOUNTED') {
         await deactivateApp(instance);
       }
     }
@@ -133,6 +138,6 @@ export function createStopFunction(ctx: ShutdownContext) {
     // v4.2.1 P0-N1: 恢复全新调度器上下文（释放本内核持有的实例集）
     bindSchedulerContext(createSchedulerContext());
 
-    logger.info("Stopped");
+    logger.info('Stopped');
   };
 }

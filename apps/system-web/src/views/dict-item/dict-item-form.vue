@@ -15,7 +15,16 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -60,7 +69,9 @@ const formData = reactive<DictItemFormState>({
 
 const rules = {
   typeCode: [{ required: true, message: t('dictTypePlaceholder'), trigger: 'change' }],
-  itemCode: [{ required: true, message: t('common.placeholder', [t('itemCode')]), trigger: 'blur' }],
+  itemCode: [
+    { required: true, message: t('common.placeholder', [t('itemCode')]), trigger: 'blur' },
+  ],
 };
 
 /** 加载字典类型下拉数据（DictController#listAll） */
@@ -83,8 +94,8 @@ const [Modal, modalApi] = useYdModal({
         id: data.record.id ?? '',
         typeCode: data.record.typeCode ?? '',
         itemCode: data.record.itemCode ?? '',
-  itemValue: data.record.itemValue ?? '',
-  sort: data.record.sort ?? 0,
+        itemValue: data.record.itemValue ?? '',
+        sort: data.record.sort ?? 0,
         description: data.record.description ?? '',
         status: data.record.status ?? '1',
       });
@@ -94,8 +105,8 @@ const [Modal, modalApi] = useYdModal({
         id: '',
         typeCode: '',
         itemCode: '',
-  itemValue: '',
-  sort: 0,
+        itemValue: '',
+        sort: 0,
         description: '',
         status: '1',
       });
@@ -133,9 +144,19 @@ const title = computed(() => (isEdit.value ? t('editDictItem') : t('createDictIt
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('dictType')" prop="typeCode">
-        <YdSelect v-model="formData.typeCode" :placeholder="t('dictTypePlaceholder')" :disabled="isEdit">
+        <YdSelect
+          v-model="formData.typeCode"
+          :placeholder="t('dictTypePlaceholder')"
+          :disabled="isEdit"
+        >
           <YdSelectItem
             v-for="item in dictTypes"
             :key="item.typeCode ?? item.id ?? ''"
@@ -145,16 +166,28 @@ const title = computed(() => (isEdit.value ? t('editDictItem') : t('createDictIt
         </YdSelect>
       </YdFormItem>
       <YdFormItem :label="t('itemCode')" prop="itemCode">
-        <YdInput v-model="formData.itemCode" :placeholder="t('common.placeholder', [t('itemCode')])" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.itemCode"
+          :placeholder="t('common.placeholder', [t('itemCode')])"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('itemValue')" prop="itemValue">
-        <YdInput v-model="formData.itemValue" :placeholder="t('common.placeholder', [t('itemValue')])" />
+        <YdInput
+          v-model="formData.itemValue"
+          :placeholder="t('common.placeholder', [t('itemValue')])"
+        />
       </YdFormItem>
       <YdFormItem :label="t('sort')" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
       </YdFormItem>
       <YdFormItem :label="t('description')">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('descriptionPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('status')" prop="status">
         <YdRadioGroup v-model="formData.status">

@@ -72,10 +72,7 @@ export function downloadFileFromBase64({ fileName, source }: DownloadOptions) {
 /**
  * 通过图片 URL 下载图片文件
  */
-export async function downloadFileFromImageUrl({
-  fileName,
-  source,
-}: DownloadOptions) {
+export async function downloadFileFromImageUrl({ fileName, source }: DownloadOptions) {
   const base64 = await urlToBase64(source);
   downloadFileFromBase64({ fileName, source: base64 });
 }
@@ -104,9 +101,7 @@ export function downloadFileFromBlobPart({
 }: DownloadOptions<BlobPart>): void {
   // 如果 data 不是 Blob，则转换为 Blob
   const blob =
-    source instanceof Blob
-      ? source
-      : new Blob([source], { type: 'application/octet-stream' });
+    source instanceof Blob ? source : new Blob([source], { type: 'application/octet-stream' });
 
   // 创建对象 URL 并触发下载
   const url = URL.createObjectURL(blob);
@@ -177,4 +172,3 @@ export function triggerDownload(
 function resolveFileName(url: string, fileName?: string): string {
   return fileName || url.slice(url.lastIndexOf('/') + 1) || DEFAULT_FILENAME;
 }
-

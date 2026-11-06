@@ -69,11 +69,7 @@ const skeletonRowArray = computed<number[]>(() =>
     :aria-label="$t('ui.commonAction.loading')"
     role="status"
   >
-    <div
-      v-for="row in skeletonRowArray"
-      :key="row"
-      class="async-state__skeleton-row"
-    />
+    <div v-for="row in skeletonRowArray" :key="row" class="async-state__skeleton-row" />
   </div>
 
   <!-- 错误态 -->
@@ -83,16 +79,10 @@ const skeletonRowArray = computed<number[]>(() =>
         <AlertCircle :size="28" />
       </div>
       <p class="async-state__error-title">{{ errorTitle ?? $t('ui.asyncState.errorTitle') }}</p>
-      <p
-        v-if="typeof error === 'string'"
-        class="async-state__msg"
-      >
+      <p v-if="typeof error === 'string'" class="async-state__msg">
         {{ error }}
       </p>
-      <YdButton
-        size="sm"
-        @click="$emit('retry')"
-      >
+      <YdButton size="sm" @click="$emit('retry')">
         {{ $t('ui.commonAction.retry') }}
       </YdButton>
     </div>

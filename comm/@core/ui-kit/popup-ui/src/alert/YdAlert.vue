@@ -17,14 +17,7 @@ import type { YdAlertProps } from './alert';
 import { computed, h, nextTick, ref } from 'vue';
 
 import { useSimpleLocale } from '@ydsz-core/composables';
-import {
-  CircleAlert,
-  CircleCheckBig,
-  CircleHelp,
-  CircleX,
-  Info,
-  X,
-} from '@ydsz-core/icons';
+import { CircleAlert, CircleCheckBig, CircleHelp, CircleX, Info, X } from '@ydsz-core/icons';
 import {
   YdAlertDialog,
   YdAlertDialogAction,
@@ -190,10 +183,7 @@ async function handleOpenChange(val: boolean) {
           </div>
           <YdLoading v-if="loading && contentMasking" :spinning="loading" />
         </YdAlertDialogDescription>
-        <div
-          class="flex items-center justify-end gap-x-2"
-          :class="`justify-${buttonAlign}`"
-        >
+        <div class="flex items-center justify-end gap-x-2" :class="`justify-${buttonAlign}`">
           <YdRenderContent :content="footer" />
           <YdAlertDialogCancel v-if="showCancel" as-child>
             <component

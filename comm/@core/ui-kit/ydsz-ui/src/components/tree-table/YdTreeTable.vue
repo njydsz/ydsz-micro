@@ -17,11 +17,7 @@
  * @since 26.10.17
  */
 
-import type {
-  YdTreeTableEmits,
-  YdTreeTableProps,
-  YdTreeTableRef,
-} from './types';
+import type { YdTreeTableEmits, YdTreeTableProps, YdTreeTableRef } from './types';
 </script>
 
 <script lang="ts" setup generic="T extends Record<string, unknown>">
@@ -102,10 +98,7 @@ defineExpose<YdTreeTableRef<T>>({
 
 <template>
   <div
-    :class="[
-      'yd-treetable relative w-full overflow-x-auto rounded-md border',
-      props.class,
-    ]"
+    :class="['yd-treetable relative w-full overflow-x-auto rounded-md border', props.class]"
     role="grid"
   >
     <YdTable class="w-full border-collapse">
@@ -118,7 +111,7 @@ defineExpose<YdTreeTableRef<T>>({
           <YdTableHead class="w-10 px-2 text-center font-medium">
             <button
               type="button"
-              class="yd-treetable-expand-all inline-flex items-center justify-center rounded px-1 text-xs text-muted-foreground hover:text-text-primary focus:outline-none"
+              class="yd-treetable-expand-all text-muted-foreground hover:text-text-primary inline-flex items-center justify-center rounded px-1 text-xs focus:outline-none"
               :aria-label="t('tree.expandAll')"
               @click="expandAll"
             >
@@ -126,7 +119,7 @@ defineExpose<YdTreeTableRef<T>>({
             </button>
             <button
               type="button"
-              class="yd-treetable-collapse-all ml-1 inline-flex items-center justify-center rounded px-1 text-xs text-muted-foreground hover:text-text-primary focus:outline-none"
+              class="yd-treetable-collapse-all text-muted-foreground hover:text-text-primary ml-1 inline-flex items-center justify-center rounded px-1 text-xs focus:outline-none"
               :aria-label="t('tree.collapseAll')"
               @click="collapseAll"
             >
@@ -157,7 +150,7 @@ defineExpose<YdTreeTableRef<T>>({
         <YdTableRow v-if="flatRows.length === 0">
           <YdTableCell
             :colspan="renderColumns.length + (props.checkable ? 2 : 1)"
-            class="py-12 text-center text-muted-foreground"
+            class="text-muted-foreground py-12 text-center"
           >
             {{ t('tree.empty') }}
           </YdTableCell>
@@ -170,8 +163,15 @@ defineExpose<YdTreeTableRef<T>>({
           :key="fRow.key"
           :data-drag-sort-item="props.draggable && fRow.depth === 0 ? '' : undefined"
           :data-dragging="props.draggable && isDragging() && fromIndex() === idx ? true : undefined"
-          :data-drag-over="props.draggable && isDragging() && toIndex() === idx && fromIndex() !== idx ? true : undefined"
-          :class="['border-b transition-colors hover:bg-muted/25', props.draggable && isDragging() && fromIndex() === idx ? 'bg-muted/10' : '']"
+          :data-drag-over="
+            props.draggable && isDragging() && toIndex() === idx && fromIndex() !== idx
+              ? true
+              : undefined
+          "
+          :class="[
+            'hover:bg-muted/25 border-b transition-colors',
+            props.draggable && isDragging() && fromIndex() === idx ? 'bg-muted/10' : '',
+          ]"
         >
           <!-- === 第一列：展开/折叠 + 树形缩进 + 连接线 === -->
           <YdTableCell class="px-2 py-0">
@@ -180,10 +180,7 @@ defineExpose<YdTreeTableRef<T>>({
               :style="indentStyle(fRow)"
             >
               <!-- 连接线 (vertical lines for ancestors) -->
-              <span
-                v-if="props.showLine && fRow.depth > 0"
-                class="yd-treetable-lines inline-flex"
-              >
+              <span v-if="props.showLine && fRow.depth > 0" class="yd-treetable-lines inline-flex">
                 <span
                   v-for="lineIdx in fRow.depth"
                   :key="lineIdx"
@@ -203,16 +200,21 @@ defineExpose<YdTreeTableRef<T>>({
               <!-- Expand/Collapse icon -->
               <button
                 type="button"
-                class="yd-treetable-toggle size-4 flex shrink-0 items-center justify-center text-xs transition-colors hover:text-primary focus:outline-none"
+                class="yd-treetable-toggle hover:text-primary flex size-4 shrink-0 items-center justify-center text-xs transition-colors focus:outline-none"
                 :class="{
                   'cursor-pointer': fRow.hasChildren,
                   'cursor-default': !fRow.hasChildren,
                 }"
                 :aria-expanded="internalExpandedKeys.has(fRow.key)"
-                :aria-label="internalExpandedKeys.has(fRow.key) ? t('tree.collapseAll') : t('tree.expandAll')"
+                :aria-label="
+                  internalExpandedKeys.has(fRow.key) ? t('tree.collapseAll') : t('tree.expandAll')
+                "
                 @click="handleToggleExpand(fRow)"
               >
-                <span v-if="isNodeLoading(fRow.key)" class="block size-3 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
+                <span
+                  v-if="isNodeLoading(fRow.key)"
+                  class="border-muted-foreground block size-3 animate-spin rounded-full border-2 border-t-transparent"
+                />
                 <span v-else-if="fRow.hasChildren">
                   {{ internalExpandedKeys.has(fRow.key) ? '\u25BC' : '\u25B6' }}
                 </span>
@@ -227,7 +229,7 @@ defineExpose<YdTreeTableRef<T>>({
               type="checkbox"
               :checked="isChecked(fRow.key)"
               :indeterminate="isHalfChecked(fRow.key)"
-              class="size-4 rounded border-muted-foreground accent-primary"
+              class="border-muted-foreground accent-primary size-4 rounded"
               :aria-label="t('tree.checkedAll')"
               @change="toggleCheckbox(fRow)"
             />

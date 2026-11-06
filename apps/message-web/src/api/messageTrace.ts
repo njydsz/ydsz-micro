@@ -16,27 +16,20 @@ import type { MsgTraceVO } from './models';
 /**
  * getByMsgId: GET /message/trace/msg/{msgId}
  */
-export function getByMsgId({ msgId }: {
-    msgId: string;
-  }): Promise<MsgTraceVO[]> {
+export function getByMsgId({ msgId }: { msgId: string }): Promise<MsgTraceVO[]> {
   return requestClient.get<MsgTraceVO[]>(`/message/trace/msg/${msgId}`);
 }
 
 /**
  * getByTraceId: GET /message/trace/trace/{traceId}
  */
-export function getByTraceId({ traceId }: {
-    traceId: string;
-  }): Promise<MsgTraceVO[]> {
+export function getByTraceId({ traceId }: { traceId: string }): Promise<MsgTraceVO[]> {
   return requestClient.get<MsgTraceVO[]>(`/message/trace/trace/${traceId}`);
 }
 
 /**
  * getByBiz: GET /message/trace/biz
  */
-export function getByBiz(params: {
-    bizType?: string;
-    bizId?: string;
-  }): Promise<MsgTraceVO[]> {
+export function getByBiz(params: { bizType?: string; bizId?: string }): Promise<MsgTraceVO[]> {
   return requestClient.get<MsgTraceVO[]>(`/message/trace/biz`, { params });
 }

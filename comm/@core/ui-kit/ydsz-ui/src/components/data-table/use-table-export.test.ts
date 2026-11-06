@@ -7,12 +7,7 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import {
-  escapeCsvField,
-  serializeTable,
-  toCsvContent,
-  useTableExport,
-} from './use-table-export';
+import { escapeCsvField, serializeTable, toCsvContent, useTableExport } from './use-table-export';
 
 interface Row extends Record<string, unknown> {
   amount: number;
@@ -24,10 +19,7 @@ const rows: Row[] = [
   { amount: 34, name: '李,四' },
 ];
 
-const columns = [
-  { key: 'name', label: '姓名' },
-  { key: 'amount' },
-];
+const columns = [{ key: 'name', label: '姓名' }, { key: 'amount' }];
 
 describe('useTableExport', () => {
   beforeEach(() => {

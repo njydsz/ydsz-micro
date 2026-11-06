@@ -22,26 +22,15 @@ import type { YdExtendedFormApi, YdFormProps } from './types';
 
 import { nextTick, onMounted, ref, unref, watch } from 'vue';
 
-import {
-  useFormDraft,
-  useForwardPriorityValues,
-} from '@ydsz-core/composables';
+import { useFormDraft, useForwardPriorityValues } from '@ydsz-core/composables';
 import { cloneDeep, get, isEqual, set } from '@ydsz-core/shared/utils';
 
 import { useDebounceFn } from '@vueuse/core';
 
 import FormActions from './components/form-actions.vue';
-import {
-  COMPONENT_BIND_EVENT_MAP,
-  COMPONENT_MAP,
-  DEFAULT_FORM_COMMON_CONFIG,
-} from './config';
+import { COMPONENT_BIND_EVENT_MAP, COMPONENT_MAP, DEFAULT_FORM_COMMON_CONFIG } from './config';
 import { Form } from './form-render';
-import {
-  provideComponentRefMap,
-  provideFormProps,
-  useFormInitial,
-} from './use-form-context';
+import { provideComponentRefMap, provideFormProps, useFormInitial } from './use-form-context';
 
 // 通过 extends 会导致热更新卡死，所以重复写了一遍
 interface Props extends YdFormProps {
@@ -198,11 +187,7 @@ if (draftCtx) {
     :form="form"
     :global-common-config="DEFAULT_FORM_COMMON_CONFIG"
   >
-    <template
-      v-for="slotName in delegatedSlots"
-      :key="slotName"
-      #[slotName]="slotProps"
-    >
+    <template v-for="slotName in delegatedSlots" :key="slotName" #[slotName]="slotProps">
       <slot :name="slotName" v-bind="slotProps"></slot>
     </template>
     <template #default="slotProps">

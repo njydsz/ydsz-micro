@@ -19,7 +19,17 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdDescriptions, YdDescriptionsItem, YdDialog, YdInput, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdDialog,
+  YdInput,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
@@ -231,7 +241,12 @@ async function handleImpact(row: RuleExecutionTraceVO): Promise<void> {
 
 async function handleBatchReplay(): Promise<void> {
   if (selectedTraceIds.value.size === 0) {
-    await YdAlert({ content: '请先选择要回放的Trace记录', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({
+      content: '请先选择要回放的Trace记录',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   try {
@@ -261,12 +276,8 @@ async function handleBatchReplay(): Promise<void> {
 }
 
 /** 复选框选择变化 */
-function handleSelectionChange(
-  selectedRows: RuleExecutionTraceVO[],
-): void {
-  selectedTraceIds.value = new Set(
-    selectedRows.map((r) => r.traceId ?? '').filter(Boolean),
-  );
+function handleSelectionChange(selectedRows: RuleExecutionTraceVO[]): void {
+  selectedTraceIds.value = new Set(selectedRows.map((r) => r.traceId ?? '').filter(Boolean));
 }
 
 onMounted(() => {
@@ -276,10 +287,10 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class=" p-5">
+    <div v-loading="loading" class="p-5">
       <YdCard shadow="never">
         <!-- 搜索区 -->
-        <div class="flex items-center gap-3 mb-4">
+        <div class="mb-4 flex items-center gap-3">
           <YdInput
             v-model="searchTraceId"
             placeholder="按 Trace ID 搜索"
@@ -296,7 +307,9 @@ onMounted(() => {
           />
           <YdButton type="primary" @click="handleSearch">搜索</YdButton>
           <YdButton @click="loadRecent">查看全部</YdButton>
-          <YdButton type="success" @click="handleBatchReplay">批量回放 ({{ selectedTraceIds.size }})</YdButton>
+          <YdButton type="success" @click="handleBatchReplay"
+            >批量回放 ({{ selectedTraceIds.size }})</YdButton
+          >
         </div>
 
         <!-- 追踪列表 -->
@@ -346,17 +359,9 @@ onMounted(() => {
       </YdDialog>
 
       <!-- 回放结果弹窗 -->
-      <YdDialog
-        v-model="replayDialogVisible"
-        :title="`回放结果 - ${currentTraceId}`"
-        width="560px"
-      >
+      <YdDialog v-model="replayDialogVisible" :title="`回放结果 - ${currentTraceId}`" width="560px">
         <YdDescriptions v-if="replayResult" :column="1" border size="small">
-          <YdDescriptionsItem
-            v-for="(value, key) in replayResult"
-            :key="key"
-            :label="key"
-          >
+          <YdDescriptionsItem v-for="(value, key) in replayResult" :key="key" :label="key">
             {{ typeof value === 'object' ? JSON.stringify(value) : String(value) }}
           </YdDescriptionsItem>
         </YdDescriptions>
@@ -370,11 +375,7 @@ onMounted(() => {
         width="560px"
       >
         <YdDescriptions v-if="impactResult" :column="1" border size="small">
-          <YdDescriptionsItem
-            v-for="(value, key) in impactResult"
-            :key="key"
-            :label="key"
-          >
+          <YdDescriptionsItem v-for="(value, key) in impactResult" :key="key" :label="key">
             {{ typeof value === 'object' ? JSON.stringify(value) : String(value) }}
           </YdDescriptionsItem>
         </YdDescriptions>

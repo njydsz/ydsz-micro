@@ -17,52 +17,58 @@ import type { AuditLog } from './models';
  * queryByTimeRange: GET /admin/audit/logs
  */
 export function queryByTimeRange(params: {
-    startTime?: string;
-    endTime?: string;
-    page?: number;
-    size?: number;
-  }): Promise<AuditLog[]> {
+  startTime?: string;
+  endTime?: string;
+  page?: number;
+  size?: number;
+}): Promise<AuditLog[]> {
   return requestClient.get<AuditLog[]>(`/admin/audit/logs`, { params });
 }
 
 /**
  * queryByOperator: GET /admin/audit/operator/{operatorId}
  */
-export function queryByOperator({ operatorId }: {
+export function queryByOperator(
+  {
+    operatorId,
+  }: {
     operatorId: string;
-  }, params: {
+  },
+  params: {
     page?: number;
     size?: number;
-  }): Promise<AuditLog[]> {
+  },
+): Promise<AuditLog[]> {
   return requestClient.get<AuditLog[]>(`/admin/audit/operator/${operatorId}`, { params });
 }
 
 /**
  * queryByAction: GET /admin/audit/action/{action}
  */
-export function queryByAction({ action }: {
+export function queryByAction(
+  {
+    action,
+  }: {
     action: number;
-  }, params: {
+  },
+  params: {
     page?: number;
     size?: number;
-  }): Promise<AuditLog[]> {
+  },
+): Promise<AuditLog[]> {
   return requestClient.get<AuditLog[]>(`/admin/audit/action/${action}`, { params });
 }
 
 /**
  * queryByTraceId: GET /admin/audit/trace/{traceId}
  */
-export function queryByTraceId({ traceId }: {
-    traceId: string;
-  }): Promise<AuditLog[]> {
+export function queryByTraceId({ traceId }: { traceId: string }): Promise<AuditLog[]> {
   return requestClient.get<AuditLog[]>(`/admin/audit/trace/${traceId}`);
 }
 
 /**
  * getById: GET /admin/audit/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<AuditLog> {
+export function getById({ id }: { id: string }): Promise<AuditLog> {
   return requestClient.get<AuditLog>(`/admin/audit/${id}`);
 }

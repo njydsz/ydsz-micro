@@ -12,10 +12,7 @@
 
 import { computed, ref } from 'vue';
 
-import {
-  createNotificationCore,
-  type NotificationItem,
-} from '@ydsz/stores';
+import { createNotificationCore, type NotificationItem } from '@ydsz/stores';
 import { showNotify } from '@ydsz/notification';
 import { defineStore } from 'pinia';
 

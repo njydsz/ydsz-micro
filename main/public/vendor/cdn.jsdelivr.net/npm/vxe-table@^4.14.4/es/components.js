@@ -5,23 +5,17 @@ import { VxeGrid } from './grid';
 import { VxeTable } from './table';
 import { VxeToolbar } from './toolbar';
 import zhCN from './locale/lang/zh-CN';
-const components = [
-    VxeColumn,
-    VxeColgroup,
-    VxeGrid,
-    VxeTable,
-    VxeToolbar
-];
+const components = [VxeColumn, VxeColgroup, VxeGrid, VxeTable, VxeToolbar];
 // 默认安装
 export function install(app, options) {
-    VxeUI.setConfig(options);
-    components.forEach(component => component.install(app));
+  VxeUI.setConfig(options);
+  components.forEach((component) => component.install(app));
 }
 // 保留兼容老版本
 if (!VxeUI.hasLanguage('zh-CN')) {
-    const defaultLanguage = 'zh-CN';
-    VxeUI.setI18n(defaultLanguage, zhCN);
-    VxeUI.setLanguage(defaultLanguage);
+  const defaultLanguage = 'zh-CN';
+  VxeUI.setI18n(defaultLanguage, zhCN);
+  VxeUI.setLanguage(defaultLanguage);
 }
 VxeUI.setTheme('light');
 export * from './ui';

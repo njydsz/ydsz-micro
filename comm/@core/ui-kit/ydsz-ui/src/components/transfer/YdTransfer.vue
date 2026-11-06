@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 /**
-* Transfer 穿梭框：在两个列表间移动数据。
-* 
+ * Transfer 穿梭框：在两个列表间移动数据。
+ *
  * 受控组件：value 为右侧已选 key 集合，操作后通过 update:value 回传给父组件。
  * 左侧为可选列表，右侧为已选列表，中间按钮面板支持单/双向移动。
-* 
+ *
  * 搜索通过内置 input 实现（本地过滤），不清库外部接口。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\transfer\YdTransfer.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -114,14 +114,12 @@ const rightItems = computed(() => {
  * 使用 useVirtualScrollItems 阈值判定逻辑，组件内部保持原有渲染与事件处理不变；
  * 仅当列表数据量超过 virtualThreshold 时使用 YdVirtualList 替代 v-for。
  */
-const leftList = useVirtualScrollItems(
-  () => leftItems.value,
-  { threshold: props.virtualThreshold },
-);
-const rightList = useVirtualScrollItems(
-  () => rightItems.value,
-  { threshold: props.virtualThreshold },
-);
+const leftList = useVirtualScrollItems(() => leftItems.value, {
+  threshold: props.virtualThreshold,
+});
+const rightList = useVirtualScrollItems(() => rightItems.value, {
+  threshold: props.virtualThreshold,
+});
 
 /** 全选左侧（排除 disabled） */
 function selectAllLeft(): void {
@@ -193,7 +191,7 @@ function moveAllToLeft(): void {
           @change="selectAllLeft"
         >
           <slot name="title">{{ props.title ?? t('transfer.available') }}</slot>
-          <span class="ml-1 text-xs text-muted-foreground">
+          <span class="text-muted-foreground ml-1 text-xs">
             ({{ leftChecked.size }}/{{ leftItems.length }})
           </span>
         </YdCheckbox>
@@ -201,15 +199,17 @@ function moveAllToLeft(): void {
 
       <div class="relative">
         <Search class="text-muted-foreground absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2" />
-        <YdInput v-model="leftQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? t('common.search')" />
+        <YdInput
+          v-model="leftQuery"
+          class="pl-8"
+          size="sm"
+          :placeholder="props.placeholder ?? t('common.search')"
+        />
       </div>
 
       <div class="flex max-h-72 flex-1 flex-col gap-1 rounded border p-2">
         <!-- 空数据态 -->
-        <div
-          v-if="leftItems.length === 0"
-          class="text-muted-foreground py-4 text-center text-sm"
-        >
+        <div v-if="leftItems.length === 0" class="text-muted-foreground py-4 text-center text-sm">
           {{ props.notFoundContent ?? t('transfer.notFound') }}
         </div>
 
@@ -229,9 +229,7 @@ function moveAllToLeft(): void {
               :class="
                 cn(
                   'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
-                  leftChecked.has(vItem.data.key)
-                    ? 'bg-primary/10 font-medium'
-                    : 'hover:bg-muted',
+                  leftChecked.has(vItem.data.key) ? 'bg-primary/10 font-medium' : 'hover:bg-muted',
                   vItem.data.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
                 )
               "
@@ -245,7 +243,11 @@ function moveAllToLeft(): void {
                 }
               "
             >
-              <YdCheckbox :checked="leftChecked.has(vItem.data.key)" :disabled="vItem.data.disabled" size="sm"></YdCheckbox>
+              <YdCheckbox
+                :checked="leftChecked.has(vItem.data.key)"
+                :disabled="vItem.data.disabled"
+                size="sm"
+              ></YdCheckbox>
               <span class="truncate">{{ vItem.data.label }}</span>
             </div>
           </template>
@@ -259,9 +261,7 @@ function moveAllToLeft(): void {
             :class="
               cn(
                 'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
-                leftChecked.has(item.key)
-                  ? 'bg-primary/10 font-medium'
-                  : 'hover:bg-muted',
+                leftChecked.has(item.key) ? 'bg-primary/10 font-medium' : 'hover:bg-muted',
                 item.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
               )
             "
@@ -275,7 +275,11 @@ function moveAllToLeft(): void {
               }
             "
           >
-            <YdCheckbox :checked="leftChecked.has(item.key)" :disabled="item.disabled" size="sm"></YdCheckbox>
+            <YdCheckbox
+              :checked="leftChecked.has(item.key)"
+              :disabled="item.disabled"
+              size="sm"
+            ></YdCheckbox>
             <span class="truncate">{{ item.label }}</span>
           </div>
         </template>
@@ -290,11 +294,21 @@ function moveAllToLeft(): void {
       <YdButton :disabled="rightChecked.size === 0" size="sm" variant="outline" @click="moveToLeft">
         <ChevronLeft class="size-3.5" />
       </YdButton>
-      <div class="my-1 h-px w-4 bg-border"></div>
-      <YdButton :disabled="leftItems.length === 0" size="sm" variant="ghost" @click="moveAllToRight">
+      <div class="bg-border my-1 h-px w-4"></div>
+      <YdButton
+        :disabled="leftItems.length === 0"
+        size="sm"
+        variant="ghost"
+        @click="moveAllToRight"
+      >
         <ChevronRight class="size-3.5" /><ChevronRight class="-ml-2 size-3.5" />
       </YdButton>
-      <YdButton :disabled="rightItems.length === 0" size="sm" variant="ghost" @click="moveAllToLeft">
+      <YdButton
+        :disabled="rightItems.length === 0"
+        size="sm"
+        variant="ghost"
+        @click="moveAllToLeft"
+      >
         <ChevronLeft class="size-3.5" /><ChevronLeft class="-ml-2 size-3.5" />
       </YdButton>
     </div>
@@ -308,7 +322,7 @@ function moveAllToLeft(): void {
           @change="selectAllRight"
         >
           <slot name="selected-title">{{ props.selectedTitle ?? t('transfer.selected') }}</slot>
-          <span class="ml-1 text-xs text-muted-foreground">
+          <span class="text-muted-foreground ml-1 text-xs">
             ({{ rightChecked.size }}/{{ rightItems.length }})
           </span>
         </YdCheckbox>
@@ -316,15 +330,17 @@ function moveAllToLeft(): void {
 
       <div class="relative">
         <Search class="text-muted-foreground absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2" />
-        <YdInput v-model="rightQuery" class="pl-8" size="sm" :placeholder="props.placeholder ?? t('common.search')" />
+        <YdInput
+          v-model="rightQuery"
+          class="pl-8"
+          size="sm"
+          :placeholder="props.placeholder ?? t('common.search')"
+        />
       </div>
 
       <div class="flex max-h-72 flex-1 flex-col gap-1 rounded border p-2">
         <!-- 空数据态 -->
-        <div
-          v-if="rightItems.length === 0"
-          class="text-muted-foreground py-4 text-center text-sm"
-        >
+        <div v-if="rightItems.length === 0" class="text-muted-foreground py-4 text-center text-sm">
           {{ props.notFoundContent ?? t('transfer.notFound') }}
         </div>
 
@@ -344,9 +360,7 @@ function moveAllToLeft(): void {
               :class="
                 cn(
                   'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
-                  rightChecked.has(vItem.data.key)
-                    ? 'bg-primary/10 font-medium'
-                    : 'hover:bg-muted',
+                  rightChecked.has(vItem.data.key) ? 'bg-primary/10 font-medium' : 'hover:bg-muted',
                   vItem.data.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
                 )
               "
@@ -360,7 +374,11 @@ function moveAllToLeft(): void {
                 }
               "
             >
-              <YdCheckbox :checked="rightChecked.has(vItem.data.key)" :disabled="vItem.data.disabled" size="sm"></YdCheckbox>
+              <YdCheckbox
+                :checked="rightChecked.has(vItem.data.key)"
+                :disabled="vItem.data.disabled"
+                size="sm"
+              ></YdCheckbox>
               <span class="truncate">{{ vItem.data.label }}</span>
             </div>
           </template>
@@ -374,9 +392,7 @@ function moveAllToLeft(): void {
             :class="
               cn(
                 'flex items-center gap-2 rounded px-2 py-1.5 text-sm transition-colors',
-                rightChecked.has(item.key)
-                  ? 'bg-primary/10 font-medium'
-                  : 'hover:bg-muted',
+                rightChecked.has(item.key) ? 'bg-primary/10 font-medium' : 'hover:bg-muted',
                 item.disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
               )
             "
@@ -390,7 +406,11 @@ function moveAllToLeft(): void {
               }
             "
           >
-            <YdCheckbox :checked="rightChecked.has(item.key)" :disabled="item.disabled" size="sm"></YdCheckbox>
+            <YdCheckbox
+              :checked="rightChecked.has(item.key)"
+              :disabled="item.disabled"
+              size="sm"
+            ></YdCheckbox>
             <span class="truncate">{{ item.label }}</span>
           </div>
         </template>

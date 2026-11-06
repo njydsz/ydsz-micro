@@ -59,7 +59,9 @@ async function uploadWithRetry(filePath) {
     lastError = result.error;
     if (attempt < MAX_RETRIES) {
       const delay = BASE_DELAY_MS * 2 ** (attempt - 1);
-      console.warn(`  重试 ${attempt}/${MAX_RETRIES - 1}: ${result.relativePath} (${lastError}) — ${delay}ms 后`);
+      console.warn(
+        `  重试 ${attempt}/${MAX_RETRIES - 1}: ${result.relativePath} (${lastError}) — ${delay}ms 后`,
+      );
       await new Promise((r) => setTimeout(r, delay));
     }
   }
@@ -146,7 +148,9 @@ async function main() {
     }
   }
 
-  console.info(`[upload-sourcemaps] 完成: ${ok} 成功, ${fail} 失败${keep ? '（已保留 .map）' : '（已删除 .map）'}`);
+  console.info(
+    `[upload-sourcemaps] 完成: ${ok} 成功, ${fail} 失败${keep ? '（已保留 .map）' : '（已删除 .map）'}`,
+  );
   if (fail > 0) process.exit(1);
 }
 

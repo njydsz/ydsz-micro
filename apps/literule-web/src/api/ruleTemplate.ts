@@ -23,26 +23,32 @@ export function listTemplates(): Promise<RuleTemplateVO[]> {
 /**
  * listTemplatesByCategory: GET /literule/rules/templates/category/{category}
  */
-export function listTemplatesByCategory({ category }: {
-    category: string;
-  }): Promise<RuleTemplateVO[]> {
+export function listTemplatesByCategory({
+  category,
+}: {
+  category: string;
+}): Promise<RuleTemplateVO[]> {
   return requestClient.get<RuleTemplateVO[]>(`/literule/rules/templates/category/${category}`);
 }
 
 /**
  * listTemplatesByIndustry: GET /literule/rules/templates/industry/{industry}
  */
-export function listTemplatesByIndustry({ industry }: {
-    industry: string;
-  }): Promise<RuleTemplateVO[]> {
+export function listTemplatesByIndustry({
+  industry,
+}: {
+  industry: string;
+}): Promise<RuleTemplateVO[]> {
   return requestClient.get<RuleTemplateVO[]>(`/literule/rules/templates/industry/${industry}`);
 }
 
 /**
  * importTemplate: POST /literule/rules/templates/{templateCode}/import
  */
-export function importTemplate({ templateCode }: {
-    templateCode: string;
-  }): Promise<RuleDefinitionVO> {
+export function importTemplate({
+  templateCode,
+}: {
+  templateCode: string;
+}): Promise<RuleDefinitionVO> {
   return requestClient.post<RuleDefinitionVO>(`/literule/rules/templates/${templateCode}/import`);
 }

@@ -37,9 +37,7 @@ export function routes(): Promise<MenuRouteVO[]> {
 /**
  * getById: GET /menu/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<MenuVO> {
+export function getById({ id }: { id: string }): Promise<MenuVO> {
   return requestClient.get<MenuVO>(`/menu/${id}`);
 }
 
@@ -60,8 +58,6 @@ export function update(data: MenuDTO): Promise<boolean> {
 /**
  * remove: DELETE /menu/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/menu/${id}`);
 }

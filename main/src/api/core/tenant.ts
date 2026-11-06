@@ -47,9 +47,7 @@ export interface TenantSwitchResult {
  * @param targetTenantId - 目标租户 ID（需在当前 token 的 accessible_tenants 内）
  * @returns 新 token 对
  */
-export async function switchTenantApi(
-  targetTenantId: string,
-): Promise<TenantSwitchResult> {
+export async function switchTenantApi(targetTenantId: string): Promise<TenantSwitchResult> {
   return requestClient.post<TenantSwitchResult>('/api/auth/tenant/switch', {
     targetTenantId,
   });

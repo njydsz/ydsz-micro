@@ -21,7 +21,20 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdInput, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdInput,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -95,11 +108,9 @@ async function handleEvictCache(): Promise<void> {
     return;
   }
   try {
-    await YdConfirm(
-      `确定清理模板「${evictForm.value.template}」的缓存吗？`,
-      '清理确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定清理模板「${evictForm.value.template}」的缓存吗？`, '清理确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消清理缓存操作');
     return;
@@ -180,79 +191,78 @@ onMounted(() => {
         <!-- 模板缓存区 -->
         <YdCard>
           <YdCardContent class="pt-4">
-          <div class="mb-4 flex items-center justify-between">
-            <h3 class="text-base font-medium">模板缓存统计</h3>
-            <div class="flex gap-2">
-              <YdButton size="sm" variant="outline" @click="loadCacheStats">刷新</YdButton>
-              <YdButton size="sm" @click="evictDialogVisible = true">
-                清理单条
-              </YdButton>
-              <YdButton size="sm" variant="destructive" @click="handleClearAllCache">
-                全量清理
-              </YdButton>
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-medium">模板缓存统计</h3>
+              <div class="flex gap-2">
+                <YdButton size="sm" variant="outline" @click="loadCacheStats">刷新</YdButton>
+                <YdButton size="sm" @click="evictDialogVisible = true"> 清理单条 </YdButton>
+                <YdButton size="sm" variant="destructive" @click="handleClearAllCache">
+                  全量清理
+                </YdButton>
+              </div>
             </div>
-          </div>
 
-          <div v-loading="loading" class="space-y-4">
-            <div class="grid grid-cols-2 gap-5">
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">命中次数</span>
-                <p class="mt-1 text-lg font-mono font-bold">{{ cacheStats.hitCount ?? 0 }}</p>
-              </div>
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">未命中次数</span>
-                <p class="mt-1 text-lg font-mono font-bold">{{ cacheStats.missCount ?? 0 }}</p>
-              </div>
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">淘汰次数</span>
-                <p class="mt-1 text-lg font-mono font-bold">{{ cacheStats.evictionCount ?? 0 }}</p>
-              </div>
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">缓存大小</span>
-                <p class="mt-1 text-lg font-mono font-bold">{{ cacheStats.size ?? 0 }} 条</p>
+            <div v-loading="loading" class="space-y-4">
+              <div class="grid grid-cols-2 gap-5">
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">命中次数</span>
+                  <p class="mt-1 font-mono text-lg font-bold">{{ cacheStats.hitCount ?? 0 }}</p>
+                </div>
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">未命中次数</span>
+                  <p class="mt-1 font-mono text-lg font-bold">{{ cacheStats.missCount ?? 0 }}</p>
+                </div>
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">淘汰次数</span>
+                  <p class="mt-1 font-mono text-lg font-bold">
+                    {{ cacheStats.evictionCount ?? 0 }}
+                  </p>
+                </div>
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">缓存大小</span>
+                  <p class="mt-1 font-mono text-lg font-bold">{{ cacheStats.size ?? 0 }} 条</p>
+                </div>
               </div>
             </div>
-          </div>
           </YdCardContent>
         </YdCard>
 
         <!-- BloomFilter 区 -->
         <YdCard>
           <YdCardContent class="pt-4">
-          <div class="mb-4 flex items-center justify-between">
-            <h3 class="text-base font-medium">BloomFilter 统计</h3>
-            <YdButton size="sm" variant="outline" @click="loadBloomStats">刷新</YdButton>
-          </div>
-
-          <div v-loading="loading" class="space-y-4">
-            <div class="grid grid-cols-2 gap-5">
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">预期插入数</span>
-                <p class="mt-1 text-lg font-mono font-bold">
-                  {{ bloomStats.expectedInsertions ?? 0 }}
-                </p>
-              </div>
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">当前误判率 (FPP)</span>
-                <p class="mt-1 text-lg font-mono font-bold">
-                  {{ ((bloomStats.fpp ?? 0) * 100).toFixed(4) }}%
-                </p>
-              </div>
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">是否主窗口</span>
-                <p class="mt-1 text-lg font-mono font-bold">
-                  {{ bloomStats.primary ? '是' : '否' }}
-                </p>
-              </div>
-              <div class="rounded bg-gray-50 p-3">
-                <span class="text-xs text-gray-500">窗口存活秒数</span>
-                <p class="mt-1 text-lg font-mono font-bold">
-                  {{ bloomStats.windowAgeSeconds ?? 0 }}s
-                </p>
-              </div>
+            <div class="mb-4 flex items-center justify-between">
+              <h3 class="text-base font-medium">BloomFilter 统计</h3>
+              <YdButton size="sm" variant="outline" @click="loadBloomStats">刷新</YdButton>
             </div>
 
-          </div>
+            <div v-loading="loading" class="space-y-4">
+              <div class="grid grid-cols-2 gap-5">
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">预期插入数</span>
+                  <p class="mt-1 font-mono text-lg font-bold">
+                    {{ bloomStats.expectedInsertions ?? 0 }}
+                  </p>
+                </div>
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">当前误判率 (FPP)</span>
+                  <p class="mt-1 font-mono text-lg font-bold">
+                    {{ ((bloomStats.fpp ?? 0) * 100).toFixed(4) }}%
+                  </p>
+                </div>
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">是否主窗口</span>
+                  <p class="mt-1 font-mono text-lg font-bold">
+                    {{ bloomStats.primary ? '是' : '否' }}
+                  </p>
+                </div>
+                <div class="rounded bg-gray-50 p-3">
+                  <span class="text-xs text-gray-500">窗口存活秒数</span>
+                  <p class="mt-1 font-mono text-lg font-bold">
+                    {{ bloomStats.windowAgeSeconds ?? 0 }}s
+                  </p>
+                </div>
+              </div>
+            </div>
           </YdCardContent>
         </YdCard>
       </div>
@@ -266,10 +276,7 @@ onMounted(() => {
           </YdDialogHeader>
           <YdForm :model="evictForm" label-width="100px">
             <YdFormItem label="模板编码" required>
-              <YdInput
-                v-model="evictForm.template"
-                placeholder="请输入要清理的模板编码"
-              />
+              <YdInput v-model="evictForm.template" placeholder="请输入要清理的模板编码" />
             </YdFormItem>
           </YdForm>
           <YdDialogFooter>

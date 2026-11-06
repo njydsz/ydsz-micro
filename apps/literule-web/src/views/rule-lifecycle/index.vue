@@ -19,7 +19,21 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCol, YdDialog, YdForm, YdFormItem, YdInput, YdRow, YdTabs, YdTabsContent, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCol,
+  YdDialog,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdRow,
+  YdTabs,
+  YdTabsContent,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
 
@@ -147,11 +161,7 @@ const flowGridOptions: VxeTableGridOptions<ApprovalFlowVO> = {
       minWidth: 200,
       slots: {
         default: ({ row }) =>
-          h(
-            'span',
-            {},
-            Array.isArray(row.steps) ? `${row.steps.length} 级审批` : '-',
-          ),
+          h('span', {}, Array.isArray(row.steps) ? `${row.steps.length} 级审批` : '-'),
       },
     },
     {
@@ -250,7 +260,12 @@ async function handleApprove(row: ApprovalRecordVO): Promise<void> {
   }
   try {
     await approve({ ruleCode: row.ruleCode }, { comment: '' });
-    await YdAlert({ content: '审批已通过', title: '审批结果', icon: 'success', confirmText: '确定' });
+    await YdAlert({
+      content: '审批已通过',
+      title: '审批结果',
+      icon: 'success',
+      confirmText: '确定',
+    });
     await loadPending();
   } catch (error) {
     logger.warn('审批通过失败: {}', error);
@@ -266,14 +281,16 @@ function openRejectDialog(row: ApprovalRecordVO): void {
 
 async function handleRejectSubmit(): Promise<void> {
   if (!rejectReason.value.trim()) {
-    await YdAlert({ content: '请填写驳回原因', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({
+      content: '请填写驳回原因',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   try {
-    await reject(
-      { ruleCode: currentRuleCode.value },
-      { reason: rejectReason.value },
-    );
+    await reject({ ruleCode: currentRuleCode.value }, { reason: rejectReason.value });
     rejectDialogVisible.value = false;
     await YdAlert({ content: '已驳回', title: '操作结果', icon: 'info', confirmText: '确定' });
     await loadPending();
@@ -359,7 +376,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class=" p-5">
+    <div v-loading="loading" class="p-5">
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 待我审批 -->
@@ -410,7 +427,11 @@ onMounted(() => {
       </YdDialog>
 
       <!-- 审批状态弹窗 -->
-      <YdDialog v-model="statusDialogVisible" :title="`审批状态 - ${currentRuleCode}`" width="560px">
+      <YdDialog
+        v-model="statusDialogVisible"
+        :title="`审批状态 - ${currentRuleCode}`"
+        width="560px"
+      >
         <div v-if="currentStatusRecord" class="space-y-3">
           <YdRow :gutter="12">
             <YdCol :span="12">
@@ -433,7 +454,13 @@ onMounted(() => {
               v-for="step in currentStatusRecord?.steps || []"
               :key="step.timestamp ?? step.label ?? ''"
               :timestamp="step.timestamp"
-              :type="step.status === 'APPROVED' ? 'success' : (step.status === 'REJECTED' ? 'danger' : 'primary')"
+              :type="
+                step.status === 'APPROVED'
+                  ? 'success'
+                  : step.status === 'REJECTED'
+                    ? 'danger'
+                    : 'primary'
+              "
             >
               {{ step.label }} - {{ step.approver ?? '待分配' }}
             </YdTimelineItem>

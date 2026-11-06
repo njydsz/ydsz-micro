@@ -30,31 +30,37 @@ export function batchMove(data: Record<string, unknown>): Promise<BatchResultDTO
 /**
  * getVersionHistory: GET /nextwiki/files/{nodeId}/versions
  */
-export function getVersionHistory({ nodeId }: {
-    nodeId: string;
-  }): Promise<FileVersionVO[]> {
+export function getVersionHistory({ nodeId }: { nodeId: string }): Promise<FileVersionVO[]> {
   return requestClient.get<FileVersionVO[]>(`/nextwiki/files/${nodeId}/versions`);
 }
 
 /**
  * rollbackVersion: POST /nextwiki/files/{nodeId}/versions/{version}/rollback
  */
-export function rollbackVersion({ nodeId, version }: {
-    nodeId: string;
-    version: number;
-  }): Promise<FileNodeVO> {
+export function rollbackVersion({
+  nodeId,
+  version,
+}: {
+  nodeId: string;
+  version: number;
+}): Promise<FileNodeVO> {
   return requestClient.post<FileNodeVO>(`/nextwiki/files/${nodeId}/versions/${version}/rollback`);
 }
 
 /**
  * diffVersions: GET /nextwiki/files/{nodeId}/versions/diff
  */
-export function diffVersions({ nodeId }: {
+export function diffVersions(
+  {
+    nodeId,
+  }: {
     nodeId: string;
-  }, params: {
+  },
+  params: {
     oldVersion?: number;
     newVersion?: number;
-  }): Promise<DiffResultVO> {
+  },
+): Promise<DiffResultVO> {
   return requestClient.get<DiffResultVO>(`/nextwiki/files/${nodeId}/versions/diff`, { params });
 }
 
@@ -80,17 +86,13 @@ export function asyncBatchMove(data: Record<string, unknown>): Promise<string> {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function getBatchTaskStatus({ taskId }: {
-    taskId: string;
-  }): Promise<unknown> {
+export function getBatchTaskStatus({ taskId }: { taskId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/nextwiki/files/batch/task/${taskId}`);
 }
 
 /**
  * toggleStar: PUT /nextwiki/files/{nodeId}/star
  */
-export function toggleStar({ nodeId }: {
-    nodeId: string;
-  }): Promise<void> {
+export function toggleStar({ nodeId }: { nodeId: string }): Promise<void> {
   return requestClient.put<void>(`/nextwiki/files/${nodeId}/star`);
 }

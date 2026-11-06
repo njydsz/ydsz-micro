@@ -14,7 +14,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
@@ -39,9 +39,7 @@ const { t } = useI18n();
  * <p>取值即 YdBadge 的 variant（`BadgeVariants` 约束），HTTP 用中性 default 而非 primary，
  * 避免与「启用状态」的高亮色混淆。
  */
-function getToolTypeTagType(
-  type?: string,
-): NonNullable<BadgeVariants['variant']> {
+function getToolTypeTagType(type?: string): NonNullable<BadgeVariants['variant']> {
   switch ((type ?? '').toUpperCase()) {
     case 'HTTP':
       return 'default';
@@ -135,7 +133,9 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: getToolTypeTagType(row.toolType) }, () => getToolTypeLabel(row.toolType)),
+          h(YdBadge, { variant: getToolTypeTagType(row.toolType) }, () =>
+            getToolTypeLabel(row.toolType),
+          ),
       },
     },
     { field: 'description', title: '描述', minWidth: 180 },
@@ -162,10 +162,8 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
             ),
             h(
               YdButton,
@@ -181,10 +179,8 @@ const gridOptions: VxeTableGridOptions<ToolVO> = {
               },
               () => (row.enabled ? '停用' : t('common.enabled')),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
-              () => t('common.delete'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () =>
+              t('common.delete'),
             ),
           ]),
       },
@@ -246,11 +242,7 @@ function handleToggle(row: ToolVO): void {
 /** 删除工具 */
 async function handleDelete(row: ToolVO): Promise<void> {
   try {
-    await YdConfirm(
-      `确定删除工具「${row.toolName}」吗？`,
-      '删除确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定删除工具「${row.toolName}」吗？`, '删除确认', { type: 'warning' });
     toolList.value = toolList.value.filter((t) => t.id !== row.id);
     showToast.success('删除成功');
     gridApi.query();

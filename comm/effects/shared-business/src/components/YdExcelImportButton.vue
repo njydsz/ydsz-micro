@@ -87,12 +87,7 @@ async function handleFileChange(event: Event): Promise<void> {
 </script>
 
 <template>
-  <YdButton
-    :disabled="loading"
-    size="sm"
-    variant="outline"
-    @click="handleChoose"
-  >
+  <YdButton :disabled="loading" size="sm" variant="outline" @click="handleChoose">
     <Upload :size="14" class="mr-1" />
     {{ text ?? $t('ui.excelImport.import') }}
   </YdButton>
@@ -102,7 +97,7 @@ async function handleFileChange(event: Event): Promise<void> {
     class="excel-import-input"
     :accept="accept"
     @change="handleFileChange"
-  >
+  />
 </template>
 
 <style scoped>

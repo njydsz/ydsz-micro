@@ -36,12 +36,7 @@ const props = defineProps<Props>();
 const emits = defineEmits<HoverCardRootEmits>();
 
 const delegatedProps = computed(() => {
-  const {
-    class: _cls,
-    contentClass: _,
-    contentProps: _cProps,
-    ...delegated
-  } = props;
+  const { class: _cls, contentClass: _, contentProps: _cProps, ...delegated } = props;
 
   return delegated;
 });
@@ -66,4 +61,3 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     </YdHoverCardContent>
   </YdHoverCard>
 </template>
-

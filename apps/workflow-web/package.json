@@ -51,5 +51,8 @@
     "camunda-bpmn-moddle": "^7.0.0",
     "vite": "catalog:"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "YDSZ": {
+    "shareStrategy": "all"
+  }
 }

@@ -22,10 +22,10 @@ import type { ScimPatchOp, ScimUser } from './models';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function listUsers(params: {
-    startIndex?: number;
-    count?: number;
-    filter?: string;
-  }): Promise<unknown> {
+  startIndex?: number;
+  count?: number;
+  filter?: string;
+}): Promise<unknown> {
   return requestClient.get<unknown>(`/scim/v2/Users`, { params });
 }
 
@@ -37,9 +37,7 @@ export function listUsers(params: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function getUser({ id }: {
-    id: string;
-  }): Promise<unknown> {
+export function getUser({ id }: { id: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/scim/v2/Users/${id}`);
 }
 
@@ -63,9 +61,14 @@ export function createUser(data: ScimUser): Promise<unknown> {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function updateUser({ id }: {
+export function updateUser(
+  {
+    id,
+  }: {
     id: string;
-  }, data: ScimUser): Promise<unknown> {
+  },
+  data: ScimUser,
+): Promise<unknown> {
   return requestClient.put<unknown>(`/scim/v2/Users/${id}`, data);
 }
 
@@ -77,9 +80,14 @@ export function updateUser({ id }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function patchUser({ id }: {
+export function patchUser(
+  {
+    id,
+  }: {
     id: string;
-  }, data: ScimPatchOp): Promise<unknown> {
+  },
+  data: ScimPatchOp,
+): Promise<unknown> {
   return requestClient.patch<unknown>(`/scim/v2/Users/${id}`, data);
 }
 
@@ -91,9 +99,7 @@ export function patchUser({ id }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function deleteUser({ id }: {
-    id: string;
-  }): Promise<unknown> {
+export function deleteUser({ id }: { id: string }): Promise<unknown> {
   return requestClient.delete<unknown>(`/scim/v2/Users/${id}`);
 }
 
@@ -105,10 +111,7 @@ export function deleteUser({ id }: {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function listGroups(params: {
-    startIndex?: number;
-    count?: number;
-  }): Promise<unknown> {
+export function listGroups(params: { startIndex?: number; count?: number }): Promise<unknown> {
   return requestClient.get<unknown>(`/scim/v2/Groups`, { params });
 }
 

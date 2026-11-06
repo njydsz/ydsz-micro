@@ -1,6 +1,6 @@
-import { type MaybeRefOrGetter, computed } from 'vue'
-import { useEmitAsProps } from './useEmitAsProps'
-import { useForwardProps } from './useForwardProps'
+import { type MaybeRefOrGetter, computed } from 'vue';
+import { useEmitAsProps } from './useEmitAsProps';
+import { useForwardProps } from './useForwardProps';
 
 /**
  * The function `useForwardPropsEmits` takes in props and an optional emit function, and returns a
@@ -14,12 +14,15 @@ import { useForwardProps } from './useForwardProps'
  * @returns a computed property that combines the parsed
  * props and emits as props.
  */
-export function useForwardPropsEmits<T extends Record<string, any>, Name extends string>(props: MaybeRefOrGetter<T>, emit?: (name: Name, ...args: any[]) => void) {
-  const parsedProps = useForwardProps(props)
-  const emitsAsProps = emit ? useEmitAsProps(emit) : {}
+export function useForwardPropsEmits<T extends Record<string, any>, Name extends string>(
+  props: MaybeRefOrGetter<T>,
+  emit?: (name: Name, ...args: any[]) => void,
+) {
+  const parsedProps = useForwardProps(props);
+  const emitsAsProps = emit ? useEmitAsProps(emit) : {};
 
   return computed(() => ({
     ...parsedProps.value,
     ...emitsAsProps,
-  }))
+  }));
 }

@@ -71,9 +71,7 @@ const connected = computed(() => notificationStore.connected);
 const unreadCount = computed(() => notificationStore.unreadCount);
 
 /** 限制下拉列表展示最近 10 条 */
-const displayNotifications = computed(() =>
-  notificationStore.notifications.slice(0, 10),
-);
+const displayNotifications = computed(() => notificationStore.notifications.slice(0, 10));
 
 /** 通知类型颜色映射 */
 const typeColorMap: Record<string, string> = {
@@ -153,17 +151,9 @@ onMounted(() => {
   <div class="notification-bell-wrapper">
     <YdPopoverBase v-model:open="popoverOpen">
       <YdPopoverTriggerBase as-child>
-        <button
-          type="button"
-          class="bell-icon-wrapper"
-          aria-label="通知"
-        >
+        <button type="button" class="bell-icon-wrapper" aria-label="通知">
           <!-- 角标：自研简化数字徽章 -->
-          <span
-            v-if="unreadCount > 0"
-            class="bell-badge"
-            aria-hidden="true"
-          >
+          <span v-if="unreadCount > 0" class="bell-badge" aria-hidden="true">
             {{ unreadCount > 99 ? '99+' : unreadCount }}
           </span>
           <div class="bell-button">
@@ -184,22 +174,10 @@ onMounted(() => {
             <span>{{ t('notification.title') }}</span>
             <span
               v-if="showConnectionStatus"
-              :class="[
-                'connection-status',
-                connected ? 'is-connected' : 'is-disconnected',
-              ]"
+              :class="['connection-status', connected ? 'is-connected' : 'is-disconnected']"
             >
-              <span
-                :class="[
-                  'status-dot',
-                  connected ? 'is-active' : 'is-inactive',
-                ]"
-              />
-              {{
-                connected
-                  ? t('notification.connected')
-                  : t('notification.disconnected')
-              }}
+              <span :class="['status-dot', connected ? 'is-active' : 'is-inactive']" />
+              {{ connected ? t('notification.connected') : t('notification.disconnected') }}
             </span>
           </div>
           <YdTooltipProviderBase>
@@ -224,27 +202,15 @@ onMounted(() => {
 
         <!-- 通知列表 -->
         <YdScrollArea :style="{ maxHeight: maxHeight + 'px' }">
-          <div
-            v-if="displayNotifications.length > 0"
-            class="notification-list"
-          >
+          <div v-if="displayNotifications.length > 0" class="notification-list">
             <div
               v-for="item in displayNotifications"
               :key="item.id"
-              :class="[
-                'notification-item',
-                { 'is-unread': !item.isRead },
-              ]"
+              :class="['notification-item', { 'is-unread': !item.isRead }]"
               @click="handleClickNotification(item)"
             >
               <!-- 类型图标 -->
-              <div
-                :class="[
-                  'item-type-icon',
-                  getTypeColor(item.type),
-                ]"
-                aria-hidden="true"
-              >
+              <div :class="['item-type-icon', getTypeColor(item.type)]" aria-hidden="true">
                 <i :class="getTypeIconClass(item.type)" />
               </div>
 
@@ -252,11 +218,7 @@ onMounted(() => {
               <div class="item-content">
                 <div class="item-title-row">
                   <span class="item-title">{{ item.title }}</span>
-                  <span
-                    v-if="!item.isRead"
-                    class="unread-dot"
-                    aria-label="未读"
-                  />
+                  <span v-if="!item.isRead" class="unread-dot" aria-label="未读" />
                 </div>
                 <p class="item-message">{{ item.message }}</p>
                 <span class="item-time">{{ formatTime(item.createdAt) }}</span>
@@ -265,35 +227,19 @@ onMounted(() => {
           </div>
 
           <!-- 空状态 -->
-          <div
-            v-else
-            class="notification-empty"
-          >
-            <Bell
-              :size="32"
-              class="empty-icon"
-              aria-hidden="true"
-            />
+          <div v-else class="notification-empty">
+            <Bell :size="32" class="empty-icon" aria-hidden="true" />
             <span class="empty-text">{{ t('notification.noData') }}</span>
           </div>
         </YdScrollArea>
 
         <!-- 底部操作栏 -->
         <div class="notification-footer">
-          <YdButton
-            size="sm"
-            variant="ghost"
-            class="footer-settings"
-            @click="handleOpenSettings"
-          >
+          <YdButton size="sm" variant="ghost" class="footer-settings" @click="handleOpenSettings">
             <Settings :size="14" class="footer-settings-icon" />
             {{ t('notification.settings') }}
           </YdButton>
-          <YdButton
-            size="sm"
-            variant="default"
-            @click="handleViewAll"
-          >
+          <YdButton size="sm" variant="default" @click="handleViewAll">
             {{ t('notification.viewAll') }}
             <ArrowRight :size="14" class="footer-view-all-icon" />
           </YdButton>

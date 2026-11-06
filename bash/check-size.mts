@@ -88,7 +88,9 @@ interface SizeReport {
 function isWebAppDir(absDir: string): boolean {
   try {
     const pkg = JSON.parse(readFileSync(join(absDir, 'package.json'), 'utf8'));
-    return typeof pkg.name === 'string' && pkg.name.startsWith('@ydsz/') && pkg.name.endsWith('-web');
+    return (
+      typeof pkg.name === 'string' && pkg.name.startsWith('@ydsz/') && pkg.name.endsWith('-web')
+    );
   } catch {
     return false;
   }
@@ -138,7 +140,12 @@ function checkAll(config: BudgetConfig, root: string): SizeReport {
       report.emptyDist.push(relDir);
       continue;
     }
-    report.rows.push({ name: displayName(target, relDir), relDir, measure, violations: budgetViolations(target, measure) });
+    report.rows.push({
+      name: displayName(target, relDir),
+      relDir,
+      measure,
+      violations: budgetViolations(target, measure),
+    });
   }
   return report;
 }
@@ -201,7 +208,9 @@ function printReport(config: BudgetConfig, root: string): number {
   }
 
   if (failures > 0) {
-    console.error(`\n[check:size] ${failures} 项目标超限或门禁失效，请拆分 chunk / 收紧依赖；确属新基线用 pnpm check:size --report。`);
+    console.error(
+      `\n[check:size] ${failures} 项目标超限或门禁失效，请拆分 chunk / 收紧依赖；确属新基线用 pnpm check:size --report。`,
+    );
     return 1;
   }
   console.log(`[check:size] ${report.rows.length} 个应用产物均在预算内 ✓`);
@@ -216,7 +225,8 @@ function printReport(config: BudgetConfig, root: string): number {
  * @returns 预算 KB
  */
 function pickBudget(config: BudgetConfig, row: SizeRow): number {
-  const target = config.targets.find((item) => item.appDir === row.relDir) ??
+  const target =
+    config.targets.find((item) => item.appDir === row.relDir) ??
     config.targets.find((item) => row.relDir.startsWith(item.appDir.replace('/*', '/')));
   return target?.maxTotalGzipKB ?? 0;
 }
@@ -250,7 +260,9 @@ function printRatchetProposal(config: BudgetConfig, root: string): number {
       };
     });
   console.log(JSON.stringify({ version: config.version, gzip: true, targets: fragment }, null, 2));
-  console.log('\n[check:size] 用上面片段替换 conf/budget.config.json 的 targets，并按需保留 aspirationGzipKB。');
+  console.log(
+    '\n[check:size] 用上面片段替换 conf/budget.config.json 的 targets，并按需保留 aspirationGzipKB。',
+  );
   return 0;
 }
 
@@ -270,7 +282,7 @@ function printRatchetProposal(config: BudgetConfig, root: string): number {
  */
 function pseudoRandomBytes(length: number, seed: number): Buffer {
   const buffer = Buffer.alloc(length);
-  let state = (seed >>> 0) || 0x9e37_79b9;
+  let state = seed >>> 0 || 0x9e37_79b9;
   for (let index = 0; index < length; index += 1) {
     state ^= state << 13;
     state >>>= 0;
@@ -313,7 +325,13 @@ function writeSizeFixture(): string {
         maxFiles: 3,
         maxChunkGzipKB: 4,
         maxCssGzipKB: 6,
-        baseline: { measuredAt: '2026-01-01', totalGzipKB: 3, maxChunkGzipKB: 3, maxCssGzipKB: 0, jsFiles: 1 },
+        baseline: {
+          measuredAt: '2026-01-01',
+          totalGzipKB: 3,
+          maxChunkGzipKB: 3,
+          maxCssGzipKB: 0,
+          jsFiles: 1,
+        },
       },
     ],
   };
@@ -327,9 +345,15 @@ function writeSizeFixture(): string {
   }
   // 产物布局与本仓一致：dist/js、dist/css（旧实现扫 dist/assets，永远扫不到）
   mkdirSync(join(root, 'apps', 'over-web', 'dist', 'js'), { recursive: true });
-  writeFileSync(join(root, 'apps', 'over-web', 'dist', 'js', 'chunk.js'), pseudoRandomBytes(30_000, 7));
+  writeFileSync(
+    join(root, 'apps', 'over-web', 'dist', 'js', 'chunk.js'),
+    pseudoRandomBytes(30_000, 7),
+  );
   mkdirSync(join(root, 'apps', 'ok-web', 'dist', 'js'), { recursive: true });
-  writeFileSync(join(root, 'apps', 'ok-web', 'dist', 'js', 'chunk.js'), pseudoRandomBytes(1_200, 11));
+  writeFileSync(
+    join(root, 'apps', 'ok-web', 'dist', 'js', 'chunk.js'),
+    pseudoRandomBytes(1_200, 11),
+  );
   return root;
 }
 
@@ -374,13 +398,24 @@ function selfTest(): number {
     }
 
     // 5. 建议阈值必须严格高于实测，否则棘轮一提交就自锁
-    const proposal = suggestRatchet(over?.measure ?? { exists: true, measuredAt: '', totalGzipKB: 0, maxChunkGzipKB: 0, maxCssGzipKB: 0, jsFiles: 0 });
+    const proposal = suggestRatchet(
+      over?.measure ?? {
+        exists: true,
+        measuredAt: '',
+        totalGzipKB: 0,
+        maxChunkGzipKB: 0,
+        maxCssGzipKB: 0,
+        jsFiles: 0,
+      },
+    );
     if (over && !(proposal.maxChunkGzipKB > over.measure.maxChunkGzipKB)) {
       failures.push('建议棘轮阈值不大于实测值');
     }
 
     // 6. 旧 schema（无 appDir）必须被结构校验拒绝，防止配置回退成空转
-    const legacyShaped = { targets: [{ name: 'x', scope: 'apps', assetsDirPattern: 'apps/*/dist/assets' }] };
+    const legacyShaped = {
+      targets: [{ name: 'x', scope: 'apps', assetsDirPattern: 'apps/*/dist/assets' }],
+    };
     if (isBudgetConfig(legacyShaped)) {
       failures.push('缺少 appDir 的旧结构仍被判定为合法配置');
     }
@@ -405,7 +440,9 @@ function selfTest(): number {
   }
 
   if (failures.length > 0) {
-    console.error(`[check:size] 自检失败（门禁已空转，请勿合入）：\n  - ${failures.join('\n  - ')}`);
+    console.error(
+      `[check:size] 自检失败（门禁已空转，请勿合入）：\n  - ${failures.join('\n  - ')}`,
+    );
     return 1;
   }
   console.log(

@@ -8,19 +8,19 @@
  * @since 1.0.0
  */
 
-import { inject, computed } from 'vue'
+import { inject, computed } from 'vue';
 
 /** 组件密度档位 */
-export type Density = 'compact' | 'default' | 'large'
+export type Density = 'compact' | 'default' | 'large';
 
 /** useDensity 选项 */
 export interface UseDensityOptions {
   /** 组件级覆盖（优先于全局） */
-  size?: Density
+  size?: Density;
 }
 
 /** 全局密度注入 key */
-export const DENSITY_INJECTION_KEY = 'ydsz-density'
+export const DENSITY_INJECTION_KEY = 'ydsz-density';
 
 /**
  * 获取当前密度档位。
@@ -41,6 +41,6 @@ export const DENSITY_INJECTION_KEY = 'ydsz-density'
  * ```
  */
 export function useDensity(opts: UseDensityOptions = {}) {
-  const globalDensity = inject<Density>(DENSITY_INJECTION_KEY, 'default')
-  return computed(() => opts.size ?? globalDensity)
+  const globalDensity = inject<Density>(DENSITY_INJECTION_KEY, 'default');
+  return computed(() => opts.size ?? globalDensity);
 }

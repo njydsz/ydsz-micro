@@ -38,19 +38,22 @@ export function listMyKeys(): Promise<ApiKeyVO[]> {
 /**
  * revokeKeys: DELETE /apikey
  */
-export function revokeKeys(params: {
-    ids?: number[];
-  }): Promise<number> {
+export function revokeKeys(params: { ids?: number[] }): Promise<number> {
   return requestClient.delete<number>(`/apikey`, { params });
 }
 
 /**
  * updateEnabled: PUT /apikey/{id}/enabled
  */
-export function updateEnabled({ id }: {
+export function updateEnabled(
+  {
+    id,
+  }: {
     id: number;
-  }, params: {
+  },
+  params: {
     enabled?: boolean;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.put<void>(`/apikey/${id}/enabled`, { params });
 }

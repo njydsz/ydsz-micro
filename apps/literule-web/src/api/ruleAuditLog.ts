@@ -16,20 +16,23 @@ import type { AuditLogEntryVO } from './models';
 /**
  * recent: GET /literule/audit/recent
  */
-export function recent(params: {
-    limit?: number;
-  }): Promise<AuditLogEntryVO[]> {
+export function recent(params: { limit?: number }): Promise<AuditLogEntryVO[]> {
   return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/recent`, { params });
 }
 
 /**
  * byRuleCode: GET /literule/audit/by-rule/{ruleCode}
  */
-export function byRuleCode({ ruleCode }: {
+export function byRuleCode(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     limit?: number;
-  }): Promise<AuditLogEntryVO[]> {
+  },
+): Promise<AuditLogEntryVO[]> {
   return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-rule/${ruleCode}`, { params });
 }
 
@@ -37,19 +40,16 @@ export function byRuleCode({ ruleCode }: {
  * byOperator: GET /literule/audit/by-operator
  */
 export function byOperator(params: {
-    operator?: string;
-    limit?: number;
-  }): Promise<AuditLogEntryVO[]> {
+  operator?: string;
+  limit?: number;
+}): Promise<AuditLogEntryVO[]> {
   return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-operator`, { params });
 }
 
 /**
  * byAction: GET /literule/audit/by-action
  */
-export function byAction(params: {
-    action?: string;
-    limit?: number;
-  }): Promise<AuditLogEntryVO[]> {
+export function byAction(params: { action?: string; limit?: number }): Promise<AuditLogEntryVO[]> {
   return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-action`, { params });
 }
 
@@ -57,9 +57,9 @@ export function byAction(params: {
  * byTimeRange: GET /literule/audit/by-time-range
  */
 export function byTimeRange(params: {
-    startTime?: string;
-    endTime?: string;
-    limit?: number;
-  }): Promise<AuditLogEntryVO[]> {
+  startTime?: string;
+  endTime?: string;
+  limit?: number;
+}): Promise<AuditLogEntryVO[]> {
   return requestClient.get<AuditLogEntryVO[]>(`/literule/audit/by-time-range`, { params });
 }

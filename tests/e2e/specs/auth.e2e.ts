@@ -60,7 +60,9 @@ test.describe('登录流程冒烟', () => {
     await gotoLogin(page);
 
     // 账号输入框可见
-    await expect(page.locator(LOCAL_SELECTORS.usernameInput).first()).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator(LOCAL_SELECTORS.usernameInput).first()).toBeVisible({
+      timeout: 10_000,
+    });
 
     // 密码输入框可见
     await expect(page.locator(LOCAL_SELECTORS.passwordInput).first()).toBeVisible();
@@ -71,10 +73,13 @@ test.describe('登录流程冒烟', () => {
       .locator('[class*="slider-captcha"], [class*="captcha"]')
       .first();
     const captchaByLabel = page
-      .locator(`${LOCAL_SELECTORS.loginForm} label:has-text("验证码"), ${LOCAL_SELECTORS.loginForm} label:has-text("验证")`)
+      .locator(
+        `${LOCAL_SELECTORS.loginForm} label:has-text("验证码"), ${LOCAL_SELECTORS.loginForm} label:has-text("验证")`,
+      )
       .first();
-    const hasCaptcha = await captcha.isVisible({ timeout: 3_000 }).catch(() => false)
-      || await captchaByLabel.isVisible({ timeout: 100 }).catch(() => false);
+    const hasCaptcha =
+      (await captcha.isVisible({ timeout: 3_000 }).catch(() => false)) ||
+      (await captchaByLabel.isVisible({ timeout: 100 }).catch(() => false));
     expect(typeof hasCaptcha).toBe('boolean');
   });
 
@@ -82,7 +87,9 @@ test.describe('登录流程冒烟', () => {
     await gotoLogin(page);
 
     // 等待页面就绪
-    await expect(page.locator(LOCAL_SELECTORS.usernameInput).first()).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator(LOCAL_SELECTORS.usernameInput).first()).toBeVisible({
+      timeout: 10_000,
+    });
 
     // 直接点击登录按钮（不填任何字段）
     const submitBtn = page.locator(LOCAL_SELECTORS.submitButton).first();

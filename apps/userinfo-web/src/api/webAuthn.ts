@@ -17,23 +17,30 @@ import type { LoginVO, WebAuthnCredentialVO } from './models';
  * getPasskeyRegistrationOptions: GET /webauthn/passkey/registration/options
  */
 export function getPasskeyRegistrationOptions(params: {
-    username?: string;
-    displayName?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/passkey/registration/options`, { params });
+  username?: string;
+  displayName?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/webauthn/passkey/registration/options`,
+    { params },
+  );
 }
 
 /**
  * getPasskeyAuthenticationOptions: GET /webauthn/passkey/options
  */
-export function getPasskeyAuthenticationOptions(): Promise<Record<string, Record<string, unknown>>> {
+export function getPasskeyAuthenticationOptions(): Promise<
+  Record<string, Record<string, unknown>>
+> {
   return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/passkey/options`);
 }
 
 /**
  * verifyPasskeyAuthentication: POST /webauthn/passkey/verify
  */
-export function verifyPasskeyAuthentication(data: Record<string, Record<string, unknown>>): Promise<LoginVO> {
+export function verifyPasskeyAuthentication(
+  data: Record<string, Record<string, unknown>>,
+): Promise<LoginVO> {
   return requestClient.post<LoginVO>(`/webauthn/passkey/verify`, data);
 }
 
@@ -41,10 +48,13 @@ export function verifyPasskeyAuthentication(data: Record<string, Record<string, 
  * getRegistrationOptions: GET /webauthn/registration/options
  */
 export function getRegistrationOptions(params: {
-    username?: string;
-    displayName?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/registration/options`, { params });
+  username?: string;
+  displayName?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/webauthn/registration/options`,
+    { params },
+  );
 }
 
 /**
@@ -58,15 +68,20 @@ export function verifyRegistration(data: Record<string, Record<string, unknown>>
  * getAuthenticationOptions: GET /webauthn/authentication/options
  */
 export function getAuthenticationOptions(params: {
-    userId?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/webauthn/authentication/options`, { params });
+  userId?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(
+    `/webauthn/authentication/options`,
+    { params },
+  );
 }
 
 /**
  * verifyAuthentication: POST /webauthn/authentication/verify
  */
-export function verifyAuthentication(data: Record<string, Record<string, unknown>>): Promise<LoginVO> {
+export function verifyAuthentication(
+  data: Record<string, Record<string, unknown>>,
+): Promise<LoginVO> {
   return requestClient.post<LoginVO>(`/webauthn/authentication/verify`, data);
 }
 
@@ -80,8 +95,6 @@ export function listCredentials(): Promise<WebAuthnCredentialVO[]> {
 /**
  * deleteCredential: DELETE /webauthn/credentials/{credentialId}
  */
-export function deleteCredential({ credentialId }: {
-    credentialId: string;
-  }): Promise<void> {
+export function deleteCredential({ credentialId }: { credentialId: string }): Promise<void> {
   return requestClient.delete<void>(`/webauthn/credentials/${credentialId}`);
 }

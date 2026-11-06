@@ -69,7 +69,9 @@ function onLifecycleEvent(event: Event) {
     visible.value = true;
     showLabel.value = true;
     // 错误态停留 3s 后淡出
-    hideTimer = setTimeout(() => { hide(); }, 3000);
+    hideTimer = setTimeout(() => {
+      hide();
+    }, 3000);
     return;
   }
 
@@ -87,7 +89,9 @@ function onLifecycleEvent(event: Event) {
 
   if (eventName === 'micro-kernel:after-mount') {
     // 完成态停留 600ms 后淡出
-    hideTimer = setTimeout(() => { hide(); }, 600);
+    hideTimer = setTimeout(() => {
+      hide();
+    }, 600);
   }
 }
 
@@ -137,7 +141,13 @@ onUnmounted(() => {
     >
       <div class="bar" :style="{ width: `${progress}%` }" />
       <span v-if="showLabel" class="label">
-        <YdIcon :icon="hasError ? 'lucide:alert-circle' : 'lucide:loader-2'" width="12" height="12" class="icon" :class="{ spinning: !hasError }" />
+        <YdIcon
+          :icon="hasError ? 'lucide:alert-circle' : 'lucide:loader-2'"
+          width="12"
+          height="12"
+          class="icon"
+          :class="{ spinning: !hasError }"
+        />
         {{ labelText }}
       </span>
     </div>
@@ -195,14 +205,24 @@ onUnmounted(() => {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* 淡入淡出 */
-.subapp-progress-enter-active { transition: opacity 0.2s ease; }
-.subapp-progress-leave-active { transition: opacity 0.3s ease; }
+.subapp-progress-enter-active {
+  transition: opacity 0.2s ease;
+}
+.subapp-progress-leave-active {
+  transition: opacity 0.3s ease;
+}
 
 .subapp-progress-enter-from,
-.subapp-progress-leave-to { opacity: 0; }
+.subapp-progress-leave-to {
+  opacity: 0;
+}
 </style>

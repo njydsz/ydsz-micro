@@ -24,7 +24,7 @@ import { YdszUiResolver } from './resolver';
  * @return 组件解析器对象
  */
 function componentResolver(): ComponentResolverObject {
-  const resolver = YdszUiResolver().find(item => item.type === 'component');
+  const resolver = YdszUiResolver().find((item) => item.type === 'component');
   if (!resolver || resolver.type !== 'component') {
     throw new Error('YdszUiResolver 未返回 component 解析器');
   }
@@ -46,7 +46,7 @@ describe('YdszUiResolver 组件解析', () => {
   });
 
   it('名册内的每一个名字都应命中', () => {
-    const unresolved = YDSZ_UI_COMPONENT_NAMES.filter(name => !resolver.resolve(name, ''));
+    const unresolved = YDSZ_UI_COMPONENT_NAMES.filter((name) => !resolver.resolve(name, ''));
     expect(unresolved).toEqual([]);
   });
 
@@ -71,8 +71,10 @@ describe('YdszUiResolver 指令解析', () => {
    * @param options - 传给 YdszUiResolver 的配置
    * @returns 指令解析器的 resolve 函数
    */
-  function resolveDirective(options: Parameters<typeof YdszUiResolver>[0] = {}): (name: string) => unknown {
-    const directive = YdszUiResolver(options).find(item => item.type === 'directive');
+  function resolveDirective(
+    options: Parameters<typeof YdszUiResolver>[0] = {},
+  ): (name: string) => unknown {
+    const directive = YdszUiResolver(options).find((item) => item.type === 'directive');
     if (!directive || directive.type !== 'directive') {
       throw new Error('YdszUiResolver 未返回 directive 解析器');
     }
@@ -100,6 +102,8 @@ describe('YdszUiResolver 指令解析', () => {
   });
 
   it('directives=false 时不应注册指令解析器', () => {
-    expect(YdszUiResolver({ directives: false }).some(item => item.type === 'directive')).toBe(false);
+    expect(YdszUiResolver({ directives: false }).some((item) => item.type === 'directive')).toBe(
+      false,
+    );
   });
 });

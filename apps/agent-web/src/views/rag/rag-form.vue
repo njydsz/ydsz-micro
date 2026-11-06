@@ -53,13 +53,21 @@ const [Modal, modalApi] = useYdModal({
       showToast.success('导入成功');
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 </script>
 <template>
   <Modal title="导入文档">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem label="文档ID" prop="documentId">
         <YdInput v-model="formData.documentId" placeholder="请输入文档ID（可选）" />
       </YdFormItem>
@@ -70,7 +78,12 @@ const [Modal, modalApi] = useYdModal({
         <YdInput v-model="formData.source" placeholder="请输入来源（可选）" />
       </YdFormItem>
       <YdFormItem label="文档内容" prop="content">
-        <YdInput v-model="formData.content" type="textarea" :rows="6" placeholder="请输入文档内容" />
+        <YdInput
+          v-model="formData.content"
+          type="textarea"
+          :rows="6"
+          placeholder="请输入文档内容"
+        />
       </YdFormItem>
     </YdForm>
   </Modal>

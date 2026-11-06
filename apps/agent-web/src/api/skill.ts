@@ -30,9 +30,7 @@ export function listSkills(): Promise<Record<string, unknown>[]> {
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function getSkillDetail({ skillCode }: {
-    skillCode: string;
-  }): Promise<unknown> {
+export function getSkillDetail({ skillCode }: { skillCode: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/agent/skill/${skillCode}`);
 }
 

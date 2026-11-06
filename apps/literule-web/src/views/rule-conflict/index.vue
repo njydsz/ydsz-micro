@@ -19,7 +19,16 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdButton, YdCard, YdEmptyState, YdProgress, YdCountToAnimator, YdTable, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdEmptyState,
+  YdProgress,
+  YdCountToAnimator,
+  YdTable,
+  YdBadge,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -110,32 +119,38 @@ onMounted(() => {
     <div v-loading="loading" class="p-5">
       <!-- 顶部统计区 -->
       <YdCard shadow="never" class="mb-4">
-        <div class="flex items-center justify-between mb-4">
+        <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <span class="text-base font-semibold text-gray-700">规则冲突检测</span>
             <YdBadge v-if="lastDetectTime" type="info" size="small">
               最近检测: {{ lastDetectTime }}
             </YdBadge>
           </div>
-          <YdButton type="primary" @click="handleDetect">
-            立即检测
-          </YdButton>
+          <YdButton type="primary" @click="handleDetect"> 立即检测 </YdButton>
         </div>
 
-        <div class="grid grid-cols-3 gap-6 mb-4">
-          <div class="text-center p-5 bg-gray-50 rounded-lg">
+        <div class="mb-4 grid grid-cols-3 gap-6">
+          <div class="rounded-lg bg-gray-50 p-5 text-center">
             <YdCountToAnimator title="冲突对数" :value="totalPairs" />
           </div>
-          <div class="text-center p-5 bg-red-50 rounded-lg">
-            <YdCountToAnimator title="高严重度数" :value="highSeverityCount" value-style="color: #f56c6c" />
+          <div class="rounded-lg bg-red-50 p-5 text-center">
+            <YdCountToAnimator
+              title="高严重度数"
+              :value="highSeverityCount"
+              value-style="color: #f56c6c"
+            />
           </div>
-          <div class="text-center p-5 bg-blue-50 rounded-lg">
-            <YdCountToAnimator title="影响规则数" :value="affectedRulesCount" value-style="color: #409eff" />
+          <div class="rounded-lg bg-blue-50 p-5 text-center">
+            <YdCountToAnimator
+              title="影响规则数"
+              :value="affectedRulesCount"
+              value-style="color: #409eff"
+            />
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm text-gray-500 w-20">高严重度占比</span>
+          <span class="w-20 text-sm text-gray-500">高严重度占比</span>
           <YdProgress
             :percentage="severityPercent"
             :stroke-width="12"
@@ -177,11 +192,7 @@ onMounted(() => {
           </YdTableColumn>
         </YdTable>
 
-        <YdEmptyState
-          v-else
-          description="未检测到规则冲突，规则集运行良好"
-          image-size="120"
-        />
+        <YdEmptyState v-else description="未检测到规则冲突，规则集运行良好" image-size="120" />
       </YdCard>
     </div>
   </Page>

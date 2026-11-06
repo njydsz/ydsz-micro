@@ -70,7 +70,9 @@ async function buildFile(srcRel, destRel) {
       const message = typeof d.messageText === 'string' ? d.messageText : d.messageText.messageText;
       if (d.file && d.start) {
         const { line, character } = d.file.getLineAndCharacterOfPosition(d.start);
-        console.error(`  ${relative(root, d.file.fileName)}(${line + 1},${character + 1}): ${message}`);
+        console.error(
+          `  ${relative(root, d.file.fileName)}(${line + 1},${character + 1}): ${message}`,
+        );
       } else {
         console.error(`  ${message}`);
       }

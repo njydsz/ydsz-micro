@@ -14,7 +14,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * invoke: POST /agent/prompt/playground/invoke
  *

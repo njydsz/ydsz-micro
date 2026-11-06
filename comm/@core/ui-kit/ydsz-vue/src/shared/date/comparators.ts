@@ -1,17 +1,24 @@
 /*
-  * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
-*/
+ * Implementation ported from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/utils.ts
+ */
 
-import { CalendarDate, CalendarDateTime, DateFormatter, type DateValue, createCalendar, toCalendar } from '@internationalized/date'
+import {
+  CalendarDate,
+  CalendarDateTime,
+  DateFormatter,
+  type DateValue,
+  createCalendar,
+  toCalendar,
+} from '@internationalized/date';
 
-export type Granularity = 'day' | 'hour' | 'minute' | 'second'
+export type Granularity = 'day' | 'hour' | 'minute' | 'second';
 
 type GetDefaultDateProps = {
-  defaultValue?: DateValue | DateValue[] | undefined
-  defaultPlaceholder?: DateValue | undefined
-  granularity?: Granularity
-  locale?: string
-}
+  defaultValue?: DateValue | DateValue[] | undefined;
+  defaultPlaceholder?: DateValue | undefined;
+  granularity?: Granularity;
+  locale?: string;
+};
 
 /**
  * A helper function used throughout the various date builders
@@ -24,28 +31,25 @@ type GetDefaultDateProps = {
  *
  */
 export function getDefaultDate(props: GetDefaultDateProps): DateValue {
-  const { defaultValue, defaultPlaceholder, granularity = 'day', locale = 'en' } = props
+  const { defaultValue, defaultPlaceholder, granularity = 'day', locale = 'en' } = props;
 
-  if (Array.isArray(defaultValue) && defaultValue.length)
-    return defaultValue.at(-1)!.copy()
+  if (Array.isArray(defaultValue) && defaultValue.length) return defaultValue.at(-1)!.copy();
 
-  if (defaultValue && !Array.isArray(defaultValue))
-    return defaultValue.copy()
+  if (defaultValue && !Array.isArray(defaultValue)) return defaultValue.copy();
 
-  if (defaultPlaceholder)
-    return defaultPlaceholder.copy()
+  if (defaultPlaceholder) return defaultPlaceholder.copy();
 
-  const date = new Date()
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const calendarDateTimeGranularities = ['hour', 'minute', 'second']
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const calendarDateTimeGranularities = ['hour', 'minute', 'second'];
 
-  const defaultFormatter = new DateFormatter(locale)
-  const calendar = createCalendar(defaultFormatter.resolvedOptions().calendar)
+  const defaultFormatter = new DateFormatter(locale);
+  const calendar = createCalendar(defaultFormatter.resolvedOptions().calendar);
 
   if (calendarDateTimeGranularities.includes(granularity ?? 'day'))
-    return toCalendar(new CalendarDateTime(year, month, day, 0, 0, 0), calendar)
+    return toCalendar(new CalendarDateTime(year, month, day, 0, 0, 0), calendar);
 
-  return toCalendar(new CalendarDate(year, month, day), calendar)
+  return toCalendar(new CalendarDate(year, month, day), calendar);
 }

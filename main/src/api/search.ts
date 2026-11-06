@@ -130,10 +130,10 @@ interface HotKeyword {
 
 export async function getHotSearches(limit = 5): Promise<string[]> {
   try {
-    const response = await requestClient.get<HotKeyword[]>(
-      `${SEARCH_API_URL}/analytics/hot`,
-      { params: { limit }, timeout: REQUEST_TIMEOUT_MS },
-    );
+    const response = await requestClient.get<HotKeyword[]>(`${SEARCH_API_URL}/analytics/hot`, {
+      params: { limit },
+      timeout: REQUEST_TIMEOUT_MS,
+    });
     return response.map((item) => item.keyword);
   } catch {
     return [];
@@ -150,10 +150,10 @@ export async function getHotSearches(limit = 5): Promise<string[]> {
  */
 export async function getSearchHistory(limit = 20): Promise<string[]> {
   try {
-    const response = await requestClient.get<string[]>(
-      `${SEARCH_API_URL}/history`,
-      { params: { limit }, timeout: REQUEST_TIMEOUT_MS },
-    );
+    const response = await requestClient.get<string[]>(`${SEARCH_API_URL}/history`, {
+      params: { limit },
+      timeout: REQUEST_TIMEOUT_MS,
+    });
     return response;
   } catch {
     return [];

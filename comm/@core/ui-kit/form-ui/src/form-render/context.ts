@@ -40,13 +40,10 @@ export const useFormContext = () => {
   const isVertical = computed(() => formRenderProps.layout === 'vertical');
 
   const componentMap = computed(() => formRenderProps.componentMap);
-  const componentBindEventMap = computed(
-    () => formRenderProps.componentBindEventMap,
-  );
+  const componentBindEventMap = computed(() => formRenderProps.componentBindEventMap);
   return {
     componentBindEventMap,
     componentMap,
     isVertical,
   };
 };
-

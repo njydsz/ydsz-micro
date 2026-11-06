@@ -17,7 +17,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { YdBadge, YdButton, YdEmptyState } from '@ydsz-core/ydsz-ui';
@@ -102,10 +102,8 @@ const gridOptions: VxeTableGridOptions<PromptTemplateVO> = {
               { size: 'sm', variant: 'link', onClick: () => handleTest(row) },
               () => '测试',
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleToggle(row) },
-              () => (row.enabled ? '停用' : '启用'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleToggle(row) }, () =>
+              row.enabled ? '停用' : '启用',
             ),
             h(
               YdButton,
@@ -227,11 +225,7 @@ function handleToggle(row: PromptTemplateVO): void {
 /** 删除模板 */
 async function handleDelete(row: PromptTemplateVO): Promise<void> {
   try {
-    await YdConfirm(
-      `确定删除模板「${row.templateName}」吗？`,
-      '删除确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定删除模板「${row.templateName}」吗？`, '删除确认', { type: 'warning' });
     promptList.value = promptList.value.filter((t) => t.id !== row.id);
     showToast.success('删除成功');
     gridApi.query();
@@ -248,7 +242,10 @@ async function handleDelete(row: PromptTemplateVO): Promise<void> {
         <YdButton @click="handleAdd">新增模板</YdButton>
       </template>
       <template #empty>
-        <YdEmptyState title="暂无 Prompt 模板" description="点击「新增模板」创建你的第一个 Prompt 模板">
+        <YdEmptyState
+          title="暂无 Prompt 模板"
+          description="点击「新增模板」创建你的第一个 Prompt 模板"
+        >
           <YdButton @click="handleAdd">新增模板</YdButton>
         </YdEmptyState>
       </template>

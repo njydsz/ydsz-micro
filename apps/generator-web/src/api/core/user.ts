@@ -5,6 +5,4 @@
  *
  * @path apps/generator-web/src/api/core/user.ts
  */
-export {
-  getUserInfoApi,
-} from '@ydsz/shared-auth/auth-api';
+export { getUserInfoApi } from '@ydsz/shared-auth/auth-api';

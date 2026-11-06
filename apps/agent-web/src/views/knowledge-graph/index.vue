@@ -186,7 +186,9 @@ async function loadSubgraph(entityId: string): Promise<void> {
       const nodesRaw = d.nodes;
       const relationsRaw = d.relations;
       graphNodes.value = (Array.isArray(nodesRaw) ? nodesRaw : []) as unknown as GraphNode[];
-      graphRelations.value = (Array.isArray(relationsRaw) ? relationsRaw : []) as unknown as GraphRelation[];
+      graphRelations.value = (Array.isArray(relationsRaw)
+        ? relationsRaw
+        : []) as unknown as GraphRelation[];
     } else {
       graphNodes.value = [];
       graphRelations.value = [];
@@ -240,7 +242,7 @@ function handleUploadSuccess(): void {
  * 文件上传失败
  */
 function handleUploadError(error: unknown): void {
-  ingestError.value = (error as Error)?.message || (t('knowledgeGraph.ingest.failed') || '摄取失败');
+  ingestError.value = (error as Error)?.message || t('knowledgeGraph.ingest.failed') || '摄取失败';
   showToast.error(ingestError.value);
 }
 
@@ -269,10 +271,26 @@ async function handleIngest(): Promise<void> {
 
 // 统计卡片数据
 const statCards = computed(() => [
-  { label: t('knowledgeGraph.stats.totalEntities') || '实体总数', value: graphStats.value.totalEntities ?? graphStats.value.entityCount ?? 0, color: 'primary' },
-  { label: t('knowledgeGraph.stats.totalRelations') || '关系总数', value: graphStats.value.totalRelations ?? graphStats.value.relationCount ?? 0, color: 'purple' },
-  { label: t('knowledgeGraph.stats.entityTypes') || '实体类型数', value: graphStats.value.entityTypes ?? graphStats.value.typeCount ?? 0, color: 'blue' },
-  { label: t('knowledgeGraph.stats.ingestJobs') || '摄取任务数', value: graphStats.value.ingestJobs ?? graphStats.value.jobCount ?? 0, color: 'green' },
+  {
+    label: t('knowledgeGraph.stats.totalEntities') || '实体总数',
+    value: graphStats.value.totalEntities ?? graphStats.value.entityCount ?? 0,
+    color: 'primary',
+  },
+  {
+    label: t('knowledgeGraph.stats.totalRelations') || '关系总数',
+    value: graphStats.value.totalRelations ?? graphStats.value.relationCount ?? 0,
+    color: 'purple',
+  },
+  {
+    label: t('knowledgeGraph.stats.entityTypes') || '实体类型数',
+    value: graphStats.value.entityTypes ?? graphStats.value.typeCount ?? 0,
+    color: 'blue',
+  },
+  {
+    label: t('knowledgeGraph.stats.ingestJobs') || '摄取任务数',
+    value: graphStats.value.ingestJobs ?? graphStats.value.jobCount ?? 0,
+    color: 'green',
+  },
 ]);
 
 // 类型分布饼图数据
@@ -293,23 +311,17 @@ const typeDistData = computed(() => {
     <div class="space-y-4">
       <!-- 页面标题 -->
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-text-primary">
+        <h2 class="text-text-primary text-lg font-semibold">
           {{ $t('knowledgeGraph.title') || '知识图谱管理' }}
         </h2>
-        <YdButton
-          v-if="activeTab === 'stats'"
-          @click="loadStats"
-        >
+        <YdButton v-if="activeTab === 'stats'" @click="loadStats">
           <RefreshCw :size="14" />
           {{ $t('common.refresh') || '刷新' }}
         </YdButton>
       </div>
 
       <!-- Tab 切换 -->
-      <YdTabs
-        v-model="activeTab"
-        @update:model-value="handleTabChange"
-      >
+      <YdTabs v-model="activeTab" @update:model-value="handleTabChange">
         <YdTabsList>
           <YdTabsTrigger value="search">
             {{ $t('knowledgeGraph.tab.search') || '实体搜索' }}
@@ -341,11 +353,11 @@ const typeDistData = computed(() => {
                   <Search :size="14" class="text-gray-400" />
                 </template>
               </YdInput>
-              <YdSelect
-                v-model="selectedType"
-              >
+              <YdSelect v-model="selectedType">
                 <YdSelectTrigger class="w-44">
-                  <YdSelectValue :placeholder="$t('knowledgeGraph.search.entityType') || '实体类型'" />
+                  <YdSelectValue
+                    :placeholder="$t('knowledgeGraph.search.entityType') || '实体类型'"
+                  />
                 </YdSelectTrigger>
                 <YdSelectContent>
                   <YdSelectItem
@@ -357,10 +369,7 @@ const typeDistData = computed(() => {
                   </YdSelectItem>
                 </YdSelectContent>
               </YdSelect>
-              <YdButton
-                :loading="searchLoading"
-                @click="handleSearch"
-              >
+              <YdButton :loading="searchLoading" @click="handleSearch">
                 <Search v-if="!searchLoading" :size="14" />
                 {{ $t('common.search') || '搜索' }}
               </YdButton>
@@ -376,11 +385,7 @@ const typeDistData = computed(() => {
                     title=""
                   />
                 </template>
-                <YdTable
-                  v-else
-                  :data="searchResults"
-                  stripe
-                >
+                <YdTable v-else :data="searchResults" stripe>
                   <YdTableColumn
                     prop="entityId"
                     :label="$t('knowledgeGraph.search.entityId') || 'EntityID'"
@@ -419,11 +424,7 @@ const typeDistData = computed(() => {
                     fixed="right"
                   >
                     <template #default="{ row }">
-                      <YdButton
-                        variant="link"
-                        size="sm"
-                        @click="handleViewDetail(row)"
-                      >
+                      <YdButton variant="link" size="sm" @click="handleViewDetail(row)">
                         <Eye :size="14" />
                         {{ $t('common.view') || '查看' }}
                       </YdButton>
@@ -458,23 +459,15 @@ const typeDistData = computed(() => {
           <div class="space-y-4 pt-4">
             <!-- 统计卡片 -->
             <div class="grid grid-cols-4 gap-4">
-              <YdCard
-                v-for="card in statCards"
-                :key="card.label"
-              >
+              <YdCard v-for="card in statCards" :key="card.label">
                 <YdCardContent class="stat-card">
-                  <YdStatistic
-                    :value="card.value"
-                    :title="card.label"
-                  />
+                  <YdStatistic :value="card.value" :title="card.label" />
                 </YdCardContent>
               </YdCard>
             </div>
 
             <!-- 空态 -->
-            <YdCard
-              v-if="!statsLoading && Object.keys(graphStats).length === 0"
-            >
+            <YdCard v-if="!statsLoading && Object.keys(graphStats).length === 0">
               <YdCardContent>
                 <YdEmptyState
                   :description="$t('knowledgeGraph.stats.noData') || '暂无统计数据'"
@@ -493,26 +486,38 @@ const typeDistData = computed(() => {
               <YdCardContent>
                 <div class="space-y-4">
                   <!-- 描述文字 -->
-                  <p class="text-sm text-text-secondary">
-                    {{ $t('knowledgeGraph.ingest.description') || '上传结构化数据文件（JSON/JSONL/CSV）以导入知识图谱。' }}
+                  <p class="text-text-secondary text-sm">
+                    {{
+                      $t('knowledgeGraph.ingest.description') ||
+                      '上传结构化数据文件（JSON/JSONL/CSV）以导入知识图谱。'
+                    }}
                   </p>
 
                   <!-- 文件上传区域（自定义拖拽） -->
                   <div
-                    class="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-8 transition-colors hover:border-brand-500"
+                    class="hover:border-brand-500 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-8 transition-colors"
                     @dragover.prevent
-                    @drop.prevent="handleBeforeUpload(($event.dataTransfer?.files?.[0] as { name: string }) ?? { name: '' })"
+                    @drop.prevent="
+                      handleBeforeUpload(
+                        ($event.dataTransfer?.files?.[0] as { name: string }) ?? { name: '' },
+                      )
+                    "
                   >
                     <Upload :size="48" class="text-gray-400" />
-                    <p class="mt-2 text-sm text-text-secondary">
+                    <p class="text-text-secondary mt-2 text-sm">
                       {{ $t('knowledgeGraph.ingest.dragText') || '拖拽文件到此处或' }}
-                      <label class="cursor-pointer text-brand-500 hover:text-brand-600">
+                      <label class="text-brand-500 hover:text-brand-600 cursor-pointer">
                         {{ $t('knowledgeGraph.ingest.clickText') || '点击上传' }}
                         <input
                           type="file"
                           accept=".json,.jsonl,.csv"
                           class="hidden"
-                          @change="handleBeforeUpload(($event.target as HTMLInputElement)?.files?.[0] ?? { name: '' }); handleIngest()"
+                          @change="
+                            handleBeforeUpload(
+                              ($event.target as HTMLInputElement)?.files?.[0] ?? { name: '' },
+                            );
+                            handleIngest();
+                          "
                         />
                       </label>
                     </p>
@@ -522,16 +527,11 @@ const typeDistData = computed(() => {
                   </div>
 
                   <!-- 上传中进度 -->
-                  <div
-                    v-if="ingestLoading || ingestProgress > 0"
-                    class="space-y-2"
-                  >
-                    <p class="text-sm text-text-secondary">
+                  <div v-if="ingestLoading || ingestProgress > 0" class="space-y-2">
+                    <p class="text-text-secondary text-sm">
                       {{ ingestFileName }}
                     </p>
-                    <YdProgress
-                      :percentage="ingestProgress"
-                    />
+                    <YdProgress :percentage="ingestProgress" />
                   </div>
 
                   <!-- 结果提示 -->

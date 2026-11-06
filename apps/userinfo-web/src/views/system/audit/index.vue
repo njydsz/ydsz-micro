@@ -72,7 +72,22 @@ const gridOptions: VxeGridProps<AlertRow> = {
         default: ({ row }) => {
           const alertType = row.alertType ?? '';
           const config = ALERT_TYPE_MAP[alertType] ?? { label: alertType, type: 'info' };
-          return h(YdBadge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
+          return h(
+            YdBadge,
+            {
+              variant:
+                config.type === 'danger'
+                  ? 'destructive'
+                  : config.type === 'warning'
+                    ? 'outline'
+                    : 'secondary',
+              class:
+                config.type === 'warning'
+                  ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                  : 'text-xs',
+            },
+            () => config.label,
+          );
         },
       },
     },
@@ -81,17 +96,38 @@ const gridOptions: VxeGridProps<AlertRow> = {
       title: '类型编码',
       width: 140,
       slots: {
-        default: ({ row }) => h('span', { class: 'font-mono text-xs text-gray-500' }, row.alertType ?? '-'),
+        default: ({ row }) =>
+          h('span', { class: 'font-mono text-xs text-gray-500' }, row.alertType ?? '-'),
       },
     },
     {
-      field: 'action', title: '操作', width: 180, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 180,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) }, () => '确认'),
-            h(YdButton, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(row) }, () => '解决'),
-            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) }, () => '忽略'),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) },
+              () => '确认',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-green-500 text-green-600 dark:text-green-400',
+                onClick: () => handleResolve(row),
+              },
+              () => '解决',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) },
+              () => '忽略',
+            ),
           ]),
       },
     },
@@ -126,7 +162,9 @@ async function handleAcknowledge(row: AlertRow): Promise<void> {
     showToast.success('确认成功');
     gridApi.query();
     loadPendingCount();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 
 /** 解决告警 */
@@ -136,7 +174,9 @@ async function handleResolve(row: AlertRow): Promise<void> {
     showToast.success('解决成功');
     gridApi.query();
     loadPendingCount();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 
 /** 忽略告警 */
@@ -146,7 +186,9 @@ async function handleIgnore(row: AlertRow): Promise<void> {
     showToast.success('忽略成功');
     gridApi.query();
     loadPendingCount();
-  } catch { /* 错误提示由请求拦截器统一处理 */ }
+  } catch {
+    /* 错误提示由请求拦截器统一处理 */
+  }
 }
 
 onMounted(() => {
@@ -167,7 +209,16 @@ onMounted(() => {
 
     <Grid table-title="操作审计日志">
       <template #toolbar-tools>
-        <YdButton variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButton>
+        <YdButton
+          variant="default"
+          @click="
+            () => {
+              gridApi.query();
+              loadPendingCount();
+            }
+          "
+          >刷新</YdButton
+        >
       </template>
     </Grid>
   </Page>

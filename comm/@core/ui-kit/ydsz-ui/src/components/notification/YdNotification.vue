@@ -16,13 +16,7 @@
 <script lang="ts" setup>
 import type { Component } from 'vue';
 
-import {
-  AlertCircle,
-  CheckCircle2,
-  Info,
-  type LucideIcon,
-  X,
-} from 'lucide-vue-next';
+import { AlertCircle, CheckCircle2, Info, type LucideIcon, X } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
@@ -75,7 +69,7 @@ const currentIcon = computed<Component>(() => props.icon ?? iconMap[props.type ?
 
 const containerClasses = computed(() =>
   cn(
-    'pointer-events-auto flex items-start gap-3 rounded-md border-l-4 bg-background px-4 py-3 shadow-xl transition-all',
+    'bg-background pointer-events-auto flex items-start gap-3 rounded-md border-l-4 px-4 py-3 shadow-xl transition-all',
     'animate-in slide-in-from-right-full duration-300',
     borderClassMap[props.type ?? 'info'],
     props.class,
@@ -168,10 +162,10 @@ onBeforeUnmount(() => {
     </slot>
 
     <div class="flex-1">
-      <p class="text-sm font-semibold text-foreground">
+      <p class="text-foreground text-sm font-semibold">
         {{ props.message }}
       </p>
-      <p v-if="props.description" class="mt-0.5 text-xs text-muted-foreground">
+      <p v-if="props.description" class="text-muted-foreground mt-0.5 text-xs">
         {{ props.description }}
       </p>
       <slot />
@@ -179,7 +173,7 @@ onBeforeUnmount(() => {
 
     <button
       :aria-label="t('notification.closeAriaLabel')"
-      class="shrink-0 rounded p-0.5 text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      class="text-muted-foreground hover:text-foreground focus-visible:ring-ring shrink-0 rounded p-0.5 transition-colors focus:outline-none focus-visible:ring-2"
       type="button"
       @click="emit('close', props.id)"
     >

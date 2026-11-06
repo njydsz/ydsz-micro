@@ -19,7 +19,24 @@
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdAlertBanner, YdBadge, YdButton, YdCard, YdDialog, YdEmptyState, YdForm, YdFormItem, YdInput, YdSelect, YdSelectItem, YdSwitch, YdTable, YdTableColumn, YdTabs, YdTabsContent } from '@ydsz-core/ydsz-ui';
+import {
+  YdAlertBanner,
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdDialog,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelect,
+  YdSelectItem,
+  YdSwitch,
+  YdTable,
+  YdTableColumn,
+  YdTabs,
+  YdTabsContent,
+} from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { onMounted, reactive, ref, watch } from 'vue';
 
@@ -121,7 +138,12 @@ async function loadCascadingPreview(ruleCode: string): Promise<void> {
 /** ========== 操作回调 ========== */
 async function handleSearch(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
-    await YdAlert({ content: '请输入规则编码', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({
+      content: '请输入规则编码',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   addForm.ruleCode = searchRuleCode.value.trim();
@@ -130,7 +152,12 @@ async function handleSearch(): Promise<void> {
 
 async function showAddDialog(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
-    await YdAlert({ content: '请先搜索目标规则后再添加依赖', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({
+      content: '请先搜索目标规则后再添加依赖',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   addForm.ruleCode = searchRuleCode.value.trim();
@@ -143,7 +170,12 @@ async function showAddDialog(): Promise<void> {
 
 async function handleAddDependency(): Promise<void> {
   if (!addForm.dependsOnRuleCode?.trim()) {
-    await YdAlert({ content: '请选择被依赖规则', title: '提示', icon: 'warning', confirmText: '确定' });
+    await YdAlert({
+      content: '请选择被依赖规则',
+      title: '提示',
+      icon: 'warning',
+      confirmText: '确定',
+    });
     return;
   }
   try {
@@ -217,7 +249,7 @@ onMounted(() => {
 
 <template>
   <Page auto-content-height>
-    <div v-loading="loading" class=" p-5">
+    <div v-loading="loading" class="p-5">
       <!-- 搜索区 -->
       <YdCard shadow="never" class="mb-4">
         <div class="flex items-center justify-between">
@@ -229,13 +261,9 @@ onMounted(() => {
               style="width: 280px"
               @keyup.enter="handleSearch"
             />
-            <YdButton type="primary" @click="handleSearch">
-              查询
-            </YdButton>
+            <YdButton type="primary" @click="handleSearch"> 查询 </YdButton>
           </div>
-          <YdButton type="success" @click="showAddDialog">
-            添加依赖
-          </YdButton>
+          <YdButton type="success" @click="showAddDialog"> 添加依赖 </YdButton>
         </div>
       </YdCard>
 
@@ -249,7 +277,7 @@ onMounted(() => {
       >
         <template #title>
           级联禁用影响：若禁用当前规则，将同时影响
-          <strong class="text-red-500 mx-1">{{ cascadingPreview.length }}</strong>
+          <strong class="mx-1 text-red-500">{{ cascadingPreview.length }}</strong>
           条关联规则的运行
         </template>
       </YdAlertBanner>
@@ -258,12 +286,7 @@ onMounted(() => {
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <YdTabsContent label="依赖此规则的" name="dependents">
-            <YdTable
-              v-if="dependentsList.length > 0"
-              :data="dependentsList"
-              stripe
-              border
-            >
+            <YdTable v-if="dependentsList.length > 0" :data="dependentsList" stripe border>
               <YdTableColumn type="index" label="#" width="50" />
               <YdTableColumn label="规则编码" min-width="140">
                 <template #default="{ row }">
@@ -279,7 +302,9 @@ onMounted(() => {
               </YdTableColumn>
               <YdTableColumn label="级联禁用" width="100" align="center">
                 <template #default="{ row }">
-                  <span :class="row.cascadeOnDisable ? 'text-red-500 font-medium' : 'text-gray-400'">
+                  <span
+                    :class="row.cascadeOnDisable ? 'font-medium text-red-500' : 'text-gray-400'"
+                  >
                     {{ row.cascadeOnDisable ? '是' : '否' }}
                   </span>
                 </template>
@@ -291,20 +316,10 @@ onMounted(() => {
               </YdTableColumn>
               <YdTableColumn label="操作" width="180" fixed="right" align="center">
                 <template #default="{ row }">
-                  <YdButton
-                    link
-                    type="danger"
-                    size="small"
-                    @click="handleRemoveDependency(row)"
-                  >
+                  <YdButton link type="danger" size="small" @click="handleRemoveDependency(row)">
                     移除
                   </YdButton>
-                  <YdButton
-                    link
-                    type="warning"
-                    size="small"
-                    @click="handleCascadingPreview(row)"
-                  >
+                  <YdButton link type="warning" size="small" @click="handleCascadingPreview(row)">
                     级联预览
                   </YdButton>
                 </template>
@@ -314,12 +329,7 @@ onMounted(() => {
           </YdTabsContent>
 
           <YdTabsContent label="此规则依赖的" name="dependencies">
-            <YdTable
-              v-if="dependenciesList.length > 0"
-              :data="dependenciesList"
-              stripe
-              border
-            >
+            <YdTable v-if="dependenciesList.length > 0" :data="dependenciesList" stripe border>
               <YdTableColumn type="index" label="#" width="50" />
               <YdTableColumn label="被依赖规则编码" min-width="160">
                 <template #default="{ row }">
@@ -335,7 +345,9 @@ onMounted(() => {
               </YdTableColumn>
               <YdTableColumn label="级联禁用" width="100" align="center">
                 <template #default="{ row }">
-                  <span :class="row.cascadeOnDisable ? 'text-red-500 font-medium' : 'text-gray-400'">
+                  <span
+                    :class="row.cascadeOnDisable ? 'font-medium text-red-500' : 'text-gray-400'"
+                  >
                     {{ row.cascadeOnDisable ? '是' : '否' }}
                   </span>
                 </template>
@@ -347,20 +359,10 @@ onMounted(() => {
               </YdTableColumn>
               <YdTableColumn label="操作" width="180" fixed="right" align="center">
                 <template #default="{ row }">
-                  <YdButton
-                    link
-                    type="danger"
-                    size="small"
-                    @click="handleRemoveDependency(row)"
-                  >
+                  <YdButton link type="danger" size="small" @click="handleRemoveDependency(row)">
                     移除
                   </YdButton>
-                  <YdButton
-                    link
-                    type="warning"
-                    size="small"
-                    @click="handleCascadingPreview(row)"
-                  >
+                  <YdButton link type="warning" size="small" @click="handleCascadingPreview(row)">
                     级联预览
                   </YdButton>
                 </template>
@@ -380,10 +382,7 @@ onMounted(() => {
       >
         <YdForm :model="addForm" label-width="100px">
           <YdFormItem label="被依赖规则" required>
-            <YdInput
-              v-model="addForm.dependsOnRuleCode"
-              placeholder="请输入被依赖规则编码"
-            />
+            <YdInput v-model="addForm.dependsOnRuleCode" placeholder="请输入被依赖规则编码" />
           </YdFormItem>
           <YdFormItem label="依赖类型">
             <YdSelect v-model="addForm.dependencyType" style="width: 100%">
@@ -396,11 +395,7 @@ onMounted(() => {
             </YdSelect>
           </YdFormItem>
           <YdFormItem label="级联禁用">
-            <YdSwitch
-              v-model="addForm.cascadeOnDisable"
-              active-text="是"
-              inactive-text="否"
-            />
+            <YdSwitch v-model="addForm.cascadeOnDisable" active-text="是" inactive-text="否" />
           </YdFormItem>
           <YdFormItem label="描述">
             <YdInput
@@ -425,16 +420,11 @@ onMounted(() => {
         destroy-on-close
       >
         <div v-if="cascadingPreview.length > 0">
-          <p class="text-sm text-gray-500 mb-3">
+          <p class="mb-3 text-sm text-gray-500">
             禁用规则 <strong>{{ cascadeTargetCode }}</strong> 将级联影响以下规则：
           </p>
           <div class="flex flex-wrap gap-2">
-            <YdBadge
-              v-for="code in cascadingPreview"
-              :key="code"
-              type="warning"
-              effect="dark"
-            >
+            <YdBadge v-for="code in cascadingPreview" :key="code" type="warning" effect="dark">
               {{ code }}
             </YdBadge>
           </div>

@@ -15,14 +15,16 @@
 
 DevTools Bridge 默认在以下条件启用：
 
-| 条件 | 说明 |
-|------|------|
-| `import.meta.env.DEV === true` | 开发态自动启用 |
+| 条件                                                    | 说明             |
+| ------------------------------------------------------- | ---------------- |
+| `import.meta.env.DEV === true`                          | 开发态自动启用   |
 | `localStorage.getItem('micro-kernel:devtools') === '1'` | 手动在生产态启用 |
 
 在生产态临时启用，打开浏览器 Console：
+
 ```js
-localStorage.setItem('micro-kernel:devtools', '1'); location.reload();
+localStorage.setItem('micro-kernel:devtools', '1');
+location.reload();
 ```
 
 ## 🖥 功能
@@ -38,6 +40,7 @@ localStorage.setItem('micro-kernel:devtools', '1'); location.reload();
 ### DevTools Panel（F12 → Micro Kernel 标签）
 
 **4 项实时指标**
+
 - 活跃应用
 - KeepAlive 保活实例数
 - JS 内存占用
@@ -45,22 +48,25 @@ localStorage.setItem('micro-kernel:devtools', '1'); location.reload();
 
 **子应用状态列表**
 
-| 列 | 含义 |
-|----|------|
+| 列       | 含义                                                            |
+| -------- | --------------------------------------------------------------- |
 | 圆点颜色 | 状态（绿=已挂载 / 蓝=已加载 / 灰=未加载 / 黄=加载中 / 红=异常） |
-| 应用名 | 子应用名称 ★ 表示当前活跃 |
-| 状态 | NOT_LOADED / LOADING / LOADED / MOUNTED / UNMOUNTED |
-| 沙箱类型 | snapshot / proxy / iframe |
-| 耗时 | 最近一次 load 耗时（ms） |
-| 操作 | 「卸载」「重载」按钮 |
+| 应用名   | 子应用名称 ★ 表示当前活跃                                       |
+| 状态     | NOT_LOADED / LOADING / LOADED / MOUNTED / UNMOUNTED             |
+| 沙箱类型 | snapshot / proxy / iframe                                       |
+| 耗时     | 最近一次 load 耗时（ms）                                        |
+| 操作     | 「卸载」「重载」按钮                                            |
 
 **操作按钮**
+
 - `刷新` — 清除注册表缓存 + 重新拉取全量状态
 - `清缓存` — 清空浏览器 Cache Storage
 - `健康检查` — 触发 `kernel.healthCheck()` 并展示 capabilities / metrics
 
 **事件日志**
-- 自动记录 `beforeLoad / afterLoad / beforeMount / afterMount / error` 等生命周期事件
+
+- 自动记录 `beforeLoad / afterLoad / beforeMount / afterMount / error`
+  等生命周期事件
 - 最多 80 条，自动滚动
 - 可折叠
 
@@ -102,30 +108,30 @@ chrome/devtools/panel.js  ←→  chrome/popup/popup.js
 
 ### 关键消息协议
 
-| 方向 | type | 说明 |
-|------|------|------|
-| Page → Ext | `kernel:state:request` | 请求全量快照 |
-| Page → Ext | `kernel:state:response` | 全量状态（apps / activeApp / keepAlive / memory / capabilities） |
-| Page → Ext | `kernel:health:response` | 健康检查结果 |
-| Page → Ext | `lifecycle:beforeLoad/afterLoad/beforeMount/afterMount/error` | 生命周期事件 |
-| Page → Ext | `kernel:memory` | JS 内存信息 |
-| Ext → Page | `kernel:unmount` | 卸载指定应用 |
-| Ext → Page | `kernel:reload` | 重载指定应用 |
-| Ext → Page | `kernel:clear-cache` | 清缓存 |
-| Ext → Page | `kernel:health:request` | 触发健康检查 |
-| Ext → Page | `kernel:refresh-registry` | 刷新远程注册表 |
+| 方向       | type                                                          | 说明                                                             |
+| ---------- | ------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Page → Ext | `kernel:state:request`                                        | 请求全量快照                                                     |
+| Page → Ext | `kernel:state:response`                                       | 全量状态（apps / activeApp / keepAlive / memory / capabilities） |
+| Page → Ext | `kernel:health:response`                                      | 健康检查结果                                                     |
+| Page → Ext | `lifecycle:beforeLoad/afterLoad/beforeMount/afterMount/error` | 生命周期事件                                                     |
+| Page → Ext | `kernel:memory`                                               | JS 内存信息                                                      |
+| Ext → Page | `kernel:unmount`                                              | 卸载指定应用                                                     |
+| Ext → Page | `kernel:reload`                                               | 重载指定应用                                                     |
+| Ext → Page | `kernel:clear-cache`                                          | 清缓存                                                           |
+| Ext → Page | `kernel:health:request`                                       | 触发健康检查                                                     |
+| Ext → Page | `kernel:refresh-registry`                                     | 刷新远程注册表                                                   |
 
 ## 🛠 主应用侧集成点
 
 修改了以下主应用代码以支持 Extension：
 
-| 文件 | 改动 |
-|------|------|
-| `main/src/bootstrap.ts` | 导入 `enableDevToolsBridge`，在 `enableMicroDevTools()` 之后启用桥接 |
-| `main/src/monitoring/devtools-bridge.ts` | **新建** — 生命周期钩子封装、状态快照收集、Extension 命令处理 |
-| `comm/effects/micro-kernel/src/kernel.ts` | 暴露 `getAllInstances/getAppInstance/healthCheck/refreshRegistry`，挂载 `window.__MICRO_KERNEL__` |
-| `comm/effects/micro-kernel/src/index.ts` | 导出 CanaryManager、semver 工具 |
-| `comm/effects/micro-runtime/src/package.json` | 子路径 exports 追加 `./semver`、`./namespaced-state` |
+| 文件                                          | 改动                                                                                              |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `main/src/bootstrap.ts`                       | 导入 `enableDevToolsBridge`，在 `enableMicroDevTools()` 之后启用桥接                              |
+| `main/src/monitoring/devtools-bridge.ts`      | **新建** — 生命周期钩子封装、状态快照收集、Extension 命令处理                                     |
+| `comm/effects/micro-kernel/src/kernel.ts`     | 暴露 `getAllInstances/getAppInstance/healthCheck/refreshRegistry`，挂载 `window.__MICRO_KERNEL__` |
+| `comm/effects/micro-kernel/src/index.ts`      | 导出 CanaryManager、semver 工具                                                                   |
+| `comm/effects/micro-runtime/src/package.json` | 子路径 exports 追加 `./semver`、`./namespaced-state`                                              |
 
 ## 🔌 加载后可验证
 

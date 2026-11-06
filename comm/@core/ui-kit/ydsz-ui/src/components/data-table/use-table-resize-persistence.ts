@@ -11,7 +11,10 @@
 
 import { onScopeDispose } from 'vue';
 
-import { useTableColumnStorage } from '../../composables/use-table-column-storage';
+import {
+  useTableColumnStorage,
+  type StoredColumnConfig,
+} from '../../composables/use-table-column-storage';
 import { useColumnResize } from '../table/useColumnResize';
 
 /** 旧 fallback 存储 key */
@@ -36,8 +39,7 @@ export function useTableResizePersistence(storageKey?: string) {
       for (const cfg of configs) {
         if (cfg.width) {
           const parsed = Number.parseInt(cfg.width, 10);
-          if (!Number.isNaN(parsed))
-            result[cfg.key] = parsed;
+          if (!Number.isNaN(parsed)) result[cfg.key] = parsed;
         }
       }
       return result;
@@ -56,8 +58,8 @@ export function useTableResizePersistence(storageKey?: string) {
   function persistWidths(widths: Record<string, number>): void {
     if (columnStorage) {
       const existing = columnStorage.loadColumnConfig();
-      const existingMap = new Map(existing.map(c => [c.key, c]));
-      const merged = Object.entries(widths).map(([key, width]) => {
+      const existingMap = new Map(existing.map((c) => [c.key, c]));
+      const merged: StoredColumnConfig[] = Object.entries(widths).map(([key, width]) => {
         const prev = existingMap.get(key);
         return {
           fixed: prev?.fixed,
@@ -68,8 +70,7 @@ export function useTableResizePersistence(storageKey?: string) {
         };
       });
       for (const cfg of existing) {
-        if (!widths[cfg.key])
-          merged.push(cfg);
+        if (!widths[cfg.key]) merged.push(cfg);
       }
       columnStorage.saveColumnConfig(merged);
       return;

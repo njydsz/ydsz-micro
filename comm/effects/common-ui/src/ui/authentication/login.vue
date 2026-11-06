@@ -75,10 +75,7 @@ async function handleSubmit() {
   const { valid } = await formApi.validate();
   const values = await formApi.getValues();
   if (valid) {
-    localStorage.setItem(
-      REMEMBER_ME_KEY,
-      rememberMe.value ? values?.username : '',
-    );
+    localStorage.setItem(REMEMBER_ME_KEY, rememberMe.value ? values?.username : '');
     emit('submit', values);
   }
 }
@@ -117,16 +114,9 @@ defineExpose({
 
     <Form />
 
-    <div
-      v-if="showRememberMe || showForgetPassword"
-      class="mb-6 flex justify-between"
-    >
+    <div v-if="showRememberMe || showForgetPassword" class="mb-6 flex justify-between">
       <div class="flex-center">
-        <YdCheckbox
-          v-if="showRememberMe"
-          v-model:checked="rememberMe"
-          name="rememberMe"
-        >
+        <YdCheckbox v-if="showRememberMe" v-model:checked="rememberMe" name="rememberMe">
           {{ $t('authentication.rememberMe') }}
         </YdCheckbox>
       </div>
@@ -181,10 +171,7 @@ defineExpose({
     <slot name="to-register">
       <div v-if="showRegister" class="mt-3 text-center text-sm">
         {{ $t('authentication.accountTip') }}
-        <span
-          class="yd-link text-sm font-normal"
-          @click="handleGo(registerPath)"
-        >
+        <span class="yd-link text-sm font-normal" @click="handleGo(registerPath)">
           {{ $t('authentication.createAccount') }}
         </span>
       </div>

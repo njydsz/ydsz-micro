@@ -8,7 +8,7 @@
  * @since 4.0.0
  */
 
-import { STORAGE_KEYS } from "./storage-utils";
+import { STORAGE_KEYS } from './storage-utils';
 
 /** localStorage key (P0-4: 使用统一命名空间) */
 export const STORAGE_KEY = STORAGE_KEYS.ROUTE_PREDICTIONS;

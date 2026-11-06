@@ -68,10 +68,7 @@ export const useAccessStore = defineStore(
      * @returns 匹配的菜单项，未找到返回 undefined
      */
     function getMenuByPath(path: string): MenuRecordRaw | undefined {
-      function findMenu(
-        menus: MenuRecordRaw[],
-        targetPath: string,
-      ): MenuRecordRaw | undefined {
+      function findMenu(menus: MenuRecordRaw[], targetPath: string): MenuRecordRaw | undefined {
         for (const menu of menus) {
           if (menu.path === targetPath) {
             return menu;

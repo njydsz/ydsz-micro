@@ -13,8 +13,6 @@ import type { ComponentRecordType, GenerateMenuAndRoutesOptions } from '@ydsz/ty
 import { generateAccessible } from '@ydsz/access';
 import { preferences } from '@ydsz/preferences';
 
-;
-
 import { showToast } from '@ydsz/notification';
 
 import { getAllMenusApi } from '#/api';

@@ -37,7 +37,9 @@ const wrappers: Array<{ unmount: () => void }> = [];
  * @param options - 容器内容与是否归还焦点
  * @returns active 引用、容器引用与包装器
  */
-function mountTrapHost(options: { children?: () => ReturnType<typeof h>[]; restoreFocus?: boolean } = {}) {
+function mountTrapHost(
+  options: { children?: () => ReturnType<typeof h>[]; restoreFocus?: boolean } = {},
+) {
   const active = ref(false);
   const container = ref<HTMLElement>();
 
@@ -64,7 +66,10 @@ function pick(container: Ref<HTMLElement | undefined>, selector: string): HTMLEl
 }
 
 /** 激活并等待 composable 内部的 nextTick */
-async function activate(host: { active: Ref<boolean>; wrapper: { vm: { $nextTick: () => Promise<void> } } }): Promise<void> {
+async function activate(host: {
+  active: Ref<boolean>;
+  wrapper: { vm: { $nextTick: () => Promise<void> } };
+}): Promise<void> {
   host.active.value = true;
   await nextTick();
   await host.wrapper.vm.$nextTick();
@@ -73,7 +78,12 @@ async function activate(host: { active: Ref<boolean>; wrapper: { vm: { $nextTick
 
 /** 派发 Tab 键 */
 function pressTab(shiftKey = false): KeyboardEvent {
-  const event = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Tab', shiftKey });
+  const event = new KeyboardEvent('keydown', {
+    bubbles: true,
+    cancelable: true,
+    key: 'Tab',
+    shiftKey,
+  });
   document.dispatchEvent(event);
   return event;
 }

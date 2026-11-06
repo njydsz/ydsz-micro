@@ -8,9 +8,4 @@
  * @path apps\agent-web\src\api\core\auth.ts
  * @since 1.0.0
  */
-export {
-  loginApi,
-  logoutApi,
-  refreshTokenApi,
-  getAccessCodesApi,
-} from '@ydsz/shared-auth';
+export { loginApi, logoutApi, refreshTokenApi, getAccessCodesApi } from '@ydsz/shared-auth';

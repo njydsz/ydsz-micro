@@ -248,16 +248,14 @@ export const semanticTokens = {
   'shadow-raised-200': {
     category: TokenCategory.SHADOW,
     cssVar: 'shadow-raised-200',
-    defaultValue:
-      '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+    defaultValue: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
     description: '层级 2：模态弹窗',
     layer: TokenLayer.SEMANTIC,
   },
   'shadow-raised-300': {
     category: TokenCategory.SHADOW,
     cssVar: 'shadow-raised-300',
-    defaultValue:
-      '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+    defaultValue: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
     description: '层级 3：抽屉、重型浮层',
     layer: TokenLayer.SEMANTIC,
   },

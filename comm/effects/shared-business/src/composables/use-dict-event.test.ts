@@ -21,9 +21,7 @@ describe('use-dict-event', () => {
     emitDictChange('gender');
 
     expect(callback).toHaveBeenCalledTimes(1);
-    expect(callback).toHaveBeenCalledWith(
-      expect.objectContaining({ typeCode: 'gender' }),
-    );
+    expect(callback).toHaveBeenCalledWith(expect.objectContaining({ typeCode: 'gender' }));
   });
 
   it('emitDictChange 不带参数时 detail.typeCode 为 undefined', () => {
@@ -32,9 +30,7 @@ describe('use-dict-event', () => {
 
     emitDictChange();
 
-    expect(callback).toHaveBeenCalledWith(
-      expect.objectContaining({ typeCode: undefined }),
-    );
+    expect(callback).toHaveBeenCalledWith(expect.objectContaining({ typeCode: undefined }));
   });
 
   it('detail 应包含 timestamp 且为数字', () => {

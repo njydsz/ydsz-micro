@@ -350,7 +350,8 @@ export const jaJP = {
   'aiBuilder.defaultPromptPlaceholder': '作成したいページを自然言語で記述（日本語と英語の混在可）',
   'aiBuilder.exampleForm': '例：姓名・年齢・メールフィールドを持つ新規ユーザーフォームを作成',
   'aiBuilder.exampleTable': '例：ステータス絞り込みとエクスポート付きの注文一覧を作成',
-  'aiBuilder.exampleDashboard': '例：日次売上・注文数・コンバージョン率を表示する販売ダッシュボードを作成',
+  'aiBuilder.exampleDashboard':
+    '例：日次売上・注文数・コンバージョン率を表示する販売ダッシュボードを作成',
   'aiBuilder.exampleDetail': '例：基本情報と関連注文を表示する顧客詳細ページを作成',
   'aiBuilder.typeString': 'テキスト',
   'aiBuilder.typeNumber': '数値',
@@ -367,7 +368,8 @@ export const jaJP = {
 
   // ===== FormDesigner 面板数据 / AiBuilder 错误提示 / Message 关闭 =====
   'designer.paletteTitle': 'コンポーネント',
-  'designer.canvasEmptyHint': '左からコンポーネントをドラッグ、またはクリックしてフォーム設計を開始',
+  'designer.canvasEmptyHint':
+    '左からコンポーネントをドラッグ、またはクリックしてフォーム設計を開始',
   'designer.groupBasic': '基本部品',
   'designer.groupAdvanced': '高度な部品',
   'designer.groupLayout': 'レイアウト部品',
@@ -412,7 +414,7 @@ export const jaJP = {
   'dashboard.cardCount': '{count} 枚のカード',
   'dashboard.emptyEditable': '「カードを追加」をクリックしてダッシュボードの構築を始めましょう',
   'dashboard.empty': 'カードデータがまだありません',
-'dashboard.chartEmpty': 'チャートデータがありません',
+  'dashboard.chartEmpty': 'チャートデータがありません',
   'advancedFilter.toolbarAriaLabel': 'フィルターツールバー',
   'advancedFilter.removeFilter': 'フィルター {label} を削除: {value}',
   'bulkActions.selectAll': '{count} 件をすべて選択',
@@ -487,6 +489,14 @@ export const jaJP = {
   'splitter.ariaLabel': 'パネルのサイズ変更',
   'tag.close': 'タグを閉じる',
   'timeline.ariaLabel': 'タイムライン',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

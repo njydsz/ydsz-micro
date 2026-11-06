@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 /**
-* Rate 评分：通过点击星星进行评级。
-* 
+ * Rate 评分：通过点击星星进行评级。
+ *
  * 受控组件：modelValue 为当前分值（0 ~ count）。
  * 支持半星模式（allowHalf）与只读模式（readonly）。
  * 无障碍：role="radiogroup" + role="radio"，支持键盘箭头调整分值。
-* 
+ *
  * 星星填充通过两层层叠实现：底层空星 + 上层按 percentage 宽度裁剪的填充星。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\rate\YdRate.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -61,9 +61,8 @@ const starFillPercentages = computed(() => {
 
 function handleClick(index: number): void {
   if (props.readonly || props.disabled) return;
-  const nextValue = props.allowHalf && index === Math.ceil(props.modelValue ?? 0)
-    ? index - 0.5
-    : index;
+  const nextValue =
+    props.allowHalf && index === Math.ceil(props.modelValue ?? 0) ? index - 0.5 : index;
   emit('update:modelValue', nextValue === props.modelValue ? 0 : nextValue);
 }
 
@@ -102,7 +101,9 @@ function handleKeydown(event: KeyboardEvent, index: number): void {
       :class="
         cn(
           'relative',
-          props.disabled || props.readonly ? 'cursor-default' : 'cursor-pointer transition-transform hover:scale-110',
+          props.disabled || props.readonly
+            ? 'cursor-default'
+            : 'cursor-pointer transition-transform hover:scale-110',
         )
       "
       :disabled="props.disabled || props.readonly"
@@ -112,9 +113,14 @@ function handleKeydown(event: KeyboardEvent, index: number): void {
       @keydown="handleKeydown($event, i + 1)"
     >
       <!-- 背景空星 -->
-      <Star class="size-6 fill-neutral-300 text-neutral-300 dark:fill-neutral-600 dark:text-neutral-600" />
+      <Star
+        class="size-6 fill-neutral-300 text-neutral-300 dark:fill-neutral-600 dark:text-neutral-600"
+      />
       <!-- 前景填充星（宽度裁剪实现百分比） -->
-      <span class="absolute inset-0 overflow-hidden" :style="{ width: `${starFillPercentages[i]}%` }">
+      <span
+        class="absolute inset-0 overflow-hidden"
+        :style="{ width: `${starFillPercentages[i]}%` }"
+      >
         <Star class="size-6 fill-yellow-400 text-yellow-400" />
       </span>
     </button>

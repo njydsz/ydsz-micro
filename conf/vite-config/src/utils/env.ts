@@ -16,11 +16,9 @@ import dotenv from 'dotenv';
 
 const getBoolean = (value: string | undefined) => value === 'true';
 
-const getString = (value: string | undefined, fallback: string) =>
-  value ?? fallback;
+const getString = (value: string | undefined, fallback: string) => value ?? fallback;
 
-const getNumber = (value: string | undefined, fallback: number) =>
-  Number(value) || fallback;
+const getNumber = (value: string | undefined, fallback: number) => Number(value) || fallback;
 
 /**
  * 获取当前环境下生效的配置文件名

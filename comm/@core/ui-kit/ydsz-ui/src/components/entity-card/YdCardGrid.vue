@@ -1,14 +1,14 @@
 <script setup lang="ts">
 /**
-* 卡片网格：响应式网格容器，用于统一卡片视图的布局间距。
-* 
+ * 卡片网格：响应式网格容器，用于统一卡片视图的布局间距。
+ *
  * 设计目标：
  *  - 替代 VxeTable 表格布局，将卡片以等宽网格展示；
  *  - 响应式列数：手机 1 列、平板 2 列、桌面 3-4 列；
  *  - 与 YdEmptyState 配合使用：当 items 为空时展示空状态占位而非留白。
-* 
+ *
  * 使用方式：直接包裹 <YdEntityCard>；通过 :min-card-width 可调节卡片最小宽度来微调列数。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\entity-card\YdCardGrid.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -53,15 +53,12 @@ const props = withDefaults(
       <div
         v-for="i in 6"
         :key="i"
-        class="h-48 animate-pulse rounded-xl border border-border-subtle bg-accent/40"
+        class="border-border-subtle bg-accent/40 h-48 animate-pulse rounded-xl border"
       />
     </div>
 
     <!-- 空状态 -->
-    <slot
-      v-else-if="props.isEmpty"
-      name="empty"
-    />
+    <slot v-else-if="props.isEmpty" name="empty" />
 
     <!-- 卡片网格 -->
     <div

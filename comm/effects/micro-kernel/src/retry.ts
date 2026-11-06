@@ -30,11 +30,7 @@ export interface RetryOptions {
 }
 
 /** 计算第 attempt 次重试的退避延迟（含 jitter 随机化） */
-export function calculateRetryDelay(
-  attempt: number,
-  baseDelay: number,
-  jitter = 0.25,
-): number {
+export function calculateRetryDelay(attempt: number, baseDelay: number, jitter = 0.25): number {
   const raw = baseDelay * 2 ** attempt;
   const half = raw * jitter;
   // 在 [raw - half, raw + half] 之间均匀随机，抵消共享相位避免惊群

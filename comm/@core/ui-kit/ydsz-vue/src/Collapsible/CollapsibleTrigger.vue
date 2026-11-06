@@ -1,21 +1,21 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface CollapsibleTriggerProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../Primitive/index.ts'
-import { injectCollapsibleRootContext } from './CollapsibleRoot.vue'
+import { Primitive } from '../Primitive/index.ts';
+import { injectCollapsibleRootContext } from './CollapsibleRoot.vue';
 
 const props = withDefaults(defineProps<CollapsibleTriggerProps>(), {
   as: 'button',
-})
+});
 
-useForwardExpose()
-const rootContext = injectCollapsibleRootContext()
+useForwardExpose();
+const rootContext = injectCollapsibleRootContext();
 </script>
 
 <template>

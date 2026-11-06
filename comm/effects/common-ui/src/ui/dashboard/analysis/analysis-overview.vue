@@ -40,21 +40,12 @@ withDefaults(defineProps<Props>(), {
         </YdCardHeader>
 
         <YdCardContent class="flex items-center justify-between">
-          <YdCountToAnimator
-            :end-val="item.value"
-            :start-val="1"
-            class="text-xl"
-            prefix=""
-          />
+          <YdCountToAnimator :end-val="item.value" :start-val="1" class="text-xl" prefix="" />
           <YdIcon :icon="item.icon" class="size-8 flex-shrink-0" />
         </YdCardContent>
         <YdCardFooter class="justify-between">
           <span>{{ item.totalTitle }}</span>
-          <YdCountToAnimator
-            :end-val="item.totalValue"
-            :start-val="1"
-            prefix=""
-          />
+          <YdCountToAnimator :end-val="item.totalValue" :start-val="1" prefix="" />
         </YdCardFooter>
       </YdCard>
     </template>

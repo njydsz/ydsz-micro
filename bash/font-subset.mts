@@ -36,8 +36,7 @@ interface FontSubset {
 const SUBSETS: readonly FontSubset[] = [
   {
     suffix: 'latin',
-    unicodeRange:
-      'U+0000-007F, U+0080-00FF, U+0100-017F, U+0180-024F, U+2000-206F, U+2070-209F',
+    unicodeRange: 'U+0000-007F, U+0080-00FF, U+0100-017F, U+0180-024F, U+2000-206F, U+2070-209F',
     text:
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ' +
       '!"#$%&\x27()*+,-./:;<=>?@[\\]^_`{|}~',
@@ -78,12 +77,8 @@ function buildCJK3500Text(): string {
 
 function scanSourceFonts(): string[] {
   if (!existsSync(FONTS_SRC_DIR)) {
-    console.warn(
-      '[font-subset] Source font directory does not exist yet: ' + FONTS_SRC_DIR,
-    );
-    console.warn(
-      '[font-subset] Place .woff2/.ttf font files there to proceed.',
-    );
+    console.warn('[font-subset] Source font directory does not exist yet: ' + FONTS_SRC_DIR);
+    console.warn('[font-subset] Place .woff2/.ttf font files there to proceed.');
     return [];
   }
   return readdirSync(FONTS_SRC_DIR)
@@ -117,11 +112,7 @@ function generateFontFaceCSS(
   return lines.join('\n');
 }
 
-function buildSubsetCommand(
-  srcPath: string,
-  outPath: string,
-  subset: FontSubset,
-): string {
+function buildSubsetCommand(srcPath: string, outPath: string, subset: FontSubset): string {
   const textFile = outPath.replace(/\.woff2$/, `.${subset.suffix}.txt`);
   const writeText = `printf '%s' '${subset.text}' > '${textFile}'`;
   const runSubset = `npx subset-font '${srcPath}' --output-file='${outPath}' --text-file='${textFile}' --flavor=woff2`;
@@ -141,7 +132,7 @@ async function main(): Promise<void> {
   if (srcFonts.length === 0) {
     console.log(
       '[font-subset] No source font files found. Skipping actual subsetting.\n' +
-      '[font-subset] Generating placeholder CSS template instead.',
+        '[font-subset] Generating placeholder CSS template instead.',
     );
   }
 
@@ -162,14 +153,12 @@ async function main(): Promise<void> {
   }
 
   if (srcFonts.length === 0) {
-    console.log(
-      '[font-subset] Placeholder mode complete -- please procure fonts and re-run.',
-    );
+    console.log('[font-subset] Placeholder mode complete -- please procure fonts and re-run.');
     console.log(
       '[font-subset] Subset command example (per font):\n' +
-      '  pnpm add -D subset-font\n' +
-      `  npx subset-font <source.ttf> --text-file=<chars.txt> --output-file=` +
-      `${FONTS_OUT_DIR}/YDSZSans-cjk-3500.woff2 --flavor=woff2`,
+        '  pnpm add -D subset-font\n' +
+        `  npx subset-font <source.ttf> --text-file=<chars.txt> --output-file=` +
+        `${FONTS_OUT_DIR}/YDSZSans-cjk-3500.woff2 --flavor=woff2`,
     );
     return;
   }
@@ -181,13 +170,16 @@ async function main(): Promise<void> {
   } catch {
     console.log(
       '\n[font-subset] subset-font not installed; using CLI mode.\n' +
-      '[font-subset] Install with: pnpm add -D subset-font',
+        '[font-subset] Install with: pnpm add -D subset-font',
     );
   }
 
   for (const src of srcFonts) {
     const baseName =
-      src.split(/[/\\]/).pop()?.replace(/\.(ttf|otf|woff2?)$/i, '') ?? 'font';
+      src
+        .split(/[/\\]/)
+        .pop()
+        ?.replace(/\.(ttf|otf|woff2?)$/i, '') ?? 'font';
     console.log(`\n[font-subset] Processing: ${baseName}`);
 
     for (const subset of SUBSETS) {
@@ -219,9 +211,7 @@ async function main(): Promise<void> {
           );
         } catch (err) {
           console.error(
-            `  [${subset.suffix}] Failed: ${
-              err instanceof Error ? err.message : String(err)
-            }`,
+            `  [${subset.suffix}] Failed: ${err instanceof Error ? err.message : String(err)}`,
           );
         }
       } else {

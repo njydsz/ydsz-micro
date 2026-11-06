@@ -6,7 +6,7 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `click` | `void` | - |
-| `update:selected` | `value: boolean` | - |
+| 事件              | 参数             | 说明 |
+| ----------------- | ---------------- | ---- |
+| `click`           | `void`           | -    |
+| `update:selected` | `value: boolean` | -    |

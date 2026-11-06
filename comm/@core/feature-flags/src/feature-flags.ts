@@ -14,11 +14,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  FeatureFlagDef,
-  FeatureFlagsChangeListener,
-  FeatureFlagsOptions,
-} from './types';
+import type { FeatureFlagDef, FeatureFlagsChangeListener, FeatureFlagsOptions } from './types';
 
 import { reactive, readonly } from 'vue';
 
@@ -94,8 +90,7 @@ class FeatureFlagsManager {
     this.initialized = true;
 
     this.env = options.env ?? {};
-    this.isDev =
-      this.env.DEV === true || this.env.MODE === 'development';
+    this.isDev = this.env.DEV === true || this.env.MODE === 'development';
 
     const namespace = options.namespace ?? '';
     this.storage = new StorageManager({ prefix: namespace });
@@ -276,9 +271,7 @@ class FeatureFlagsManager {
   // ==================== 持久化 ====================
 
   private loadLocalOverrides(): void {
-    const stored = this.storage?.getItem<Record<string, FeatureFlagValue>>(
-      STORAGE_KEY,
-    );
+    const stored = this.storage?.getItem<Record<string, FeatureFlagValue>>(STORAGE_KEY);
     if (!stored) return;
     const normalized = normalizeValues(stored);
     for (const [name, value] of Object.entries(normalized)) {
@@ -292,18 +285,14 @@ class FeatureFlagsManager {
 
   private persistLocalOverride(name: string, value: boolean): void {
     // 增量持久化：读取现有 map → 更新 → 写回
-    const stored =
-      this.storage?.getItem<Record<string, FeatureFlagValue>>(STORAGE_KEY) ??
-      {};
+    const stored = this.storage?.getItem<Record<string, FeatureFlagValue>>(STORAGE_KEY) ?? {};
     stored[name] = value;
     this.storage?.setItem(STORAGE_KEY, stored);
   }
 }
 
 /** 将任意值映射归一化为 boolean map */
-function normalizeValues(
-  raw: Record<string, FeatureFlagValue>,
-): Record<string, boolean> {
+function normalizeValues(raw: Record<string, FeatureFlagValue>): Record<string, boolean> {
   const out: Record<string, boolean> = {};
   for (const [key, value] of Object.entries(raw)) {
     if (value === true || value === 'on') {

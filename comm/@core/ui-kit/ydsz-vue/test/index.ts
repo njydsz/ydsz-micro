@@ -8,7 +8,7 @@
  * @author ydsz-team
  * @since 5.7.0
  */
-import { vi } from 'vitest'
+import { vi } from 'vitest';
 
 /**
  * 等待若干毫秒，用于驱动依赖定时器 / nextTick 的过渡与 Presence 逻辑。
@@ -17,7 +17,7 @@ import { vi } from 'vitest'
  * @returns 在 ms 后 resolve 的 Promise
  */
 export function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -28,7 +28,7 @@ export function sleep(ms: number): Promise<void> {
  * 未选中 / 未禁用的复选框不会进入 FormData，因此可用来验证原生表单语义。
  */
 export const handleSubmit = vi.fn((event: Event) => {
-  event.preventDefault()
-  const form = event.target as HTMLFormElement
-  return Object.fromEntries(new FormData(form).entries())
-})
+  event.preventDefault();
+  const form = event.target as HTMLFormElement;
+  return Object.fromEntries(new FormData(form).entries());
+});

@@ -44,10 +44,7 @@ type DiffResult<T> = Partial<{
  * @param obj2 目标对象
  * @returns 差异结果，无差异时返回 undefined
  */
-function diff<T extends Record<string, unknown>>(
-  obj1: T,
-  obj2: T,
-): DiffResult<T> {
+function diff<T extends Record<string, unknown>>(obj1: T, obj2: T): DiffResult<T> {
   function findDifferences(
     o1: Record<string, unknown>,
     o2: Record<string, unknown>,
@@ -59,12 +56,7 @@ function diff<T extends Record<string, unknown>>(
       return undefined;
     }
 
-    if (
-      typeof o1 === 'object' &&
-      typeof o2 === 'object' &&
-      o1 !== null &&
-      o2 !== null
-    ) {
+    if (typeof o1 === 'object' && typeof o2 === 'object' && o1 !== null && o2 !== null) {
       const diffResult: Record<string, unknown> = {};
 
       const keys = new Set([...Object.keys(o1), ...Object.keys(o2)]);
@@ -91,4 +83,3 @@ function diff<T extends Record<string, unknown>>(
 }
 
 export { arraysEqual, diff };
-

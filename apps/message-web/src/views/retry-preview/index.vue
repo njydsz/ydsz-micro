@@ -20,7 +20,19 @@
 import { Page } from '@ydsz/common-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
-import { YdButton, YdCard, YdDialog, YdEmptyState, YdSelectItem, YdSelect, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdDialog,
+  YdEmptyState,
+  YdSelectItem,
+  YdSelect,
+  YdTable,
+  YdTabsContent,
+  YdTabs,
+  YdBadge,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 
 import { listPresets, previewAllPresets, previewRetrySchedule } from '#/api/retryPreview';
@@ -188,7 +200,12 @@ onMounted(() => {
                 <span v-else>-</span>
               </template>
             </YdTableColumn>
-            <YdTableColumn prop="failReason" label="失败原因" min-width="180" show-overflow-tooltip />
+            <YdTableColumn
+              prop="failReason"
+              label="失败原因"
+              min-width="180"
+              show-overflow-tooltip
+            />
             <YdTableColumn label="重试次数" width="100" align="center">
               <template #default="{ row }">
                 <span class="font-mono text-orange-600">{{ row.retryCount ?? '-' }}</span>
@@ -223,13 +240,7 @@ onMounted(() => {
       <template v-else>
         <!-- 预设列表 -->
         <YdCard shadow="never">
-          <YdTable
-            :loading="presetLoading"
-            :data="presetList"
-            stripe
-            border
-            style="width: 100%"
-          >
+          <YdTable :loading="presetLoading" :data="presetList" stripe border style="width: 100%">
             <YdTableColumn type="index" label="序号" width="60" align="center" />
             <YdTableColumn prop="key" label="预设标识" width="200" show-overflow-tooltip />
             <YdTableColumn prop="name" label="预设名称" min-width="160" />

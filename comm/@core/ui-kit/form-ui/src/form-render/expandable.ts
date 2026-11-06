@@ -15,11 +15,7 @@ import type { FormRenderProps } from '../types';
 
 import { computed, nextTick, onMounted, ref, useTemplateRef, watch } from 'vue';
 
-import {
-  breakpointsTailwind,
-  useBreakpoints,
-  useElementVisibility,
-} from '@vueuse/core';
+import { breakpointsTailwind, useBreakpoints, useElementVisibility } from '@vueuse/core';
 
 /**
  * 动态计算行数
@@ -81,9 +77,7 @@ export function useExpandable(props: FormRenderProps) {
 
     const container = wrapperRef.value;
     const containerStyles = window.getComputedStyle(container);
-    const rowHeights = containerStyles
-      .getPropertyValue('grid-template-rows')
-      .split(' ');
+    const rowHeights = containerStyles.getPropertyValue('grid-template-rows').split(' ');
 
     const containerRect = container?.getBoundingClientRect();
 
@@ -116,4 +110,3 @@ export function useExpandable(props: FormRenderProps) {
 
   return { isCalculated, keepFormItemIndex, wrapperRef };
 }
-

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* YdConfirmDialog —— 声明式确认对话框组件。
+ * YdConfirmDialog —— 声明式确认对话框组件。
  *
  * 受控弹窗，通过 v-model:open 控制显示。
  * 内部基于 Radix Vue Dialog 原语 + ydsz-vue DialogContent 封装。
-*
+ *
  * 多数场景请优先使用 useConfirm composable；
  * 需要在模板中预置确认弹窗时使用本组件。
  *
@@ -82,10 +82,12 @@ const confirmVariant = computed((): 'default' | 'destructive' | 'outline' | 'sec
 });
 
 /** 取消按钮 cva variant */
-const rejectVariant = computed((): 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' => {
-  const type = props.rejectButtonType ?? 'default';
-  return type === 'text' ? 'ghost' : 'outline';
-});
+const rejectVariant = computed(
+  (): 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' => {
+    const type = props.rejectButtonType ?? 'default';
+    return type === 'text' ? 'ghost' : 'outline';
+  },
+);
 
 /** icon 背景色 */
 const iconBgClass = computed((): string => {
@@ -146,9 +148,9 @@ defineExpose({
       <DialogContent
         :class="
           cn(
-            'fixed left-1/2 top-1/2 z-popup w-[calc(100vw-2rem)] max-w-md',
+            'z-popup fixed left-1/2 top-1/2 w-[calc(100vw-2rem)] max-w-md',
             '-translate-x-1/2 -translate-y-1/2',
-            'rounded-2xl border border-border-default bg-surface-1 p-6',
+            'border-border-default bg-surface-1 rounded-2xl border p-6',
             'shadow-high outline-none',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
@@ -161,7 +163,7 @@ defineExpose({
         <!-- 关闭按钮 -->
         <DialogClose
           v-if="closeOnOverlayClick"
-          class="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full text-text-tertiary opacity-70 transition-opacity hover:bg-accent hover:text-accent-foreground hover:opacity-100 focus:outline-none disabled:pointer-events-none"
+          class="text-text-tertiary hover:bg-accent hover:text-accent-foreground absolute right-4 top-4 flex size-7 items-center justify-center rounded-full opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none"
           @click="handleCancel"
           :aria-label="t('common.close')"
         >
@@ -173,16 +175,10 @@ defineExpose({
           <div
             v-if="resolvedIcon"
             :class="
-              cn(
-                'flex size-10 shrink-0 items-center justify-center rounded-full',
-                iconBgClass,
-              )
+              cn('flex size-10 shrink-0 items-center justify-center rounded-full', iconBgClass)
             "
           >
-            <span
-              :class="cn('size-5', iconTextClass)"
-              aria-hidden="true"
-            >
+            <span :class="cn('size-5', iconTextClass)" aria-hidden="true">
               {{ resolvedIcon.split(':').pop() }}
             </span>
           </div>
@@ -190,14 +186,11 @@ defineExpose({
           <div class="flex-1">
             <DialogTitle
               v-if="header"
-              class="text-base font-semibold leading-snug text-text-primary"
+              class="text-text-primary text-base font-semibold leading-snug"
             >
               {{ header }}
             </DialogTitle>
-            <DialogDescription
-              v-if="message"
-              class="mt-2 text-sm text-text-secondary"
-            >
+            <DialogDescription v-if="message" class="text-text-secondary mt-2 text-sm">
               {{ message }}
             </DialogDescription>
           </div>
@@ -229,7 +222,8 @@ defineExpose({
 /* fade 过渡（遮罩） */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity var(--ydsz-motion-duration-normal, 200ms) var(--ydsz-motion-easing-standard, cubic-bezier(0.4, 0, 0.2, 1));
+  transition: opacity var(--ydsz-motion-duration-normal, 200ms)
+    var(--ydsz-motion-easing-standard, cubic-bezier(0.4, 0, 0.2, 1));
 }
 .fade-enter-from,
 .fade-leave-to {

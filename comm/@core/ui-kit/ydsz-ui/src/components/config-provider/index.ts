@@ -17,5 +17,5 @@ export type {
 // merged from pre-refactor ui/ + primitives/ barrels
 export { CONFIG_INJECTION_KEY } from './YdConfigProvider.vue';
 export { default as YdConfigProvider } from './YdConfigProvider.vue';
-export type { ConfigContext, Density, ComponentSize, LocaleConfig, WaveConfig, } from './types';
+export type { ConfigContext, Density, ComponentSize, LocaleConfig, WaveConfig } from './types';
 export { useConfigProvider } from './useConfigProvider';

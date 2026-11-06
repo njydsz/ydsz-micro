@@ -21,7 +21,13 @@ import type {
 /* 默认 key 黑名单：selection / expand / operation 列不可隐藏         */
 /* ============================================================ */
 
-const ALWAYS_VISIBLE_KEYS = new Set(['selection', 'expand', 'operation', '__selection__', '__expand__']);
+const ALWAYS_VISIBLE_KEYS = new Set([
+  'selection',
+  'expand',
+  'operation',
+  '__selection__',
+  '__expand__',
+]);
 
 function isAlwaysVisible(key: string): boolean {
   return ALWAYS_VISIBLE_KEYS.has(key);
@@ -87,8 +93,8 @@ export function useColumnChooser(options: UseColumnChooserOptions): UseColumnCho
 
   const hideableStates = computed(() => states.value.filter((s) => s.hideable));
 
-  const allVisible = computed(() =>
-    hideableStates.value.length > 0 && hideableStates.value.every((s) => s.visible),
+  const allVisible = computed(
+    () => hideableStates.value.length > 0 && hideableStates.value.every((s) => s.visible),
   );
 
   const someVisible = computed(() => {

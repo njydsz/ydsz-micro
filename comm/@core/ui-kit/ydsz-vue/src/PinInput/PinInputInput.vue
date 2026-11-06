@@ -1,61 +1,59 @@
 <script lang="ts">
 // @ts-nocheck
-import { Primitive, type PrimitiveProps, usePrimitiveElement } from '../Primitive/index.ts'
-import { injectPinInputRootContext } from './PinInputRoot.vue'
-import { getActiveElement, useArrowNavigation } from '../shared/index.ts'
+import { Primitive, type PrimitiveProps, usePrimitiveElement } from '../Primitive/index.ts';
+import { injectPinInputRootContext } from './PinInputRoot.vue';
+import { getActiveElement, useArrowNavigation } from '../shared/index.ts';
 
 export interface PinInputInputProps extends PrimitiveProps {
   /** Position of the value this input binds to. */
-  index: number
+  index: number;
   /** When `true`, prevents the user from interacting with the pin input */
-  disabled?: boolean
+  disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, watch } from 'vue';
 
 const props = withDefaults(defineProps<PinInputInputProps>(), {
   as: 'input',
-})
+});
 
-const context = injectPinInputRootContext()
-const inputElements = computed(() => Array.from(context.inputElements!.value))
-const currentValue = computed(() => context.modelValue.value[props.index])
+const context = injectPinInputRootContext();
+const inputElements = computed(() => Array.from(context.inputElements!.value));
+const currentValue = computed(() => context.modelValue.value[props.index]);
 
-const disabled = computed(() => props.disabled || context.disabled.value)
-const isOtpMode = computed(() => context.otp.value)
-const isNumericMode = computed(() => context.type.value === 'number')
-const isPasswordMode = computed(() => context.mask.value)
+const disabled = computed(() => props.disabled || context.disabled.value);
+const isOtpMode = computed(() => context.otp.value);
+const isNumericMode = computed(() => context.type.value === 'number');
+const isPasswordMode = computed(() => context.mask.value);
 
-const { primitiveElement, currentElement } = usePrimitiveElement()
+const { primitiveElement, currentElement } = usePrimitiveElement();
 function handleInput(event: InputEvent) {
-  const target = event.target as HTMLInputElement
+  const target = event.target as HTMLInputElement;
 
   if ((event.data?.length ?? 0) > 1) {
-    handleMultipleCharacter(target.value)
-    return
+    handleMultipleCharacter(target.value);
+    return;
   }
 
   if (isNumericMode.value && !/^\d*$/.test(target.value)) {
-    target.value = target.value.replace(/\D/g, '')
-    return
+    target.value = target.value.replace(/\D/g, '');
+    return;
   }
 
-  target.value = target.value.slice(-1)
-  updateModelValueAt(props.index, target.value)
+  target.value = target.value.slice(-1);
+  updateModelValueAt(props.index, target.value);
 
-  const nextEl = inputElements.value[props.index + 1]
-  if (nextEl)
-    nextEl.focus()
+  const nextEl = inputElements.value[props.index + 1];
+  if (nextEl) nextEl.focus();
 }
 
 function resetPlaceholder() {
-  const target = currentElement.value as HTMLInputElement
+  const target = currentElement.value as HTMLInputElement;
   nextTick(() => {
-    if (target && !target.value)
-      target.placeholder = context.placeholder.value
-  })
+    if (target && !target.value) target.placeholder = context.placeholder.value;
+  });
 }
 
 function handleKeydown(event: KeyboardEvent) {
@@ -65,101 +63,97 @@ function handleKeydown(event: KeyboardEvent) {
     loop: false,
     arrowKeyOptions: 'horizontal',
     dir: context.dir.value,
-  })
+  });
 }
 
 function handleBackspace(event: KeyboardEvent) {
-  event.preventDefault()
-  const target = event.target as HTMLInputElement
-  const value = target.value
+  event.preventDefault();
+  const target = event.target as HTMLInputElement;
+  const value = target.value;
 
   if (value) {
-    updateModelValueAt(props.index, '')
-  }
-  else {
-    const prevEl = inputElements.value[props.index - 1]
+    updateModelValueAt(props.index, '');
+  } else {
+    const prevEl = inputElements.value[props.index - 1];
     if (prevEl) {
-      prevEl.focus()
-      updateModelValueAt(props.index - 1, '')
+      prevEl.focus();
+      updateModelValueAt(props.index - 1, '');
     }
   }
 }
 
 function handleDelete(event: KeyboardEvent) {
   if (event.key === 'Delete') {
-    event.preventDefault()
-    updateModelValueAt(props.index, '')
+    event.preventDefault();
+    updateModelValueAt(props.index, '');
   }
 }
 
 function handleFocus(event: FocusEvent) {
-  const target = event.target as HTMLInputElement
-  target.setSelectionRange(1, 1)
+  const target = event.target as HTMLInputElement;
+  target.setSelectionRange(1, 1);
 
-  if (!target.value)
-    target.placeholder = ''
+  if (!target.value) target.placeholder = '';
 }
 
 function handleBlur(event: FocusEvent) {
-  resetPlaceholder()
+  resetPlaceholder();
 }
 
 function handlePaste(event: ClipboardEvent) {
-  event.preventDefault()
-  const clipboardData = event.clipboardData
-  if (!clipboardData)
-    return
+  event.preventDefault();
+  const clipboardData = event.clipboardData;
+  if (!clipboardData) return;
 
-  const values = clipboardData.getData('text')
-  handleMultipleCharacter(values)
+  const values = clipboardData.getData('text');
+  handleMultipleCharacter(values);
 }
 
 function handleMultipleCharacter(values: string) {
-  const tempModelValue = [...context.modelValue.value]
-  const initialIndex = values.length >= inputElements.value.length ? 0 : props.index
-  const lastIndex = Math.min(initialIndex + values.length, inputElements.value.length)
+  const tempModelValue = [...context.modelValue.value];
+  const initialIndex = values.length >= inputElements.value.length ? 0 : props.index;
+  const lastIndex = Math.min(initialIndex + values.length, inputElements.value.length);
   for (let i = initialIndex; i < lastIndex; i++) {
-    const input = inputElements.value[i]
-    const value = values[i - initialIndex]
-    if (isNumericMode.value && !/^\d*$/.test(value))
-      continue
+    const input = inputElements.value[i];
+    const value = values[i - initialIndex];
+    if (isNumericMode.value && !/^\d*$/.test(value)) continue;
 
-    tempModelValue[i] = value
-    input.focus()
+    tempModelValue[i] = value;
+    input.focus();
   }
-  context.modelValue.value = tempModelValue
-  inputElements.value[lastIndex]?.focus()
+  context.modelValue.value = tempModelValue;
+  inputElements.value[lastIndex]?.focus();
 }
 
 function removeTrailingEmptyStrings(input: string[]) {
-  let i = input.length - 1
+  let i = input.length - 1;
 
   while (i >= 0 && input[i] === '') {
-    input.pop()
-    i--
+    input.pop();
+    i--;
   }
 
-  return input
+  return input;
 }
 
 function updateModelValueAt(index: number, value: string) {
-  const tempModelValue = [...context.modelValue.value]
-  tempModelValue[index] = value
-  context.modelValue.value = removeTrailingEmptyStrings(tempModelValue)
+  const tempModelValue = [...context.modelValue.value];
+  tempModelValue[index] = value;
+  context.modelValue.value = removeTrailingEmptyStrings(tempModelValue);
 }
 
 watch(currentValue, () => {
   if (!currentValue.value) {
-    resetPlaceholder()
+    resetPlaceholder();
   }
-})
+});
 
 onMounted(() => {
-  context.onInputElementChange(currentElement.value as HTMLInputElement)
-})
+  context.onInputElementChange(currentElement.value as HTMLInputElement);
+});
 onUnmounted(() => {
-  context.inputElements?.value.delete(currentElement.value as HTMLInputElement)
-})
+  context.inputElements?.value.delete(currentElement.value as HTMLInputElement);
+});
 </script>
 
 <template>

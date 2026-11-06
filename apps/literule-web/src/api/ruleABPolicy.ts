@@ -16,46 +16,56 @@ import type { RuleABPolicyDTO, RuleABPolicyVO, RuleABRollbackVO } from './models
 /**
  * getABPolicy: GET /literule/rules/{ruleCode}/ab-policy
  */
-export function getAbPolicy({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<RuleABPolicyVO> {
+export function getAbPolicy({ ruleCode }: { ruleCode: string }): Promise<RuleABPolicyVO> {
   return requestClient.get<RuleABPolicyVO>(`/literule/rules/${ruleCode}/ab-policy`);
 }
 
 /**
  * updateABPolicy: PUT /literule/rules/{ruleCode}/ab-policy
  */
-export function updateAbPolicy({ ruleCode }: {
+export function updateAbPolicy(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: RuleABPolicyDTO): Promise<void> {
+  },
+  data: RuleABPolicyDTO,
+): Promise<void> {
   return requestClient.put<void>(`/literule/rules/${ruleCode}/ab-policy`, data);
 }
 
 /**
  * listRollbackHistory: GET /literule/rules/{ruleCode}/ab-rollbacks
  */
-export function listRollbackHistory({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<RuleABRollbackVO[]> {
+export function listRollbackHistory({
+  ruleCode,
+}: {
+  ruleCode: string;
+}): Promise<RuleABRollbackVO[]> {
   return requestClient.get<RuleABRollbackVO[]>(`/literule/rules/${ruleCode}/ab-rollbacks`);
 }
 
 /**
  * evaluateAB: POST /literule/rules/{ruleCode}/ab-evaluate
  */
-export function evaluateAb({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<boolean> {
+export function evaluateAb({ ruleCode }: { ruleCode: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/literule/rules/${ruleCode}/ab-evaluate`);
 }
 
 /**
  * manualRollback: POST /literule/rules/{ruleCode}/ab-rollback
  */
-export function manualRollback({ ruleCode }: {
+export function manualRollback(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, params: {
+  },
+  params: {
     reason?: string;
-  }): Promise<RuleABRollbackVO> {
-  return requestClient.post<RuleABRollbackVO>(`/literule/rules/${ruleCode}/ab-rollback`, { params });
+  },
+): Promise<RuleABRollbackVO> {
+  return requestClient.post<RuleABRollbackVO>(`/literule/rules/${ruleCode}/ab-rollback`, {
+    params,
+  });
 }

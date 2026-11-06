@@ -30,18 +30,18 @@
 /** pt 配置项：可包含 className、style 及任意自定义属性 */
 export interface PtOptions {
   /** 要合并到该节点的 CSS 类名（字符串或字符串数组） */
-  className?: string | string[]
+  className?: string | string[];
   /** 要合并到该节点的内联样式 */
-  style?: Record<string, string>
+  style?: Record<string, string>;
   /** 扩展属性，如 data-*、aria-* 等 */
-  [key: string]: unknown
+  [key: string]: unknown;
 }
 
 /** pt 合并结果 */
 export interface PtResult {
-  class: string
-  style: string
-  attrs: Record<string, string>
+  class: string;
+  style: string;
+  attrs: Record<string, string>;
 }
 
 /**
@@ -51,13 +51,15 @@ export interface PtResult {
  * @returns 去重后的 class 字符串
  */
 function normalizeClass(className?: string | string[]): string {
-  if (!className) return ''
+  if (!className) return '';
 
   if (Array.isArray(className)) {
-    return Array.from(new Set(className.flatMap(c => c.split(' ')))).filter(Boolean).join(' ')
+    return Array.from(new Set(className.flatMap((c) => c.split(' '))))
+      .filter(Boolean)
+      .join(' ');
   }
 
-  return className.trim()
+  return className.trim();
 }
 
 /**
@@ -67,12 +69,12 @@ function normalizeClass(className?: string | string[]): string {
  * @returns CSS 字符串（如 "color:red;font-size:14px;"）
  */
 function styleToString(style?: Record<string, string>): string {
-  if (!style) return ''
+  if (!style) return '';
 
   return Object.entries(style)
     .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key, value]) => `${key.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`)}:${value}`)
-    .join(';')
+    .map(([key, value]) => `${key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)}:${value}`)
+    .join(';');
 }
 
 /**
@@ -89,18 +91,18 @@ function styleToString(style?: Record<string, string>): string {
  */
 export function usePassThrough(pt?: PtOptions): PtResult {
   if (!pt) {
-    return { class: '', style: '', attrs: {} }
+    return { class: '', style: '', attrs: {} };
   }
 
-  const { className, style, ...rest } = pt
+  const { className, style, ...rest } = pt;
 
   // 收集 attrs（排除 className 和 style）
-  const attrs: Record<string, string> = {}
+  const attrs: Record<string, string> = {};
   for (const [key, value] of Object.entries(rest)) {
     if (typeof value === 'string') {
-      attrs[key] = value
+      attrs[key] = value;
     } else if (typeof value === 'number' || typeof value === 'boolean') {
-      attrs[key] = String(value)
+      attrs[key] = String(value);
     }
   }
 
@@ -108,7 +110,7 @@ export function usePassThrough(pt?: PtOptions): PtResult {
     class: normalizeClass(className),
     style: styleToString(style),
     attrs,
-  }
+  };
 }
 
 /**
@@ -131,15 +133,15 @@ export function usePassThrough(pt?: PtOptions): PtResult {
  * ```
  */
 export function mergePt(record: Record<string, PtOptions | undefined>): Record<string, PtResult> {
-  const result: Record<string, PtResult> = {}
+  const result: Record<string, PtResult> = {};
 
   for (const [nodeName, pt] of Object.entries(record)) {
     if (pt !== undefined) {
-      result[nodeName] = usePassThrough(pt)
+      result[nodeName] = usePassThrough(pt);
     }
   }
 
-  return result
+  return result;
 }
 
 /**
@@ -153,21 +155,18 @@ export function mergePt(record: Record<string, PtOptions | undefined>): Record<s
  * @param override - 覆盖 pt 配置（优先级更高）
  * @returns 合并后的 PtResult
  */
-export function extendPt(
-  base: PtOptions | undefined,
-  override: PtOptions | undefined,
-): PtResult {
-  const baseResult = usePassThrough(base)
-  const overrideResult = usePassThrough(override)
+export function extendPt(base: PtOptions | undefined, override: PtOptions | undefined): PtResult {
+  const baseResult = usePassThrough(base);
+  const overrideResult = usePassThrough(override);
 
   if (!baseResult.class && !baseResult.style) {
-    return overrideResult
+    return overrideResult;
   }
 
-  const baseClasses = baseResult.class ? new Set(baseResult.class.split(' ')) : new Set<string>()
+  const baseClasses = baseResult.class ? new Set(baseResult.class.split(' ')) : new Set<string>();
   if (overrideResult.class) {
     for (const cls of overrideResult.class.split(' ')) {
-      baseClasses.add(cls)
+      baseClasses.add(cls);
     }
   }
 
@@ -175,5 +174,5 @@ export function extendPt(
     class: Array.from(baseClasses).filter(Boolean).join(' '),
     style: overrideResult.style || baseResult.style,
     attrs: { ...baseResult.attrs, ...overrideResult.attrs },
-  }
+  };
 }

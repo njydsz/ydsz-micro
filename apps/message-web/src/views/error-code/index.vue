@@ -80,17 +80,16 @@ const gridOptions: VxeTableGridOptions<MsgErrorCodeVO> = {
                 variant: 'link',
                 onClick: () => handleToggleStatus(row),
               },
-              () => (row.status === 'DISABLED' ? t('errorCode.actions.enable') : t('errorCode.actions.disable')),
+              () =>
+                row.status === 'DISABLED'
+                  ? t('errorCode.actions.enable')
+                  : t('errorCode.actions.disable'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
-              () => t('common.delete'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () =>
+              t('common.delete'),
             ),
           ]),
       },
@@ -173,10 +172,10 @@ async function handleDelete(row: MsgErrorCodeVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(
-      t('errorCode.confirmDelete', { errorCode: row.errorCode }),
-      { title: t('common.crud.deleteConfirmTitle'), type: 'warning' },
-    );
+    await YdConfirm(t('errorCode.confirmDelete', { errorCode: row.errorCode }), {
+      title: t('common.crud.deleteConfirmTitle'),
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消删除操作
   }

@@ -126,9 +126,7 @@ function mockDragEnvironment(count: number, axis: 'horizontal' | 'vertical') {
       width: 100,
     }),
   }));
-  vi.spyOn(document, 'querySelectorAll').mockReturnValue(
-    els as unknown as NodeListOf<Element>,
-  );
+  vi.spyOn(document, 'querySelectorAll').mockReturnValue(els as unknown as NodeListOf<Element>);
   const handlers: Array<(event: PointerEvent) => void> = [];
   vi.spyOn(document, 'addEventListener').mockImplementation(((type: string, listener: unknown) => {
     if (type === 'pointermove') {
@@ -162,10 +160,7 @@ function startDrag(
  * @param event - 模拟的 PointerEvent 字段
  * @returns 无
  */
-function fire(
-  handlers: Array<(event: PointerEvent) => void>,
-  event: Record<string, number>,
-): void {
+function fire(handlers: Array<(event: PointerEvent) => void>, event: Record<string, number>): void {
   for (const handler of handlers) {
     handler({ pointerId: 1, ...event } as PointerEvent);
   }

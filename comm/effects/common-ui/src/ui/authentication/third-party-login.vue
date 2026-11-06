@@ -34,32 +34,16 @@ const {
     </div>
 
     <div class="mt-4 flex flex-wrap justify-center">
-      <YdIconButton
-        :tooltip="$t('authentication.wechatLogin')"
-        tooltip-side="top"
-        class="mb-3"
-      >
+      <YdIconButton :tooltip="$t('authentication.wechatLogin')" tooltip-side="top" class="mb-3">
         <MdiWechat />
       </YdIconButton>
-      <YdIconButton
-        :tooltip="$t('authentication.qqLogin')"
-        tooltip-side="top"
-        class="mb-3"
-      >
+      <YdIconButton :tooltip="$t('authentication.qqLogin')" tooltip-side="top" class="mb-3">
         <MdiQqchat />
       </YdIconButton>
-      <YdIconButton
-        :tooltip="$t('authentication.githubLogin')"
-        tooltip-side="top"
-        class="mb-3"
-      >
+      <YdIconButton :tooltip="$t('authentication.githubLogin')" tooltip-side="top" class="mb-3">
         <MdiGithub />
       </YdIconButton>
-      <YdIconButton
-        :tooltip="$t('authentication.googleLogin')"
-        tooltip-side="top"
-        class="mb-3"
-      >
+      <YdIconButton :tooltip="$t('authentication.googleLogin')" tooltip-side="top" class="mb-3">
         <MdiGoogle />
       </YdIconButton>
       <DingdingLogin

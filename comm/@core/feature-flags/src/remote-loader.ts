@@ -112,13 +112,20 @@ function satisfiesRange(version: string, range: string): boolean {
   const cmp = compareSemver(v, t);
 
   switch (op) {
-    case '>=': return cmp >= 0;
-    case '>': return cmp > 0;
-    case '<=': return cmp <= 0;
-    case '<': return cmp < 0;
-    case '~': return cmp >= 0 && v.major === t.major && v.minor === t.minor;
-    case '^': return cmp >= 0 && v.major === t.major;
-    default: return false;
+    case '>=':
+      return cmp >= 0;
+    case '>':
+      return cmp > 0;
+    case '<=':
+      return cmp <= 0;
+    case '<':
+      return cmp < 0;
+    case '~':
+      return cmp >= 0 && v.major === t.major && v.minor === t.minor;
+    case '^':
+      return cmp >= 0 && v.major === t.major;
+    default:
+      return false;
   }
 }
 
@@ -174,12 +181,7 @@ function compareSemver(
 export function createApiFeatureLoader(
   options: CreateApiFeatureLoaderOptions = {},
 ): () => Promise<Record<string, FeatureFlagValue>> {
-  const {
-    endpoint = '/api/feature',
-    clientVersion,
-    dedup = true,
-    timeout = 5000,
-  } = options;
+  const { endpoint = '/api/feature', clientVersion, dedup = true, timeout = 5000 } = options;
 
   // 闭包内缓存：避免应用不重新 init 时重复拉取
   let cachedResult: Record<string, FeatureFlagValue> | null = null;

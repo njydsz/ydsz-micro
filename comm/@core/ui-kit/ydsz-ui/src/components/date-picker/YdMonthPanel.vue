@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* MonthPanel —— 月份选择面板。
-* 
+ * MonthPanel —— 月份选择面板。
+ *
  * <p>用于 type='month' / 'monthrange'：显示 12 个月按钮，点击选中月份。
  * 支持范围模式：首次点击选起始月，二次点击选结束月。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\date-picker\YdMonthPanel.vue
  * @author ydsz-team
  * @since 5.6.0

@@ -18,7 +18,9 @@ import type { SamlIdpConfigVO, SamlIdpDTO, SamlIdpPageQuery } from './models';
  * page: GET /saml-idp-config/page
  */
 export function page(query?: SamlIdpPageQuery): Promise<PageResponse<SamlIdpConfigVO[]>> {
-  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/saml-idp-config/page`, { params: query });
+  return requestClient.get<PageResponse<SamlIdpConfigVO[]>>(`/saml-idp-config/page`, {
+    params: query,
+  });
 }
 
 /**
@@ -38,17 +40,20 @@ export function create(data: SamlIdpDTO): Promise<void> {
 /**
  * update: PUT /saml-idp-config/{entityId}
  */
-export function update({ entityId }: {
+export function update(
+  {
+    entityId,
+  }: {
     entityId: string;
-  }, data: SamlIdpDTO): Promise<void> {
+  },
+  data: SamlIdpDTO,
+): Promise<void> {
   return requestClient.put<void>(`/saml-idp-config/${entityId}`, data);
 }
 
 /**
  * delete: DELETE /saml-idp-config/{entityId}
  */
-export function deleteApi({ entityId }: {
-    entityId: string;
-  }): Promise<void> {
+export function deleteApi({ entityId }: { entityId: string }): Promise<void> {
   return requestClient.delete<void>(`/saml-idp-config/${entityId}`);
 }

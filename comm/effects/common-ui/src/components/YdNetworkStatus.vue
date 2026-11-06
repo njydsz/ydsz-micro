@@ -62,13 +62,16 @@ const isOffline = computed(() => !isOnline.value && showBanner.value);
 
 /** 状态色系与图标映射 */
 const tone = computed(() => {
-  const map: Record<'error' | 'warning' | 'info', {
-    bg: string;
-    border: string;
-    icon: typeof AlertCircle;
-    iconColor: string;
-    text: string;
-  }> = {
+  const map: Record<
+    'error' | 'warning' | 'info',
+    {
+      bg: string;
+      border: string;
+      icon: typeof AlertCircle;
+      iconColor: string;
+      text: string;
+    }
+  > = {
     error: {
       bg: 'bg-red-50',
       border: 'border-red-200',
@@ -149,12 +152,7 @@ onUnmounted(() => {
 
 <template>
   <Transition name="network-status-fade">
-    <div
-      v-if="isOffline"
-      class="network-status"
-      role="alert"
-      aria-live="assertive"
-    >
+    <div v-if="isOffline" class="network-status" role="alert" aria-live="assertive">
       <div
         :class="
           cn(
@@ -176,15 +174,10 @@ onUnmounted(() => {
         <!-- 提示文案 + 操作区 -->
         <div class="flex min-w-0 flex-1 items-start justify-between gap-3">
           <div class="flex min-w-0 flex-col gap-1">
-            <span
-              :class="cn('text-sm font-medium', tone.text)"
-            >
+            <span :class="cn('text-sm font-medium', tone.text)">
               {{ offlineMessage ?? $t('ui.networkStatus.offline') }}
             </span>
-            <span
-              v-if="showRetry"
-              class="text-xs text-text-secondary"
-            >
+            <span v-if="showRetry" class="text-text-secondary text-xs">
               {{ $t('ui.networkStatus.hint') }}
             </span>
           </div>
@@ -198,11 +191,7 @@ onUnmounted(() => {
               variant="outline"
               @click="handleRetry"
             >
-              <Loader2
-                v-if="isRetrying"
-                :size="14"
-                class="mr-1 animate-spin"
-              />
+              <Loader2 v-if="isRetrying" :size="14" class="mr-1 animate-spin" />
               {{ isRetrying ? $t('ui.networkStatus.retrying') : $t('ui.networkStatus.reconnect') }}
             </YdButton>
             <YdButton

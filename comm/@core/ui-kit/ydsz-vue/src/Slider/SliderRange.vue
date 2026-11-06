@@ -1,28 +1,32 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface SliderRangeProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Primitive } from '../Primitive/index.ts'
-import { injectSliderRootContext } from './SliderRoot.vue'
-import { convertValueToPercentage, injectSliderOrientationContext } from './utils'
+import { computed } from 'vue';
+import { Primitive } from '../Primitive/index.ts';
+import { injectSliderRootContext } from './SliderRoot.vue';
+import { convertValueToPercentage, injectSliderOrientationContext } from './utils';
 
-withDefaults(defineProps<SliderRangeProps>(), { as: 'span' })
-const rootContext = injectSliderRootContext()
-const orientation = injectSliderOrientationContext()
+withDefaults(defineProps<SliderRangeProps>(), { as: 'span' });
+const rootContext = injectSliderRootContext();
+const orientation = injectSliderOrientationContext();
 
-useForwardExpose()
-const percentages = computed(() => rootContext.modelValue?.value?.map(value =>
-  convertValueToPercentage(value, rootContext.min.value, rootContext.max.value),
-))
+useForwardExpose();
+const percentages = computed(() =>
+  rootContext.modelValue?.value?.map((value) =>
+    convertValueToPercentage(value, rootContext.min.value, rootContext.max.value),
+  ),
+);
 
-const offsetStart = computed(() => rootContext.modelValue!.value!.length > 1 ? Math.min(...percentages.value!) : 0)
-const offsetEnd = computed(() => 100 - Math.max(...percentages.value!))
+const offsetStart = computed(() =>
+  rootContext.modelValue!.value!.length > 1 ? Math.min(...percentages.value!) : 0,
+);
+const offsetEnd = computed(() => 100 - Math.max(...percentages.value!));
 </script>
 
 <template>

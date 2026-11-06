@@ -10,8 +10,12 @@
  * @returns The `clamp` function returns the value of `value` constrained within the range defined by
  * `min` and `max`.
  */
-export function clamp(value: number, min: number = Number.NEGATIVE_INFINITY, max: number = Number.POSITIVE_INFINITY): number {
-  return Math.min(max, Math.max(min, value))
+export function clamp(
+  value: number,
+  min: number = Number.NEGATIVE_INFINITY,
+  max: number = Number.POSITIVE_INFINITY,
+): number {
+  return Math.min(max, Math.max(min, value));
 }
 
 /**
@@ -24,15 +28,15 @@ export function clamp(value: number, min: number = Number.NEGATIVE_INFINITY, max
  * @returns the `roundedValue` after rounding it to the precision specified by the `step`.
  */
 export function roundToStepPrecision(value: number, step: number) {
-  let roundedValue = value
-  const stepString = step.toString()
-  const pointIndex = stepString.indexOf('.')
-  const precision = pointIndex >= 0 ? stepString.length - pointIndex : 0
+  let roundedValue = value;
+  const stepString = step.toString();
+  const pointIndex = stepString.indexOf('.');
+  const precision = pointIndex >= 0 ? stepString.length - pointIndex : 0;
   if (precision > 0) {
-    const pow = 10 ** precision
-    roundedValue = Math.round(roundedValue * pow) / pow
+    const pow = 10 ** precision;
+    roundedValue = Math.round(roundedValue * pow) / pow;
   }
-  return roundedValue
+  return roundedValue;
 }
 
 /**
@@ -49,26 +53,32 @@ export function roundToStepPrecision(value: number, step: number) {
  * operation. For example, if `step` is 5, the `value` will be snapped to the nearest multiple of
  * @returns a number that has been snapped to the nearest step value within the specified range of minimum and maximum values.
  */
-export function snapValueToStep(value: number, min: number | undefined, max: number | undefined, step: number): number {
-  min = Number(min)
-  max = Number(max)
-  const remainder = ((value - (Number.isNaN(min) ? 0 : min)) % step)
-  let snappedValue = roundToStepPrecision(Math.abs(remainder) * 2 >= step
-    ? value + Math.sign(remainder) * (step - Math.abs(remainder))
-    : value - remainder, step)
+export function snapValueToStep(
+  value: number,
+  min: number | undefined,
+  max: number | undefined,
+  step: number,
+): number {
+  min = Number(min);
+  max = Number(max);
+  const remainder = (value - (Number.isNaN(min) ? 0 : min)) % step;
+  let snappedValue = roundToStepPrecision(
+    Math.abs(remainder) * 2 >= step
+      ? value + Math.sign(remainder) * (step - Math.abs(remainder))
+      : value - remainder,
+    step,
+  );
 
   if (!Number.isNaN(min)) {
-    if (snappedValue < min)
-      snappedValue = min
+    if (snappedValue < min) snappedValue = min;
     else if (!Number.isNaN(max) && snappedValue > max)
-      snappedValue = min + Math.floor(roundToStepPrecision((max - min) / step, step)) * step
-  }
-  else if (!Number.isNaN(max) && snappedValue > max) {
-    snappedValue = Math.floor(roundToStepPrecision(max / step, step)) * step
+      snappedValue = min + Math.floor(roundToStepPrecision((max - min) / step, step)) * step;
+  } else if (!Number.isNaN(max) && snappedValue > max) {
+    snappedValue = Math.floor(roundToStepPrecision(max / step, step)) * step;
   }
 
   // correct floating point behavior by rounding to step precision
-  snappedValue = roundToStepPrecision(snappedValue, step)
+  snappedValue = roundToStepPrecision(snappedValue, step);
 
-  return snappedValue
+  return snappedValue;
 }

@@ -11,35 +11,32 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { ChannelStatsDTO, CostStatsDTO, FunnelStatsDTO, MessageStatsDTO, ReceiptStatsDTO } from './models';
+import type {
+  ChannelStatsDTO,
+  CostStatsDTO,
+  FunnelStatsDTO,
+  MessageStatsDTO,
+  ReceiptStatsDTO,
+} from './models';
 
 /**
  * overview: GET /message/stats/overview
  */
-export function overview(params: {
-    start?: string;
-    end?: string;
-  }): Promise<MessageStatsDTO> {
+export function overview(params: { start?: string; end?: string }): Promise<MessageStatsDTO> {
   return requestClient.get<MessageStatsDTO>(`/message/stats/overview`, { params });
 }
 
 /**
  * channelStats: GET /message/stats/channel
  */
-export function channelStats(params: {
-    start?: string;
-    end?: string;
-  }): Promise<ChannelStatsDTO[]> {
+export function channelStats(params: { start?: string; end?: string }): Promise<ChannelStatsDTO[]> {
   return requestClient.get<ChannelStatsDTO[]>(`/message/stats/channel`, { params });
 }
 
 /**
  * receiptStats: GET /message/stats/receipt
  */
-export function receiptStats(params: {
-    start?: string;
-    end?: string;
-  }): Promise<ReceiptStatsDTO> {
+export function receiptStats(params: { start?: string; end?: string }): Promise<ReceiptStatsDTO> {
   return requestClient.get<ReceiptStatsDTO>(`/message/stats/receipt`, { params });
 }
 
@@ -47,20 +44,17 @@ export function receiptStats(params: {
  * funnel: GET /message/stats/funnel
  */
 export function funnel(params: {
-    start?: string;
-    end?: string;
-    channel?: string;
-    templateCode?: string;
-  }): Promise<FunnelStatsDTO> {
+  start?: string;
+  end?: string;
+  channel?: string;
+  templateCode?: string;
+}): Promise<FunnelStatsDTO> {
   return requestClient.get<FunnelStatsDTO>(`/message/stats/funnel`, { params });
 }
 
 /**
  * cost: GET /message/stats/cost
  */
-export function cost(params: {
-    start?: string;
-    end?: string;
-  }): Promise<CostStatsDTO> {
+export function cost(params: { start?: string; end?: string }): Promise<CostStatsDTO> {
   return requestClient.get<CostStatsDTO>(`/message/stats/cost`, { params });
 }

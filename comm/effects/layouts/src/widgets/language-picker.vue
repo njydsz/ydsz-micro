@@ -34,7 +34,7 @@ async function handleSelect(code: SupportedLanguagesType): Promise<void> {
   <YdDropdownMenu>
     <YdDropdownMenuTrigger as-child class="flex items-center gap-1">
       <YdIconButton>
-        <Languages class="size-4 text-foreground" />
+        <Languages class="text-foreground size-4" />
       </YdIconButton>
     </YdDropdownMenuTrigger>
     <YdDropdownMenuContent align="start" class="w-40">
@@ -42,7 +42,7 @@ async function handleSelect(code: SupportedLanguagesType): Promise<void> {
         v-for="item in SUPPORT_LANGUAGES"
         :key="item.value"
         :class="isSelected(item.value) ? 'bg-accent text-accent-foreground' : ''"
-        class="text-foreground/80 cursor-pointer items-center justify-between px-2 py-1.5 text-sm hover:bg-accent/50"
+        class="text-foreground/80 hover:bg-accent/50 cursor-pointer items-center justify-between px-2 py-1.5 text-sm"
         @click="handleSelect(item.value)"
       >
         {{ item.label }}

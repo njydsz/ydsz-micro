@@ -137,36 +137,18 @@ function handleBack(): void {
     <slot v-if="!showError"></slot>
 
     <!-- 错误降级 UI -->
-    <div
-      v-else
-      aria-live="assertive"
-      class="error-boundary__fallback"
-      role="alert"
-    >
-      <YdEmptyState
-        :preset="statusPreset"
-        :title="errorMessage"
-        class="error-boundary__empty"
-      >
+    <div v-else aria-live="assertive" class="error-boundary__fallback" role="alert">
+      <YdEmptyState :preset="statusPreset" :title="errorMessage" class="error-boundary__empty">
         <template #icon>
           <component :is="StatusIcon" :size="32" aria-hidden="true" />
         </template>
 
         <template #extra>
           <div class="error-boundary__actions">
-            <YdButton
-              v-if="showRetry"
-              size="sm"
-              @click="handleRetry"
-            >
+            <YdButton v-if="showRetry" size="sm" @click="handleRetry">
               {{ $t('ui.errorBoundary.retry') }}
             </YdButton>
-            <YdButton
-              v-if="showBack"
-              size="sm"
-              variant="outline"
-              @click="handleBack"
-            >
+            <YdButton v-if="showBack" size="sm" variant="outline" @click="handleBack">
               {{ $t('ui.errorBoundary.back') }}
             </YdButton>
           </div>
@@ -174,10 +156,7 @@ function handleBack(): void {
       </YdEmptyState>
 
       <!-- 开发环境展示错误堆栈 -->
-      <details
-        v-if="showDetails && errorStack"
-        class="error-boundary__details"
-      >
+      <details v-if="showDetails && errorStack" class="error-boundary__details">
         <summary>{{ $t('ui.errorBoundary.details') }}</summary>
         <pre class="error-boundary__stack">{{ errorStack }}</pre>
       </details>

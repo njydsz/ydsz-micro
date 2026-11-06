@@ -143,14 +143,18 @@ export async function swPlugin(options: SWPluginOptions): Promise<Plugin[]> {
 export function cleanupOutdatedSubAppCaches(currentVersion: string): void {
   if (!('caches' in globalThis)) return;
   const prefix = 'v4:';
-  caches.keys().then((names) => {
-    const stale = names.filter(
-      (name) => name.startsWith(prefix) && !name.includes(currentVersion),
-    );
-    return Promise.all(stale.map((n) => caches.delete(n)));
-  }).then((deleted) => {
-    if (deleted.length) process.stdout.write(`[micro-kernel] Purged ${deleted.length} stale SW caches\n`);
-  });
+  caches
+    .keys()
+    .then((names) => {
+      const stale = names.filter(
+        (name) => name.startsWith(prefix) && !name.includes(currentVersion),
+      );
+      return Promise.all(stale.map((n) => caches.delete(n)));
+    })
+    .then((deleted) => {
+      if (deleted.length)
+        process.stdout.write(`[micro-kernel] Purged ${deleted.length} stale SW caches\n`);
+    });
 }
 
 /**

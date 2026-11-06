@@ -17,7 +17,14 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -70,8 +77,8 @@ const [Modal, modalApi] = useYdModal({
         id: data.record.id ?? '',
         postName: data.record.postName ?? '',
         postCode: data.record.postCode ?? '',
-  description: data.record.description ?? '',
-  sort: data.record.sort ?? 0,
+        description: data.record.description ?? '',
+        sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
       });
     } else {
@@ -80,8 +87,8 @@ const [Modal, modalApi] = useYdModal({
         id: '',
         postName: '',
         postCode: '',
-  description: '',
-  sort: 0,
+        description: '',
+        sort: 0,
         status: '1',
       });
     }
@@ -98,8 +105,8 @@ const [Modal, modalApi] = useYdModal({
       const payload: PostDTO = {
         postName: formData.postName,
         postCode: formData.postCode,
-  description: formData.description,
-  sort: formData.sort,
+        description: formData.description,
+        sort: formData.sort,
         status: formData.status,
       };
       if (isEdit.value) {
@@ -117,7 +124,11 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.postBase')}` : `${t('page.create')}${t('page.postBase')}`));
+const title = computed(() =>
+  isEdit.value
+    ? `${t('page.edit')}${t('page.postBase')}`
+    : `${t('page.create')}${t('page.postBase')}`,
+);
 </script>
 
 <template>
@@ -133,7 +144,11 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.postBas
         <YdInput v-model="formData.postName" :placeholder="t('post.postNamePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('page.postCode')" prop="postCode">
-        <YdInput v-model="formData.postCode" :placeholder="t('post.postCodePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.postCode"
+          :placeholder="t('post.postCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('page.description')">
         <YdInput

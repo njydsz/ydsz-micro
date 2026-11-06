@@ -173,10 +173,7 @@ export interface BpmnSelectionChangedEvent {
 
 /** diagram-js EventBus（仅声明设计器用到的订阅签名） */
 export interface BpmnEventBus {
-  on(
-    event: 'selection.changed',
-    callback: (payload: BpmnSelectionChangedEvent) => void,
-  ): void;
+  on(event: 'selection.changed', callback: (payload: BpmnSelectionChangedEvent) => void): void;
 }
 
 /** diagram-js Selection 服务 */
@@ -202,8 +199,5 @@ export interface BpmnCommandStackService {
 
 /** bpmn-js Modeling 服务 */
 export interface BpmnModelingService {
-  updateProperties(
-    element: BpmnElementDescriptor,
-    properties: BpmnPropertyChanges,
-  ): void;
+  updateProperties(element: BpmnElementDescriptor, properties: BpmnPropertyChanges): void;
 }

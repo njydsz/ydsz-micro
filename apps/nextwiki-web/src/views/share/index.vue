@@ -46,20 +46,39 @@ const gridOptions: VxeGridProps<ShareLinkVO> = {
       width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.status === 'ACTIVE' ? 'success' : 'info' }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: row.status === 'ACTIVE' ? 'success' : 'info' },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'accessCount', title: '访问次数', width: 90 },
     { field: 'expireTime', title: '过期时间', width: 170 },
     { field: 'createdAt', title: '创建时间', width: 170 },
     {
-      field: 'action', title: '操作', width: 240, fixed: 'right',
+      field: 'action',
+      title: '操作',
+      width: 240,
+      fixed: 'right',
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => showLogs(row) }, () => '访问日志'),
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => showRecipients(row) }, () => '接收人'),
-            h(YdButton, { size: 'small', variant: 'link', onClick: () => handleRevoke(row) }, () => '撤销'),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => showLogs(row) },
+              () => '访问日志',
+            ),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => showRecipients(row) },
+              () => '接收人',
+            ),
+            h(
+              YdButton,
+              { size: 'small', variant: 'link', onClick: () => handleRevoke(row) },
+              () => '撤销',
+            ),
           ]),
       },
     },
@@ -85,10 +104,16 @@ const receivedGridOptions: VxeGridProps<ShareRecipientVO> = {
     { field: 'shareId', title: '分享ID', width: 200 },
     { field: 'recipientName', title: '分享人', width: 140 },
     {
-      field: 'status', title: '状态', width: 90,
+      field: 'status',
+      title: '状态',
+      width: 90,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: row.status === 'VIEWED' ? 'success' : 'info' }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: row.status === 'VIEWED' ? 'success' : 'info' },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'viewedAt', title: '查看时间', width: 170 },
@@ -109,7 +134,9 @@ const [ReceivedGrid] = useYDSZVxeGrid({ gridOptions: receivedGridOptions });
 
 const [ShareFormModal, shareFormApi] = useYdModal({ connectedComponent: ShareForm });
 
-function handleAdd() { shareFormApi.open(); }
+function handleAdd() {
+  shareFormApi.open();
+}
 
 /** 当前查看的分享 ID */
 const currentShareId = ref('');
@@ -156,11 +183,15 @@ async function loadRecipients() {
 async function handleRevoke(row: ShareLinkVO) {
   if (!row.id) return;
   try {
-    await YdConfirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), { type: 'warning' });
+    await YdConfirm(t('revokeConfirm', [row.title || row.fileName]), t('revokeConf'), {
+      type: 'warning',
+    });
     await revoke({ shareId: row.id });
     showToast.success(t('revokeSuccess'));
     gridApi.query();
-  } catch (error) { logger.warn('撤销分享失败: {}', error); /* 用户提示由请求拦截器统一处理 */ }
+  } catch (error) {
+    logger.warn('撤销分享失败: {}', error); /* 用户提示由请求拦截器统一处理 */
+  }
 }
 </script>
 <template>

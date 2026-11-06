@@ -93,18 +93,13 @@ export const defaultResponseInterceptor = ({
           return result as unknown as RequestResponse;
         }
       }
-      const responseLevel = responseData?.level as
-        | ExceptionSeverity
-        | undefined;
-      throw new BusinessError(
-        (responseData?.message as string) || '业务请求失败',
-        {
-          code: responseData?.[codeField] as string | undefined,
-          data: responseData,
-          level: responseLevel,
-          statusCode: status,
-        },
-      );
+      const responseLevel = responseData?.level as ExceptionSeverity | undefined;
+      throw new BusinessError((responseData?.message as string) || '业务请求失败', {
+        code: responseData?.[codeField] as string | undefined,
+        data: responseData,
+        level: responseLevel,
+        statusCode: status,
+      });
     },
   };
 };
@@ -193,7 +188,9 @@ export const authenticateResponseInterceptor = ({
 
         // 刷新失败（如 refreshToken 缺失）：拒绝队列并走重新认证
         if (!newToken) {
-          client.refreshTokenQueue.forEach((cb) => cb.reject(new Error('Refresh token unavailable')));
+          client.refreshTokenQueue.forEach((cb) =>
+            cb.reject(new Error('Refresh token unavailable')),
+          );
           client.refreshTokenQueue = [];
           await doReAuthenticate();
           throw new Error('Refresh token unavailable, please login again.');
@@ -422,7 +419,9 @@ export const retryResponseInterceptor = ({
       const jitterMs = Math.floor(Math.random() * jitter);
       const delay = Math.min(exponentialDelay + jitterMs, maxDelay);
 
-      logger.debug(`请求重试 (${config.__retryCount}/${maxRetries})，${delay}ms 后重放: ${config.url}`);
+      logger.debug(
+        `请求重试 (${config.__retryCount}/${maxRetries})，${delay}ms 后重放: ${config.url}`,
+      );
 
       // 监控回调
       onRetry?.({
@@ -439,6 +438,5 @@ export const retryResponseInterceptor = ({
     },
   };
 };
-
 
 export { deprecationNoticeInterceptor } from './preset-interceptors-deprecation';

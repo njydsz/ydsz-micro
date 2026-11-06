@@ -18,11 +18,7 @@ import { computed, inject } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  DESCRIPTIONS_BORDER,
-  DESCRIPTIONS_COLUMN,
-  DESCRIPTIONS_SIZE,
-} from './constants';
+import { DESCRIPTIONS_BORDER, DESCRIPTIONS_COLUMN, DESCRIPTIONS_SIZE } from './constants';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -48,9 +44,7 @@ const parentSize = inject(DESCRIPTIONS_SIZE, { value: 'default' as const });
 const parentBorder = inject(DESCRIPTIONS_BORDER, { value: false });
 
 /** 网格列跨度：span 不能超过父级总列数，CSS Grid span N */
-const resolvedSpan = computed(() =>
-  Math.min(props.span, parentColumn.value || 3),
-);
+const resolvedSpan = computed(() => Math.min(props.span, parentColumn.value || 3));
 
 /** 当前列数下的 style */
 const gridStyle = computed(() => ({
@@ -63,35 +57,25 @@ const paddingMap: Record<string, string> = {
   default: 'px-4 py-2',
   large: 'px-5 py-3',
 };
-const cellPadding = computed(() =>
-  paddingMap[parentSize.value ?? 'default'] ?? paddingMap.default,
-);
+const cellPadding = computed(() => paddingMap[parentSize.value ?? 'default'] ?? paddingMap.default);
 </script>
 
 <template>
   <div
-    :class="cn(
-      'flex flex-col',
-      parentBorder && 'first:border-t-0',
-      props.class,
-    )"
+    :class="cn('flex flex-col', parentBorder && 'first:border-t-0', props.class)"
     :style="gridStyle"
   >
     <div
-      :class="cn(
-        cellPadding,
-        'text-sm font-medium text-text-secondary bg-surface-2/50',
-        props.labelClass,
-      )"
+      :class="
+        cn(cellPadding, 'text-text-secondary bg-surface-2/50 text-sm font-medium', props.labelClass)
+      "
     >
       <slot name="label">{{ label }}</slot>
     </div>
     <div
-      :class="cn(
-        cellPadding,
-        'text-sm text-text-primary break-words min-h-[1.75rem]',
-        props.contentClass,
-      )"
+      :class="
+        cn(cellPadding, 'text-text-primary min-h-[1.75rem] break-words text-sm', props.contentClass)
+      "
     >
       <slot></slot>
     </div>

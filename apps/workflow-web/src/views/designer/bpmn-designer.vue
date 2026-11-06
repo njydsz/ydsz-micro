@@ -28,11 +28,7 @@ import BpmnPropertyPanel from './bpmn-property-panel.vue';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { showToast } from '@ydsz/notification';
 import { $t } from '#/locales';
-import {
-  fetchBpmnXml,
-  saveBpmnXml,
-  deployBpmnXml,
-} from '#/api/bpmnDesigner';
+import { fetchBpmnXml, saveBpmnXml, deployBpmnXml } from '#/api/bpmnDesigner';
 
 const logger = createLogger('bpmn-designer');
 const route = useRoute();
@@ -258,14 +254,29 @@ function handleReady(): void {
         <span v-if="definitionId" class="toolbar-id">(#{{ definitionId }})</span>
       </div>
       <div class="toolbar-center">
-        <button class="tool-btn" :disabled="isLoading" @click="handleUndo" :title="$t('workflowDesigner.undo')">
+        <button
+          class="tool-btn"
+          :disabled="isLoading"
+          @click="handleUndo"
+          :title="$t('workflowDesigner.undo')"
+        >
           ↶ {{ $t('workflowDesigner.undo') }}
         </button>
-        <button class="tool-btn" :disabled="isLoading" @click="handleRedo" :title="$t('workflowDesigner.redo')">
+        <button
+          class="tool-btn"
+          :disabled="isLoading"
+          @click="handleRedo"
+          :title="$t('workflowDesigner.redo')"
+        >
           ↷ {{ $t('workflowDesigner.redo') }}
         </button>
         <span class="toolbar-divider" />
-        <button class="tool-btn" :disabled="isLoading" @click="handleZoomToFit" :title="$t('workflowDesigner.zoomToFit')">
+        <button
+          class="tool-btn"
+          :disabled="isLoading"
+          @click="handleZoomToFit"
+          :title="$t('workflowDesigner.zoomToFit')"
+        >
           ⤢ {{ $t('workflowDesigner.zoomToFit') }}
         </button>
         <button class="tool-btn" :disabled="isLoading" @click="handleClear">
@@ -273,13 +284,28 @@ function handleReady(): void {
         </button>
       </div>
       <div class="toolbar-right">
-        <button class="tool-btn" :disabled="isLoading" @click="triggerImport" :title="$t('workflowDesigner.import')">
+        <button
+          class="tool-btn"
+          :disabled="isLoading"
+          @click="triggerImport"
+          :title="$t('workflowDesigner.import')"
+        >
           ⬆ {{ $t('workflowDesigner.import') }}
         </button>
-        <button class="tool-btn" :disabled="isLoading" @click="handleExportXml" :title="$t('workflowDesigner.exportXml')">
+        <button
+          class="tool-btn"
+          :disabled="isLoading"
+          @click="handleExportXml"
+          :title="$t('workflowDesigner.exportXml')"
+        >
           ⬇ XML
         </button>
-        <button class="tool-btn" :disabled="isLoading" @click="handleExportSvg" :title="$t('workflowDesigner.exportSvg')">
+        <button
+          class="tool-btn"
+          :disabled="isLoading"
+          @click="handleExportSvg"
+          :title="$t('workflowDesigner.exportSvg')"
+        >
           ⬇ SVG
         </button>
         <button
@@ -329,7 +355,9 @@ function handleReady(): void {
     <!-- 加载遮罩 -->
     <div v-if="isLoading || isSaving" class="bpmn-designer__loading">
       <div class="loading-spinner" />
-      <div class="loading-text">{{ isLoading ? $t('workflowDesigner.loading') : $t('workflowDesigner.saving') }}</div>
+      <div class="loading-text">
+        {{ isLoading ? $t('workflowDesigner.loading') : $t('workflowDesigner.saving') }}
+      </div>
     </div>
   </div>
 </template>
@@ -396,7 +424,9 @@ function handleReady(): void {
   cursor: pointer;
   font-size: 13px;
   color: #303133;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .tool-btn:hover:not(:disabled) {

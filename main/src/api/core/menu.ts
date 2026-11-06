@@ -15,9 +15,7 @@ import { requestClient } from '#/api/request';
  * @returns 菜单路由数组，结构见 {@link RouteRecordStringComponent}
  */
 export async function getAllMenusApi() {
-  return requestClient.get<RouteRecordStringComponent[]>(
-    '/api/menu/routes',
-  );
+  return requestClient.get<RouteRecordStringComponent[]>('/api/menu/routes');
 }
 
 /**

@@ -160,7 +160,9 @@ async function handleSaveDraft(): Promise<void> {
     </YdForm>
     <!-- 草稿保存按钮（置于弹窗底部操作区左侧） -->
     <template #footer>
-      <YdButton :loading="savingDraft" variant="secondary" @click="handleSaveDraft"> {{ $t('wf.saveDraft') }} </YdButton>
+      <YdButton :loading="savingDraft" variant="secondary" @click="handleSaveDraft">
+        {{ $t('wf.saveDraft') }}
+      </YdButton>
     </template>
   </Modal>
 </template>

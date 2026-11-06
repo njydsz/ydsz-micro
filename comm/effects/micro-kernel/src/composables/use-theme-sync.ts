@@ -111,9 +111,7 @@ function resolveEffectiveTheme(mode: ThemeMode): 'light' | 'dark' {
   if (mode !== 'auto') return mode;
   // 检测系统主题偏好
   if (typeof window !== 'undefined' && window.matchMedia) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   return 'light';
 }

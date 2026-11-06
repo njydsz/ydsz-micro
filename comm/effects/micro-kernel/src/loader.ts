@@ -158,16 +158,15 @@ function setManifestCacheEntry(key: string, manifest: Manifest): void {
 }
 
 /** 获取是否为开发模式 */
-const isDev = typeof import.meta !== 'undefined' && (import.meta as { env?: Record<string, unknown> }).env?.DEV === true;
+const isDev =
+  typeof import.meta !== 'undefined' &&
+  (import.meta as { env?: Record<string, unknown> }).env?.DEV === true;
 
 /**
  * 通过 fetch manifest.json 获取子应用入口信息。
  * Dev 模式下不调用（manifest.json 仅在 build 产物的 dist 中）。
  */
-export async function fetchManifest(
-  entry: string,
-  signal?: AbortSignal,
-): Promise<Manifest> {
+export async function fetchManifest(entry: string, signal?: AbortSignal): Promise<Manifest> {
   const manifestUrl = `${entry.replace(/\/$/, '')}/manifest.json`;
 
   if (manifestCache.has(manifestUrl)) {
@@ -279,12 +278,7 @@ async function performLoadApp(
   //            消除"mount 渲染时 CSS 仍在途"导致的首帧无样式闪变（FOUC）。
   //            单表 3s 超时兜底（弱网/CDN 故障时降级为无样式挂载并告警，
   //            不阻塞子应用激活——JS 层错误仍由 error-boundary 兜底）。
-  await injectStylesheets(
-    manifest.css,
-    manifest.name,
-    manifest.integrity?.css,
-    getCspNonce(),
-  );
+  await injectStylesheets(manifest.css, manifest.name, manifest.integrity?.css, getCspNonce());
 
   // v4.4.0: 严格完整性校验（可选）—— 在 dynamic import 前验签 JS 入口
   if (options.strictIntegrity) {
@@ -294,7 +288,12 @@ async function performLoadApp(
   // v4.4.1 F3: props 契约校验（可选）—— 灰度场景旧版本子应用提前降级
   verifyPropsContract(manifest, options.hostPropsContract ?? null);
 
-  const mod = await importWithRetry(manifest.entry, { timeout, retries, retryBaseDelay, extSignal });
+  const mod = await importWithRetry(manifest.entry, {
+    timeout,
+    retries,
+    retryBaseDelay,
+    extSignal,
+  });
   assertLifecycle(mod, config.name);
 
   return {
@@ -415,7 +414,6 @@ function getCspNonce(): string | undefined {
   return cspNonce;
 }
 
-
 /** 移除指定应用注入的样式表 */
 export { removeStylesheets } from './loader-stylesheets';
 
@@ -504,10 +502,7 @@ function assertLifecycle(module: Record<string, unknown>, appName: string): void
  * @param hostContract - 宿主侧契约指纹（null 表示宿主未启用契约校验）
  * @since 4.4.1
  */
-export function verifyPropsContract(
-  manifest: Manifest,
-  hostContract: null | string,
-): void {
+export function verifyPropsContract(manifest: Manifest, hostContract: null | string): void {
   const declared = manifest.propsContract;
   if (!declared || !hostContract) return;
   if (declared === hostContract) {

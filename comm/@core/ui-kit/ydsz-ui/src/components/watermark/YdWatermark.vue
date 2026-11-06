@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 /**
-* Watermark 水印：在页面背景叠加文字或图片水印。
-* 
+ * Watermark 水印：在页面背景叠加文字或图片水印。
+ *
  * 通过 canvas 将文字绘制为 dataURL 后设为容器背景；
  * 容器的 pointer-events: none 确保不影响正常交互。
-* 
+ *
  * 安全说明：JS 生成的水印可被 DevTools 移除，仅作轻度威慑；
  * 高敏感场景应配合后端图片水印方案。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\watermark\YdWatermark.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -81,7 +81,9 @@ function generateWatermark(): void {
 
 <template>
   <div
-    :class="cn('pointer-events-none fixed inset-0 z-[var(--z-backdrop)] overflow-hidden', props.class)"
+    :class="
+      cn('pointer-events-none fixed inset-0 z-[var(--z-backdrop)] overflow-hidden', props.class)
+    "
     :style="{
       zIndex: props.zIndex,
       backgroundImage: watermarkUrl,

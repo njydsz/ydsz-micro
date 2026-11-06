@@ -48,8 +48,11 @@ export function injectTransition() {
     /** 抽屉滑入 */
     slideRight: (): string => TRANSITION_PRESETS.slideRight.css,
     /** 组合自定义 transition */
-    compose: (props: string[], duration: DurationToken = 'normal', easing: EasingToken = 'standard'): string =>
-      props.map((p) => `${p} ${durationVar(duration)} ${easingVar(easing)}`).join(', '),
+    compose: (
+      props: string[],
+      duration: DurationToken = 'normal',
+      easing: EasingToken = 'standard',
+    ): string => props.map((p) => `${p} ${durationVar(duration)} ${easingVar(easing)}`).join(', '),
     /** 引用原始 duration token */
     duration: (token: DurationToken): string => durationVar(token),
     /** 引用原始 easing token */

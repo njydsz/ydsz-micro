@@ -44,8 +44,6 @@ export function update(data: FlowCategoryDTO): Promise<void> {
 /**
  * delete: DELETE /workflow/categories/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteApi({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/workflow/categories/${id}`);
 }

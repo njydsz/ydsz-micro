@@ -18,43 +18,43 @@
  * @since 26.10.10
  */
 
-import type { ComponentResolver } from 'unplugin-vue-components/types'
-import type { Directive } from 'vue'
+import type { ComponentResolver } from 'unplugin-vue-components/types';
+import type { Directive } from 'vue';
 
-import { vRipple } from './directives/v-ripple'
-import { vClickOutside } from './directives/v-click-outside'
+import { vRipple } from './directives/v-ripple';
+import { vClickOutside } from './directives/v-click-outside';
 
-import { YDSZ_UI_COMPONENT_NAMES } from './component-names'
+import { YDSZ_UI_COMPONENT_NAMES } from './component-names';
 
 export interface YdszUiResolverOptions {
   /**
    * 式样版本
    * @default 'default'
    */
-  style?: 'default'
+  style?: 'default';
   /**
    * 指令名称前缀
    * @default 'v'
    */
-  prefix?: string
+  prefix?: string;
   /**
    * 是否按需自动导入全局自定义指令（v-ripple、v-click-outside）
    * @default true
    */
-  directives?: boolean
+  directives?: boolean;
 }
 
 /** ydsz-ui 组件名称前缀 */
-const COMPONENT_PREFIX = 'Yd'
+const COMPONENT_PREFIX = 'Yd';
 
 /** 名册集合化，供 resolve 做 O(1) 命中判断 */
-const COMPONENT_NAME_SET = new Set(YDSZ_UI_COMPONENT_NAMES)
+const COMPONENT_NAME_SET = new Set(YDSZ_UI_COMPONENT_NAMES);
 
 /** 指令名称 → 指令对象的映射 */
 const DIRECTIVE_MAP: Record<string, () => Directive> = {
   ripple: () => vRipple,
   clickoutside: () => vClickOutside,
-}
+};
 
 /**
  * 把模板里出现的指令写法归一化到 DIRECTIVE_MAP 的键。
@@ -67,13 +67,13 @@ const DIRECTIVE_MAP: Record<string, () => Directive> = {
  * @returns 归一化后的查找键
  */
 function normalizeDirectiveKey(raw: string, prefix: string): string {
-  const lower = raw.toLowerCase()
-  const body = lower.startsWith(prefix.toLowerCase()) ? lower.slice(prefix.length) : lower
-  return body.replace(/[-_]/g, '')
+  const lower = raw.toLowerCase();
+  const body = lower.startsWith(prefix.toLowerCase()) ? lower.slice(prefix.length) : lower;
+  return body.replace(/[-_]/g, '');
 }
 
 export function YdszUiResolver(options: YdszUiResolverOptions = {}): ComponentResolver[] {
-  const enableDirectives = options.directives !== false
+  const enableDirectives = options.directives !== false;
 
   const resolvers: ComponentResolver[] = [
     {
@@ -84,26 +84,26 @@ export function YdszUiResolver(options: YdszUiResolverOptions = {}): ComponentRe
           return {
             from: '@ydsz-core/ydsz-ui',
             name: componentName,
-          }
+          };
         }
-        return undefined
+        return undefined;
       },
     },
-  ]
+  ];
 
   if (enableDirectives) {
-    const prefix = options.prefix ?? 'v'
+    const prefix = options.prefix ?? 'v';
     resolvers.push({
       type: 'directive',
       resolve: (name: string) => {
-        const found = DIRECTIVE_MAP[normalizeDirectiveKey(name, prefix)]
+        const found = DIRECTIVE_MAP[normalizeDirectiveKey(name, prefix)];
         if (found) {
-          return found()
+          return found();
         }
-        return undefined
+        return undefined;
       },
-    })
+    });
   }
 
-  return resolvers
+  return resolvers;
 }

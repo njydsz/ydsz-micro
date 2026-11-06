@@ -12,7 +12,13 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { ConfigBatchDTO, ConfigDTO, ConfigPageQuery, ConfigVO, ImportResultVO } from './models';
+import type {
+  ConfigBatchDTO,
+  ConfigDTO,
+  ConfigPageQuery,
+  ConfigVO,
+  ImportResultVO,
+} from './models';
 
 /**
  * page: GET /config/page
@@ -25,20 +31,18 @@ export function page(query?: ConfigPageQuery): Promise<PageResponse<ConfigVO[]>>
  * pageByCursor: GET /config/cursor
  */
 export function pageByCursor(params: {
-    configGroup?: string;
-    configKey?: string;
-    pageSize?: number;
-    cursor?: string;
-  }): Promise<PageResponse<ConfigVO[]>> {
+  configGroup?: string;
+  configKey?: string;
+  pageSize?: number;
+  cursor?: string;
+}): Promise<PageResponse<ConfigVO[]>> {
   return requestClient.get<PageResponse<ConfigVO[]>>(`/config/cursor`, { params });
 }
 
 /**
  * getById: GET /config/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<ConfigVO> {
+export function getById({ id }: { id: string }): Promise<ConfigVO> {
   return requestClient.get<ConfigVO>(`/config/${id}`);
 }
 
@@ -59,9 +63,7 @@ export function update(data: ConfigDTO): Promise<boolean> {
 /**
  * remove: DELETE /config/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/config/${id}`);
 }
 
@@ -75,18 +77,14 @@ export function batchSave(data: ConfigBatchDTO): Promise<Record<string, Record<s
 /**
  * getByKey: GET /config/key/{configKey}
  */
-export function getByKey({ configKey }: {
-    configKey: string;
-  }): Promise<string> {
+export function getByKey({ configKey }: { configKey: string }): Promise<string> {
   return requestClient.get<string>(`/config/key/${configKey}`);
 }
 
 /**
  * getConfigsByGroup: GET /config/group/{configGroup}
  */
-export function getConfigsByGroup({ configGroup }: {
-    configGroup: string;
-  }): Promise<ConfigVO[]> {
+export function getConfigsByGroup({ configGroup }: { configGroup: string }): Promise<ConfigVO[]> {
   return requestClient.get<ConfigVO[]>(`/config/group/${configGroup}`);
 }
 
@@ -101,17 +99,15 @@ export function listPublicConfigs(): Promise<ConfigVO[]> {
  * exportConfigs: GET /config/export
  */
 export function exportConfigs(params: {
-    configGroup?: string;
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+  configGroup?: string;
+  response?: Record<string, unknown>;
+}): Promise<void> {
   return requestClient.get<void>(`/config/export`, { params });
 }
 
 /**
  * importConfigs: POST /config/import
  */
-export function importConfigs(params: {
-    file?: Record<string, unknown>;
-  }): Promise<ImportResultVO> {
+export function importConfigs(params: { file?: Record<string, unknown> }): Promise<ImportResultVO> {
   return requestClient.post<ImportResultVO>(`/config/import`, { params });
 }

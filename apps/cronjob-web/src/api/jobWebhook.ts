@@ -31,9 +31,7 @@ export function update(data: JobWebhookPutDTO): Promise<void> {
 /**
  * delete: DELETE /cronjob/webhook/{id}
  */
-export function deleteApi({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deleteApi({ id }: { id: string }): Promise<void> {
   return requestClient.delete<void>(`/cronjob/webhook/${id}`);
 }
 
@@ -41,28 +39,24 @@ export function deleteApi({ id }: {
  * page: GET /cronjob/webhook/page
  */
 export function page(params: {
-    pageNum?: number;
-    size?: number;
-    eventType?: string;
-    jobKey?: string;
-  }): Promise<PageResponse<JobWebhookVO[]>> {
+  pageNum?: number;
+  size?: number;
+  eventType?: string;
+  jobKey?: string;
+}): Promise<PageResponse<JobWebhookVO[]>> {
   return requestClient.get<PageResponse<JobWebhookVO[]>>(`/cronjob/webhook/page`, { params });
 }
 
 /**
  * getById: GET /cronjob/webhook/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<JobWebhookVO> {
+export function getById({ id }: { id: string }): Promise<JobWebhookVO> {
   return requestClient.get<JobWebhookVO>(`/cronjob/webhook/${id}`);
 }
 
 /**
  * testWebhook: POST /cronjob/webhook/{id}/test
  */
-export function testWebhook({ id }: {
-    id: string;
-  }): Promise<void> {
+export function testWebhook({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/cronjob/webhook/${id}/test`);
 }

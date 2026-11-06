@@ -1,17 +1,17 @@
 <script setup lang="ts">
 /**
-* 全局设置悬浮按钮：仿 ForgeLab forge-admin 右侧悬浮齿轮。
-* 
+ * 全局设置悬浮按钮：仿 ForgeLab forge-admin 右侧悬浮齿轮。
+ *
  * 设计目标：
  *  - 固定悬浮于页面右下角，始终可见；
  *  - 点击展开快捷设置菜单（主题切换、布局偏好、全屏等）；
  *  - 收起状态仅显示设置图标，展开后显示菜单面板；
  *  - 点击外部区域或再次点击按钮自动收起。
-* 
+ *
  * 无障碍：
  *  - 按钮带 aria-label；
  *  - 菜单项通过 role="menuitem" 暴露语义。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\settings-float\YdSettingsFloatButton.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -117,49 +117,36 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    class="fixed bottom-6 end-6 z-50 flex flex-col items-end gap-3"
-  >
+  <div ref="containerRef" class="fixed bottom-6 end-6 z-50 flex flex-col items-end gap-3">
     <!-- 操作菜单（从下往上展开） -->
     <div
       v-show="expanded"
-      class="mb-2 flex w-56 flex-col gap-1 rounded-xl border border-border-subtle bg-surface-2 p-2 shadow-raised"
+      class="border-border-subtle bg-surface-2 shadow-raised mb-2 flex w-56 flex-col gap-1 rounded-xl border p-2"
       role="menu"
     >
       <button
         v-for="action in actions"
         :key="action.key"
-        class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent"
+        class="hover:bg-accent flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors"
         :class="action.danger ? 'text-destructive' : 'text-text-secondary'"
         role="menuitem"
         type="button"
         @click="handleAction(action.key)"
       >
-        <component
-          :is="action.icon ?? iconMap[action.key]"
-          :size="16"
-          class="shrink-0"
-        />
+        <component :is="action.icon ?? iconMap[action.key]" :size="16" class="shrink-0" />
         <span>{{ action.label }}</span>
       </button>
 
       <!-- 分隔线 + 主题切换 -->
-      <div class="my-1 h-px bg-border-subtle" />
+      <div class="bg-border-subtle my-1 h-px" />
       <button
-        class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-text-secondary transition-colors hover:bg-accent"
+        class="text-text-secondary hover:bg-accent flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors"
         role="menuitem"
         type="button"
         @click="handleAction('theme')"
       >
-        <Sun
-          :size="16"
-          class="shrink-0 dark:hidden"
-        />
-        <Moon
-          :size="16"
-          class="hidden shrink-0 dark:block"
-        />
+        <Sun :size="16" class="shrink-0 dark:hidden" />
+        <Moon :size="16" class="hidden shrink-0 dark:block" />
         <span>{{ t('settingsFloat.toggleTheme') }}</span>
       </button>
     </div>
@@ -172,14 +159,8 @@ onBeforeUnmount(() => {
       type="button"
       @click="toggle"
     >
-      <X
-        v-if="expanded"
-        :size="20"
-      />
-      <Settings
-        v-else
-        :size="20"
-      />
+      <X v-if="expanded" :size="20" />
+      <Settings v-else :size="20" />
     </button>
   </div>
 </template>

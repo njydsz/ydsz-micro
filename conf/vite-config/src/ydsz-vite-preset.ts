@@ -41,7 +41,7 @@ const VENDOR_PACKAGES: ReadonlyArray<string | RegExp> = [
   'xe-utils',
   // 图表 / 工具
   'echarts',
-  /echarts/,          // echarts 子路径（echarts/core、echarts/charts 等）
+  /echarts/, // echarts 子路径（echarts/core、echarts/charts 等）
   'dayjs',
   'qs',
   'lodash-es',
@@ -85,10 +85,7 @@ interface WithVendorExternalsOptions {
  * @param patterns - 匹配规则列表
  * @returns 是否命中
  */
-function matchVendorExternal(
-  id: string,
-  patterns: ReadonlyArray<string | RegExp>,
-): boolean {
+function matchVendorExternal(id: string, patterns: ReadonlyArray<string | RegExp>): boolean {
   for (const pattern of patterns) {
     if (typeof pattern === 'string') {
       // 精确匹配包名或子路径前缀
@@ -140,10 +137,7 @@ export function withVendorExternals(
     return config;
   }
 
-  const patterns: Array<string | RegExp> = [
-    ...VENDOR_PACKAGES,
-    ...extraExternals,
-  ];
+  const patterns: Array<string | RegExp> = [...VENDOR_PACKAGES, ...extraExternals];
 
   // 已有的 external 规则（如有），合并为新 function 形式
   const existingExternal = config.build?.rollupOptions?.external;
@@ -195,7 +189,7 @@ export function withVendorExternals(
  * @param config - 主应用传入的 Vite UserConfig（仅 vite 片段）
  * @returns 原配置（不做修改，保持扩展点）
  */
- 
+
 export function withMainShellExternals(
   config: UserConfig,
   _options: WithVendorExternalsOptions = {},

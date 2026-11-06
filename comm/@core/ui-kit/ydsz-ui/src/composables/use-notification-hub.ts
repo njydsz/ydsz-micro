@@ -153,13 +153,9 @@ export function useNotificationHub(
   const streamStatus = ref<'connecting' | 'open' | 'closed' | 'error'>('closed');
 
   /* ----- 计算属性 ----- */
-  const unreadCount = computed(() =>
-    items.value.filter((n) => !n.isRead).length,
-  );
+  const unreadCount = computed(() => items.value.filter((n) => !n.isRead).length);
 
-  const visibleItems = computed(() =>
-    items.value.slice(0, preferences.value.maxVisible),
-  );
+  const visibleItems = computed(() => items.value.slice(0, preferences.value.maxVisible));
 
   /** 当前小时是否在免打扰时段内 */
   const isMuted = computed(() => {
@@ -227,7 +223,10 @@ export function useNotificationHub(
       };
       eventSource.onmessage = (event: MessageEvent) => {
         try {
-          const data = JSON.parse(event.data) as Omit<NotificationItem, 'id' | 'createdAt' | 'isRead'>;
+          const data = JSON.parse(event.data) as Omit<
+            NotificationItem,
+            'id' | 'createdAt' | 'isRead'
+          >;
           push(data);
         } catch {
           /* 忽略格式错误的消息 */

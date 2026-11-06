@@ -1,12 +1,12 @@
 <script setup lang="ts">
 /**
-* ContextMenu（context-menu）组件：右键菜单容器，支持 ARIA menu 角色和键盘导航。
-* 
+ * ContextMenu（context-menu）组件：右键菜单容器，支持 ARIA menu 角色和键盘导航。
+ *
  * WAI-ARIA 无障碍改进（云顶 §11 可访问性）:
  * - 容器 role="menu"；子项 role="menuitem"
  * - 键盘：↑↓/Home-End/Esc 导航与焦点循环
  * - aria-label / aria-labelledby 标签关联
-* 
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */
@@ -133,7 +133,9 @@ defineExpose({ focusFirst, focusLast });
   border-radius: var(--ydsz-radius-md, 0.5rem);
   background-color: hsl(var(--ydsz-surface-1));
   outline: none;
-  box-shadow: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+  box-shadow:
+    0 10px 15px -3px hsl(0 0% 0% / 0.1),
+    0 4px 6px -4px hsl(0 0% 0% / 0.1);
 }
 
 .yd-context-menu--disabled {

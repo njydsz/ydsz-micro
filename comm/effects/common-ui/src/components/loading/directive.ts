@@ -119,10 +119,7 @@ type loadingDirectiveParams = {
  * @param app
  * @param params
  */
-export function registerLoadingDirective(
-  app: App,
-  params?: loadingDirectiveParams,
-) {
+export function registerLoadingDirective(app: App, params?: loadingDirectiveParams) {
   // 注入一个样式供指令使用，确保容器是相对定位
   const style = document.createElement('style');
   style.id = CLASS_NAME_RELATIVE;
@@ -133,15 +130,9 @@ export function registerLoadingDirective(
   `;
   document.head.append(style);
   if (params?.loading !== false) {
-    app.directive(
-      isString(params?.loading) ? params.loading : 'loading',
-      loadingDirective,
-    );
+    app.directive(isString(params?.loading) ? params.loading : 'loading', loadingDirective);
   }
   if (params?.spinning !== false) {
-    app.directive(
-      isString(params?.spinning) ? params.spinning : 'spinning',
-      spinningDirective,
-    );
+    app.directive(isString(params?.spinning) ? params.spinning : 'spinning', spinningDirective);
   }
 }

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useEmitAsProps } from '../../shared/index.ts'
-import type { CollapsibleRootEmits, CollapsibleRootProps } from '..'
-import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '..'
+import { useEmitAsProps } from '../../shared/index.ts';
+import type { CollapsibleRootEmits, CollapsibleRootProps } from '..';
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '..';
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
   open: undefined,
   defaultOpen: false,
-})
-const emits = defineEmits<CollapsibleRootEmits>()
+});
+const emits = defineEmits<CollapsibleRootEmits>();
 </script>
 
 <template>

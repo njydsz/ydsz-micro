@@ -75,9 +75,7 @@ export function useResponsive() {
    * @param columns - 完整列配置
    * @returns 当前设备可见的列
    */
-  function responsiveColumns<T = unknown>(
-    columns: ResponsiveColumn<T>[],
-  ): ResponsiveColumn<T>[] {
+  function responsiveColumns<T = unknown>(columns: ResponsiveColumn<T>[]): ResponsiveColumn<T>[] {
     if (isDesktop.value) {
       return columns.filter((col) => col.desktop !== false);
     }

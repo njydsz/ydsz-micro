@@ -16,7 +16,16 @@
  * @since 1.0.0
  */
 import { Page, useYdModal } from '@ydsz/common-ui';
-import { YdNumberFieldInput, YdCountToAnimator, YdTable, YdTableColumn, YdDescriptions, YdDescriptionsItem, YdButton, YdInput } from '@ydsz-core/ydsz-ui';
+import {
+  YdNumberFieldInput,
+  YdCountToAnimator,
+  YdTable,
+  YdTableColumn,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdButton,
+  YdInput,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { computed, onMounted, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -46,7 +55,9 @@ const [RagFormModal, ragFormApi] = useYdModal({ connectedComponent: RagForm });
 const statsEntries = computed<[string, unknown][]>(() => Object.entries(statsData.value));
 /** 统计卡片（取前 4 项） */
 const statCards = computed(() =>
-  statsEntries.value.slice(0, 4).map(([key, value]) => ({ key, label: key, value: displayValue(value) })),
+  statsEntries.value
+    .slice(0, 4)
+    .map(([key, value]) => ({ key, label: key, value: displayValue(value) })),
 );
 
 /**
@@ -56,9 +67,15 @@ const statCards = computed(() =>
  * @returns 展示字符串
  */
 function displayValue(value: unknown): string {
-  if (value === null || value === undefined) { return '-'; }
+  if (value === null || value === undefined) {
+    return '-';
+  }
   if (typeof value === 'object') {
-    try { return JSON.stringify(value); } catch { return String(value); }
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
   }
   return String(value);
 }
@@ -69,21 +86,30 @@ async function handleLoadStats() {
   try {
     const res = await stats();
     statsData.value = res && typeof res === 'object' ? (res as Record<string, unknown>) : {};
-  } finally { statsLoading.value = false; }
+  } finally {
+    statsLoading.value = false;
+  }
 }
 
 /** 打开文档导入弹窗 */
-function handleOpenIngest() { ragFormApi.open(); }
+function handleOpenIngest() {
+  ragFormApi.open();
+}
 
 /** 语义检索（search()），结果结构不确定，兼容数组与常见列表字段 */
 async function handleSearch() {
   const query = queryForm.value.query?.trim() ?? '';
-  if (!query) { showToast.warning('请输入检索内容'); return; }
+  if (!query) {
+    showToast.warning('请输入检索内容');
+    return;
+  }
   searchLoading.value = true;
   try {
     const res = await search({ ...queryForm.value, query });
     searchRows.value = normalizeRows(res);
-  } finally { searchLoading.value = false; }
+  } finally {
+    searchLoading.value = false;
+  }
 }
 
 /**
@@ -93,11 +119,17 @@ async function handleSearch() {
  * @returns 行数据数组
  */
 function normalizeRows(res: unknown): Record<string, unknown>[] {
-  if (Array.isArray(res)) { return res as Record<string, unknown>[]; }
+  if (Array.isArray(res)) {
+    return res as Record<string, unknown>[];
+  }
   if (res && typeof res === 'object') {
     const obj = res as Record<string, unknown>;
-    const listField = ['hits', 'results', 'documents', 'items', 'list', 'data'].find((key) => Array.isArray(obj[key]));
-    if (listField) { return obj[listField] as Record<string, unknown>[]; }
+    const listField = ['hits', 'results', 'documents', 'items', 'list', 'data'].find((key) =>
+      Array.isArray(obj[key]),
+    );
+    if (listField) {
+      return obj[listField] as Record<string, unknown>[];
+    }
     return [obj];
   }
   return [];
@@ -108,7 +140,10 @@ async function handleDelete(row: Record<string, unknown>) {
   const documentId = typeof row?.documentId === 'string' ? row.documentId : '';
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, { title: '删除确认', type: 'warning' });
+    await YdConfirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, {
+      title: '删除确认',
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消删除文档操作');
     return;
@@ -124,7 +159,9 @@ async function handleDelete(row: Record<string, unknown>) {
   }
 }
 
-onMounted(() => { handleLoadStats(); });
+onMounted(() => {
+  handleLoadStats();
+});
 </script>
 <template>
   <Page>
@@ -135,7 +172,11 @@ onMounted(() => { handleLoadStats(); });
       </div>
     </div>
     <YdDescriptions v-if="statsEntries.length > statCards.length" :column="2" border class="mb-3">
-      <YdDescriptionsItem v-for="[key, value] in statsEntries.slice(statCards.length)" :key="key" :label="key">
+      <YdDescriptionsItem
+        v-for="[key, value] in statsEntries.slice(statCards.length)"
+        :key="key"
+        :label="key"
+      >
         {{ displayValue(value) }}
       </YdDescriptionsItem>
     </YdDescriptions>
@@ -144,7 +185,12 @@ onMounted(() => { handleLoadStats(); });
       <YdButton @click="handleOpenIngest">导入文档</YdButton>
     </div>
     <div class="mb-3 flex flex-wrap items-center gap-2 rounded-md border p-3">
-      <YdInput v-model="queryForm.query" placeholder="输入检索内容" class="w-72" @keyup.enter="handleSearch" />
+      <YdInput
+        v-model="queryForm.query"
+        placeholder="输入检索内容"
+        class="w-72"
+        @keyup.enter="handleSearch"
+      />
       <span class="text-sm text-gray-500">TopK</span>
       <YdNumberFieldInput v-model="queryForm.topK" :min="1" :max="100" class="w-24" />
       <span class="text-sm text-gray-500">最小得分</span>
@@ -161,7 +207,9 @@ onMounted(() => { handleLoadStats(); });
       <YdTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
       <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
         <template #default="{ row }">
-          <YdButton size="sm" variant="destructive" @click="handleDelete(row)">{{ t('common.delete') }}</YdButton>
+          <YdButton size="sm" variant="destructive" @click="handleDelete(row)">{{
+            t('common.delete')
+          }}</YdButton>
         </template>
       </YdTableColumn>
     </YdTable>

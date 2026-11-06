@@ -103,7 +103,9 @@ afterEach(() => {
 describe('YdSelectSmart 单选', () => {
   it('未展开时不渲染 listbox，aria-expanded 为 false', () => {
     const wrapper = mountSelect();
-    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-expanded')).toBe('false');
+    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-expanded')).toBe(
+      'false',
+    );
     expect(document.querySelector('[role="listbox"]')).toBeNull();
     wrapper.unmount();
   });
@@ -118,7 +120,9 @@ describe('YdSelectSmart 单选', () => {
 
     expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual(['b']);
     expect(wrapper.emitted('change')?.at(-1)).toEqual(['b']);
-    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-expanded')).toBe('false');
+    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-expanded')).toBe(
+      'false',
+    );
     wrapper.unmount();
   });
 
@@ -131,7 +135,10 @@ describe('YdSelectSmart 单选', () => {
 
   it('禁用项不可选中并带 aria-disabled', async () => {
     const wrapper = mountSelect({
-      options: [{ label: 'Apple', value: 'a' }, { disabled: true, label: 'Banana', value: 'b' }],
+      options: [
+        { label: 'Apple', value: 'a' },
+        { disabled: true, label: 'Banana', value: 'b' },
+      ],
     });
     await openPanel(wrapper);
 
@@ -202,9 +209,11 @@ describe('YdSelectSmart 搜索', () => {
 
     await typeSearch('an');
 
-    const labels = optionEls().map(el => el.textContent?.trim());
+    const labels = optionEls().map((el) => el.textContent?.trim());
     expect(labels).toEqual(['Banana']);
-    expect(document.querySelector<HTMLInputElement>('[data-testid="select-search"]')?.value).toBe('an');
+    expect(document.querySelector<HTMLInputElement>('[data-testid="select-search"]')?.value).toBe(
+      'an',
+    );
     wrapper.unmount();
   });
 
@@ -228,7 +237,9 @@ describe('YdSelectSmart 键盘导航', () => {
     pressKey('ArrowDown');
     await nextTick();
 
-    const activeId = wrapper.find('[data-testid="select-trigger"]').attributes('aria-activedescendant');
+    const activeId = wrapper
+      .find('[data-testid="select-trigger"]')
+      .attributes('aria-activedescendant');
     expect(activeId).toMatch(/-listbox-opt-0$/);
     expect(document.getElementById(activeId as string)).toBe(optionEls()[0]);
     wrapper.unmount();
@@ -250,21 +261,28 @@ describe('YdSelectSmart 键盘导航', () => {
     pressKey('Escape');
     await nextTick();
 
-    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-expanded')).toBe('false');
+    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-expanded')).toBe(
+      'false',
+    );
     expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
     wrapper.unmount();
   });
 
   it('跳过禁用项：ArrowDown 落到第一个可用项', async () => {
     const wrapper = mountSelect({
-      options: [{ disabled: true, label: 'Apple', value: 'a' }, { label: 'Banana', value: 'b' }],
+      options: [
+        { disabled: true, label: 'Apple', value: 'a' },
+        { label: 'Banana', value: 'b' },
+      ],
     });
     await openPanel(wrapper);
 
     pressKey('ArrowDown');
     await nextTick();
 
-    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-activedescendant')).toMatch(/-opt-1$/);
+    expect(
+      wrapper.find('[data-testid="select-trigger"]').attributes('aria-activedescendant'),
+    ).toMatch(/-opt-1$/);
     wrapper.unmount();
   });
 
@@ -277,7 +295,9 @@ describe('YdSelectSmart 键盘导航', () => {
     await nextTick();
 
     // 面板处理器不拦截单字符：焦点仍在输入框，列表未被 typeahead 改动
-    expect(wrapper.find('[data-testid="select-trigger"]').attributes('aria-activedescendant')).toBeUndefined();
+    expect(
+      wrapper.find('[data-testid="select-trigger"]').attributes('aria-activedescendant'),
+    ).toBeUndefined();
     wrapper.unmount();
   });
 });
@@ -303,7 +323,7 @@ describe('YdSelectSmart 虚拟滚动', () => {
     pressKey('End');
     await nextTick();
 
-    const labels = optionEls().map(el => el.textContent?.trim());
+    const labels = optionEls().map((el) => el.textContent?.trim());
     expect(labels).toContain('Item 299');
 
     pressKey('Enter');

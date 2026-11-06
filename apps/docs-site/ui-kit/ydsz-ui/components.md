@@ -34,22 +34,22 @@
 
 虚拟滚动表格，基于 useVirtualList 实现万级数据流畅渲染。
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `itemHeight` | `number` | 单行高度（默认 32px） |
-| `viewportHeight` | `number` | 视口高度 |
-| `overscan` | `number` | 缓冲行数 |
+| 属性             | 类型     | 说明                  |
+| ---------------- | -------- | --------------------- |
+| `itemHeight`     | `number` | 单行高度（默认 32px） |
+| `viewportHeight` | `number` | 视口高度              |
+| `overscan`       | `number` | 缓冲行数              |
 
 ---
 
 ### YdButtonSmart / YdButtonGroup / YdCheckButtonGroup / YdIconButton
 
-| 组件 | 说明 |
-|------|------|
-| `YdButtonSmart` | 智能按钮，自动适配 variant/size |
-| `YdButtonGroup` | 按钮组容器，管理间距与对齐 |
-| `YdCheckButtonGroup` | 可勾选按钮组，支持单选/多选模式 |
-| `YdIconButton` | 固定 icon size + icon variant 的封装 |
+| 组件                 | 说明                                 |
+| -------------------- | ------------------------------------ |
+| `YdButtonSmart`      | 智能按钮，自动适配 variant/size      |
+| `YdButtonGroup`      | 按钮组容器，管理间距与对齐           |
+| `YdCheckButtonGroup` | 可勾选按钮组，支持单选/多选模式      |
+| `YdIconButton`       | 固定 icon size + icon variant 的封装 |
 
 ---
 
@@ -73,10 +73,10 @@
 
 ### YdDropdownMenuSmart / YdDropdownRadioMenu
 
-| 组件 | 说明 |
-|------|------|
+| 组件                  | 说明                                   |
+| --------------------- | -------------------------------------- |
 | `YdDropdownMenuSmart` | 智能下拉菜单，支持搜索、分组、虚拟滚动 |
-| `YdDropdownRadioMenu` | 单选下拉菜单 |
+| `YdDropdownRadioMenu` | 单选下拉菜单                           |
 
 ---
 
@@ -96,11 +96,11 @@
 
 顶部告警横幅，支持持久化、多级 severity、可关闭。
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `severity` | `'info' \| 'success' \| 'warning' \| 'error'` | 告警级别 |
-| `isDismissible` | `boolean` | 是否可手动关闭 |
-| `isPersistent` | `boolean` | 是否持久化（跨页面保持） |
+| 属性            | 类型                                          | 说明                     |
+| --------------- | --------------------------------------------- | ------------------------ |
+| `severity`      | `'info' \| 'success' \| 'warning' \| 'error'` | 告警级别                 |
+| `isDismissible` | `boolean`                                     | 是否可手动关闭           |
+| `isPersistent`  | `boolean`                                     | 是否持久化（跨页面保持） |
 
 ---
 
@@ -164,10 +164,10 @@ Logo 组件，支持主题适配、尺寸变体。
 
 密码输入框，支持强度指示、显示/隐藏切换。
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| `showStrength` | `boolean` | 是否显示强度指示器 |
-| `levels` | `PasswordStrengthLevel[]` | 自定义强度分级 |
+| 属性           | 类型                      | 说明               |
+| -------------- | ------------------------- | ------------------ |
+| `showStrength` | `boolean`                 | 是否显示强度指示器 |
+| `levels`       | `PasswordStrengthLevel[]` | 自定义强度分级     |
 
 ---
 
@@ -216,11 +216,11 @@ Logo 组件，支持主题适配、尺寸变体。
 
 仪表盘组件集：
 
-| 组件 | 说明 |
-|------|------|
+| 组件              | 说明                                     |
+| ----------------- | ---------------------------------------- |
 | `YdDashboardGrid` | 仪表盘网格布局，支持拖拽位置、自定义列数 |
-| `YdStatCard` | 统计卡片，标题+数值+趋势 |
-| `YdMiniChart` | 迷你图表（Sparkline） |
+| `YdStatCard`      | 统计卡片，标题+数值+趋势                 |
+| `YdMiniChart`     | 迷你图表（Sparkline）                    |
 
 ---
 
@@ -228,9 +228,9 @@ Logo 组件，支持主题适配、尺寸变体。
 
 通知中心：
 
-| 组件 | 说明 |
-|------|------|
-| `YdNotificationBell` | 通知铃铛（带未读计数） |
+| 组件                  | 说明                    |
+| --------------------- | ----------------------- |
+| `YdNotificationBell`  | 通知铃铛（带未读计数）  |
 | `YdNotificationPanel` | 通知面板（列表 + 操作） |
 
 ---
@@ -313,25 +313,25 @@ function useSelectHeadless&lt;T&gt;(options: UseSelectHeadlessOptions&lt;T&gt;):
 
 **UseSelectHeadlessOptions:**
 
-| 字段 | 类型 | 默认值 |
-|------|------|--------|
-| `items` | `MaybeRefOrGetter&lt;T[]&gt;` | — |
-| `multiple` | `MaybeRefOrGetter<boolean>` | — |
-| `virtualThreshold` | `MaybeRefOrGetter<number>` | `100` |
-| `getValue` | `(item) => string \| number` | **必填** |
-| `getLabel` | `(item) => string` | **必填** |
-| `getKey` | `(item, index) => string \| number` | **必填** |
+| 字段               | 类型                                | 默认值   |
+| ------------------ | ----------------------------------- | -------- |
+| `items`            | `MaybeRefOrGetter&lt;T[]&gt;`       | —        |
+| `multiple`         | `MaybeRefOrGetter<boolean>`         | —        |
+| `virtualThreshold` | `MaybeRefOrGetter<number>`          | `100`    |
+| `getValue`         | `(item) => string \| number`        | **必填** |
+| `getLabel`         | `(item) => string`                  | **必填** |
+| `getKey`           | `(item, index) => string \| number` | **必填** |
 
 **SelectHeadlessHandle:**
 
-| 字段 | 类型 |
-|------|------|
-| `resolvedItems` | `MaybeRefOrGetter&lt;T[]&gt;` |
-| `isVirtualEnabled` | `MaybeRefOrGetter<boolean>` |
-| `getLabelByValue` | `(value) => string` |
-| `toggleItem` | `(current, itemValue, multiple) => value` |
-| `clearValue` | `(multiple) => clearValue` |
-| `isSelected` | `(current, itemValue, multiple) => boolean` |
+| 字段               | 类型                                        |
+| ------------------ | ------------------------------------------- |
+| `resolvedItems`    | `MaybeRefOrGetter&lt;T[]&gt;`               |
+| `isVirtualEnabled` | `MaybeRefOrGetter<boolean>`                 |
+| `getLabelByValue`  | `(value) => string`                         |
+| `toggleItem`       | `(current, itemValue, multiple) => value`   |
+| `clearValue`       | `(multiple) => clearValue`                  |
+| `isSelected`       | `(current, itemValue, multiple) => boolean` |
 
 ---
 
@@ -345,26 +345,26 @@ function useTreeHeadless&lt;T&gt;(options: UseTreeHeadlessOptions&lt;T&gt;): Tre
 
 **UseTreeHeadlessOptions:**
 
-| 字段 | 类型 | 默认值 |
-|------|------|--------|
-| `treeData` | `() => T[] \| T[]` | **必填** |
-| `getValue` | `(node) => string \| number` | **必填** |
-| `getChildren` | `(node) => T[]` | **必填** |
-| `multiple` | `boolean` | — |
-| `cascadeSelect` | `boolean` | — |
-| `defaultExpandedKeys` | `(string \| number)[]` | — |
+| 字段                  | 类型                         | 默认值   |
+| --------------------- | ---------------------------- | -------- |
+| `treeData`            | `() => T[] \| T[]`           | **必填** |
+| `getValue`            | `(node) => string \| number` | **必填** |
+| `getChildren`         | `(node) => T[]`              | **必填** |
+| `multiple`            | `boolean`                    | —        |
+| `cascadeSelect`       | `boolean`                    | —        |
+| `defaultExpandedKeys` | `(string \| number)[]`       | —        |
 
 **TreeHeadlessHandle:**
 
-| 字段/方法 | 类型 |
-|-----------|------|
-| `expandedKeys` | `Set<string \| number>` |
-| `selectedKeys` | `Set<string \| number>` |
-| `toggleExpand` | `(value) => void` |
-| `toggleSelect` | `(value) => void` |
-| `expandAll` / `collapseAll` | `() => void` |
-| `clearSelection` | `() => void` |
-| `flattenedNodes` | `{ data; level; hasChildren; parents; value }[]` |
+| 字段/方法                   | 类型                                             |
+| --------------------------- | ------------------------------------------------ |
+| `expandedKeys`              | `Set<string \| number>`                          |
+| `selectedKeys`              | `Set<string \| number>`                          |
+| `toggleExpand`              | `(value) => void`                                |
+| `toggleSelect`              | `(value) => void`                                |
+| `expandAll` / `collapseAll` | `() => void`                                     |
+| `clearSelection`            | `() => void`                                     |
+| `flattenedNodes`            | `{ data; level; hasChildren; parents; value }[]` |
 
 ---
 
@@ -378,17 +378,17 @@ function useTreeDrag&lt;T&gt;(options: UseTreeDragOptions&lt;T&gt;): TreeDragHan
 
 **UseTreeDragOptions:**
 
-| 字段 | 类型 | 默认值 |
-|------|------|--------|
-| `expandedKeys` | `Ref<Set<string \| number>>` | **必填** |
-| `flattenedNodes` | `Ref<FlatTreeNode[]>` | **必填** |
-| `getValue` | `(node) => string \| number` | **必填** |
-| `getChildren` | `(node) => T[]` | **必填** |
-| `setChildren` | `(node, children) => void` | **必填** |
-| `treeData` | `Ref&lt;T[]&gt;` | **必填** |
-| `autoExpandDelay` | `number` | `600ms` |
-| `canDrag` | `(node) => boolean` | — |
-| `onReorder` | `(payload) => void` | **必填** |
+| 字段              | 类型                         | 默认值   |
+| ----------------- | ---------------------------- | -------- |
+| `expandedKeys`    | `Ref<Set<string \| number>>` | **必填** |
+| `flattenedNodes`  | `Ref<FlatTreeNode[]>`        | **必填** |
+| `getValue`        | `(node) => string \| number` | **必填** |
+| `getChildren`     | `(node) => T[]`              | **必填** |
+| `setChildren`     | `(node, children) => void`   | **必填** |
+| `treeData`        | `Ref&lt;T[]&gt;`             | **必填** |
+| `autoExpandDelay` | `number`                     | `600ms`  |
+| `canDrag`         | `(node) => boolean`          | —        |
+| `onReorder`       | `(payload) => void`          | **必填** |
 
 **TreeDropPosition:** `'before'` / `'inside'` / `'after'`
 
@@ -398,29 +398,29 @@ function useTreeDrag&lt;T&gt;(options: UseTreeDragOptions&lt;T&gt;): TreeDragHan
 
 ### 内置语言
 
-| 语言 | 文件 | 说明 |
-|------|------|------|
+| 语言    | 文件              | 说明             |
+| ------- | ----------------- | ---------------- |
 | `zh-CN` | `locale/zh-CN.ts` | 简体中文（默认） |
-| `en-US` | `locale/en-US.ts` | English |
+| `en-US` | `locale/en-US.ts` | English          |
 
 ### 命名空间分区
 
 文案按业务域划分：
 
-| 命名空间 | 覆盖范围 |
-|----------|----------|
-| `common` | 通用操作（确认/取消/提交...） |
-| `table` | 表格相关（共X条/暂无数据...） |
-| `form` | 表单校验提示（必填/格式错误...） |
-| `dialog` | 弹窗相关 |
-| `upload` | 上传相关 |
-| `pagination` | 分页相关 |
-| `datepicker` | 日期选择器 |
-| `select` | 选择器 |
-| `tree` | 树形组件 |
-| `message` | 全局消息提示 |
-| `notification` | 通知中心 |
-| `empty` | 空状态描述 |
+| 命名空间       | 覆盖范围                         |
+| -------------- | -------------------------------- |
+| `common`       | 通用操作（确认/取消/提交...）    |
+| `table`        | 表格相关（共X条/暂无数据...）    |
+| `form`         | 表单校验提示（必填/格式错误...） |
+| `dialog`       | 弹窗相关                         |
+| `upload`       | 上传相关                         |
+| `pagination`   | 分页相关                         |
+| `datepicker`   | 日期选择器                       |
+| `select`       | 选择器                           |
+| `tree`         | 树形组件                         |
+| `message`      | 全局消息提示                     |
+| `notification` | 通知中心                         |
+| `empty`        | 空状态描述                       |
 
 ### 插值语法
 
@@ -436,13 +436,15 @@ t('pagination.total', { count: 42 })  // → "共 42 条"
 
 ```vue
 <script setup lang="ts">
-import { useLocale } from '@ydsz-core/ydsz-ui'
-const { t, lang, isRTL } = useLocale()
+import { useLocale } from '@ydsz-core/ydsz-ui';
+const { t, lang, isRTL } = useLocale();
 </script>
 
 <template>
-  <span>{{ t('common.confirm') }}</span>  <!-- "确定" -->
-  <span>{{ t('pagination.total', { count: 100}) }}</span>  <!-- "共 100 条" -->
+  <span>{{ t('common.confirm') }}</span>
+  <!-- "确定" -->
+  <span>{{ t('pagination.total', { count: 100 }) }}</span>
+  <!-- "共 100 条" -->
 </template>
 ```
 

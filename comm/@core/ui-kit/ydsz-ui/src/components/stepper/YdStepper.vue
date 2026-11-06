@@ -1,20 +1,36 @@
 <script setup lang="ts">
 /**
-* 多步骤向导容器：步骤条 + 内容面板 + 底部导航按钮。
-* 
+ * 多步骤向导容器：步骤条 + 内容面板 + 底部导航按钮。
+ *
  * 控制逻辑：
  * 1. 下一步：调用当前 step.validate()，返回 false 则不前进（支持 sync/async）。
  * 2. 上一步：直接回退。
  * 3. 完成：最后一步显示，触发 finish 事件。
  * 4. 键盘导航：← → 切换步骤。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\stepper\YdStepper.vue
  * @author ydsz-team
  * @since 1.0.0
  */
-import type { StepItem, StepperContext, StepperOrientation, StepperSize, StepperVariant } from './stepper-types';
+import type {
+  StepItem,
+  StepperContext,
+  StepperOrientation,
+  StepperSize,
+  StepperVariant,
+} from './stepper-types';
 
-import { type Component, type PropType, type VNode, computed, defineComponent, provide, ref, useSlots, watch } from 'vue';
+import {
+  type Component,
+  type PropType,
+  type VNode,
+  computed,
+  defineComponent,
+  provide,
+  ref,
+  useSlots,
+  watch,
+} from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
@@ -278,16 +294,23 @@ const headerDirection = computed(() =>
 
 <template>
   <div
-    :class="cn('stepper flex flex-col overflow-hidden rounded-lg border bg-card', stepTextClass)"
+    :class="cn('stepper bg-card flex flex-col overflow-hidden rounded-lg border', stepTextClass)"
     role="navigation"
     :aria-label="t('stepper.ariaLabel')"
     tabindex="0"
     @keydown="handleKeydown"
   >
     <!-- ========== 步骤条头部 ========== -->
-    <div :class="cn('stepper-header flex items-center justify-between border-b px-6 py-4', headerDirection)">
+    <div
+      :class="
+        cn('stepper-header flex items-center justify-between border-b px-6 py-4', headerDirection)
+      "
+    >
       <!-- 步骤节点列表 -->
-      <ol class="flex w-full items-start" :class="orientation === 'vertical' ? 'flex-col gap-4' : 'flex-row'">
+      <ol
+        class="flex w-full items-start"
+        :class="orientation === 'vertical' ? 'flex-col gap-4' : 'flex-row'"
+      >
         <li
           v-for="step in resolvedSteps"
           :key="step.index"
@@ -307,8 +330,8 @@ const headerDirection = computed(() =>
                 step.status === 'process'
                   ? 'bg-primary text-primary-foreground border-primary'
                   : step.status === 'finish'
-                    ? 'bg-green-500 text-white border-green-500'
-                    : 'bg-neutral-200 text-neutral-500 border-neutral-300 dark:bg-neutral-700 dark:text-neutral-400',
+                    ? 'border-green-500 bg-green-500 text-white'
+                    : 'border-neutral-300 bg-neutral-200 text-neutral-500 dark:bg-neutral-700 dark:text-neutral-400',
               )
             "
           >
@@ -321,7 +344,12 @@ const headerDirection = computed(() =>
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
               <template v-else>{{ step.index + 1 }}</template>
             </template>
@@ -343,10 +371,7 @@ const headerDirection = computed(() =>
             >
               {{ step.title }}
             </span>
-            <span
-              v-if="step.description"
-              class="mt-0.5 text-xs text-muted-foreground"
-            >
+            <span v-if="step.description" class="text-muted-foreground mt-0.5 text-xs">
               {{ step.description }}
             </span>
           </div>
@@ -356,7 +381,7 @@ const headerDirection = computed(() =>
             v-if="orientation === 'horizontal' && step.index < resolvedSteps.length - 1"
             :class="
               cn(
-                'mx-2 h-px flex-1 min-w-4',
+                'mx-2 h-px min-w-4 flex-1',
                 step.status === 'finish'
                   ? 'bg-green-500'
                   : step.status === 'process'
@@ -391,7 +416,7 @@ const headerDirection = computed(() =>
         <button
           :class="
             cn(
-              'inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50',
+              'border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50',
               isFirst ? 'invisible' : '',
             )
           "
@@ -407,7 +432,7 @@ const headerDirection = computed(() =>
           v-if="!isLast"
           :class="
             cn(
-              'inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50',
+              'bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50',
             )
           "
           :disabled="isValidating"
@@ -421,7 +446,14 @@ const headerDirection = computed(() =>
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
             <path
               class="opacity-75"
               fill="currentColor"
@@ -450,7 +482,14 @@ const headerDirection = computed(() =>
             viewBox="0 0 24 24"
             aria-hidden="true"
           >
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
             <path
               class="opacity-75"
               fill="currentColor"

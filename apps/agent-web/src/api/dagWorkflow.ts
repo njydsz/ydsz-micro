@@ -25,35 +25,27 @@ export function save(data: DagWorkflowDTO): Promise<string> {
 /**
  * getByCode: GET /agent/dag-workflow/{code}
  */
-export function getByCode({ code }: {
-    code: string;
-  }): Promise<DagWorkflowVO> {
+export function getByCode({ code }: { code: string }): Promise<DagWorkflowVO> {
   return requestClient.get<DagWorkflowVO>(`/agent/dag-workflow/${code}`);
 }
 
 /**
  * list: GET /agent/dag-workflow/list
  */
-export function list(params: {
-    category?: string;
-  }): Promise<DagWorkflowVO[]> {
+export function list(params: { category?: string }): Promise<DagWorkflowVO[]> {
   return requestClient.get<DagWorkflowVO[]>(`/agent/dag-workflow/list`, { params });
 }
 
 /**
  * delete: DELETE /agent/dag-workflow/{code}
  */
-export function deleteApi({ code }: {
-    code: string;
-  }): Promise<boolean> {
+export function deleteApi({ code }: { code: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/agent/dag-workflow/${code}`);
 }
 
 /**
  * exportDagWorkflows: GET /agent/dag-workflow/export
  */
-export function exportDagWorkflows(params: {
-    category?: string;
-  }): Promise<void> {
+export function exportDagWorkflows(params: { category?: string }): Promise<void> {
   return requestClient.get<void>(`/agent/dag-workflow/export`, { params });
 }

@@ -14,9 +14,22 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdButton, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdSelect,
+  YdSwitch,
+  YdButton,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
 
@@ -174,7 +187,12 @@ watch(
             </YdSelect>
           </YdFormItem>
           <YdFormItem label="描述">
-            <YdInput v-model="formData.description" type="textarea" :rows="3" placeholder="请输入工具描述" />
+            <YdInput
+              v-model="formData.description"
+              type="textarea"
+              :rows="3"
+              placeholder="请输入工具描述"
+            />
           </YdFormItem>
           <YdFormItem label="端点地址" required>
             <YdInput v-model="formData.endpoint" placeholder="请输入端点地址（URL 或连接字符串）" />
@@ -190,7 +208,13 @@ watch(
             </YdSelect>
           </YdFormItem>
           <YdFormItem label="超时时间">
-            <YdNumberFieldInput v-model="formData.timeout" :min="1000" :max="120000" :step="1000" class="w-full" />
+            <YdNumberFieldInput
+              v-model="formData.timeout"
+              :min="1000"
+              :max="120000"
+              :step="1000"
+              class="w-full"
+            />
             <span class="ml-2 text-xs text-gray-500">毫秒</span>
           </YdFormItem>
           <YdFormItem label="重试次数">

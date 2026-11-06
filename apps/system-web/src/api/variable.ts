@@ -24,18 +24,14 @@ export function page(query?: VariablePageQuery): Promise<PageResponse<VariableVO
 /**
  * getById: GET /variable/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<VariableVO> {
+export function getById({ id }: { id: string }): Promise<VariableVO> {
   return requestClient.get<VariableVO>(`/variable/${id}`);
 }
 
 /**
  * getByKey: GET /variable/key/{variableKey}
  */
-export function getByKey({ variableKey }: {
-    variableKey: string;
-  }): Promise<string> {
+export function getByKey({ variableKey }: { variableKey: string }): Promise<string> {
   return requestClient.get<string>(`/variable/key/${variableKey}`);
 }
 
@@ -56,8 +52,6 @@ export function update(data: VariableDTO): Promise<boolean> {
 /**
  * remove: DELETE /variable/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/variable/${id}`);
 }

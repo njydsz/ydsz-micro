@@ -44,7 +44,9 @@ export async function fetchBpmnXml(id: string): Promise<BpmnXmlResponse> {
  * @returns 部署结果（含流程定义 ID）
  */
 export async function deployBpmnXml(xml: string): Promise<{ id: string }> {
-  return requestClient.post<{ id: string }>(`/workflow/engine/definition/deployBpmn`, { bpmnXml: xml });
+  return requestClient.post<{ id: string }>(`/workflow/engine/definition/deployBpmn`, {
+    bpmnXml: xml,
+  });
 }
 
 /**
@@ -57,7 +59,9 @@ export async function deployBpmnXml(xml: string): Promise<{ id: string }> {
  * @returns 保存后的流程定义 ID
  */
 export async function saveBpmnXml(id: string, xml: string): Promise<{ id: string }> {
-  return requestClient.post<{ id: string }>(`/workflow/engine/definition/${id}/bpmnXml`, { bpmnXml: xml });
+  return requestClient.post<{ id: string }>(`/workflow/engine/definition/${id}/bpmnXml`, {
+    bpmnXml: xml,
+  });
 }
 
 /** bpmn-js Moddle 扩展元素描述（用于属性面板可选字段填充） */

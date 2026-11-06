@@ -19,20 +19,20 @@
  * @since 4.0.0
 -->
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
-import { $t } from "@ydsz/locales";
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import { $t } from '@ydsz/locales';
 
-import { useSearchProviderStatus } from "#/hooks/use-global-search";
-import type { SearchItem } from "#/hooks/use-global-search";
+import { useSearchProviderStatus } from '#/hooks/use-global-search';
+import type { SearchItem } from '#/hooks/use-global-search';
 
 import {
   useCommandSearch,
   type CommandItem,
   type PaletteMode,
-} from "./command-palette/composables/use-command-search";
+} from './command-palette/composables/use-command-search';
 
-import { useCommandRecent } from "./command-palette/composables/use-command-recent";
-import { useCommandKeyboard } from "./command-palette/composables/use-command-keyboard";
+import { useCommandRecent } from './command-palette/composables/use-command-recent';
+import { useCommandKeyboard } from './command-palette/composables/use-command-keyboard';
 
 // Props & Model
 const props = defineProps<{
@@ -40,11 +40,11 @@ const props = defineProps<{
   items: SearchItem[];
 }>();
 
-const visible = defineModel<boolean>("visible", { default: false });
-const mode = defineModel<PaletteMode>("mode", { default: "search" });
+const visible = defineModel<boolean>('visible', { default: false });
+const mode = defineModel<PaletteMode>('mode', { default: 'search' });
 
 // State
-const query = ref("");
+const query = ref('');
 const activeIndex = ref(0);
 const inputRef = ref<HTMLInputElement | null>(null);
 const commands = ref<Map<string, CommandItem[]>>(new Map());
@@ -86,7 +86,7 @@ const { toggleMode: keyboardToggleMode } = useCommandKeyboard({
   },
   onClose: close,
   onToggleMode: () => {
-    mode.value = mode.value === "search" ? "command" : "search";
+    mode.value = mode.value === 'search' ? 'command' : 'search';
   },
 });
 
@@ -97,7 +97,7 @@ function close() {
 
 function toggleMode() {
   keyboardToggleMode();
-  query.value = "";
+  query.value = '';
   activeIndex.value = 0;
   nextTick(() => inputRef.value?.focus());
 }
@@ -115,7 +115,7 @@ watch(visible, async (v) => {
   if (v) {
     await nextTick();
     inputRef.value?.focus();
-    query.value = "";
+    query.value = '';
     activeIndex.value = 0;
   }
 });
@@ -136,13 +136,13 @@ function handleUnregisterCommands(e: Event) {
 
 onMounted(() => {
   loadRecentItems();
-  window.addEventListener("YDSZ:register-commands", handleRegisterCommands);
-  window.addEventListener("YDSZ:unregister-commands", handleUnregisterCommands);
+  window.addEventListener('YDSZ:register-commands', handleRegisterCommands);
+  window.addEventListener('YDSZ:unregister-commands', handleUnregisterCommands);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("YDSZ:register-commands", handleRegisterCommands);
-  window.removeEventListener("YDSZ:unregister-commands", handleUnregisterCommands);
+  window.removeEventListener('YDSZ:register-commands', handleRegisterCommands);
+  window.removeEventListener('YDSZ:unregister-commands', handleUnregisterCommands);
 });
 
 // Expose
@@ -214,20 +214,22 @@ defineExpose({
             @keydown.up.prevent="navigate(-1)"
             @keydown.down.prevent="navigate(1)"
           />
-          <button class="cp-mode-btn" @click="toggleMode" :title="$t('page.commandPalette.toggleMode')">
-            {{ mode === "search" ? "⌘⇧P" : "⌘K" }}
+          <button
+            class="cp-mode-btn"
+            @click="toggleMode"
+            :title="$t('page.commandPalette.toggleMode')"
+          >
+            {{ mode === 'search' ? '⌘⇧P' : '⌘K' }}
           </button>
         </div>
 
         <!-- 结果区 -->
         <div class="cp-results" role="listbox">
           <!-- 最近访问 -->
-          <template
-            v-if="
-              mode === 'search' && recentResults.length > 0 && !query.trim()
-            "
-          >
-            <div class="cp-section-title" role="presentation">{{ $t('page.commandPalette.recent') }}</div>
+          <template v-if="mode === 'search' && recentResults.length > 0 && !query.trim()">
+            <div class="cp-section-title" role="presentation">
+              {{ $t('page.commandPalette.recent') }}
+            </div>
             <button
               v-for="(item, idx) in recentResults"
               :key="`recent-${item.id}`"
@@ -248,9 +250,7 @@ defineExpose({
                   appNameLabels?.[item.appName] || item.appName
                 }}</span>
               </div>
-              <span class="cp-app-badge">{{
-                appNameLabels?.[item.appName] || item.appName
-              }}</span>
+              <span class="cp-app-badge">{{ appNameLabels?.[item.appName] || item.appName }}</span>
             </button>
           </template>
 
@@ -268,30 +268,17 @@ defineExpose({
               :key="`search-${item.id}`"
               class="cp-item"
               :class="{
-                'is-active':
-                  (mode === 'search' ? recentResults.length : 0) + idx ===
-                  activeIndex,
+                'is-active': (mode === 'search' ? recentResults.length : 0) + idx === activeIndex,
               }"
               role="option"
-              :aria-selected="
-                (mode === 'search' ? recentResults.length : 0) + idx ===
-                activeIndex
-              "
+              :aria-selected="(mode === 'search' ? recentResults.length : 0) + idx === activeIndex"
               @click="
-                activeIndex =
-                  (mode === 'search' ? recentResults.length : 0) + idx;
+                activeIndex = (mode === 'search' ? recentResults.length : 0) + idx;
                 handleEnter();
               "
-              @mouseenter="
-                activeIndex =
-                  (mode === 'search' ? recentResults.length : 0) + idx
-              "
+              @mouseenter="activeIndex = (mode === 'search' ? recentResults.length : 0) + idx"
             >
-              <span
-                class="cp-item-icon"
-                v-if="item.icon"
-                aria-hidden="true"
-              >
+              <span class="cp-item-icon" v-if="item.icon" aria-hidden="true">
                 <i :class="item.icon"></i>
               </span>
               <span class="cp-item-icon" v-else>📄</span>
@@ -300,18 +287,11 @@ defineExpose({
                   class="cp-item-title"
                   v-safe-html="item.highlightedTitle || item.title"
                 ></span>
-                <span class="cp-item-desc" v-if="item.description">{{
-                  item.description
-                }}</span>
+                <span class="cp-item-desc" v-if="item.description">{{ item.description }}</span>
               </div>
-              <span class="cp-app-badge">{{
-                appNameLabels?.[item.appName] || item.appName
-              }}</span>
+              <span class="cp-app-badge">{{ appNameLabels?.[item.appName] || item.appName }}</span>
             </button>
-            <div
-              v-if="query.trim() && searchResults.length === 0"
-              class="cp-empty"
-            >
+            <div v-if="query.trim() && searchResults.length === 0" class="cp-empty">
               <span>{{ $t('page.commandPalette.noMenu') }}</span>
               <span class="cp-empty-hint">{{ $t('page.commandPalette.tryOtherKeywords') }}</span>
             </div>
@@ -322,7 +302,9 @@ defineExpose({
             <template v-if="commandResults.length > 0">
               <div
                 v-for="category in [
-                  ...new Set(commandResults.map((c) => c.category || $t('page.commandPalette.other'))),
+                  ...new Set(
+                    commandResults.map((c) => c.category || $t('page.commandPalette.other')),
+                  ),
                 ]"
                 :key="category"
               >
@@ -346,13 +328,11 @@ defineExpose({
                   "
                   @mouseenter="activeIndex = commandResults.indexOf(cmd)"
                 >
-                  <span class="cp-item-icon">{{ cmd.icon || "⚡" }}</span>
+                  <span class="cp-item-icon">{{ cmd.icon || '⚡' }}</span>
                   <div class="cp-item-body">
                     <span class="cp-item-title">{{ cmd.title }}</span>
                   </div>
-                  <kbd v-if="cmd.shortcut" class="cp-shortcut">{{
-                    cmd.shortcut
-                  }}</kbd>
+                  <kbd v-if="cmd.shortcut" class="cp-shortcut">{{ cmd.shortcut }}</kbd>
                 </button>
               </div>
             </template>
@@ -361,16 +341,20 @@ defineExpose({
             </div>
             <div v-else class="cp-empty">
               <span>{{ $t('page.commandPalette.availableCommands') }}</span>
-              <span class="cp-empty-hint">{{ $t('page.commandPalette.registeredCount', { count: commandResults.length }) }}</span>
+              <span class="cp-empty-hint">{{
+                $t('page.commandPalette.registeredCount', { count: commandResults.length })
+              }}</span>
             </div>
           </template>
 
           <!-- 空状态 -->
-          <div
-            v-if="results.length === 0 && !query.trim() && mode === 'search'"
-            class="cp-tips"
-          >
-            <span>{{ $t('page.commandPalette.tipsNav') }}</span><span>{{ $t('page.commandPalette.tipsConfirm') }}</span><span>{{ $t('page.commandPalette.tipsClose') }}</span><span class="cp-tips-sep">|</span> <span><kbd>⌘K</kbd> {{ $t('page.commandPalette.search') }}</span><span><kbd>⌘⇧P</kbd> {{ $t('page.commandPalette.command') }}</span>
+          <div v-if="results.length === 0 && !query.trim() && mode === 'search'" class="cp-tips">
+            <span>{{ $t('page.commandPalette.tipsNav') }}</span
+            ><span>{{ $t('page.commandPalette.tipsConfirm') }}</span
+            ><span>{{ $t('page.commandPalette.tipsClose') }}</span
+            ><span class="cp-tips-sep">|</span>
+            <span><kbd>⌘K</kbd> {{ $t('page.commandPalette.search') }}</span
+            ><span><kbd>⌘⇧P</kbd> {{ $t('page.commandPalette.command') }}</span>
           </div>
         </div>
 
@@ -383,7 +367,9 @@ defineExpose({
             v-if="mode === 'search'"
             class="cp-footer-provider-status"
             :class="{ 'is-ready': searchProviderCount > 0 }"
-            :title="$t('page.commandPalette.providerTitle', { names: searchProviderNames.join(', ') })"
+            :title="
+              $t('page.commandPalette.providerTitle', { names: searchProviderNames.join(', ') })
+            "
           >
             <span class="cp-footer-dot"></span>
             {{ searchProviderStatus }}

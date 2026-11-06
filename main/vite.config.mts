@@ -25,7 +25,7 @@ const _mainSrcDir = _toSlash(fileURLToPath(new URL('./src', import.meta.url)));
 const _ydszVueRootDirs = new Set<string>();
 try {
   const ydszVueDir = resolve(_appDir, 'comm/@core/ui-kit/ydsz-vue/src');
-  readdirSync(ydszVueDir, { withFileTypes: true }).forEach(ent => {
+  readdirSync(ydszVueDir, { withFileTypes: true }).forEach((ent) => {
     if (ent.isDirectory()) _ydszVueRootDirs.add(ent.name);
   });
 } catch {

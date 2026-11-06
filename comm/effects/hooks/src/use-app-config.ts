@@ -8,10 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  ApplicationConfig,
-  YDSZAdminProAppConfigRaw,
-} from '@ydsz/types/global';
+import type { ApplicationConfig, YDSZAdminProAppConfigRaw } from '@ydsz/types/global';
 
 /**
  * 由 vite-inject-app-config 注入的全局配置。
@@ -29,11 +26,8 @@ export function useAppConfig(
     ? window._YDSZ_ADMIN_PRO_APP_CONF_
     : (env as YDSZAdminProAppConfigRaw);
 
-  const {
-    VITE_GLOB_API_URL,
-    VITE_GLOB_AUTH_DINGDING_CORP_ID,
-    VITE_GLOB_AUTH_DINGDING_CLIENT_ID,
-  } = config;
+  const { VITE_GLOB_API_URL, VITE_GLOB_AUTH_DINGDING_CORP_ID, VITE_GLOB_AUTH_DINGDING_CLIENT_ID } =
+    config;
 
   const applicationConfig: ApplicationConfig = {
     apiURL: VITE_GLOB_API_URL,

@@ -13,14 +13,14 @@
  * @since 4.2.1
  */
 
-import type { MicroAppConfig, StartOptions } from "@ydsz/micro-runtime";
-import type { GlobalStateBridge } from "./scheduler";
-import type { LifecycleHookRegistry } from "./lifecycle-hooks";
-import type { GlobalStateAPI } from "./global-state";
+import type { MicroAppConfig, StartOptions } from '@ydsz/micro-runtime';
+import type { GlobalStateBridge } from './scheduler';
+import type { LifecycleHookRegistry } from './lifecycle-hooks';
+import type { GlobalStateAPI } from './global-state';
 
-import { createNamespacedGlobalStateWrapper } from "@ydsz/micro-runtime/namespaced-state";
-import { buildStandardMountProps } from "@ydsz/micro-runtime/standard-props";
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createNamespacedGlobalStateWrapper } from '@ydsz/micro-runtime/namespaced-state';
+import { buildStandardMountProps } from '@ydsz/micro-runtime/standard-props';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import {
   decideDegradationLevel,
@@ -29,12 +29,12 @@ import {
   markDegraded,
   renderErrorFallback,
   setRetryCount,
-} from "./error-boundary";
-import { resolveContainer } from "./kernel-helpers";
-import { activateApp, createAppInstance, deactivateApp, getAppInstance } from "./scheduler";
-import { registerAppMessageHandler, sendRequest, sendMessage } from "./message-broker";
-import { mark, measure } from "./performance-utils";
-import { recordRouteTransition } from "./preload-strategy";
+} from './error-boundary';
+import { resolveContainer } from './kernel-helpers';
+import { activateApp, createAppInstance, deactivateApp, getAppInstance } from './scheduler';
+import { registerAppMessageHandler, sendRequest, sendMessage } from './message-broker';
+import { mark, measure } from './performance-utils';
+import { recordRouteTransition } from './preload-strategy';
 
 /**
  * 等待容器 DOM 元素出现（兼容 Vue 异步渲染时序）。
@@ -54,7 +54,7 @@ async function waitForContainer(
   timeout = 5000,
 ): Promise<HTMLElement | null> {
   // HTMLElement 直接返回
-  if (typeof container !== "string") return container;
+  if (typeof container !== 'string') return container;
 
   // 已存在直接返回
   const existing = document.querySelector(container);
@@ -91,16 +91,20 @@ async function waitForContainer(
 
     // 中止信号
     if (signal) {
-      signal.addEventListener("abort", () => {
-        cleanup();
-        resolve(null);
-      }, { once: true });
+      signal.addEventListener(
+        'abort',
+        () => {
+          cleanup();
+          resolve(null);
+        },
+        { once: true },
+      );
     }
   });
 }
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Lifecycle");
+const logger = createLogger('MicroKernel:Lifecycle');
 
 /**
  * 生命周期函数所需的闭包状态访问器。
@@ -140,18 +144,12 @@ export interface LifecycleDependencies {
  * @param deps - 外部依赖（globalStateAPI / lifecycleHooks）
  * @returns switchToApp 函数
  */
-export function createSwitchToApp(
-  state: LifecycleStateAccessors,
-  deps: LifecycleDependencies,
-) {
+export function createSwitchToApp(state: LifecycleStateAccessors, deps: LifecycleDependencies) {
   /**
    * 切换到指定子应用。
    * 含并发安全校验、AbortController 中止、三级降级决策与完整生命周期事件派发。
    */
-  return async function switchToApp(
-    config: MicroAppConfig,
-    options?: StartOptions,
-  ): Promise<void> {
+  return async function switchToApp(config: MicroAppConfig, options?: StartOptions): Promise<void> {
     state.getAbortController?.()?.abort();
     const controller = new AbortController();
     state.setAbortController(controller);
@@ -198,18 +196,27 @@ export function createSwitchToApp(
       _messageBus: standardProps.messageBus,
     };
 
-    window.dispatchEvent(new CustomEvent("micro-kernel:before-load", { detail: { appName: config.name } }));
-    await deps.lifecycleHooks.run("beforeLoad", config);
+    window.dispatchEvent(
+      new CustomEvent('micro-kernel:before-load', { detail: { appName: config.name } }),
+    );
+    await deps.lifecycleHooks.run('beforeLoad', config);
     if (token !== state.getToken()) return;
 
     // 等待容器就绪（兼容 Vue 异步渲染时序，详见 waitForContainer）
     const container = await waitForContainer(config.container, signal);
     if (!container) {
-      logger.error(`Container "${config.container}" not found for ${config.name} (timeout or aborted)`);
-      window.dispatchEvent(
-        new CustomEvent("micro-kernel:error", { detail: { appName: config.name, error: "Container not found" } }),
+      logger.error(
+        `Container "${config.container}" not found for ${config.name} (timeout or aborted)`,
       );
-      await deps.lifecycleHooks.runError(config, new Error(`Container "${config.container}" not found`));
+      window.dispatchEvent(
+        new CustomEvent('micro-kernel:error', {
+          detail: { appName: config.name, error: 'Container not found' },
+        }),
+      );
+      await deps.lifecycleHooks.runError(
+        config,
+        new Error(`Container "${config.container}" not found`),
+      );
       return;
     }
 
@@ -218,9 +225,7 @@ export function createSwitchToApp(
         getGlobalState: () => deps.globalStateAPI.getGlobalState(),
         // patch 经 iframe 跨 realm 通道透传，运行时按 Partial<State> 收窄
         setGlobalState: (patch: unknown) =>
-          deps.globalStateAPI.setGlobalState(
-            patch as Partial<Record<string, unknown>>,
-          ),
+          deps.globalStateAPI.setGlobalState(patch as Partial<Record<string, unknown>>),
         onGlobalStateChange: (listener, fireImmediately) =>
           deps.globalStateAPI.onGlobalStateChange(listener, fireImmediately),
       };
@@ -232,16 +237,18 @@ export function createSwitchToApp(
         {
           onLoaded: (inst) => {
             if (token !== state.getToken() || signal.aborted) return;
-            void deps.lifecycleHooks.run("afterLoad", inst.config);
+            void deps.lifecycleHooks.run('afterLoad', inst.config);
             window.dispatchEvent(
-              new CustomEvent("micro-kernel:after-load", { detail: { appName: inst.config.name } }),
+              new CustomEvent('micro-kernel:after-load', { detail: { appName: inst.config.name } }),
             );
           },
           onBeforeMount: (inst) => {
             if (token !== state.getToken() || signal.aborted) return;
-            void deps.lifecycleHooks.run("beforeMount", inst.config);
+            void deps.lifecycleHooks.run('beforeMount', inst.config);
             window.dispatchEvent(
-              new CustomEvent("micro-kernel:before-mount", { detail: { appName: inst.config.name } }),
+              new CustomEvent('micro-kernel:before-mount', {
+                detail: { appName: inst.config.name },
+              }),
             );
           },
         },
@@ -265,12 +272,15 @@ export function createSwitchToApp(
           `kernel:route:${fromApp}?${config.name}:end`,
         );
       }
-      await deps.lifecycleHooks.run("afterMount", config);
+      await deps.lifecycleHooks.run('afterMount', config);
       window.dispatchEvent(
-        new CustomEvent("micro-kernel:after-mount", { detail: { appName: config.name } }),
+        new CustomEvent('micro-kernel:after-mount', { detail: { appName: config.name } }),
       );
     } catch (error) {
-      if ((error instanceof DOMException || error instanceof Error) && error.name === "AbortError") {
+      if (
+        (error instanceof DOMException || error instanceof Error) &&
+        error.name === 'AbortError'
+      ) {
         logger.debug(`YdSwitch to ${config.name} aborted by newer request`);
         return;
       }
@@ -278,23 +288,31 @@ export function createSwitchToApp(
       logger.error(`Failed to activate ${config.name}:`, error);
       const level = decideDegradationLevel(config.name);
 
-      if (level === "auto-retry") {
+      if (level === 'auto-retry') {
         const delay = getNextAutoRetryDelay(config.name);
         setRetryCount(config.name, getRetryCount(config.name) + 1);
         logger.info(`Auto-retry ${config.name} after ${Math.round(delay)}ms (silent)...`);
-        setTimeout(() => { void switchToApp(config, options); }, delay);
+        setTimeout(() => {
+          void switchToApp(config, options);
+        }, delay);
         return;
       }
 
-      if (level === "show-ui") {
-        renderErrorFallback(config, resolveContainer(config.container), () => switchToApp(config, options));
+      if (level === 'show-ui') {
+        renderErrorFallback(config, resolveContainer(config.container), () =>
+          switchToApp(config, options),
+        );
       } else {
         markDegraded(config.name);
-        renderErrorFallback(config, resolveContainer(config.container), () => switchToApp(config, options));
+        renderErrorFallback(config, resolveContainer(config.container), () =>
+          switchToApp(config, options),
+        );
       }
 
       window.dispatchEvent(
-        new CustomEvent("micro-kernel:error", { detail: { appName: config.name, error: String(error) } }),
+        new CustomEvent('micro-kernel:error', {
+          detail: { appName: config.name, error: String(error) },
+        }),
       );
       await deps.lifecycleHooks.runError(config, error);
       if (state.getActiveAppName() === config.name) state.setActiveAppName(null);

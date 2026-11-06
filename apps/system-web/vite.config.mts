@@ -14,8 +14,7 @@ export default defineConfig(async () => {
     application: {},
     vite: withVendorExternals({
       base: '/',
-      plugins: [
-      ],
+      plugins: [],
       server: {
         port: 5602,
         cors: true,

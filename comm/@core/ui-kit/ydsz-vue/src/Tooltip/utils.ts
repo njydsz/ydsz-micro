@@ -1,1 +1,1 @@
-export const TOOLTIP_OPEN = 'tooltip.open'
+export const TOOLTIP_OPEN = 'tooltip.open';

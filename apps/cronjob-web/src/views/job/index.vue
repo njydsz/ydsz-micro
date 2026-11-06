@@ -20,7 +20,14 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 
 import { YdConfirm } from '@ydsz-core/popup-ui';
-import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -111,46 +118,72 @@ const gridOptions: VxeTableGridOptions<JobRow> = {
         default: ({ row }) => {
           const job = row as JobRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(job) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(job) }, () =>
+              t('common.edit'),
             ),
             isPaused(job)
               ? h(
                   YdButton,
-                  { size: 'sm', variant: 'link', 'aria-label': t('common.resume'), onClick: () => handleResume(job) },
+                  {
+                    size: 'sm',
+                    variant: 'link',
+                    'aria-label': t('common.resume'),
+                    onClick: () => handleResume(job),
+                  },
                   () => t('common.resume'),
                 )
               : h(
                   YdButton,
-                  { size: 'sm', variant: 'link', 'aria-label': t('common.pause'), onClick: () => handlePause(job) },
+                  {
+                    size: 'sm',
+                    variant: 'link',
+                    'aria-label': t('common.pause'),
+                    onClick: () => handlePause(job),
+                  },
                   () => t('common.pause'),
                 ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': t('common.trigger'), onClick: () => handleTrigger(job) },
+              {
+                size: 'sm',
+                variant: 'link',
+                'aria-label': t('common.trigger'),
+                onClick: () => handleTrigger(job),
+              },
               () => t('common.trigger'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': t('common.log'), onClick: () => handleViewLog(job) },
+              {
+                size: 'sm',
+                variant: 'link',
+                'aria-label': t('common.log'),
+                onClick: () => handleViewLog(job),
+              },
               () => t('common.log'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': t('business.eventStream'), onClick: () => handleViewEvents(job) },
+              {
+                size: 'sm',
+                variant: 'link',
+                'aria-label': t('business.eventStream'),
+                onClick: () => handleViewEvents(job),
+              },
               () => t('business.eventStream'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', 'aria-label': 'WebHook', onClick: () => handleWebhookConfig(job) },
+              {
+                size: 'sm',
+                variant: 'link',
+                'aria-label': 'WebHook',
+                onClick: () => handleWebhookConfig(job),
+              },
               () => 'WebHook',
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleDelete(job) },
-              () => t('common.delete'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(job) }, () =>
+              t('common.delete'),
             ),
           ]);
         },
@@ -296,7 +329,10 @@ function handleEdit(row: JobRow) {
 async function handlePause(row: JobRow) {
   if (!row.id) return;
   try {
-    await YdConfirm(t('business.confirmPause', { name: row.jobName }), { title: t('common.pause'), type: 'warning' });
+    await YdConfirm(t('business.confirmPause', { name: row.jobName }), {
+      title: t('common.pause'),
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消暂停任务', row.id);
     return;
@@ -314,7 +350,10 @@ async function handlePause(row: JobRow) {
 async function handleResume(row: JobRow) {
   if (!row.id) return;
   try {
-    await YdConfirm(t('business.confirmResume', { name: row.jobName }), { title: t('common.resume'), type: 'warning' });
+    await YdConfirm(t('business.confirmResume', { name: row.jobName }), {
+      title: t('common.resume'),
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消恢复任务', row.id);
     return;
@@ -332,7 +371,10 @@ async function handleResume(row: JobRow) {
 async function handleTrigger(row: JobRow) {
   if (!row.id) return;
   try {
-    await YdConfirm(t('business.confirmTrigger', { name: row.jobName }), { title: t('common.trigger'), type: 'warning' });
+    await YdConfirm(t('business.confirmTrigger', { name: row.jobName }), {
+      title: t('common.trigger'),
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消触发任务', row.id);
     return;
@@ -419,7 +461,10 @@ async function handleBatchDelete() {
   if (ids.length === 0) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, { title: '批量删除确认', type: 'warning', });
+    await YdConfirm(`确定批量删除选中的 ${ids.length} 个任务吗？`, {
+      title: '批量删除确认',
+      type: 'warning',
+    });
   } catch {
     logger.warn('用户取消批量删除', ids);
     return; // 用户主动取消批量删除
@@ -444,9 +489,23 @@ async function handleBatchDelete() {
     <Grid :table-title="t('page.task')">
       <template #toolbar-tools>
         <YdButton @click="handleAdd">{{ t('common.create') }}</YdButton>
-        <YdButton variant="destructive" :loading="batchLoading" :disabled="batchLoading" @click="handleBatchPause">批量暂停</YdButton>
-        <YdButton :loading="batchLoading" :disabled="batchLoading" @click="handleBatchResume">批量恢复</YdButton>
-        <YdButton variant="destructive" :loading="batchLoading" :disabled="batchLoading" @click="handleBatchDelete">批量删除</YdButton>
+        <YdButton
+          variant="destructive"
+          :loading="batchLoading"
+          :disabled="batchLoading"
+          @click="handleBatchPause"
+          >批量暂停</YdButton
+        >
+        <YdButton :loading="batchLoading" :disabled="batchLoading" @click="handleBatchResume"
+          >批量恢复</YdButton
+        >
+        <YdButton
+          variant="destructive"
+          :loading="batchLoading"
+          :disabled="batchLoading"
+          @click="handleBatchDelete"
+          >批量删除</YdButton
+        >
       </template>
     </Grid>
     <JobFormModal @success="gridApi.query()" />
@@ -470,7 +529,10 @@ async function handleBatchDelete() {
         <div v-if="eventLoading" class="flex h-32 items-center justify-center">
           <YdBadge>加载中...</YdBadge>
         </div>
-        <div v-else-if="eventStream.length === 0" class="flex h-32 items-center justify-center text-gray-400">
+        <div
+          v-else-if="eventStream.length === 0"
+          class="flex h-32 items-center justify-center text-gray-400"
+        >
           暂无事件记录
         </div>
         <div v-else class="space-y-2">

@@ -18,9 +18,7 @@ import { cn } from '@ydsz-core/shared/utils';
 
 import { ContextMenuItem, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
-const props = defineProps<
-  ContextMenuItemProps & { class?: any; inset?: boolean }
->();
+const props = defineProps<ContextMenuItemProps & { class?: any; inset?: boolean }>();
 const emits = defineEmits<ContextMenuItemEmits>();
 
 const delegatedProps = computed(() => {

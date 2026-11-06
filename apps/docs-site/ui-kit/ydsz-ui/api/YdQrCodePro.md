@@ -6,7 +6,7 @@
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `download` | `dataUrl: string` | - |
-| `rendered` | `void` | - |
+| 事件       | 参数              | 说明 |
+| ---------- | ----------------- | ---- |
+| `download` | `dataUrl: string` | -    |
+| `rendered` | `void`            | -    |

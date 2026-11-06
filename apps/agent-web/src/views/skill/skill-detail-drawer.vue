@@ -14,8 +14,17 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdTable, YdTableColumn, YdTag } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdAlert,
+  YdButton,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdDrawer,
+  YdTable,
+  YdTableColumn,
+  YdTag,
+} from '@ydsz-core/ydsz-ui';
 import { useI18n } from '@ydsz/locales';
 import { computed, ref, watch } from 'vue';
 
@@ -99,37 +108,24 @@ watch(
     <div class="space-y-6">
       <!-- 基本信息 -->
       <div>
-        <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
+        <h3 class="text-text-primary mb-3 flex items-center gap-2 text-base font-medium">
           <Info :size="16" class="text-brand-500" />
           {{ t('business.skill.skillName') || '基本信息' }}
         </h3>
 
         <!-- 加载态 -->
-        <div
-          v-if="detailLoading"
-          class="flex h-32 items-center justify-center"
-        >
-          <RefreshCw class="animate-spin text-brand-500" :size="16" />
-          <span class="ml-2 text-sm text-text-secondary">
+        <div v-if="detailLoading" class="flex h-32 items-center justify-center">
+          <RefreshCw class="text-brand-500 animate-spin" :size="16" />
+          <span class="text-text-secondary ml-2 text-sm">
             {{ t('business.skill.loading') || '加载中...' }}
           </span>
         </div>
 
         <!-- 错误态 -->
-        <YdAlert
-          v-else-if="detailError"
-          :title="detailError"
-          type="error"
-          :closable="false"
-        />
+        <YdAlert v-else-if="detailError" :title="detailError" type="error" :closable="false" />
 
         <!-- 详情内容 -->
-        <YdDescriptions
-          v-else
-          :column="2"
-          border
-          size="sm"
-        >
+        <YdDescriptions v-else :column="2" border size="sm">
           <YdDescriptionsItem :label="t('business.skill.skillCode') || '技能编码'">
             {{ skillCode }}
           </YdDescriptionsItem>
@@ -137,11 +133,7 @@ watch(
             {{ getField('skillName') || '-' }}
           </YdDescriptionsItem>
           <YdDescriptionsItem :label="t('business.skill.skillType') || '技能类型'">
-            <YdTag
-              v-if="getField('skillType')"
-              size="sm"
-              variant="primary"
-            >
+            <YdTag v-if="getField('skillType')" size="sm" variant="primary">
               {{ getField('skillType') }}
             </YdTag>
             <span v-else>-</span>
@@ -149,10 +141,7 @@ watch(
           <YdDescriptionsItem :label="t('business.skill.version') || '版本'">
             {{ getField('version') || '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem
-            :label="t('business.skill.status') || '状态'"
-            :span="2"
-          >
+          <YdDescriptionsItem :label="t('business.skill.status') || '状态'" :span="2">
             <YdTag
               v-if="getField('status')"
               size="sm"
@@ -162,16 +151,10 @@ watch(
             </YdTag>
             <span v-else>-</span>
           </YdDescriptionsItem>
-          <YdDescriptionsItem
-            :label="t('business.skill.description') || '描述'"
-            :span="2"
-          >
+          <YdDescriptionsItem :label="t('business.skill.description') || '描述'" :span="2">
             {{ getField('description') || '-' }}
           </YdDescriptionsItem>
-          <YdDescriptionsItem
-            :label="t('business.skill.updatedAt') || '更新时间'"
-            :span="2"
-          >
+          <YdDescriptionsItem :label="t('business.skill.updatedAt') || '更新时间'" :span="2">
             {{ getField('updatedAt') || '-' }}
           </YdDescriptionsItem>
         </YdDescriptions>
@@ -179,17 +162,13 @@ watch(
 
       <!-- 执行指标（metrics） -->
       <div v-if="isDetailRecord(detailData) && detailData.metrics">
-        <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
+        <h3 class="text-text-primary mb-3 flex items-center gap-2 text-base font-medium">
           <Info :size="16" class="text-brand-500" />
           {{ t('business.skill.detail.metrics') || '执行指标' }}
         </h3>
-        <YdDescriptions
-          :column="2"
-          border
-          size="sm"
-        >
+        <YdDescriptions :column="2" border size="sm">
           <YdDescriptionsItem
-            v-for="(value, key) in (detailData.metrics as Record<string, unknown>)"
+            v-for="(value, key) in detailData.metrics as Record<string, unknown>"
             :key="key"
             :label="String(key)"
           >
@@ -199,8 +178,14 @@ watch(
       </div>
 
       <!-- 产物文件 -->
-      <div v-if="isDetailRecord(detailData) && Array.isArray(detailData.outputFiles) && (detailData.outputFiles as unknown[]).length > 0">
-        <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
+      <div
+        v-if="
+          isDetailRecord(detailData) &&
+          Array.isArray(detailData.outputFiles) &&
+          (detailData.outputFiles as unknown[]).length > 0
+        "
+      >
+        <h3 class="text-text-primary mb-3 flex items-center gap-2 text-base font-medium">
           <Info :size="16" class="text-brand-500" />
           {{ t('business.skill.detail.outputFiles') || '产物文件' }}
         </h3>
@@ -220,11 +205,8 @@ watch(
       </div>
 
       <!-- 底部刷新 -->
-      <div class="flex justify-end border-t border-border-subtle pt-4">
-        <YdButton
-          :loading="detailLoading"
-          @click="loadDetail"
-        >
+      <div class="border-border-subtle flex justify-end border-t pt-4">
+        <YdButton :loading="detailLoading" @click="loadDetail">
           <RefreshCw v-if="!detailLoading" :size="14" />
           {{ t('business.skill.refresh') || '刷新' }}
         </YdButton>

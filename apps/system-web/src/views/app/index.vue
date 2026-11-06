@@ -60,10 +60,8 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
       slots: {
         default: ({ row }) => {
           const app = row as AppRow;
-          return h(
-            YdBadge,
-            { variant: isEnabled(app.status) ? undefined : 'secondary' },
-            () => (isEnabled(app.status) ? t('business.enabled') : t('business.disabled')),
+          return h(YdBadge, { variant: isEnabled(app.status) ? undefined : 'secondary' }, () =>
+            isEnabled(app.status) ? t('business.enabled') : t('business.disabled'),
           );
         },
       },
@@ -79,7 +77,11 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
           const app = row as AppRow;
           return h('div', { class: 'flex gap-1' }, [
             h(YdButton, { size: 'sm', onClick: () => handleEdit(app) }, () => t('business.edit')),
-            h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) }, () => t('business.delete')),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'destructive', onClick: () => handleDelete(app) },
+              () => t('business.delete'),
+            ),
           ]);
         },
       },
@@ -104,8 +106,19 @@ const gridOptions: VxeTableGridOptions<AppRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'appName', title: t('business.appName'), itemRender: { name: 'YdInput', props: { placeholder: t('business.appName') } } },
-      { field: 'status', title: t('business.status'), itemRender: { name: 'YdInput', props: { placeholder: t('appList.statusFilterPlaceholder') } } },
+      {
+        field: 'appName',
+        title: t('business.appName'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('business.appName') } },
+      },
+      {
+        field: 'status',
+        title: t('business.status'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('appList.statusFilterPlaceholder') },
+        },
+      },
     ],
   },
 };
@@ -126,7 +139,10 @@ function handleEdit(row: AppRow) {
 async function handleDelete(row: AppRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('business.confirmDeleteName', [row.appName ?? row.appCode ?? '']), { title: t('page.common.deleteConfirm'), type: 'warning' });
+    await YdConfirm(t('business.confirmDeleteName', [row.appName ?? row.appCode ?? '']), {
+      title: t('page.common.deleteConfirm'),
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消删除操作
   }

@@ -15,7 +15,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page, useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
@@ -70,9 +70,7 @@ function safeStringField(record: Record<string, unknown>, field: string): string
  *
  * <p>返回值为 YdBadge 的 variant，用 `BadgeVariants` 约束以避免调用处 `as any`。
  */
-function getSkillTypeTagType(
-  type?: string,
-): NonNullable<BadgeVariants['variant']> {
+function getSkillTypeTagType(type?: string): NonNullable<BadgeVariants['variant']> {
   switch ((type ?? '').toUpperCase()) {
     case 'SANDBOX':
       return 'primary';
@@ -315,35 +313,28 @@ void fetchSkillList();
     <Grid :table-title="t('business.skill.title') || '技能引擎'" />
 
     <!-- 详情抽屉 -->
-    <SkillDetailDrawer
-      v-model="drawerVisible"
-      :skill-code="selectedSkillCode"
-    />
+    <SkillDetailDrawer v-model="drawerVisible" :skill-code="selectedSkillCode" />
 
     <!-- 执行弹窗 -->
-    <ExecuteModal
-      :title="t('business.skill.executeTitle') || '执行技能'"
-      width="600px"
-    >
+    <ExecuteModal :title="t('business.skill.executeTitle') || '执行技能'" width="600px">
       <div class="space-y-4 pt-2">
         <!-- 技能编码（只读） -->
         <div>
-          <label class="mb-1 block text-sm font-medium text-text-secondary">
+          <label class="text-text-secondary mb-1 block text-sm font-medium">
             {{ t('business.skill.skillCode') || '技能编码' }}
           </label>
-          <YdInput
-            :model-value="executeFormData.skillCode"
-            disabled
-          />
+          <YdInput :model-value="executeFormData.skillCode" disabled />
         </div>
 
         <!-- 输入参数 JSON -->
         <div>
-          <label class="mb-1 block text-sm font-medium text-text-secondary">
+          <label class="text-text-secondary mb-1 block text-sm font-medium">
             {{ t('business.skill.inputParams') || '输入参数' }}
           </label>
           <YdInput
-            :model-value="executeFormData.inputParams ? JSON.stringify(executeFormData.inputParams) : ''"
+            :model-value="
+              executeFormData.inputParams ? JSON.stringify(executeFormData.inputParams) : ''
+            "
             type="textarea"
             :rows="6"
             :placeholder="t('business.skill.executeParamsPlaceholder') || '请输入参数 JSON'"
@@ -361,7 +352,7 @@ void fetchSkillList();
 
         <!-- 超时时间 -->
         <div>
-          <label class="mb-1 block text-sm font-medium text-text-secondary">
+          <label class="text-text-secondary mb-1 block text-sm font-medium">
             {{ t('business.skill.timeoutMs') || '超时时间(ms)' }}
           </label>
           <YdInput
@@ -376,11 +367,13 @@ void fetchSkillList();
 
         <!-- 环境变量 -->
         <div>
-          <label class="mb-1 block text-sm font-medium text-text-secondary">
+          <label class="text-text-secondary mb-1 block text-sm font-medium">
             {{ t('business.skill.envVariables') || '环境变量' }}
           </label>
           <YdInput
-            :model-value="executeFormData.envVariables ? JSON.stringify(executeFormData.envVariables) : ''"
+            :model-value="
+              executeFormData.envVariables ? JSON.stringify(executeFormData.envVariables) : ''
+            "
             type="textarea"
             :rows="3"
             :placeholder="envPlaceholder"
@@ -400,24 +393,20 @@ void fetchSkillList();
 
         <!-- 执行结果 -->
         <div v-if="executeResult">
-          <label class="mb-1 block text-sm font-medium text-text-secondary">
+          <label class="text-text-secondary mb-1 block text-sm font-medium">
             {{ t('business.skill.executeResult') || '执行结果' }}
           </label>
-          <pre class="max-h-60 overflow-auto rounded-md bg-accent/60 p-3 text-xs text-text-primary">{{ executeResult }}</pre>
+          <pre
+            class="bg-accent/60 text-text-primary max-h-60 overflow-auto rounded-md p-3 text-xs"
+            >{{ executeResult }}</pre>
         </div>
       </div>
 
       <template #footer>
-        <YdButton
-          variant="outline"
-          @click="executeModalApi.close()"
-        >
+        <YdButton variant="outline" @click="executeModalApi.close()">
           {{ t('common.cancel') || '取消' }}
         </YdButton>
-        <YdButton
-          :loading="executeLoading"
-          @click="handleSubmitExecute"
-        >
+        <YdButton :loading="executeLoading" @click="handleSubmitExecute">
           {{ t('business.skill.execute') || '执行' }}
         </YdButton>
       </template>

@@ -18,9 +18,7 @@ interface RouteModuleType {
  * @param routeModules - 动态导入的路由模块对象（键为模块路径，值为模块）
  * @returns 展平合并后的路由配置数组
  */
-function mergeRouteModules(
-  routeModules: Record<string, unknown>,
-): RouteRecordRaw[] {
+function mergeRouteModules(routeModules: Record<string, unknown>): RouteRecordRaw[] {
   const mergedRoutes: RouteRecordRaw[] = [];
 
   for (const routeModule of Object.values(routeModules)) {

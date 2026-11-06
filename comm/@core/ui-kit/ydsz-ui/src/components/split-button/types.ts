@@ -9,37 +9,37 @@
 /** 单个下拉动作定义 */
 export interface SplitButtonAction {
   /** 动作显示文本 */
-  label: string
+  label: string;
   /** 动作图标（iconify class 名） */
-  icon?: string
+  icon?: string;
   /** 点击回调 */
-  command?: () => void
+  command?: () => void;
   /** 是否禁用该动作 */
-  disabled?: boolean
+  disabled?: boolean;
   /** 唯一标识，便于外部追踪 */
-  key?: string
+  key?: string;
 }
 
 /** SplitButton 组件 props */
 export interface YdSplitButtonProps {
   /** 主按钮文案 */
-  label?: string
+  label?: string;
   /** 主按钮图标（iconify class 名） */
-  icon?: string
+  icon?: string;
   /** 下拉动作列表 */
-  actions: SplitButtonAction[]
+  actions: SplitButtonAction[];
   /** 整体禁用 */
-  disabled?: boolean
+  disabled?: boolean;
   /** 尺寸 */
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg';
   /** 视觉变体 */
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
   /** 下拉箭头图标（iconify class 名） */
-  dropdownIcon?: string
+  dropdownIcon?: string;
 }
 
 /** SplitButton 组件 emits */
 export interface SplitButtonEmits {
   /** 任一动作被点击（含主按钮） */
-  (e: 'action', action: SplitButtonAction): void
+  (e: 'action', action: SplitButtonAction): void;
 }

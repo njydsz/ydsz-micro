@@ -39,8 +39,7 @@ describe('YdConfirmDialog', () => {
 
   it('应包含 name 选项 (YdConfirmDialog)', () => {
     // __name / name 是 defineOptions 注册的
-    const componentName = (YdConfirmDialog as any).name
-      ?? (YdConfirmDialog as any).__name;
+    const componentName = (YdConfirmDialog as any).name ?? (YdConfirmDialog as any).__name;
     expect(componentName).toBe('YdConfirmDialog');
   });
 
@@ -101,8 +100,7 @@ describe('YdConfirmPopup', () => {
   });
 
   it('应包含 name 选项 (YdConfirmPopup)', () => {
-    const componentName = (YdConfirmPopup as any).name
-      ?? (YdConfirmPopup as any).__name;
+    const componentName = (YdConfirmPopup as any).name ?? (YdConfirmPopup as any).__name;
     expect(componentName).toBe('YdConfirmPopup');
   });
 

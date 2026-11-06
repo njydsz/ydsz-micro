@@ -24,19 +24,24 @@ export function startProcess(data: FlowStartProcessDTO): Promise<string> {
  * getByBusiness: GET /internal/engine/instance/byBusiness
  */
 export function getByBusiness(params: {
-    businessType?: string;
-    businessId?: string;
-  }): Promise<FlowInstanceViewDTO> {
+  businessType?: string;
+  businessId?: string;
+}): Promise<FlowInstanceViewDTO> {
   return requestClient.get<FlowInstanceViewDTO>(`/internal/engine/instance/byBusiness`, { params });
 }
 
 /**
  * terminate: POST /internal/engine/instance/{id}/terminate
  */
-export function terminate({ id }: {
+export function terminate(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     reason?: string;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/internal/engine/instance/${id}/terminate`, { params });
 }

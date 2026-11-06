@@ -54,4 +54,3 @@ const style = computed((): CSSProperties => {
     <slot></slot>
   </footer>
 </template>
-

@@ -108,16 +108,25 @@ export function useToast(): UseToastReturn {
    */
   function addMessage(options: MessageOptions): string {
     const { content, type, ...rest } = options;
-    const sender = type === 'error' ? messageError
-      : type === 'warning' ? messageWarning
-      : type === 'loading' ? messageLoading
-      : type === 'success' ? messageSuccess
-      : type === 'info' ? messageInfo
-      : messageInfo;
+    const sender =
+      type === 'error'
+        ? messageError
+        : type === 'warning'
+          ? messageWarning
+          : type === 'loading'
+            ? messageLoading
+            : type === 'success'
+              ? messageSuccess
+              : type === 'info'
+                ? messageInfo
+                : messageInfo;
     return sender(content, rest);
   }
 
-  function addToast(optionsOrContent: MessageOptions | string, maybeOptions?: Omit<MessageOptions, 'content'>): string {
+  function addToast(
+    optionsOrContent: MessageOptions | string,
+    maybeOptions?: Omit<MessageOptions, 'content'>,
+  ): string {
     let id: string;
     if (typeof optionsOrContent === 'object' && 'content' in optionsOrContent) {
       id = addMessage(optionsOrContent);

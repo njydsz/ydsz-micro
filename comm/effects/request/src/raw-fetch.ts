@@ -32,9 +32,6 @@
  * @param init 可选的 fetch 初始化参数
  * @returns 原始 Response 对象
  */
-export async function fetchRaw(
-  input: string | URL,
-  init?: RequestInit,
-): Promise<Response> {
+export async function fetchRaw(input: string | URL, init?: RequestInit): Promise<Response> {
   return fetch(input, init);
 }

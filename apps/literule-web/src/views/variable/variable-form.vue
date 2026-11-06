@@ -17,7 +17,6 @@ import { showToast } from '@ydsz/notification';
 import type { VariableDefinitionVO } from '#/api/models';
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-;
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { save } from '#/api/ruleVariableAdmin';
@@ -73,7 +72,7 @@ const [Modal, modalApi] = useYdModal({
     try {
       await formRef.value?.validate();
     } catch (error) {
-      logger.debug("表单校验未通过: {}", error);
+      logger.debug('表单校验未通过: {}', error);
       return;
     }
     modalApi.lock();
@@ -99,7 +98,11 @@ const title = computed(() => (isEdit.value ? t('editVariableTitle') : t('createV
       label-position="right"
     >
       <YdFormItem :label="t('variableNameColumn')" prop="name">
-        <YdInput v-model="formData.name" :placeholder="t('variableNamePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.name"
+          :placeholder="t('variableNamePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('variableType')">
         <YdInput v-model="formData.type" :placeholder="t('variableTypePlaceholder')" />

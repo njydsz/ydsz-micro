@@ -25,7 +25,14 @@ function createMockApis(overrides?: Partial<NotificationCoreApis>): Notification
   return {
     getNotificationsApi: vi.fn().mockResolvedValue({
       items: [
-        { id: '1', title: 't1', message: 'm1', type: 'INFO', isRead: false, createdAt: '2026-01-01' },
+        {
+          id: '1',
+          title: 't1',
+          message: 'm1',
+          type: 'INFO',
+          isRead: false,
+          createdAt: '2026-01-01',
+        },
       ],
     }),
     getUnreadCountApi: vi.fn().mockResolvedValue(5),
@@ -93,8 +100,22 @@ describe('createNotificationCore', () => {
     const apis = createMockApis({
       getNotificationsApi: vi.fn().mockResolvedValue({
         items: [
-          { id: '1', title: 't1', message: 'm1', type: 'INFO', isRead: false, createdAt: '2026-01-01' },
-          { id: '2', title: 't2', message: 'm2', type: 'WARN', isRead: false, createdAt: '2026-01-02' },
+          {
+            id: '1',
+            title: 't1',
+            message: 'm1',
+            type: 'INFO',
+            isRead: false,
+            createdAt: '2026-01-01',
+          },
+          {
+            id: '2',
+            title: 't2',
+            message: 'm2',
+            type: 'WARN',
+            isRead: false,
+            createdAt: '2026-01-02',
+          },
         ],
       }),
     });

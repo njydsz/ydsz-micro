@@ -1,24 +1,24 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface AccordionHeaderProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { useForwardExpose } from '../shared/index.ts'
-import { injectAccordionItemContext } from './AccordionItem.vue'
-import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
+import { useForwardExpose } from '../shared/index.ts';
+import { injectAccordionItemContext } from './AccordionItem.vue';
+import { injectAccordionRootContext } from './AccordionRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<AccordionHeaderProps>(), {
   as: 'h3',
-})
+});
 
-const rootContext = injectAccordionRootContext()
-const itemContext = injectAccordionItemContext()
+const rootContext = injectAccordionRootContext();
+const itemContext = injectAccordionItemContext();
 
-useForwardExpose()
+useForwardExpose();
 </script>
 
 <template>

@@ -39,4 +39,3 @@ interface DropdownMenuProps {
 }
 
 export type { DropdownMenuProps, YdDropdownMenuItem };
-

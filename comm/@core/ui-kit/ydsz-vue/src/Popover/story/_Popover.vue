@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { Icon } from '@iconify/vue';
+import { ref } from 'vue';
 import {
   PopoverArrow,
   PopoverClose,
@@ -8,18 +8,15 @@ import {
   PopoverPortal,
   PopoverRoot,
   PopoverTrigger,
-} from '../'
+} from '../';
 
-const toggleState = ref(false)
+const toggleState = ref(false);
 </script>
 
 <template>
-  <PopoverRoot
-    v-model:open="toggleState"
-    :modal="false"
-  >
+  <PopoverRoot v-model:open="toggleState" :modal="false">
     <PopoverTrigger
-      class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
+      class="text-violet11 shadow-blackA7 hover:bg-violet3 inline-flex h-[35px] w-[35px] cursor-default items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
       aria-label="Update dimensions"
     >
       <Icon icon="radix-icons:mixer-horizontal" />
@@ -29,17 +26,13 @@ const toggleState = ref(false)
       <PopoverContent
         side="bottom"
         :side-offset="5"
-        class="rounded p-5 w-[260px] bg-white shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)] will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+        class="data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade w-[260px] rounded bg-white p-5 shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] will-change-[transform,opacity] focus:shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2),0_0_0_2px_theme(colors.violet7)]"
       >
         <div class="flex flex-col gap-2.5">
-          <p
-            class="text-mauve12 text-[15px] leading-[19px] font-medium mb-2.5"
-          >
-            Dimensions
-          </p>
+          <p class="text-mauve12 mb-2.5 text-[15px] font-medium leading-[19px]">Dimensions</p>
         </div>
         <PopoverClose
-          class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 absolute top-[5px] right-[5px] hover:bg-violet4 focus:shadow-[0_0_0_2px] focus:shadow-violet7 outline-none cursor-default"
+          class="text-violet11 hover:bg-violet4 focus:shadow-violet7 absolute right-[5px] top-[5px] inline-flex h-[25px] w-[25px] cursor-default items-center justify-center rounded-full outline-none focus:shadow-[0_0_0_2px]"
           aria-label="Close"
         >
           Close

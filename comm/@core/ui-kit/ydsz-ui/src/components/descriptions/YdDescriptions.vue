@@ -55,26 +55,26 @@ const gridStyle = computed(() => ({
   gap: '0',
 }));
 
-provide(DESCRIPTIONS_COLUMN, computed(() => props.column));
-provide(DESCRIPTIONS_SIZE, computed(() => props.size));
-provide(DESCRIPTIONS_BORDER, computed(() => props.border));
+provide(
+  DESCRIPTIONS_COLUMN,
+  computed(() => props.column),
+);
+provide(
+  DESCRIPTIONS_SIZE,
+  computed(() => props.size),
+);
+provide(
+  DESCRIPTIONS_BORDER,
+  computed(() => props.border),
+);
 </script>
 
 <template>
   <div :class="cn('rounded-lg', props.class)">
-    <div
-      v-if="title"
-      class="px-4 py-2.5 font-medium text-sm border-b border-border-subtle"
-    >
+    <div v-if="title" class="border-border-subtle border-b px-4 py-2.5 text-sm font-medium">
       {{ title }}
     </div>
-    <div
-      :class="cn(
-        'grid',
-        border && 'border border-border-subtle rounded-lg',
-      )"
-      :style="gridStyle"
-    >
+    <div :class="cn('grid', border && 'border-border-subtle rounded-lg border')" :style="gridStyle">
       <slot></slot>
     </div>
   </div>

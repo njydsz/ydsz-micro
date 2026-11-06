@@ -16,7 +16,13 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdBadge, YdDescriptions, YdDescriptionsItem, YdDrawer, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdDrawer,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 
 import type { AuditLog } from '#/api/models';
 
@@ -125,14 +131,18 @@ defineExpose({ open });
 
       <!-- 操作内容 -->
       <div>
-        <h3 class="mb-2 text-sm font-medium text-muted-foreground">{{ t('audit.columns.content') }}</h3>
+        <h3 class="text-muted-foreground mb-2 text-sm font-medium">
+          {{ t('audit.columns.content') }}
+        </h3>
         <p class="text-sm">{{ record.content || '-' }}</p>
       </div>
 
       <!-- 错误信息（仅失败时显示） -->
       <div v-if="record.errorMessage && record.status !== 1">
-        <h3 class="mb-2 text-sm font-medium text-muted-foreground">{{ t('audit.status.failed') }}</h3>
-        <p class="text-sm text-destructive">{{ record.errorMessage }}</p>
+        <h3 class="text-muted-foreground mb-2 text-sm font-medium">
+          {{ t('audit.status.failed') }}
+        </h3>
+        <p class="text-destructive text-sm">{{ record.errorMessage }}</p>
       </div>
     </div>
 

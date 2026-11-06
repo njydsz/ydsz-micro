@@ -20,6 +20,7 @@
  */
 import '@logicflow/core/dist/style/index.css';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { createLogger } from '@ydsz-core/shared/utils';
 
 import { YdSpinner } from '@ydsz-core/ydsz-ui';
 import type { LogicFlow } from '@logicflow/core';
@@ -28,6 +29,9 @@ import { DesignerNodeType } from '../types';
 import { useCanvasAlignment } from '../use-canvas-alignment';
 
 // LfGraphNode 已迁移至 ../types，通过 import type 引入
+
+/** 模块级日志器（规范 §14.5：禁止业务代码直接调用 console） */
+const logger = createLogger('designer-canvas');
 
 interface Props {
   /** 流程定义 ID */
@@ -409,7 +413,7 @@ async function doInitCanvas(): Promise<void> {
     isReady.value = true;
   } catch (err) {
     loadError.value = (err as Error)?.message || '画布引擎加载失败，请刷新页面重试';
-    console.error('[DesignerCanvas] 动态导入 LogicFlow 失败:', err);
+    logger.error('[DesignerCanvas] 动态导入 LogicFlow 失败:', err);
   }
 }
 

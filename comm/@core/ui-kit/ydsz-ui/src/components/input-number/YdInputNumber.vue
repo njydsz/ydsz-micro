@@ -132,7 +132,9 @@ const btnClass = computed(() =>
       inputmode="decimal"
       type="text"
       @keydown="handleKeydown"
-      @blur="emit('update:modelValue', modelValue !== undefined ? Number(displayValue) || 0 : undefined)"
+      @blur="
+        emit('update:modelValue', modelValue !== undefined ? Number(displayValue) || 0 : undefined)
+      "
     />
     <button
       :aria-label="t('inputNumber.increase')"

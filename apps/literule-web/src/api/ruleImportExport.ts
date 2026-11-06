@@ -31,5 +31,8 @@ export function exportRulesAsYaml(): Promise<string> {
  * importRules: POST /literule/rules/import
  */
 export function importRules(data: RuleImportDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/import`, data);
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/rules/import`,
+    data,
+  );
 }

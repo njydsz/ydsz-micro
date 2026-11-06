@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -10,9 +10,9 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../'
+} from '../';
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 </script>
 
 <template>
@@ -23,20 +23,16 @@ const isOpen = ref(false)
       Open
     </AlertDialogTrigger>
     <AlertDialogPortal>
-      <AlertDialogOverlay
-        class="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0"
-      />
+      <AlertDialogOverlay class="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0" />
       <AlertDialogContent
-        class="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
+        class="data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none"
       >
         <AlertDialogTitle class="text-mauve12 m-0 text-[17px] font-medium">
           Title
         </AlertDialogTitle>
-        <AlertDialogDescription
-          class="text-mauve11 mt-4 mb-5 text-[15px] leading-normal"
-        >
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
+        <AlertDialogDescription class="text-mauve11 mb-5 mt-4 text-[15px] leading-normal">
+          This action cannot be undone. This will permanently delete your account and remove your
+          data from our servers.
         </AlertDialogDescription>
         <button>hihi</button>
         <div class="flex justify-end gap-[25px]">

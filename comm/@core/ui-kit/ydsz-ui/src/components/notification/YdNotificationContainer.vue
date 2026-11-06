@@ -20,10 +20,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import type {
-  NotificationMessage,
-  NotificationPosition,
-} from './types';
+import type { NotificationMessage, NotificationPosition } from './types';
 
 import { useLocale } from '../../locale/useLocale';
 import YdNotification from './YdNotification.vue';
@@ -110,10 +107,7 @@ const rootStyle = computed(() => ({ zIndex: String(props.zIndex) }));
 </script>
 
 <template>
-  <Teleport
-    :to="props.appendTo || 'body'"
-    :disabled="props.appendTo === false"
-  >
+  <Teleport :to="props.appendTo || 'body'" :disabled="props.appendTo === false">
     <div
       class="pointer-events-none fixed inset-0 flex flex-col"
       :style="rootStyle"
@@ -126,21 +120,10 @@ const rootStyle = computed(() => ({ zIndex: String(props.zIndex) }));
         v-for="pos in POSITIONS"
         :key="pos"
         tag="div"
-        :class="[
-          'pointer-events-none fixed flex w-auto max-w-sm gap-3',
-          positionClasses[pos],
-        ]"
+        :class="['pointer-events-none fixed flex w-auto max-w-sm gap-3', positionClasses[pos]]"
       >
-        <div
-          v-for="msg in groupedMessages[pos]"
-          :key="msg.id"
-          class="pointer-events-auto"
-        >
-          <slot
-            :message="msg"
-            :position="pos"
-            name="default"
-          >
+        <div v-for="msg in groupedMessages[pos]" :key="msg.id" class="pointer-events-auto">
+          <slot :message="msg" :position="pos" name="default">
             <YdNotification
               :id="msg.id"
               :description="msg.description"

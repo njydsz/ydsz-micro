@@ -58,7 +58,7 @@ export function createRuntime(options: { kernel: KernelName }): MicroRuntime {
   if (options.kernel === 'qiankun') {
     logger.warn(
       '[MicroRuntime] The "qiankun" kernel was never implemented and is deprecated. ' +
-      'Falling back to "micro-kernel". Please update your bootstrap configuration.',
+        'Falling back to "micro-kernel". Please update your bootstrap configuration.',
     );
     options = { kernel: 'micro-kernel' };
   }
@@ -66,7 +66,7 @@ export function createRuntime(options: { kernel: KernelName }): MicroRuntime {
   if (!factory) {
     throw new Error(
       `[MicroRuntime] Kernel "${options.kernel}" is not registered. ` +
-      `Available: ${[...kernelRegistry.keys()].join(', ')}`,
+        `Available: ${[...kernelRegistry.keys()].join(', ')}`,
     );
   }
   return factory();

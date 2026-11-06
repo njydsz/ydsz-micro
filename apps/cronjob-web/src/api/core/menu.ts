@@ -8,7 +8,4 @@
  * @path apps\cronjob-web\src\api\core\menu.ts
  * @since 1.0.0
  */
-export {
-  getAllMenusApi,
-  getMenuTreeApi,
-} from '@ydsz/shared-auth';
+export { getAllMenusApi, getMenuTreeApi } from '@ydsz/shared-auth';

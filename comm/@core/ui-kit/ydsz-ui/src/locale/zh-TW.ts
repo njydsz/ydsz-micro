@@ -411,7 +411,7 @@ export const zhTW = {
   'dashboard.cardCount': '{count} 張卡片',
   'dashboard.emptyEditable': '點擊「新增卡片」開始建構儀表板',
   'dashboard.empty': '尚無卡片資料',
-'dashboard.chartEmpty': '尚無圖表資料',
+  'dashboard.chartEmpty': '尚無圖表資料',
   'advancedFilter.toolbarAriaLabel': '篩選工具列',
   'advancedFilter.removeFilter': '移除篩選條件 {label}：{value}',
   'bulkActions.selectAll': '全選 {count} 項',
@@ -486,6 +486,14 @@ export const zhTW = {
   'splitter.ariaLabel': '調整面板大小',
   'tag.close': '關閉標籤',
   'timeline.ariaLabel': '時間軸',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

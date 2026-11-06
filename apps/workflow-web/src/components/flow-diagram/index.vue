@@ -93,9 +93,12 @@ onMounted(() => {
     <YdCardContent>
       <div class="diagram-container">
         <div v-if="loading" class="animate-pulse space-y-2">
-          <div v-for="n in 6" :key="n" class="h-4 bg-gray-200 rounded" />
+          <div v-for="n in 6" :key="n" class="h-4 rounded bg-gray-200" />
         </div>
-        <div v-else-if="!hasDiagram" class="flex items-center justify-center py-12 text-sm text-gray-400">
+        <div
+          v-else-if="!hasDiagram"
+          class="flex items-center justify-center py-12 text-sm text-gray-400"
+        >
           暂无流程图
         </div>
         <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
@@ -105,9 +108,12 @@ onMounted(() => {
   <div v-else class="flow-diagram flow-diagram--borderless">
     <div class="diagram-container">
       <div v-if="loading" class="animate-pulse space-y-2">
-        <div v-for="n in 6" :key="n" class="h-4 bg-gray-200 rounded" />
+        <div v-for="n in 6" :key="n" class="h-4 rounded bg-gray-200" />
       </div>
-      <div v-else-if="!hasDiagram" class="flex items-center justify-center py-12 text-sm text-gray-400">
+      <div
+        v-else-if="!hasDiagram"
+        class="flex items-center justify-center py-12 text-sm text-gray-400"
+      >
         暂无流程图
       </div>
       <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />

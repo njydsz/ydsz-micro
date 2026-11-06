@@ -86,11 +86,15 @@ const gridOptions: VxeGridProps<UserRecentVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(YdButton, {
-              size: 'sm',
-              variant: 'link',
-              onClick: () => handleRemove(row),
-            }, () => t('recentRemove')),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                onClick: () => handleRemove(row),
+              },
+              () => t('recentRemove'),
+            ),
           ]),
       },
     },
@@ -99,10 +103,7 @@ const gridOptions: VxeGridProps<UserRecentVO> = {
   proxyConfig: {
     ajax: {
       query: async () => {
-        const [items, count] = await Promise.all([
-          listRecent({ limit: 50 }),
-          getRecentCount(),
-        ]);
+        const [items, count] = await Promise.all([listRecent({ limit: 50 }), getRecentCount()]);
         recentCount.value = count;
         return { items, total: items.length };
       },
@@ -145,7 +146,9 @@ async function handleClearAll() {
         {{ t('recentTotalLabel') }}
         <span class="ml-1 font-semibold text-blue-600">{{ recentCount }}</span>
       </span>
-      <YdButton variant="destructive" size="sm" @click="handleClearAll">{{ t('recentClearAll') }}</YdButton>
+      <YdButton variant="destructive" size="sm" @click="handleClearAll">{{
+        t('recentClearAll')
+      }}</YdButton>
     </div>
     <Grid table-title="最近访问" />
   </Page>

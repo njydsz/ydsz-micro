@@ -287,10 +287,7 @@ export function useTableEditing<T extends Record<string, unknown>>(
 export { composeCellKey, parseCellKey, CELL_KEY_SEPARATOR };
 
 /** 便捷 hook：从行 key 获取当前行所有正在编辑的列 key */
-export function getEditingColumns(
-  editingKeys: Set<string>,
-  rowKey: string,
-): string[] {
+export function getEditingColumns(editingKeys: Set<string>, rowKey: string): string[] {
   const prefix = `${rowKey}${CELL_KEY_SEPARATOR}`;
   const result: string[] = [];
   for (const key of editingKeys) {

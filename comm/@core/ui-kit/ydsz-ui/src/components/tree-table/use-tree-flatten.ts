@@ -82,9 +82,7 @@ export function useTreeFlatten<T extends Record<string, unknown>>(
     return map;
   }
 
-  const nodeMap = computed<Map<string, T>>(() =>
-    buildNodeMap(props.dataSource),
-  );
+  const nodeMap = computed<Map<string, T>>(() => buildNodeMap(props.dataSource));
 
   /** 递归扁平化 */
   function flattenTree(
@@ -108,15 +106,7 @@ export function useTreeFlatten<T extends Record<string, unknown>>(
         row,
       });
       if (hasChildren && expandedSet.has(key)) {
-        result.push(
-          ...flattenTree(
-            children,
-            depth + 1,
-            key,
-            [...ancestorKeys, key],
-            expandedSet,
-          ),
-        );
+        result.push(...flattenTree(children, depth + 1, key, [...ancestorKeys, key], expandedSet));
       }
     }
     return result;
@@ -124,13 +114,7 @@ export function useTreeFlatten<T extends Record<string, unknown>>(
 
   /** 当前可见扁平行 */
   const flatRows = computed<TreeFlatRow<T>[]>(() =>
-    flattenTree(
-      props.dataSource,
-      0,
-      null,
-      [],
-      expandedKeys.value,
-    ),
+    flattenTree(props.dataSource, 0, null, [], expandedKeys.value),
   );
 
   return {

@@ -25,25 +25,25 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from 'vue';
 import { $t } from '@ydsz/locales';
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router';
 
-import type { MicroAppConfig } from "@ydsz/micro-runtime";
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { microRuntime } from "#/bootstrap";
-import { $t } from "#/locales";
+import { microRuntime } from '#/bootstrap';
+import { $t } from '#/locales';
 
-import { useSubAppPhase } from "./composables/use-subapp-phase";
-import { useSkeletonResolver } from "./composables/use-skeleton-resolver";
+import { useSubAppPhase } from './composables/use-subapp-phase';
+import { useSkeletonResolver } from './composables/use-skeleton-resolver';
 
 /** 模块级日志器 */
-const logger = createLogger("SubAppContainer");
+const logger = createLogger('SubAppContainer');
 
 defineOptions({
-  name: "SubAppContainer",
+  name: 'SubAppContainer',
 });
 
 /** 子应用容器 DOM 引用（用于焦点管理） */
@@ -76,7 +76,7 @@ function handleRetry(): void {
   const appName = state.activeAppName.value;
   if (!appName || !microRuntime) return;
   // 1. 重置错误阶段为 idle，让错误遮罩消失
-  setPhase("idle", appName);
+  setPhase('idle', appName);
   // 2. 通过 router 重新导航到相同路径，触发内核重新加载子应用
   const currentPath = route.fullPath;
   void microRuntime.unmountApp(appName).then(() => {
@@ -88,7 +88,7 @@ function handleRetry(): void {
 const pageSkeletonComponent = useSkeletonResolver(state.activeAppName, route);
 
 /** 挂载点 key — 应用名变化时触发 <Transition> 过渡 */
-const mountKey = ref(state.activeAppName.value || "empty");
+const mountKey = ref(state.activeAppName.value || 'empty');
 
 /** 应用淡入动画标志 — afterMount 后置 true，触发 opacity 0→1 */
 const isFadingIn = ref(false);
@@ -118,21 +118,19 @@ function showSkeleton(): boolean {
 onMounted(() => {
   if (!microRuntime) {
     // 内核尚未初始化（理论上 bootstrap 已同步注册，防御性处理）
-    logger.warn("microRuntime not ready");
+    logger.warn('microRuntime not ready');
     return;
   }
 
   // beforeLoad: 子应用开始加载 ESM 模块（10%）
   unsubscribers.push(
-    microRuntime.addLifecycleHook("beforeLoad", (app: MicroAppConfig) => {
-      setPhase("loading", app.name);
+    microRuntime.addLifecycleHook('beforeLoad', (app: MicroAppConfig) => {
+      setPhase('loading', app.name);
       // 启动 800ms 延迟骨架屏定时器，mounted 后清除
       showDelayedSkeleton.value = false;
       clearTimeout(skeletonDelayTimer);
       skeletonDelayTimer = window.setTimeout(() => {
-        if (
-          ["loading", "loaded", "mounting"].includes(state.phase.value)
-        ) {
+        if (['loading', 'loaded', 'mounting'].includes(state.phase.value)) {
           showDelayedSkeleton.value = true;
         }
       }, 800);
@@ -141,26 +139,26 @@ onMounted(() => {
 
   // afterLoad: ESM 模块加载完成、LifecycleExports 就绪（60%）
   unsubscribers.push(
-    microRuntime.addLifecycleHook("afterLoad", (app: MicroAppConfig) => {
+    microRuntime.addLifecycleHook('afterLoad', (app: MicroAppConfig) => {
       if (state.activeAppName.value === app.name) {
-        setPhase("loaded", app.name);
+        setPhase('loaded', app.name);
       }
     }),
   );
 
   // beforeMount: mount() 即将调用（75%）
   unsubscribers.push(
-    microRuntime.addLifecycleHook("beforeMount", (app: MicroAppConfig) => {
+    microRuntime.addLifecycleHook('beforeMount', (app: MicroAppConfig) => {
       if (state.activeAppName.value === app.name) {
-        setPhase("mounting", app.name);
+        setPhase('mounting', app.name);
       }
     }),
   );
 
   // afterMount: 子应用 mount() 完成，DOM 已挂载（100%）
   unsubscribers.push(
-    microRuntime.addLifecycleHook("afterMount", (app: MicroAppConfig) => {
-      setPhase("mounted", app.name);
+    microRuntime.addLifecycleHook('afterMount', (app: MicroAppConfig) => {
+      setPhase('mounted', app.name);
       mountKey.value = app.name;
       // 清除延迟骨架屏定时器
       clearTimeout(skeletonDelayTimer);
@@ -173,40 +171,37 @@ onMounted(() => {
       // 100% 后短暂保持，再切回 idle 以便复用
       clearTimeout(mountedResetTimer);
       mountedResetTimer = window.setTimeout(() => {
-        if (state.phase.value === "mounted") setPhase("idle");
+        if (state.phase.value === 'mounted') setPhase('idle');
       }, 300);
     }),
   );
 
   // afterUnmount: 子应用卸载完成（切换中的过渡态）
   unsubscribers.push(
-    microRuntime.addLifecycleHook("afterUnmount", (app: MicroAppConfig) => {
+    microRuntime.addLifecycleHook('afterUnmount', (app: MicroAppConfig) => {
       // 离开前的 snapshot 由 page-cache 内部 flush 自动捕获（无需手动）
       // 若当前激活应用仍是被卸载的应用，进入 unmounting 过渡
       if (state.activeAppName.value === app.name) {
-        setPhase("unmounting", null);
-        mountKey.value = "empty";
+        setPhase('unmounting', null);
+        mountKey.value = 'empty';
       }
     }),
   );
 
   // error: 加载或挂载失败
   unsubscribers.push(
-    microRuntime.addLifecycleHook(
-      "error",
-      (app: MicroAppConfig, err: unknown) => {
-        clearTimeout(skeletonDelayTimer);
-        showDelayedSkeleton.value = false;
-        setError(err, app.name);
-      },
-    ),
+    microRuntime.addLifecycleHook('error', (app: MicroAppConfig, err: unknown) => {
+      clearTimeout(skeletonDelayTimer);
+      showDelayedSkeleton.value = false;
+      setError(err, app.name);
+    }),
   );
 
   // 兜底：若初始路由已命中子应用但 beforeLoad 触发晚于组件挂载，
   // 通过当前激活应用名回填一次状态
   const active = microRuntime.getActiveAppName();
-  if (active && state.phase.value === "idle") {
-    setPhase("mounted", active);
+  if (active && state.phase.value === 'idle') {
+    setPhase('mounted', active);
     mountKey.value = active;
   }
 });
@@ -257,35 +252,22 @@ onUnmounted(() => {
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            <div
-              class="progress-bar"
-              :style="{ width: `${state.progress.value}%` }"
-            ></div>
+            <div class="progress-bar" :style="{ width: `${state.progress.value}%` }"></div>
           </div>
           <p class="loading-text">
             {{ phaseText
-            }}<span v-if="state.activeAppName.value">
-              · {{ state.activeAppName.value }}</span
-            >
+            }}<span v-if="state.activeAppName.value"> · {{ state.activeAppName.value }}</span>
           </p>
         </div>
 
         <!-- 错误态遮罩（实际错误 UI 由内核 error-boundary 渲染） -->
-        <div
-          v-else-if="showErrorMask()"
-          class="subapp-error-mask"
-          aria-live="polite"
-        >
+        <div v-else-if="showErrorMask()" class="subapp-error-mask" aria-live="polite">
           <p class="error-app">{{ state.activeAppName.value }}</p>
           <p class="error-title">{{ errorMaskTitle }}</p>
           <p class="error-msg">{{ state.lastError.value || phaseText }}</p>
           <p class="error-hint">{{ errorMaskHint }}</p>
           <!-- P2-2: 重新加载按钮 — 点击后卸载当前子应用并重新导航触发重新加载 -->
-          <button
-            type="button"
-            class="retry-button"
-            @click="handleRetry"
-          >
+          <button type="button" class="retry-button" @click="handleRetry">
             {{ $t('ui.commonAction.reload') }}
           </button>
         </div>
@@ -387,11 +369,7 @@ onUnmounted(() => {
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--brand-200)) 0%,
-    hsl(var(--brand-500)) 100%
-  );
+  background: linear-gradient(90deg, hsl(var(--brand-200)) 0%, hsl(var(--brand-500)) 100%);
   border-radius: 2px;
   transition: width 0.3s ease;
 }

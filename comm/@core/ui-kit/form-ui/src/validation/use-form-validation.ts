@@ -109,11 +109,12 @@ export function useFormValidation<TValues extends GenericObject>(
 
   const schema = validationSchema ? toTypedSchema(validationSchema) : undefined;
 
-  const { defineField, errors, handleSubmit, resetForm, validateField, setFieldError } = useForm<TValues>({
-    initialValues: (initialValues ?? {}) as TValues,
-    validationSchema: schema,
-    validateOnMount: isValidateOnMount,
-  });
+  const { defineField, errors, handleSubmit, resetForm, validateField, setFieldError } =
+    useForm<TValues>({
+      initialValues: (initialValues ?? {}) as TValues,
+      validationSchema: schema,
+      validateOnMount: isValidateOnMount,
+    });
 
   /** 按名注册字段 */
   function getFieldOptions(name: keyof TValues, fieldOptions?: FieldOptions) {
@@ -146,13 +147,15 @@ export function useFormValidation<TValues extends GenericObject>(
   };
 
   return {
-    defineField: (name, fieldOptions) => defineField(name as string, getFieldOptions(name, fieldOptions)) as FieldBindHandle,
+    defineField: (name, fieldOptions) =>
+      defineField(name as string, getFieldOptions(name, fieldOptions)) as FieldBindHandle,
     errors,
     handleSubmit: onSubmit
-      ? (onValid) => wrappedHandleSubmit((values) => {
-          onValid(values);
-          onSubmit(values, { resetForm });
-        })
+      ? (onValid) =>
+          wrappedHandleSubmit((values) => {
+            onValid(values);
+            onSubmit(values, { resetForm });
+          })
       : wrappedHandleSubmit,
     resetForm,
     setFieldError: (name, message) => {

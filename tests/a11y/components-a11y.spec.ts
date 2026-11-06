@@ -14,11 +14,7 @@
 
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import {
-  configureAxeBuilder,
-  filterBlockingViolations,
-  formatViolations,
-} from './axe.config';
+import { configureAxeBuilder, filterBlockingViolations, formatViolations } from './axe.config';
 
 /**
  * OrganizationChart fixture — 模拟三层层级结构。
@@ -134,10 +130,7 @@ test.describe('新增组件无障碍冒烟（WCAG 2.1 AA）', () => {
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `ImageViewer 存在阻断级违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `ImageViewer 存在阻断级违规:\n${formatViolations(blocking)}`).toHaveLength(0);
     void context;
   });
 
@@ -152,10 +145,7 @@ test.describe('新增组件无障碍冒烟（WCAG 2.1 AA）', () => {
     ).analyze();
 
     const blocking = filterBlockingViolations(results.violations);
-    expect(
-      blocking,
-      `暗黑模式存在阻断级对比违规:\n${formatViolations(blocking)}`,
-    ).toHaveLength(0);
+    expect(blocking, `暗黑模式存在阻断级对比违规:\n${formatViolations(blocking)}`).toHaveLength(0);
     void context;
   });
 });

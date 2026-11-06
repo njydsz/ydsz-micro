@@ -1,14 +1,14 @@
 <script setup lang="ts">
 /**
-* 语义状态标签：在 YdBadge 之上封装业务语义状态。
-* 
+ * 语义状态标签：在 YdBadge 之上封装业务语义状态。
+ *
  * 设计目标：
  *  - 统一 ForgeLab forge-admin 状态标签配色：草稿(黄)、已发布(绿)、变更未发布(橙)等；
  *  - 同时显示文字与圆点指示器，确保色觉障碍用户也能区分状态（不依赖颜色唯一载体）；
  *  - 通过 label 替代硬编码中文，满足 i18n 规范。
-* 
+ *
  * 使用场景：卡片右上角、表格状态列、详情页标题后缀等需要「状态+语义颜色」的位置。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\status-badge\YdStatusBadge.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -23,7 +23,16 @@ defineOptions({
   name: 'YdStatusBadge',
 });
 
-type StatusVariant = 'draft' | 'published' | 'dirty' | 'offline' | 'archived' | 'pending' | 'running' | 'success' | 'failed';
+type StatusVariant =
+  | 'draft'
+  | 'published'
+  | 'dirty'
+  | 'offline'
+  | 'archived'
+  | 'pending'
+  | 'running'
+  | 'success'
+  | 'failed';
 
 interface Props {
   /** 自定义类名 */
@@ -90,10 +99,7 @@ const dotColor = computed<string>(() => dotColorMap[badgeVariant.value ?? 'defau
 </script>
 
 <template>
-  <YdBadge
-    :class="cn('gap-1.5', props.class)"
-    :variant="badgeVariant"
-  >
+  <YdBadge :class="cn('gap-1.5', props.class)" :variant="badgeVariant">
     <span
       v-if="dot"
       :class="cn('h-1.5 w-1.5 shrink-0 rounded-full', dotColor)"

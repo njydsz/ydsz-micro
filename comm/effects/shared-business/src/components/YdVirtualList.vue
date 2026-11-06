@@ -44,11 +44,7 @@ const virtualizer = useVirtualizer({
 </script>
 
 <template>
-  <div
-    ref="parentRef"
-    class="virtual-list"
-    :style="{ height: `${height}px`, overflowY: 'auto' }"
-  >
+  <div ref="parentRef" class="virtual-list" :style="{ height: `${height}px`, overflowY: 'auto' }">
     <div
       :style="{
         height: `${virtualizer.getTotalSize()}px`,

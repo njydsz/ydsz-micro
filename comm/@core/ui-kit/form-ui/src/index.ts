@@ -45,4 +45,3 @@ export {
   type UseFormValidationOptions,
   type ValidationTrigger,
 } from './validation/use-form-validation';
-

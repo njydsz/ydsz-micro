@@ -21,7 +21,17 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdEmptyState, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdEmptyState,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -117,7 +127,11 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         default: ({ row }) => {
           const log = row as JobLogVO;
           const isSuccess = log.status === 'SUCCESS' || log.status === '0';
-          return h(YdBadge, { variant: isSuccess ? 'default' : 'destructive' }, () => log.status ?? '-');
+          return h(
+            YdBadge,
+            { variant: isSuccess ? 'default' : 'destructive' },
+            () => log.status ?? '-',
+          );
         },
       },
     },
@@ -165,7 +179,10 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
       {
         field: 'jobKey',
         title: '任务标识',
-        itemRender: { name: 'YdInput', props: { placeholder: '任务标识', modelValue: presetJobKey } },
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: '任务标识', modelValue: presetJobKey },
+        },
       },
       {
         field: 'status',
@@ -189,56 +206,58 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <YdSheetTitle>执行日志详情</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailLog">
-        <YdDescriptions :column="2" border size="small" class="mb-3">
-          <YdDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="状态">
-            <YdBadge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
-              detailLog.status ?? '-'
-            }}</YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="开始时间">{{ detailLog.startTime ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="耗时(ms)">{{
-            detailLog.durationMs ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="触发类型">{{
-            detailLog.triggerType ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="执行节点">{{
-            detailLog.execNodeId ?? '-'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="TraceId">{{ detailLog.traceId ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="分片" :span="2">{{
-            detailLog.shardTotal
-              ? `${(detailLog.shardIndex ?? 0) + 1}/${detailLog.shardTotal}`
-              : '非分片'
-          }}</YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailLog.paramsJson" label="任务参数" :span="2">
-            <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.paramsJson }}</pre>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailLog.resultJson" label="执行结果" :span="2">
-            <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.resultJson }}</pre>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
-            <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
-              detailLog.errorMessage
-            }}</pre>
-          </YdDescriptionsItem>
-        </YdDescriptions>
+          <YdDescriptions :column="2" border size="small" class="mb-3">
+            <YdDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="状态">
+              <YdBadge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
+                detailLog.status ?? '-'
+              }}</YdBadge>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="开始时间">{{
+              detailLog.startTime ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="耗时(ms)">{{
+              detailLog.durationMs ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="触发类型">{{
+              detailLog.triggerType ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="执行节点">{{
+              detailLog.execNodeId ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="TraceId">{{ detailLog.traceId ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="分片" :span="2">{{
+              detailLog.shardTotal
+                ? `${(detailLog.shardIndex ?? 0) + 1}/${detailLog.shardTotal}`
+                : '非分片'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailLog.paramsJson" label="任务参数" :span="2">
+              <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.paramsJson }}</pre>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailLog.resultJson" label="执行结果" :span="2">
+              <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.resultJson }}</pre>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
+              <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
+                detailLog.errorMessage
+              }}</pre>
+            </YdDescriptionsItem>
+          </YdDescriptions>
 
-        <div class="mb-1 flex items-center gap-2 text-xs text-gray-500">
-          <span>实时日志</span>
-          <YdBadge v-if="sseConnected" variant="default" size="sm">已连接</YdBadge>
-          <YdBadge v-else variant="secondary" size="sm">已结束</YdBadge>
-        </div>
-        <div
-          ref="logBodyRef"
-          class="h-80 overflow-auto rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
-        >
-          <pre v-if="logText" class="whitespace-pre-wrap break-all">{{ logText }}</pre>
-          <YdEmptyState v-else description="暂无日志内容" :image-size="60" />
-        </div>
-      </template>
+          <div class="mb-1 flex items-center gap-2 text-xs text-gray-500">
+            <span>实时日志</span>
+            <YdBadge v-if="sseConnected" variant="default" size="sm">已连接</YdBadge>
+            <YdBadge v-else variant="secondary" size="sm">已结束</YdBadge>
+          </div>
+          <div
+            ref="logBodyRef"
+            class="h-80 overflow-auto rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
+          >
+            <pre v-if="logText" class="whitespace-pre-wrap break-all">{{ logText }}</pre>
+            <YdEmptyState v-else description="暂无日志内容" :image-size="60" />
+          </div>
+        </template>
       </YdSheetContent>
     </YdSheet>
   </Page>

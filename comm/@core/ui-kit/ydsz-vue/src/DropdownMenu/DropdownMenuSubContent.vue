@@ -1,39 +1,32 @@
 <script lang="ts">
 // @ts-nocheck
-import type {
-  MenuSubContentEmits,
-  MenuSubContentProps,
-} from '../Menu/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { MenuSubContentEmits, MenuSubContentProps } from '../Menu/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
-export type DropdownMenuSubContentEmits = MenuSubContentEmits
+export type DropdownMenuSubContentEmits = MenuSubContentEmits;
 
 export interface DropdownMenuSubContentProps extends MenuSubContentProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuSubContent } from '../Menu/index.ts'
-import { useForwardPropsEmits } from '..'
+import { MenuSubContent } from '../Menu/index.ts';
+import { useForwardPropsEmits } from '..';
 
-const props = defineProps<DropdownMenuSubContentProps>()
-const emits = defineEmits<DropdownMenuSubContentEmits>()
-const forwarded = useForwardPropsEmits(props, emits)
-useForwardExpose()
+const props = defineProps<DropdownMenuSubContentProps>();
+const emits = defineEmits<DropdownMenuSubContentEmits>();
+const forwarded = useForwardPropsEmits(props, emits);
+useForwardExpose();
 </script>
 
 <template>
   <MenuSubContent
     v-bind="forwarded"
     :style="{
-      '--radix-dropdown-menu-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-dropdown-menu-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-dropdown-menu-content-available-height':
-        'var(--radix-popper-available-height)',
+      '--radix-dropdown-menu-content-transform-origin': 'var(--radix-popper-transform-origin)',
+      '--radix-dropdown-menu-content-available-width': 'var(--radix-popper-available-width)',
+      '--radix-dropdown-menu-content-available-height': 'var(--radix-popper-available-height)',
       '--radix-dropdown-menu-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-dropdown-menu-trigger-height':
-        'var(--radix-popper-anchor-height)',
+      '--radix-dropdown-menu-trigger-height': 'var(--radix-popper-anchor-height)',
     }"
   >
     <slot />

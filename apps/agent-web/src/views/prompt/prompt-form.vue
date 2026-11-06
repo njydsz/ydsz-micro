@@ -16,9 +16,18 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect, YdSwitch, YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+  YdSwitch,
+  YdBadge,
+  YdButton,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
 
@@ -182,7 +191,12 @@ watch(
       </div>
 
       <YdFormItem label="模板描述">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" placeholder="请输入模板描述" />
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          placeholder="请输入模板描述"
+        />
       </YdFormItem>
 
       <YdFormItem label="模板内容" required>
@@ -191,16 +205,18 @@ watch(
             v-model="formData.content"
             type="textarea"
             :rows="10"
-            placeholder='使用 {{variable}} 语法声明变量，例如：你是一个客服人员。用户问题：{{question}}'
+            placeholder="使用 {{variable}} 语法声明变量，例如：你是一个客服人员。用户问题：{{question}}"
           />
-          <p class="mt-1 text-xs text-gray-400">支持 {'{{'}variable{'}}'} 变量语法</p>
+          <p class="mt-1 text-xs text-gray-400">支持 {'{{ '}variable{' }}'} 变量语法</p>
         </div>
       </YdFormItem>
 
       <YdFormItem label="识别变量">
         <div class="flex flex-wrap gap-2">
           <YdBadge v-for="v in extractedVariables" :key="v" type="info">{{ v }}</YdBadge>
-          <span v-if="extractedVariables.length === 0" class="text-xs text-gray-400">暂未识别到变量</span>
+          <span v-if="extractedVariables.length === 0" class="text-xs text-gray-400"
+            >暂未识别到变量</span
+          >
         </div>
       </YdFormItem>
     </YdForm>

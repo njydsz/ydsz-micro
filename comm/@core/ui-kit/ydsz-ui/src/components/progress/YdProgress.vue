@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Progress 进度条：展示操作的当前进度。
-* 
+ * Progress 进度条：展示操作的当前进度。
+ *
  * 两种模式：determinate（有明确 percentage）/ indeterminate（循环动画）。
  * indeterminate 模式下组件通过 aria-valuemin / aria-valuemax 表达「未知进度」语义。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\progress\YdProgress.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -14,11 +14,7 @@ import { computed, watch } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  ProgressIndicator,
-  ProgressRoot,
-  type ProgressRootProps,
-} from '@ydsz-core/ydsz-vue';
+import { ProgressIndicator, ProgressRoot, type ProgressRootProps } from '@ydsz-core/ydsz-vue';
 
 interface Props extends Omit<ProgressRootProps, 'modelValue'> {
   /** 自定义类名 */
@@ -48,28 +44,41 @@ const safePercentage = computed(() => {
 });
 
 // done 必须在 watch 中发出：computed 里 emit 会让副作用随每次重算重复触发
-watch(safePercentage, (val) => {
-  if (val === 100) {
-    emit('done');
-  }
-}, { immediate: true });
+watch(
+  safePercentage,
+  (val) => {
+    if (val === 100) {
+      emit('done');
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <ProgressRoot
     :as-child="false"
-    :class="cn('relative h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700', props.class)"
+    :class="
+      cn(
+        'relative h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700',
+        props.class,
+      )
+    "
     :model-value="safePercentage"
   >
     <ProgressIndicator
       :class="
         cn(
-          'h-full w-full flex-1 rounded-full bg-primary transition-all duration-300 ease-in-out',
-          props.indeterminate && 'animate-pulse w-1/3',
+          'bg-primary h-full w-full flex-1 rounded-full transition-all duration-300 ease-in-out',
+          props.indeterminate && 'w-1/3 animate-pulse',
           props.barClass,
         )
       "
-      :style="props.indeterminate ? undefined : { transform: `translateX(-${100 - (safePercentage ?? 0)}%)` }"
+      :style="
+        props.indeterminate
+          ? undefined
+          : { transform: `translateX(-${100 - (safePercentage ?? 0)}%)` }
+      "
     />
   </ProgressRoot>
 </template>

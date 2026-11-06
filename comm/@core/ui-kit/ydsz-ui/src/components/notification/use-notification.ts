@@ -62,9 +62,7 @@ let _idCounter = 0;
 /** 生成唯一 ID */
 function generateId(): string {
   _idCounter += 1;
-  return `ydsz-notification-${Date.now()}-${_idCounter}-${Math.random()
-    .toString(36)
-    .slice(2, 6)}`;
+  return `ydsz-notification-${Date.now()}-${_idCounter}-${Math.random().toString(36).slice(2, 6)}`;
 }
 
 /* ============================================================ */
@@ -181,19 +179,31 @@ function updateNotification(id: string, options: Partial<NotificationOptions>): 
   replaceMessage(id, options);
 }
 
-function successNotification(message: string, options?: Partial<NotificationOptions>): NotificationHandle {
+function successNotification(
+  message: string,
+  options?: Partial<NotificationOptions>,
+): NotificationHandle {
   return addNotification({ ...options, message, type: 'success' });
 }
 
-function infoNotification(message: string, options?: Partial<NotificationOptions>): NotificationHandle {
+function infoNotification(
+  message: string,
+  options?: Partial<NotificationOptions>,
+): NotificationHandle {
   return addNotification({ ...options, message, type: 'info' });
 }
 
-function warningNotification(message: string, options?: Partial<NotificationOptions>): NotificationHandle {
+function warningNotification(
+  message: string,
+  options?: Partial<NotificationOptions>,
+): NotificationHandle {
   return addNotification({ ...options, message, type: 'warning' });
 }
 
-function errorNotification(message: string, options?: Partial<NotificationOptions>): NotificationHandle {
+function errorNotification(
+  message: string,
+  options?: Partial<NotificationOptions>,
+): NotificationHandle {
   return addNotification({ ...options, message, type: 'error' });
 }
 

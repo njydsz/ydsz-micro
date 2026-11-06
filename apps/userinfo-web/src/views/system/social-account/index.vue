@@ -15,9 +15,20 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState, YdImage } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdTable,
+  YdTableColumn,
+  YdEmptyState,
+  YdImage,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -26,11 +37,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 
-import {
-  getAvailablePlatforms,
-  getBindings,
-  unbind,
-} from '#/api/socialAccount';
+import { getAvailablePlatforms, getBindings, unbind } from '#/api/socialAccount';
 import type { SocialAccountVO } from '#/api/models';
 
 defineOptions({ name: 'SocialAccountManagement' });
@@ -70,9 +77,7 @@ function getPlatformKey(platform: Record<string, unknown>, index: number): strin
 
 /** 已绑定平台集合（用于过滤可用平台） */
 const boundPlatformSet = computed(() => {
-  return new Set(
-    bindings.value.map((item) => (item.platform ?? '').toUpperCase()),
-  );
+  return new Set(bindings.value.map((item) => (item.platform ?? '').toUpperCase()));
 });
 
 /** 过滤后可展示的平台（排除已绑定） */
@@ -143,73 +148,90 @@ onMounted(() => {
     <!-- 已绑定列表 -->
     <YdCard class="mb-4">
       <YdCardHeader>
-        <YdCardTitle class="font-medium text-base">已绑定社交账号</YdCardTitle>
+        <YdCardTitle class="text-base font-medium">已绑定社交账号</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-      <YdTable :data="bindings" border>
-        <YdTableColumn prop="platform" label="平台" width="140">
-          <template #default="{ row }">
-            <YdBadge :variant="getPlatformTagType(row.platform) === 'primary' ? 'default' : getPlatformTagType(row.platform) === 'warning' ? 'outline' : 'secondary'" :class="getPlatformTagType(row.platform) === 'warning' ? 'bg-yellow-500 text-white hover:bg-yellow-600' : 'text-xs'">
-              {{ row.platform ?? '-' }}
-            </YdBadge>
-          </template>
-        </YdTableColumn>
-        <YdTableColumn label="头像" width="80">
-          <template #default="{ row }">
-            <YdImage
-              v-if="row.avatarUrl"
-              :src="row.avatarUrl"
-              :preview-src-list="[row.avatarUrl]"
-              style="width: 40px; height: 40px; border-radius: 50%"
-              fit="cover"
-            />
-            <span v-else class="text-gray-400">-</span>
-          </template>
-        </YdTableColumn>
-        <YdTableColumn prop="nickname" label="昵称" minWidth="120" />
-        <YdTableColumn prop="openId" label="Open ID" minWidth="160" />
-        <YdTableColumn prop="createdAt" label="绑定时间" width="170" />
-        <YdTableColumn label="操作" width="100" fixed="right">
-          <template #default="{ row }">
-            <YdButton
-              size="sm"
-              variant="link"
-              class="text-destructive"
-              @click="handleUnbind(row)"
-            >
-              解绑
-            </YdButton>
-          </template>
-        </YdTableColumn>
-      </YdTable>
-      <YdEmptyState v-if="bindings.length === 0" description="暂无绑定的社交账号" :image-size="60" />
+        <YdTable :data="bindings" border>
+          <YdTableColumn prop="platform" label="平台" width="140">
+            <template #default="{ row }">
+              <YdBadge
+                :variant="
+                  getPlatformTagType(row.platform) === 'primary'
+                    ? 'default'
+                    : getPlatformTagType(row.platform) === 'warning'
+                      ? 'outline'
+                      : 'secondary'
+                "
+                :class="
+                  getPlatformTagType(row.platform) === 'warning'
+                    ? 'bg-yellow-500 text-white hover:bg-yellow-600'
+                    : 'text-xs'
+                "
+              >
+                {{ row.platform ?? '-' }}
+              </YdBadge>
+            </template>
+          </YdTableColumn>
+          <YdTableColumn label="头像" width="80">
+            <template #default="{ row }">
+              <YdImage
+                v-if="row.avatarUrl"
+                :src="row.avatarUrl"
+                :preview-src-list="[row.avatarUrl]"
+                style="width: 40px; height: 40px; border-radius: 50%"
+                fit="cover"
+              />
+              <span v-else class="text-gray-400">-</span>
+            </template>
+          </YdTableColumn>
+          <YdTableColumn prop="nickname" label="昵称" minWidth="120" />
+          <YdTableColumn prop="openId" label="Open ID" minWidth="160" />
+          <YdTableColumn prop="createdAt" label="绑定时间" width="170" />
+          <YdTableColumn label="操作" width="100" fixed="right">
+            <template #default="{ row }">
+              <YdButton
+                size="sm"
+                variant="link"
+                class="text-destructive"
+                @click="handleUnbind(row)"
+              >
+                解绑
+              </YdButton>
+            </template>
+          </YdTableColumn>
+        </YdTable>
+        <YdEmptyState
+          v-if="bindings.length === 0"
+          description="暂无绑定的社交账号"
+          :image-size="60"
+        />
       </YdCardContent>
     </YdCard>
 
     <!-- 可绑定平台引导 -->
     <YdCard>
       <YdCardHeader>
-        <YdCardTitle class="font-medium text-base">可绑定平台</YdCardTitle>
+        <YdCardTitle class="text-base font-medium">可绑定平台</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
-      <div
-        v-if="unboundPlatforms.length > 0"
-        class="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4"
-      >
         <div
-          v-for="(platform, index) in unboundPlatforms"
-          :key="getPlatformKey(platform, index)"
-          class="flex items-center justify-between rounded-lg border p-5"
+          v-if="unboundPlatforms.length > 0"
+          class="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4"
         >
-          <div class="flex items-center gap-3">
-            <span class="text-lg font-medium">{{ String(platform.name ?? platform.code ?? '-') }}</span>
+          <div
+            v-for="(platform, index) in unboundPlatforms"
+            :key="getPlatformKey(platform, index)"
+            class="flex items-center justify-between rounded-lg border p-5"
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-medium">{{
+                String(platform.name ?? platform.code ?? '-')
+              }}</span>
+            </div>
+            <YdButton size="sm" variant="outline" disabled> 绑定 </YdButton>
           </div>
-          <YdButton size="sm" variant="outline" disabled>
-            绑定
-          </YdButton>
         </div>
-      </div>
-      <YdEmptyState v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />
+        <YdEmptyState v-else description="暂无可绑定的平台或已全部绑定" :image-size="60" />
       </YdCardContent>
     </YdCard>
   </Page>

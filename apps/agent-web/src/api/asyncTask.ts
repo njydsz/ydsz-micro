@@ -25,26 +25,20 @@ export function submitTask(data: AsyncTaskSubmitDTO): Promise<string> {
 /**
  * getTask: GET /agent/async-task/{taskId}
  */
-export function getTask({ taskId }: {
-    taskId: string;
-  }): Promise<AsyncTaskVO> {
+export function getTask({ taskId }: { taskId: string }): Promise<AsyncTaskVO> {
   return requestClient.get<AsyncTaskVO>(`/agent/async-task/${taskId}`);
 }
 
 /**
  * cancelTask: POST /agent/async-task/{taskId}/cancel
  */
-export function cancelTask({ taskId }: {
-    taskId: string;
-  }): Promise<AsyncTaskVO> {
+export function cancelTask({ taskId }: { taskId: string }): Promise<AsyncTaskVO> {
   return requestClient.post<AsyncTaskVO>(`/agent/async-task/${taskId}/cancel`);
 }
 
 /**
  * listActiveTasks: GET /agent/async-task/active
  */
-export function listActiveTasks(params: {
-    tenantCode?: string;
-  }): Promise<AsyncTaskVO[]> {
+export function listActiveTasks(params: { tenantCode?: string }): Promise<AsyncTaskVO[]> {
   return requestClient.get<AsyncTaskVO[]>(`/agent/async-task/active`, { params });
 }

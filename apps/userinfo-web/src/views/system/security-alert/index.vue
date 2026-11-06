@@ -98,8 +98,28 @@ const gridOptions: VxeTableGridOptions = {
       slots: {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
-          const config = ALERT_TYPE_MAP[alertRow.alertType] ?? { label: alertRow.alertType ?? '-', type: 'info' };
-          return h(YdBadge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : config.type === 'primary' ? 'default' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
+          const config = ALERT_TYPE_MAP[alertRow.alertType] ?? {
+            label: alertRow.alertType ?? '-',
+            type: 'info',
+          };
+          return h(
+            YdBadge,
+            {
+              variant:
+                config.type === 'danger'
+                  ? 'destructive'
+                  : config.type === 'warning'
+                    ? 'outline'
+                    : config.type === 'primary'
+                      ? 'default'
+                      : 'secondary',
+              class:
+                config.type === 'warning'
+                  ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                  : 'text-xs',
+            },
+            () => config.label,
+          );
         },
       },
     },
@@ -110,8 +130,28 @@ const gridOptions: VxeTableGridOptions = {
       slots: {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
-          const config = RISK_LEVEL_MAP[alertRow.riskLevel] ?? { label: alertRow.riskLevel ?? '-', type: 'info' };
-          return h(YdBadge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : config.type === 'primary' ? 'default' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
+          const config = RISK_LEVEL_MAP[alertRow.riskLevel] ?? {
+            label: alertRow.riskLevel ?? '-',
+            type: 'info',
+          };
+          return h(
+            YdBadge,
+            {
+              variant:
+                config.type === 'danger'
+                  ? 'destructive'
+                  : config.type === 'warning'
+                    ? 'outline'
+                    : config.type === 'primary'
+                      ? 'default'
+                      : 'secondary',
+              class:
+                config.type === 'warning'
+                  ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                  : 'text-xs',
+            },
+            () => config.label,
+          );
         },
       },
     },
@@ -122,8 +162,28 @@ const gridOptions: VxeTableGridOptions = {
       slots: {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
-          const config = ALERT_STATUS_MAP[alertRow.alertStatus] ?? { label: alertRow.alertStatus ?? '-', type: 'info' };
-          return h(YdBadge, { variant: config.type === 'danger' ? 'destructive' : config.type === 'warning' ? 'outline' : config.type === 'primary' ? 'default' : 'secondary', class: config.type === 'warning' ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400' : 'text-xs' }, () => config.label);
+          const config = ALERT_STATUS_MAP[alertRow.alertStatus] ?? {
+            label: alertRow.alertStatus ?? '-',
+            type: 'info',
+          };
+          return h(
+            YdBadge,
+            {
+              variant:
+                config.type === 'danger'
+                  ? 'destructive'
+                  : config.type === 'warning'
+                    ? 'outline'
+                    : config.type === 'primary'
+                      ? 'default'
+                      : 'secondary',
+              class:
+                config.type === 'warning'
+                  ? 'border-yellow-500 text-yellow-600 dark:text-yellow-400'
+                  : 'text-xs',
+            },
+            () => config.label,
+          );
         },
       },
     },
@@ -136,9 +196,26 @@ const gridOptions: VxeTableGridOptions = {
         default: ({ row }) => {
           const alertRow = row as unknown as AlertRow;
           return h('div', { class: 'flex gap-1' }, [
-            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(alertRow) }, () => '确认'),
-            h(YdButton, { size: 'sm', variant: 'link', class: 'border-green-500 text-green-600 dark:text-green-400', onClick: () => handleResolve(alertRow) }, () => '解决'),
-            h(YdButton, { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(alertRow) }, () => '忽略'),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(alertRow) },
+              () => '确认',
+            ),
+            h(
+              YdButton,
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-green-500 text-green-600 dark:text-green-400',
+                onClick: () => handleResolve(alertRow),
+              },
+              () => '解决',
+            ),
+            h(
+              YdButton,
+              { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(alertRow) },
+              () => '忽略',
+            ),
           ]);
         },
       },
@@ -152,7 +229,7 @@ const gridOptions: VxeTableGridOptions = {
         try {
           const res = await pageAlerts({} as Record<string, unknown>);
           // auto-generated 返回值为 PageResponse<string[]>，将字符串枚举数组转换为 AlertRow 对象数组
-          const alertData = ((res?.data ?? []) as unknown) as string[];
+          const alertData = (res?.data ?? []) as unknown as string[];
           const items: AlertRow[] = alertData.map((alertType: string, index: number) => ({
             id: String((pageParams?.currentPage ?? 1) * 1000 + index),
             alertType,
@@ -254,7 +331,16 @@ onMounted(() => {
 
     <Grid table-title="安全告警管理">
       <template #toolbar-tools>
-        <YdButton variant="default" @click="() => { gridApi.query(); loadPendingCount(); }">刷新</YdButton>
+        <YdButton
+          variant="default"
+          @click="
+            () => {
+              gridApi.query();
+              loadPendingCount();
+            }
+          "
+          >刷新</YdButton
+        >
       </template>
     </Grid>
   </Page>

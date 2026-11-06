@@ -59,7 +59,11 @@ const loading = ref(false);
         <YdTableColumn prop="loginTime" :label="t('session.loginTime')" width="170" />
         <YdTableColumn prop="expireTime" :label="t('session.expireTime')" width="170" />
       </YdTable>
-      <YdEmptyState v-if="userSessions.length === 0 && !loading" :description="t('session.noUserSessions')" :image-size="60" />
+      <YdEmptyState
+        v-if="userSessions.length === 0 && !loading"
+        :description="t('session.noUserSessions')"
+        :image-size="60"
+      />
     </div>
   </Modal>
 </template>

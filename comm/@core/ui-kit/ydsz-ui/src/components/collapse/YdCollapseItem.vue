@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Collapse 折叠面板子项。
-* 
+ * Collapse 折叠面板子项。
+ *
  * 从父级 Collapse 通过 inject 获取 toggle 与 isActive 方法，
  * 保持子项零 prop（除了 key），灵活组合。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\collapse\YdCollapseItem.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -63,14 +63,16 @@ const contentStyle = {
 </script>
 
 <template>
-  <div :class="cn('group collapse-item', props.class)">
+  <div :class="cn('collapse-item group', props.class)">
     <!-- 触发器 -->
     <button
       :aria-expanded="isExpanded"
       :class="
         cn(
           'flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-sm font-medium transition-colors',
-          props.disabled ? 'cursor-not-allowed text-muted-foreground opacity-50' : 'hover:bg-muted/50',
+          props.disabled
+            ? 'text-muted-foreground cursor-not-allowed opacity-50'
+            : 'hover:bg-muted/50',
         )
       "
       type="button"
@@ -80,14 +82,19 @@ const contentStyle = {
         <span>{{ props.title }}</span>
       </slot>
       <ChevronDown
-        :class="cn('size-4 text-muted-foreground transition-transform duration-250', isExpanded && 'rotate-180')"
+        :class="
+          cn(
+            'text-muted-foreground duration-250 size-4 transition-transform',
+            isExpanded && 'rotate-180',
+          )
+        "
         aria-hidden="true"
       />
     </button>
     <!-- 内容区 -->
     <div :style="contentStyle" aria-hidden="true">
       <div class="overflow-hidden">
-        <div ref="contentRef" class="px-4 pb-4 text-sm text-muted-foreground">
+        <div ref="contentRef" class="text-muted-foreground px-4 pb-4 text-sm">
           <slot></slot>
         </div>
       </div>

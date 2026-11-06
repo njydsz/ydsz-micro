@@ -1,39 +1,36 @@
 <script lang="ts">
 // @ts-nocheck
-import type {
-  DialogContentEmits,
-  DialogContentProps,
-} from '../Dialog/index.ts'
-import { createContext, useEmitAsProps, useForwardExpose } from '../shared/index.ts'
+import type { DialogContentEmits, DialogContentProps } from '../Dialog/index.ts';
+import { createContext, useEmitAsProps, useForwardExpose } from '../shared/index.ts';
 
 interface AlertDialogContentContext {
-  onCancelElementChange: (el: HTMLElement | undefined) => void
+  onCancelElementChange: (el: HTMLElement | undefined) => void;
 }
 
-export const [injectAlertDialogContentContext, provideAlertDialogContentContext]
-  = createContext<AlertDialogContentContext>('AlertDialogContent')
+export const [injectAlertDialogContentContext, provideAlertDialogContentContext] =
+  createContext<AlertDialogContentContext>('AlertDialogContent');
 
-export type AlertDialogContentEmits = DialogContentEmits
+export type AlertDialogContentEmits = DialogContentEmits;
 export interface AlertDialogContentProps extends DialogContentProps {}
 </script>
 
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
-import { DialogContent } from '../Dialog/index.ts'
+import { nextTick, ref } from 'vue';
+import { DialogContent } from '../Dialog/index.ts';
 
-const props = defineProps<AlertDialogContentProps>()
-const emits = defineEmits<AlertDialogContentEmits>()
+const props = defineProps<AlertDialogContentProps>();
+const emits = defineEmits<AlertDialogContentEmits>();
 
-const emitsAsProps = useEmitAsProps(emits)
-useForwardExpose()
+const emitsAsProps = useEmitAsProps(emits);
+useForwardExpose();
 
-const cancelElement = ref<HTMLElement | undefined>()
+const cancelElement = ref<HTMLElement | undefined>();
 
 provideAlertDialogContentContext({
   onCancelElementChange: (el) => {
-    cancelElement.value = el
+    cancelElement.value = el;
   },
-})
+});
 </script>
 
 <template>

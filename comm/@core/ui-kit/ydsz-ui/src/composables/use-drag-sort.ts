@@ -191,7 +191,8 @@ export function useDragSort(options: UseDragSortOptions) {
     return {
       'data-drag-sort-item': '',
       'data-dragging': state.value.isDragging && state.value.fromIndex === index,
-      'data-drag-over': state.value.isDragging && state.value.toIndex === index && state.value.fromIndex !== index,
+      'data-drag-over':
+        state.value.isDragging && state.value.toIndex === index && state.value.fromIndex !== index,
       style: {
         cursor: canDrag && !canDrag(index) ? 'not-allowed' : 'grab',
         userSelect: 'none',

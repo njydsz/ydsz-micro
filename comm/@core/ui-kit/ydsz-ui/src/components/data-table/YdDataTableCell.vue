@@ -160,11 +160,7 @@ function handleBlurSave(event: Event): void {
         @keydown="handleKeydown($event, ($event.target as HTMLSelectElement).value)"
         @blur="handleBlurSave"
       >
-        <option
-          v-for="opt in editOptions"
-          :key="String(opt.value)"
-          :value="opt.value"
-        >
+        <option v-for="opt in editOptions" :key="String(opt.value)" :value="opt.value">
           {{ opt.label }}
         </option>
       </select>

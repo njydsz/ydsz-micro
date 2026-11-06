@@ -23,16 +23,8 @@ export { useFormField } from './useFormField';
 export { useFormList } from './use-form-list';
 export { useFormValidation } from './useFormValidation';
 export { default as YdFormList } from './YdFormList.vue';
-export type {
-  FormListFieldEntry,
-  UseFormListOptions,
-  UseFormListReturn,
-} from './use-form-list';
-export {
-  Field as FormField,
-  FieldArray as FormFieldArray,
-  Form,
-} from 'vee-validate';
+export type { FormListFieldEntry, UseFormListOptions, UseFormListReturn } from './use-form-list';
+export { Field as FormField, FieldArray as FormFieldArray, Form } from 'vee-validate';
 export type {
   FormValidationHandle,
   UseFormValidationOptions,

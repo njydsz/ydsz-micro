@@ -16,15 +16,29 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdCard, YdDialog, YdEmptyState, YdTabsContent, YdTabs, YdBadge } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdDialog,
+  YdEmptyState,
+  YdTabsContent,
+  YdTabs,
+  YdBadge,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
-import { forceRecycle, getActiveSessions, getOverview, getRecentSessions, getSession } from '#/api/runtime';
+import {
+  forceRecycle,
+  getActiveSessions,
+  getOverview,
+  getRecentSessions,
+  getSession,
+} from '#/api/runtime';
 import type { RuntimeSession } from '#/api/models';
 
 const logger = createLogger('agent-runtime');
@@ -36,6 +50,29 @@ const activeTab = ref('active');
 
 /** 概览数据 */
 const overviewData = ref<Record<string, Record<string, unknown>>>({});
+
+/**
+ * 从概览项中安全取出数值。
+ *
+ * <p>概览接口返回结构为 `{ key: { value: number } }`，缺项时回退到 fallback。
+ * 模板内不做类型断言（Vue 模板不支持 `as` 链式表达式）。
+ */
+function overviewNumber(key: string, fallback: number): number {
+  const value = overviewData.value[key]?.value;
+  return typeof value === 'number' ? value : fallback;
+}
+
+/** 活跃会话数（缺项时回退到当前列表长度） */
+const activeCountText = computed(() => overviewNumber('activeCount', activeSessions.value.length));
+
+/** 最大并发数 */
+const maxConcurrencyText = computed(() => overviewNumber('maxConcurrency', 0));
+
+/** 平均 TTL（秒） */
+const avgTtlText = computed(() => overviewNumber('avgTtl', 0));
+
+/** 累计创建数 */
+const totalCreatedText = computed(() => overviewNumber('totalCreated', 0));
 
 /** 加载状态 */
 const loading = ref(false);
@@ -100,8 +137,16 @@ const activeColumns: VxeTableGridOptions<RuntimeSession>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleForceRecycle(row) }, () => '回收'),
+          h(
+            YdButton,
+            { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) },
+            () => '详情',
+          ),
+          h(
+            YdButton,
+            { size: 'small', variant: 'link', onClick: () => handleForceRecycle(row) },
+            () => '回收',
+          ),
         ]),
     },
   },
@@ -121,10 +166,21 @@ const activeGridOptions: VxeTableGridOptions<RuntimeSession> = {
     },
   },
   toolbarConfig: { custom: true, refresh: { code: 'query' }, search: true, zoom: true },
-  formConfig: { enabled: true, items: [
-    { field: 'agentCode', title: 'Agent编码', itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } } },
-    { field: 'executionId', title: '执行ID', itemRender: { name: 'YdInput', props: { placeholder: '执行ID' } } },
-  ] },
+  formConfig: {
+    enabled: true,
+    items: [
+      {
+        field: 'agentCode',
+        title: 'Agent编码',
+        itemRender: { name: 'YdInput', props: { placeholder: 'Agent编码' } },
+      },
+      {
+        field: 'executionId',
+        title: '执行ID',
+        itemRender: { name: 'YdInput', props: { placeholder: '执行ID' } },
+      },
+    ],
+  },
 };
 
 /** 最近会话列定义 */
@@ -153,7 +209,11 @@ const recentColumns: VxeTableGridOptions<RuntimeSession>['columns'] = [
     slots: {
       default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
+          h(
+            YdButton,
+            { size: 'small', variant: 'link', onClick: () => handleViewDetail(row) },
+            () => '详情',
+          ),
         ]),
     },
   },
@@ -203,11 +263,9 @@ async function handleViewDetail(row: RuntimeSession): Promise<void> {
 /** 强制回收会话 */
 async function handleForceRecycle(row: RuntimeSession): Promise<void> {
   try {
-    await YdConfirm(
-      `确定强制回收会话「${row.executionId ?? ''}」吗?该操作不可撤销。`,
-      '回收确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定强制回收会话「${row.executionId ?? ''}」吗?该操作不可撤销。`, '回收确认', {
+      type: 'warning',
+    });
   } catch {
     return;
   }
@@ -242,7 +300,7 @@ loadOverview();
             <div>
               <p class="text-sm text-gray-500">活跃会话数</p>
               <p class="mt-1 text-2xl font-bold">
-                {{ ((overviewData.activeCount as Record<string, unknown>)?.value as number) ?? activeSessions.length }}
+                {{ activeCountText }}
               </p>
             </div>
             <div class="rounded-full bg-blue-50 p-3">
@@ -256,7 +314,7 @@ loadOverview();
             <div>
               <p class="text-sm text-gray-500">最大并发</p>
               <p class="mt-1 text-2xl font-bold text-green-600">
-                {{ ((overviewData.maxConcurrency as Record<string, unknown>)?.value as number) ?? 0 }}
+                {{ maxConcurrencyText }}
               </p>
             </div>
             <div class="rounded-full bg-green-50 p-3">
@@ -269,9 +327,7 @@ loadOverview();
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">平均 TTL</p>
-              <p class="mt-1 text-2xl font-bold text-purple-600">
-                {{ ((overviewData.avgTtl as Record<string, unknown>)?.value as number) ?? 0 }}s
-              </p>
+              <p class="mt-1 text-2xl font-bold text-purple-600">{{ avgTtlText }}s</p>
             </div>
             <div class="rounded-full bg-purple-50 p-3">
               <span class="text-2xl text-purple-500">⏱️</span>
@@ -284,7 +340,7 @@ loadOverview();
             <div>
               <p class="text-sm text-gray-500">总创建数</p>
               <p class="mt-1 text-2xl font-bold text-orange-600">
-                {{ ((overviewData.totalCreated as Record<string, unknown>)?.value as number) ?? 0 }}
+                {{ totalCreatedText }}
               </p>
             </div>
             <div class="rounded-full bg-orange-50 p-3">
@@ -303,7 +359,10 @@ loadOverview();
                 <YdButton type="primary" @click="activeGridApi.query()">刷新</YdButton>
               </template>
             </ActiveGrid>
-            <YdEmptyState v-if="!loading && activeSessions.length === 0" description="暂无活跃会话" />
+            <YdEmptyState
+              v-if="!loading && activeSessions.length === 0"
+              description="暂无活跃会话"
+            />
           </YdTabsContent>
 
           <YdTabsContent label="最近会话" name="recent">
@@ -312,7 +371,10 @@ loadOverview();
                 <YdButton type="primary" @click="recentGridApi.query()">刷新</YdButton>
               </template>
             </RecentGrid>
-            <YdEmptyState v-if="!loading && recentSessions.length === 0" description="暂无最近会话" />
+            <YdEmptyState
+              v-if="!loading && recentSessions.length === 0"
+              description="暂无最近会话"
+            />
           </YdTabsContent>
         </YdTabs>
       </YdCard>
@@ -371,11 +433,15 @@ loadOverview();
           </div>
           <div>
             <span class="text-sm text-gray-500">Token 消耗:</span>
-            <span class="text-sm font-medium">{{ selectedSession.totalTokens?.toLocaleString() ?? 0 }}</span>
+            <span class="text-sm font-medium">{{
+              selectedSession.totalTokens?.toLocaleString() ?? 0
+            }}</span>
           </div>
           <div>
             <span class="text-sm text-gray-500">费用:</span>
-            <span class="text-sm font-medium text-orange-600">{{ selectedSession.costUsd ? `$${selectedSession.costUsd}` : '-' }}</span>
+            <span class="text-sm font-medium text-orange-600">{{
+              selectedSession.costUsd ? `$${selectedSession.costUsd}` : '-'
+            }}</span>
           </div>
           <div>
             <span class="text-sm text-gray-500">当前步骤:</span>

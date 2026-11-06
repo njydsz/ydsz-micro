@@ -24,9 +24,7 @@ export function page(query?: AppInfoPageQuery): Promise<PageResponse<AppInfoVO[]
 /**
  * getById: GET /app/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<AppInfoVO> {
+export function getById({ id }: { id: string }): Promise<AppInfoVO> {
   return requestClient.get<AppInfoVO>(`/app/${id}`);
 }
 
@@ -47,8 +45,6 @@ export function update(data: AppInfoDTO): Promise<boolean> {
 /**
  * remove: DELETE /app/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/app/${id}`);
 }

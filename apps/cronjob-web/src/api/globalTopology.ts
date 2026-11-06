@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * getGlobalTopology: GET /cronjob/topology/global
  */

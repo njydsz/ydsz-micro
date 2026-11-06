@@ -43,7 +43,6 @@ const root = path.resolve(__dirname, '..');
 // ==================== 常量 ====================
 
 const MICRO_APPS_FILE = path.join(root, 'comm/constants/src/micro-apps.ts');
-const NGINX_CONF_FILE = path.join(root, 'bash/deploy/nginx-sub-apps.conf');
 const ROOT_PKG_FILE = path.join(root, 'package.json');
 
 // 已占用的端口（从 MICRO_APPS 注册表实时读取 + 现有 apps 目录扫描）
@@ -100,14 +99,22 @@ function createPrompt() {
   return createInterface({ input: stdin, output: stdout });
 }
 
-async function ask(rl: ReturnType<typeof createPrompt>, question: string, defaultValue?: string): Promise<string> {
+async function ask(
+  rl: ReturnType<typeof createPrompt>,
+  question: string,
+  defaultValue?: string,
+): Promise<string> {
   const hint = defaultValue ? ` [${defaultValue}]` : '';
   const answer = await rl.question(`  ${question}${hint}: `);
   const trimmed = answer.trim();
   return trimmed || (defaultValue ?? '');
 }
 
-async function askPort(rl: ReturnType<typeof createPrompt>, question: string, defaultValue: number): Promise<number> {
+async function askPort(
+  rl: ReturnType<typeof createPrompt>,
+  question: string,
+  defaultValue: number,
+): Promise<number> {
   const raw = await ask(rl, question, String(defaultValue));
   const parsed = Number.parseInt(raw, 10);
   if (Number.isNaN(parsed) || parsed < 1024 || parsed > 65535) {
@@ -190,7 +197,9 @@ async function resolveArgs(): Promise<AppConfig> {
     }
 
     // Title
-    const title = await ask(rl, '应用标题（中文）', name.replace(/-web$/, '')).then((t) => t || name.replace(/-web$/, ''));
+    const title = await ask(rl, '应用标题（中文）', name.replace(/-web$/, '')).then(
+      (t) => t || name.replace(/-web$/, ''),
+    );
 
     // Route prefix (basename)
     let routePrefix = routePrefixArg || suggestBasename(name);
@@ -204,8 +213,16 @@ async function resolveArgs(): Promise<AppConfig> {
     const icon = await ask(rl, '菜单图标（lucide 名）', 'lucide:box');
 
     // Skeleton type
-    const skeletonRaw = await ask(rl, '骨架屏类型（dashboard/default/detail/form/list）', 'dashboard');
-    const skeletonType = (['dashboard', 'default', 'detail', 'form', 'list'].includes(skeletonRaw) ? skeletonRaw : 'dashboard') as AppConfig['skeletonType'];
+    const skeletonRaw = await ask(
+      rl,
+      '骨架屏类型（dashboard/default/detail/form/list）',
+      'dashboard',
+    );
+    const skeletonType = (
+      ['dashboard', 'default', 'detail', 'form', 'list'].includes(skeletonRaw)
+        ? skeletonRaw
+        : 'dashboard'
+    ) as AppConfig['skeletonType'];
 
     // Redirect
     const defaultRedirect = suggestRedirect(routePrefix);
@@ -354,24 +371,26 @@ export default defineConfig(async () => {
 }
 
 function genTsconfig(): string {
-  return JSON.stringify(
-    {
-      $schema: 'https://json.schemastore.org/tsconfig',
-      extends: '@ydsz/tsconfig/web-app.json',
-      compilerOptions: {
-        composite: true,
-        baseUrl: '.',
-        paths: { '#/*': ['./src/*'] },
-        types: ['vite/client'],
+  return (
+    JSON.stringify(
+      {
+        $schema: 'https://json.schemastore.org/tsconfig',
+        extends: '@ydsz/tsconfig/web-app.json',
+        compilerOptions: {
+          composite: true,
+          baseUrl: '.',
+          paths: { '#/*': ['./src/*'] },
+          types: ['vite/client'],
+        },
+        include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.vue'],
       },
-      include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.vue'],
-    },
-    null,
-    2,
-  ) + '\n';
+      null,
+      2,
+    ) + '\n'
+  );
 }
 
-function genIndexHtml(cfg: AppConfig): string {
+function genIndexHtml(_cfg: AppConfig): string {
   return `<!doctype html>
 <html lang="zh">
   <head>
@@ -588,7 +607,7 @@ function genStoreIndex(): string {
 `;
 }
 
-function genRouterGuard(cfg: AppConfig): string {
+function genRouterGuard(_cfg: AppConfig): string {
   return `import type { Router } from 'vue-router';
 
 import { createSubAppRouterGuard, initRoutes as sharedInitRoutes } from '@ydsz/shared-auth/guards';
@@ -696,7 +715,13 @@ export const { $t, elementLocale, setupI18n } = createSubAppI18n({ modules });
 }
 
 function genLocalePage(title: string): string {
-  return JSON.stringify({ page: { title, welcome: `${title} — 欢迎使用`, description: '子应用模板，开始开发！' } }, null, 2) + '\n';
+  return (
+    JSON.stringify(
+      { page: { title, welcome: `${title} — 欢迎使用`, description: '子应用模板，开始开发！' } },
+      null,
+      2,
+    ) + '\n'
+  );
 }
 
 function genDashboardVue(cfg: AppConfig): string {
@@ -830,7 +855,7 @@ function registerMicroApp(cfg: AppConfig): void {
 
 // ==================== nginx 配置自动更新 ====================
 
-function addNginxLocation(cfg: AppConfig): void {
+function addNginxLocation(_cfg: AppConfig): void {
   // 直接调用已有的 gen-nginx-conf.mts，保证生成逻辑统一
   try {
     execSync('node ./bash/gen-nginx-conf.mts', {
@@ -942,7 +967,10 @@ async function main(): Promise<void> {
   fs.writeFileSync(path.join(appDir, 'src', 'app.vue'), genAppVue());
   fs.writeFileSync(path.join(appDir, 'src', 'preferences.ts'), genPreferencesTs(cfg));
 
-  fs.writeFileSync(path.join(appDir, 'src', 'adapter', 'component', 'index.ts'), genAdapterComponent());
+  fs.writeFileSync(
+    path.join(appDir, 'src', 'adapter', 'component', 'index.ts'),
+    genAdapterComponent(),
+  );
   fs.writeFileSync(path.join(appDir, 'src', 'adapter', 'form.ts'), genAdapterForm(cfg));
 
   fs.writeFileSync(path.join(appDir, 'src', 'api', 'request.ts'), genApiRequest());
@@ -958,11 +986,23 @@ async function main(): Promise<void> {
   fs.writeFileSync(path.join(appDir, 'src', 'router', 'routes', 'core.ts'), genRoutesCore(cfg));
 
   fs.writeFileSync(path.join(appDir, 'src', 'locales', 'index.ts'), genLocalesIndex());
-  fs.writeFileSync(path.join(appDir, 'src', 'locales', 'langs', 'zh-CN', 'page.json'), genLocalePage(cfg.title));
-  fs.writeFileSync(path.join(appDir, 'src', 'locales', 'langs', 'en-US', 'page.json'), genLocalePage(cfg.title));
+  fs.writeFileSync(
+    path.join(appDir, 'src', 'locales', 'langs', 'zh-CN', 'page.json'),
+    genLocalePage(cfg.title),
+  );
+  fs.writeFileSync(
+    path.join(appDir, 'src', 'locales', 'langs', 'en-US', 'page.json'),
+    genLocalePage(cfg.title),
+  );
 
-  fs.writeFileSync(path.join(appDir, 'src', 'views', 'dashboard', 'index.vue'), genDashboardVue(cfg));
-  fs.writeFileSync(path.join(appDir, 'src', 'views', 'fallback', 'not-found.vue'), genNotFoundVue());
+  fs.writeFileSync(
+    path.join(appDir, 'src', 'views', 'dashboard', 'index.vue'),
+    genDashboardVue(cfg),
+  );
+  fs.writeFileSync(
+    path.join(appDir, 'src', 'views', 'fallback', 'not-found.vue'),
+    genNotFoundVue(),
+  );
 
   console.info('[GenApp] 所有源文件已生成\n');
 

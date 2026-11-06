@@ -22,7 +22,12 @@ const shortcuts = computed(() => listDetailedShortcuts());
  * 按分类分组，保持分类顺序
  */
 const groupedShortcuts = computed(() => {
-  const order: Array<'navigation' | 'editing' | 'system' | 'app'> = ['navigation', 'editing', 'system', 'app'];
+  const order: Array<'navigation' | 'editing' | 'system' | 'app'> = [
+    'navigation',
+    'editing',
+    'system',
+    'app',
+  ];
   const groups = new Map<string, typeof shortcuts.value>();
 
   for (const s of shortcuts.value) {
@@ -45,9 +50,7 @@ const groupedShortcuts = computed(() => {
  */
 const platformHint = computed(() => {
   const isMac = navigator.platform.toUpperCase().includes('MAC');
-  return isMac
-    ? '按 ⇧?（Shift + /）打开此面板'
-    : '按 ?（Shift + /）打开此面板';
+  return isMac ? '按 ⇧?（Shift + /）打开此面板' : '按 ?（Shift + /）打开此面板';
 });
 
 /**
@@ -87,13 +90,14 @@ function onPanelKeydown(e: KeyboardEvent): void {
               键盘快捷键
             </h2>
             <p class="kh-platform-hint">{{ platformHint }}</p>
-            <button
-              class="kh-close-btn"
-              aria-label="关闭快捷键帮助"
-              @click="close"
-            >
+            <button class="kh-close-btn" aria-label="关闭快捷键帮助" @click="close">
               <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path
+                  d="M4 4l8 8M12 4l-8 8"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
               </svg>
             </button>
           </header>
@@ -111,18 +115,15 @@ function onPanelKeydown(e: KeyboardEvent): void {
               <section class="kh-group">
                 <h3 class="kh-group-title">{{ group.label }}</h3>
                 <ul class="kh-list" role="list">
-                  <li
-                    v-for="item in group.items"
-                    :key="item.combo"
-                    class="kh-item"
-                  >
+                  <li v-for="item in group.items" :key="item.combo" class="kh-item">
                     <span class="kh-item-desc">{{ item.description || '（未描述）' }}</span>
                     <kbd class="kh-kbd" :title="item.combo">
                       <kbd
                         v-for="(part, idx) in item.displayText.split(' + ')"
                         :key="idx"
                         class="kh-kbd-part"
-                      >{{ part.trim() }}</kbd>
+                        >{{ part.trim() }}</kbd
+                      >
                     </kbd>
                   </li>
                 </ul>
@@ -344,7 +345,8 @@ function onPanelKeydown(e: KeyboardEvent): void {
 }
 
 .kh-overlay-enter-active .kh-panel {
-  animation: kh-in var(--duration-default, 0.25s) var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)) forwards;
+  animation: kh-in var(--duration-default, 0.25s)
+    var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)) forwards;
 }
 
 .kh-overlay-leave-active {

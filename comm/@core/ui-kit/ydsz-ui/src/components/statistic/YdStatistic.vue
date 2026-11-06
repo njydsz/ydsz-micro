@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Statistic 统计数值：突出显示核心指标。
-* 
+ * Statistic 统计数值：突出显示核心指标。
+ *
  * 支持前缀/后缀、精度、千分符分隔。
  * 对于 loading 态使用骨架屏占位。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\statistic\YdStatistic.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -68,7 +68,9 @@ const formattedValue = computed(() => {
       {{ props.title }}
     </p>
     <div class="flex items-baseline gap-1">
-      <span v-if="props.prefix" class="text-foreground text-xl font-semibold">{{ props.prefix }}</span>
+      <span v-if="props.prefix" class="text-foreground text-xl font-semibold">{{
+        props.prefix
+      }}</span>
       <YdSkeleton v-if="props.loading" class="h-8 w-24" :shimmer="true" />
       <span v-else class="text-foreground text-3xl font-bold tabular-nums">
         {{ formattedValue }}

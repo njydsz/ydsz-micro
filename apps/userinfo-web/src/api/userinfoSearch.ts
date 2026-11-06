@@ -17,9 +17,9 @@ import type { SearchResponse, UserSearchQuery } from './models';
  * search: GET /userinfo/search
  */
 export function search(params: {
-    query?: UserSearchQuery;
-    request?: Record<string, unknown>;
-  }): Promise<SearchResponse> {
+  query?: UserSearchQuery;
+  request?: Record<string, unknown>;
+}): Promise<SearchResponse> {
   return requestClient.get<SearchResponse>(`/userinfo/search`, { params });
 }
 

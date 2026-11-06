@@ -52,7 +52,11 @@
  * @since 5.0.0
  */
 
-import type { ReactSubAppMountContext, ReactSubAppOptions, ReactSubAppHandle } from './types-react-sub-app';
+import type {
+  ReactSubAppMountContext,
+  ReactSubAppOptions,
+  ReactSubAppHandle,
+} from './types-react-sub-app';
 
 import type { IframeSandboxLike } from './iframe-sandbox-bridge';
 import { resolveIframeSandboxFactory } from './iframe-sandbox-bridge';
@@ -154,7 +158,7 @@ export function createReactSubApp(options: ReactSubAppOptions): ReactSubAppHandl
     async update(props?: Record<string, unknown>): Promise<void> {
       logger.debug(`[${name}] 收到 update`, props);
       if (sandbox) {
-        sandbox.postToChild({ type: 'props-update', props : props ?? {} });
+        sandbox.postToChild({ type: 'props-update', props: props ?? {} });
       }
     },
   };
@@ -174,8 +178,7 @@ function resolveParentContainer(name: string, props?: Record<string, unknown>): 
   }
 
   // 备用：在 #subapp-container 下创建专用容器
-  const hostEl = document.querySelector<HTMLElement>('#subapp-container')
-    ?? document.body;
+  const hostEl = document.querySelector<HTMLElement>('#subapp-container') ?? document.body;
   const wrapEl = document.createElement('div');
   wrapEl.setAttribute('data-react-sub-app', name);
   wrapEl.style.width = '100%';
@@ -189,8 +192,10 @@ function resolveParentContainer(name: string, props?: Record<string, unknown>): 
  * iframe-bridge 脚本创建了 window.__MICRO_GLOBAL_STATE__。
  */
 function extractGlobalState(sandbox: IframeSandboxLike): Record<string, unknown> {
-  return (sandbox.contentWindow as Window & { __MICRO_GLOBAL_STATE__?: Record<string, unknown> })
-    ?.__MICRO_GLOBAL_STATE__ ?? {};
+  return (
+    (sandbox.contentWindow as Window & { __MICRO_GLOBAL_STATE__?: Record<string, unknown> })
+      ?.__MICRO_GLOBAL_STATE__ ?? {}
+  );
 }
 
 /**

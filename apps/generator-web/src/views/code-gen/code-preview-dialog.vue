@@ -18,7 +18,15 @@
  */
 import { computed, ref, watch } from 'vue';
 
-import { YdBadge, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle, YdEmptyState, YdIcon } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdEmptyState,
+  YdIcon,
+} from '@ydsz-core/ydsz-ui';
 import { AlertTriangle as Warning } from '@ydsz/icons';
 
 import type { CodePreviewVO } from '#/api/models';
@@ -38,17 +46,11 @@ defineOptions({ name: 'CodePreviewDialog' });
 
 const activeFileIndex = ref(0);
 
-const conflictCount = computed(
-  () => props.previewList.filter((item) => item.conflict).length,
-);
+const conflictCount = computed(() => props.previewList.filter((item) => item.conflict).length);
 
-const currentContent = computed(
-  () => props.previewList[activeFileIndex.value]?.content ?? '',
-);
+const currentContent = computed(() => props.previewList[activeFileIndex.value]?.content ?? '');
 
-const currentFileName = computed(
-  () => props.previewList[activeFileIndex.value]?.fileName ?? '',
-);
+const currentFileName = computed(() => props.previewList[activeFileIndex.value]?.fileName ?? '');
 
 function handleFileSelect(index: number) {
   activeFileIndex.value = index;
@@ -83,31 +85,34 @@ watch(
               {{ conflictCount }} 个冲突
             </YdBadge>
           </div>
-        <div
-          v-for="(item, idx) in previewList"
-          :key="item.filePath ?? idx"
-          class="cursor-pointer px-2 py-2 rounded text-sm hover:bg-gray-100 mb-1"
-          :class="{ 'bg-blue-50 text-blue-600': idx === activeFileIndex }"
-          @click="handleFileSelect(idx)"
-        >
-          <div class="flex items-center gap-1">
-            <YdIcon v-if="item.conflict" color="#e6a23c">
-              <Warning />
-            </YdIcon>
-            <span class="truncate">{{ item.fileName }}</span>
+          <div
+            v-for="(item, idx) in previewList"
+            :key="item.filePath ?? idx"
+            class="mb-1 cursor-pointer rounded px-2 py-2 text-sm hover:bg-gray-100"
+            :class="{ 'bg-blue-50 text-blue-600': idx === activeFileIndex }"
+            @click="handleFileSelect(idx)"
+          >
+            <div class="flex items-center gap-1">
+              <YdIcon v-if="item.conflict" color="#e6a23c">
+                <Warning />
+              </YdIcon>
+              <span class="truncate">{{ item.fileName }}</span>
+            </div>
+            <div class="truncate text-xs text-gray-400">{{ item.filePath }}</div>
           </div>
-          <div class="text-xs text-gray-400 truncate">{{ item.filePath }}</div>
         </div>
-      </div>
 
-      <!-- 代码内容 -->
-      <div class="flex-1 overflow-auto">
-        <div class="mb-2 flex items-center justify-between">
-          <span class="font-medium">{{ currentFileName }}</span>
+        <!-- 代码内容 -->
+        <div class="flex-1 overflow-auto">
+          <div class="mb-2 flex items-center justify-between">
+            <span class="font-medium">{{ currentFileName }}</span>
+          </div>
+          <pre
+            class="overflow-auto rounded bg-gray-50 p-5 text-xs"
+            style="max-height: 60vh"
+          ><code>{{ currentContent }}</code></pre>
         </div>
-        <pre class="bg-gray-50 p-5 rounded text-xs overflow-auto" style="max-height: 60vh"><code>{{ currentContent }}</code></pre>
       </div>
-    </div>
       <YdEmptyState v-else description="暂无预览数据" />
     </YdDialogContent>
   </YdDialog>

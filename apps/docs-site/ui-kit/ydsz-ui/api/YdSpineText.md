@@ -4,7 +4,7 @@
 
 ## Props
 
-| 属性 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| `animationDuration` | `number` | 否 | - | - |
-| `animationIterationCount` | `'infinite' | number` | 否 | - | - |
+| 属性                      | 类型        | 必填    | 默认值 | 说明 |
+| ------------------------- | ----------- | ------- | ------ | ---- |
+| `animationDuration`       | `number`    | 否      | -      | -    |
+| `animationIterationCount` | `'infinite' | number` | 否     | -    | -   |

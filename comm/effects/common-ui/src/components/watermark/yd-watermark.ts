@@ -55,9 +55,7 @@ const DEFAULT_WATERMARK_OPTIONS: Partial<WatermarkOptions> = {
 };
 
 /** 将指令绑定值规范化为 Partial<WatermarkOptions> */
-function normalizeBinding(
-  binding: DirectiveBinding<WatermarkBinding>,
-): Partial<WatermarkOptions> {
+function normalizeBinding(binding: DirectiveBinding<WatermarkBinding>): Partial<WatermarkOptions> {
   const value = binding.value;
   if (typeof value === 'string') {
     return { content: value };
@@ -146,13 +144,9 @@ type WatermarkDirectiveParams = {
  * @param app - Vue 应用实例
  * @param params - 注册参数
  */
-export function registerWatermarkDirective(
-  app: App,
-  params?: WatermarkDirectiveParams,
-): void {
+export function registerWatermarkDirective(app: App, params?: WatermarkDirectiveParams): void {
   if (params?.watermark !== false) {
-    const name =
-      typeof params?.watermark === 'string' ? params.watermark : 'watermark';
+    const name = typeof params?.watermark === 'string' ? params.watermark : 'watermark';
     app.directive(name, watermarkDirective);
   }
 }

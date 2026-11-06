@@ -32,7 +32,7 @@
  * @since 4.0.0
  */
 
-import type { ErrorReport } from "./error-monitor";
+import type { ErrorReport } from './error-monitor';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('sentry');
@@ -108,12 +108,12 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
 
   try {
     // 动态导入，使用变量绕过 Vite 静态分析（软依赖，未安装时不报错）
-    const sentrySpecifier = "@sentry/vue";
+    const sentrySpecifier = '@sentry/vue';
     sentryModule = await import(/* @vite-ignore */ sentrySpecifier);
   } catch {
     logger.warn(
-      "[Monitor] @sentry/vue not installed; Sentry forwarding disabled. " +
-        "To enable: pnpm add @sentry/vue --filter @ydsz/monitor",
+      '[Monitor] @sentry/vue not installed; Sentry forwarding disabled. ' +
+        'To enable: pnpm add @sentry/vue --filter @ydsz/monitor',
     );
     return false;
   }
@@ -143,7 +143,7 @@ export async function initSentry(config: SentryConfig): Promise<boolean> {
   });
 
   initialized = true;
-  logger.warn("[Monitor] Sentry adapter initialized", {
+  logger.warn('[Monitor] Sentry adapter initialized', {
     release: config.release,
     environment: config.environment,
   });
@@ -163,16 +163,16 @@ export function captureError(report: ErrorReport): void {
   const { captureException, configureScope } = sentryModule;
 
   // 将错误映射为 Sentry 级别
-  const level = report.type === "resource" ? "warning" : "error";
+  const level = report.type === 'resource' ? 'warning' : 'error';
 
   configureScope((scope: SentryScope) => {
     // 设置标签便于 Sentry dashboard 过滤
-    scope.setTag("error.type", report.type);
-    scope.setTag("error.sessionId", report.sessionId || "unknown");
-    scope.setTag("error.traceId", report.traceId || "unknown");
+    scope.setTag('error.type', report.type);
+    scope.setTag('error.sessionId', report.sessionId || 'unknown');
+    scope.setTag('error.traceId', report.traceId || 'unknown');
 
     // 设置上下文
-    scope.setContext("error_report", {
+    scope.setContext('error_report', {
       type: report.type,
       filename: report.filename,
       lineno: report.lineno,
@@ -183,7 +183,7 @@ export function captureError(report: ErrorReport): void {
 
     // 面包屑
     if (report.breadcrumbs?.length) {
-      scope.setContext("breadcrumbs", {
+      scope.setContext('breadcrumbs', {
         trail: report.breadcrumbs.slice(-10).map((b) => ({
           category: b.category,
           message: b.message,
@@ -213,7 +213,7 @@ export function captureError(report: ErrorReport): void {
  */
 export function captureMessage(
   message: string,
-  level: "error" | "info" | "warning" = "info",
+  level: 'error' | 'info' | 'warning' = 'info',
 ): void {
   if (!initialized || !sentryModule) return;
   const { captureMessage: sentryCaptureMessage } = sentryModule;

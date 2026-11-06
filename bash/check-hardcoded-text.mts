@@ -42,12 +42,23 @@
  * @since 4.6.0
  */
 
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 
-const MICRO_ROOT = resolve(dirname(new URL(import.meta.url).pathname.replace(/^\/(\w)/, '$1')), '..');
+const MICRO_ROOT = resolve(
+  dirname(new URL(import.meta.url).pathname.replace(/^\/(\w)/, '$1')),
+  '..',
+);
 
 /** 预算文件：scope -> 允许残留的命中数 */
 const BASELINE_FILE = 'bash/hardcoded-text-baseline.json';
@@ -62,7 +73,8 @@ const SCAN_PREFIXES = ['apps/', 'main/', 'comm/', 'docs-site/'];
 const DATA_CATALOG: { file: string; reason: string }[] = [
   {
     file: 'apps/userinfo-web/src/views/system/menu/components/YdIconPicker.vue',
-    reason: '331 条 lucide 图标目录（name -> 中文检索别名），界面展示图标本体；翻译或改动需产品决策',
+    reason:
+      '331 条 lucide 图标目录（name -> 中文检索别名），界面展示图标本体；翻译或改动需产品决策',
   },
 ];
 
@@ -75,11 +87,13 @@ const DATA_CATALOG: { file: string; reason: string }[] = [
 const EXEMPT_PREFIXES: { prefix: string; reason: string }[] = [
   {
     prefix: 'comm/@core/ui-kit/ydsz-ui/playground/',
-    reason: '组件库本地演练场（vite playground；package.json files 只发布 dist），文案是手测演示素材，绑 t() 后看不出中文效果',
+    reason:
+      '组件库本地演练场（vite playground；package.json files 只发布 dist），文案是手测演示素材，绑 t() 后看不出中文效果',
   },
   {
     prefix: 'apps/docs-site/.vitepress/theme/',
-    reason: '文档站主题组件：站点本身是中文单语（正文全是中文文档），主题里的统计面板/拓扑图文案没有多语种需求',
+    reason:
+      '文档站主题组件：站点本身是中文单语（正文全是中文文档），主题里的统计面板/拓扑图文案没有多语种需求',
   },
 ];
 
@@ -333,7 +347,9 @@ function compareBudget(
   const over: string[] = [];
   for (const [scope, count] of Object.entries(counts)) {
     if (!(scope in budgets)) {
-      over.push(`${scope}: 新出现的 scope 残留 ${count} 处，未登记预算（跑 --update-baseline 显式认领）`);
+      over.push(
+        `${scope}: 新出现的 scope 残留 ${count} 处，未登记预算（跑 --update-baseline 显式认领）`,
+      );
       continue;
     }
     const budget = budgets[scope] as number;
@@ -348,14 +364,19 @@ function compareBudget(
     } else if (scopesSeen?.has(scope)) {
       over.push(`${scope}: 已清零（原预算 ${budget}），跑 --update-baseline 认领战果`);
     } else {
-      over.push(`${scope}: 预算 ${budget} 但整个 scope 已扫不到 .vue —— 目录迁移或改名，基线与真实布局脱节`);
+      over.push(
+        `${scope}: 预算 ${budget} 但整个 scope 已扫不到 .vue —— 目录迁移或改名，基线与真实布局脱节`,
+      );
     }
   }
   return over;
 }
 
 /** 预算下调方向校验：返回被抬高（新增债务）的 scope，供 --update-baseline 拒绝写入 */
-function findRaisedBudgets(counts: Record<string, number>, previous: Record<string, number>): [string, number, number][] {
+function findRaisedBudgets(
+  counts: Record<string, number>,
+  previous: Record<string, number>,
+): [string, number, number][] {
   const raised: [string, number, number][] = [];
   for (const [scope, count] of Object.entries(counts)) {
     const budget = previous[scope];
@@ -377,7 +398,9 @@ function updateBaseline(root: string, allowRaise: boolean): void {
     console.error('[check:ui-text] 拒绝写入：以下 scope 的预算高于当前基线，属新增技术债');
     console.error(raised.map(([scope, from, to]) => `  - ${scope}: ${from} → ${to}`).join('\n'));
     console.error('  正确做法是把新写的文案改成 t() 绑定；确需认领新增债务请先在评审里说明。');
-    console.error('  若本次上升是因为门禁判据本身变了（漏判修复等），用 --allow-raise 重建并注明原因。');
+    console.error(
+      '  若本次上升是因为门禁判据本身变了（漏判修复等），用 --allow-raise 重建并注明原因。',
+    );
     process.exit(1);
   }
   if (raised.length > 0) {
@@ -419,7 +442,9 @@ function checkAll(root: string): void {
   }
   for (const entry of DATA_CATALOG) {
     if (!existsSync(join(root, entry.file))) {
-      console.error(`[check:ui-text] 豁免清单里的文件已不存在：${entry.file}（请同步清理 DATA_CATALOG）`);
+      console.error(
+        `[check:ui-text] 豁免清单里的文件已不存在：${entry.file}（请同步清理 DATA_CATALOG）`,
+      );
       process.exit(1);
     }
   }
@@ -434,7 +459,10 @@ function checkAll(root: string): void {
   const verb = total < baselineTotal ? '已下调' : '持平';
   console.log(
     `[check:ui-text] 预算内 ✓ — 界面硬编码中文存量 ${total} 处 / ${files.size} 个文件（预算 ${baselineTotal}，${verb}）：` +
-      `${Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([s, n]) => `${s} ${n}`).join('、')}`,
+      `${Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .map(([s, n]) => `${s} ${n}`)
+        .join('、')}`,
   );
 }
 
@@ -444,26 +472,83 @@ function checkAll(root: string): void {
 
 /** 反例清单：[文件名, 内容, 该文件必须命中的最少处数] */
 const NEGATIVES: [string, string, number][] = [
-  ['vxe-title.vue', '<script setup>const gridOptions = { columns: [{ type: \'seq\', title: \'序号\' }] };</script>\n<template><Page /></template>', 1],
-  ['schema-label.vue', '<script setup>const s = [{ componentProps: { placeholder: \'应用名称\' }, label: \'关键词\' }];</script>\n<template><Page /></template>', 2],
-  ['attr-text.vue', '<template><YdButton placeholder="请输入名称" table-title="应用管理">创建应用</YdButton></template>', 3],
-  ['toast.vue', '<script setup>showToast.success(\'创建成功\');YdConfirm(\'确认删除？\');</script>\n<template><Page /></template>', 2],
-  ['uikit-label.vue', '<script setup>const opts = [{ label: "已启用" }];</script>\n<template><Page /></template>', 1],
-  ['url-line.vue', '<script setup>const cfg = { url: \'https://x.test/y\', title: \'面板标题\' };</script>\n<template><Page /></template>', 1],
-  ['tpl-literal.vue', '<script setup>const opts = [{ label: `${n} 条/页` }];</script>\n<template><Page /></template>', 1],
-  ['mixed-text.vue', '<script setup>const n = 3</script>\n<template>\n  <div>\n    共 {{ n }} 条\n  </div>\n</template>', 1],
-  ['toast-literal.vue', '<script setup>showToast.warning(`超过 ${max} 字`);</script>\n<template><Page /></template>', 1],
+  [
+    'vxe-title.vue',
+    "<script setup>const gridOptions = { columns: [{ type: 'seq', title: '序号' }] };</script>\n<template><Page /></template>",
+    1,
+  ],
+  [
+    'schema-label.vue',
+    "<script setup>const s = [{ componentProps: { placeholder: '应用名称' }, label: '关键词' }];</script>\n<template><Page /></template>",
+    2,
+  ],
+  [
+    'attr-text.vue',
+    '<template><YdButton placeholder="请输入名称" table-title="应用管理">创建应用</YdButton></template>',
+    3,
+  ],
+  [
+    'toast.vue',
+    "<script setup>showToast.success('创建成功');YdConfirm('确认删除？');</script>\n<template><Page /></template>",
+    2,
+  ],
+  [
+    'uikit-label.vue',
+    '<script setup>const opts = [{ label: "已启用" }];</script>\n<template><Page /></template>',
+    1,
+  ],
+  [
+    'url-line.vue',
+    "<script setup>const cfg = { url: 'https://x.test/y', title: '面板标题' };</script>\n<template><Page /></template>",
+    1,
+  ],
+  [
+    'tpl-literal.vue',
+    '<script setup>const opts = [{ label: `${n} 条/页` }];</script>\n<template><Page /></template>',
+    1,
+  ],
+  [
+    'mixed-text.vue',
+    '<script setup>const n = 3</script>\n<template>\n  <div>\n    共 {{ n }} 条\n  </div>\n</template>',
+    1,
+  ],
+  [
+    'toast-literal.vue',
+    '<script setup>showToast.warning(`超过 ${max} 字`);</script>\n<template><Page /></template>',
+    1,
+  ],
 ];
 
 /** 正例清单：合法写法，必须零命中，否则门禁会被当成噪声关掉 */
 const POSITIVES: [string, string][] = [
-  ['bound.vue', '<script setup>const { t } = useI18n();const gridOptions = { columns: [{ title: t(\'seq\') }] };</script>\n<template><YdButton :placeholder="t(\'a\')">{{ t(\'b\') }}</YdButton></template>'],
-  ['comments.vue', '<!-- 说明：本页面用于管理 OAuth2 应用 -->\n<script setup>\n/** 校验规则 */\n// 用户主动取消\nconst gridOptions = { columns: [] };\nlogger.warn(\'重置密钥失败: {}\', error);\nconsole.log(\'调试输出\');\n</script>\n<template><Page /></template>'],
-  ['lazy.vue', '<template><img loading="lazy" alt="photo" /><div class="text-xs">v-text</div></template>'],
-  ['compare.vue', '<script setup>if (row.status === \'SUCCESS\') { ok = true }</script>\n<template><Page /></template>'],
-  ['doc-block.vue', '<template>\n  <!--\n    用法示例：\n    <YdDropdown label="操作" :options="[{ label: \'编辑\' }]" />\n    <YdDropdownMenuItem>删除</YdDropdownMenuItem>\n  -->\n  <YdButton :placeholder="t(\'ok\')">{{ t(\'ok\') }}</YdButton>\n</template>'],
-  ['pure-interp.vue', '<script setup>const n = 3</script>\n<template>\n  <div class="text-sm">\n    {{ t(\'total\', { n }) }}\n  </div>\n</template>'],
-  ['multiline-attr.vue', '<template>\n  <YdButton\n    :class="\n      cn(\'a\', \'b\')\n    "\n    @click="go"\n  >\n    {{ t(\'ok\') }}\n  </YdButton>\n</template>'],
+  [
+    'bound.vue',
+    "<script setup>const { t } = useI18n();const gridOptions = { columns: [{ title: t('seq') }] };</script>\n<template><YdButton :placeholder=\"t('a')\">{{ t('b') }}</YdButton></template>",
+  ],
+  [
+    'comments.vue',
+    "<!-- 说明：本页面用于管理 OAuth2 应用 -->\n<script setup>\n/** 校验规则 */\n// 用户主动取消\nconst gridOptions = { columns: [] };\nlogger.warn('重置密钥失败: {}', error);\nconsole.log('调试输出');\n</script>\n<template><Page /></template>",
+  ],
+  [
+    'lazy.vue',
+    '<template><img loading="lazy" alt="photo" /><div class="text-xs">v-text</div></template>',
+  ],
+  [
+    'compare.vue',
+    "<script setup>if (row.status === 'SUCCESS') { ok = true }</script>\n<template><Page /></template>",
+  ],
+  [
+    'doc-block.vue',
+    '<template>\n  <!--\n    用法示例：\n    <YdDropdown label="操作" :options="[{ label: \'编辑\' }]" />\n    <YdDropdownMenuItem>删除</YdDropdownMenuItem>\n  -->\n  <YdButton :placeholder="t(\'ok\')">{{ t(\'ok\') }}</YdButton>\n</template>',
+  ],
+  [
+    'pure-interp.vue',
+    '<script setup>const n = 3</script>\n<template>\n  <div class="text-sm">\n    {{ t(\'total\', { n }) }}\n  </div>\n</template>',
+  ],
+  [
+    'multiline-attr.vue',
+    "<template>\n  <YdButton\n    :class=\"\n      cn('a', 'b')\n    \"\n    @click=\"go\"\n  >\n    {{ t('ok') }}\n  </YdButton>\n</template>",
+  ],
 ];
 
 /** 夹具放在真实仓库同构的 scope 路径下，才能同时验证 scopeOf 与 SCAN_PREFIXES 过滤 */
@@ -471,7 +556,10 @@ const FIXTURE_DIR = 'apps/demo-web/src/views';
 
 function fixtureFiles(): Record<string, string> {
   const files: Record<string, string> = {};
-  for (const [name, content] of [...NEGATIVES.map(([n, c]) => [n, c] as [string, string]), ...POSITIVES]) {
+  for (const [name, content] of [
+    ...NEGATIVES.map(([n, c]) => [n, c] as [string, string]),
+    ...POSITIVES,
+  ]) {
     files[`${FIXTURE_DIR}/${name}`] = content;
   }
   return files;
@@ -556,13 +644,16 @@ function selfTestFn(): void {
     for (const [label, countsCase, budgets, wantFail] of RATCHET_CASES) {
       const failed = compareBudget(countsCase, budgets, DEMO_SEEN).length > 0;
       if (failed !== wantFail) {
-        problems.push(`棘轮用例「${label}」期望 ${wantFail ? '报错' : '通过'}，实际 ${failed ? '报错' : '通过'}`);
+        problems.push(
+          `棘轮用例「${label}」期望 ${wantFail ? '报错' : '通过'}，实际 ${failed ? '报错' : '通过'}`,
+        );
       }
     }
     // --update-baseline 只能下调：抬高已有 scope 预算必须被拒（否则先写硬编码再刷基线即可绕过门禁）
     for (const [label, countsCase, previous, wantRaised] of RAISE_CASES) {
       const got = findRaisedBudgets(countsCase, previous).length;
-      if (got !== wantRaised) problems.push(`下调校验用例「${label}」期望拒写 ${wantRaised} 项，实际 ${got}`);
+      if (got !== wantRaised)
+        problems.push(`下调校验用例「${label}」期望拒写 ${wantRaised} 项，实际 ${got}`);
     }
     // 缺基线文件必须报错（而不是静默放行）
     let missingBaselineFailed = false;
@@ -616,7 +707,8 @@ function parseArgs(argv: string[]): {
       else root = resolve(next);
     } else if (arg === '--top') {
       const parsed = Number(argv[++i]);
-      if (!Number.isInteger(parsed) || parsed <= 0) unknown.push(`--top 需要一个正整数，收到 "${argv[i] ?? ''}"`);
+      if (!Number.isInteger(parsed) || parsed <= 0)
+        unknown.push(`--top 需要一个正整数，收到 "${argv[i] ?? ''}"`);
       else top = parsed;
     } else if (arg === '--self-test') {
       selfTest = true;
@@ -631,8 +723,8 @@ function parseArgs(argv: string[]): {
   if (unknown.length > 0) {
     console.error(`[check:ui-text] 无法识别的参数：${unknown.join(' ')}`);
     console.error(
-      '  用法：node ./bash/check-hardcoded-text.mts [--root DIR] [--top N]'
-      + ' [--self-test | --update-baseline [--allow-raise]]',
+      '  用法：node ./bash/check-hardcoded-text.mts [--root DIR] [--top N]' +
+        ' [--self-test | --update-baseline [--allow-raise]]',
     );
     process.exit(1);
   }

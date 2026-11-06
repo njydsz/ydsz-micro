@@ -105,11 +105,13 @@ export function useDialog(): UseDialogReturn {
       },
       closeAll: () => {
         // 容器可能从未被实例化（没调用过 open），动态 import 兜底
-        import('./use-dialog-internal').then(({ closeAllDialogs }) => {
-          closeAllDialogs();
-        }).catch(() => {
-          // 容器从未存在时静默忽略
-        });
+        import('./use-dialog-internal')
+          .then(({ closeAllDialogs }) => {
+            closeAllDialogs();
+          })
+          .catch(() => {
+            // 容器从未存在时静默忽略
+          });
       },
     },
   };

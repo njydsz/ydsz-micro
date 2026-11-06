@@ -6,7 +6,7 @@
  * @since 26.10.10
  */
 
-import { ARIA_ROLE_CONTRACTS } from './aria-role-map'
+import { ARIA_ROLE_CONTRACTS } from './aria-role-map';
 
 /**
  * 验证组件根元素是否携带了 contract 要求的 role。
@@ -14,12 +14,12 @@ import { ARIA_ROLE_CONTRACTS } from './aria-role-map'
 export function expectRole(
   wrapper: Element,
   componentName: `${string}`,
-  contract: typeof ARIA_ROLE_CONTRACTS[string] | undefined
+  contract: (typeof ARIA_ROLE_CONTRACTS)[string] | undefined,
 ): void {
-  if (!contract) return
-  const actual = wrapper.getAttribute('role')
+  if (!contract) return;
+  const actual = wrapper.getAttribute('role');
   if (actual !== contract.role) {
-    throw new Error(`[${componentName}] Expected role="${contract.role}" but got "${actual}"`)
+    throw new Error(`[${componentName}] Expected role="${contract.role}" but got "${actual}"`);
   }
 }
 
@@ -29,14 +29,14 @@ export function expectRole(
 export function expectRequiredAriaAttrs(
   wrapper: Element,
   componentName: `${string}`,
-  contract: typeof ARIA_ROLE_CONTRACTS[string] | undefined
+  contract: (typeof ARIA_ROLE_CONTRACTS)[string] | undefined,
 ): void {
-  if (!contract?.requiredAttrs) return
+  if (!contract?.requiredAttrs) return;
   for (const attr of contract.requiredAttrs) {
     if (!wrapper.hasAttribute(attr)) {
-      throw new Error(`Missing required attr "${attr}" on ${componentName}`)
+      throw new Error(`Missing required attr "${attr}" on ${componentName}`);
     }
   }
 }
 
-export { ARIA_ROLE_CONTRACTS }
+export { ARIA_ROLE_CONTRACTS };

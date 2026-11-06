@@ -61,9 +61,7 @@ export interface UseUploadExecutorReturn {
  * @param options - props / emit / chunkUploader / listOps
  * @returns 上传执行句柄
  */
-export function useUploadExecutor(
-  options: UseUploadExecutorOptions,
-): UseUploadExecutorReturn {
+export function useUploadExecutor(options: UseUploadExecutorOptions): UseUploadExecutorReturn {
   const { emit, props, chunkUploader, listOps } = options;
   const { patchFileItem } = listOps;
 
@@ -128,7 +126,11 @@ export function useUploadExecutor(
       if (xhr.status >= 200 && xhr.status < 300) {
         try {
           const response = JSON.parse(xhr.responseText);
-          patchFileItem(item.uid, { status: 'success', percent: 100, url: response?.data ?? response?.url });
+          patchFileItem(item.uid, {
+            status: 'success',
+            percent: 100,
+            url: response?.data ?? response?.url,
+          });
           const updated = listOps.currentFileList.value.find((f) => f.uid === item.uid)!;
           emit('success', response, updated);
           emit('change', updated, listOps.currentFileList.value);

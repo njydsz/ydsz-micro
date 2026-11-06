@@ -29,10 +29,7 @@
 
 import type { InjectionKey } from 'vue';
 
-import {
-  getCurrentInstance,
-  inject,
-} from 'vue';
+import { getCurrentInstance, inject } from 'vue';
 
 import type {
   EnhancedGlobalStateAPI,
@@ -61,12 +58,17 @@ export const MICRO_PROPS_KEY: InjectionKey<StandardMicroProps> = Symbol('__MICRO
 function createDefaultProps(): StandardMicroProps {
   // 内存中的简单 globalState 模拟器
   let _state: Record<string, unknown> = {};
-  const _listeners = new Set<(state: Record<string, unknown>, prev: Record<string, unknown>) => void>();
+  const _listeners = new Set<
+    (state: Record<string, unknown>, prev: Record<string, unknown>) => void
+  >();
 
   const rawGlobalState: EnhancedGlobalStateAPI['onGlobalStateChange'] extends never
     ? never
     : {
-        onGlobalStateChange: (listener: (state: Record<string, unknown>, prev: Record<string, unknown>) => void, fireImmediately?: boolean) => () => void;
+        onGlobalStateChange: (
+          listener: (state: Record<string, unknown>, prev: Record<string, unknown>) => void,
+          fireImmediately?: boolean,
+        ) => () => void;
         setGlobalState: (patch: Record<string, unknown>) => void;
         getGlobalState: () => Record<string, unknown>;
         useNamespace: (scope: string) => NamespacedGlobalStateAPI;
@@ -108,16 +110,13 @@ function createDefaultProps(): StandardMicroProps {
           _state[nsState] = { ...prev, ...patch };
         },
         onScopeStateChange(listener, fireImmediately) {
-          return rawGlobalState.onGlobalStateChange(
-            (state, prevState) => {
-              const scopePrev = (prevState?.[nsState] as Record<string, unknown>) ?? {};
-              const scopeCurr = (state?.[nsState] as Record<string, unknown>) ?? {};
-              if (scopePrev !== scopeCurr) {
-                listener(scopeCurr, scopePrev);
-              }
-            },
-            fireImmediately,
-          );
+          return rawGlobalState.onGlobalStateChange((state, prevState) => {
+            const scopePrev = (prevState?.[nsState] as Record<string, unknown>) ?? {};
+            const scopeCurr = (state?.[nsState] as Record<string, unknown>) ?? {};
+            if (scopePrev !== scopeCurr) {
+              listener(scopeCurr, scopePrev);
+            }
+          }, fireImmediately);
         },
       };
     },
@@ -139,9 +138,7 @@ function createDefaultProps(): StandardMicroProps {
         logger.warn(`[Standalone] sendRequest("${action}") called but no parent kernel available`);
         return undefined as R;
       },
-      registerHandler: <T = unknown, _R = unknown>(
-        _handler: MessageHandler<T, _R>,
-      ) => {
+      registerHandler: <T = unknown, _R = unknown>(_handler: MessageHandler<T, _R>) => {
         // 独立运行模式无内核消息通道，注册处理器为空实现
         return () => {};
       },
@@ -155,7 +152,9 @@ function createDefaultProps(): StandardMicroProps {
     microBridge: {
       send: (_action: string, _payload?: unknown) => `standalone-${Date.now()}`,
       call: async <R = unknown>(action: string): Promise<R> => {
-        logger.warn(`[Standalone] microBridge.call("${action}") called but no parent kernel available`);
+        logger.warn(
+          `[Standalone] microBridge.call("${action}") called but no parent kernel available`,
+        );
         return undefined as R;
       },
       on: <T = unknown, _R = unknown>(

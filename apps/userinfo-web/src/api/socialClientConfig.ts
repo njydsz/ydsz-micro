@@ -18,7 +18,9 @@ import type { SocialClientDTO, SocialClientPageQuery, SocialClientVO } from './m
  * page: GET /social-client-config/page
  */
 export function page(query?: SocialClientPageQuery): Promise<PageResponse<SocialClientVO[]>> {
-  return requestClient.get<PageResponse<SocialClientVO[]>>(`/social-client-config/page`, { params: query });
+  return requestClient.get<PageResponse<SocialClientVO[]>>(`/social-client-config/page`, {
+    params: query,
+  });
 }
 
 /**
@@ -38,17 +40,20 @@ export function create(data: SocialClientDTO): Promise<void> {
 /**
  * update: PUT /social-client-config/{platform}
  */
-export function update({ platform }: {
+export function update(
+  {
+    platform,
+  }: {
     platform: string;
-  }, data: SocialClientDTO): Promise<void> {
+  },
+  data: SocialClientDTO,
+): Promise<void> {
   return requestClient.put<void>(`/social-client-config/${platform}`, data);
 }
 
 /**
  * delete: DELETE /social-client-config/{platform}
  */
-export function deleteApi({ platform }: {
-    platform: string;
-  }): Promise<void> {
+export function deleteApi({ platform }: { platform: string }): Promise<void> {
   return requestClient.delete<void>(`/social-client-config/${platform}`);
 }

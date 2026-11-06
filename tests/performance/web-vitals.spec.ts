@@ -22,7 +22,7 @@ import { test, expect, type Page, type TestInfo } from '@playwright/test';
 const MEASURED_METRICS = ['lcp', 'cls', 'fcp', 'ttfb'] as const;
 
 /** 退化率阈值：超过 20% 视为性能衰退（与 CI 的 --threshold 0.20 同口径） */
-const REGRESSION_THRESHOLD = 0.20;
+const REGRESSION_THRESHOLD = 0.2;
 
 /** 仓库根：Playwright 给的 configFile 是绝对路径，据此定位，避免依赖进程 cwd */
 function repoRootOf(testInfo: TestInfo): string {
@@ -92,7 +92,9 @@ async function collectWebVitals(page: Page): Promise<{
           if (last) lcp = last.startTime;
         });
         lcpObserver.observe({ buffered: true, type: 'largest-contentful-paint' });
-      } catch { /* not supported */ }
+      } catch {
+        /* not supported */
+      }
 
       // CLS
       try {
@@ -103,14 +105,18 @@ async function collectWebVitals(page: Page): Promise<{
           }
         });
         clsObserver.observe({ buffered: true, type: 'layout-shift' });
-      } catch { /* not supported */ }
+      } catch {
+        /* not supported */
+      }
 
       // FCP + TTFB (从已记录的条目中读取)
       try {
         const paintEntries = performance.getEntriesByType('paint');
         const fcpEntry = paintEntries.find((e) => e.name === 'first-contentful-paint');
         if (fcpEntry) fcp = fcpEntry.startTime;
-      } catch { /* not supported */ }
+      } catch {
+        /* not supported */
+      }
 
       try {
         const navEntries = performance.getEntriesByType('navigation');
@@ -118,7 +124,9 @@ async function collectWebVitals(page: Page): Promise<{
           const nav = navEntries[0] as PerformanceNavigationTiming;
           ttfb = nav.responseStart - nav.requestStart;
         }
-      } catch { /* not supported */ }
+      } catch {
+        /* not supported */
+      }
 
       // 等待 LCP 稳定（2s 无新条目视为稳定）
       setTimeout(() => {
@@ -155,10 +163,16 @@ test.describe('Web Vitals 基线', () => {
     writeMetrics(testInfo, vitals);
 
     // 核心断言：不超 budget
-    expect(vitals.lcp, `LCP ${vitals.lcp}ms 超预算 ${budget.lcp}ms`).toBeLessThanOrEqual(budget.lcp);
+    expect(vitals.lcp, `LCP ${vitals.lcp}ms 超预算 ${budget.lcp}ms`).toBeLessThanOrEqual(
+      budget.lcp,
+    );
     expect(vitals.cls, `CLS ${vitals.cls} 超预算 ${budget.cls}`).toBeLessThanOrEqual(budget.cls);
-    expect(vitals.fcp, `FCP ${vitals.fcp}ms 超预算 ${budget.fcp}ms`).toBeLessThanOrEqual(budget.fcp);
-    expect(vitals.ttfb, `TTFB ${vitals.ttfb}ms 超预算 ${budget.ttfb}ms`).toBeLessThanOrEqual(budget.ttfb);
+    expect(vitals.fcp, `FCP ${vitals.fcp}ms 超预算 ${budget.fcp}ms`).toBeLessThanOrEqual(
+      budget.fcp,
+    );
+    expect(vitals.ttfb, `TTFB ${vitals.ttfb}ms 超预算 ${budget.ttfb}ms`).toBeLessThanOrEqual(
+      budget.ttfb,
+    );
   });
 
   test('性能无显著衰退（与 budget 基线对比 < 20%）', async ({ page }, testInfo) => {
@@ -179,18 +193,26 @@ test.describe('Web Vitals 基线', () => {
       ttfbRegression > 0 ? ttfbRegression : 0,
     );
 
-    console.log('[Web Vitals Regression]', JSON.stringify({
-      lcp: `${(lcpRegression * 100).toFixed(1)}%`,
-      cls: `${(clsRegression * 100).toFixed(1)}%`,
-      fcp: `${(fcpRegression * 100).toFixed(1)}%`,
-      ttfb: `${(ttfbRegression * 100).toFixed(1)}%`,
-      max: `${(maxRegression * 100).toFixed(1)}%`,
-    }));
+    console.log(
+      '[Web Vitals Regression]',
+      JSON.stringify({
+        lcp: `${(lcpRegression * 100).toFixed(1)}%`,
+        cls: `${(clsRegression * 100).toFixed(1)}%`,
+        fcp: `${(fcpRegression * 100).toFixed(1)}%`,
+        ttfb: `${(ttfbRegression * 100).toFixed(1)}%`,
+        max: `${(maxRegression * 100).toFixed(1)}%`,
+      }),
+    );
 
     // 写入指标
     writeMetrics(testInfo, {
       ...vitals,
-      regression: { lcp: lcpRegression, cls: clsRegression, fcp: fcpRegression, ttfb: ttfbRegression },
+      regression: {
+        lcp: lcpRegression,
+        cls: clsRegression,
+        fcp: fcpRegression,
+        ttfb: ttfbRegression,
+      },
     });
 
     // 退化不得超过 20%

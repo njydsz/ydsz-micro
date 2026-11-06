@@ -1,38 +1,31 @@
 <script lang="ts">
 // @ts-nocheck
-import type {
-  MenuSubContentEmits,
-  MenuSubContentProps,
-} from '../Menu/index.ts'
+import type { MenuSubContentEmits, MenuSubContentProps } from '../Menu/index.ts';
 
-export type ContextMenuSubContentEmits = MenuSubContentEmits
+export type ContextMenuSubContentEmits = MenuSubContentEmits;
 export interface ContextMenuSubContentProps extends MenuSubContentProps {}
 </script>
 
 <script setup lang="ts">
-import { MenuSubContent } from '../Menu/index.ts'
-import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts'
+import { MenuSubContent } from '../Menu/index.ts';
+import { useForwardExpose, useForwardPropsEmits } from '../shared/index.ts';
 
-const props = defineProps<ContextMenuSubContentProps>()
+const props = defineProps<ContextMenuSubContentProps>();
 
-const emits = defineEmits<ContextMenuSubContentEmits>()
-const forwarded = useForwardPropsEmits(props, emits)
-useForwardExpose()
+const emits = defineEmits<ContextMenuSubContentEmits>();
+const forwarded = useForwardPropsEmits(props, emits);
+useForwardExpose();
 </script>
 
 <template>
   <MenuSubContent
     v-bind="forwarded"
     :style="{
-      '--radix-context-menu-content-transform-origin':
-        'var(--radix-popper-transform-origin)',
-      '--radix-context-menu-content-available-width':
-        'var(--radix-popper-available-width)',
-      '--radix-context-menu-content-available-height':
-        'var(--radix-popper-available-height)',
+      '--radix-context-menu-content-transform-origin': 'var(--radix-popper-transform-origin)',
+      '--radix-context-menu-content-available-width': 'var(--radix-popper-available-width)',
+      '--radix-context-menu-content-available-height': 'var(--radix-popper-available-height)',
       '--radix-context-menu-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-context-menu-trigger-height':
-        'var(--radix-popper-anchor-height)',
+      '--radix-context-menu-trigger-height': 'var(--radix-popper-anchor-height)',
     }"
   >
     <slot />

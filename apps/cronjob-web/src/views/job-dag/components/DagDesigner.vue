@@ -15,9 +15,20 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSlider, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSlider,
+  YdTextarea,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
@@ -36,7 +47,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  record: null});
+  record: null,
+});
 
 const emit = defineEmits<{
   success: [];
@@ -58,9 +70,7 @@ const [Modal, modalApi] = useYdModal({
     }
     // 初始化节点列表
     if (nodeList.value.length === 0) {
-      nodeList.value = [
-        { id: 'start', name: '开始', type: 'START', x: 100, y: 100 },
-      ];
+      nodeList.value = [{ id: 'start', name: '开始', type: 'START', x: 100, y: 100 }];
     }
     selectedNodeId.value = '';
     edgeList.value = [];
@@ -91,15 +101,17 @@ const formData = reactive({
 });
 
 /** 任务节点列表 */
-const nodeList = ref<Array<{
-  id: string;
-  name: string;
-  type: string;
-  x: number;
-  y: number;
-  jobId?: string;
-  config?: Record<string, unknown>;
-}>>([]);
+const nodeList = ref<
+  Array<{
+    id: string;
+    name: string;
+    type: string;
+    x: number;
+    y: number;
+    jobId?: string;
+    config?: Record<string, unknown>;
+  }>
+>([]);
 
 /** 连线列表（依赖关系） */
 const edgeList = ref<Array<{ from: string; to: string }>>([]);
@@ -225,13 +237,20 @@ function handleNodeNameChange(name: string): void {
           <YdTextarea v-model="formData.description" placeholder="请输入描述" :rows="2" />
         </YdFormItem>
         <YdFormItem label="Cron表达式">
-          <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式（如：0 0 * * *）" />
+          <YdInput
+            v-model="formData.cronExpression"
+            placeholder="请输入Cron表达式（如：0 0 * * *）"
+          />
         </YdFormItem>
         <YdFormItem label="触发类型">
           <YdSelectBase v-model="formData.triggerType">
             <YdSelectTriggerBase placeholder="选择触发类型" />
             <YdSelectContentBase>
-              <YdSelectItemBase v-for="opt in triggerTypeOptions" :key="opt.value" :value="opt.value">
+              <YdSelectItemBase
+                v-for="opt in triggerTypeOptions"
+                :key="opt.value"
+                :value="opt.value"
+              >
                 {{ opt.label }}
               </YdSelectItemBase>
             </YdSelectContentBase>
@@ -258,8 +277,14 @@ function handleNodeNameChange(name: string): void {
       </div>
 
       <!-- 设计器画布 -->
-      <div class="designer-canvas rounded border bg-gray-50" :style="{ height: '400px', overflow: 'auto' }">
-        <div class="canvas-inner" :style="{ transform: `scale(${zoomPercent / 100})`, transformOrigin: 'top left' }">
+      <div
+        class="designer-canvas rounded border bg-gray-50"
+        :style="{ height: '400px', overflow: 'auto' }"
+      >
+        <div
+          class="canvas-inner"
+          :style="{ transform: `scale(${zoomPercent / 100})`, transformOrigin: 'top left' }"
+        >
           <!-- 节点 -->
           <div
             v-for="node in nodeList"
@@ -295,7 +320,14 @@ function handleNodeNameChange(name: string): void {
               marker-end="url(#arrowhead)"
             />
             <defs>
-              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <marker
+                id="arrowhead"
+                markerWidth="10"
+                markerHeight="7"
+                refX="9"
+                refY="3.5"
+                orient="auto"
+              >
                 <polygon points="0 0, 10 3.5, 0 7" fill="#409eff" />
               </marker>
             </defs>
@@ -320,11 +352,17 @@ function handleNodeNameChange(name: string): void {
       <div v-if="edgeList.length > 0" class="edge-list mt-3">
         <h4 class="mb-2 text-sm font-medium">依赖关系（{{ edgeList.length }}）</h4>
         <div class="flex flex-wrap gap-2">
-          <div v-for="edge in edgeList" :key="edge.id ?? `${edge.from}-${edge.to}`" class="flex items-center gap-1 rounded border px-2 py-1">
+          <div
+            v-for="edge in edgeList"
+            :key="edge.id ?? `${edge.from}-${edge.to}`"
+            class="flex items-center gap-1 rounded border px-2 py-1"
+          >
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.from)?.name }}</span>
             <span class="text-xs text-gray-400">→</span>
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.to)?.name }}</span>
-            <YdButton size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">删除</YdButton>
+            <YdButton size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))"
+              >删除</YdButton
+            >
           </div>
         </div>
       </div>

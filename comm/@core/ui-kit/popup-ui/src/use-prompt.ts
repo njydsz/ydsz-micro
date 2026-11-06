@@ -28,7 +28,10 @@ export interface PromptOptions<T = unknown> {
   /** 取消按钮文字 */
   cancelText?: string;
   /** 关闭前的拦截回调；可拿到用户输入的 value */
-  beforeClose?: (scope: { isConfirm: boolean; value: T | undefined }) => boolean | Promise<boolean | undefined> | undefined;
+  beforeClose?: (scope: {
+    isConfirm: boolean;
+    value: T | undefined;
+  }) => boolean | Promise<boolean | undefined> | undefined;
 }
 
 /** usePrompt 返回的控制器句柄 */
@@ -47,7 +50,9 @@ export interface UsePromptReturn {
    *
    * @param options - 配置项；content 为输入提示文案
    */
-  promptText(options: Omit<PromptOptions<string>, 'defaultValue'> & { defaultValue?: string }): Promise<string | null>;
+  promptText(
+    options: Omit<PromptOptions<string>, 'defaultValue'> & { defaultValue?: string },
+  ): Promise<string | null>;
 }
 
 /**
@@ -94,7 +99,9 @@ export function usePrompt(): UsePromptReturn {
     }
   }
 
-  async function promptText(options: Omit<PromptOptions<string>, 'defaultValue'> & { defaultValue?: string }): Promise<string | null> {
+  async function promptText(
+    options: Omit<PromptOptions<string>, 'defaultValue'> & { defaultValue?: string },
+  ): Promise<string | null> {
     const value = await promptFn<string>(options);
     return value;
   }

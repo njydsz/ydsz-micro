@@ -1,18 +1,9 @@
-/**
- * YdFloatLabel —— 浮动标签组件。
- *
- * 包裹输入框的 label，聚焦或有内容时浮到左上角。三种模式：
- * - 'on' : label 永远在左上角
- * - 'in' : label 在占位符位置，focus/有值时浮到左上角
- * - 'over': label 盖在输入框上（吞占位符），focus/有值时浮到左上角
- *
- * 通过 CSS :has(input:focus) 选择器实现，无需 JS 监听 focus/blur。
- * 消费方必须在 default 插槽内放置一个 input / textarea / select 元素。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\float-label\YdFloatLabel.vue
- * @author ydsz-team
- * @since 1.0.0
- */
+/** * YdFloatLabel —— 浮动标签组件。 * * 包裹输入框的 label，聚焦或有内容时浮到左上角。三种模式： *
+- 'on' : label 永远在左上角 * - 'in' : label 在占位符位置，focus/有值时浮到左上角 * - 'over': label
+盖在输入框上（吞占位符），focus/有值时浮到左上角 * * 通过 CSS :has(input:focus) 选择器实现，无需 JS
+监听 focus/blur。 * 消费方必须在 default 插槽内放置一个 input / textarea / select 元素。 * * @path
+comm\@core\ui-kit\ydsz-ui\src\components\float-label\YdFloatLabel.vue * @author ydsz-team * @since
+1.0.0 */
 <script setup lang="ts">
 import { computed } from 'vue';
 
@@ -38,9 +29,7 @@ const variantClass = computed(() => `yd-float-label--variant-${props.variant}`);
       <slot />
 
       <span class="yd-float-label__text">
-        <slot name="label">
-          Label
-        </slot>
+        <slot name="label"> Label </slot>
       </span>
     </div>
   </label>
@@ -94,7 +83,10 @@ const variantClass = computed(() => `yd-float-label--variant-${props.variant}`);
   font-size: var(--ydsz-font-size-base);
   color: hsl(var(--ydsz-text-tertiary));
   pointer-events: none;
-  transition: transform 0.15s ease, font-size 0.15s ease, color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    font-size 0.15s ease,
+    color 0.15s ease;
   background: hsl(var(--ydsz-surface-1));
   padding: 0 0.125rem;
   line-height: 1;
@@ -119,8 +111,12 @@ const variantClass = computed(() => `yd-float-label--variant-${props.variant}`);
   color: hsl(var(--ydsz-comp-bg));
 }
 
-.yd-float-label--variant-in .yd-float-label__input-wrap:has(input:not(:placeholder-shown)) .yd-float-label__text,
-.yd-float-label--variant-in .yd-float-label__input-wrap:has(textarea:not(:placeholder-shown)) .yd-float-label__text {
+.yd-float-label--variant-in
+  .yd-float-label__input-wrap:has(input:not(:placeholder-shown))
+  .yd-float-label__text,
+.yd-float-label--variant-in
+  .yd-float-label__input-wrap:has(textarea:not(:placeholder-shown))
+  .yd-float-label__text {
   transform: translateY(0.4rem);
   font-size: var(--ydsz-font-size-xs);
 }
@@ -140,8 +136,8 @@ const variantClass = computed(() => `yd-float-label--variant-${props.variant}`);
 }
 
 /* 有值时浮到左上角（:has 选择器） */
-.yd-float-label--variant-over:has(input:not([value=""])) .yd-float-label__text,
-.yd-float-label--variant-over:has(input[value=""]:not([value])) .yd-float-label__text,
+.yd-float-label--variant-over:has(input:not([value=''])) .yd-float-label__text,
+.yd-float-label--variant-over:has(input[value='']:not([value])) .yd-float-label__text,
 .yd-float-label--variant-over:has(textarea:not(:empty)) .yd-float-label__text {
   transform: translateY(0.4rem);
   font-size: var(--ydsz-font-size-xs);

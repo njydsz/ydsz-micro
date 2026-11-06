@@ -32,7 +32,9 @@ for (const f of files) {
   try {
     const { descriptor, errors } = parse(src, { filename: f });
     if (errors.length) {
-      broken.push(`${rel} :: ${errors.map(e => `${e.message}${e.loc ? ` (${e.loc.start.line}:${e.loc.start.column})` : ''}`).join(' | ')}`);
+      broken.push(
+        `${rel} :: ${errors.map((e) => `${e.message}${e.loc ? ` (${e.loc.start.line}:${e.loc.start.column})` : ''}`).join(' | ')}`,
+      );
       continue;
     }
     // script setup 编译校验（捕获 export 误用、宏错误等）
@@ -40,7 +42,11 @@ for (const f of files) {
       try {
         const lang = descriptor.script?.lang ?? descriptor.scriptSetup?.lang;
         const plugins = lang === 'ts' ? ['typescript'] : [];
-        compileScript(descriptor, { id: 'check', babelParserPlugins: plugins, fs: { fileExists: () => false, readFile: () => undefined } });
+        compileScript(descriptor, {
+          id: 'check',
+          babelParserPlugins: plugins,
+          fs: { fileExists: () => false, readFile: () => undefined },
+        });
       } catch (e) {
         broken.push(`${rel} :: [script] ${e.message}`);
         continue;
@@ -50,9 +56,15 @@ for (const f of files) {
     if (descriptor.template) {
       try {
         const { compileTemplate } = require('vue/compiler-sfc');
-        const r = compileTemplate({ source: descriptor.template.content, filename: f, id: 'check' });
+        const r = compileTemplate({
+          source: descriptor.template.content,
+          filename: f,
+          id: 'check',
+        });
         if (r.errors.length) {
-          broken.push(`${rel} :: [template] ${r.errors.map(e => (typeof e === 'string' ? e : e.message)).join(' | ')}`);
+          broken.push(
+            `${rel} :: [template] ${r.errors.map((e) => (typeof e === 'string' ? e : e.message)).join(' | ')}`,
+          );
           continue;
         }
       } catch (e) {

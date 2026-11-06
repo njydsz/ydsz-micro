@@ -29,20 +29,11 @@ export type {
   UseTableEditingReturn,
 } from '../../composables/use-table-editing';
 export { useTableCellEdit } from './use-table-cell-edit';
-export type {
-  UseTableCellEditOptions,
-  UseTableCellEditReturn,
-} from './use-table-cell-edit';
+export type { UseTableCellEditOptions, UseTableCellEditReturn } from './use-table-cell-edit';
 export { useTableColumnLayout } from './use-table-column-layout';
-export type {
-  TableColumnLayoutOptions,
-  TableColumnLayoutResult,
-} from './use-table-column-layout';
+export type { TableColumnLayoutOptions, TableColumnLayoutResult } from './use-table-column-layout';
 export { useTableRowView } from './use-table-row-view';
-export type {
-  TableRowViewOptions,
-  TableRowViewResult,
-} from './use-table-row-view';
+export type { TableRowViewOptions, TableRowViewResult } from './use-table-row-view';
 export { useFixedColumns, fixedColumnStyle } from './use-table-fixed-columns';
 export { useTableGroupHeader } from './use-table-group-header';
 export { default as YdColumnChooser } from './YdColumnChooser.vue';

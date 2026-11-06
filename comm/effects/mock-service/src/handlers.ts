@@ -13,12 +13,7 @@ import { faker } from '@faker-js/faker';
 import { http, HttpResponse, delay } from 'msw';
 import type { RequestHandler } from 'msw';
 import { createMockDataFactory } from './factory';
-import type {
-  MockFactoryOptions,
-  OpenAPIOperation,
-  OpenAPIPathItem,
-  OpenAPISpec,
-} from './types';
+import type { MockFactoryOptions, OpenAPIOperation, OpenAPIPathItem, OpenAPISpec } from './types';
 
 /**
  * 处理器生成选项
@@ -66,13 +61,7 @@ export function generateMockHandlers(
         continue;
       }
 
-      const handler = createHandlerForOperation(
-        pathTemplate,
-        method,
-        operation,
-        factory,
-        options,
-      );
+      const handler = createHandlerForOperation(pathTemplate, method, operation, factory, options);
 
       if (handler) {
         handlers.push(handler);
@@ -93,8 +82,7 @@ function extractResponseSchema(operation: OpenAPIOperation): Record<string, unkn
   const responses = operation.responses;
   if (!responses) return undefined;
   const successResponse = (responses['200'] ?? responses['201']) as
-    | { content?: OpenAPIResponseContent }
-    | undefined;
+    { content?: OpenAPIResponseContent } | undefined;
   const jsonContent = successResponse?.content?.['application/json'];
   return jsonContent?.schema;
 }
@@ -106,9 +94,7 @@ function extractResponseSchema(operation: OpenAPIOperation): Record<string, unkn
  * @returns schema 对象，未找到时返回 undefined
  */
 function extractRequestSchema(operation: OpenAPIOperation): Record<string, unknown> | undefined {
-  const requestBody = operation.requestBody as
-    | { content?: OpenAPIResponseContent }
-    | undefined;
+  const requestBody = operation.requestBody as { content?: OpenAPIResponseContent } | undefined;
   const jsonContent = requestBody?.content?.['application/json'];
   return jsonContent?.schema;
 }
@@ -172,25 +158,19 @@ function createHandlerForOperation(
       const pageNum = Number(pageParams.get('pageNum')) || 1;
       const pageSize = Number(pageParams.get('pageSize')) || 10;
 
-      return HttpResponse.json(
-        factory.generatePageResponse(dataSchema, pageNum, pageSize),
-      );
+      return HttpResponse.json(factory.generatePageResponse(dataSchema, pageNum, pageSize));
     }
 
     if (isListOperation && responseSchema) {
       // 列表查询
       const dataSchema = unwrapDataSchema(responseSchema);
-      return HttpResponse.json(factory.generateSuccessResponse(
-        factory.generateList(dataSchema),
-      ));
+      return HttpResponse.json(factory.generateSuccessResponse(factory.generateList(dataSchema)));
     }
 
     // 单个查询
     if (responseSchema) {
       const dataSchema = unwrapDataSchema(responseSchema);
-      return HttpResponse.json(factory.generateSuccessResponse(
-        factory.generateOne(dataSchema),
-      ));
+      return HttpResponse.json(factory.generateSuccessResponse(factory.generateOne(dataSchema)));
     }
 
     // 默认空响应
@@ -322,14 +302,14 @@ export function createCrudHandlers(
     http.get(`${basePath}/:id`, async ({ params }) => {
       if (options.enableDelay) await delay(faker.number.int({ min: 0, max: 200 }));
       const { id } = params;
-      const item = items.find(i => i.id === id) ?? options.generateItem();
+      const item = items.find((i) => i.id === id) ?? options.generateItem();
       return HttpResponse.json(factory.generateSuccessResponse(item));
     }),
 
     // 创建
     http.post(basePath, async ({ request }) => {
       if (options.enableDelay) await delay(faker.number.int({ min: 0, max: 500 }));
-      const body = await request.json() as Record<string, unknown>;
+      const body = (await request.json()) as Record<string, unknown>;
       const newItem = { ...body, id: faker.string.uuid() };
       items.push(newItem);
       return HttpResponse.json(factory.generateSuccessResponse(newItem));
@@ -339,8 +319,8 @@ export function createCrudHandlers(
     http.put(`${basePath}/:id`, async ({ params, request }) => {
       if (options.enableDelay) await delay(faker.number.int({ min: 0, max: 500 }));
       const { id } = params;
-      const body = await request.json() as Record<string, unknown>;
-      const index = items.findIndex(i => i.id === id);
+      const body = (await request.json()) as Record<string, unknown>;
+      const index = items.findIndex((i) => i.id === id);
       if (index >= 0) {
         items[index] = { ...items[index], ...body };
       }
@@ -351,7 +331,7 @@ export function createCrudHandlers(
     http.delete(`${basePath}/:id`, async ({ params }) => {
       if (options.enableDelay) await delay(faker.number.int({ min: 0, max: 300 }));
       const { id } = params;
-      const index = items.findIndex(i => i.id === id);
+      const index = items.findIndex((i) => i.id === id);
       if (index >= 0) {
         items.splice(index, 1);
       }

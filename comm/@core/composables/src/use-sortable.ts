@@ -10,10 +10,7 @@ import type Sortable from 'sortablejs';
 
 import { tryOnUnmounted } from '@vueuse/core';
 
-function useSortable<T extends HTMLElement>(
-  sortableContainer: T,
-  options: SortableOptions = {},
-) {
+function useSortable<T extends HTMLElement>(sortableContainer: T, options: SortableOptions = {}) {
   let sortableInstance: Sortable | null = null;
 
   const initializeSortable = async () => {

@@ -42,13 +42,19 @@ export interface MessageBoxConfirmOptions {
   /** 是否显示关闭按钮 */
   showClose?: boolean;
   /** 是否在关闭前拦截（返回 false 或 Promise<false> 可阻止关闭） */
-  beforeClose?: (action: MessageBoxAction, instance: { visible: boolean }) => boolean | Promise<boolean>;
+  beforeClose?: (
+    action: MessageBoxAction,
+    instance: { visible: boolean },
+  ) => boolean | Promise<boolean>;
   /** 自定义类名 */
   customClass?: string;
 }
 
 /** alert 配置（单按钮，无取消） */
-export type MessageBoxAlertOptions = Omit<MessageBoxConfirmOptions, 'showCancelButton' | 'confirmButtonText'> & {
+export type MessageBoxAlertOptions = Omit<
+  MessageBoxConfirmOptions,
+  'showCancelButton' | 'confirmButtonText'
+> & {
   confirmButtonText?: string;
 };
 
@@ -119,24 +125,30 @@ let modalStack: Array<{ app: App; container: HTMLElement }> = [];
 export const showMessageBox: MessageBoxApi = {
   confirm: (_options: MessageBoxConfirmOptions): Promise<MessageBoxResponseData> => {
     // 推迟导入以避免 bundle 体积膨胀
-    return import('./use-message-box-internal').then((mod) => mod.mountMessageBox({
-      ..._options,
-      showCancelButton: _options.showCancelButton ?? true,
-    }));
+    return import('./use-message-box-internal').then((mod) =>
+      mod.mountMessageBox({
+        ..._options,
+        showCancelButton: _options.showCancelButton ?? true,
+      }),
+    );
   },
 
   alert: (_options: MessageBoxAlertOptions): Promise<MessageBoxResponseData> => {
-    return import('./use-message-box-internal').then((mod) => mod.mountMessageBox({
-      ..._options,
-      showCancelButton: false,
-    }));
+    return import('./use-message-box-internal').then((mod) =>
+      mod.mountMessageBox({
+        ..._options,
+        showCancelButton: false,
+      }),
+    );
   },
 
   prompt: (_options: MessageBoxPromptOptions): Promise<MessageBoxResponseData> => {
-    return import('./use-message-box-internal').then((mod) => mod.mountMessageBox({
-      ..._options,
-      showCancelButton: true,
-    }));
+    return import('./use-message-box-internal').then((mod) =>
+      mod.mountMessageBox({
+        ..._options,
+        showCancelButton: true,
+      }),
+    );
   },
 
   closeAll: (): void => {
@@ -149,4 +161,3 @@ export const showMessageBox: MessageBoxApi = {
     }
   },
 };
-

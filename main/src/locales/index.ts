@@ -29,16 +29,10 @@ const logger = createLogger('Locales');
 
 const modules = import.meta.glob('./langs/**/*.json');
 
-const localesMap = loadLocalesMapFromDir(
-  /\.\/langs\/([^/]+)\/(.*)\.json$/,
-  modules,
-);
+const localesMap = loadLocalesMapFromDir(/\.\/langs\/([^/]+)\/(.*)\.json$/, modules);
 
 async function loadMessages(lang: SupportedLanguagesType) {
-  const [appLocaleMessages] = await Promise.all([
-    localesMap[lang]?.(),
-    loadDayjsLocale(lang),
-  ]);
+  const [appLocaleMessages] = await Promise.all([localesMap[lang]?.(), loadDayjsLocale(lang)]);
   return appLocaleMessages?.default;
 }
 
@@ -55,9 +49,7 @@ async function loadDayjsLocale(lang: SupportedLanguagesType) {
     // 静态 import 让 Vite 预先重写为可解析的模块 URL；
     // 模板字符串 + @vite-ignore 会把裸模块名留给浏览器，导致解析失败。
     const locale =
-      lang === 'zh-CN'
-        ? await import('dayjs/locale/zh-cn')
-        : await import('dayjs/locale/en');
+      lang === 'zh-CN' ? await import('dayjs/locale/zh-cn') : await import('dayjs/locale/en');
     dayjs.locale(locale.default);
   } catch (error) {
     logger.warn(`Failed to load dayjs locale for ${lang}: ${error}`);
@@ -91,8 +83,7 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   }
 
   // 首屏完成后空闲预加载另一语种，使切换近似瞬时
-  const alternateLocale: SupportedLanguagesType =
-    defaultLocale === 'zh-CN' ? 'en-US' : 'zh-CN';
+  const alternateLocale: SupportedLanguagesType = defaultLocale === 'zh-CN' ? 'en-US' : 'zh-CN';
   preloadLocaleOnIdle(alternateLocale, localesMap);
 }
 

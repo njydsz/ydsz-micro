@@ -33,9 +33,7 @@ function makeDataSource(): Row[] {
       name: 'parent 1',
     },
     {
-      children: [
-        { id: '2-1', name: 'child 2-1' },
-      ],
+      children: [{ id: '2-1', name: 'child 2-1' }],
       id: '2',
       name: 'parent 2',
     },
@@ -82,7 +80,12 @@ function makeContext(overrides: Partial<ResolvedTreeTableProps<Row>> = {}) {
 
 function makeFlatRow(key: string, ancestorKeys: string[] = []): TreeFlatRow<Row> {
   const data = makeDataSource();
-  const row = key === '1' ? data[0]! : key === '1-1' ? { id: '1-1', name: 'child 1-1' } : { id: '1-2', name: 'child 1-2' };
+  const row =
+    key === '1'
+      ? data[0]!
+      : key === '1-1'
+        ? { id: '1-1', name: 'child 1-1' }
+        : { id: '1-2', name: 'child 1-2' };
   return {
     ancestorKeys,
     depth: ancestorKeys.length,

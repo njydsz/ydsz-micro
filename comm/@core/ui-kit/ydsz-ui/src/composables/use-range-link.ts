@@ -80,18 +80,20 @@ export function useRangeLink(options: UseRangeLinkOptions) {
         case 'month': {
           // 只能在同一月内
           if (
-            normalizedDate.getMonth() !== normalizedStart.getMonth()
-            || normalizedDate.getFullYear() !== normalizedStart.getFullYear()
-          ) return true;
+            normalizedDate.getMonth() !== normalizedStart.getMonth() ||
+            normalizedDate.getFullYear() !== normalizedStart.getFullYear()
+          )
+            return true;
           break;
         }
         case 'quarter': {
           // 同一季度
           const getQuarter = (d: Date) => Math.floor(d.getMonth() / 3);
           if (
-            getQuarter(normalizedDate) !== getQuarter(normalizedStart)
-            || normalizedDate.getFullYear() !== normalizedStart.getFullYear()
-          ) return true;
+            getQuarter(normalizedDate) !== getQuarter(normalizedStart) ||
+            normalizedDate.getFullYear() !== normalizedStart.getFullYear()
+          )
+            return true;
           break;
         }
         case 'year': {

@@ -1,12 +1,16 @@
 export function getActiveElement(): Element | null {
-  let activeElement = document.activeElement
+  let activeElement = document.activeElement;
   if (activeElement == null) {
-    return null
+    return null;
   }
 
-  while (activeElement != null && activeElement.shadowRoot != null && activeElement.shadowRoot.activeElement != null) {
-    activeElement = activeElement.shadowRoot.activeElement
+  while (
+    activeElement != null &&
+    activeElement.shadowRoot != null &&
+    activeElement.shadowRoot.activeElement != null
+  ) {
+    activeElement = activeElement.shadowRoot.activeElement;
   }
 
-  return activeElement
+  return activeElement;
 }

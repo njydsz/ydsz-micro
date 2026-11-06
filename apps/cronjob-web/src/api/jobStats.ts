@@ -17,10 +17,10 @@ import type { JobDailyStatsVO, JobLogVO } from './models';
  * daily: GET /cronjob/stats/daily
  */
 export function daily(params: {
-    jobId?: string;
-    startDate?: string;
-    endDate?: string;
-  }): Promise<JobDailyStatsVO[]> {
+  jobId?: string;
+  startDate?: string;
+  endDate?: string;
+}): Promise<JobDailyStatsVO[]> {
   return requestClient.get<JobDailyStatsVO[]>(`/cronjob/stats/daily`, { params });
 }
 
@@ -28,11 +28,13 @@ export function daily(params: {
  * summary: GET /cronjob/stats/summary
  */
 export function summary(params: {
-    jobId?: string;
-    startDate?: string;
-    endDate?: string;
-  }): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/stats/summary`, { params });
+  jobId?: string;
+  startDate?: string;
+  endDate?: string;
+}): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.get<Record<string, Record<string, unknown>>>(`/cronjob/stats/summary`, {
+    params,
+  });
 }
 
 /**
@@ -45,9 +47,7 @@ export function dashboard(): Promise<Record<string, Record<string, unknown>>> {
 /**
  * recentFailures: GET /cronjob/stats/recent-failures
  */
-export function recentFailures(params: {
-    limit?: number;
-  }): Promise<JobLogVO[]> {
+export function recentFailures(params: { limit?: number }): Promise<JobLogVO[]> {
   return requestClient.get<JobLogVO[]>(`/cronjob/stats/recent-failures`, { params });
 }
 
@@ -55,7 +55,9 @@ export function recentFailures(params: {
  * heatmap: GET /cronjob/stats/heatmap
  */
 export function heatmap(params: {
-    date?: string;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/cronjob/stats/heatmap`, { params });
+  date?: string;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/cronjob/stats/heatmap`, {
+    params,
+  });
 }

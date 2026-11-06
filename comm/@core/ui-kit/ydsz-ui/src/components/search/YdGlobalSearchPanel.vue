@@ -1,17 +1,17 @@
 <script setup lang="ts">
 /**
  * 全局搜索面板 —— 跨模块聚合搜索 UI 组件。
- * 
+ *
  * 功能：
  * - 搜索框 + 自动补全建议
  * - 搜索结果按模块分组（YdTabs：全部 / 用户 / 流程 / 消息 / 文件 / ...）
  * - 支持上下键选择、Enter 打开详情
  * - 结果命中关键词高亮（highlight 字段优先）
- * 
+ *
  * 依赖的搜索 API：
  * - GET /api/search/unified?keyword=xxx（跨模块聚合搜索）
  * - GET /api/search/suggest?keyword=xxx（输入建议）
- * 
+ *
  * @path comm/@core/ui-kit/ydsz-ui/src/components/search/global-search-panel.vue
  * @author ydsz-team
  * @since 4.1.0 (P2-13)
@@ -191,13 +191,17 @@ defineExpose({ open, close });
     <!-- 搜索结果 -->
     <div v-if="results" class="global-search__results">
       <!-- 模块 tab（仅在多模块有结果时显示） -->
-      <div v-if="results.moduleHits && Object.keys(results.moduleHits).length > 1" class="global-search__tabs">
+      <div
+        v-if="results.moduleHits && Object.keys(results.moduleHits).length > 1"
+        class="global-search__tabs"
+      >
         <button
           class="global-search__tab"
           :class="{ 'global-search__tab--active': activeTab === '_all' }"
           @click="setActiveTab('_all')"
         >
-          {{ t('globalSearch.allTab') }} (<span>{{ totalHits }}</span>)
+          {{ t('globalSearch.allTab') }} (<span>{{ totalHits }}</span
+          >)
         </button>
         <button
           v-for="(hits, moduleKey) in results.moduleHits"
@@ -206,7 +210,8 @@ defineExpose({ open, close });
           :class="{ 'global-search__tab--active': activeTab === moduleKey }"
           @click="setActiveTab(moduleKey)"
         >
-          {{ moduleLabel(moduleKey) }} (<span>{{ hits.length }}</span>)
+          {{ moduleLabel(moduleKey) }} (<span>{{ hits.length }}</span
+          >)
         </button>
       </div>
 
@@ -228,8 +233,15 @@ defineExpose({ open, close });
           <VbenIcon :icon="moduleIcon(hit.moduleKey)" class="global-search__item-icon" />
           <!-- 内容 -->
           <div class="global-search__item-content">
-            <div class="global-search__item-title" v-safe-html="hit.highlight?.title || hit.title" />
-            <div v-if="hit.description" class="global-search__item-desc" v-safe-html="hit.highlight?.description || hit.description" />
+            <div
+              class="global-search__item-title"
+              v-safe-html="hit.highlight?.title || hit.title"
+            />
+            <div
+              v-if="hit.description"
+              class="global-search__item-desc"
+              v-safe-html="hit.highlight?.description || hit.description"
+            />
             <div v-if="hit.tags && hit.tags.length > 0" class="global-search__item-tags">
               <span v-for="tag in hit.tags" :key="tag" class="global-search__tag">{{ tag }}</span>
             </div>

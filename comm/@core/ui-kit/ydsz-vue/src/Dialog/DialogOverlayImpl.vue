@@ -1,20 +1,20 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface DialogOverlayImplProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
-import { useBodyScrollLock, useForwardExpose } from '../shared/index.ts'
+import { injectDialogRootContext } from './DialogRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
+import { useBodyScrollLock, useForwardExpose } from '../shared/index.ts';
 
-defineProps<DialogOverlayImplProps>()
-const rootContext = injectDialogRootContext()
+defineProps<DialogOverlayImplProps>();
+const rootContext = injectDialogRootContext();
 
-useBodyScrollLock(true)
-useForwardExpose()
+useBodyScrollLock(true);
+useForwardExpose();
 </script>
 
 <template>

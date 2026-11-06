@@ -72,7 +72,7 @@ const typeStyles: Record<string, string> = {
     <button
       v-if="props.closable"
       type="button"
-      class="ml-2 shrink-0 rounded p-1 opacity-60 hover:opacity-100 transition-opacity"
+      class="ml-2 shrink-0 rounded p-1 opacity-60 transition-opacity hover:opacity-100"
       :aria-label="t('common.close')"
       @click="emit('close')"
     >

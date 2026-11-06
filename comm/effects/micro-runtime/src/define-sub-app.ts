@@ -82,11 +82,13 @@ export interface DefineSubAppOptions {
  */
 export function isMicroFrontendEnvironment(appName: string): boolean {
   try {
-    const kernel = (window as unknown as {
-      __MICRO_KERNEL__?: {
-        getAppInstance?: (name: string) => unknown;
-      };
-    }).__MICRO_KERNEL__;
+    const kernel = (
+      window as unknown as {
+        __MICRO_KERNEL__?: {
+          getAppInstance?: (name: string) => unknown;
+        };
+      }
+    ).__MICRO_KERNEL__;
     return !!kernel?.getAppInstance?.(appName);
   } catch {
     return false;
@@ -173,7 +175,11 @@ export function defineSubApp(options: DefineSubAppOptions): SubAppLifecycle {
     }
   }
 
-  if (autoBootstrap && !isMicroFrontendEnvironment(appName) && typeof createStandaloneApp === 'function') {
+  if (
+    autoBootstrap &&
+    !isMicroFrontendEnvironment(appName) &&
+    typeof createStandaloneApp === 'function'
+  ) {
     // 微任务中自启动，确保模块加载完毕
     queueMicrotask(() => void bootstrapStandalone());
   }

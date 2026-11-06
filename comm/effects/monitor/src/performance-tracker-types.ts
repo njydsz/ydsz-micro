@@ -13,7 +13,16 @@ export interface TimelineEntry {
   name: string;
   startTime: number;
   duration: number;
-  category: 'load' | 'mount' | 'unmount' | 'activate' | 'deactivate' | 'preload' | 'message' | 'state' | 'route';
+  category:
+    | 'load'
+    | 'mount'
+    | 'unmount'
+    | 'activate'
+    | 'deactivate'
+    | 'preload'
+    | 'message'
+    | 'state'
+    | 'route';
   appName?: string;
   timestamp: number;
 }

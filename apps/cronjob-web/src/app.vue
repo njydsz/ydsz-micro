@@ -6,12 +6,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
-
-
 import { ToastProvider } from '@ydsz/notification';
 
 defineOptions({ name: 'App' });
-
 </script>
 
 <template>

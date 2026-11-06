@@ -23,9 +23,7 @@ export function list(): Promise<PostVO[]> {
 /**
  * getById: GET /post/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<PostVO> {
+export function getById({ id }: { id: string }): Promise<PostVO> {
   return requestClient.get<PostVO>(`/post/${id}`);
 }
 
@@ -46,8 +44,6 @@ export function update(data: PostDTO): Promise<boolean> {
 /**
  * remove: DELETE /post/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/post/${id}`);
 }

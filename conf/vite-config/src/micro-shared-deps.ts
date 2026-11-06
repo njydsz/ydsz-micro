@@ -66,9 +66,9 @@ export const CORE_UI_SHARED_DEPS = [...CORE_DEPS, ...UI_DEPS];
 
 /** 策略 → 依赖列表映射 */
 const STRATEGY_MAP: Record<ShareStrategy, ReadonlyArray<{ name: string; range: string }>> = {
-  'core': CORE_DEPS,
+  core: CORE_DEPS,
   'core-ui': CORE_UI_SHARED_DEPS,
-  'all': ALL_SHARED_DEPS,
+  all: ALL_SHARED_DEPS,
 };
 
 /**

@@ -244,7 +244,10 @@ export function useGlobalSearch() {
  *
  * @since 4.0.0
  */
-export function useSearchProvider(appName: string, items: (() => SearchItem[]) | SearchItem[]): (() => void) {
+export function useSearchProvider(
+  appName: string,
+  items: (() => SearchItem[]) | SearchItem[],
+): () => void {
   if (typeof window === 'undefined') return () => {};
 
   const provider: SearchProvider = typeof items === 'function' ? items : () => items;
@@ -297,7 +300,11 @@ export function useSearchProviderStatus() {
     });
   }
 
-  return { providerCount: readonly(providerCount), appNames: readonly(appNames), lastReadyEvent: readonly(lastReadyEvent) };
+  return {
+    providerCount: readonly(providerCount),
+    appNames: readonly(appNames),
+    lastReadyEvent: readonly(lastReadyEvent),
+  };
 }
 
 /**

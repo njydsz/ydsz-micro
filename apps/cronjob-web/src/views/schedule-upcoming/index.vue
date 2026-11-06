@@ -19,7 +19,18 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdEmptyState,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -169,7 +180,11 @@ const gridOptions: VxeTableGridOptions<FireTimeRow> = {
             : isTodayUpcoming(item.fireTime)
               ? 'warning'
               : 'info';
-          return h(YdBadge, { size: 'sm', variant: itemType === 'info' ? 'secondary' : itemType }, () => item.label);
+          return h(
+            YdBadge,
+            { size: 'sm', variant: itemType === 'info' ? 'secondary' : itemType },
+            () => item.label,
+          );
         },
       },
     },
@@ -236,19 +251,19 @@ onMounted(() => {
     <YdCard class="mb-3">
       <YdCardContent>
         <div class="flex flex-wrap items-center gap-3">
-        <div class="flex items-center gap-2">
-          <label class="whitespace-nowrap text-sm text-gray-600">任务标识：</label>
-          <YdInput v-model="jobKey" placeholder="任务 Key" class="w-[180px]" />
-        </div>
-        <div class="flex items-center gap-2">
-          <label class="whitespace-nowrap text-sm text-gray-600">时间范围：</label>
-          <YdInput v-model="hours" type="number" :min="1" :max="168" class="w-24" />
-          <span class="text-sm text-gray-400">小时</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <label class="whitespace-nowrap text-sm text-gray-600">最大条数：</label>
-          <YdInput v-model="maxCount" type="number" :min="1" :max="500" class="w-24" />
-        </div>
+          <div class="flex items-center gap-2">
+            <label class="whitespace-nowrap text-sm text-gray-600">任务标识：</label>
+            <YdInput v-model="jobKey" placeholder="任务 Key" class="w-[180px]" />
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="whitespace-nowrap text-sm text-gray-600">时间范围：</label>
+            <YdInput v-model="hours" type="number" :min="1" :max="168" class="w-24" />
+            <span class="text-sm text-gray-400">小时</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="whitespace-nowrap text-sm text-gray-600">最大条数：</label>
+            <YdInput v-model="maxCount" type="number" :min="1" :max="500" class="w-24" />
+          </div>
           <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
         </div>
       </YdCardContent>
@@ -272,21 +287,27 @@ onMounted(() => {
         </YdCardHeader>
         <YdCardContent>
           <div v-if="timelineItems.length > 0" class="max-h-96 overflow-auto">
-          <YdTimeline>
-            <YdTimelineItem
-              v-for="item in timelineItems.slice(0, 10)"
-              :key="item.index"
-              :timestamp="formatFireTime(item.time)"
-              :type="item.tagType"
-              placement="top"
-            >
-              <div class="flex items-center gap-2">
-                <YdBadge size="sm" :variant="item.tagType === 'info' ? 'secondary' : item.tagType">{{ item.label }}</YdBadge>
-                <span v-if="item.countdown" class="text-xs text-gray-500">{{ item.countdown }}</span>
-              </div>
-            </YdTimelineItem>
-          </YdTimeline>
-        </div>
+            <YdTimeline>
+              <YdTimelineItem
+                v-for="item in timelineItems.slice(0, 10)"
+                :key="item.index"
+                :timestamp="formatFireTime(item.time)"
+                :type="item.tagType"
+                placement="top"
+              >
+                <div class="flex items-center gap-2">
+                  <YdBadge
+                    size="sm"
+                    :variant="item.tagType === 'info' ? 'secondary' : item.tagType"
+                    >{{ item.label }}</YdBadge
+                  >
+                  <span v-if="item.countdown" class="text-xs text-gray-500">{{
+                    item.countdown
+                  }}</span>
+                </div>
+              </YdTimelineItem>
+            </YdTimeline>
+          </div>
           <YdEmptyState v-else description="暂无触发时间数据" :image-size="60" />
         </YdCardContent>
       </YdCard>

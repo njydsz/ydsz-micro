@@ -109,18 +109,14 @@ export async function getNotificationsApi(
  * 获取当前用户未读通知数量。
  */
 export function getUnreadCountApi(): Promise<number> {
-  return requestClient.get<number>(
-    '/message/notifications/unreadCount',
-  );
+  return requestClient.get<number>('/message/notifications/unreadCount');
 }
 
 /**
  * 将指定通知标记为已读。
  */
 export function markAsReadApi(id: string): Promise<boolean> {
-  return requestClient.post<boolean>(
-    `/message/notifications/${id}/read`,
-  );
+  return requestClient.post<boolean>(`/message/notifications/${id}/read`);
 }
 
 /**

@@ -52,11 +52,9 @@ export function uploadPart(params: {
   data: Blob | ArrayBuffer;
 }): Promise<void> {
   const { uploadId, partNumber, data } = params;
-  return requestClient.post<void>(
-    `/file/multipart/${uploadId}/part/${partNumber}`,
-    data,
-    { headers: { 'Content-Type': 'application/octet-stream' } },
-  );
+  return requestClient.post<void>(`/file/multipart/${uploadId}/part/${partNumber}`, data, {
+    headers: { 'Content-Type': 'application/octet-stream' },
+  });
 }
 
 /**
@@ -75,9 +73,7 @@ export function completeMultipart(params: {
 /**
  * 取消分片上传: DELETE /file/multipart/{uploadId}
  */
-export function abortMultipart(params: {
-  uploadId: string;
-}): Promise<void> {
+export function abortMultipart(params: { uploadId: string }): Promise<void> {
   const { uploadId } = params;
   return requestClient.delete<void>(`/file/multipart/${uploadId}`);
 }

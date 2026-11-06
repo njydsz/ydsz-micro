@@ -13,8 +13,15 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdSkeleton, YdButton, YdCard, YdCardContent, YdCardHeader, YdBadge } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdSkeleton,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdBadge,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -61,10 +68,16 @@ const fileSuffix = computed(() => {
 });
 
 /** 是否图片文件 */
-const isImage = computed(() => ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(fileSuffix.value));
+const isImage = computed(() =>
+  ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(fileSuffix.value),
+);
 
 /** 是否文本文件 */
-const isText = computed(() => ['txt', 'md', 'json', 'xml', 'html', 'css', 'js', 'ts', 'java', 'py', 'log'].includes(fileSuffix.value));
+const isText = computed(() =>
+  ['txt', 'md', 'json', 'xml', 'html', 'css', 'js', 'ts', 'java', 'py', 'log'].includes(
+    fileSuffix.value,
+  ),
+);
 
 /** 是否 PDF 文件 */
 const isPdf = computed(() => fileSuffix.value === 'pdf');
@@ -76,7 +89,7 @@ async function checkPreviewSupport(): Promise<void> {
   try {
     previewSupported.value = await isSupported({ suffix: fileSuffix.value });
     if (previewSupported.value) {
-      previewType.value = await getPreviewType({ suffix: fileSuffix.value }) ?? '';
+      previewType.value = (await getPreviewType({ suffix: fileSuffix.value })) ?? '';
     }
   } catch (error) {
     logger.warn('检查预览支持状态失败: {}', error);
@@ -193,13 +206,17 @@ async function loadPreviewContent(): Promise<void> {
   }
 }
 
-watch(() => props.fileNode, async (node) => {
-  if (node) {
-    await checkPreviewSupport();
-    await checkAiAvailability();
-    await loadPreviewContent();
-  }
-}, { immediate: true });
+watch(
+  () => props.fileNode,
+  async (node) => {
+    if (node) {
+      await checkPreviewSupport();
+      await checkAiAvailability();
+      await loadPreviewContent();
+    }
+  },
+  { immediate: true },
+);
 
 onMounted(async () => {
   if (props.fileNode) {
@@ -236,17 +253,10 @@ onMounted(async () => {
           >
             生成预览
           </YdButton>
-          <YdButton
-            v-if="aiEnabled"
-            size="sm"
-            :loading="aiLoading"
-            @click="handleGenerateSummary"
-          >
+          <YdButton v-if="aiEnabled" size="sm" :loading="aiLoading" @click="handleGenerateSummary">
             AI 摘要
           </YdButton>
-          <YdButton size="sm" @click="handleDownload">
-            下载
-          </YdButton>
+          <YdButton size="sm" @click="handleDownload"> 下载 </YdButton>
           <YdButton size="sm" variant="outline" @click="emit('close')">关闭</YdButton>
         </div>
       </div>
@@ -255,17 +265,28 @@ onMounted(async () => {
       <div class="preview-content min-h-[400px] rounded border bg-gray-50 p-5">
         <!-- 图片预览 -->
         <div v-if="isImage && previewUrl" class="flex justify-center">
-          <img :src="previewUrl" :alt="fileNode.name" class="max-h-[600px] max-w-full object-contain" loading="lazy" />
+          <img
+            :src="previewUrl"
+            :alt="fileNode.name"
+            class="max-h-[600px] max-w-full object-contain"
+            loading="lazy"
+          />
         </div>
 
         <!-- PDF 预览 -->
         <div v-else-if="isPdf && previewUrl">
-          <iframe :src="previewUrl" class="h-[600px] w-full rounded border-0" :title="fileNode.name" />
+          <iframe
+            :src="previewUrl"
+            class="h-[600px] w-full rounded border-0"
+            :title="fileNode.name"
+          />
         </div>
 
         <!-- 文本预览 -->
         <div v-else-if="isText">
-          <pre class="overflow-auto whitespace-pre-wrap break-words rounded bg-white p-5 font-mono text-sm">{{ previewContent }}</pre>
+          <pre
+            class="overflow-auto whitespace-pre-wrap break-words rounded bg-white p-5 font-mono text-sm"
+            >{{ previewContent }}</pre>
         </div>
 
         <!-- 已生成预览 -->
@@ -274,7 +295,8 @@ onMounted(async () => {
             :src="`/api/nextwiki/preview/${fileNode.id}`"
             :alt="fileNode.name"
             class="max-h-[600px] max-w-full object-contain"
-           loading="lazy"/>
+            loading="lazy"
+          />
         </div>
 
         <!-- 不支持预览 -->

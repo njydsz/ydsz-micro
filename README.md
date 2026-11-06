@@ -18,14 +18,15 @@
 
 ## YDSZ 前端微应用 Monorepo
 
-基于自研 **micro-kernel** 微前端运行时，采用 Vue 3 + Element Plus + TypeScript 技术栈。每个后端微服务对应一个独立的前端微应用，实现「独立开发」「独立测试」「独立部署」。
+基于自研 **micro-kernel** 微前端运行时，采用 Vue 3 + Element Plus +
+TypeScript 技术栈。每个后端微服务对应一个独立的前端微应用，实现「独立开发」「独立测试」「独立部署」。
 
 ## 关联仓库
 
-| 平台 | 后端仓库 |
-| ---- | -------- |
-| Gitee | https://gitee.com/njydsz/ydsz-cloud |
-| GitHub | https://github.com/njydsz/ydsz-cloud |
+| 平台     | 后端仓库                                  |
+| -------- | ----------------------------------------- |
+| Gitee    | https://gitee.com/njydsz/ydsz-cloud       |
+| GitHub   | https://github.com/njydsz/ydsz-cloud      |
 | 官方文档 | https://www.yuque.com/marvin-lee/ydsz-org |
 
 ---
@@ -43,14 +44,20 @@
 | **公共认证包** | `@ydsz/shared-auth` 统一 RequestClient + Auth API + Auth Store，消除多份重复代码                         |
 | **前端监控**   | `@ydsz/monitor` 错误捕获（Vue/window/Promise/资源）+ Web Vitals（LCP/FID/CLS/INP/FCP/TTFB）              |
 | **主题切换**   | auto/light/dark 暗黑模式 + Element Plus 主题适配 + 系统偏好跟随                                          |
-| **API 对齐**   | 统一 `/api/*` 路径 + `successCode="A00000"` + LoginVO 类型 + refreshToken 自动刷新                    |
+| **API 对齐**   | 统一 `/api/*` 路径 + `successCode="A00000"` + LoginVO 类型 + refreshToken 自动刷新                       |
 | **构建优化**   | Vite manualChunks 分割（vue-vendor/element-vendor/vxe-vendor）+ chunk hash 缓存                          |
 | **国际化**     | 8 子应用 × zh-CN/en-US 双语 + 业务字段翻译 + Element Plus/dayjs 语言包                                   |
 | **调试工具**   | 配套 Chrome MV3 DevTools 扩展（chrome/），实时查看内核连接、沙箱状态、事件日志                           |
 
 ## 系统架构
 
-YDSZ 是一套前后端分离的全栈微服务架构。前端 [ydsz-micro](https://gitee.com/njydsz/ydsz-micro) 采用 pnpm + turbo monorepo，以自研 micro-kernel 微前端内核（manifest + 原生 ESM dynamic import + importmap，ADR-001 明确否决 qiankun）整合 8 个 Vue 3 子应用，并基于后端 OpenAPI 契约自动生成类型安全 SDK 与错误码，用 CI 漂移门禁守住前后端边界。后端 [ydsz-cloud](https://gitee.com/njydsz/ydsz-cloud) 基于 JDK 21 + Spring Boot 4.1.0，由 ydsz-gateway（12 个全局过滤器、Nacos 动态路由）统一入口，按六层 DDD 同构拆分 8 个业务服务，共享 30 个 ydsz-common 公共子模块，底层依托 Nacos、PostgreSQL、Redis、RocketMQ 与 MinIO，并以 SkyWalking、ELK 与 Prometheus/Grafana 构建可观测体系。
+YDSZ 是一套前后端分离的全栈微服务架构。前端
+[ydsz-micro](https://gitee.com/njydsz/ydsz-micro) 采用 pnpm + turbo
+monorepo，以自研 micro-kernel 微前端内核（manifest + 原生 ESM dynamic import +
+importmap，ADR-001 明确否决 qiankun）整合 8 个 Vue
+3 子应用，并基于后端 OpenAPI 契约自动生成类型安全 SDK 与错误码，用 CI 漂移门禁守住前后端边界。后端
+[ydsz-cloud](https://gitee.com/njydsz/ydsz-cloud) 基于 JDK 21 + Spring Boot
+4.1.0，由 ydsz-gateway（12 个全局过滤器、Nacos 动态路由）统一入口，按六层 DDD 同构拆分 8 个业务服务，共享 30 个 ydsz-common 公共子模块，底层依托 Nacos、PostgreSQL、Redis、RocketMQ 与 MinIO，并以 SkyWalking、ELK 与 Prometheus/Grafana 构建可观测体系。
 
 ![Ydsz Cloud 架构图](docs/ydsz-architecture.png)
 
@@ -62,24 +69,32 @@ YDSZ 是一套前后端分离的全栈微服务架构。前端 [ydsz-micro](http
 ESM loader → 生命周期 → 沙箱 → keep-alive → 错误降级 → 路由同步 → 全局通信
 ```
 
-核心能力：三种沙箱（`sandbox` 快照 / `proxy-sandbox` / `iframe-sandbox`，支持矩阵与 experimental 边界见 [ADR-007](docs/decisions/adr-007-sandbox-matrix.md)）、vite-plugin-manifest（子应用产物清单、版本与 sha256 完整性清单）、远程 registry 注册表 + 缓存、版本管理与灰度分流、资源调度器（keep-alive / LRU / TTL / 内存压力 / 可见性释放，内存优先标准 `performance.measureMemory()`）、分级错误降级、消息总线（sendMessage / sendRequest 请求-响应）、四种预加载策略、路由马尔可夫预测（含 `minSampleSize` 冷启动门槛）与预加载命中率指标回环（`preload-metrics`，数据驱动策略调优）。调试请使用 [chrome/](chrome/) 下的 DevTools 扩展。
+核心能力：三种沙箱（`sandbox` 快照 / `proxy-sandbox` /
+`iframe-sandbox`，支持矩阵与 experimental 边界见
+[ADR-007](docs/decisions/adr-007-sandbox-matrix.md)）、vite-plugin-manifest（子应用产物清单、版本与 sha256 完整性清单）、远程 registry 注册表 + 缓存、版本管理与灰度分流、资源调度器（keep-alive
+/ LRU / TTL / 内存压力 / 可见性释放，内存优先标准
+`performance.measureMemory()`）、分级错误降级、消息总线（sendMessage /
+sendRequest 请求-响应）、四种预加载策略、路由马尔可夫预测（含 `minSampleSize`
+冷启动门槛）与预加载命中率指标回环（`preload-metrics`，数据驱动策略调优）。调试请使用
+[chrome/](chrome/) 下的 DevTools 扩展。
 
 ## 应用清单
 
-| 应用             | 包名                 | 前端端口 | 后端服务      | 后端端口 | 路由前缀   | 职责                                    |
-| ---------------- | -------------------- | -------- | ------------- | -------- | ---------- | --------------------------------------- |
-| **main-web**     | `@ydsz/main-web`     | 5600     | YDSZ-gateway  | 9000     | /          | 微前端宿主，认证/布局/全局状态/路由分发 |
-| **userinfo-web** | `@ydsz/userinfo-web` | 5601     | YDSZ-userinfo | 9002     | /ydsz-user | 用户/部门/角色/菜单/岗位/OAuth2         |
-| **system-web**   | `@ydsz/system-web`   | 5602     | YDSZ-system   | 9001     | /ydsz-sys  | 系统配置/字典/变量/应用注册             |
-| **generator-web** | `@ydsz/generator-web` | 5609    | YDSZ-generator | —       | /ydsz-gen  | 代码生成器（数据源/表元数据/模板/生成）  |
-| **message-web**  | `@ydsz/message-web`  | 5604     | YDSZ-message  | 9004     | /ydsz-msg  | 消息/模板/通知/路由/灰度/追踪           |
-| **cronjob-web**  | `@ydsz/cronjob-web`  | 5605     | YDSZ-cronjob  | 9006     | /ydsz-cron | 任务/DAG/日志/告警/拓扑                 |
-| **workflow-web** | `@ydsz/workflow-web` | 5606     | YDSZ-workflow | 9005     | /ydsz-flow | 流程模板/设计器/实例/待办/SLA           |
-| **nextwiki-web** | `@ydsz/nextwiki-web` | 5607     | YDSZ-nextwiki | 9003     | /ydsz-wiki | 文件/预览/搜索/分享/锁定                |
-| **literule-web** | `@ydsz/literule-web` | 5608     | YDSZ-literule | 9007     | /ydsz-rule | 规则/DSL/变量/CEP/断点                  |
-| **agent-web**    | `@ydsz/agent-web`    | 5610     | YDSZ-agent    | 9008     | /ydsz-ai   | 对话/Agent/RAG/DAG/审批                 |
+| 应用              | 包名                  | 前端端口 | 后端服务       | 后端端口 | 路由前缀   | 职责                                    |
+| ----------------- | --------------------- | -------- | -------------- | -------- | ---------- | --------------------------------------- |
+| **main-web**      | `@ydsz/main-web`      | 5600     | YDSZ-gateway   | 9000     | /          | 微前端宿主，认证/布局/全局状态/路由分发 |
+| **userinfo-web**  | `@ydsz/userinfo-web`  | 5601     | YDSZ-userinfo  | 9002     | /ydsz-user | 用户/部门/角色/菜单/岗位/OAuth2         |
+| **system-web**    | `@ydsz/system-web`    | 5602     | YDSZ-system    | 9001     | /ydsz-sys  | 系统配置/字典/变量/应用注册             |
+| **generator-web** | `@ydsz/generator-web` | 5609     | YDSZ-generator | —        | /ydsz-gen  | 代码生成器（数据源/表元数据/模板/生成） |
+| **message-web**   | `@ydsz/message-web`   | 5604     | YDSZ-message   | 9004     | /ydsz-msg  | 消息/模板/通知/路由/灰度/追踪           |
+| **cronjob-web**   | `@ydsz/cronjob-web`   | 5605     | YDSZ-cronjob   | 9006     | /ydsz-cron | 任务/DAG/日志/告警/拓扑                 |
+| **workflow-web**  | `@ydsz/workflow-web`  | 5606     | YDSZ-workflow  | 9005     | /ydsz-flow | 流程模板/设计器/实例/待办/SLA           |
+| **nextwiki-web**  | `@ydsz/nextwiki-web`  | 5607     | YDSZ-nextwiki  | 9003     | /ydsz-wiki | 文件/预览/搜索/分享/锁定                |
+| **literule-web**  | `@ydsz/literule-web`  | 5608     | YDSZ-literule  | 9007     | /ydsz-rule | 规则/DSL/变量/CEP/断点                  |
+| **agent-web**     | `@ydsz/agent-web`     | 5610     | YDSZ-agent     | 9008     | /ydsz-ai   | 对话/Agent/RAG/DAG/审批                 |
 
-> 注：`project-web` 已在仓库整合中移除（见提交 `c08336552`），其能力并入主应用相关模块；如仍需项目管理界面，请以 Git 历史或独立分支为准。
+> 注：`project-web` 已在仓库整合中移除（见提交
+> `c08336552`），其能力并入主应用相关模块；如仍需项目管理界面，请以 Git 历史或独立分支为准。
 
 ## 目录结构
 
@@ -138,10 +153,10 @@ ydsz-micro/
 
 ### 环境要求
 
-| 依赖    | 版本                                 |
-| ------- | ------------------------------------ |
+| 依赖    | 版本                                                                  |
+| ------- | --------------------------------------------------------------------- |
 | Node.js | >= 22.6.0（vsh 依赖 `--experimental-strip-types`，CI 已固定 Node 22） |
-| pnpm    | >= 9.12.0（推荐通过 corepack 管理）  |
+| pnpm    | >= 9.12.0（推荐通过 corepack 管理）                                   |
 
 ### 安装与启动
 
@@ -210,17 +225,17 @@ pnpm clean                   # 清理产物
 
 主应用通过路径前缀匹配激活对应的子应用：
 
-| 路径前缀       | 子应用       |
-| -------------- | ------------ |
-| `/ydsz-user/*` | userinfo-web |
-| `/ydsz-sys/*`  | system-web   |
+| 路径前缀       | 子应用        |
+| -------------- | ------------- |
+| `/ydsz-user/*` | userinfo-web  |
+| `/ydsz-sys/*`  | system-web    |
 | `/ydsz-gen/*`  | generator-web |
-| `/ydsz-msg/*`  | message-web  |
-| `/ydsz-cron/*` | cronjob-web  |
-| `/ydsz-flow/*` | workflow-web |
-| `/ydsz-wiki/*` | nextwiki-web |
-| `/ydsz-rule/*` | literule-web |
-| `/ydsz-ai/*`   | agent-web    |
+| `/ydsz-msg/*`  | message-web   |
+| `/ydsz-cron/*` | cronjob-web   |
+| `/ydsz-flow/*` | workflow-web  |
+| `/ydsz-wiki/*` | nextwiki-web  |
+| `/ydsz-rule/*` | literule-web  |
+| `/ydsz-ai/*`   | agent-web     |
 
 ## API 代理与对齐
 
@@ -242,68 +257,89 @@ server: {
 
 全仓 API 契约统一对齐：
 
-- 路径统一为 `/api/{service}/{resource}`（kebab-case），成功码统一为 `successCode = "A00000"`
+- 路径统一为 `/api/{service}/{resource}`（kebab-case），成功码统一为
+  `successCode = "A00000"`
 - 登录响应统一为 `LoginVO` 类型，`refreshToken` 自动刷新与重放
 - **契约门禁**（CI 防漂移）：
-  - `pnpm gen:contract`：从 `ydsz-cloud` 源码静态提取 8 个服务全部端点，生成 `apps/*/src/api/` 下的类型化 API 封装（`models.ts` 含全部 DTO/VO 类型）与 `sdk/openapi.json` 契约基线，产物扁平落于 `api/` 根目录（遵循云顶编码规范 6.2）
+  - `pnpm gen:contract`：从 `ydsz-cloud` 源码静态提取 8 个服务全部端点，生成
+    `apps/*/src/api/` 下的类型化 API 封装（`models.ts` 含全部 DTO/VO 类型）与
+    `sdk/openapi.json` 契约基线，产物扁平落于 `api/`
+    根目录（遵循云顶编码规范 6.2）
   - `pnpm gen:contract:check`：校验后端接口变更是否已同步（有漂移则退出码非 0），建议挂入 CI
-  - `pnpm gen:api` / `gen:api:check`：后端运行后从 `/v3/api-docs` 拉取运行时契约生成 SDK，可无缝替换静态基线
-- 业务代码按模块 import 真实契约 API，如 `import { list as listRules } from '#/api/ruleAdmin'`；`#/api` 聚合导出仅保留 `core`（认证/菜单/用户）与 `models`，避免多 Controller 重名函数（get/stats/validate）的导出歧义
-- **流式接口**：agent `chat/stream`、`execute/stream` 等 SSE 场景使用 `streamRequest`（`@ydsz/shared-auth`，fetch + ReadableStream 解析，Token 自动注入、支持 AbortSignal 取消）
+  - `pnpm gen:api` / `gen:api:check`：后端运行后从 `/v3/api-docs`
+    拉取运行时契约生成 SDK，可无缝替换静态基线
+- 业务代码按模块 import 真实契约 API，如
+  `import { list as listRules } from '#/api/ruleAdmin'`；`#/api` 聚合导出仅保留
+  `core`（认证/菜单/用户）与
+  `models`，避免多 Controller 重名函数（get/stats/validate）的导出歧义
+- **流式接口**：agent `chat/stream`、`execute/stream` 等 SSE 场景使用
+  `streamRequest`（`@ydsz/shared-auth`，fetch +
+  ReadableStream 解析，Token 自动注入、支持 AbortSignal 取消）
 
 ## 工程规范
 
-| 检查项     | 命令                          | 说明                                          |
-| ---------- | ----------------------------- | --------------------------------------------- |
-| Lint       | `pnpm lint` / `pnpm lint:fix` | ESLint + Stylelint（含 Stylelint 自动修复）   |
-| 类型检查   | `pnpm type-check`             | turbo 编排（✅ v4.4.1 基础设施包已接线：micro-kernel / micro-runtime / monitor / constants，存量 108 处类型错误已清零；业务包按包清零后逐包接线） |
-| 循环依赖   | `pnpm vsh:check-circular`     | `vsh check-circular`（零循环依赖守护）        |
-| 依赖合法性 | `pnpm vsh:check-dep`          | `vsh check-dep`（依赖合规）                   |
-| 产物依赖   | `pnpm vsh:check-bundle`       | 共享依赖外置证据检测（防 importmap 依赖被误打包致双实例，v4.4.0） |
-| 产物体积   | `pnpm check:size`             | 构建产物 gzip 预算断言（读 `conf/budget.config.json` 单一事实源，与构建期插件同口径） |
-| i18n 校验  | `pnpm check:i18n`             | 全仓 zh-CN / en-US key 集合一致性校验（v4.4.0） |
-| importmap  | `pnpm sync:shared-deps:check` | 版本锁（`bash/importmap.lock.json`）与 vendor 产物一致性校验（v4.4.0 机制，v4.4.1 首次执行生成锁文件并修复 Windows `*` 路径与 axios esm.sh 解析问题） |
-| 契约校验   | `pnpm gen:contract:check`     | 静态契约基线漂移检查；`pnpm gen:api:check` 为运行时契约（后端运行后） |
-| 发布校验   | `pnpm vsh:publint`            | 共享包发布规范校验                            |
-| 格式化     | `pnpm format` / `pnpm format:check` | Prettier 全仓格式化（v4.4.1 接入，`--cache` 加速） |
-| 拼写检查   | `pnpm check:cspell`           | cspell 全仓拼写检查（v4.4.1 接入，词库见 `cspell.json`） |
+| 检查项     | 命令                                | 说明                                                                                                                                                  |
+| ---------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint       | `pnpm lint` / `pnpm lint:fix`       | ESLint + Stylelint（含 Stylelint 自动修复）                                                                                                           |
+| 类型检查   | `pnpm type-check`                   | turbo 编排（✅ v4.4.1 基础设施包已接线：micro-kernel / micro-runtime / monitor / constants，存量 108 处类型错误已清零；业务包按包清零后逐包接线）     |
+| 循环依赖   | `pnpm vsh:check-circular`           | `vsh check-circular`（零循环依赖守护）                                                                                                                |
+| 依赖合法性 | `pnpm vsh:check-dep`                | `vsh check-dep`（依赖合规）                                                                                                                           |
+| 产物依赖   | `pnpm vsh:check-bundle`             | 共享依赖外置证据检测（防 importmap 依赖被误打包致双实例，v4.4.0）                                                                                     |
+| 产物体积   | `pnpm check:size`                   | 构建产物 gzip 预算断言（读 `conf/budget.config.json` 单一事实源，与构建期插件同口径）                                                                 |
+| i18n 校验  | `pnpm check:i18n`                   | 全仓 zh-CN / en-US key 集合一致性校验（v4.4.0）                                                                                                       |
+| importmap  | `pnpm sync:shared-deps:check`       | 版本锁（`bash/importmap.lock.json`）与 vendor 产物一致性校验（v4.4.0 机制，v4.4.1 首次执行生成锁文件并修复 Windows `*` 路径与 axios esm.sh 解析问题） |
+| 契约校验   | `pnpm gen:contract:check`           | 静态契约基线漂移检查；`pnpm gen:api:check` 为运行时契约（后端运行后）                                                                                 |
+| 发布校验   | `pnpm vsh:publint`                  | 共享包发布规范校验                                                                                                                                    |
+| 格式化     | `pnpm format` / `pnpm format:check` | Prettier 全仓格式化（v4.4.1 接入，`--cache` 加速）                                                                                                    |
+| 拼写检查   | `pnpm check:cspell`                 | cspell 全仓拼写检查（v4.4.1 接入，词库见 `cspell.json`）                                                                                              |
 
-Git hooks（Lefthook）：`pre-commit` 并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push` 全量执行类型检查、vsh 三件套（check-dep / check-arch / check-circular）与契约/错误码漂移校验；`commit-msg` 执行 Commitlint；`post-merge` 自动 `pnpm install`。
+Git hooks（Lefthook）：`pre-commit`
+并行执行 Prettier/ESLint/Stylelint 及 JSON 格式化；`pre-push`
+全量执行类型检查、vsh 三件套（check-dep / check-arch /
+check-circular）与契约/错误码漂移校验；`commit-msg`
+执行 Commitlint；`post-merge` 自动 `pnpm install`。
 
-CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-circular / check-dep / check-standard / check:i18n / sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check` + `gen-error-codes.mjs --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）PR 必跑；`bundle` job（构建 main-web + `check:size` + `vsh:check-bundle`，PR 必跑）；另有依赖安全审计与密钥扫描 job。
+CI（GitHub Actions）：`verify` job（lint / stylelint / type-check /
+check-circular / check-dep / check-standard / check:i18n /
+sync:shared-deps:check）PR 必跑；`contract` job（`gen-contract.py --check` +
+`gen-error-codes.mjs --check`，经 `YDSZ_CLOUD_ROOT` 检出后端）PR 必跑；`bundle`
+job（构建 main-web + `check:size` +
+`vsh:check-bundle`，PR 必跑）；另有依赖安全审计与密钥扫描 job。
 
 ## 测试体系
 
-> 按云顶编码规范 §16.10，本仓库**禁止包含测试代码**（单元/E2E/视觉回归等均不落地）。
-> 原 Vitest / Playwright / Lighthouse CI 相关脚本与配置已全量移除，质量保障由
-> 「ESLint + Stylelint + type-check + vsh 三件套 + 契约/错误码漂移校验」五类静态门禁承担：
+> 按云顶编码规范 §16.10，本仓库**禁止包含测试代码**（单元/E2E/视觉回归等均不落地）。原 Vitest
+> / Playwright / Lighthouse CI 相关脚本与配置已全量移除，质量保障由「ESLint +
+> Stylelint + type-check + vsh 三件套 + 契约/错误码漂移校验」五类静态门禁承担：
 
-| 门禁         | 命令                          | 覆盖范围                                                                     | 状态 |
-| ------------ | ----------------------------- | ---------------------------------------------------------------------------- | ---- |
-| 代码规范     | `pnpm lint` / `pnpm stylelint` | ESLint + Stylelint 零告警                                                    | ✅ 已落地 |
-| 类型检查     | `pnpm type-check`             | 全仓 TypeScript 类型检查（含 SFC 声明生成链）                                | ✅ 已落地 |
-| 架构守护     | `pnpm vsh:check-arch` 等      | 依赖合规 / 循环依赖 / 产物预算（vsh 三件套）                                 | ✅ 已落地 |
-| 契约对齐     | `pnpm gen:contract:check`     | API 契约对齐（静态提取基线 `--check` 校验漂移）                              | ✅ 已落地 |
-| 国际化一致性 | `pnpm check:i18n`             | i18n key 一致性校验                                                          | ✅ 已落地 |
+| 门禁         | 命令                           | 覆盖范围                                        | 状态      |
+| ------------ | ------------------------------ | ----------------------------------------------- | --------- |
+| 代码规范     | `pnpm lint` / `pnpm stylelint` | ESLint + Stylelint 零告警                       | ✅ 已落地 |
+| 类型检查     | `pnpm type-check`              | 全仓 TypeScript 类型检查（含 SFC 声明生成链）   | ✅ 已落地 |
+| 架构守护     | `pnpm vsh:check-arch` 等       | 依赖合规 / 循环依赖 / 产物预算（vsh 三件套）    | ✅ 已落地 |
+| 契约对齐     | `pnpm gen:contract:check`      | API 契约对齐（静态提取基线 `--check` 校验漂移） | ✅ 已落地 |
+| 国际化一致性 | `pnpm check:i18n`              | i18n key 一致性校验                             | ✅ 已落地 |
 
 ## 性能预算
 
-> 产物级预算由 `conf/budget.config.json` **单一事实源**统一管理，构建期
-> bundle-budget 插件与 CI `pnpm check:size` 共同消费，口径统一为 **gzip**
-> （与 nginx Brotli/Gzip 实际传输体积对齐）。原 Lighthouse CI 运行时性能采样
-> 已随 §16.10 移除。
+> 产物级预算由 `conf/budget.config.json`
+> **单一事实源**统一管理，构建期 bundle-budget 插件与 CI `pnpm check:size`
+> 共同消费，口径统一为 **gzip** （与 nginx
+> Brotli/Gzip 实际传输体积对齐）。原 Lighthouse
+> CI 运行时性能采样已随 §16.10 移除。
 
 预算目标（gzip 口径）：
 
-| 目标 | 总产出 | JS 文件数 | 单 JS chunk | 单 CSS |
-| ---- | ------ | --------- | ----------- | ------ |
-| main-web | ≤ 512KB | ≤ 50 | ≤ 384KB | ≤ 128KB |
-| 子应用 | ≤ 384KB | ≤ 60 | ≤ 256KB | ≤ 96KB |
+| 目标     | 总产出  | JS 文件数 | 单 JS chunk | 单 CSS  |
+| -------- | ------- | --------- | ----------- | ------- |
+| main-web | ≤ 512KB | ≤ 50      | ≤ 384KB     | ≤ 128KB |
+| 子应用   | ≤ 384KB | ≤ 60      | ≤ 256KB     | ≤ 96KB  |
 
 参考基线（浏览器运行时体验目标）：
 
 - **错误级**：Accessibility ≥ 0.9
-- **警告级**：Performance ≥ 0.9；FCP ≤ 2000ms、LCP ≤ 2500ms、TTI ≤ 3800ms、TBT ≤ 300ms、CLS ≤ 0.1、SI ≤ 3400ms
+- **警告级**：Performance ≥ 0.9；FCP ≤ 2000ms、LCP ≤ 2500ms、TTI ≤ 3800ms、TBT ≤
+  300ms、CLS ≤ 0.1、SI ≤ 3400ms
 - **资源预算**：图片 ≤ 1MB，第三方 ≤ 256KB，DOM 节点 ≤ 1500
 
 ## 浏览器支持
@@ -312,7 +348,8 @@ CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-ci
 
 ## Git 规范
 
-提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/)（Commitlint 强制校验）：
+提交信息遵循
+[Conventional Commits](https://www.conventionalcommits.org/zh-hans/)（Commitlint 强制校验）：
 
 - `feat` 增加新功能
 - `fix` 修复问题/BUG
@@ -329,10 +366,13 @@ CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-ci
 
 ## 文档与决策记录
 
-- [docs/v4.0-优化设施说明.md](docs/v4.0-优化设施说明.md) — 微应用框架优化设施说明（v4.0-v4.4）
+- [docs/v4.0-优化设施说明.md](docs/v4.0-优化设施说明.md)
+  — 微应用框架优化设施说明（v4.0-v4.4）
 - [docs/decisions/](docs/decisions/README.md) — 架构决策记录（ADR 索引）：
-  - [ADR-001: 微前端运行时选型](docs/decisions/adr-001-micro-kernel-vs-qiankun.md)（自研 ESM 内核 vs qiankun）
-  - [ADR-002: Monorepo 工具链](docs/decisions/adr-002-monorepo-toolchain.md)（pnpm + turbo + vsh）
+  - [ADR-001: 微前端运行时选型](docs/decisions/adr-001-micro-kernel-vs-qiankun.md)（自研 ESM 内核 vs
+    qiankun）
+  - [ADR-002: Monorepo 工具链](docs/decisions/adr-002-monorepo-toolchain.md)（pnpm +
+    turbo + vsh）
   - [ADR-003: SSR / Pre-rendering 评估](docs/decisions/adr-003-ssr-pre-rendering.md)
   - [ADR-005: 可访问性基线](docs/decisions/adr-005-accessibility.md)
   - [ADR-006: 可观测性体系](docs/decisions/adr-006-observability.md)（错误/性能/预加载指标）
@@ -342,23 +382,32 @@ CI（GitHub Actions）：`verify` job（lint / stylelint / type-check / check-ci
 
 YDSZ 微前端中后台底座的对标竞品均为 Gitee 上的 Java/Spring 系中后台框架，可作为产品定位、能力补齐与差异化分析的参考：
 
-| 竞品 | 定位 | Gitee 地址 |
-| ---- | ---- | ---------- |
-| **RuoYi** | 基于 Spring Boot 的轻量级权限管理 / 快速开发框架 | https://gitee.com/y_project/RuoYi |
-| **pig** | 基于 Spring Cloud、OAuth2 的 RBAC 企业级快速开发平台（微服务 / 单体双模） | https://gitee.com/log4j/pig |
-| **maku-boot** | 企业级低代码平台（前后端分离，信创适配） | https://gitee.com/makunet/maku-boot |
-| **SpringBlade** | 商业级微服务 SaaS（Vue/React 双前端） | https://gitee.com/smallc/SpringBlade |
-| **JeecgBoot** | 企业级 AI 低代码平台（低代码 + 零代码双模式） | https://gitee.com/jeecg/JeecgBoot |
+| 竞品            | 定位                                                                      | Gitee 地址                           |
+| --------------- | ------------------------------------------------------------------------- | ------------------------------------ |
+| **RuoYi**       | 基于 Spring Boot 的轻量级权限管理 / 快速开发框架                          | https://gitee.com/y_project/RuoYi    |
+| **pig**         | 基于 Spring Cloud、OAuth2 的 RBAC 企业级快速开发平台（微服务 / 单体双模） | https://gitee.com/log4j/pig          |
+| **maku-boot**   | 企业级低代码平台（前后端分离，信创适配）                                  | https://gitee.com/makunet/maku-boot  |
+| **SpringBlade** | 商业级微服务 SaaS（Vue/React 双前端）                                     | https://gitee.com/smallc/SpringBlade |
+| **JeecgBoot**   | 企业级 AI 低代码平台（低代码 + 零代码双模式）                             | https://gitee.com/jeecg/JeecgBoot    |
 
-**差异化要点**：上述竞品普遍为「后端全家桶 + 单体/微服务」形态，YDSZ 的核心差异在 **Vue 3 微前端架构**（`micro-kernel` + 8 个独立部署子应用）、**agent-web AI Agent 原生**、**可观测性**（火焰图 / 时间线 / 内存趋势，ADR-006）与 **可访问性**（可访问性基线，ADR-005）；**信创适配**（国密、达梦 / 人大金仓等国产库）为对标中普遍具备、YDSZ 尚待补齐的能力。
+**差异化要点**：上述竞品普遍为「后端全家桶 + 单体/微服务」形态，YDSZ 的核心差异在
+**Vue 3 微前端架构**（`micro-kernel` + 8 个独立部署子应用）、**agent-web AI
+Agent 原生**、**可观测性**（火焰图 / 时间线 / 内存趋势，ADR-006）与
+**可访问性**（可访问性基线，ADR-005）；**信创适配**（国密、达梦 / 人大金仓等国产库）为对标中普遍具备、YDSZ 尚待补齐的能力。
 
 ## Roadmap
 
-- [ ] 接入 CI/CD 流水线（~~已完成主链路~~ v4.4.0：GitHub Actions `verify` / `contract` / `security` / `notify` 已落地；2026-09-14 按 §16.10 移除违规的 `e2e-smoke` job，其构建与体积门禁升级为 PR 必跑的 `bundle` job；待办：cspell 接入）
+- [ ] 接入 CI/CD 流水线（~~已完成主链路~~ v4.4.0：GitHub Actions `verify` /
+      `contract` / `security` / `notify` 已落地；2026-09-14 按 §16.10 移除违规的
+      `e2e-smoke` job，其构建与体积门禁升级为 PR 必跑的 `bundle`
+      job；待办：cspell 接入）
 - [x] 补齐 Changesets 发布配置（v4.4.0：`.changeset/` 已初始化）
 - [x] 补全 ADR 决策记录（v4.4.0：ADR-001/002/003/005/006/007 已归档，004 编号跳过）
-- [ ] 共享依赖版本锁推广：`pnpm sync:shared-deps` 生成 `bash/importmap.lock.json` 后提交，各应用 vendor 产物对齐（v4.4.0 机制已落地，待首次执行）
-- [ ] manifest 签名验签升级：当前 strictIntegrity 为 sha256 清单比对（可选模式），后续评估 HMAC/ed25519 签名与 Service Worker 校验
+- [ ] 共享依赖版本锁推广：`pnpm sync:shared-deps` 生成
+      `bash/importmap.lock.json`
+      后提交，各应用 vendor 产物对齐（v4.4.0 机制已落地，待首次执行）
+- [ ] manifest 签名验签升级：当前 strictIntegrity 为 sha256 清单比对（可选模式），后续评估 HMAC/ed25519 签名与 Service
+      Worker 校验
 - [x] 移除 `project-web` 相关残留引用（package.json 脚本 / 部署配置 / e2e 用例）
 
 ## 开源许可

@@ -12,7 +12,18 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { FlowBatchDeployResultVO, FlowDefinitionDetailVO, FlowDefinitionDiffVO, FlowDefinitionVO, FlowDefinitionVersionVO, FlowDeployProcessDTO, FlowEventSubscriptionVO, FlowMigrationImpactVO, FlowRollbackResultVO, RollbackRequestDTO } from './models';
+import type {
+  FlowBatchDeployResultVO,
+  FlowDefinitionDetailVO,
+  FlowDefinitionDiffVO,
+  FlowDefinitionVO,
+  FlowDefinitionVersionVO,
+  FlowDeployProcessDTO,
+  FlowEventSubscriptionVO,
+  FlowMigrationImpactVO,
+  FlowRollbackResultVO,
+  RollbackRequestDTO,
+} from './models';
 
 /**
  * deploy: POST /workflow/engine/definition/deploy
@@ -25,122 +36,138 @@ export function deploy(data: FlowDeployProcessDTO): Promise<string> {
  * batchDeployFromZip: POST /workflow/engine/definition/batchDeployZip
  */
 export function batchDeployFromZip(params: {
-    file?: Record<string, unknown>;
-  }): Promise<FlowBatchDeployResultVO> {
-  return requestClient.post<FlowBatchDeployResultVO>(`/workflow/engine/definition/batchDeployZip`, { params });
+  file?: Record<string, unknown>;
+}): Promise<FlowBatchDeployResultVO> {
+  return requestClient.post<FlowBatchDeployResultVO>(`/workflow/engine/definition/batchDeployZip`, {
+    params,
+  });
 }
 
 /**
  * publish: POST /workflow/engine/definition/{id}/publish
  */
-export function publish({ id }: {
+export function publish(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     force?: boolean;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/workflow/engine/definition/${id}/publish`, { params });
 }
 
 /**
  * deprecate: POST /workflow/engine/definition/{id}/deprecate
  */
-export function deprecate({ id }: {
-    id: string;
-  }): Promise<void> {
+export function deprecate({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/workflow/engine/definition/${id}/deprecate`);
 }
 
 /**
  * getByCode: GET /workflow/engine/definition/code/{code}
  */
-export function getByCode({ code }: {
+export function getByCode(
+  {
+    code,
+  }: {
     code: string;
-  }, params: {
+  },
+  params: {
     version?: string;
     tenantId?: string;
-  }): Promise<FlowDefinitionVO> {
-  return requestClient.get<FlowDefinitionVO>(`/workflow/engine/definition/code/${code}`, { params });
+  },
+): Promise<FlowDefinitionVO> {
+  return requestClient.get<FlowDefinitionVO>(`/workflow/engine/definition/code/${code}`, {
+    params,
+  });
 }
 
 /**
  * page: GET /workflow/engine/definition/page
  */
 export function page(params: {
-    pageNo?: number;
-    pageSize?: number;
-    category?: string;
-    flowCode?: string;
-  }): Promise<PageResponse<FlowDefinitionVO[]>> {
-  return requestClient.get<PageResponse<FlowDefinitionVO[]>>(`/workflow/engine/definition/page`, { params });
+  pageNo?: number;
+  pageSize?: number;
+  category?: string;
+  flowCode?: string;
+}): Promise<PageResponse<FlowDefinitionVO[]>> {
+  return requestClient.get<PageResponse<FlowDefinitionVO[]>>(`/workflow/engine/definition/page`, {
+    params,
+  });
 }
 
 /**
  * getDefinitionDetail: GET /workflow/engine/definition/{id}
  */
-export function getDefinitionDetail({ id }: {
-    id: string;
-  }): Promise<FlowDefinitionDetailVO> {
+export function getDefinitionDetail({ id }: { id: string }): Promise<FlowDefinitionDetailVO> {
   return requestClient.get<FlowDefinitionDetailVO>(`/workflow/engine/definition/${id}`);
 }
 
 /**
  * getDefinitionPreview: GET /workflow/engine/definition/{id}/preview
  */
-export function getDefinitionPreview({ id }: {
-    id: string;
-  }): Promise<FlowDefinitionDetailVO> {
+export function getDefinitionPreview({ id }: { id: string }): Promise<FlowDefinitionDetailVO> {
   return requestClient.get<FlowDefinitionDetailVO>(`/workflow/engine/definition/${id}/preview`);
 }
 
 /**
  * switchVersion: POST /workflow/engine/definition/{code}/switchVersion
  */
-export function switchVersion({ code }: {
+export function switchVersion(
+  {
+    code,
+  }: {
     code: string;
-  }, params: {
+  },
+  params: {
     definitionId?: string;
     tenantId?: string;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.post<void>(`/workflow/engine/definition/${code}/switchVersion`, { params });
 }
 
 /**
  * enable: POST /workflow/engine/definition/{id}/enable
  */
-export function enable({ id }: {
-    id: string;
-  }): Promise<void> {
+export function enable({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/workflow/engine/definition/${id}/enable`);
 }
 
 /**
  * disable: POST /workflow/engine/definition/{id}/disable
  */
-export function disable({ id }: {
-    id: string;
-  }): Promise<void> {
+export function disable({ id }: { id: string }): Promise<void> {
   return requestClient.post<void>(`/workflow/engine/definition/${id}/disable`);
 }
 
 /**
  * listVersions: GET /workflow/engine/definition/{id}/versions
  */
-export function listVersions({ id }: {
-    id: string;
-  }): Promise<FlowDefinitionVersionVO[]> {
+export function listVersions({ id }: { id: string }): Promise<FlowDefinitionVersionVO[]> {
   return requestClient.get<FlowDefinitionVersionVO[]>(`/workflow/engine/definition/${id}/versions`);
 }
 
 /**
  * diffVersions: GET /workflow/engine/definition/{id}/diff
  */
-export function diffVersions({ id }: {
+export function diffVersions(
+  {
+    id,
+  }: {
     id: string;
-  }, params: {
+  },
+  params: {
     v1?: number;
     v2?: number;
-  }): Promise<FlowDefinitionDiffVO> {
-  return requestClient.get<FlowDefinitionDiffVO>(`/workflow/engine/definition/${id}/diff`, { params });
+  },
+): Promise<FlowDefinitionDiffVO> {
+  return requestClient.get<FlowDefinitionDiffVO>(`/workflow/engine/definition/${id}/diff`, {
+    params,
+  });
 }
 
 /**
@@ -153,37 +180,52 @@ export function rollbackDefinition(data: RollbackRequestDTO): Promise<FlowRollba
 /**
  * updateNodeCoordinate: POST /workflow/engine/definition/{id}/node/{nodeCode}/coordinate
  */
-export function updateNodeCoordinate({ id, nodeCode }: {
+export function updateNodeCoordinate(
+  {
+    id,
+    nodeCode,
+  }: {
     id: string;
     nodeCode: string;
-  }, data: string): Promise<void> {
-  return requestClient.post<void>(`/workflow/engine/definition/${id}/node/${nodeCode}/coordinate`, data);
+  },
+  data: string,
+): Promise<void> {
+  return requestClient.post<void>(
+    `/workflow/engine/definition/${id}/node/${nodeCode}/coordinate`,
+    data,
+  );
 }
 
 /**
  * updateDefinition: PUT /workflow/engine/definition/{id}
  */
-export function updateDefinition({ id }: {
+export function updateDefinition(
+  {
+    id,
+  }: {
     id: string;
-  }, data: FlowDeployProcessDTO): Promise<void> {
+  },
+  data: FlowDeployProcessDTO,
+): Promise<void> {
   return requestClient.put<void>(`/workflow/engine/definition/${id}`, data);
 }
 
 /**
  * exportDefinition: GET /workflow/engine/definition/{id}/export
  */
-export function exportDefinition({ id }: {
-    id: string;
-  }): Promise<string> {
+export function exportDefinition({ id }: { id: string }): Promise<string> {
   return requestClient.get<string>(`/workflow/engine/definition/${id}/export`);
 }
 
 /**
  * importDefinition: POST /workflow/engine/definition/import
  */
-export function importDefinition(params: {
+export function importDefinition(
+  params: {
     tenantId?: string;
-  }, data: string): Promise<string> {
+  },
+  data: string,
+): Promise<string> {
   return requestClient.post<string>(`/workflow/engine/definition/import`, data, { params });
 }
 
@@ -191,10 +233,12 @@ export function importDefinition(params: {
  * analyzeMigrationImpact: GET /workflow/engine/definition/migrationImpact
  */
 export function analyzeMigrationImpact(params: {
-    oldDefinitionId?: string;
-    newDefinitionId?: string;
-  }): Promise<FlowMigrationImpactVO> {
-  return requestClient.get<FlowMigrationImpactVO>(`/workflow/engine/definition/migrationImpact`, { params });
+  oldDefinitionId?: string;
+  newDefinitionId?: string;
+}): Promise<FlowMigrationImpactVO> {
+  return requestClient.get<FlowMigrationImpactVO>(`/workflow/engine/definition/migrationImpact`, {
+    params,
+  });
 }
 
 /**
@@ -207,32 +251,42 @@ export function info(): Promise<Record<string, Record<string, unknown>>> {
 /**
  * correlateMessage: POST /workflow/engine/event/correlateMessage
  */
-export function correlateMessage(params: {
+export function correlateMessage(
+  params: {
     messageName?: string;
     correlationKey?: string;
     tenantId?: string;
-  }, data: string): Promise<number> {
+  },
+  data: string,
+): Promise<number> {
   return requestClient.post<number>(`/workflow/engine/event/correlateMessage`, data, { params });
 }
 
 /**
  * throwError: POST /workflow/engine/event/throwError
  */
-export function throwError(params: {
+export function throwError(
+  params: {
     errorCode?: string;
     instanceId?: string;
     tenantId?: string;
-  }, data: string): Promise<number> {
+  },
+  data: string,
+): Promise<number> {
   return requestClient.post<number>(`/workflow/engine/event/throwError`, data, { params });
 }
 
 /**
  * listEventSubscriptions: GET /workflow/engine/instance/{instanceId}/eventSubscriptions
  */
-export function listEventSubscriptions({ instanceId }: {
-    instanceId: string;
-  }): Promise<FlowEventSubscriptionVO[]> {
-  return requestClient.get<FlowEventSubscriptionVO[]>(`/workflow/engine/instance/${instanceId}/eventSubscriptions`);
+export function listEventSubscriptions({
+  instanceId,
+}: {
+  instanceId: string;
+}): Promise<FlowEventSubscriptionVO[]> {
+  return requestClient.get<FlowEventSubscriptionVO[]>(
+    `/workflow/engine/instance/${instanceId}/eventSubscriptions`,
+  );
 }
 
 /**
@@ -245,9 +299,7 @@ export function slaScan(): Promise<number> {
 /**
  * slaProcess: POST /workflow/engine/sla/process/{taskId}
  */
-export function slaProcess({ taskId }: {
-    taskId: string;
-  }): Promise<boolean> {
+export function slaProcess({ taskId }: { taskId: string }): Promise<boolean> {
   return requestClient.post<boolean>(`/workflow/engine/sla/process/${taskId}`);
 }
 
@@ -268,74 +320,103 @@ export function parseExpression(data: Record<string, string>): Promise<string> {
 /**
  * validateExpression: POST /workflow/engine/definition/conditionExpr/validate
  */
-export function validateExpression(data: Record<string, string>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/workflow/engine/definition/conditionExpr/validate`, data);
+export function validateExpression(
+  data: Record<string, string>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/workflow/engine/definition/conditionExpr/validate`,
+    data,
+  );
 }
 
 /**
  * operators: GET /workflow/engine/definition/conditionExpr/operators
  */
 export function operators(): Promise<Record<string, string>[]> {
-  return requestClient.get<Record<string, string>[]>(`/workflow/engine/definition/conditionExpr/operators`);
+  return requestClient.get<Record<string, string>[]>(
+    `/workflow/engine/definition/conditionExpr/operators`,
+  );
 }
 
 /**
  * valueTypes: GET /workflow/engine/definition/conditionExpr/valueTypes
  */
 export function valueTypes(): Promise<Record<string, string>[]> {
-  return requestClient.get<Record<string, string>[]>(`/workflow/engine/definition/conditionExpr/valueTypes`);
+  return requestClient.get<Record<string, string>[]>(
+    `/workflow/engine/definition/conditionExpr/valueTypes`,
+  );
 }
 
 /**
  * variables: GET /workflow/engine/definition/conditionExpr/variables/{id}
  */
-export function variables({ id }: {
-    id: string;
-  }): Promise<Record<string, string>[]> {
-  return requestClient.get<Record<string, string>[]>(`/workflow/engine/definition/conditionExpr/variables/${id}`);
+export function variables({ id }: { id: string }): Promise<Record<string, string>[]> {
+  return requestClient.get<Record<string, string>[]>(
+    `/workflow/engine/definition/conditionExpr/variables/${id}`,
+  );
 }
 
 /**
  * previewExpression: POST /workflow/engine/definition/conditionExpr/preview
  */
-export function previewExpression(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/workflow/engine/definition/conditionExpr/preview`, data);
+export function previewExpression(
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/workflow/engine/definition/conditionExpr/preview`,
+    data,
+  );
 }
 
 /**
  * conditionTemplates: GET /workflow/engine/definition/conditionExpr/templates
  */
 export function conditionTemplates(): Promise<Record<string, string>[]> {
-  return requestClient.get<Record<string, string>[]>(`/workflow/engine/definition/conditionExpr/templates`);
+  return requestClient.get<Record<string, string>[]>(
+    `/workflow/engine/definition/conditionExpr/templates`,
+  );
 }
 
 /**
  * listCustomButtons: GET /workflow/engine/definition/customButtons
  */
 export function listCustomButtons(params: {
-    definitionId?: string;
-    nodeCode?: string;
-  }): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.get<Record<string, Record<string, unknown>>[]>(`/workflow/engine/definition/customButtons`, { params });
+  definitionId?: string;
+  nodeCode?: string;
+}): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.get<Record<string, Record<string, unknown>>[]>(
+    `/workflow/engine/definition/customButtons`,
+    { params },
+  );
 }
 
 /**
  * saveCustomButtons: POST /workflow/engine/definition/customButtons
  */
-export function saveCustomButtons(params: {
+export function saveCustomButtons(
+  params: {
     definitionId?: string;
     nodeCode?: string;
-  }, data: Record<string, Record<string, unknown>>[]): Promise<void> {
+  },
+  data: Record<string, Record<string, unknown>>[],
+): Promise<void> {
   return requestClient.post<void>(`/workflow/engine/definition/customButtons`, data, { params });
 }
 
 /**
  * executeCustomButton: POST /workflow/engine/definition/customButtons/execute
  */
-export function executeCustomButton(params: {
+export function executeCustomButton(
+  params: {
     taskId?: string;
     buttonCode?: string;
     comment?: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/workflow/engine/definition/customButtons/execute`, data, { params });
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/workflow/engine/definition/customButtons/execute`,
+    data,
+    { params },
+  );
 }

@@ -5,7 +5,7 @@
  * - `requestClient` —— 业务主链路，各应用在其上注册鉴权、错误提示、401 跳转等拦截器；
  * - `baseRequestClient` —— 不挂任何业务拦截器的「干净」实例。
  *
-  * 拆成两个是为了打破循环依赖：刷新 token、拉取字典、上报日志这类请求
+ * 拆成两个是为了打破循环依赖：刷新 token、拉取字典、上报日志这类请求
  * 本身属于拦截器链路的一部分，若复用 `requestClient`，一旦 token 过期就会
  * 触发拦截器再次尝试刷新，形成递归。`baseRequestClient` 提供了一条
  * 不经过业务拦截器的逃生通道。
@@ -33,9 +33,7 @@ export interface CreateRequestClientOptions {
  * @param config 创建配置
  * @returns 请求客户端实例和基础请求客户端实例
  */
-export function createRequestClient(
-  config: CreateRequestClientOptions,
-): {
+export function createRequestClient(config: CreateRequestClientOptions): {
   baseRequestClient: RequestClient;
   requestClient: RequestClient;
 } {

@@ -46,8 +46,6 @@ export function update(data: FeatureFlagDTO): Promise<boolean> {
 /**
  * remove: DELETE /feature-flag/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/feature-flag/${id}`);
 }

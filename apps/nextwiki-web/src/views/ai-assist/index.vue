@@ -17,7 +17,16 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdEmptyState, YdInput, YdBadge, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdCard,
+  YdEmptyState,
+  YdInput,
+  YdBadge,
+  YdTimeline,
+  YdTimelineItem,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, onMounted, ref } from 'vue';
 
@@ -50,7 +59,8 @@ const latestSummary = ref<SummaryResult | null>(null);
 /** 服务状态标签 */
 const statusTag = computed(() => {
   const status = (aiStatus.value.status as string) ?? (aiStatus.value.available as string) ?? '';
-  const isOk = status.toLowerCase() === 'ok' || status === 'true' || aiStatus.value.available === true;
+  const isOk =
+    status.toLowerCase() === 'ok' || status === 'true' || aiStatus.value.available === true;
   return {
     isOk,
     label: isOk ? '服务正常' : '服务异常',
@@ -129,12 +139,7 @@ onMounted(() => {
           <template #header>
             <span class="font-medium">生成智能摘要</span>
           </template>
-          <YdInput
-            v-model="summaryInput"
-            type="textarea"
-            :rows="6"
-            placeholder="输入文档内容..."
-          />
+          <YdInput v-model="summaryInput" type="textarea" :rows="6" placeholder="输入文档内容..." />
           <div class="mt-2">
             <YdInput
               v-model="summaryType"
@@ -163,16 +168,26 @@ onMounted(() => {
           </template>
           <div v-if="latestSummary">
             <YdDescriptions :column="2" border size="small" class="mb-3">
-              <YdDescriptionsItem label="文件节点ID">{{ latestSummary.fileNodeId ?? '-' }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="文件节点ID">{{
+                latestSummary.fileNodeId ?? '-'
+              }}</YdDescriptionsItem>
               <YdDescriptionsItem label="摘要类型">
-                <YdBadge v-if="latestSummary.summaryType" size="small">{{ latestSummary.summaryType }}</YdBadge>
+                <YdBadge v-if="latestSummary.summaryType" size="small">{{
+                  latestSummary.summaryType
+                }}</YdBadge>
                 <span v-else>-</span>
               </YdDescriptionsItem>
-              <YdDescriptionsItem label="字数">{{ latestSummary.wordCount ?? '-' }}</YdDescriptionsItem>
-              <YdDescriptionsItem label="生成时间">{{ latestSummary.generatedAt ?? '-' }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="字数">{{
+                latestSummary.wordCount ?? '-'
+              }}</YdDescriptionsItem>
+              <YdDescriptionsItem label="生成时间">{{
+                latestSummary.generatedAt ?? '-'
+              }}</YdDescriptionsItem>
             </YdDescriptions>
             <div class="rounded bg-gray-50 p-3">
-              <p class="whitespace-pre-wrap text-sm leading-relaxed">{{ latestSummary.summary ?? '-' }}</p>
+              <p class="whitespace-pre-wrap text-sm leading-relaxed">
+                {{ latestSummary.summary ?? '-' }}
+              </p>
             </div>
           </div>
           <YdEmptyState v-else description="尚未生成摘要" :image-size="80" />
@@ -193,7 +208,10 @@ onMounted(() => {
               <div class="text-xs text-gray-500">
                 {{ item.summaryType ?? '摘要' }} · {{ item.wordCount ?? 0 }} 字
               </div>
-              <p class="mt-1 whitespace-pre-wrap text-sm">{{ (item.summary ?? '').slice(0, 200) }}{{ (item.summary ?? '').length > 200 ? '...' : '' }}</p>
+              <p class="mt-1 whitespace-pre-wrap text-sm">
+                {{ (item.summary ?? '').slice(0, 200)
+                }}{{ (item.summary ?? '').length > 200 ? '...' : '' }}
+              </p>
             </YdTimelineItem>
           </YdTimeline>
           <YdEmptyState v-else description="暂无历史记录" :image-size="60" />

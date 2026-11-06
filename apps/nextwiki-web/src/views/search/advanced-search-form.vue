@@ -17,7 +17,14 @@
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
-import { YdDatePicker, YdForm, YdFormItem, YdInput, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdDatePicker,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSelectItem,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, reactive, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { advancedSearch } from '#/api/search';
@@ -58,7 +65,9 @@ const formData = reactive<AdvancedSearchFormData>({
 });
 
 const rules = {
-  rawInput: [{ required: true, message: () => t('searchAdvancedKeywordRequired'), trigger: 'blur' }],
+  rawInput: [
+    { required: true, message: () => t('searchAdvancedKeywordRequired'), trigger: 'blur' },
+  ],
 };
 
 /** 标签列表 */
@@ -111,13 +120,29 @@ const [Modal, modalApi] = useYdModal({
 </script>
 <template>
   <Modal :title="t('searchAdvancedTitle')">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="120px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="120px"
+      label-position="right"
+    >
       <YdFormItem :label="t('searchAdvancedKeyword')" prop="rawInput">
         <YdInput v-model="formData.rawInput" :placeholder="t('searchAdvancedKeywordPlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('searchAdvancedType')" prop="scope">
-        <YdSelect v-model="formData.scope" clearable :placeholder="t('searchAdvancedTypePlaceholder')" class="w-full">
-          <YdSelectItem v-for="opt in typeOptions" :key="opt.value" :label="opt.label" :value="opt.value" />
+        <YdSelect
+          v-model="formData.scope"
+          clearable
+          :placeholder="t('searchAdvancedTypePlaceholder')"
+          class="w-full"
+        >
+          <YdSelectItem
+            v-for="opt in typeOptions"
+            :key="opt.value"
+            :label="opt.label"
+            :value="opt.value"
+          />
         </YdSelect>
       </YdFormItem>
       <YdFormItem :label="t('searchAdvancedTimeRange')" prop="startDate">
@@ -139,7 +164,13 @@ const [Modal, modalApi] = useYdModal({
         />
       </YdFormItem>
       <YdFormItem :label="t('searchAdvancedTags')" prop="tags">
-        <YdSelect v-model="formData.tags" multiple clearable :placeholder="t('searchAdvancedTagsPlaceholder')" class="w-full">
+        <YdSelect
+          v-model="formData.tags"
+          multiple
+          clearable
+          :placeholder="t('searchAdvancedTagsPlaceholder')"
+          class="w-full"
+        >
           <YdSelectItem v-for="tag in tagList" :key="tag.id" :label="tag.name" :value="tag.id" />
         </YdSelect>
       </YdFormItem>

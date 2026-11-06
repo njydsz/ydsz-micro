@@ -18,7 +18,21 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 import type { CEPPatternVO, CEPHitVO } from '#/api/models';
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdDialog, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdPagination, YdSelect, YdSelectItem, YdTable, YdTableColumn, YdTabsContent, YdTabs } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdPagination,
+  YdSelect,
+  YdSelectItem,
+  YdTable,
+  YdTableColumn,
+  YdTabsContent,
+  YdTabs,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, reactive, ref } from 'vue';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -350,7 +364,10 @@ async function handleTestPattern() {
   }
   testEventLoading.value = true;
   try {
-    const result = await testPattern({ id: currentPatternId.value }, payload as unknown as Record<string, Record<string, unknown>>);
+    const result = await testPattern(
+      { id: currentPatternId.value },
+      payload as unknown as Record<string, Record<string, unknown>>,
+    );
     testEventResult.value = formatJsonResult(result);
   } finally {
     testEventLoading.value = false;
@@ -384,8 +401,7 @@ onMounted(() => {
           <pre
             v-if="eventResult"
             class="mt-2 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
-            >{{ eventResult }}</pre
-          >
+            >{{ eventResult }}</pre>
         </div>
         <div class="rounded border border-gray-200 bg-white p-3">
           <div class="mb-2 flex items-center justify-between">
@@ -399,9 +415,9 @@ onMounted(() => {
             <YdTableColumn prop="hitAt" label="命中时间" width="170" />
           </YdTable>
           <div class="mt-3 text-sm font-medium">全局统计</div>
-          <pre class="mt-1 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs">{{
-            statText
-          }}</pre>
+          <pre
+            class="mt-1 max-h-40 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
+            >{{ statText }}</pre>
         </div>
       </div>
     </div>
@@ -482,22 +498,39 @@ onMounted(() => {
               <div class="rounded border border-gray-200 bg-gray-50 p-3">
                 <div class="mb-2 text-xs font-semibold text-gray-600">输入序列</div>
                 <div class="grid grid-cols-2 gap-3 text-sm">
-                  <div><span class="text-gray-500">事件类型：</span>{{ currentPattern?.eventType ?? '-' }}</div>
-                  <div><span class="text-gray-500">过滤条件：</span>{{ currentPattern?.filter ?? '-' }}</div>
+                  <div>
+                    <span class="text-gray-500">事件类型：</span
+                    >{{ currentPattern?.eventType ?? '-' }}
+                  </div>
+                  <div>
+                    <span class="text-gray-500">过滤条件：</span>{{ currentPattern?.filter ?? '-' }}
+                  </div>
                 </div>
               </div>
               <div class="rounded border border-gray-200 bg-gray-50 p-3">
                 <div class="mb-2 text-xs font-semibold text-gray-600">输出条件</div>
                 <div class="grid grid-cols-2 gap-3 text-sm">
-                  <div><span class="text-gray-500">时间窗口：</span>{{ formatWindow(currentPattern?.window) }}</div>
-                  <div><span class="text-gray-500">触发阈值：</span>{{ currentPattern?.threshold ?? '-' }}</div>
+                  <div>
+                    <span class="text-gray-500">时间窗口：</span
+                    >{{ formatWindow(currentPattern?.window) }}
+                  </div>
+                  <div>
+                    <span class="text-gray-500">触发阈值：</span
+                    >{{ currentPattern?.threshold ?? '-' }}
+                  </div>
                 </div>
               </div>
               <div class="rounded border border-gray-200 bg-gray-50 p-3">
                 <div class="mb-2 text-xs font-semibold text-gray-600">动作配置</div>
                 <div class="grid grid-cols-2 gap-3 text-sm">
-                  <div><span class="text-gray-500">关联规则编码：</span>{{ currentPattern?.ruleCode ?? '-' }}</div>
-                  <div><span class="text-gray-500">模式描述：</span>{{ currentPattern?.description ?? '-' }}</div>
+                  <div>
+                    <span class="text-gray-500">关联规则编码：</span
+                    >{{ currentPattern?.ruleCode ?? '-' }}
+                  </div>
+                  <div>
+                    <span class="text-gray-500">模式描述：</span
+                    >{{ currentPattern?.description ?? '-' }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -513,7 +546,9 @@ onMounted(() => {
                   class="rounded border border-gray-200 bg-blue-50 p-3 text-center"
                 >
                   <div class="text-xs text-gray-500">{{ key }}</div>
-                  <div class="mt-1 text-lg font-semibold text-blue-700">{{ formatJsonResult(value) }}</div>
+                  <div class="mt-1 text-lg font-semibold text-blue-700">
+                    {{ formatJsonResult(value) }}
+                  </div>
                 </div>
               </div>
               <div v-else class="py-8 text-center text-sm text-gray-400">暂无统计数据</div>
@@ -549,7 +584,9 @@ onMounted(() => {
                 <YdTableColumn prop="ruleCode" label="规则编码" min-width="140" />
                 <YdTableColumn label="上下文" min-width="200">
                   <template #default="{ row }">
-                    <span class="text-xs text-gray-500">{{ formatJsonResult(row.context ?? row) }}</span>
+                    <span class="text-xs text-gray-500">{{
+                      formatJsonResult(row.context ?? row)
+                    }}</span>
                   </template>
                 </YdTableColumn>
               </YdTable>
@@ -563,7 +600,7 @@ onMounted(() => {
                 v-model="testEventText"
                 type="textarea"
                 :rows="6"
-                placeholder="填写测试事件 JSON，如 {&quot;eventType&quot;:&quot;LOGIN_FAILED&quot;,&quot;userId&quot;:&quot;U001&quot;}"
+                placeholder='填写测试事件 JSON，如 {"eventType":"LOGIN_FAILED","userId":"U001"}'
               />
               <div class="flex gap-2">
                 <YdButton type="primary" :loading="testEventLoading" @click="handleTestPattern">
@@ -574,8 +611,7 @@ onMounted(() => {
               <pre
                 v-if="testEventResult"
                 class="max-h-48 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
-                >{{ testEventResult }}</pre
-              >
+                >{{ testEventResult }}</pre>
             </div>
           </YdTabsContent>
         </YdTabs>

@@ -11,7 +11,12 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { AccountUnlockDTO, ForgotPasswordDTO, SelfRegisterDTO, SendVerifyCodeDTO } from './models';
+import type {
+  AccountUnlockDTO,
+  ForgotPasswordDTO,
+  SelfRegisterDTO,
+  SendVerifyCodeDTO,
+} from './models';
 
 /**
  * sendVerifyCode: POST /self-service/send-verify-code

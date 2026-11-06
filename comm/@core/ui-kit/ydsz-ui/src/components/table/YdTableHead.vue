@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* 表头单元格：th 语义，提供对齐与截断。
-* 
+ * 表头单元格：th 语义，提供对齐与截断。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\table\YdTableHead.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -31,7 +31,7 @@ const alignClass = {
   <th
     :class="
       cn(
-        'h-10 px-2 align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'text-muted-foreground h-10 px-2 align-middle font-medium [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
         alignClass[props.align],
         $props.class ?? '',
       )

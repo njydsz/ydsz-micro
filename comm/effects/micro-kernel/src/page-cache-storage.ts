@@ -12,16 +12,13 @@
  * @since 4.1.0
  */
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { getStorage, setStorage, removeStorage } from "./storage-utils";
-import type { PageCachePolicy, PageCacheRecord } from "./page-cache-types";
-import {
-  CACHE_REGISTRY_KEY,
-  NAMESPACE_PREFIX,
-} from "./page-cache-types";
+import { getStorage, setStorage, removeStorage } from './storage-utils';
+import type { PageCachePolicy, PageCacheRecord } from './page-cache-types';
+import { CACHE_REGISTRY_KEY, NAMESPACE_PREFIX } from './page-cache-types';
 
-const logger = createLogger("PageCacheStorage");
+const logger = createLogger('PageCacheStorage');
 
 /**
  * Cache Registry 接口
@@ -34,7 +31,7 @@ export interface CacheRegistry {
  * 生成单条缓存的存储 key（按路由 path 区分）
  */
 function buildCacheKey(appName: string, routePath: string): string {
-  const safePath = routePath.replace(/[^a-zA-Z0-9-]/g, "_");
+  const safePath = routePath.replace(/[^a-zA-Z0-9-]/g, '_');
   return `${NAMESPACE_PREFIX}page-cache:${appName}:${safePath}`;
 }
 
@@ -59,9 +56,7 @@ export function removeFromRegistry(appName: string, routePath: string): void {
   try {
     const registry = readRegistry();
     if (registry[appName]) {
-      registry[appName] = registry[appName].filter(
-        (e) => e.routePath !== routePath,
-      );
+      registry[appName] = registry[appName].filter((e) => e.routePath !== routePath);
       if (registry[appName].length === 0) {
         delete registry[appName];
       }
@@ -181,7 +176,7 @@ export function clearAllPageCacheStorage(): void {
     }
     removeStorage(CACHE_REGISTRY_KEY);
   } catch (error) {
-    logger.warn("clearAllPageCache failed:", error);
+    logger.warn('clearAllPageCache failed:', error);
   }
 }
 

@@ -18,46 +18,57 @@ import type { ConsolidateMemoryRequest, MemoryVO, SaveMemoryRequest } from './mo
 /**
  * loadMemory: GET /agent/memory/{conversationId}
  */
-export function loadMemory({ conversationId }: {
+export function loadMemory(
+  {
+    conversationId,
+  }: {
     conversationId: string;
-  }, params: {
+  },
+  params: {
     maxMessages?: number;
-  }): Promise<MemoryVO[]> {
+  },
+): Promise<MemoryVO[]> {
   return requestClient.get<MemoryVO[]>(`/agent/memory/${conversationId}`, { params });
 }
 
 /**
  * saveMemory: POST /agent/memory/{conversationId}
  */
-export function saveMemory({ conversationId }: {
+export function saveMemory(
+  {
+    conversationId,
+  }: {
     conversationId: string;
-  }, data: SaveMemoryRequest): Promise<void> {
+  },
+  data: SaveMemoryRequest,
+): Promise<void> {
   return requestClient.post<void>(`/agent/memory/${conversationId}`, data);
 }
 
 /**
  * clearMemory: DELETE /agent/memory/{conversationId}
  */
-export function clearMemory({ conversationId }: {
-    conversationId: string;
-  }): Promise<void> {
+export function clearMemory({ conversationId }: { conversationId: string }): Promise<void> {
   return requestClient.delete<void>(`/agent/memory/${conversationId}`);
 }
 
 /**
  * countMessages: GET /agent/memory/{conversationId}/count
  */
-export function countMessages({ conversationId }: {
-    conversationId: string;
-  }): Promise<number> {
+export function countMessages({ conversationId }: { conversationId: string }): Promise<number> {
   return requestClient.get<number>(`/agent/memory/${conversationId}/count`);
 }
 
 /**
  * consolidate: POST /agent/memory/{conversationId}/consolidate
  */
-export function consolidate({ conversationId }: {
+export function consolidate(
+  {
+    conversationId,
+  }: {
     conversationId: string;
-  }, data: ConsolidateMemoryRequest): Promise<void> {
+  },
+  data: ConsolidateMemoryRequest,
+): Promise<void> {
   return requestClient.post<void>(`/agent/memory/${conversationId}/consolidate`, data);
 }

@@ -125,7 +125,8 @@ export function diffLines(oldLines: string[], newLines: string[]): DiffLine[] {
     // 两边都还有行：先输出新增行再输出删除行（标准 LCS 回溯方式）
     else {
       // 检查新当前行 j 是否在后续有 LCS 匹配，如果没有则视为新增
-      const newLineHasFutureMatch = j < newLines.length && hasFutureLCSMatch(lcs, i, j, oldLines.length);
+      const newLineHasFutureMatch =
+        j < newLines.length && hasFutureLCSMatch(lcs, i, j, oldLines.length);
       if (!newLineHasFutureMatch && j < newLines.length) {
         result.push({
           type: 'add',
@@ -276,7 +277,9 @@ const rightLines = computed(() => {
         class="diff-line diff-line-equal"
       >
         <span class="diff-line-num">{{ line.newLineNum }}</span>
-        <span class="diff-line-content"><code>{{ line.content }}</code></span>
+        <span class="diff-line-content"
+          ><code>{{ line.content }}</code></span
+        >
       </div>
     </div>
 
@@ -294,8 +297,12 @@ const rightLines = computed(() => {
       >
         <span class="diff-line-num diff-line-num-old">{{ line.oldLineNum ?? '' }}</span>
         <span class="diff-line-num diff-line-num-new">{{ line.newLineNum ?? '' }}</span>
-        <span class="diff-line-sign">{{ line.type === 'add' ? '+' : line.type === 'delete' ? '-' : ' ' }}</span>
-        <span class="diff-line-content"><code>{{ line.content }}</code></span>
+        <span class="diff-line-sign">{{
+          line.type === 'add' ? '+' : line.type === 'delete' ? '-' : ' '
+        }}</span>
+        <span class="diff-line-content"
+          ><code>{{ line.content }}</code></span
+        >
       </div>
     </div>
 
@@ -314,7 +321,9 @@ const rightLines = computed(() => {
             }"
           >
             <span class="diff-line-num">{{ line.lineNum ?? '' }}</span>
-            <span class="diff-line-content"><code>{{ line.content }}</code></span>
+            <span class="diff-line-content"
+              ><code>{{ line.content }}</code></span
+            >
           </div>
         </div>
       </div>
@@ -331,7 +340,9 @@ const rightLines = computed(() => {
             }"
           >
             <span class="diff-line-num">{{ line.lineNum ?? '' }}</span>
-            <span class="diff-line-content"><code>{{ line.content }}</code></span>
+            <span class="diff-line-content"
+              ><code>{{ line.content }}</code></span
+            >
           </div>
         </div>
       </div>
@@ -507,12 +518,6 @@ const rightLines = computed(() => {
 }
 
 .diff-side-by-side .diff-line-placeholder {
-  background: repeating-linear-gradient(
-    45deg,
-    #f9fafb,
-    #f9fafb 10px,
-    #f3f4f6 10px,
-    #f3f4f6 20px
-  );
+  background: repeating-linear-gradient(45deg, #f9fafb, #f9fafb 10px, #f3f4f6 10px, #f3f4f6 20px);
 }
 </style>

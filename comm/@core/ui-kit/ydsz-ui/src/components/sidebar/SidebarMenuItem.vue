@@ -49,8 +49,8 @@ const emit = defineEmits<{
 
 const isActive = computed(() => props.activeKey === props.item.key);
 
-const hasChildren = computed(() =>
-  Array.isArray(props.item.children) && props.item.children.length > 0,
+const hasChildren = computed(
+  () => Array.isArray(props.item.children) && props.item.children.length > 0,
 );
 
 const isExpanded = computed(() => {
@@ -96,10 +96,11 @@ function handleKeydown(event: KeyboardEvent): void {
     :class="
       cn(
         'group relative flex cursor-pointer items-center gap-2 py-2 text-sm',
-        'transition-colors duration-150 select-none',
+        'select-none transition-colors duration-150',
         'hover:bg-[hsl(var(--ydsz-comp-surface-hover))]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[hsl(var(--ydsz-comp-focus-ring-color))]',
-        isActive && 'bg-[hsl(var(--ydsz-comp-surface-selected))] font-medium text-[hsl(var(--ydsz-color-brand-500))]',
+        isActive &&
+          'bg-[hsl(var(--ydsz-comp-surface-selected))] font-medium text-[hsl(var(--ydsz-color-brand-500))]',
         props.item.disabled && 'pointer-events-none cursor-not-allowed opacity-50',
         props.collapsed && 'justify-center px-3',
       )
@@ -124,10 +125,7 @@ function handleKeydown(event: KeyboardEvent): void {
     />
 
     <!-- Label -->
-    <span
-      v-if="!props.collapsed"
-      class="flex-1 truncate"
-    >
+    <span v-if="!props.collapsed" class="flex-1 truncate">
       {{ props.item.label }}
     </span>
 
@@ -143,12 +141,7 @@ function handleKeydown(event: KeyboardEvent): void {
     <!-- Expand arrow -->
     <ChevronDown
       v-if="hasChildren && !props.collapsed"
-      :class="
-        cn(
-          'size-3 shrink-0 transition-transform duration-200',
-          isExpanded && 'rotate-180',
-        )
-      "
+      :class="cn('size-3 shrink-0 transition-transform duration-200', isExpanded && 'rotate-180')"
       aria-hidden="true"
     />
 
@@ -166,11 +159,7 @@ function handleKeydown(event: KeyboardEvent): void {
     role="group"
     class="mt-0.5 flex flex-col gap-0.5"
   >
-    <li
-      v-for="child in (props.item.children as SidebarItem[])"
-      :key="child.key"
-      role="none"
-    >
+    <li v-for="child in props.item.children as SidebarItem[]" :key="child.key" role="none">
       <SidebarMenuItem
         :item="child"
         :level="props.level + 1"

@@ -28,10 +28,7 @@
 export { useOrganizationChart } from './use-organization-chart';
 export { default as YdOrganizationChart } from './YdOrganizationChart.vue';
 export { default as OrgNode } from './OrgNode.vue';
-export {
-  isBranchNode,
-  resolveNodeType,
-} from './use-organization-chart';
+export { isBranchNode, resolveNodeType } from './use-organization-chart';
 export type {
   OrgChartOptions,
   OrgNode,

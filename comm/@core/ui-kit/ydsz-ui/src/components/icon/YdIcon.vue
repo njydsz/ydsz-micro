@@ -19,12 +19,7 @@ import type { Component } from 'vue';
 import { computed } from 'vue';
 
 import { IconDefault, IconifyIcon } from '@ydsz-core/icons';
-import {
-  isFunction,
-  isHttpUrl,
-  isObject,
-  isString,
-} from '@ydsz-core/shared/utils';
+import { isFunction, isHttpUrl, isObject, isString } from '@ydsz-core/shared/utils';
 
 const props = defineProps<{
   // 没有是否显示默认图标
@@ -43,12 +38,7 @@ const isComponent = computed(() => {
 </script>
 
 <template>
-  <component
-    :is="icon as Component"
-    v-if="isComponent"
-    v-bind="$attrs"
-    aria-hidden="true"
-  />
+  <component :is="icon as Component" v-if="isComponent" v-bind="$attrs" aria-hidden="true" />
   <img
     v-else-if="isRemoteIcon"
     :src="icon as string"
@@ -57,12 +47,6 @@ const isComponent = computed(() => {
     aria-hidden="true"
     loading="lazy"
   />
-  <IconifyIcon
-    v-else-if="icon"
-    v-bind="$attrs"
-    :icon="icon as string"
-    aria-hidden="true"
-  />
+  <IconifyIcon v-else-if="icon" v-bind="$attrs" :icon="icon as string" aria-hidden="true" />
   <IconDefault v-else-if="fallback" v-bind="$attrs" aria-hidden="true" />
 </template>
-

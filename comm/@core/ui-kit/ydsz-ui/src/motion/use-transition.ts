@@ -66,12 +66,7 @@ export interface TransitionResult {
  * ```
  */
 export function useTransition(options: UseTransitionOptions = {}): TransitionResult {
-  const {
-    delay = 0,
-    easing = 'ease-in-out',
-    enterDuration = 200,
-    leaveDuration = 150,
-  } = options;
+  const { delay = 0, easing = 'ease-in-out', enterDuration = 200, leaveDuration = 150 } = options;
 
   const visible = ref(false);
   const phase = ref<TransitionPhase>('idle');

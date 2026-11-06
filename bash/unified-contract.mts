@@ -91,7 +91,6 @@ const SERVICE_MAP = {
   },
 };
 
-
 /**
  * 为生成的 SDK 计算稳定 hash，输出到 .api-contract.lock
  *
@@ -410,7 +409,7 @@ function generateSchemaFromSpec(outDir) {
         cwd: ROOT,
         stdio: 'pipe',
         env: childEnv,
-        shell: process.platform === 'win32' ? (childEnv.ComSpec || 'cmd.exe') : undefined,
+        shell: process.platform === 'win32' ? childEnv.ComSpec || 'cmd.exe' : undefined,
       },
     );
 
@@ -447,8 +446,14 @@ async function main() {
     process.exit(1);
   }
 
-  const modeLabel = isLive ? '运行时模式 (--live)' : isStatic ? '静态提取模式 (--static)' : '构建产物模式 (默认)';
-  console.log(`[gen:api] ${isCheck ? 'CI 契约检查' : '生成 SDK'} — ${modeLabel}，共 ${targets.length} 个服务\n`);
+  const modeLabel = isLive
+    ? '运行时模式 (--live)'
+    : isStatic
+      ? '静态提取模式 (--static)'
+      : '构建产物模式 (默认)';
+  console.log(
+    `[gen:api] ${isCheck ? 'CI 契约检查' : '生成 SDK'} — ${modeLabel}，共 ${targets.length} 个服务\n`,
+  );
 
   let hasChanges = false;
   let hasErrors = false;

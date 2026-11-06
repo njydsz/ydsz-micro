@@ -47,4 +47,3 @@ function openRouteInNewWindow(path: string) {
 }
 
 export { openRouteInNewWindow, openWindow };
-

@@ -23,18 +23,19 @@ export function createShare(data: Record<string, unknown>): Promise<ShareLinkVO>
 /**
  * verifyAccess: POST /nextwiki/shares/verify
  */
-export function verifyAccess(params: {
+export function verifyAccess(
+  params: {
     httpRequest?: Record<string, unknown>;
-  }, data: Record<string, unknown>): Promise<ShareLinkVO> {
+  },
+  data: Record<string, unknown>,
+): Promise<ShareLinkVO> {
   return requestClient.post<ShareLinkVO>(`/nextwiki/shares/verify`, data, { params });
 }
 
 /**
  * revoke: DELETE /nextwiki/shares/{shareId}
  */
-export function revoke({ shareId }: {
-    shareId: string;
-  }): Promise<void> {
+export function revoke({ shareId }: { shareId: string }): Promise<void> {
   return requestClient.delete<void>(`/nextwiki/shares/${shareId}`);
 }
 
@@ -48,20 +49,23 @@ export function myShares(): Promise<ShareLinkVO[]> {
 /**
  * getAccessLogs: GET /nextwiki/shares/{shareId}/logs
  */
-export function getAccessLogs({ shareId }: {
+export function getAccessLogs(
+  {
+    shareId,
+  }: {
     shareId: string;
-  }, params: {
+  },
+  params: {
     limit?: number;
-  }): Promise<ShareAccessLogVO[]> {
+  },
+): Promise<ShareAccessLogVO[]> {
   return requestClient.get<ShareAccessLogVO[]>(`/nextwiki/shares/${shareId}/logs`, { params });
 }
 
 /**
  * getRecipients: GET /nextwiki/shares/{shareId}/recipients
  */
-export function getRecipients({ shareId }: {
-    shareId: string;
-  }): Promise<ShareRecipientVO[]> {
+export function getRecipients({ shareId }: { shareId: string }): Promise<ShareRecipientVO[]> {
   return requestClient.get<ShareRecipientVO[]>(`/nextwiki/shares/${shareId}/recipients`);
 }
 

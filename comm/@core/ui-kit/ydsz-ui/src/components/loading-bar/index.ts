@@ -6,4 +6,12 @@
  * @since 1.0.0
  */
 export { default as YdLoadingBar } from './YdLoadingBar.vue';
+export {
+  useLoadingBar,
+  loadingBar,
+  configureLoadingBar,
+  startLoadingBar,
+  setLoadingBarProgress,
+  finishLoadingBar,
+} from './use-loading-bar';
 export type * from './types';

@@ -20,9 +20,7 @@ import { colors } from '@ydsz/node-utils';
  * @param options - 打印配置（infoMap 自定义键值对）
  * @returns Vite 插件对象
  */
-export const vitePrintPlugin = (
-  options: PrintPluginOptions = {},
-): PluginOption => {
+export const vitePrintPlugin = (options: PrintPluginOptions = {}): PluginOption => {
   const { infoMap = {} } = options;
 
   return {

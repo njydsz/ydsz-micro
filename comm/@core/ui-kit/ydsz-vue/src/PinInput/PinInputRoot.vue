@@ -1,101 +1,104 @@
 <script lang="ts">
 // @ts-nocheck
-import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue'
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { createContext, useDirection, useForwardExpose } from '../shared/index.ts'
-import type { Direction } from '../shared/types.ts'
+import { type ComputedRef, type Ref, computed, ref, toRefs, watch } from 'vue';
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { createContext, useDirection, useForwardExpose } from '../shared/index.ts';
+import type { Direction } from '../shared/types.ts';
 
 export type PinInputRootEmits = {
-  'update:modelValue': [value: string[]]
-  'complete': [value: string[]]
-}
+  'update:modelValue': [value: string[]];
+  complete: [value: string[]];
+};
 
 export interface PinInputRootProps extends PrimitiveProps {
   /** The controlled checked state of the pin input. Can be binded as `v-model`. */
-  modelValue?: string[]
+  modelValue?: string[];
   /** The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state. */
-  defaultValue?: string[]
+  defaultValue?: string[];
   /** The placeholder character to use for empty pin-inputs. */
-  placeholder?: string
+  placeholder?: string;
   /** When `true`, pin inputs will be treated as password. */
-  mask?: boolean
+  mask?: boolean;
   /** When `true`, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field. */
-  otp?: boolean
+  otp?: boolean;
   /** Input type for the inputs. */
-  type?: 'text' | 'number'
+  type?: 'text' | 'number';
   /** The reading direction of the combobox when applicable. <br> If omitted, inherits globally from `ConfigProvider` or assumes LTR (left-to-right) reading mode. */
-  dir?: Direction
+  dir?: Direction;
   /** The name of the pin input. Submitted with its owning form as part of a name/value pair. */
-  name?: string
+  name?: string;
   /** When `true`, prevents the user from interacting with the pin input */
-  disabled?: boolean
+  disabled?: boolean;
   /** When `true`, indicates that the user must check the pin input before the owning form can be submitted. */
-  required?: boolean
+  required?: boolean;
   /** Id of the element */
-  id?: string
+  id?: string;
 }
 
 export interface PinInputRootContext {
-  modelValue: Ref<string[]>
-  mask: Ref<boolean>
-  otp: Ref<boolean>
-  placeholder: Ref<string>
-  type: Ref<PinInputRootProps['type']>
-  dir: Ref<Direction>
-  disabled: Ref<boolean>
-  isCompleted: ComputedRef<boolean>
-  inputElements?: Ref<Set<HTMLInputElement>>
-  onInputElementChange: (el: HTMLInputElement) => void
+  modelValue: Ref<string[]>;
+  mask: Ref<boolean>;
+  otp: Ref<boolean>;
+  placeholder: Ref<string>;
+  type: Ref<PinInputRootProps['type']>;
+  dir: Ref<Direction>;
+  disabled: Ref<boolean>;
+  isCompleted: ComputedRef<boolean>;
+  inputElements?: Ref<Set<HTMLInputElement>>;
+  onInputElementChange: (el: HTMLInputElement) => void;
 }
 
-export const [injectPinInputRootContext, providePinInputRootContext]
-  = createContext<PinInputRootContext>('PinInputRoot')
+export const [injectPinInputRootContext, providePinInputRootContext] =
+  createContext<PinInputRootContext>('PinInputRoot');
 </script>
 
 <script setup lang="ts">
-import { useVModel } from '@vueuse/core'
-import { Primitive } from '../Primitive/index.ts'
+import { useVModel } from '@vueuse/core';
+import { Primitive } from '../Primitive/index.ts';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
 const props = withDefaults(defineProps<PinInputRootProps>(), {
   placeholder: '',
   type: 'text',
-})
-const emits = defineEmits<PinInputRootEmits>()
+});
+const emits = defineEmits<PinInputRootEmits>();
 
 defineSlots<{
   default: (props: {
     /** Current input values */
-    modelValue: typeof modelValue.value
-  }) => any
-}>()
+    modelValue: typeof modelValue.value;
+  }) => any;
+}>();
 
-const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
-const { forwardRef } = useForwardExpose()
-const dir = useDirection(propDir)
+const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props);
+const { forwardRef } = useForwardExpose();
+const dir = useDirection(propDir);
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue ?? [],
   passive: (props.modelValue === undefined) as false,
-}) as Ref<string[]>
+}) as Ref<string[]>;
 
-const inputElements = ref<Set<HTMLInputElement>>(new Set())
+const inputElements = ref<Set<HTMLInputElement>>(new Set());
 function onInputElementChange(el: HTMLInputElement) {
-  inputElements.value.add(el)
+  inputElements.value.add(el);
 }
 
 const isCompleted = computed(() => {
-  const modelValues = modelValue.value.filter(i => !!i)
-  return modelValues.length === inputElements.value.size
-})
+  const modelValues = modelValue.value.filter((i) => !!i);
+  return modelValues.length === inputElements.value.size;
+});
 
-watch(modelValue, () => {
-  if (isCompleted.value)
-    emits('complete', modelValue.value)
-}, { deep: true })
+watch(
+  modelValue,
+  () => {
+    if (isCompleted.value) emits('complete', modelValue.value);
+  },
+  { deep: true },
+);
 
 providePinInputRootContext({
   modelValue,
@@ -108,7 +111,7 @@ providePinInputRootContext({
   isCompleted,
   inputElements,
   onInputElementChange,
-})
+});
 </script>
 
 <template>
@@ -139,5 +142,5 @@ providePinInputRootContext({
       margin: 0,
     }"
     @focus="Array.from(inputElements)?.[0]?.focus()"
-  >
+  />
 </template>

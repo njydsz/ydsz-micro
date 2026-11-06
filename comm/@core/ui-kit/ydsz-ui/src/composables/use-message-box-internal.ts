@@ -72,39 +72,56 @@ const MessageBoxComponent = defineComponent({
     document.body.appendChild(container);
 
     const app = createApp({
-      render: () => visible.value
-        ? h('div', {
-          class: ['yd-message-box-overlay', props.options.customClass],
-          onClick: props.options.closeOnClickModal ? () => handleAction('close') : undefined,
-        }, [
-          h('div', {
-            class: 'yd-message-box',
-            onClick: (e: MouseEvent) => e.stopPropagation(),
-          }, [
-            // 标题
-            props.options.title
-              ? h('h3', { class: 'yd-message-box-title' }, props.options.title)
-              : null,
-            // 内容
-            props.options.content
-              ? h('p', { class: 'yd-message-box-content' }, props.options.content)
-              : null,
-            // 按钮组
-            h('div', { class: 'yd-message-box-actions' }, [
-              props.options.showCancelButton !== false
-                ? h('button', {
-                  class: 'yd-message-box-btn yd-message-box-btn-cancel',
-                  onClick: () => handleAction('cancel'),
-                }, props.options.cancelButtonText || '取消')
-                : null,
-              h('button', {
-                class: 'yd-message-box-btn yd-message-box-btn-confirm',
-                onClick: () => handleAction('confirm'),
-              }, props.options.confirmButtonText || '确定'),
-            ]),
-          ]),
-        ])
-        : null,
+      render: () =>
+        visible.value
+          ? h(
+              'div',
+              {
+                class: ['yd-message-box-overlay', props.options.customClass],
+                onClick: props.options.closeOnClickModal ? () => handleAction('close') : undefined,
+              },
+              [
+                h(
+                  'div',
+                  {
+                    class: 'yd-message-box',
+                    onClick: (e: MouseEvent) => e.stopPropagation(),
+                  },
+                  [
+                    // 标题
+                    props.options.title
+                      ? h('h3', { class: 'yd-message-box-title' }, props.options.title)
+                      : null,
+                    // 内容
+                    props.options.content
+                      ? h('p', { class: 'yd-message-box-content' }, props.options.content)
+                      : null,
+                    // 按钮组
+                    h('div', { class: 'yd-message-box-actions' }, [
+                      props.options.showCancelButton !== false
+                        ? h(
+                            'button',
+                            {
+                              class: 'yd-message-box-btn yd-message-box-btn-cancel',
+                              onClick: () => handleAction('cancel'),
+                            },
+                            props.options.cancelButtonText || '取消',
+                          )
+                        : null,
+                      h(
+                        'button',
+                        {
+                          class: 'yd-message-box-btn yd-message-box-btn-confirm',
+                          onClick: () => handleAction('confirm'),
+                        },
+                        props.options.confirmButtonText || '确定',
+                      ),
+                    ]),
+                  ],
+                ),
+              ],
+            )
+          : null,
     });
 
     app.mount(container);
@@ -127,10 +144,11 @@ export function mountMessageBox(
     document.body.appendChild(container);
 
     const app = createApp({
-      render: () => h(MessageBoxComponent, {
-        options,
-        resolve,
-      }),
+      render: () =>
+        h(MessageBoxComponent, {
+          options,
+          resolve,
+        }),
     });
 
     app.mount(container);

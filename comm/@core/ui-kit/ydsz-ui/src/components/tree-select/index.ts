@@ -10,3 +10,5 @@
  */
 export { default as YdTreeSelect } from './YdTreeSelect.vue';
 export type { TreeSelectNode } from './YdTreeSelect.vue';
+export { useTreeCheckStrategy } from './use-tree-check-strategy';
+export type { TreeCheckStrategy, CheckState } from './use-tree-check-strategy';

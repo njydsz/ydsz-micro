@@ -4,7 +4,8 @@
 
 ## Header-based 版本控制
 
-YDSZ 项目统一采用请求头 `X-Api-Version` 进行 API 版本协商，**禁止**在路径中包含 `/v1/`、`/v2/` 等版本段。
+YDSZ 项目统一采用请求头 `X-Api-Version` 进行 API 版本协商，**禁止**在路径中包含
+`/v1/`、`/v2/` 等版本段。
 
 ### 版本协商优先级
 
@@ -30,15 +31,16 @@ spring:
 
 ### `/api` 前缀命名空间规范
 
-| 层次 | 规则 |
-|------|------|
-| **网关层** | `Path predicate` 包含 `/api/**`，配 `StripPrefix=1` |
-| **业务层** | `@RequestMapping` **禁止**包含 `/api` 段 |
+| 层次       | 规则                                                    |
+| ---------- | ------------------------------------------------------- |
+| **网关层** | `Path predicate` 包含 `/api/**`，配 `StripPrefix=1`     |
+| **业务层** | `@RequestMapping` **禁止**包含 `/api` 段                |
 | **前端层** | URL 使用 `/api` 网关命名空间，加 Header `X-Api-Version` |
 
 ## 注解顺序（YDIZ-API-002）
 
-`@ApiVersion` 注解必须放在 `@RequestMapping` 上方，位于 Javadoc 之后、其他类级注解之前。符合"先声明版本，再声明路由"的逻辑阅读顺序。
+`@ApiVersion` 注解必须放在 `@RequestMapping`
+上方，位于 Javadoc 之后、其他类级注解之前。符合"先声明版本，再声明路由"的逻辑阅读顺序。
 
 ```java
 /**
@@ -72,7 +74,8 @@ sequenceDiagram
 
 ## SCIM 豁免
 
-`ydsz-userinfo` 的 ScimController 因属于 SCIM 国际标准（RFC 7643/7644），路径中的 `/v2` 属于标准保留段，豁免 YDIZ-API-001。
+`ydsz-userinfo` 的 ScimController 因属于 SCIM 国际标准（RFC
+7643/7644），路径中的 `/v2` 属于标准保留段，豁免 YDIZ-API-001。
 
 ```java
 /**

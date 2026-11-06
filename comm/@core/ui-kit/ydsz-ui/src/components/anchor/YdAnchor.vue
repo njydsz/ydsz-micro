@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 /**
-* Anchor 锚点：跳转到页面指定位置。
-* 
-* 受控组件：通过 v-model:active 控制当前激活锚点。
-* offset 定义距离顶部多少像素视为"进入"。
-* YdAnchorLink 子组件递归渲染嵌套目录。
-* 
-* @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchor.vue
-* @author ydsz-team
-* @since 1.0.0
+ * Anchor 锚点：跳转到页面指定位置。
+ *
+ * 受控组件：通过 v-model:active 控制当前激活锚点。
+ * offset 定义距离顶部多少像素视为"进入"。
+ * YdAnchorLink 子组件递归渲染嵌套目录。
+ *
+ * @path comm\@core\ui-kit\ydsz-ui\src\primitives\anchor\YdAnchor.vue
+ * @author ydsz-team
+ * @since 1.0.0
  */
 import type { ClassValue } from 'clsx';
 
@@ -65,9 +65,7 @@ function handleSelect(key: string): void {
 
 onMounted(() => {
   ready.value = true;
-  containerEl = props.container
-    ? (document.querySelector(props.container) as HTMLElement)
-    : window;
+  containerEl = props.container ? (document.querySelector(props.container) as HTMLElement) : window;
 
   // 用 IntersectionObserver 检测哪些 section 进入视口
   observer = new IntersectionObserver(
@@ -107,7 +105,7 @@ onBeforeUnmount(() => {
 <template>
   <nav
     ref="wrapperRef"
-    :class="cn('relative border-l-2 border-border pl-4', props.class)"
+    :class="cn('border-border relative border-l-2 pl-4', props.class)"
     :aria-label="t('anchor.ariaLabel')"
     role="navigation"
   >

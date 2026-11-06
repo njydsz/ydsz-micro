@@ -46,11 +46,7 @@ export interface FormItemRule {
   /** 内置类型校验（string / number / integer / email / url 等） */
   type?: string;
   /** 自定义校验函数（异步非阻塞） */
-  validator?: (
-    rule: unknown,
-    value: unknown,
-    callback: (error?: Error) => void,
-  ) => void;
+  validator?: (rule: unknown, value: unknown, callback: (error?: Error) => void) => void;
   /** 其余 EP 透传字段 */
   [key: string]: unknown;
 }
@@ -185,7 +181,10 @@ export function toFormItemRules(
   }
 
   // 4. 数值范围
-  if ((meta.type === 'number' || meta.type === 'integer') && (meta.minimum !== undefined || meta.maximum !== undefined)) {
+  if (
+    (meta.type === 'number' || meta.type === 'integer') &&
+    (meta.minimum !== undefined || meta.maximum !== undefined)
+  ) {
     if (meta.integer) {
       rules.push({
         type: 'integer',
@@ -301,9 +300,7 @@ export function toFormRules(
  *
  * @since 1.2.0 (P1-5)
  */
-export function buildDependencyMap(
-  metas: OpenApiValidationMeta[],
-): Record<string, Set<string>> {
+export function buildDependencyMap(metas: OpenApiValidationMeta[]): Record<string, Set<string>> {
   const dependencyMap: Record<string, Set<string>> = {};
   for (const meta of metas) {
     if (!meta.dependencies || meta.dependencies.length === 0) continue;

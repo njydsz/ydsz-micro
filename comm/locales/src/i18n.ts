@@ -36,10 +36,7 @@ const modules = import.meta.glob('./langs/**/*.json');
 
 const { setSimpleLocale } = useSimpleLocale();
 
-const localesMap = loadLocalesMapFromDir(
-  /\.\/langs\/([^/]+)\/(.*)\.json$/,
-  modules,
-);
+const localesMap = loadLocalesMapFromDir(/\.\/langs\/([^/]+)\/(.*)\.json$/, modules);
 let loadMessages: LoadMessageFn;
 
 /**
@@ -111,7 +108,10 @@ function deepMerge(
       typeof value === 'object' &&
       !Array.isArray(value)
     ) {
-      target[key] = deepMerge({ ...(existing as Record<string, unknown>) }, value as Record<string, unknown>);
+      target[key] = deepMerge(
+        { ...(existing as Record<string, unknown>) },
+        value as Record<string, unknown>,
+      );
     } else {
       target[key] = value;
     }
@@ -174,7 +174,7 @@ function loadLocalesMapFromDir(
       const flattened: Record<string, unknown> = {};
       for (const [fileName, importFn] of Object.entries(files)) {
         const fileMessages = expandDottedKeys(
-          (((await importFn()) as { default?: Record<string, unknown> })?.default ?? {}),
+          ((await importFn()) as { default?: Record<string, unknown> })?.default ?? {},
         );
         namespaces[fileName] = fileMessages;
         // 同时展开到顶层，兼容 `wf.x` / `error.x` 这类跨文件扁平键；
@@ -209,9 +209,7 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   // 在控制台打印警告
   i18n.global.setMissingHandler((locale, key) => {
     if (options.missingWarn && key.includes('.')) {
-      logger.warn(
-        `[intlify] Not found '${key}' key in '${locale}' locale messages.`,
-      );
+      logger.warn(`[intlify] Not found '${key}' key in '${locale}' locale messages.`);
     }
   });
 }
@@ -264,8 +262,7 @@ function loadNamespacedLocalesMap(
         if (!map[locale as SupportedLanguagesType]) {
           map[locale as SupportedLanguagesType] = {};
         }
-        map[locale as SupportedLanguagesType][fileName] =
-          modules[path] as ImportNamespaceFn;
+        map[locale as SupportedLanguagesType][fileName] = modules[path] as ImportNamespaceFn;
       }
     }
   }
@@ -374,10 +371,8 @@ function preloadLocaleOnIdle(
   // requestIdleCallback 类型在部分 TS lib 下可能缺失，做兼容判定
   const ric =
     typeof globalThis !== 'undefined' &&
-    typeof (globalThis as { requestIdleCallback?: unknown }).requestIdleCallback ===
-      'function'
-      ? (globalThis as { requestIdleCallback: typeof requestIdleCallback })
-          .requestIdleCallback
+    typeof (globalThis as { requestIdleCallback?: unknown }).requestIdleCallback === 'function'
+      ? (globalThis as { requestIdleCallback: typeof requestIdleCallback }).requestIdleCallback
       : null;
   if (ric) {
     ric(run, { timeout });

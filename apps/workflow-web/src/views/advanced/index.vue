@@ -18,7 +18,23 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
-import { YdButton, YdCard, YdEmptyState, YdForm, YdFormItem, YdInput, YdSpace, YdCountToAnimator, YdTable, YdTabsContent, YdTabs, YdBadge, YdTableColumn, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSpace,
+  YdCountToAnimator,
+  YdTable,
+  YdTabsContent,
+  YdTabs,
+  YdBadge,
+  YdTableColumn,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -127,7 +143,7 @@ async function handleMergePass(item: Record<string, Record<string, unknown>>) {
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) return;
   try {
-    await YdConfirm(`确认通过合并审批组「${groupId}」？`, { title: '通过确认', type: 'warning', });
+    await YdConfirm(`确认通过合并审批组「${groupId}」？`, { title: '通过确认', type: 'warning' });
   } catch {
     logger.warn('用户取消合并通过操作');
     return;
@@ -147,7 +163,7 @@ async function handleMergeReject(item: Record<string, Record<string, unknown>>) 
   const groupId = String(item?.mergeGroupId ?? item?.id ?? item?.groupId ?? '');
   if (!groupId) return;
   try {
-    await YdConfirm(`确认驳回合并审批组「${groupId}」？`, { title: '驳回确认', type: 'warning', });
+    await YdConfirm(`确认驳回合并审批组「${groupId}」？`, { title: '驳回确认', type: 'warning' });
   } catch {
     logger.warn('用户取消合并驳回操作');
     return;
@@ -297,7 +313,7 @@ async function handleSendMonthly() {
     <YdTabs v-model="activeTab" class="px-4 pt-2" @tab-change="handleTabChange">
       <!-- ==================== Tab 1: 催办中心 ==================== -->
       <YdTabsContent label="催办中心" name="urge">
-        <div class="p-5 space-y-4">
+        <div class="space-y-4 p-5">
           <!-- 查询区域 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
@@ -329,10 +345,13 @@ async function handleSendMonthly() {
                 :value="urgeRemainingSeconds"
                 :value-style="{ color: urgeRemainingSeconds > 0 ? '#e6a23c' : '#67c23a' }"
               />
-              <YdCountToAnimator label="冷却状态" :value="urgeRemainingSeconds > 0 ? '冷却中' : '可催办'" />
+              <YdCountToAnimator
+                label="冷却状态"
+                :value="urgeRemainingSeconds > 0 ? '冷却中' : '可催办'"
+              />
             </YdSpace>
             <div v-if="approvedUserList.length > 0" class="mt-3">
-              <div class="text-xs text-gray-500 mb-1">已审批用户</div>
+              <div class="mb-1 text-xs text-gray-500">已审批用户</div>
               <YdSpace :size="4" wrap>
                 <YdBadge v-for="user in approvedUserList" :key="user" size="small" type="success">
                   {{ user }}
@@ -341,13 +360,17 @@ async function handleSendMonthly() {
             </div>
           </YdCard>
 
-          <YdEmptyState v-if="!urgeCooldownData" description="请输入流程实例 ID 后点击查询" :image-size="80" />
+          <YdEmptyState
+            v-if="!urgeCooldownData"
+            description="请输入流程实例 ID 后点击查询"
+            :image-size="80"
+          />
         </div>
       </YdTabsContent>
 
       <!-- ==================== Tab 2: 合并审批 ==================== -->
       <YdTabsContent label="合并审批" name="merge">
-        <div class="p-5 space-y-4">
+        <div class="space-y-4 p-5">
           <!-- 手动合并 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
@@ -414,11 +437,7 @@ async function handleSendMonthly() {
               <span class="text-sm font-medium text-gray-700">合并组详情</span>
             </template>
             <YdDescriptions :column="2" border size="small">
-              <YdDescriptionsItem
-                v-for="(value, key) in mergeGroupDetail"
-                :key="key"
-                :label="key"
-              >
+              <YdDescriptionsItem v-for="(value, key) in mergeGroupDetail" :key="key" :label="key">
                 {{ typeof value === 'object' ? JSON.stringify(value) : String(value ?? '-') }}
               </YdDescriptionsItem>
             </YdDescriptions>
@@ -428,13 +447,13 @@ async function handleSendMonthly() {
 
       <!-- ==================== Tab 3: 离线转办 ==================== -->
       <YdTabsContent label="离线转办" name="forward">
-        <div class="p-5 space-y-4">
+        <div class="space-y-4 p-5">
           <!-- 自动转办 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
               <span class="text-sm font-medium text-gray-700">自动转办</span>
             </template>
-            <p class="text-xs text-gray-500 mb-3">
+            <p class="mb-3 text-xs text-gray-500">
               基于预设授权规则自动将离线用户的审批任务转交给指定代理人。
             </p>
             <YdForm>
@@ -457,9 +476,7 @@ async function handleSendMonthly() {
             <template #header>
               <span class="text-sm font-medium text-gray-700">手动转办</span>
             </template>
-            <p class="text-xs text-gray-500 mb-3">
-              手动将指定用户的审批任务全部转交给目标用户。
-            </p>
+            <p class="mb-3 text-xs text-gray-500">手动将指定用户的审批任务全部转交给目标用户。</p>
             <YdForm>
               <YdFormItem label="源用户 ID">
                 <YdInput
@@ -495,7 +512,7 @@ async function handleSendMonthly() {
 
       <!-- ==================== Tab 4: 报告推送 ==================== -->
       <YdTabsContent label="报告推送" name="report">
-        <div class="p-5 space-y-4">
+        <div class="space-y-4 p-5">
           <!-- 周报 -->
           <YdCard shadow="never" class="rounded-lg border border-gray-200">
             <template #header>
@@ -515,7 +532,7 @@ async function handleSendMonthly() {
                 :key="key"
                 class="rounded border border-gray-100 bg-gray-50 p-3"
               >
-                <div class="text-xs text-gray-500 mb-1">{{ key }}</div>
+                <div class="mb-1 text-xs text-gray-500">{{ key }}</div>
                 <div class="text-sm font-medium">
                   {{ typeof value === 'object' ? JSON.stringify(value) : String(value ?? '-') }}
                 </div>
@@ -543,7 +560,7 @@ async function handleSendMonthly() {
                 :key="key"
                 class="rounded border border-gray-100 bg-gray-50 p-3"
               >
-                <div class="text-xs text-gray-500 mb-1">{{ key }}</div>
+                <div class="mb-1 text-xs text-gray-500">{{ key }}</div>
                 <div class="text-sm font-medium">
                   {{ typeof value === 'object' ? JSON.stringify(value) : String(value ?? '-') }}
                 </div>

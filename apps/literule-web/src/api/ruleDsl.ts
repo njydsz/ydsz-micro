@@ -16,8 +16,13 @@ import type { RuleDslVO } from './models';
 /**
  * validate: POST /literule/dsl/validate
  */
-export function validate(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/dsl/validate`, data);
+export function validate(
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/dsl/validate`,
+    data,
+  );
 }
 
 /**
@@ -30,6 +35,11 @@ export function parse(data: Record<string, Record<string, unknown>>): Promise<Ru
 /**
  * preview: POST /literule/dsl/preview
  */
-export function preview(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>[]> {
-  return requestClient.post<Record<string, Record<string, unknown>>[]>(`/literule/dsl/preview`, data);
+export function preview(
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>[]> {
+  return requestClient.post<Record<string, Record<string, unknown>>[]>(
+    `/literule/dsl/preview`,
+    data,
+  );
 }

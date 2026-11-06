@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 /**
-* Skeleton.Card：卡片骨架屏模板，带可选图片、标题、文本行与按钮。
-* 
+ * Skeleton.Card：卡片骨架屏模板，带可选图片、标题、文本行与按钮。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\skeleton\YdSkeletonCard.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -33,19 +33,11 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <div :class="cn('rounded-lg border p-3', props.class)">
     <!-- 顶部图片 -->
-    <YdSkeleton
-      v-if="props.image"
-      variant="rectangular"
-      class="mb-3 h-40 w-full"
-    />
+    <YdSkeleton v-if="props.image" variant="rectangular" class="mb-3 h-40 w-full" />
 
     <!-- Header: 头像 + 标题行 -->
     <div class="mb-3 flex items-center gap-2">
-      <YdSkeleton
-        v-if="props.avatar"
-        variant="circular"
-        class="size-8"
-      />
+      <YdSkeleton v-if="props.avatar" variant="circular" class="size-8" />
       <div class="flex-1 space-y-1.5">
         <YdSkeleton variant="text" class="h-3 w-1/2" />
       </div>
@@ -57,15 +49,12 @@ const props = withDefaults(defineProps<Props>(), {
         v-for="(_, idx) in props.lines"
         :key="idx"
         variant="text"
-        :class="cn('h-3', idx === (props.lines - 1) ? 'w-2/3' : 'w-full')"
+        :class="cn('h-3', idx === props.lines - 1 ? 'w-2/3' : 'w-full')"
       />
     </div>
 
     <!-- Footer: 按钮 -->
-    <div
-      v-if="props.actions"
-      class="mt-4 flex gap-2"
-    >
+    <div v-if="props.actions" class="mt-4 flex gap-2">
       <YdSkeleton variant="rounded" class="h-8 w-20" />
       <YdSkeleton variant="rounded" class="h-8 w-16" />
     </div>

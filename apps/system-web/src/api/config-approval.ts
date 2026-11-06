@@ -61,11 +61,12 @@ export interface ConfigApprovalDetail extends ConfigApprovalRecord {
  * @param query - 分页 + 状态筛选参数
  * @returns 分页审批记录
  */
-export function listPendingApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
-  return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/config/approval/pending',
-    { params: query },
-  );
+export function listPendingApprovalApi(
+  query: ConfigApprovalListQuery,
+): Promise<PageResponse<ConfigApprovalRecord[]>> {
+  return requestClient.get<PageResponse<ConfigApprovalRecord[]>>('/config/approval/pending', {
+    params: query,
+  });
 }
 
 /**
@@ -76,11 +77,12 @@ export function listPendingApprovalApi(query: ConfigApprovalListQuery): Promise<
  * @param query - 分页 + 状态筛选参数
  * @returns 分页审批记录
  */
-export function listSubmittedApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
-  return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/config/approval/submitted',
-    { params: query },
-  );
+export function listSubmittedApprovalApi(
+  query: ConfigApprovalListQuery,
+): Promise<PageResponse<ConfigApprovalRecord[]>> {
+  return requestClient.get<PageResponse<ConfigApprovalRecord[]>>('/config/approval/submitted', {
+    params: query,
+  });
 }
 
 /**
@@ -91,11 +93,12 @@ export function listSubmittedApprovalApi(query: ConfigApprovalListQuery): Promis
  * @param query - 分页 + 状态筛选参数
  * @returns 分页审批记录
  */
-export function listAllApprovalApi(query: ConfigApprovalListQuery): Promise<PageResponse<ConfigApprovalRecord[]>> {
-  return requestClient.get<PageResponse<ConfigApprovalRecord[]>>(
-    '/config/approval/list',
-    { params: query },
-  );
+export function listAllApprovalApi(
+  query: ConfigApprovalListQuery,
+): Promise<PageResponse<ConfigApprovalRecord[]>> {
+  return requestClient.get<PageResponse<ConfigApprovalRecord[]>>('/config/approval/list', {
+    params: query,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -161,6 +164,8 @@ export function getApprovalDetailApi(id: string): Promise<ConfigApprovalDetail> 
  *
  * @param data - 配置变更请求 DTO
  */
-export function submitConfigChangeApi(data: SubmitConfigChangeDTO): Promise<{ approvalId: string }> {
+export function submitConfigChangeApi(
+  data: SubmitConfigChangeDTO,
+): Promise<{ approvalId: string }> {
   return requestClient.post<{ approvalId: string }>('/config/approval/submit', data);
 }

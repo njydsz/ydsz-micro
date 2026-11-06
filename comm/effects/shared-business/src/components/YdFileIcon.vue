@@ -28,7 +28,8 @@ const iconClass = computed(() => {
   if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return 'icon-archive';
   if (['mp4', 'avi', 'mov', 'mkv'].includes(ext)) return 'icon-video';
   if (['mp3', 'wav', 'flac'].includes(ext)) return 'icon-audio';
-  if (['js', 'ts', 'java', 'py', 'go', 'json', 'xml', 'yaml', 'yml'].includes(ext)) return 'icon-code';
+  if (['js', 'ts', 'java', 'py', 'go', 'json', 'xml', 'yaml', 'yml'].includes(ext))
+    return 'icon-code';
   return 'icon-file';
 });
 </script>

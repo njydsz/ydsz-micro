@@ -18,10 +18,7 @@ import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { useI18n } from 'vue-i18n';
 
-import {
-  useServerPagination,
-  type ServerPaginationFetcher,
-} from './use-server-pagination';
+import { useServerPagination, type ServerPaginationFetcher } from './use-server-pagination';
 
 /**
  * 删除函数类型
@@ -101,16 +98,8 @@ export function useCrudTable<T = unknown, Q = Record<string, unknown>>(
   const { t } = useI18n();
   const { fetcher, deleteFetcher, deleteMessage, rowKey = 'id', pageSize = 10 } = options;
 
-  const {
-    changePage,
-    changePageSize,
-    fetchData,
-    items,
-    loading,
-    pagination,
-    search,
-    total,
-  } = useServerPagination<T, Q>(fetcher, {} as Q, { pageSize });
+  const { changePage, changePageSize, fetchData, items, loading, pagination, search, total } =
+    useServerPagination<T, Q>(fetcher, {} as Q, { pageSize });
 
   /** 弹窗状态 */
   const dialogVisible = ref(false);

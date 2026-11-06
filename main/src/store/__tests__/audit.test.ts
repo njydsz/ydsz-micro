@@ -110,9 +110,7 @@ describe('useAuditStore', () => {
       const store = useAuditStore();
       await store.fetchLogs({ pageNum: 3 });
 
-      expect(mockListAuditLogs).toHaveBeenCalledWith(
-        expect.objectContaining({ pageNum: 3 }),
-      );
+      expect(mockListAuditLogs).toHaveBeenCalledWith(expect.objectContaining({ pageNum: 3 }));
       expect(store.filters.pageNum).toBe(3);
     });
 
@@ -161,9 +159,7 @@ describe('useAuditStore', () => {
 
       // 验证 fetchLogs 被调用
       expect(mockListAuditLogs).toHaveBeenCalledTimes(1);
-      expect(mockListAuditLogs).toHaveBeenCalledWith(
-        expect.objectContaining({ pageNum: 1 }),
-      );
+      expect(mockListAuditLogs).toHaveBeenCalledWith(expect.objectContaining({ pageNum: 1 }));
     });
   });
 

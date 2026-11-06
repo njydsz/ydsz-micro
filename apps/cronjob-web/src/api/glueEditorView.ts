@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * index: GET //cronjob/glue-editor.html
  */

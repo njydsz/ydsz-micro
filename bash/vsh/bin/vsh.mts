@@ -132,15 +132,11 @@ async function main() {
       process.exit(1);
     }
     case 'check-standard': {
-      const { checkStandard, reportStandard } = await import(
-        '../src/check-standard/index.ts'
-      );
+      const { checkStandard, reportStandard } = await import('../src/check-standard/index.ts');
       const violations = checkStandard({ rootDir });
       reportStandard(violations, await countScanFiles(rootDir));
       // 退出策略：P0（阻断）/ P1（严重）计入失败，P2 仅提示不阻断
-      const blocking = violations.filter(
-        (v) => v.severity === 'P0' || v.severity === 'P1',
-      );
+      const blocking = violations.filter((v) => v.severity === 'P0' || v.severity === 'P1');
       if (blocking.length === 0) {
         console.log('✅ 规范合规检查通过（P0/P1 零违规）');
         process.exit(0);
@@ -150,7 +146,9 @@ async function main() {
     }
     default: {
       console.error(`未知命令: ${command ?? '(空)'}`);
-      console.error('可用命令: check-arch, check-bundle, check-circular, check-dep, check-standard, code-workspace, publint');
+      console.error(
+        '可用命令: check-arch, check-bundle, check-circular, check-dep, check-standard, code-workspace, publint',
+      );
       process.exit(2);
     }
   }
@@ -166,8 +164,15 @@ async function countScanFiles(rootDir) {
   const { readdirSync, statSync } = await import('node:fs');
   const { join } = await import('node:path');
   const skip = new Set([
-    'node_modules', 'dist', 'coverage', '.turbo', '.git',
-    'build', '.output', 'public', 'vendor',
+    'node_modules',
+    'dist',
+    'coverage',
+    '.turbo',
+    '.git',
+    'build',
+    '.output',
+    'public',
+    'vendor',
   ]);
   const counts = { ts: 0, vue: 0 };
   /**

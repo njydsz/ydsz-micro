@@ -11,12 +11,12 @@
 -->
 <script setup lang="ts">
 /** 静态 SVG 资源地址（new URL + import.meta.url 由 Vite 构建期解析，无需类型声明） */
-const sloganUrl = new URL("./slogan.svg", import.meta.url).href;
+const sloganUrl = new URL('./slogan.svg', import.meta.url).href;
 
 /** 无障碍替代文本（由父组件注入，如应用名） */
 defineProps<{ alt?: string }>();
 </script>
 
 <template>
-  <img :src="sloganUrl" :alt="alt ?? 'slogan'"  loading="lazy"/>
+  <img :src="sloganUrl" :alt="alt ?? 'slogan'" loading="lazy" />
 </template>

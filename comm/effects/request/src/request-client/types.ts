@@ -21,11 +21,7 @@ type ExtendOptions<T = unknown> = {
    * - repeat: ids=1&ids=2&ids=3
    */
   paramsSerializer?:
-    | 'brackets'
-    | 'comma'
-    | 'indices'
-    | 'repeat'
-    | AxiosRequestConfig<T>['paramsSerializer'];
+    'brackets' | 'comma' | 'indices' | 'repeat' | AxiosRequestConfig<T>['paramsSerializer'];
   /**
    * 响应数据的返回方式。
    * - raw: 原始的AxiosResponse，包括headers、status等，不做是否成功请求的检查。
@@ -107,9 +103,7 @@ interface RequestInterceptorConfig {
 }
 
 interface ResponseInterceptorConfig<T = unknown> {
-  fulfilled?: (
-    response: RequestResponse<T>,
-  ) => Promise<RequestResponse> | RequestResponse;
+  fulfilled?: (response: RequestResponse<T>) => Promise<RequestResponse> | RequestResponse;
   rejected?: (error: unknown) => unknown;
 }
 

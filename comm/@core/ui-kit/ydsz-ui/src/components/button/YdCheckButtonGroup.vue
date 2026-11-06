@@ -51,8 +51,7 @@ watch(
     if (val) {
       modelValue.value = innerValue.value;
     } else {
-      modelValue.value =
-        innerValue.value.length > 0 ? innerValue.value[0] : undefined;
+      modelValue.value = innerValue.value.length > 0 ? innerValue.value[0] : undefined;
     }
   },
 );
@@ -63,9 +62,7 @@ watch(
     if (Array.isArray(val)) {
       const arrVal = val.filter((v) => v !== undefined);
       if (arrVal.length > 0) {
-        innerValue.value = props.multiple
-          ? [...arrVal]
-          : [arrVal[0] as ValueType];
+        innerValue.value = props.multiple ? [...arrVal] : [arrVal[0] as ValueType];
       } else {
         innerValue.value = [];
       }
@@ -80,10 +77,7 @@ async function onBtnClick(value: ValueType) {
   if (props.beforeChange && isFunction(props.beforeChange)) {
     try {
       loadingValues.value.push(value);
-      const canChange = await props.beforeChange(
-        value,
-        !innerValue.value.includes(value),
-      );
+      const canChange = await props.beforeChange(value, !innerValue.value.includes(value));
       if (canChange === false) {
         return;
       }
@@ -117,11 +111,7 @@ async function onBtnClick(value: ValueType) {
 }
 </script>
 <template>
-  <YdButtonGroup
-    :size="props.size"
-    :gap="props.gap"
-    class="yd-check-button-group"
-  >
+  <YdButtonGroup :size="props.size" :gap="props.gap" class="yd-check-button-group">
     <YdButtonSmart
       v-for="(btn, index) in props.options"
       :key="btn.value ?? `btn-${index}`"
@@ -142,10 +132,7 @@ async function onBtnClick(value: ValueType) {
           :loading="loadingValues.includes(btn.value)"
           :checked="innerValue.includes(btn.value)"
         >
-          <LoaderCircle
-            class="animate-spin"
-            v-if="loadingValues.includes(btn.value)"
-          />
+          <LoaderCircle class="animate-spin" v-if="loadingValues.includes(btn.value)" />
           <CircleCheckBig v-else-if="innerValue.includes(btn.value)" />
           <Circle v-else />
         </slot>
@@ -206,4 +193,3 @@ async function onBtnClick(value: ValueType) {
   }
 }
 </style>
-

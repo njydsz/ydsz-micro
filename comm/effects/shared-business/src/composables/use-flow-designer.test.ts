@@ -93,14 +93,10 @@ describe('use-flow-designer', () => {
     designer.selectNode(mockNodes[1]);
 
     // Ctrl+C — 源码把节点写入模块级剪贴板，不直接调 controls.copyNode
-    window.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'c', ctrlKey: true }),
-    );
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'c', ctrlKey: true }));
 
     // Ctrl+V — 源码从模块级剪贴板取出节点调 controls.pasteNode()
-    window.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'v', ctrlKey: true }),
-    );
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'v', ctrlKey: true }));
 
     // 验证整个复制-粘贴链路连通
     expect(controls.pasteNode).toHaveBeenCalled();
@@ -111,9 +107,7 @@ describe('use-flow-designer', () => {
     const controls = createMockControls();
     useFlowDesigner({ controls, nodes: mockNodes });
 
-    window.dispatchEvent(
-      new KeyboardEvent('keydown', { key: '0', ctrlKey: true }),
-    );
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '0', ctrlKey: true }));
 
     expect(controls.center).toHaveBeenCalled();
   });
@@ -123,9 +117,7 @@ describe('use-flow-designer', () => {
     const controls = createMockControls();
     useFlowDesigner({ controls, nodes: mockNodes });
 
-    window.dispatchEvent(
-      new KeyboardEvent('keydown', { key: '=', ctrlKey: true }),
-    );
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '=', ctrlKey: true }));
 
     expect(controls.zoom).toHaveBeenCalledWith(0.1);
   });
@@ -135,9 +127,7 @@ describe('use-flow-designer', () => {
     const controls = createMockControls();
     useFlowDesigner({ controls, nodes: mockNodes });
 
-    window.dispatchEvent(
-      new KeyboardEvent('keydown', { key: '-', ctrlKey: true }),
-    );
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: '-', ctrlKey: true }));
 
     expect(controls.zoom).toHaveBeenCalledWith(-0.1);
   });
@@ -159,10 +149,7 @@ describe('use-flow-designer', () => {
 
     designer.destroy();
 
-    expect(removeEventListenerSpy).toHaveBeenCalledWith(
-      'keydown',
-      expect.any(Function),
-    );
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function));
   });
 
   it('边界路径：在 INPUT/TEXTAREA 中按 Delete 不应触删节点删除', async () => {
@@ -189,9 +176,7 @@ describe('use-flow-designer', () => {
     const controls = createMockControls();
     useFlowDesigner({ controls, enableShortcuts: false, nodes: mockNodes });
 
-    const keydownListeners = addEventListenerSpy.mock.calls.filter(
-      (call) => call[0] === 'keydown',
-    );
+    const keydownListeners = addEventListenerSpy.mock.calls.filter((call) => call[0] === 'keydown');
     expect(keydownListeners.length).toBe(0);
   });
 });

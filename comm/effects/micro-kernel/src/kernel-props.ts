@@ -8,15 +8,15 @@
  * @since 4.2.1
  */
 
-import type { MicroAppConfig, MountProps } from "@ydsz/micro-runtime";
+import type { MicroAppConfig, MountProps } from '@ydsz/micro-runtime';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { loadApp } from "./loader";
-import { getAllInstances, getAppInstance, updateAppProps } from "./scheduler";
+import { loadApp } from './loader';
+import { getAllInstances, getAppInstance, updateAppProps } from './scheduler';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Props");
+const logger = createLogger('MicroKernel:Props');
 
 /**
  * Props 更新所需的依赖。
@@ -39,16 +39,13 @@ export function createPropsFunctions(ctx: PropsContext) {
    * 运行时更新已挂载子应用的 props（P1-1）。
    * 当主应用需要向子应用注入新数据时，通过此方法通知子应用 update 生命周期。
    */
-  async function updateApp(
-    name: string,
-    newProps: Record<string, unknown>,
-  ): Promise<boolean> {
+  async function updateApp(name: string, newProps: Record<string, unknown>): Promise<boolean> {
     const instance = getAppInstance(name);
     if (!instance) {
       logger.warn(`updateApp: app "${name}" not registered`);
       return false;
     }
-    if (instance.status !== "MOUNTED") {
+    if (instance.status !== 'MOUNTED') {
       logger.debug(`updateApp: app "${name}" not mounted (status=${instance.status}), skip`);
       return false;
     }
@@ -71,7 +68,7 @@ export function createPropsFunctions(ctx: PropsContext) {
   ): Promise<Record<string, boolean>> {
     const results: Record<string, boolean> = {};
     for (const instance of getAllInstances()) {
-      if (instance.status !== "MOUNTED") continue;
+      if (instance.status !== 'MOUNTED') continue;
       results[instance.config.name] = false;
       try {
         instance.config.props = { ...instance.config.props, ...newProps };

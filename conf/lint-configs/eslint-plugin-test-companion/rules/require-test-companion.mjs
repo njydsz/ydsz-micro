@@ -27,11 +27,7 @@ const TARGET_PATTERNS = [
 ];
 
 /** baseline.json 位于插件包根目录（与 rules 目录同级） */
-const BASELINE_PATH = join(
-  dirname(fileURLToPath(import.meta.url)),
-  '..',
-  'baseline.json',
-);
+const BASELINE_PATH = join(dirname(fileURLToPath(import.meta.url)), '..', 'baseline.json');
 
 /**
  * 读取存量债务名单（仓库相对路径，正斜杠）。
@@ -45,8 +41,7 @@ function readBaseline() {
   try {
     const raw = JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
     return new Set(Array.isArray(raw) ? raw : []);
-  }
-  catch {
+  } catch {
     return new Set();
   }
 }
@@ -84,8 +79,7 @@ export default {
         '要求 apps/*/src/views 和 apps/*/src/components 下的 .vue 文件拥有 .test.ts 伴生文件',
     },
     messages: {
-      missingTestCompanion:
-        '组件 {{ filename }} 缺少测试伴生文件 {{ basename }}.test.ts',
+      missingTestCompanion: '组件 {{ filename }} 缺少测试伴生文件 {{ basename }}.test.ts',
     },
     schema: [],
   },

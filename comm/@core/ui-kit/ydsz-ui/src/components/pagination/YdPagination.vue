@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Pagination 分页：页码切换控件。
-* 
+ * Pagination 分页：页码切换控件。
+ *
  * 与 Ant Design Pagination 对齐：页码列表 + 上/下一页 + 每页条数跳转。
  * 简化模式（simple）只显示输入框跳转。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\pagination\YdPagination.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -13,7 +13,13 @@
 import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-vue-next';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  MoreHorizontal,
+} from 'lucide-vue-next';
 
 import { useLocale } from '../../locale/useLocale';
 import { YdSelect } from '.././select';
@@ -119,7 +125,7 @@ function handlePageSizeChange(size: number): void {
 <template>
   <div :class="cn('flex items-center gap-2', props.class)">
     <!-- 总数 -->
-    <span v-if="props.showTotal" class="text-sm text-muted-foreground">
+    <span v-if="props.showTotal" class="text-muted-foreground text-sm">
       {{ t('pagination.total', { count: props.total }) }}
     </span>
 
@@ -128,9 +134,7 @@ function handlePageSizeChange(size: number): void {
       :class="
         cn(
           'flex size-8 items-center justify-center rounded-md border text-sm transition-colors',
-          props.current <= 1 || props.disabled
-            ? 'cursor-not-allowed opacity-40'
-            : 'hover:bg-muted',
+          props.current <= 1 || props.disabled ? 'cursor-not-allowed opacity-40' : 'hover:bg-muted',
         )
       "
       :disabled="props.current <= 1 || props.disabled"
@@ -144,7 +148,10 @@ function handlePageSizeChange(size: number): void {
     <!-- 页码列表 -->
     <div class="flex items-center gap-1">
       <template v-for="(p, i) in pageList" :key="i">
-        <span v-if="p === 'ellipsis'" class="inline-flex size-8 justify-center text-muted-foreground">
+        <span
+          v-if="p === 'ellipsis'"
+          class="text-muted-foreground inline-flex size-8 justify-center"
+        >
           <MoreHorizontal class="size-4" />
         </span>
         <button
@@ -153,7 +160,7 @@ function handlePageSizeChange(size: number): void {
             cn(
               'inline-flex size-8 items-center justify-center rounded-md text-sm transition-colors',
               p === props.current
-                ? 'bg-primary font-medium text-primary-foreground'
+                ? 'bg-primary text-primary-foreground font-medium'
                 : 'hover:bg-muted',
             )
           "

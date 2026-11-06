@@ -147,7 +147,11 @@ export function useTimePicker(options: UseTimePickerOptions = {}): UseTimePicker
    * @param isDisabled — 是否禁用的判定函数
    * @returns 选项列表
    */
-  function buildOptions(max: number, step: number, isDisabled: (v: number) => boolean): TimeOption[] {
+  function buildOptions(
+    max: number,
+    step: number,
+    isDisabled: (v: number) => boolean,
+  ): TimeOption[] {
     const opts: TimeOption[] = [];
     for (let v = 0; v <= max; v += step) {
       opts.push({ value: v, label: String(v).padStart(2, '0'), disabled: isDisabled(v) });

@@ -18,9 +18,7 @@ import { requestClient } from './request-setup';
  * @returns 用户有权限访问的路由组件列表
  */
 export async function getAllMenusApi() {
-  return requestClient.get<RouteRecordStringComponent[]>(
-    '/api/menu/routes',
-  );
+  return requestClient.get<RouteRecordStringComponent[]>('/api/menu/routes');
 }
 
 /**
@@ -29,7 +27,5 @@ export async function getAllMenusApi() {
  * @returns 完整菜单树列表
  */
 export async function getMenuTreeApi() {
-  return requestClient.get<RouteRecordStringComponent[]>(
-    '/api/menu/tree',
-  );
+  return requestClient.get<RouteRecordStringComponent[]>('/api/menu/tree');
 }

@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * stream: GET /cronjob/log/stream/{logId}
  *
@@ -21,8 +20,6 @@ import { requestClient } from '#/api/request';
  * 无法在生成期推导出稳定字段，故不使用 any，退守为 unknown。
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
-export function stream({ logId }: {
-    logId: string;
-  }): Promise<unknown> {
+export function stream({ logId }: { logId: string }): Promise<unknown> {
   return requestClient.get<unknown>(`/cronjob/log/stream/${logId}`);
 }

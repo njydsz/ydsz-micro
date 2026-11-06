@@ -15,9 +15,19 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdTable,
+  YdTableColumn,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -100,35 +110,37 @@ onMounted(() => {
   <Page v-loading="isLoading" auto-content-height>
     <!-- 统计概览 -->
     <div class="mb-4 grid grid-cols-1 gap-5 md:grid-cols-3">
-      <YdCard class="shadow-sm hover:shadow-md transition-shadow">
+      <YdCard class="shadow-sm transition-shadow hover:shadow-md">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-sm text-muted-foreground">设备总数</p>
+            <p class="text-muted-foreground text-sm">设备总数</p>
             <p class="mt-1 text-2xl font-bold text-blue-600">{{ totalDevices }}</p>
           </div>
-          <div class="rounded-full bg-blue-50 dark:bg-blue-950 p-3">
+          <div class="rounded-full bg-blue-50 p-3 dark:bg-blue-950">
             <span class="text-2xl text-blue-500">📱</span>
           </div>
         </YdCardContent>
       </YdCard>
-      <YdCard class="shadow-sm hover:shadow-md transition-shadow">
+      <YdCard class="shadow-sm transition-shadow hover:shadow-md">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-sm text-muted-foreground">当前会话</p>
+            <p class="text-muted-foreground text-sm">当前会话</p>
             <p class="mt-1 truncate text-sm text-green-600">{{ currentSessionId ?? '-' }}</p>
           </div>
-          <div class="rounded-full bg-green-50 dark:bg-green-950 p-3">
+          <div class="rounded-full bg-green-50 p-3 dark:bg-green-950">
             <span class="text-2xl text-green-500">🟢</span>
           </div>
         </YdCardContent>
       </YdCard>
-      <YdCard class="shadow-sm hover:shadow-md transition-shadow">
+      <YdCard class="shadow-sm transition-shadow hover:shadow-md">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-sm text-muted-foreground">设备类型</p>
-            <p class="mt-1 text-2xl font-bold text-purple-600">{{ devices.filter((d) => d.deviceType).length }}</p>
+            <p class="text-muted-foreground text-sm">设备类型</p>
+            <p class="mt-1 text-2xl font-bold text-purple-600">
+              {{ devices.filter((d) => d.deviceType).length }}
+            </p>
           </div>
-          <div class="rounded-full bg-purple-50 dark:bg-purple-950 p-3">
+          <div class="rounded-full bg-purple-50 p-3 dark:bg-purple-950">
             <span class="text-2xl text-purple-500">💻</span>
           </div>
         </YdCardContent>
@@ -139,9 +151,7 @@ onMounted(() => {
     <YdCard>
       <YdCardHeader class="flex flex-row items-center justify-between">
         <YdCardTitle>我的设备</YdCardTitle>
-        <YdButton size="sm" variant="outline" @click="loadDevices">
-          刷新
-        </YdButton>
+        <YdButton size="sm" variant="outline" @click="loadDevices"> 刷新 </YdButton>
       </YdCardHeader>
       <YdTable :data="devices" border>
         <YdTableColumn prop="sessionId" label="会话ID" width="140" />
@@ -154,12 +164,21 @@ onMounted(() => {
         </YdTableColumn>
         <YdTableColumn prop="loginIp" label="登录IP" width="140" />
         <YdTableColumn prop="location" label="归属地" width="120" />
-        <YdTableColumn prop="deviceFingerprint" label="设备指纹" minWidth="180" show-overflow-tooltip />
+        <YdTableColumn
+          prop="deviceFingerprint"
+          label="设备指纹"
+          minWidth="180"
+          show-overflow-tooltip
+        />
         <YdTableColumn prop="loginTime" label="登录时间" width="170" />
         <YdTableColumn prop="lastActiveTime" label="最后活跃" width="170" />
         <YdTableColumn label="会话状态" width="100" align="center">
           <template #default="{ row }">
-            <YdBadge v-if="row.currentSession" class="bg-green-500 text-white hover:bg-green-600 text-xs">当前会话</YdBadge>
+            <YdBadge
+              v-if="row.currentSession"
+              class="bg-green-500 text-xs text-white hover:bg-green-600"
+              >当前会话</YdBadge
+            >
             <YdBadge v-else variant="secondary" class="text-xs">活跃</YdBadge>
           </template>
         </YdTableColumn>

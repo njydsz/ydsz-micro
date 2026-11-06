@@ -160,11 +160,16 @@ export function getPerfStats(): {
   }
   try {
     const marks = performance.getEntriesByType('mark').filter((e) => e.name.startsWith('kernel:'));
-    const measures = performance.getEntriesByType('measure').filter((e) => e.name.startsWith('kernel:'));
+    const measures = performance
+      .getEntriesByType('measure')
+      .filter((e) => e.name.startsWith('kernel:'));
     return {
       markCount: marks.length,
       measureCount: measures.length,
-      measures: measures.map((m) => ({ name: m.name, duration: Math.round(m.duration * 100) / 100 })),
+      measures: measures.map((m) => ({
+        name: m.name,
+        duration: Math.round(m.duration * 100) / 100,
+      })),
     };
   } catch {
     return { markCount: 0, measureCount: 0, measures: [] };
@@ -199,5 +204,5 @@ export function createPerformanceManager(): DisposableManager {
       clearKernelMarks();
     },
   };
-}import type { DisposableManager } from "./manager-registry";
-
+}
+import type { DisposableManager } from './manager-registry';

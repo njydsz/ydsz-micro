@@ -46,4 +46,3 @@ isFullscreen.value = !!(
     <Maximize v-else class="text-foreground size-4" aria-hidden="true" />
   </YdIconButton>
 </template>
-

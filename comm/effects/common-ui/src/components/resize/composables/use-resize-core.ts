@@ -91,9 +91,7 @@ export function stickMove(
       if (state.snapToGrid.value) {
         newBottom =
           (state.parentHeight.value as number) -
-          Math.round(
-            ((state.parentHeight.value as number) - newBottom) / state.gridY.value,
-          ) *
+          Math.round(((state.parentHeight.value as number) - newBottom) / state.gridY.value) *
             state.gridY.value;
       }
 
@@ -231,12 +229,10 @@ export function createStickStyles(
       width: `${stickSize.value / parentScaleX.value}px`,
       height: `${stickSize.value / parentScaleY.value}px`,
     };
-    stickStyle[
-      styleMapping.y[stick[0] as 'b' | 'm' | 't'] as 'height' | 'width'
-    ] = `${stickSize.value / parentScaleX.value / -2}px`;
-    stickStyle[
-      styleMapping.x[stick[1] as 'l' | 'm' | 'r'] as 'height' | 'width'
-    ] = `${stickSize.value / parentScaleX.value / -2}px`;
+    stickStyle[styleMapping.y[stick[0] as 'b' | 'm' | 't'] as 'height' | 'width'] =
+      `${stickSize.value / parentScaleX.value / -2}px`;
+    stickStyle[styleMapping.x[stick[1] as 'l' | 'm' | 'r'] as 'height' | 'width'] =
+      `${stickSize.value / parentScaleX.value / -2}px`;
     return stickStyle;
   });
 }
@@ -352,12 +348,7 @@ export function bodyUp(
 }
 
 /** 取消选择处理 */
-export function deselect(
-  state: {
-    preventActiveBehavior: Ref<boolean>;
-    active: Ref<boolean>;
-  },
-) {
+export function deselect(state: { preventActiveBehavior: Ref<boolean>; active: Ref<boolean> }) {
   if (state.preventActiveBehavior.value) {
     return;
   }

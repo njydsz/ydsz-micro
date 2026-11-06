@@ -43,20 +43,25 @@ export function exportLogs(query?: MessageLogQueryDTO): Promise<void> {
 /**
  * cancelScheduled: POST /message/cancelScheduled
  */
-export function cancelScheduled(params: {
-    msgId?: string;
-  }): Promise<MessageSendResultVO> {
+export function cancelScheduled(params: { msgId?: string }): Promise<MessageSendResultVO> {
   return requestClient.post<MessageSendResultVO>(`/message/cancelScheduled`, null, { params });
 }
 
 /**
  * batchProgress: GET /message/batch/{batchId}/progress
  */
-export function batchProgress({ batchId }: {
+export function batchProgress(
+  {
+    batchId,
+  }: {
     batchId: string;
-  }, params: {
+  },
+  params: {
     page?: number;
     size?: number;
-  }): Promise<PageResponse<MsgLogVO[]>> {
-  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/batch/${batchId}/progress`, { params });
+  },
+): Promise<PageResponse<MsgLogVO[]>> {
+  return requestClient.get<PageResponse<MsgLogVO[]>>(`/message/batch/${batchId}/progress`, {
+    params,
+  });
 }

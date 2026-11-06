@@ -51,5 +51,8 @@
     "happy-dom": "catalog:",
     "@playwright/test": "catalog:"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "YDSZ": {
+    "shareStrategy": "core-ui"
+  }
 }

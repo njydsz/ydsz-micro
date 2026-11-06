@@ -116,9 +116,7 @@ function getDepth(column: TableColumn): number {
  * // ]
  * ```
  */
-export function useTableGroupHeader(
-  columns: MaybeRefOrGetter<TableColumn[]>,
-): GroupHeaderResult {
+export function useTableGroupHeader(columns: MaybeRefOrGetter<TableColumn[]>): GroupHeaderResult {
   /** 全部叶子列（只读） */
   const flatColumnsLeaf = computed<ReadonlyArray<TableColumn>>(() => {
     const result: TableColumn[] = [];

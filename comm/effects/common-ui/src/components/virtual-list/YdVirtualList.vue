@@ -24,13 +24,7 @@
  * @since 26.10.02
 -->
 <script setup lang="ts" generic="T">
-import {
-  computed,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  useTemplateRef,
-} from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 import { $t } from '@ydsz/locales';
@@ -148,7 +142,9 @@ onBeforeUnmount(() => {
   <!-- 空的兜底态 -->
   <div
     v-if="items.length === 0"
-    :class="cn('flex size-full items-center justify-center text-sm text-text-secondary', containerClass)"
+    :class="
+      cn('text-text-secondary flex size-full items-center justify-center text-sm', containerClass)
+    "
   >
     {{ emptyText ?? $t('ui.commonAction.empty') }}
   </div>
@@ -163,10 +159,7 @@ onBeforeUnmount(() => {
     <!-- 总高度占位（撑起滚动条） -->
     <div class="relative w-full" :style="{ height: `${totalHeight}px` }">
       <!-- 可视区域 — translateY 定位到正确的位置 -->
-      <div
-        class="absolute inset-x-0 top-0"
-        :style="{ transform: `translateY(${translateY}px)` }"
-      >
+      <div class="absolute inset-x-0 top-0" :style="{ transform: `translateY(${translateY}px)` }">
         <!-- 渲染可见行 -->
         <div
           v-for="(item, index) in visibleItems"

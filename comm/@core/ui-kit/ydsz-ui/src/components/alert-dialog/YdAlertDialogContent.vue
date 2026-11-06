@@ -13,10 +13,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  AlertDialogContentEmits,
-  AlertDialogContentProps,
-} from '@ydsz-core/ydsz-vue';
+import type { AlertDialogContentEmits, AlertDialogContentProps } from '@ydsz-core/ydsz-vue';
 
 import type { ClassType } from '@ydsz-core/typings';
 
@@ -24,11 +21,7 @@ import { computed, onMounted, ref } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  AlertDialogContent,
-  AlertDialogPortal,
-  useForwardPropsEmits,
-} from '@ydsz-core/ydsz-vue';
+import { AlertDialogContent, AlertDialogPortal, useForwardPropsEmits } from '@ydsz-core/ydsz-vue';
 
 import YdAlertDialogOverlay from './YdAlertDialogOverlay.vue';
 
@@ -45,9 +38,7 @@ const props = withDefaults(
   >(),
   { modal: true },
 );
-const emits = defineEmits<
-  AlertDialogContentEmits & { close: []; closed: []; opened: [] }
->();
+const emits = defineEmits<AlertDialogContentEmits & { close: []; closed: []; opened: [] }>();
 
 const delegatedProps = computed(() => {
   const { class: _, modal: _modal, open: _open, ...delegated } = props;
@@ -87,8 +78,7 @@ defineExpose({
         :style="{
           ...(zIndex ? { zIndex } : {}),
           position: 'fixed',
-          backdropFilter:
-            overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
+          backdropFilter: overlayBlur && overlayBlur > 0 ? `blur(${overlayBlur}px)` : 'none',
         }"
         @click="() => emits('close')"
       />

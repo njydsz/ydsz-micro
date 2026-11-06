@@ -55,10 +55,7 @@ export async function setupSharedAuth(appName: string): Promise<void> {
         // 同步清空过期时间戳，避免登出后仍触发会话超时预警
         tokenStore.setExpiresAt(null);
       }
-      if (
-        preferences.app.loginExpiredMode === 'modal' &&
-        accessStore.isAccessChecked
-      ) {
+      if (preferences.app.loginExpiredMode === 'modal' && accessStore.isAccessChecked) {
         tokenStore.setLoginExpired(true);
       } else {
         resetAllStores();
@@ -76,8 +73,7 @@ export async function setupSharedAuth(appName: string): Promise<void> {
       if (!refreshToken) return null;
       try {
         const resp = await refreshTokenApi(refreshToken);
-        const newToken =
-          resp.data?.accessToken || (resp.data as unknown as string);
+        const newToken = resp.data?.accessToken || (resp.data as unknown as string);
         let newExpiresAt: null | number = null;
         if (typeof newToken === 'string') {
           tokenStore.setAccessToken(newToken);

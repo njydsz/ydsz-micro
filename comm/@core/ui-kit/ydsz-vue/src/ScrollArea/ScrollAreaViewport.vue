@@ -1,44 +1,44 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
-import { useNonce } from '../shared/useNonce.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
+import { useNonce } from '../shared/useNonce.ts';
 
 export interface ScrollAreaViewportProps extends PrimitiveProps {
   /**
    * Will add `nonce` attribute to the style tag which can be used by Content Security Policy. <br> If omitted, inherits globally from `ConfigProvider`.
    */
-  nonce?: string
+  nonce?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, toRefs } from 'vue'
-import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import { Primitive } from '../Primitive/index.ts'
+import { onMounted, ref, toRefs } from 'vue';
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
-const props = defineProps<ScrollAreaViewportProps>()
+const props = defineProps<ScrollAreaViewportProps>();
 
-const { nonce: propNonce } = toRefs(props)
-const nonce = useNonce(propNonce)
+const { nonce: propNonce } = toRefs(props);
+const nonce = useNonce(propNonce);
 
-const rootContext = injectScrollAreaRootContext()
+const rootContext = injectScrollAreaRootContext();
 
-const viewportElement = ref<HTMLElement>()
+const viewportElement = ref<HTMLElement>();
 
 onMounted(() => {
-  rootContext.onViewportChange(viewportElement.value!)
-  rootContext.onContentChange(contentElement.value!)
-})
+  rootContext.onViewportChange(viewportElement.value!);
+  rootContext.onContentChange(contentElement.value!);
+});
 
 defineExpose({
   viewportElement,
-})
-const { forwardRef, currentElement: contentElement } = useForwardExpose()
+});
+const { forwardRef, currentElement: contentElement } = useForwardExpose();
 </script>
 
 <template>
@@ -81,20 +81,10 @@ const { forwardRef, currentElement: contentElement } = useForwardExpose()
       <slot />
     </Primitive>
   </div>
-  <Primitive
-    as="style"
-    :nonce="nonce"
-  >
-    /* Hide scrollbars cross-browser and enable momentum scroll for touch
-    devices */
-    [data-radix-scroll-area-viewport] {
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    -webkit-overflow-scrolling:touch;
-    }
-
-    [data-radix-scroll-area-viewport]::-webkit-scrollbar {
-    display:none;
-    }
+  <Primitive as="style" :nonce="nonce">
+    /* Hide scrollbars cross-browser and enable momentum scroll for touch devices */
+    [data-radix-scroll-area-viewport] { scrollbar-width:none; -ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch; } [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+    display:none; }
   </Primitive>
 </template>

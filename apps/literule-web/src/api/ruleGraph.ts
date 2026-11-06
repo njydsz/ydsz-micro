@@ -11,68 +11,95 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { ExpressionFunctionDefVO, ExpressionPreviewResultVO, RuleChainGraph, RuleChainGraphVO, RuleResultVO, StringVO } from './models';
+import type {
+  ExpressionFunctionDefVO,
+  ExpressionPreviewResultVO,
+  RuleChainGraph,
+  RuleChainGraphVO,
+  RuleResultVO,
+  StringVO,
+} from './models';
 
 /**
  * getChainGraph: GET /literule/rules/{ruleCode}/graph
  */
-export function getChainGraph({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<RuleChainGraphVO> {
+export function getChainGraph({ ruleCode }: { ruleCode: string }): Promise<RuleChainGraphVO> {
   return requestClient.get<RuleChainGraphVO>(`/literule/rules/${ruleCode}/graph`);
 }
 
 /**
  * saveChainGraph: POST /literule/rules/{ruleCode}/graph
  */
-export function saveChainGraph({ ruleCode }: {
+export function saveChainGraph(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: RuleChainGraph): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/rules/${ruleCode}/graph`, data);
+  },
+  data: RuleChainGraph,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/rules/${ruleCode}/graph`,
+    data,
+  );
 }
 
 /**
  * deleteChainGraph: DELETE /literule/rules/{ruleCode}/graph
  */
-export function deleteChainGraph({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<void> {
+export function deleteChainGraph({ ruleCode }: { ruleCode: string }): Promise<void> {
   return requestClient.delete<void>(`/literule/rules/${ruleCode}/graph`);
 }
 
 /**
  * validateChainGraph: POST /literule/rules/{ruleCode}/graph/validate
  */
-export function validateChainGraph({ ruleCode }: {
+export function validateChainGraph(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: RuleChainGraph): Promise<Record<string, unknown>[]> {
-  return requestClient.post<Record<string, unknown>[]>(`/literule/rules/${ruleCode}/graph/validate`, data);
+  },
+  data: RuleChainGraph,
+): Promise<Record<string, unknown>[]> {
+  return requestClient.post<Record<string, unknown>[]>(
+    `/literule/rules/${ruleCode}/graph/validate`,
+    data,
+  );
 }
 
 /**
  * previewExpression: POST /literule/rules/expression-preview
  */
-export function previewExpression(params: {
+export function previewExpression(
+  params: {
     expression?: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<ExpressionPreviewResultVO> {
-  return requestClient.post<ExpressionPreviewResultVO>(`/literule/rules/expression-preview`, data, { params });
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<ExpressionPreviewResultVO> {
+  return requestClient.post<ExpressionPreviewResultVO>(`/literule/rules/expression-preview`, data, {
+    params,
+  });
 }
 
 /**
  * dryRunGraph: POST /literule/rules/{ruleCode}/graph/dry-run
  */
-export function dryRunGraph({ ruleCode }: {
+export function dryRunGraph(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: Record<string, Record<string, unknown>>): Promise<RuleResultVO[]> {
+  },
+  data: Record<string, Record<string, unknown>>,
+): Promise<RuleResultVO[]> {
   return requestClient.post<RuleResultVO[]>(`/literule/rules/${ruleCode}/graph/dry-run`, data);
 }
 
 /**
  * invalidGraphRefs: GET /literule/rules/{ruleCode}/graph/invalid-refs
  */
-export function invalidGraphRefs({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<StringVO[]> {
+export function invalidGraphRefs({ ruleCode }: { ruleCode: string }): Promise<StringVO[]> {
   return requestClient.get<StringVO[]>(`/literule/rules/${ruleCode}/graph/invalid-refs`);
 }
 
@@ -80,7 +107,9 @@ export function invalidGraphRefs({ ruleCode }: {
  * expressionFunctions: GET /literule/rules/expression-functions
  */
 export function expressionFunctions(params: {
-    engine?: string;
-  }): Promise<ExpressionFunctionDefVO[]> {
-  return requestClient.get<ExpressionFunctionDefVO[]>(`/literule/rules/expression-functions`, { params });
+  engine?: string;
+}): Promise<ExpressionFunctionDefVO[]> {
+  return requestClient.get<ExpressionFunctionDefVO[]>(`/literule/rules/expression-functions`, {
+    params,
+  });
 }

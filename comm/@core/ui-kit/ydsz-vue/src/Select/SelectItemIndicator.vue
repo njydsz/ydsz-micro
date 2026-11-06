@@ -1,27 +1,23 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface SelectItemIndicatorProps extends PrimitiveProps {}
 </script>
 
 <script setup lang="ts">
-import { injectSelectItemContext } from './SelectItem.vue'
-import { Primitive } from '../Primitive/index.ts'
+import { injectSelectItemContext } from './SelectItem.vue';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<SelectItemIndicatorProps>(), {
   as: 'span',
-})
+});
 
-const itemContext = injectSelectItemContext()
+const itemContext = injectSelectItemContext();
 </script>
 
 <template>
-  <Primitive
-    v-if="itemContext.isSelected.value"
-    aria-hidden="true"
-    v-bind="props"
-  >
+  <Primitive v-if="itemContext.isSelected.value" aria-hidden="true" v-bind="props">
     <slot />
   </Primitive>
 </template>

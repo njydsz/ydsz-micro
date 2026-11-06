@@ -6,6 +6,6 @@ text 模式：拖拽区域
 
 ## Emits
 
-| 事件 | 参数 | 说明 |
-|------|------|------|
-| `update:fileList` | `value: UploadUserFile[]` | - |
+| 事件              | 参数                      | 说明 |
+| ----------------- | ------------------------- | ---- |
+| `update:fileList` | `value: UploadUserFile[]` | -    |

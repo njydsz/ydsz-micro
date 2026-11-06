@@ -12,14 +12,18 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * shortLinkRedirect: GET /message/read-receipt/s/{shortCode}
  */
-export function shortLinkRedirect({ shortCode }: {
+export function shortLinkRedirect(
+  {
+    shortCode,
+  }: {
     shortCode: string;
-  }, params: {
+  },
+  params: {
     response?: Record<string, unknown>;
-  }): Promise<void> {
+  },
+): Promise<void> {
   return requestClient.get<void>(`/message/read-receipt/s/${shortCode}`, { params });
 }

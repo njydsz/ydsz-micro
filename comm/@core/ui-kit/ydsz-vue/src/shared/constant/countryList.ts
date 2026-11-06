@@ -57,7 +57,7 @@ export const countryList = [
   'Curaçao',
   'Cyprus',
   'Czechia',
-  'Côte d\'Ivoire',
+  "Côte d'Ivoire",
   'Denmark',
   'Djibouti',
   'Dominica',
@@ -116,11 +116,11 @@ export const countryList = [
   'Kazakhstan',
   'Kenya',
   'Kiribati',
-  'Korea (the Democratic People\'s Republic of)',
+  "Korea (the Democratic People's Republic of)",
   'Korea (the Republic of)',
   'Kuwait',
   'Kyrgyzstan',
-  'Lao People\'s Democratic Republic (the)',
+  "Lao People's Democratic Republic (the)",
   'Latvia',
   'Lebanon',
   'Lesotho',
@@ -248,4 +248,4 @@ export const countryList = [
   'Zambia',
   'Zimbabwe',
   'Åland Islands',
-]
+];

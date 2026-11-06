@@ -34,9 +34,16 @@ export function isSsoMetricsOverviewVo(value: unknown): value is SsoMetricsOverv
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdTable,
+  YdTableColumn,
+  YdCard,
+  YdEmptyState,
+  YdProgress,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -160,15 +167,19 @@ onMounted(() => {
             type="dashboard"
             :percentage="successRatePercent"
             :stroke-width="12"
-            :color="successRatePercent >= 90 ? '#67c23a' : successRatePercent >= 70 ? '#e6a23c' : '#f56c6c'"
+            :color="
+              successRatePercent >= 90
+                ? '#67c23a'
+                : successRatePercent >= 70
+                  ? '#e6a23c'
+                  : '#f56c6c'
+            "
           />
           <div class="text-center">
             <p class="text-lg font-semibold">
               {{ formatPercent(overview.todaySuccessRate) }}
             </p>
-            <p class="mt-1 text-sm text-gray-500">
-              {{ overview.todayLoginCount ?? 0 }} 次登录
-            </p>
+            <p class="mt-1 text-sm text-gray-500">{{ overview.todayLoginCount ?? 0 }} 次登录</p>
           </div>
         </div>
       </YdCard>
@@ -199,11 +210,7 @@ onMounted(() => {
             {{ appName }}
           </YdBadge>
         </div>
-        <YdEmptyState
-          v-else
-          :description="'暂无应用数据'"
-          :image-size="40"
-        />
+        <YdEmptyState v-else :description="'暂无应用数据'" :image-size="40" />
       </YdCard>
     </div>
 

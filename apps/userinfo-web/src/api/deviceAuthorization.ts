@@ -12,7 +12,6 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * deviceAuthorization: POST /oauth2/device_authorization
  *
@@ -22,8 +21,8 @@ import { requestClient } from '#/api/request';
  * 调用方应在使用前做类型收窄（参见规范 §3.1 的 isUserInfo 参考实现）。
  */
 export function deviceAuthorization(params: {
-    clientId?: string;
-    scope?: string;
-  }): Promise<unknown> {
+  clientId?: string;
+  scope?: string;
+}): Promise<unknown> {
   return requestClient.post<unknown>(`/oauth2/device_authorization`, { params });
 }

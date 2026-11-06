@@ -30,12 +30,7 @@
 
 import type { MaybeRef } from 'vue';
 
-import {
-  computed,
-  ref,
-  unref,
-  type Ref,
-} from 'vue';
+import { computed, ref, unref, type Ref } from 'vue';
 
 /** 虚拟列表配置 */
 export interface UseVirtualListOptions {

@@ -20,24 +20,12 @@ import type { ClassType, MaybeComputedRef } from '@ydsz-core/typings';
 
 import type { YdButtonProps } from '@ydsz-core/ydsz-ui';
 
-import type {
-  ArrayToStringFields,
-  FieldMappingTime,
-  FormSchema,
-} from './types-schema';
+import type { ArrayToStringFields, FieldMappingTime, FormSchema } from './types-schema';
 
-import type {
-  YdBaseFormComponentType,
-  FormLayout,
-  WrapperClassType,
-} from './types-core';
+import type { YdBaseFormComponentType, FormLayout, WrapperClassType } from './types-core';
 
 // 重新导出依赖类型以保持向后兼容性
-export type {
-  ArrayToStringFields,
-  FieldMappingTime,
-  FormSchema,
-} from './types-schema';
+export type { ArrayToStringFields, FieldMappingTime, FormSchema } from './types-schema';
 
 /** 从 types-core 补充需要的类型 */
 import type { FormCommonConfig } from './types-schema';
@@ -51,9 +39,7 @@ import type { FormCommonConfig } from './types-schema';
  * 会自行创建表单实例并屏蔽 `componentMap` 等底层细节。
  * 业务代码通常不直接使用本类型。
  */
-export interface FormRenderProps<
-  T extends YdBaseFormComponentType = YdBaseFormComponentType,
-> {
+export interface FormRenderProps<T extends YdBaseFormComponentType = YdBaseFormComponentType> {
   /**
    * 表单字段数组映射字符串配置 默认使用","
    */
@@ -157,10 +143,7 @@ export interface ActionButtonOptions extends YdButtonProps {
  */
 export interface YdFormProps<
   T extends YdBaseFormComponentType = YdBaseFormComponentType,
-> extends Omit<
-  FormRenderProps<T>,
-  'componentBindEventMap' | 'componentMap' | 'form'
-> {
+> extends Omit<FormRenderProps<T>, 'componentBindEventMap' | 'componentMap' | 'form'> {
   /**
    * 操作按钮是否反转（提交按钮前置）
    */
@@ -199,10 +182,7 @@ export interface YdFormProps<
    * 表单值变化回调
    * 使用 Record<string, unknown> 支持任意表单结构。
    */
-  handleValuesChange?: (
-    values: Record<string, unknown>,
-    fieldsChanged: string[],
-  ) => void;
+  handleValuesChange?: (values: Record<string, unknown>, fieldsChanged: string[]) => void;
   /**
    * 重置按钮参数
    */
@@ -266,9 +246,7 @@ import type { HandleResetFn, HandleSubmitFn } from './types-schema';
  * 其存在意义是让 form-ui 与具体 UI 库解耦：不同组件库的 v-model prop 名、
  * 空值表示、必填判定方式各不相同，这些差异全部在此收敛。
  */
-export interface YdFormAdapterOptions<
-  T extends YdBaseFormComponentType = YdBaseFormComponentType,
-> {
+export interface YdFormAdapterOptions<T extends YdBaseFormComponentType = YdBaseFormComponentType> {
   /**
    * 控件行为的适配配置。
    */

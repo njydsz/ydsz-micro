@@ -8,14 +8,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export type ButtonVariantSize =
-  | 'default'
-  | 'icon'
-  | 'lg'
-  | 'sm'
-  | 'xs'
-  | null
-  | undefined;
+export type ButtonVariantSize = 'default' | 'icon' | 'lg' | 'sm' | 'xs' | null | undefined;
 
 /**
  * 按钮的视觉风格枚举。

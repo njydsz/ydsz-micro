@@ -100,33 +100,18 @@ function handleBack(): void {
       <component :is="IconComponent" :size="28" />
     </div>
     <h3 class="error-state__title">{{ title ?? $t('ui.errorState.title') }}</h3>
-    <p
-      v-if="description !== ''"
-      class="error-state__desc"
-    >
+    <p v-if="description !== ''" class="error-state__desc">
       {{ description ?? $t('ui.errorState.description') }}
     </p>
     <div class="error-state__actions">
-      <YdButton
-        v-if="showRetry"
-        size="sm"
-        @click="emit('retry')"
-      >
+      <YdButton v-if="showRetry" size="sm" @click="emit('retry')">
         {{ $t('ui.errorState.retry') }}
       </YdButton>
-      <YdButton
-        v-if="showBack"
-        size="sm"
-        variant="outline"
-        @click="handleBack"
-      >
+      <YdButton v-if="showBack" size="sm" variant="outline" @click="handleBack">
         {{ $t('ui.commonAction.back') }}
       </YdButton>
     </div>
-    <div
-      v-if="$slots.default"
-      class="error-state__extra"
-    >
+    <div v-if="$slots.default" class="error-state__extra">
       <slot />
     </div>
   </div>

@@ -47,12 +47,10 @@ const typeWithClass = computed(() => {
       content: `h-full after:content-['']  after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:scale-x-0 after:transition-[transform] after:ease-out after:duration-300 hover:after:scale-x-100 after:origin-left [&.is-active]:after:scale-x-100 [&:not(:first-child)]:border-l last:border-r last:border-r border-border`,
     },
     card: {
-      content:
-        'h-[calc(100%-6px)] rounded-md ml-2 border border-border  transition-all',
+      content: 'h-[calc(100%-6px)] rounded-md ml-2 border border-border  transition-all',
     },
     plain: {
-      content:
-        'h-full [&:not(:first-child)]:border-l last:border-r border-border',
+      content: 'h-full [&:not(:first-child)]:border-l last:border-r border-border',
     },
   };
 
@@ -152,17 +150,10 @@ function onMouseDown(e: MouseEvent, tab: TabConfig) {
         @keydown="handleKeydown($event, i)"
         @mousedown="onMouseDown($event, tab)"
       >
-        <YdContextMenu
-          :handler-data="tab"
-          :menus="contextMenus"
-          :modal="false"
-          item-class="pr-6"
-        >
+        <YdContextMenu :handler-data="tab" :menus="contextMenus" :modal="false" item-class="pr-6">
           <div class="relative flex size-full items-center">
             <!-- extra -->
-            <div
-              class="absolute right-1.5 top-1/2 z-[3] translate-y-[-50%] overflow-hidden"
-            >
+            <div class="absolute right-1.5 top-1/2 z-[3] translate-y-[-50%] overflow-hidden">
               <!-- close-icon -->
               <X
                 v-show="!tab.affixTab && tabsView.length > 1 && tab.closable"

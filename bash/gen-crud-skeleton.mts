@@ -77,7 +77,9 @@ function resolveFields(config) {
       ...f,
       javaName,
       javaType,
-      tsType: f.tsType || (javaType === 'Integer' ? 'number' : javaType === 'Boolean' ? 'boolean' : 'string'),
+      tsType:
+        f.tsType ||
+        (javaType === 'Integer' ? 'number' : javaType === 'Boolean' ? 'boolean' : 'string'),
       form: f.form !== false,
       list: f.list !== false,
       query: f.query === true,
@@ -119,7 +121,9 @@ function generateEntity(config, fields) {
   ];
 
   for (const f of fields) {
-    if (['id', 'createTime', 'updateTime', 'createBy', 'updateBy', 'deleted'].includes(f.columnName)) {
+    if (
+      ['id', 'createTime', 'updateTime', 'createBy', 'updateBy', 'deleted'].includes(f.columnName)
+    ) {
       continue;
     }
     const colAnn = `@TableField("${f.columnName}")`;
@@ -301,16 +305,19 @@ async function main() {
 
   let config;
   if (configPath) {
-    const absPath = configPath.startsWith('/') || /^[A-Za-z]:/.test(configPath)
-      ? configPath
-      : join(ROOT, configPath);
+    const absPath =
+      configPath.startsWith('/') || /^[A-Za-z]:/.test(configPath)
+        ? configPath
+        : join(ROOT, configPath);
     if (!existsSync(absPath)) {
       console.error(`配置文件不存在: ${absPath}`);
       process.exit(1);
     }
     config = JSON.parse(readFileSync(absPath, 'utf-8'));
   } else {
-    console.error('缺少 --config 参数。用法: node bash/gen-crud-skeleton.mjs --config ./config.json');
+    console.error(
+      '缺少 --config 参数。用法: node bash/gen-crud-skeleton.mjs --config ./config.json',
+    );
     process.exit(1);
   }
 
@@ -324,7 +331,20 @@ async function main() {
   // 1. 后端 Entity
   const entity = generateEntity(config, fields);
   outputs.push({
-    target: join(CLOUD_ROOT, `ydsz-${moduleName}`, `ydsz-${moduleName}-domain`, 'src', 'main', 'java', 'com', 'njydsz', moduleName, 'domain', 'entity', `${entity.className}.java`),
+    target: join(
+      CLOUD_ROOT,
+      `ydsz-${moduleName}`,
+      `ydsz-${moduleName}-domain`,
+      'src',
+      'main',
+      'java',
+      'com',
+      'njydsz',
+      moduleName,
+      'domain',
+      'entity',
+      `${entity.className}.java`,
+    ),
     content: entity.content,
   });
 
@@ -332,7 +352,20 @@ async function main() {
   for (const suffix of ['Save', 'Page']) {
     const dto = generateDto(config, fields, suffix);
     outputs.push({
-      target: join(CLOUD_ROOT, `ydsz-${moduleName}`, `ydsz-${moduleName}-server`, 'src', 'main', 'java', 'com', 'njydsz', moduleName, 'server', 'dto', `${dto.className}.java`),
+      target: join(
+        CLOUD_ROOT,
+        `ydsz-${moduleName}`,
+        `ydsz-${moduleName}-server`,
+        'src',
+        'main',
+        'java',
+        'com',
+        'njydsz',
+        moduleName,
+        'server',
+        'dto',
+        `${dto.className}.java`,
+      ),
       content: dto.content,
     });
   }

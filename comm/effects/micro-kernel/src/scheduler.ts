@@ -14,8 +14,8 @@
  * @since 3.0.0
  */
 
-import type { SandboxType } from "@ydsz/micro-runtime";
-import type { DisposableManager } from "./manager-registry";
+import type { SandboxType } from '@ydsz/micro-runtime';
+import type { DisposableManager } from './manager-registry';
 
 import type {
   AppInstance,
@@ -24,7 +24,7 @@ import type {
   GlobalStateBridge,
   KeepAliveConfig,
   SchedulerContext,
-} from "./app-state";
+} from './app-state';
 
 import {
   bindSchedulerContext,
@@ -45,18 +45,11 @@ import {
   setMaxKeepAliveApps,
   setPinnedApp,
   setStyleIsolation,
-} from "./app-state";
+} from './app-state';
 
-import {
-  activateApp,
-  deactivateApp,
-  updateAppProps,
-} from "./lifecycle";
+import { activateApp, deactivateApp, updateAppProps } from './lifecycle';
 
-import {
-  evictAllKeepAliveOnMemoryPressure,
-  setupVisibilityAutoRelease,
-} from "./task-queue";
+import { evictAllKeepAliveOnMemoryPressure, setupVisibilityAutoRelease } from './task-queue';
 
 // ==================== 类型重导出 ====================
 
@@ -98,10 +91,7 @@ export { activateApp, deactivateApp, updateAppProps };
 
 // ==================== task-queue.ts 函数导出 ====================
 
-export {
-  evictAllKeepAliveOnMemoryPressure,
-  setupVisibilityAutoRelease,
-};
+export { evictAllKeepAliveOnMemoryPressure, setupVisibilityAutoRelease };
 
 // ==================== 本模块独有导出 ====================
 
@@ -114,7 +104,7 @@ export {
  */
 export function createSchedulerManager(): DisposableManager {
   return {
-    name: "scheduler",
+    name: 'scheduler',
     dispose(): void {
       // 释放当前上下文持有的实例集，并恢复全新默认上下文
       const ctx = getContext();

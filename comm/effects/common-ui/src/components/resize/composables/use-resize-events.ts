@@ -56,13 +56,7 @@ export function removeEvents(
 /** Emit 函数类型（供 use-resize-watchers 引用） */
 export type EmitFn = (
   event:
-    | 'activated'
-    | 'deactivated'
-    | 'clicked'
-    | 'resizing'
-    | 'resizestop'
-    | 'dragging'
-    | 'dragstop',
+    'activated' | 'deactivated' | 'clicked' | 'resizing' | 'resizestop' | 'dragging' | 'dragstop',
   payload?: unknown,
 ) => void;
 
@@ -146,12 +140,8 @@ export function move(
 
   const mouseEvent = ev as MouseEvent;
   const touchEvent = ev as TouchEvent;
-  const pageX = mouseEvent.pageX === undefined
-    ? touchEvent.touches![0]!.pageX
-    : mouseEvent.pageX;
-  const pageY = mouseEvent.pageY === undefined
-    ? touchEvent.touches![0]!.pageY
-    : mouseEvent.pageY;
+  const pageX = mouseEvent.pageX === undefined ? touchEvent.touches![0]!.pageX : mouseEvent.pageX;
+  const pageY = mouseEvent.pageY === undefined ? touchEvent.touches![0]!.pageY : mouseEvent.pageY;
 
   const delta = {
     x: (state.dimensionsBeforeMove.value.pointerX - pageX) / state.parentScaleX.value,
@@ -247,17 +237,11 @@ export function bodyDown(
   const currentInstance = getCurrentInstance();
   const targetEl = target as HTMLElement;
 
-  if (
-    state.dragHandle.value &&
-    targetEl.dataset.dragHandle !== currentInstance?.uid.toString()
-  ) {
+  if (state.dragHandle.value && targetEl.dataset.dragHandle !== currentInstance?.uid.toString()) {
     return;
   }
 
-  if (
-    state.dragCancel.value &&
-    targetEl.dataset.dragCancel === currentInstance?.uid.toString()
-  ) {
+  if (state.dragCancel.value && targetEl.dataset.dragCancel === currentInstance?.uid.toString()) {
     return;
   }
 
@@ -275,12 +259,10 @@ export function bodyDown(
 
   const mouseEvent = ev as MouseEvent;
   const touchEvent = ev as TouchEvent;
-  const pointerX = mouseEvent.pageX === undefined
-    ? touchEvent.touches![0]!.pageX
-    : mouseEvent.pageX;
-  const pointerY = mouseEvent.pageY === undefined
-    ? touchEvent.touches![0]!.pageY
-    : mouseEvent.pageY;
+  const pointerX =
+    mouseEvent.pageX === undefined ? touchEvent.touches![0]!.pageX : mouseEvent.pageX;
+  const pointerY =
+    mouseEvent.pageY === undefined ? touchEvent.touches![0]!.pageY : mouseEvent.pageY;
 
   saveDimensionsBeforeMove(pointerX, pointerY, state);
 

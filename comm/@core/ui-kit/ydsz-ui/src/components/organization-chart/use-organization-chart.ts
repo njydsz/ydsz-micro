@@ -149,10 +149,7 @@ function collectVisibleNodes(
  * @param id 目标 ID
  * @returns 命中的节点，未找到返回 null
  */
-function findInNodes(
-  nodes: readonly OrgNode[],
-  id: string,
-): OrgNode | null {
+function findInNodes(nodes: readonly OrgNode[], id: string): OrgNode | null {
   for (const node of nodes) {
     if (node.id === id) {
       return node;
@@ -193,10 +190,7 @@ export function useOrganizationChart(
   rootNode: MaybeRef<OrgNode>,
   options?: OrgChartOptions,
 ): UseOrganizationChartReturn {
-  const {
-    collapsible = true,
-    selectionMode = null,
-  } = options ?? {};
+  const { collapsible = true, selectionMode = null } = options ?? {};
 
   // 未启用的扩展点保留在 OrgChartOptions 接口中供未来实现：
   // - template：自定义节点渲染

@@ -80,10 +80,7 @@ onBeforeUnmount(() => {
         <YdDialogTitle>{{ $t('ui.keyboardHelp.title') }}</YdDialogTitle>
       </YdDialogHeader>
 
-      <div
-        v-if="formatted.length > 0"
-        class="keyboard-help"
-      >
+      <div v-if="formatted.length > 0" class="keyboard-help">
         <div
           v-for="item in formatted"
           :key="`${item.display}-${item.label}`"
@@ -95,10 +92,7 @@ onBeforeUnmount(() => {
           </YdBadge>
         </div>
       </div>
-      <div
-        v-else
-        class="keyboard-help__empty"
-      >
+      <div v-else class="keyboard-help__empty">
         {{ $t('ui.keyboardHelp.empty') }}
       </div>
     </YdDialogContent>

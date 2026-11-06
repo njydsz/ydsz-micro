@@ -39,15 +39,8 @@ export interface RetryOptions {
  * @param options - 重试配置
  * @returns 延迟时间（ms）
  */
-export function calculateRetryDelay(
-  attempt: number,
-  options: RetryOptions = {},
-): number {
-  const {
-    baseDelay = 1000,
-    backoff = 'exponential',
-    jitter = 0.25,
-  } = options;
+export function calculateRetryDelay(attempt: number, options: RetryOptions = {}): number {
+  const { baseDelay = 1000, backoff = 'exponential', jitter = 0.25 } = options;
 
   // 固定延迟模式
   if (backoff === 'fixed') {
@@ -78,11 +71,7 @@ export async function retryOperation<T>(
   operation: () => Promise<T>,
   options: RetryOptions = {},
 ): Promise<T> {
-  const {
-    maxRetries = 3,
-    retryCondition = () => true,
-    onRetry,
-  } = options;
+  const { maxRetries = 3, retryCondition = () => true, onRetry } = options;
 
   let lastError: unknown;
 

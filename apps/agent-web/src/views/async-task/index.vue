@@ -127,18 +127,30 @@ function isCancelable(task: AsyncTaskVO): boolean {
  * @returns 耗时字符串
  */
 function formatDuration(startedAt?: string, completedAt?: string): string {
-  if (!startedAt) { return '-'; }
+  if (!startedAt) {
+    return '-';
+  }
   const start = new Date(startedAt).getTime();
   const end = completedAt ? new Date(completedAt).getTime() : Date.now();
-  if (Number.isNaN(start) || Number.isNaN(end)) { return '-'; }
+  if (Number.isNaN(start) || Number.isNaN(end)) {
+    return '-';
+  }
   const ms = end - start;
-  if (ms < 0) { return '-'; }
-  if (ms < 1000) { return `${ms}ms`; }
+  if (ms < 0) {
+    return '-';
+  }
+  if (ms < 1000) {
+    return `${ms}ms`;
+  }
   const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) { return `${seconds}s`; }
+  if (seconds < 60) {
+    return `${seconds}s`;
+  }
   const minutes = Math.floor(seconds / 60);
   const remainSec = seconds % 60;
-  if (minutes < 60) { return `${minutes}m ${remainSec}s`; }
+  if (minutes < 60) {
+    return `${minutes}m ${remainSec}s`;
+  }
   const hours = Math.floor(minutes / 60);
   const remainMin = minutes % 60;
   return `${hours}h ${remainMin}m`;
@@ -151,7 +163,9 @@ function formatDuration(startedAt?: string, completedAt?: string): string {
  * @returns 截断后的字符串
  */
 function truncateId(id?: number): string {
-  if (id === undefined || id === null) { return '-'; }
+  if (id === undefined || id === null) {
+    return '-';
+  }
   return String(id);
 }
 
@@ -190,11 +204,9 @@ async function handleCancel(row: AsyncTaskVO): Promise<void> {
   const taskId = row.id ?? 0;
   // 步骤1：二次确认
   try {
-    await YdConfirm(
-      `确定取消任务「${truncateId(row.id)}」吗？该操作不可撤销。`,
-      '取消确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定取消任务「${truncateId(row.id)}」吗？该操作不可撤销。`, '取消确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消删除操作');
     return;
@@ -303,14 +315,17 @@ onBeforeUnmount(() => {
       <YdCard>
         <div class="mb-4 flex items-center justify-between">
           <h3 class="text-base font-medium">活动任务列表</h3>
-          <YdButton :loading="loading" size="sm" @click="handleManualRefresh">
-            手动刷新
-          </YdButton>
+          <YdButton :loading="loading" size="sm" @click="handleManualRefresh"> 手动刷新 </YdButton>
         </div>
 
         <YdTable :data="taskList" border stripe height="auto" :loading="loading">
           <YdTableColumn prop="id" label="Task ID" width="100" />
-          <YdTableColumn prop="taskTypeDesc" label="任务类型" min-width="140" show-overflow-tooltip />
+          <YdTableColumn
+            prop="taskTypeDesc"
+            label="任务类型"
+            min-width="140"
+            show-overflow-tooltip
+          />
           <YdTableColumn label="状态" width="120">
             <template #default="{ row }">
               <YdBadge :variant="getStatusVariant(row.status ?? '')">
@@ -320,7 +335,11 @@ onBeforeUnmount(() => {
           </YdTableColumn>
           <YdTableColumn label="进度" width="120">
             <template #default="{ row }">
-              <span>{{ row.progressPercent !== undefined && row.progressPercent !== null ? `${row.progressPercent}%` : '-' }}</span>
+              <span>{{
+                row.progressPercent !== undefined && row.progressPercent !== null
+                  ? `${row.progressPercent}%`
+                  : '-'
+              }}</span>
             </template>
           </YdTableColumn>
           <YdTableColumn prop="createdAt" label="创建时间" width="170" />
@@ -374,7 +393,11 @@ onBeforeUnmount(() => {
             </YdBadge>
           </YdDescriptionsItem>
           <YdDescriptionsItem label="进度">
-            {{ selectedTask.progressPercent !== undefined && selectedTask.progressPercent !== null ? `${selectedTask.progressPercent}%` : '-' }}
+            {{
+              selectedTask.progressPercent !== undefined && selectedTask.progressPercent !== null
+                ? `${selectedTask.progressPercent}%`
+                : '-'
+            }}
           </YdDescriptionsItem>
           <YdDescriptionsItem label="租户编码">
             {{ selectedTask.tenantCode ?? '-' }}
@@ -395,7 +418,11 @@ onBeforeUnmount(() => {
             {{ selectedTask.expireAt ?? '-' }}
           </YdDescriptionsItem>
           <YdDescriptionsItem label="重试次数">
-            {{ selectedTask.retryCount !== undefined && selectedTask.retryCount !== null ? `${selectedTask.retryCount} / ${selectedTask.maxRetry ?? 0}` : '-' }}
+            {{
+              selectedTask.retryCount !== undefined && selectedTask.retryCount !== null
+                ? `${selectedTask.retryCount} / ${selectedTask.maxRetry ?? 0}`
+                : '-'
+            }}
           </YdDescriptionsItem>
           <YdDescriptionsItem label="是否终态">
             {{ selectedTask.isTerminal ? '是' : '否' }}
@@ -408,7 +435,9 @@ onBeforeUnmount(() => {
         <!-- 输入参数 -->
         <div v-if="selectedTask.outputPayload" class="mt-4">
           <h4 class="mb-2 text-sm font-medium text-gray-700">输出结果</h4>
-          <pre class="max-h-60 overflow-auto whitespace-pre-wrap break-all rounded border bg-gray-50 p-3 text-xs">{{ selectedTask.outputPayload }}</pre>
+          <pre
+            class="max-h-60 overflow-auto whitespace-pre-wrap break-all rounded border bg-gray-50 p-3 text-xs"
+            >{{ selectedTask.outputPayload }}</pre>
         </div>
 
         <!-- 错误信息 -->

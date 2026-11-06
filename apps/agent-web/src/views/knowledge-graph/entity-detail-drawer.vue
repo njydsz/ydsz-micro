@@ -15,7 +15,17 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdAlert, YdButton, YdDescriptions, YdDescriptionsItem, YdDrawer, YdEmptyState, YdTable, YdTableColumn, YdTag } from '@ydsz-core/ydsz-ui';
+import {
+  YdAlert,
+  YdButton,
+  YdDescriptions,
+  YdDescriptionsItem,
+  YdDrawer,
+  YdEmptyState,
+  YdTable,
+  YdTableColumn,
+  YdTag,
+} from '@ydsz-core/ydsz-ui';
 import { useI18n } from '@ydsz/locales';
 import { computed, ref, watch } from 'vue';
 
@@ -177,15 +187,11 @@ watch(visible, (val) => {
     <div class="space-y-6">
       <!-- 实体基本信息 -->
       <div>
-        <h3 class="mb-3 flex items-center gap-2 text-base font-medium text-text-primary">
+        <h3 class="text-text-primary mb-3 flex items-center gap-2 text-base font-medium">
           <Info :size="16" class="text-brand-500" />
           {{ $t('knowledgeGraph.detail.basicInfo') || '基本信息' }}
         </h3>
-        <YdDescriptions
-          :column="2"
-          border
-          size="sm"
-        >
+        <YdDescriptions :column="2" border size="sm">
           <YdDescriptionsItem :label="$t('knowledgeGraph.detail.entityId') || 'EntityID'">
             {{ entityId }}
           </YdDescriptionsItem>
@@ -193,11 +199,7 @@ watch(visible, (val) => {
             {{ centerNode?.name || subgraphNodes[0]?.name || '-' }}
           </YdDescriptionsItem>
           <YdDescriptionsItem :label="$t('knowledgeGraph.detail.type') || '类型'">
-            <YdTag
-              v-if="centerNode?.type || subgraphNodes[0]?.type"
-              size="sm"
-              variant="primary"
-            >
+            <YdTag v-if="centerNode?.type || subgraphNodes[0]?.type" size="sm" variant="primary">
               {{ centerNode?.type || subgraphNodes[0]?.type }}
             </YdTag>
             <span v-else>-</span>
@@ -211,39 +213,26 @@ watch(visible, (val) => {
       <!-- 子图可视化 -->
       <div>
         <h3 class="mb-3 flex items-center justify-between">
-          <span class="flex items-center gap-2 text-base font-medium text-text-primary">
+          <span class="text-text-primary flex items-center gap-2 text-base font-medium">
             <Link :size="16" class="text-brand-500" />
             {{ $t('knowledgeGraph.detail.subgraph') || '子图结构' }}
           </span>
-          <YdButton
-            size="sm"
-            variant="ghost"
-            :loading="subgraphLoading"
-            @click="loadSubgraph"
-          >
+          <YdButton size="sm" variant="ghost" :loading="subgraphLoading" @click="loadSubgraph">
             <RefreshCw v-if="!subgraphLoading" :size="14" />
             {{ $t('common.refresh') || '刷新' }}
           </YdButton>
         </h3>
 
         <!-- 加载态 -->
-        <div
-          v-if="subgraphLoading"
-          class="flex h-32 items-center justify-center"
-        >
-          <RefreshCw class="animate-spin text-brand-500" :size="16" />
-          <span class="ml-2 text-sm text-text-secondary">
+        <div v-if="subgraphLoading" class="flex h-32 items-center justify-center">
+          <RefreshCw class="text-brand-500 animate-spin" :size="16" />
+          <span class="text-text-secondary ml-2 text-sm">
             {{ $t('common.loading') || '加载中...' }}
           </span>
         </div>
 
         <!-- 错误态 -->
-        <YdAlert
-          v-else-if="subgraphError"
-          :title="subgraphError"
-          type="error"
-          :closable="false"
-        />
+        <YdAlert v-else-if="subgraphError" :title="subgraphError" type="error" :closable="false" />
 
         <!-- 空态 -->
         <YdEmptyState
@@ -252,27 +241,20 @@ watch(visible, (val) => {
         />
 
         <!-- 子图内容 -->
-        <div
-          v-else
-          class="space-y-4"
-        >
+        <div v-else class="space-y-4">
           <!-- 节点统计 -->
           <div class="flex gap-5 text-sm">
-            <span class="rounded-md bg-primary/10 px-2 py-1 text-primary">
+            <span class="bg-primary/10 text-primary rounded-md px-2 py-1">
               {{ $t('knowledgeGraph.detail.nodeCount') || '节点数' }}: {{ subgraphNodes.length }}
             </span>
-            <span class="rounded-md bg-purple/10 px-2 py-1 text-purple">
-              {{ $t('knowledgeGraph.detail.relationCount') || '关系数' }}: {{ subgraphRelations.length }}
+            <span class="bg-purple/10 text-purple rounded-md px-2 py-1">
+              {{ $t('knowledgeGraph.detail.relationCount') || '关系数' }}:
+              {{ subgraphRelations.length }}
             </span>
           </div>
 
           <!-- 节点列表 -->
-          <YdTable
-            :data="subgraphNodes"
-            size="sm"
-            border
-            stripe
-          >
+          <YdTable :data="subgraphNodes" size="sm" border stripe>
             <YdTableColumn
               prop="entityId"
               :label="$t('knowledgeGraph.detail.nodeId') || '节点ID'"
@@ -291,11 +273,7 @@ watch(visible, (val) => {
               width="120"
             >
               <template #default="{ row }">
-                <YdTag
-                  v-if="row.type"
-                  size="sm"
-                  variant="info"
-                >
+                <YdTag v-if="row.type" size="sm" variant="info">
                   {{ row.type }}
                 </YdTag>
                 <span v-else>-</span>
@@ -305,26 +283,17 @@ watch(visible, (val) => {
 
           <!-- 关系边列表 -->
           <div v-if="subgraphRelations.length > 0">
-            <h4 class="mb-2 text-sm font-medium text-text-secondary">
+            <h4 class="text-text-secondary mb-2 text-sm font-medium">
               {{ $t('knowledgeGraph.detail.edges') || '关系边' }}
             </h4>
-            <YdTable
-              :data="subgraphRelations"
-              size="sm"
-              border
-              stripe
-            >
+            <YdTable :data="subgraphRelations" size="sm" border stripe>
               <YdTableColumn
                 prop="relationType"
                 :label="$t('knowledgeGraph.detail.relationType') || '关系类型'"
                 width="140"
               >
                 <template #default="{ row }">
-                  <YdTag
-                    v-if="row.relationType"
-                    size="sm"
-                    variant="primary"
-                  >
+                  <YdTag v-if="row.relationType" size="sm" variant="primary">
                     {{ row.relationType }}
                   </YdTag>
                   <span v-else>-</span>
@@ -355,28 +324,20 @@ watch(visible, (val) => {
       <!-- 关系列表 -->
       <div>
         <h3 class="mb-3 flex items-center justify-between">
-          <span class="flex items-center gap-2 text-base font-medium text-text-primary">
+          <span class="text-text-primary flex items-center gap-2 text-base font-medium">
             <Link :size="16" class="text-brand-500" />
             {{ $t('knowledgeGraph.detail.allRelations') || '关联关系' }}
           </span>
-          <YdButton
-            size="sm"
-            variant="ghost"
-            :loading="relationsLoading"
-            @click="loadRelations"
-          >
+          <YdButton size="sm" variant="ghost" :loading="relationsLoading" @click="loadRelations">
             <RefreshCw v-if="!relationsLoading" :size="14" />
             {{ $t('common.refresh') || '刷新' }}
           </YdButton>
         </h3>
 
         <!-- 加载态 -->
-        <div
-          v-if="relationsLoading"
-          class="flex h-32 items-center justify-center"
-        >
-          <RefreshCw class="animate-spin text-brand-500" :size="16" />
-          <span class="ml-2 text-sm text-text-secondary">
+        <div v-if="relationsLoading" class="flex h-32 items-center justify-center">
+          <RefreshCw class="text-brand-500 animate-spin" :size="16" />
+          <span class="text-text-secondary ml-2 text-sm">
             {{ $t('common.loading') || '加载中...' }}
           </span>
         </div>
@@ -396,24 +357,14 @@ watch(visible, (val) => {
         />
 
         <!-- 关系数据表 -->
-        <YdTable
-          v-else
-          :data="relationsData"
-          size="sm"
-          border
-          stripe
-        >
+        <YdTable v-else :data="relationsData" size="sm" border stripe>
           <YdTableColumn
             prop="relationType"
             :label="$t('knowledgeGraph.detail.relationType') || '关系类型'"
             width="140"
           >
             <template #default="{ row }">
-              <YdTag
-                v-if="row.relationType"
-                size="sm"
-                variant="primary"
-              >
+              <YdTag v-if="row.relationType" size="sm" variant="primary">
                 {{ row.relationType }}
               </YdTag>
               <span v-else>-</span>

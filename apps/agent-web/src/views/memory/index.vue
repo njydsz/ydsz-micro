@@ -16,10 +16,18 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdButton, YdCard, YdEmptyState, YdInput, YdSelect, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdEmptyState,
+  YdInput,
+  YdSelect,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
 import { createLogger } from '@ydsz/utils';
@@ -98,10 +106,18 @@ const columns: VxeTableGridOptions<MemoryVO>['columns'] = [
     width: 140,
     fixed: 'right',
     slots: {
-          default: ({ row }) =>
+      default: ({ row }) =>
         h('div', { class: 'flex gap-1' }, [
-          h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) }, () => '详情'),
-          h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) }, () => '删除'),
+          h(
+            YdButton,
+            { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) },
+            () => '详情',
+          ),
+          h(
+            YdButton,
+            { size: 'sm', variant: 'destructive', onClick: () => handleDelete(row) },
+            () => '删除',
+          ),
         ]),
     },
   },
@@ -253,11 +269,9 @@ function handleViewDetail(row: MemoryVO): void {
 /** 删除单条记忆 */
 async function handleDelete(row: MemoryVO): Promise<void> {
   try {
-    await YdConfirm(
-      `确定删除消息「${row.id ?? ''}」吗？该操作不可撤销。`,
-      '删除确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定删除消息「${row.id ?? ''}」吗？该操作不可撤销。`, '删除确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消删除记忆操作');
     return;
@@ -286,9 +300,24 @@ async function handleDelete(row: MemoryVO): Promise<void> {
             @keyup.enter="handleSearch"
           />
           <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
-          <YdButton variant="default" :disabled="!queryConversationId.trim()" @click="handleOpenSaveMemory">新增记忆</YdButton>
-          <YdButton variant="destructive" :disabled="!queryConversationId.trim()" @click="handleClearAll">清空记忆</YdButton>
-          <YdButton variant="outline" :disabled="!queryConversationId.trim()" @click="handleConsolidate">触发整合</YdButton>
+          <YdButton
+            variant="default"
+            :disabled="!queryConversationId.trim()"
+            @click="handleOpenSaveMemory"
+            >新增记忆</YdButton
+          >
+          <YdButton
+            variant="destructive"
+            :disabled="!queryConversationId.trim()"
+            @click="handleClearAll"
+            >清空记忆</YdButton
+          >
+          <YdButton
+            variant="outline"
+            :disabled="!queryConversationId.trim()"
+            @click="handleConsolidate"
+            >触发整合</YdButton
+          >
         </div>
       </YdCard>
 
@@ -359,11 +388,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
         </div>
         <div>
           <label class="mb-1 block text-sm font-medium">记忆内容</label>
-          <YdTextarea
-            v-model:value="saveFormContent"
-            placeholder="请输入记忆内容"
-            :rows="4"
-          />
+          <YdTextarea v-model:value="saveFormContent" placeholder="请输入记忆内容" :rows="4" />
         </div>
       </div>
       <template #footer>

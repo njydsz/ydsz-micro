@@ -135,7 +135,8 @@ const ConfirmDialogHost = defineComponent({
     /**
      * 根据取消按钮类型返回对应 cva variant。
      */
-    function rejectVariant(): 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' {
+    function rejectVariant():
+      'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' {
       const type = props.options.rejectButtonType ?? 'default';
       if (type === 'text') return 'ghost';
       return 'outline';
@@ -173,96 +174,96 @@ const ConfirmDialogHost = defineComponent({
           default: () =>
             h(DialogPortal, null, {
               default: () =>
-                h(DialogContent, {
-                  class: cn(
-                    'fixed left-1/2 top-1/2 z-popup w-[calc(100vw-2rem)] max-w-md',
-                    '-translate-x-1/2 -translate-y-1/2',
-                    'rounded-2xl border border-border-default bg-surface-1 p-6',
-                    'shadow-high outline-none',
-                    'data-[state=open]:animate-in data-[state=closed]:animate-out',
-                    'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-                    'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-                    contentPt.class,
-                  ),
-                  style: contentPt.style || undefined,
-                  onPointerDownOutside: handleOverlayPointerDownOutside,
-                  onEscapeKeyDown: handleEscapeKeyDown,
-                  closeOnEsc: opts.closeOnEsc !== false,
-                  closeOnOverlayClick: opts.closeOnOverlayClick !== false,
-                }, {
-                  default: () => [
-                    /* 头部行：图标 + 标题 + 描述 */
-                    h(
-                      'div',
-                      {
-                        class: cn('flex items-start gap-4', headerPt.class),
-                        style: headerPt.style || undefined,
-                      },
-                      [
-                        /* 图标 */
-                        iconName
-                          ? h(
-                            'div',
-                            {
-                              class: cn(
-                                'flex size-10 shrink-0 items-center justify-center rounded-full',
-                                confirmType === 'danger' ? 'bg-destructive/10' : '',
-                                confirmType === 'warning' ? 'bg-amber-500/10' : '',
-                                confirmType === 'info' ? 'bg-blue-500/10' : '',
-                                confirmType === 'primary' ? 'bg-primary/10' : '',
-                              ),
-                            },
-                            [
-                              h(
-                                'span',
+                h(
+                  DialogContent,
+                  {
+                    class: cn(
+                      'z-popup fixed left-1/2 top-1/2 w-[calc(100vw-2rem)] max-w-md',
+                      '-translate-x-1/2 -translate-y-1/2',
+                      'border-border-default bg-surface-1 rounded-2xl border p-6',
+                      'shadow-high outline-none',
+                      'data-[state=open]:animate-in data-[state=closed]:animate-out',
+                      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+                      'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+                      contentPt.class,
+                    ),
+                    style: contentPt.style || undefined,
+                    onPointerDownOutside: handleOverlayPointerDownOutside,
+                    onEscapeKeyDown: handleEscapeKeyDown,
+                    closeOnEsc: opts.closeOnEsc !== false,
+                    closeOnOverlayClick: opts.closeOnOverlayClick !== false,
+                  },
+                  {
+                    default: () => [
+                      /* 头部行：图标 + 标题 + 描述 */
+                      h(
+                        'div',
+                        {
+                          class: cn('flex items-start gap-4', headerPt.class),
+                          style: headerPt.style || undefined,
+                        },
+                        [
+                          /* 图标 */
+                          iconName
+                            ? h(
+                                'div',
                                 {
                                   class: cn(
-                                    'size-5',
-                                    confirmType === 'danger' ? 'text-destructive' : '',
-                                    confirmType === 'warning' ? 'text-amber-500' : '',
-                                    confirmType === 'info' ? 'text-blue-500' : '',
-                                    confirmType === 'primary' ? 'text-primary' : '',
+                                    'flex size-10 shrink-0 items-center justify-center rounded-full',
+                                    confirmType === 'danger' ? 'bg-destructive/10' : '',
+                                    confirmType === 'warning' ? 'bg-amber-500/10' : '',
+                                    confirmType === 'info' ? 'bg-blue-500/10' : '',
+                                    confirmType === 'primary' ? 'bg-primary/10' : '',
                                   ),
-                                  'aria-hidden': 'true',
                                 },
-                                /* 直接用 span + icon class 作为 iconify fallback */
-                                iconName ? iconName.split(':').pop() ?? '' : '',
-                              ),
-                            ],
-                          )
-                          : null,
-
-                        /* 文本区 */
-                        h('div', { class: 'flex-1' }, [
-                          opts.header
-                            ? h(
-                              DialogTitle as any,
-                              {
-                                class: titlePt.class,
-                                style: titlePt.style || undefined,
-                              },
-                              { default: () => opts.header },
-                            )
+                                [
+                                  h(
+                                    'span',
+                                    {
+                                      class: cn(
+                                        'size-5',
+                                        confirmType === 'danger' ? 'text-destructive' : '',
+                                        confirmType === 'warning' ? 'text-amber-500' : '',
+                                        confirmType === 'info' ? 'text-blue-500' : '',
+                                        confirmType === 'primary' ? 'text-primary' : '',
+                                      ),
+                                      'aria-hidden': 'true',
+                                    },
+                                    /* 直接用 span + icon class 作为 iconify fallback */
+                                    iconName ? (iconName.split(':').pop() ?? '') : '',
+                                  ),
+                                ],
+                              )
                             : null,
-                          opts.message
-                            ? h(
-                              DialogDescription as any,
-                              {
-                                class: descriptionPt.class,
-                                style: descriptionPt.style || undefined,
-                              },
-                              { default: () => opts.message },
-                            )
-                            : null,
-                        ]),
-                      ],
-                    ),
 
-                    /* 按钮组 */
-                    h(
-                      'div',
-                      { class: 'mt-6 flex justify-end gap-2' },
-                      [
+                          /* 文本区 */
+                          h('div', { class: 'flex-1' }, [
+                            opts.header
+                              ? h(
+                                  DialogTitle as any,
+                                  {
+                                    class: titlePt.class,
+                                    style: titlePt.style || undefined,
+                                  },
+                                  { default: () => opts.header },
+                                )
+                              : null,
+                            opts.message
+                              ? h(
+                                  DialogDescription as any,
+                                  {
+                                    class: descriptionPt.class,
+                                    style: descriptionPt.style || undefined,
+                                  },
+                                  { default: () => opts.message },
+                                )
+                              : null,
+                          ]),
+                        ],
+                      ),
+
+                      /* 按钮组 */
+                      h('div', { class: 'mt-6 flex justify-end gap-2' }, [
                         h(
                           'button',
                           {
@@ -281,10 +282,10 @@ const ConfirmDialogHost = defineComponent({
                           },
                           opts.confirmLabel ?? '确认',
                         ),
-                      ],
-                    ),
-                  ],
-                }),
+                      ]),
+                    ],
+                  },
+                ),
             }),
         },
       );

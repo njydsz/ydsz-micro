@@ -24,4 +24,3 @@ import '@ydsz-core/design-tokens/styles/variables.css';
 import '@ydsz-core/design-tokens/styles/compat-aliases.css';
 
 export {};
-

@@ -19,9 +19,7 @@ import { DropdownMenuItem, useForwardProps } from '@ydsz-core/ydsz-vue';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
-const props = defineProps<
-  DropdownMenuItemProps & { class?: ClassValue; inset?: boolean }
->();
+const props = defineProps<DropdownMenuItemProps & { class?: ClassValue; inset?: boolean }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;

@@ -32,7 +32,9 @@ import type { MsgLogVO } from '#/api/models';
 defineOptions({ name: 'DeadLetterManagement' });
 
 /** 状态列 Tag 类型映射（死信多为失败态，未知值按 info 展示） */
-function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapTagVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -62,7 +64,11 @@ const gridOptions: VxeTableGridOptions<MsgLogVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.status)) },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'createdAt', title: '创建时间', width: 170 },

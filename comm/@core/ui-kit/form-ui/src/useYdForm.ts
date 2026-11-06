@@ -10,11 +10,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  YdBaseFormComponentType,
-  YdExtendedFormApi,
-  YdFormProps,
-} from './types';
+import type { YdBaseFormComponentType, YdExtendedFormApi, YdFormProps } from './types';
 
 import { defineComponent, h, isReactive, onBeforeUnmount, watch } from 'vue';
 
@@ -52,9 +48,9 @@ import UseForm from './UseForm.vue';
  * await formApi.validate();
  * ```
  */
-export function useYdForm<
-  T extends YdBaseFormComponentType = YdBaseFormComponentType,
->(options: YdFormProps<T>) {
+export function useYdForm<T extends YdBaseFormComponentType = YdBaseFormComponentType>(
+  options: YdFormProps<T>,
+) {
   const IS_REACTIVE = isReactive(options);
   const api = new FormApi(options);
   const extendedApi: YdExtendedFormApi = api as never;
@@ -68,8 +64,7 @@ export function useYdForm<
         api.unmount();
       });
       api.setState({ ...props, ...attrs });
-      return () =>
-        h(UseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
+      return () => h(UseForm, { ...props, ...attrs, formApi: extendedApi }, slots);
     },
     {
       name: 'UseForm',
@@ -89,4 +84,3 @@ export function useYdForm<
 
   return [Form, extendedApi] as const;
 }
-

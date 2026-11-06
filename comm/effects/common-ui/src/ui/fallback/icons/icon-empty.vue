@@ -25,7 +25,7 @@ defineOptions({
     <desc>{{ $t('ui.emptyState.description') }}</desc>
     <!-- 背景圆形 -->
     <circle cx="100" cy="100" r="90" fill="#f5f7fa" />
-    
+
     <!-- 盒子主体 -->
     <g transform="translate(60, 70)">
       <!-- 盒子底部 -->
@@ -35,7 +35,7 @@ defineOptions({
         stroke="#c0c4cc"
         stroke-width="2"
       />
-      
+
       <!-- 盒子左侧 -->
       <path
         d="M 10 40 L 40 55 L 40 85 L 10 70 Z"
@@ -43,7 +43,7 @@ defineOptions({
         stroke="#c0c4cc"
         stroke-width="2"
       />
-      
+
       <!-- 盒子右侧 -->
       <path
         d="M 70 40 L 40 55 L 40 85 L 70 70 Z"
@@ -51,33 +51,19 @@ defineOptions({
         stroke="#c0c4cc"
         stroke-width="2"
       />
-      
+
       <!-- 盒子顶部开口 -->
-      <ellipse
-        cx="40"
-        cy="40"
-        rx="30"
-        ry="15"
-        fill="#f5f7fa"
-        stroke="#c0c4cc"
-        stroke-width="2"
-      />
-      
+      <ellipse cx="40" cy="40" rx="30" ry="15" fill="#f5f7fa" stroke="#c0c4cc" stroke-width="2" />
+
       <!-- 盒子顶部开口内部阴影 -->
-      <ellipse
-        cx="40"
-        cy="42"
-        rx="28"
-        ry="13"
-        fill="#ebeef5"
-      />
+      <ellipse cx="40" cy="42" rx="28" ry="13" fill="#ebeef5" />
     </g>
-    
+
     <!-- 装饰性小圆点 -->
     <circle cx="50" cy="50" r="3" fill="#c0c4cc" opacity="0.5" />
     <circle cx="150" cy="60" r="2" fill="#c0c4cc" opacity="0.5" />
     <circle cx="140" cy="150" r="2.5" fill="#c0c4cc" opacity="0.5" />
-    
+
     <!-- 文字提示 -->
     <text
       x="100"

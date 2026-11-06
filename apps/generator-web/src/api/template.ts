@@ -97,6 +97,9 @@ export function updateTemplate(template: GenTemplate): Promise<GenTemplate> {
  * @param params 包含 groupId + keyword
  * @returns 匹配结果
  */
-export function searchTemplates(params: { groupId: number; keyword: string }): Promise<GenTemplate[]> {
+export function searchTemplates(params: {
+  groupId: number;
+  keyword: string;
+}): Promise<GenTemplate[]> {
   return requestClient.get<GenTemplate[]>(`/generator/templates/search`, { params });
 }

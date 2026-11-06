@@ -1,48 +1,48 @@
-import { describe, expect, it } from 'vitest'
-import { getActiveElement } from './getActiveElement'
+import { describe, expect, it } from 'vitest';
+import { getActiveElement } from './getActiveElement';
 
 describe('getActiveElement', () => {
   it('should return the active element when it is a regular element', () => {
-    const element = createFocusableElement()
-    document.body.appendChild(element)
-    element.focus()
+    const element = createFocusableElement();
+    document.body.appendChild(element);
+    element.focus();
 
-    expect(getActiveElement()).toBe(element)
+    expect(getActiveElement()).toBe(element);
 
-    document.body.removeChild(element)
-  })
+    document.body.removeChild(element);
+  });
 
   it('should return the deepest active element in shadow DOM', () => {
-    const host = createShadowDom()
-    const hostElement = createFocusableElement()
-    host.shadowRoot?.appendChild(hostElement)
+    const host = createShadowDom();
+    const hostElement = createFocusableElement();
+    host.shadowRoot?.appendChild(hostElement);
 
-    const nested = createShadowDom()
-    const nestedElement = createFocusableElement()
-    nested.shadowRoot?.appendChild(nestedElement)
+    const nested = createShadowDom();
+    const nestedElement = createFocusableElement();
+    nested.shadowRoot?.appendChild(nestedElement);
 
-    host.shadowRoot?.appendChild(nested)
+    host.shadowRoot?.appendChild(nested);
 
-    document.body.appendChild(host)
+    document.body.appendChild(host);
 
-    nestedElement.focus()
+    nestedElement.focus();
 
-    expect(getActiveElement()).toBe(nestedElement)
+    expect(getActiveElement()).toBe(nestedElement);
 
-    document.body.removeChild(host)
-  })
-})
+    document.body.removeChild(host);
+  });
+});
 
 function createFocusableElement() {
-  const button = document.createElement('button')
-  button.innerText = 'Test Button'
+  const button = document.createElement('button');
+  button.innerText = 'Test Button';
 
-  return button
+  return button;
 }
 
 function createShadowDom() {
-  const host = document.createElement('div')
-  host.attachShadow({ mode: 'open' })
+  const host = document.createElement('div');
+  host.attachShadow({ mode: 'open' });
 
-  return host
+  return host;
 }

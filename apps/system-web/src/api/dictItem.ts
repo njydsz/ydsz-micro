@@ -24,46 +24,35 @@ export function page(query?: DictItemPageQuery): Promise<PageResponse<DictItemVO
 /**
  * getById: GET /dict/item/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<DictItemVO> {
+export function getById({ id }: { id: string }): Promise<DictItemVO> {
   return requestClient.get<DictItemVO>(`/dict/item/${id}`);
 }
 
 /**
  * lookup: GET /dict/item/lookup
  */
-export function lookup(params: {
-    typeCode?: string;
-    itemCode?: string;
-  }): Promise<DictItemVO> {
+export function lookup(params: { typeCode?: string; itemCode?: string }): Promise<DictItemVO> {
   return requestClient.get<DictItemVO>(`/dict/item/lookup`, { params });
 }
 
 /**
  * listByType: GET /dict/item/type/{typeCode}
  */
-export function listByType({ typeCode }: {
-    typeCode: string;
-  }): Promise<DictItemVO[]> {
+export function listByType({ typeCode }: { typeCode: string }): Promise<DictItemVO[]> {
   return requestClient.get<DictItemVO[]>(`/dict/item/type/${typeCode}`);
 }
 
 /**
  * listChildren: GET /dict/item/children/{parentId}
  */
-export function listChildren({ parentId }: {
-    parentId: string;
-  }): Promise<DictItemVO[]> {
+export function listChildren({ parentId }: { parentId: string }): Promise<DictItemVO[]> {
   return requestClient.get<DictItemVO[]>(`/dict/item/children/${parentId}`);
 }
 
 /**
  * buildTree: GET /dict/item/tree/{typeCode}
  */
-export function buildTree({ typeCode }: {
-    typeCode: string;
-  }): Promise<DictItemVO[]> {
+export function buildTree({ typeCode }: { typeCode: string }): Promise<DictItemVO[]> {
   return requestClient.get<DictItemVO[]>(`/dict/item/tree/${typeCode}`);
 }
 
@@ -84,15 +73,15 @@ export function update(data: DictItemDTO): Promise<boolean> {
 /**
  * remove: DELETE /dict/item/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/dict/item/${id}`);
 }
 
 /**
  * batchSave: POST /dict/item/batch
  */
-export function batchSave(data: DictItemBatchDTO): Promise<Record<string, Record<string, unknown>>> {
+export function batchSave(
+  data: DictItemBatchDTO,
+): Promise<Record<string, Record<string, unknown>>> {
   return requestClient.post<Record<string, Record<string, unknown>>>(`/dict/item/batch`, data);
 }

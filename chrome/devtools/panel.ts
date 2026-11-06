@@ -112,7 +112,8 @@ function render(): void {
   if (!alEl) return;
 
   if (state.apps.length === 0) {
-    alEl.innerHTML = '<div class="empty">未检测到 micro-kernel 运行时<br><small>请确认页面已加载主应用</small></div>';
+    alEl.innerHTML =
+      '<div class="empty">未检测到 micro-kernel 运行时<br><small>请确认页面已加载主应用</small></div>';
     return;
   }
 
@@ -122,7 +123,8 @@ function render(): void {
       ? `<span style="color:#bfbfbf;font-size:10px">${a.loadDuration}ms</span>`
       : '';
     const featured = a.status === 'MOUNTED' ? '★ ' : '';
-    html += `<div class="ar" data-app="${a.name}">` +
+    html +=
+      `<div class="ar" data-app="${a.name}">` +
       `<span class="dot ${a.status}"></span>` +
       `<span class="an" title="${a.entry ?? ''}">${featured}${escapeHtml(a.name)}</span>` +
       `<span class="as">${a.status}</span>` +
@@ -184,7 +186,12 @@ function log(text: string, lv = 'info'): void {
 /* === 通信 === */
 function send(msg: { type: string; payload?: Record<string, unknown> }): void {
   void chrome.runtime
-    .sendMessage<unknown>({ target: 'background', type: msg.type, payload: msg.payload, _id: undefined } as never)
+    .sendMessage<unknown>({
+      target: 'background',
+      type: msg.type,
+      payload: msg.payload,
+      _id: undefined,
+    } as never)
     .catch(() => {
       /* ignore */
     });
@@ -227,7 +234,7 @@ function handleBgMessage(m: BackgroundMsg): void {
       const ev = m.payload ?? {};
       log(
         `${ev.eventName ?? 'event'}${ev.appName ? ` → ${ev.appName}` : ''}`,
-        ev.error ? 'err' : 'warn'
+        ev.error ? 'err' : 'warn',
       );
       break;
     }

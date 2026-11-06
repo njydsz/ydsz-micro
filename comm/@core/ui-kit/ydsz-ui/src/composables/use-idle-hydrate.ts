@@ -19,11 +19,7 @@
 
 import type { Ref } from 'vue';
 
-import {
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 /** 安全获取 requestIdleCallback（运行时而非模块加载时解析，便于测试 mock） */
 function getIdleCallback(): typeof requestIdleCallback {
@@ -107,15 +103,8 @@ export interface IdleHydrateHandle {
  * @param options - 配置选项
  * @return 挂载句柄
  */
-export function useIdleHydrate(
-  options: UseIdleHydrateOptions = {},
-): IdleHydrateHandle {
-  const {
-    idle = true,
-    intersection = false,
-    rootMargin = '200px',
-    immediate = false,
-  } = options;
+export function useIdleHydrate(options: UseIdleHydrateOptions = {}): IdleHydrateHandle {
+  const { idle = true, intersection = false, rootMargin = '200px', immediate = false } = options;
 
   const isHydrated = ref(immediate);
   const containerRef = ref<HTMLElement | undefined>();
@@ -203,16 +192,17 @@ export function useIdleHydrate(
  * </template>
  * ```
  */
-export function useSimpleIdleHydrate(
-  delay = 2000,
-): Ref<boolean> {
+export function useSimpleIdleHydrate(delay = 2000): Ref<boolean> {
   const isHydrated = ref(import.meta.env.DEV);
 
   onMounted(() => {
     if (isHydrated.value) return;
-    getIdleCallback()(() => {
-      isHydrated.value = true;
-    }, { timeout: delay } as IdleRequestOptions);
+    getIdleCallback()(
+      () => {
+        isHydrated.value = true;
+      },
+      { timeout: delay } as IdleRequestOptions,
+    );
   });
 
   return isHydrated;

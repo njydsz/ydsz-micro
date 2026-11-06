@@ -22,12 +22,15 @@ defineOptions({ name: 'ErrorBoundary' });
 
 const logger = createLogger('ErrorBoundary');
 
-const props = withDefaults(defineProps<{
-  /** 边界标识（用于日志） */
-  name?: string;
-}>(), {
-  name: 'unknown',
-});
+const props = withDefaults(
+  defineProps<{
+    /** 边界标识（用于日志） */
+    name?: string;
+  }>(),
+  {
+    name: 'unknown',
+  },
+);
 
 const hasError = ref(false);
 const errorInfo = ref<Error | null>(null);

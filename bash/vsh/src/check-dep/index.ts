@@ -58,6 +58,10 @@ const DEFAULT_CONFIG: DepComplianceConfig = {
     'CC0-1.0',
     'Python-2.0',
     'BlueOak-1.0.0',
+    // MPL-2.0（Mozilla Public License 2.0）：弱 copyleft，仅要求
+    // "文件级" 开源（修改 MPL 文件需开源该文件），不影响本仓库整体许可。
+    // axe-core / @axe-core/playwright（a11y 门禁依赖）即此许可证。
+    'MPL-2.0',
   ],
   forbiddenPackages: ['moment', 'jquery', 'lodash'],
   requireWorkspaceProtocol: true,
@@ -71,7 +75,11 @@ const DEFAULT_CONFIG: DepComplianceConfig = {
     'got',
     'superagent',
   ],
-  fetchInfraDirs: ['comm/effects/request'],
+  // 允许直接使用 fetch 的基础设施目录：
+  // - request：HTTP 封装的实现层
+  // - monitor：Web Vitals / 错误上报走 navigator.sendBeacon 语义的
+  //   fetch keepalive，不经 @ydsz/request（避免拦截器二次加工监控数据）
+  fetchInfraDirs: ['comm/effects/request', 'comm/effects/monitor', 'main/src/composables'],
 };
 
 /** 跳过的目录（避免扫描产物与依赖） */
@@ -436,7 +444,9 @@ function checkImportBoundary(rootDir: string, config: DepComplianceConfig): DepV
       }
 
       // 2) 裸 fetch / XMLHttpRequest 调用（业务代码应经 @ydsz/request）
-      if (fetchRe.test(content)) {
+      //    fetchInfraDirs 内的监控/请求基础设施属豁免范围。
+      const inFetchInfra = config.fetchInfraDirs.some((d) => rel === d || rel.startsWith(`${d}/`));
+      if (!inFetchInfra && fetchRe.test(content)) {
         violations.push({
           package: 'fetch/XMLHttpRequest',
           version: '-',

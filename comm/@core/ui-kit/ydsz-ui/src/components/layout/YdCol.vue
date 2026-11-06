@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* 栅格列 —— 便利性封装（Convenience Wrapper）。
-* 
+ * 栅格列 —— 便利性封装（Convenience Wrapper）。
+ *
  * 基于 CSS Grid 的栅格列，与 YdRow 配对使用。
  * 对齐 Element Plus ElCol 的 API 形态：span、offset、push、pull。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\layout\YdCol.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -15,7 +15,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { computed, inject } from 'vue';
 
 import type { HTMLAttributes } from 'vue';
@@ -25,35 +25,38 @@ import type { GridContext, GridBreakpoint } from './YdRow.vue';
 /** 注入 key —— 与 YdRow 提供的 key 对应 */
 const GRID_CONTEXT_KEY: symbol = Symbol('ydsz-grid-context');
 
-const props = withDefaults(defineProps<{
-  /** 栅格占位格数（1-24），0 时隐藏 */
-  span?: number;
-  /** 栅格左侧的间隔格数 */
-  offset?: number;
-  /** 栅格向右移动的格数 */
-  push?: number;
-  /** 栅格向左移动的格数 */
-  pull?: number;
-  /** 响应式 xs (<768px) 列数 */
-  xs?: number;
-  /** 响应式 sm (≥768px) 列数 */
-  sm?: number;
-  /** 响应式 md (≥992px) 列数 */
-  md?: number;
-  /** 响应式 lg (≥1200px) 列数 */
-  lg?: number;
-  /** 响应式 xl (≥1600px) 列数 */
-  xl?: number;
-  /** 响应式 xxl (≥1920px) 列数 */
-  xxl?: number;
-  /** 自定义 class */
-  class?: HTMLAttributes['class'];
-}>(), {
-  span: 24,
-  offset: 0,
-  push: 0,
-  pull: 0,
-});
+const props = withDefaults(
+  defineProps<{
+    /** 栅格占位格数（1-24），0 时隐藏 */
+    span?: number;
+    /** 栅格左侧的间隔格数 */
+    offset?: number;
+    /** 栅格向右移动的格数 */
+    push?: number;
+    /** 栅格向左移动的格数 */
+    pull?: number;
+    /** 响应式 xs (<768px) 列数 */
+    xs?: number;
+    /** 响应式 sm (≥768px) 列数 */
+    sm?: number;
+    /** 响应式 md (≥992px) 列数 */
+    md?: number;
+    /** 响应式 lg (≥1200px) 列数 */
+    lg?: number;
+    /** 响应式 xl (≥1600px) 列数 */
+    xl?: number;
+    /** 响应式 xxl (≥1920px) 列数 */
+    xxl?: number;
+    /** 自定义 class */
+    class?: HTMLAttributes['class'];
+  }>(),
+  {
+    span: 24,
+    offset: 0,
+    push: 0,
+    pull: 0,
+  },
+);
 
 /** 从父 YdRow 获取栅格上下文 */
 const gridContext = inject<GridContext>(GRID_CONTEXT_KEY, {
@@ -116,10 +119,7 @@ const responsiveClass = computed((): string => {
     <YdCol :xs="24" :sm="12" :md="8" :lg="6">响应式列</YdCol>
     ```
   -->
-  <div
-    :style="colStyle"
-    :class="responsiveClass || props.class"
-  >
+  <div :style="colStyle" :class="responsiveClass || props.class">
     <slot />
   </div>
 </template>

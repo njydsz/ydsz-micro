@@ -47,18 +47,18 @@ function stubXhrEnvironment() {
     withCredentials = false;
   }
   vi.stubGlobal('XMLHttpRequest', FakeXHR);
-  vi.stubGlobal('FormData', class {
-    append = vi.fn();
-  });
+  vi.stubGlobal(
+    'FormData',
+    class {
+      append = vi.fn();
+    },
+  );
 
   return { openMock, sendMock, setRequestHeaderMock };
 }
 
 describe('use-upload-executor', () => {
-  function makeExecutor(
-    propsOverrides: Partial<YdFileUploadProps> = {},
-    emit?: YdFileUploadEmits,
-  ) {
+  function makeExecutor(propsOverrides: Partial<YdFileUploadProps> = {}, emit?: YdFileUploadEmits) {
     const props = reactive({
       action: '/api/upload',
       autoUpload: false,

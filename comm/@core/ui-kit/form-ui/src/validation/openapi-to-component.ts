@@ -158,10 +158,11 @@ export function openApiSchemaToFormFields(
   const fields: ComponentFieldConfig[] = [];
   for (const [field, meta] of Object.entries(properties)) {
     const component = openApiSchemaToComponentType(field, meta, options);
-    const isTextarea = component === 'YdInput'
-      && meta.type === 'string'
-      && !!meta.description
-      && meta.description.length > (options.textareaThreshold ?? 256);
+    const isTextarea =
+      component === 'YdInput' &&
+      meta.type === 'string' &&
+      !!meta.description &&
+      meta.description.length > (options.textareaThreshold ?? 256);
 
     fields.push({
       component,
@@ -203,7 +204,7 @@ export interface ComponentFieldConfig {
 // -----------------------------------------------------------------------
 
 function dictMappingExists(field: string, options: ComponentMappingOptions): boolean {
-  return !!(options.dictMapping?.[field]) || isDictFieldByConvention(field);
+  return !!options.dictMapping?.[field] || isDictFieldByConvention(field);
 }
 
 function fieldToDictType(field: string): string {

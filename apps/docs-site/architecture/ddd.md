@@ -6,12 +6,12 @@ YDSZ 每个业务模块遵循领域驱动设计（DDD）的模块化分层规范
 
 每个业务模块遵循 `{module}-{layer}` 的四层命名：
 
-| 层 | 命名 | 职责 | 关键技术 |
-|----|------|------|----------|
-| **API 层** | `{module}-api` | 纯契约层：FeignClient 接口 + Assembler + fallback | Spring Cloud OpenFeign |
-| **领域层** | `{module}-domain` | DTO/Query/VO/Entity/枚举/Repository 接口/DomainService/Converter | MapStruct (compile-only) |
-| **基础设施层** | `{module}-infra` | Repository 实现、Mapper、Entity PO、Converter 实现 | MyBatis Plus |
-| **业务编排层** | `{module}-server` / `{module}-web` | 业务编排、Controller、定时任务、事件监听 | Spring Boot Web |
+| 层             | 命名                               | 职责                                                             | 关键技术                 |
+| -------------- | ---------------------------------- | ---------------------------------------------------------------- | ------------------------ |
+| **API 层**     | `{module}-api`                     | 纯契约层：FeignClient 接口 + Assembler + fallback                | Spring Cloud OpenFeign   |
+| **领域层**     | `{module}-domain`                  | DTO/Query/VO/Entity/枚举/Repository 接口/DomainService/Converter | MapStruct (compile-only) |
+| **基础设施层** | `{module}-infra`                   | Repository 实现、Mapper、Entity PO、Converter 实现               | MyBatis Plus             |
+| **业务编排层** | `{module}-server` / `{module}-web` | 业务编排、Controller、定时任务、事件监听                         | Spring Boot Web          |
 
 ## 依赖方向（必须遵守）
 
@@ -66,11 +66,11 @@ private LocalDateTime createdAt;
 
 Entity 是领域模型核心，Converter 做形态转换，均属于 domain 层逻辑。
 
-| 层级 | 放置内容 |
-|------|----------|
-| `domain/entity/` | 数据库实体类 |
-| `domain/converter/` | MapStruct 转换器接口 |
-| `infra/` | 仅保留 Mapper 和 Repository 实现 |
+| 层级                | 放置内容                         |
+| ------------------- | -------------------------------- |
+| `domain/entity/`    | 数据库实体类                     |
+| `domain/converter/` | MapStruct 转换器接口             |
+| `infra/`            | 仅保留 Mapper 和 Repository 实现 |
 
 ### 4. web/server/app 层禁止引入同模块 api 依赖
 
@@ -80,7 +80,8 @@ Entity 是领域模型核心，Converter 做形态转换，均属于 domain 层�
 
 - **为什么 Entity 放 domain**：Entity 是领域模型的核心组成部分，server 层可直接引用
 - **为什么 Converter 放 domain**：Converter 做 Entity↔VO/DTO 的形态转换，属于领域层内部逻辑
-- **MapStruct 依赖**：domain 声明 `provided` scope 不传递到 infra；infra 编译期解析时允许以 `provided` scope 被动声明
+- **MapStruct 依赖**：domain 声明 `provided`
+  scope 不传递到 infra；infra 编译期解析时允许以 `provided` scope 被动声明
 
 ## Repository 规范（YDIZ-DDD-002）
 

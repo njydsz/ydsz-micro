@@ -79,9 +79,7 @@ export function useCommandPalette(options: UseCommandPaletteOptions) {
       });
     } else {
       // 最终兜底：使用 micro-kernel:navigate 事件（与已有搜索面板兼容）
-      window.dispatchEvent(
-        new CustomEvent('micro-kernel:navigate', { detail: { path } }),
-      );
+      window.dispatchEvent(new CustomEvent('micro-kernel:navigate', { detail: { path } }));
     }
   }
 

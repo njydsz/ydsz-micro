@@ -31,9 +31,7 @@ const tabbarStyleType = defineModel<string>('tabbarStyleType');
 const tabbarShowMore = defineModel<boolean>('tabbarShowMore');
 const tabbarShowMaximize = defineModel<boolean>('tabbarShowMaximize');
 const tabbarMaxCount = defineModel<number>('tabbarMaxCount');
-const tabbarMiddleClickToClose = defineModel<boolean>(
-  'tabbarMiddleClickToClose',
-);
+const tabbarMiddleClickToClose = defineModel<boolean>('tabbarMiddleClickToClose');
 
 const styleItems = computed((): SelectOption[] => [
   {

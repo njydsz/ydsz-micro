@@ -17,7 +17,15 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup, YdTreeSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdTreeSelect,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -41,7 +49,7 @@ const treeData = ref<DepartmentTreeVO[]>([]);
 
 /** 将 DepartmentTreeVO 树转换为 YdTreeSelect 所需的 options 格式 */
 const treeOptions = computed(() => {
-  const mapped = treeData.value.map(node => ({
+  const mapped = treeData.value.map((node) => ({
     label: node.deptName ?? '',
     value: node.id ?? '',
     ...(node.children?.length && { children: mapDeptTreeToOptions(node.children) }),
@@ -49,8 +57,10 @@ const treeOptions = computed(() => {
   return [{ label: t('dept.topDept'), value: '', children: mapped }];
 });
 
-function mapDeptTreeToOptions(nodes: DepartmentTreeVO[]): { label: string; value: string; children?: { label: string; value: string }[] }[] {
-  return nodes.map(node => ({
+function mapDeptTreeToOptions(
+  nodes: DepartmentTreeVO[],
+): { label: string; value: string; children?: { label: string; value: string }[] }[] {
+  return nodes.map((node) => ({
     label: node.deptName ?? '',
     value: node.id ?? '',
     ...(node.children?.length && { children: mapDeptTreeToOptions(node.children) }),
@@ -148,7 +158,11 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.deptBase')}` : `${t('page.create')}${t('page.deptBase')}`));
+const title = computed(() =>
+  isEdit.value
+    ? `${t('page.edit')}${t('page.deptBase')}`
+    : `${t('page.create')}${t('page.deptBase')}`,
+);
 </script>
 
 <template>

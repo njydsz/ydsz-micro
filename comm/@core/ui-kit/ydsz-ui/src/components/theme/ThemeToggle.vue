@@ -87,7 +87,7 @@ function toggleTheme(): void {
 }
 
 /** 按钮 aria-label */
-const ariaLabel = computed(() => isDark.value ? '切换到亮色模式' : '切换到暗色模式');
+const ariaLabel = computed(() => (isDark.value ? '切换到亮色模式' : '切换到暗色模式'));
 
 // 初始化主题偏好 + 系统监听
 onMounted(() => {
@@ -118,10 +118,10 @@ onMounted(() => {
     :aria-pressed="isDark"
     :class="
       cn(
-        'relative inline-flex size-9 items-center justify-center rounded-md border border-border',
+        'border-border relative inline-flex size-9 items-center justify-center rounded-md border',
         'bg-background text-foreground',
         'hover:bg-accent hover:text-accent-foreground',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        'focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
         'transition-all duration-200',
       )
     "

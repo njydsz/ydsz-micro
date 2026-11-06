@@ -19,7 +19,17 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdProgress,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -148,10 +158,8 @@ const gridOptions: VxeTableGridOptions<JobTaskVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as JobTaskVO;
-          return h(
-            YdBadge,
-            { size: 'sm', variant: isRoot(item) ? 'default' : 'secondary' },
-            () => (isRoot(item) ? '根任务' : '子任务'),
+          return h(YdBadge, { size: 'sm', variant: isRoot(item) ? 'default' : 'secondary' }, () =>
+            isRoot(item) ? '根任务' : '子任务',
           );
         },
       },
@@ -273,35 +281,53 @@ onMounted(() => {
         <YdSheetHeader>
           <YdSheetTitle>任务分片详情</YdSheetTitle>
         </YdSheetHeader>
-      <template v-if="detailRecord">
-        <YdDescriptions :column="2" border size="small">
-          <YdDescriptionsItem label="分片名称">{{ detailRecord.taskName ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="类型">
-            <YdBadge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
-              {{ isRoot(detailRecord) ? '根任务' : '子任务' }}
-            </YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="状态">
-            <YdBadge size="sm" :variant="taskStatusTagType(detailRecord)">
-              {{ translateTaskStatus(detailRecord.taskStatus) }}
-            </YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="执行节点">{{ detailRecord.execNodeId ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="重试次数">{{ detailRecord.retryCount ?? 0 }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="创建时间">{{ detailRecord.createdAt ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="更新时间">{{ detailRecord.updatedAt ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailRecord.taskParams" label="任务参数" :span="2">
-            <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{ detailRecord.taskParams }}</pre>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailRecord.result" label="执行结果" :span="2">
-            <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{ detailRecord.result }}</pre>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem v-if="detailRecord.errorMessage" label="错误信息" :span="2">
-            <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs text-red-500">{{ detailRecord.errorMessage }}</pre>
-          </YdDescriptionsItem>
-        </YdDescriptions>
-      </template>
+        <template v-if="detailRecord">
+          <YdDescriptions :column="2" border size="small">
+            <YdDescriptionsItem label="分片名称">{{
+              detailRecord.taskName ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="类型">
+              <YdBadge size="sm" :variant="isRoot(detailRecord) ? 'default' : 'secondary'">
+                {{ isRoot(detailRecord) ? '根任务' : '子任务' }}
+              </YdBadge>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="任务标识">{{
+              detailRecord.jobKey ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="状态">
+              <YdBadge size="sm" :variant="taskStatusTagType(detailRecord)">
+                {{ translateTaskStatus(detailRecord.taskStatus) }}
+              </YdBadge>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="执行节点">{{
+              detailRecord.execNodeId ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="重试次数">{{
+              detailRecord.retryCount ?? 0
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="创建时间">{{
+              detailRecord.createdAt ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="更新时间">{{
+              detailRecord.updatedAt ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailRecord.taskParams" label="任务参数" :span="2">
+              <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{
+                detailRecord.taskParams
+              }}</pre>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailRecord.result" label="执行结果" :span="2">
+              <pre class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs">{{
+                detailRecord.result
+              }}</pre>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem v-if="detailRecord.errorMessage" label="错误信息" :span="2">
+              <pre
+                class="max-h-32 overflow-auto whitespace-pre-wrap break-all text-xs text-red-500"
+                >{{ detailRecord.errorMessage }}</pre>
+            </YdDescriptionsItem>
+          </YdDescriptions>
+        </template>
       </YdSheetContent>
     </YdSheet>
   </Page>

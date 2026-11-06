@@ -15,11 +15,7 @@
 
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import {
-  configureAxeBuilder,
-  filterBlockingViolations,
-  formatViolations,
-} from './axe.config';
+import { configureAxeBuilder, filterBlockingViolations, formatViolations } from './axe.config';
 
 /**
  * 核心页面清单 — 覆盖主要业务入口。

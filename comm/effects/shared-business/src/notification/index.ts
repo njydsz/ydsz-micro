@@ -6,15 +6,9 @@
  * @since 4.1.0
  */
 
-export {
-  useNotificationStore,
-} from './notification-store';
-export {
-  setupSseNotificationBridge,
-} from './sse-notification-bridge';
-export {
-  NotificationType,
-} from './notification-types';
+export { useNotificationStore } from './notification-store';
+export { setupSseNotificationBridge } from './sse-notification-bridge';
+export { NotificationType } from './notification-types';
 export type {
   NotificationAction,
   NotificationItem,

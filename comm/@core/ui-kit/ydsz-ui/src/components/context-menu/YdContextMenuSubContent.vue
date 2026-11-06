@@ -9,10 +9,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import type {
-  DropdownMenuSubContentEmits,
-  DropdownMenuSubContentProps,
-} from '@ydsz-core/ydsz-vue';
+import type { DropdownMenuSubContentEmits, DropdownMenuSubContentProps } from '@ydsz-core/ydsz-vue';
 
 import { computed } from 'vue';
 

@@ -9,7 +9,12 @@
  * @since 26.10.17
  */
 
-import type { TreeFlatRow, YdTreeTableColumnDef, YdTreeTableEmits, YdTreeTableProps } from './types';
+import type {
+  TreeFlatRow,
+  YdTreeTableColumnDef,
+  YdTreeTableEmits,
+  YdTreeTableProps,
+} from './types';
 import type { CSSProperties, ComputedRef, Ref } from 'vue';
 
 /* ============================================================ */
@@ -37,9 +42,23 @@ export interface TreeTableCellColumn<T extends Record<string, unknown>> {
  * <p>composable 接收的是 withDefaults 处理后的 props，
  * 可选字段已有默认值，此处收窄为必填以便内部安全访问。
  */
-export type ResolvedTreeTableProps<T extends Record<string, unknown>> =
-  Required<Pick<YdTreeTableProps<T>, 'childrenKey' | 'rowKey' | 'indentSize' | 'showLine' | 'treeColumnIndex' | 'checkable' | 'checkStrictly' | 'draggable' | 'lazy' | 'defaultExpandedKeys' | 'defaultCheckedKeys'>>
-  & YdTreeTableProps<T>;
+export type ResolvedTreeTableProps<T extends Record<string, unknown>> = Required<
+  Pick<
+    YdTreeTableProps<T>,
+    | 'childrenKey'
+    | 'rowKey'
+    | 'indentSize'
+    | 'showLine'
+    | 'treeColumnIndex'
+    | 'checkable'
+    | 'checkStrictly'
+    | 'draggable'
+    | 'lazy'
+    | 'defaultExpandedKeys'
+    | 'defaultCheckedKeys'
+  >
+> &
+  YdTreeTableProps<T>;
 
 /** useTreeTableCore 配置 */
 export interface UseTreeTableCoreOptions<T extends Record<string, unknown>> {

@@ -9,7 +9,7 @@
  * @since 26.10.10
  */
 
-export { vRipple } from './v-ripple'
-export { vClickOutside } from './v-click-outside'
-export type { RippleOptions } from './v-ripple'
-export type { ClickOutsideHandler } from './v-click-outside'
+export { vRipple } from './v-ripple';
+export { vClickOutside } from './v-click-outside';
+export type { RippleOptions } from './v-ripple';
+export type { ClickOutsideHandler } from './v-click-outside';

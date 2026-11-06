@@ -10,13 +10,7 @@ import type { MenuRecordRaw } from '@ydsz/types';
 
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import {
-  ArrowDown,
-  ArrowUp,
-  CornerDownLeft,
-  MdiKeyboardEsc,
-  Search,
-} from '@ydsz/icons';
+import { ArrowDown, ArrowUp, CornerDownLeft, MdiKeyboardEsc, Search } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
 import { isWindowsOs } from '@ydsz/utils';
 
@@ -103,11 +97,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <Modal
-      :fullscreen-button="false"
-      class="w-[600px]"
-      header-class="py-2 border-b"
-    >
+    <Modal :fullscreen-button="false" class="w-[600px]" header-class="py-2 border-b">
       <template #title>
         <div class="flex items-center">
           <Search class="text-muted-foreground mr-2 size-4" />

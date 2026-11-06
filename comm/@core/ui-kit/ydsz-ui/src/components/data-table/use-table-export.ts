@@ -51,13 +51,14 @@ const DEFAULT_FILE_NAME = 'table-export';
  * @param separator - 当前分隔符
  * @returns 可安全拼接的字段文本
  */
-export function escapeCsvField(raw: unknown, separator: ExportSeparator = DEFAULT_SEPARATOR): string {
+export function escapeCsvField(
+  raw: unknown,
+  separator: ExportSeparator = DEFAULT_SEPARATOR,
+): string {
   if (raw === null || raw === undefined) return '';
   const text = typeof raw === 'string' ? raw : String(raw);
-  const needsQuote = text.includes(separator)
-    || text.includes('"')
-    || text.includes('\n')
-    || text.includes('\r');
+  const needsQuote =
+    text.includes(separator) || text.includes('"') || text.includes('\n') || text.includes('\r');
   return needsQuote ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
@@ -70,15 +71,10 @@ export function escapeCsvField(raw: unknown, separator: ExportSeparator = DEFAUL
 export function serializeTable<T extends Record<string, unknown>>(
   options: ExportTableOptions<T>,
 ): string {
-  const {
-    columns,
-    rows,
-    separator = DEFAULT_SEPARATOR,
-    valueResolver,
-  } = options;
+  const { columns, rows, separator = DEFAULT_SEPARATOR, valueResolver } = options;
 
   const lines: string[] = [];
-  lines.push(columns.map(col => escapeCsvField(col.label ?? col.key, separator)).join(separator));
+  lines.push(columns.map((col) => escapeCsvField(col.label ?? col.key, separator)).join(separator));
 
   rows.forEach((row, index) => {
     const cells = columns.map((col) => {
@@ -178,7 +174,10 @@ export function buildHtmlExcel<T extends Record<string, unknown>>(
   const rows = options.rows;
 
   const headerCells = columns
-    .map((col) => `<th style="background:#f0f0f0;font-weight:bold;padding:4px 8px;border:1px solid #ccc;">${escapeHtmlCell(col.label ?? col.key)}</th>`)
+    .map(
+      (col) =>
+        `<th style="background:#f0f0f0;font-weight:bold;padding:4px 8px;border:1px solid #ccc;">${escapeHtmlCell(col.label ?? col.key)}</th>`,
+    )
     .join('');
 
   const bodyRows = rows
@@ -219,9 +218,10 @@ export function toSelectedCsvContent<T extends Record<string, unknown>>(
   selectedKeys: Set<string>,
   rowKeyExtractor: (row: T) => string,
 ): string {
-  const selectedRows = selectedKeys.size === 0
-    ? allRows
-    : allRows.filter((row) => selectedKeys.has(rowKeyExtractor(row)));
+  const selectedRows =
+    selectedKeys.size === 0
+      ? allRows
+      : allRows.filter((row) => selectedKeys.has(rowKeyExtractor(row)));
   return `\uFEFF${serializeTable<T>({ ...base, rows: selectedRows })}`;
 }
 
@@ -257,7 +257,11 @@ export function useTableExport<T extends Record<string, unknown>>(source: {
     });
   }
 
-  function triggerDownload(separator: ExportSeparator, extension: string, mimeType: string): string {
+  function triggerDownload(
+    separator: ExportSeparator,
+    extension: string,
+    mimeType: string,
+  ): string {
     const fileName = `${source.fileName?.() ?? DEFAULT_FILE_NAME}.${extension}`;
     downloadTextFile(buildContent(separator), fileName, mimeType);
     return fileName;
@@ -277,9 +281,10 @@ export function useTableExport<T extends Record<string, unknown>>(source: {
       const extractor = rowKeyExtractor ?? source.rowKeyExtractor ?? ((r: any) => String(r));
       const effectiveKeys = selectedKeys ?? new Set<string>();
       const allRows = source.rows();
-      const rowsToExport = effectiveKeys.size === 0
-        ? allRows
-        : allRows.filter((row) => effectiveKeys.has(extractor(row)));
+      const rowsToExport =
+        effectiveKeys.size === 0
+          ? allRows
+          : allRows.filter((row) => effectiveKeys.has(extractor(row)));
       const fileName = `${source.fileName?.() ?? DEFAULT_FILE_NAME}-selected.csv`;
       const content = `\uFEFF${serializeTable<T>({
         columns: source.columns(),

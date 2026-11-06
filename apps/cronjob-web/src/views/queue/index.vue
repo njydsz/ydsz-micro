@@ -17,7 +17,16 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdEmptyState, YdProgress, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdEmptyState,
+  YdProgress,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { getQueueStatus } from '#/api/jobQueue';
@@ -106,11 +115,11 @@ onMounted(loadQueue);
       </YdCardHeader>
       <YdCardContent>
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <div v-for="card in statCards" :key="card.label">
-          <div class="text-sm text-gray-500">{{ card.label }}</div>
-          <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
+          <div v-for="card in statCards" :key="card.label">
+            <div class="text-sm text-gray-500">{{ card.label }}</div>
+            <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
+          </div>
         </div>
-      </div>
         <div class="mt-4">
           <div class="mb-1 text-sm text-gray-600">队列使用率</div>
           <YdProgress :percentage="usagePercent" :stroke-width="14" />
@@ -126,7 +135,7 @@ onMounted(loadQueue);
         </YdCardHeader>
         <YdCardContent>
           <YdDescriptions v-if="Object.keys(details ?? {}).length" :column="2" size="small" border>
-            <YdDescriptionsItem v-for="(val, key) in (details ?? {})" :key="key" :label="String(key)">
+            <YdDescriptionsItem v-for="(val, key) in details ?? {}" :key="key" :label="String(key)">
               {{ String(val) }}
             </YdDescriptionsItem>
           </YdDescriptions>

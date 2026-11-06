@@ -19,7 +19,19 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSheet,
+  YdSheetContent,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -293,36 +305,46 @@ onMounted(() => {
     <!-- 详情历史 YdSheet -->
     <YdSheet v-model:open="isDetailVisible">
       <YdSheetContent side="right" class="w-[600px]">
-      <template v-if="detailRecord">
-        <YdDescriptions :column="2" border size="small">
-          <YdDescriptionsItem label="任务名称">{{ detailRecord.jobName ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="任务标识">{{ detailRecord.jobKey ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="版本号">v{{ detailRecord.version ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="变更类型">
-            <YdBadge :variant="changeTypeTagType(detailRecord)" size="sm">
-              {{ translateChangeType(detailRecord.changeType) }}
-            </YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="变更说明" :span="2">
-            {{ detailRecord.changeRemark ?? '-' }}
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="Cron">{{ detailRecord.cronExpression ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="执行器">{{ detailRecord.handler ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="修改人">{{ detailRecord.changedBy ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="修改时间">{{ detailRecord.changedAt ?? '-' }}</YdDescriptionsItem>
-        </YdDescriptions>
-        <YdDescriptions
-          v-if="detailRecord.snapshot"
-          :column="1"
-          border
-          size="small"
-          class="mt-3"
-        >
-          <YdDescriptionsItem label="版本快照">
-            <pre class="max-h-60 overflow-auto whitespace-pre-wrap break-all text-xs">{{ detailRecord.snapshot }}</pre>
-          </YdDescriptionsItem>
-        </YdDescriptions>
-      </template>
+        <template v-if="detailRecord">
+          <YdDescriptions :column="2" border size="small">
+            <YdDescriptionsItem label="任务名称">{{
+              detailRecord.jobName ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="任务标识">{{
+              detailRecord.jobKey ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="版本号"
+              >v{{ detailRecord.version ?? '-' }}</YdDescriptionsItem
+            >
+            <YdDescriptionsItem label="变更类型">
+              <YdBadge :variant="changeTypeTagType(detailRecord)" size="sm">
+                {{ translateChangeType(detailRecord.changeType) }}
+              </YdBadge>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="变更说明" :span="2">
+              {{ detailRecord.changeRemark ?? '-' }}
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="Cron">{{
+              detailRecord.cronExpression ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="执行器">{{
+              detailRecord.handler ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="修改人">{{
+              detailRecord.changedBy ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="修改时间">{{
+              detailRecord.changedAt ?? '-'
+            }}</YdDescriptionsItem>
+          </YdDescriptions>
+          <YdDescriptions v-if="detailRecord.snapshot" :column="1" border size="small" class="mt-3">
+            <YdDescriptionsItem label="版本快照">
+              <pre class="max-h-60 overflow-auto whitespace-pre-wrap break-all text-xs">{{
+                detailRecord.snapshot
+              }}</pre>
+            </YdDescriptionsItem>
+          </YdDescriptions>
+        </template>
       </YdSheetContent>
     </YdSheet>
 
@@ -330,48 +352,52 @@ onMounted(() => {
     <YdSheet v-model:open="isCompareVisible">
       <YdSheetContent side="right" class="w-[700px]">
         <div class="mb-2 text-base font-semibold">版本对比</div>
-      <YdForm label-width="80px" class="mb-3">
-        <YdFormItem label="版本 A">
-          <YdSelectBase v-model="compareV1">
-            <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
-            <YdSelectContentBase>
-              <YdSelectItemBase
-                v-for="opt in versionOptions"
-                :key="opt.value"
-                :value="String(opt.value)"
-              >
-                {{ opt.label }}
-              </YdSelectItemBase>
-            </YdSelectContentBase>
-          </YdSelectBase>
-        </YdFormItem>
-        <YdFormItem label="版本 B">
-          <YdSelectBase v-model="compareV2">
-            <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
-            <YdSelectContentBase>
-              <YdSelectItemBase
-                v-for="opt in versionOptions"
-                :key="opt.value"
-                :value="String(opt.value)"
-              >
-                {{ opt.label }}
-              </YdSelectItemBase>
-            </YdSelectContentBase>
-          </YdSelectBase>
-        </YdFormItem>
-        <YdFormItem>
-          <YdButton @click="handleCompare">开始对比</YdButton>
-        </YdFormItem>
-      </YdForm>
-      <div v-if="compareResult.length > 0" class="space-y-2">
-        <div v-for="(diff, idx) in compareResult" :key="`compare-${idx}-${Object.keys(diff).length}`" class="rounded border border-gray-200 p-3">
-          <div v-for="(val, field) in diff" :key="field" class="grid grid-cols-3 gap-2 text-sm">
-            <span class="font-medium text-gray-600">{{ field }}</span>
-            <span class="text-red-600 line-through">{{ String(val ?? '-') }}</span>
-            <span class="text-green-600">{{ String(val ?? '-') }}</span>
+        <YdForm label-width="80px" class="mb-3">
+          <YdFormItem label="版本 A">
+            <YdSelectBase v-model="compareV1">
+              <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
+              <YdSelectContentBase>
+                <YdSelectItemBase
+                  v-for="opt in versionOptions"
+                  :key="opt.value"
+                  :value="String(opt.value)"
+                >
+                  {{ opt.label }}
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
+          </YdFormItem>
+          <YdFormItem label="版本 B">
+            <YdSelectBase v-model="compareV2">
+              <YdSelectTriggerBase class="w-[180px]" placeholder="选择版本" />
+              <YdSelectContentBase>
+                <YdSelectItemBase
+                  v-for="opt in versionOptions"
+                  :key="opt.value"
+                  :value="String(opt.value)"
+                >
+                  {{ opt.label }}
+                </YdSelectItemBase>
+              </YdSelectContentBase>
+            </YdSelectBase>
+          </YdFormItem>
+          <YdFormItem>
+            <YdButton @click="handleCompare">开始对比</YdButton>
+          </YdFormItem>
+        </YdForm>
+        <div v-if="compareResult.length > 0" class="space-y-2">
+          <div
+            v-for="(diff, idx) in compareResult"
+            :key="`compare-${idx}-${Object.keys(diff).length}`"
+            class="rounded border border-gray-200 p-3"
+          >
+            <div v-for="(val, field) in diff" :key="field" class="grid grid-cols-3 gap-2 text-sm">
+              <span class="font-medium text-gray-600">{{ field }}</span>
+              <span class="text-red-600 line-through">{{ String(val ?? '-') }}</span>
+              <span class="text-green-600">{{ String(val ?? '-') }}</span>
+            </div>
           </div>
         </div>
-      </div>
       </YdSheetContent>
     </YdSheet>
   </Page>

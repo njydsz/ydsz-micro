@@ -16,45 +16,49 @@ import type { RuleDependencyAddDTO, RuleDependencyVO, StringVO } from './models'
 /**
  * addDependency: POST /literule/rules/{ruleCode}/dependencies
  */
-export function addDependency({ ruleCode }: {
+export function addDependency(
+  {
+    ruleCode,
+  }: {
     ruleCode: string;
-  }, data: RuleDependencyAddDTO): Promise<RuleDependencyVO> {
+  },
+  data: RuleDependencyAddDTO,
+): Promise<RuleDependencyVO> {
   return requestClient.post<RuleDependencyVO>(`/literule/rules/${ruleCode}/dependencies`, data);
 }
 
 /**
  * removeDependency: DELETE /literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}
  */
-export function removeDependency({ ruleCode, dependsOnRuleCode }: {
-    ruleCode: string;
-    dependsOnRuleCode: string;
-  }): Promise<void> {
-  return requestClient.delete<void>(`/literule/rules/${ruleCode}/dependencies/${dependsOnRuleCode}`);
+export function removeDependency({
+  ruleCode,
+  dependsOnRuleCode,
+}: {
+  ruleCode: string;
+  dependsOnRuleCode: string;
+}): Promise<void> {
+  return requestClient.delete<void>(
+    `/literule/rules/${ruleCode}/dependencies/${dependsOnRuleCode}`,
+  );
 }
 
 /**
  * listDependencies: GET /literule/rules/{ruleCode}/dependencies
  */
-export function listDependencies({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<RuleDependencyVO[]> {
+export function listDependencies({ ruleCode }: { ruleCode: string }): Promise<RuleDependencyVO[]> {
   return requestClient.get<RuleDependencyVO[]>(`/literule/rules/${ruleCode}/dependencies`);
 }
 
 /**
  * listDependents: GET /literule/rules/{ruleCode}/dependents
  */
-export function listDependents({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<RuleDependencyVO[]> {
+export function listDependents({ ruleCode }: { ruleCode: string }): Promise<RuleDependencyVO[]> {
   return requestClient.get<RuleDependencyVO[]>(`/literule/rules/${ruleCode}/dependents`);
 }
 
 /**
  * cascadingDisable: GET /literule/rules/{ruleCode}/cascading-disable
  */
-export function cascadingDisable({ ruleCode }: {
-    ruleCode: string;
-  }): Promise<StringVO[]> {
+export function cascadingDisable({ ruleCode }: { ruleCode: string }): Promise<StringVO[]> {
   return requestClient.get<StringVO[]>(`/literule/rules/${ruleCode}/cascading-disable`);
 }

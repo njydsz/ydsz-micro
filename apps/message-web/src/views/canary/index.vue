@@ -25,7 +25,30 @@ import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 
 import { assignBucket, createExperiment } from '#/api/canary';
-import { YdBadge, YdButton, YdCard, YdCardContent, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogDescription, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea, YdTable, YdTableColumn, YdForm, YdFormItem, YdNumberFieldInput } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdDialogDescription,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTextarea,
+  YdTable,
+  YdTableColumn,
+  YdForm,
+  YdFormItem,
+  YdNumberFieldInput,
+} from '@ydsz-core/ydsz-ui';
 
 defineOptions({ name: 'CanaryManagement' });
 
@@ -188,11 +211,9 @@ async function handleAssignBucket(): Promise<void> {
 /** 停止实验 */
 async function handleStopExperiment(row: CanaryExperimentRow): Promise<void> {
   try {
-    await YdConfirm(
-      `确定停止实验「${row.name}」吗？停止后灰度流量将切回主版本。`,
-      '停止确认',
-      { type: 'warning' },
-    );
+    await YdConfirm(`确定停止实验「${row.name}」吗？停止后灰度流量将切回主版本。`, '停止确认', {
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消停止实验操作');
     return;
@@ -224,9 +245,7 @@ onMounted(() => {
       <YdCard class="mb-4">
         <YdCardContent class="flex items-center justify-between pt-6">
           <h3 class="text-base font-medium">灰度实验管理</h3>
-          <YdButton @click="quickCreateVisible = true">
-            创建实验
-          </YdButton>
+          <YdButton @click="quickCreateVisible = true"> 创建实验 </YdButton>
         </YdCardContent>
       </YdCard>
 
@@ -256,9 +275,7 @@ onMounted(() => {
             <YdTableColumn prop="createdAt" label="创建时间" width="180" />
             <YdTableColumn label="操作" width="260" fixed="right" align="center">
               <template #default="{ row }">
-                <YdButton size="sm" variant="link" @click="handleEdit(row)">
-                  编辑
-                </YdButton>
+                <YdButton size="sm" variant="link" @click="handleEdit(row)"> 编辑 </YdButton>
                 <YdButton size="sm" variant="link" @click="handleViewBucket(row)">
                   查看分配
                 </YdButton>
@@ -278,7 +295,7 @@ onMounted(() => {
           <!-- 空状态提示 -->
           <div
             v-if="experimentList.length === 0 && !loading"
-            class="py-12 text-center text-muted-foreground"
+            class="text-muted-foreground py-12 text-center"
           >
             暂无灰度实验，点击右上角「创建实验」按钮开始
           </div>
@@ -293,16 +310,10 @@ onMounted(() => {
           </YdDialogHeader>
           <YdForm :model="quickForm" label-width="100px">
             <YdFormItem label="实验名称" required>
-              <YdInput
-                v-model="quickForm.experimentName"
-                placeholder="请输入实验名称"
-              />
+              <YdInput v-model="quickForm.experimentName" placeholder="请输入实验名称" />
             </YdFormItem>
             <YdFormItem label="模板编码">
-              <YdInput
-                v-model="quickForm.templateCode"
-                placeholder="关联模板编码（可选）"
-              />
+              <YdInput v-model="quickForm.templateCode" placeholder="关联模板编码（可选）" />
             </YdFormItem>
             <YdFormItem label="通道" required>
               <YdSelectBase v-model="quickForm.channel">
@@ -326,14 +337,11 @@ onMounted(() => {
                   :step="5"
                   class="w-full"
                 />
-                <span class="ml-2 text-muted-foreground">%</span>
+                <span class="text-muted-foreground ml-2">%</span>
               </div>
             </YdFormItem>
             <YdFormItem label="目标指标">
-              <YdTextarea
-                v-model="quickForm.metricsGoal"
-                placeholder="灰度实验目标指标（可选）"
-              />
+              <YdTextarea v-model="quickForm.metricsGoal" placeholder="灰度实验目标指标（可选）" />
             </YdFormItem>
           </YdForm>
           <YdDialogFooter>
@@ -357,8 +365,8 @@ onMounted(() => {
               <YdInput v-model="bucketForm.requestKey" placeholder="请求键（用户ID等）" />
             </YdFormItem>
           </YdForm>
-          <div v-if="bucketResult" class="mt-4 rounded bg-muted p-3">
-            <span class="text-sm text-muted-foreground">分配结果：</span>
+          <div v-if="bucketResult" class="bg-muted mt-4 rounded p-3">
+            <span class="text-muted-foreground text-sm">分配结果：</span>
             <span class="ml-2 font-mono font-bold text-blue-600">{{ bucketResult }}</span>
           </div>
           <YdDialogFooter>

@@ -64,6 +64,82 @@
   /* 边框 hover 态：比 default 深一档 */
   --ydsz-border-hover: var(--ydsz-border-strong);
 
+  /* ==================== ydsz-ui dark-mode.css 桥接层 ==================== */
+
+  /*
+   * ydsz-ui/src/styles/dark-mode.css 用一批「无前缀缩写」名
+   * （--ydsz-sidebar / --ydsz-txt-primary / --ydsz-bg-canvas …）承载 Tailwind 语义类，
+   * 并把它们桥接成 shadcn 风格的 --sidebar / --txt-primary。
+   * 该文件自带 :root/.dark 真值，此处只补**定义**，让 check:tokens 能校验到它们存在；
+   * 同名变量在 dark-mode.css 中后声明，真值以先声明者为准不会被覆盖
+   * （CSS 自定义属性后者胜，但 dark-mode.css 由 ydsz-ui 在运行时后加载，会覆盖此处值）。
+   */
+
+  /* 背景/画布 */
+  --ydsz-bg-canvas: var(--ydsz-surface-1);
+  --ydsz-bg-surface-1: var(--ydsz-surface-1);
+  --ydsz-bg-surface-2: var(--ydsz-surface-2);
+  --ydsz-bg-surface-3: var(--ydsz-surface-3);
+  --ydsz-background-deep: var(--ydsz-surface-1);
+
+  /* 文本 */
+  --ydsz-txt-primary: var(--ydsz-text-primary);
+  --ydsz-txt-secondary: var(--ydsz-text-secondary);
+  --ydsz-txt-tertiary: var(--ydsz-text-tertiary);
+  --ydsz-txt-disabled: var(--ydsz-text-disabled);
+  --ydsz-txt-inverse: var(--ydsz-text-inverse);
+
+  /* 边框 */
+  --ydsz-border-default: var(--ydsz-border-default);
+  --ydsz-border-strong: var(--ydsz-border-strong);
+  --ydsz-border-subtle: var(--ydsz-border-subtle);
+
+  /* 组件区域 */
+  --ydsz-sidebar: var(--ydsz-surface-2);
+  --ydsz-sidebar-deep: var(--ydsz-surface-1);
+  --ydsz-header: var(--ydsz-surface-2);
+  --ydsz-main: var(--ydsz-surface-1);
+
+  /* 遮罩 */
+  --ydsz-overlay: var(--ydsz-color-neutral-700);
+  --ydsz-overlay-content: var(--ydsz-surface-2);
+
+  /* Heavy 变体 */
+  --ydsz-heavy: var(--ydsz-color-neutral-700);
+  --ydsz-heavy-foreground: var(--ydsz-text-inverse);
+
+  /* Shadcn 语义别名（Tailwind config 直接消费） */
+  --ydsz-background: var(--ydsz-surface-1);
+  --ydsz-foreground: var(--ydsz-text-primary);
+  --ydsz-card: var(--ydsz-surface-2);
+  --ydsz-card-foreground: var(--ydsz-text-primary);
+  --ydsz-popover: var(--ydsz-surface-2);
+  --ydsz-popover-foreground: var(--ydsz-text-primary);
+  --ydsz-primary: var(--ydsz-color-brand-500);
+  --ydsz-primary-foreground: var(--ydsz-text-inverse);
+  --ydsz-primary-hover: var(--ydsz-color-brand-600);
+  --ydsz-primary-active: var(--ydsz-color-brand-700);
+  --ydsz-primary-subtle: var(--ydsz-color-brand-50);
+  --ydsz-primary-subtle-foreground: var(--ydsz-color-brand-700);
+  --ydsz-secondary: var(--ydsz-color-neutral-100);
+  --ydsz-secondary-foreground: var(--ydsz-text-primary);
+  --ydsz-muted: var(--ydsz-color-neutral-100);
+  --ydsz-muted-foreground: var(--ydsz-text-secondary);
+  --ydsz-accent: var(--ydsz-color-neutral-100);
+  --ydsz-accent-foreground: var(--ydsz-text-primary);
+  --ydsz-destructive: var(--ydsz-color-destructive-500);
+  --ydsz-destructive-foreground: var(--ydsz-text-inverse);
+  --ydsz-destructive-hover: var(--ydsz-color-destructive-600);
+  --ydsz-border: var(--ydsz-border-default);
+  --ydsz-input: var(--ydsz-border-default);
+  --ydsz-ring: var(--ydsz-color-brand-500);
+  --ydsz-success: var(--ydsz-color-success-500);
+  --ydsz-success-foreground: var(--ydsz-text-inverse);
+  --ydsz-warning: var(--ydsz-color-warning-500);
+  --ydsz-warning-foreground: var(--ydsz-text-inverse);
+  --ydsz-info: var(--ydsz-color-brand-400);
+  --ydsz-info-foreground: var(--ydsz-text-inverse);
+
   /* ==================== 阴影（映射到既有 5 档阴影尺度）==================== */
 
   /* lg / xl 是 Tailwind 习惯命名，本体系的对应档是 high / overlay */

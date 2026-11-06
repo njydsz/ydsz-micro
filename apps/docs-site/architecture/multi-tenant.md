@@ -4,11 +4,11 @@
 
 YDSZ 系统引擎支持三种多租户隔离策略：
 
-| 策略 | 隔离级别 | 适用场景 | 实现方式 |
-|------|----------|----------|----------|
-| **数据库级** | 完全隔离 | 金融、政企高安全场景 | 每个租户独立数据库实例 |
-| **Schema 级** | 逻辑隔离 | 中型企业级 SaaS | 共享数据库，独立 Schema |
-| **行级** | 标记隔离 | 中小租户、快速上线 | 共享表 + `tenant_id` 过滤 |
+| 策略          | 隔离级别 | 适用场景             | 实现方式                  |
+| ------------- | -------- | -------------------- | ------------------------- |
+| **数据库级**  | 完全隔离 | 金融、政企高安全场景 | 每个租户独立数据库实例    |
+| **Schema 级** | 逻辑隔离 | 中型企业级 SaaS      | 共享数据库，独立 Schema   |
+| **行级**      | 标记隔离 | 中小租户、快速上线   | 共享表 + `tenant_id` 过滤 |
 
 ## 多租户 API
 
@@ -43,7 +43,9 @@ sequenceDiagram
 const dictEventBus = new EventTarget();
 
 function emitDictChange(typeCode: string): void {
-  dictEventBus.dispatchEvent(new CustomEvent('dict-changed', { detail: { typeCode } }));
+  dictEventBus.dispatchEvent(
+    new CustomEvent('dict-changed', { detail: { typeCode } }),
+  );
 }
 
 function onDictChange(handler: (typeCode: string) => void): () => void {

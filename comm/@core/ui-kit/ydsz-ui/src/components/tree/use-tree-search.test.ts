@@ -100,14 +100,11 @@ describe('useTreeSearch', () => {
 
   it('clear 应清空关键字和结果', () => {
     const treeData = ref(createTestTree());
-    const { search, hasResults, keyword } = useTreeSearch(
-      treeData,
-      {
-        getChildren: (n) => n.children,
-        getLabel: (n) => n.name,
-        getValue: (n) => n.id,
-      },
-    );
+    const { search, hasResults, keyword } = useTreeSearch(treeData, {
+      getChildren: (n) => n.children,
+      getLabel: (n) => n.name,
+      getValue: (n) => n.id,
+    });
 
     search('设计');
     expect(keyword.value).toBe('设计');

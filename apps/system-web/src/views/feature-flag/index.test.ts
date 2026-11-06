@@ -30,7 +30,11 @@ interface MockSetupContext {
 // hoisted：mock 工厂在 import 之前求值，跨作用域变量必须经 vi.hoisted 暴露
 const { gridOptionsCalls, gridApiStub } = vi.hoisted(() => ({
   gridOptionsCalls: [] as GridCall[],
-  gridApiStub: { query: vi.fn(), setGridOptions: vi.fn(), grid: { getTableData: () => ({ tableData: [] }) } },
+  gridApiStub: {
+    query: vi.fn(),
+    setGridOptions: vi.fn(),
+    grid: { getTableData: () => ({ tableData: [] }) },
+  },
 }));
 
 vi.mock('#/adapter/vxe-table', () => ({
@@ -39,8 +43,13 @@ vi.mock('#/adapter/vxe-table', () => ({
     return [
       {
         name: 'MockFeatureFlagGrid',
-        setup: (_props: unknown, { slots }: MockSetupContext) =>
-          () => h('div', { class: 'mock-feature-flag-grid' }, [slots.default?.(), slots['toolbar-tools']?.()]),
+        setup:
+          (_props: unknown, { slots }: MockSetupContext) =>
+          () =>
+            h('div', { class: 'mock-feature-flag-grid' }, [
+              slots.default?.(),
+              slots['toolbar-tools']?.(),
+            ]),
       },
       gridApiStub,
     ];
@@ -71,8 +80,10 @@ vi.mock('@ydsz/common-ui', async (importOriginal) => {
     // Page 桩必须透传默认插槽，否则挂在其中的 Grid 永远渲染不到
     Page: {
       name: 'Page',
-      setup: (_props: unknown, { slots }: MockSetupContext) =>
-        () => h('div', { class: 'mock-page' }, slots.default?.()),
+      setup:
+        (_props: unknown, { slots }: MockSetupContext) =>
+        () =>
+          h('div', { class: 'mock-page' }, slots.default?.()),
     },
     useYdModal: () => [
       {

@@ -165,11 +165,7 @@ const ANY_PATTERNS: Array<{ re: RegExp; label: string }> = [
   { re: /\bPromise\s*<\s*any\s*>/g, label: 'Promise<any>' },
 ];
 
-function checkAny(
-  files: string[],
-  rootDir: string,
-  violations: StandardViolation[],
-): void {
+function checkAny(files: string[], rootDir: string, violations: StandardViolation[]): void {
   for (const file of files) {
     const p = rel(rootDir, file);
     if (ANY_EXEMPT_SEGMENTS.some((s) => p.includes(s))) continue;
@@ -307,11 +303,7 @@ function isRangeLoopIdentityKey(lines: string[], index: number): boolean {
   return key != null && key[1] === loop[1];
 }
 
-function checkVForKey(
-  vueFiles: string[],
-  rootDir: string,
-  violations: StandardViolation[],
-): void {
+function checkVForKey(vueFiles: string[], rootDir: string, violations: StandardViolation[]): void {
   for (const file of vueFiles) {
     const p = rel(rootDir, file);
     const content = read(file);
@@ -408,11 +400,7 @@ function checkBareVHtml(
 
 const CONSOLE_RE = /\bconsole\s*\.\s*(log|info|warn|error|debug)\s*\(/g;
 
-function checkConsole(
-  files: string[],
-  rootDir: string,
-  violations: StandardViolation[],
-): void {
+function checkConsole(files: string[], rootDir: string, violations: StandardViolation[]): void {
   for (const file of files) {
     const p = rel(rootDir, file);
     // logger 实现本身允许使用 console
@@ -466,11 +454,7 @@ function countLines(content: string): number {
   return lines.length;
 }
 
-function checkFileLength(
-  files: string[],
-  rootDir: string,
-  violations: StandardViolation[],
-): void {
+function checkFileLength(files: string[], rootDir: string, violations: StandardViolation[]): void {
   for (const file of files) {
     const p = rel(rootDir, file);
     const content = read(file);
@@ -571,8 +555,9 @@ function checkFunctionLength(
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i] ?? '';
       if (start < 0) {
-        const m = /^\s*(?:export\s+)?(?:async\s+)?function\s+(\w+)/.exec(line)
-          ?? /^\s*(?:export\s+)?const\s+(\w+)\s*=\s*(?:async\s*)?\(/.exec(line);
+        const m =
+          /^\s*(?:export\s+)?(?:async\s+)?function\s+(\w+)/.exec(line) ??
+          /^\s*(?:export\s+)?const\s+(\w+)\s*=\s*(?:async\s*)?\(/.exec(line);
         if (m && line.trimEnd().endsWith('{')) {
           start = i;
           name = m[1] ?? '(anonymous)';
@@ -638,11 +623,7 @@ function isPlaceholderSecret(line: string): boolean {
   return false;
 }
 
-function checkSecrets(
-  files: string[],
-  rootDir: string,
-  violations: StandardViolation[],
-): void {
+function checkSecrets(files: string[], rootDir: string, violations: StandardViolation[]): void {
   for (const file of files) {
     const p = rel(rootDir, file);
     if (EXEMPT_FILE_PATTERN.test(p)) continue;
@@ -697,7 +678,8 @@ const EP_MODULE_RE = /['"`](element-plus|@element-plus\/[\w-]+)/g;
 const EP_TEMPLATE_TAG_RE = /<el-[a-z]/;
 
 /** ElTableColumn-only 导入的检测正则 */
-const EP_TABLE_COLUMN_ONLY_RE = /import\s*\{\s*(?:type\s+)?ElTableColumn(?:\s*,\s*(?:type\s+)?ElTableColumn)*\s*\}\s*from\s*['"]element-plus['"]/;
+const EP_TABLE_COLUMN_ONLY_RE =
+  /import\s*\{\s*(?:type\s+)?ElTableColumn(?:\s*,\s*(?:type\s+)?ElTableColumn)*\s*\}\s*from\s*['"]element-plus['"]/;
 
 /** 退场工具链包名（不应被扫描命中） */
 const EP_TOOLCHAIN_RE = /unplugin-element-plus/;
@@ -720,11 +702,7 @@ const EP_TOOLCHAIN_RE = /unplugin-element-plus/;
  * @param rootDir 仓库根目录
  * @param violations 违规收集器
  */
-function checkEpExit(
-  files: string[],
-  rootDir: string,
-  violations: StandardViolation[],
-): void {
+function checkEpExit(files: string[], rootDir: string, violations: StandardViolation[]): void {
   for (const file of files) {
     const p = rel(rootDir, file);
     const content = read(file);
@@ -734,11 +712,7 @@ function checkEpExit(
       const line = lines[i] ?? '';
       const trimmed = line.trim();
       // 注释行豁免（文档说明可提及 EP 字面量）
-      if (
-        trimmed.startsWith('//') ||
-        trimmed.startsWith('*') ||
-        trimmed.startsWith('/*')
-      ) {
+      if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('/*')) {
         continue;
       }
       // unplugin-element-plus 是工具链元包，单独阻断（P0）
@@ -795,9 +769,7 @@ function checkEpExit(
  * @param options 扫描选项（rootDir 默认 process.cwd()）
  * @returns 全部违规记录（P0/P1/P2 已分级）
  */
-export function checkStandard(
-  options: CheckStandardOptions = {},
-): StandardViolation[] {
+export function checkStandard(options: CheckStandardOptions = {}): StandardViolation[] {
   const rootDir = options.rootDir ?? process.cwd();
   const violations: StandardViolation[] = [];
 

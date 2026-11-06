@@ -14,11 +14,7 @@ import { computed } from 'vue';
 
 import { InspectionPanel, PanelLeft, PanelRight } from '@ydsz/icons';
 import { $t } from '@ydsz/locales';
-import {
-  preferences,
-  updatePreferences,
-  usePreferences,
-} from '@ydsz/preferences';
+import { preferences, updatePreferences, usePreferences } from '@ydsz/preferences';
 
 import { YdDropdownRadioMenu, YdIconButton } from '@ydsz-core/ydsz-ui';
 

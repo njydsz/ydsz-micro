@@ -17,7 +17,17 @@
  */
 import { useYdModal } from '@ydsz/common-ui';
 
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdSelectItem, YdRadioGroupItem, YdRadioGroup, YdSelect, YdSwitch } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdSelect,
+  YdSwitch,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -81,9 +91,9 @@ const [Modal, modalApi] = useYdModal({
       isEdit.value = true;
       Object.assign(formData, {
         id: data.record.id ?? '',
-roleCode: data.record.roleCode ?? '',
-roleName: data.record.roleName ?? '',
-sort: data.record.sort ?? 0,
+        roleCode: data.record.roleCode ?? '',
+        roleName: data.record.roleName ?? '',
+        sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
         builtIn: data.record.builtIn ?? false,
         description: data.record.description ?? '',
@@ -94,9 +104,9 @@ sort: data.record.sort ?? 0,
         id: '',
         roleCode: '',
         roleName: '',
-dataScope: '3',
-sort: 0,
-status: '1',
+        dataScope: '3',
+        sort: 0,
+        status: '1',
         builtIn: false,
         description: '',
       });
@@ -114,9 +124,9 @@ status: '1',
       const payload: RoleDTO = {
         roleCode: formData.roleCode,
         roleName: formData.roleName,
-dataScope: formData.dataScope,
-sort: formData.sort,
-status: formData.status,
+        dataScope: formData.dataScope,
+        sort: formData.sort,
+        status: formData.status,
         builtIn: formData.builtIn,
         description: formData.description,
       };
@@ -135,7 +145,11 @@ status: formData.status,
   },
 });
 
-const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.roleBase')}` : `${t('page.create')}${t('page.roleBase')}`));
+const title = computed(() =>
+  isEdit.value
+    ? `${t('page.edit')}${t('page.roleBase')}`
+    : `${t('page.create')}${t('page.roleBase')}`,
+);
 </script>
 
 <template>
@@ -151,10 +165,18 @@ const title = computed(() => (isEdit.value ? `${t('page.edit')}${t('page.roleBas
         <YdInput v-model="formData.roleName" :placeholder="t('role.roleNamePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('page.roleCode')" prop="roleCode">
-        <YdInput v-model="formData.roleCode" :placeholder="t('role.roleCodePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.roleCode"
+          :placeholder="t('role.roleCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('role.dataScope')">
-        <YdSelect v-model="formData.dataScope" :placeholder="t('role.dataScopePlaceholder')" class="w-full">
+        <YdSelect
+          v-model="formData.dataScope"
+          :placeholder="t('role.dataScopePlaceholder')"
+          class="w-full"
+        >
           <YdSelectItem
             v-for="opt in DATA_SCOPE_OPTIONS"
             :key="opt.value"

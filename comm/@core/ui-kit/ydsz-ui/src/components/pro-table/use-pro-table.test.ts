@@ -23,10 +23,7 @@ import { useProTable } from './use-pro-table';
 
 import type { ProTableEmits } from './use-pro-table';
 
-import type {
-  EditableConfig,
-  ProTableProps,
-} from './pro-table-types';
+import type { EditableConfig, ProTableProps } from './pro-table-types';
 import type { TableExportApi } from '../data-table';
 import type { TableColumnDef } from '../../composables/use-table-data';
 
@@ -77,7 +74,9 @@ function makeOptions(
   return {
     emit: emit ?? vi.fn(),
     props,
-    setDataSource: (next: Person[]) => { dataSource.value = next; },
+    setDataSource: (next: Person[]) => {
+      dataSource.value = next;
+    },
   };
 }
 
@@ -121,9 +120,12 @@ describe('useProTable 行选择与 useTableData 装配', () => {
 describe('useProTable 分页事件', () => {
   it('handlePageChange 应触发 pageChange 与 change', () => {
     const { calls, fn } = makeCollectEmit();
-    const options = makeOptions({
-      pagination: { current: 2, pageSize: 10, total: 100 },
-    }, fn);
+    const options = makeOptions(
+      {
+        pagination: { current: 2, pageSize: 10, total: 100 },
+      },
+      fn,
+    );
     const core = useProTable<Person>(options);
 
     core.handlePageChange(3, 20);
@@ -154,16 +156,23 @@ describe('useProTable 搜索表单', () => {
     const without = useProTable<Person>(makeOptions());
     expect(without.showAutoSearch.value).toBe(false);
 
-    const withFields = useProTable<Person>(makeOptions({
-      searchFields: [{ key: 'name', label: '姓名' }],
-    }));
+    const withFields = useProTable<Person>(
+      makeOptions({
+        searchFields: [{ key: 'name', label: '姓名' }],
+      }),
+    );
     expect(withFields.showAutoSearch.value).toBe(true);
   });
 
   it('searchValues 应按 searchFields 初始化', () => {
-    const core = useProTable<Person>(makeOptions({
-      searchFields: [{ key: 'name', label: '姓名' }, { key: 'age', label: '年龄' }],
-    }));
+    const core = useProTable<Person>(
+      makeOptions({
+        searchFields: [
+          { key: 'name', label: '姓名' },
+          { key: 'age', label: '年龄' },
+        ],
+      }),
+    );
 
     expect(core.searchValues).toEqual({ age: undefined, name: undefined });
   });
@@ -171,10 +180,15 @@ describe('useProTable 搜索表单', () => {
   it('handleSearch 应触发 change 与 onSearch，并把搜索值快照传出', () => {
     const onSearch = vi.fn();
     const { calls, fn } = makeCollectEmit();
-    const core = useProTable<Person>(makeOptions({
-      onSearch,
-      searchFields: [{ key: 'name', label: '姓名' }],
-    }, fn));
+    const core = useProTable<Person>(
+      makeOptions(
+        {
+          onSearch,
+          searchFields: [{ key: 'name', label: '姓名' }],
+        },
+        fn,
+      ),
+    );
 
     core.searchValues.name = 'Alice';
     core.handleSearch();
@@ -187,10 +201,15 @@ describe('useProTable 搜索表单', () => {
   it('handleResetSearch 应清空所有字段后触发搜索', () => {
     const onSearch = vi.fn();
     const { calls, fn } = makeCollectEmit();
-    const core = useProTable<Person>(makeOptions({
-      onSearch,
-      searchFields: [{ key: 'name', label: '姓名' }],
-    }, fn));
+    const core = useProTable<Person>(
+      makeOptions(
+        {
+          onSearch,
+          searchFields: [{ key: 'name', label: '姓名' }],
+        },
+        fn,
+      ),
+    );
 
     core.searchValues.name = 'Alice';
     core.handleResetSearch();
@@ -222,9 +241,11 @@ describe('useProTable 行内编辑', () => {
 
   it('startEdit 应写入编辑行数据并触发 onEdit', () => {
     const onEdit = vi.fn();
-    const core = useProTable<Person>(makeOptions({
-      editable: { onEdit },
-    }));
+    const core = useProTable<Person>(
+      makeOptions({
+        editable: { onEdit },
+      }),
+    );
 
     core.startEdit(people[1]!, 1);
 
@@ -267,11 +288,13 @@ describe('useProTable 行内编辑', () => {
   });
 
   it('按钮文案应优先取 props，缺省时回退 i18n 默认值', () => {
-    const withText = useProTable<Person>(makeOptions({
-      createText: '新建',
-      deleteText: '删除',
-      editText: '编辑',
-    }));
+    const withText = useProTable<Person>(
+      makeOptions({
+        createText: '新建',
+        deleteText: '删除',
+        editText: '编辑',
+      }),
+    );
     expect(withText.createBtnText.value).toBe('新建');
     expect(withText.deleteBtnText.value).toBe('删除');
     expect(withText.editBtnText.value).toBe('编辑');
@@ -287,10 +310,12 @@ describe('useProTable 行内编辑', () => {
 describe('useProTable 新增弹窗', () => {
   it('handleOpenCreate 有 onCreate 时应打开弹窗并重置表单', () => {
     const onCreate = vi.fn();
-    const core = useProTable<Person>(makeOptions({
-      onCreate,
-      searchFields: [{ key: 'name', label: '姓名' }],
-    }));
+    const core = useProTable<Person>(
+      makeOptions({
+        onCreate,
+        searchFields: [{ key: 'name', label: '姓名' }],
+      }),
+    );
 
     core.createFormValues.name = 'draft';
     core.handleOpenCreate();
@@ -301,9 +326,14 @@ describe('useProTable 新增弹窗', () => {
 
   it('handleOpenCreate 无 onCreate 时应触发 pageChange(1, pageSize)', () => {
     const { calls, fn } = makeCollectEmit();
-    const core = useProTable<Person>(makeOptions({
-      pagination: { current: 1, pageSize: 20, total: 0 },
-    }, fn));
+    const core = useProTable<Person>(
+      makeOptions(
+        {
+          pagination: { current: 1, pageSize: 20, total: 0 },
+        },
+        fn,
+      ),
+    );
 
     core.handleOpenCreate();
 
@@ -314,10 +344,12 @@ describe('useProTable 新增弹窗', () => {
 
   it('handleCreateSubmit 应透传表单值并关闭弹窗', () => {
     const onCreate = vi.fn();
-    const core = useProTable<Person>(makeOptions({
-      onCreate,
-      searchFields: [{ key: 'name', label: '姓名' }],
-    }));
+    const core = useProTable<Person>(
+      makeOptions({
+        onCreate,
+        searchFields: [{ key: 'name', label: '姓名' }],
+      }),
+    );
 
     core.handleOpenCreate();
     core.createFormValues.name = 'Alice';

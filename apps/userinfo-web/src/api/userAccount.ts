@@ -12,7 +12,18 @@
  */
 import { requestClient } from '#/api/request';
 import type { PageResponse } from './models';
-import type { AssignRolesDTO, BatchUserStatusDTO, ChangePasswordDTO, ResetPasswordDTO, SensitiveVerifyDTO, UserAccountDTO, UserAccountPageQuery, UserAccountVO, UserImportResultDTO, UserLoginHistoryVO } from './models';
+import type {
+  AssignRolesDTO,
+  BatchUserStatusDTO,
+  ChangePasswordDTO,
+  ResetPasswordDTO,
+  SensitiveVerifyDTO,
+  UserAccountDTO,
+  UserAccountPageQuery,
+  UserAccountVO,
+  UserImportResultDTO,
+  UserLoginHistoryVO,
+} from './models';
 
 /**
  * page: GET /user/page
@@ -31,9 +42,7 @@ export function list(): Promise<UserAccountVO[]> {
 /**
  * getById: GET /user/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<UserAccountVO> {
+export function getById({ id }: { id: string }): Promise<UserAccountVO> {
   return requestClient.get<UserAccountVO>(`/user/${id}`);
 }
 
@@ -54,9 +63,7 @@ export function update(data: UserAccountDTO): Promise<string> {
 /**
  * remove: DELETE /user/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/user/${id}`);
 }
 
@@ -77,18 +84,21 @@ export function resetPassword(data: ResetPasswordDTO): Promise<boolean> {
 /**
  * assignRoles: POST /user/{userId}/roles
  */
-export function assignRoles({ userId }: {
+export function assignRoles(
+  {
+    userId,
+  }: {
     userId: string;
-  }, data: AssignRolesDTO): Promise<boolean> {
+  },
+  data: AssignRolesDTO,
+): Promise<boolean> {
   return requestClient.post<boolean>(`/user/${userId}/roles`, data);
 }
 
 /**
  * getUserRoles: GET /user/{userId}/roles
  */
-export function getUserRoles({ userId }: {
-    userId: string;
-  }): Promise<string[]> {
+export function getUserRoles({ userId }: { userId: string }): Promise<string[]> {
   return requestClient.get<string[]>(`/user/${userId}/roles`);
 }
 
@@ -96,8 +106,8 @@ export function getUserRoles({ userId }: {
  * importUsers: POST /user/import
  */
 export function importUsers(params: {
-    file?: Record<string, unknown>;
-  }): Promise<UserImportResultDTO> {
+  file?: Record<string, unknown>;
+}): Promise<UserImportResultDTO> {
   return requestClient.post<UserImportResultDTO>(`/user/import`, { params });
 }
 
@@ -105,28 +115,31 @@ export function importUsers(params: {
  * downloadImportTemplate: GET /user/import-template
  */
 export function downloadImportTemplate(params: {
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+  response?: Record<string, unknown>;
+}): Promise<void> {
   return requestClient.get<void>(`/user/import-template`, { params });
 }
 
 /**
  * exportUsers: GET /user/export
  */
-export function exportUsers(params: {
-    response?: Record<string, unknown>;
-  }): Promise<void> {
+export function exportUsers(params: { response?: Record<string, unknown> }): Promise<void> {
   return requestClient.get<void>(`/user/export`, { params });
 }
 
 /**
  * getLoginHistory: GET /user/{userId}/login-history
  */
-export function getLoginHistory({ userId }: {
+export function getLoginHistory(
+  {
+    userId,
+  }: {
     userId: string;
-  }, params: {
+  },
+  params: {
     limit?: number;
-  }): Promise<UserLoginHistoryVO[]> {
+  },
+): Promise<UserLoginHistoryVO[]> {
   return requestClient.get<UserLoginHistoryVO[]>(`/user/${userId}/login-history`, { params });
 }
 
@@ -154,45 +167,35 @@ export function batchDisable(data: BatchUserStatusDTO): Promise<number> {
 /**
  * suspend: PUT /user/{userId}/lifecycle/suspend
  */
-export function suspend({ userId }: {
-    userId: string;
-  }): Promise<string> {
+export function suspend({ userId }: { userId: string }): Promise<string> {
   return requestClient.put<string>(`/user/${userId}/lifecycle/suspend`);
 }
 
 /**
  * resume: PUT /user/{userId}/lifecycle/resume
  */
-export function resume({ userId }: {
-    userId: string;
-  }): Promise<string> {
+export function resume({ userId }: { userId: string }): Promise<string> {
   return requestClient.put<string>(`/user/${userId}/lifecycle/resume`);
 }
 
 /**
  * disable: PUT /user/{userId}/lifecycle/disable
  */
-export function disable({ userId }: {
-    userId: string;
-  }): Promise<string> {
+export function disable({ userId }: { userId: string }): Promise<string> {
   return requestClient.put<string>(`/user/${userId}/lifecycle/disable`);
 }
 
 /**
  * enable: PUT /user/{userId}/lifecycle/enable
  */
-export function enable({ userId }: {
-    userId: string;
-  }): Promise<string> {
+export function enable({ userId }: { userId: string }): Promise<string> {
   return requestClient.put<string>(`/user/${userId}/lifecycle/enable`);
 }
 
 /**
  * resign: PUT /user/{userId}/lifecycle/resign
  */
-export function resign({ userId }: {
-    userId: string;
-  }): Promise<string> {
+export function resign({ userId }: { userId: string }): Promise<string> {
   return requestClient.put<string>(`/user/${userId}/lifecycle/resign`);
 }
 

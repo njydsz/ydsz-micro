@@ -35,15 +35,9 @@ import { YdSelectSmart } from '../select';
 
 import { YdButtonSmart } from '.././button';
 
-import {
-  YdInput,
-} from '.././input';
-import {
-  YdInputNumber,
-} from '.././input-number';
-import {
-  YdDatePicker,
-} from '.././date-picker';
+import { YdInput } from '.././input';
+import { YdInputNumber } from '.././input-number';
+import { YdDatePicker } from '.././date-picker';
 import { YdRangePicker } from '../range-picker';
 import {
   YdDialog,
@@ -52,9 +46,7 @@ import {
   YdDialogTitle,
   YdDialogFooter,
 } from '.././dialog';
-import {
-  YdFormItem,
-} from '../form';
+import { YdFormItem } from '../form';
 
 import { useLocale } from '../../locale/useLocale';
 
@@ -76,7 +68,12 @@ const props = withDefaults(defineProps<ProTableProps<T>>(), {
 });
 
 const emit = defineEmits<{
-  (e: 'change', pagination: { current: number; pageSize: number; total: number }, filters: Record<string, unknown>, sorter: { prop: string; order: string | null }): void;
+  (
+    e: 'change',
+    pagination: { current: number; pageSize: number; total: number },
+    filters: Record<string, unknown>,
+    sorter: { prop: string; order: string | null },
+  ): void;
   (e: 'rowSelectionChange', selectedKeys: string[]): void;
   (e: 'pageChange', page: number, pageSize: number): void;
 }>();
@@ -118,6 +115,14 @@ const {
 // 识别为 TS 引用，故在此显式消费以通过 noUnusedLocals）。
 void dataTableRef;
 
+/**
+ * 按列 key 从行数据中取值（模板内不支持 `as` 类型断言）。
+ */
+function cellValue(row: unknown, key: string | undefined): unknown {
+  if (!key || typeof row !== 'object' || row === null) return undefined;
+  return (row as Record<string, unknown>)[key];
+}
+
 /* ============================================================ */
 /* 暴露方法                                                     */
 /* ============================================================ */
@@ -136,10 +141,7 @@ defineExpose({
     <!-- ==================================================== -->
     <!-- 搜索表单（自动模式）                                  -->
     <!-- ==================================================== -->
-    <div
-      v-if="showAutoSearch || $slots.search"
-      class="rounded-lg border bg-card p-3"
-    >
+    <div v-if="showAutoSearch || $slots.search" class="bg-card rounded-lg border p-3">
       <!-- 自定义 search slot 优先 -->
       <slot v-if="$slots.search" name="search" />
 
@@ -150,9 +152,15 @@ defineExpose({
           v-for="field in props.searchFields"
           :key="field.key"
           class="flex flex-col gap-1"
-          :style="{ minWidth: field.width ? (typeof field.width === 'number' ? `${field.width}px` : field.width) : '180px' }"
+          :style="{
+            minWidth: field.width
+              ? typeof field.width === 'number'
+                ? `${field.width}px`
+                : field.width
+              : '180px',
+          }"
         >
-          <label class="text-xs font-medium text-muted-foreground">
+          <label class="text-muted-foreground text-xs font-medium">
             {{ field.label }}
           </label>
 
@@ -191,14 +199,11 @@ defineExpose({
           />
 
           <!-- dateRange -->
-          <YdRangePicker
-            v-else-if="field.type === 'dateRange'"
-            v-model="searchValues[field.key]"
-          />
+          <YdRangePicker v-else-if="field.type === 'dateRange'" v-model="searchValues[field.key]" />
         </div>
 
         <!-- 操作按钮 -->
-        <div class="flex gap-2 ml-auto">
+        <div class="ml-auto flex gap-2">
           <YdButtonSmart variant="default" size="sm" @click="handleSearch">
             {{ t('common.search') }}
           </YdButtonSmart>
@@ -246,7 +251,7 @@ defineExpose({
       <YdDataTable
         ref="dataTableRef"
         :data-source="tableData.viewRows.value"
-        :columns="(renderColumns as unknown) as any"
+        :columns="renderColumns as unknown as any"
         :row-key="props.rowKey"
         :is-selectable="!!props.rowSelection"
         :select-type="props.rowSelection?.type ?? 'checkbox'"
@@ -263,11 +268,7 @@ defineExpose({
     </div>
 
     <!-- 行内编辑模式：使用自定义表格 -->
-    <div
-      v-else
-      class="relative w-full overflow-x-auto border rounded-md"
-      role="grid"
-    >
+    <div v-else class="relative w-full overflow-x-auto rounded-md border" role="grid">
       <table class="w-full border-collapse text-sm">
         <thead>
           <tr class="bg-muted/50 border-b">
@@ -280,13 +281,13 @@ defineExpose({
             <th
               v-for="col in props.columns"
               :key="col.key"
-              class="whitespace-nowrap font-medium text-start px-3 py-2"
+              class="whitespace-nowrap px-3 py-2 text-start font-medium"
             >
               {{ col.key }}
             </th>
 
             <!-- 操作列表头 -->
-            <th class="whitespace-nowrap font-medium text-start px-3 py-2 w-[140px]">
+            <th class="w-[140px] whitespace-nowrap px-3 py-2 text-start font-medium">
               {{ t('proTable.actionColumn') }}
             </th>
           </tr>
@@ -297,7 +298,7 @@ defineExpose({
           <tr v-if="tableData.viewRows.value.length === 0">
             <td
               :colspan="props.columns.length + (props.rowSelection ? 2 : 1)"
-              class="py-12 text-center text-muted-foreground"
+              class="text-muted-foreground py-12 text-center"
             >
               {{ t('table.empty') }}
             </td>
@@ -307,7 +308,7 @@ defineExpose({
           <tr
             v-for="(row, rowIdx) in tableData.viewRows.value"
             :key="props.rowKey(row as T, rowIdx)"
-            class="border-b transition-colors hover:bg-muted/25"
+            class="hover:bg-muted/25 border-b transition-colors"
           >
             <!-- 行选择 -->
             <td v-if="props.rowSelection" class="px-2">
@@ -315,11 +316,7 @@ defineExpose({
             </td>
 
             <!-- 数据单元格 -->
-            <td
-              v-for="col in props.columns"
-              :key="col.key"
-              class="px-3 py-2"
-            >
+            <td v-for="col in props.columns" :key="col.key" class="px-3 py-2">
               <template v-if="editingRowIdx === rowIdx">
                 <!-- 编辑态：根据列的字段名渲染输入 -->
                 <YdInput
@@ -335,9 +332,9 @@ defineExpose({
                   :row="row"
                   :index="rowIdx"
                   :column="col"
-                  :value="(row as Record<string, unknown>)[col.key]"
+                  :value="cellValue(row, col.key)"
                 >
-                  {{ (row as Record<string, unknown>)[col.key] ?? '-' }}
+                  {{ cellValue(row, col.key) ?? '-' }}
                 </slot>
               </template>
             </td>
@@ -348,14 +345,14 @@ defineExpose({
                 <template v-if="editingRowIdx === rowIdx">
                   <button
                     type="button"
-                    class="text-xs text-primary hover:underline px-1"
+                    class="text-primary px-1 text-xs hover:underline"
                     @click="saveEdit(rowIdx)"
                   >
                     {{ t('common.save') }}
                   </button>
                   <button
                     type="button"
-                    class="text-xs text-muted-foreground hover:underline px-1"
+                    class="text-muted-foreground px-1 text-xs hover:underline"
                     @click="cancelEdit(row as T, rowIdx)"
                   >
                     {{ t('common.cancel') }}
@@ -364,15 +361,12 @@ defineExpose({
                 <template v-else>
                   <button
                     type="button"
-                    class="text-xs text-primary hover:underline px-1"
+                    class="text-primary px-1 text-xs hover:underline"
                     @click="startEdit(row as T, rowIdx)"
                   >
                     {{ editBtnText }}
                   </button>
-                  <button
-                    type="button"
-                    class="text-xs text-destructive hover:underline px-1"
-                  >
+                  <button type="button" class="text-destructive px-1 text-xs hover:underline">
                     {{ deleteBtnText }}
                   </button>
                 </template>
@@ -383,7 +377,7 @@ defineExpose({
           <!-- 汇总行 -->
           <tr
             v-if="props.summary && tableData.viewRows.value.length > 0"
-            class="border-t-2 font-medium bg-muted/30"
+            class="bg-muted/30 border-t-2 font-medium"
           >
             <td :colspan="props.columns.length + (props.rowSelection ? 2 : 1)" class="px-3 py-2">
               {{ JSON.stringify(props.summary(tableData.viewRows.value)) }}
@@ -396,11 +390,8 @@ defineExpose({
     <!-- ==================================================== -->
     <!-- 分页                                                    -->
     <!-- ==================================================== -->
-    <div
-      v-if="props.pagination"
-      class="flex items-center justify-end gap-2"
-    >
-      <span class="text-sm text-muted-foreground">
+    <div v-if="props.pagination" class="flex items-center justify-end gap-2">
+      <span class="text-muted-foreground text-sm">
         {{ t('table.total', { count: props.pagination.total }) }}
       </span>
       <div class="flex gap-1">
@@ -451,7 +442,9 @@ defineExpose({
               <YdInput
                 v-if="!field.type || field.type === 'text'"
                 v-model="createFormValues[field.key]"
-                :placeholder="field.placeholder ?? t('proTable.searchField', { label: field.label })"
+                :placeholder="
+                  field.placeholder ?? t('proTable.searchField', { label: field.label })
+                "
                 size="sm"
               />
 
@@ -460,7 +453,9 @@ defineExpose({
                 v-else-if="field.type === 'select'"
                 :model-value="createFormValues[field.key]"
                 :options="field.options ?? []"
-                :placeholder="field.placeholder ?? t('proTable.selectField', { label: field.label })"
+                :placeholder="
+                  field.placeholder ?? t('proTable.selectField', { label: field.label })
+                "
                 @update:model-value="createFormValues[field.key] = $event"
               />
 
@@ -468,7 +463,9 @@ defineExpose({
               <YdInputNumber
                 v-else-if="field.type === 'number'"
                 :model-value="createFormValues[field.key]"
-                :placeholder="field.placeholder ?? t('proTable.searchField', { label: field.label })"
+                :placeholder="
+                  field.placeholder ?? t('proTable.searchField', { label: field.label })
+                "
                 size="small"
                 @update:model-value="createFormValues[field.key] = $event"
               />
@@ -477,7 +474,9 @@ defineExpose({
               <YdDatePicker
                 v-else-if="field.type === 'date'"
                 :model-value="createFormValues[field.key]"
-                :placeholder="field.placeholder ?? t('proTable.selectField', { label: field.label })"
+                :placeholder="
+                  field.placeholder ?? t('proTable.selectField', { label: field.label })
+                "
                 @update:model-value="createFormValues[field.key] = $event"
               />
 

@@ -29,7 +29,16 @@
  * @since 5.7.0
  */
 
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -134,7 +143,8 @@ interface NamedImport {
  */
 function readNamedImports(code: string): NamedImport[] {
   const out: NamedImport[] = [];
-  const re = /(?:^|\n)[ \t]*import(?:[ \t]+type)?[ \t]*\{([^;]*?)\}[ \t]*(?:\r?\n[ \t]*)?from[ \t]*['"]([^'"]+)['"]/g;
+  const re =
+    /(?:^|\n)[ \t]*import(?:[ \t]+type)?[ \t]*\{([^;]*?)\}[ \t]*(?:\r?\n[ \t]*)?from[ \t]*['"]([^'"]+)['"]/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(code))) {
     const specifier = m[2];
@@ -156,7 +166,12 @@ function readNamedImports(code: string): NamedImport[] {
 
 /** 只认本地说明符；包名/URL 一律不判 */
 function isLocalSpecifier(spec: string): boolean {
-  return spec.startsWith('./') || spec.startsWith('../') || spec.startsWith('#/') || spec.startsWith('@/');
+  return (
+    spec.startsWith('./') ||
+    spec.startsWith('../') ||
+    spec.startsWith('#/') ||
+    spec.startsWith('@/')
+  );
 }
 
 /** 说明符 → 绝对文件路径；解析不到返回 null（交由调用方判为不可判） */
@@ -167,9 +182,13 @@ function resolveSpecifier(spec: string, importer: string, pkgRoot: string): stri
   } else {
     base = resolve(dirname(importer), spec);
   }
-  const asFile = EXTENSIONS.map((ext) => base + ext).find((p) => existsSync(p) && statSync(p).isFile());
+  const asFile = EXTENSIONS.map((ext) => base + ext).find(
+    (p) => existsSync(p) && statSync(p).isFile(),
+  );
   if (asFile) return asFile;
-  const asIndex = INDEX_NAMES.map((n) => join(base, n)).find((p) => existsSync(p) && statSync(p).isFile());
+  const asIndex = INDEX_NAMES.map((n) => join(base, n)).find(
+    (p) => existsSync(p) && statSync(p).isFile(),
+  );
   return asIndex ?? null;
 }
 
@@ -208,20 +227,27 @@ function readExportFace(file: string, pkgRoot: string, seen: Set<string>): Expor
   const localNames = new Set(readLocalBindingNames(code));
   let opaque = false;
 
-  const decl = /(?:^|\n)[ \t]*export(?:[ \t]+declare)?[ \t]*(?:async[ \t]+)?(function|class|const|let|var)[ \t]+([A-Za-z_$][\w$]*)/g;
+  const decl =
+    /(?:^|\n)[ \t]*export(?:[ \t]+declare)?[ \t]*(?:async[ \t]+)?(function|class|const|let|var)[ \t]+([A-Za-z_$][\w$]*)/g;
   const declDestruct = /(?:^|\n)[ \t]*export[ \t]*(?:const|let|var)[ \t]*\{([\s\S]*?)\}/g;
   // `export const [injectFormProps, provideFormProps] = createInjectionState()`
   const declArray = /(?:^|\n)[ \t]*export[ \t]*(?:const|let|var)[ \t]*\[([^\]]*)\]/g;
   const typeDecl = /(?:^|\n)[ \t]*export[ \t]+(type|interface|enum)[ \t]+([A-Za-z_$][\w$]*)/g;
-  const star = /(?:^|\n)[ \t]*export(?:[ \t]+type)?[ \t]*\*[ \t]*(?:as[ \t]+([A-Za-z_$][\w$]*)[ \t]*)?from[ \t]*['"]([^'"]+)['"]/g;
-  const braces = /(?:^|\n)[ \t]*export(?:[ \t]+type)?[ \t]*\{([^;]*?)\}(?:[ \t]*(?:\r?\n[ \t]*)?from[ \t]*['"]([^'"]+)['"])?/g;
+  const star =
+    /(?:^|\n)[ \t]*export(?:[ \t]+type)?[ \t]*\*[ \t]*(?:as[ \t]+([A-Za-z_$][\w$]*)[ \t]*)?from[ \t]*['"]([^'"]+)['"]/g;
+  const braces =
+    /(?:^|\n)[ \t]*export(?:[ \t]+type)?[ \t]*\{([^;]*?)\}(?:[ \t]*(?:\r?\n[ \t]*)?from[ \t]*['"]([^'"]+)['"])?/g;
 
   let m: RegExpExecArray | null;
   while ((m = decl.exec(code))) names.add(m[2]);
   while ((m = typeDecl.exec(code))) names.add(m[2]);
   while ((m = declDestruct.exec(code))) {
     for (const part of m[1].split(',')) {
-      const token = part.trim().split(/\s*:\s*/).pop() ?? '';
+      const token =
+        part
+          .trim()
+          .split(/\s*:\s*/)
+          .pop() ?? '';
       const name = token.split(/[ \t=]/)[0];
       if (name && /^[A-Za-z_$][\w$]*$/.test(name)) names.add(name);
     }
@@ -298,21 +324,27 @@ function readExportFace(file: string, pkgRoot: string, seen: Set<string>): Expor
 function readLocalBindingNames(code: string): Set<string> {
   const out = new Set<string>();
   const add = (name: string) => {
-    const clean = name.trim().replace(/^type[ \t]+/, '').split(/[ \t=,;:[\]]/)[0];
+    const clean = name
+      .trim()
+      .replace(/^type[ \t]+/, '')
+      .split(/[ \t=,;:[\]]/)[0];
     if (/^[A-Za-z_$][\w$]*$/.test(clean)) out.add(clean);
   };
 
-  const decl = /(?:^|\n)[ \t]*(?:export[ \t]+)?(?:declare[ \t]+)?(?:(?:async[ \t]+)?(function|class|const|let|var)|(?:type|interface|enum))[ \t]+([A-Za-z_$][\w$]*)/g;
+  const decl =
+    /(?:^|\n)[ \t]*(?:export[ \t]+)?(?:declare[ \t]+)?(?:(?:async[ \t]+)?(function|class|const|let|var)|(?:type|interface|enum))[ \t]+([A-Za-z_$][\w$]*)/g;
   const objPattern = /(?:^|\n)[ \t]*(?:export[ \t]+)?(?:const|let|var)[ \t]*\{([^}]*)\}/g;
   const arrPattern = /(?:^|\n)[ \t]*(?:export[ \t]+)?(?:const|let|var)[ \t]*\[([^\]]*)\]/g;
-  const imported = /(?:^|\n)[ \t]*import(?:[ \t]+type)?[ \t]*(?:\{([^}]*)\}|([A-Za-z_$][\w$]*)|[ \t]*\*[ \t]*as[ \t]*([A-Za-z_$][\w$]*))/g;
+  const imported =
+    /(?:^|\n)[ \t]*import(?:[ \t]+type)?[ \t]*(?:\{([^}]*)\}|([A-Za-z_$][\w$]*)|[ \t]*\*[ \t]*as[ \t]*([A-Za-z_$][\w$]*))/g;
 
   let m: RegExpExecArray | null;
   while ((m = decl.exec(code))) add(m[2]);
-  while ((m = objPattern.exec(code))) m[1].split(',').forEach((p) => add((p.split(/\s*:\s*/)[1] ?? p.split(/\s+as\s+/)[1] ?? p)));
+  while ((m = objPattern.exec(code)))
+    m[1].split(',').forEach((p) => add(p.split(/\s*:\s*/)[1] ?? p.split(/\s+as\s+/)[1] ?? p));
   while ((m = arrPattern.exec(code))) m[1].split(',').forEach((p) => add(p.split(/[ \t=]/)[0]));
   while ((m = imported.exec(code))) {
-    if (m[1]) m[1].split(',').forEach((p) => add((p.split(/\s+as\s+/)[1] ?? p)));
+    if (m[1]) m[1].split(',').forEach((p) => add(p.split(/\s+as\s+/)[1] ?? p));
     if (m[2]) add(m[2]);
     if (m[3]) add(m[3]);
   }
@@ -329,7 +361,11 @@ interface Violation {
 }
 
 /** 扫描单文件 */
-function scanFile(absPath: string, rootDir: string, cache: Map<string, ExportFace | null>): Violation[] {
+function scanFile(
+  absPath: string,
+  rootDir: string,
+  cache: Map<string, ExportFace | null>,
+): Violation[] {
   const rel = relative(rootDir, absPath).replace(/\\/g, '/');
   if (rel.includes('/__snapshots__/')) return [];
   const pkgRoot = findPkgRoot(absPath, rootDir);
@@ -385,9 +421,11 @@ function scanAll(rootDir: string): ScanResult {
 
 /** 人话修复建议 */
 function describe(v: Violation): string {
-  return `${v.file}:${v.line} 从 '${v.specifier}' 导入了 '${v.imported}'，但该模块并没有这个名字`
-    + `（Rollup 只报 WARN、构建仍绿；运行时是 undefined 调用 → TypeError）。`
-    + `该模块现有导出：${v.exportedAvailable.join(', ') || '（无具名导出）'}`;
+  return (
+    `${v.file}:${v.line} 从 '${v.specifier}' 导入了 '${v.imported}'，但该模块并没有这个名字` +
+    `（Rollup 只报 WARN、构建仍绿；运行时是 undefined 调用 → TypeError）。` +
+    `该模块现有导出：${v.exportedAvailable.join(', ') || '（无具名导出）'}`
+  );
 }
 
 /** 自测：夹具必须被拦住，且合法写法一律不冤枉 */
@@ -399,36 +437,102 @@ function selfTest(): void {
     writeFileSync(abs, text);
   };
   write('package.json', '{ "name": "@t/fixture-web" }');
-  write('src/api/userFavorite.ts', "export function updatesort(n: string, p: { sort?: number }) { return p }\nexport const FAVORITE_MAX = 10;\n");
-  write('src/api/models.ts', "export type UserFavoriteVO = { nodeId: string };\nexport interface Foo { a: 1 }\n");
-  write('src/api/barrel.ts', "export * from './userFavorite';\nexport { FAVORITE_MAX as MAX_FAV } from './userFavorite';\n");
-  write('src/api/bad.ts', "const inner = 1;\nexport { inner };\n");
+  write(
+    'src/api/userFavorite.ts',
+    'export function updatesort(n: string, p: { sort?: number }) { return p }\nexport const FAVORITE_MAX = 10;\n',
+  );
+  write(
+    'src/api/models.ts',
+    'export type UserFavoriteVO = { nodeId: string };\nexport interface Foo { a: 1 }\n',
+  );
+  write(
+    'src/api/barrel.ts',
+    "export * from './userFavorite';\nexport { FAVORITE_MAX as MAX_FAV } from './userFavorite';\n",
+  );
+  write('src/api/bad.ts', 'const inner = 1;\nexport { inner };\n');
   // 真实形态回归：types.ts 先声明、文件末尾统一 `export type { … }`
-  write('src/api/deferred-types.ts', "interface RequestClientConfig { url: string }\ntype HttpResponse = { data: unknown }\n\nexport type {\n  HttpResponse,\n  RequestClientConfig,\n};\n");
+  write(
+    'src/api/deferred-types.ts',
+    'interface RequestClientConfig { url: string }\ntype HttpResponse = { data: unknown }\n\nexport type {\n  HttpResponse,\n  RequestClientConfig,\n};\n',
+  );
   write('src/api/third.ts', "export * from 'some-external-pkg';\n");
-  write('src/views/bad-import.vue', "<template><p>x</p></template>\n<script lang=\"ts\" setup>\nimport { updateSortOrder } from '#/api/userFavorite';\nvoid updateSortOrder;\n</script>\n");
-  write('src/views/ok-alias.ts', "import { updatesort as updateSort } from '#/api/userFavorite';\nvoid updateSort;\n");
-  write('src/views/ok-type.ts', "import type { UserFavoriteVO, Foo } from '#/api/models';\nvoid 0 as unknown as UserFavoriteVO | Foo;\n");
-  write('src/views/ok-barrel.ts', "import { updatesort, MAX_FAV } from '#/api/barrel';\nvoid updatesort; void MAX_FAV;\n");
+  write(
+    'src/views/bad-import.vue',
+    '<template><p>x</p></template>\n<script lang="ts" setup>\nimport { updateSortOrder } from \'#/api/userFavorite\';\nvoid updateSortOrder;\n</script>\n',
+  );
+  write(
+    'src/views/ok-alias.ts',
+    "import { updatesort as updateSort } from '#/api/userFavorite';\nvoid updateSort;\n",
+  );
+  write(
+    'src/views/ok-type.ts',
+    "import type { UserFavoriteVO, Foo } from '#/api/models';\nvoid 0 as unknown as UserFavoriteVO | Foo;\n",
+  );
+  write(
+    'src/views/ok-barrel.ts',
+    "import { updatesort, MAX_FAV } from '#/api/barrel';\nvoid updatesort; void MAX_FAV;\n",
+  );
   write('src/views/ok-local-export.ts', "import { inner } from '#/api/bad';\nvoid inner;\n");
-  write('src/views/ok-opaque.ts', "import { whateverName } from '#/api/third';\nvoid whateverName;\n");
-  write('src/views/ok-comment.vue', "<template><p>x</p></template>\n<script lang=\"ts\" setup>\n/** @example import { nope } from '#/api/userFavorite' */\n// import { alsoNope } from '#/api/userFavorite'\nvoid 1;\n</script>\n");
-  write('src/views/ok-relative.ts', "import { FAVORITE_MAX } from '../api/userFavorite';\nvoid FAVORITE_MAX;\n");
-  write('src/views/ok-deferred-type.ts', "import type { RequestClientConfig, HttpResponse } from '#/api/deferred-types';\nvoid 0 as unknown as RequestClientConfig | HttpResponse;\n");
-  write('src/views/bad-deferred-type.ts', "import type { NeverDeclared } from '#/api/deferred-types';\nvoid 0 as unknown as NeverDeclared;\n");
-  write('src/views/bad-relative.ts', "import { nopeHere } from '../api/userFavorite';\nvoid nopeHere;\n");
+  write(
+    'src/views/ok-opaque.ts',
+    "import { whateverName } from '#/api/third';\nvoid whateverName;\n",
+  );
+  write(
+    'src/views/ok-comment.vue',
+    "<template><p>x</p></template>\n<script lang=\"ts\" setup>\n/** @example import { nope } from '#/api/userFavorite' */\n// import { alsoNope } from '#/api/userFavorite'\nvoid 1;\n</script>\n",
+  );
+  write(
+    'src/views/ok-relative.ts',
+    "import { FAVORITE_MAX } from '../api/userFavorite';\nvoid FAVORITE_MAX;\n",
+  );
+  write(
+    'src/views/ok-deferred-type.ts',
+    "import type { RequestClientConfig, HttpResponse } from '#/api/deferred-types';\nvoid 0 as unknown as RequestClientConfig | HttpResponse;\n",
+  );
+  write(
+    'src/views/bad-deferred-type.ts',
+    "import type { NeverDeclared } from '#/api/deferred-types';\nvoid 0 as unknown as NeverDeclared;\n",
+  );
+  write(
+    'src/views/bad-relative.ts',
+    "import { nopeHere } from '../api/userFavorite';\nvoid nopeHere;\n",
+  );
 
   // 真实形态回归：apps/*/src/api/request.ts 全部是对上游包的 re-export 清单
-  write('src/api/request.ts', "export {\n  baseRequestClient,\n  initSharedRequest,\n  requestClient,\n} from '@ydsz/shared-auth';\n");
+  write(
+    'src/api/request.ts',
+    "export {\n  baseRequestClient,\n  initSharedRequest,\n  requestClient,\n} from '@ydsz/shared-auth';\n",
+  );
   // 真实形态回归：main/src/locales/index.ts 先 import、末尾 `export { $t, setupI18n }`
-  write('src/api/locale-barrel.ts', "import { $t, setupI18n } from '@ydsz/locales';\n\nexport { $t, setupI18n };\n");
+  write(
+    'src/api/locale-barrel.ts',
+    "import { $t, setupI18n } from '@ydsz/locales';\n\nexport { $t, setupI18n };\n",
+  );
   // 真实形态回归：form-ui 的 createInjectionState 数组解构导出
-  write('src/api/injection.ts', "export const [injectFormProps, provideFormProps] = createInjectionState();\nexport function useFormInitial() { return null }\n");
-  write('src/views/ok-reexport-imported.ts', "import { $t } from '#/api/locale-barrel';\nvoid $t;\n");
-  write('src/views/ok-array-destructure.ts', "import { injectFormProps, useFormInitial } from '#/api/injection';\nvoid injectFormProps; void useFormInitial;\n");
-  write('src/views/bad-array-destructure.ts', "import { injectNever } from '#/api/injection';\nvoid injectNever;\n");
-  write('src/views/ok-reexport-package.ts', "import { requestClient } from '#/api/request';\nvoid requestClient;\n");
-  write('src/views/bad-reexport-package.ts', "import { notInThatList } from '#/api/request';\nvoid notInThatList;\n");
+  write(
+    'src/api/injection.ts',
+    'export const [injectFormProps, provideFormProps] = createInjectionState();\nexport function useFormInitial() { return null }\n',
+  );
+  write(
+    'src/views/ok-reexport-imported.ts',
+    "import { $t } from '#/api/locale-barrel';\nvoid $t;\n",
+  );
+  write(
+    'src/views/ok-array-destructure.ts',
+    "import { injectFormProps, useFormInitial } from '#/api/injection';\nvoid injectFormProps; void useFormInitial;\n",
+  );
+  write(
+    'src/views/bad-array-destructure.ts',
+    "import { injectNever } from '#/api/injection';\nvoid injectNever;\n",
+  );
+  write(
+    'src/views/ok-reexport-package.ts',
+    "import { requestClient } from '#/api/request';\nvoid requestClient;\n",
+  );
+  write(
+    'src/views/bad-reexport-package.ts',
+    "import { notInThatList } from '#/api/request';\nvoid notInThatList;\n",
+  );
 
   const cases: Array<{ file: string; mustContain: string | null }> = [
     { file: 'src/views/bad-import.vue', mustContain: 'updateSortOrder' },
@@ -453,9 +557,12 @@ function selfTest(): void {
   for (const c of cases) {
     const hits = scanFile(join(dir, 'apps', 'fixture-web', c.file), dir, new Map());
     if (c.mustContain === null) {
-      if (hits.length > 0) failures.push(`冤枉：${c.file} 本应通过，实际报 ${hits.map((h) => h.imported).join(',')}`);
+      if (hits.length > 0)
+        failures.push(`冤枉：${c.file} 本应通过，实际报 ${hits.map((h) => h.imported).join(',')}`);
     } else if (!hits.some((h) => h.imported === c.mustContain)) {
-      failures.push(`漏拦：${c.file} 本应报 ${c.mustContain}，实际 ${hits.map((h) => h.imported).join(',') || '无'}`);
+      failures.push(
+        `漏拦：${c.file} 本应报 ${c.mustContain}，实际 ${hits.map((h) => h.imported).join(',') || '无'}`,
+      );
     }
   }
   rmSync(dir, { force: true, recursive: true });
@@ -481,9 +588,13 @@ function main(): void {
     process.exit(1);
   }
   if (result.violations.length > 0) {
-    console.error(`❌ 存在指向不存在导出的具名导入（扫描 ${result.files} 个文件，违规 ${result.violations.length} 项）：`);
+    console.error(
+      `❌ 存在指向不存在导出的具名导入（扫描 ${result.files} 个文件，违规 ${result.violations.length} 项）：`,
+    );
     for (const v of result.violations) console.error(`  - ${describe(v)}`);
-    console.error('  说明：API 封装由 bash/gen-contract.py 生成，后端改名后请同步视图导入名，或用 `生成名 as 惯用名` 显式别名。');
+    console.error(
+      '  说明：API 封装由 bash/gen-contract.py 生成，后端改名后请同步视图导入名，或用 `生成名 as 惯用名` 显式别名。',
+    );
     process.exit(1);
   }
   console.log(`✅ 本地具名导入检查通过：${result.files} 个源文件，无「导入了不存在的导出」`);

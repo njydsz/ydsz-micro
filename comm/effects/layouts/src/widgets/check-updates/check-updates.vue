@@ -47,10 +47,7 @@ const [UpdateNoticeModal, modalApi] = useYdModal({
 // @infra-fetch 基础设施层直用，无统一客户端上下文（HEAD 请求检查 etag/last-modified）
 async function getVersionTag() {
   try {
-    if (
-      location.hostname === 'localhost' ||
-      location.hostname === '127.0.0.1'
-    ) {
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
       return null;
     }
     const response = await fetch(props.checkUpdateUrl, {
@@ -59,9 +56,7 @@ async function getVersionTag() {
       redirect: 'manual',
     });
 
-    return (
-      response.headers.get('etag') || response.headers.get('last-modified')
-    );
+    return response.headers.get('etag') || response.headers.get('last-modified');
   } catch {
     logger.error('Failed to fetch version tag');
     return null;
@@ -96,10 +91,7 @@ function start() {
   }
 
   // 每 checkUpdatesInterval(默认值为1) 分钟检查一次
-  timer.value = setInterval(
-    checkForUpdates,
-    props.checkUpdatesInterval * 60 * 1000,
-  );
+  timer.value = setInterval(checkForUpdates, props.checkUpdatesInterval * 60 * 1000);
 }
 
 function handleVisibilitychange() {

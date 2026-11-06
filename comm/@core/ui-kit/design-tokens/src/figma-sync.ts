@@ -44,20 +44,11 @@ import {
   WARNING_RAW,
 } from './tokens/colors.ts';
 
-import {
-  SPACING_TOKENS,
-  RADIUS_TOKENS,
-} from './tokens/spacing.ts';
+import { SPACING_TOKENS, RADIUS_TOKENS } from './tokens/spacing.ts';
 
-import {
-  DURATION_TOKENS,
-  EASING_TOKENS,
-} from './tokens/motion.ts';
+import { DURATION_TOKENS, EASING_TOKENS } from './tokens/motion.ts';
 
-import {
-  FONT_SIZE_TOKENS,
-  FONT_WEIGHT_TOKENS,
-} from './tokens/typography.ts';
+import { FONT_SIZE_TOKENS, FONT_WEIGHT_TOKENS } from './tokens/typography.ts';
 
 /** Figma Tokens Studio 兼容类型 */
 export interface FigmaTokenValue {
@@ -98,8 +89,8 @@ function buildColorScale(raw: RawColorComponents, prefix: string): FigmaTokenGro
   const scale: FigmaTokenGroup = {};
   for (const shade of COLOR_SHADES) {
     // 通过简单的亮度变化模拟色阶
-    const lAdjust = shade <= 300 ? (300 - shade) / 300 * 40 : 0;
-    const lReduce = shade >= 500 ? (shade - 500) / 200 * 25 : 0;
+    const lAdjust = shade <= 300 ? ((300 - shade) / 300) * 40 : 0;
+    const lReduce = shade >= 500 ? ((shade - 500) / 200) * 25 : 0;
     const lNew = Math.min(97, Math.max(20, raw.l + lAdjust - lReduce));
     scale[String(shade)] = {
       $value: hslToHex({ h: raw.h, s: raw.s, l: lNew }),
@@ -208,10 +199,19 @@ export function importFromFigma(figmaJson: FigmaTokenFile): TokenDiff[] {
       if (typeof group !== 'object' || group === null) continue;
       const targetGroup = target[key];
       if (!targetGroup || typeof targetGroup !== 'object') {
-        diffs.push({ path: key, expected: JSON.stringify(group), actual: '(missing)', type: 'missing' });
+        diffs.push({
+          path: key,
+          expected: JSON.stringify(group),
+          actual: '(missing)',
+          type: 'missing',
+        });
         continue;
       }
-      compare(`${prefix ? `${prefix}.` : ''}${key}`, targetGroup as unknown as FigmaTokenFile, group);
+      compare(
+        `${prefix ? `${prefix}.` : ''}${key}`,
+        targetGroup as unknown as FigmaTokenFile,
+        group,
+      );
     }
   }
 

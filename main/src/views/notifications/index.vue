@@ -175,10 +175,7 @@ onUnmounted(() => {
 
     <!-- 工具栏 -->
     <div class="mb-4 flex flex-wrap items-center gap-3">
-      <select
-        v-model="levelFilter"
-        class="w-32 rounded border px-2 py-1 text-sm"
-      >
+      <select v-model="levelFilter" class="w-32 rounded border px-2 py-1 text-sm">
         <option value="">{{ $t('notification.filter.allLevels') }}</option>
         <option value="INFO">{{ $t('notification.level.info') }}</option>
         <option value="SUCCESS">{{ $t('notification.level.success') }}</option>
@@ -187,26 +184,17 @@ onUnmounted(() => {
         <option value="ERROR">{{ $t('notification.level.error') }}</option>
       </select>
 
-      <select
-        v-model="readFilter"
-        class="w-32 rounded border px-2 py-1 text-sm"
-      >
+      <select v-model="readFilter" class="w-32 rounded border px-2 py-1 text-sm">
         <option value="">{{ $t('notification.filter.allStatus') }}</option>
         <option value="unread">{{ $t('notification.status.unread') }}</option>
         <option value="read">{{ $t('notification.status.read') }}</option>
       </select>
 
-      <button
-        class="rounded bg-primary px-3 py-1 text-sm text-white"
-        @click="fetchData"
-      >
+      <button class="bg-primary rounded px-3 py-1 text-sm text-white" @click="fetchData">
         {{ $t('common.refresh') }}
       </button>
 
-      <button
-        class="rounded border px-3 py-1 text-sm"
-        @click="handleMarkAllRead"
-      >
+      <button class="rounded border px-3 py-1 text-sm" @click="handleMarkAllRead">
         {{ $t('notification.markAllRead') }}
       </button>
 
@@ -223,7 +211,10 @@ onUnmounted(() => {
       {{ $t('common.loadingMenu') }}
     </div>
 
-    <div v-else-if="pagedNotifications.length === 0" class="text-muted-foreground py-10 text-center">
+    <div
+      v-else-if="pagedNotifications.length === 0"
+      class="text-muted-foreground py-10 text-center"
+    >
       {{ $t('common.noData') }}
     </div>
 
@@ -264,15 +255,17 @@ onUnmounted(() => {
                 {{ item.type }}
               </span>
             </td>
-            <td class="text-muted-foreground px-4 py-3 whitespace-nowrap">
+            <td class="text-muted-foreground whitespace-nowrap px-4 py-3">
               {{ formatTime(item.createdAt) }}
             </td>
             <td class="px-4 py-3">
               <span
                 class="text-xs"
-                :class="item.isRead ? 'text-muted-foreground' : 'text-amber-600 font-medium'"
+                :class="item.isRead ? 'text-muted-foreground' : 'font-medium text-amber-600'"
               >
-                {{ item.isRead ? $t('notification.status.read') : $t('notification.status.unread') }}
+                {{
+                  item.isRead ? $t('notification.status.read') : $t('notification.status.unread')
+                }}
               </span>
             </td>
             <td class="px-4 py-3">
@@ -284,10 +277,7 @@ onUnmounted(() => {
                 >
                   {{ $t('notification.markRead') }}
                 </button>
-                <button
-                  class="text-xs text-red-500 hover:underline"
-                  @click="handleRemove(item.id)"
-                >
+                <button class="text-xs text-red-500 hover:underline" @click="handleRemove(item.id)">
                   {{ $t('common.delete') }}
                 </button>
                 <a

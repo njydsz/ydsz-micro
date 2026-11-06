@@ -8,19 +8,9 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-export type {
-  YdAlertProps,
-  BeforeCloseScope,
-  IconType,
-  YdPromptProps,
-} from './alert';
+export type { YdAlertProps, BeforeCloseScope, IconType, YdPromptProps } from './alert';
 export { useAlertContext } from './alert';
 // Vue 组件直接以 default 名义导出（避免与 AlertBuilder 的二义性冲突）
 export { default } from './YdAlert.vue';
 // 命令式 API：从 AlertBuilder 导出，名称互不冲突
-export {
-  YdAlert,
-  YdConfirm,
-  YdPrompt,
-  clearAllAlerts,
-} from './AlertBuilder';
+export { YdAlert, YdConfirm, YdPrompt, clearAllAlerts } from './AlertBuilder';

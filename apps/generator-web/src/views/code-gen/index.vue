@@ -23,7 +23,34 @@ import { $t } from '@ydsz/locales';
 
 import { useRoute } from 'vue-router';
 
-import { YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdDialog, YdDialogContent, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdSheet, YdSheetContent, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdEmptyState, YdForm, YdFormItem, YdIcon } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdDialog,
+  YdDialogContent,
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdSheet,
+  YdSheetContent,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdIcon,
+} from '@ydsz-core/ydsz-ui';
 import { Clock, FileText as Document } from '@ydsz/icons';
 
 import { showToast } from '@ydsz/notification';
@@ -356,11 +383,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
           <YdCardHeader>
             <div class="flex items-center justify-between">
               <YdCardTitle>{{ $t('page.codeGen.cardDatasourceTemplate') }}</YdCardTitle>
-              <YdButton
-                size="sm"
-                variant="link"
-                @click="handleOpenHistoryDrawer"
-              >
+              <YdButton size="sm" variant="link" @click="handleOpenHistoryDrawer">
                 <YdIcon class="mr-1">
                   <Clock />
                 </YdIcon>
@@ -373,7 +396,9 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
               <YdFormItem :label="$t('page.codeGen.datasourceLabel')">
                 <YdSelectBase v-model="selectedDatasourceId">
                   <YdSelectTriggerBase>
-                    <YdSelectValueBase :placeholder="$t('page.codeGen.selectDatasourcePlaceholder')" />
+                    <YdSelectValueBase
+                      :placeholder="$t('page.codeGen.selectDatasourcePlaceholder')"
+                    />
                   </YdSelectTriggerBase>
                   <YdSelectContentBase>
                     <YdSelectItemBase
@@ -389,7 +414,9 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
               <YdFormItem :label="$t('business.templateGroup')">
                 <YdSelectBase v-model="selectedGroupId">
                   <YdSelectTriggerBase>
-                    <YdSelectValueBase :placeholder="$t('page.codeGen.selectTemplateGroupPlaceholder')" />
+                    <YdSelectValueBase
+                      :placeholder="$t('page.codeGen.selectTemplateGroupPlaceholder')"
+                    />
                   </YdSelectTriggerBase>
                   <YdSelectContentBase>
                     <YdSelectItemBase
@@ -408,11 +435,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                     <YdSelectValueBase :placeholder="$t('page.codeGen.selectTablePlaceholder')" />
                   </YdSelectTriggerBase>
                   <YdSelectContentBase>
-                    <YdSelectItemBase
-                      v-for="t in tableList"
-                      :key="t"
-                      :value="t"
-                    >
+                    <YdSelectItemBase v-for="t in tableList" :key="t" :value="t">
                       {{ t }}
                     </YdSelectItemBase>
                   </YdSelectContentBase>
@@ -439,15 +462,21 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                   <div class="flex items-center gap-5">
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-skip" value="SKIP" />
-                      <label for="conflict-skip" class="cursor-pointer text-sm">{{ $t('page.codeGen.conflictSkip') }}</label>
+                      <label for="conflict-skip" class="cursor-pointer text-sm">{{
+                        $t('page.codeGen.conflictSkip')
+                      }}</label>
                     </div>
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-override" value="OVERRIDE" />
-                      <label for="conflict-override" class="cursor-pointer text-sm">{{ $t('page.codeGen.conflictOverride') }}</label>
+                      <label for="conflict-override" class="cursor-pointer text-sm">{{
+                        $t('page.codeGen.conflictOverride')
+                      }}</label>
                     </div>
                     <div class="flex items-center gap-2">
                       <YdRadioGroupItem id="conflict-merge" value="MERGE" />
-                      <label for="conflict-merge" class="cursor-pointer text-sm">{{ $t('page.codeGen.conflictMerge') }}</label>
+                      <label for="conflict-merge" class="cursor-pointer text-sm">{{
+                        $t('page.codeGen.conflictMerge')
+                      }}</label>
                     </div>
                   </div>
                 </YdRadioGroup>
@@ -460,11 +489,7 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
               </YdFormItem>
               <YdFormItem>
                 <div class="flex gap-2">
-                  <YdButton
-                    variant="secondary"
-                    :loading="previewLoading"
-                    @click="handlePreview"
-                  >
+                  <YdButton variant="secondary" :loading="previewLoading" @click="handlePreview">
                     {{ $t('business.preview') }}
                   </YdButton>
                   <YdButton
@@ -474,16 +499,10 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
                   >
                     {{ $t('page.codeGen.downloadZip') }}
                   </YdButton>
-                  <YdButton
-                    :loading="generating"
-                    @click="handleGenerate"
-                  >
+                  <YdButton :loading="generating" @click="handleGenerate">
                     {{ $t('page.codeGen.generateCurrent') }}
                   </YdButton>
-                  <YdButton
-                    :loading="batchGenerating"
-                    @click="handleGenerateAll"
-                  >
+                  <YdButton :loading="batchGenerating" @click="handleGenerateAll">
                     {{ $t('page.codeGen.generateAllTables') }}
                   </YdButton>
                 </div>
@@ -499,25 +518,25 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
           </YdCardHeader>
           <YdCardContent>
             <div class="grid grid-cols-4 gap-5 text-center">
-              <div class="p-3 bg-gray-50 rounded">
+              <div class="rounded bg-gray-50 p-3">
                 <div class="text-2xl font-bold text-blue-500">
                   {{ (genResult ?? batchResult)?.fileCount ?? 0 }}
                 </div>
                 <div class="text-sm text-gray-500">{{ $t('page.codeGen.totalFiles') }}</div>
               </div>
-              <div class="p-3 bg-gray-50 rounded">
+              <div class="rounded bg-gray-50 p-3">
                 <div class="text-2xl font-bold text-green-500">
                   {{ (genResult ?? batchResult)?.successCount ?? 0 }}
                 </div>
                 <div class="text-sm text-gray-500">{{ $t('page.codeGen.statusSuccess') }}</div>
               </div>
-              <div class="p-3 bg-gray-50 rounded">
+              <div class="rounded bg-gray-50 p-3">
                 <div class="text-2xl font-bold text-yellow-500">
                   {{ (genResult ?? batchResult)?.skipCount ?? 0 }}
                 </div>
                 <div class="text-sm text-gray-500">{{ $t('page.codeGen.skipped') }}</div>
               </div>
-              <div class="p-3 bg-gray-50 rounded">
+              <div class="rounded bg-gray-50 p-3">
                 <div class="text-2xl font-bold text-red-500">
                   {{ (genResult ?? batchResult)?.failCount ?? 0 }}
                 </div>
@@ -545,23 +564,29 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
             <div
               v-for="record in histories"
               :key="record.id"
-              class="history-card border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+              class="history-card cursor-pointer rounded-lg border p-3 transition-shadow hover:shadow-md"
               @click="handleViewHistoryDiff(record)"
             >
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-medium text-sm">
+              <div class="mb-2 flex items-center justify-between">
+                <span class="text-sm font-medium">
                   #{{ record.id }} {{ record.moduleName ?? $t('page.codeGen.taskFallback') }}
                 </span>
                 <YdBadge :variant="getStatusBadgeVariant(record.status ?? '')">
                   {{ getStatusLabel(record.status ?? '') }}
                 </YdBadge>
               </div>
-              <div class="text-xs text-gray-500 flex gap-3 flex-wrap">
-                <span v-if="record.triggeredBy">{{ $t('page.codeGen.operator', { name: record.triggeredBy }) }}</span>
-                <span v-if="record.fileCount">{{ $t('page.codeGen.fileCount', { count: record.fileCount }) }}</span>
-                <span v-if="record.tableCount">{{ $t('page.codeGen.tableCount', { count: record.tableCount }) }}</span>
+              <div class="flex flex-wrap gap-3 text-xs text-gray-500">
+                <span v-if="record.triggeredBy">{{
+                  $t('page.codeGen.operator', { name: record.triggeredBy })
+                }}</span>
+                <span v-if="record.fileCount">{{
+                  $t('page.codeGen.fileCount', { count: record.fileCount })
+                }}</span>
+                <span v-if="record.tableCount">{{
+                  $t('page.codeGen.tableCount', { count: record.tableCount })
+                }}</span>
               </div>
-              <div class="text-xs text-gray-400 mt-1">
+              <div class="mt-1 text-xs text-gray-400">
                 {{ record.startedAt ? String(record.startedAt).replace('T', ' ') : '-' }}
               </div>
             </div>
@@ -569,24 +594,29 @@ function getStatusBadgeVariant(status: string): 'default' | 'destructive' | 'sec
 
           <!-- Diff 文件列表（选中历史后） -->
           <div v-if="diffFiles.length > 0" class="mt-4">
-            <div class="text-sm font-medium text-gray-700 mb-2">{{ $t('page.codeGen.changedFiles') }}</div>
+            <div class="mb-2 text-sm font-medium text-gray-700">
+              {{ $t('page.codeGen.changedFiles') }}
+            </div>
             <div class="space-y-1">
               <div
                 v-for="(file, idx) in diffFiles"
                 :key="file.fileName ?? idx"
-                class="flex items-center gap-2 px-2 py-2 rounded text-sm hover:bg-gray-100 cursor-pointer"
+                class="flex cursor-pointer items-center gap-2 rounded px-2 py-2 text-sm hover:bg-gray-100"
                 @click="handleDiffFileSelect(file.fileName, file.oldCode, file.newCode)"
               >
                 <YdIcon class="text-gray-400">
                   <Document />
                 </YdIcon>
-                <span class="truncate flex-1 text-xs">{{ file.fileName }}</span>
-                <span class="text-blue-500 text-xs">diff</span>
+                <span class="flex-1 truncate text-xs">{{ file.fileName }}</span>
+                <span class="text-xs text-blue-500">diff</span>
               </div>
             </div>
           </div>
 
-          <YdEmptyState v-if="histories.length === 0 && !historyLoading" :description="$t('page.codeGen.noHistory')" />
+          <YdEmptyState
+            v-if="histories.length === 0 && !historyLoading"
+            :description="$t('page.codeGen.noHistory')"
+          />
         </div>
       </YdSheetContent>
     </YdSheet>

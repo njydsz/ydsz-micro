@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 /**
-* YdForm —— 表单容器包装器，内置「提交时自动聚焦首个错误字段」能力。
-* 
+ * YdForm —— 表单容器包装器，内置「提交时自动聚焦首个错误字段」能力。
+ *
  * 设计目标：
  *  - 包装 vee-validate 的 Form 组件，统一表单提交行为；
  *  - 表单校验失败时，自动 scrollIntoView + focus 到第一个错误字段
  *    （对齐 EP / Naive UI 的 submitForm 交互）；
  *  - 暴露 `submitWithErrorFocus` 方法，供外部按钮手动调用；
  *  - 支持 `isDisabled` 全局禁用、`isSubmitting` 提交中遮罩。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\form\YdForm.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -89,20 +89,21 @@ defineExpose({
 });
 
 /* ----- 草稿自动保存（可选、最小侵入） ----- */
-const draft = props.autoSave && props.draftId
-  ? useFormDraft({
-      draftId: props.draftId,
-      getData: () => values,
-      setData: (data) => {
-        // 使用 vee-validate 的 setValues 形式直接写入
-        Object.entries(data).forEach(([key, val]) => {
-          // @ts-ignore - vee-validate values 直接赋值
-          values[key] = val;
-        });
-      },
-      resetOnChange: true,
-    })
-  : null;
+const draft =
+  props.autoSave && props.draftId
+    ? useFormDraft({
+        draftId: props.draftId,
+        getData: () => values,
+        setData: (data) => {
+          // 使用 vee-validate 的 setValues 形式直接写入
+          Object.entries(data).forEach(([key, val]) => {
+            // @ts-ignore - vee-validate values 直接赋值
+            values[key] = val;
+          });
+        },
+        resetOnChange: true,
+      })
+    : null;
 
 if (draft) {
   onMounted(() => {
@@ -136,15 +137,15 @@ if (draft) {
     <!-- 提交 loading 遮罩 -->
     <div
       v-if="isSubmitting"
-      class="absolute inset-0 z-10 flex items-center justify-center bg-background/60 backdrop-blur-sm"
+      class="bg-background/60 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm"
       aria-live="polite"
       role="status"
     >
       <div class="flex flex-col items-center gap-2">
         <div
-          class="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          class="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent"
         />
-        <span class="text-sm text-muted-foreground">{{ t('form.submitting') }}</span>
+        <span class="text-muted-foreground text-sm">{{ t('form.submitting') }}</span>
       </div>
     </div>
   </form>

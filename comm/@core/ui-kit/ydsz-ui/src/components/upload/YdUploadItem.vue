@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* YdUploadItem —— 单个上传文件行/卡片。
-* 
+ * YdUploadItem —— 单个上传文件行/卡片。
+ *
  * 展示文件名、状态图标、进度条、重试按钮与移除按钮。
  * 支持 text / picture-card 两种呈现模式。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\upload\YdUploadItem.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -15,14 +15,7 @@ import { computed } from 'vue';
 
 import { cn } from '@ydsz-core/shared/utils';
 
-import {
-  AlertCircle,
-  CheckCircle2,
-  File,
-  Loader2,
-  RefreshCw,
-  X,
-} from 'lucide-vue-next';
+import { AlertCircle, CheckCircle2, File, Loader2, RefreshCw, X } from 'lucide-vue-next';
 
 import { useLocale } from '../../locale/useLocale';
 
@@ -56,29 +49,22 @@ const { t } = useLocale();
  *
  * @return 状态变体：success / error / uploading / default
  */
-const statusVariant = computed<'success' | 'error' | 'uploading' | 'default'>(
-  () => {
-    const status = props.file.status;
-    if (status === ('success' as UploadStatusType) || status === 'success') {
-      return 'success';
-    }
-    if (status === ('fail' as UploadStatusType) || status === 'fail') {
-      return 'error';
-    }
-    if (
-      status === ('uploading' as UploadStatusType) ||
-      status === 'uploading'
-    ) {
-      return 'uploading';
-    }
-    return 'default';
-  },
-);
+const statusVariant = computed<'success' | 'error' | 'uploading' | 'default'>(() => {
+  const status = props.file.status;
+  if (status === ('success' as UploadStatusType) || status === 'success') {
+    return 'success';
+  }
+  if (status === ('fail' as UploadStatusType) || status === 'fail') {
+    return 'error';
+  }
+  if (status === ('uploading' as UploadStatusType) || status === 'uploading') {
+    return 'uploading';
+  }
+  return 'default';
+});
 
 /** 进度百分比 */
-const computedPercent = computed(() =>
-  Math.round(props.progress ?? props.file.percentage ?? 0),
-);
+const computedPercent = computed(() => Math.round(props.progress ?? props.file.percentage ?? 0));
 
 /** 是否正在上传中 */
 const isUploading = computed(() => statusVariant.value === 'uploading');
@@ -151,10 +137,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
     <div class="min-w-0 flex-1">
       <div class="flex items-center justify-between gap-2">
         <span class="truncate">{{ file.name }}</span>
-        <span
-          v-if="isUploading"
-          class="text-muted-foreground shrink-0 text-xs"
-        >
+        <span v-if="isUploading" class="text-muted-foreground shrink-0 text-xs">
           {{ computedPercent }}%
         </span>
       </div>
@@ -168,10 +151,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
       </div>
 
       <!-- 进度条 -->
-      <div
-        v-if="isUploading"
-        class="bg-muted mt-1 h-1 overflow-hidden rounded-full"
-      >
+      <div v-if="isUploading" class="bg-muted mt-1 h-1 overflow-hidden rounded-full">
         <div
           class="bg-primary h-full transition-all duration-300"
           :style="{ width: `${computedPercent}%` }"
@@ -179,27 +159,15 @@ const thumbnailUrl = computed<string | undefined>(() => {
       </div>
 
       <!-- 错误提示 -->
-      <div
-        v-else-if="isFailed"
-        class="mt-0.5 text-xs text-red-500"
-      >
+      <div v-else-if="isFailed" class="mt-0.5 text-xs text-red-500">
         {{ t('upload.error') }}
       </div>
     </div>
 
     <!-- 状态图标 -->
-    <CheckCircle2
-      v-if="isSuccess"
-      class="h-4 w-4 shrink-0 text-green-500"
-    />
-    <AlertCircle
-      v-else-if="isFailed"
-      class="h-4 w-4 shrink-0 text-red-500"
-    />
-    <Loader2
-      v-else-if="isUploading"
-      class="h-4 w-4 shrink-0 animate-spin text-blue-500"
-    />
+    <CheckCircle2 v-if="isSuccess" class="h-4 w-4 shrink-0 text-green-500" />
+    <AlertCircle v-else-if="isFailed" class="h-4 w-4 shrink-0 text-red-500" />
+    <Loader2 v-else-if="isUploading" class="h-4 w-4 shrink-0 animate-spin text-blue-500" />
 
     <!-- 重试按钮（仅失败时） -->
     <button
@@ -244,10 +212,7 @@ const thumbnailUrl = computed<string | undefined>(() => {
     />
 
     <!-- 非图片图标占位 -->
-    <div
-      v-else
-      class="text-muted-foreground flex h-full w-full items-center justify-center"
-    >
+    <div v-else class="text-muted-foreground flex h-full w-full items-center justify-center">
       <File class="h-8 w-8" />
     </div>
 

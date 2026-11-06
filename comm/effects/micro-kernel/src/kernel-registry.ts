@@ -9,14 +9,14 @@
  * @since 4.2.1
  */
 
-import type { MicroAppConfig } from "@ydsz/micro-runtime";
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { getAppInstance, createAppInstance } from "./scheduler";
+import { getAppInstance, createAppInstance } from './scheduler';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel:Registry");
+const logger = createLogger('MicroKernel:Registry');
 
 /**
  * 应用注册所需的依赖。
@@ -38,7 +38,7 @@ export interface RegistryContext {
  */
 export function createRegistryFunctions(ctx: RegistryContext) {
   function preloadManifestSafe(entry: string): void {
-    import("./link-hints").then(({ preloadManifest }) => preloadManifest(entry));
+    import('./link-hints').then(({ preloadManifest }) => preloadManifest(entry));
   }
 
   function registerAppsInternal(newApps: MicroAppConfig[]): void {

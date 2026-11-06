@@ -1,38 +1,38 @@
 <script lang="ts">
 // @ts-nocheck
-import type { ToggleProps } from '../Toggle/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { ToggleProps } from '../Toggle/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface ToggleGroupItemProps extends Omit<ToggleProps, 'pressed' | 'defaultValue'> {
   /**
    * A string value for the toggle group item. All items within a toggle group should use a unique value.
    */
-  value: string
+  value: string;
 }
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { injectToggleGroupRootContext } from './ToggleGroupRoot.vue'
-import { Toggle } from '../Toggle/index.ts'
-import { RovingFocusItem } from '../RovingFocus/index.ts'
-import { Primitive } from '../Primitive/index.ts'
+import { computed } from 'vue';
+import { injectToggleGroupRootContext } from './ToggleGroupRoot.vue';
+import { Toggle } from '../Toggle/index.ts';
+import { RovingFocusItem } from '../RovingFocus/index.ts';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
   as: 'button',
-})
+});
 
-const rootContext = injectToggleGroupRootContext()
-const disabled = computed(() => rootContext.disabled?.value || props.disabled)
-const pressed = computed(() => rootContext.modelValue.value?.includes(props.value))
+const rootContext = injectToggleGroupRootContext();
+const disabled = computed(() => rootContext.disabled?.value || props.disabled);
+const pressed = computed(() => rootContext.modelValue.value?.includes(props.value));
 
 const isPressed = computed(() => {
   return rootContext.isSingle.value
     ? rootContext.modelValue.value === props.value
-    : rootContext.modelValue.value?.includes(props.value)
-})
+    : rootContext.modelValue.value?.includes(props.value);
+});
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>

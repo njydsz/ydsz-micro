@@ -45,7 +45,10 @@ function startOfDay(date: Date = new Date()): Date {
 export function useCalendarShortcuts(locale: string = 'zh-CN'): {
   shortcuts: ReadonlyArray<CalendarShortcut>;
 } {
-  const CalendarShortcut = (label: string, value: () => Date | readonly [Date, Date]): CalendarShortcut => ({
+  const CalendarShortcut = (
+    label: string,
+    value: () => Date | readonly [Date, Date],
+  ): CalendarShortcut => ({
     label,
     value,
   });

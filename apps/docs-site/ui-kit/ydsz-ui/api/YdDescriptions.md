@@ -6,10 +6,10 @@
 
 ## Props
 
-| 属性 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| `class` | `ClassValue` | 否 | - | - |
-| `column` | `number` | 否 | - | 每行展示的字段数，默认 3 |
-| `size` | `DescriptionsSize` | 否 | - | 尺寸变体：default / small / large |
-| `border` | `boolean` | 否 | - | 是否显示边框与分割线 |
-| `title` | `string` | 否 | - | 标题（可选） |
+| 属性     | 类型               | 必填 | 默认值 | 说明                              |
+| -------- | ------------------ | ---- | ------ | --------------------------------- |
+| `class`  | `ClassValue`       | 否   | -      | -                                 |
+| `column` | `number`           | 否   | -      | 每行展示的字段数，默认 3          |
+| `size`   | `DescriptionsSize` | 否   | -      | 尺寸变体：default / small / large |
+| `border` | `boolean`          | 否   | -      | 是否显示边框与分割线              |
+| `title`  | `string`           | 否   | -      | 标题（可选）                      |

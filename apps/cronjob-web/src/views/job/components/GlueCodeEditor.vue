@@ -15,9 +15,22 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTabs, YdTabsContent, YdTabsList, YdTabsTrigger, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdTabs,
+  YdTabsContent,
+  YdTabsList,
+  YdTabsTrigger,
+  YdTextarea,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { computed, onMounted, ref, watch } from 'vue';
 import { showToast } from '@ydsz/notification';
@@ -31,7 +44,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  jobId: ''});
+  jobId: '',
+});
 
 const emit = defineEmits<{
   success: [];
@@ -174,7 +188,10 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
   if (!props.jobId || !version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定回滚到版本 ${version.version} 吗？`, { title: '回滚确认', type: 'warning' });
+    await YdConfirm(`确定回滚到版本 ${version.version} 吗？`, {
+      title: '回滚确认',
+      type: 'warning',
+    });
   } catch {
     return; // 用户主动取消回滚操作
   }
@@ -231,13 +248,19 @@ onMounted(() => {
             <YdSelectBase v-model="codeLanguage">
               <YdSelectTriggerBase class="w-32" placeholder="语言" />
               <YdSelectContentBase>
-                <YdSelectItemBase v-for="opt in languageOptions" :key="opt.value" :value="opt.value">
+                <YdSelectItemBase
+                  v-for="opt in languageOptions"
+                  :key="opt.value"
+                  :value="opt.value"
+                >
                   {{ opt.label }}
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
             <YdButton size="sm" variant="outline" @click="loadTemplate">加载模板</YdButton>
-            <span v-if="currentVersion > 0" class="text-xs text-gray-500">当前版本：v{{ currentVersion }}</span>
+            <span v-if="currentVersion > 0" class="text-xs text-gray-500"
+              >当前版本：v{{ currentVersion }}</span
+            >
           </div>
           <div class="code-editor-wrapper">
             <textarea
@@ -260,7 +283,9 @@ onMounted(() => {
       <!-- 版本管理 -->
       <YdTabsContent value="versions">
         <div class="mt-3">
-          <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">暂无版本记录</div>
+          <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">
+            暂无版本记录
+          </div>
           <div
             v-for="version in versionList"
             :key="version.version"
@@ -272,8 +297,15 @@ onMounted(() => {
               <p v-if="version.remark" class="mt-1 text-xs text-gray-600">{{ version.remark }}</p>
             </div>
             <div class="flex gap-2">
-              <YdButton size="sm" variant="outline" @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)">对比</YdButton>
-              <YdButton size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButton>
+              <YdButton
+                size="sm"
+                variant="outline"
+                @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)"
+                >对比</YdButton
+              >
+              <YdButton size="sm" variant="destructive" @click="handleRollback(version)"
+                >回滚</YdButton
+              >
             </div>
           </div>
         </div>
@@ -284,7 +316,11 @@ onMounted(() => {
         <div class="mt-3">
           <YdForm label-width="80px">
             <YdFormItem label="测试参数">
-              <YdTextarea v-model="testParams" placeholder="请输入测试参数（JSON格式，选填）" :rows="3" />
+              <YdTextarea
+                v-model="testParams"
+                placeholder="请输入测试参数（JSON格式，选填）"
+                :rows="3"
+              />
             </YdFormItem>
           </YdForm>
           <div class="mb-3 flex justify-end">

@@ -20,11 +20,7 @@ export {
   textTokenVar,
 } from './colors';
 
-export type {
-  ColorShade,
-  RawColorComponents,
-  SemanticRole,
-} from './colors';
+export type { ColorShade, RawColorComponents, SemanticRole } from './colors';
 
 export {
   DURATION_TOKENS,
@@ -34,30 +30,13 @@ export {
   easingVar,
 } from './motion';
 
-export type {
-  DurationToken,
-  EasingToken,
-  TransitionPreset,
-  TransitionPresetName,
-} from './motion';
+export type { DurationToken, EasingToken, TransitionPreset, TransitionPresetName } from './motion';
 
-export {
-  RADIUS_TOKENS,
-  SPACING_TOKENS,
-  radiusVar,
-  spacingVar,
-} from './spacing';
+export { RADIUS_TOKENS, SPACING_TOKENS, radiusVar, spacingVar } from './spacing';
 
-export type {
-  RadiusToken,
-  SpacingToken,
-} from './spacing';
+export type { RadiusToken, SpacingToken } from './spacing';
 
-export {
-  SHADOW_LEVELS,
-  SHADOW_PRESETS,
-  shadowVar,
-} from './shadow';
+export { SHADOW_LEVELS, SHADOW_PRESETS, shadowVar } from './shadow';
 
 export type { ShadowLevel } from './shadow';
 
@@ -70,8 +49,4 @@ export {
   lineHeightVar,
 } from './typography';
 
-export type {
-  FontSizeToken,
-  FontWeightToken,
-  LineHeightToken,
-} from './typography';
+export type { FontSizeToken, FontWeightToken, LineHeightToken } from './typography';

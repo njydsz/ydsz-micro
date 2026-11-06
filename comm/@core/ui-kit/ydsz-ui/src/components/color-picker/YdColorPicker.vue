@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 /**
-* ColorPicker 颜色选择器：支持 HEX / RGB / HSL 格式输入与预设调色板。
-* 
+ * ColorPicker 颜色选择器：支持 HEX / RGB / HSL 格式输入与预设调色板。
+ *
  * 与 Ant Design ColorPicker 对齐：
  * - 触发器展示当前颜色小方块 + HEX 值
  * - 弹出面板含 HSL 滑块 + 透明度条 + 预设色板
  * - format 支持 hex / rgb / hsl（输出格式可配置）
  * - allowClear + presets（预设渐变色）
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\color-picker\YdColorPicker.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -148,7 +148,10 @@ const tabItems = computed(() => [
         class="size-full rounded border border-white/20"
         :style="{ backgroundColor: props.modelValue || 'transparent' }"
       >
-        <span v-if="!props.modelValue" class="block h-full w-full rounded bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjZGRkIi8+PHBhdGggZD0iTTAgMGgxNkg4VjBIMHptOCA4aDh2OEg4Vjh6IiBmaWxsPSIjYmJiIi8+PC9zdmc+')]" />
+        <span
+          v-if="!props.modelValue"
+          class="block h-full w-full rounded bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSIjZGRkIi8+PHBhdGggZD0iTTAgMGgxNkg4VjBIMHptOCA4aDh2OEg4Vjh6IiBmaWxsPSIjYmJiIi8+PC9zdmc+')]"
+        />
       </span>
     </button>
 
@@ -171,7 +174,9 @@ const tabItems = computed(() => [
           :class="
             cn(
               'rounded px-3 py-1 text-xs font-medium transition-colors',
-              activeTab === tab.key ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted',
+              activeTab === tab.key
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground hover:bg-muted',
             )
           "
           type="button"
@@ -189,7 +194,11 @@ const tabItems = computed(() => [
             :key="preset.color"
             :aria-label="preset.label ?? preset.color"
             class="size-6 shrink-0 rounded-md border-2 transition-transform hover:scale-110"
-            :class="modelValue === preset.color ? 'border-foreground ring-2 ring-ring' : 'border-transparent'"
+            :class="
+              modelValue === preset.color
+                ? 'border-foreground ring-ring ring-2'
+                : 'border-transparent'
+            "
             type="button"
             @click="selectColor(preset.color)"
           >
@@ -200,7 +209,7 @@ const tabItems = computed(() => [
         <!-- 清除按钮 -->
         <button
           v-if="props.allowClear"
-          class="mt-2 w-full rounded border py-1 text-xs text-muted-foreground hover:bg-muted"
+          class="text-muted-foreground hover:bg-muted mt-2 w-full rounded border py-1 text-xs"
           type="button"
           @click="clearColor"
         >
@@ -211,12 +220,15 @@ const tabItems = computed(() => [
       <!-- 自定义颜色 -->
       <div v-else class="flex flex-col gap-3">
         <!-- 色相条 -->
-        <div class="h-3 w-full rounded" style="background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)" />
+        <div
+          class="h-3 w-full rounded"
+          style="background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)"
+        />
         <!-- 文本输入 -->
         <div class="flex gap-2">
           <input
             :value="props.modelValue"
-            class="flex-1 rounded border px-2 py-1 text-sm outline-none focus:border-primary"
+            class="focus:border-primary flex-1 rounded border px-2 py-1 text-sm outline-none"
             placeholder="#rrggbb"
             type="text"
             @change="handleInputChange"

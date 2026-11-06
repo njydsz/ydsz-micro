@@ -32,9 +32,7 @@ let outputPath = path.join(root, 'main', 'public', 'registry.json');
 
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '--output' && args[i + 1]) {
-    outputPath = path.isAbsolute(args[i + 1])
-      ? args[i + 1]
-      : path.join(root, args[i + 1]);
+    outputPath = path.isAbsolute(args[i + 1]) ? args[i + 1] : path.join(root, args[i + 1]);
     i++;
   }
 }

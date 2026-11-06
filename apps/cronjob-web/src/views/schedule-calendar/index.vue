@@ -16,7 +16,25 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdCard, YdCardContent, YdDatePicker, YdRadioGroup, YdRadioGroupItem, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase, YdEmptyState, YdTimeline, YdTimelineItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdDatePicker,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdTooltipBase,
+  YdTooltipContentBase,
+  YdTooltipTriggerBase,
+  YdEmptyState,
+  YdTimeline,
+  YdTimelineItem,
+} from '@ydsz-core/ydsz-ui';
 import { ref, computed, onMounted } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -159,8 +177,18 @@ onMounted(() => {
           @update:model-value="handleDateChange"
         />
         <YdButton @click="fetchScheduleData">
-          <svg class="me-1.5 inline h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M20 20v-5h-5M5.635 19.364A9 9 0 1 0 4.05 10M19.364 4.636A9 9 0 0 1 20.95 14" />
+          <svg
+            class="me-1.5 inline h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 4v5h5M20 20v-5h-5M5.635 19.364A9 9 0 1 0 4.05 10M19.364 4.636A9 9 0 0 1 20.95 14"
+            />
           </svg>
           刷新
         </YdButton>

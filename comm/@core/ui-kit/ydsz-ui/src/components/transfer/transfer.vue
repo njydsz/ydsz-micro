@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* Transfer 穿梭框：双栏带搜索，将选项从左栏移到右栏。
-* 
+ * Transfer 穿梭框：双栏带搜索，将选项从左栏移到右栏。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\transfer\transfer.vue
  * @author ydsz-ai
  * @since 1.0.0
@@ -46,8 +46,8 @@ const leftData = computed(() => {
   const keyword = leftFilter.value.toLowerCase();
   return data.filter(
     (item) =>
-      item.title.toLowerCase().includes(keyword)
-      || (item.description ?? '').toLowerCase().includes(keyword),
+      item.title.toLowerCase().includes(keyword) ||
+      (item.description ?? '').toLowerCase().includes(keyword),
   );
 });
 
@@ -58,19 +58,25 @@ const rightData = computed(() => {
   const keyword = rightFilter.value.toLowerCase();
   return data.filter(
     (item) =>
-      item.title.toLowerCase().includes(keyword)
-      || (item.description ?? '').toLowerCase().includes(keyword),
+      item.title.toLowerCase().includes(keyword) ||
+      (item.description ?? '').toLowerCase().includes(keyword),
   );
 });
 
 /** 全选：左侧 */
 const isAllLeftChecked = computed(
-  () => leftData.value.length > 0 && leftSelected.value.size === leftData.value.length && leftData.value.every((item) => !item.isDisabled),
+  () =>
+    leftData.value.length > 0 &&
+    leftSelected.value.size === leftData.value.length &&
+    leftData.value.every((item) => !item.isDisabled),
 );
 
 /** 全选：右侧 */
 const isAllRightChecked = computed(
-  () => rightData.value.length > 0 && rightSelected.value.size === rightData.value.length && rightData.value.every((item) => !item.isDisabled),
+  () =>
+    rightData.value.length > 0 &&
+    rightSelected.value.size === rightData.value.length &&
+    rightData.value.every((item) => !item.isDisabled),
 );
 
 /** 选中项总数（右侧） */
@@ -132,7 +138,12 @@ function emitUpdate(): void {
       </div>
 
       <div v-if="filterable" class="yd-transfer__filter">
-        <input v-model="leftFilter" type="text" :placeholder="filterPlaceholder" class="yd-transfer__filter-input" />
+        <input
+          v-model="leftFilter"
+          type="text"
+          :placeholder="filterPlaceholder"
+          class="yd-transfer__filter-input"
+        />
       </div>
 
       <div class="yd-transfer__list">
@@ -152,7 +163,9 @@ function emitUpdate(): void {
               />
               <span class="yd-transfer__item-text">
                 <span class="yd-transfer__item-title">{{ item.title }}</span>
-                <span v-if="item.description" class="yd-transfer__item-desc">{{ item.description }}</span>
+                <span v-if="item.description" class="yd-transfer__item-desc">{{
+                  item.description
+                }}</span>
               </span>
             </label>
           </div>
@@ -197,7 +210,12 @@ function emitUpdate(): void {
       </div>
 
       <div v-if="filterable" class="yd-transfer__filter">
-        <input v-model="rightFilter" type="text" :placeholder="filterPlaceholder" class="yd-transfer__filter-input" />
+        <input
+          v-model="rightFilter"
+          type="text"
+          :placeholder="filterPlaceholder"
+          class="yd-transfer__filter-input"
+        />
       </div>
 
       <div class="yd-transfer__list">
@@ -213,7 +231,9 @@ function emitUpdate(): void {
               />
               <span class="yd-transfer__item-text">
                 <span class="yd-transfer__item-title">{{ item.title }}</span>
-                <span v-if="item.description" class="yd-transfer__item-desc">{{ item.description }}</span>
+                <span v-if="item.description" class="yd-transfer__item-desc">{{
+                  item.description
+                }}</span>
               </span>
             </label>
           </div>

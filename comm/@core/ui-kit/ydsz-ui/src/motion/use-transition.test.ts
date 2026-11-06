@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { useTransition } from './use-transition';
 

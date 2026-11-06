@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from '..'
+import { ref } from 'vue';
+import {
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  TooltipProvider,
+  TooltipRoot,
+  TooltipTrigger,
+} from '..';
 
-const toggleState = ref(false)
+const toggleState = ref(false);
 </script>
 
 <template>

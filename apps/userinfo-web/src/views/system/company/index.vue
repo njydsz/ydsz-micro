@@ -78,7 +78,10 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -92,14 +95,17 @@ const gridOptions: VxeTableGridOptions<CompanyVO> = {
       slots: {
         default: ({ row }) => {
           return h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]);
@@ -179,7 +185,9 @@ async function handleDelete(row: CompanyVO) {
       <div class="w-60 shrink-0">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">{{ t('company.orgStructure') }}</span>
-          <YdButton variant="link" size="sm" @click="handleTreeClear">{{ t('company.all') }}</YdButton>
+          <YdButton variant="link" size="sm" @click="handleTreeClear">{{
+            t('company.all')
+          }}</YdButton>
         </div>
         <YdTree
           :data="companyTree"
@@ -193,7 +201,9 @@ async function handleDelete(row: CompanyVO) {
       <div class="min-w-0 flex-1">
         <Grid :table-title="t('company.companyManagement')">
           <template #toolbar-tools>
-            <YdButton variant="default" @click="handleAdd">{{ t('company.createCompany') }}</YdButton>
+            <YdButton variant="default" @click="handleAdd">{{
+              t('company.createCompany')
+            }}</YdButton>
           </template>
         </Grid>
       </div>

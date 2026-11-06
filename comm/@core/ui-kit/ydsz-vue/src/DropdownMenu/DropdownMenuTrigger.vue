@@ -1,35 +1,33 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose, useId } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose, useId } from '../shared/index.ts';
 
 export interface DropdownMenuTriggerProps extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with item */
-  disabled?: boolean
+  disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { nextTick, onMounted } from 'vue'
-import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue'
-import {
-  Primitive,
-} from '../Primitive/index.ts'
-import { MenuAnchor } from '../Menu/index.ts'
+import { nextTick, onMounted } from 'vue';
+import { injectDropdownMenuRootContext } from './DropdownMenuRoot.vue';
+import { Primitive } from '../Primitive/index.ts';
+import { MenuAnchor } from '../Menu/index.ts';
 
 const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
   as: 'button',
-})
+});
 
-const rootContext = injectDropdownMenuRootContext()
+const rootContext = injectDropdownMenuRootContext();
 
-const { forwardRef, currentElement: triggerElement } = useForwardExpose()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 
 onMounted(() => {
-  rootContext.triggerElement = triggerElement
-})
+  rootContext.triggerElement = triggerElement;
+});
 
-rootContext.triggerId ||= useId(undefined, 'radix-vue-dropdown-menu-trigger')
+rootContext.triggerId ||= useId(undefined, 'radix-vue-dropdown-menu-trigger');
 </script>
 
 <template>
@@ -52,7 +50,7 @@ rootContext.triggerId ||= useId(undefined, 'radix-vue-dropdown-menu-trigger')
           // but not when the control key is pressed (avoiding MacOS right click)
           if (!disabled && event.button === 0 && event.ctrlKey === false) {
             rootContext?.onOpenToggle();
-            await nextTick()
+            await nextTick();
             // prevent trigger focusing when opening
             // this allows the content to be given focus without competition
             if (rootContext.open.value) event.preventDefault();
@@ -66,8 +64,7 @@ rootContext.triggerId ||= useId(undefined, 'radix-vue-dropdown-menu-trigger')
           if (event.key === 'ArrowDown') rootContext.onOpenChange(true);
           // prevent keydown from scrolling window / first focused item to execute
           // that keydown (inadvertently closing the menu)
-          if (['Enter', ' ', 'ArrowDown'].includes(event.key))
-            event.preventDefault();
+          if (['Enter', ' ', 'ArrowDown'].includes(event.key)) event.preventDefault();
         }
       "
     >

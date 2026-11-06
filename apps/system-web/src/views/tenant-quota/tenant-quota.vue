@@ -47,9 +47,7 @@ const loading = ref(false);
 async function fetchQuotas(): Promise<void> {
   loading.value = true;
   try {
-    const data = await requestClient.get<QuotaItem[]>(
-      '/tenant/quota',
-    );
+    const data = await requestClient.get<QuotaItem[]>('/tenant/quota');
     quotas.value = data;
   } catch {
     showToast.warning(t('tenantQuota.loadFailed'));
@@ -112,11 +110,7 @@ onMounted(() => {
 
       <el-empty v-if="!loading && quotas.length === 0" :description="t('business.noData')" />
 
-      <div
-        v-for="item in quotas"
-        :key="item.key"
-        class="quota-item"
-      >
+      <div v-for="item in quotas" :key="item.key" class="quota-item">
         <div class="quota-item-header">
           <span class="quota-item-label">{{ t(item.labelKey) }}</span>
           <span class="quota-item-value">
@@ -136,13 +130,12 @@ onMounted(() => {
           :stroke-width="14"
           striped
         />
-        <el-progress
-          v-else
-          :percentage="0"
-          :stroke-width="14"
-        />
+        <el-progress v-else :percentage="0" :stroke-width="14" />
 
-        <div v-if="calcPercent(item.used, item.limit) >= 80 && item.limit > 0" class="quota-warning-text">
+        <div
+          v-if="calcPercent(item.used, item.limit) >= 80 && item.limit > 0"
+          class="quota-warning-text"
+        >
           <el-icon class="warning-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +146,9 @@ onMounted(() => {
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <path
+                d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+              />
               <line x1="12" y1="9" x2="12" y2="13" />
               <line x1="12" y1="17" x2="12.01" y2="17" />
             </svg>
@@ -165,11 +160,7 @@ onMounted(() => {
 
     <!-- 申请提升 -->
     <div class="action-bar">
-      <YdButton
-        :loading="loading"
-        plain
-        @click="fetchQuotas"
-      >
+      <YdButton :loading="loading" plain @click="fetchQuotas">
         {{ t('common.buttons.refresh') }}
       </YdButton>
       <YdButton type="primary" @click="handleApplyUpgrade">

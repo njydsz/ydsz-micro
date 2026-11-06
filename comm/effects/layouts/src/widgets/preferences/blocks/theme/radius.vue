@@ -26,13 +26,7 @@ const items = [
 </script>
 
 <template>
-  <YdToggleGroup
-    v-model="modelValue"
-    class="gap-2"
-    size="sm"
-    type="single"
-    variant="outline"
-  >
+  <YdToggleGroup v-model="modelValue" class="gap-2" size="sm" type="single" variant="outline">
     <template v-for="item in items" :key="item.value">
       <YdToggleGroupItem
         :value="item.value"

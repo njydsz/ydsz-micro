@@ -25,35 +25,37 @@ import type {
   MicroAppEntry,
   MicroRuntime,
   StartOptions,
-} from "@ydsz/micro-runtime";
+} from '@ydsz/micro-runtime';
 
-import type { ManagerRegistry } from "./manager-registry";
-import type { Manifest } from "./loader";
-import type { KeepAliveConfig } from "./scheduler";
+import type { ManagerRegistry } from './manager-registry';
+import type { Manifest } from './loader';
+import type { KeepAliveConfig } from './scheduler';
 
-import { createLogger } from "@ydsz-core/shared/utils";
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { createGlobalStateAPI } from "./global-state";
-import { clearRegistryCache, getStaticRegistry, resolveAppEntry, resolveRegistry } from "./registry-adapter";
+import { createGlobalStateAPI } from './global-state';
+import {
+  clearRegistryCache,
+  getStaticRegistry,
+  resolveAppEntry,
+  resolveRegistry,
+} from './registry-adapter';
 import {
   createSwitchToApp,
   type LifecycleDependencies,
   type LifecycleStateAccessors,
-} from "./kernel-lifecycle";
-import { createStartRouterSync as createStartRouterSyncFn } from "./kernel-router";
-import { KernelError, KernelErrorCode } from "./error-boundary";
-import {
-  createKernelMessagingAPI,
-  type KernelMessagingAPI,
-} from "./kernel-events";
-import { createHealthCheckFunctions, type HealthCheckContext } from "./kernel-health";
-import { createStartFunction, type StartupContext } from "./kernel-startup";
-import { createStopFunction, type ShutdownContext } from "./kernel-shutdown";
-import { createRegistryFunctions, type RegistryContext } from "./kernel-registry";
-import { createPropsFunctions, type PropsContext } from "./kernel-props";
-import { createLifecycleHookRegistry } from "./lifecycle-hooks";
-import { createManagerRegistry } from "./manager-registry";
-import { getPreloadManager } from "./preload-strategy";
+} from './kernel-lifecycle';
+import { createStartRouterSync as createStartRouterSyncFn } from './kernel-router';
+import { KernelError, KernelErrorCode } from './error-boundary';
+import { createKernelMessagingAPI, type KernelMessagingAPI } from './kernel-events';
+import { createHealthCheckFunctions, type HealthCheckContext } from './kernel-health';
+import { createStartFunction, type StartupContext } from './kernel-startup';
+import { createStopFunction, type ShutdownContext } from './kernel-shutdown';
+import { createRegistryFunctions, type RegistryContext } from './kernel-registry';
+import { createPropsFunctions, type PropsContext } from './kernel-props';
+import { createLifecycleHookRegistry } from './lifecycle-hooks';
+import { createManagerRegistry } from './manager-registry';
+import { getPreloadManager } from './preload-strategy';
 import {
   bindSchedulerContext,
   configureKeepAlive as configureKeepAliveAction,
@@ -65,11 +67,11 @@ import {
   isKeepAliveEnabled,
   setKeepAlive as setKeepAliveAction,
   setPinnedApp,
-} from "./scheduler";
-import { getVersionManager } from "./version-manager";
+} from './scheduler';
+import { getVersionManager } from './version-manager';
 
 /** 模块级日志器 */
-const logger = createLogger("MicroKernel");
+const logger = createLogger('MicroKernel');
 
 /**
  * 创建轻内核运行时实例。
@@ -109,11 +111,15 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   // ==================== 构建闭包状态访问器 ====================
   const lifecycleState: LifecycleStateAccessors = {
     getActiveAppName: () => activeAppName,
-    setActiveAppName: (name: string | null) => { activeAppName = name; },
+    setActiveAppName: (name: string | null) => {
+      activeAppName = name;
+    },
     incrementToken: () => ++switchToken,
     getToken: () => switchToken,
     getAbortController: () => switchAbortController,
-    setAbortController: (c: AbortController | null) => { switchAbortController = c; },
+    setAbortController: (c: AbortController | null) => {
+      switchAbortController = c;
+    },
   };
 
   const lifecycleDeps: LifecycleDependencies = {
@@ -131,27 +137,49 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   // ==================== 创建启动/关闭/健康检查/注册/Props函数 ====================
   const startupCtx: StartupContext = {
     getApps: () => apps,
-    setRouterSyncCleanup: (c) => { routerSyncCleanup = c; },
-    setVisibilityCleanup: (c) => { visibilityCleanup = c; },
-    setMetricsCleanup: (c) => { metricsCleanup = c; },
+    setRouterSyncCleanup: (c) => {
+      routerSyncCleanup = c;
+    },
+    setVisibilityCleanup: (c) => {
+      visibilityCleanup = c;
+    },
+    setMetricsCleanup: (c) => {
+      metricsCleanup = c;
+    },
     preloadManager,
     startRouterSync,
   };
   const shutdownCtx: ShutdownContext = {
     getRouterSyncCleanup: () => routerSyncCleanup,
-    setRouterSyncCleanup: (c) => { routerSyncCleanup = c; },
+    setRouterSyncCleanup: (c) => {
+      routerSyncCleanup = c;
+    },
     getVisibilityCleanup: () => visibilityCleanup,
-    setVisibilityCleanup: (c) => { visibilityCleanup = c; },
+    setVisibilityCleanup: (c) => {
+      visibilityCleanup = c;
+    },
     getMetricsCleanup: () => metricsCleanup,
-    setMetricsCleanup: (c) => { metricsCleanup = c; },
+    setMetricsCleanup: (c) => {
+      metricsCleanup = c;
+    },
     getAbortController: () => switchAbortController,
-    setAbortController: (c: AbortController | null) => { switchAbortController = c; },
-    resetActiveAppName: () => { activeAppName = null; },
-    resetSwitchToken: () => { switchToken = 0; },
+    setAbortController: (c: AbortController | null) => {
+      switchAbortController = c;
+    },
+    resetActiveAppName: () => {
+      activeAppName = null;
+    },
+    resetSwitchToken: () => {
+      switchToken = 0;
+    },
     globalStateAPI,
     lifecycleHooks,
-    resetApps: () => { apps = []; },
-    resetStarted: () => { started = false; },
+    resetApps: () => {
+      apps = [];
+    },
+    resetStarted: () => {
+      started = false;
+    },
     registry,
   };
   const healthCtx: HealthCheckContext = {
@@ -159,7 +187,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
   };
   const registryCtx: RegistryContext = {
     getApps: () => apps,
-    setApps: (a: MicroAppConfig[]) => { apps = a; },
+    setApps: (a: MicroAppConfig[]) => {
+      apps = a;
+    },
     setAppEntries: (e) => versionManager.setAppEntries(e),
   };
   const propsCtx: PropsContext = {
@@ -180,11 +210,17 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
   const kernelApi = {
     /** 批量注册子应用配置（覆盖式，卸载已存在实例） */
-    registerApps(newApps: MicroAppConfig[]) { registerAppsInternal(newApps); },
+    registerApps(newApps: MicroAppConfig[]) {
+      registerAppsInternal(newApps);
+    },
     /** 增量追加单个子应用配置（重复 name 忽略），返回是否实际新增 */
-    addApp(app: MicroAppConfig): boolean { return addAppInternal(app); },
+    addApp(app: MicroAppConfig): boolean {
+      return addAppInternal(app);
+    },
     /** 获取全部已注册子应用当前快照（仅配置，不含运行时状态） */
-    getRegisteredApps() { return getAllInstances().map((i) => i.config); },
+    getRegisteredApps() {
+      return getAllInstances().map((i) => i.config);
+    },
 
     /**
      * 异步加载注册表并注册（远程 / 静态 / 自定义 fetcher）。
@@ -193,19 +229,19 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      * @returns 解析后的 MicroAppConfig 数组
      */
     async registerAppsAsync(reg: {
-      adapter: "auto" | "remote" | "static";
+      adapter: 'auto' | 'remote' | 'static';
       fetcher?: () => Promise<MicroAppEntry[]>;
     }): Promise<MicroAppConfig[]> {
       let entries: MicroAppEntry[];
       if (reg.fetcher) {
         entries = await reg.fetcher();
-      } else if (reg.adapter === "static") {
+      } else if (reg.adapter === 'static') {
         // v4.3.0: 静态注册表由宿主注入（setStaticRegistry），内核不再依赖构建配置包
         entries = getStaticRegistry();
         if (entries.length === 0) {
           throw new KernelError(
             KernelErrorCode.REGISTRY_STATIC_EMPTY,
-            "Static registry is empty — host must call setStaticRegistry(MICRO_APPS) or provide a fetcher",
+            'Static registry is empty — host must call setStaticRegistry(MICRO_APPS) or provide a fetcher',
           );
         }
       } else {
@@ -214,7 +250,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
       const configs: MicroAppConfig[] = entries.map((entry) => ({
         name: entry.name,
         entry: resolveAppEntry(entry),
-        container: "#subapp-container",
+        container: '#subapp-container',
         activeRule: entry.activeRule,
         sandbox: entry.sandbox,
       }));
@@ -224,13 +260,18 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
 
     /** 启动内核（注册路由监听、预热等）。重复调用忽略。 */
     start(options?: StartOptions) {
-      if (started) { logger.warn("Already started"); return; }
+      if (started) {
+        logger.warn('Already started');
+        return;
+      }
       started = true;
       startFn(options);
     },
 
     /** 预取子应用资源（link-hints + manifest），不执行 mount */
-    prefetchApp(name: string) { return prefetchApp(name); },
+    prefetchApp(name: string) {
+      return prefetchApp(name);
+    },
 
     /**
      * 卸载指定子应用（运行 afterUnmount 钩子 → 清理沙箱 → 移除样式）。
@@ -239,8 +280,8 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      */
     async unmountApp(name: string) {
       const instance = getAppInstance(name);
-      if (!instance) return { name, success: false, reason: "App not registered" };
-      await lifecycleHooks.run("afterUnmount", instance.config);
+      if (!instance) return { name, success: false, reason: 'App not registered' };
+      await lifecycleHooks.run('afterUnmount', instance.config);
       const result = await deactivateApp(instance);
       if (activeAppName === name) activeAppName = null;
       return result;
@@ -258,26 +299,42 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     // ==================== keep-alive 配置 ====================
 
     /** 全局启用 / 禁用 keep-alive（单实例级 setKeepAlive 优先） */
-    setKeepAliveEnabled(enabled: boolean) { configureKeepAliveAction({ enabled }); },
+    setKeepAliveEnabled(enabled: boolean) {
+      configureKeepAliveAction({ enabled });
+    },
     /** 设置单个应用是否保活（覆盖全局策略） */
-    setKeepAlive(name: string, keep: boolean) { setKeepAliveAction(name, keep); },
+    setKeepAlive(name: string, keep: boolean) {
+      setKeepAliveAction(name, keep);
+    },
     /** 固定应用不被 LRU 淘汰（即使超出 maxKeepAliveApps） */
-    setPinnedApp(name: string, pin: boolean) { setPinnedApp(name, pin); },
+    setPinnedApp(name: string, pin: boolean) {
+      setPinnedApp(name, pin);
+    },
     /** 批量配置 keep-alive（maxKeepAliveApps / TTL 等） */
-    configureKeepAlive(cfg: KeepAliveConfig) { configureKeepAliveAction(cfg); },
+    configureKeepAlive(cfg: KeepAliveConfig) {
+      configureKeepAliveAction(cfg);
+    },
     /** 获取当前 keep-alive 配置（激活态 + max 数 + TTL 等） */
-    getKeepAliveConfig() { return getKeepAliveConfig(); },
+    getKeepAliveConfig() {
+      return getKeepAliveConfig();
+    },
     /** 查询全局 keep-alive 是否已启用 */
-    isKeepAliveEnabled() { return isKeepAliveEnabled(); },
+    isKeepAliveEnabled() {
+      return isKeepAliveEnabled();
+    },
 
     // ==================== 路由 / 工具 ====================
 
     /** 通过 pushState 编程式跳转（不触发页面 reload） */
-    navigateTo(path: string) { window.history.pushState(null, "", path); },
+    navigateTo(path: string) {
+      window.history.pushState(null, '', path);
+    },
     /** 注册生命周期钩子（beforeMount / afterMount / beforeUnmount / afterUnmount） */
     addLifecycleHook: lifecycleHooks.add,
     /** 获取当前激活的应用名（无激活返回 null） */
-    getActiveAppName() { return activeAppName; },
+    getActiveAppName() {
+      return activeAppName;
+    },
 
     // ==================== 跨应用通信 ====================
 
@@ -296,7 +353,10 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      * @returns 目标应用响应数据
      */
     sendRequestToApp<T = unknown, R = unknown>(
-      appName: string, action: string, payload?: T, timeout?: number,
+      appName: string,
+      action: string,
+      payload?: T,
+      timeout?: number,
     ): Promise<R> {
       return messagingApi.sendRequestToApp<T, R>(appName, action, payload, timeout);
     },
@@ -305,25 +365,38 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
      *
      * @returns 取消订阅函数
      */
-    onAppMessage(handler: (message: {
-      action: string; correlationId: string; from: string; payload: unknown;
-    }) => void): () => void {
+    onAppMessage(
+      handler: (message: {
+        action: string;
+        correlationId: string;
+        from: string;
+        payload: unknown;
+      }) => void,
+    ): () => void {
       return messagingApi.onAppMessage(handler);
     },
 
     // ==================== 生命周期管理 ====================
 
     /** 关闭内核：取消路由监听、卸载全部子应用、重置调度器与 loader 状态（HMR/测试用） */
-    async _stop() { await stopFn(); },
+    async _stop() {
+      await stopFn();
+    },
 
     // ==================== 调试 / 监控 ====================
 
     /** 获取所有运行中实例（含沙箱、状态、时间戳） */
-    getAllInstances() { return getAllInstances(); },
+    getAllInstances() {
+      return getAllInstances();
+    },
     /** 按应用名获取运行实例（未注册返回 null） */
-    getAppInstance(name: string) { return getAppInstance(name); },
+    getAppInstance(name: string) {
+      return getAppInstance(name);
+    },
     /** 同步健康检查（基于最近一次 ping 结果） */
-    healthCheck() { return healthCheck(); },
+    healthCheck() {
+      return healthCheck();
+    },
     /** 异步健康检查（强制 ping / 跳过 ping 选项） */
     healthCheckAsync(options?: { force?: boolean; skipPing?: boolean }) {
       return healthCheckAsync(options);
@@ -331,7 +404,7 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
     /** 清空注册表缓存，迫使下次访问重新拉取 */
     refreshRegistry() {
       clearRegistryCache();
-      logger.info("Registry cache cleared, will re-fetch on next access");
+      logger.info('Registry cache cleared, will re-fetch on next access');
     },
   };
 
@@ -349,7 +422,9 @@ export function createKernel(): MicroRuntime & { _stop: () => Promise<void> } {
         healthCheck: kernelApi.healthCheck,
       });
     }
-  } catch { /* SSR 静默 */ }
+  } catch {
+    /* SSR 静默 */
+  }
 
   return kernelApi;
 }

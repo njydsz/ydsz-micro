@@ -76,21 +76,17 @@ export function useCrossTabSync(): void {
   });
 
   // 订阅远端会话失效事件
-  useCrossTabEvent(
-    CROSS_TAB_CHANNEL,
-    CROSS_TAB_EVENTS.SESSION_EXPIRED,
-    async () => {
-      _isHandlingRemote = true;
-      try {
-        // 延迟引用避免 auth ↔ cross-tab-sync 初始化期循环依赖
-        const { useAuthStore } = await import('#/store/auth');
-        const authStore = useAuthStore();
-        void authStore.logout(false);
-      } finally {
-        _isHandlingRemote = false;
-      }
-    },
-  );
+  useCrossTabEvent(CROSS_TAB_CHANNEL, CROSS_TAB_EVENTS.SESSION_EXPIRED, async () => {
+    _isHandlingRemote = true;
+    try {
+      // 延迟引用避免 auth ↔ cross-tab-sync 初始化期循环依赖
+      const { useAuthStore } = await import('#/store/auth');
+      const authStore = useAuthStore();
+      void authStore.logout(false);
+    } finally {
+      _isHandlingRemote = false;
+    }
+  });
 
   // D4: 订阅远端 Token 刷新事件 — 同步更新本地 tokenStore
   useCrossTabEvent(

@@ -28,7 +28,16 @@
  */
 import { computed, ref, watch } from 'vue';
 
-import { YdEmptyState, YdInput, YdNumberField, YdNumberFieldInput, YdSelectItem, YdSelect, YdSwitch, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdEmptyState,
+  YdInput,
+  YdNumberField,
+  YdNumberFieldInput,
+  YdSelectItem,
+  YdSelect,
+  YdSwitch,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 
 import type { YdFormSchema } from '@ydsz/common-ui';
 
@@ -143,17 +152,10 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
 
 <template>
   <div v-if="formSchema" class="workflow-form-renderer space-y-4">
-    <div
-      v-if="schema?.ui?.title"
-      class="form-title text-foreground mb-2 text-base font-medium"
-    >
+    <div v-if="schema?.ui?.title" class="form-title text-foreground mb-2 text-base font-medium">
       {{ schema.ui.title }}
     </div>
-    <div
-      v-for="field in formSchema"
-      :key="field.fieldName"
-      class="form-field"
-    >
+    <div v-for="field in formSchema" :key="field.fieldName" class="form-field">
       <label class="text-foreground mb-1 block text-sm font-medium">
         <span v-if="field.required" class="text-destructive mr-1">*</span>
         {{ field.label }}
@@ -199,7 +201,11 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
 
         <!-- YdTextarea (长文本) -->
         <YdTextarea
-          v-else-if="field.component === 'YdInput' && schema?.properties[field.fieldName]?.maxLength && (schema.properties[field.fieldName].maxLength ?? 0) > 256"
+          v-else-if="
+            field.component === 'YdInput' &&
+            schema?.properties[field.fieldName]?.maxLength &&
+            (schema.properties[field.fieldName].maxLength ?? 0) > 256
+          "
           v-model="formModel[field.fieldName] as string"
           :maxlength="schema.properties[field.fieldName].maxLength"
           :disabled="disabled"
@@ -221,10 +227,7 @@ function mapToComponentType(prop: JsonSchemaProperty): string {
   </div>
 
   <!-- 空态 -->
-  <YdEmptyState
-    v-else
-    description="当前节点未配置表单"
-  />
+  <YdEmptyState v-else description="当前节点未配置表单" />
 </template>
 
 <style scoped>

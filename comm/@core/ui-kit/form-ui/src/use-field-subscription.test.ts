@@ -132,9 +132,7 @@ describe('useFieldValue', () => {
 describe('useDependentFieldValues', () => {
   it('应返回 Map 且 key 为 dependsOn 字段', () => {
     const form = createMockForm({ status: 'active', reason: '' });
-    const map = useDependentFieldValues(form, [
-      { source: 'reason', dependsOn: 'status' },
-    ]);
+    const map = useDependentFieldValues(form, [{ source: 'reason', dependsOn: 'status' }]);
 
     expect(map.has('status')).toBe(true);
     expect(map.get('status')?.value).toBe('active');
@@ -149,7 +147,9 @@ describe('useDependentFieldValues', () => {
 
     // status 只有一个 Set 条目
     let count = 0;
-    map.forEach((_, key) => { if (key === 'status') count++; });
+    map.forEach((_, key) => {
+      if (key === 'status') count++;
+    });
     expect(count).toBe(1);
   });
 });

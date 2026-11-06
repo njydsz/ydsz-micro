@@ -38,12 +38,26 @@ const emit = defineEmits<{
 <template>
   <div :class="cn('space-y-4', props.class)">
     <!-- 加载态骨架屏 -->
-    <div v-if="props.loading" :style="{ display: 'grid', gridTemplateColumns: `repeat(${props.cols}, minmax(0, 1fr))`, gap: `${props.gap}px` }">
+    <div
+      v-if="props.loading"
+      :style="{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${props.cols}, minmax(0, 1fr))`,
+        gap: `${props.gap}px`,
+      }"
+    >
       <YdSkeleton v-for="i in props.loadingCount" :key="i" class="h-48 w-full" variant="rounded" />
     </div>
 
     <!-- 实际内容 -->
-    <div v-else :style="{ display: 'grid', gridTemplateColumns: `repeat(${props.cols}, minmax(0, 1fr))`, gap: `${props.gap}px` }">
+    <div
+      v-else
+      :style="{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${props.cols}, minmax(0, 1fr))`,
+        gap: `${props.gap}px`,
+      }"
+    >
       <slot></slot>
     </div>
 
@@ -53,7 +67,10 @@ const emit = defineEmits<{
     </div>
 
     <!-- 空数据 -->
-    <div v-if="!props.loading && !$slots.default" class="py-12 text-center text-sm text-muted-foreground">
+    <div
+      v-if="!props.loading && !$slots.default"
+      class="text-muted-foreground py-12 text-center text-sm"
+    >
       <slot name="empty">{{ t('empty.default') }}</slot>
     </div>
   </div>

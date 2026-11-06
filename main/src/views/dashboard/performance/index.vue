@@ -22,7 +22,6 @@ import { dayjs } from '@ydsz-core/shared/utils';
 
 import { $t } from '#/locales';
 
-
 // ===== Mock 数据（后端就绪前兜底） =====
 
 interface PerformanceMetric {
@@ -97,9 +96,7 @@ async function loadMetrics(): Promise<void> {
 
 // ===== 图表数据 =====
 
-const chartLabels = computed(() =>
-  metrics.value.map((m) => dayjs(m.date).format('MM-DD')),
-);
+const chartLabels = computed(() => metrics.value.map((m) => dayjs(m.date).format('MM-DD')));
 
 const lcpSeries = computed(() => metrics.value.map((m) => m.lcp));
 const clsSeries = computed(() => metrics.value.map((m) => m.cls));
@@ -122,15 +119,8 @@ onMounted(() => {
     <div class="mb-4 flex flex-wrap gap-4">
       <label class="flex items-center gap-2">
         <span class="text-sm text-gray-600">{{ $t('page.performance.deviceType') }}</span>
-        <select
-          v-model="selectedDevice"
-          class="rounded border border-gray-300 px-2 py-1 text-sm"
-        >
-          <option
-            v-for="opt in deviceOptions"
-            :key="opt.value"
-            :value="opt.value"
-          >
+        <select v-model="selectedDevice" class="rounded border border-gray-300 px-2 py-1 text-sm">
+          <option v-for="opt in deviceOptions" :key="opt.value" :value="opt.value">
             {{ opt.label }}
           </option>
         </select>
@@ -138,15 +128,8 @@ onMounted(() => {
 
       <label class="flex items-center gap-2">
         <span class="text-sm text-gray-600">{{ $t('page.performance.browser') }}</span>
-        <select
-          v-model="selectedBrowser"
-          class="rounded border border-gray-300 px-2 py-1 text-sm"
-        >
-          <option
-            v-for="opt in browserOptions"
-            :key="opt.value"
-            :value="opt.value"
-          >
+        <select v-model="selectedBrowser" class="rounded border border-gray-300 px-2 py-1 text-sm">
+          <option v-for="opt in browserOptions" :key="opt.value" :value="opt.value">
             {{ opt.label }}
           </option>
         </select>
@@ -249,7 +232,13 @@ onMounted(() => {
             <div class="flex flex-1 items-center gap-1">
               <div
                 class="text-right text-xs text-white"
-                :class="clsSeries[idx]! <= 0.1 ? 'bg-emerald-500' : clsSeries[idx]! <= 0.25 ? 'bg-yellow-500' : 'bg-red-500'"
+                :class="
+                  clsSeries[idx]! <= 0.1
+                    ? 'bg-emerald-500'
+                    : clsSeries[idx]! <= 0.25
+                      ? 'bg-yellow-500'
+                      : 'bg-red-500'
+                "
                 :style="{
                   width: `${(clsSeries[idx]! / 0.25) * 100}%`,
                   minWidth: '30px',
@@ -266,10 +255,7 @@ onMounted(() => {
     </div>
 
     <!-- 空状态 -->
-    <div
-      v-else
-      class="flex items-center justify-center py-12 text-sm text-gray-400"
-    >
+    <div v-else class="flex items-center justify-center py-12 text-sm text-gray-400">
       {{ $t('page.performance.empty') }}
     </div>
   </div>

@@ -16,28 +16,20 @@ import type { Ref } from 'vue';
 
 import type { Direction } from '../shared/types';
 
-import { createContext } from '../shared';
+import type {
+  ConfigProviderContext,
+  ConfigProviderScrollBodyOptions,
+} from './ConfigProviderContext';
 
-export interface ConfigProviderContext {
-  /** 文本方向（ltr / rtl），未提供时回退 'ltr' */
-  dir: Ref<Direction>;
-  /** 区域设置，未提供时回退 'en' */
-  locale: Ref<string>;
-  /** 随机数生成配置（透传给 useNonce） */
-  nonce: Ref<string | undefined>;
-  /** 锁滚动时是否补偿 padding / margin（透传给 useBodyScrollLock） */
-  scrollBody: Ref<boolean | ConfigProviderScrollBodyOptions>;
-  /** 自定义 id 生成器（透传给 useId） */
-  useId?: (...args: any[]) => string;
-}
-
-/** useBodyScrollLock 的补偿配置：true 表示取实测滚动条宽度 */
-export interface ConfigProviderScrollBodyOptions {
-  /** 右侧 padding 补偿量 */
-  padding?: number | string | true;
-  /** 右侧 margin 补偿量 */
-  margin?: number | string | true;
-}
+// re-export 保持对外 API 不变（原先从本文件导出类型与 context）
+export type {
+  ConfigProviderContext,
+  ConfigProviderScrollBodyOptions,
+} from './ConfigProviderContext';
+export {
+  injectConfigProviderContext,
+  provideConfigProviderContext,
+} from './ConfigProviderContext';
 
 export interface ConfigProviderProps {
   /** 自定义 id 生成函数 */
@@ -56,8 +48,6 @@ export interface ConfigProviderProps {
  * 注入 ConfigProvider 上下文；各助手调用时均传入 fallback，
  * 因此组件外使用不会抛错，仅使用默认值。
  */
-export const [injectConfigProviderContext, provideConfigProviderContext]
-  = createContext<ConfigProviderContext>('ConfigProvider');
 </script>
 
 <script setup lang="ts">

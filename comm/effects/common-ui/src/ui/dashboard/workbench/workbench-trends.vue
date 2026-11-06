@@ -8,13 +8,7 @@
 <script setup lang="ts">
 import type { WorkbenchTrendItem } from '../typing';
 
-import {
-  YdCard,
-  YdCardContent,
-  YdCardHeader,
-  YdCardTitle,
-  YdIcon,
-} from '@ydsz-core/ydsz-ui';
+import { YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdIcon } from '@ydsz-core/ydsz-ui';
 
 interface Props {
   items?: WorkbenchTrendItem[];
@@ -37,17 +31,9 @@ withDefaults(defineProps<Props>(), {
     </YdCardHeader>
     <YdCardContent class="flex flex-wrap p-5 pt-0">
       <ul class="divide-border w-full divide-y" role="list">
-        <li
-          v-for="item in items"
-          :key="item.title"
-          class="flex justify-between gap-x-6 py-5"
-        >
+        <li v-for="item in items" :key="item.title" class="flex justify-between gap-x-6 py-5">
           <div class="flex min-w-0 items-center gap-x-4">
-            <YdIcon
-              :icon="item.avatar"
-              alt=""
-              class="size-10 flex-none rounded-full"
-            />
+            <YdIcon :icon="item.avatar" alt="" class="size-10 flex-none rounded-full" />
             <div class="min-w-0 flex-auto">
               <p class="text-foreground text-sm font-semibold leading-6">
                 {{ item.title }}

@@ -26,10 +26,7 @@ import type {
 
 import { reactive, readonly } from 'vue';
 
-import {
-  nextOverlayId,
-  registerOverlay,
-} from '../overlay-manager';
+import { nextOverlayId, registerOverlay } from '../overlay-manager';
 
 /** 默认配置 */
 const DEFAULT_OPTIONS: Required<ImageViewerOptions> = {
@@ -94,9 +91,7 @@ function resetTransform(): void {
  * viewer.open(images, 0);
  * ```
  */
-export function useImageViewer(
-  options?: ImageViewerOptions,
-): ImageViewerApi {
+export function useImageViewer(options?: ImageViewerOptions): ImageViewerApi {
   // 合并配置（允许首次或后续调用覆盖）
   if (options) {
     sharedState.options = { ...DEFAULT_OPTIONS, ...options };
@@ -108,11 +103,7 @@ export function useImageViewer(
         return;
       }
       sharedState.images = [...images];
-      sharedState.currentIndex = clamp(
-        initialIndex ?? 0,
-        0,
-        images.length - 1,
-      );
+      sharedState.currentIndex = clamp(initialIndex ?? 0, 0, images.length - 1);
       resetTransform();
 
       // 注册叠层（仅首次打开时注册一次）

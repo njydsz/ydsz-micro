@@ -46,29 +46,32 @@ import { computed, provide } from 'vue';
 
 import type { HTMLAttributes } from 'vue';
 
-const props = withDefaults(defineProps<{
-  /** 栅格间隙（像素）—— 同时设置横向和纵向 gutter */
-  gutter?: number | number[];
-  /** 水平间隙（像素） */
-  xGutter?: number;
-  /** 垂直间隙（像素） */
-  yGutter?: number;
-  /** 布局模式 */
-  type?: 'flex' | 'grid';
-  /** flex 模式下主轴对齐方式 */
-  justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
-  /** flex 模式下交叉轴对齐方式 */
-  align?: 'top' | 'middle' | 'bottom';
-  /** 最大列数（默认 24） */
-  cols?: number;
-  /** 自定义 class */
-  class?: HTMLAttributes['class'];
-}>(), {
-  type: 'grid',
-  justify: 'start',
-  align: 'top',
-  cols: 24,
-});
+const props = withDefaults(
+  defineProps<{
+    /** 栅格间隙（像素）—— 同时设置横向和纵向 gutter */
+    gutter?: number | number[];
+    /** 水平间隙（像素） */
+    xGutter?: number;
+    /** 垂直间隙（像素） */
+    yGutter?: number;
+    /** 布局模式 */
+    type?: 'flex' | 'grid';
+    /** flex 模式下主轴对齐方式 */
+    justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+    /** flex 模式下交叉轴对齐方式 */
+    align?: 'top' | 'middle' | 'bottom';
+    /** 最大列数（默认 24） */
+    cols?: number;
+    /** 自定义 class */
+    class?: HTMLAttributes['class'];
+  }>(),
+  {
+    type: 'grid',
+    justify: 'start',
+    align: 'top',
+    cols: 24,
+  },
+);
 
 /**
  * 解析间距值——数字转 px 字符串，字符串直接返回
@@ -109,14 +112,18 @@ const rowStyle = computed((): Record<string, string> => {
     // flex 模式
     style.display = 'flex';
     style.gap = `${rowGap.value} ${columnGap.value}`;
-    style.justifyContent = props.justify === 'start' ? 'flex-start'
-      : props.justify === 'end' ? 'flex-end'
-        : props.justify === 'space-around' ? 'space-around'
-          : props.justify === 'space-between' ? 'space-between'
-            : 'center';
-    style.alignItems = props.align === 'top' ? 'flex-start'
-      : props.align === 'bottom' ? 'flex-end'
-        : 'center';
+    style.justifyContent =
+      props.justify === 'start'
+        ? 'flex-start'
+        : props.justify === 'end'
+          ? 'flex-end'
+          : props.justify === 'space-around'
+            ? 'space-around'
+            : props.justify === 'space-between'
+              ? 'space-between'
+              : 'center';
+    style.alignItems =
+      props.align === 'top' ? 'flex-start' : props.align === 'bottom' ? 'flex-end' : 'center';
   }
 
   return style;
@@ -134,10 +141,7 @@ provide(GRID_CONTEXT_KEY, gridContext);
 </script>
 
 <template>
-  <div
-    :style="rowStyle"
-    :class="props.class"
-  >
+  <div :style="rowStyle" :class="props.class">
     <slot />
   </div>
 </template>

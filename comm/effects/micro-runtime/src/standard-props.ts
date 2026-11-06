@@ -44,9 +44,11 @@ export interface MicroMessage<T = unknown> {
 }
 
 /** 消息处理器类型 */
-export type MessageHandler<T = unknown, R = unknown> = (
-  msg: { action: string; payload: T; from: string },
-) => R | Promise<R>;
+export type MessageHandler<T = unknown, R = unknown> = (msg: {
+  action: string;
+  payload: T;
+  from: string;
+}) => R | Promise<R>;
 
 /** 消息总线 API（注入子应用） */
 export interface MessageBusAPI {
@@ -187,8 +189,9 @@ export function buildStandardMountProps(
       onGlobalStateChange: ctx.rawGlobalState.onGlobalStateChange,
       setGlobalState: ctx.rawGlobalState.setGlobalState,
       getGlobalState: ctx.rawGlobalState.getGlobalState,
-      getState: ctx.rawGlobalState.getState?.bind(ctx.rawGlobalState)
-        ?? ((key: string) => ctx.rawGlobalState.getGlobalState()[key]),
+      getState:
+        ctx.rawGlobalState.getState?.bind(ctx.rawGlobalState) ??
+        ((key: string) => ctx.rawGlobalState.getGlobalState()[key]),
       // 命名空间能力由 createNamespacedGlobalStateWrapper 在 kernel 侧注入
       useNamespace: (scope: string) => {
         return createNamespacedState(ctx.rawGlobalState, scope);
@@ -201,8 +204,7 @@ export function buildStandardMountProps(
     },
     // v4.2.1 N10: 统一微桥接 — messageBus 的 send/call/on 简化视图
     microBridge: {
-      send: (action: string, payload?: unknown) =>
-        ctx.sendMessage(action, payload),
+      send: (action: string, payload?: unknown) => ctx.sendMessage(action, payload),
       call: <R = unknown>(action: string, payload?: unknown, timeout?: number) =>
         ctx.sendRequest<R>(action, payload, timeout),
       on: <T = unknown, R = unknown>(

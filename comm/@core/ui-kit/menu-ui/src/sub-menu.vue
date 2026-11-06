@@ -36,9 +36,7 @@ const props = withDefaults(defineProps<Props>(), {});
  */
 const hasChildren = computed(() => {
   const { menu } = props;
-  return (
-    Reflect.has(menu, 'children') && !!menu.children && menu.children.length > 0
-  );
+  return Reflect.has(menu, 'children') && !!menu.children && menu.children.length > 0;
 });
 </script>
 

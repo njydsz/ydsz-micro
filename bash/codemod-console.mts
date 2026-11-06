@@ -112,7 +112,8 @@ function replaceConsole(line) {
     while ((found = probe.indexOf(needle, from)) >= 0) {
       const realIdx = cIdx >= 0 ? mutated.lastIndexOf(needle, cIdx) : mutated.indexOf(needle, from);
       if (realIdx >= 0 && mutated.slice(0, realIdx).indexOf('//') < 0) {
-        mutated = mutated.slice(0, realIdx) + `logger.${m}(` + mutated.slice(realIdx + needle.length);
+        mutated =
+          mutated.slice(0, realIdx) + `logger.${m}(` + mutated.slice(realIdx + needle.length);
         return { line: mutated, hit: true };
       }
       from = found + 1;
@@ -207,7 +208,11 @@ function processFile(file) {
       if (lastImport >= 0) {
         const upto = result.slice(0, lastImport).split('\n').length - 1;
         const arr = result.split('\n');
-        arr.splice(upto + 1, 0, ...(hasCreateLoggerImport ? [loggerDecl] : [importLine, loggerDecl]));
+        arr.splice(
+          upto + 1,
+          0,
+          ...(hasCreateLoggerImport ? [loggerDecl] : [importLine, loggerDecl]),
+        );
         result = arr.join('\n');
       } else {
         result = `${hasCreateLoggerImport ? '' : importLine + '\n'}${loggerDecl}\n${result}`;

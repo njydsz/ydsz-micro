@@ -22,7 +22,24 @@
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdDialogTrigger, YdSeparator, YdForm, YdFormItem, YdInput, YdTimeline, YdTimelineItem, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdDialogTrigger,
+  YdSeparator,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdTimeline,
+  YdTimelineItem,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -70,7 +87,9 @@ const timeline = ref<
 
 /** 弹窗标题 */
 const dialogTitle = computed(() =>
-  record.value ? `${t('configApproval.detail')} - ${record.value.title}` : t('configApproval.detail'),
+  record.value
+    ? `${t('configApproval.detail')} - ${record.value.title}`
+    : t('configApproval.detail'),
 );
 
 /** Tag 类型映射 */
@@ -232,106 +251,121 @@ defineExpose({ close, open });
 </script>
 
 <template>
-  <YdDialog :open="visible" @update:open="($event) => { if (!$event) close(); }">
+  <YdDialog
+    :open="visible"
+    @update:open="
+      ($event) => {
+        if (!$event) close();
+      }
+    "
+  >
     <YdDialogContent style="max-width: 700px">
       <YdDialogHeader>
         <YdDialogTitle>{{ dialogTitle }}</YdDialogTitle>
       </YdDialogHeader>
-    <div v-if="record" class="approval-detail">
-      <!-- 基本信息 -->
-      <YdDescriptions :column="2" border>
-        <YdDescriptionsItem :label="t('configApproval.colResourceType')">
-          {{ resourceTypeLabel(record.resourceType) }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('configApproval.colChangeType')">
-          {{ changeTypeLabel(record.changeType) }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('configApproval.colSubmitter')">
-          {{ record.submitterName }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('configApproval.colSubmittedAt')">
-          {{ record.submittedAt }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('configApproval.colStatus')">
-          <span :class="['inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold',
-            statusTagType(record.status) === 'success' ? 'border-transparent bg-green-100 text-green-800' :
-            statusTagType(record.status) === 'danger' ? 'border-transparent bg-red-100 text-red-800' :
-            statusTagType(record.status) === 'warning' ? 'border-transparent bg-yellow-100 text-yellow-800' :
-            'border-transparent bg-gray-100 text-gray-800']">{{
-            statusLabel(record.status)
-          }}</span>
-        </YdDescriptionsItem>
-        <YdDescriptionsItem
-          v-if="record.currentApproverName"
-          :label="t('configApproval.colCurrentApprover')"
-        >
-          {{ record.currentApproverName }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem :label="t('common.reasonLabel')" :span="2">
-          {{ record.reason || '-' }}
-        </YdDescriptionsItem>
-        <YdDescriptionsItem
-          v-if="record.rejectionReason"
-          :label="t('common.rejectionReasonLabel')"
-          :span="2"
-        >
-          {{ record.rejectionReason }}
-        </YdDescriptionsItem>
-      </YdDescriptions>
+      <div v-if="record" class="approval-detail">
+        <!-- 基本信息 -->
+        <YdDescriptions :column="2" border>
+          <YdDescriptionsItem :label="t('configApproval.colResourceType')">
+            {{ resourceTypeLabel(record.resourceType) }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('configApproval.colChangeType')">
+            {{ changeTypeLabel(record.changeType) }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('configApproval.colSubmitter')">
+            {{ record.submitterName }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('configApproval.colSubmittedAt')">
+            {{ record.submittedAt }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('configApproval.colStatus')">
+            <span
+              :class="[
+                'inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold',
+                statusTagType(record.status) === 'success'
+                  ? 'border-transparent bg-green-100 text-green-800'
+                  : statusTagType(record.status) === 'danger'
+                    ? 'border-transparent bg-red-100 text-red-800'
+                    : statusTagType(record.status) === 'warning'
+                      ? 'border-transparent bg-yellow-100 text-yellow-800'
+                      : 'border-transparent bg-gray-100 text-gray-800',
+              ]"
+              >{{ statusLabel(record.status) }}</span
+            >
+          </YdDescriptionsItem>
+          <YdDescriptionsItem
+            v-if="record.currentApproverName"
+            :label="t('configApproval.colCurrentApprover')"
+          >
+            {{ record.currentApproverName }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem :label="t('common.reasonLabel')" :span="2">
+            {{ record.reason || '-' }}
+          </YdDescriptionsItem>
+          <YdDescriptionsItem
+            v-if="record.rejectionReason"
+            :label="t('common.rejectionReasonLabel')"
+            :span="2"
+          >
+            {{ record.rejectionReason }}
+          </YdDescriptionsItem>
+        </YdDescriptions>
 
-      <YdSeparator />
+        <YdSeparator />
 
-      <!-- 变更前后值 Diff -->
-      <div class="diff-section">
-        <h4>{{ t('configApproval.viewDiff') }}</h4>
-        <div class="diff-container">
-          <div class="diff-panel">
-            <div class="diff-panel-title">{{ t('configApproval.beforeValue') }}</div>
-            <pre class="diff-content before">{{ record.beforeJson || '-' }}</pre>
-          </div>
-          <div class="diff-panel">
-            <div class="diff-panel-title">{{ t('configApproval.afterValue') }}</div>
-            <pre class="diff-content after">{{ record.afterJson || '-' }}</pre>
+        <!-- 变更前后值 Diff -->
+        <div class="diff-section">
+          <h4>{{ t('configApproval.viewDiff') }}</h4>
+          <div class="diff-container">
+            <div class="diff-panel">
+              <div class="diff-panel-title">{{ t('configApproval.beforeValue') }}</div>
+              <pre class="diff-content before">{{ record.beforeJson || '-' }}</pre>
+            </div>
+            <div class="diff-panel">
+              <div class="diff-panel-title">{{ t('configApproval.afterValue') }}</div>
+              <pre class="diff-content after">{{ record.afterJson || '-' }}</pre>
+            </div>
           </div>
         </div>
+
+        <YdSeparator />
+
+        <!-- 审批时间线 -->
+        <div>
+          <h4>{{ t('configApproval.approvalTimeline') }}</h4>
+          <YdTimeline>
+            <YdTimelineItem
+              v-for="(item, idx) in timeline"
+              :key="item.actionTime ?? idx"
+              :timestamp="item.actionTime"
+              :type="item.status === 'done' ? 'primary' : 'warning'"
+              placement="top"
+            >
+              <div>
+                <strong>{{ item.action }}</strong> — {{ item.approverName }}
+              </div>
+              <div v-if="item.comment" class="timeline-comment">{{ item.comment }}</div>
+            </YdTimelineItem>
+          </YdTimeline>
+        </div>
+
+        <YdSeparator v-if="canOperate" />
+
+        <!-- 拒绝原因表单（pending + 当前审批人） -->
+        <div v-if="canOperate" class="reject-form">
+          <h4>{{ t('configApproval.rejectTitle') }}</h4>
+          <YdForm @submit.prevent="handleReject">
+            <YdFormItem :label="t('common.rejectionReasonLabel')">
+              <YdInput
+                v-model="rejectionReason"
+                type="textarea"
+                :rows="3"
+                :placeholder="t('common.placeholder', [t('common.rejectionReasonLabel')])"
+              />
+            </YdFormItem>
+          </YdForm>
+        </div>
       </div>
-
-      <YdSeparator />
-
-      <!-- 审批时间线 -->
-      <div>
-        <h4>{{ t('configApproval.approvalTimeline') }}</h4>
-        <YdTimeline>
-          <YdTimelineItem
-            v-for="(item, idx) in timeline"
-            :key="item.actionTime ?? idx"
-            :timestamp="item.actionTime"
-            :type="item.status === 'done' ? 'primary' : 'warning'"
-            placement="top"
-          >
-            <div><strong>{{ item.action }}</strong> — {{ item.approverName }}</div>
-            <div v-if="item.comment" class="timeline-comment">{{ item.comment }}</div>
-          </YdTimelineItem>
-        </YdTimeline>
-      </div>
-
-      <YdSeparator v-if="canOperate" />
-
-      <!-- 拒绝原因表单（pending + 当前审批人） -->
-      <div v-if="canOperate" class="reject-form">
-        <h4>{{ t('configApproval.rejectTitle') }}</h4>
-        <YdForm @submit.prevent="handleReject">
-          <YdFormItem :label="t('common.rejectionReasonLabel')">
-            <YdInput
-              v-model="rejectionReason"
-              type="textarea"
-              :rows="3"
-              :placeholder="t('common.placeholder', [t('common.rejectionReasonLabel')])"
-            />
-          </YdFormItem>
-        </YdForm>
-      </div>
-    </div>
 
       <YdDialogFooter>
         <YdButton @click="close">{{ t('common.close') }}</YdButton>

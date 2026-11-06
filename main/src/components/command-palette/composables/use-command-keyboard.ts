@@ -6,9 +6,9 @@
  * @since 4.1.0
  */
 
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted } from 'vue';
 
-import type { PaletteMode } from "./use-command-search";
+import type { PaletteMode } from './use-command-search';
 
 /**
  * 命令面板键盘事件管理
@@ -25,25 +25,25 @@ export function useCommandKeyboard(options: {
   onToggleMode: () => void;
 }) {
   function handleKeyDown(e: KeyboardEvent) {
-    const isMac = navigator.platform.toUpperCase().includes("MAC");
+    const isMac = navigator.platform.toUpperCase().includes('MAC');
     const cmdKey = isMac ? e.metaKey : e.ctrlKey;
 
     // ⌘K / Ctrl+K → 打开搜索模式
-    if (cmdKey && e.key === "k" && !e.shiftKey) {
+    if (cmdKey && e.key === 'k' && !e.shiftKey) {
       e.preventDefault();
-      options.onOpen("search");
+      options.onOpen('search');
       return;
     }
 
     // ⌘⇧P / Ctrl+Shift+P → 打开命令模式
-    if (cmdKey && e.shiftKey && e.key === "p") {
+    if (cmdKey && e.shiftKey && e.key === 'p') {
       e.preventDefault();
-      options.onOpen("command");
+      options.onOpen('command');
       return;
     }
 
     // Esc → 关闭面板
-    if (e.key === "Escape") {
+    if (e.key === 'Escape') {
       e.preventDefault();
       options.onClose();
       return;
@@ -51,11 +51,11 @@ export function useCommandKeyboard(options: {
   }
 
   onMounted(() => {
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
   });
 
   onUnmounted(() => {
-    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener('keydown', handleKeyDown);
   });
 
   return {

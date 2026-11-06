@@ -1,13 +1,13 @@
 <script setup lang="ts">
 /**
-* PageHeader 页头：页面顶部标题区域，支持面包屑 / 返回按钮 / 操作区。
-* 
+ * PageHeader 页头：页面顶部标题区域，支持面包屑 / 返回按钮 / 操作区。
+ *
  * 与 Ant Design PageHeader 对齐：
  * - title / subtitle 渲染在左
  * - extra 渲染在右
  * - avatar / tags / footer 按需显示
  * - onBack 提供返回按钮
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\page-header\YdPageHeader.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -47,10 +47,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <header
-    :class="cn('bg-background flex flex-col gap-3 px-6 py-4', props.class)"
-    role="banner"
-  >
+  <header :class="cn('bg-background flex flex-col gap-3 px-6 py-4', props.class)" role="banner">
     <!-- 顶部行：返回 / 面包屑 / extra -->
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -86,7 +83,7 @@ const emit = defineEmits<{
         <span
           v-for="tag in props.tags"
           :key="tag"
-          class="rounded bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
+          class="bg-muted text-muted-foreground rounded px-2 py-0.5 text-xs font-medium"
         >
           {{ tag }}
         </span>

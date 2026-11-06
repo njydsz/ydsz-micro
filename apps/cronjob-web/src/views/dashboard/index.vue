@@ -16,7 +16,16 @@
  */
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdTable, YdTableColumn, YdEmptyState } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdTable,
+  YdTableColumn,
+  YdEmptyState,
+} from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
 
 import { getOverview } from '#/api/dashboard';
@@ -93,7 +102,7 @@ onMounted(loadData);
     <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
       <YdCard v-for="card in cards" :key="card.label">
         <YdCardContent class="pt-4">
-          <div class="text-sm text-muted-foreground">{{ card.label }}</div>
+          <div class="text-muted-foreground text-sm">{{ card.label }}</div>
           <div class="mt-1 text-2xl font-semibold" :class="card.color">{{ card.value }}</div>
         </YdCardContent>
       </YdCard>
@@ -106,22 +115,22 @@ onMounted(loadData);
         </YdCardHeader>
         <YdCardContent>
           <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-          <div>
-            <div class="text-xs text-gray-500">执行总数</div>
-            <div class="text-xl font-semibold">{{ todayExec.total ?? 0 }}</div>
-          </div>
-          <div>
-            <div class="text-xs text-gray-500">成功</div>
-            <div class="text-xl font-semibold text-green-500">{{ todayExec.success ?? 0 }}</div>
-          </div>
-          <div>
-            <div class="text-xs text-gray-500">失败</div>
-            <div class="text-xl font-semibold text-red-500">{{ todayExec.failed ?? 0 }}</div>
-          </div>
-          <div>
-            <div class="text-xs text-gray-500">成功率</div>
-            <div class="text-xl font-semibold">{{ todayExec.successRate ?? 'N/A' }}</div>
-          </div>
+            <div>
+              <div class="text-xs text-gray-500">执行总数</div>
+              <div class="text-xl font-semibold">{{ todayExec.total ?? 0 }}</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">成功</div>
+              <div class="text-xl font-semibold text-green-500">{{ todayExec.success ?? 0 }}</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">失败</div>
+              <div class="text-xl font-semibold text-red-500">{{ todayExec.failed ?? 0 }}</div>
+            </div>
+            <div>
+              <div class="text-xs text-gray-500">成功率</div>
+              <div class="text-xl font-semibold">{{ todayExec.successRate ?? 'N/A' }}</div>
+            </div>
           </div>
         </YdCardContent>
       </YdCard>
@@ -145,19 +154,19 @@ onMounted(loadData);
         </YdCardHeader>
         <YdCardContent>
           <YdTable v-if="failures.length" :data="failures" border size="small" max-height="300">
-          <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-          <YdTableColumn label="状态" width="90">
-            <template #default="{ row }">
-              <YdBadge variant="destructive" size="sm">{{ row.status ?? '-' }}</YdBadge>
-            </template>
-          </YdTableColumn>
-          <YdTableColumn
-            prop="errorMessage"
-            label="错误信息"
-            min-width="200"
-            show-overflow-tooltip
-          />
-          <YdTableColumn prop="startTime" label="时间" width="170" />
+            <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
+            <YdTableColumn label="状态" width="90">
+              <template #default="{ row }">
+                <YdBadge variant="destructive" size="sm">{{ row.status ?? '-' }}</YdBadge>
+              </template>
+            </YdTableColumn>
+            <YdTableColumn
+              prop="errorMessage"
+              label="错误信息"
+              min-width="200"
+              show-overflow-tooltip
+            />
+            <YdTableColumn prop="startTime" label="时间" width="170" />
           </YdTable>
           <YdEmptyState v-else description="暂无失败记录" :image-size="60" />
         </YdCardContent>
@@ -169,26 +178,26 @@ onMounted(loadData);
         </YdCardHeader>
         <YdCardContent>
           <div class="flex h-72 items-end gap-1 px-1">
-          <div
-            v-for="item in heatData"
-            :key="item.hour"
-            class="group relative flex-1 rounded-t bg-blue-100 transition-colors hover:bg-blue-300"
-            :style="{ height: `${Math.max(3, ((item.count ?? 0) / heatMax) * 100)}%` }"
-            :title="`${item.hour}:00 - ${item.count ?? 0} 次`"
-          >
-            <span
-              class="pointer-events-none absolute -top-5 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-1 text-[10px] text-white group-hover:block"
-              >{{ item.hour }}:00 · {{ item.count ?? 0 }}</span
+            <div
+              v-for="item in heatData"
+              :key="item.hour"
+              class="group relative flex-1 rounded-t bg-blue-100 transition-colors hover:bg-blue-300"
+              :style="{ height: `${Math.max(3, ((item.count ?? 0) / heatMax) * 100)}%` }"
+              :title="`${item.hour}:00 - ${item.count ?? 0} 次`"
             >
+              <span
+                class="pointer-events-none absolute -top-5 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-1 text-[10px] text-white group-hover:block"
+                >{{ item.hour }}:00 · {{ item.count ?? 0 }}</span
+              >
+            </div>
           </div>
-        </div>
-        <div class="mt-1 flex justify-between text-[10px] text-muted-foreground">
-          <span>00:00</span>
-          <span>06:00</span>
-          <span>12:00</span>
-          <span>18:00</span>
-          <span>23:00</span>
-        </div>
+          <div class="text-muted-foreground mt-1 flex justify-between text-[10px]">
+            <span>00:00</span>
+            <span>06:00</span>
+            <span>12:00</span>
+            <span>18:00</span>
+            <span>23:00</span>
+          </div>
         </YdCardContent>
       </YdCard>
     </div>

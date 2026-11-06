@@ -1,35 +1,32 @@
 <script lang="ts">
 // @ts-nocheck
-import type {
-  DialogContentImplEmits,
-  DialogContentImplProps,
-} from './DialogContentImpl.vue'
+import type { DialogContentImplEmits, DialogContentImplProps } from './DialogContentImpl.vue';
 
-export type DialogContentEmits = DialogContentImplEmits
+export type DialogContentEmits = DialogContentImplEmits;
 
 export interface DialogContentProps extends DialogContentImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.
    */
-  forceMount?: boolean
+  forceMount?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import DialogContentModal from './DialogContentModal.vue'
-import DialogContentNonModal from './DialogContentNonModal.vue'
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { Presence } from '../Presence/index.ts'
-import { useEmitAsProps, useForwardExpose } from '../shared/index.ts'
+import DialogContentModal from './DialogContentModal.vue';
+import DialogContentNonModal from './DialogContentNonModal.vue';
+import { injectDialogRootContext } from './DialogRoot.vue';
+import { Presence } from '../Presence/index.ts';
+import { useEmitAsProps, useForwardExpose } from '../shared/index.ts';
 
-const props = defineProps<DialogContentProps>()
-const emits = defineEmits<DialogContentEmits>()
+const props = defineProps<DialogContentProps>();
+const emits = defineEmits<DialogContentEmits>();
 
-const rootContext = injectDialogRootContext()
+const rootContext = injectDialogRootContext();
 
-const emitsAsProps = useEmitAsProps(emits)
-const { forwardRef } = useForwardExpose()
+const emitsAsProps = useEmitAsProps(emits);
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>

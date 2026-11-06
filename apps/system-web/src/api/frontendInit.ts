@@ -23,8 +23,6 @@ export function init(): Promise<FrontendInitVO> {
 /**
  * initWithDicts: GET /system/init/dicts
  */
-export function initWithDicts(params: {
-    dictTypes?: string[];
-  }): Promise<FrontendInitVO> {
+export function initWithDicts(params: { dictTypes?: string[] }): Promise<FrontendInitVO> {
   return requestClient.get<FrontendInitVO>(`/system/init/dicts`, { params });
 }

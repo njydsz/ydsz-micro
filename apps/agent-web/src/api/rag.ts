@@ -13,7 +13,13 @@
  * @since 1.0.0
  */
 import { requestClient } from '#/api/request';
-import type { DocumentIngestDTO, HybridSearchDTO, ImageIngestDTO, RagQueryDTO, ScannedPdfIngestDTO } from './models';
+import type {
+  DocumentIngestDTO,
+  HybridSearchDTO,
+  ImageIngestDTO,
+  RagQueryDTO,
+  ScannedPdfIngestDTO,
+} from './models';
 
 /**
  * ingest: POST /agent/rag/ingest
@@ -32,9 +38,7 @@ export function search(data: RagQueryDTO): Promise<Record<string, Record<string,
 /**
  * deleteDocument: DELETE /agent/rag/documents/{documentId}
  */
-export function deleteDocument({ documentId }: {
-    documentId: string;
-  }): Promise<void> {
+export function deleteDocument({ documentId }: { documentId: string }): Promise<void> {
   return requestClient.delete<void>(`/agent/rag/documents/${documentId}`);
 }
 
@@ -53,20 +57,35 @@ export function stats(): Promise<unknown> {
 /**
  * ingestScannedPdf: POST /agent/rag/ingest-scanned-pdf
  */
-export function ingestScannedPdf(data: ScannedPdfIngestDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/agent/rag/ingest-scanned-pdf`, data);
+export function ingestScannedPdf(
+  data: ScannedPdfIngestDTO,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/agent/rag/ingest-scanned-pdf`,
+    data,
+  );
 }
 
 /**
  * ingestImage: POST /agent/rag/ingest-image
  */
-export function ingestImage(data: ImageIngestDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/agent/rag/ingest-image`, data);
+export function ingestImage(
+  data: ImageIngestDTO,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/agent/rag/ingest-image`,
+    data,
+  );
 }
 
 /**
  * hybridSearch: POST /agent/rag/hybrid-search
  */
-export function hybridSearch(data: HybridSearchDTO): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/agent/rag/hybrid-search`, data);
+export function hybridSearch(
+  data: HybridSearchDTO,
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/agent/rag/hybrid-search`,
+    data,
+  );
 }

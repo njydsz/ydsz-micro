@@ -12,13 +12,7 @@ import { computed } from 'vue';
 
 import { $t } from '@ydsz/locales';
 
-import {
-  YdCard,
-  YdCardContent,
-  YdCardFooter,
-  YdCardHeader,
-  YdCardTitle,
-} from '@ydsz-core/ydsz-ui';
+import { YdCard, YdCardContent, YdCardFooter, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 
 const props = withDefaults(defineProps<PointSelectionCaptchaCardProps>(), {
   height: '220px',
@@ -79,7 +73,8 @@ function handleClick(e: MouseEvent) {
         :style="captchaStyles"
         class="relative z-10"
         @click="handleClick"
-       loading="lazy"/>
+        loading="lazy"
+      />
       <div class="absolute inset-0">
         <slot></slot>
       </div>

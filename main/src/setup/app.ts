@@ -10,23 +10,23 @@
  * @author ydsz-team
  * @since 4.1.0
  */
-import { createApp, watchEffect } from "vue";
+import { createApp, watchEffect } from 'vue';
 
-import { registerAccessDirective } from "@ydsz/access";
-import { registerLoadingDirective } from "@ydsz/common-ui/es/loading";
-import { registerSafeHtmlDirective } from "@ydsz/common-ui/es/safe-html";
-import { registerWatermarkDirective } from "@ydsz/common-ui/es/watermark";
-import { preferences } from "@ydsz/preferences";
-import { initStores } from "@ydsz/stores";
-import "@ydsz/styles";
+import { registerAccessDirective } from '@ydsz/access';
+import { registerLoadingDirective } from '@ydsz/common-ui/es/loading';
+import { registerSafeHtmlDirective } from '@ydsz/common-ui/es/safe-html';
+import { registerWatermarkDirective } from '@ydsz/common-ui/es/watermark';
+import { preferences } from '@ydsz/preferences';
+import { initStores } from '@ydsz/stores';
+import '@ydsz/styles';
 
-import { useTitle } from "@vueuse/core";
+import { useTitle } from '@vueuse/core';
 
-import { initComponentAdapter } from "#/adapter/component";
-import { initSetupYDSZForm } from "#/adapter/form";
-import App from "#/app.vue";
-import { $t, setupI18n } from "#/locales";
-import { initRouterGuard, router } from "#/router";
+import { initComponentAdapter } from '#/adapter/component';
+import { initSetupYDSZForm } from '#/adapter/form';
+import App from '#/app.vue';
+import { $t, setupI18n } from '#/locales';
+import { initRouterGuard, router } from '#/router';
 
 /**
  * 创建并装配 Vue 应用（指令/i18n/Pinia/路由/动效/标题）。
@@ -42,7 +42,7 @@ export async function setupApp(namespace: string) {
   // v-loading 指令：使用 YDSZ 自研 loading 指令
   registerLoadingDirective(app, {
     loading: true, // 注册 YDSZ 提供的 v-loading 指令
-    spinning: "spinning",
+    spinning: 'spinning',
   });
 
   await setupI18n(app);
@@ -59,21 +59,19 @@ export async function setupApp(namespace: string) {
   // v-watermark — 敏感页面水印指令
   registerWatermarkDirective(app);
 
-  const { initTippy } = await import("@ydsz/common-ui/es/tippy");
+  const { initTippy } = await import('@ydsz/common-ui/es/tippy');
   initTippy(app);
 
   app.use(router);
 
-  const { MotionPlugin } = await import("@ydsz/plugins/motion");
+  const { MotionPlugin } = await import('@ydsz/plugins/motion');
   app.use(MotionPlugin);
 
   // 页面标题动态同步（依赖路由 meta.title 与偏好设置）
   watchEffect(() => {
     if (preferences.app.dynamicTitle) {
       const routeTitle = router.currentRoute.value.meta?.title;
-      const pageTitle =
-        (routeTitle ? `${$t(routeTitle as string)} - ` : "") +
-        preferences.app.name;
+      const pageTitle = (routeTitle ? `${$t(routeTitle as string)} - ` : '') + preferences.app.name;
       useTitle(pageTitle);
     }
   });

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 /**
-* Result 结果页：用于反馈操作结果。
-* 
+ * Result 结果页：用于反馈操作结果。
+ *
  * 提供 success / error / warning / info 四种内置状态，
  * 通过 icon slot 或内置 icon 展示视觉提示，配合 title / description / actions 组装完整结果页。
-* 
+ *
  * 业务中配合路由的 navigate 使用：成功提交后跳转至 Result 页，
  * 失败时展示错误原因并提供重试按钮。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\result\YdResult.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -35,31 +35,29 @@ const props = withDefaults(defineProps<Props>(), {
   status: 'info',
 });
 
-const statusConfig: Record<
-  ResultStatus,
-  { bgClass: string; borderClass: string; component: any }
-> = {
-  error: {
-    bgClass: 'text-destructive-500 bg-destructive-50',
-    borderClass: 'border-destructive-200',
-    component: XCircle,
-  },
-  info: {
-    bgClass: 'text-brand-500 bg-brand-50',
-    borderClass: 'border-brand-200',
-    component: Info,
-  },
-  success: {
-    bgClass: 'text-success-500 bg-success-50',
-    borderClass: 'border-success-200',
-    component: CheckCircle2,
-  },
-  warning: {
-    bgClass: 'text-warning-500 bg-warning-50',
-    borderClass: 'border-warning-200',
-    component: ShieldAlert,
-  },
-};
+const statusConfig: Record<ResultStatus, { bgClass: string; borderClass: string; component: any }> =
+  {
+    error: {
+      bgClass: 'text-destructive-500 bg-destructive-50',
+      borderClass: 'border-destructive-200',
+      component: XCircle,
+    },
+    info: {
+      bgClass: 'text-brand-500 bg-brand-50',
+      borderClass: 'border-brand-200',
+      component: Info,
+    },
+    success: {
+      bgClass: 'text-success-500 bg-success-50',
+      borderClass: 'border-success-200',
+      component: CheckCircle2,
+    },
+    warning: {
+      bgClass: 'text-warning-500 bg-warning-50',
+      borderClass: 'border-warning-200',
+      component: ShieldAlert,
+    },
+  };
 
 const configuredIcon = computed(() => {
   return statusConfig[props.icon ?? props.status].component;
@@ -72,7 +70,7 @@ import { computed } from 'vue';
   <div
     :class="
       cn(
-        'flex flex-col items-center justify-center rounded-lg border bg-background px-8 py-12 text-center',
+        'bg-background flex flex-col items-center justify-center rounded-lg border px-8 py-12 text-center',
         props.class,
       )
     "

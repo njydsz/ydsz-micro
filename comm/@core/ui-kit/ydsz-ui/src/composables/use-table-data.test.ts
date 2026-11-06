@@ -9,10 +9,7 @@ import { describe, expect, it } from 'vitest';
 
 import { nextTick, ref } from 'vue';
 
-import {
-  useTableData,
-  type TableColumnDef,
-} from './use-table-data';
+import { useTableData, type TableColumnDef } from './use-table-data';
 
 interface TestRow extends Record<string, unknown> {
   id: number;
@@ -145,7 +142,7 @@ describe('useTableData', () => {
       table.toggleSort('status', true);
       table.toggleSort('age', true);
 
-      expect(table.viewRows.value.map(row => row.name)).toEqual(['Bob', 'Alice', 'Carol']);
+      expect(table.viewRows.value.map((row) => row.name)).toEqual(['Bob', 'Alice', 'Carol']);
     });
 
     it('非 additive 点击应重置为单列排序', () => {
@@ -237,7 +234,7 @@ describe('useTableData', () => {
 
       expect(table.sortChain.value).toEqual([]);
       expect(table.sortState.value).toEqual({ order: null, prop: null });
-      expect(table.viewRows.value.map(row => row.id)).toEqual([1, 2, 3]);
+      expect(table.viewRows.value.map((row) => row.id)).toEqual([1, 2, 3]);
     });
 
     it('initialSortChain 应在初始化时生效', () => {
@@ -248,7 +245,7 @@ describe('useTableData', () => {
         multipleSort: true,
       });
 
-      expect(table.viewRows.value.map(row => row.age)).toEqual([35, 30, 25]);
+      expect(table.viewRows.value.map((row) => row.age)).toEqual([35, 30, 25]);
     });
   });
 });

@@ -17,31 +17,27 @@
  * @since 3.0.0
  */
 
-import type { MicroAppConfig } from "@ydsz/micro-runtime";
+import type { MicroAppConfig } from '@ydsz/micro-runtime';
 
 import {
   type ErrorFallbackMessages,
   getGlobalErrorFallbackMessages,
   getPresetFallbackMessages,
   resolveEffectiveLocale,
-} from "./error-fallback-messages";
+} from './error-fallback-messages';
 import {
   getRetryCount,
   MAX_MICRO_RETRIES,
   setRetryCount,
   unmarkDegraded,
-} from "./error-degradation";
-import { ERROR_UI_CLASSES, injectErrorStyles } from "./error-ui-styles";
-import { escapeHtml, sanitizeId } from "./error-utils";
+} from './error-degradation';
+import { ERROR_UI_CLASSES, injectErrorStyles } from './error-ui-styles';
+import { escapeHtml, sanitizeId } from './error-utils';
 
 // ---------------------------------------------------------------------------
 // 向后兼容 re-export：全部移出符号经本模块透出，外部消费方零改动
 // ---------------------------------------------------------------------------
-export {
-  getLocaleFromStorage,
-  escapeHtml,
-  sanitizeId,
-} from "./error-utils";
+export { getLocaleFromStorage, escapeHtml, sanitizeId } from './error-utils';
 export {
   type ErrorFallbackMessages,
   setErrorFallbackMessages,
@@ -49,7 +45,7 @@ export {
   getCurrentLocale,
   resolveEffectiveLocale,
   getErrorFallbackMessagesByLocale,
-} from "./error-fallback-messages";
+} from './error-fallback-messages';
 export {
   markDegraded,
   isDegraded,
@@ -61,7 +57,7 @@ export {
   createErrorBoundaryManager,
   decideDegradationLevel,
   getNextAutoRetryDelay,
-} from "./error-degradation";
+} from './error-degradation';
 
 /**
  * P1-8: 内核错误码枚举。
@@ -72,23 +68,23 @@ export {
  */
 export enum KernelErrorCode {
   /** 子应用未导出必要的 mount/unmount 方法 */
-  LIFECYCLE_MISSING = "LIFECYCLE_MISSING",
+  LIFECYCLE_MISSING = 'LIFECYCLE_MISSING',
   /** ESM 入口模块 dynamic import 失败 */
-  LOAD_ESM_IMPORT = "LOAD_ESM_IMPORT",
+  LOAD_ESM_IMPORT = 'LOAD_ESM_IMPORT',
   /** manifest.json 拉取失败（HTTP 404 / 500 等） */
-  LOAD_MANIFEST_FETCH = "LOAD_MANIFEST_FETCH",
+  LOAD_MANIFEST_FETCH = 'LOAD_MANIFEST_FETCH',
   /** manifest.json 内容非法（JSON 解析失败 / 缺少 entry 字段） */
-  LOAD_MANIFEST_INVALID = "LOAD_MANIFEST_INVALID",
+  LOAD_MANIFEST_INVALID = 'LOAD_MANIFEST_INVALID',
   /** 加载超时 */
-  LOAD_TIMEOUT = "LOAD_TIMEOUT",
+  LOAD_TIMEOUT = 'LOAD_TIMEOUT',
   /** mount 调用抛错 */
-  MOUNT_ERROR = "MOUNT_ERROR",
+  MOUNT_ERROR = 'MOUNT_ERROR',
   /** 沙箱创建或进入失败 */
-  SANDBOX_ERROR = "SANDBOX_ERROR",
+  SANDBOX_ERROR = 'SANDBOX_ERROR',
   /** unmount 调用抛错 */
-  UNMOUNT_ERROR = "UNMOUNT_ERROR",
+  UNMOUNT_ERROR = 'UNMOUNT_ERROR',
   /** 静态注册表为空（宿主未注入 setStaticRegistry 且未提供 fetcher） */
-  REGISTRY_STATIC_EMPTY = "REGISTRY_STATIC_EMPTY",
+  REGISTRY_STATIC_EMPTY = 'REGISTRY_STATIC_EMPTY',
 }
 
 /**
@@ -104,7 +100,7 @@ export class KernelError extends Error {
 
   constructor(code: KernelErrorCode, message: string, cause?: unknown) {
     super(message);
-    this.name = "KernelError";
+    this.name = 'KernelError';
     this.code = code;
     this.cause = cause;
   }
@@ -160,9 +156,7 @@ export function renderErrorFallback(
   const escName = escapeHtml(config.name);
   const escEntry = escapeHtml(config.entry);
   const escActiveRule = escapeHtml(
-    typeof config.activeRule === "string"
-      ? config.activeRule
-      : String(config.activeRule),
+    typeof config.activeRule === 'string' ? config.activeRule : String(config.activeRule),
   );
   const escTitle = escapeHtml(msg.title);
   const escDescription = escapeHtml(msg.description);
@@ -176,7 +170,7 @@ export function renderErrorFallback(
   const escReloading = escapeHtml(msg.reloading);
   const escRetriesLeft = escapeHtml(msg.retriesLeft);
   // v3.7.0: 第三级降级按钮文案
-  const escGoToSubAppUrl = escapeHtml(msg.goToSubAppUrl || "独立访问");
+  const escGoToSubAppUrl = escapeHtml(msg.goToSubAppUrl || '独立访问');
 
   // P0-E1: 净化应用名为合法 HTML id
   const safeId = sanitizeId(config.name);
@@ -186,7 +180,7 @@ export function renderErrorFallback(
   const subAppUrlBtnId = `micro-kernel-suburl-${safeId}`;
 
   // P1-2: 注入 CSS 样式（首次调用时生效，注入到 document.head）
-  if (typeof document !== "undefined") {
+  if (typeof document !== 'undefined') {
     injectErrorStyles();
   }
 
@@ -209,19 +203,19 @@ export function renderErrorFallback(
     `<p class="${C.appName}">${escName}</p>` +
     // 错误描述
     `<p class="${C.description}">${escDescription}${
-      canRetry ? `<br/>${escRetriesLeft}${MAX_MICRO_RETRIES - retryCount}` : ""
+      canRetry ? `<br/>${escRetriesLeft}${MAX_MICRO_RETRIES - retryCount}` : ''
     }</p>` +
     // 操作按钮组
     `<div class="${C.actions}">${
       canRetry
         ? // P2-3: focus-visible outline 通过 CSS class 控制
           `<button id="${retryBtnId}" class="${C.btnPrimary}" aria-label="${escRetry} ${escName}">${escRetry}</button>`
-        : ""
+        : ''
     }<button id="${homeBtnId}" class="${C.btnSecondary}" aria-label="${escGoHome}">${escGoHome}</button>${
       // v3.7.0: 第三级降级按钮 — retry 耗尽后展示，允许用户跳转子应用独立地址
       !canRetry && escEntry
         ? `<button id="${subAppUrlBtnId}" class="${C.btnGhost}" aria-label="${escGoToSubAppUrl} — ${escName}">${escGoToSubAppUrl}</button>`
-        : ""
+        : ''
     }</div>` +
     // 技术详情（可折叠）
     `<details class="${C.details}">` +
@@ -237,14 +231,13 @@ export function renderErrorFallback(
   // P2-3: 自动聚焦第一个可交互元素
   // 优先聚焦「重试」按钮，否则「返回首页」
   // 屏幕阅读器会朗读 role="alert" 的容器内容，键盘用户可直接 Enter 激活
-  const firstFocusable =
-    document.getElementById(retryBtnId) || document.getElementById(homeBtnId);
+  const firstFocusable = document.getElementById(retryBtnId) || document.getElementById(homeBtnId);
   if (firstFocusable) {
     firstFocusable.focus();
   }
 
   // 重试按钮事件
-  document.getElementById(retryBtnId)?.addEventListener("click", () => {
+  document.getElementById(retryBtnId)?.addEventListener('click', () => {
     if (!onRetry) return;
 
     setRetryCount(config.name, retryCount + 1);
@@ -270,21 +263,21 @@ export function renderErrorFallback(
   });
 
   // 返回首页按钮事件
-  document.getElementById(homeBtnId)?.addEventListener("click", () => {
-    window.location.href = "/";
+  document.getElementById(homeBtnId)?.addEventListener('click', () => {
+    window.location.href = '/';
   });
 
   // v3.7.0: 三级降级第三级按钮 — 跳转子应用独立部署地址（full 模式 = 超过 micro 重试上限）
-  document.getElementById(subAppUrlBtnId)?.addEventListener("click", () => {
-    const subUrl = config.entry.replace(/\/$/, "");
-    window.location.href = subUrl || "/";
+  document.getElementById(subAppUrlBtnId)?.addEventListener('click', () => {
+    const subUrl = config.entry.replace(/\/$/, '');
+    window.location.href = subUrl || '/';
   });
 
   // P2-3: Escape 键返回首页（避免用户键盘被困在错误容器中）
   const onKeydown = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      window.location.href = "/";
+    if (e.key === 'Escape') {
+      window.location.href = '/';
     }
   };
-  el.addEventListener("keydown", onKeydown);
+  el.addEventListener('keydown', onKeydown);
 }

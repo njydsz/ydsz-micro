@@ -248,7 +248,9 @@ async function executeBatchUpload(): Promise<void> {
     if (importResult.value.failureCount === 0) {
       showToast.success(t('batchImport.importSuccess', { count: fileList.value.length }));
     } else {
-      showToast.warning(`部分文件导入成功（${importResult.value.successCount}/${fileList.value.length}）`);
+      showToast.warning(
+        `部分文件导入成功（${importResult.value.successCount}/${fileList.value.length}）`,
+      );
     }
   } catch (error) {
     logger.warn('批量上传失败: {}', error);
@@ -407,15 +409,18 @@ const canImport = computed(() => {
             <!-- 已选文件列表 -->
             <div v-if="fileList.length > 0" class="mt-3">
               <p class="mb-2 text-sm text-gray-600">
-                {{ t('batchImport.selectedFiles') }}：{{ fileList.length }} {{ t('batchImport.filesUnit') }}
+                {{ t('batchImport.selectedFiles') }}：{{ fileList.length }}
+                {{ t('batchImport.filesUnit') }}
               </p>
-              <div class="max-h-[160px] space-y-1 overflow-y-auto rounded border border-gray-100 bg-gray-50 p-2">
+              <div
+                class="max-h-[160px] space-y-1 overflow-y-auto rounded border border-gray-100 bg-gray-50 p-2"
+              >
                 <div
                   v-for="file in fileList"
                   :key="file.name"
                   class="flex items-center justify-between rounded px-2 py-1 text-xs hover:bg-gray-100"
                 >
-                  <span class="truncate flex-1">{{ file.name }}</span>
+                  <span class="flex-1 truncate">{{ file.name }}</span>
                   <span class="ml-2 text-gray-400">{{ formatFileSize(file.size) }}</span>
                   <button
                     class="ml-2 text-gray-400 hover:text-red-500"
@@ -435,7 +440,11 @@ const canImport = computed(() => {
               :auto-upload="false"
               :limit="1"
               :on-change="(file: any, fileList: any) => handleZipChange(file, fileList)"
-              :on-remove="() => { zipFile = null; }"
+              :on-remove="
+                () => {
+                  zipFile = null;
+                }
+              "
               accept=".zip"
               drag
             >
@@ -476,11 +485,18 @@ const canImport = computed(() => {
             <div class="rounded bg-yellow-50 p-3 text-sm text-yellow-700">
               <p class="font-medium">{{ t('batchImport.partialSuccess') }}</p>
               <p>
-                {{ t('batchImport.resultSummary', { success: importResult.successCount, failure: importResult.failureCount }) }}
+                {{
+                  t('batchImport.resultSummary', {
+                    success: importResult.successCount,
+                    failure: importResult.failureCount,
+                  })
+                }}
               </p>
             </div>
             <div v-if="importResult.errors.length > 0" class="rounded bg-red-50 p-3">
-              <p class="mb-1 text-sm font-medium text-red-700">{{ t('batchImport.errorDetails') }}</p>
+              <p class="mb-1 text-sm font-medium text-red-700">
+                {{ t('batchImport.errorDetails') }}
+              </p>
               <ul class="list-disc pl-4 text-xs text-red-600">
                 <li v-for="err in importResult.errors" :key="`err-${err}`">{{ err }}</li>
               </ul>

@@ -10,7 +10,7 @@
  * @since 1.0.0
 -->
 <script setup lang="ts">
-import { cn } from "@ydsz-core/shared/utils";
+import { cn } from '@ydsz-core/shared/utils';
 
 type ClassValue = string | Record<string, boolean> | (string | Record<string, boolean>)[];
 
@@ -26,9 +26,9 @@ const props = defineProps<{
   <div
     :class="
       cn(
-        'bg-surface-2 text-card-foreground rounded-xl border border-border-subtle',
+        'bg-surface-2 text-card-foreground border-border-subtle rounded-xl border',
         shadow === 'always' || shadow === undefined ? 'shadow-raised' : '',
-        shadow === 'hover' ? 'shadow-none hover:shadow-raised' : '',
+        shadow === 'hover' ? 'hover:shadow-raised shadow-none' : '',
         shadow === 'never' ? 'shadow-none' : '',
         hoverable && 'hover-card cursor-pointer',
         props.class,

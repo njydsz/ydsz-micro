@@ -47,9 +47,6 @@ export interface TokenRefreshedPayload {
  * @param eventType - 事件类型（建议使用 CROSS_TAB_EVENTS 常量）
  * @param payload - 事件负载
  */
-export function notifyCrossTab<T = unknown>(
-  eventType: string,
-  payload: T,
-): void {
+export function notifyCrossTab<T = unknown>(eventType: string, payload: T): void {
   broadcastCrossTabEvent(CROSS_TAB_CHANNEL, eventType, payload);
 }

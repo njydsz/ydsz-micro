@@ -85,9 +85,7 @@ const COMMANDS: readonly SlashCommand[] = [
     action: (args, ctx) => {
       const mode = args[0]?.toLowerCase();
       if (mode === 'dark' || mode === 'light') {
-        window.dispatchEvent(
-          new CustomEvent('micro-kernel:set-theme', { detail: { mode } }),
-        );
+        window.dispatchEvent(new CustomEvent('micro-kernel:set-theme', { detail: { mode } }));
         ctx.closePanel?.();
         return true;
       }
@@ -102,9 +100,7 @@ const COMMANDS: readonly SlashCommand[] = [
     action: (args, ctx) => {
       const path = args[0];
       if (!path) return false;
-      window.dispatchEvent(
-        new CustomEvent('micro-kernel:navigate', { detail: { path } }),
-      );
+      window.dispatchEvent(new CustomEvent('micro-kernel:navigate', { detail: { path } }));
       ctx.closePanel?.();
       return true;
     },
@@ -161,10 +157,7 @@ const COMMANDS: readonly SlashCommand[] = [
  *
  * @since 4.4.0
  */
-export function useSlashCommands(
-  queryRef: Ref<string>,
-  ctx: SlashCommandContext = {},
-) {
+export function useSlashCommands(queryRef: Ref<string>, ctx: SlashCommandContext = {}) {
   const router = (() => {
     try {
       return useRouter();
@@ -263,9 +256,7 @@ export function useSlashCommands(
         logger.warn(`Router navigate failed: ${path}`, err);
       });
     } else {
-      window.dispatchEvent(
-        new CustomEvent('micro-kernel:navigate', { detail: { path } }),
-      );
+      window.dispatchEvent(new CustomEvent('micro-kernel:navigate', { detail: { path } }));
     }
   }
 

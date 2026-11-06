@@ -111,7 +111,11 @@ function generateSimpleQR(text: string): number[][] {
       class="rounded bg-white"
       role="img"
     ></canvas>
-    <div v-else-if="error" class="text-red-500 text-sm flex items-center justify-center border rounded" :style="{ width: `${props.size}px`, height: `${props.size}px` }">
+    <div
+      v-else-if="error"
+      class="flex items-center justify-center rounded border text-sm text-red-500"
+      :style="{ width: `${props.size}px`, height: `${props.size}px` }"
+    >
       {{ error }}
     </div>
   </div>

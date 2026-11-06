@@ -27,18 +27,16 @@ const mockRows: MockRow[] = [
 ];
 
 /** 模拟分页查询函数 */
-const mockFetcher: ServerPaginationFetcher<MockRow, { keyword?: string }> = vi.fn(
-  async (query) => {
-    const filtered = mockRows.filter((row) =>
-      query.keyword ? row.name.includes(query.keyword) : true,
-    );
-    const start = (query.pageNum - 1) * query.pageSize;
-    return {
-      items: filtered.slice(start, start + query.pageSize),
-      total: filtered.length,
-    };
-  },
-);
+const mockFetcher: ServerPaginationFetcher<MockRow, { keyword?: string }> = vi.fn(async (query) => {
+  const filtered = mockRows.filter((row) =>
+    query.keyword ? row.name.includes(query.keyword) : true,
+  );
+  const start = (query.pageNum - 1) * query.pageSize;
+  return {
+    items: filtered.slice(start, start + query.pageSize),
+    total: filtered.length,
+  };
+});
 
 /** 模拟删除函数 */
 const mockDeleteFetcher = vi.fn(async (_row: MockRow) => {

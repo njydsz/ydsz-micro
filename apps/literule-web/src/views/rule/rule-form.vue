@@ -17,7 +17,6 @@ import { showToast } from '@ydsz/notification';
 import type { RuleDefinitionVO } from '#/api/models';
 import { useYdModal } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
-;
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { save } from '#/api/ruleAdmin';
@@ -81,12 +80,15 @@ const [Modal, modalApi] = useYdModal({
     try {
       await formRef.value?.validate();
     } catch (error) {
-      logger.debug("表单校验未通过: {}", error);
+      logger.debug('表单校验未通过: {}', error);
       return;
     }
     modalApi.lock();
     try {
-      await save({ changeDesc: isEdit.value ? t('updateRuleDesc') : t('createRuleDesc') }, formData);
+      await save(
+        { changeDesc: isEdit.value ? t('updateRuleDesc') : t('createRuleDesc') },
+        formData,
+      );
       showToast.success(isEdit.value ? t('updateSuccess') : t('createSuccess'));
       emit('success');
       modalApi.close();
@@ -107,7 +109,11 @@ const title = computed(() => (isEdit.value ? t('editRuleTitle') : t('createRuleT
       label-position="right"
     >
       <YdFormItem :label="t('ruleCodeColumn')" prop="code">
-        <YdInput v-model="formData.code" :placeholder="t('ruleCodePlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.code"
+          :placeholder="t('ruleCodePlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('ruleNameColumn')" prop="name">
         <YdInput v-model="formData.name" :placeholder="t('ruleNamePlaceholder')" />

@@ -25,9 +25,11 @@ export const SHADOW_LEVELS: readonly ShadowLevel[] = ['flat', 'low', 'medium', '
 export const SHADOW_PRESETS: Record<ShadowLevel, string> = {
   flat: 'none',
   low: '0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.05), 0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.1)',
-  medium: '0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.1), 0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.1)',
+  medium:
+    '0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.1), 0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.1)',
   high: '0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.1), 0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.1)',
-  overlay: '0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.25), 0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.05)',
+  overlay:
+    '0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.25), 0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.05)',
 };
 
 /**

@@ -23,7 +23,8 @@ function bind(value: string): DirectiveBinding<string> {
 
 describe('sanitize', () => {
   it('保留白名单标签与安全属性', () => {
-    const html = '<mark>关键词</mark><a href="https://ydsz.dev/x?i=1#frag" target="_blank">链接</a>';
+    const html =
+      '<mark>关键词</mark><a href="https://ydsz.dev/x?i=1#frag" target="_blank">链接</a>';
     const result = sanitize(html);
     expect(result).toContain('<mark>关键词</mark>');
     expect(result).toContain('href="https://ydsz.dev/x?i=1#frag"');
@@ -84,10 +85,16 @@ describe('vSafeHtml 指令', () => {
     const htmlAfterMount = el.innerHTML;
 
     // 同值更新不应改写 DOM（避免打断子树内的选区与动画）
-    vSafeHtml.updated?.(el, { value: '<em>旧</em>', oldValue: '<em>旧</em>' } as unknown as DirectiveBinding<string>);
+    vSafeHtml.updated?.(el, {
+      value: '<em>旧</em>',
+      oldValue: '<em>旧</em>',
+    } as unknown as DirectiveBinding<string>);
     expect(el.innerHTML).toBe(htmlAfterMount);
 
-    vSafeHtml.updated?.(el, { value: '<em>新</em>', oldValue: '<em>旧</em>' } as unknown as DirectiveBinding<string>);
+    vSafeHtml.updated?.(el, {
+      value: '<em>新</em>',
+      oldValue: '<em>旧</em>',
+    } as unknown as DirectiveBinding<string>);
     expect(el.innerHTML).toBe('<em>新</em>');
   });
 });

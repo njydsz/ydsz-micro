@@ -53,5 +53,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "YDSZ": {
+    "shareStrategy": "core-ui"
   }
 }

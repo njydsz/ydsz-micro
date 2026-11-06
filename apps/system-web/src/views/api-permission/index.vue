@@ -56,11 +56,16 @@ function isEnabled(status?: string): boolean {
 /** HTTP 方法对应的标签类型 */
 function httpMethodType(method?: string) {
   switch (method) {
-    case 'GET': return 'success';
-    case 'POST': return 'primary';
-    case 'PUT': return 'warning';
-    case 'DELETE': return 'danger';
-    default: return 'info';
+    case 'GET':
+      return 'success';
+    case 'POST':
+      return 'primary';
+    case 'PUT':
+      return 'warning';
+    case 'DELETE':
+      return 'danger';
+    default:
+      return 'info';
   }
 }
 
@@ -72,7 +77,8 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       title: t('apiPermission.apiCode'),
       width: 180,
       slots: {
-        default: ({ row }: { row: ApiPermissionRow }) => h('span', { class: 'font-bold' }, row.apiCode ?? ''),
+        default: ({ row }: { row: ApiPermissionRow }) =>
+          h('span', { class: 'font-bold' }, row.apiCode ?? ''),
       },
     },
     { field: 'apiName', title: t('apiPermission.apiName'), width: 150 },
@@ -83,7 +89,19 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       slots: {
         default: ({ row }: { row: ApiPermissionRow }) => {
           if (!row.httpMethod) return h('span', {}, '-');
-          return h(YdBadge, { variant: httpMethodType(row.httpMethod) === 'danger' || httpMethodType(row.httpMethod) === 'warning' ? 'destructive' : httpMethodType(row.httpMethod) === 'info' ? 'secondary' : undefined }, () => row.httpMethod ?? '');
+          return h(
+            YdBadge,
+            {
+              variant:
+                httpMethodType(row.httpMethod) === 'danger' ||
+                httpMethodType(row.httpMethod) === 'warning'
+                  ? 'destructive'
+                  : httpMethodType(row.httpMethod) === 'info'
+                    ? 'secondary'
+                    : undefined,
+            },
+            () => row.httpMethod ?? '',
+          );
         },
       },
     },
@@ -109,11 +127,10 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
       title: t('common.status'),
       width: 90,
       slots: {
-        default: ({ row }: { row: ApiPermissionRow }) => h(
-          YdBadge,
-          { variant: isEnabled(row.status) ? undefined : 'secondary' },
-          () => (isEnabled(row.status) ? t('common.enabled') : t('common.disabled')),
-        ),
+        default: ({ row }: { row: ApiPermissionRow }) =>
+          h(YdBadge, { variant: isEnabled(row.status) ? undefined : 'secondary' }, () =>
+            isEnabled(row.status) ? t('common.enabled') : t('common.disabled'),
+          ),
       },
     },
     {
@@ -163,7 +180,10 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-      query: async ({ page: pageInfo }: { page: { currentPage: number; pageSize: number } }, formValues: Record<string, string>) => {
+      query: async (
+        { page: pageInfo }: { page: { currentPage: number; pageSize: number } },
+        formValues: Record<string, string>,
+      ) => {
         const query: ApiPermissionQueryParams = {
           pageNum: pageInfo.currentPage,
           pageSize: pageInfo.pageSize,
@@ -178,9 +198,30 @@ const gridOptions: VxeTableGridOptions<ApiPermissionRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'apiCode', title: t('apiPermission.apiCode'), itemRender: { name: 'YdInput', props: { placeholder: t('apiPermission.apiCodePlaceholder') } } },
-      { field: 'apiName', title: t('apiPermission.apiName'), itemRender: { name: 'YdInput', props: { placeholder: t('apiPermission.apiNamePlaceholder') } } },
-      { field: 'controllerClass', title: t('apiPermission.controllerClass'), itemRender: { name: 'YdInput', props: { placeholder: t('apiPermission.controllerClassPlaceholder') } } },
+      {
+        field: 'apiCode',
+        title: t('apiPermission.apiCode'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('apiPermission.apiCodePlaceholder') },
+        },
+      },
+      {
+        field: 'apiName',
+        title: t('apiPermission.apiName'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('apiPermission.apiNamePlaceholder') },
+        },
+      },
+      {
+        field: 'controllerClass',
+        title: t('apiPermission.controllerClass'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('apiPermission.controllerClassPlaceholder') },
+        },
+      },
     ],
   },
 };
@@ -241,7 +282,11 @@ async function handleToggleStatus(row: ApiPermissionRow) {
  */
 async function handleDelete(row: ApiPermissionRow) {
   try {
-    await YdConfirm(t('apiPermission.deleteConfirm', [row.apiCode ?? '']), t('common.deleteConfirm'), { type: 'warning' });
+    await YdConfirm(
+      t('apiPermission.deleteConfirm', [row.apiCode ?? '']),
+      t('common.deleteConfirm'),
+      { type: 'warning' },
+    );
   } catch {
     return;
   }

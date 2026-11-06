@@ -414,9 +414,9 @@ export const koKR = {
   'domainFilter.badge': '도메인',
   'dashboard.defaultTitle': '새 대시보드',
   'dashboard.cardCount': '카드 {count}개',
-  'dashboard.emptyEditable': '\'카드 추가\'를 클릭하여 대시보드 구성을 시작하세요',
+  'dashboard.emptyEditable': "'카드 추가'를 클릭하여 대시보드 구성을 시작하세요",
   'dashboard.empty': '아직 카드 데이터가 없습니다',
-'dashboard.chartEmpty': '차트 데이터가 없습니다',
+  'dashboard.chartEmpty': '차트 데이터가 없습니다',
   'advancedFilter.toolbarAriaLabel': '필터 도구 모음',
   'advancedFilter.removeFilter': '필터 {label} 제거: {value}',
   'bulkActions.selectAll': '{count}개 모두 선택',
@@ -433,7 +433,7 @@ export const koKR = {
   'inputPassword.hide': '비밀번호 숨기기',
   'globalSearch.placeholder': '사용자, 워크플로, 메시지, 파일 검색...',
   'globalSearch.allTab': '전체',
-  'globalSearch.noResult': '\'{keyword}\'에 대한 결과를 찾을 수 없습니다',
+  'globalSearch.noResult': "'{keyword}'에 대한 결과를 찾을 수 없습니다",
   'tourHint.ariaLabel': '시작 가이드',
   'tourHint.skip': '건너뛰기',
   'tourHint.prev': '이전',
@@ -491,6 +491,14 @@ export const koKR = {
   'splitter.ariaLabel': '패널 크기 조정',
   'tag.close': '태그 닫기',
   'timeline.ariaLabel': '타임라인',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

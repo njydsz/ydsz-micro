@@ -102,7 +102,9 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? t('quickComment.edit.title') : t('quickComment.add.title')));
+const title = computed(() =>
+  isEdit.value ? t('quickComment.edit.title') : t('quickComment.add.title'),
+);
 </script>
 
 <template>

@@ -30,11 +30,5 @@ export type {
   ValidationTrigger,
 } from './use-form-validation';
 
-export {
-  assertValidSchema,
-  validateFormSchema,
-} from './validate-schema';
-export type {
-  SchemaValidationErrorItem,
-  SchemaValidationResult,
-} from './validate-schema';
+export { assertValidSchema, validateFormSchema } from './validate-schema';
+export type { SchemaValidationErrorItem, SchemaValidationResult } from './validate-schema';

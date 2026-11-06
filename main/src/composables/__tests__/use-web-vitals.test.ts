@@ -25,8 +25,7 @@ const mockReportError = vi.fn();
 
 vi.mock('@ydsz/monitor', () => ({
   reportWebVital: (...args: unknown[]) => mockReportWebVital(...args),
-  customizeAlertThresholds: (...args: unknown[]) =>
-    mockCustomizeAlertThresholds(...args),
+  customizeAlertThresholds: (...args: unknown[]) => mockCustomizeAlertThresholds(...args),
   getAlertThresholds: () => mockGetAlertThresholds(),
   reportError: (...args: unknown[]) => mockReportError(...args),
 }));
@@ -118,7 +117,9 @@ describe('useWebVitals', () => {
     // 未超 budget：不应触发告警
     expect(mockReportError).not.toHaveBeenCalled();
     // 阈值表已与 budget 文件对齐后回灌给 monitor
-    expect(mockCustomizeAlertThresholds).toHaveBeenCalledWith(expect.objectContaining({ LCP: 2500 }));
+    expect(mockCustomizeAlertThresholds).toHaveBeenCalledWith(
+      expect.objectContaining({ LCP: 2500 }),
+    );
   });
 
   // ==================== Test 2: 超阈值调用 reportError ====================

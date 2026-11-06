@@ -64,10 +64,14 @@ function isEnabled(status?: string): boolean {
 /** 开关类型显示文本 */
 function flagTypeLabel(type?: string): string {
   switch (type) {
-    case 'BOOLEAN': return t('featureFlag.typeBoolean');
-    case 'STRING': return t('featureFlag.typeString');
-    case 'JSON': return t('featureFlag.typeJson');
-    default: return type ?? '-';
+    case 'BOOLEAN':
+      return t('featureFlag.typeBoolean');
+    case 'STRING':
+      return t('featureFlag.typeString');
+    case 'JSON':
+      return t('featureFlag.typeJson');
+    default:
+      return type ?? '-';
   }
 }
 
@@ -103,22 +107,16 @@ const gridOptions: VxeTableGridOptions<FeatureFlagRow> = {
       slots: {
         default: ({ row }: { row: FeatureFlagRow }) => {
           const flag = row as FeatureFlagRow;
-          return h(
-            'div',
-            { class: 'flex items-center gap-2' },
-            [
-              h(ydSwitch, {
-                open: isEnabled(flag.status),
-                disabled: togglingId.value === flag.id,
-                onConfirm: () => handleToggleStatus(flag),
-              }),
-              h(
-                YdBadge,
-                { variant: isEnabled(flag.status) ? undefined : 'secondary' },
-                () => (isEnabled(flag.status) ? t('common.enabled') : t('common.disabled')),
-              ),
-            ],
-          );
+          return h('div', { class: 'flex items-center gap-2' }, [
+            h(ydSwitch, {
+              open: isEnabled(flag.status),
+              disabled: togglingId.value === flag.id,
+              onConfirm: () => handleToggleStatus(flag),
+            }),
+            h(YdBadge, { variant: isEnabled(flag.status) ? undefined : 'secondary' }, () =>
+              isEnabled(flag.status) ? t('common.enabled') : t('common.disabled'),
+            ),
+          ]);
         },
       },
     },
@@ -145,11 +143,19 @@ const gridOptions: VxeTableGridOptions<FeatureFlagRow> = {
           const buttons: unknown[] = [];
           // 编辑按钮 — 需要 sys:feature:edit 权限
           if (hasAccessByCodesAll(['sys:feature:edit'])) {
-            buttons.push(h(YdButton, { size: 'sm', onClick: () => handleEdit(flag) }, () => t('common.edit')));
+            buttons.push(
+              h(YdButton, { size: 'sm', onClick: () => handleEdit(flag) }, () => t('common.edit')),
+            );
           }
           // 删除按钮 — 需要 sys:feature:delete 权限
           if (hasAccessByCodesAll(['sys:feature:delete'])) {
-            buttons.push(h(YdButton, { size: 'sm', variant: 'destructive', onClick: () => handleDelete(flag) }, () => t('common.delete')));
+            buttons.push(
+              h(
+                YdButton,
+                { size: 'sm', variant: 'destructive', onClick: () => handleDelete(flag) },
+                () => t('common.delete'),
+              ),
+            );
           }
           return h('div', { class: 'flex gap-1' }, buttons);
         },
@@ -160,7 +166,10 @@ const gridOptions: VxeTableGridOptions<FeatureFlagRow> = {
   pagerConfig: { pageSize: 20, pageSizes: [10, 20, 50, 100] },
   proxyConfig: {
     ajax: {
-      query: async ({ page: pageInfo }: { page: { currentPage: number; pageSize: number } }, formValues: Record<string, string>) => {
+      query: async (
+        { page: pageInfo }: { page: { currentPage: number; pageSize: number } },
+        formValues: Record<string, string>,
+      ) => {
         const query: FeatureFlagPageQueryParams = {
           pageNum: pageInfo.currentPage,
           pageSize: pageInfo.pageSize,
@@ -175,16 +184,36 @@ const gridOptions: VxeTableGridOptions<FeatureFlagRow> = {
   formConfig: {
     enabled: true,
     items: [
-      { field: 'flagKey', title: t('featureFlag.flagKey'), itemRender: { name: 'YdInput', props: { placeholder: t('featureFlag.flagKeyPlaceholder') } } },
-      { field: 'flagName', title: t('featureFlag.flagName'), itemRender: { name: 'YdInput', props: { placeholder: t('featureFlag.flagNamePlaceholder') } } },
-      { field: 'flagType', title: t('featureFlag.flagType'), itemRender: { name: 'YdInput', props: { placeholder: t('featureFlag.flagType') } } },
+      {
+        field: 'flagKey',
+        title: t('featureFlag.flagKey'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('featureFlag.flagKeyPlaceholder') },
+        },
+      },
+      {
+        field: 'flagName',
+        title: t('featureFlag.flagName'),
+        itemRender: {
+          name: 'YdInput',
+          props: { placeholder: t('featureFlag.flagNamePlaceholder') },
+        },
+      },
+      {
+        field: 'flagType',
+        title: t('featureFlag.flagType'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('featureFlag.flagType') } },
+      },
     ],
   },
 };
 
 const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
-const [FeatureFlagFormModal, featureFlagFormApi] = useYdModal({ connectedComponent: FeatureFlagForm });
+const [FeatureFlagFormModal, featureFlagFormApi] = useYdModal({
+  connectedComponent: FeatureFlagForm,
+});
 
 /**
  * 新增特性开关。
@@ -248,7 +277,11 @@ async function handleToggleStatus(row: FeatureFlagRow) {
 async function handleDelete(row: FeatureFlagRow) {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(t('featureFlag.deleteConfirm', [row.flagName ?? row.flagKey ?? '']), t('common.deleteConfirmTitle'), { type: 'warning' });
+    await YdConfirm(
+      t('featureFlag.deleteConfirm', [row.flagName ?? row.flagKey ?? '']),
+      t('common.deleteConfirmTitle'),
+      { type: 'warning' },
+    );
   } catch {
     return; // 用户主动取消删除操作
   }
@@ -273,7 +306,9 @@ onUnmounted(() => {
   <Page auto-content-height>
     <Grid :table-title="t('featureFlag.title')">
       <template #toolbar-tools>
-        <YdButton v-permission="'sys:feature:add'" @click="handleAdd">{{ t('common.create') }}</YdButton>
+        <YdButton v-permission="'sys:feature:add'" @click="handleAdd">{{
+          t('common.create')
+        }}</YdButton>
       </template>
     </Grid>
     <FeatureFlagFormModal @success="gridApi.query()" />

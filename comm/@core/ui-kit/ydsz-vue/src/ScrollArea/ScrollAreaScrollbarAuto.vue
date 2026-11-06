@@ -1,47 +1,43 @@
 <script lang="ts">
 // @ts-nocheck
 export interface ScrollAreaScrollbarAutoProps {
-  forceMount?: boolean
+  forceMount?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { useDebounceFn, useResizeObserver } from '@vueuse/core'
-import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue'
-import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue'
-import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
-import { Presence } from '../Presence/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import { onMounted, ref } from 'vue';
+import { useDebounceFn, useResizeObserver } from '@vueuse/core';
+import { injectScrollAreaRootContext } from './ScrollAreaRoot.vue';
+import { injectScrollAreaScrollbarContext } from './ScrollAreaScrollbar.vue';
+import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue';
+import { Presence } from '../Presence/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
-defineProps<ScrollAreaScrollbarAutoProps>()
+defineProps<ScrollAreaScrollbarAutoProps>();
 
-const rootContext = injectScrollAreaRootContext()
-const scrollbarContext = injectScrollAreaScrollbarContext()
+const rootContext = injectScrollAreaRootContext();
+const scrollbarContext = injectScrollAreaScrollbarContext();
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef } = useForwardExpose();
 
-const visible = ref(false)
+const visible = ref(false);
 
 const handleResize = useDebounceFn(() => {
   if (rootContext.viewport.value) {
-    const isOverflowX
-      = rootContext.viewport.value.offsetWidth
-      < rootContext.viewport.value.scrollWidth
-    const isOverflowY
-      = rootContext.viewport.value.offsetHeight
-      < rootContext.viewport.value.scrollHeight
+    const isOverflowX =
+      rootContext.viewport.value.offsetWidth < rootContext.viewport.value.scrollWidth;
+    const isOverflowY =
+      rootContext.viewport.value.offsetHeight < rootContext.viewport.value.scrollHeight;
 
-    visible.value = scrollbarContext.isHorizontal.value
-      ? isOverflowX
-      : isOverflowY
+    visible.value = scrollbarContext.isHorizontal.value ? isOverflowX : isOverflowY;
   }
-}, 10)
+}, 10);
 
-onMounted(() => handleResize())
+onMounted(() => handleResize());
 
-useResizeObserver(rootContext.viewport, handleResize)
-useResizeObserver(rootContext.content, handleResize)
+useResizeObserver(rootContext.viewport, handleResize);
+useResizeObserver(rootContext.content, handleResize);
 </script>
 
 <template>

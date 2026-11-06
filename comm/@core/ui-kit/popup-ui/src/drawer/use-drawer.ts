@@ -9,21 +9,9 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import type {
-  DrawerApiOptions,
-  DrawerProps,
-  ExtendedDrawerApi,
-} from './drawer';
+import type { DrawerApiOptions, DrawerProps, ExtendedDrawerApi } from './drawer';
 
-import {
-  defineComponent,
-  h,
-  inject,
-  nextTick,
-  provide,
-  reactive,
-  ref,
-} from 'vue';
+import { defineComponent, h, inject, nextTick, provide, reactive, ref } from 'vue';
 
 import { useStore } from '@ydsz-core/shared/store';
 
@@ -88,9 +76,9 @@ export function setDefaultYdDrawerProps(props: Partial<DrawerProps>) {
  * drawerApi.setData(row).open();
  * ```
  */
-export function useYdDrawer<
-  TParentDrawerProps extends DrawerProps = DrawerProps,
->(options: DrawerApiOptions = {}) {
+export function useYdDrawer<TParentDrawerProps extends DrawerProps = DrawerProps>(
+  options: DrawerApiOptions = {},
+) {
   // Drawer一般会抽离出来，所以如果有传入 connectedComponent，则表示为外部调用，与内部组件进行连接
   // 外部的Drawer通过provide/inject传递api
 
@@ -119,11 +107,7 @@ export function useYdDrawer<
           ...slots,
         });
         return () =>
-          h(
-            isDrawerReady.value ? connectedComponent : 'div',
-            { ...props, ...attrs },
-            slots,
-          );
+          h(isDrawerReady.value ? connectedComponent : 'div', { ...props, ...attrs }, slots);
       },
       {
         name: 'YDSZParentDrawer',
@@ -134,10 +118,7 @@ export function useYdDrawer<
     return [Drawer, extendedApi as ExtendedDrawerApi] as const;
   }
 
-  const injectData = inject<{ options?: Partial<DrawerApiOptions> }>(
-    USER_DRAWER_INJECT_KEY,
-    {},
-  );
+  const injectData = inject<{ options?: Partial<DrawerApiOptions> }>(USER_DRAWER_INJECT_KEY, {});
 
   const mergedOptions = {
     ...DEFAULT_DRAWER_PROPS,
@@ -167,8 +148,7 @@ export function useYdDrawer<
 
   const Drawer = defineComponent(
     (props: DrawerProps, { attrs, slots }) => {
-      return () =>
-        h(YdDrawer, { ...props, ...attrs, drawerApi: extendedApi }, slots);
+      return () => h(YdDrawer, { ...props, ...attrs, drawerApi: extendedApi }, slots);
     },
     {
       name: 'YdDrawer',

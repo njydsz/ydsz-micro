@@ -223,9 +223,7 @@ describe('YdContextMenu 右键触发与定位', () => {
     await nextTick();
     await nextTick();
 
-    document.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
-    );
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     await nextTick();
     await nextTick();
 
@@ -258,13 +256,9 @@ describe('YdContextMenu 右键触发与定位', () => {
     await nextTick();
     await nextTick();
 
-    document.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
-    );
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
     await nextTick();
-    document.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
-    );
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
     await nextTick();
 
     expect(wrapper.exists()).toBe(true);

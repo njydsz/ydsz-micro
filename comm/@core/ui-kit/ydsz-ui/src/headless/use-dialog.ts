@@ -191,73 +191,71 @@ const DialogHost = defineComponent({
           default: () =>
             h(DialogPortal, null, {
               default: () =>
-                h(DialogContent, {
-                  class: cn(
-                    'fixed left-1/2 top-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4',
-                    'border bg-background p-6 shadow-lg duration-200',
-                    'data-[state=open]:animate-in data-[state=closed]:animate-out',
-                    'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-                    'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
-                    'sm:rounded-lg',
-                  ),
-                  style: widthStyle,
-                  onPointerDownOutside: onOverlayPointerDownOutside,
-                  onEscapeKeyDown,
-                  closeOnEsc: opts.closeOnEsc !== false,
-                  closeOnOverlayClick: opts.closeOnClickOutside !== false,
-                }, {
-                  default: () => [
-                    // Header: Title + Description
-                    h(
-                      'div',
-                      { class: 'flex flex-col gap-y-1.5 text-center sm:text-left' },
-                      [
+                h(
+                  DialogContent,
+                  {
+                    class: cn(
+                      'fixed left-1/2 top-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4',
+                      'bg-background border p-6 shadow-lg duration-200',
+                      'data-[state=open]:animate-in data-[state=closed]:animate-out',
+                      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+                      'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+                      'sm:rounded-lg',
+                    ),
+                    style: widthStyle,
+                    onPointerDownOutside: onOverlayPointerDownOutside,
+                    onEscapeKeyDown,
+                    closeOnEsc: opts.closeOnEsc !== false,
+                    closeOnOverlayClick: opts.closeOnClickOutside !== false,
+                  },
+                  {
+                    default: () => [
+                      // Header: Title + Description
+                      h('div', { class: 'flex flex-col gap-y-1.5 text-center sm:text-left' }, [
                         opts.title
                           ? h(
-                            DialogTitle,
-                            { class: 'text-lg font-semibold leading-none tracking-tight' },
-                            { default: () => opts.title },
-                          )
+                              DialogTitle,
+                              { class: 'text-lg font-semibold leading-none tracking-tight' },
+                              { default: () => opts.title },
+                            )
                           : null,
                         opts.description
                           ? h(
-                            DialogDescription,
-                            { class: 'text-sm text-muted-foreground mt-2' },
-                            { default: () => opts.description },
-                          )
+                              DialogDescription,
+                              { class: 'text-sm text-muted-foreground mt-2' },
+                              { default: () => opts.description },
+                            )
                           : null,
-                      ],
-                    ),
+                      ]),
 
-                    // Custom component
-                    opts.component
-                      ? h(
+                      // Custom component
+                      opts.component
+                        ? h('div', { class: 'my-4' }, [
+                            h(opts.component as Component, opts.componentProps ?? {}),
+                          ])
+                        : null,
+
+                      // Footer: Action buttons
+                      h(
                         'div',
-                        { class: 'my-4' },
-                        [h(opts.component as Component, opts.componentProps ?? {})],
-                      )
-                      : null,
+                        { class: 'flex flex-row justify-end gap-2 mt-4' },
+                        actionButtons.map((action, idx) => {
+                          const isConfirm = idx === actionButtons.length - 1;
+                          const variant = action.variant ?? (isConfirm ? 'default' : 'outline');
 
-                    // Footer: Action buttons
-                    h(
-                      'div',
-                      { class: 'flex flex-row justify-end gap-2 mt-4' },
-                      actionButtons.map((action, idx) => {
-                        const isConfirm = idx === actionButtons.length - 1;
-                        const variant = action.variant ?? (isConfirm ? 'default' : 'outline');
-
-                        return h(
-                          'button',
-                          {
-                            class: cn(buttonVariants({ variant })),
-                            onClick: () => handleAction(action, isConfirm),
-                          },
-                          action.label,
-                        );
-                      }),
-                    ),
-                  ],
-                }),
+                          return h(
+                            'button',
+                            {
+                              class: cn(buttonVariants({ variant })),
+                              onClick: () => handleAction(action, isConfirm),
+                            },
+                            action.label,
+                          );
+                        }),
+                      ),
+                    ],
+                  },
+                ),
             }),
         },
       );

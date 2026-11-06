@@ -57,31 +57,24 @@ const skeletonClasses = computed(() => {
 </script>
 
 <template>
-  <div :class="skeletonClasses" role="status" :aria-label="$t('ui.commonAction.loading')" aria-live="polite">
+  <div
+    :class="skeletonClasses"
+    role="status"
+    :aria-label="$t('ui.commonAction.loading')"
+    aria-live="polite"
+  >
     <!-- Dashboard 骨架屏 -->
     <div v-if="type === 'dashboard'" class="skeleton-dashboard">
       <div class="skeleton-row">
-        <div class="skeleton-card" style="
-
---delay: 0ms" />
-        <div class="skeleton-card" style="
-
---delay: 100ms" />
-        <div class="skeleton-card" style="
-
---delay: 200ms" />
-        <div class="skeleton-card" style="
-
---delay: 300ms" />
+        <div class="skeleton-card" style="--delay: 0ms" />
+        <div class="skeleton-card" style="--delay: 100ms" />
+        <div class="skeleton-card" style="--delay: 200ms" />
+        <div class="skeleton-card" style="--delay: 300ms" />
       </div>
       <div class="skeleton-chart" />
       <div class="skeleton-row">
-        <div class="skeleton-table" style="
-
---delay: 400ms" />
-        <div class="skeleton-list" style="
-
---delay: 500ms" />
+        <div class="skeleton-table" style="--delay: 400ms" />
+        <div class="skeleton-list" style="--delay: 500ms" />
       </div>
     </div>
 

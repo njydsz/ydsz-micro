@@ -34,7 +34,9 @@ import type { MsgSubscriptionVO } from '#/api/models';
 defineOptions({ name: 'UnsubscribeRecordManagement' });
 
 /** 状态列 Tag 类型映射 */
-function mapTagVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapTagVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -61,7 +63,11 @@ const gridOptions: VxeTableGridOptions<MsgSubscriptionVO> = {
       width: 110,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapTagVariant(getStatusType(row.status)) }, () => row.status ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapTagVariant(getStatusType(row.status)) },
+            () => row.status ?? '-',
+          ),
       },
     },
     { field: 'roleScope', title: '角色范围', width: 120 },

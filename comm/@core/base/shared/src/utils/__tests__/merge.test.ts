@@ -47,10 +47,7 @@ describe('merge', () => {
 
 describe('mergeWithArrayOverride', () => {
   it('数组字段应由首参完全覆盖次参数组', () => {
-    const result = mergeWithArrayOverride(
-      { list: ['a', 'b', 'c'] },
-      { list: ['x'] },
-    );
+    const result = mergeWithArrayOverride({ list: ['a', 'b', 'c'] }, { list: ['x'] });
     expect(result.list).toEqual(['a', 'b', 'c']);
     expect(result.list).toHaveLength(3);
   });
@@ -64,10 +61,7 @@ describe('mergeWithArrayOverride', () => {
   });
 
   it('空数组覆盖次参应保留首参数组', () => {
-    const result = mergeWithArrayOverride(
-      { list: ['a', 'b'] },
-      { list: [] },
-    );
+    const result = mergeWithArrayOverride({ list: ['a', 'b'] }, { list: [] });
     expect(result.list).toEqual(['a', 'b']);
     expect(result.list).toHaveLength(2);
   });

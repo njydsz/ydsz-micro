@@ -12,16 +12,7 @@
 <script lang="ts" setup>
 import type { ExtendedModalApi, ModalProps } from './modal';
 
-import {
-  computed,
-  nextTick,
-  onDeactivated,
-  provide,
-  ref,
-  unref,
-  useId,
-  watch,
-} from 'vue';
+import { computed, nextTick, onDeactivated, provide, ref, unref, useId, watch } from 'vue';
 
 import { useIsMobile, useSimpleLocale } from '@ydsz-core/composables';
 import { usePriorityValues } from '@ydsz-core/ydsz-ui/composables';
@@ -108,14 +99,10 @@ const {
 
 const shouldFullscreen = computed(() => fullscreen.value || isMobile.value);
 
-const shouldDraggable = computed(
-  () => draggable.value && !shouldFullscreen.value && header.value,
-);
+const shouldDraggable = computed(() => draggable.value && !shouldFullscreen.value && header.value);
 
 const getAppendTo = computed(() => {
-  return appendToMain.value
-    ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div`
-    : undefined;
+  return appendToMain.value ? `#${ELEMENT_ID_MAIN_CONTENT}>div:not(.absolute)>div` : undefined;
 });
 
 const { dragging, transform } = useModalDraggable(
@@ -198,11 +185,7 @@ function handleOpenAutoFocus(e: Event) {
 function pointerDownOutside(e: Event) {
   const target = e.target as HTMLElement;
   const isDismissableModal = target?.dataset.dismissableModal;
-  if (
-    !closeOnClickModal.value ||
-    isDismissableModal !== id ||
-    submitting.value
-  ) {
+  if (!closeOnClickModal.value || isDismissableModal !== id || submitting.value) {
     e.preventDefault();
     e.stopPropagation();
   }
@@ -239,8 +222,7 @@ function handleClosed() {
           {
             'border-border border': bordered,
             'shadow-3xl': !bordered,
-            'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0':
-              shouldFullscreen,
+            'left-0 top-0 size-full max-h-full !translate-x-0 !translate-y-0': shouldFullscreen,
             'top-1/2 !-translate-y-1/2': centered && !shouldFullscreen,
             'duration-300': !dragging,
             hidden: isClosed,

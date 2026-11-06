@@ -18,7 +18,16 @@
  */
 import { onMounted, ref, watch } from 'vue';
 
-import { YdBadge, YdButton, YdTable, YdTableColumn, YdDialog, YdDialogContent, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdTable,
+  YdTableColumn,
+  YdDialog,
+  YdDialogContent,
+  YdDialogHeader,
+  YdDialogTitle,
+} from '@ydsz-core/ydsz-ui';
 
 import { showToast } from '@ydsz/notification';
 

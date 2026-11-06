@@ -11,11 +11,7 @@
 
 import { faker } from '@faker-js/faker';
 import { http, HttpResponse, delay } from 'msw';
-import {
-  setupMockServer,
-  generateMockHandlers,
-  createCrudHandlers,
-} from '@ydsz/mock-service';
+import { setupMockServer, generateMockHandlers, createCrudHandlers } from '@ydsz/mock-service';
 import type { OpenAPISpec } from '@ydsz/mock-service';
 import { createLogger } from '@ydsz-core/shared/utils';
 import spec from '../api/sdk/openapi.json';

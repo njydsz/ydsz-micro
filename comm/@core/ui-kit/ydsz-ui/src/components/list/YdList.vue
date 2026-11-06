@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 /**
-* List 列表：通用列表容器（ul），支持分页、加载更多、边框等。
-* 
+ * List 列表：通用列表容器（ul），支持分页、加载更多、边框等。
+ *
  * 与 Ant Design List 对齐：分页、边框、大号 / 小号、网格布局。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\list\YdList.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -30,12 +30,14 @@ interface Props {
   /** 是否加载中 */
   loading?: boolean;
   /** 分页配置 */
-  pagination?: {
-    current: number;
-    pageSize: number;
-    total: number;
-    onChange: (page: number, pageSize: number) => void;
-  } | false;
+  pagination?:
+    | {
+        current: number;
+        pageSize: number;
+        total: number;
+        onChange: (page: number, pageSize: number) => void;
+      }
+    | false;
   /** 网格布局 */
   grid?: {
     column: number;
@@ -70,10 +72,7 @@ const containerClass = computed(() => {
   if (props.grid) {
     return cn('grid', props.bordered && '');
   }
-  return cn(
-    'divide-y divide-border overflow-hidden',
-    props.bordered && 'rounded-lg border',
-  );
+  return cn('divide-border divide-y overflow-hidden', props.bordered && 'rounded-lg border');
 });
 </script>
 

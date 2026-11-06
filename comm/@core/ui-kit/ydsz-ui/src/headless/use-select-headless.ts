@@ -111,13 +111,7 @@ function unwrap<T>(ref: MaybeRefOrGetter<T>): T {
 export function useSelectHeadless<T extends Record<string, unknown>>(
   options: UseSelectHeadlessOptions<T>,
 ): SelectHeadlessHandle<T> {
-  const {
-    items,
-    virtualThreshold = 100,
-    getValue,
-    getLabel,
-    getKey,
-  } = options;
+  const { items, virtualThreshold = 100, getValue, getLabel, getKey } = options;
 
   /** 规范化后的 items（模板中可直接使用 v-for） */
   const resolvedItems = computed(() => unwrap(items));
@@ -174,9 +168,7 @@ export function useSelectHeadless<T extends Record<string, unknown>>(
    * @param multiple - 是否多选
    * @return 清空后的值
    */
-  function clearValue(
-    multiple: boolean,
-  ): (string | number)[] | undefined {
+  function clearValue(multiple: boolean): (string | number)[] | undefined {
     return multiple ? [] : undefined;
   }
 

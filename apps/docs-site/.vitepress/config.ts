@@ -7,8 +7,7 @@ const sidebar = generateSidebar();
 
 export default defineConfig({
   title: 'YDSZ 文档站',
-  description:
-    '云顶智算（YDSZ）平台文档中心 — 八大引擎架构总览 · API 参考 · 编码规范 · 可视化拓扑',
+  description: '云顶智算（YDSZ）平台文档中心 — 八大引擎架构总览 · API 参考 · 编码规范 · 可视化拓扑',
   lang: 'zh-CN',
   cleanUrls: true,
   scrollOffset: 96,
@@ -48,13 +47,10 @@ export default defineConfig({
       level: [2, 3],
       label: '页面导航',
     },
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/ydsz-cloud' },
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/ydsz-cloud' }],
     footer: {
       message: 'YDSZ Cloud Platform Documentation Site',
-      copyright:
-        'Copyright © 2024-present YDSZ · 基于 VitePress 构建',
+      copyright: 'Copyright © 2024-present YDSZ · 基于 VitePress 构建',
     },
     search: {
       provider: 'local',

@@ -15,7 +15,14 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
+import {
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -79,8 +86,8 @@ const [Modal, modalApi] = useYdModal({
         valueType: data.record.valueType ?? '',
         defaultValue: data.record.defaultValue ?? '',
         description: data.record.description ?? '',
-  isPublic: data.record.isPublic ?? 0,
-  sort: data.record.sort ?? 0,
+        isPublic: data.record.isPublic ?? 0,
+        sort: data.record.sort ?? 0,
         status: data.record.status ?? '1',
       });
     } else {
@@ -93,8 +100,8 @@ const [Modal, modalApi] = useYdModal({
         valueType: '',
         defaultValue: '',
         description: '',
-  isPublic: 0,
-  sort: 0,
+        isPublic: 0,
+        sort: 0,
         status: '1',
       });
     }
@@ -128,9 +135,19 @@ const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('configKey')" prop="configKey">
-        <YdInput v-model="formData.configKey" :placeholder="t('configKeyPlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.configKey"
+          :placeholder="t('configKeyPlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem :label="t('configGroup')" prop="configGroup">
         <YdInput v-model="formData.configGroup" :placeholder="t('configGroupPlaceholder')" />
@@ -139,10 +156,20 @@ const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')
         <YdInput v-model="formData.valueType" :placeholder="t('valueTypePlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('configValue')" prop="configValue">
-        <YdInput v-model="formData.configValue" type="textarea" :rows="2" :placeholder="t('configValuePlaceholder')" />
+        <YdInput
+          v-model="formData.configValue"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('configValuePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('defaultValue')" prop="defaultValue">
-        <YdInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('defaultValuePlaceholder')" />
+        <YdInput
+          v-model="formData.defaultValue"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('defaultValuePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('sort')" prop="sort">
         <YdNumberFieldInput v-model="formData.sort" :min="0" :max="999" />
@@ -154,7 +181,12 @@ const title = computed(() => (isEdit.value ? t('editConfig') : t('createConfig')
         </YdRadioGroup>
       </YdFormItem>
       <YdFormItem :label="t('description')">
-        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('descriptionPlaceholder')" />
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('descriptionPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem :label="t('status')" prop="status">
         <YdRadioGroup v-model="formData.status">

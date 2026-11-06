@@ -126,23 +126,33 @@ function isRequired(field: string): boolean {
 
 <template>
   <Modal :title="title">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem prop="flagKey">
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('flagKey')" class="mr-0.5 text-red-500">*</span>
           {{ t('featureFlag.flagKey') }}
         </label>
-        <YdInput v-model="formData.flagKey" :placeholder="t('featureFlag.flagKeyPlaceholder')" :disabled="isEdit" />
+        <YdInput
+          v-model="formData.flagKey"
+          :placeholder="t('featureFlag.flagKeyPlaceholder')"
+          :disabled="isEdit"
+        />
       </YdFormItem>
       <YdFormItem prop="flagName">
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('flagName')" class="mr-0.5 text-red-500">*</span>
           {{ t('featureFlag.flagName') }}
         </label>
         <YdInput v-model="formData.flagName" :placeholder="t('featureFlag.flagNamePlaceholder')" />
       </YdFormItem>
       <YdFormItem prop="flagType">
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('flagType')" class="mr-0.5 text-red-500">*</span>
           {{ t('featureFlag.flagType') }}
         </label>
@@ -153,19 +163,40 @@ function isRequired(field: string): boolean {
         </YdRadioGroup>
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('featureFlag.defaultValue') }}</label>
-        <YdInput v-model="formData.defaultValue" type="textarea" :rows="2" :placeholder="t('featureFlag.defaultValuePlaceholder')" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('featureFlag.defaultValue')
+        }}</label>
+        <YdInput
+          v-model="formData.defaultValue"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('featureFlag.defaultValuePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('featureFlag.currentValue') }}</label>
-        <YdInput v-model="formData.currentValue" type="textarea" :rows="2" :placeholder="t('featureFlag.currentValuePlaceholder')" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('featureFlag.currentValue')
+        }}</label>
+        <YdInput
+          v-model="formData.currentValue"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('featureFlag.currentValuePlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem>
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">{{ t('featureFlag.description') }}</label>
-        <YdInput v-model="formData.description" type="textarea" :rows="2" :placeholder="t('featureFlag.descriptionPlaceholder')" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('featureFlag.description')
+        }}</label>
+        <YdInput
+          v-model="formData.description"
+          type="textarea"
+          :rows="2"
+          :placeholder="t('featureFlag.descriptionPlaceholder')"
+        />
       </YdFormItem>
       <YdFormItem prop="status">
-        <label class="mb-1 flex items-center text-sm font-medium text-text-primary">
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">
           <span v-if="isRequired('status')" class="mr-0.5 text-red-500">*</span>
           {{ t('featureFlag.status') }}
         </label>

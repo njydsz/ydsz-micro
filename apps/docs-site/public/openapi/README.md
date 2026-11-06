@@ -4,7 +4,8 @@
 
 ## 自动生成
 
-规范文件由后端构建流程自动生成（SpringDoc + Maven Plugin），在 CI 中通过以下脚本同步：
+规范文件由后端构建流程自动生成（SpringDoc + Maven
+Plugin），在 CI 中通过以下脚本同步：
 
 ```bash
 pnpm docs-site generate-openapi
@@ -12,16 +13,16 @@ pnpm docs-site generate-openapi
 
 ## 文件清单
 
-| 文件 | 引擎 | 端口 |
-|------|------|------|
-| `system.json` | 系统引擎 | 9001 |
+| 文件            | 引擎     | 端口 |
+| --------------- | -------- | ---- |
+| `system.json`   | 系统引擎 | 9001 |
 | `userinfo.json` | 身份引擎 | 9002 |
-| `message.json` | 消息引擎 | 9004 |
+| `message.json`  | 消息引擎 | 9004 |
 | `nextwiki.json` | 文件引擎 | 9003 |
 | `workflow.json` | 流程引擎 | 9005 |
-| `cronjob.json` | 任务引擎 | 9006 |
+| `cronjob.json`  | 任务引擎 | 9006 |
 | `literule.json` | 规则引擎 | 9007 |
-| `agent.json` | 智能引擎 | 9008 |
+| `agent.json`    | 智能引擎 | 9008 |
 
 ## 手动更新
 

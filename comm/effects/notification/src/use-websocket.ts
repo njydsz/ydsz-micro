@@ -189,10 +189,7 @@ export function useWebSocket<T = unknown>(
    * 公式：min(baseDelay * 2^retryCount, maxDelay) * (1 ± 20% jitter)
    */
   function calculateBackoffDelay(attempt: number): number {
-    const exponentialDelay = Math.min(
-      reconnectBaseDelay * Math.pow(2, attempt),
-      reconnectMaxDelay,
-    );
+    const exponentialDelay = Math.min(reconnectBaseDelay * Math.pow(2, attempt), reconnectMaxDelay);
     // ±20% 随机抖动
     const jitterFactor = 0.8 + Math.random() * 0.4;
     return Math.round(exponentialDelay * jitterFactor);
@@ -364,7 +361,10 @@ export function useWebSocket<T = unknown>(
 
           // 超出最大重连次数则放弃
           if (reconnectAttempts >= maxReconnectAttempts) {
-            logger.warn('[WebSocket] Max reconnect attempts ({}) reached, giving up', maxReconnectAttempts);
+            logger.warn(
+              '[WebSocket] Max reconnect attempts ({}) reached, giving up',
+              maxReconnectAttempts,
+            );
             rejectConnectPromises(new Error('Max reconnect attempts exceeded'));
             onReconnectFailed?.();
             return;
@@ -398,9 +398,7 @@ export function useWebSocket<T = unknown>(
     reconnectAttempts++;
 
     const baseDelay = calculateBackoffDelay(reconnectAttempts - 1);
-    const actualDelay = isPageVisible
-      ? baseDelay
-      : Math.max(baseDelay, reconnectDelayBackground);
+    const actualDelay = isPageVisible ? baseDelay : Math.max(baseDelay, reconnectDelayBackground);
 
     // 触发重连尝试事件
     logger.info(
@@ -466,7 +464,10 @@ export function useWebSocket<T = unknown>(
         if (manualClosed) return;
 
         if (reconnectAttempts >= maxReconnectAttempts) {
-          logger.warn('[WebSocket] Max reconnect attempts ({}) reached, giving up', maxReconnectAttempts);
+          logger.warn(
+            '[WebSocket] Max reconnect attempts ({}) reached, giving up',
+            maxReconnectAttempts,
+          );
           rejectConnectPromises(new Error('Max reconnect attempts exceeded'));
           onReconnectFailed?.();
           return;

@@ -1,65 +1,58 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
 
 export interface MenuItemImplProps extends PrimitiveProps {
   /** When `true`, prevents the user from interacting with the item. */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * Optional text used for typeahead purposes. By default the typeahead behavior will use the `.textContent` of the item. <br>
    *  Use this when the content is complex, or you have non-textual content inside.
    */
-  textValue?: string
+  textValue?: string;
 }
 </script>
 
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
-import { isMouseEvent } from './utils'
-import { injectMenuContentContext } from './MenuContentImpl.vue'
-import {
-  Primitive,
-} from '../Primitive/index.ts'
-import { CollectionItem } from '../Collection/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import { nextTick, ref } from 'vue';
+import { isMouseEvent } from './utils';
+import { injectMenuContentContext } from './MenuContentImpl.vue';
+import { Primitive } from '../Primitive/index.ts';
+import { CollectionItem } from '../Collection/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 defineOptions({
   inheritAttrs: false,
-})
+});
 
-const props = defineProps<MenuItemImplProps>()
+const props = defineProps<MenuItemImplProps>();
 
-const contentContext = injectMenuContentContext()
-const { forwardRef } = useForwardExpose()
+const contentContext = injectMenuContentContext();
+const { forwardRef } = useForwardExpose();
 
-const isFocused = ref(false)
+const isFocused = ref(false);
 
 async function handlePointerMove(event: PointerEvent) {
-  if (event.defaultPrevented)
-    return
-  if (!isMouseEvent(event))
-    return
+  if (event.defaultPrevented) return;
+  if (!isMouseEvent(event)) return;
 
   if (props.disabled) {
-    contentContext.onItemLeave(event)
-  }
-  else {
-    const defaultPrevented = contentContext.onItemEnter(event)
+    contentContext.onItemLeave(event);
+  } else {
+    const defaultPrevented = contentContext.onItemEnter(event);
     if (!defaultPrevented) {
       const item = event.currentTarget;
-      (item as HTMLElement)?.focus({ preventScroll: true })
+      (item as HTMLElement)?.focus({ preventScroll: true });
     }
   }
 }
 
 async function handlePointerLeave(event: PointerEvent) {
-  await nextTick()
-  if (event.defaultPrevented)
-    return
-  if (!isMouseEvent(event))
-    return
+  await nextTick();
+  if (event.defaultPrevented) return;
+  if (!isMouseEvent(event)) return;
 
-  contentContext.onItemLeave(event)
+  contentContext.onItemLeave(event);
 }
 </script>
 

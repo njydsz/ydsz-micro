@@ -1,38 +1,30 @@
 <script lang="ts">
 // @ts-nocheck
-import DialogOverlayImpl, { type DialogOverlayImplProps } from './DialogOverlayImpl.vue'
-import { useForwardExpose } from '../shared/index.ts'
+import DialogOverlayImpl, { type DialogOverlayImplProps } from './DialogOverlayImpl.vue';
+import { useForwardExpose } from '../shared/index.ts';
 
 export interface DialogOverlayProps extends DialogOverlayImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with Vue animation libraries.
    */
-  forceMount?: boolean
+  forceMount?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { injectDialogRootContext } from './DialogRoot.vue'
-import { Presence } from '../Presence/index.ts'
+import { injectDialogRootContext } from './DialogRoot.vue';
+import { Presence } from '../Presence/index.ts';
 
-defineProps<DialogOverlayProps>()
-const rootContext = injectDialogRootContext()
+defineProps<DialogOverlayProps>();
+const rootContext = injectDialogRootContext();
 
-const { forwardRef } = useForwardExpose()
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
-  <Presence
-    v-if="rootContext?.modal.value"
-    :present="forceMount || rootContext.open.value"
-  >
-    <DialogOverlayImpl
-      v-bind="$attrs"
-      :ref="forwardRef"
-      :as="as"
-      :as-child="asChild"
-    >
+  <Presence v-if="rootContext?.modal.value" :present="forceMount || rootContext.open.value">
+    <DialogOverlayImpl v-bind="$attrs" :ref="forwardRef" :as="as" :as-child="asChild">
       <slot />
     </DialogOverlayImpl>
   </Presence>

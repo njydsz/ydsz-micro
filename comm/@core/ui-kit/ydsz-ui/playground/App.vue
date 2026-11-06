@@ -25,75 +25,32 @@ const dialogOpen = ref(false);
 </script>
 
 <template>
-  <YdConfigProvider
-    theme="auto"
-    locale="zh-CN"
-    density="standard"
-  >
-    <main
-      id="playground-main"
-      aria-label="YDSZ UI 演练场主内容区"
-      class="playground"
-    >
+  <YdConfigProvider theme="auto" locale="zh-CN" density="standard">
+    <main id="playground-main" aria-label="YDSZ UI 演练场主内容区" class="playground">
       <header class="playground__header">
-        <h1 class="playground__title">
-          YDSZ UI Playground
-        </h1>
+        <h1 class="playground__title">YDSZ UI Playground</h1>
         <p class="playground__subtitle">
           在线体验 YDSZ 设计系统核心组件 —— Button / Input / Select / Dialog
         </p>
       </header>
 
       <!-- ==================== Button ==================== -->
-      <section
-        aria-labelledby="section-button"
-        class="playground__section"
-      >
-        <h2
-          id="section-button"
-          class="playground__section-title"
-        >
-          Button 按钮
-        </h2>
-        <div
-          class="playground__row"
-          role="group"
-          aria-label="按钮变体示例"
-        >
-          <YdButton variant="primary">
-            主要
-          </YdButton>
-          <YdButton variant="secondary">
-            次要
-          </YdButton>
-          <YdButton variant="ghost">
-            幽灵
-          </YdButton>
-          <YdButton variant="destructive">
-            危险
-          </YdButton>
-          <YdButton disabled>
-            禁用
-          </YdButton>
+      <section aria-labelledby="section-button" class="playground__section">
+        <h2 id="section-button" class="playground__section-title">Button 按钮</h2>
+        <div class="playground__row" role="group" aria-label="按钮变体示例">
+          <YdButton variant="primary"> 主要 </YdButton>
+          <YdButton variant="secondary"> 次要 </YdButton>
+          <YdButton variant="ghost"> 幽灵 </YdButton>
+          <YdButton variant="destructive"> 危险 </YdButton>
+          <YdButton disabled> 禁用 </YdButton>
         </div>
       </section>
 
       <!-- ==================== Input ==================== -->
-      <section
-        aria-labelledby="section-input"
-        class="playground__section"
-      >
-        <h2
-          id="section-input"
-          class="playground__section-title"
-        >
-          Input 输入框
-        </h2>
+      <section aria-labelledby="section-input" class="playground__section">
+        <h2 id="section-input" class="playground__section-title">Input 输入框</h2>
         <div class="playground__row">
-          <label
-            for="demo-input"
-            class="playground__label"
-          >请输入内容</label>
+          <label for="demo-input" class="playground__label">请输入内容</label>
           <YdInput
             id="demo-input"
             v-model="inputValue"
@@ -101,31 +58,17 @@ const dialogOpen = ref(false);
             aria-label="演示输入框"
             class="playground__input"
           />
-          <output
-            class="playground__output"
-            aria-live="polite"
-          >
+          <output class="playground__output" aria-live="polite">
             当前值：{{ inputValue || '（空）' }}
           </output>
         </div>
       </section>
 
       <!-- ==================== Select ==================== -->
-      <section
-        aria-labelledby="section-select"
-        class="playground__section"
-      >
-        <h2
-          id="section-select"
-          class="playground__section-title"
-        >
-          Select 选择器
-        </h2>
+      <section aria-labelledby="section-select" class="playground__section">
+        <h2 id="section-select" class="playground__section-title">Select 选择器</h2>
         <div class="playground__row">
-          <label
-            for="demo-select"
-            class="playground__label"
-          >请选择</label>
+          <label for="demo-select" class="playground__label">请选择</label>
           <YdSelect
             id="demo-select"
             v-model:open="selectOpen"
@@ -140,52 +83,21 @@ const dialogOpen = ref(false);
       </section>
 
       <!-- ==================== Dialog ==================== -->
-      <section
-        aria-labelledby="section-dialog"
-        class="playground__section"
-      >
-        <h2
-          id="section-dialog"
-          class="playground__section-title"
-        >
-          Dialog 对话框
-        </h2>
+      <section aria-labelledby="section-dialog" class="playground__section">
+        <h2 id="section-dialog" class="playground__section-title">Dialog 对话框</h2>
         <div class="playground__row">
           <YdDialog v-model:open="dialogOpen">
             <YdDialogTrigger as-child>
-              <YdButton variant="primary">
-                打开 Dialog
-              </YdButton>
+              <YdButton variant="primary"> 打开 Dialog </YdButton>
             </YdDialogTrigger>
-            <YdDialogContent
-              aria-labelledby="dialog-title"
-              aria-describedby="dialog-desc"
-            >
-              <h3
-                id="dialog-title"
-                class="playground__dialog-title"
-              >
-                Dialog 标题
-              </h3>
-              <p
-                id="dialog-desc"
-                class="playground__dialog-desc"
-              >
+            <YdDialogContent aria-labelledby="dialog-title" aria-describedby="dialog-desc">
+              <h3 id="dialog-title" class="playground__dialog-title">Dialog 标题</h3>
+              <p id="dialog-desc" class="playground__dialog-desc">
                 这是一个对话框内容示例。支持 Esc 关闭与点击遮罩关闭。
               </p>
               <div class="playground__dialog-footer">
-                <YdButton
-                  variant="outline"
-                  @click="dialogOpen = false"
-                >
-                  取消
-                </YdButton>
-                <YdButton
-                  variant="primary"
-                  @click="dialogOpen = false"
-                >
-                  确认
-                </YdButton>
+                <YdButton variant="outline" @click="dialogOpen = false"> 取消 </YdButton>
+                <YdButton variant="primary" @click="dialogOpen = false"> 确认 </YdButton>
               </div>
             </YdDialogContent>
           </YdDialog>
@@ -201,12 +113,7 @@ const dialogOpen = ref(false);
   max-width: 800px;
   margin: 0 auto;
   padding: var(--ydsz-spacing-lg, 24px);
-  font-family: var(
-    --ydsz-font-family,
-    'YDSZ Sans',
-    system-ui,
-    sans-serif
-  );
+  font-family: var(--ydsz-font-family, 'YDSZ Sans', system-ui, sans-serif);
   color: hsl(var(--ydsz-text-primary));
   background-color: hsl(var(--ydsz-surface-1));
   min-height: 100vh;

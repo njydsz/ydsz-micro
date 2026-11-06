@@ -30,9 +30,7 @@ export function tree(): Promise<DepartmentTreeVO[]> {
 /**
  * getById: GET /dept/{id}
  */
-export function getById({ id }: {
-    id: string;
-  }): Promise<DepartmentVO> {
+export function getById({ id }: { id: string }): Promise<DepartmentVO> {
   return requestClient.get<DepartmentVO>(`/dept/${id}`);
 }
 
@@ -53,8 +51,6 @@ export function update(data: DepartmentDTO): Promise<boolean> {
 /**
  * remove: DELETE /dept/{id}
  */
-export function remove({ id }: {
-    id: string;
-  }): Promise<boolean> {
+export function remove({ id }: { id: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/dept/${id}`);
 }

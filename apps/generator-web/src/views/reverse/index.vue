@@ -21,7 +21,24 @@
 import { reactive, ref } from 'vue';
 import { $t } from '@ydsz/locales';
 
-import { YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdRadioGroup, YdRadioGroupItem, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdEmptyState, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdRadioGroup,
+  YdRadioGroupItem,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 
 import { showToast } from '@ydsz/notification';
 
@@ -127,8 +144,7 @@ async function handleAnalyze() {
       showToast.success($t('page.reverse.batchDone', { count: results.length }));
     }
   } catch (error: unknown) {
-    const msg =
-      error instanceof Error ? error.message : $t('page.reverse.analyzeFailed');
+    const msg = error instanceof Error ? error.message : $t('page.reverse.analyzeFailed');
     showToast.error(msg);
   } finally {
     isAnalyzing.value = false;
@@ -149,11 +165,15 @@ async function handleAnalyze() {
               <div class="flex items-center gap-5">
                 <div class="flex items-center gap-2">
                   <YdRadioGroupItem id="mode-single" value="single" />
-                  <label for="mode-single" class="cursor-pointer text-sm">{{ $t('page.reverse.modeSingle') }}</label>
+                  <label for="mode-single" class="cursor-pointer text-sm">{{
+                    $t('page.reverse.modeSingle')
+                  }}</label>
                 </div>
                 <div class="flex items-center gap-2">
                   <YdRadioGroupItem id="mode-batch" value="batch" />
-                  <label for="mode-batch" class="cursor-pointer text-sm">{{ $t('page.reverse.modeBatch') }}</label>
+                  <label for="mode-batch" class="cursor-pointer text-sm">{{
+                    $t('page.reverse.modeBatch')
+                  }}</label>
                 </div>
               </div>
             </YdRadioGroup>
@@ -176,7 +196,9 @@ async function handleAnalyze() {
           <YdFormItem :label="$t('business.templateGroup')">
             <YdSelectBase v-model="selectedGroupId">
               <YdSelectTriggerBase>
-                <YdSelectValueBase :placeholder="$t('page.codeGen.selectTemplateGroupPlaceholder')" />
+                <YdSelectValueBase
+                  :placeholder="$t('page.codeGen.selectTemplateGroupPlaceholder')"
+                />
               </YdSelectTriggerBase>
               <YdSelectContentBase>
                 <YdSelectItemBase
@@ -198,10 +220,7 @@ async function handleAnalyze() {
           </YdFormItem>
 
           <YdFormItem>
-            <YdButton
-              :loading="isAnalyzing"
-              @click="handleAnalyze"
-            >
+            <YdButton :loading="isAnalyzing" @click="handleAnalyze">
               {{ $t('page.reverse.startAnalyze') }}
             </YdButton>
           </YdFormItem>
@@ -227,21 +246,14 @@ async function handleAnalyze() {
 
         <!-- 批量结果列表 -->
         <div v-else-if="mode === 'batch' && batchResults.length > 0" class="space-y-4">
-          <YdCard
-            v-for="(item, idx) in batchResults"
-            :key="idx"
-            class="batch-result-card"
-          >
+          <YdCard v-for="(item, idx) in batchResults" :key="idx" class="batch-result-card">
             <YdCardHeader>
-              <span class="text-sm font-medium">{{ $t('page.reverse.resultItem', { index: idx + 1 }) }}</span>
+              <span class="text-sm font-medium">{{
+                $t('page.reverse.resultItem', { index: idx + 1 })
+              }}</span>
             </YdCardHeader>
             <YdCardContent>
-              <YdInput
-                :model-value="item"
-                :rows="10"
-                readonly
-                type="textarea"
-              />
+              <YdInput :model-value="item" :rows="10" readonly type="textarea" />
             </YdCardContent>
           </YdCard>
         </div>
@@ -249,9 +261,9 @@ async function handleAnalyze() {
         <!-- 空状态 -->
         <YdEmptyState
           v-if="
-            !isAnalyzing
-            && ((mode === 'single' && !resultContent)
-              || (mode === 'batch' && batchResults.length === 0))
+            !isAnalyzing &&
+            ((mode === 'single' && !resultContent) ||
+              (mode === 'batch' && batchResults.length === 0))
           "
           :description="$t('page.reverse.noResult')"
         />

@@ -40,20 +40,33 @@ const [Modal, modalApi] = useYdModal({
     Object.assign(formData, { name: '', parentId: '' });
   },
   onConfirm: async () => {
-    try { await formRef.value?.validate(); } catch (error) { logger.debug("表单校验未通过: {}", error); return; }
+    try {
+      await formRef.value?.validate();
+    } catch (error) {
+      logger.debug('表单校验未通过: {}', error);
+      return;
+    }
     modalApi.lock();
     try {
       await createFolder({ ...formData });
       showToast.success('创建成功');
       emit('success');
       modalApi.close();
-    } finally { modalApi.unlock(); }
+    } finally {
+      modalApi.unlock();
+    }
   },
 });
 </script>
 <template>
   <Modal :title="t('newFolderTitle')">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem :label="t('folderName')" prop="name">
         <YdInput v-model="formData.name" :placeholder="t('folderNamePlaceholder')" />
       </YdFormItem>

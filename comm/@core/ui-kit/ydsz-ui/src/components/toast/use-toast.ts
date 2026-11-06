@@ -65,9 +65,7 @@ let _idCounter = 0;
 /** 生成唯一 ID */
 function generateId(): string {
   _idCounter += 1;
-  return `ydsz-toast-${Date.now()}-${_idCounter}-${Math.random()
-    .toString(36)
-    .slice(2, 6)}`;
+  return `ydsz-toast-${Date.now()}-${_idCounter}-${Math.random().toString(36).slice(2, 6)}`;
 }
 
 /* ============================================================ */

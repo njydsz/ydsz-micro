@@ -20,18 +20,21 @@ import { onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
-import { YdBadge, YdButton, YdInput, YdTooltipBase, YdTooltipContentBase, YdTooltipTriggerBase } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdInput,
+  YdTooltipBase,
+  YdTooltipContentBase,
+  YdTooltipTriggerBase,
+} from '@ydsz-core/ydsz-ui';
 import { Page } from '@ydsz/common-ui';
 import { useI18n } from 'vue-i18n';
 
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 
-import {
-  deleteHistory,
-  listRecentHistory,
-  rollbackHistory,
-} from '#/api/history';
+import { deleteHistory, listRecentHistory, rollbackHistory } from '#/api/history';
 import type { GenHistory } from '#/api/models';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -114,25 +117,34 @@ const gridOptions: VxeTableGridOptions<GenHistory> = {
         default: ({ row }) => {
           const item = row as GenHistory;
           if (!item.errorMessage) return h('span', { class: 'text-gray-400' }, '-');
-          return h(YdTooltipBase, {}, {
-            default: () => [
-              h(
-                YdTooltipTriggerBase,
-                { asChild: true },
-                {
-                  default: () =>
-                    h(
-                      'span',
-                      { class: 'text-red-500 truncate block max-w-[180px] cursor-help' },
-                      item.errorMessage.substring(0, 30) + (item.errorMessage.length > 30 ? '...' : ''),
-                    ),
-                },
-              ),
-              h(YdTooltipContentBase, { side: 'top' }, {
-                default: () => item.errorMessage,
-              }),
-            ],
-          });
+          return h(
+            YdTooltipBase,
+            {},
+            {
+              default: () => [
+                h(
+                  YdTooltipTriggerBase,
+                  { asChild: true },
+                  {
+                    default: () =>
+                      h(
+                        'span',
+                        { class: 'text-red-500 truncate block max-w-[180px] cursor-help' },
+                        item.errorMessage.substring(0, 30) +
+                          (item.errorMessage.length > 30 ? '...' : ''),
+                      ),
+                  },
+                ),
+                h(
+                  YdTooltipContentBase,
+                  { side: 'top' },
+                  {
+                    default: () => item.errorMessage,
+                  },
+                ),
+              ],
+            },
+          );
         },
       },
     },
@@ -235,7 +247,7 @@ async function handleRollback(row: GenHistory) {
 async function handleDelete(row: GenHistory) {
   if (!row.id) return;
   try {
-    await YdConfirm(`确定删除任务记录 #${row.id} 吗？`, { title: '删除确认', type: 'warning', });
+    await YdConfirm(`确定删除任务记录 #${row.id} 吗？`, { title: '删除确认', type: 'warning' });
   } catch {
     return;
   }

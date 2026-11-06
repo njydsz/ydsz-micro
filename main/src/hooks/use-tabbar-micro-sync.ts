@@ -6,18 +6,18 @@
  * @since 3.0.0
  */
 
-import { onTabClosed } from "@ydsz/stores";
+import { onTabClosed } from '@ydsz/stores';
 // v4.4.1 A3: 注册表迁至 @ydsz/constants（运行时单源），不再依赖构建配置包
-import { PATH_TO_APP_MAP } from "@ydsz/constants";
-import { createLogger } from "@ydsz-core/shared/utils";
+import { PATH_TO_APP_MAP } from '@ydsz/constants';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import type { microRuntime } from "#/bootstrap";
+import type { microRuntime } from '#/bootstrap';
 
 /** MicroRuntime 实例类型（bootstrap 仅导出值，由此推导类型；避免依赖不存在的类型导出） */
 type MicroRuntime = typeof microRuntime;
 
 /** 模块级日志器 */
-const logger = createLogger("MultiTabSync");
+const logger = createLogger('MultiTabSync');
 
 /**
  * 延迟加载 microRuntime，避免本模块与 bootstrap 之间形成初始化期循环依赖（云顶规范 18.x 零循环依赖）。
@@ -26,7 +26,7 @@ const logger = createLogger("MultiTabSync");
 let microRuntimeRef: null | Promise<MicroRuntime | null> = null;
 function loadMicroRuntime(): Promise<MicroRuntime | null> {
   if (!microRuntimeRef) {
-    microRuntimeRef = import("#/bootstrap").then((m) => m.microRuntime ?? null);
+    microRuntimeRef = import('#/bootstrap').then((m) => m.microRuntime ?? null);
   }
   return microRuntimeRef;
 }

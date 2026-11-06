@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Timeline 时间轴子节点。
-* 
+ * Timeline 时间轴子节点。
+ *
  * 每个节点由 dot（左侧圆点或自定义图标）+ content（主体）+ 连接线组成。
  * dot color 支持：default / foreground / primary / success / warning / destructive。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\timeline\YdTimelineItem.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -39,12 +39,22 @@ const colorClass: Record<string, string> = {
 </script>
 
 <template>
-  <li :class="cn('relative flex items-start gap-3 pb-6 last:pb-0', props.disabled ? 'opacity-50' : '', props.class)">
+  <li
+    :class="
+      cn(
+        'relative flex items-start gap-3 pb-6 last:pb-0',
+        props.disabled ? 'opacity-50' : '',
+        props.class,
+      )
+    "
+  >
     <!-- 左侧：圆点 + 连接线 -->
     <div class="flex flex-col items-center">
       <slot name="dot">
         <span
-          :class="cn('block size-3 rounded-full border-2', colorClass[props.color] ?? colorClass.default)"
+          :class="
+            cn('block size-3 rounded-full border-2', colorClass[props.color] ?? colorClass.default)
+          "
           aria-hidden="true"
         ></span>
       </slot>

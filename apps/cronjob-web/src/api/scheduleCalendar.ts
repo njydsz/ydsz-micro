@@ -12,15 +12,14 @@
  */
 import { requestClient } from '#/api/request';
 
-
 /**
  * getUpcomingFireTimes: GET /cronjob/calendar/fireTimes
  */
 export function getUpcomingFireTimes(params: {
-    jobKey?: string;
-    hours?: number;
-    maxCount?: number;
-  }): Promise<string[]> {
+  jobKey?: string;
+  hours?: number;
+  maxCount?: number;
+}): Promise<string[]> {
   return requestClient.get<string[]>(`/cronjob/calendar/fireTimes`, { params });
 }
 
@@ -28,8 +27,8 @@ export function getUpcomingFireTimes(params: {
  * getScheduleCalendar: GET /cronjob/calendar/schedule
  */
 export function getScheduleCalendar(params: {
-    hours?: number;
-    maxPerJob?: number;
-  }): Promise<Record<string, unknown>[]> {
+  hours?: number;
+  maxPerJob?: number;
+}): Promise<Record<string, unknown>[]> {
   return requestClient.get<Record<string, unknown>[]>(`/cronjob/calendar/schedule`, { params });
 }

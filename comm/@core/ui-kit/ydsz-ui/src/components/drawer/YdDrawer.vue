@@ -69,9 +69,7 @@ const panelRef = ref<HTMLElement>();
 const teleportTarget = computed(() => (props.appendTo === false ? 'body' : props.appendTo));
 
 /* ----- 响应式样式 ----- */
-const isHorizontal = computed(
-  () => props.position === 'left' || props.position === 'right',
-);
+const isHorizontal = computed(() => props.position === 'left' || props.position === 'right');
 
 /** 计算内容区尺寸样式 */
 const sizeStyle = computed<Record<string, string>>(() => {
@@ -115,16 +113,14 @@ const positionContentClasses = computed(() => {
 
 const contentClasses = computed(() =>
   cn(
-    'bg-surface-2 text-text-primary pointer-events-auto fixed flex flex-col shadow-2xl outline-none overflow-hidden',
+    'bg-surface-2 text-text-primary pointer-events-auto fixed flex flex-col overflow-hidden shadow-2xl outline-none',
     positionContentClasses.value,
     props.class,
   ),
 );
 
 /** 平移过渡名称 */
-const transitionName = computed<`slide-${DrawerPosition}`>(
-  () => `slide-${props.position}`,
-);
+const transitionName = computed<`slide-${DrawerPosition}`>(() => `slide-${props.position}`);
 
 /* ----- 关闭逻辑 ----- */
 function doClose(reason: DrawerCloseReason = 'api'): void {

@@ -11,11 +11,7 @@
 
 import { type Ref } from 'vue';
 
-import type {
-  DimensionsBeforeMove,
-  Limits,
-  RectCorrectionInput,
-} from './use-resize-types';
+import type { DimensionsBeforeMove, Limits, RectCorrectionInput } from './use-resize-types';
 
 /** 根据宽高比修正矩形 */
 export function rectCorrectionByAspectRatio(
@@ -67,14 +63,12 @@ export function rectCorrectionByAspectRatio(
 }
 
 /** 计算拖拽限制 */
-export function calcDragLimitation(
-  state: {
-    parentWidth: Ref<null | number>;
-    parentHeight: Ref<null | number>;
-    width: Ref<null | number>;
-    height: Ref<null | number>;
-  },
-): Limits {
+export function calcDragLimitation(state: {
+  parentWidth: Ref<null | number>;
+  parentHeight: Ref<null | number>;
+  width: Ref<null | number>;
+  height: Ref<null | number>;
+}): Limits {
   return {
     left: { min: 0, max: (state.parentWidth.value as number) - (state.width.value as number) },
     right: { min: 0, max: (state.parentWidth.value as number) - (state.width.value as number) },
@@ -84,22 +78,20 @@ export function calcDragLimitation(
 }
 
 /** 计算调整大小限制 */
-export function calcResizeLimits(
-  state: {
-    parentLimitation: Ref<boolean>;
-    aspectRatio: Ref<boolean>;
-    minw: Ref<number>;
-    minh: Ref<number>;
-    aspectFactor: Ref<null | number>;
-    left: Ref<null | number>;
-    right: Ref<null | number>;
-    top: Ref<null | number>;
-    bottom: Ref<null | number>;
-    width: Ref<null | number>;
-    height: Ref<null | number>;
-    currentStick: Ref<null | string>;
-  },
-): Limits {
+export function calcResizeLimits(state: {
+  parentLimitation: Ref<boolean>;
+  aspectRatio: Ref<boolean>;
+  minw: Ref<number>;
+  minh: Ref<number>;
+  aspectFactor: Ref<null | number>;
+  left: Ref<null | number>;
+  right: Ref<null | number>;
+  top: Ref<null | number>;
+  bottom: Ref<null | number>;
+  width: Ref<null | number>;
+  height: Ref<null | number>;
+  currentStick: Ref<null | string>;
+}): Limits {
   const parentLim = state.parentLimitation.value ? 0 : null;
 
   if (state.aspectRatio.value) {
@@ -137,7 +129,9 @@ export function calcResizeLimits(
           Math.min(state.top.value!, state.bottom.value!) * state.aspectFactor.value! * 2,
         max:
           state.left.value! +
-          (((state.height.value as number) - state.minh.value!) / 2) * state.aspectFactor.value! * 2,
+          (((state.height.value as number) - state.minh.value!) / 2) *
+            state.aspectFactor.value! *
+            2,
       },
       right: {
         min:
@@ -145,7 +139,9 @@ export function calcResizeLimits(
           Math.min(state.top.value!, state.bottom.value!) * state.aspectFactor.value! * 2,
         max:
           state.right.value! +
-          (((state.height.value as number) - state.minh.value!) / 2) * state.aspectFactor.value! * 2,
+          (((state.height.value as number) - state.minh.value!) / 2) *
+            state.aspectFactor.value! *
+            2,
       },
       top: {
         min:

@@ -49,9 +49,7 @@ const [Form, { resetForm, validate, getValues }] = useYdForm(
         fieldName: 'lockScreenPassword',
         formFieldProps: { validateOnBlur: false },
         label: $t('authentication.password'),
-        rules: z
-          .string()
-          .min(1, { message: $t('ui.widgets.lockScreen.placeholder') }),
+        rules: z.string().min(1, { message: $t('ui.widgets.lockScreen.placeholder') }),
       },
     ]),
     showDefaultActions: false,
@@ -79,11 +77,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <Modal
-    :footer="false"
-    :fullscreen-button="false"
-    :title="$t('ui.widgets.lockScreen.title')"
-  >
+  <Modal :footer="false" :fullscreen-button="false" :title="$t('ui.widgets.lockScreen.title')">
     <div
       class="mb-10 flex w-full flex-col items-center px-10"
       @keydown.enter.prevent="handleSubmit"

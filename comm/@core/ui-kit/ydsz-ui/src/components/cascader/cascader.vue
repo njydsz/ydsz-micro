@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* Cascader 级联选择器：支持多层级联下拉、搜索、多选、清除。
-* 
+ * Cascader 级联选择器：支持多层级联下拉、搜索、多选、清除。
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\ui\cascader\cascader.vue
  * @author ydsz-ai
  * @since 1.0.0
@@ -117,7 +117,9 @@ const displayText = computed(() => {
 </script>
 
 <template>
-  <div :class="['yd-cascader', { 'yd-cascader--open': isOpen, 'yd-cascader--disabled': isDisabled }]">
+  <div
+    :class="['yd-cascader', { 'yd-cascader--open': isOpen, 'yd-cascader--disabled': isDisabled }]"
+  >
     <!-- 触发器 -->
     <button
       :class="['yd-cascader__trigger', props.class]"
@@ -129,14 +131,25 @@ const displayText = computed(() => {
     >
       <span class="yd-cascader__value">{{ displayText }}</span>
       <ChevronDown v-if="!allowClear || selectedValues.length === 0" class="yd-cascader__icon" />
-      <CircleX v-else class="yd-cascader__clear" role="button" :aria-label="t('common.clear')" @click="handleClear" />
+      <CircleX
+        v-else
+        class="yd-cascader__clear"
+        role="button"
+        :aria-label="t('common.clear')"
+        @click="handleClear"
+      />
     </button>
 
     <!-- 面板 -->
     <div v-if="isOpen" class="yd-cascader__panel" role="listbox">
       <!-- 搜索框 -->
       <div v-if="searchable" class="yd-cascader__search">
-        <input v-model="searchText" type="text" :placeholder="t('cascader.searchPlaceholder')" class="yd-cascader__search-input" />
+        <input
+          v-model="searchText"
+          type="text"
+          :placeholder="t('cascader.searchPlaceholder')"
+          class="yd-cascader__search-input"
+        />
       </div>
 
       <!-- 级联列 -->
@@ -155,24 +168,37 @@ const displayText = computed(() => {
             >
               <Check v-if="isSelected(option)" class="yd-cascader__check" />
               <span class="yd-cascader__label">{{ option.label }}</span>
-              <ChevronRight v-if="option.children && option.children.length > 0" class="yd-cascader__arrow" />
+              <ChevronRight
+                v-if="option.children && option.children.length > 0"
+                class="yd-cascader__arrow"
+              />
             </div>
           </template>
         </div>
 
         <!-- 子级列（递归展示） -->
         <template v-for="(parent, level) in expandedPath" :key="level">
-          <div v-if="parent.children && parent.children.length > 0" class="yd-cascader__column" role="listbox">
+          <div
+            v-if="parent.children && parent.children.length > 0"
+            class="yd-cascader__column"
+            role="listbox"
+          >
             <template v-for="(child, cIdx) in parent.children" :key="cIdx">
               <div
-                :class="['yd-cascader__option', { 'yd-cascader__option--active': isSelected(child) }]"
+                :class="[
+                  'yd-cascader__option',
+                  { 'yd-cascader__option--active': isSelected(child) },
+                ]"
                 role="option"
                 :aria-selected="isSelected(child)"
                 @click="handleSelect(child, level + 1)"
               >
                 <Check v-if="isSelected(child)" class="yd-cascader__check" />
                 <span class="yd-cascader__label">{{ child.label }}</span>
-                <ChevronRight v-if="child.children && child.children.length > 0" class="yd-cascader__arrow" />
+                <ChevronRight
+                  v-if="child.children && child.children.length > 0"
+                  class="yd-cascader__arrow"
+                />
               </div>
             </template>
           </div>

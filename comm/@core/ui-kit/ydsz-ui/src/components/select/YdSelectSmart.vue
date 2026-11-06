@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="V extends string | number = string">
 /**
- * YdSelectSmart —— options 驱动的开箱选择器（单选 / 多选 / 搜索 / 虚拟滚动）。
+ * YdSelectSmart —— options 驱动的开箱选择器（单选 / 多选 / 搜索 / 虚拟滚动 / 远程搜索 / tag 创建）。
  *
  * <p>本组件是选择器家族里唯一面向业务的「数据驱动」入口（表单、YdProTable 搜索栏都用它）。
  * 此前它只是 headless radix Select 的薄封装，因此缺少竞品标配能力：
@@ -13,6 +13,11 @@
  *  - 键盘导航取自 @see useListboxKeyboard（ArrowUp/Down/Home/End/Enter/Space/Escape + 单字符搜索）；
  *  - 超长列表用 @see useVirtualList 只渲染可见窗口，并用 scrollToIndex 保证键盘可达；
  *  - ARIA 走 combobox + listbox + option 的 APG 组合框模式，活动项用 aria-activedescendant 播报。
+ *
+ * <p>新增能力：
+ *  - `allowCreate`：输入不匹配时创建新选项（tag 模式）；
+ *  - `remote` + `remoteMethod`：远程搜索，结果去重缓存；
+ *  - `filterOption`：自定义匹配函数。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\select\YdSelectSmart.vue
  * @author ydsz-team
@@ -63,6 +68,37 @@ interface Props<V extends string | number = string> {
   multiple?: boolean;
   /** 是否显示搜索框（输入即按 label 过滤） */
   search?: boolean;
+  /**
+   * 是否允许创建新选项（输入转选项 / tag 模式）
+   *
+   * 仅在 search + multiple 场景下生效。用户输入不匹配任何选项时，
+   * 可创建一个以输入文本为 label 与 value 的新选项。
+   * @default false
+   */
+  allowCreate?: boolean;
+  /**
+   * 是否远程搜索
+   *
+   * 开启后，输入关键字会调用 `remoteMethod` 获取远端选项，
+   * 而非本地过滤 `options`。结果自动去重缓存。
+   * @default false
+   */
+  remote?: boolean;
+  /**
+   * 远程搜索方法（remote=true 时必传）
+   *
+   * @param query - 搜索关键字
+   * @returns 远端选项数组
+   */
+  remoteMethod?: (query: string) => Promise<SelectSmartOption<V>[]> | SelectSmartOption<V>[];
+  /** 远程搜索防抖时长（毫秒） @default 300 */
+  remoteDebounce?: number;
+  /**
+   * 自定义过滤函数
+   *
+   * 不传时默认用 label 包含匹配（不区分大小写）。
+   */
+  filterOption?: (input: string, option: SelectSmartOption<V>) => boolean;
   /** 多选时触发区内最多展示的标签数，超出折叠为 +N */
   maxTagCount?: number;
   /** 是否禁用 */
@@ -83,14 +119,19 @@ interface Props<V extends string | number = string> {
 
 const props = withDefaults(defineProps<Props<V>>(), {
   allowClear: false,
+  allowCreate: false,
   class: '',
   disabled: false,
+  filterOption: undefined,
   itemHeight: 32,
   loading: false,
   maxTagCount: undefined,
   multiple: false,
   options: () => [],
   placeholder: undefined,
+  remote: false,
+  remoteDebounce: 300,
+  remoteMethod: undefined,
   search: false,
   virtual: undefined,
   virtualHeight: 256,
@@ -100,6 +141,8 @@ const props = withDefaults(defineProps<Props<V>>(), {
 const emit = defineEmits<{
   /** 选项变化（单选回传标量，多选回传数组） */
   change: [value: SelectModelValue<V>];
+  /** 创建新选项 */
+  create: [option: SelectSmartOption<V>];
 }>();
 
 const modelValue = defineModel<SelectModelValue<V>>({ default: undefined });
@@ -123,46 +166,128 @@ const selection = useSelectHeadless<Record<string, unknown>>({
   items: () => props.options as unknown as Record<string, unknown>[],
 });
 
+/* ============================================================ */
+/* 远程搜索                                                       */
+/* ============================================================ */
+
+/** 远程搜索缓存：key = 关键字，value = 选项数组 */
+const remoteCache = ref<Map<string, SelectSmartOption<V>[]>>(new Map());
+/** 远程搜索加载态 */
+const remoteLoading = ref(false);
+/** 远程搜索结果 */
+const remoteOptions = ref<SelectSmartOption<V>[]>([]);
+/** 防抖计时器 */
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+/**
+ * 执行远程搜索（带防抖）。
+ *
+ * @param keyword - 搜索关键字
+ * @returns 无
+ */
+function doRemoteSearch(keyword: string): void {
+  if (!props.remote || !props.remoteMethod) return;
+  const trimmed = keyword.trim();
+
+  // 命中缓存直接复用
+  const cached = remoteCache.value.get(trimmed);
+  if (cached) {
+    remoteOptions.value = cached;
+    return;
+  }
+
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(async () => {
+    remoteLoading.value = true;
+    try {
+      const result = await props.remoteMethod!(trimmed);
+      // 去重合并到缓存
+      const existing = remoteCache.value.get(trimmed) ?? [];
+      const merged = [...existing];
+      const seen = new Set(merged.map((o) => o.value));
+      result.forEach((o) => {
+        if (!seen.has(o.value)) merged.push(o);
+      });
+      remoteCache.value.set(trimmed, merged);
+      remoteOptions.value = merged;
+    } finally {
+      remoteLoading.value = false;
+    }
+  }, props.remoteDebounce);
+}
+
+/* ============================================================ */
+/* 过滤 + 创建                                                   */
+/* ============================================================ */
+
+/** 本地选项（含远程结果） */
+const mergedOptions = computed<SelectSmartOption<V>[]>(() => {
+  if (!props.remote) return props.options;
+  // 远程模式：合并远端结果，去重
+  const seen = new Set<V>();
+  const result: SelectSmartOption<V>[] = [];
+  [...props.options, ...remoteOptions.value].forEach((o) => {
+    if (!seen.has(o.value)) {
+      seen.add(o.value);
+      result.push(o);
+    }
+  });
+  return result;
+});
+
+/** 是否允许创建（需 search + multiple） */
+const canCreate = computed(() => props.allowCreate && props.multiple && props.search);
+
+/** 默认过滤函数 */
+function defaultFilter(input: string, option: SelectSmartOption<V>): boolean {
+  return option.label.toLowerCase().includes(input.toLowerCase());
+}
+
 /** 过滤后的候选项 */
 const filteredOptions = computed<SelectSmartOption<V>[]>(() => {
-  const keyword = query.value.trim().toLowerCase();
-  if (!keyword) return props.options;
-  return props.options.filter(item => item.label.toLowerCase().includes(keyword));
+  const keyword = query.value.trim();
+  if (!keyword) return mergedOptions.value;
+  const filter = props.filterOption ?? defaultFilter;
+  return mergedOptions.value.filter((item) => filter(keyword, item));
+});
+
+/** 可创建的新选项（输入不匹配时） */
+const creatableOption = computed<SelectSmartOption<V> | null>(() => {
+  if (!canCreate.value) return null;
+  const keyword = query.value.trim();
+  if (!keyword) return null;
+  // 已有同 label 选项时不显示创建入口
+  const exists = mergedOptions.value.some((o) => o.label.toLowerCase() === keyword.toLowerCase());
+  if (exists) return null;
+  return { label: keyword, value: keyword as V };
 });
 
 /**
  * 是否处于虚拟滚动模式。
- *
- * 由 useVirtualScrollItems 基于数据量与阈值做出判定，
- * `virtual` 属性仍然可以强制覆盖。
  */
-const { enableVirtual: virtualItemsActive } = useVirtualScrollItems(
-  () => filteredOptions.value,
-  { threshold: props.virtualThreshold },
-);
+const { enableVirtual: virtualItemsActive } = useVirtualScrollItems(() => filteredOptions.value, {
+  threshold: props.virtualThreshold,
+});
 
 const isVirtualActive = computed(() => {
   if (props.virtual !== undefined) return props.virtual && filteredOptions.value.length > 0;
   return virtualItemsActive.value;
 });
 
-const virtualList = useVirtualList<SelectSmartOption<V>>(
-  () => filteredOptions.value,
-  {
-    getScrollElement: () => scrollElementRef.value,
-    getKey: (item) => item.value,
-    itemHeight: props.itemHeight,
-    overscan: 6,
-    viewportHeight: props.virtualHeight,
-  },
-);
+const virtualList = useVirtualList<SelectSmartOption<V>>(() => filteredOptions.value, {
+  getScrollElement: () => scrollElementRef.value,
+  getKey: (item) => item.value,
+  itemHeight: props.itemHeight,
+  overscan: 6,
+  viewportHeight: props.virtualHeight,
+});
 
 /** 实际渲染的选项：虚拟模式取可见窗口，否则全量 */
 const renderedOptions = computed<RenderedOption<V>[]>(() => {
   if (!isVirtualActive.value) {
     return filteredOptions.value.map((data, index) => ({ data, index }));
   }
-  return virtualList.visibleItems.value.map(item => ({ data: item.data, index: item.index }));
+  return virtualList.visibleItems.value.map((item) => ({ data: item.data, index: item.index }));
 });
 
 /** 多选时已选值数组（单选归一为长度 0/1 的数组） */
@@ -174,19 +299,13 @@ const selectedValueList = computed(() => {
 
 /**
  * 第 index 个选项的元素 id。
- *
- * @param index - 过滤后列表中的索引
- * @returns 元素 id
  */
 function optionIdOf(index: number): string {
   return `${listboxId}-opt-${index}`;
 }
 
 /**
- * 把活动项滚入视口：虚拟模式先改容器 scrollTop 让该项挂载，非虚拟模式直接滚动元素。
- *
- * @param index - 目标索引
- * @returns 无
+ * 把活动项滚入视口。
  */
 function revealActive(index: number): void {
   if (!isOpen.value) return;
@@ -199,9 +318,6 @@ function revealActive(index: number): void {
 
 /**
  * 判断选项是否已选中。
- *
- * @param option - 候选项
- * @returns 是否选中
  */
 function isOptionSelected(option: SelectSmartOption<V>): boolean {
   return selection.isSelected(
@@ -212,25 +328,23 @@ function isOptionSelected(option: SelectSmartOption<V>): boolean {
 }
 
 /**
- * 选项行类名：活动项、选中项与禁用项共用同一套视觉语义。
- *
- * @param index - 过滤后列表中的索引
- * @param option - 候选项
- * @returns 类名
+ * 选项行类名。
  */
 function optionClass(index: number, option: SelectSmartOption<V>): string {
   return cn(
-    'flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none',
+    'flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none',
     'hover:bg-accent/60',
     keyboard.activeIndex.value === index && 'bg-accent',
-    isOptionSelected(option) && 'font-medium text-primary',
+    isOptionSelected(option) && 'text-primary font-medium',
     option.disabled && 'pointer-events-none opacity-50',
   );
 }
 
 /** 多选标签文本（受 maxTagCount 截断） */
 const visibleTags = computed(() => {
-  const labels = selectedValueList.value.map(value => selection.getLabelByValue(value as string | number));
+  const labels = selectedValueList.value.map((value) =>
+    selection.getLabelByValue(value as string | number),
+  );
   if (props.maxTagCount === undefined) return labels;
   return labels.slice(0, props.maxTagCount);
 });
@@ -253,7 +367,7 @@ const hasValue = computed(() => selectedValueList.value.length > 0);
 const keyboard = useListboxKeyboard({
   items: () => filteredOptions.value,
   onActiveChange: revealActive,
-  onSelect: index => {
+  onSelect: (index) => {
     const option = filteredOptions.value[index];
     if (option) selectOption(option);
   },
@@ -267,6 +381,7 @@ watch(isOpen, async (open) => {
   if (!open) {
     keyboard.resetActive();
     query.value = '';
+    remoteOptions.value = [];
     return;
   }
   if (props.search) {
@@ -275,11 +390,13 @@ watch(isOpen, async (open) => {
   }
 });
 
+/** 远程搜索联动 */
+watch(query, (value) => {
+  if (props.remote) doRemoteSearch(value);
+});
+
 /**
- * 选中/取消一个选项：单选写值并收面板，多选追加或移除且保持展开。
- *
- * @param option - 被点击的选项
- * @returns 无
+ * 选中/取消一个选项。
  */
 function selectOption(option: SelectSmartOption<V>): void {
   if (option.disabled) return;
@@ -294,13 +411,28 @@ function selectOption(option: SelectSmartOption<V>): void {
 }
 
 /**
+ * 创建并选中新选项。
+ */
+function handleCreate(): void {
+  const option = creatableOption.value;
+  if (!option) return;
+  // 加入远程/本地选项集（通过 options 不可变，用 cache 承载）
+  if (props.remote) {
+    const key = query.value.trim();
+    const existing = remoteCache.value.get(key) ?? [];
+    remoteCache.value.set(key, [...existing, option]);
+    remoteOptions.value = [...remoteOptions.value, option];
+  }
+  selectOption(option);
+  emit('create', option);
+  query.value = '';
+}
+
+/**
  * 移除一个多选标签。
- *
- * @param value - 待移除的选项值
- * @returns 无
  */
 function removeTag(value: V): void {
-  const next = selectedValueList.value.filter(item => item !== value);
+  const next = selectedValueList.value.filter((item) => item !== value);
   modelValue.value = next;
   emit('change', next);
 }
@@ -314,21 +446,21 @@ function handleClear(): void {
 
 /**
  * 面板键盘入口：搜索框内的可打印字符交给输入框本身，避免被单字符搜索重复消费。
- *
- * @param event - 原生键盘事件
- * @returns 无
  */
 function handlePanelKeydown(event: KeyboardEvent): void {
   const isSearchInput = (event.target as HTMLElement | null)?.tagName === 'INPUT';
   if (isSearchInput && event.key.length === 1 && event.key !== ' ') return;
+  // Enter 且有创建入口时优先创建
+  if (event.key === 'Enter' && creatableOption.value) {
+    event.preventDefault();
+    handleCreate();
+    return;
+  }
   keyboard.handleKeydown(event);
 }
 
 /**
  * 触发器键盘入口：折叠态下 Enter / Space / ArrowDown 展开面板。
- *
- * @param event - 原生键盘事件
- * @returns 无
  */
 function handleTriggerKeydown(event: KeyboardEvent): void {
   if (props.disabled) return;
@@ -340,16 +472,13 @@ function handleTriggerKeydown(event: KeyboardEvent): void {
 
 /**
  * 悬停同步活动项，让鼠标与键盘共用同一个高亮来源。
- *
- * @param index - 过滤后列表中的索引
- * @returns 无
  */
 function hoverOption(index: number): void {
   if (filteredOptions.value[index]?.disabled) return;
   keyboard.setActiveIndex(index);
 }
 
-/** aria-activedescendant 目标：搜索框与触发器都属于组合框本体 */
+/** aria-activedescendant 目标 */
 const activeDescendant = computed(() =>
   keyboard.activeIndex.value >= 0 ? optionIdOf(keyboard.activeIndex.value) : undefined,
 );
@@ -366,12 +495,14 @@ const activeDescendant = computed(() =>
         :aria-controls="listboxId"
         :aria-activedescendant="activeDescendant"
         :aria-disabled="props.disabled ? true : undefined"
-        :class="cn(
-          'flex w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm',
-          'focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/50',
-          props.disabled && 'cursor-not-allowed opacity-50',
-          props.class,
-        )"
+        :class="
+          cn(
+            'border-input flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm',
+            'focus-visible:ring-primary/50 focus:outline-none focus-visible:ring-1',
+            props.disabled && 'cursor-not-allowed opacity-50',
+            props.class,
+          )
+        "
         data-testid="select-trigger"
         @keydown="handleTriggerKeydown"
       >
@@ -430,7 +561,7 @@ const activeDescendant = computed(() =>
 
     <YdPopoverContent
       align="start"
-      :class="cn('min-w-[var(--radix-popover-trigger-width)] w-auto p-1')"
+      :class="cn('w-auto min-w-[var(--radix-popover-trigger-width)] p-1')"
       @keydown="handlePanelKeydown"
     >
       <input
@@ -438,7 +569,7 @@ const activeDescendant = computed(() =>
         ref="searchInput"
         v-model="query"
         type="text"
-        class="mb-1 w-full rounded border border-input bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-1 focus-visible:ring-primary/50"
+        class="border-input focus-visible:ring-primary/50 mb-1 w-full rounded border bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-1"
         role="combobox"
         :aria-expanded="isOpen"
         :aria-controls="listboxId"
@@ -449,7 +580,7 @@ const activeDescendant = computed(() =>
       />
 
       <div
-        v-if="props.loading"
+        v-if="props.loading || remoteLoading"
         class="text-muted-foreground flex items-center justify-center gap-2 py-6 text-sm"
         role="status"
         aria-live="polite"
@@ -471,15 +602,27 @@ const activeDescendant = computed(() =>
         @scroll="virtualList.onScroll"
       >
         <p
-          v-if="filteredOptions.length === 0"
+          v-if="filteredOptions.length === 0 && !creatableOption"
           class="text-muted-foreground py-6 text-center text-sm"
         >
           {{ t('select.empty') }}
         </p>
 
+        <!-- 创建入口 -->
+        <div
+          v-if="creatableOption"
+          role="option"
+          :aria-selected="false"
+          class="text-primary hover:bg-accent/60 flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none"
+          data-testid="select-create"
+          @click="handleCreate"
+        >
+          <span class="min-w-0 flex-1 truncate">+ {{ creatableOption.label }}</span>
+        </div>
+
         <!-- 虚拟滚动：spacer 撑出总高度，可见项绝对定位 -->
         <div
-          v-else-if="isVirtualActive"
+          v-if="filteredOptions.length > 0 && isVirtualActive"
           :style="{ height: `${virtualList.totalHeight.value}px`, position: 'relative' }"
         >
           <div
@@ -506,7 +649,7 @@ const activeDescendant = computed(() =>
         </div>
 
         <!-- 普通模式：全量渲染 -->
-        <template v-else>
+        <template v-else-if="filteredOptions.length > 0">
           <div
             v-for="item in renderedOptions"
             :id="optionIdOf(item.index)"

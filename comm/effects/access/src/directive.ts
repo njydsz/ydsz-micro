@@ -43,19 +43,14 @@ function getAccess() {
  * @param binding - 指令绑定对象，包含 value（角色码或权限码数组）与 arg（role/code）
  * @returns 有权限返回 true，否则 false
  */
-function checkAccess(
-  _el: Element,
-  binding: DirectiveBinding<string | string[]>,
-): boolean {
+function checkAccess(_el: Element, binding: DirectiveBinding<string | string[]>): boolean {
   const { accessMode, hasAccessByCodes, hasAccessByRoles } = getAccess();
   const value = binding.value;
 
   if (!value) return true;
 
   const authMethod =
-    accessMode.value === 'frontend' && binding.arg === 'role'
-      ? hasAccessByRoles
-      : hasAccessByCodes;
+    accessMode.value === 'frontend' && binding.arg === 'role' ? hasAccessByRoles : hasAccessByCodes;
 
   const values = Array.isArray(value) ? value : [value];
   return authMethod(values);

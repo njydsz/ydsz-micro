@@ -1,18 +1,8 @@
-import {
-  defineComponent,
-  getCurrentInstance,
-  h,
-  ref,
-  toRefs,
-} from 'vue'
-import type {
-  Ref,
-  SlotsType,
-  VNode,
-} from 'vue'
-import { usePresence } from './usePresence'
-import { renderSlotFragments } from '../shared/index.ts'
-import { unrefElement } from '@vueuse/core'
+import { defineComponent, getCurrentInstance, h, ref, toRefs } from 'vue';
+import type { Ref, SlotsType, VNode } from 'vue';
+import { usePresence } from './usePresence';
+import { renderSlotFragments } from '../shared/index.ts';
+import { unrefElement } from '@vueuse/core';
 
 export interface PresenceProps {
   /**
@@ -20,14 +10,14 @@ export interface PresenceProps {
    *
    * @required true
    */
-  present: boolean
+  present: boolean;
   /**
    * Force the first child element to render all the time.
    * Useful for programmatically render grandchild component together with the exposed `present`
    *
    * @defaultValue false
    */
-  forceMount?: boolean
+  forceMount?: boolean;
 }
 
 export default defineComponent({
@@ -42,24 +32,24 @@ export default defineComponent({
     },
   },
   slots: {} as SlotsType<{
-    default: (opts: { present: Ref<boolean> }) => any
+    default: (opts: { present: Ref<boolean> }) => any;
   }>,
   setup(props, { slots, expose }) {
-    const { present, forceMount } = toRefs(props)
+    const { present, forceMount } = toRefs(props);
 
-    const node = ref<HTMLElement>()
+    const node = ref<HTMLElement>();
     // Mount composables once to prevent duplicated eventListener
-    const { isPresent } = usePresence(present, node)
-    expose({ present: isPresent })
+    const { isPresent } = usePresence(present, node);
+    expose({ present: isPresent });
 
-    let children = slots.default({ present: isPresent })
-    children = renderSlotFragments(children || [])
-    const instance = getCurrentInstance()
+    let children = slots.default({ present: isPresent });
+    children = renderSlotFragments(children || []);
+    const instance = getCurrentInstance();
 
     if (children && children?.length > 1) {
       const componentName = instance?.parent?.type.name
         ? `<${instance.parent.type.name} />`
-        : 'component'
+        : 'component';
 
       throw new Error(
         [
@@ -71,31 +61,30 @@ export default defineComponent({
             'Provide a single child element so that `presence` directive attach correctly.',
             'Ensure the first child is an actual element instead of a raw text node or comment node.',
           ]
-            .map(line => `  - ${line}`)
+            .map((line) => `  - ${line}`)
             .join('\n'),
         ].join('\n'),
-      )
+      );
     }
 
     return () => {
       if (forceMount.value || present.value || isPresent.value) {
         return h(slots.default({ present: isPresent })[0] as VNode, {
           ref: (v) => {
-            const el = unrefElement(v as HTMLElement)
-            if (typeof el?.hasAttribute === 'undefined')
-              return el
+            const el = unrefElement(v as HTMLElement);
+            if (typeof el?.hasAttribute === 'undefined') return el;
 
             // special case to handle animation for PopperContent
             if (el?.hasAttribute('data-radix-popper-content-wrapper'))
-              node.value = el.firstElementChild as HTMLElement
-            else
-              node.value = el
+              node.value = el.firstElementChild as HTMLElement;
+            else node.value = el;
 
-            return el
+            return el;
           },
-        })
+        });
+      } else {
+        return null;
       }
-      else { return null }
-    }
+    };
   },
-})
+});

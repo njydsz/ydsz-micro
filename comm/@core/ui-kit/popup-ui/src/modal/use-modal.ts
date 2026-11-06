@@ -12,15 +12,7 @@
  */
 import type { ExtendedModalApi, ModalApiOptions, ModalProps } from './modal';
 
-import {
-  defineComponent,
-  h,
-  inject,
-  nextTick,
-  provide,
-  reactive,
-  ref,
-} from 'vue';
+import { defineComponent, h, inject, nextTick, provide, reactive, ref } from 'vue';
 
 import { useStore } from '@ydsz-core/shared/store';
 
@@ -131,10 +123,7 @@ export function useYdModal<TParentModalProps extends ModalProps = ModalProps>(
     return [Modal, extendedApi as ExtendedModalApi] as const;
   }
 
-  const injectData = inject<{ options?: Partial<ModalApiOptions> }>(
-    USER_MODAL_INJECT_KEY,
-    {},
-  );
+  const injectData = inject<{ options?: Partial<ModalApiOptions> }>(USER_MODAL_INJECT_KEY, {});
 
   const mergedOptions = {
     ...DEFAULT_MODAL_PROPS,

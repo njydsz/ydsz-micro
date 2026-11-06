@@ -23,27 +23,38 @@ export function types(): Promise<string[]> {
 /**
  * testConnection: POST /cronjob/connector/test
  */
-export function testConnection(params: {
+export function testConnection(
+  params: {
     type?: string;
-  }, data: ConnectorConfigPostDTO): Promise<boolean> {
+  },
+  data: ConnectorConfigPostDTO,
+): Promise<boolean> {
   return requestClient.post<boolean>(`/cronjob/connector/test`, data, { params });
 }
 
 /**
  * listRemoteTasks: POST /cronjob/connector/remote-tasks
  */
-export function listRemoteTasks(params: {
+export function listRemoteTasks(
+  params: {
     type?: string;
-  }, data: ConnectorConfigPostDTO): Promise<ConnectorTaskInfo[]> {
-  return requestClient.post<ConnectorTaskInfo[]>(`/cronjob/connector/remote-tasks`, data, { params });
+  },
+  data: ConnectorConfigPostDTO,
+): Promise<ConnectorTaskInfo[]> {
+  return requestClient.post<ConnectorTaskInfo[]>(`/cronjob/connector/remote-tasks`, data, {
+    params,
+  });
 }
 
 /**
  * importTasks: POST /cronjob/connector/import
  */
-export function importTasks(params: {
+export function importTasks(
+  params: {
     type?: string;
-  }, data: ConnectorConfigPostDTO): Promise<ConnectorTaskInfo[]> {
+  },
+  data: ConnectorConfigPostDTO,
+): Promise<ConnectorTaskInfo[]> {
   return requestClient.post<ConnectorTaskInfo[]>(`/cronjob/connector/import`, data, { params });
 }
 

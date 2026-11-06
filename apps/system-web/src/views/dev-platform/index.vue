@@ -24,7 +24,19 @@
 import { computed, reactive, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { YdBadge, YdButton, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdForm, YdFormItem, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdInput,
+  YdTable,
+  YdTableColumn,
+  YdCard,
+  YdEmptyState,
+  YdForm,
+  YdFormItem,
+  YdSelectItem,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 
 import { showToast } from '@ydsz/notification';
 
@@ -91,9 +103,7 @@ const configForm = reactive({
 async function loadDatasources() {
   try {
     // 统一请求客户端（规范 §6.1），路径对齐契约 /api/generator/datasources
-    datasources.value = await requestClient.get<Datasource[]>(
-      '/generator/datasources',
-    );
+    datasources.value = await requestClient.get<Datasource[]>('/generator/datasources');
     const defaultDs = datasources.value.find((ds) => ds.isDefault);
     if (defaultDs) {
       selectedDatasourceId.value = defaultDs.id;
@@ -137,10 +147,9 @@ async function onTableSelect(tableId: number) {
   const table = tables.value.find((t) => t.id === tableId);
   selectedTableName.value = table?.tableName ?? '';
   try {
-    columns.value = await requestClient.get<ColumnMeta[]>(
-      '/generator/tables/columns',
-      { params: { tableMetaId: tableId } },
-    );
+    columns.value = await requestClient.get<ColumnMeta[]>('/generator/tables/columns', {
+      params: { tableMetaId: tableId },
+    });
   } catch {
     columns.value = [];
   } finally {
@@ -159,17 +168,14 @@ async function handleGenerate() {
   generating.value = true;
   resultFiles.value = [];
   try {
-    const result = await requestClient.post<GenerateResult>(
-      '/generator/code/generate',
-      {
-        datasourceId: selectedDatasourceId.value,
-        templateGroupId: 1,
-        tableName: selectedTableName.value.trim(),
-        outputDir: configForm.outputDir,
-        conflictStrategy: configForm.conflictStrategy,
-        triggeredBy: configForm.author,
-      },
-    );
+    const result = await requestClient.post<GenerateResult>('/generator/code/generate', {
+      datasourceId: selectedDatasourceId.value,
+      templateGroupId: 1,
+      tableName: selectedTableName.value.trim(),
+      outputDir: configForm.outputDir,
+      conflictStrategy: configForm.conflictStrategy,
+      triggeredBy: configForm.author,
+    });
     if (result) {
       resultFiles.value = result.generatedFiles ?? [];
       showToast.success(t('devPlatform.generateSuccess', { count: resultFiles.value.length }));
@@ -198,7 +204,7 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
 </script>
 
 <template>
-  <div class="dev-platform p-5 space-y-4">
+  <div class="dev-platform space-y-4 p-5">
     <YdCard>
       <template #header>
         <div class="flex items-center justify-between">
@@ -277,7 +283,10 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
       </template>
       <YdForm label-width="100px">
         <YdFormItem :label="t('devPlatform.outputDirLabel')">
-          <YdInput v-model="configForm.outputDir" :placeholder="t('devPlatform.outputDirPlaceholder')" />
+          <YdInput
+            v-model="configForm.outputDir"
+            :placeholder="t('devPlatform.outputDirPlaceholder')"
+          />
         </YdFormItem>
         <YdFormItem :label="t('devPlatform.authorLabel')">
           <YdInput v-model="configForm.author" :placeholder="t('devPlatform.authorPlaceholder')" />
@@ -290,15 +299,11 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
           </YdSelect>
         </YdFormItem>
         <YdFormItem>
-          <YdButton
-            :loading="generating"
-            :disabled="!hasSelectedTable"
-            @click="handleGenerate"
-          >
-        {{ t('devPlatform.generateCode') }}
+          <YdButton :loading="generating" :disabled="!hasSelectedTable" @click="handleGenerate">
+            {{ t('devPlatform.generateCode') }}
           </YdButton>
           <span v-if="!hasSelectedTable" class="ml-3 text-sm text-gray-400">
-        {{ t('devPlatform.selectDsAndTableFirst') }}
+            {{ t('devPlatform.selectDsAndTableFirst') }}
           </span>
         </YdFormItem>
       </YdForm>
@@ -307,16 +312,18 @@ const hasSelectedTable = computed(() => selectedTableId.value != null);
     <!-- 生成结果 -->
     <YdCard v-if="resultFiles.length > 0">
       <template #header>
-        <span class="font-medium">{{ t('devPlatform.resultSection', { count: resultFiles.length }) }}</span>
+        <span class="font-medium">{{
+          t('devPlatform.resultSection', { count: resultFiles.length })
+        }}</span>
       </template>
-      <div class="space-y-1 max-h-96 overflow-y-auto">
+      <div class="max-h-96 space-y-1 overflow-y-auto">
         <div
           v-for="(file, idx) in resultFiles"
           :key="file ?? idx"
-          class="flex items-center gap-2 text-sm py-1 border-b border-dashed last:border-b-0"
+          class="flex items-center gap-2 border-b border-dashed py-1 text-sm last:border-b-0"
         >
           <YdBadge variant="default" class="h-5 px-1 text-[10px]">✓</YdBadge>
-          <code class="text-xs text-gray-600 break-all font-mono">{{ file }}</code>
+          <code class="break-all font-mono text-xs text-gray-600">{{ file }}</code>
         </div>
       </div>
     </YdCard>

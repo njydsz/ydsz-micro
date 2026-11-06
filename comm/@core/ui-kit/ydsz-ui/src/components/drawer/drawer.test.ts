@@ -193,7 +193,9 @@ describe('YdDrawer 交互契约', () => {
    * <p>真实 Transition 的 after-leave 依赖两次 requestAnimationFrame，耗时随环境抖动，
    * 因此轮询 closed 事件而不是固定 sleep。
    */
-  async function settleTransition(wrapper: { emitted: (e: string) => unknown[] | undefined }): Promise<void> {
+  async function settleTransition(wrapper: {
+    emitted: (e: string) => unknown[] | undefined;
+  }): Promise<void> {
     for (let i = 0; i < 40; i++) {
       await new Promise((resolve) => setTimeout(resolve, 10));
       if (wrapper.emitted('closed')) {

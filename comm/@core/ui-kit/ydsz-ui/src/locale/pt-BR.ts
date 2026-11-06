@@ -350,12 +350,17 @@ export const ptBR = {
   'aiBuilder.generatePage': 'Gerar página',
   'aiBuilder.generating': 'Gerando...',
   'aiBuilder.pageDescription': 'Descrição da página',
-  'aiBuilder.autoHint': 'A IA inferirá a estrutura da página a partir dos campos e palavras-chave do negócio',
-  'aiBuilder.defaultPromptPlaceholder': 'Descreva em linguagem natural a página que deseja criar (aceita idiomas mistos)',
+  'aiBuilder.autoHint':
+    'A IA inferirá a estrutura da página a partir dos campos e palavras-chave do negócio',
+  'aiBuilder.defaultPromptPlaceholder':
+    'Descreva em linguagem natural a página que deseja criar (aceita idiomas mistos)',
   'aiBuilder.exampleForm': 'Exemplo: crie um formulário de novo usuário com nome, idade e e-mail',
-  'aiBuilder.exampleTable': 'Exemplo: crie uma lista de pedidos com filtros por status e exportação',
-  'aiBuilder.exampleDashboard': 'Exemplo: crie um painel de vendas com receita diária, pedidos e taxa de conversão',
-  'aiBuilder.exampleDetail': 'Exemplo: crie uma página de detalhes do cliente com informações básicas e pedidos associados',
+  'aiBuilder.exampleTable':
+    'Exemplo: crie uma lista de pedidos com filtros por status e exportação',
+  'aiBuilder.exampleDashboard':
+    'Exemplo: crie um painel de vendas com receita diária, pedidos e taxa de conversão',
+  'aiBuilder.exampleDetail':
+    'Exemplo: crie uma página de detalhes do cliente com informações básicas e pedidos associados',
   'aiBuilder.typeString': 'Texto',
   'aiBuilder.typeNumber': 'Número',
   'aiBuilder.typeBoolean': 'Booleano',
@@ -371,7 +376,8 @@ export const ptBR = {
 
   // ===== FormDesigner 面板数据 / AiBuilder 错误提示 / Message 关闭 =====
   'designer.paletteTitle': 'Componentes',
-  'designer.canvasEmptyHint': 'Arraste um componente da esquerda ou clique nele para começar a desenhar o formulário',
+  'designer.canvasEmptyHint':
+    'Arraste um componente da esquerda ou clique nele para começar a desenhar o formulário',
   'designer.groupBasic': 'Controles básicos',
   'designer.groupAdvanced': 'Controles avançados',
   'designer.groupLayout': 'Controles de layout',
@@ -416,7 +422,7 @@ export const ptBR = {
   'dashboard.cardCount': '{count} cartões',
   'dashboard.emptyEditable': 'Clique em «Adicionar cartão» para começar a montar o painel',
   'dashboard.empty': 'Ainda não há dados de cartões',
-'dashboard.chartEmpty': 'Sem dados de gráfico',
+  'dashboard.chartEmpty': 'Sem dados de gráfico',
   'advancedFilter.toolbarAriaLabel': 'Barra de ferramentas de filtros',
   'advancedFilter.removeFilter': 'Remover filtro {label}: {value}',
   'bulkActions.selectAll': 'Selecionar todos os {count} itens',
@@ -491,6 +497,14 @@ export const ptBR = {
   'splitter.ariaLabel': 'Redimensionar painel',
   'tag.close': 'Fechar etiqueta',
   'timeline.ariaLabel': 'Linha do tempo',
+// === 批量补齐的键（机翻回退，待人工校） ===
+  'notification.region': '通知',
+  'table.columnChooser': '列选择',
+  'table.columns': '列',
+  'table.exportExcel': '导出 Excel',
+  'table.exportSelected': '导出已选',
+  'table.reset': 'table.reset',
+  'table.showAll': '全部显示',
 
 } as const satisfies Record<string, string>;
 

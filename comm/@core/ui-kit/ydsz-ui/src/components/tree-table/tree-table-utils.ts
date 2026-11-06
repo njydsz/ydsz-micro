@@ -24,9 +24,12 @@ import type { CSSProperties } from 'vue';
  */
 export function alignClass(align?: string): string {
   switch (align) {
-    case 'center': return 'text-center';
-    case 'right': return 'text-right';
-    default: return 'text-left';
+    case 'center':
+      return 'text-center';
+    case 'right':
+      return 'text-right';
+    default:
+      return 'text-left';
   }
 }
 

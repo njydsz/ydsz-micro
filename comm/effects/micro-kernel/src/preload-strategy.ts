@@ -23,16 +23,13 @@
  * @since 1.0.0
  */
 
-import type { DisposableManager } from "./manager-registry";
-import type { PreloadManagerLike } from "./preload-manager-helpers";
-import { createLogger } from "@ydsz-core/shared/utils";
+import type { DisposableManager } from './manager-registry';
+import type { PreloadManagerLike } from './preload-manager-helpers';
+import { createLogger } from '@ydsz-core/shared/utils';
 
-import { UsageStatsStore } from "./preload-usage-stats";
+import { UsageStatsStore } from './preload-usage-stats';
 
-import type {
-  PermissionChecker,
-  PreloadStrategyOptions,
-} from "./preload-types";
+import type { PermissionChecker, PreloadStrategyOptions } from './preload-types';
 
 import {
   recordPreloadConsumedHelper,
@@ -46,7 +43,7 @@ import {
   executePreloadHelper,
   __registerPreloadManager,
   createPreloadManagerLifecycle,
-} from "./preload-manager-helpers";
+} from './preload-manager-helpers';
 
 type PM = PreloadManagerLike;
 
@@ -57,7 +54,7 @@ export {
   createIdlePreloadStrategy,
   createRoutePreloadStrategy,
   recordRouteTransition,
-} from "./preload-strategy-helpers";
+} from './preload-strategy-helpers';
 
 // 重新导出类型，保持向后兼容
 export type {
@@ -65,22 +62,15 @@ export type {
   PermissionChecker,
   PrefetchStrategyConfig,
   PreloadStrategyOptions,
-} from "./preload-types";
-export type {
-  PreloadPriority,
-  PreloadStrategy,
-  PrefetchStrategy,
-} from "./preload-types";
-export { shouldPrefetchByStrategy } from "./network-utils";
+} from './preload-types';
+export type { PreloadPriority, PreloadStrategy, PrefetchStrategy } from './preload-types';
+export { shouldPrefetchByStrategy } from './network-utils';
 
 // 重新导出单例管理函数，保持向后兼容
-export {
-  getPreloadManager,
-  resetPreloadManager,
-} from "./preload-manager-helpers";
+export { getPreloadManager, resetPreloadManager } from './preload-manager-helpers';
 
 /** 模块级日志器 */
-const logger = createLogger("PreloadManager");
+const logger = createLogger('PreloadManager');
 
 /**
  * 预加载管理器

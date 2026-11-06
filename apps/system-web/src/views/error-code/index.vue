@@ -22,7 +22,16 @@ import { useI18n } from 'vue-i18n';
 
 import type { ErrorCode } from '@ydsz/locales/errors';
 import { ZH_CN_MESSAGES } from '@ydsz/locales/errors/zh-CN';
-import { YdBadge, YdInput, YdTable, YdTableColumn, YdCard, YdEmptyState, YdSelectItem, YdSelect } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdInput,
+  YdTable,
+  YdTableColumn,
+  YdCard,
+  YdEmptyState,
+  YdSelectItem,
+  YdSelect,
+} from '@ydsz-core/ydsz-ui';
 import { Search } from '@ydsz/icons';
 
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -123,10 +132,14 @@ function inferModule(code: string): string {
 function inferLevel(code: string): ErrorCodeItem['level'] {
   const prefix = code.charAt(0);
   switch (prefix) {
-    case 'A': return code === 'A00000' ? 'INFO' : 'WARN';
-    case 'B': return 'ERROR';
-    case 'C': return 'FATAL';
-    default: return 'WARN';
+    case 'A':
+      return code === 'A00000' ? 'INFO' : 'WARN';
+    case 'B':
+      return 'ERROR';
+    case 'C':
+      return 'FATAL';
+    default:
+      return 'WARN';
   }
 }
 
@@ -186,7 +199,7 @@ if (import.meta.env.DEV) {
 </script>
 
 <template>
-  <div class="error-code-management p-5 space-y-4">
+  <div class="error-code-management space-y-4 p-5">
     <!-- 顶部过滤区 -->
     <YdCard shadow="never">
       <div class="flex flex-wrap items-center gap-5">
@@ -196,7 +209,11 @@ if (import.meta.env.DEV) {
           :placeholder="t('errorCode.searchPlaceholder')"
           class="w-[260px]"
         />
-        <YdSelect v-model="moduleFilter" :placeholder="t('errorCode.selectModule')" style="width: 180px">
+        <YdSelect
+          v-model="moduleFilter"
+          :placeholder="t('errorCode.selectModule')"
+          style="width: 180px"
+        >
           <YdSelectItem
             v-for="opt in moduleOptions"
             :key="opt.value"
@@ -204,7 +221,11 @@ if (import.meta.env.DEV) {
             :value="opt.value"
           />
         </YdSelect>
-        <YdSelect v-model="levelFilter" :placeholder="t('errorCode.selectLevel')" style="width: 140px">
+        <YdSelect
+          v-model="levelFilter"
+          :placeholder="t('errorCode.selectLevel')"
+          style="width: 140px"
+        >
           <YdSelectItem :label="t('errorCode.allLevels')" value="all" />
           <YdSelectItem label="INFO" value="INFO" />
           <YdSelectItem label="WARN" value="WARN" />
@@ -212,7 +233,12 @@ if (import.meta.env.DEV) {
           <YdSelectItem label="FATAL" value="FATAL" />
         </YdSelect>
         <div class="ml-auto text-sm text-gray-400">
-          {{ t('errorCode.countSummary', { filtered: filteredErrorCodes.length, total: allErrorCodes.length }) }}
+          {{
+            t('errorCode.countSummary', {
+              filtered: filteredErrorCodes.length,
+              total: allErrorCodes.length,
+            })
+          }}
         </div>
       </div>
     </YdCard>
@@ -232,7 +258,10 @@ if (import.meta.env.DEV) {
         </YdTableColumn>
         <YdTableColumn prop="level" :label="t('errorCode.colLevel')" width="100">
           <template #default="{ row }">
-            <YdBadge :variant="LEVEL_TAG_TYPE[row.level] === 'info' ? 'secondary' : 'destructive'">{{ row.level }}</YdBadge>
+            <YdBadge
+              :variant="LEVEL_TAG_TYPE[row.level] === 'info' ? 'secondary' : 'destructive'"
+              >{{ row.level }}</YdBadge
+            >
           </template>
         </YdTableColumn>
         <YdTableColumn prop="message" :label="t('errorCode.colMessage')" min-width="300" />

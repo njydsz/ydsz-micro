@@ -8,12 +8,12 @@
  * @since 3.7.0
  */
 
-import type { AppStatus } from "./scheduler";
+import type { AppStatus } from './scheduler';
 
-import { getPreloadManager } from "./preload-strategy";
-import { getRoutePredictor } from "./route-predictor";
-import { getAllInstances } from "./scheduler";
-import { getPerfStats } from "./performance-utils";
+import { getPreloadManager } from './preload-strategy';
+import { getRoutePredictor } from './route-predictor';
+import { getAllInstances } from './scheduler';
+import { getPerfStats } from './performance-utils';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 const logger = createLogger('devtools-tabs');
@@ -45,7 +45,7 @@ export interface DevToolsTab {
 export const tabRegistry = new Map<string, DevToolsTab>();
 
 /** 当前激活的 Tab id */
-export let activeTabId: string = "overview";
+export let activeTabId: string = 'overview';
 
 /**
  * 注册一个 DevTools Tab（幂等：同 id 覆盖）。
@@ -69,7 +69,7 @@ export let activeTabId: string = "overview";
  */
 export function registerDevToolsTab(tab: DevToolsTab): void {
   if (!tab?.id) {
-    logger.warn("[DevTools] registerDevToolsTab: invalid tab (missing id)");
+    logger.warn('[DevTools] registerDevToolsTab: invalid tab (missing id)');
     return;
   }
   tabRegistry.set(tab.id, tab);
@@ -83,12 +83,7 @@ export function registerDevToolsTab(tab: DevToolsTab): void {
  */
 export function unregisterDevToolsTab(id: string): boolean {
   // 内置 Tab 不允许移除
-  if (
-    id === "overview" ||
-    id === "preload" ||
-    id === "instances" ||
-    id === "performance"
-  ) {
+  if (id === 'overview' || id === 'preload' || id === 'instances' || id === 'performance') {
     return false;
   }
   return tabRegistry.delete(id);
@@ -127,12 +122,7 @@ export function getActiveTabId(): string {
  */
 export function clearCustomTabs(): void {
   for (const id of tabRegistry.keys()) {
-    if (
-      id !== "overview" &&
-      id !== "preload" &&
-      id !== "instances" &&
-      id !== "performance"
-    ) {
+    if (id !== 'overview' && id !== 'preload' && id !== 'instances' && id !== 'performance') {
       tabRegistry.delete(id);
     }
   }
@@ -150,28 +140,28 @@ function getMemoryInfo(): string {
     }
   ).performance;
   const mem = perf?.memory;
-  if (!mem) return "N/A（仅 Chrome）";
+  if (!mem) return 'N/A（仅 Chrome）';
   return `${(mem.usedJSHeapSize / 1024 / 1024).toFixed(1)} MB / ${(mem.jsHeapSizeLimit / 1024 / 1024).toFixed(0)} MB`;
 }
 
 /** 状态颜色 */
 export function statusColor(status: AppStatus): string {
   switch (status) {
-    case "LOADED": {
-      return "#409eff";
+    case 'LOADED': {
+      return '#409eff';
     }
-    case "LOADING": {
-      return "#e6a23c";
+    case 'LOADING': {
+      return '#e6a23c';
     }
-    case "MOUNTED": {
-      return "#67c23a";
+    case 'MOUNTED': {
+      return '#67c23a';
     }
-    case "UNMOUNTED": {
-      return "#909399";
+    case 'UNMOUNTED': {
+      return '#909399';
     }
-    case "NOT_LOADED":
+    case 'NOT_LOADED':
     default: {
-      return "#c0c4cc";
+      return '#c0c4cc';
     }
   }
 }
@@ -182,7 +172,7 @@ export function statusColor(status: AppStatus): string {
  */
 export function renderTabButton(tab: DevToolsTab): string {
   const isActive = activeTabId === tab.id;
-  return `<button data-tab="${tab.id}" style="padding:4px 10px;font-size:11px;cursor:pointer;border:none;border-bottom:2px solid ${isActive ? "hsl(var(--brand-500))" : "transparent"};background:transparent;color:${isActive ? "hsl(var(--brand-500))" : "#909399"};font-weight:${isActive ? 600 : 400}">${tab.label}</button>`;
+  return `<button data-tab="${tab.id}" style="padding:4px 10px;font-size:11px;cursor:pointer;border:none;border-bottom:2px solid ${isActive ? 'hsl(var(--brand-500))' : 'transparent'};background:transparent;color:${isActive ? 'hsl(var(--brand-500))' : '#909399'};font-weight:${isActive ? 600 : 400}">${tab.label}</button>`;
 }
 
 /** P2-7: 渲染预加载可视化 Tab 内容 */
@@ -193,10 +183,8 @@ export function renderPreloadContent(): string {
 
   // 构建 top predictions（取当前活跃应用的下一步预测）
   const allInstances = getAllInstances();
-  const activeApp = allInstances.find((i) => i.status === "MOUNTED");
-  const predictions = activeApp
-    ? predictor.predict(activeApp.config.name, 5)
-    : [];
+  const activeApp = allInstances.find((i) => i.status === 'MOUNTED');
+  const predictions = activeApp ? predictor.predict(activeApp.config.name, 5) : [];
 
   const predRows =
     predictions.length > 0
@@ -210,7 +198,7 @@ export function renderPreloadContent(): string {
             <span style="color:#909399">(${p.sampleSize})</span>
           </div>`;
           })
-          .join("")
+          .join('')
       : '<span style="color:#c0c4cc">暂无预测数据</span>';
 
   // 频率 top
@@ -225,14 +213,14 @@ export function renderPreloadContent(): string {
           <span style="color:#909399">${s.visitCount} 次</span>
         </div>`,
           )
-          .join("")
+          .join('')
       : '<span style="color:#c0c4cc">暂无数据</span>';
 
   return `
     <div style="display:flex;flex-direction:column;gap:12px">
       <div>
         <div style="margin-bottom:6px;color:#606266;font-weight:600">
-          🔮 路由预测 ${activeApp ? `(${activeApp.config.name})` : "(无活跃应用)"}
+          🔮 路由预测 ${activeApp ? `(${activeApp.config.name})` : '(无活跃应用)'}
         </div>
         <div style="padding:6px;background:#f5f7fa;border-radius:4px">
           ${predRows || '<span style="color:#c0c4cc">暂无预测数据</span>'}
@@ -251,9 +239,9 @@ export function renderPreloadContent(): string {
 /** P2-7: Overview Tab 内容（原面板主体信息） */
 export function renderOverviewContent(): string {
   const instances = getAllInstances();
-  const activeApp = instances.find((i) => i.status === "MOUNTED");
+  const activeApp = instances.find((i) => i.status === 'MOUNTED');
   const keepAliveCount = instances.filter(
-    (i) => i.keepAlive && i.status === "UNMOUNTED" && i.cachedRoot,
+    (i) => i.keepAlive && i.status === 'UNMOUNTED' && i.cachedRoot,
   ).length;
 
   // P1-7: 性能测量数据
@@ -262,20 +250,18 @@ export function renderOverviewContent(): string {
     .filter((m) => m.duration > 0)
     .slice(0, 8)
     .map(
-      (
-        m,
-      ) => `<div style="display:flex;justify-content:space-between;padding:2px 0">
-        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">${m.name.replace("kernel:", "")}</span>
+      (m) => `<div style="display:flex;justify-content:space-between;padding:2px 0">
+        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">${m.name.replace('kernel:', '')}</span>
         <span style="color:#303133;font-variant-numeric:tabular-nums">${m.duration}ms</span>
       </div>`,
     )
-    .join("");
+    .join('');
 
   return `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
       <div style="padding:6px;background:#f5f7fa;border-radius:4px">
         <div style="color:#909399">活跃应用</div>
-        <div style="font-weight:600">${activeApp?.config.name ?? "无"}</div>
+        <div style="font-weight:600">${activeApp?.config.name ?? '无'}</div>
       </div>
       <div style="padding:6px;background:#f5f7fa;border-radius:4px">
         <div style="color:#909399">KeepAlive</div>
@@ -321,7 +307,7 @@ export function renderPerformanceContent(): string {
   const groups = new Map<string, number[]>();
   for (const m of measures) {
     if (m.duration <= 0) continue;
-    const key = m.name.replace(/:\d+$/, ""); // 去除序号后缀便于分组
+    const key = m.name.replace(/:\d+$/, ''); // 去除序号后缀便于分组
     const list = groups.get(key) ?? [];
     list.push(m.duration);
     groups.set(key, list);
@@ -330,10 +316,7 @@ export function renderPerformanceContent(): string {
   // 计算 P50 / P95
   const percentile = (sorted: number[], p: number): number => {
     if (sorted.length === 0) return 0;
-    const idx = Math.min(
-      sorted.length - 1,
-      Math.ceil((p / 100) * sorted.length) - 1,
-    );
+    const idx = Math.min(sorted.length - 1, Math.ceil((p / 100) * sorted.length) - 1);
     return sorted[idx]!;
   };
 
@@ -343,13 +326,13 @@ export function renderPerformanceContent(): string {
       const p50 = percentile(sorted, 50);
       const p95 = percentile(sorted, 95);
       return `<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #f0f2f5">
-        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px" title="${name}">${name.replace("kernel:", "")}</span>
+        <span style="color:#606266;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px" title="${name}">${name.replace('kernel:', '')}</span>
         <span style="color:#909399;font-variant-numeric:tabular-nums">n=${durations.length}</span>
         <span style="color:#303133;font-variant-numeric:tabular-nums">P50 ${Math.round(p50)}ms</span>
         <span style="color:#e6a23c;font-variant-numeric:tabular-nums">P95 ${Math.round(p95)}ms</span>
       </div>`;
     })
-    .join("");
+    .join('');
 
   // 预加载命中率
   const preload = getPreloadManager();
@@ -397,13 +380,13 @@ export function renderInstancesContent(): string {
           <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${statusColor(inst.status)}"></span>
           <span style="flex:1">${inst.config.name}</span>
           <span style="color:${statusColor(inst.status)};font-weight:600">${inst.status}</span>
-          ${inst.loadMetrics ? `<span style="color:#909399">${Math.round(inst.loadMetrics.duration)}ms</span>` : ""}
+          ${inst.loadMetrics ? `<span style="color:#909399">${Math.round(inst.loadMetrics.duration)}ms</span>` : ''}
           <button data-act="unmount" data-app="${inst.config.name}" style="padding:2px 6px;font-size:11px;cursor:pointer;background:#f5f7fa;border:1px solid #dcdfe6;border-radius:3px">卸载</button>
           <button data-act="reload" data-app="${inst.config.name}" style="padding:2px 6px;font-size:11px;cursor:pointer;background:#ecf5ff;border:1px solid #c6e2ff;border-radius:3px;color:#409eff">重载</button>
         </div>
       `,
         )
-        .join("")}
+        .join('')}
     </div>
   `;
 }
@@ -422,27 +405,27 @@ export function renderTabContent(): string {
 // ==================== 内置 Tab 注册 ====================
 
 const overviewTab: DevToolsTab = {
-  id: "overview",
-  label: "概览",
+  id: 'overview',
+  label: '概览',
   render: () => renderOverviewContent(),
 };
 
 const preloadTab: DevToolsTab = {
-  id: "preload",
-  label: "预加载",
+  id: 'preload',
+  label: '预加载',
   render: () => renderPreloadContent(),
 };
 
 const instancesTab: DevToolsTab = {
-  id: "instances",
-  label: "子应用",
+  id: 'instances',
+  label: '子应用',
   render: () => renderInstancesContent(),
 };
 
 // v4.2.1 N7: 独立性能 Tab（P50/P95 聚合 + 预加载命中率）
 const performanceTab: DevToolsTab = {
-  id: "performance",
-  label: "性能",
+  id: 'performance',
+  label: '性能',
   render: () => renderPerformanceContent(),
 };
 

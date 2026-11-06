@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /**
-* AlertBanner —— 自研告警横幅组件（替代 EP ElAlert）。
-* 
+ * AlertBanner —— 自研告警横幅组件（替代 EP ElAlert）。
+ *
  * 提供 warning / info / error / success 四种语义；默认样式为「警告」(amber)。
  * 图标基于 lucide；可通过 default slot 插入正文（校验提示、帮助说明等）。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\alert\AlertBanner.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -61,12 +61,15 @@ const IconComponent = computed(() => {
  * 规范：YDIZ-STYLE-001（禁止硬编码状态色）
  */
 const tone = computed(() => {
-  const map: Record<'error' | 'info' | 'success' | 'warning', {
-    bg: string;
-    border: string;
-    icon: string;
-    title: string;
-  }> = {
+  const map: Record<
+    'error' | 'info' | 'success' | 'warning',
+    {
+      bg: string;
+      border: string;
+      icon: string;
+      title: string;
+    }
+  > = {
     error: {
       bg: 'bg-[var(--alert-error-bg)]',
       border: 'border-[var(--alert-error-border)]',
@@ -104,12 +107,7 @@ function handleClose(): void {
   <div
     v-if="title"
     :class="
-      cn(
-        'alert-banner',
-        'relative flex gap-3 rounded-md border px-3 py-2',
-        tone.bg,
-        tone.border,
-      )
+      cn('alert-banner', 'relative flex gap-3 rounded-md border px-3 py-2', tone.bg, tone.border)
     "
     role="alert"
     aria-live="polite"

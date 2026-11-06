@@ -62,4 +62,3 @@ export interface BreadcrumbProps {
   /** 展示风格（如普通/背景块样式），取值由全局主题类型定义 */
   styleType?: BreadcrumbStyleType;
 }
-

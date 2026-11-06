@@ -98,4 +98,3 @@ export const COLOR_PRESETS = [...BUILT_IN_THEME_PRESETS].slice(0, 7);
 export { BUILT_IN_THEME_PRESETS };
 
 export type { BuiltinThemePreset };
-

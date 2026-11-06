@@ -16,19 +16,27 @@ import type { PageResponse } from './models';
 /**
  * getJobEventStream: GET /cronjob/events/job/{jobId}
  */
-export function getJobEventStream({ jobId }: {
-    jobId: string;
-  }): Promise<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]> {
-  return requestClient.get<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]>(`/cronjob/events/job/${jobId}`);
+export function getJobEventStream({
+  jobId,
+}: {
+  jobId: string;
+}): Promise<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]> {
+  return requestClient.get<
+    'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]
+  >(`/cronjob/events/job/${jobId}`);
 }
 
 /**
  * pageByType: GET /cronjob/events/page
  */
 export function pageByType(params: {
-    eventType?: string;
-    pageNum?: number;
-    size?: number;
-  }): Promise<PageResponse<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]>> {
-  return requestClient.get<PageResponse<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]>>(`/cronjob/events/page`, { params });
+  eventType?: string;
+  pageNum?: number;
+  size?: number;
+}): Promise<
+  PageResponse<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]>
+> {
+  return requestClient.get<
+    PageResponse<'CREATED' | 'UPDATED' | 'STATUS_CHANGED' | 'TRIGGERED' | 'DELETED' | 'MIGRATED'[]>
+  >(`/cronjob/events/page`, { params });
 }

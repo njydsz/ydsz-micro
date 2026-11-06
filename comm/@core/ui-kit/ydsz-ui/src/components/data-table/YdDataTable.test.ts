@@ -46,10 +46,7 @@ const people: Person[] = [
  * @param rowOverride - 覆盖默认数据源
  * @returns Vue Test Utils 包装器
  */
-function mountTable(
-  extraProps: Record<string, unknown> = {},
-  rowOverride?: Person[],
-) {
+function mountTable(extraProps: Record<string, unknown> = {}, rowOverride?: Person[]) {
   return mount(YdDataTable, {
     attachTo: document.body,
     props: {
@@ -63,7 +60,7 @@ function mountTable(
 
 /** 取表体数据行（排除占位行与汇总行） */
 function dataRows(wrapper: ReturnType<typeof mountTable>) {
-  return wrapper.findAll('tbody tr').filter(row => !row.attributes('aria-hidden'));
+  return wrapper.findAll('tbody tr').filter((row) => !row.attributes('aria-hidden'));
 }
 
 /**
@@ -99,7 +96,7 @@ describe('YdDataTable', () => {
 
   it('表头应使用列 label 而不是 key', () => {
     const wrapper = mountTable();
-    const heads = wrapper.findAll('th').map(th => th.text());
+    const heads = wrapper.findAll('th').map((th) => th.text());
 
     expect(heads).toEqual(['姓名', '年龄', '城市']);
   });
@@ -124,7 +121,11 @@ describe('YdDataTable', () => {
 
     // 自定义 sorter 生效：按年龄升序
     await ageHead.find('button').trigger('click');
-    expect(dataRows(wrapper).map(row => rowCells(row)[0].text())).toEqual(['Bob', 'Alice', 'Carol']);
+    expect(dataRows(wrapper).map((row) => rowCells(row)[0].text())).toEqual([
+      'Bob',
+      'Alice',
+      'Carol',
+    ]);
   });
 
   it('不可排序列不应渲染排序按钮', () => {
@@ -147,7 +148,11 @@ describe('YdDataTable', () => {
     expect(nameHead.find('button').text()).toContain('2');
 
     // 同年龄时按姓名字典序：Alice(30) < Carol(30)，Bob(25) 年龄最小排首位
-    expect(dataRows(wrapper).map(row => rowCells(row)[0].text())).toEqual(['Bob', 'Alice', 'Carol']);
+    expect(dataRows(wrapper).map((row) => rowCells(row)[0].text())).toEqual([
+      'Bob',
+      'Alice',
+      'Carol',
+    ]);
   });
 
   it('受控 sortState 应覆盖内部排序链', async () => {
@@ -157,25 +162,31 @@ describe('YdDataTable', () => {
 
     expect(wrapper.findAll('th')[1].attributes('aria-sort')).toBe('descending');
     // 同年龄保持稳定排序：Alice(30) 仍排在 Carol(30) 之前
-    expect(dataRows(wrapper).map(row => rowCells(row)[0].text())).toEqual(['Alice', 'Carol', 'Bob']);
+    expect(dataRows(wrapper).map((row) => rowCells(row)[0].text())).toEqual([
+      'Alice',
+      'Carol',
+      'Bob',
+    ]);
   });
 
   // ==================== loading ====================
 
   it('loading 时展示覆盖层、标记 aria-busy 且隐藏空态', () => {
     const wrapper = mountTable({ dataSource: [], loading: true });
+    const grid = wrapper.find('[role="grid"]');
 
     expect(wrapper.find('[role="status"]').exists()).toBe(true);
-    expect(wrapper.attributes('aria-busy')).toBe('true');
+    expect(grid.attributes('aria-busy')).toBe('true');
     expect(wrapper.text()).not.toContain('暂无数据');
     expect(wrapper.text()).toContain('加载中...');
   });
 
   it('非 loading 的空数据应展示空态', () => {
     const wrapper = mountTable({ dataSource: [] });
+    const grid = wrapper.find('[role="grid"]');
 
     expect(wrapper.find('[role="status"]').exists()).toBe(false);
-    expect(wrapper.attributes('aria-busy')).toBe('false');
+    expect(grid.attributes('aria-busy')).toBe('false');
     expect(wrapper.text()).toContain('暂无数据');
   });
 
@@ -185,7 +196,8 @@ describe('YdDataTable', () => {
     const wrapper = mount(YdDataTable, {
       props: { columns, dataSource: people, rowKey: (row: Person) => row.name },
       slots: {
-        'cell-age': (props: { value: unknown }) => h('b', { class: 'age-cell' }, `${props.value}岁`),
+        'cell-age': (props: { value: unknown }) =>
+          h('b', { class: 'age-cell' }, `${props.value}岁`),
       },
     });
 
@@ -203,8 +215,11 @@ describe('YdDataTable', () => {
       },
     });
 
-    expect(wrapper.findAll('.any-cell').map(cell => cell.text()))
-      .toEqual(['[name]', '[age]', '[city]']);
+    expect(wrapper.findAll('.any-cell').map((cell) => cell.text())).toEqual([
+      '[name]',
+      '[age]',
+      '[city]',
+    ]);
   });
 
   it('列 formatter 应作用于展示与导出，空值仍兜底为 -', async () => {
@@ -257,7 +272,7 @@ describe('YdDataTable', () => {
 
     const spacers = wrapper.findAll('tbody tr[aria-hidden="true"]');
     expect(spacers.length).toBeGreaterThan(0);
-    expect(wrapper.attributes('class')).toContain('yd-body-virtual');
+    expect(wrapper.find('[role="grid"]').attributes('class')).toContain('yd-body-virtual');
   });
 
   it('virtual 关闭时应渲染全部行', () => {

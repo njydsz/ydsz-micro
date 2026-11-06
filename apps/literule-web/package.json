@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "YDSZ": {
-    "shareStrategy": "core"
+    "shareStrategy": "core-ui"
   },
   "scripts": {
     "build": "pnpm vite build --mode production",

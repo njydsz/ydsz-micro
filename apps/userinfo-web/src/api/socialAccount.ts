@@ -30,8 +30,6 @@ export function getAvailablePlatforms(): Promise<Record<string, unknown>[]> {
 /**
  * unbind: DELETE /profile/social/bindings/{platform}
  */
-export function unbind({ platform }: {
-    platform: string;
-  }): Promise<boolean> {
+export function unbind({ platform }: { platform: string }): Promise<boolean> {
   return requestClient.delete<boolean>(`/profile/social/bindings/${platform}`);
 }

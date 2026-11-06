@@ -23,4 +23,4 @@ export const items = [
   },
   { title: 'app.vue', icon: 'vscode-icons:file-type-vue' },
   { title: 'nuxt.config.ts', icon: 'vscode-icons:file-type-nuxt' },
-]
+];

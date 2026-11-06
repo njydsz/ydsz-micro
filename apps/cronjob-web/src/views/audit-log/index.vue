@@ -19,7 +19,16 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdSheet, YdSheetContent, YdSheetHeader, YdSheetTitle, YdDescriptions, YdDescriptionsItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdSheet,
+  YdSheetContent,
+  YdSheetHeader,
+  YdSheetTitle,
+  YdDescriptions,
+  YdDescriptionsItem,
+} from '@ydsz-core/ydsz-ui';
 import { h, ref } from 'vue';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -93,7 +102,9 @@ const gridOptions: VxeTableGridOptions<AuditLogVO> = {
       slots: {
         default: ({ row }) => {
           const item = row as AuditLogVO;
-          return h(YdBadge, { size: 'sm', variant: 'secondary' }, () => translateAuditType(item.auditType));
+          return h(YdBadge, { size: 'sm', variant: 'secondary' }, () =>
+            translateAuditType(item.auditType),
+          );
         },
       },
     },
@@ -223,26 +234,38 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           <YdSheetTitle>审计日志详情</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailRecord">
-        <YdDescriptions :column="2" border size="small">
-          <YdDescriptionsItem label="模块">
-            <YdBadge size="sm" variant="secondary">{{ translateAuditType(detailRecord.auditType) }}</YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="操作行为">
-            <YdBadge size="sm">{{ translateAction(detailRecord.action) }}</YdBadge>
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="操作内容" :span="2">
-            {{ detailRecord.content ?? '-' }}
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="业务流水号">{{ detailRecord.businessNo ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="操作人">{{ detailRecord.operatorName ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="IP 地址">{{ detailRecord.ipAddress ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="操作时间">{{ detailRecord.operationTime ?? '-' }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="执行耗时">
-            {{ formatCostTime(detailRecord.costTime) }}
-          </YdDescriptionsItem>
-          <YdDescriptionsItem label="TraceId">{{ detailRecord.traceId ?? '-' }}</YdDescriptionsItem>
-        </YdDescriptions>
-      </template>
+          <YdDescriptions :column="2" border size="small">
+            <YdDescriptionsItem label="模块">
+              <YdBadge size="sm" variant="secondary">{{
+                translateAuditType(detailRecord.auditType)
+              }}</YdBadge>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="操作行为">
+              <YdBadge size="sm">{{ translateAction(detailRecord.action) }}</YdBadge>
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="操作内容" :span="2">
+              {{ detailRecord.content ?? '-' }}
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="业务流水号">{{
+              detailRecord.businessNo ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="操作人">{{
+              detailRecord.operatorName ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="IP 地址">{{
+              detailRecord.ipAddress ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="操作时间">{{
+              detailRecord.operationTime ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem label="执行耗时">
+              {{ formatCostTime(detailRecord.costTime) }}
+            </YdDescriptionsItem>
+            <YdDescriptionsItem label="TraceId">{{
+              detailRecord.traceId ?? '-'
+            }}</YdDescriptionsItem>
+          </YdDescriptions>
+        </template>
       </YdSheetContent>
     </YdSheet>
   </Page>

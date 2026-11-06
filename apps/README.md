@@ -4,16 +4,16 @@
 
 ## 应用清单
 
-| 应用 | 说明 | 后端对应 |
-|------|------|----------|
-| `agent-web` | AI 智能体管理（Agent/RAG/Prompt/DAG） | ydsz-agent |
-| `cronjob-web` | 分布式定时任务与 DAG 调度 | ydsz-cronjob |
-| `literule-web` | 规则引擎（规则/决策表/DSL/CEP） | ydsz-literule |
-| `message-web` | 消息中台（模板/批量/死信/追踪） | ydsz-message |
-| `nextwiki-web` | 企业知识库/文档管理 | ydsz-nextwiki |
-| `system-web` | 系统管理（租户/字典/配置/审计） | ydsz-system |
+| 应用           | 说明                                  | 后端对应      |
+| -------------- | ------------------------------------- | ------------- |
+| `agent-web`    | AI 智能体管理（Agent/RAG/Prompt/DAG） | ydsz-agent    |
+| `cronjob-web`  | 分布式定时任务与 DAG 调度             | ydsz-cronjob  |
+| `literule-web` | 规则引擎（规则/决策表/DSL/CEP）       | ydsz-literule |
+| `message-web`  | 消息中台（模板/批量/死信/追踪）       | ydsz-message  |
+| `nextwiki-web` | 企业知识库/文档管理                   | ydsz-nextwiki |
+| `system-web`   | 系统管理（租户/字典/配置/审计）       | ydsz-system   |
 | `userinfo-web` | 用户中心（认证/部门/角色/SSO/OAuth2） | ydsz-userinfo |
-| `workflow-web` | 工作流/审批引擎 | ydsz-workflow |
+| `workflow-web` | 工作流/审批引擎                       | ydsz-workflow |
 
 ## 应用骨架
 

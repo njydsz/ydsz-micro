@@ -30,24 +30,29 @@ export function registerPattern(data: 'TUMBLING' | 'SLIDING'): Promise<void> {
 /**
  * unregisterPattern: DELETE /literule/cep/patterns/{pattern-id}
  */
-export function unregisterPattern({ patternId }: {
-    patternId: string;
-  }): Promise<void> {
+export function unregisterPattern({ patternId }: { patternId: string }): Promise<void> {
   return requestClient.delete<void>(`/literule/cep/patterns/${patternId}`);
 }
 
 /**
  * feedEvent: POST /literule/cep/events
  */
-export function feedEvent(data: Record<string, Record<string, unknown>>): Promise<Record<string, Record<string, unknown>>> {
+export function feedEvent(
+  data: Record<string, Record<string, unknown>>,
+): Promise<Record<string, Record<string, unknown>>> {
   return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/cep/events`, data);
 }
 
 /**
  * feedEvents: POST /literule/cep/events/batch
  */
-export function feedEvents(data: Record<string, Record<string, unknown>>[]): Promise<Record<string, Record<string, unknown>>> {
-  return requestClient.post<Record<string, Record<string, unknown>>>(`/literule/cep/events/batch`, data);
+export function feedEvents(
+  data: Record<string, Record<string, unknown>>[],
+): Promise<Record<string, Record<string, unknown>>> {
+  return requestClient.post<Record<string, Record<string, unknown>>>(
+    `/literule/cep/events/batch`,
+    data,
+  );
 }
 
 /**

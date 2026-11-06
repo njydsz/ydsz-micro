@@ -28,8 +28,10 @@ const { $t } = useSimpleLocale();
 const variantClassMap: Record<string, string> = {
   default: 'border-border bg-background text-foreground',
   info: 'border-blue-500/30 bg-blue-50 text-blue-900 dark:bg-blue-950/50 dark:text-blue-100',
-  success: 'border-green-500/30 bg-green-50 text-green-900 dark:bg-green-950/50 dark:text-green-100',
-  warning: 'border-amber-500/30 bg-amber-50 text-amber-900 dark:bg-amber-950/50 dark:text-amber-100',
+  success:
+    'border-green-500/30 bg-green-50 text-green-900 dark:bg-green-950/50 dark:text-green-100',
+  warning:
+    'border-amber-500/30 bg-amber-50 text-amber-900 dark:bg-amber-950/50 dark:text-amber-100',
   error: 'border-red-500/30 bg-red-50 text-red-900 dark:bg-red-950/50 dark:text-red-100',
 };
 
@@ -72,7 +74,10 @@ function schedule(id: number, duration: number): void {
   remaining.set(id, wait);
   startedAt.set(id, Date.now());
   clearTimer(id);
-  timers.set(id, setTimeout(() => removeItem(id), wait));
+  timers.set(
+    id,
+    setTimeout(() => removeItem(id), wait),
+  );
 }
 
 /**
@@ -84,7 +89,10 @@ function schedule(id: number, duration: number): void {
 function pause(id: number): void {
   const timer = timers.get(id);
   if (timer === undefined) return;
-  remaining.set(id, Math.max(0, (remaining.get(id) ?? 0) - (Date.now() - (startedAt.get(id) ?? Date.now()))));
+  remaining.set(
+    id,
+    Math.max(0, (remaining.get(id) ?? 0) - (Date.now() - (startedAt.get(id) ?? Date.now()))),
+  );
   clearTimer(id);
 }
 
@@ -147,7 +155,7 @@ onBeforeUnmount(() => {
   <!-- Toast Viewport：固定视口右上角 -->
   <div
     aria-live="polite"
-    class="pointer-events-none fixed top-4 right-4 z-[var(--z-toast)] flex min-w-[320px] flex-col gap-3 outline-none"
+    class="pointer-events-none fixed right-4 top-4 z-[var(--z-toast)] flex min-w-[320px] flex-col gap-3 outline-none"
     @mouseenter="pauseAll"
     @mouseleave="resumeAll"
   >
@@ -167,10 +175,7 @@ onBeforeUnmount(() => {
           <p class="text-sm font-medium leading-5">
             {{ item.title }}
           </p>
-          <p
-            v-if="item.description"
-            class="mt-1 text-sm opacity-80 leading-5"
-          >
+          <p v-if="item.description" class="mt-1 text-sm leading-5 opacity-80">
             {{ item.description }}
           </p>
         </div>

@@ -131,11 +131,7 @@ function handleMenuClick(to: RouteLocationRaw): void {
 
       <!-- 遮罩层 + 抽屉面板 -->
       <Transition name="drawer-overlay">
-        <div
-          v-if="drawerOpen && isMobile"
-          class="drawer-overlay"
-          @click="drawerOpen = false"
-        >
+        <div v-if="drawerOpen && isMobile" class="drawer-overlay" @click="drawerOpen = false">
           <Transition name="drawer-slide">
             <nav
               v-if="drawerOpen"
@@ -158,11 +154,7 @@ function handleMenuClick(to: RouteLocationRaw): void {
 
               <!-- 菜单列表 -->
               <ul class="drawer-menu">
-                <li
-                  v-for="item in menuItems"
-                  :key="item.key"
-                  class="drawer-menu-group"
-                >
+                <li v-for="item in menuItems" :key="item.key" class="drawer-menu-group">
                   <!-- 一级菜单（有路由则直接跳转，有子项则展示分组标题） -->
                   <button
                     v-if="item.to && (!item.children || item.children.length === 0)"
@@ -171,22 +163,13 @@ function handleMenuClick(to: RouteLocationRaw): void {
                   >
                     {{ item.label }}
                   </button>
-                  <span
-                    v-else
-                    class="drawer-menu-group-title"
-                  >
+                  <span v-else class="drawer-menu-group-title">
                     {{ item.label }}
                   </span>
 
                   <!-- 二级菜单列表 -->
-                  <ul
-                    v-if="item.children && item.children.length > 0"
-                    class="drawer-submenu"
-                  >
-                    <li
-                      v-for="child in item.children"
-                      :key="child.key"
-                    >
+                  <ul v-if="item.children && item.children.length > 0" class="drawer-submenu">
+                    <li v-for="child in item.children" :key="child.key">
                       <button
                         class="drawer-menu-item"
                         @click="child.to && handleMenuClick(child.to)"

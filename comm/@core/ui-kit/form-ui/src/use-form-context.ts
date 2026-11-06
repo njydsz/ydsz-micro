@@ -28,9 +28,7 @@ import { getDefaultsForSchema } from 'zod-defaults';
 type ExtendFormProps = YdFormProps & { formApi: YdExtendedFormApi };
 
 export const [injectFormProps, provideFormProps] =
-  createContext<[ComputedRef<ExtendFormProps> | ExtendFormProps, FormActions]>(
-    'YdFormProps',
-  );
+  createContext<[ComputedRef<ExtendFormProps> | ExtendFormProps, FormActions]>('YdFormProps');
 
 export const [injectComponentRefMap, provideComponentRefMap] =
   createContext<Map<string, unknown>>('ComponentRefMap');
@@ -61,9 +59,7 @@ export const [injectComponentRefMap, provideComponentRefMap] =
  * @returns `form` 为 vee-validate 表单实例；`delegatedSlots` 是需要透传给渲染层的具名插槽名列表
  *          （已剔除 `default`，因为默认插槽由表单组件自身消费）
  */
-export function useFormInitial(
-  props: ComputedRef<YdFormProps> | YdFormProps,
-) {
+export function useFormInitial(props: ComputedRef<YdFormProps> | YdFormProps) {
   const slots = useSlots();
   const initialValues = generateInitialValues();
 
@@ -126,10 +122,7 @@ export function useFormInitial(
       const rightDefaultValue = getCustomDefaultValue(rule._def.right);
 
       // 如果左右两边都能提取默认值，合并它们
-      if (
-        typeof leftDefaultValue === 'object' &&
-        typeof rightDefaultValue === 'object'
-      ) {
+      if (typeof leftDefaultValue === 'object' && typeof rightDefaultValue === 'object') {
         return { ...leftDefaultValue, ...rightDefaultValue };
       }
 
@@ -145,4 +138,3 @@ export function useFormInitial(
     form,
   };
 }
-

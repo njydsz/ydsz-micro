@@ -2,7 +2,7 @@
 /**
  * OrgNode.vue —— 组织架构图单节点渲染组件。
  * 根据节点类型（root / branch / leaf）分发样式，含连线、选中态、展开/折叠指示器。
- * 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\primitives\organization-chart\OrgNode.vue
  * @author ydsz-team
  * @since 26.09.24
@@ -12,10 +12,7 @@ import { computed } from 'vue';
 import { cn } from '@ydsz-core/shared/utils';
 
 import type { OrgNode } from './use-organization-chart';
-import {
-  isBranchNode,
-  resolveNodeType,
-} from './use-organization-chart';
+import { isBranchNode, resolveNodeType } from './use-organization-chart';
 import { useLocale } from '../../locale/useLocale';
 
 const { t } = useLocale();
@@ -58,12 +55,7 @@ const emit = defineEmits<{
 const nodeType = computed(() => resolveNodeType(props.node));
 
 /** 样式 class */
-const nodeClass = computed(() =>
-  cn(
-    'relative flex flex-col items-center',
-    props.node.className,
-  ),
-);
+const nodeClass = computed(() => cn('relative flex flex-col items-center', props.node.className));
 
 /** 卡片样式：根据类型区分视觉层级 */
 const cardClass = computed(() =>
@@ -114,10 +106,9 @@ function handleExpandClick(): void {
     >
       <!-- 节点标签 -->
       <span
-        :class="cn(
-          'text-sm font-medium',
-          nodeType === 'root' ? 'text-indigo-900' : 'text-slate-800',
-        )"
+        :class="
+          cn('text-sm font-medium', nodeType === 'root' ? 'text-indigo-900' : 'text-slate-800')
+        "
       >
         {{ node.label || node.id }}
       </span>
@@ -128,10 +119,12 @@ function handleExpandClick(): void {
         type="button"
         :aria-label="isExpanded ? t('common.collapse') : t('common.expand')"
         aria-keyshortcuts="Enter"
-        :class="cn(
-          'absolute -bottom-3 left-1/2 z-20 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border border-slate-300 bg-white text-xs font-bold text-slate-600 transition-transform hover:bg-slate-100',
-          isExpanded && 'rotate-180',
-        )"
+        :class="
+          cn(
+            'absolute -bottom-3 left-1/2 z-20 flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border border-slate-300 bg-white text-xs font-bold text-slate-600 transition-transform hover:bg-slate-100',
+            isExpanded && 'rotate-180',
+          )
+        "
         @click.stop="handleExpandClick"
       >
         <svg
@@ -142,7 +135,13 @@ function handleExpandClick(): void {
           fill="none"
           aria-hidden="true"
         >
-          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M6 9L12 15L18 9"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
         <span v-else class="text-xs">{{ node.children?.length ?? 0 }}</span>
       </button>
@@ -151,12 +150,14 @@ function handleExpandClick(): void {
     <!-- 子节点区域 -->
     <div
       v-if="hasChildren && isExpanded"
-      :class="cn(
-        'relative',
-        horizontal
-          ? 'mt-0 flex flex-row items-start gap-8 ps-8 pt-0'
-          : 'mt-8 flex flex-col items-center gap-6',
-      )"
+      :class="
+        cn(
+          'relative',
+          horizontal
+            ? 'mt-0 flex flex-row items-start gap-8 ps-8 pt-0'
+            : 'mt-8 flex flex-col items-center gap-6',
+        )
+      "
     >
       <!-- 纵向主干连线：垂直布局时 -->
       <div
@@ -176,10 +177,7 @@ function handleExpandClick(): void {
       <div
         v-for="(child, idx) in node.children"
         :key="child.id"
-        :class="cn(
-          'relative flex',
-          horizontal ? 'flex-col items-start' : 'flex-col items-center',
-        )"
+        :class="cn('relative flex', horizontal ? 'flex-col items-start' : 'flex-col items-center')"
       >
         <!-- 子节点纵向连接线：垂直布局 -->
         <div

@@ -363,12 +363,16 @@ export const enUS = {
   'aiBuilder.generatePage': 'Generate page',
   'aiBuilder.generating': 'Generating...',
   'aiBuilder.pageDescription': 'Page description',
-  'aiBuilder.autoHint': 'AI infers the page structure from the described fields and business keywords',
-  'aiBuilder.defaultPromptPlaceholder': 'Describe the page you want in natural language (mixed languages supported)',
+  'aiBuilder.autoHint':
+    'AI infers the page structure from the described fields and business keywords',
+  'aiBuilder.defaultPromptPlaceholder':
+    'Describe the page you want in natural language (mixed languages supported)',
   'aiBuilder.exampleForm': 'e.g. Create a new-user form with name, age and email fields',
   'aiBuilder.exampleTable': 'e.g. Create an order list with status filters and export',
-  'aiBuilder.exampleDashboard': 'e.g. Create a sales dashboard showing daily revenue, orders and conversion rate',
-  'aiBuilder.exampleDetail': 'e.g. Create a customer detail page with basic info and related orders',
+  'aiBuilder.exampleDashboard':
+    'e.g. Create a sales dashboard showing daily revenue, orders and conversion rate',
+  'aiBuilder.exampleDetail':
+    'e.g. Create a customer detail page with basic info and related orders',
   'aiBuilder.typeString': 'Text',
   'aiBuilder.typeNumber': 'Number',
   'aiBuilder.typeBoolean': 'Boolean',
@@ -384,7 +388,8 @@ export const enUS = {
 
   // ===== FormDesigner 面板数据 / AiBuilder 错误提示 / Message 关闭 =====
   'designer.paletteTitle': 'Components',
-  'designer.canvasEmptyHint': 'Drag a component from the left or click it to start designing the form',
+  'designer.canvasEmptyHint':
+    'Drag a component from the left or click it to start designing the form',
   'designer.groupBasic': 'Basic controls',
   'designer.groupAdvanced': 'Advanced controls',
   'designer.groupLayout': 'Layout controls',
@@ -504,6 +509,8 @@ export const enUS = {
   'splitter.ariaLabel': 'Resize panel',
   'tag.close': 'Close tag',
   'timeline.ariaLabel': 'Timeline',
+// === 补齐基线缺失键 ===
+  'table.reset': 'Reset',
 
 } as const satisfies Record<string, string>;
 

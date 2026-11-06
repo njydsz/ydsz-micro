@@ -4,11 +4,11 @@
 
 YDSZ 采用前后端分离的双仓库结构：
 
-| 仓库 | 路径 | 说明 |
-|------|------|------|
-| 前端 | `D:\Code\open\ydsz-micro` | Vue 3 + Vite + Pnpm Monorepo |
-| 后端 | `D:\Code\open\ydsz-cloud` | Spring Boot 3 + Maven 多模块 |
-| 文档站 | `D:\Code\open\ydsz-micro\apps\docs-site` | VitePress 文档站 |
+| 仓库   | 路径                                     | 说明                         |
+| ------ | ---------------------------------------- | ---------------------------- |
+| 前端   | `D:\Code\open\ydsz-micro`                | Vue 3 + Vite + Pnpm Monorepo |
+| 后端   | `D:\Code\open\ydsz-cloud`                | Spring Boot 3 + Maven 多模块 |
+| 文档站 | `D:\Code\open\ydsz-micro\apps\docs-site` | VitePress 文档站             |
 
 ## 提交规范
 
@@ -20,26 +20,26 @@ YDSZ 采用前后端分离的双仓库结构：
 
 类型（type）：
 
-| 类型 | 说明 |
-|------|------|
-| `feat` | 新功能 |
-| `fix` | 缺陷修复 |
-| `docs` | 文档变更 |
-| `style` | 代码风格调整（不影响功能） |
-| `refactor` | 重构（非新功能、非修复） |
-| `perf` | 性能优化 |
-| `test` | 测试相关 |
-| `chore` | 构建/工具/依赖变更 |
+| 类型       | 说明                       |
+| ---------- | -------------------------- |
+| `feat`     | 新功能                     |
+| `fix`      | 缺陷修复                   |
+| `docs`     | 文档变更                   |
+| `style`    | 代码风格调整（不影响功能） |
+| `refactor` | 重构（非新功能、非修复）   |
+| `perf`     | 性能优化                   |
+| `test`     | 测试相关                   |
+| `chore`    | 构建/工具/依赖变更         |
 
 ## 分支策略
 
-| 分支 | 说明 |
-|------|------|
-| `main` | 主干分支，保护状态 |
-| `develop` | 开发分支 |
-| `feature/*` | 功能分支 |
-| `fix/*` | 修复分支 |
-| `release/*` | 发布分支 |
+| 分支        | 说明               |
+| ----------- | ------------------ |
+| `main`      | 主干分支，保护状态 |
+| `develop`   | 开发分支           |
+| `feature/*` | 功能分支           |
+| `fix/*`     | 修复分支           |
+| `release/*` | 发布分支           |
 
 ## PR 检查清单
 

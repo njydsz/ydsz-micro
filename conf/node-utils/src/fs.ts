@@ -19,11 +19,7 @@ import { consola as logger } from 'consola';
  * @returns 写入完成后 resolve 的 Promise
  * @throws 写入失败时抛出原始错误
  */
-export async function outputJSON(
-  filePath: string,
-  data: unknown,
-  spaces: number = 2,
-) {
+export async function outputJSON(filePath: string, data: unknown, spaces: number = 2) {
   try {
     const dir = dirname(filePath);
     await fs.mkdir(dir, { recursive: true });

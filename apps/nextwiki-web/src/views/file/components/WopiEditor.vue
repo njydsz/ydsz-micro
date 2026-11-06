@@ -16,7 +16,7 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { useYdModal } from '@ydsz/common-ui';
 import { YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
@@ -84,7 +84,10 @@ async function openEditor(): Promise<void> {
   loading.value = true;
   try {
     // 获取文件信息
-    fileInfo.value = (await checkFileInfo({ fileId: props.fileNode.id })) as Record<string, unknown>;
+    fileInfo.value = (await checkFileInfo({ fileId: props.fileNode.id })) as Record<
+      string,
+      unknown
+    >;
 
     // 锁定文件
     try {

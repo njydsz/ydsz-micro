@@ -31,14 +31,8 @@ import { useTokenStore } from '@ydsz/stores';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
-import {
-  useNotificationStore,
-} from './notification-store';
-import {
-  type NotificationItem,
-  NotificationType,
-  type SseEventType,
-} from './notification-types';
+import { useNotificationStore } from './notification-store';
+import { type NotificationItem, NotificationType, type SseEventType } from './notification-types';
 
 const logger = createLogger('sse-notification-bridge');
 
@@ -58,7 +52,7 @@ let isRunning = false;
 /**
  * 解析 data JSON → NotificationItem（容错降级，解析失败时忽略此事件）。
  */
-  function parseNotificationItem(type: SseEventType, data: string): NotificationItem | null {
+function parseNotificationItem(type: SseEventType, data: string): NotificationItem | null {
   try {
     const obj = JSON.parse(data) as Record<string, unknown>;
     // 强制字段校验
@@ -94,8 +88,11 @@ let isRunning = false;
       source: obj.source ? String(obj.source) : undefined,
       resourceId: obj.resourceId ? String(obj.resourceId) : undefined,
       link: obj.link ? String(obj.link) : undefined,
-      actions: Array.isArray(obj.actions) ? (obj.actions as NotificationItem['actions']) : undefined,
-      metadata: typeof obj.metadata === 'object' ? (obj.metadata as Record<string, unknown>) : undefined,
+      actions: Array.isArray(obj.actions)
+        ? (obj.actions as NotificationItem['actions'])
+        : undefined,
+      metadata:
+        typeof obj.metadata === 'object' ? (obj.metadata as Record<string, unknown>) : undefined,
     };
   } catch {
     // 解析失败不阻断后续事件处理（防御性降级）

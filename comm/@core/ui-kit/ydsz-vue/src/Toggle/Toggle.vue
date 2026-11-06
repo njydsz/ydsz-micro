@@ -1,64 +1,64 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../Primitive/index.ts'
-import { useForwardExpose } from '../shared/index.ts'
+import type { PrimitiveProps } from '../Primitive/index.ts';
+import { useForwardExpose } from '../shared/index.ts';
 
 export type ToggleEmits = {
   /** Event handler called when the pressed state of the toggle changes. */
-  'update:pressed': [value: boolean]
-}
+  'update:pressed': [value: boolean];
+};
 
-export type DataState = 'on' | 'off'
+export type DataState = 'on' | 'off';
 
 export interface ToggleProps extends PrimitiveProps {
   /**
    * The pressed state of the toggle when it is initially rendered. Use when you do not need to control its open state.
    */
-  defaultValue?: boolean
+  defaultValue?: boolean;
   /**
    * The controlled pressed state of the toggle. Can be bind as `v-model`.
    */
-  pressed?: boolean
+  pressed?: boolean;
   /**
    * When `true`, prevents the user from interacting with the toggle.
    */
-  disabled?: boolean
+  disabled?: boolean;
 }
 </script>
 
 <script setup lang="ts">
-import { type Ref, computed } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { Primitive } from '../Primitive/index.ts'
+import { type Ref, computed } from 'vue';
+import { useVModel } from '@vueuse/core';
+import { Primitive } from '../Primitive/index.ts';
 
 const props = withDefaults(defineProps<ToggleProps>(), {
   pressed: undefined,
   disabled: false,
   as: 'button',
-})
+});
 
-const emits = defineEmits<ToggleEmits>()
+const emits = defineEmits<ToggleEmits>();
 
 defineSlots<{
   default: (props: {
     /** Current pressed state */
-    pressed: typeof pressed.value
-  }) => any
-}>()
+    pressed: typeof pressed.value;
+  }) => any;
+}>();
 
-useForwardExpose()
+useForwardExpose();
 const pressed = useVModel(props, 'pressed', emits, {
   defaultValue: props.defaultValue,
   passive: (props.pressed === undefined) as false,
-}) as Ref<boolean>
+}) as Ref<boolean>;
 
 function togglePressed() {
-  pressed.value = !pressed.value
+  pressed.value = !pressed.value;
 }
 
 const dataState = computed<DataState>(() => {
-  return pressed.value ? 'on' : 'off'
-})
+  return pressed.value ? 'on' : 'off';
+});
 </script>
 
 <template>

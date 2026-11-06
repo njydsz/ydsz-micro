@@ -27,7 +27,8 @@ export type PermissionChecker = (codes: string[]) => boolean;
 export type PreloadPriority = 'high' | 'medium' | 'low';
 
 /** 预加载策略类型 */
-export type PreloadStrategy = 'idle' | 'hover' | 'visibility' | 'route' | 'manual' | 'permission' | 'frequency';
+export type PreloadStrategy =
+  'idle' | 'hover' | 'visibility' | 'route' | 'manual' | 'permission' | 'frequency';
 
 /**
  * 预加载模式（prefetchStrategy）。

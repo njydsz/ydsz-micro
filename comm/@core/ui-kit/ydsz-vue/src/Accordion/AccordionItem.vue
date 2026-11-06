@@ -1,79 +1,81 @@
 <script lang="ts">
 // @ts-nocheck
-import type { ComputedRef, VNodeRef } from 'vue'
-import type { CollapsibleRootProps } from '../Collapsible'
-import { injectAccordionRootContext } from './AccordionRoot.vue'
-import { createContext, useArrowNavigation, useForwardExpose } from '../shared/index.ts'
+import type { ComputedRef, VNodeRef } from 'vue';
+import type { CollapsibleRootProps } from '../Collapsible';
+import { injectAccordionRootContext } from './AccordionRoot.vue';
+import { createContext, useArrowNavigation, useForwardExpose } from '../shared/index.ts';
 
 enum AccordionItemState {
   Open = 'open',
   Closed = 'closed',
 }
 
-export interface AccordionItemProps
-  extends Omit<CollapsibleRootProps, 'open' | 'defaultOpen' | 'onOpenChange'> {
+export interface AccordionItemProps extends Omit<
+  CollapsibleRootProps,
+  'open' | 'defaultOpen' | 'onOpenChange'
+> {
   /**
    * Whether or not an accordion item is disabled from user interaction.
    * When `true`, prevents the user from interacting with the item.
    *
    * @defaultValue false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * A string value for the accordion item. All items within an accordion should use a unique value.
    */
-  value: string
+  value: string;
 }
 
 interface AccordionItemContext {
-  open: ComputedRef<boolean>
-  dataState: ComputedRef<AccordionItemState>
-  disabled: ComputedRef<boolean>
-  dataDisabled: ComputedRef<'' | undefined>
-  triggerId: string
-  currentRef: VNodeRef
-  currentElement: ComputedRef<HTMLElement | undefined>
-  value: ComputedRef<string>
+  open: ComputedRef<boolean>;
+  dataState: ComputedRef<AccordionItemState>;
+  disabled: ComputedRef<boolean>;
+  dataDisabled: ComputedRef<'' | undefined>;
+  triggerId: string;
+  currentRef: VNodeRef;
+  currentElement: ComputedRef<HTMLElement | undefined>;
+  value: ComputedRef<string>;
 }
 
-export const [injectAccordionItemContext, provideAccordionItemContext]
-  = createContext<AccordionItemContext>('AccordionItem')
+export const [injectAccordionItemContext, provideAccordionItemContext] =
+  createContext<AccordionItemContext>('AccordionItem');
 </script>
 
 <script setup lang="ts">
-import { CollapsibleRoot } from '../Collapsible/index.ts'
-import { computed } from 'vue'
+import { CollapsibleRoot } from '../Collapsible/index.ts';
+import { computed } from 'vue';
 
-const props = defineProps<AccordionItemProps>()
+const props = defineProps<AccordionItemProps>();
 
 defineSlots<{
   default: (props: {
     /** Current open state */
-    open: typeof open.value
-  }) => any
-}>()
+    open: typeof open.value;
+  }) => any;
+}>();
 
-const rootContext = injectAccordionRootContext()
+const rootContext = injectAccordionRootContext();
 
 const open = computed(() =>
   rootContext.isSingle.value
     ? props.value === rootContext.modelValue.value
-    : Array.isArray(rootContext.modelValue.value)
-    && rootContext.modelValue.value.includes(props.value),
-)
+    : Array.isArray(rootContext.modelValue.value) &&
+      rootContext.modelValue.value.includes(props.value),
+);
 
 const disabled = computed(() => {
-  return (rootContext.disabled.value || props.disabled)
-})
+  return rootContext.disabled.value || props.disabled;
+});
 
-const dataDisabled = computed(() => (disabled.value ? '' : undefined))
+const dataDisabled = computed(() => (disabled.value ? '' : undefined));
 
 const dataState = computed(() =>
   open.value ? AccordionItemState.Open : AccordionItemState.Closed,
-)
+);
 
-defineExpose({ open, dataDisabled })
-const { currentRef, currentElement } = useForwardExpose()
+defineExpose({ open, dataDisabled });
+const { currentRef, currentElement } = useForwardExpose();
 
 provideAccordionItemContext({
   open,
@@ -84,26 +86,22 @@ provideAccordionItemContext({
   currentRef,
   currentElement,
   value: computed(() => props.value),
-})
+});
 
 function handleArrowKey(e: KeyboardEvent) {
-  const target = e.target as HTMLElement
-  const allCollectionItems: HTMLElement[] = Array.from(rootContext.parentElement.value?.querySelectorAll('[data-radix-vue-collection-item]') ?? [])
+  const target = e.target as HTMLElement;
+  const allCollectionItems: HTMLElement[] = Array.from(
+    rootContext.parentElement.value?.querySelectorAll('[data-radix-vue-collection-item]') ?? [],
+  );
 
-  const collectionItemIndex = allCollectionItems.findIndex(item => item === target)
-  if (collectionItemIndex === -1)
-    return null
+  const collectionItemIndex = allCollectionItems.findIndex((item) => item === target);
+  if (collectionItemIndex === -1) return null;
 
-  useArrowNavigation(
-    e,
-    currentElement.value,
-    rootContext.parentElement.value!,
-    {
-      arrowKeyOptions: rootContext.orientation,
-      dir: rootContext.direction.value,
-      focus: true,
-    },
-  )
+  useArrowNavigation(e, currentElement.value, rootContext.parentElement.value!, {
+    arrowKeyOptions: rootContext.orientation,
+    dir: rootContext.direction.value,
+    focus: true,
+  });
 }
 </script>
 

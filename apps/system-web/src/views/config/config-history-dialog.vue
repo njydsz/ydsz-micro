@@ -14,7 +14,16 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton, YdDialog, YdDrawer, YdEmptyState, YdTable, YdBadge, YdTooltip, YdTableColumn } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdDialog,
+  YdDrawer,
+  YdEmptyState,
+  YdTable,
+  YdBadge,
+  YdTooltip,
+  YdTableColumn,
+} from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -226,11 +235,7 @@ defineExpose({
     <!-- 底部工具栏 -->
     <template #footer>
       <YdButton @click="close">{{ t('common.close') }}</YdButton>
-      <YdButton
-        type="primary"
-        :disabled="selected.length !== 2"
-        @click="showDiff"
-      >
+      <YdButton type="primary" :disabled="selected.length !== 2" @click="showDiff">
         {{ t('configVersion.compareVersions') }}
       </YdButton>
     </template>

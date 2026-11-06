@@ -16,7 +16,17 @@
  * @since 1.0.0
  */
 import { useYdModal } from '@ydsz/common-ui';
-import { YdButton, YdInput, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdTextarea, YdForm, YdFormItem } from '@ydsz-core/ydsz-ui';
+import {
+  YdButton,
+  YdInput,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdTextarea,
+  YdForm,
+  YdFormItem,
+} from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -153,7 +163,13 @@ async function handleValidateDag() {
 
 <template>
   <Modal :title="title" width="640px">
-    <YdForm ref="formRef" :model="formData" :rules="rules" label-width="100px" label-position="right">
+    <YdForm
+      ref="formRef"
+      :model="formData"
+      :rules="rules"
+      label-width="100px"
+      label-position="right"
+    >
       <YdFormItem label="DAG标识" prop="dagKey">
         <YdInput v-model="formData.dagKey" placeholder="请输入DAG标识" />
       </YdFormItem>
@@ -175,7 +191,11 @@ async function handleValidateDag() {
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
-      <YdFormItem v-if="formData.triggerType === 'CRON'" :label="t('business.cronExpression')" prop="cronExpression">
+      <YdFormItem
+        v-if="formData.triggerType === 'CRON'"
+        :label="t('business.cronExpression')"
+        prop="cronExpression"
+      >
         <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
       </YdFormItem>
       <YdFormItem label="最大并发数" prop="maxConcurrentInstances">

@@ -10,14 +10,7 @@
  * This components is refactored from vue-drag-resize: https://github.com/kirillmurashov/vue-drag-resize
  */
 
-import {
-  computed,
-  getCurrentInstance,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  toRefs,
-} from 'vue';
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref, toRefs } from 'vue';
 
 import {
   bodyDown,
@@ -32,10 +25,7 @@ import {
   stickDown,
   up,
 } from './composables/use-resize';
-import type {
-  DimensionsBeforeMove,
-  Limits,
-} from './composables/use-resize';
+import type { DimensionsBeforeMove, Limits } from './composables/use-resize';
 
 import { addEvents, removeEvents } from './composables/use-resize-events';
 import { useResizeWatchers } from './composables/use-resize-watchers';
@@ -241,23 +231,15 @@ onMounted(() => {
   addEvents(domEvents.value);
 
   if (dragHandle.value) {
-    [...($el?.querySelectorAll(dragHandle.value) || [])].forEach(
-      (dragHandle) => {
-        (dragHandle as HTMLElement).dataset.dragHandle = String(
-          currentInstance?.uid,
-        );
-      },
-    );
+    [...($el?.querySelectorAll(dragHandle.value) || [])].forEach((dragHandle) => {
+      (dragHandle as HTMLElement).dataset.dragHandle = String(currentInstance?.uid);
+    });
   }
 
   if (dragCancel.value) {
-    [...($el?.querySelectorAll(dragCancel.value) || [])].forEach(
-      (cancelHandle) => {
-        (cancelHandle as HTMLElement).dataset.dragCancel = String(
-          currentInstance?.uid,
-        );
-      },
-    );
+    [...($el?.querySelectorAll(dragCancel.value) || [])].forEach((cancelHandle) => {
+      (cancelHandle as HTMLElement).dataset.dragCancel = String(currentInstance?.uid);
+    });
   }
 });
 
@@ -266,12 +248,7 @@ onBeforeUnmount(() => {
 });
 
 // 设置所有 watchers
-useResizeWatchers(
-  { x, y, w, h, z, parentW, parentH, isActive },
-  resizeState,
-  rect.value,
-  emit,
-);
+useResizeWatchers({ x, y, w, h, z, parentW, parentH, isActive }, resizeState, rect.value, emit);
 </script>
 
 <template>
@@ -279,9 +256,25 @@ useResizeWatchers(
     :class="`${active || isActive ? 'active' : 'inactive'} ${contentClass ? contentClass : ''}`"
     :style="positionStyle"
     class="resize"
-    @mousedown="bodyDown($event as TouchEvent & MouseEvent, resizeState, saveDimensionsBeforeMove, calcDragLimitation, emit)"
+    @mousedown="
+      bodyDown(
+        $event as TouchEvent & MouseEvent,
+        resizeState,
+        saveDimensionsBeforeMove,
+        calcDragLimitation,
+        emit,
+      )
+    "
     @touchend="up"
-    @touchstart="bodyDown($event as TouchEvent & MouseEvent, resizeState, saveDimensionsBeforeMove, calcDragLimitation, emit)"
+    @touchstart="
+      bodyDown(
+        $event as TouchEvent & MouseEvent,
+        resizeState,
+        saveDimensionsBeforeMove,
+        calcDragLimitation,
+        emit,
+      )
+    "
   >
     <div ref="container" :style="sizeStyle" class="content-container">
       <slot></slot>
@@ -293,10 +286,22 @@ useResizeWatchers(
       :style="stickStyles(stick)"
       class="resize-stick"
       @mousedown.stop.prevent="
-        stickDown(stick, $event as TouchEvent & MouseEvent, resizeState, saveDimensionsBeforeMove, calcResizeLimits)
+        stickDown(
+          stick,
+          $event as TouchEvent & MouseEvent,
+          resizeState,
+          saveDimensionsBeforeMove,
+          calcResizeLimits,
+        )
       "
       @touchstart.stop.prevent="
-        stickDown(stick, $event as TouchEvent & MouseEvent, resizeState, saveDimensionsBeforeMove, calcResizeLimits)
+        stickDown(
+          stick,
+          $event as TouchEvent & MouseEvent,
+          resizeState,
+          saveDimensionsBeforeMove,
+          calcResizeLimits,
+        )
       "
     ></div>
   </div>

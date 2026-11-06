@@ -1,7 +1,7 @@
 <script lang="ts">
 // @ts-nocheck
-import type { PrimitiveProps } from '../../Primitive/index.ts'
-import { useForwardExpose } from '../useForwardExpose'
+import type { PrimitiveProps } from '../../Primitive/index.ts';
+import { useForwardExpose } from '../useForwardExpose';
 
 export interface ArrowProps extends PrimitiveProps {
   /**
@@ -9,26 +9,26 @@ export interface ArrowProps extends PrimitiveProps {
    *
    * @defaultValue 10
    */
-  width?: number
+  width?: number;
   /**
    * The height of the arrow in pixels.
    *
    * @defaultValue 5
    */
-  height?: number
+  height?: number;
 }
 </script>
 
 <script setup lang="ts">
-import { Primitive } from '../../Primitive/index.ts'
+import { Primitive } from '../../Primitive/index.ts';
 
 const props = withDefaults(defineProps<ArrowProps>(), {
   width: 10,
   height: 5,
   as: 'svg',
-})
+});
 
-useForwardExpose()
+useForwardExpose();
 </script>
 
 <template>

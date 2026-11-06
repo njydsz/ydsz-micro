@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /**
-* Popconfirm 气泡确认框：轻量确认交互，点击触发器后弹出气泡询问用户。
-* 
+ * Popconfirm 气泡确认框：轻量确认交互，点击触发器后弹出气泡询问用户。
+ *
  * 与 Popover 的区别：Popconfirm 强制有取消 / 确认按钮 + 自动关闭，
  * 专用于删除/危险操作的二次确认。
-* 
+ *
  * @path comm\@core\ui-kit\ydsz-ui\src\components\popconfirm\YdPopconfirm.vue
  * @author ydsz-team
  * @since 1.0.0
@@ -94,10 +94,7 @@ function handleCancel(): void {
         :align="props.align"
         :avoid-collisions="true"
         :class="
-          cn(
-            'bg-background z-50 w-64 rounded-lg border p-4 shadow-xl outline-none',
-            props.class,
-          )
+          cn('bg-background z-50 w-64 rounded-lg border p-4 shadow-xl outline-none', props.class)
         "
         :side="props.side"
         :side-offset="6"
@@ -113,7 +110,14 @@ function handleCancel(): void {
           <!-- 图标 -->
           <div v-if="props.icon || true" class="shrink-0">
             <component :is="props.icon" v-if="props.icon" class="size-5 text-amber-500" />
-            <svg v-else class="size-5 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg
+              v-else
+              class="size-5 text-amber-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 8v4M12 16h.01" />
             </svg>
@@ -130,7 +134,9 @@ function handleCancel(): void {
 
         <!-- 操作按钮 -->
         <div class="mt-4 flex justify-end gap-2">
-          <YdButton size="sm" variant="ghost" @click="handleCancel">{{ resolvedCancelText }}</YdButton>
+          <YdButton size="sm" variant="ghost" @click="handleCancel">{{
+            resolvedCancelText
+          }}</YdButton>
           <YdButton
             size="sm"
             :variant="props.confirmButtonProps?.variant ?? 'default'"

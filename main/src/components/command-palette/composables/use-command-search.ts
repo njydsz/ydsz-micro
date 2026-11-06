@@ -6,14 +6,14 @@
  * @since 4.0.0
  */
 
-import { computed, type ComputedRef, type Ref, watch } from "vue";
+import { computed, type ComputedRef, type Ref, watch } from 'vue';
 
-import type { SearchItem } from "#/hooks/use-global-search";
+import type { SearchItem } from '#/hooks/use-global-search';
 
 // ==================== 类型定义 ====================
 
 /** 面板模式：搜索 / 命令 */
-export type PaletteMode = "command" | "search";
+export type PaletteMode = 'command' | 'search';
 
 /**
  * 命令项定义
@@ -100,17 +100,19 @@ export interface UseCommandSearchOptions {
  */
 export interface UseCommandSearchReturn {
   /** 搜索结果 */
-  searchResults: ComputedRef<Array<SearchItem & { _kind: "search"; highlightedTitle: string }>>;
+  searchResults: ComputedRef<Array<SearchItem & { _kind: 'search'; highlightedTitle: string }>>;
   /** 命令结果 */
-  commandResults: ComputedRef<Array<CommandItem & { _kind: "command" }>>;
+  commandResults: ComputedRef<Array<CommandItem & { _kind: 'command' }>>;
   /** 最近访问结果 */
-  recentResults: ComputedRef<Array<RecentItem & { _kind: "recent" }>>;
+  recentResults: ComputedRef<Array<RecentItem & { _kind: 'recent' }>>;
   /** 综合结果（命令模式仅命令，搜索模式为最近+搜索） */
-  results: ComputedRef<Array<
-    (SearchItem & { _kind: "search"; highlightedTitle: string })
-    | (CommandItem & { _kind: "command" })
-    | (RecentItem & { _kind: "recent" })
-  >>;
+  results: ComputedRef<
+    Array<
+      | (SearchItem & { _kind: 'search'; highlightedTitle: string })
+      | (CommandItem & { _kind: 'command' })
+      | (RecentItem & { _kind: 'recent' })
+    >
+  >;
   /** 输入框占位符文本 */
   placeholder: ComputedRef<string>;
   /** 搜索提供者状态栏文案 */
@@ -180,35 +182,28 @@ export function useCommandSearch(options: UseCommandSearchOptions): UseCommandSe
   /** 搜索结果 */
   const searchResults = computed(() => {
     const q = query.value.trim().toLowerCase();
-    if (!q) return [] as Array<SearchItem & { _kind: "search"; highlightedTitle: string }>;
+    if (!q) return [] as Array<SearchItem & { _kind: 'search'; highlightedTitle: string }>;
     return items()
       .map((item) => {
         const titleIdx = item.title.toLowerCase().indexOf(q);
         const descIdx = item.description?.toLowerCase().indexOf(q) ?? -1;
         if (titleIdx === -1 && descIdx < 0) return null;
         const highlightedTitle = highlightMatch(item.title, q);
-        return { ...item, highlightedTitle, _kind: "search" as const };
+        return { ...item, highlightedTitle, _kind: 'search' as const };
       })
-      .filter(
-        (x): x is SearchItem & { _kind: "search"; highlightedTitle: string } =>
-          x !== null,
-      )
+      .filter((x): x is SearchItem & { _kind: 'search'; highlightedTitle: string } => x !== null)
       .slice(0, 20);
   });
 
   /** 命令结果 */
   const commandResults = computed(() => {
     const q = query.value.trim().toLowerCase();
-    const allCommands: Array<CommandItem & { _kind: "command" }> = [];
+    const allCommands: Array<CommandItem & { _kind: 'command' }> = [];
 
     for (const [, cmds] of commands.value) {
       for (const cmd of cmds) {
-        if (
-          !q ||
-          cmd.title.toLowerCase().includes(q) ||
-          cmd.category?.toLowerCase().includes(q)
-        ) {
-          allCommands.push({ ...cmd, _kind: "command" });
+        if (!q || cmd.title.toLowerCase().includes(q) || cmd.category?.toLowerCase().includes(q)) {
+          allCommands.push({ ...cmd, _kind: 'command' });
         }
       }
     }
@@ -217,30 +212,28 @@ export function useCommandSearch(options: UseCommandSearchOptions): UseCommandSe
   });
 
   /** 最近访问 */
-  const recentResults = computed((): Array<RecentItem & { _kind: "recent" }> => {
+  const recentResults = computed((): Array<RecentItem & { _kind: 'recent' }> => {
     if (query.value.trim()) return [];
-    return recentItems.value
-      .slice(0, 5)
-      .map((r) => ({ ...r, _kind: "recent" as const }));
+    return recentItems.value.slice(0, 5).map((r) => ({ ...r, _kind: 'recent' as const }));
   });
 
   /** 综合结果 */
   const results = computed(() => {
-    if (mode.value === "command") return commandResults.value;
+    if (mode.value === 'command') return commandResults.value;
     return [...recentResults.value, ...searchResults.value];
   });
 
   /** 占位符文本 */
   const placeholder = computed(() => {
-    if (mode.value === "command") return "输入命令... (⌘⇧P)";
-    return "搜索菜单、功能、操作... (⌘K)";
+    if (mode.value === 'command') return '输入命令... (⌘⇧P)';
+    return '搜索菜单、功能、操作... (⌘K)';
   });
 
   /** P2-2: 搜索提供者状态栏文案 */
   const searchProviderStatus = computed(() => {
     const count = searchProviderCount.value;
-    if (count === 0) return "暂无搜索数据源";
-    return `已加载 ${count} 个数据源${searchProviderNames.value.length > 0 ? ` · ${searchProviderNames.value.slice(0, 3).join(", ")}${count > 3 ? "…" : ""}` : ""}`;
+    if (count === 0) return '暂无搜索数据源';
+    return `已加载 ${count} 个数据源${searchProviderNames.value.length > 0 ? ` · ${searchProviderNames.value.slice(0, 3).join(', ')}${count > 3 ? '…' : ''}` : ''}`;
   });
 
   // ==================== Methods ====================
@@ -268,13 +261,13 @@ export function useCommandSearch(options: UseCommandSearchOptions): UseCommandSe
     const item = results.value[activeIndex.value];
     if (!item) return;
 
-    if (item._kind === "command") {
+    if (item._kind === 'command') {
       close();
       item.action();
-    } else if (item._kind === "recent") {
+    } else if (item._kind === 'recent') {
       close();
       window.dispatchEvent(
-        new CustomEvent("micro-kernel:navigate", { detail: { path: item.path } }),
+        new CustomEvent('micro-kernel:navigate', { detail: { path: item.path } }),
       );
     } else {
       // search
@@ -284,7 +277,7 @@ export function useCommandSearch(options: UseCommandSearchOptions): UseCommandSe
       } else if (item.path) {
         recordRecentAccess(item);
         window.dispatchEvent(
-          new CustomEvent("micro-kernel:navigate", {
+          new CustomEvent('micro-kernel:navigate', {
             detail: { path: item.path },
           }),
         );

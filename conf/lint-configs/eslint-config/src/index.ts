@@ -67,7 +67,7 @@ const EP_IMPORT_PATTERNS = {
     {
       group: ['element-plus', 'element-plus/*', 'element-plus/**'],
       message:
-          'Element Plus 已退场：组件用 @ydsz-core/ydsz-ui，命令式 API 用 @ydsz/notification，表单用 form-ui，弹层用 popup-ui（见 docs/decisions/ep-exit-final-closure-plan-2026-09-19.md）',
+        'Element Plus 已退场：组件用 @ydsz-core/ydsz-ui，命令式 API 用 @ydsz/notification，表单用 form-ui，弹层用 popup-ui（见 docs/decisions/ep-exit-final-closure-plan-2026-09-19.md）',
     },
     {
       group: ['@element-plus/*'],

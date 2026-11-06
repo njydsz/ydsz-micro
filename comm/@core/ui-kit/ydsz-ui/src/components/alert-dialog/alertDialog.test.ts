@@ -38,7 +38,7 @@ describe('YdAlertDialog compound components', () => {
     expect(YdAlertDialogAction).toBeDefined();
   });
 
-    it('YdAlertDialogCancel 应被定义', () => {
+  it('YdAlertDialogCancel 应被定义', () => {
     expect(YdAlertDialogCancel).toBeDefined();
   });
 

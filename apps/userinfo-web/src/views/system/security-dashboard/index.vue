@@ -20,9 +20,16 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
-import { YdBadge, YdTable, YdTableColumn, YdCard, YdEmptyState, YdProgress } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdTable,
+  YdTableColumn,
+  YdCard,
+  YdEmptyState,
+  YdProgress,
+} from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -184,7 +191,9 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.onlineUsers') }}</p>
-              <p class="mt-1 text-2xl font-bold text-green-600">{{ dashboardData.onlineUsers ?? 0 }}</p>
+              <p class="mt-1 text-2xl font-bold text-green-600">
+                {{ dashboardData.onlineUsers ?? 0 }}
+              </p>
             </div>
             <div class="rounded-full bg-green-50 p-3">
               <span class="text-2xl text-green-500">🟢</span>
@@ -239,7 +248,9 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.lockedUsers') }}</p>
-              <p class="mt-1 text-2xl font-bold text-orange-600">{{ dashboardData.lockedUsers ?? 0 }}</p>
+              <p class="mt-1 text-2xl font-bold text-orange-600">
+                {{ dashboardData.lockedUsers ?? 0 }}
+              </p>
             </div>
             <div class="rounded-full bg-orange-50 p-3">
               <span class="text-2xl text-orange-500">🔒</span>
@@ -251,7 +262,9 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.bannedUsers') }}</p>
-              <p class="mt-1 text-2xl font-bold text-red-600">{{ dashboardData.bannedUsers ?? 0 }}</p>
+              <p class="mt-1 text-2xl font-bold text-red-600">
+                {{ dashboardData.bannedUsers ?? 0 }}
+              </p>
             </div>
             <div class="rounded-full bg-red-50 p-3">
               <span class="text-2xl text-red-500">🚫</span>
@@ -263,7 +276,12 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-500">{{ t('security.riskScoreAvg') }}</p>
-              <p class="mt-1 text-2xl font-bold" :class="(dashboardData.riskScoreAverage ?? 0) > 70 ? 'text-red-600' : 'text-green-600'">
+              <p
+                class="mt-1 text-2xl font-bold"
+                :class="
+                  (dashboardData.riskScoreAverage ?? 0) > 70 ? 'text-red-600' : 'text-green-600'
+                "
+              >
                 {{ (dashboardData.riskScoreAverage ?? 0).toFixed(1) }}
               </p>
             </div>
@@ -286,36 +304,60 @@ onMounted(() => {
               <span class="text-sm text-gray-600">{{ t('security.highRisk') }}</span>
               <div class="flex items-center gap-2">
                 <YdProgress
-                  :percentage="((riskDistribution.highRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
+                  :percentage="
+                    ((riskDistribution.highRisk ?? 0) /
+                      ((riskDistribution.highRisk ?? 0) +
+                        (riskDistribution.mediumRisk ?? 0) +
+                        (riskDistribution.lowRisk ?? 0) || 1)) *
+                    100
+                  "
                   :stroke-width="10"
                   class="w-32"
                   color="#f56c6c"
                 />
-                <span class="w-8 text-right text-sm font-medium text-red-600">{{ riskDistribution.highRisk ?? 0 }}</span>
+                <span class="w-8 text-right text-sm font-medium text-red-600">{{
+                  riskDistribution.highRisk ?? 0
+                }}</span>
               </div>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-sm text-gray-600">{{ t('security.mediumRisk') }}</span>
               <div class="flex items-center gap-2">
                 <YdProgress
-                  :percentage="((riskDistribution.mediumRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
+                  :percentage="
+                    ((riskDistribution.mediumRisk ?? 0) /
+                      ((riskDistribution.highRisk ?? 0) +
+                        (riskDistribution.mediumRisk ?? 0) +
+                        (riskDistribution.lowRisk ?? 0) || 1)) *
+                    100
+                  "
                   :stroke-width="10"
                   class="w-32"
                   color="#e6a23c"
                 />
-                <span class="w-8 text-right text-sm font-medium text-yellow-600">{{ riskDistribution.mediumRisk ?? 0 }}</span>
+                <span class="w-8 text-right text-sm font-medium text-yellow-600">{{
+                  riskDistribution.mediumRisk ?? 0
+                }}</span>
               </div>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-sm text-gray-600">{{ t('security.lowRisk') }}</span>
               <div class="flex items-center gap-2">
                 <YdProgress
-                  :percentage="((riskDistribution.lowRisk ?? 0) / ((riskDistribution.highRisk ?? 0) + (riskDistribution.mediumRisk ?? 0) + (riskDistribution.lowRisk ?? 0) || 1)) * 100"
+                  :percentage="
+                    ((riskDistribution.lowRisk ?? 0) /
+                      ((riskDistribution.highRisk ?? 0) +
+                        (riskDistribution.mediumRisk ?? 0) +
+                        (riskDistribution.lowRisk ?? 0) || 1)) *
+                    100
+                  "
                   :stroke-width="10"
                   class="w-32"
                   color="#67c23a"
                 />
-                <span class="w-8 text-right text-sm font-medium text-green-600">{{ riskDistribution.lowRisk ?? 0 }}</span>
+                <span class="w-8 text-right text-sm font-medium text-green-600">{{
+                  riskDistribution.lowRisk ?? 0
+                }}</span>
               </div>
             </div>
           </div>
@@ -328,15 +370,21 @@ onMounted(() => {
           </template>
           <div class="grid grid-cols-3 gap-5 text-center">
             <div>
-              <p class="text-2xl font-bold text-blue-600">{{ sessionActivity.totalActiveSessions ?? 0 }}</p>
+              <p class="text-2xl font-bold text-blue-600">
+                {{ sessionActivity.totalActiveSessions ?? 0 }}
+              </p>
               <p class="mt-1 text-xs text-gray-500">{{ t('security.activeSessions') }}</p>
             </div>
             <div>
-              <p class="text-2xl font-bold text-green-600">{{ sessionActivity.activeUserCount ?? 0 }}</p>
+              <p class="text-2xl font-bold text-green-600">
+                {{ sessionActivity.activeUserCount ?? 0 }}
+              </p>
               <p class="mt-1 text-xs text-gray-500">{{ t('security.activeUsers') }}</p>
             </div>
             <div>
-              <p class="text-2xl font-bold text-purple-600">{{ sessionActivity.avgSessionDuration ?? 0 }}m</p>
+              <p class="text-2xl font-bold text-purple-600">
+                {{ sessionActivity.avgSessionDuration ?? 0 }}m
+              </p>
               <p class="mt-1 text-xs text-gray-500">{{ t('security.avgDuration') }}</p>
             </div>
           </div>
@@ -362,7 +410,11 @@ onMounted(() => {
               </template>
             </YdTableColumn>
           </YdTable>
-          <YdEmptyState v-if="anomalySessions.length === 0" :description="t('security.noAnomalySessions')" :image-size="60" />
+          <YdEmptyState
+            v-if="anomalySessions.length === 0"
+            :description="t('security.noAnomalySessions')"
+            :image-size="60"
+          />
         </YdCard>
 
         <!-- 最近安全事件 -->
@@ -371,13 +423,17 @@ onMounted(() => {
             <span class="font-medium">{{ t('security.recentEvents') }}</span>
           </template>
           <YdTable :data="recentEvents" border max-height="300">
-          <YdTableColumn prop="eventType" :label="t('security.eventType')" width="120" />
-          <YdTableColumn prop="username" :label="t('page.username')" width="100" />
-          <YdTableColumn prop="ip" label="IP" width="130" />
-          <YdTableColumn prop="description" :label="t('page.description')" min-width="150" />
-          <YdTableColumn prop="timestamp" :label="t('security.timestamp')" width="160" />
+            <YdTableColumn prop="eventType" :label="t('security.eventType')" width="120" />
+            <YdTableColumn prop="username" :label="t('page.username')" width="100" />
+            <YdTableColumn prop="ip" label="IP" width="130" />
+            <YdTableColumn prop="description" :label="t('page.description')" min-width="150" />
+            <YdTableColumn prop="timestamp" :label="t('security.timestamp')" width="160" />
           </YdTable>
-          <YdEmptyState v-if="recentEvents.length === 0" :description="t('security.noSecurityEvents')" :image-size="60" />
+          <YdEmptyState
+            v-if="recentEvents.length === 0"
+            :description="t('security.noSecurityEvents')"
+            :image-size="60"
+          />
         </YdCard>
       </div>
 
@@ -387,12 +443,16 @@ onMounted(() => {
           <span class="font-medium">{{ t('security.activeUserRanking') }}</span>
         </template>
         <YdTable :data="activeUserRanking" border>
-        <YdTableColumn type="index" :label="t('security.rank')" width="80" />
-        <YdTableColumn prop="username" :label="t('page.username')" width="150" />
-        <YdTableColumn prop="loginCount" :label="t('security.loginCount')" width="120" />
-        <YdTableColumn prop="lastLoginTime" :label="t('page.lastLogin')" width="180" />
+          <YdTableColumn type="index" :label="t('security.rank')" width="80" />
+          <YdTableColumn prop="username" :label="t('page.username')" width="150" />
+          <YdTableColumn prop="loginCount" :label="t('security.loginCount')" width="120" />
+          <YdTableColumn prop="lastLoginTime" :label="t('page.lastLogin')" width="180" />
         </YdTable>
-        <YdEmptyState v-if="activeUserRanking.length === 0" :description="t('security.noData')" :image-size="60" />
+        <YdEmptyState
+          v-if="activeUserRanking.length === 0"
+          :description="t('security.noData')"
+          :image-size="60"
+        />
       </YdCard>
 
       <!-- 登录与会话趋势 -->
@@ -418,13 +478,18 @@ onMounted(() => {
                 />
               </div>
               <span class="w-32 text-right text-xs text-gray-500">
-                {{ t('security.success') }}: {{ item.successCount ?? 0 }} / {{ t('security.fail') }}: {{ item.failCount ?? 0 }}
+                {{ t('security.success') }}: {{ item.successCount ?? 0 }} /
+                {{ t('security.fail') }}: {{ item.failCount ?? 0 }}
               </span>
               <span class="ml-2 w-14 text-right text-sm font-medium text-blue-600">
                 {{ formatPercent(item.successRate) }}
               </span>
             </div>
-            <YdEmptyState v-if="loginSuccessRateData.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState
+              v-if="loginSuccessRateData.length === 0"
+              :description="t('security.noData')"
+              :image-size="60"
+            />
           </div>
         </YdCard>
 
@@ -441,11 +506,19 @@ onMounted(() => {
             >
               <span class="w-20 text-sm text-gray-600">{{ item.date ?? '-' }}</span>
               <div class="mx-3 flex flex-1 items-center gap-3">
-                <span class="w-20 text-xs text-blue-500">{{ t('security.newSessions') }}: {{ item.newSessions ?? 0 }}</span>
-                <span class="w-20 text-xs text-green-500">{{ t('security.activeSessions') }}: {{ item.activeSessions ?? 0 }}</span>
+                <span class="w-20 text-xs text-blue-500"
+                  >{{ t('security.newSessions') }}: {{ item.newSessions ?? 0 }}</span
+                >
+                <span class="w-20 text-xs text-green-500"
+                  >{{ t('security.activeSessions') }}: {{ item.activeSessions ?? 0 }}</span
+                >
               </div>
             </div>
-            <YdEmptyState v-if="sessionTrendData.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState
+              v-if="sessionTrendData.length === 0"
+              :description="t('security.noData')"
+              :image-size="60"
+            />
           </div>
         </YdCard>
       </div>
@@ -475,7 +548,11 @@ onMounted(() => {
                 {{ item.count ?? 0 }} ({{ formatPercent(item.percentage) }})
               </span>
             </div>
-            <YdEmptyState v-if="deviceDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState
+              v-if="deviceDistribution.length === 0"
+              :description="t('security.noData')"
+              :image-size="60"
+            />
           </div>
         </YdCard>
 
@@ -503,7 +580,11 @@ onMounted(() => {
                 {{ item.count ?? 0 }} ({{ formatPercent(item.percentage) }})
               </span>
             </div>
-            <YdEmptyState v-if="loginFailDistribution.length === 0" :description="t('security.noData')" :image-size="60" />
+            <YdEmptyState
+              v-if="loginFailDistribution.length === 0"
+              :description="t('security.noData')"
+              :image-size="60"
+            />
           </div>
         </YdCard>
       </div>

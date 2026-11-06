@@ -54,5 +54,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "YDSZ": {
+    "shareStrategy": "all"
   }
 }

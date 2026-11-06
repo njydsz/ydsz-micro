@@ -16,16 +16,40 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
+ */
 import { Page } from '@ydsz/common-ui';
 import { createLogger } from '@ydsz/utils';
-import { YdEmptyState, YdTimeline, YdTimelineItem, YdBadge, YdButton, YdCard, YdCardContent, YdCardHeader, YdCardTitle, YdInput, YdLabel, YdSelectBase, YdSelectContentBase, YdSelectItemBase, YdSelectTriggerBase, YdSelectValueBase, YdTextarea } from '@ydsz-core/ydsz-ui';
+import {
+  YdEmptyState,
+  YdTimeline,
+  YdTimelineItem,
+  YdBadge,
+  YdButton,
+  YdCard,
+  YdCardContent,
+  YdCardHeader,
+  YdCardTitle,
+  YdInput,
+  YdLabel,
+  YdSelectBase,
+  YdSelectContentBase,
+  YdSelectItemBase,
+  YdSelectTriggerBase,
+  YdSelectValueBase,
+  YdTextarea,
+} from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
 
 import { openSseStream } from '#/utils/sse-client';
-import { healthCheck, publishEvent, type ReactiveEventVO, type ReactiveHealthVO, type ReactiveEventLevel } from '#/api/reactive';
+import {
+  healthCheck,
+  publishEvent,
+  type ReactiveEventVO,
+  type ReactiveHealthVO,
+  type ReactiveEventLevel,
+} from '#/api/reactive';
 
 defineOptions({ name: 'ReactiveNotificationManagement' });
 
@@ -206,12 +230,7 @@ onBeforeUnmount(() => {
             >
               断开
             </YdButton>
-            <YdButton
-              v-else
-              @click="connectSse"
-            >
-              连接
-            </YdButton>
+            <YdButton v-else @click="connectSse"> 连接 </YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -225,7 +244,11 @@ onBeforeUnmount(() => {
           <div class="space-y-4">
             <div>
               <YdLabel>事件类型</YdLabel>
-              <YdInput v-model="publishForm.eventType" placeholder="默认 notification" class="mt-1" />
+              <YdInput
+                v-model="publishForm.eventType"
+                placeholder="默认 notification"
+                class="mt-1"
+              />
             </div>
             <div>
               <YdLabel>级别</YdLabel>
@@ -246,7 +269,11 @@ onBeforeUnmount(() => {
             </div>
             <div>
               <YdLabel>目标用户</YdLabel>
-              <YdInput v-model="publishForm.targetUserId" placeholder="留空则广播给所有订阅者" class="mt-1" />
+              <YdInput
+                v-model="publishForm.targetUserId"
+                placeholder="留空则广播给所有订阅者"
+                class="mt-1"
+              />
             </div>
             <div>
               <YdLabel>标题</YdLabel>
@@ -276,7 +303,9 @@ onBeforeUnmount(() => {
               placement="top"
             >
               <div class="flex items-center gap-2">
-                <YdBadge :variant="getLevelVariant(event.level)">{{ event.level ?? 'INFO' }}</YdBadge>
+                <YdBadge :variant="getLevelVariant(event.level)">{{
+                  event.level ?? 'INFO'
+                }}</YdBadge>
                 <span>{{ event.title }}</span>
                 <span class="text-sm text-gray-500">{{ event.targetUserId ?? '广播' }}</span>
               </div>

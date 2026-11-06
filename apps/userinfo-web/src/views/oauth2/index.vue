@@ -19,7 +19,16 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdForm, YdFormItem, YdInput, YdNumberFieldInput, YdRadioGroupItem, YdRadioGroup } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdNumberFieldInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+} from '@ydsz-core/ydsz-ui';
 import { computed, h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -30,14 +39,7 @@ import { YdConfirm } from '@ydsz-core/popup-ui';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import type { PageResponse } from '#/api/models';
-import {
-  deleteApi,
-  getById,
-  page,
-  register,
-  resetSecret,
-  update,
-} from '#/api/oAuth2Application';
+import { deleteApi, getById, page, register, resetSecret, update } from '#/api/oAuth2Application';
 
 defineOptions({ name: 'OAuth2Management' });
 
@@ -141,7 +143,10 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -155,19 +160,27 @@ const gridOptions: VxeTableGridOptions<OAuth2Application> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1 flex-wrap' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400', onClick: () => handleResetSecret(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'border-yellow-500 text-yellow-600 dark:text-yellow-400',
+                onClick: () => handleResetSecret(row),
+              },
               () => t('oauth2.resetSecret'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),
@@ -258,7 +271,9 @@ const formData = reactive<OAuth2FormState>({
 const rules = {
   clientId: [{ required: true, message: t('oauth2.clientIdRequired'), trigger: 'blur' }],
   clientName: [{ required: true, message: t('oauth2.clientNameRequired'), trigger: 'blur' }],
-  redirectUrisText: [{ required: true, message: t('oauth2.redirectUrisRequired'), trigger: 'blur' }],
+  redirectUrisText: [
+    { required: true, message: t('oauth2.redirectUrisRequired'), trigger: 'blur' },
+  ],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -268,7 +283,9 @@ const [Modal, modalApi] = useYdModal({
     if (data?.record?.clientId) {
       isEdit.value = true;
       try {
-        const detail = (await getById({ id: data.record.clientId })) as unknown as OAuth2Application;
+        const detail = (await getById({
+          id: data.record.clientId,
+        })) as unknown as OAuth2Application;
         Object.assign(formData, {
           id: detail.clientId ?? '',
           clientId: detail.clientId ?? '',
@@ -355,16 +372,17 @@ async function handleResetSecret(row: OAuth2Application) {
   if (!row.clientId) return;
   const appName = row.clientName ?? row.clientId;
   try {
-    await YdConfirm(
-      t('oauth2.resetSecretConfirm', { name: appName }),
-      t('oauth2.resetSecret'),
-      { type: 'warning' },
-    );
+    await YdConfirm(t('oauth2.resetSecretConfirm', { name: appName }), t('oauth2.resetSecret'), {
+      type: 'warning',
+    });
   } catch {
     return;
   }
   try {
-    const result = (await resetSecret({ id: row.clientId })) as unknown as Pick<OAuth2Application, 'clientSecret'>;
+    const result = (await resetSecret({ id: row.clientId })) as unknown as Pick<
+      OAuth2Application,
+      'clientSecret'
+    >;
     showToast.success(t('oauth2.newSecretHint', { secret: result.clientSecret ?? '' }));
     gridApi.query();
   } catch (error) {
@@ -376,11 +394,9 @@ async function handleDelete(row: OAuth2Application) {
   if (!row.clientId) return;
   const appName = row.clientName ?? row.clientId;
   try {
-    await YdConfirm(
-      t('oauth2.deleteConfirm', { name: appName }),
-      t('oauth2.deleteTitle'),
-      { type: 'warning' },
-    );
+    await YdConfirm(t('oauth2.deleteConfirm', { name: appName }), t('oauth2.deleteTitle'), {
+      type: 'warning',
+    });
   } catch {
     return;
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
-* Skeleton（骨架屏）组件：在内容加载前展示占位图形。
-* 
+ * Skeleton（骨架屏）组件：在内容加载前展示占位图形。
+ *
  * <p>支持的变体形态：
  * <ul>
  *   <li><b>text</b>：单行文本占位符。</li>
@@ -11,9 +11,9 @@
  *   <li><b>button</b>：按钮占位符。</li>
  *   <li><b>image</b>：图片占位符。</li>
  * </ul>
-* 
+ *
  * <p>开启 <code>animated</code> 后通过 CSS 渐变 + keyframes 实现从左到右的 shimmer 反光扫过效果。
-* 
+ *
  * @author ydsz-ai
  * @since 1.0.0
  */
@@ -125,10 +125,7 @@ function toCssSize(value: string | number | undefined): string | undefined {
  * @param sizePreset - 尺寸预设。
  * @returns 高度 CSS 字符串或 undefined。
  */
-function getDefaultHeight(
-  variant: SkeletonVariant,
-  sizePreset: SkeletonSize,
-): string | undefined {
+function getDefaultHeight(variant: SkeletonVariant, sizePreset: SkeletonSize): string | undefined {
   if (variant === 'avatar') return `${sizeAvatarMap[sizePreset]}px`;
   if (variant === 'title') return `${sizeTitleHeightMap[sizePreset]}px`;
   if (variant === 'button') return `${sizeButtonHeightMap[sizePreset]}px`;
@@ -144,10 +141,7 @@ function getDefaultHeight(
  * @param sizePreset - 尺寸预设。
  * @returns 宽度 CSS 字符串或 undefined。
  */
-function getDefaultWidth(
-  variant: SkeletonVariant,
-  sizePreset: SkeletonSize,
-): string | undefined {
+function getDefaultWidth(variant: SkeletonVariant, sizePreset: SkeletonSize): string | undefined {
   if (variant === 'avatar') return `${sizeAvatarMap[sizePreset]}px`;
   if (variant === 'button') {
     const widths: Record<SkeletonSize, string> = {
@@ -186,58 +180,29 @@ const avatarClass = computed<string[]>(() => getBaseClass('avatar'));
 /** paragraph 每行的宽度百分比：最后一行缩减为 60%。 */
 const paragraphLineWidths = computed<string[]>(() => {
   const total = props.repeat;
-  return Array.from({ length: total }, (_, i) =>
-    i === total - 1 ? '60%' : '100%',
-  );
+  return Array.from({ length: total }, (_, i) => (i === total - 1 ? '60%' : '100%'));
 });
 
 /** paragraph 每行的高度（基于 size 预设）。 */
-const paragraphRowHeight = computed<string>(
-  () => `${sizeHeightMap[props.size]}px`,
-);
+const paragraphRowHeight = computed<string>(() => `${sizeHeightMap[props.size]}px`);
 </script>
 
 <template>
-  <div
-    role="status"
-    aria-busy="true"
-    :aria-label="t('skeleton.loading')"
-    class="yd-skeleton"
-  >
+  <div role="status" aria-busy="true" :aria-label="t('skeleton.loading')" class="yd-skeleton">
     <!-- avatar 占位 -->
-    <div
-      v-if="variant === 'avatar'"
-      :class="avatarClass"
-      :style="mergedStyle"
-    />
+    <div v-if="variant === 'avatar'" :class="avatarClass" :style="mergedStyle" />
 
     <!-- title 占位 -->
-    <div
-      v-else-if="variant === 'title'"
-      :class="getBaseClass('title')"
-      :style="mergedStyle"
-    />
+    <div v-else-if="variant === 'title'" :class="getBaseClass('title')" :style="mergedStyle" />
 
     <!-- button 占位 -->
-    <div
-      v-else-if="variant === 'button'"
-      :class="getBaseClass('button')"
-      :style="mergedStyle"
-    />
+    <div v-else-if="variant === 'button'" :class="getBaseClass('button')" :style="mergedStyle" />
 
     <!-- image 占位 -->
-    <div
-      v-else-if="variant === 'image'"
-      :class="getBaseClass('image')"
-      :style="mergedStyle"
-    />
+    <div v-else-if="variant === 'image'" :class="getBaseClass('image')" :style="mergedStyle" />
 
     <!-- paragraph 占位（多行） -->
-    <div
-      v-else-if="isParagraph()"
-      class="yd-skeleton__paragraph-wrapper"
-      :style="mergedStyle"
-    >
+    <div v-else-if="isParagraph()" class="yd-skeleton__paragraph-wrapper" :style="mergedStyle">
       <div
         v-for="(_, idx) in repeat"
         :key="idx"
@@ -251,11 +216,7 @@ const paragraphRowHeight = computed<string>(
     </div>
 
     <!-- text 占位（默认） -->
-    <div
-      v-else
-      :class="getBaseClass('text')"
-      :style="mergedStyle"
-    />
+    <div v-else :class="getBaseClass('text')" :style="mergedStyle" />
   </div>
 </template>
 

@@ -14,8 +14,21 @@
  *
  * @author ydsz-team
  * @since 1.0.0
-*/
-import { YdDatePicker, YdForm, YdFormItem, YdInput, YdRadioGroupItem, YdRadioGroup, YdButton, YdDialog, YdDialogContent, YdDialogFooter, YdDialogHeader, YdDialogTitle } from '@ydsz-core/ydsz-ui';
+ */
+import {
+  YdDatePicker,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdRadioGroupItem,
+  YdRadioGroup,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+} from '@ydsz-core/ydsz-ui';
 import { reactive, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
@@ -108,7 +121,9 @@ defineExpose({ open, close });
       </YdDialogHeader>
 
       <div v-if="!shareUrl" class="space-y-4">
-        <p class="text-sm text-muted-foreground">将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：</p>
+        <p class="text-muted-foreground text-sm">
+          将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：
+        </p>
         <YdForm label-width="90px">
           <YdFormItem label="分享标题" required>
             <YdInput v-model="shareConfig.title" placeholder="请输入分享标题" />
@@ -132,11 +147,15 @@ defineExpose({ open, close });
 
       <!-- 发布成功 -->
       <div v-else class="space-y-3 text-center">
-        <div class="rounded bg-green-50 p-5 text-sm text-green-600 dark:bg-green-950 dark:text-green-400">
-          发布成功！链接访问权限：{{ permissionLabel[shareConfig.permission] ?? shareConfig.permission }}
+        <div
+          class="rounded bg-green-50 p-5 text-sm text-green-600 dark:bg-green-950 dark:text-green-400"
+        >
+          发布成功！链接访问权限：{{
+            permissionLabel[shareConfig.permission] ?? shareConfig.permission
+          }}
         </div>
         <YdInput v-model="shareUrl" readonly />
-        <p class="text-xs text-muted-foreground">标题：{{ shareConfig.title }}</p>
+        <p class="text-muted-foreground text-xs">标题：{{ shareConfig.title }}</p>
       </div>
 
       <YdDialogFooter>

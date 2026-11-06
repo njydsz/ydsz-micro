@@ -11,7 +11,7 @@
  * @since 3.7.0
  */
 
-import type { DisposableManager } from "./manager-registry";
+import type { DisposableManager } from './manager-registry';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { mark } from './performance-utils';
 
@@ -96,9 +96,7 @@ export function registerAppMessageHandler<T = unknown, R = unknown>(
     handlers.set(appName, set);
   }
   set.add(handler as MessageHandler);
-  logger.debug(
-    `Message handler registered for "${appName}" (total: ${set.size})`,
-  );
+  logger.debug(`Message handler registered for "${appName}" (total: ${set.size})`);
   return () => {
     set.delete(handler as MessageHandler);
     if (set.size === 0) {
@@ -193,9 +191,7 @@ export function sendRequest<T = unknown, R = unknown>(
  *
  * @param onRequest - 收到请求时调用
  */
-export function startMessageListener(
-  onRequest?: (message: MicroMessage) => void,
-): () => void {
+export function startMessageListener(onRequest?: (message: MicroMessage) => void): () => void {
   const handler = (event: Event) => {
     const message = (event as CustomEvent<BrokerMessage>).detail;
     // P1-4: 仅处理携带统一协议标记的消息，过滤外部 CustomEvent

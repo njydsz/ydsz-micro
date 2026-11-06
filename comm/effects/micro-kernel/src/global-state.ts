@@ -17,9 +17,9 @@
  * @since 4.1.0
  */
 
-import type { RawGlobalStateAPI } from "@ydsz/micro-runtime";
+import type { RawGlobalStateAPI } from '@ydsz/micro-runtime';
 
-import { mark } from "./performance-utils";
+import { mark } from './performance-utils';
 
 /** 变化监听器类型 */
 type ChangeListener<T> = (state: T, prev: T) => void;
@@ -35,9 +35,8 @@ type KeyChangeListener<K, V> = (value: V, prevValue: V, key: K) => void;
  *
  * @since 4.4.1
  */
-export type GlobalStateAPI<T extends Record<string, unknown> = Record<string, unknown>> = ReturnType<
-  typeof createGlobalStateAPI<T>
->;
+export type GlobalStateAPI<T extends Record<string, unknown> = Record<string, unknown>> =
+  ReturnType<typeof createGlobalStateAPI<T>>;
 
 /**
  * 创建全局状态 API 实例。
@@ -125,9 +124,7 @@ export function createGlobalStateAPI<
         }
       }
       return () => {
-        listeners?.delete(
-          listener as KeyChangeListener<keyof T & string, unknown>,
-        );
+        listeners?.delete(listener as KeyChangeListener<keyof T & string, unknown>);
         if (listeners && listeners.size === 0) {
           _keyListeners.delete(key);
         }
@@ -136,7 +133,7 @@ export function createGlobalStateAPI<
 
     setGlobalState(patch) {
       // === ADR-006: kernel:state 标记 ===
-      const stateKeys = Object.keys(patch as object).join(",");
+      const stateKeys = Object.keys(patch as object).join(',');
       mark(`kernel:state:${stateKeys}`);
 
       const prev = { ..._globalState };
@@ -172,8 +169,7 @@ export function createGlobalStateAPI<
       if (_globalStateListeners.size > 0 && changedKeys.size > 0) {
         const changedPatch = {} as Partial<T>;
         for (const key of changedKeys) {
-          (changedPatch as Record<string, unknown>)[key as string] =
-            _globalState[key];
+          (changedPatch as Record<string, unknown>)[key as string] = _globalState[key];
         }
         for (const listener of _globalStateListeners) {
           try {

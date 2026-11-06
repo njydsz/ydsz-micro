@@ -61,7 +61,10 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
           const enable = isEnabled(row.status);
           return h(
             YdBadge,
-            { variant: enable ? 'default' : 'destructive', class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs' },
+            {
+              variant: enable ? 'default' : 'destructive',
+              class: enable ? 'bg-green-500 text-white hover:bg-green-600' : 'text-xs',
+            },
             () => (enable ? t('page.enabled') : t('page.disabled')),
           );
         },
@@ -75,14 +78,17 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('page.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('page.edit'),
             ),
             h(
               YdButton,
-              { size: 'sm', variant: 'link', class: 'text-destructive', onClick: () => handleDelete(row) },
+              {
+                size: 'sm',
+                variant: 'link',
+                class: 'text-destructive',
+                onClick: () => handleDelete(row),
+              },
               () => t('page.delete'),
             ),
           ]),
@@ -94,7 +100,9 @@ const gridOptions: VxeTableGridOptions<PostVO> = {
     ajax: {
       query: async (_page, formValues) => {
         const items = (await list()) ?? [];
-        const keyword = String(formValues?.keyword ?? '').trim().toLowerCase();
+        const keyword = String(formValues?.keyword ?? '')
+          .trim()
+          .toLowerCase();
         const filtered = keyword
           ? items.filter(
               (item) =>

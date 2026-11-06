@@ -20,7 +20,25 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
 import { Page, useYdModal } from '@ydsz/common-ui';
 
-import { YdBadge, YdButton, YdDialog, YdDialogContent, YdDialogDescription, YdDialogFooter, YdDialogHeader, YdDialogTitle, YdForm, YdFormItem, YdInput, YdSheet, YdSheetContent, YdSheetDescription, YdSheetFooter, YdSheetHeader, YdSheetTitle } from '@ydsz-core/ydsz-ui';
+import {
+  YdBadge,
+  YdButton,
+  YdDialog,
+  YdDialogContent,
+  YdDialogDescription,
+  YdDialogFooter,
+  YdDialogHeader,
+  YdDialogTitle,
+  YdForm,
+  YdFormItem,
+  YdInput,
+  YdSheet,
+  YdSheetContent,
+  YdSheetDescription,
+  YdSheetFooter,
+  YdSheetHeader,
+  YdSheetTitle,
+} from '@ydsz-core/ydsz-ui';
 import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -42,7 +60,9 @@ defineOptions({ name: 'TemplateManagement' });
 const { t } = useI18n();
 
 /** YdBadge variant 映射（EP type → shadcn variant） */
-function mapAuditVariant(type: 'success' | 'danger' | 'warning' | 'info'): 'default' | 'destructive' | 'outline' | 'secondary' {
+function mapAuditVariant(
+  type: 'success' | 'danger' | 'warning' | 'info',
+): 'default' | 'destructive' | 'outline' | 'secondary' {
   if (type === 'danger') return 'destructive';
   if (type === 'warning') return 'outline';
   if (type === 'info') return 'secondary';
@@ -74,7 +94,11 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       width: 100,
       slots: {
         default: ({ row }) =>
-          h(YdBadge, { variant: mapAuditVariant(getAuditStatusType(row.auditStatus)) }, () => row.auditStatus ?? '-'),
+          h(
+            YdBadge,
+            { variant: mapAuditVariant(getAuditStatusType(row.auditStatus)) },
+            () => row.auditStatus ?? '-',
+          ),
       },
     },
     {
@@ -99,35 +123,23 @@ const gridOptions: VxeTableGridOptions<MsgTemplateVO> = {
       slots: {
         default: ({ row }) =>
           h('div', { class: 'flex gap-1' }, [
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleEdit(row) },
-              () => t('common.edit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleEdit(row) }, () =>
+              t('common.edit'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleVersion(row) },
-              () => t('version'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleVersion(row) }, () =>
+              t('version'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handlePreview(row) },
-              () => t('template.preview'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handlePreview(row) }, () =>
+              t('template.preview'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleTestSend(row) },
-              () => t('template.test'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleTestSend(row) }, () =>
+              t('template.test'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleAudit(row) },
-              () => t('template.audit'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleAudit(row) }, () =>
+              t('template.audit'),
             ),
-            h(
-              YdButton,
-              { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
-              () => t('common.delete'),
+            h(YdButton, { size: 'sm', variant: 'link', onClick: () => handleDelete(row) }, () =>
+              t('common.delete'),
             ),
           ]),
       },
@@ -212,7 +224,10 @@ async function handleDelete(row: MsgTemplateVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除模板「${row.templateCode}」吗？`, { title: t('deleteConfirmTitle'), type: 'warning', });
+    await YdConfirm(`确定删除模板「${row.templateCode}」吗？`, {
+      title: t('deleteConfirmTitle'),
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消删除操作');
     return;
@@ -255,7 +270,10 @@ async function handleRollback(version: MsgTemplateVersionVO) {
   if (!version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定回滚到版本 ${version.version} 吗？`, { title: '回滚确认', type: 'warning', });
+    await YdConfirm(`确定回滚到版本 ${version.version} 吗？`, {
+      title: '回滚确认',
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消回滚操作');
     return;
@@ -357,7 +375,9 @@ async function executeTestSend(): Promise<void> {
                 {{ version.changeLog }}
               </p>
             </div>
-            <YdButton size="sm" variant="destructive" @click="handleRollback(version)">回滚</YdButton>
+            <YdButton size="sm" variant="destructive" @click="handleRollback(version)"
+              >回滚</YdButton
+            >
           </div>
         </div>
       </YdSheetContent>
@@ -395,7 +415,9 @@ async function executeTestSend(): Promise<void> {
           </YdFormItem>
         </YdForm>
         <YdDialogFooter>
-          <YdButton variant="outline" @click="testSendVisible = false">{{ t('common.cancel') }}</YdButton>
+          <YdButton variant="outline" @click="testSendVisible = false">{{
+            t('common.cancel')
+          }}</YdButton>
           <YdButton @click="executeTestSend">发送</YdButton>
         </YdDialogFooter>
       </YdDialogContent>

@@ -67,7 +67,9 @@ async function login(page: Page): Promise<void> {
   await passwordInput.fill('admin123');
 
   // 点击登录按钮
-  const loginBtn = page.locator('button[type="submit"], button:has-text("登录"), button:has-text("登 录")').first();
+  const loginBtn = page
+    .locator('button[type="submit"], button:has-text("登录"), button:has-text("登 录")')
+    .first();
   await loginBtn.click();
 
   // 登录成功后等待主页渲染
@@ -93,23 +95,29 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     await expect(page.locator(SELECTORS.dialog)).toBeVisible({ timeout: 5_000 });
 
     // 填写配置项信息
-    const configKeyInput = page.locator(
-      'input[placeholder*="key"], input[placeholder*="编码"], input[placeholder*="标识"], label:has-text("编码") + input, label:has-text("编码") ~ input, label:has-text("Key") + input, label:has-text("Key") ~ input',
-    ).first();
+    const configKeyInput = page
+      .locator(
+        'input[placeholder*="key"], input[placeholder*="编码"], input[placeholder*="标识"], label:has-text("编码") + input, label:has-text("编码") ~ input, label:has-text("Key") + input, label:has-text("Key") ~ input',
+      )
+      .first();
     if (await configKeyInput.isVisible({ timeout: 3_000 })) {
       await configKeyInput.fill(TEST_CONFIG.key);
     }
 
-    const configValueInput = page.locator(
-      'input[placeholder*="value"], input[placeholder*="值"], label:has-text("值") + input, label:has-text("值") ~ input',
-    ).first();
+    const configValueInput = page
+      .locator(
+        'input[placeholder*="value"], input[placeholder*="值"], label:has-text("值") + input, label:has-text("值") ~ input',
+      )
+      .first();
     if (await configValueInput.isVisible({ timeout: 3_000 })) {
       await configValueInput.fill(TEST_CONFIG.value);
     }
 
-    const configLabelInput = page.locator(
-      'input[placeholder*="名称"], input[placeholder*="label"], label:has-text("名称") + input, label:has-text("名称") ~ input',
-    ).first();
+    const configLabelInput = page
+      .locator(
+        'input[placeholder*="名称"], input[placeholder*="label"], label:has-text("名称") + input, label:has-text("名称") ~ input',
+      )
+      .first();
     if (await configLabelInput.isVisible({ timeout: 3_000 })) {
       await configLabelInput.fill(TEST_CONFIG.label);
     }
@@ -124,7 +132,9 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     await expect(page.locator(SELECTORS.dialog)).not.toBeVisible({ timeout: 10_000 });
 
     // 断言表格中出现新项（搜索配置 key）
-    const searchInput = page.locator('input[placeholder*="搜索"], input[placeholder*="关键字"]').first();
+    const searchInput = page
+      .locator('input[placeholder*="搜索"], input[placeholder*="关键字"]')
+      .first();
     if (await searchInput.isVisible({ timeout: 3_000 })) {
       await searchInput.fill(TEST_CONFIG.key);
       const searchBtn = page.locator('button:has-text("搜索"), button:has-text("查询")').first();
@@ -135,13 +145,17 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     }
 
     // 表格中包含新增的配置项
-    const tableCell = page.locator(`td:has-text("${TEST_CONFIG.key}"), tbody tr:has-text("${TEST_CONFIG.key}")`).first();
+    const tableCell = page
+      .locator(`td:has-text("${TEST_CONFIG.key}"), tbody tr:has-text("${TEST_CONFIG.key}")`)
+      .first();
     await expect(tableCell).toBeVisible({ timeout: 10_000 });
   });
 
   test('TC-CONFIG-002: 编辑配置项 → 断言值已更新', async ({ page }) => {
     // 先搜索目标配置项
-    const searchInput = page.locator('input[placeholder*="搜索"], input[placeholder*="关键字"]').first();
+    const searchInput = page
+      .locator('input[placeholder*="搜索"], input[placeholder*="关键字"]')
+      .first();
     if (await searchInput.isVisible({ timeout: 3_000 })) {
       await searchInput.fill(TEST_CONFIG.key);
       const searchBtn = page.locator('button:has-text("搜索"), button:has-text("查询")').first();
@@ -155,7 +169,10 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     const rowWithItem = page.locator(SELECTORS.tableRow).filter({ hasText: TEST_CONFIG.key });
     await expect(rowWithItem.first()).toBeVisible({ timeout: 10_000 });
 
-    const editBtn = rowWithItem.first().locator('button:has-text("编辑"), a:has-text("编辑")').first();
+    const editBtn = rowWithItem
+      .first()
+      .locator('button:has-text("编辑"), a:has-text("编辑")')
+      .first();
     if (await editBtn.isVisible({ timeout: 3_000 })) {
       await editBtn.click();
     }
@@ -164,9 +181,11 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     await expect(page.locator(SELECTORS.dialog)).toBeVisible({ timeout: 5_000 });
 
     // 修改值
-    const configValueInput = page.locator(
-      'input[placeholder*="value"], input[placeholder*="值"], label:has-text("值") + input, label:has-text("值") ~ input',
-    ).first();
+    const configValueInput = page
+      .locator(
+        'input[placeholder*="value"], input[placeholder*="值"], label:has-text("值") + input, label:has-text("值") ~ input',
+      )
+      .first();
     if (await configValueInput.isVisible({ timeout: 3_000 })) {
       await configValueInput.fill(TEST_CONFIG.updatedValue);
     }
@@ -182,13 +201,19 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     await page.waitForTimeout(500);
 
     // 断言表格中包含更新后的值
-    const updatedCell = page.locator(`td:has-text("${TEST_CONFIG.updatedValue}"), tbody tr:has-text("${TEST_CONFIG.updatedValue}")`).first();
+    const updatedCell = page
+      .locator(
+        `td:has-text("${TEST_CONFIG.updatedValue}"), tbody tr:has-text("${TEST_CONFIG.updatedValue}")`,
+      )
+      .first();
     await expect(updatedCell).toBeVisible({ timeout: 10_000 });
   });
 
   test('TC-CONFIG-003: 删除配置项 → 断言表格中已移除', async ({ page }) => {
     // 先搜索目标配置项
-    const searchInput = page.locator('input[placeholder*="搜索"], input[placeholder*="关键字"]').first();
+    const searchInput = page
+      .locator('input[placeholder*="搜索"], input[placeholder*="关键字"]')
+      .first();
     if (await searchInput.isVisible({ timeout: 3_000 })) {
       await searchInput.fill(TEST_CONFIG.key);
       await page.waitForTimeout(500);
@@ -198,7 +223,10 @@ test.describe('Config CRUD Workflow — 配置管理增删改查', () => {
     const rowWithItem = page.locator(SELECTORS.tableRow).filter({ hasText: TEST_CONFIG.key });
     const rowCount = await rowWithItem.count();
     if (rowCount > 0) {
-      const deleteBtn = rowWithItem.first().locator('button:has-text("删除"), a:has-text("删除")').first();
+      const deleteBtn = rowWithItem
+        .first()
+        .locator('button:has-text("删除"), a:has-text("删除")')
+        .first();
       if (await deleteBtn.isVisible({ timeout: 3_000 })) {
         await deleteBtn.click();
       }
