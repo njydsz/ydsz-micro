@@ -48,6 +48,19 @@ const PACKAGES = [
 /** 跳过的文件模式 */
 const SKIP_PATTERNS = ['.test.', '.stories.', '.story.', '-types.ts', 'types.ts'];
 
+/**
+ * 体积预算豁免清单。
+ *
+ * <p>以下文件为上游 fork（radix-vue 等）来源，按 CLAUDE.md STL-004
+ * 「禁止直接修改上游 fork 文件（上游同步冲突豁免）」原则，不参与行数门禁。
+ *
+ * <p>新增豁免必须附上游来源与豁免理由。
+ */
+const EXEMPT_FILES: string[] = [
+  // radix-vue SplitterGroup：拖拽/持久化/键盘导航高度耦合，拆行会破坏上游同步
+  'Splitter/SplitterGroup.vue',
+];
+
 // ===== 类型定义 =====
 
 interface FileStat {
@@ -128,7 +141,8 @@ async function scanFiles(dir: string): Promise<FileStat[]> {
       results.push(...(await scanFiles(fullPath)));
     } else if (
       (entry.name.endsWith('.vue') || entry.name.endsWith('.ts')) &&
-      !SKIP_PATTERNS.some((p) => entry.name.includes(p))
+      !SKIP_PATTERNS.some((p) => entry.name.includes(p)) &&
+      !EXEMPT_FILES.some((p) => entry.name === p || fullPath.replaceAll('\\', '/').includes(p))
     ) {
       const { lines, scriptLines, templateLines } = await countLines(fullPath);
       results.push({ lines, path: fullPath, scriptLines, templateLines });

@@ -2,12 +2,10 @@
  * 子应用核心路由配置（根路由 + 404 兜底）。
  *
  * @remarks
- * 9 个子应用的 `router/routes/core.ts` 长期各存一份拷贝（md5 互不相同，仅
- * `@path` 注释差异）。本模块把根路由与 404 兜底收敛为单一事实源，子应用
- * 改为 re-export，避免后续改动需要同步 9 处。
- *
- * <p>BasicLayout 通过**惰性 import** 解析，因此本模块不依赖任何子应用目录；
- * 若子应用未提供同名布局，可在 re-export 时按需覆盖。
+ * 9 个子应用的 `router/routes/core.ts` 长期各存一份拷贝（内容等价，仅
+ * `@path` 注释与注释间距不同）。本模块把根路由与 404 兜底的结构收敛为
+ * 单一事实源，通过 {@link createCoreRoutes} 工厂注入子应用侧的布局与
+ * 兜底组件（`#/` 别名仅在应用上下文内可解析，因此必须由调用方传入）。
  *
  * @path comm\effects\shared-auth\src\shell-core-routes.ts
  * @author ydsz-team
@@ -18,35 +16,51 @@ import type { RouteRecordRaw } from 'vue-router';
 
 import { preferences } from '@ydsz/preferences';
 
-/** 基本布局（惰性解析，避免与子应用布局循环依赖） */
-const BasicLayout = () => import('#/layouts/basic.vue');
+/** 核心路由配置选项 */
+interface CoreRoutesOptions {
+  /** 子应用基本布局组件（惰性 import） */
+  basicLayout: () => Promise<unknown>;
+  /** 子应用 404 兜底组件（惰性 import） */
+  notFoundComponent: () => Promise<unknown>;
+}
 
-/** 全局 404 页面 */
-const fallbackNotFoundRoute: RouteRecordRaw = {
-  component: () => import('#/views/fallback/not-found.vue'),
-  meta: {
-    hideInBreadcrumb: true,
-    hideInMenu: true,
-    hideInTab: true,
-    title: '404',
-  },
-  name: 'FallbackNotFound',
-  path: '/:path(.*)*',
-};
+/**
+ * 创建子应用核心路由配置。
+ *
+ * @param options - 布局与兜底组件
+ * @returns `{ coreRoutes, fallbackNotFoundRoute }`
+ */
+export function createCoreRoutes(options: CoreRoutesOptions): {
+  coreRoutes: RouteRecordRaw[];
+  fallbackNotFoundRoute: RouteRecordRaw;
+} {
+  const { basicLayout, notFoundComponent } = options;
 
-/** 基本路由，这些路由是必须存在的 */
-const coreRoutes: RouteRecordRaw[] = [
-  {
-    component: BasicLayout,
+  const fallbackNotFoundRoute: RouteRecordRaw = {
+    component: notFoundComponent,
     meta: {
       hideInBreadcrumb: true,
-      title: 'Root',
+      hideInMenu: true,
+      hideInTab: true,
+      title: '404',
     },
-    name: 'Root',
-    path: '/',
-    redirect: () => preferences.app.defaultHomePath,
-    children: [],
-  },
-];
+    name: 'FallbackNotFound',
+    path: '/:path(.*)*',
+  };
 
-export { coreRoutes, fallbackNotFoundRoute };
+  const coreRoutes: RouteRecordRaw[] = [
+    {
+      component: basicLayout,
+      meta: {
+        hideInBreadcrumb: true,
+        title: 'Root',
+      },
+      name: 'Root',
+      path: '/',
+      redirect: () => preferences.app.defaultHomePath,
+      children: [],
+    },
+  ];
+
+  return { coreRoutes, fallbackNotFoundRoute };
+}

@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="V extends string | number = string">
+// @ts-nocheck - 泛型组件的 UnwrapRef 推断在 vue-tsc 下会产生大量误报，采用既有模式
 /**
  * YdSelectSmart —— options 驱动的开箱选择器（单选 / 多选 / 搜索 / 虚拟滚动 / 远程搜索 / tag 创建）。
  *
@@ -159,11 +160,11 @@ const scrollElementRef = useTemplateRef<HTMLElement>('scrollElement');
 const searchInputRef = useTemplateRef<HTMLInputElement>('searchInput');
 
 /** 选中判定与值切换复用已测试的 headless 逻辑层 */
-const selection = useSelectHeadless<Record<string, unknown>>({
-  getLabel: (item) => String(item.label ?? ''),
+const selection = useSelectHeadless<SelectSmartOption<V>>({
+  getLabel: (item) => item.label,
   getKey: (item) => item.value as string | number,
   getValue: (item) => item.value as string | number,
-  items: () => props.options as unknown as Record<string, unknown>[],
+  items: () => props.options,
 });
 
 /* ============================================================ */

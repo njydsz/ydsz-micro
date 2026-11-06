@@ -1,10 +1,4 @@
 import type { Direction, ResizeEvent } from './types';
-import {
-  EXCEEDED_HORIZONTAL_MAX,
-  EXCEEDED_HORIZONTAL_MIN,
-  EXCEEDED_VERTICAL_MAX,
-  EXCEEDED_VERTICAL_MIN,
-} from './constants';
 import { resetGlobalCursorStyle, setGlobalCursorStyle } from './style';
 import { getResizeEventCoordinates } from './events';
 import { intersects } from './rects';

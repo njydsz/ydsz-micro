@@ -35,6 +35,82 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
     keyboardInteractions: ['ArrowUp', 'ArrowDown', 'Escape', 'Enter'],
     category: 'widget',
   },
+  YdAvatar: {
+    role: 'img',
+    requiredAttrs: ['aria-label'],
+    category: 'widget',
+  },
+  YdCollapsible: {
+    role: 'region',
+    requiredAttrs: ['aria-labelledby'],
+    category: 'structure',
+  },
+  YdContextMenu: {
+    role: 'menu',
+    requiredAttrs: ['aria-orientation'],
+    keyboardInteractions: ['ArrowUp', 'ArrowDown', 'Home', 'End', 'Enter', 'Space', 'Escape'],
+    category: 'widget',
+  },
+  YdHoverCard: {
+    role: 'tooltip',
+    category: 'widget',
+  },
+  YdLabel: {
+    role: 'label',
+    requiredAttrs: ['for'],
+    category: 'structure',
+  },
+  YdMenubar: {
+    role: 'menubar',
+    requiredAttrs: ['aria-orientation'],
+    keyboardInteractions: ['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Enter', 'Escape'],
+    category: 'navigation',
+  },
+  YdNumberField: {
+    role: 'spinbutton',
+    requiredAttrs: ['aria-valuemin', 'aria-valuemax', 'aria-valuenow'],
+    keyboardInteractions: ['ArrowUp', 'ArrowDown', 'Home', 'End'],
+    category: 'widget',
+  },
+  YdPinInput: {
+    role: 'group',
+    requiredAttrs: ['aria-label'],
+    keyboardInteractions: ['ArrowLeft', 'ArrowRight', 'Backspace', 'Delete'],
+    category: 'widget',
+  },
+  YdSeparator: {
+    role: 'separator',
+    optionalAttrs: ['aria-orientation'],
+    category: 'structure',
+  },
+  YdSplitter: {
+    role: 'separator',
+    requiredAttrs: ['aria-valuenow', 'aria-valuemin', 'aria-valuemax'],
+    keyboardInteractions: ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'],
+    category: 'widget',
+  },
+  YdToggle: {
+    role: 'button',
+    requiredAttrs: ['aria-pressed'],
+    keyboardInteractions: ['Space'],
+    category: 'widget',
+  },
+  YdToggleGroup: {
+    role: 'group',
+    requiredAttrs: ['aria-label'],
+    keyboardInteractions: ['ArrowUp', 'ArrowDown', 'Home', 'End'],
+    category: 'widget',
+  },
+  YdTreeVirtualizer: {
+    role: 'tree',
+    category: 'structure',
+  },
+  YdTabsPro: {
+    role: 'tablist',
+    requiredAttrs: ['aria-orientation'],
+    keyboardInteractions: ['ArrowLeft', 'ArrowRight', 'Home', 'End'],
+    category: 'structure',
+  },
   YdBreadcrumb: { role: 'navigation', requiredAttrs: ['aria-label'], category: 'landmark' },
   YdButton: { role: 'button', keyboardInteractions: ['Enter', 'Space'], category: 'widget' },
   YdCalendar: {

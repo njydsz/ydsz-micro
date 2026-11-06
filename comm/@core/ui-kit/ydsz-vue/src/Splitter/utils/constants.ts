@@ -20,3 +20,6 @@ export const EXCEEDED_VERTICAL_MIN = 0b0100;
 
 /** 垂直方向触达最大约束 */
 export const EXCEEDED_VERTICAL_MAX = 0b1000;
+
+/** 浮点数比较的默认精度（小数位数） */
+export const PRECISION = 2;

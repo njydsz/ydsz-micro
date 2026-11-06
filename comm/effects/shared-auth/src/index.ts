@@ -31,7 +31,7 @@ export { createSharedAuthStore } from './auth-store';
 export { setupSharedAuth } from './setup-shared-auth';
 
 // v4.1: 子应用壳层复用（消除 9 份重复拷贝）
-export { coreRoutes, fallbackNotFoundRoute } from './shell-core-routes';
+export { createCoreRoutes } from './shell-core-routes';
 
 export { type SubAppConfig, createSubApp } from './create-sub-app';
 

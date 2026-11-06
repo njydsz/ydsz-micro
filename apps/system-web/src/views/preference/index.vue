@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 个人设置页面 —— 用户偏好配置（主题/布局/表格/语言等）
  *
  * @path apps\system-web\src\views\preference\index.vue
@@ -566,13 +566,13 @@ onMounted(() => {
               <span class="color-hex-label">{{ customColor }}</span>
               <YdButton
                 class="color-apply-btn"
-                size="small"
+                size="sm"
                 type="primary"
                 @click="applyCustomColor"
               >
                 {{ t('preferences.colorApply') }}
               </YdButton>
-              <YdButton class="color-reset-btn" size="small" @click="resetCustomColor">
+              <YdButton class="color-reset-btn" size="sm" @click="resetCustomColor">
                 {{ t('preferences.colorReset') }}
               </YdButton>
             </template>

@@ -29,16 +29,16 @@
       "name": "agent-web",
       "scope": "apps",
       "appDir": "apps/agent-web",
-      "maxTotalGzipKB": 1094,
-      "maxChunkGzipKB": 441,
-      "maxCssGzipKB": 12,
-      "maxFiles": 122,
+      "maxTotalGzipKB": 1492,
+      "maxChunkGzipKB": 468,
+      "maxCssGzipKB": 86,
+      "maxFiles": 121,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 1012.8,
-        "maxChunkGzipKB": 400.1,
-        "maxCssGzipKB": 9.5,
-        "jsFiles": 106
+        "totalGzipKB": 1381,
+        "maxChunkGzipKB": 425.4,
+        "maxCssGzipKB": 68.5,
+        "jsFiles": 105
       },
       "aspirationGzipKB": 384
     },
@@ -46,16 +46,16 @@
       "name": "cronjob-web",
       "scope": "apps",
       "appDir": "apps/cronjob-web",
-      "maxTotalGzipKB": 679,
-      "maxChunkGzipKB": 387,
-      "maxCssGzipKB": 12,
-      "maxFiles": 120,
+      "maxTotalGzipKB": 1077,
+      "maxChunkGzipKB": 468,
+      "maxCssGzipKB": 86,
+      "maxFiles": 119,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 628.1,
-        "maxChunkGzipKB": 351.3,
-        "maxCssGzipKB": 9.5,
-        "jsFiles": 104
+        "totalGzipKB": 997.1,
+        "maxChunkGzipKB": 425.3,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 103
       },
       "aspirationGzipKB": 384
     },
@@ -63,16 +63,16 @@
       "name": "generator-web",
       "scope": "apps",
       "appDir": "apps/generator-web",
-      "maxTotalGzipKB": 559,
-      "maxChunkGzipKB": 302,
-      "maxCssGzipKB": 12,
-      "maxFiles": 96,
+      "maxTotalGzipKB": 961,
+      "maxChunkGzipKB": 383,
+      "maxCssGzipKB": 86,
+      "maxFiles": 95,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 516.8,
-        "maxChunkGzipKB": 274.2,
-        "maxCssGzipKB": 9.2,
-        "jsFiles": 83
+        "totalGzipKB": 889.4,
+        "maxChunkGzipKB": 347.6,
+        "maxCssGzipKB": 68.7,
+        "jsFiles": 82
       },
       "aspirationGzipKB": 384
     },
@@ -80,16 +80,16 @@
       "name": "literule-web",
       "scope": "apps",
       "appDir": "apps/literule-web",
-      "maxTotalGzipKB": 868,
-      "maxChunkGzipKB": 386,
-      "maxCssGzipKB": 12,
-      "maxFiles": 104,
+      "maxTotalGzipKB": 1268,
+      "maxChunkGzipKB": 468,
+      "maxCssGzipKB": 86,
+      "maxFiles": 103,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 803.7,
-        "maxChunkGzipKB": 350.9,
-        "maxCssGzipKB": 9.5,
-        "jsFiles": 90
+        "totalGzipKB": 1173.5,
+        "maxChunkGzipKB": 424.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 89
       },
       "aspirationGzipKB": 384
     },
@@ -97,16 +97,16 @@
       "name": "message-web",
       "scope": "apps",
       "appDir": "apps/message-web",
-      "maxTotalGzipKB": 614,
-      "maxChunkGzipKB": 364,
-      "maxCssGzipKB": 12,
-      "maxFiles": 126,
+      "maxTotalGzipKB": 1397,
+      "maxChunkGzipKB": 468,
+      "maxCssGzipKB": 86,
+      "maxFiles": 127,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 567.9,
-        "maxChunkGzipKB": 330,
-        "maxCssGzipKB": 9.5,
-        "jsFiles": 109
+        "totalGzipKB": 1292.9,
+        "maxChunkGzipKB": 424.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 110
       },
       "aspirationGzipKB": 384
     },
@@ -114,16 +114,16 @@
       "name": "nextwiki-web",
       "scope": "apps",
       "appDir": "apps/nextwiki-web",
-      "maxTotalGzipKB": 634,
-      "maxChunkGzipKB": 386,
-      "maxCssGzipKB": 12,
-      "maxFiles": 101,
+      "maxTotalGzipKB": 1035,
+      "maxChunkGzipKB": 467,
+      "maxCssGzipKB": 86,
+      "maxFiles": 99,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 586.7,
-        "maxChunkGzipKB": 350,
-        "maxCssGzipKB": 9.5,
-        "jsFiles": 87
+        "totalGzipKB": 957.8,
+        "maxChunkGzipKB": 423.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 86
       },
       "aspirationGzipKB": 384
     },
@@ -131,16 +131,16 @@
       "name": "system-web",
       "scope": "apps",
       "appDir": "apps/system-web",
-      "maxTotalGzipKB": 669,
-      "maxChunkGzipKB": 392,
-      "maxCssGzipKB": 13,
-      "maxFiles": 144,
+      "maxTotalGzipKB": 1069,
+      "maxChunkGzipKB": 473,
+      "maxCssGzipKB": 86,
+      "maxFiles": 143,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 619.2,
-        "maxChunkGzipKB": 356,
-        "maxCssGzipKB": 9.8,
-        "jsFiles": 125
+        "totalGzipKB": 989,
+        "maxChunkGzipKB": 429.9,
+        "maxCssGzipKB": 68.5,
+        "jsFiles": 124
       },
       "aspirationGzipKB": 384
     },
@@ -148,16 +148,16 @@
       "name": "userinfo-web",
       "scope": "apps",
       "appDir": "apps/userinfo-web",
-      "maxTotalGzipKB": 683,
-      "maxChunkGzipKB": 386,
-      "maxCssGzipKB": 12,
-      "maxFiles": 124,
+      "maxTotalGzipKB": 1080,
+      "maxChunkGzipKB": 468,
+      "maxCssGzipKB": 86,
+      "maxFiles": 121,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 631.8,
-        "maxChunkGzipKB": 350.9,
-        "maxCssGzipKB": 9.5,
-        "jsFiles": 107
+        "totalGzipKB": 999.6,
+        "maxChunkGzipKB": 424.9,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 105
       },
       "aspirationGzipKB": 384
     },
@@ -165,16 +165,16 @@
       "name": "workflow-web",
       "scope": "apps",
       "appDir": "apps/workflow-web",
-      "maxTotalGzipKB": 1338,
-      "maxChunkGzipKB": 364,
-      "maxCssGzipKB": 70,
-      "maxFiles": 122,
+      "maxTotalGzipKB": 2123,
+      "maxChunkGzipKB": 468,
+      "maxCssGzipKB": 86,
+      "maxFiles": 124,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 1238.5,
-        "maxChunkGzipKB": 330.2,
-        "maxCssGzipKB": 55.6,
-        "jsFiles": 106
+        "totalGzipKB": 1965.3,
+        "maxChunkGzipKB": 425.1,
+        "maxCssGzipKB": 68.6,
+        "jsFiles": 107
       },
       "aspirationGzipKB": 384
     }

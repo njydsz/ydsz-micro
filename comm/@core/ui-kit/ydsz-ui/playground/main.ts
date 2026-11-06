@@ -14,10 +14,6 @@ import { createApp } from 'vue';
 import '@ydsz-core/design-tokens/src/styles/variables.css';
 import '@ydsz-core/ydsz-ui/src/styles/reduced-motion.css';
 
-import YdszUi from '@ydsz-core/ydsz-ui';
-
 import App from './App.vue';
 
-const app = createApp(App);
-app.use(YdszUi);
-app.mount('#app');
+createApp(App).mount('#app');

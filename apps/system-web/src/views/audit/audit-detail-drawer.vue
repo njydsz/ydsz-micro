@@ -45,10 +45,13 @@ const drawerTitle = computed(() => {
 /** 操作类型标签配置 */
 const actionTagConfig = computed(() => {
   const action = record.value?.action ?? 0;
-  const map: Record<number, { i18nKey: string; variant: string }> = {
+  const map: Record<
+    number,
+    { i18nKey: string; variant: 'success' | 'primary' | 'destructive' | 'info' | 'warning' }
+  > = {
     1: { i18nKey: 'audit.action.create', variant: 'success' },
     2: { i18nKey: 'audit.action.update', variant: 'primary' },
-    3: { i18nKey: 'audit.action.delete', variant: 'danger' },
+    3: { i18nKey: 'audit.action.delete', variant: 'destructive' },
     4: { i18nKey: 'audit.action.query', variant: 'info' },
     5: { i18nKey: 'audit.action.export', variant: 'warning' },
     6: { i18nKey: 'audit.action.login', variant: 'success' },
@@ -62,7 +65,9 @@ const statusTagConfig = computed(() => {
   const isSuccess = record.value?.status === 1;
   return {
     label: isSuccess ? t('audit.status.success') : t('audit.status.failed'),
-    variant: isSuccess ? 'success' : 'danger',
+    variant: (isSuccess ? 'success' : 'destructive') as
+      | 'success'
+      | 'destructive',
   };
 });
 
@@ -100,12 +105,12 @@ defineExpose({ open });
           {{ record.module || '-' }}
         </YdDescriptionsItem>
         <YdDescriptionsItem :label="t('audit.columns.action')">
-          <YdBadge :variant="actionTagConfig.variant" size="small">
+          <YdBadge :variant="actionTagConfig.variant" size="sm">
             {{ t(actionTagConfig.i18nKey) }}
           </YdBadge>
         </YdDescriptionsItem>
         <YdDescriptionsItem :label="t('audit.columns.status')">
-          <YdBadge :variant="statusTagConfig.variant" size="small">
+          <YdBadge :variant="statusTagConfig.variant" size="sm">
             {{ statusTagConfig.label }}
           </YdBadge>
         </YdDescriptionsItem>

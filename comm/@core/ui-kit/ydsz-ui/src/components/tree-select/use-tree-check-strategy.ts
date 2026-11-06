@@ -13,7 +13,7 @@
 
 import { computed } from 'vue';
 
-import type { TreeFlatNode } from '../../headless/use-tree-headless';
+import type { TreeFlatNode, TreeNodeLike } from '../../headless/use-tree-headless';
 
 /** 勾选策略 */
 export type TreeCheckStrategy = 'all' | 'children' | 'parent';
@@ -71,7 +71,7 @@ function collectDescendantValues(
  * @param options - 配置
  * @returns 级联操作 API
  */
-export function useTreeCheckStrategy<T extends Record<string, any>>(options: {
+export function useTreeCheckStrategy<T extends TreeNodeLike>(options: {
   /** 勾选策略 */
   strategy?: () => TreeCheckStrategy;
   /** 当前已选值集合 */

@@ -36,6 +36,7 @@ export * from './Toggle';
 export * from './ToggleGroup';
 export * from './Tooltip';
 export * from './Tree';
+export { ErrorBoundary } from './ErrorBoundary';
 
 // composables (ydsz 业务特化)
 export { useControlledState } from './composables/use-controlled-state';

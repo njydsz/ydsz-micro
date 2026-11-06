@@ -20,7 +20,7 @@ import { computed, type MaybeRefOrGetter } from 'vue';
 /**
  * Headless YdSelectSmart 的配置项。
  */
-export interface UseSelectHeadlessOptions<T extends Record<string, unknown>> {
+export interface UseSelectHeadlessOptions<T extends object> {
   /** 选项数据源（响应式引用或 getter） */
   items: MaybeRefOrGetter<T[]>;
   /** 是否多选，默认 false */
@@ -38,11 +38,13 @@ export interface UseSelectHeadlessOptions<T extends Record<string, unknown>> {
 /**
  * Headless YdSelectSmart 返回的句柄。
  */
-export interface SelectHeadlessHandle<T extends Record<string, unknown>> {
+export interface SelectHeadlessHandle<T extends object> {
   /** 规范化后的 items 数组（已处理响应式解包） */
   resolvedItems: MaybeRefOrGetter<T[]>;
   /** 是否启用虚拟滚动 */
   isVirtualEnabled: MaybeRefOrGetter<boolean>;
+  /** 从 item 中提取唯一 key */
+  getKey: (item: T, index: number) => string | number;
   /** 根据 value 找到对应 item 的 label（单选显示文本） */
   getLabelByValue: (value: string | number | undefined) => string;
   /** 切换某项的选中态（多选时追加/移除，单选时直接覆盖） */
